@@ -91,9 +91,7 @@ To use the API to create a bucket, send a request to the following endpoint:
 
 {{% api-endpoint method="POST" endpoint="/api/v2/buckets" api-ref="/influxdb/version/api/buckets/#operation/PostBuckets" %}}
 
-{{% code-placeholders "API_TOKEN|ORG_ID|BUCKET_NAME|RETENTION_PERIOD_SECONDS" %}}
-
-```bash
+```bash { placeholders="API_TOKEN|ORG_ID|BUCKET_NAME|RETENTION_PERIOD_SECONDS" }
 curl --request POST \
   "http://localhost:8086/api/v2/buckets" \
   --header "Authorization: Token API_TOKEN" \
@@ -109,8 +107,6 @@ curl --request POST \
     ]
   }'
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 

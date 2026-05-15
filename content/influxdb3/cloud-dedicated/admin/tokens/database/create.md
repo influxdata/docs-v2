@@ -110,17 +110,13 @@ to create a token that grants access to databases in your {{% product-name omit=
       
     - Token description
 
-{{% code-placeholders "DATABASE_NAME|TOKEN_DESCRIPTION|RFC3339_TIMESTAMP" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_DESCRIPTION|RFC3339_TIMESTAMP" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
   --expires-at RFC3339_TIMESTAMP \
   "Read/write token for DATABASE_NAME"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -170,9 +166,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
 The following example shows how to use the Management API to create a database token:
 
-{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -194,8 +188,6 @@ curl \
       "expiresAt": "2030-01-01T00:00:00Z"
    }'
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
@@ -317,8 +309,7 @@ influxctl token create \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-```sh
+```sh { placeholders="ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -338,7 +329,7 @@ curl \
      ]
    }'
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
 
@@ -351,21 +342,16 @@ curl \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   "Read-only token for DATABASE_NAME"
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -382,7 +368,6 @@ curl \
    }'
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -394,21 +379,18 @@ curl \
 [Management API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE2_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
   "Read-only token for DATABASE_NAME and DATABASE2_NAME"
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE2_NAME|DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 
-```sh
+```sh { placeholders="DATABASE2_NAME|DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -429,7 +411,6 @@ curl \
    }'
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -441,9 +422,8 @@ curl \
 [Management API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE2_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
@@ -451,12 +431,10 @@ influxctl token create \
   "Read-only on DATABASE_NAME, read/write on DATABASE2_NAME"
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE2_NAME|DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 
-```sh
+```sh { placeholders="DATABASE2_NAME|DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -481,7 +459,6 @@ curl \
    }'
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -501,11 +478,10 @@ curl \
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME" %}}
 
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -513,14 +489,10 @@ influxctl token create \
   "Read/write token for DATABASE_NAME with 7d expiration"
 ```
 
-{{% /code-placeholders %}}
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -543,7 +515,6 @@ curl \
    }"
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -557,11 +528,10 @@ curl \
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME" %}}
 
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -569,14 +539,10 @@ influxctl token create \
   "Read/write token for DATABASE_NAME with 7d expiration"
 ```
 
-{{% /code-placeholders %}}
-
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -599,7 +565,6 @@ curl \
    }"
 ```
 
-{{% /code-placeholders %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 

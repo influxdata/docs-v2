@@ -33,8 +33,8 @@ and then uses pandas [`DataFrame.info()`](https://pandas.pydata.org/docs/referen
 1.  In your editor, create a file (for example, `pandas-example.py`) and enter the following sample code:
     <!-- tabs-wrapper allows code-placeholders to work when indented -->
     {{% tabs-wrapper %}}
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
-```py
+
+```py { placeholders="DATABASE_TOKEN|DATABASE_NAME" }
 # pandas-example.py
 
 import influxdb_client_3 as InfluxDBClient3
@@ -56,7 +56,7 @@ dataframe.info()
 # Calculate descriptive statistics that summarize the distribution of the results.
 print(dataframe.describe())
 ```
-{{% /code-placeholders %}}
+
     {{% /tabs-wrapper %}}
 
 2.  Enter the following command in your terminal to execute the file using the Python interpreter:

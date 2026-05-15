@@ -154,57 +154,47 @@ In your queries, replace the following:
 When querying the `system.tables`, `system.partitions`, or `system.compactor` tables, use the
 `WHERE` clause to filter by `table_name` . 
 
-{{% code-placeholders "TABLE_NAME" %}}
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT * FROM system.partitions WHERE table_name = 'TABLE_NAME'
 ```
-{{% /code-placeholders%}}
 
 ##### Filter by partition key 
 
 When querying the `system.partitions` or `system.compactor` tables, use the `WHERE` clause to
 filter by `partition_key`.
 
-{{% code-placeholders "PARTITION_KEY" %}}
-```sql
+```sql { placeholders="PARTITION_KEY" }
 SELECT * FROM system.partitions WHERE partition_key = 'PARTITION_KEY'
 ```
-{{% /code-placeholders %}}
 
 To further improve performance, use `AND` to pair `partition_key` with `table_name`--for example: 
 
-{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_KEY" }
 SELECT * 
 FROM system.partitions 
 WHERE
   table_name = 'TABLE_NAME' 
     AND partition_key = 'PARTITION_KEY';
 ```
-{{% /code-placeholders %}}
 
 ##### Filter by partition ID 
 
 When querying the `system.partitions` or `system.compactor` table, use the `WHERE` clause to
 filter by `partition_id` .
 
-{{% code-placeholders "PARTITION_ID" %}}
-```sql
+```sql { placeholders="PARTITION_ID" }
 SELECT * FROM system.partitions WHERE partition_id = PARTITION_ID
 ```
-{{% /code-placeholders %}}
 
 For the most optimized approach, use `AND` to pair `partition_id` with `table_name`--for example:
 
-{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_ID" }
 SELECT * 
 FROM system.partitions 
 WHERE
   table_name = 'TABLE_NAME' 
     AND partition_id = PARTITION_ID;
 ```
-{{% /code-placeholders %}}
 
 Although you don't need to pair `partition_id` with `table_name` (because a partition ID is unique within a cluster),
 it's the most optimized approach, _especially when you have many tables in a database_.
@@ -213,8 +203,7 @@ it's the most optimized approach, _especially when you have many tables in a dat
 
 To retrieve a partition ID, query `system.partitions` for a `table_name` and `partition_key` pair--for example:
 
-{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_KEY" }
 SELECT
   table_name,
   partition_key,
@@ -224,7 +213,6 @@ WHERE
   table_name = 'TABLE_NAME'
     AND partition_key = 'PARTITION_KEY';
 ```
-{{% /code-placeholders %}}
 
 The result contains the `partition_id`:
 

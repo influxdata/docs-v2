@@ -93,14 +93,13 @@ In your terminal, enter `influxdb3 create token` and provide the following:
 - _Options_, for example:
   -  `--expiry`: The token expiration time as a duration.
       If an expiration isn't set, the token does not expire until revoked.
-{{% code-placeholders "Read-write on DATABASE1, DATABASE2|DATABASE1,DATABASE2|1y|read,write" %}}
-```bash
+
+```bash { placeholders="Read-write on DATABASE1, DATABASE2|DATABASE1,DATABASE2|1y|read,write" }
 influxdb3 create token \
   --permission "db:DATABASE1,DATABASE2:read,write" \
   --name "Read-write on DATABASE1, DATABASE2" \
   --expiry 1y
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -138,9 +137,7 @@ In the request body, provide the following parameters:
 
 The following example shows how to use the HTTP API to create a database token:
 
-{{% code-placeholders "DATABASE1|DATABASE2|300000" %}}
-
-```bash
+```bash { placeholders="DATABASE1|DATABASE2|300000" }
   curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -155,7 +152,6 @@ The following example shows how to use the HTTP API to create a database token:
      "expiry_secs": 300000
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
@@ -402,14 +398,12 @@ In your terminal, run the `influxdb3 create token --permission` command and prov
     - `health`: The specific system resource to grant permissions to.
     - `read`: The permission to grant to the token (system tokens are always read-only).
 
-{{% code-placeholders "System health token|1y" %}}
-```bash
+```bash { placeholders="System health token|1y" }
 influxdb3 create token \
   --permission "system:health:read" \
   --name "System health token" \
   --expiry 1y
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -446,9 +440,7 @@ In the request body, provide the following parameters:
 
 The following example shows how to use the HTTP API to create a system token:
 
-{{% code-placeholders "AUTH_TOKEN|System health token|300000" %}}
-
-```bash
+```bash { placeholders="AUTH_TOKEN|System health token|300000" }
 curl \
 "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
 --header 'Accept: application/json' \
@@ -464,7 +456,6 @@ curl \
    "expiry_secs": 300000
 }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 

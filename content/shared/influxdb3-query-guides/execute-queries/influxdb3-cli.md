@@ -150,17 +150,17 @@ The `influxdb3 query` command supports the following output formats:
 
 Use the `--format` flag to specify the output format:
 
-{{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --format json \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example pretty-formatted results" %}}
@@ -218,9 +218,9 @@ the `influxdb3 query` command:
 - `--format`: `parquet`
 - `-o`, `--output`: the filepath to the Parquet file to store results in
 
-{{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
@@ -228,5 +228,5 @@ influxdb3 query \
   --output path/to/results.parquet \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
-{{% /code-placeholders %}}

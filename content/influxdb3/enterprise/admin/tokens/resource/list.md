@@ -78,9 +78,9 @@ influxdb3 query \
 <!---------------------------END CLI------------------------------------------->
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{% code-placeholders "AUTH_TOKEN" %}}
+
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
 "http://{{< influxdb/host >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
@@ -88,7 +88,7 @@ curl -G \
 --header 'Accept: application/json' \
 --header "Authorization: Bearer AUTH_TOKEN" 
 ```
-{{% /code-placeholders %}}
+
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
@@ -123,8 +123,7 @@ influxdb3 show tokens \
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
 
-{{% code-placeholders "AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -133,7 +132,7 @@ curl -G \
   --header 'Accept: text/csv' \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
 
@@ -202,8 +201,8 @@ influxdb3 show tokens --format pretty | grep -v '*:*:*'
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-{{% code-placeholders "AUTH_TOKEN" %}}
-```bash
+
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://localhost:8181/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -213,7 +212,7 @@ curl -G \
   --header "Authorization: Bearer AUTH_TOKEN" |
 grep -v "*:*:*"
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
 
@@ -235,8 +234,8 @@ jq '.[] | select(.permissions | startswith("system:")) | {name: .name, permissio
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-{{% code-placeholders "AUTH_TOKEN" %}}
-```bash
+
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -246,7 +245,7 @@ curl -G \
   --header "Authorization: Bearer AUTH_TOKEN" |
 jq '.[] | select(.permissions | startswith("system:")) | {name: .name, permissions: .permissions}'
 ```
-{{% /code-placeholders %}}
+
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

@@ -145,9 +145,7 @@ resource minimums and limits per pod and replicas per component:
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
-
-```yml
+```yml { placeholders="(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -198,8 +196,6 @@ spec:
             cpu: GC_CPU_MAX
             memory: GC_MEMORY_MAX
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -263,9 +259,7 @@ replicas per component:
 {{< expand-wrapper >}}
 {{% expand "View example `values.yaml` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
-
-```yml
+```yml { placeholders="(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" }
 # ...
   resources:
     ingester:
@@ -308,8 +302,6 @@ replicas per component:
         cpu: GC_CPU_MAX
         memory: GC_MEMORY_MAX
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

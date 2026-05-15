@@ -89,13 +89,11 @@ You can create a database with an optional retention period and custom partition
 
 2. Run the `influxctl database create` command:
 
-{{% code-placeholders "DATABASE_NAME|30d" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|30d" }
 influxctl database create \
   --retention-period 30d \
   DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}} with your desired database name.
 {{% /tab-content %}}
@@ -111,8 +109,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases"
 api-ref="/influxdb3/cloud-dedicated/api/databases/#operation/CreateClusterDatabase" %}}
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN|DATABASE_NAME" %}}
-```bash
+```bash { placeholders="ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN|DATABASE_NAME" }
 curl \
   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
@@ -120,7 +117,6 @@ curl \
     "name": "DATABASE_NAME"
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -170,8 +166,7 @@ If a table doesn't have a custom partition template, it inherits the database's 
      Provide the tag key and the number of buckets to bucket tag values into
      separated by a comma: `tagKey,N`.
 
-{{% code-placeholders "DATABASE_NAME|30d|(TAG_KEY(_\d)?)|100|300" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|30d|(TAG_KEY(_\d)?)|100|300" }
 influxctl database create \
   --retention-period 30d \
   --template-tag TAG_KEY_1 \
@@ -181,7 +176,6 @@ influxctl database create \
   --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -205,8 +199,7 @@ api-ref="/influxdb3/cloud-dedicated/api/databases/#operation/CreateClusterDataba
 
 In the request body, include the `partitionTemplate` property and specify the [partition template parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates) as an array of objects--for example:
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|MANAGEMENT_TOKEN|(TAG_KEY(_\d)?)|100|300|%Y-%m-%d" %}}
-```bash
+```bash { placeholders="ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|MANAGEMENT_TOKEN|(TAG_KEY(_\d)?)|100|300|%Y-%m-%d" }
 curl \
   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
@@ -224,7 +217,6 @@ curl \
     ]
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

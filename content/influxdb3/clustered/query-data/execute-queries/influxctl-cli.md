@@ -151,8 +151,7 @@ If a query takes longer than the specified timeout, the operation will be cancel
 
 Use different timeout values based on your query type:
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-```sh
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 # Shorter timeout for testing dashboard queries (10 seconds)
 influxctl query \
   --timeout 10s \
@@ -167,7 +166,6 @@ influxctl query \
   --database DATABASE_NAME \
   "SELECT room, AVG(temperature) FROM sensors WHERE time >= now() - INTERVAL '30 days' GROUP BY room"
 ```
-{{% /code-placeholders %}}
 
 For guidance on selecting appropriate timeout values, see [Query timeout best practices](/influxdb3/clustered/query-data/troubleshoot-and-optimize/query-timeout-best-practices/).
 

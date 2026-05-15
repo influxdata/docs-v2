@@ -2,18 +2,15 @@ The `influxdb3 create last_cache` command creates a last value cache, which stor
 
 ## Usage
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN|CACHE_NAME" %}}
-
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN|CACHE_NAME" }
 influxdb3 create last_cache [OPTIONS] \
   --database DATABASE_NAME \
   --table TABLE_NAME \
   --token AUTH_TOKEN \
   CACHE_NAME
 ```
-{{% /code-placeholders %}}
 
 ## Arguments
 

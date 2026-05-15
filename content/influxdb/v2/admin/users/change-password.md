@@ -32,13 +32,11 @@ to update a password for a user. Provide the following:
 
 ##### Update a password
 
-{{% code-placeholders "USERNAME|PASSWORD" %}}
-```sh
+```sh { placeholders="USERNAME|PASSWORD" }
 influx user password \
   --name USERNAME \
   --password PASSWORD
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

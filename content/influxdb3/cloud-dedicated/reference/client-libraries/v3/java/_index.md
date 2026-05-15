@@ -38,9 +38,7 @@ server metadata, and retrieving data from {{% product-name %}} using the Flight 
 
 The following example shows how to use `influxdb3-java` to write and query data stored in {{% product-name %}}.
 
-{{% code-placeholders "DATABASE_NAME | DATABASE_TOKEN" %}}
-
-```java
+```java { placeholders="DATABASE_NAME | DATABASE_TOKEN" }
 package com.influxdata.demo;
 
 import com.influxdb.v3.client.InfluxDBClient;
@@ -104,8 +102,6 @@ public class HelloInfluxDB {
 ```
 
 {{% cite %}}Source: [suyashcjoshi/SimpleJavaInfluxDB](https://github.com/suyashcjoshi/SimpleJavaInfluxDB/) on GitHub{{% /cite %}}
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -208,15 +204,11 @@ the following types:
 
 ### Initialize with credential parameters
 
-{{% code-placeholders "host | database | token" %}}
-
-```java
+```java { placeholders="host | database | token" }
 static InfluxDBClient getInstance(@Nonnull final String host,
                            @Nullable final char[] token,
                            @Nullable final String database)
 ```
-
-{{% /code-placeholders %}}
 
 - {{% code-placeholder-key %}}`host`{{% /code-placeholder-key %}} (string): The host URL of the InfluxDB instance.
 - {{% code-placeholder-key %}}`database`{{% /code-placeholder-key %}} (string): The [database](/influxdb3/cloud-dedicated/admin/databases/) to use for writing and querying.
@@ -224,9 +216,7 @@ static InfluxDBClient getInstance(@Nonnull final String host,
 
 #### Example: initialize with credential parameters
 
-{{% code-placeholders "DATABASE_NAME | DATABASE_TOKEN" %}}
-
-```java
+```java { placeholders="DATABASE_NAME | DATABASE_TOKEN" }
 package com.influxdata.demo;
 
 import com.influxdb.v3.client.InfluxDBClient;
@@ -256,8 +246,6 @@ public class HelloInfluxDB {
 }
 ```
 
-{{% /code-placeholders %}}
-
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
@@ -280,14 +268,10 @@ InfluxDBClient getInstance(@Nonnull final String host,
 
 ### Initialize using a database connection string
 
-{{% code-placeholders "DATABASE_NAME | API_TOKEN" %}}
-
-```java
+```java { placeholders="DATABASE_NAME | API_TOKEN" }
 "https://{{< influxdb/host >}}"
 + "?token=DATABASE_TOKEN&amp;database=DATABASE_NAME"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

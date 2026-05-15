@@ -59,13 +59,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
-{{% code-placeholders "(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" %}}
-
 ### Test a WAL plugin
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -76,7 +74,7 @@ influxdb3 test wal_plugin \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --lp 'home,room=Kitchen temp=21.0,hum=35.9,co=0i' \
   --database DATABASE_NAME \
@@ -88,7 +86,7 @@ influxdb3 test wal_plugin \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --file PLUGIN_DIR/PLUGIN_NAME_test/input-file.lp`
   --database DATABASE_NAME \
@@ -100,12 +98,10 @@ influxdb3 test wal_plugin \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --input-arguments arg1=foo,arg2=baz \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   PLUGIN_DIR/PLUGIN_NAME.py
 ```
-
-{{% /code-placeholders %}}

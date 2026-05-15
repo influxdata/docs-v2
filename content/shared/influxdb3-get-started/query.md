@@ -307,14 +307,12 @@ Use the `format` parameter to specify the response format: `pretty`, `jsonl`, `p
 
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl -G "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --header 'Authorization: Bearer AUTH_TOKEN' \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=select * from cpu limit 5"
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
@@ -325,12 +323,10 @@ Replace the following placeholders with your values:
 
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl http://{{< influxdb/host >}}/api/v3/query_sql \
   --data '{"db": "DATABASE_NAME", "q": "select * from cpu limit 5"}'
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
@@ -354,8 +350,7 @@ pip install influxdb3-python
 
 From here, you can connect to your database with the client library using just the **host** and **database name:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```python
+```python { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
@@ -364,7 +359,6 @@ client = InfluxDBClient3(
     database='DATABASE_NAME'
 )
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
