@@ -505,7 +505,7 @@ yarn hugo server
 | --- | --- |
 | Hugo build fails | Run `yarn hugo` (no `--quiet`) for detailed errors — check frontmatter YAML, shortcode tags, partial refs |
 | Shared content edits not appearing | Touch sourcing files: `grep -r "source: /shared/path" content/` then `touch` each, or use `docs edit` |
-| MCP not responding | Verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set; check rate limits (60 req/min API key, 40 req/hr OAuth); verify network allows `*.kapa.ai` |
+| MCP not responding | Verify network allows `*.kapa.ai`; check rate limits (40 req/hr OAuth, 60 req/min API key); if using API key, verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set |
 | Cypress tests fail | See **cypress-e2e-testing** skill; check `cat /tmp/hugo_server.log \| tail -50`, run `yarn cypress open`, run `yarn build:api-docs` if API content missing |
 
 ## Part 7: Quick Reference
