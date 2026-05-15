@@ -97,3 +97,38 @@ test('isOpenTagAny: detects any open regardless of regex', () => {
   assert.equal(isOpenTagAny('{{% /code-placeholders %}}'), false);
   assert.equal(isOpenTagAny('plain text'), false);
 });
+
+import {
+  regionContainsTabs,
+  reindentRegion,
+} from './migrate-code-placeholders.mjs';
+
+test('regionContainsTabs: detects code-tabs-wrapper family', () => {
+  assert.equal(regionContainsTabs(['```sh', 'x', '```']), false);
+  assert.equal(
+    regionContainsTabs(['{{< code-tabs-wrapper >}}', '```sh', '```']),
+    true
+  );
+  assert.equal(regionContainsTabs(['{{% code-tab-content %}}']), true);
+  assert.equal(regionContainsTabs(['{{% code-tabs %}}']), true);
+});
+
+test('reindentRegion: rebases min-indent to target width', () => {
+  const out = reindentRegion(['```py', 'a = 1', '    nested', '```'], 4);
+  assert.deepEqual(out, [
+    '    ```py',
+    '    a = 1',
+    '        nested',
+    '    ```',
+  ]);
+});
+
+test('reindentRegion: blank lines stay empty', () => {
+  const out = reindentRegion(['```py', '', 'x', '```'], 2);
+  assert.deepEqual(out, ['  ```py', '', '  x', '  ```']);
+});
+
+test('reindentRegion: preserves relative indent when base > 0', () => {
+  const out = reindentRegion(['  ```py', '  x', '    y', '  ```'], 4);
+  assert.deepEqual(out, ['    ```py', '    x', '      y', '    ```']);
+});

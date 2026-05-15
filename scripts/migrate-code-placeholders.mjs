@@ -57,3 +57,26 @@ export function isCloseTag(line) {
 export function isOpenTagAny(line) {
   return OPEN_ANY_RE.test(line);
 }
+
+const TABS_RE =
+  /\{\{[%<]\s*\/?\s*(code-tabs-wrapper|code-tabs|code-tab-content)\b/;
+
+/** @param {string[]} lines @returns {boolean} */
+export function regionContainsTabs(lines) {
+  return lines.some((l) => TABS_RE.test(l));
+}
+
+/**
+ * Rebase the region's minimum indentation to `width` spaces,
+ * preserving relative indentation. Blank lines become ''.
+ * @param {string[]} region @param {number} width
+ * @returns {string[]}
+ */
+export function reindentRegion(region, width) {
+  const nonBlank = region.filter((l) => l.trim() !== '');
+  const minIndent = nonBlank.length
+    ? Math.min(...nonBlank.map((l) => l.match(/^ */)[0].length))
+    : 0;
+  const pad = ' '.repeat(width);
+  return region.map((l) => (l.trim() === '' ? '' : pad + l.slice(minIndent)));
+}
