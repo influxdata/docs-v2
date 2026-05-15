@@ -36,3 +36,22 @@ test('injectAttr: merged path unchanged for non-empty lang', () => {
   assert.equal(r.line, '```sh { callout="--x" placeholders="TOK" }');
   assert.equal(r.status, 'merged');
 });
+
+test('injectAttr: merges into brace with no spaces', () => {
+  const r = injectAttr('```bash {callout="--x"}', 'TOK');
+  assert.equal(r.line, '```bash { callout="--x" placeholders="TOK" }');
+  assert.equal(r.status, 'merged');
+});
+
+test('injectAttr: empty brace block', () => {
+  const r = injectAttr('```sh {  }', 'TOK');
+  assert.equal(r.line, '```sh { placeholders="TOK" }');
+  assert.equal(r.status, 'merged');
+});
+
+test('injectAttr: already has placeholders -> present, unchanged', () => {
+  const original = '```sh { placeholders="OLD" }';
+  const r = injectAttr(original, 'NEW');
+  assert.equal(r.line, original);
+  assert.equal(r.status, 'present');
+});
