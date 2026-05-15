@@ -26,24 +26,25 @@ InfluxDB filters API requests and response data based on the permissions associa
 
 1. Include your API token in an `Authorization: Token API_TOKEN` HTTP header with each request--for example:
 
-{{% code-placeholders "API_TOKEN" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="API_TOKEN" }
 # Use a token to authorize a GET request to the InfluxDB API.
 # List buckets in your organization that the token can read.
 curl -X GET "http://{{< influxdb/host >}}/api/v2/buckets" \
   --header 'Accept: application/json' \
   --header 'Authorization: Token API_TOKEN'
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```js
+
+```js { placeholders="API_TOKEN" }
 /**
   * Use a token to authorize a GET request to the InfluxDB API.
   * List buckets in your organization that the token can read.
@@ -75,10 +76,9 @@ function listBuckets() {
   request.end();
 }
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 > [!Note]
 > Postman is another popular tool for exploring APIs.

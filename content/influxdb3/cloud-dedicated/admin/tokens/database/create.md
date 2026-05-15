@@ -246,7 +246,6 @@ In the examples below, replace the following:
 
 ### Create a token with read and write access to a database
 
-{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
@@ -254,7 +253,7 @@ In the examples below, replace the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -264,7 +263,7 @@ influxctl token create \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
@@ -288,7 +287,6 @@ curl \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 ### Create a token with read and write access to all databases
 

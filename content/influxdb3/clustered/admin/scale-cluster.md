@@ -496,15 +496,14 @@ if using Helm, the `ingesterStorage` property of your `values.yaml`.
 {{< expand-wrapper >}}
 {{% expand "View example Ingester storage configuration" %}}
 
-{{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [AppInstance](#)
 [Helm](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```yml
+
+```yml { placeholders="STORAGE_(CLASS|SIZE)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -520,9 +519,11 @@ spec:
         # Set the storage size (minimum 2Gi recommended)
         storage: STORAGE_SIZE
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```yml
+
+```yml { placeholders="STORAGE_(CLASS|SIZE)" }
 # ...
 ingesterStorage:
   # (Optional) Set the storage class. This will differ based on the K8s
@@ -532,10 +533,9 @@ ingesterStorage:
   # Set the storage size (minimum 2Gi recommended)
   storage: STORAGE_SIZE
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

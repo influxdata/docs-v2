@@ -146,7 +146,6 @@ with a destination path for the file.
 To output a Parquet file using the HTTP API, your client must be able to handle binary data--for example,
 using cURL's `--output` option.
 
-{{% code-placeholders "AUTH_TOKEN|(/PATH/TO/FILE.parquet)" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [CLI](#cli-output-to-parquet)
@@ -154,15 +153,16 @@ using cURL's `--output` option.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN|(/PATH/TO/FILE.parquet)" }
 influxdb3 show tokens \
   --format parquet \
   --output /PATH/TO/FILE.parquet
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN|(/PATH/TO/FILE.parquet)" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -175,7 +175,6 @@ curl -G \
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`/PATH/TO/FILE.parquet`{{% /code-placeholder-key %}}
 with the path to the file where you want to save the Parquet data.

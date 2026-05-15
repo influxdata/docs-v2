@@ -149,8 +149,6 @@ influxctl token create \
 
 ### Create a token that expires in seven days
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Linux](#)
@@ -160,7 +158,7 @@ influxctl token create \
 
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -173,7 +171,7 @@ influxctl token create \
 
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -183,5 +181,3 @@ influxctl token create \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}

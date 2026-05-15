@@ -580,32 +580,32 @@ use the `--input-filter` and `--output-filter` options to
 specify [input plugins](/telegraf/v1/configure_plugins/input_plugins/)
 and [output plugins](/telegraf/v1/configure_plugins/output_plugins/)--for example:
 
-{{% code-placeholders "cpu|http|influxdb_v2|file" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Linux and macOS](#)
 [Windows](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="cpu|http|influxdb_v2|file" }
 telegraf \
 --input-filter cpu:http \
 --output-filter influxdb_v2:file \
 config > telegraf.conf
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```powershell
+
+```powershell { placeholders="cpu|http|influxdb_v2|file" }
 .\telegraf.exe `
 --input-filter cpu:http `
 --output-filter influxdb_v2:file `
 config > telegraf.conf
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 For more advanced configuration details, see the
 [configuration documentation](/telegraf/v1/administration/configuration/).

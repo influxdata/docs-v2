@@ -183,21 +183,23 @@ In the examples below, replace the following:
 
 #### Create a token with read and write access to a database
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME:read,write" \
   --name "Read/write token for DATABASE_NAME"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -212,27 +214,29 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token with read and write access to all databases
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:*:read,write" \
   --name "Read/write token for all databases"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -247,27 +251,29 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token with read-only access to a database
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME:read" \
   --name "Read-only token for DATABASE_NAME"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -282,27 +288,29 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token with read-only access to multiple databases
 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME,DATABASE2_NAME:read" \
   --name "Read-only token for DATABASE_NAME, DATABASE2_NAME"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -317,28 +325,30 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token that expires in seven days
 
-{{% code-placeholders "DATABASE_NAME|7d|604800|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|7d|604800|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME:read,write" \
   --name "Read/write token for DATABASE_NAME with 7d expiration" \
   --expiry 7d
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|7d|604800|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -354,9 +364,9 @@ curl \
     "expiry_secs": 604800
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 ## Create a system token
 

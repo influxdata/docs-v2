@@ -51,8 +51,6 @@ To query the home sensor sample data you wrote in
 [Write data to {{% product-name %}}](/influxdb3/version/get-started/write/#write-data-using-the-cli),
 run the following command:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#)
@@ -61,24 +59,24 @@ run the following command:
 {{% code-tab-content %}}
 
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   "SELECT * FROM home ORDER BY time"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   --language influxql \
   "SELECT * FROM home"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 _Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
 with the name of the database to query._
@@ -86,8 +84,6 @@ with the name of the database to query._
 To query from a specific time range, use the `WHERE` clause to designate the
 boundaries of your time range.
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#)
@@ -96,24 +92,24 @@ boundaries of your time range.
 {{% code-tab-content %}}
 
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   "SELECT * FROM home WHERE time >= now() - INTERVAL '7 days' ORDER BY time"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   --language influxql \
   "SELECT * FROM home WHERE time >= now() - 7d"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 ### Example queries
 

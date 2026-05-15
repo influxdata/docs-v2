@@ -77,8 +77,6 @@ Provide the following:
   - a path to a file that contains the query
   - a single dash (`-`) to read the query from stdin
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)|SQL_QUERY" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -86,35 +84,39 @@ Provide the following:
 [stdin](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   "SQL_QUERY"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 cat ./query.sql | influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -413,13 +415,11 @@ with the name of the table you want to query information about.
 
 --- 
 
-{{% code-placeholders "TABLE_NAME" %}}
-
 ### Query logs
 
 #### View all stored query logs
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT * FROM system.queries
 ```
 
@@ -428,7 +428,7 @@ SELECT * FROM system.queries
 The following returns query logs for queries with an end-to-end duration greater
 than 50 milliseconds.
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM
   system.queries
@@ -445,7 +445,7 @@ WHERE
 {{% /tabs %}}
 {{% code-tab-content %}}
 <!-----------------------------------BEGIN SQL------------------------------>
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM system.queries
 WHERE issue_time >= now() - INTERVAL '1 day'
@@ -455,7 +455,7 @@ WHERE issue_time >= now() - INTERVAL '1 day'
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-----------------------------------BEGIN PYTHON------------------------------>
-```python
+```python { placeholders="TABLE_NAME" }
 from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(token = DATABASE_TOKEN,
                           host = HOSTNAME,
@@ -482,7 +482,7 @@ reader = client.query('''
 
 #### View the partition template of a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM
   system.tables
@@ -492,7 +492,7 @@ WHERE
 
 #### View all partitions for a table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM
   system.partitions
@@ -502,7 +502,7 @@ WHERE
 
 #### View the number of partitions per table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   COUNT(*) AS partition_count
@@ -516,7 +516,7 @@ GROUP BY
 
 #### View the number of partitions for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   COUNT(*) AS partition_count
 FROM
@@ -531,7 +531,7 @@ WHERE
 
 #### View the size in megabytes of a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   SUM(total_size_mb) AS total_size_mb
 FROM
@@ -542,7 +542,7 @@ WHERE
 
 #### View the size in megabytes per table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   SUM(total_size_mb) AS total_size_mb
@@ -556,7 +556,7 @@ GROUP BY
 
 #### View the total size in bytes of compacted partitions per table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   SUM(total_l0_bytes) + SUM(total_l1_bytes) + SUM(total_l2_bytes) AS total_bytes
@@ -570,7 +570,7 @@ GROUP BY
 
 #### View the total size in bytes of compacted partitions for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   SUM(total_l0_bytes) + SUM(total_l1_bytes) + SUM(total_l2_bytes) AS total_bytes
 FROM
@@ -585,7 +585,7 @@ WHERE
 
 #### View compaction totals for each table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   SUM(total_l0_files) AS total_l0_files,
@@ -604,7 +604,7 @@ GROUP BY
 
 #### View compaction totals for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   SUM(total_l0_files) AS total_l0_files,
   SUM(total_l1_files) AS total_l1_files,
@@ -617,5 +617,3 @@ FROM
 WHERE
   table_name = 'TABLE_NAME'
 ```
-
-{{% /code-placeholders %}}

@@ -50,8 +50,6 @@ Provide the following with your command:
   - a path to a file that contains the query
   - a single dash (`-`) to read the query from stdin
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [SQL](#)
@@ -67,28 +65,34 @@ Provide the following with your command:
 [stdin](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM home"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.sql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -103,38 +107,42 @@ cat ./query.sql | influxctl query \
 [stdin](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   "SELECT * FROM home"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   /path/to/query.influxql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.influxql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

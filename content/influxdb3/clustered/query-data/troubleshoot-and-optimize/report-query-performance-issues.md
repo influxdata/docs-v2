@@ -205,8 +205,6 @@ In the examples below, replace the following:
 
 ##### EXPLAIN
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#)
@@ -214,7 +212,7 @@ In the examples below, replace the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 influxctl \
   --config config.toml \
     query \
@@ -227,7 +225,7 @@ influxctl \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 curl --get "https://{{< influxdb/host >}}/query" \
   --output "./explain.csv" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -239,11 +237,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ##### EXPLAIN VERBOSE
-
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -252,7 +246,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 influxctl \
   --config config.toml \
     query \
@@ -265,7 +259,7 @@ influxctl \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 curl --get "https://{{< influxdb/host >}}/query" \
   --output "./explain-verbose.csv" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -277,11 +271,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ##### EXPLAIN ANALYZE
-
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -290,7 +280,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 influxctl \
   --config config.toml \
     query \
@@ -303,7 +293,7 @@ influxctl \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 curl --get "https://{{< influxdb/host >}}/query" \
   --output "./explain-analyze.csv" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -314,8 +304,6 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 ### Gather system information
 
