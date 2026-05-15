@@ -355,3 +355,58 @@ test('migrate: regex with embedded shortcode is skipped + reported', () => {
   assert.equal(report.transformed, 0);
   assert.equal(report.skipped[0].reason, 'unsafe-attr-regex');
 });
+
+test('migrate: inserts blank line so de-wrapped fence does not abut a preceding shortcode', () => {
+  const src = [
+    '{{% influxdb/custom-timestamps %}}',
+    '{{% code-placeholders "DB_NAME" %}}',
+    '```sh',
+    'q DB_NAME',
+    '```',
+    '{{% /code-placeholders %}}',
+    '{{% /influxdb/custom-timestamps %}}',
+  ].join(NL);
+  const { content, report } = migrate(src, { file: 'm.md' });
+  assert.equal(
+    content,
+    [
+      '{{% influxdb/custom-timestamps %}}',
+      '',
+      '```sh { placeholders="DB_NAME" }',
+      'q DB_NAME',
+      '```',
+      '',
+      '{{% /influxdb/custom-timestamps %}}',
+    ].join(NL)
+  );
+  assert.equal(report.transformed, 1);
+});
+
+test('migrate: does not add blank line when separation already exists', () => {
+  const src = [
+    'Some intro paragraph.',
+    '',
+    '{{% code-placeholders "TOK" %}}',
+    '',
+    '```sh',
+    'echo TOK',
+    '```',
+    '',
+    '{{% /code-placeholders %}}',
+    '',
+    'Following paragraph.',
+  ].join(NL);
+  const { content } = migrate(src, { file: 'n.md' });
+  assert.equal(
+    content,
+    [
+      'Some intro paragraph.',
+      '',
+      '```sh { placeholders="TOK" }',
+      'echo TOK',
+      '```',
+      '',
+      'Following paragraph.',
+    ].join(NL)
+  );
+});

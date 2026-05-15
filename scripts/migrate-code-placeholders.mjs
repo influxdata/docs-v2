@@ -249,7 +249,20 @@ export function migrate(source, opts = {}) {
       region = reindentRegion(region, open.indent.length);
     }
 
+    // Markdown needs the de-wrapped fenced block separated from
+    // adjacent non-blank content (e.g. an enclosing {{% %}} shortcode);
+    // otherwise goldmark won't parse the fence. Added blank lines do
+    // not affect rendered code output.
+    if (out.length > 0 && out[out.length - 1].trim() !== '') {
+      out.push('');
+    }
+
     for (const rl of region) out.push(rl);
+
+    if (j + 1 < lines.length && lines[j + 1].trim() !== '') {
+      out.push('');
+    }
+
     i = j + 1;
   }
 
