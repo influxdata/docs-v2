@@ -8,7 +8,7 @@ menu:
 ---
 
 [What is time series data?](#what-is-time-series-data)  
-[Why shouldn't I just use a relational database?](#why-shouldn-t-i-just-use-a-relational-database)  
+[Why shouldn't I just use a relational database?](#why-shouldnt-i-just-use-a-relational-database)  
 [Which version of InfluxDB should I use?](#which-version-of-influxdb-should-i-use)  
 
 ## What is time series data?
