@@ -24,3 +24,15 @@ test('injectAttr: preserves leading indentation', () => {
   const r = injectAttr('    ```js', 'TOK');
   assert.equal(r.line, '    ```js { placeholders="TOK" }');
 });
+
+test('injectAttr: merged path keeps space before brace when lang empty', () => {
+  const r = injectAttr('``` { callout="--x" }', 'TOK');
+  assert.equal(r.line, '``` { callout="--x" placeholders="TOK" }');
+  assert.equal(r.status, 'merged');
+});
+
+test('injectAttr: merged path unchanged for non-empty lang', () => {
+  const r = injectAttr('```sh { callout="--x" }', 'TOK');
+  assert.equal(r.line, '```sh { callout="--x" placeholders="TOK" }');
+  assert.equal(r.status, 'merged');
+});

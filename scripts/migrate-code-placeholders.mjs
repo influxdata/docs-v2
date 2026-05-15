@@ -22,9 +22,9 @@ export function injectAttr(line, regex) {
     const merged = inner.length
       ? `${inner} placeholders="${regex}"`
       : `placeholders="${regex}"`;
-    const langPart = lang.length ? `${lang} ` : '';
+    const sep = lang.length ? `${lang} ` : ' ';
     return {
-      line: `${indent}${fence}${langPart}{ ${merged} }`,
+      line: `${indent}${fence}${sep}{ ${merged} }`,
       status: 'merged',
     };
   }
