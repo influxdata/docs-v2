@@ -73,8 +73,8 @@ The following steps use Python, `influxdb3-python`, and `pyarrow` to query Influ
 1.  In your editor, copy and paste the following code to a new file--for example, `pandas-example.py`:
 
     {{% tabs-wrapper %}}
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+
+```py { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 # pandas-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -102,7 +102,7 @@ dataframe = table.to_pandas()
 
 print(dataframe)
 ```
-{{% /code-placeholders %}}
+
     {{% /tabs-wrapper %}}
 
 2.  Replace the following configuration values:
@@ -171,8 +171,7 @@ Next, [use pandas to analyze data](#use-pandas-to-analyze-data).
 
 The following example shows how to use pandas `DataFrame` methods to transform and summarize data stored in {{% product-name %}}.
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```py { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 # pandas-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -211,7 +210,6 @@ print(dataframe['temp'])
 # Print the DataFrame in Markdown format.
 print(dataframe.to_markdown())
 ```
-{{% /code-placeholders %}}
 
 Replace the following configuration values:
 

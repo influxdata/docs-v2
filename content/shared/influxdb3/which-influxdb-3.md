@@ -1,6 +1,3 @@
-<!-- Allow leading shortcode -->
-{{< children type="articles" hlevel="h2" filterOut="Which InfluxDB 3 should I use?" >}}
-
 For new production workloads, use **InfluxDB 3 Enterprise**.
 A Trial or Home license lets you evaluate Enterprise before purchasing.
 

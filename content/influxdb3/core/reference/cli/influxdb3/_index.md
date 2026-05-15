@@ -78,13 +78,11 @@ In the examples below, replace
 {{% code-placeholder-key %}}`my-host-01`{{% /code-placeholder-key %}}:
 with a unique identifier for your {{< product-name >}} server.
 
-{{% code-placeholders "my-host-01" %}}
-
 <!--pytest.mark.skip-->
 
 ### Quick-start InfluxDB 3 server
 
-```bash
+```bash { placeholders="my-host-01" }
 # Zero-config startup
 influxdb3
 
@@ -99,7 +97,7 @@ INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -110,7 +108,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 --num-io-threads=8 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -121,7 +119,7 @@ influxdb3 --num-io-threads=8 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 -h
 ```
 
@@ -129,7 +127,7 @@ influxdb3 -h
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 --help
 ```
 
@@ -137,7 +135,7 @@ influxdb3 --help
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -149,11 +147,9 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01
 ```
-
-{{% /code-placeholders %}}

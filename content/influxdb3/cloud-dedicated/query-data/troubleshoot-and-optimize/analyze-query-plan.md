@@ -59,9 +59,7 @@ import os
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas as pd
 import tabulate # Required for pandas.to_markdown()
@@ -86,8 +84,6 @@ assert df.shape == (2, 2), f'Expect {df.shape} to have 2 columns, 2 rows'
 assert 'physical_plan' in df.plan_type.values, "Expect physical_plan"
 assert 'logical_plan' in df.plan_type.values, "Expect logical_plan"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

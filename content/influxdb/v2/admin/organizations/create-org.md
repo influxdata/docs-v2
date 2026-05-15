@@ -45,13 +45,11 @@ to create a new organization. Provide the following:
 - _Optional:_ A description of the organization with the `--description, -d` flag.
 
 
-{{% code-placeholders "ORG_(NAME|DESCRIPTION)" %}}
-```sh
+```sh { placeholders="ORG_(NAME|DESCRIPTION)" }
 influx org create \
   --name ORG_NAME \
   --description "ORG_DESCRIPTION"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

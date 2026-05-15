@@ -79,19 +79,15 @@ Authorization: Token DATABASE_TOKEN
 
 Use `Bearer` to authenticate a write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 {{% get-shared-text "api/cloud-dedicated/bearer-auth-v2-write.sh" %}}
 ```
-{{% /code-placeholders %}}
 
 Use `Token` to authenticate a write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 {{% get-shared-text "api/cloud-dedicated/token-auth-v2-write.sh" %}}
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

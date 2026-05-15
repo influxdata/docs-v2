@@ -64,8 +64,8 @@ The following example shows how to use `influxdb3-python` and `pyarrow` to query
 1.  In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
 
     {{% tabs-wrapper %}}
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
-```py
+
+```py { placeholders="BUCKET_NAME|API_TOKEN" }
 # pyarrow-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -91,7 +91,7 @@ def querySQL():
 
 print(querySQL())
 ```
-{{% /code-placeholders %}}
+
   {{% /tabs-wrapper %}}
 
 2.  Replace the following configuration values:
@@ -117,8 +117,7 @@ With a `pyarrow.Table`, you can use values in a column as _keys_ for grouping.
 
 The following example shows how to query InfluxDB, and then use PyArrow to group the table data and calculate an aggregate value for each group:
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
-```py
+```py { placeholders="BUCKET_NAME|API_TOKEN" }
 # pyarrow-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -150,7 +149,6 @@ table = querySQL()
 # Use PyArrow to aggregate data
 print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

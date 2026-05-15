@@ -39,16 +39,14 @@ Provide the following:
 - **Columns**: _({{< req >}})_ A comma-separated list of string columns to
   index on. These are typically tag columns but can also be string fields.
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE|TABLE|COLUMNS" %}}
 <!--pytest.mark.skip-->
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE|TABLE|COLUMNS" }
 influxdb3 create file_index \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --table TABLE_NAME \
   COLUMNS
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
