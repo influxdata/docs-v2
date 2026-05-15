@@ -50,15 +50,13 @@ To send data to {{< product-name >}}, enable the
 [`influxdb_v2` output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
 in the `telegraf.conf`.
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```toml
+```toml { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 [[outputs.influxdb_v2]]
   urls = ["http://{{< influxdb/host >}}"]
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

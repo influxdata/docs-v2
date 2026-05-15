@@ -124,9 +124,7 @@ If omitted, your cluster uses the default scale settings.
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
-
-```yml
+```yml { placeholders="(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -177,8 +175,6 @@ spec:
             cpu: GC_CPU_MAX
             memory: GC_MEMORY_MAX
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -237,9 +233,7 @@ in your `values.yaml`. If omitted, your cluster will use the default scale setti
 {{< expand-wrapper >}}
 {{% expand "View example `values.yaml` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
-
-```yml
+```yml { placeholders="(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" }
 # The following settings tune the various pods for their cpu/memory/replicas
 # based on workload needs. Only uncomment the specific resources you want
 # to change. Anything left commented will use the package default.
@@ -293,8 +287,6 @@ resources:
       cpu: GC_CPU_MAX
       memory: GC_MEMORY_MAX
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

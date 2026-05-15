@@ -70,8 +70,7 @@ Initializes and returns a `influxdb3.Client` instance with the following:
 
 ##### Create an InfluxDB client
 
-{{% code-placeholders "(BUCKET|API)_(NAME|TOKEN)" %}}
-```go
+```go { placeholders="(BUCKET|API)_(NAME|TOKEN)" }
 package main
 
 import (
@@ -98,7 +97,6 @@ func Query() error {
     }
 }
 ```
-{{% /code-placeholders %}}
 
 Replace the following configuration values:
 

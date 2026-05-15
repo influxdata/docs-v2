@@ -267,9 +267,8 @@ Provide the following:
 - SQL query
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "get-started" %}}
 
-```sh
+```sh { placeholders="get-started" }
 influxctl query \
   --database get-started \
   --token $INFLUX_TOKEN \
@@ -282,7 +281,6 @@ influxctl query \
       AND time <= '2022-01-01T20:00:00Z'"
 ```
 
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 > [!Note]

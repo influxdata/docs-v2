@@ -11,14 +11,12 @@ This guide shows how to retrieve a list of all tables (measurements) in a databa
 
 Use the `influxdb3 query` command with the `SHOW TABLES` SQL statement:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   "SHOW TABLES"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -40,15 +38,13 @@ Replace the following:
 
 You can also use InfluxQL syntax to list measurements (tables):
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --language influxql \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   "SHOW MEASUREMENTS"
 ```
-{{% /code-placeholders %}}
 
 ## List tables using the HTTP API
 
@@ -65,15 +61,13 @@ Include the following in your request:
 - **Headers**: 
   - `Authorization: Bearer` with your authentication token
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl --get "{{< influxdb/host >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SHOW TABLES" \
   --data-urlencode "format=json"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -105,12 +99,10 @@ Replace the following:
 
 To get the response in CSV format, set the `format` parameter to `csv`:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl --get "{{< influxdb/host >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SHOW TABLES" \
   --data-urlencode "format=csv"
 ```
-{{% /code-placeholders %}}

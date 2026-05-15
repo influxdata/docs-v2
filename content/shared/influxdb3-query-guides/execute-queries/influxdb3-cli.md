@@ -30,8 +30,6 @@ Provide the following with your command:
   - the `--file` option and the path to a file that contains the query
   - from stdin
 
-{{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}
-
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [SQL](#)
@@ -51,29 +49,32 @@ Provide the following with your command:
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM home"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --file ./query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 cat ./query.sql | influxdb3 query --token AUTH_TOKEN --database DATABASE_NAME
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -94,33 +95,36 @@ cat ./query.sql | influxdb3 query --token AUTH_TOKEN --database DATABASE_NAME
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --language influxql \
   --database DATABASE_NAME \
   "SELECT * FROM home"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --language influxql \
   --file ./query.influxql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 cat ./query.influxql | influxdb3 query \
   --token AUTH_TOKEN \
   --language influxql \
   --database DATABASE_NAME
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -128,8 +132,6 @@ cat ./query.influxql | influxdb3 query \
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 In the examples above and below, replace the following:
 
@@ -150,17 +152,17 @@ The `influxdb3 query` command supports the following output formats:
 
 Use the `--format` flag to specify the output format:
 
-{{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --format json \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example pretty-formatted results" %}}
@@ -218,9 +220,9 @@ the `influxdb3 query` command:
 - `--format`: `parquet`
 - `-o`, `--output`: the filepath to the Parquet file to store results in
 
-{{% code-placeholders "(DATABASE|AUTH)_(TOKEN|NAME)" %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="(DATABASE|AUTH)_(TOKEN|NAME)" }
 influxdb3 query \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
@@ -228,5 +230,5 @@ influxdb3 query \
   --output path/to/results.parquet \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
-{{% /code-placeholders %}}

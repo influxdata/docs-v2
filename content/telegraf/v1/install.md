@@ -73,15 +73,11 @@ To use the SHA checksum to verify the downloaded file, do the following:
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "<SHA256_CHECKSUM>" %}}
-
-```bash
+```bash { placeholders="<SHA256_CHECKSUM>" }
 # Use 2 spaces to separate the checksum from the filename
 echo "<SHA256_CHECKSUM>  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -93,16 +89,12 @@ Replace the following:
 The following sample code uses `curl` to download Telegraf, and then
 uses `sha256` to compare it to the checksum:
 
-{{% code-placeholders "260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" %}}
-
-```bash
+```bash { placeholders="260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" }
 curl -s --location -O \
 "https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz"
 echo "21e781cc2352713e4eabf0931e3eeea640a2014850a33ea04f86b4dc288d6add  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -308,16 +300,12 @@ Choose from the following options to install Telegraf binary files for Linux AMD
 
 ### Download and install on Linux AMD64
 
-{{% code-placeholders "260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" %}}
-
-```bash
+```bash { placeholders="260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" }
 curl -s --location -O \
 https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz \
 && echo "21e781cc2352713e4eabf0931e3eeea640a2014850a33ea04f86b4dc288d6add  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -334,15 +322,12 @@ Choose from the following options to install Telegraf binary files for Linux ARM
 
 ### Download and install on Linux ARMv8
 
-{{% code-placeholders "f0d8ccae539afa04b171d5268dbab21eef58bc51b5437689e347619e2097c824" %}}
-
-```bash
+```bash { placeholders="f0d8ccae539afa04b171d5268dbab21eef58bc51b5437689e347619e2097c824" }
 curl -s --location -O \
 https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_arm64.tar.gz \
 && echo "7782bbcf50e67e73229fd0703c532d733e4fa259aa4b246debd012421f65c969  telegraf-{{% latest-patch %}}_linux_arm64.tar.gz" \
 | sha256sum -c -
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -595,32 +580,32 @@ use the `--input-filter` and `--output-filter` options to
 specify [input plugins](/telegraf/v1/configure_plugins/input_plugins/)
 and [output plugins](/telegraf/v1/configure_plugins/output_plugins/)--for example:
 
-{{% code-placeholders "cpu|http|influxdb_v2|file" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Linux and macOS](#)
 [Windows](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="cpu|http|influxdb_v2|file" }
 telegraf \
 --input-filter cpu:http \
 --output-filter influxdb_v2:file \
 config > telegraf.conf
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```powershell
+
+```powershell { placeholders="cpu|http|influxdb_v2|file" }
 .\telegraf.exe `
 --input-filter cpu:http `
 --output-filter influxdb_v2:file `
 config > telegraf.conf
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 For more advanced configuration details, see the
 [configuration documentation](/telegraf/v1/administration/configuration/).

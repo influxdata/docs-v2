@@ -95,8 +95,7 @@ Provide the following flags with the command:
 - `--org`: Organization name
 - [Permission flags](/influxdb3/cloud-serverless/reference/cli/influx/auth/create#flags)
 
-{{% code-placeholders "(API|ORG)_(TOKEN|NAME)" %}}
-```sh
+```sh { placeholders="(API|ORG)_(TOKEN|NAME)" }
 influx auth create \
   --token API_TOKEN \
   --org ORG_NAME \
@@ -105,7 +104,6 @@ influx auth create \
   --read-dbrps \
   --write-dbrps
 ```
-{{% /code-placeholders %}}
 
 ### Examples
 
@@ -118,21 +116,18 @@ influx auth create \
 
 Create an All-Access token to grant permissions to all resources in an organization.
 
-{{% code-placeholders "(API|ORG)_(TOKEN|NAME)" %}}
-```sh
+```sh { placeholders="(API|ORG)_(TOKEN|NAME)" }
 influx auth create \
   --token API_TOKEN \
   --org ORG_NAME \
   --all-access
 ```
-{{% /code-placeholders %}}
 
 #### Create a token with specific permissions
 
 ##### Create a token with specified read permissions
 
-{{% code-placeholders "(API|ORG|BUCKET)_(TOKEN|NAME|ID)" %}}
-```sh
+```sh { placeholders="(API|ORG|BUCKET)_(TOKEN|NAME|ID)" }
 influx auth create \
   --token API_TOKEN \
   --org ORG_NAME \
@@ -143,12 +138,10 @@ influx auth create \
   --read-telegrafs \
   --read-user
 ```
-{{% /code-placeholders %}}
 
 ##### Create a token scoped to a user and with specified read and write permissions
 
-{{% code-placeholders "(API|ORG)_(TOKEN|NAME)|USERNAME" %}}
-```sh
+```sh { placeholders="(API|ORG)_(TOKEN|NAME)|USERNAME" }
 influx auth create \
   --token API_TOKEN \
   --org ORG_NAME \
@@ -166,7 +159,6 @@ influx auth create \
   --read-users \
   --write-users
 ```
-{{% /code-placeholders %}}
 
 See the [`influx auth create` documentation](/influxdb/v2/reference/cli/influx/auth/create)
 for information about other available flags.
@@ -200,22 +192,18 @@ Include the following in your request:
       - **type**: Resource type
       - **name**: _(Optional)_ Resource name to scope permission to
 
-{{% code-placeholders "(API|ORG|AUTHORIZATION)_(TOKEN|ID|DESCRIPTION)" %}}
-```sh
+```sh { placeholders="(API|ORG|AUTHORIZATION)_(TOKEN|ID|DESCRIPTION)" }
 {{% get-shared-text "api/cloud-serverless/auth/token-create.sh" %}}
 ```
-{{% /code-placeholders %}}
 
 ### Create a token scoped to a user
 
 To scope a token to a user other than the token creator, pass the `userID` property in the request
 body.
 
-{{% code-placeholders "(API|ORG)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(API|ORG)_(TOKEN|ID)" }
 {{% get-shared-text "api/cloud-serverless/auth/tokens-create-with-user.sh" %}}
 ```
-{{% /code-placeholders %}}
 
 See the
 [`POST /api/v2/authorizations` documentation](/influxdb/v2/api/authorizations-api-tokens/)

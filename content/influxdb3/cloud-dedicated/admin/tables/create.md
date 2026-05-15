@@ -89,14 +89,12 @@ and managing tables.
 1. If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2. Run the `influxctl table create` command:
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
-```bash
+```bash { placeholders="(DATABASE|TABLE)_NAME" }
 # Create a table with the same partitioning as the database
 influxctl table create \
   DATABASE_NAME \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the database to create the table in
@@ -114,8 +112,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME/tables"
 api-ref="/influxdb3/cloud-dedicated/api/tables/#operation/CreateClusterDatabaseTable" %}}
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|TABLE_NAME|MANAGEMENT_TOKEN" %}}
-```bash
+```bash { placeholders="ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|TABLE_NAME|MANAGEMENT_TOKEN" }
 # Create a table with the same partitioning as the database
 curl \
   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME/tables" \
@@ -125,7 +122,6 @@ curl \
     "name": "TABLE_NAME"
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -210,8 +206,7 @@ If a table doesn't have a custom partition template, it inherits the database's 
      Provide the tag key and the number of buckets to bucket tag values into
      separated by a comma: `tagKey,N`.
 
-{{% code-placeholders "DATABASE_NAME|30d|(TAG_KEY(_\d)?)|100|300" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|30d|(TAG_KEY(_\d)?)|100|300" }
 # Create a table with custom partitioning
 influxctl table create \
   --template-tag tag1 \
@@ -222,7 +217,6 @@ influxctl table create \
   DATABASE_NAME \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -246,8 +240,7 @@ api-ref="/influxdb3/cloud-dedicated/api/tables/#operation/CreateClusterDatabaseT
 
 In the request body, include the `partitionTemplate` property and specify the [partition template parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates) as an array of objects--for example:
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|MANAGEMENT_TOKEN|TABLE_NAME|(TAG_KEY(_\d)?)|100|300|%Y-%m-%d" %}}
-```bash
+```bash { placeholders="ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|MANAGEMENT_TOKEN|TABLE_NAME|(TAG_KEY(_\d)?)|100|300|%Y-%m-%d" }
 # Create a table with custom partitioning
 curl \
   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME/tables" \
@@ -264,7 +257,6 @@ curl \
     ]
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

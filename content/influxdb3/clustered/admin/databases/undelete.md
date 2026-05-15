@@ -39,11 +39,9 @@ table limits, and column limits as when it was deleted.
 
 ## Undelete a database using the influxctl CLI
 
-{{% code-placeholders "DATABASE_NAME" %}}
-```sh
+```sh { placeholders="DATABASE_NAME" }
 influxctl database undelete DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

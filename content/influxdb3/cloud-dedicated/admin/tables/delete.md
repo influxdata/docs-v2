@@ -38,11 +38,9 @@ Provide the following arguments:
 - **Database name**: Name of the database that contains the table to delete
 - **Table name**: Name of the table to delete
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|TABLE_NAME" }
 influxctl table delete DATABASE_NAME TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

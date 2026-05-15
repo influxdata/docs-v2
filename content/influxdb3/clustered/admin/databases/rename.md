@@ -32,11 +32,9 @@ to rename a database in your {{< product-name omit=" Cluster" >}} cluster.
 
 ## Rename a database using the influxctl CLI
 
-{{% code-placeholders "DATABASE_NAME|NEW_DATABASE_NAME" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|NEW_DATABASE_NAME" }
 influxctl database rename DATABASE_NAME NEW_DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

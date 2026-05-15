@@ -46,17 +46,13 @@ and SQL to query partition-related information from InfluxDB system tables.
   - a path to a file that contains the query
   - a single dash (`-`) to read the query from stdin
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)|SQL_QUERY" %}}
-
-```bash
+```bash { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   "SQL_QUERY"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -89,11 +85,9 @@ with the name of the table you want to query information about.
 
 ---
 
-{{% code-placeholders "TABLE_NAME_(1|2|3)|TABLE_NAME" %}}
-
 ### View the partition template of a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME_(1|2|3)|TABLE_NAME" }
 SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'
 ```
 
@@ -110,7 +104,7 @@ SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'
 
 ### View all partitions for a table
 
-```sql
+```sql { placeholders="TABLE_NAME_(1|2|3)|TABLE_NAME" }
 SELECT * FROM system.partitions WHERE table_name = 'TABLE_NAME'
 ```
 
@@ -126,7 +120,7 @@ SELECT * FROM system.partitions WHERE table_name = 'TABLE_NAME'
 
 ### View the number of partitions per table
 
-```sql
+```sql { placeholders="TABLE_NAME_(1|2|3)|TABLE_NAME" }
 SELECT
   table_name,
   COUNT(*) AS partition_count
@@ -148,7 +142,7 @@ GROUP BY
 
 ### View the number of partitions for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME_(1|2|3)|TABLE_NAME" }
 SELECT
   COUNT(*) AS partition_count
 FROM
@@ -162,5 +156,3 @@ WHERE
 | table_name | partition_count |
 | :--------- | --------------: |
 | weather    |            1096 |
-
-{{% /code-placeholders %}}

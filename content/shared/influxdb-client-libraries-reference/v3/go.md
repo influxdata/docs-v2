@@ -56,8 +56,7 @@ Initializes and returns a `influxdb3.Client` instance with the following:
 
 ##### Create an InfluxDB client
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```go
+```go { placeholders="DATABASE_(NAME|TOKEN)" }
 package main
 
 import (
@@ -83,7 +82,6 @@ func main() {
     }
 }
 ```
-{{% /code-placeholders %}}
 
 Replace the following configuration values:
 

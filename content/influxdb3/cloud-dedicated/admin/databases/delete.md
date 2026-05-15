@@ -98,13 +98,9 @@ managing databases.
 
 3.  Confirm that you want to delete the database.
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME" }
 influxctl database delete DATABASE_NAME
 ```
-
-{{% /code-placeholders %}}
 
 <!-------------------------------- END INFLUXCTL ------------------------------>
 {{% /tab-content %}}
@@ -136,17 +132,13 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
 The following example shows how to use the Management API to delete a database:
 
-{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" \
    --request DELETE \
    --header "Accept: application/json" \
    --header "Authorization: Bearer MANAGEMENT_TOKEN"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
