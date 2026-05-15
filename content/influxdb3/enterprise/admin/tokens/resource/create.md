@@ -93,14 +93,13 @@ In your terminal, enter `influxdb3 create token` and provide the following:
 - _Options_, for example:
   -  `--expiry`: The token expiration time as a duration.
       If an expiration isn't set, the token does not expire until revoked.
-{{% code-placeholders "Read-write on DATABASE1, DATABASE2|DATABASE1,DATABASE2|1y|read,write" %}}
-```bash
+
+```bash { placeholders="Read-write on DATABASE1, DATABASE2|DATABASE1,DATABASE2|1y|read,write" }
 influxdb3 create token \
   --permission "db:DATABASE1,DATABASE2:read,write" \
   --name "Read-write on DATABASE1, DATABASE2" \
   --expiry 1y
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -138,9 +137,7 @@ In the request body, provide the following parameters:
 
 The following example shows how to use the HTTP API to create a database token:
 
-{{% code-placeholders "DATABASE1|DATABASE2|300000" %}}
-
-```bash
+```bash { placeholders="DATABASE1|DATABASE2|300000" }
   curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -155,7 +152,6 @@ The following example shows how to use the HTTP API to create a database token:
      "expiry_secs": 300000
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
@@ -187,21 +183,23 @@ In the examples below, replace the following:
 
 #### Create a token with read and write access to a database
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME:read,write" \
   --name "Read/write token for DATABASE_NAME"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -216,27 +214,29 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token with read and write access to all databases
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:*:read,write" \
   --name "Read/write token for all databases"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -251,27 +251,29 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token with read-only access to a database
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME:read" \
   --name "Read-only token for DATABASE_NAME"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -286,27 +288,29 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token with read-only access to multiple databases
 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME,DATABASE2_NAME:read" \
   --name "Read-only token for DATABASE_NAME, DATABASE2_NAME"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|DATABASE2_NAME|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -321,28 +325,30 @@ curl \
     }]
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Create a token that expires in seven days
 
-{{% code-placeholders "DATABASE_NAME|7d|604800|AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#)
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|7d|604800|AUTH_TOKEN" }
 influxdb3 create token \
   --permission "db:DATABASE_NAME:read,write" \
   --name "Read/write token for DATABASE_NAME with 7d expiration" \
   --expiry 7d
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="DATABASE_NAME|7d|604800|AUTH_TOKEN" }
 curl \
   "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
   --header 'Accept: application/json' \
@@ -358,9 +364,9 @@ curl \
     "expiry_secs": 604800
   }'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 ## Create a system token
 
@@ -402,14 +408,12 @@ In your terminal, run the `influxdb3 create token --permission` command and prov
     - `health`: The specific system resource to grant permissions to.
     - `read`: The permission to grant to the token (system tokens are always read-only).
 
-{{% code-placeholders "System health token|1y" %}}
-```bash
+```bash { placeholders="System health token|1y" }
 influxdb3 create token \
   --permission "system:health:read" \
   --name "System health token" \
   --expiry 1y
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -446,9 +450,7 @@ In the request body, provide the following parameters:
 
 The following example shows how to use the HTTP API to create a system token:
 
-{{% code-placeholders "AUTH_TOKEN|System health token|300000" %}}
-
-```bash
+```bash { placeholders="AUTH_TOKEN|System health token|300000" }
 curl \
 "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
 --header 'Accept: application/json' \
@@ -464,7 +466,6 @@ curl \
    "expiry_secs": 300000
 }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 

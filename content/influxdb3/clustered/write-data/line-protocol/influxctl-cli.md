@@ -89,9 +89,8 @@ Provide the following:
 {{% tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
 
-```sh
+```sh { placeholders="DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" }
 influxctl write \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
@@ -110,7 +109,6 @@ home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
 home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
 ```
 
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 Replace the following:
@@ -123,11 +121,9 @@ Replace the following:
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
-
 1.  In your terminal, enter the following command to create the sample data file:
 
-    ```sh
+    ```sh { placeholders="DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" }
     cat <<EOF > ./home.lp && LINE_PROTOCOL_FILEPATH=./home.lp
     home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
     home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
@@ -149,15 +145,13 @@ Replace the following:
 
 1. Enter the following CLI command to write the data from the sample file:
 
-   ```sh
+   ```sh { placeholders="DATABASE_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" }
    influxctl write \
      --database DATABASE_NAME \
      --token DATABASE_TOKEN \
      --precision s \
      $LINE_PROTOCOL_FILEPATH
    ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -172,19 +166,15 @@ Replace the following:
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|(\$LINE_PROTOCOL_FILEPATH)" %}}
-
 <!--pytest-codeblocks:cont-->
 
-```sh
+```sh { placeholders="DATABASE_(NAME|TOKEN)|(\$LINE_PROTOCOL_FILEPATH)" }
 cat $LINE_PROTOCOL_FILEPATH | influxctl write \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   --precision s \
   -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

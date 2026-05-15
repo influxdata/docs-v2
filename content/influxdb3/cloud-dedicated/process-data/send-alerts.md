@@ -70,8 +70,7 @@ Provide the following credentials:
   read permissions on the database you want to query
 - **database**: InfluxDB database name
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="DATABASE_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -82,7 +81,6 @@ influxdb = InfluxDBClient3(
     database='DATABASE_NAME'
 )
 ```
-{{% /code-placeholders %}}
 
 ## Create a Slack client
 
@@ -93,14 +91,12 @@ influxdb = InfluxDBClient3(
 
     - **token**: [Slack bot token](https://api.slack.com/authentication/basics#getting-your-authentication-token)
 
-{{% code-placeholders "SLACK_BOT_TOKEN" %}}
-```py
+```py { placeholders="SLACK_BOT_TOKEN" }
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 slack = WebClient(token='SLACK_BOT_TOKEN')
 ```
-{{% /code-placeholders %}}
 
 ## Query InfluxDB
 
@@ -221,8 +217,7 @@ Iterate through the DataFrame and send an alert to Slack for each row.
       values from each row into the message text.
 
 
-{{% code-placeholders "SLACK_CHANNEL" %}}
-```py
+```py { placeholders="SLACK_CHANNEL" }
 # ...
 
 data_frame = data_frame.reset_index()
@@ -233,7 +228,6 @@ for index, row in data_frame.iterrows():
         text=f'Carbon monoxide (co) high in {row.room}: {row.co} ppm at {row.time}'
     )
 ```
-{{% /code-placeholders %}}
 
 ## Full alerting script
 
@@ -246,8 +240,7 @@ for index, row in data_frame.iterrows():
 <!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
 
-{{% code-placeholders "(DATABASE|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" %}}
-```py
+```py { placeholders="(DATABASE|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 from slack_sdk import WebClient
@@ -281,7 +274,6 @@ for index, row in data_frame.iterrows():
         text=f'Carbon monoxide (co) high in {row.room}: {row.co} ppm at {row.time}'
     )
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 <!---------------------------------- END SQL ---------------------------------->
@@ -289,8 +281,7 @@ for index, row in data_frame.iterrows():
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
 
-{{% code-placeholders "(DATABASE|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" %}}
-```py
+```py { placeholders="(DATABASE|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 from slack_sdk import WebClient
@@ -323,7 +314,6 @@ for index, row in data_frame.iterrows():
         text=f'Carbon monoxide (co) high in {row.room}: {row.co} ppm at {row.time}'
     )
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 <!-------------------------------- END INFLUXQL ------------------------------->

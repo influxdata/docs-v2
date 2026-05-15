@@ -93,8 +93,6 @@ The following precisions are available:
 - [Return query results with millisecond Unix timestamps](#return-query-results-with-millisecond-unix-timestamps)
 - [Execute InfluxQL queries from a file](#execute-influxql-queries-from-a-file)
 
-{{% code-placeholders "INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" %}}
-
 ##### Query using basic authentication
 
 The following example:
@@ -106,7 +104,7 @@ The following example:
 {{% show-in "v2" %}}
 <!--pytest.mark.skip-->
 
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 ##############################################################################
 # Use Basic authentication with an
 # InfluxDB v1-compatible username and password
@@ -121,13 +119,14 @@ curl --get "http://{{< influxdb/host >}}/query" \
   --data-urlencode "db=BUCKET_NAME" \
   --data-urlencode "q=SELECT * FROM cpu_usage"
 ```
+
 {{% /show-in %}}
 
 {{% show-in "cloud,cloud-serverless" %}}
 
 <!--pytest.mark.skip-->
 
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
 
@@ -135,7 +134,7 @@ curl --get "http://{{< influxdb/host >}}/query" \
 
 ##### Query using an HTTP POST request
 
-```bash
+```bash { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 curl \
   --request POST \
   "http://{{< influxdb/host >}}/query?db=DATABASE_NAME&rp=RETENTION_POLICY" \
@@ -153,7 +152,7 @@ The following example:
 - queries a custom retention policy mapped for the database
 
 <!--test:setup
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 service influxdb start && \
 influx setup \
   --username USERNAME \
@@ -164,7 +163,7 @@ influx setup \
 ```
 -->
 
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 curl --get http://{{< influxdb/host >}}/query \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
@@ -174,7 +173,7 @@ curl --get http://{{< influxdb/host >}}/query \
 
 ##### Execute multiple queries
 
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 curl --get http://{{< influxdb/host >}}/query \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
@@ -182,7 +181,7 @@ curl --get http://{{< influxdb/host >}}/query \
 ```
 
 ##### Return query results with millisecond Unix timestamps
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 curl --get http://{{< influxdb/host >}}/query \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
@@ -192,7 +191,7 @@ curl --get http://{{< influxdb/host >}}/query \
 ```
 
 ##### Execute InfluxQL queries from a file
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 curl --get http://{{< influxdb/host >}}/query \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
@@ -200,14 +199,13 @@ curl --get http://{{< influxdb/host >}}/query \
 ```
 
 ##### Return a gzip-compressed response
-```sh
+```sh { placeholders="INFLUX_USERNAME|INFLUX_PASSWORD_OR_TOKEN|API_TOKEN" }
 curl --get http://{{< influxdb/host >}}/query \
   --header 'Accept-Encoding: gzip' \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

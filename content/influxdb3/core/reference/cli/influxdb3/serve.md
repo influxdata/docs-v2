@@ -197,13 +197,11 @@ In the examples below, replace
 {{% code-placeholder-key %}}`my-host-01`{{% /code-placeholder-key %}}:
 with a unique string that identifies your {{< product-name >}} server.
 
-{{% code-placeholders "my-host-01" %}}
-
 ### Run the InfluxDB 3 server
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -214,7 +212,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -226,14 +224,12 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01
 ```
-
-{{% /code-placeholders %}}
 
 
 ## Troubleshooting

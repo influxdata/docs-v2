@@ -26,11 +26,9 @@ to delete a database from your InfluxDB cluster.
 
 3.  Confirm that you want to delete the database.
 
-{{% code-placeholders "DATABASE_NAME" %}}
-```sh
+```sh { placeholders="DATABASE_NAME" }
 influxctl database delete DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 > [!Warning]
 > #### Wait before writing to a new database with the same name
