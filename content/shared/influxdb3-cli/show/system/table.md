@@ -37,13 +37,11 @@ In the examples below, replace
 {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}} with
 the name of the database to operate on.
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
 ### Query a system table
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 # Query the parquet_files system table
 influxdb3 show system --database DATABASE_NAME table parquet_files
 ```
@@ -52,7 +50,7 @@ influxdb3 show system --database DATABASE_NAME table parquet_files
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 # Select specific columns from the parquet_files system table
 influxdb3 show system \
   --database DATABASE_NAME \
@@ -65,7 +63,7 @@ influxdb3 show system \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 show system \
   --database DATABASE_NAME \
   table \
@@ -77,12 +75,10 @@ influxdb3 show system \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 show system \
   --database DATABASE_NAME \
   table \
   --format json \
   parquet_files
 ```
-
-{{% /code-placeholders %}}

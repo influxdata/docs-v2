@@ -77,15 +77,11 @@ To use the SHA checksum to verify the downloaded file, do the following:
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf" %}}
-
-```bash
+```bash { placeholders="8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf" }
 # Use 2 spaces to separate the checksum from the filename
 echo "8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf  influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" \
 | sha256sum --check -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -133,15 +129,11 @@ binary releases:
    ```
    -->
 
-{{% code-placeholders "https://repos.influxdata.com/influxdata-archive.key" %}}
-
-```sh
+```sh { placeholders="https://repos.influxdata.com/influxdata-archive.key" }
 curl --silent --location https://repos.influxdata.com/influxdata-archive.key \
  | gpg --import - 2>&1 \
  | grep 'InfluxData Package Signing Key <support@influxdata.com>'
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -249,15 +241,11 @@ brew install influxdb
 2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the
    following command in your terminal:
 
-{{% code-placeholders "224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b" %}}
-
-```sh
+```sh { placeholders="224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b" }
 # Use 2 spaces to separate the checksum from the filename
 echo "224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b  influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
 | shasum --algorithm 256 --quiet --check -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -678,11 +666,9 @@ _If you don't specify InfluxDB initial setup options, you can
 [set up manually](/influxdb/v2/get-started/setup/) later using the UI or CLI in a running
 container._
 
-{{% code-placeholders "ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" %}}
-
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" }
 docker run \
  --name influxdb2 \
  --publish 8086:8086 \
@@ -695,8 +681,6 @@ docker run \
  --env DOCKER_INFLUXDB_INIT_BUCKET=BUCKET_NAME \
  influxdb:2
 ```
-
-{{% /code-placeholders %}}
 
 The command passes the following arguments:
 

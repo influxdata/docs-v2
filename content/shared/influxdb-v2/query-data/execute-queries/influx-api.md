@@ -36,15 +36,14 @@ In your request, set the following:
 
 The following example shows how to use cURL to send a Flux query to InfluxDB {{< current-version >}}:
 
-{{% code-placeholders "ORG_ID|API_TOKEN|BUCKET_NAME" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Without compression](#)
 [With compression](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="ORG_ID|API_TOKEN|BUCKET_NAME" }
 curl \
   --request POST \
   http://{{< influxdb/host >}}/api/v2/query?orgID=ORG_ID  \
@@ -56,9 +55,11 @@ curl \
         |> filter(fn: (r) => r._measurement == "example-measurement")
         |> aggregateWindow(every: 1h, fn: mean)'
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="ORG_ID|API_TOKEN|BUCKET_NAME" }
 curl \
   --request POST \
   http://{{< influxdb/host >}}/api/v2/query?orgID=ORG_ID \
@@ -71,10 +72,9 @@ curl \
         |> filter(fn: (r) => r._measurement == "example-measurement")
         |> aggregateWindow(every: 1h, fn: mean)'
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following with your values:
 
@@ -110,8 +110,6 @@ In your request, set the following:
 
 The following example shows how to use cURL to send an InfluxQL query to InfluxDB {{< current-version >}} using v1-compatible authentication:
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [HTTP POST](#)
@@ -120,17 +118,18 @@ The following example shows how to use cURL to send an InfluxQL query to InfluxD
 
 {{% code-tab-content %}}
 
-```bash
+```bash { placeholders="API_TOKEN|BUCKET_NAME" }
 # 1.x compatible POST request using Basic authentication and InfluxQL
 curl --request POST \
   "http://{{< influxdb/host >}}/query?db=BUCKET_NAME&p=API_TOKEN&u=ignored" \
   --header "Content-type: application/vnd.influxql" \
   --data "SELECT * FROM home WHERE time > now() - 1h"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```bash
+```bash { placeholders="API_TOKEN|BUCKET_NAME" }
 # 1.x compatible GET request using Basic authentication and InfluxQL
 curl --get "http://{{< influxdb/host >}}/query" \
   --header "Accept: application/json" \
@@ -139,17 +138,14 @@ curl --get "http://{{< influxdb/host >}}/query" \
   --data-urlencode "u=ignored" \
   --data-urlencode "p=API_TOKEN"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following with your values:
 
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}} - your [token](/influxdb/version/admin/tokens/).
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}} - the name of the [bucket](/influxdb/version/admin/buckets/) to query.
-
-{{% code-placeholders "ORG_ID|API_TOKEN|BUCKET_NAME" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -158,7 +154,8 @@ Replace the following with your values:
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
-```bash
+
+```bash { placeholders="ORG_ID|API_TOKEN|BUCKET_NAME" }
 curl --get "http://{{< influxdb/host >}}/query" \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
@@ -167,10 +164,11 @@ curl --get "http://{{< influxdb/host >}}/query" \
   --data-urlencode "u=ignored" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```bash
+```bash { placeholders="ORG_ID|API_TOKEN|BUCKET_NAME" }
 curl --get "http://{{< influxdb/host >}}/query" \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
@@ -180,10 +178,9 @@ curl --get "http://{{< influxdb/host >}}/query" \
   --data-urlencode "u=ignored" \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following with your values:
 

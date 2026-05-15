@@ -77,8 +77,6 @@ Provide the following:
   - a path to a file that contains the query
   - a single dash (`-`) to read the query from stdin
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)|SQL_QUERY" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -86,35 +84,39 @@ Provide the following:
 [stdin](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   "SQL_QUERY"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|SQL_QUERY" }
 cat ./query.sql | influxctl query \
   --enable-system-tables \
   --database DATABASE_NAME \
   --token DATABASE_TOKEN \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -154,57 +156,47 @@ In your queries, replace the following:
 When querying the `system.tables`, `system.partitions`, or `system.compactor` tables, use the
 `WHERE` clause to filter by `table_name` . 
 
-{{% code-placeholders "TABLE_NAME" %}}
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT * FROM system.partitions WHERE table_name = 'TABLE_NAME'
 ```
-{{% /code-placeholders%}}
 
 ##### Filter by partition key 
 
 When querying the `system.partitions` or `system.compactor` tables, use the `WHERE` clause to
 filter by `partition_key`.
 
-{{% code-placeholders "PARTITION_KEY" %}}
-```sql
+```sql { placeholders="PARTITION_KEY" }
 SELECT * FROM system.partitions WHERE partition_key = 'PARTITION_KEY'
 ```
-{{% /code-placeholders %}}
 
 To further improve performance, use `AND` to pair `partition_key` with `table_name`--for example: 
 
-{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_KEY" }
 SELECT * 
 FROM system.partitions 
 WHERE
   table_name = 'TABLE_NAME' 
     AND partition_key = 'PARTITION_KEY';
 ```
-{{% /code-placeholders %}}
 
 ##### Filter by partition ID 
 
 When querying the `system.partitions` or `system.compactor` table, use the `WHERE` clause to
 filter by `partition_id` .
 
-{{% code-placeholders "PARTITION_ID" %}}
-```sql
+```sql { placeholders="PARTITION_ID" }
 SELECT * FROM system.partitions WHERE partition_id = PARTITION_ID
 ```
-{{% /code-placeholders %}}
 
 For the most optimized approach, use `AND` to pair `partition_id` with `table_name`--for example:
 
-{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_ID" }
 SELECT * 
 FROM system.partitions 
 WHERE
   table_name = 'TABLE_NAME' 
     AND partition_id = PARTITION_ID;
 ```
-{{% /code-placeholders %}}
 
 Although you don't need to pair `partition_id` with `table_name` (because a partition ID is unique within a cluster),
 it's the most optimized approach, _especially when you have many tables in a database_.
@@ -213,8 +205,7 @@ it's the most optimized approach, _especially when you have many tables in a dat
 
 To retrieve a partition ID, query `system.partitions` for a `table_name` and `partition_key` pair--for example:
 
-{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_KEY" }
 SELECT
   table_name,
   partition_key,
@@ -224,7 +215,6 @@ WHERE
   table_name = 'TABLE_NAME'
     AND partition_key = 'PARTITION_KEY';
 ```
-{{% /code-placeholders %}}
 
 The result contains the `partition_id`:
 
@@ -417,13 +407,11 @@ with the name of the table you want to query information about.
 
 --- 
 
-{{% code-placeholders "TABLE_NAME" %}}
-
 ### Query logs
 
 #### View all stored query logs
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT * FROM system.queries
 ```
 
@@ -432,7 +420,7 @@ SELECT * FROM system.queries
 The following returns query logs for queries with an end-to-end duration greater
 than 50 milliseconds.
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM
   system.queries
@@ -449,7 +437,7 @@ WHERE
 {{% /tabs %}}
 {{% code-tab-content %}}
 <!-----------------------------------BEGIN SQL------------------------------>
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM system.queries
 WHERE issue_time >= now() - INTERVAL '1 day'
@@ -459,7 +447,7 @@ WHERE issue_time >= now() - INTERVAL '1 day'
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-----------------------------------BEGIN PYTHON------------------------------>
-```python
+```python { placeholders="TABLE_NAME" }
 from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(token = DATABASE_TOKEN,
                           host = HOSTNAME,
@@ -486,7 +474,7 @@ reader = client.query('''
 
 #### View the partition template of a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM
   system.tables
@@ -496,7 +484,7 @@ WHERE
 
 #### View all partitions for a table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM
   system.partitions
@@ -506,7 +494,7 @@ WHERE
 
 #### View the number of partitions per table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   COUNT(*) AS partition_count
@@ -520,7 +508,7 @@ GROUP BY
 
 #### View the number of partitions for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   COUNT(*) AS partition_count
 FROM
@@ -535,7 +523,7 @@ WHERE
 
 #### View the size in megabytes of a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   SUM(total_size_mb) AS total_size_mb
 FROM
@@ -546,7 +534,7 @@ WHERE
 
 #### View the size in megabytes per table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   SUM(total_size_mb) AS total_size_mb
@@ -560,7 +548,7 @@ GROUP BY
 
 #### View the total size in bytes of compacted partitions per table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   SUM(total_l0_bytes) + SUM(total_l1_bytes) + SUM(total_l2_bytes) AS total_bytes
@@ -574,7 +562,7 @@ GROUP BY
 
 #### View the total size in bytes of compacted partitions for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   SUM(total_l0_bytes) + SUM(total_l1_bytes) + SUM(total_l2_bytes) AS total_bytes
 FROM
@@ -589,7 +577,7 @@ WHERE
 
 #### View compaction totals for each table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   table_name,
   SUM(total_l0_files) AS total_l0_files,
@@ -608,7 +596,7 @@ GROUP BY
 
 #### View compaction totals for a specific table
 
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT
   SUM(total_l0_files) AS total_l0_files,
   SUM(total_l1_files) AS total_l1_files,
@@ -621,5 +609,3 @@ FROM
 WHERE
   table_name = 'TABLE_NAME'
 ```
-
-{{% /code-placeholders %}}

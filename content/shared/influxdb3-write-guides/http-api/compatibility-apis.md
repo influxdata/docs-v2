@@ -56,25 +56,21 @@ Authorization: Token DATABASE_TOKEN
 
 Use `Bearer` to authenticate a v2 write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 curl -i "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
     --header "Authorization: Bearer DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
-{{% /code-placeholders %}}
 
 Use `Token` to authenticate a v2 write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 curl -i "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
     --header "Authorization: Token DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
-{{% /code-placeholders %}}
 
 ### v2 API write parameters
 
@@ -149,14 +145,12 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 
 The following example shows how to use cURL with the `Basic` authentication scheme:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
   --user "any:DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
-{{% /code-placeholders %}}
 
 ##### Query string authentication {#query-string-authentication-v1}
 
@@ -173,13 +167,11 @@ https://{{< influxdb/host >}}/write/?u=any&p=DATABASE_TOKEN
 
 The following example shows how to use cURL with query string authentication:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s&p=DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
-{{% /code-placeholders %}}
 
 #### Authenticate with a token scheme
 
@@ -205,25 +197,21 @@ Authorization: Token DATABASE_TOKEN
 
 Use `Bearer` to authenticate a v1 write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
     --header "Authorization: Bearer DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
-{{% /code-placeholders %}}
 
 Use `Token` to authenticate a v1 write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
     --header "Authorization: Token DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
-{{% /code-placeholders %}}
 
 ### v1 API write parameters
 
@@ -275,8 +263,7 @@ v1 client libraries send data in [line protocol](/influxdb3/version/reference/sy
 
 Create a v1 API client using the [node-influx](/influxdb/v1/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```js
+```js { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 const Influx = require('influx')
 
 // Instantiate a client for writing to {{% product-name %}} v1 API
@@ -289,7 +276,6 @@ const client = new Influx.InfluxDB({
   password: 'DATABASE_TOKEN'
 })
 ```
-{{% /code-placeholders %}}
 
 <!-- End NodeJS -->
 {{% /tab-content %}}
@@ -298,8 +284,7 @@ const client = new Influx.InfluxDB({
 
 Create a v1 API client using the [influxdb-python](/influxdb/v1/tools/api_client_libraries/#python) Python client library:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```py { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb import InfluxDBClient
 
 # Instantiate a client for writing to {{% product-name %}} v1 API
@@ -312,7 +297,6 @@ client = InfluxDBClient(
   headers={'Content-Type': 'text/plain; charset=utf-8'}
 )
 ```
-{{% /code-placeholders %}}
 
 <!-- End Python -->
 {{% /tab-content %}}
@@ -342,8 +326,7 @@ Parameter | Ignored | Value
 
 To configure the v1.x output plugin for writing to {{< product-name >}}, add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```toml
+```toml { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 [[outputs.influxdb]]
   urls = ["https://{{< influxdb/host >}}"]
   database = "DATABASE_NAME"
@@ -353,7 +336,6 @@ To configure the v1.x output plugin for writing to {{< product-name >}}, add the
   password = "DATABASE_TOKEN"
   content_encoding = "gzip"
 ```
-{{% /code-placeholders %}}
 
 Replace the following configuration values:
 

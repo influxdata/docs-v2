@@ -107,15 +107,13 @@ to create a new CLI connection configuration. Include the following flags:
 - `-o, --org`: InfluxDB [organization name](/influxdb3/cloud-serverless/admin/organizations/).
 - `-t, --token`:  your [API token](/influxdb3/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://{{< influxdb/host >}}|get-started" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG_NAME|get-started" }
 influx config create \
   --config-name get-started \
   --host-url https://{{< influxdb/host >}} \
   --org ORG_NAME \
   --token API_TOKEN
 ```
-{{% /code-placeholders%}}
 
 _For more information about CLI connection configurations, see the
 [`influx config` command](/influxdb3/cloud-serverless/reference/cli/influx/config/)._
@@ -140,38 +138,38 @@ Set the following environment variables in your command line session:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!-- BEGIN MACOS/LINUX -->
-{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
-```sh
+
+```sh { placeholders="API_TOKEN|ORG_NAME" }
 export INFLUX_HOST=https://{{< influxdb/host >}}
 export INFLUX_ORG=ORG_NAME
 export INFLUX_TOKEN=API_TOKEN
 ```
-{{% /code-placeholders %}}
+
 <!-- END MACOS/LINUX -->
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 <!-- BEGIN POWERSHELL -->
-{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
-```sh
+
+```sh { placeholders="API_TOKEN|ORG_NAME" }
 $env:INFLUX_HOST = "https://{{< influxdb/host >}}"
 $env:INFLUX_TOKEN = "API_TOKEN"
 $env:INFLUX_ORG = "ORG_NAME"
 ```
-{{% /code-placeholders %}}
+
 <!-- END POWERSHELL -->
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 <!-- BEGIN CMD -->
-{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
-```sh
+
+```sh { placeholders="API_TOKEN|ORG_NAME" }
 set INFLUX_HOST=https://{{< influxdb/host >}}
 set INFLUX_ORG=ORG_NAME
 set INFLUX_TOKEN=API_TOKEN
 # Make sure to include a space character at the end of this command.
 ```
-{{% /code-placeholders %}}
+
 <!-- END CMD -->
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -213,32 +211,32 @@ Telegraf examples in this getting started tutorial assumes you assigned an
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!-- BEGIN MACOS/LINUX -->
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+
+```sh { placeholders="API_TOKEN" }
 export INFLUX_TOKEN=API_TOKEN
 ```
-{{% /code-placeholders %}}
+
 <!-- END MACOS/LINUX -->
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 <!-- BEGIN POWERSHELL -->
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+
+```sh { placeholders="API_TOKEN" }
 $env:INFLUX_TOKEN = "API_TOKEN"
 ```
-{{% /code-placeholders %}}
+
 <!-- END POWERSHELL -->
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 <!-- BEGIN CMD -->
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+
+```sh { placeholders="API_TOKEN" }
 set INFLUX_TOKEN=API_TOKEN 
 # Make sure to include a space character at the end of this command.
 ```
-{{% /code-placeholders %}}
+
 <!-- END CMD -->
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -268,40 +266,34 @@ following commands into your profile settings or terminal:
 {{% code-tab-content %}}
 <!-- BEGIN MACOS/LINUX -->
 
-{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG_NAME" }
 export INFLUX_HOST=https://{{< influxdb/host >}}
 export INFLUX_ORG=ORG_NAME
 export INFLUX_TOKEN=API_TOKEN
 ```
-{{% /code-placeholders %}}
 
 <!-- END MACOS/LINUX -->
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- BEGIN POWERSHELL -->
 
-{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
-```powershell
+```powershell { placeholders="API_TOKEN|ORG_NAME" }
 $env:INFLUX_HOST = "https://{{< influxdb/host >}}"
 $env:INFLUX_ORG = "ORG_NAME"
 $env:INFLUX_TOKEN = "API_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 <!-- END POWERSHELL -->
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- BEGIN CMD -->
 
-{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG_NAME" }
 set INFLUX_HOST=https://{{< influxdb/host >}}
 set INFLUX_ORG=ORG_NAME
 set INFLUX_TOKEN=API_TOKEN 
 # Make sure to include a space character at the end of this command.
 ```
-{{% /code-placeholders %}}
 
 <!-- END CMD -->
 {{% /code-tab-content %}}
@@ -379,13 +371,11 @@ Keep the following in mind when using API clients and client libraries:
       Supported retention periods depend on your {{% product-name %}} plan.
     - [Connection and authentication credentials](#configure-authentication-credentials)
 
-  {{% code-placeholders "get-started|7d" %}}
-```sh
-influx bucket create \
-  --name get-started \
-  --retention 7d
-```
-  {{% /code-placeholders %}}
+  ```sh { placeholders="get-started|7d" }
+  influx bucket create \
+    --name get-started \
+    --retention 7d
+  ```
 
 <!------------------------------ END CLI CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -411,8 +401,7 @@ Include the following with your request:
     - **everySeconds**: Retention period duration in seconds.
       Supported retention periods depend on your {{% product-name %}} plan.
 
-{{% code-placeholders "\$INFLUX_TOKEN|\$INFLUX_ORG_ID|get-started"%}}
-```sh
+```sh { placeholders="\$INFLUX_TOKEN|\$INFLUX_ORG_ID|get-started" }
 curl --request POST \
 "https://{{< influxdb/host >}}/api/v2/buckets" \
   --header "Authorization: Token $INFLUX_TOKEN" \
@@ -428,7 +417,6 @@ curl --request POST \
     ]
   }'
 ```
-{{% /code-placeholders %}}
 
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}

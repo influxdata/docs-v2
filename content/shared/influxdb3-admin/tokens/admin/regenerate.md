@@ -29,13 +29,11 @@ To regenerate the operator token, use the [`influxdb3 serve create token` comman
 Use the `--regenerate` flag with the
 [`influxdb3 create token --admin`](/influxdb3/version/reference/cli/influxdb3/create/token/) subcommand--for example:
 
-{{% code-placeholders "OPERATOR_TOKEN" %}}
-```bash
+```bash { placeholders="OPERATOR_TOKEN" }
 influxdb3 create token --admin \
   --regenerate \
   --token OPERATOR_TOKEN
 ```
-{{% /code-placeholders %}}
 
 In your command,
 replace {{% code-placeholder-key %}}`OPERATOR_TOKEN`{{% /code-placeholder-key %}}
@@ -53,13 +51,11 @@ Use the following HTTP API endpoint:
 In your request, send an `Authorization` header with your current operator token string 
 --for example:
 
-{{% code-placeholders "OPERATOR_TOKEN" %}}
-```bash
+```bash { placeholders="OPERATOR_TOKEN" }
 curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin/regenerate" \
   --header "Authorization: Bearer OPERATOR_TOKEN" \
   --header "Accept: application/json"
 ```
-{{% /code-placeholders %}}
 
 In your command, replace {{% code-placeholder-key %}}`OPERATOR_TOKEN`{{% /code-placeholder-key %}} with the current token string.
 

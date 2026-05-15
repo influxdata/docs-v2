@@ -140,17 +140,13 @@ to create a container registry secret file.
 2.  Use the following command to create a container registry secret file and
     retrieve the necessary secrets:
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
-
-```sh
+```sh { placeholders="PACKAGE_VERSION" }
 mkdir /tmp/influxdbsecret
 cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
 DOCKER_CONFIG=/tmp/influxdbsecret \
   crane manifest \
   us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -297,8 +293,7 @@ cat /tmp/kubit-images.txt | xargs -I% crane cp % YOUR_PRIVATE_REGISTRY/%
 
 Configure your `values.yaml` to use your private registry:
 
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
-```yaml
+```yaml { placeholders="REGISTRY_HOSTNAME" }
 # Configure registry override for all images
 images:
   registryOverride: REGISTRY_HOSTNAME
@@ -315,7 +310,6 @@ kubit:
 imagePullSecrets:
   - name: your-registry-pull-secret
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}} with your private registry hostname.
 
@@ -407,9 +401,7 @@ following fields in your `values.yaml`:
       _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
     - `region`: Object storage region
 
-{{% code-placeholders "S3_(URL|ACCESS_KEY|SECRET_KEY|BUCKET_NAME|REGION)" %}}
-
-```yml
+```yml { placeholders="S3_(URL|ACCESS_KEY|SECRET_KEY|BUCKET_NAME|REGION)" }
 objectStore:
     # Bucket that the Parquet files will be stored in
   bucket: S3_BUCKET_NAME
@@ -434,8 +426,6 @@ objectStore:
     # This value is required for AWS S3, it may or may not be required for other providers.
     region: S3_REGION
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -467,9 +457,7 @@ following fields in your `values.yaml`:
     - `account.value`: Azure Blob Storage account ID
       _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
 
-{{% code-placeholders "AZURE_(BUCKET_NAME|ACCESS_KEY|STORAGE_ACCOUNT)" %}}
-
-```yml
+```yml { placeholders="AZURE_(BUCKET_NAME|ACCESS_KEY|STORAGE_ACCOUNT)" }
 objectStore:
     # Bucket that the Parquet files will be stored in
   bucket: AZURE_BUCKET_NAME
@@ -485,8 +473,6 @@ objectStore:
     account:
       value: AZURE_STORAGE_ACCOUNT
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -516,9 +502,7 @@ following fields in your `values.yaml`:
     - `serviceAccountSecret.key`: the key inside of your Google IAM secret that
       contains your Google IAM account credentials
 
-{{% code-placeholders "GOOGLE_(BUCKET_NAME|IAM_SECRET|CREDENTIALS_KEY)" %}}
-
-```yml
+```yml { placeholders="GOOGLE_(BUCKET_NAME|IAM_SECRET|CREDENTIALS_KEY)" }
 objectStore:
     # Bucket that the Parquet files will be stored in
   bucket: GOOGLE_BUCKET_NAME
@@ -533,8 +517,6 @@ objectStore:
       # The key within the Secret containing the credentials.
       key: GOOGLE_CREDENTIALS_KEY
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -571,9 +553,7 @@ provide values for the following fields in your `values.yaml`:
   - `SecretName`: Secret name
   - `SecretKey`: Key in the secret that contains the DSN
 
-{{% code-placeholders "SECRET_(NAME|KEY)" %}}
-
-```yml
+```yml { placeholders="SECRET_(NAME|KEY)" }
 catalog:
   # Secret name and key within the secret containing the dsn string to connect
   # to the catalog
@@ -583,8 +563,6 @@ catalog:
     # The key within the Secret containing the dsn.
     SecretKey: SECRET_KEY
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -655,9 +633,7 @@ following fields in your `values.yaml`:
     This differs based on the Kubernetes environment and desired storage characteristics.
   - `storage`: Storage size. We recommend a minimum of 2 gibibytes (`2Gi`).
 
-{{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
-
-```yaml
+```yaml { placeholders="STORAGE_(CLASS|SIZE)" }
 ingesterStorage:
   # (Optional) Set the storage class. This will differ based on the K8s
   # environment and desired storage characteristics.
@@ -666,8 +642,6 @@ ingesterStorage:
   # Set the storage size (minimum 2Gi recommended)
   storage: STORAGE_SIZE
 ```
-
-{{% /code-placeholders %}}
 
 ---
 

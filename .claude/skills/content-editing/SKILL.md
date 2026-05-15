@@ -1,40 +1,20 @@
 ---
 name: content-editing
-description: Complete workflow for creating, editing, and validating InfluxData documentation content
+description: "Create, edit, and validate InfluxData documentation. Manages Hugo shared content across InfluxDB products, runs Vale style linting and Hugo builds, validates frontmatter and code blocks, and fact-checks via the documentation MCP server. Use when creating new doc pages, editing markdown .md files, managing shared content, running Vale or Hugo builds, or testing InfluxDB, Telegraf, or Flux documentation."
 author: InfluxData
 version: "1.0"
 ---
 
 # Content Editing Workflow
 
-## Purpose
-
-This skill guides the complete workflow for creating and editing InfluxData documentation, from initial content creation through testing and validation. It integrates docs CLI tools, MCP server fact-checking, shared content management, and comprehensive testing.
-
-**Use this skill when:**
-
-- Creating new documentation pages
-- Editing existing documentation
-- Working with shared content that affects multiple pages
-- Validating documentation accuracy and functionality
-
 ## Quick Decision Tree
 
 ```
-Need to decide when to use CLI vs direct editing?
-└─ See docs-cli-workflow skill for decision guidance
-
-Made content changes?
-├─ To shared content? Touch sourcing files! (See Part 1: Shared Content)
-├─ Run Vale linting (See Part 3: Vale Style Linting)
-├─ Run code-block lint (See Part 2: Testing, section 3)
-└─ Run full code block tests (See Part 2: Testing)
-
-Need to verify technical accuracy?
-└─ Use documentation MCP server (See Part 4: Fact-Checking)
-
-Need to write/debug Vale rules?
-└─ See vale-rule-config skill (for CI/Quality Engineers)
+CLI vs direct editing? → See docs-cli-workflow skill
+Shared content changes? → Touch sourcing files (Part 1)
+Run tests? → Hugo build, Vale, code-block lint, E2E (Part 2)
+Verify technical accuracy? → MCP server (Part 4)
+Write/debug Vale rules? → See vale-linting and vale-rule-config skills
 ```
 
 ## Using `docs create` and `docs edit`
@@ -521,60 +501,12 @@ yarn hugo server
 
 ## Part 6: Troubleshooting
 
-### Hugo Build Fails
-
-```bash
-# Check for detailed errors
-yarn hugo
-
-# Common issues:
-# - Invalid frontmatter YAML
-# - Missing closing shortcode tags
-# - Broken partial references
-# - Invalid template syntax
-```
-
-### Tests Fail After Editing Shared Content
-
-**Problem:** Edited shared file, but test shows old content
-
-**Solution:** Touch the sourcing files manually
-
-```bash
-# Find pages that reference the shared file
-grep -r "source: /shared/path/to/file.md" content/
-
-# Touch each one
-touch content/influxdb3/core/path/to/file.md
-touch content/influxdb3/enterprise/path/to/file.md
-
-# Or use docs edit (it does this automatically)
-```
-
-### MCP Server Not Responding
-
-**Troubleshooting steps:**
-
-- **API key auth** (`influxdb-docs`): Verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set. Rate limit: 60 req/min.
-- **OAuth auth** (`influxdb-docs-oauth`): Sign in with Google or GitHub on first use. Rate limits: 40 req/hr, 200 req/day.
-- Verify your network allows connections to `*.kapa.ai`
-- Check if you've exceeded rate limits (wait and retry)
-
-### Cypress Tests Fail
-
-See **cypress-e2e-testing** skill for comprehensive debugging:
-
-```bash
-# Check Hugo server logs
-cat /tmp/hugo_server.log | tail -50
-
-# Run tests interactively
-yarn cypress open
-
-# Check if API content was generated (for API tests)
-ls content/influxdb3/core/api/
-# If empty: yarn build:api-docs
-```
+| Problem | Solution |
+| --- | --- |
+| Hugo build fails | Run `yarn hugo` (no `--quiet`) for detailed errors — check frontmatter YAML, shortcode tags, partial refs |
+| Shared content edits not appearing | Touch sourcing files: `grep -r "source: /shared/path" content/` then `touch` each, or use `docs edit` |
+| MCP not responding | Verify network allows `*.kapa.ai`; check rate limits (40 req/hr OAuth, 60 req/min API key); if using API key, verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set |
+| Cypress tests fail | See **cypress-e2e-testing** skill; check `cat /tmp/hugo_server.log \| tail -50`, run `yarn cypress open`, run `yarn build:api-docs` if API content missing |
 
 ## Part 7: Quick Reference
 

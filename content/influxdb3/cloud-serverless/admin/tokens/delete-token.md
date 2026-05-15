@@ -50,13 +50,11 @@ Provide the following flags:
 - `--token`: API token with permission to delete authorizations
 - `--id`: Authorization ID to delete (available in the output of `influx auth find`)
 
-{{% code-placeholders "(API|AUTHORIZATION)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(API|AUTHORIZATION)_(TOKEN|ID)" }
 influx auth delete \
   --token API_TOKEN \
   --id AUTHORIZATION_ID
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 <!---------------------------------- END CLI ---------------------------------->
@@ -79,8 +77,7 @@ Include the following in your request:
 - **Path parameters**:
   - **authID**: Authorization ID to delete
 
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+```sh { placeholders="API_TOKEN" }
 # Delete the first authorization listed for the user.
 curl --request GET \
   https://{{< influxdb/host >}}/api/v2/authorizations?user=user2 \
@@ -92,7 +89,6 @@ curl --request GET \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json'
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 <!---------------------------------- END API ---------------------------------->

@@ -139,8 +139,7 @@ Parameter                | Ignored                  | Value
 
 To configure the v1.x output plugin for writing to {{% product-name %}}, add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
-{{% code-placeholders "API_TOKEN|RETENTION_POLICY" %}}
-```toml
+```toml { placeholders="API_TOKEN|RETENTION_POLICY" }
 [[outputs.influxdb]]
   urls = ["https://{{< influxdb/host >}}"]
   database = "DATABASE_NAME"
@@ -150,7 +149,6 @@ To configure the v1.x output plugin for writing to {{% product-name %}}, add the
   password = "API_TOKEN"
   content_encoding = "gzip"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -178,35 +176,35 @@ To test InfluxDB v1 API writes interactively from the command line, use common H
 [Query String Auth](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
+
+```sh { placeholders="DATABASE_NAME|API_TOKEN|RETENTION_POLICY" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&rp=RETENTION_POLICY&precision=s" \
     --header "Authorization: Token API_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
+
+```sh { placeholders="DATABASE_NAME|API_TOKEN|RETENTION_POLICY" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&rp=RETENTION_POLICY&precision=s" \
     -user "ignored":"API_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
+
+```sh { placeholders="DATABASE_NAME|API_TOKEN|RETENTION_POLICY" }
 curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&rp=RETENTION_POLICY&precision=s" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-urlencode "u=ignored" \
     --data-urlencode "p=DATABASE_TOKEN" \
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -238,8 +236,7 @@ The following samples show how to configure **v1** client libraries for writing 
 
 Create a v1 API client using the [node-influx](/influxdb/v1/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```js
+```js { placeholders="BUCKET_NAME|API_TOKEN|RETENTION_POLICY" }
 const Influx = require('influx')
 
 // Instantiate a client for writing to {{% product-name %}} v1 API
@@ -254,7 +251,6 @@ const client = new Influx.InfluxDB({
 
 // When calling write or query functions, specify the retention policy name in options.
 ```
-{{% /code-placeholders %}}
 
 <!-- End NodeJS -->
 {{% /tab-content %}}
@@ -263,8 +259,7 @@ const client = new Influx.InfluxDB({
 
 Create a v1 API client using the [influxdb-python](/influxdb/v1/tools/api_client_libraries/#python) Python client library:
 
-{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```py
+```py { placeholders="DATABASE_NAME|API_TOKEN|RETENTION_POLICY" }
 from influxdb import InfluxDBClient
 
 # Instantiate a client for writing to {{% product-name %}} v1 API
@@ -279,7 +274,6 @@ client = InfluxDBClient(
 
 # When calling write or query functions, specify the retention policy name in options.
 ```
-{{% /code-placeholders %}}
 
 <!-- End Python -->
 {{% /tab-content %}}

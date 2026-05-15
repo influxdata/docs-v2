@@ -33,11 +33,9 @@ import os
 ```
 -->
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" %}}
-
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" }
 from influxdb_client_3 import InfluxDBClient3
 import secrets
 import pandas
@@ -97,8 +95,6 @@ def get_query_information():
 
 get_query_information()
 ```
-
-{{% /code-placeholders %}}
 
 The output is similar to the following:
 

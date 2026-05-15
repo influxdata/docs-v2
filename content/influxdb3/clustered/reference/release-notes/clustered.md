@@ -34,9 +34,8 @@ InfluxDB Clustered:
     authorize the use of InfluxDB Clustered images.
 3.  Run the following shell script:
 
-{{% code-placeholders "RELEASE_VERSION" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="RELEASE_VERSION" }
 INFLUXDB_RELEASE="RELEASE_VERSION"
 IMAGE="us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:$INFLUXDB_RELEASE"
 DOCKER_CFG="/tmp/influxdbsecret"
@@ -46,7 +45,6 @@ DIGEST=$(DOCKER_CONFIG="$DOCKER_CFG" crane manifest "$IMAGE" | jq -r '.layers[1]
 DOCKER_CONFIG="$DOCKER_CFG" \
 crane blob "$IMAGE@$DIGEST" | tar -xvzf - -C ./
 ```
-{{% /code-placeholders %}}
 
 _Replace {{% code-placeholder-key %}}`RELEASE_VERSION`{{% /code-placeholder-key %}}
 with the InfluxDB Clustered release version you want to download artifacts for._

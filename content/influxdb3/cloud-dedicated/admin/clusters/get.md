@@ -67,11 +67,9 @@ After selecting a cluster, the **Overview** page displays real-time cluster info
     - Cluster ID
     - _Optional_: [Output format](#output-formats)
 
-{{% code-placeholders "CLUSTER_ID" %}}
-```sh
+```sh { placeholders="CLUSTER_ID" }
 influxctl cluster get --format table CLUSTER_ID
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`CLUSTER_ID` {{% /code-placeholder-key %}} with the
 ID of the cluster you want to view information about.

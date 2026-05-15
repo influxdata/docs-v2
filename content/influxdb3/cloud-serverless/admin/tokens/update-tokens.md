@@ -68,13 +68,11 @@ Provide the following flags:
 - `--id`: Authorization ID to enable (available in the output of
   [`influx auth list`](/influxdb3/cloud-serverless/reference/cli/influx/auth/list))
 
-{{% code-placeholders "(API|AUTHORIZATION)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(API|AUTHORIZATION)_(TOKEN|ID)" }
 influx auth active \
   --token API_TOKEN \
   --id AUTHORIZATION_ID
 ```
-{{% /code-placeholders %}}
 
 ### Disable a token using the influx CLI
 
@@ -87,13 +85,11 @@ Provide the following flags:
 - `--id`: Authorization ID to disable (available in the output of
   [`influx auth list`](/influxdb3/cloud-serverless/reference/cli/influx/auth/list))
 
-{{% code-placeholders "(API|AUTHORIZATION)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(API|AUTHORIZATION)_(TOKEN|ID)" }
 influx auth inactive \
   --token API_TOKEN \
   --id AUTHORIZATION_ID
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 <!---------------------------------- END CLI ---------------------------------->
@@ -122,8 +118,7 @@ Include the following in your request:
 
 ### Disable a token
 
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+```sh { placeholders="API_TOKEN" }
 # Update the description and status of the first authorization listed for the user.
 
 curl --request GET \
@@ -140,7 +135,6 @@ curl --request GET \
             "status": "inactive"
           }' | jq .
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 <!---------------------------------- END API ---------------------------------->

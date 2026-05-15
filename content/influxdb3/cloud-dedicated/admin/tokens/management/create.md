@@ -83,13 +83,11 @@ and managing management tokens.
       If an expiration isn't set, the token does not expire until revoked.
     - _Optional_: the `--description` flag with a description for the management token in double quotes `""`.
 
-{{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}
-```sh
+```sh { placeholders="RFC3339_EXPIRATION|TOKEN_DESCRIPTION" }
 influxctl management create \
   --expires-at RFC3339_EXPIRATION \
   --description "TOKEN_DESCRIPTION"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -62,19 +62,15 @@ You can use the following environment variables to set command options:
 
 ### Display license information with file object store
 
-{{% code-placeholders "AUTH_TOKEN|CLUSTER_ID|NODE_ID" %}}
-
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|CLUSTER_ID|NODE_ID" }
 influxdb3 show license \
   --cluster-id CLUSTER_ID \
   --node-id NODE_ID \
   --object-store file \
   --token AUTH_TOKEN
 ```
-
-{{% /code-placeholders %}}
 
 In the example above, replace the following:
 

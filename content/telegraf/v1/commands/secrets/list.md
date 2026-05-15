@@ -64,11 +64,9 @@ telegraf secrets list
 
 ### List secrets and secret stores using a non-default configuration location
 
-{{% code-placeholders "CUSTOM_CONFIG_PATH" %}}
-```sh
+```sh { placeholders="CUSTOM_CONFIG_PATH" }
 telegraf --config CUSTOM_CONFIG_PATH secrets list
 ```
-{{% /code-placeholders %}}
 
 - Replace {{% code-placeholder-key %}}`CUSTOM_CONFIG_PATH`{{% /code-placeholder-key %}}
   with the non-default filepath to your Telegraf configuration file containing
@@ -77,11 +75,9 @@ telegraf --config CUSTOM_CONFIG_PATH secrets list
 
 ### List secrets from a specific secret store
 
-{{% code-placeholders "SECRET_STORE_ID" %}}
-```sh
+```sh { placeholders="SECRET_STORE_ID" }
 telegraf secrets list SECRET_STORE_ID
 ```
-{{% /code-placeholders %}}
 
 - Replace {{% code-placeholder-key %}}`SECRET_STORE_ID`{{% /code-placeholder-key %}}
   with the ID of the secret store to retrieve the secret from.

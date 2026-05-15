@@ -69,11 +69,9 @@ The output contains the token string in plain text.
 {{% tab-content %}}
 Use the `influxdb3 create token --admin` command with a token name:
 
-{{% code-placeholders "TOKEN_NAME|ADMIN_TOKEN" %}}
-```bash
+```bash { placeholders="TOKEN_NAME|ADMIN_TOKEN" }
 influxdb3 create token --admin --token ADMIN_TOKEN --name "TOKEN_NAME"
 ```
-{{% /code-placeholders %}}
 
 Replace the following with your values:
 
