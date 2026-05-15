@@ -62,14 +62,6 @@ export function isOpenTagAny(line) {
   return OPEN_ANY_RE.test(line);
 }
 
-const TABS_RE =
-  /\{\{[%<]\s*\/?\s*(code-tabs-wrapper|code-tabs|code-tab-content)\b/;
-
-/** @param {string[]} lines @returns {boolean} */
-export function regionContainsTabs(lines) {
-  return lines.some((l) => TABS_RE.test(l));
-}
-
 /**
  * Re-indent a wrapper region for list-nested placement.
  * Fence openers/closers and non-fence lines (prose, comments) are
@@ -260,13 +252,6 @@ export function migrate(source, opts = {}) {
         line: i + 1,
         reason: 'unsafe-attr-regex',
       });
-      for (let k = i; k <= j; k++) out.push(lines[k]);
-      i = j + 1;
-      continue;
-    }
-
-    if (regionContainsTabs(region)) {
-      report.skipped.push({ file, line: i + 1, reason: 'code-tabs-wrapper' });
       for (let k = i; k <= j; k++) out.push(lines[k]);
       i = j + 1;
       continue;

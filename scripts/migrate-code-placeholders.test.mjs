@@ -99,20 +99,7 @@ test('isOpenTagAny: detects any open regardless of regex', () => {
   assert.equal(isOpenTagAny('plain text'), false);
 });
 
-import {
-  regionContainsTabs,
-  reindentRegion,
-} from './migrate-code-placeholders.mjs';
-
-test('regionContainsTabs: detects code-tabs-wrapper family', () => {
-  assert.equal(regionContainsTabs(['```sh', 'x', '```']), false);
-  assert.equal(
-    regionContainsTabs(['{{< code-tabs-wrapper >}}', '```sh', '```']),
-    true
-  );
-  assert.equal(regionContainsTabs(['{{% code-tab-content %}}']), true);
-  assert.equal(regionContainsTabs(['{{% code-tabs %}}']), true);
-});
+import { reindentRegion } from './migrate-code-placeholders.mjs';
 
 test('reindentRegion: rebases min-indent to target width', () => {
   const out = reindentRegion(['```py', 'a = 1', '    nested', '```'], 4);
@@ -234,22 +221,43 @@ test('migrate: angle-bracket delimiter variant', () => {
   assert.equal(report.transformed, 1);
 });
 
-test('migrate: code-tabs-wrapper region is skipped + reported', () => {
+test('migrate: code-tabs-wrapper region is transformed (not skipped)', () => {
   const src = [
     '{{% code-placeholders "RE" %}}',
     '{{< code-tabs-wrapper >}}',
-    '```bash',
-    'x',
+    '{{% code-tabs %}}',
+    '[Linux](#)',
+    '[Windows](#)',
+    '{{% /code-tabs %}}',
+    '{{% code-tab-content %}}',
+    '```sh',
+    'echo RE',
     '```',
+    '{{% /code-tab-content %}}',
     '{{< /code-tabs-wrapper >}}',
     '{{% /code-placeholders %}}',
   ].join(NL);
-  const { content, report } = migrate(src, { file: 'e.md' });
-  assert.equal(content, src); // unchanged
-  assert.equal(report.transformed, 0);
-  assert.equal(report.skipped.length, 1);
-  assert.equal(report.skipped[0].reason, 'code-tabs-wrapper');
-  assert.equal(report.skipped[0].file, 'e.md');
+  const { content, report } = migrate(src, { file: 'p.md' });
+  assert.equal(report.transformed, 1);
+  assert.equal(report.skipped.length, 0);
+  assert.equal(
+    content,
+    [
+      '{{< code-tabs-wrapper >}}',
+      '{{% code-tabs %}}',
+      '[Linux](#)',
+      '[Windows](#)',
+      '{{% /code-tabs %}}',
+      '{{% code-tab-content %}}',
+      '',
+      '```sh { placeholders="RE" }',
+      'echo RE',
+      '```',
+      '',
+      '{{% /code-tab-content %}}',
+      '{{< /code-tabs-wrapper >}}',
+    ].join(NL)
+  );
 });
 
 test('migrate: wrapper with no fence is skipped + reported', () => {
