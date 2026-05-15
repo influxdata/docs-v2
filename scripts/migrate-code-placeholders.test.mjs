@@ -326,3 +326,32 @@ test('migrate: file with no wrapper is returned unchanged', () => {
   assert.equal(content, src);
   assert.equal(report.transformed, 0);
 });
+
+test('migrate: regex unsafe for fence attribute is skipped + reported', () => {
+  const src = [
+    '{{% code-placeholders "TOKEN_ID_\\d{1}" %}}',
+    '```sh',
+    'influxctl token revoke TOKEN_ID_1',
+    '```',
+    '{{% /code-placeholders %}}',
+  ].join(NL);
+  const { content, report } = migrate(src, { file: 'k.md' });
+  assert.equal(content, src);
+  assert.equal(report.transformed, 0);
+  assert.equal(report.skipped.length, 1);
+  assert.equal(report.skipped[0].reason, 'unsafe-attr-regex');
+});
+
+test('migrate: regex with embedded shortcode is skipped + reported', () => {
+  const src = [
+    '{{% code-placeholders "API_TOKEN|https://{{< influxdb/host >}}|x" %}}',
+    '```sh',
+    'echo API_TOKEN',
+    '```',
+    '{{% /code-placeholders %}}',
+  ].join(NL);
+  const { content, report } = migrate(src, { file: 'l.md' });
+  assert.equal(content, src);
+  assert.equal(report.transformed, 0);
+  assert.equal(report.skipped[0].reason, 'unsafe-attr-regex');
+});

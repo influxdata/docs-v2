@@ -201,6 +201,21 @@ export function migrate(source, opts = {}) {
 
     let region = lines.slice(i + 1, j);
 
+    // A regex containing { or } cannot be placed verbatim into a
+    // goldmark fence attribute ({ placeholders="..." }) — the braces
+    // break Hugo's attribute parser. Skip + report; leave the wrapper
+    // intact for manual handling.
+    if (/[{}]/.test(open.regex)) {
+      report.skipped.push({
+        file,
+        line: i + 1,
+        reason: 'unsafe-attr-regex',
+      });
+      for (let k = i; k <= j; k++) out.push(lines[k]);
+      i = j + 1;
+      continue;
+    }
+
     if (regionContainsTabs(region)) {
       report.skipped.push({ file, line: i + 1, reason: 'code-tabs-wrapper' });
       for (let k = i; k <= j; k++) out.push(lines[k]);
