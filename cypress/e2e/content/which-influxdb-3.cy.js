@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 
 // PR 1 scope: the canonical decision page renders correctly.
-// JSON-LD assertions live with PR 2. Hub-landing assertions live with PR 3.
+// PR 2 scope: FAQPage JSON-LD emitted on the canonical URL (see final it()).
+// Hub-landing assertions live with PR 3.
 // Cross-link / llms.txt assertions live with PR 4.
 
 describe('Which InfluxDB 3 decision page (canonical)', function () {
@@ -100,4 +101,24 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       'a[href="/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/"]'
     ).should('exist');
   });
+
+  it('emits FAQPage JSON-LD with 7 Question entities', function () {
+    cy.get('script[type="application/ld+json"]').then(($scripts) => {
+      const faq = [...$scripts]
+        .map((s) => JSON.parse(s.textContent))
+        .find((j) => j['@type'] === 'FAQPage');
+      expect(faq, 'FAQPage JSON-LD present').to.exist;
+      expect(faq['@context']).to.equal('https://schema.org');
+      expect(faq.mainEntity).to.have.length(7);
+      faq.mainEntity.forEach((q) => {
+        expect(q['@type']).to.equal('Question');
+        expect(q.name).to.be.a('string').and.not.empty;
+        expect(q.acceptedAnswer['@type']).to.equal('Answer');
+        expect(q.acceptedAnswer.text).to.be.a('string').and.not.empty;
+        // Plain text only — no leftover HTML tags from markdownify.
+        expect(q.acceptedAnswer.text).to.not.match(/<[a-z][^>]*>/i);
+      });
+    });
+  });
+
 });

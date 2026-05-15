@@ -97,7 +97,7 @@ Flux is now in maintenance mode. For more information, see [The future of Flux](
 
 {{< faq >}}
 
-## Related
+## Related links {#related-links}
 
 - [InfluxDB 3 Enterprise product page](https://www.influxdata.com/products/influxdb3-enterprise/)—for InfluxDB 3 Core vs Enterprise specifics, including the product FAQ
 - [What is time series data?](/platform/faq/)
