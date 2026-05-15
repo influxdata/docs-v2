@@ -67,16 +67,172 @@ export function regionContainsTabs(lines) {
 }
 
 /**
- * Rebase the region's minimum indentation to `width` spaces,
- * preserving relative indentation. Blank lines become ''.
+ * Re-indent a wrapper region for list-nested placement.
+ * Fence openers/closers and non-fence lines (prose, comments) are
+ * normalized to exactly `width` spaces. Lines inside a fence preserve
+ * their internal relative indentation, shifted by the fence opener's
+ * delta so code structure is retained. Blank lines become ''.
  * @param {string[]} region @param {number} width
  * @returns {string[]}
  */
 export function reindentRegion(region, width) {
-  const nonBlank = region.filter((l) => l.trim() !== '');
-  const minIndent = nonBlank.length
-    ? Math.min(...nonBlank.map((l) => l.match(/^ */)[0].length))
-    : 0;
   const pad = ' '.repeat(width);
-  return region.map((l) => (l.trim() === '' ? '' : pad + l.slice(minIndent)));
+  const out = [];
+  let marker = null; // { char, len } when inside a fence
+  let delta = 0; // shift applied to lines inside the current fence
+  for (const line of region) {
+    if (line.trim() === '') {
+      out.push('');
+      continue;
+    }
+    const m = line.match(/^(\s*)(`{3,}|~{3,})(.*)$/);
+    if (!marker) {
+      if (m) {
+        const origIndent = m[1].length;
+        delta = width - origIndent;
+        marker = { char: m[2][0], len: m[2].length };
+        out.push(pad + line.slice(origIndent));
+      } else {
+        out.push(pad + line.replace(/^\s+/, ''));
+      }
+    } else {
+      const isClose =
+        m &&
+        m[2][0] === marker.char &&
+        m[2].length >= marker.len &&
+        m[3].trim() === '';
+      if (isClose) {
+        marker = null;
+        out.push(pad + line.replace(/^\s+/, ''));
+      } else {
+        const cur = line.match(/^ */)[0].length;
+        const shifted = Math.max(0, cur + delta);
+        out.push(' '.repeat(shifted) + line.slice(cur));
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Indices (within `region`) of fence-OPEN lines at top level
+ * (not inside another fence). Handles ``` and ~~~, length-aware close.
+ * @param {string[]} region @returns {number[]}
+ */
+function regionFenceOpenIndices(region) {
+  const opens = [];
+  let marker = null; // { char, len }
+  for (let i = 0; i < region.length; i++) {
+    const m = region[i].match(/^\s*(`{3,}|~{3,})(.*)$/);
+    if (!marker) {
+      if (m) {
+        marker = { char: m[1][0], len: m[1].length };
+        opens.push(i);
+      }
+    } else if (
+      m &&
+      m[1][0] === marker.char &&
+      m[1].length >= marker.len &&
+      m[2].trim() === ''
+    ) {
+      marker = null;
+    }
+  }
+  return opens;
+}
+
+/**
+ * Convert all code-placeholders wrappers in `source`.
+ * @param {string} source
+ * @param {{file?:string}} [opts]
+ * @returns {{content:string, report:{
+ *   transformed:number, alreadyPresent:number,
+ *   skipped:{file:string,line:number,reason:string}[]
+ * }}}
+ */
+export function migrate(source, opts = {}) {
+  const file = opts.file ?? '<unknown>';
+  const lines = source.split('\n');
+  const out = [];
+  const report = { transformed: 0, alreadyPresent: 0, skipped: [] };
+  let i = 0;
+
+  while (i < lines.length) {
+    const open = parseOpenTag(lines[i]);
+    if (!open) {
+      out.push(lines[i]);
+      i++;
+      continue;
+    }
+
+    // Find the matching close with depth-balanced scanning so a
+    // (malformed) nested open is skipped as one unit, not re-entered.
+    let j = i + 1;
+    let depth = 1;
+    let sawNested = false;
+    while (j < lines.length && depth > 0) {
+      if (isOpenTagAny(lines[j])) {
+        depth++;
+        if (depth > 1) sawNested = true;
+      } else if (isCloseTag(lines[j])) {
+        depth--;
+        if (depth === 0) break;
+      }
+      j++;
+    }
+
+    if (depth !== 0) {
+      report.skipped.push({ file, line: i + 1, reason: 'unclosed' });
+      out.push(lines[i]);
+      i++;
+      continue;
+    }
+
+    if (sawNested) {
+      report.skipped.push({ file, line: i + 1, reason: 'nested' });
+      for (let k = i; k <= j; k++) out.push(lines[k]);
+      i = j + 1;
+      continue;
+    }
+
+    let region = lines.slice(i + 1, j);
+
+    if (regionContainsTabs(region)) {
+      report.skipped.push({ file, line: i + 1, reason: 'code-tabs-wrapper' });
+      for (let k = i; k <= j; k++) out.push(lines[k]);
+      i = j + 1;
+      continue;
+    }
+
+    const fenceIdx = regionFenceOpenIndices(region);
+    if (fenceIdx.length === 0) {
+      report.skipped.push({ file, line: i + 1, reason: 'no-fence' });
+      for (let k = i; k <= j; k++) out.push(lines[k]);
+      i = j + 1;
+      continue;
+    }
+
+    for (const idx of fenceIdx) {
+      const res = injectAttr(region[idx], open.regex);
+      region[idx] = res.line;
+      if (res.status === 'present') report.alreadyPresent++;
+      else if (res.status === 'injected' || res.status === 'merged')
+        report.transformed++;
+    }
+
+    // Trim blank lines at region boundaries (separators to the
+    // removed wrapper tags).
+    while (region.length && region[0].trim() === '') region.shift();
+    while (region.length && region[region.length - 1].trim() === '')
+      region.pop();
+
+    if (open.indent.length > 0) {
+      region = reindentRegion(region, open.indent.length);
+    }
+
+    for (const rl of region) out.push(rl);
+    i = j + 1;
+  }
+
+  return { content: out.join('\n'), report };
 }
