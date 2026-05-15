@@ -120,4 +120,5 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       });
     });
   });
+
 });
