@@ -1401,3 +1401,43 @@ content/telegraf/v1/install.md
 
 Confirmed: `git status --porcelain content/` was empty both before and after
 the dry-run.
+
+---
+
+### Final run totals (Task 11)
+
+| Task | Description | Files | Commit |
+| --- | --- | --- | --- |
+| Task 9 | Automated codemod (`migrate()`) | 220 files, 729 fences | `bb9089e2b` |
+| Task 10b | Tabs-wrapped regions (26 files, 62 occurrences) | 26 files | `c5f8f9f51` |
+| Task 10c | Manual edge cases: 2 unclosed + 3 inline-shortcode-fence | 5 files | `d2d4c9dad` |
+
+### Codemod hardening (pre-migration)
+
+| Commit | Fix |
+| --- | --- |
+| `517600b56` | Skip regex patterns unsafe for fence attributes |
+| `090cec2c7` | Separate de-wrapped fence from adjacent content with blank lines |
+| `5f3c077d6` | Separate inner shortcode-wrapped fences within region |
+| `c8070a1f2` | Transform code-tabs-wrapper regions instead of skipping |
+
+### Rendered-HTML parity verification
+
+Result: **only 1 accepted cosmetic difference** found at
+`influxdb/v2/get-started/setup/`:
+
+- `<pre>` count: identical
+- Placeholder token multiset: identical
+- Cosmetic: `class='code-placeholder magenta'` → `class=code-placeholder`
+  (unquoted attribute, same value — accepted)
+
+All other pages: zero diffs.
+
+### Zero wrappers remaining
+
+`grep -rn '{{[%<] *code-placeholders "' content/ | wc -l` → **0**
+
+### Task 11 lint + build
+
+- `yarn lint-codeblocks` on 231 changed content files: **LINT_EXIT=0** (zero `::error::` lines)
+- `npx hugo --quiet`: **HUGO_EXIT=0**
