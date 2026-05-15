@@ -107,15 +107,13 @@ to create a new CLI connection configuration. Include the following flags:
 - `-o, --org`: InfluxDB [organization name](/influxdb3/cloud-serverless/admin/organizations/).
 - `-t, --token`:  your [API token](/influxdb3/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://{{< influxdb/host >}}|get-started" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG_NAME|get-started" }
 influx config create \
   --config-name get-started \
   --host-url https://{{< influxdb/host >}} \
   --org ORG_NAME \
   --token API_TOKEN
 ```
-{{% /code-placeholders%}}
 
 _For more information about CLI connection configurations, see the
 [`influx config` command](/influxdb3/cloud-serverless/reference/cli/influx/config/)._

@@ -73,8 +73,6 @@ influxctl token revoke TOKEN_ID
 
 ### Revoke multiple database tokens
 
-{{% code-placeholders "TOKEN_ID_\d{1}" %}}
-```sh
+```sh { placeholders="TOKEN_ID_\d" }
 influxctl token revoke TOKEN_ID_1 TOKEN_ID_2
 ```
-{{% /code-placeholders %}}
