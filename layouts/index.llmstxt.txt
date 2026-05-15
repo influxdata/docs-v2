@@ -16,6 +16,10 @@
 
 This documentation covers all InfluxDB versions and ecosystem tools. Each section provides comprehensive guides, API references, and tutorials.
 
+## Choosing InfluxDB
+
+- [Which InfluxDB 3 should I use?](influxdb3/which-influxdb-3/index.md): Decision guide for choosing between InfluxDB 3 Core, Enterprise, Cloud Serverless, Cloud Dedicated, Clustered, and Explorer, and for migrating from InfluxDB 1 or InfluxDB 2.
+
 ## InfluxDB 3
 
 - [InfluxDB 3 Core](influxdb3/core/index.section.md): Open source time series database optimized for real-time data

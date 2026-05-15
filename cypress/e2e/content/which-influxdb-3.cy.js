@@ -1,9 +1,12 @@
 /// <reference types="cypress" />
 
 // PR 1 scope: the canonical decision page renders correctly.
-// PR 2 scope: FAQPage JSON-LD emitted on the canonical URL (see final it()).
-// Hub-landing assertions live with PR 3.
-// Cross-link / llms.txt assertions live with PR 4.
+// PR 2 scope: FAQPage JSON-LD emitted on the canonical URL.
+// PR 3 scope: /influxdb3/ hub landing is a standalone navigation page with a
+//             product children list and callout link to the
+//             decision page.
+// PR 4 scope: cross-link callouts on v3 product index pages + platform FAQ
+//             cross-link Q&A (see the "Cross-link callouts" describe block).
 
 describe('Which InfluxDB 3 decision page (canonical)', function () {
   const url = '/influxdb3/which-influxdb-3/';
@@ -120,5 +123,98 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       });
     });
   });
+});
 
+describe('InfluxDB 3 hub landing', function () {
+  const url = '/influxdb3/';
+
+  beforeEach(() => cy.visit(url));
+
+  it('renders the InfluxDB 3 H1 (replacing the auto-generated section title)', function () {
+    cy.get('h1').should('contain.text', 'InfluxDB 3');
+    cy.get('h1').should('not.contain.text', 'Influxdb3s');
+  });
+
+  it('renders the v3 product children list with the decision page filtered out', function () {
+    cy.get('div.children-links').should('have.length', 1);
+    const expectedProducts = [
+      'InfluxDB 3 Core',
+      'InfluxDB 3 Enterprise',
+      'InfluxDB 3 Explorer',
+      'InfluxDB Cloud Dedicated',
+      'InfluxDB Cloud Serverless',
+      'InfluxDB Clustered',
+    ];
+    expectedProducts.forEach((name) => {
+      cy.get('div.children-links').contains('h2 a', name).should('exist');
+    });
+    cy.get('div.children-links')
+      .contains('h2', 'Which InfluxDB 3 should I use?')
+      .should('not.exist');
+  });
+
+  it('renders the next-gen blurb', function () {
+    // The blurb spans multiple semantic-line-feed lines in markdown, so the
+    // rendered <p> contains literal newlines between words. contain.text is
+    // whitespace-strict, so assert short substrings that don't cross line
+    // breaks.
+    cy.get('article.article--content')
+      .should('contain.text', 'current generation of InfluxDB')
+      .and('contain.text', 'recommended platform')
+      .and('contain.text', 'new time series workloads');
+  });
+
+  it('renders a callout link to the decision page', function () {
+    cy.get('a[href="/influxdb3/which-influxdb-3/"]').should('exist');
+  });
+
+  it('self-canonicals to its own URL', function () {
+    cy.get('link[rel="canonical"]')
+      .should('have.attr', 'href')
+      .and('match', /\/influxdb3\/?$/);
+  });
+
+  it('does NOT emit FAQPage JSON-LD (canonical equity stays on the slug)', function () {
+    // Use Cypress.$ (raw jQuery, no implicit existence retry) — hub may
+    // legitimately have zero <script type="application/ld+json"> tags.
+    cy.document().then((doc) => {
+      const scripts = Cypress.$(doc).find('script[type="application/ld+json"]');
+      const faqScripts = [...scripts]
+        .map((s) => {
+          try {
+            return JSON.parse(s.textContent);
+          } catch (e) {
+            return null;
+          }
+        })
+        .filter((j) => j && j['@type'] === 'FAQPage');
+      expect(
+        faqScripts,
+        'FAQPage JSON-LD must not appear on the hub'
+      ).to.have.length(0);
+    });
+  });
+});
+
+describe('Cross-link callouts to the decision page', function () {
+  const productPages = [
+    '/influxdb3/core/',
+    '/influxdb3/enterprise/',
+    '/influxdb3/cloud-dedicated/',
+    '/influxdb3/cloud-serverless/',
+    '/influxdb3/clustered/',
+  ];
+
+  productPages.forEach((url) => {
+    it(`${url} links to the decision page`, function () {
+      cy.visit(url);
+      cy.get('a[href="/influxdb3/which-influxdb-3/"]').should('exist');
+    });
+  });
+
+  it('/platform/faq/ has a "Which version of InfluxDB should I use?" Q&A', function () {
+    cy.visit('/platform/faq/');
+    cy.get('h2#which-version-of-influxdb-should-i-use').should('exist');
+    cy.get('a[href="/influxdb3/which-influxdb-3/"]').should('exist');
+  });
 });
