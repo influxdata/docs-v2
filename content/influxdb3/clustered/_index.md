@@ -15,6 +15,11 @@ cascade:
   version: clustered
 ---
 
+> [!Tip]
+> Comparing InfluxDB Clustered to other InfluxDB 3 products?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a
+> full decision guide.
+
 InfluxDB Clustered is a highly available InfluxDB 3 cluster hosted and
 managed on your own infrastructure.
 The InfluxDB time series platform is designed to handle high write and query loads.
