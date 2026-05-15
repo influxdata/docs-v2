@@ -60,14 +60,10 @@ After installing the ODBC driver, download and install the InfluxDB 3 custom con
 
 2. Move the connector file to the custom connectors folder:
 
-   {{% code-placeholders "YOUR\_USER" %}}
-
-   ```powershell
+   ```powershell { placeholders="YOUR\_USER" }
    Move-Item "C:\Users\YOUR_USER\Downloads\InfluxDB.pqx" `
      "$env:USERPROFILE\Documents\Power BI Desktop\Custom Connectors\"
    ```
-
-   {{% /code-placeholders %}}
 
    Replace the following:
 
