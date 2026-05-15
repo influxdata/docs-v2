@@ -286,4 +286,132 @@ describe('LLM Format Selector', () => {
         });
     });
   });
+
+  describe('GA4 events (ai_format_action)', () => {
+    // Stub window.gtag AFTER page load so GA4's own gtag.js doesn't overwrite it.
+    function stubGtag() {
+      cy.window().then((win) => {
+        win.gtag = cy.stub().as('gtag');
+      });
+    }
+
+    function stubClipboardSuccess() {
+      cy.window().then((win) => {
+        cy.stub(win.navigator.clipboard, 'writeText').resolves();
+      });
+    }
+
+    function openDropdown() {
+      cy.get(
+        '[data-component="format-selector"] .format-selector__button'
+      ).click();
+    }
+
+    it('emits copy_page_md on successful page copy', () => {
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      stubClipboardSuccess();
+      openDropdown();
+      cy.get('[data-option="copy-page"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({
+          action: 'copy_page_md',
+          page_type: 'leaf',
+          page_path: LEAF_PAGE_URL,
+          product: 'influxdb3_core',
+        })
+      );
+    });
+
+    it('emits copy_section_md on successful section copy', () => {
+      cy.visit(SMALL_SECTION_URL);
+      cy.intercept('GET', '**/index.section.md', { body: '# stub\n' });
+      stubGtag();
+      stubClipboardSuccess();
+      openDropdown();
+      cy.get('[data-option="copy-section"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({
+          action: 'copy_section_md',
+          page_type: 'branch',
+        })
+      );
+    });
+
+    it('emits copy_failed when clipboard write rejects', () => {
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      cy.window().then((win) => {
+        cy.stub(win.navigator.clipboard, 'writeText').rejects(
+          new Error('denied')
+        );
+      });
+      openDropdown();
+      cy.get('[data-option="copy-page"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({
+          action: 'copy_failed',
+          action_target: 'copy_page_md',
+        })
+      );
+    });
+
+    it('emits open_chatgpt when ChatGPT option is clicked', () => {
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      openDropdown();
+      cy.get('[data-option="open-chatgpt"]').then(($el) => {
+        // Prevent actual navigation; we only care about the emit.
+        $el.on('click', (e) => e.preventDefault());
+      });
+      cy.get('[data-option="open-chatgpt"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({ action: 'open_chatgpt' })
+      );
+    });
+
+    it('emits open_claude when Claude option is clicked', () => {
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      openDropdown();
+      cy.get('[data-option="open-claude"]').then(($el) => {
+        $el.on('click', (e) => e.preventDefault());
+      });
+      cy.get('[data-option="open-claude"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({ action: 'open_claude' })
+      );
+    });
+
+    it('emits connect_mcp when MCP option is clicked', () => {
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      openDropdown();
+      cy.get('[data-option="connect-mcp-docs"]').then(($el) => {
+        $el.on('click', (e) => e.preventDefault());
+      });
+      cy.get('[data-option="connect-mcp-docs"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({ action: 'connect_mcp' })
+      );
+    });
+  });
 });

@@ -1,0 +1,25 @@
+{{- /*
+  /sitemap-md.xml — lists Markdown twin URLs for AI/markdown crawlers.
+
+  Distinct from /sitemap.xml (HTML, SEO-targeted). Eligibility predicate
+  mirrors layouts/partials/header/markdown-alternate.html and
+  scripts/build-llms-full-txt.js so the three autodiscovery surfaces stay
+  coherent. See PLAN.md / AI-visibility-for-InfluxDB.md § 5.4.
+*/ -}}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{- range .Site.Pages }}
+    {{- $kindOk := or (eq .Kind "page") (eq .Kind "section") }}
+    {{- $isFeatureBoard := eq .Layout "feature-board" }}
+    {{- $allowed := and $kindOk
+                        (not .Params.omit_from_sitemap)
+                        (not .Params.noindex)
+                        (not $isFeatureBoard) }}
+    {{- if $allowed }}
+  <url>
+    <loc>{{ .Permalink }}index.md</loc>{{ if not .Lastmod.IsZero }}
+    <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}
+  </url>
+    {{- end }}
+  {{- end }}
+</urlset>

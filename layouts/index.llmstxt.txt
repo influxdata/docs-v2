@@ -45,3 +45,41 @@ This documentation covers all InfluxDB versions and ecosystem tools. Each sectio
 ## API References
 
 For API documentation, see the API reference section within each product's documentation.
+
+## Full corpora (flattened Markdown)
+
+Per-product Markdown corpora. Fetch a single file for the full documentation of one product.
+
+{{- /*
+  Derive each corpus from data/products.yml so this list and the
+  PRODUCT_PATHS in scripts/build-llms-full-txt.js stay in sync by
+  construction. Both surfaces apply the same content_path + versions
+  logic (see scripts/lib/corpus-paths.js for the JS mirror).
+
+  Per-product corpus path:
+    - content_path is a map → use each value as a per-version path
+    - content_path is a string AND already ends with /<version> → use as-is
+    - content_path is a string + versions present → append /<version>
+    - content_path is a string + no versions (e.g., explorer) → use as-is
+*/ -}}
+{{- range $key, $p := .Site.Data.products }}
+  {{- if $p.content_path }}
+    {{- $cp := $p.content_path }}
+    {{- $versions := default (slice) $p.versions }}
+    {{- if reflect.IsMap $cp }}
+      {{- range $v, $vp := $cp }}
+        {{- $name := default $p.name (index $p (printf "name__%s" $v)) }}
+- [{{ $name }} full corpus]({{ $vp }}/llms-full.txt)
+      {{- end }}
+    {{- else if eq (len $versions) 0 }}
+- [{{ $p.name }} full corpus]({{ $cp }}/llms-full.txt)
+    {{- else }}
+      {{- range $v := $versions }}
+        {{- $suffix := printf "/%s" $v }}
+        {{- $path := cond (hasSuffix $cp $suffix) $cp (printf "%s/%s" $cp $v) }}
+        {{- $name := default $p.name (index $p (printf "name__%s" $v)) }}
+- [{{ $name }} full corpus]({{ $path }}/llms-full.txt)
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

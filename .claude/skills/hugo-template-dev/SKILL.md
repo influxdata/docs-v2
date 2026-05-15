@@ -103,6 +103,22 @@ the cypress-e2e-testing skill. The preview-pages mechanism is the right tool
 for **visual / structural** verification — exactly the cases where Cypress is
 overkill or doesn't cover what changed.
 
+### Autodiscovery coherence guard (when touching Markdown-alternate paths)
+
+If your template change affects `<link rel="alternate" type="text/markdown">`,
+the `/sitemap-md.xml` layout, the `/llms.txt` template, or any of the inputs
+to `scripts/lib/corpus-paths.js` (notably `data/products.yml`), run after the
+full build:
+
+```bash
+npx hugo --quiet && yarn build:md && yarn build:llms-full && yarn check:md-coherence
+```
+
+`check:md-coherence` runs two coherence checks: head-link → `.md` file
+existence, and Hugo `/llms.txt` ↔ `getCorpusPaths()` agreement. Catches drift
+between Hugo template logic and the JS derivation from `products.yml`.
+See `DOCS-TESTING.md` "Autodiscovery coherence guard" for details.
+
 ## Common Hugo Template Errors
 
 ### 1. Accessing Hyphenated Keys

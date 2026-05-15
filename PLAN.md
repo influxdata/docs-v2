@@ -1,323 +1,990 @@
-# Design: Fix Core canonical routing (AI-visibility Phase 0, item 1)
+# "Which InfluxDB 3 should I use?" Decision Page — Implementation Plan
 
-**Status:** Spec — pending approval.
-**Branch:** `fix/claude-worktree-hook` (worktree `fix-canonical-partial`)
-**Source plan:** `AI-visibility-for-InfluxDB.md` § 5.1, § 7.2 (Phase 0).
-**Scope:** Phase 0 item 1 only (canonical fix). Items 2–6 sketched as follow-up backlog at the end of this document.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
----
+**Goal:** Ship the Phase 0 "Which InfluxDB 3 should I use?" decision page (canonical at `/influxdb3/which-influxdb-3/`) with a new `/influxdb3/` hub landing, FAQ rendered from a Hugo data file, `FAQPage` JSON-LD scoped to the canonical URL, `llms.txt` entry, and per-product cross-link callouts.
 
-## 1. Goal and approach
+**Architecture:** Single source of truth for the FAQ via a Hugo data file (`data/faqs/which-influxdb-3.yml`). Both the canonical page stub and the new hub stub use `source:` to transclude the same shared markdown body. The shared body calls a new `{{< faq >}}` shortcode that renders the data file as flat `## Question` markdown. A new `head/faq-jsonld.html` partial reads the same data file and emits `FAQPage` JSON-LD, gated on a `faq_canonical: true` frontmatter flag so only the canonical URL emits structured data.
 
-### 1.1 Goal
+**Tech Stack:** Hugo (extended) for templates and content, YAML for the data file, schema.org JSON-LD for structured data, Cypress for E2E verification, Vale for prose linting, link-checker for link validation.
 
-Stop the unwanted Enterprise-canonical override on the three Core pages whose narrative is Core-owned (landing, install, get-started), without disturbing the intentional shared-source priority routing that correctly canonicalizes engine-concept pages to Enterprise.
+**Spec:** `docs/plans/2026-05-11-which-influxdb-3-decision-page-design.md`
 
-### 1.2 LLM-visibility rationale
+**Spec corrections baked into this plan (caught during plan review):**
 
-`rel="canonical"` is honored by crawlers and retrievers for deduplication and citation-equity routing. Today, Core's product-identity pages (`/influxdb3/core/`, `/influxdb3/core/install/`, `/influxdb3/core/get-started/`) point their canonical at Enterprise. The effect: when an LLM is asked "how do I install InfluxDB Core?", retrievers find the Core page, see the canonical → Enterprise, and surface the Enterprise install page instead.
-
-The fix isn't adding visibility for Core — it's stopping Core from leaking its own. RAG/agent effect: next crawl. Base-model effect: next training cut.
-
-### 1.3 Approach
-
-Extend the existing `canonical:` frontmatter to accept the sentinel string `"self"`. Update `layouts/partials/header/canonical.html` to short-circuit on that sentinel **before** the shared-source priority loop runs. Add the sentinel to a tight list of Core pages whose narrative is Core-owned.
-
-### 1.4 Why not the doc's proposed approach
-
-The AI-visibility doc proposes adding a *new* `canonical_url:` frontmatter field and replacing the partial with a simple "if frontmatter then else self" pattern. That proposal mis-describes the current partial: the partial is **not** the Hugo default. It already supports a `canonical:` field (line 8) and implements a deliberate shared-source priority chain (lines 23–41) that encodes which product is canonical for shared engine content (Enterprise > Core > Cloud Dedicated > Clustered > Cloud Serverless > v2 > Cloud).
-
-Removing the priority chain would:
-
-- Force every shared engine-concept page to self-canonical, fragmenting citation/training equity across 5+ product URLs.
-- Conflict with the doc's own § 5.1 principle that Enterprise is canonical for shared content.
-- Cause a much larger blast radius than the bug warrants.
-
-The bug is narrower than the doc claims: it's that the priority routing is applied uniformly to all source-using Core pages, including product-narrative pages. The fix is an escape hatch, not a rewrite.
-
-### 1.5 Out of scope
-
-- Phase 0 items 2–6 (markdown alternate link, `noindex` on `/__tests__/`, decision page, robots.txt AI-bot policy, `ref-card` shortcode) — sketched as follow-up backlog only.
-- Renaming `canonical:` → `canonical_url:` (doc's proposal; current field name stays).
-- Cross-product canonical correctness for Cloud Dedicated / Serverless / Clustered / v2 / Telegraf / Flux — the doc states these self-canonical correctly today.
-- Broader IA migration under § 5.2.
+1. The spec's `canonical_url:` field is corrected to `canonical:` to match the existing `layouts/partials/header/canonical.html` partial.
+2. The shared body calls `{{< children filterOut="Which InfluxDB 3 should I use?" >}}` unconditionally — it renders the v3 product list on the hub section page and is a no-op on the canonical regular page (which has no child pages). The earlier `show_children:` flag is unnecessary.
+3. New stubs (canonical decision page and hub landing) omit `menu:` frontmatter. The decision page is cross-cutting; the hub is the section landing.
+4. Migration URLs verified during plan revision: `/influxdb3/{enterprise,core}/get-started/migrate-from-influxdb-v1-v2/` (one page covering both v1 and v2 sources).
 
 ---
 
-## 2. Template change
+## File Structure
 
-**File:** `layouts/partials/header/canonical.html`
+**Create:**
 
-### 2.1 Logic order (after change)
+| Path | Responsibility |
+|---|---|
+| `data/faqs/which-influxdb-3.yml` | Single source for 7 FAQ Q&As. Read by both the shortcode (HTML) and the JSON-LD partial. |
+| `layouts/shortcodes/faq.html` | Renders the FAQ data file (looked up via `.Page.Params.faq_data`) as flat `## Question` + answer markdown. |
+| `layouts/partials/head/faq-jsonld.html` | Reads same data file; emits `FAQPage` JSON-LD. Gated on `.Params.faq_canonical`. |
+| `content/shared/influxdb3/which-influxdb-3.md` | Canonical body. Decision content + `{{< faq >}}` call + `{{< children >}}` (no-op on regular pages, renders on the hub section). |
+| `content/influxdb3/which-influxdb-3.md` | Canonical page stub (slug-shaped URL). `source:` + `faq_data: which-influxdb-3` + `faq_canonical: true`. |
+| `content/influxdb3/_index.md` | New v3 hub landing. `source:` + `faq_data: which-influxdb-3` + `canonical: /influxdb3/which-influxdb-3/`. (The `{{< children >}}` call in the shared body renders here automatically because this is a section page.) |
 
-1. Default canonical = page's own permalink (unchanged).
-2. If `Params.canonical == "self"` → keep self-permalink, **skip remaining branches**. _(new)_
-3. Else if `Params.canonical` is a non-empty string → use it as an absolute path (unchanged behavior).
-4. Else if `Params.source` is set → apply shared-source priority routing (unchanged).
-5. Emit `<link rel="canonical" href="...">`.
+**Modify:**
 
-### 2.2 Why branch order matters
+| Path | Change |
+|---|---|
+| `layouts/partials/header.html` | Add `{{ partial "head/faq-jsonld" . }}` inside `<head>`. |
+| `layouts/index.llmstxt.txt` | Add `## Choosing InfluxDB` section above `## InfluxDB 3`. |
+| `content/shared/influxdb3/_index.md` | Add tailored cross-link callout (sourced by Core and Enterprise). |
+| `content/influxdb3/cloud-dedicated/_index.md` | Add tailored cross-link callout. |
+| `content/influxdb3/cloud-serverless/_index.md` | Add tailored cross-link callout. |
+| `content/influxdb3/clustered/_index.md` | Add tailored cross-link callout. |
+| `content/platform/faq.md` | Add one cross-link Q&A pointing to the new page. |
 
-The `canonical: "self"` check must run **before** the `source:` branch. Otherwise a page with both `source:` and `canonical: self` would still be routed by the priority loop, defeating the fix.
+**Test:**
 
-The check must also run **before** the URL-string branch — though `"self"` is unlikely to be a valid URL path, an explicit sentinel check avoids any chance of `<link rel="canonical" href="<baseURL>self">` being emitted on typo.
+| Path | Responsibility |
+|---|---|
+| `cypress/e2e/content/which-influxdb-3.cy.js` | E2E: canonical URL loads, all 7 FAQ Q&As render, JSON-LD present on canonical only, hub renders with children + FAQ. |
 
-### 2.3 Diff
+---
 
-Replace lines 7–41 with:
+## Task 1: Create the FAQ data file
+
+**Files:**
+- Create: `data/faqs/which-influxdb-3.yml`
+
+- [ ] **Step 1: Create the data file with the 7 Q&As**
+
+Create `data/faqs/which-influxdb-3.yml`:
+
+```yaml
+- question: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?"
+  answer: |
+    InfluxDB 3 is the current generation — a rewritten storage and query engine
+    based on Apache Arrow and Parquet, with SQL and InfluxQL as query languages.
+    InfluxDB 1 and InfluxDB 2 are previous generations in maintenance: v1 uses
+    the TSM storage engine and InfluxQL; v2 adds a new API surface. For new
+    projects, use InfluxDB 3.
+
+- question: "Should I start a new project on InfluxDB 1 or InfluxDB 2?"
+  answer: |
+    No. Start new projects on InfluxDB 3. InfluxDB 1 and 2 remain supported
+    for existing deployments but receive no new features. InfluxDB 3
+    Enterprise is the recommended target for production workloads.
+
+- question: "I run InfluxDB 2 today — should I migrate to InfluxDB 3?"
+  answer: |
+    Plan a migration when you need features only available in v3 (SQL, Apache
+    Arrow/Parquet storage, unlimited cardinality, the Processing Engine), or
+    when v2's maintenance status becomes a constraint. Migration paths exist
+    from both InfluxDB 2 OSS and InfluxDB Cloud (TSM) to InfluxDB 3 Enterprise.
+
+- question: "I run InfluxDB 1 today — should I migrate to InfluxDB 3?"
+  answer: |
+    Yes, when feasible. InfluxDB 3 supports InfluxQL, so most v1 queries
+    continue to work. The data model and line protocol write format are
+    compatible. Migration guides cover InfluxDB 1 OSS and InfluxDB Enterprise
+    1.x to InfluxDB 3 Enterprise.
+
+- question: "Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?"
+  answer: |
+    No. Cloud Serverless runs on the v3 storage engine but exposes a different
+    API surface — it does not provide the native v3 write API or the Processing
+    Engine, and uses v1/v2-compatible endpoints. Choose Cloud Serverless for
+    pay-as-you-go multi-tenant cloud usage or continuity from InfluxDB Cloud
+    (TSM). Choose Enterprise for the full v3 API surface, Processing Engine,
+    and dedicated deployment.
+
+- question: "Which query languages does InfluxDB 3 support?"
+  answer: |
+    SQL and InfluxQL. SQL is the primary query language; InfluxQL is supported
+    for compatibility with InfluxDB 1 and 2 workloads.
+
+- question: "Where does InfluxDB 3 Explorer fit?"
+  answer: |
+    InfluxDB 3 Explorer is a web-based UI for querying, visualizing, and
+    administering InfluxDB 3. It works with InfluxDB 3 Core and InfluxDB 3
+    Enterprise.
+```
+
+- [ ] **Step 2: Validate YAML parses**
+
+Run: `node -e "console.log(require('js-yaml').load(require('fs').readFileSync('data/faqs/which-influxdb-3.yml', 'utf8')).length)"`
+
+Expected: `7`
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add data/faqs/which-influxdb-3.yml
+git commit -m "feat(influxdb3): add FAQ data for 'which InfluxDB 3' decision page"
+```
+
+---
+
+## Task 2: Create the `{{< faq >}}` shortcode
+
+**Files:**
+- Create: `layouts/shortcodes/faq.html`
+
+- [ ] **Step 1: Create the shortcode**
+
+Create `layouts/shortcodes/faq.html`:
 
 ```go-html-template
-{{ if eq .Page.Params.canonical "self" }}
-  {{/* Explicit self-canonical; overrides shared-source priority routing.
-       Use for product-narrative pages (landings, install, quickstart)
-       whose `source:` would otherwise route them to a sibling product. */}}
-{{ else if .Page.Params.canonical }}
-  {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
-{{ else if .Page.Params.source }}
-  {{ $productPriority := slice
-    "/enterprise/"
-    "/core/"
-    "/cloud-dedicated/"
-    "/clustered/"
-    "/cloud-serverless/"
-    "/v2/"
-    "/cloud/"
-  }}
-  {{ range where (sort .Site.Pages "Section" "desc") "Params.source" "eq" .Page.Params.source }}
-    {{ $pagePath := .RelPermalink }}
-    {{ range $productPriority }}
-      {{ if in $pagePath . }}
-        {{ $scratch.Set "canonicalURL" (print $baseURL $pagePath) }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
+{{- $key := .Page.Params.faq_data -}}
+{{- if not $key -}}
+  {{- errorf "faq shortcode requires faq_data frontmatter on the page (%s)" .Page.RelPermalink -}}
+{{- end -}}
+{{- $faqs := index .Site.Data.faqs $key -}}
+{{- if not $faqs -}}
+  {{- errorf "faq shortcode: no data file at data/faqs/%s.yml (page %s)" $key .Page.RelPermalink -}}
+{{- end -}}
+{{ range $faqs }}
+## {{ .question }}
+
+{{ .answer }}
 {{ end }}
 ```
 
-### 2.4 Backward compatibility
+- [ ] **Step 2: Verify the shortcode parses by running Hugo build**
 
-- 10 existing pages set `canonical:` to a URL path (e.g., `/influxdb3/core/reference/client-libraries/v3/go/release-notes/` on Enterprise client-lib release-notes). All continue to work via branch 3.
-- 242 Core pages use `source:` without `canonical:`. All continue to route via branch 4 (shared-source priority), exactly as today.
-- Verified: no existing content sets `canonical: self` (grep returned zero hits), so the sentinel is unambiguous to introduce.
+The shortcode isn't called from any page yet, so a full build should still succeed.
 
-### 2.5 Edge case: case sensitivity
+Run: `npx hugo --quiet`
 
-`canonical: Self` or `canonical: SELF` would fall through to branch 3 and emit a broken `<link rel="canonical" href="<baseURL>Self">`. Mitigation: documentation in `DOCS-FRONTMATTER.md` (case-sensitive value). Silent normalization (`lower`) is rejected because it would mask the same typo class elsewhere.
+Expected: exit 0, no errors mentioning `faq.html`.
 
----
+- [ ] **Step 3: Commit**
 
-## 3. Per-page audit list
-
-### 3.1 Pages that receive `canonical: self`
-
-| Page                  | File                                              | `source:` set? | Rationale                                                                                                                              |
-| --------------------- | ------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Core landing          | `content/influxdb3/core/_index.md`                | yes            | Product landing — URL marks SKU identity even when body is shared.                                                                     |
-| Install               | `content/influxdb3/core/install.md`               | yes            | `/shared/influxdb3/install.md` uses `{{% show-in %}}` blocks — rendered HTML differs per product. Self-canonical reflects that.        |
-| Get-started (landing) | `content/influxdb3/core/get-started/_index.md`    | yes            | Quickstart landing; Core on-ramp entry point.                                                                                          |
-
-Total scope: **3 file edits + 1 partial change**.
-
-### 3.2 Pages in doc § 5.1 taxonomy that need no action
-
-| Page                                                          | Why no action                                                                                                                                                  |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `content/influxdb3/core/admin/upgrade-to-enterprise.md`       | No `source:` set → already self-canonical by default. Doc lists it for completeness; the partial does not break it.                                            |
-
-### 3.3 Pages explicitly excluded (canonical → Enterprise is correct)
-
-| Page                                                                  | Reason                                                                                                                                          |
-| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `content/influxdb3/core/release-notes/_index.md`                       | Shared file (`/shared/v3-core-enterprise-release-notes/`), shared version line, no cadence drift between Core and Enterprise.                  |
-| `content/influxdb3/core/get-started/setup.md`                          | Enterprise twin exists at `content/influxdb3/enterprise/get-started/setup.md` sourcing the same shared content. Shared on-ramp, not Core-only.  |
-| `content/influxdb3/core/get-started/migrate-from-influxdb-v1-v2.md`    | Enterprise twin exists at `content/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2.md`. Applies to both products.                  |
-| All other 230+ Core pages with `source:` (engine concepts)             | Engine documentation lives once, under Enterprise (doc § 5.1 principle). Current priority routing is the intended behavior.                    |
-
-### 3.4 Frontmatter snippet to apply
-
-For each of the three files in § 3.1, add a single key in the existing YAML frontmatter:
-
-```yaml
-canonical: self
+```bash
+git add layouts/shortcodes/faq.html
+git commit -m "feat(layouts): add faq shortcode driven by data/faqs/*.yml"
 ```
 
-Place it adjacent to `source:` to make the relationship visible to future editors.
+---
+
+## Task 3: Create the canonical shared body
+
+**Files:**
+- Create: `content/shared/influxdb3/which-influxdb-3.md`
+
+- [ ] **Step 1: Create the shared body**
+
+Create `content/shared/influxdb3/which-influxdb-3.md` (body-only, no frontmatter — per the shared-vs-stub convention):
+
+```markdown
+{{< children type="articles" hlevel="h2" filterOut="Which InfluxDB 3 should I use?" >}}
+
+For new production workloads, use **InfluxDB 3 Enterprise**.
+Start with **InfluxDB 3 Core** to evaluate the v3 engine.
+Choose **Cloud Serverless** only if you are an existing InfluxDB Cloud (TSM)
+customer or need pay-as-you-go multi-tenant cloud usage.
+InfluxDB 1 and InfluxDB 2 are in maintenance — migrate new and existing
+production workloads to InfluxDB 3.
+
+## The short answer
+
+| Your situation | Use this |
+|---|---|
+| Building a new production deployment | InfluxDB 3 Enterprise |
+| Evaluating v3, single node, open source | InfluxDB 3 Core |
+| Existing InfluxDB Cloud (TSM) customer | InfluxDB 3 Cloud Serverless |
+| Running InfluxDB 1 or InfluxDB 2 today | Migrate to InfluxDB 3 Enterprise |
+
+## InfluxDB 3 Enterprise — the production answer
+
+InfluxDB 3 Enterprise is a diskless, object-storage-backed time series
+database delivered as a single binary. Deploy it where it fits:
+
+- **Self-managed** — your hardware or VMs, single or multi-node
+- **Managed** (currently [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)) — InfluxData operates it for you
+- **Kubernetes** (currently [InfluxDB Clustered](/influxdb3/clustered/)) — you operate it on Kubernetes
+
+All three deployment options run the same engine, the same APIs, and the same
+Processing Engine.
+
+Choose Enterprise when you need:
+
+- High availability and multi-node deployment
+- Long-range historical queries with compaction
+- ISO 27001 and SOC 2 security certifications
+- Commercial support
+
+[Get started with InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/)
+
+## InfluxDB 3 Core — open source, single-node
+
+InfluxDB 3 Core is the open source, single-node release of the v3 engine.
+Use Core to evaluate v3, run edge or non-critical workloads, or develop
+against the v3 APIs before deploying Enterprise.
+
+Choose Core when:
+
+- You need a free, open source v3 database
+- A single node meets your throughput and availability requirements
+- You want to develop and test against the native v3 write and query APIs
+
+Upgrade to Enterprise when you need high availability, replicas, or
+long-range compaction.
+
+[Get started with InfluxDB 3 Core](/influxdb3/core/get-started/)
+
+## InfluxDB 3 Cloud Serverless — multi-tenant, usage-based
+
+InfluxDB 3 Cloud Serverless is a multi-tenant cloud service. It runs on the
+v3 storage engine but exposes a different API surface than Core and Enterprise:
+
+- No native v3 write API — use v1 and v2 compatibility endpoints
+- No Processing Engine
+- Multi-tenant; usage-based pricing
+
+Choose Cloud Serverless when:
+
+- You are an existing InfluxDB Cloud (TSM) customer
+- You want pay-as-you-go multi-tenant cloud usage
+- You do not need the native v3 API surface or the Processing Engine
+
+[Get started with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/get-started/)
+
+## Coming from InfluxDB 1 or InfluxDB 2?
+
+InfluxDB 1 and InfluxDB 2 are in maintenance and receive no new features.
+For new projects and for production workloads that need v3 features
+(SQL, Apache Arrow/Parquet, unlimited cardinality, Processing Engine),
+plan a migration to InfluxDB 3 Enterprise.
+
+- [Migrate from InfluxDB 1 or 2 to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/)
+- [Migrate from InfluxDB 1 to InfluxDB 3 Core](/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/)
+
+## Frequently asked questions
+
+{{< faq >}}
+
+## Related
+
+- [InfluxDB 3 Enterprise product FAQ](https://www.influxdata.com/products/influxdb3-enterprise/#faq) — for InfluxDB 3 Core vs Enterprise specifics
+- [What is time series data?](/platform/faq/)
+```
+
+> **Implementer note:** the migration URLs above (`/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/` and `/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/`) were verified during plan revision. The single migration page covers both v1 and v2 sources. If the URL slugs change later, update them here.
+
+- [ ] **Step 2: Verify Hugo build still succeeds**
+
+Run: `npx hugo --quiet`
+
+Expected: exit 0. The shared file isn't referenced by any stub yet, so it's still inert.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add content/shared/influxdb3/which-influxdb-3.md
+git commit -m "feat(influxdb3): add shared body for 'which InfluxDB 3' page"
+```
 
 ---
 
-## 4. Verification and testing
+## Task 4: Create the canonical page stub and verify rendering
 
-### 4.1 Local spot-check before commit
+**Files:**
+- Create: `content/influxdb3/which-influxdb-3.md`
 
-```sh
-npx hugo --quiet
-for p in \
-  influxdb3/core/index.html \
-  influxdb3/core/install/index.html \
-  influxdb3/core/get-started/index.html \
-  influxdb3/core/write-data/index.html \
-  influxdb3/enterprise/reference/client-libraries/v3/go/release-notes/index.html ; do
-  echo "=== $p ==="
-  grep -o '<link rel="canonical"[^>]*>' "public/$p"
+- [ ] **Step 1: Create the stub**
+
+Create `content/influxdb3/which-influxdb-3.md`:
+
+```markdown
+---
+title: Which InfluxDB 3 should I use?
+description: >
+  Decision guide for choosing between InfluxDB 3 Enterprise, Core, and
+  Cloud Serverless, and for migrating from InfluxDB 1 or InfluxDB 2.
+source: /shared/influxdb3/which-influxdb-3.md
+faq_data: which-influxdb-3
+faq_canonical: true
+---
+```
+
+> **Implementer note on `menu:` frontmatter:** the canonical decision page deliberately omits `menu:`. The page is cross-cutting (not owned by any single v3 product), and existing product menus (`influxdb3_enterprise:`, `influxdb3_core:`, etc.) are product-scoped. Discovery is via direct URL, llms.txt entry (Task 9), per-product cross-link callouts (Task 10), and the hub landing (Task 8) — sidebar nav inside a single product would imply false ownership.
+
+- [ ] **Step 2: Build the site and verify the canonical page renders**
+
+Run: `npx hugo --quiet && test -f public/influxdb3/which-influxdb-3/index.html && echo OK`
+
+Expected: `OK`
+
+- [ ] **Step 3: Verify the FAQ Q&As render in HTML**
+
+Run: `grep -c "What's the difference between InfluxDB 1" public/influxdb3/which-influxdb-3/index.html`
+
+Expected: `1` (or higher)
+
+Run: `grep -c "Where does InfluxDB 3 Explorer fit" public/influxdb3/which-influxdb-3/index.html`
+
+Expected: `1` (or higher)
+
+- [ ] **Step 4: Verify all 7 FAQ questions are rendered**
+
+Run:
+
+```bash
+for q in "difference between InfluxDB 1" "start a new project on InfluxDB 1" \
+  "I run InfluxDB 2 today" "I run InfluxDB 1 today" \
+  "Cloud Serverless the same as InfluxDB 3 Enterprise" \
+  "query languages does InfluxDB 3" "Explorer fit"; do
+  c=$(grep -c "$q" public/influxdb3/which-influxdb-3/index.html)
+  echo "[$c] $q"
 done
 ```
 
-Expected output:
+Expected: every line shows `[1]` or higher.
 
-| Path                                                                                  | Expected canonical                                                                       |
-| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `influxdb3/core/index.html`                                                            | `/influxdb3/core/`                                                                       |
-| `influxdb3/core/install/index.html`                                                    | `/influxdb3/core/install/`                                                               |
-| `influxdb3/core/get-started/index.html`                                                | `/influxdb3/core/get-started/`                                                           |
-| `influxdb3/core/write-data/index.html`                                                 | a `/influxdb3/enterprise/...` URL (priority routing intact)                              |
-| `influxdb3/enterprise/reference/client-libraries/v3/go/release-notes/index.html`       | `/influxdb3/core/reference/client-libraries/v3/go/release-notes/` (URL branch intact)    |
+- [ ] **Step 5: Commit**
 
-### 4.2 Cypress e2e test (new file)
-
-**Path:** `cypress/e2e/content/canonical.cy.js`
-
-**Test matrix (6 cases, covers all 4 partial branches):**
-
-| Test name                                | URL                                                                                | Expected canonical                                                              | Partial branch exercised |
-| ---------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------ |
-| Core landing self-canonicals             | `/influxdb3/core/`                                                                 | self                                                                            | new sentinel branch      |
-| Core install self-canonicals             | `/influxdb3/core/install/`                                                         | self                                                                            | new sentinel branch      |
-| Core quickstart self-canonicals          | `/influxdb3/core/get-started/`                                                     | self                                                                            | new sentinel branch      |
-| Engine concept routes to Enterprise      | `/influxdb3/core/write-data/`                                                      | starts-with `/influxdb3/enterprise/`                                            | source priority branch   |
-| Explicit canonical URL honored           | `/influxdb3/enterprise/reference/client-libraries/v3/go/release-notes/`            | `/influxdb3/core/reference/client-libraries/v3/go/release-notes/`               | URL string branch        |
-| Default self-canonical when no overrides | `/influxdb3/core/admin/upgrade-to-enterprise/`                                     | self                                                                            | default branch           |
-
-### 4.3 Production diff evidence in PR description
-
-Include a before/after table for the three changed pages — production HTML's current canonical vs. local-build canonical after the fix:
-
-```text
-| Page                          | Before (production)            | After (local build)            |
-|-------------------------------|--------------------------------|--------------------------------|
-| /influxdb3/core/              | /influxdb3/enterprise/         | /influxdb3/core/               |
-| /influxdb3/core/install/      | /influxdb3/enterprise/install/ | /influxdb3/core/install/       |
-| /influxdb3/core/get-started/  | /influxdb3/enterprise/get-...  | /influxdb3/core/get-started/   |
-```
-
-The "Before" column is captured once from `https://docs.influxdata.com` using `curl -s <url> | grep canonical`. The "After" column comes from the local Hugo build in § 4.1. This gives reviewers concrete evidence without asking them to diff HTML themselves.
-
-### 4.4 Test command
-
-This is a functionality test (no per-file content mapping), so pass `--no-mapping`:
-
-```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/canonical.cy.js" --no-mapping
+```bash
+git add content/influxdb3/which-influxdb-3.md
+git commit -m "feat(influxdb3): add canonical 'which InfluxDB 3' decision page stub"
 ```
 
 ---
 
-## 5. Risks and rollout
+## Task 5: Create the FAQ JSON-LD partial
 
-### 5.1 Risk register
+**Files:**
+- Create: `layouts/partials/head/faq-jsonld.html`
 
-| Risk                                                                                                              | Severity     | Mitigation                                                                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reviewer wants a 4th or 6th page added to the self-canonical list                                                 | Low          | PR description states the 3-page rationale and links to § 5.1 of the AI-visibility doc; editorial debate happens against that doc, not in this PR.               |
-| Frontmatter typo (`canonical: Self`) falls through to URL branch and emits `/Self`                                | Low          | Add a one-line note in `DOCS-FRONTMATTER.md`; case-sensitivity is consistent with Hugo conventions elsewhere.                                                    |
-| Short-term SEO/citation regression on the 3 changed pages                                                         | Low–medium   | This is the *intended* effect — the doc accepts the trade. Re-audit per doc § 6 (4–6 weeks post-merge) confirms Core-specific search presence is being built up. |
-| Retriever caches lag the new canonical                                                                            | Low          | Time, not code. Re-audit per doc § 6.                                                                                                                            |
-| Some other shared-source page also needs self-canonical that this audit missed                                    | Medium       | Acknowledge in PR description; this PR fixes the doc's stated list only. Additional pages get added in follow-up PRs as editorial review identifies them.        |
+- [ ] **Step 1: Create the partial**
 
-### 5.2 Rollout
+Create `layouts/partials/head/faq-jsonld.html`:
 
-Single PR. After merge:
+```go-html-template
+{{- if and .Params.faq_data .Params.faq_canonical -}}
+  {{- $faqs := index .Site.Data.faqs .Params.faq_data -}}
+  {{- if $faqs -}}
+    {{- $entities := slice -}}
+    {{- range $faqs -}}
+      {{- $entity := dict
+          "@type" "Question"
+          "name" .question
+          "acceptedAnswer" (dict
+            "@type" "Answer"
+            "text" (.answer | markdownify | plainify | strings.TrimSpace)
+          )
+      -}}
+      {{- $entities = $entities | append $entity -}}
+    {{- end -}}
+    {{- $jsonld := dict
+        "@context" "https://schema.org"
+        "@type" "FAQPage"
+        "mainEntity" $entities
+    -}}
+    <script type="application/ld+json">
+{{ jsonify (dict "indent" "  ") $jsonld }}
+    </script>
+  {{- end -}}
+{{- end -}}
+```
 
-1. Manual production check: curl the 3 URLs, grep `<link rel="canonical">`, confirm the new canonical is live.
-2. Re-audit per AI-visibility doc § 6 in 4–6 weeks: monitor whether Core-specific URLs start surfacing in LLM citations and search engines for `InfluxDB 3 Core install`-shaped queries.
+- [ ] **Step 2: Verify the partial parses (still inert until included from header)**
 
-No feature flag, no staged rollout — this is a template change with deterministic output.
+Run: `npx hugo --quiet`
 
-### 5.3 Commit / PR structure
+Expected: exit 0, no errors mentioning `faq-jsonld.html`.
 
-Single PR, two commits (or one):
+- [ ] **Step 3: Commit**
 
-1. `fix(canonical): add 'self' sentinel to canonical partial` — template change only, includes Cypress test
-2. `fix(canonical): self-canonical Core landing, install, get-started` — three frontmatter edits
-
-Branch is already `fix/claude-worktree-hook` in the `fix-canonical-partial` worktree.
+```bash
+git add layouts/partials/head/faq-jsonld.html
+git commit -m "feat(layouts): add FAQPage JSON-LD partial gated on faq_canonical"
+```
 
 ---
 
-## 6. Phase 0 follow-up backlog (items 2–6)
+## Task 6: Include the JSON-LD partial in header and verify emission
 
-These are **not** designed in this spec. Each is sketched with enough detail to file as a separate issue / PR. Impact estimates are from the LLM-visibility assessment that informed scoping.
+**Files:**
+- Modify: `layouts/partials/header.html` (insert after `{{ partial "header/canonical.html" . }}`)
 
-### 6.1 Item 2 — `<link rel="alternate" type="text/markdown">` in `<head>`
+- [ ] **Step 1: Add the partial include in `<head>`**
 
-**LLM-visibility impact: medium–high (agent / RAG layer).** Markdown twins already exist; this just makes them discoverable from any HTML page without round-tripping through `/llms.txt`.
-
-**Implementation:** one branch in the head partial (likely `layouts/partials/header/head.html`, or wherever head meta currently emits) pointing to the page's `.md` alternate.
-
-**Effort:** ~1 hour template edit + Cypress test verifying the link is emitted with the correct href.
-
-**Risk:** low — additive only.
-
-### 6.2 Item 3 — `noindex` or 404 on `/__tests__/shortcodes/` in production
-
-**LLM-visibility impact: low (training-corpus hygiene).** Robots.txt already disallows but the paths return 200, so any crawler that doesn't strictly honor robots.txt may still ingest shortcode test fixtures.
-
-**Implementation:** conditional `<meta name="robots" content="noindex">` when the path starts with `/__tests__/`. Simpler and more reversible than 404'ing in production.
-
-**Effort:** ~1 hour template change + Cypress test.
-
-**Risk:** low.
-
-### 6.3 Item 4 — "Which InfluxDB 3 should I use?" decision page
-
-**LLM-visibility impact: high — potentially the single biggest editorial bet in Phase 0.** Decision pages collapse the most common LLM-prompt shape ("which X should I use?") into one canonical answer. SKU sprawl is one of the largest visibility taxes today.
-
-**Implementation:** content work (not a template fix). Steps:
-
-- Write the page (honest "when to pick each" matrix across Core / Enterprise / Cloud Dedicated / Cloud Serverless / Clustered).
-- Add `FAQPage` JSON-LD inline.
-- Add to `llms.txt` as a top-level entry.
-- Cross-link from Core/Enterprise landings and from any comparison content.
-
-**Effort:** 1–3 days editorial + ~half-day engineering for the JSON-LD plumbing.
-
-**Risk: quality-dependent.** A perfunctory page is worse than none — LLMs will learn the bad version. Coordinate with marketing's tracker item 16 (competitive language overhaul). Highest leverage, highest variance in Phase 0.
-
-**Dependency on this PR:** the new page should be self-canonical from day one, which depends on the canonical sentinel landing first.
-
-### 6.4 Item 5 — Explicit AI-bot policy in `robots.txt`
-
-**LLM-visibility impact: low direct, medium strategic.** Current file is silent on AI bots. Named `User-agent:` stanzas for GPTBot, OAI-SearchBot, ClaudeBot, anthropic-ai, PerplexityBot, CCBot, Google-Extended — even if all are `Allow:` — document intent and buy optionality for future training-vs-grounding distinction.
-
-**Implementation:** edit `layouts/robots.txt`.
-
-**Effort:** ~1 hour.
-
-**Risk:** low — make sure not to accidentally `Disallow` anything currently allowed.
-
-### 6.5 Item 6 — `ref-card` shortcode + editorial guideline
-
-**LLM-visibility impact: low directly; compounds slowly.** Section-level inline callout listing 3–4 canonical reference links. Per doc § 5.1.1, `ref-card` is "look up while reading" and complements the existing `related:` frontmatter mechanism ("browse after reading").
-
-**Implementation:**
-
-- New shortcode at `layouts/shortcodes/ref-card.html`.
-- Editorial guideline in `DOCS-SHORTCODES.md` distinguishing it from `related:`.
-- Optional: working examples in `content/example.md`.
-
-**Effort:** ~half-day shortcode + docs.
-
-**Risk:** low.
-
-### 6.6 Dependency graph
+In `layouts/partials/header.html`, find the line:
 
 ```
-Item 1 (canonical fix)   ──── independent  ← THIS SPEC
-Item 2 (markdown alt)    ──── independent
-Item 3 (noindex tests)   ──── independent
-Item 5 (robots AI)       ──── independent
-Item 6 (ref-card)        ──── independent
-Item 4 (decision page)   ──── depends on doc § 5.1 being settled
-                                + benefits from Item 1 (canonical correct from day one)
+    {{ partial "header/canonical.html" . }}
 ```
 
-Items 1, 2, 3, 5, 6 ship in any order. Item 4 should follow item 1.
+Insert immediately after it:
+
+```
+    {{ partial "head/faq-jsonld.html" . }}
+```
+
+- [ ] **Step 2: Rebuild and verify the canonical page emits JSON-LD**
+
+Run: `npx hugo --quiet && grep -c 'application/ld+json' public/influxdb3/which-influxdb-3/index.html`
+
+Expected: `1`
+
+- [ ] **Step 3: Verify the FAQPage structure**
+
+Run: `grep -c '"@type": "FAQPage"' public/influxdb3/which-influxdb-3/index.html`
+
+Expected: `1`
+
+Run: `grep -c '"@type": "Question"' public/influxdb3/which-influxdb-3/index.html`
+
+Expected: `7`
+
+- [ ] **Step 4: Verify other pages do NOT emit FAQPage JSON-LD**
+
+Run: `grep -c 'application/ld+json' public/influxdb3/enterprise/index.html public/influxdb3/core/index.html 2>/dev/null | grep -v ':0$' || echo "no FAQ JSON-LD on other pages — OK"`
+
+Expected: `no FAQ JSON-LD on other pages — OK`
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add layouts/partials/header.html
+git commit -m "feat(layouts): include FAQ JSON-LD partial in head"
+```
+
+---
+
+## Task 7: Validate JSON-LD with Google Rich Results Test (manual gate)
+
+This is a manual validation step. The implementer must complete it before continuing.
+
+- [ ] **Step 1: Start the dev server**
+
+Run: `npx hugo server`
+
+Expected: server starts at `http://localhost:1313`.
+
+- [ ] **Step 2: Tunnel the dev server for public access**
+
+Use `ngrok` or equivalent to expose `localhost:1313` publicly:
+
+```bash
+ngrok http 1313
+```
+
+Note the public URL.
+
+- [ ] **Step 3: Run Google Rich Results Test**
+
+Visit: https://search.google.com/test/rich-results
+
+Enter URL: `<ngrok-url>/influxdb3/which-influxdb-3/`
+
+Expected results:
+- Page is eligible for rich results
+- 1 detected item: `FAQ`
+- 7 items inside the FAQ detected item (all 7 questions)
+- 0 errors, 0 warnings
+
+If validation fails, fix issues in `layouts/partials/head/faq-jsonld.html` and re-run.
+
+- [ ] **Step 4: Stop the dev server and ngrok**
+
+Stop both processes.
+
+- [ ] **Step 5: Record validation outcome in a commit message (no file changes)**
+
+If validation passed cleanly with no changes needed, no commit. If you needed to fix the partial, commit:
+
+```bash
+git add layouts/partials/head/faq-jsonld.html
+git commit -m "fix(layouts): correct FAQ JSON-LD shape per Rich Results validation"
+```
+
+---
+
+## Task 8: Create the new `/influxdb3/` hub landing
+
+**Files:**
+- Create: `content/influxdb3/_index.md`
+
+- [ ] **Step 1: Create the hub stub**
+
+Create `content/influxdb3/_index.md`:
+
+```markdown
+---
+title: InfluxDB 3
+description: >
+  InfluxDB 3 is the current generation of the InfluxDB time series database,
+  with SQL and InfluxQL support, Apache Arrow and Parquet storage, and
+  multiple deployment options. Choose between Enterprise, Core, and Cloud
+  Serverless based on your workload and operational needs.
+source: /shared/influxdb3/which-influxdb-3.md
+faq_data: which-influxdb-3
+canonical: /influxdb3/which-influxdb-3/
+---
+```
+
+Notes:
+
+- This stub deliberately **omits** `faq_canonical: true` so the hub does NOT emit FAQPage JSON-LD (canonical equity stays on the slug URL).
+- This stub deliberately **omits** `menu:` — the hub is the section landing for `/influxdb3/` and is automatically reachable as such; no product-scoped menu placement applies.
+
+- [ ] **Step 2: Rebuild and verify hub renders**
+
+Run: `npx hugo --quiet && test -f public/influxdb3/index.html && echo OK`
+
+Expected: `OK`
+
+- [ ] **Step 3: Verify hub renders the children list**
+
+Run: `grep -c "InfluxDB 3 Enterprise" public/influxdb3/index.html`
+
+Expected: at least `1`. The `{{< children >}}` shortcode pulls product names from the v3 product index files.
+
+- [ ] **Step 4: Verify hub renders the FAQ**
+
+Run: `grep -c "What's the difference between InfluxDB 1" public/influxdb3/index.html`
+
+Expected: `1` (or higher)
+
+- [ ] **Step 5: Verify hub does NOT emit FAQPage JSON-LD**
+
+Run: `grep -c 'application/ld+json' public/influxdb3/index.html`
+
+Expected: `0`
+
+- [ ] **Step 6: Verify hub canonical points to the slug URL**
+
+Run: `grep 'rel="canonical"' public/influxdb3/index.html`
+
+Expected: `<link rel="canonical" href=".*/influxdb3/which-influxdb-3/" />`
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add content/influxdb3/_index.md
+git commit -m "feat(influxdb3): add /influxdb3/ hub landing with children + FAQ"
+```
+
+---
+
+## Task 9: Add `## Choosing InfluxDB` section to llms.txt
+
+**Files:**
+- Modify: `layouts/index.llmstxt.txt`
+
+- [ ] **Step 1: Add the new section above `## InfluxDB 3`**
+
+In `layouts/index.llmstxt.txt`, find this block:
+
+```
+## InfluxDB 3
+
+- [InfluxDB 3 Core](influxdb3/core/index.section.md): Open source time series database optimized for real-time data
+```
+
+Insert immediately above it:
+
+```
+## Choosing InfluxDB
+
+- [Which InfluxDB 3 should I use?](influxdb3/which-influxdb-3.md): Decision guide for choosing between InfluxDB 3 Enterprise, Core, and Cloud Serverless, and for migrating from InfluxDB 1 or InfluxDB 2.
+
+## InfluxDB 3
+```
+
+- [ ] **Step 2: Rebuild and verify the llms.txt entry**
+
+Run: `npx hugo --quiet && grep -A2 "Choosing InfluxDB" public/llms.txt`
+
+Expected: shows the new section heading and the link line.
+
+- [ ] **Step 3: Verify the linked Markdown alternate exists or 404 is acceptable**
+
+Run: `test -f public/influxdb3/which-influxdb-3.md && echo "md exists" || echo "md does not exist (acceptable — Markdown twin generation is parallel work)"`
+
+Expected: either outcome. Markdown twin generation is the parallel Phase 0 workstream (per the design spec section 5.4).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add layouts/index.llmstxt.txt
+git commit -m "feat(llms.txt): add Choosing InfluxDB section pointing to decision page"
+```
+
+---
+
+## Task 10: Add cross-link callouts on v3 product index pages
+
+**Files:**
+- Modify: `content/shared/influxdb3/_index.md` (sourced by Core and Enterprise)
+- Modify: `content/influxdb3/cloud-dedicated/_index.md`
+- Modify: `content/influxdb3/cloud-serverless/_index.md`
+- Modify: `content/influxdb3/clustered/_index.md`
+
+- [ ] **Step 1: Add callout to Core + Enterprise shared body**
+
+In `content/shared/influxdb3/_index.md`, insert at the top of the file (before the existing first paragraph):
+
+```markdown
+> [!Tip]
+> Comparing InfluxDB 3 products or migrating from InfluxDB 1 or 2?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/)
+> for the decision guide.
+
+```
+
+- [ ] **Step 2: Audit each remaining product `_index.md` for source-frontmatter usage**
+
+Run: `grep -H "^source:" content/influxdb3/cloud-dedicated/_index.md content/influxdb3/cloud-serverless/_index.md content/influxdb3/clustered/_index.md 2>/dev/null`
+
+If any of these uses `source:`, edit the source file instead of the per-product file in the steps below. (Per the design implementation note in section 5.2.)
+
+- [ ] **Step 3: Add callout to Cloud Dedicated**
+
+At the top of `content/influxdb3/cloud-dedicated/_index.md` (after frontmatter, before existing first paragraph; or in the shared source if `source:` is set):
+
+```markdown
+> [!Tip]
+> Choosing between Cloud Dedicated and other InfluxDB 3 deployment options?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/).
+
+```
+
+- [ ] **Step 4: Add callout to Cloud Serverless**
+
+At the top of `content/influxdb3/cloud-serverless/_index.md` (after frontmatter or in shared source):
+
+```markdown
+> [!Tip]
+> Comparing Cloud Serverless to InfluxDB 3 Enterprise?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) —
+> Cloud Serverless has a different API surface than Enterprise.
+
+```
+
+- [ ] **Step 5: Add callout to Clustered**
+
+At the top of `content/influxdb3/clustered/_index.md` (after frontmatter or in shared source):
+
+```markdown
+> [!Tip]
+> Choosing between Clustered and other InfluxDB 3 deployment options?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/).
+
+```
+
+- [ ] **Step 6: Rebuild and verify each callout renders**
+
+Run:
+
+```bash
+npx hugo --quiet
+for f in public/influxdb3/core/index.html \
+         public/influxdb3/enterprise/index.html \
+         public/influxdb3/cloud-dedicated/index.html \
+         public/influxdb3/cloud-serverless/index.html \
+         public/influxdb3/clustered/index.html; do
+  c=$(grep -c "which-influxdb-3" "$f" 2>/dev/null || echo 0)
+  echo "[$c] $f"
+done
+```
+
+Expected: every line shows `[1]` or higher (link to `/influxdb3/which-influxdb-3/`).
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add content/shared/influxdb3/_index.md \
+        content/influxdb3/cloud-dedicated/_index.md \
+        content/influxdb3/cloud-serverless/_index.md \
+        content/influxdb3/clustered/_index.md
+git commit -m "docs(influxdb3): add cross-link callouts to decision page"
+```
+
+---
+
+## Task 11: Add cross-link Q&A to `content/platform/faq.md`
+
+**Files:**
+- Modify: `content/platform/faq.md`
+
+- [ ] **Step 1: Add the pointer Q&A**
+
+In `content/platform/faq.md`, find the link list at the top:
+
+```markdown
+[What is time series data?](#what-is-time-series-data)  
+[Why shouldn't I just use a relational database?](#why-shouldn-t-i-just-use-a-relational-database)  
+```
+
+Append a line:
+
+```markdown
+[Which version of InfluxDB should I use?](#which-version-of-influxdb-should-i-use)  
+```
+
+At the bottom of the file, add a new H2:
+
+```markdown
+## Which version of InfluxDB should I use?
+For new projects, use InfluxDB 3.
+See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/)
+for a decision guide across InfluxDB 3 products and migration
+from InfluxDB 1 or InfluxDB 2.
+```
+
+- [ ] **Step 2: Rebuild and verify the cross-link renders**
+
+Run: `npx hugo --quiet && grep -c "which-influxdb-3" public/platform/faq/index.html`
+
+Expected: at least `1`
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add content/platform/faq.md
+git commit -m "docs(platform): add cross-link Q&A pointing to InfluxDB 3 decision page"
+```
+
+---
+
+## Task 12: Write Cypress E2E test for the decision page
+
+**Files:**
+- Create: `cypress/e2e/content/which-influxdb-3.cy.js`
+
+- [ ] **Step 1: Write the failing test**
+
+Create `cypress/e2e/content/which-influxdb-3.cy.js`:
+
+```javascript
+describe('Which InfluxDB 3 decision page', () => {
+  const canonicalUrl = '/influxdb3/which-influxdb-3/';
+  const hubUrl = '/influxdb3/';
+
+  describe(`Canonical page (${canonicalUrl})`, () => {
+    beforeEach(() => cy.visit(canonicalUrl));
+
+    it('renders the H1', () => {
+      cy.get('h1').should('contain.text', 'Which InfluxDB 3 should I use');
+    });
+
+    it('renders all 7 FAQ questions as H2s', () => {
+      const questions = [
+        "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?",
+        'Should I start a new project on InfluxDB 1 or InfluxDB 2?',
+        'I run InfluxDB 2 today',
+        'I run InfluxDB 1 today',
+        'Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?',
+        'Which query languages does InfluxDB 3 support?',
+        'Where does InfluxDB 3 Explorer fit?',
+      ];
+      questions.forEach((q) => {
+        cy.contains('h2', q).should('exist');
+      });
+    });
+
+    it('emits FAQPage JSON-LD with 7 questions', () => {
+      cy.get('script[type="application/ld+json"]').then(($scripts) => {
+        const faqScript = [...$scripts]
+          .map((s) => JSON.parse(s.textContent))
+          .find((j) => j['@type'] === 'FAQPage');
+        expect(faqScript, 'FAQPage JSON-LD present').to.exist;
+        expect(faqScript.mainEntity).to.have.length(7);
+        faqScript.mainEntity.forEach((q) => {
+          expect(q['@type']).to.equal('Question');
+          expect(q.acceptedAnswer['@type']).to.equal('Answer');
+          expect(q.acceptedAnswer.text).to.be.a('string').and.not.empty;
+        });
+      });
+    });
+
+    it('self-canonicals', () => {
+      cy.get('link[rel="canonical"]').should(
+        'have.attr',
+        'href',
+        new RegExp(`${canonicalUrl}$`).source.replace(/\$$/, '')
+      );
+    });
+  });
+
+  describe(`Hub landing (${hubUrl})`, () => {
+    beforeEach(() => cy.visit(hubUrl));
+
+    it('renders the FAQ', () => {
+      cy.contains('h2', 'What').should('exist');
+      cy.contains("What's the difference between InfluxDB 1").should('exist');
+    });
+
+    it('renders the children list (linked product names)', () => {
+      ['Core', 'Enterprise', 'Cloud Dedicated', 'Cloud Serverless', 'Clustered']
+        .forEach((name) => cy.contains(name).should('exist'));
+    });
+
+    it('does NOT emit FAQPage JSON-LD (canonical equity stays on slug URL)', () => {
+      cy.get('script[type="application/ld+json"]').each(($s) => {
+        try {
+          const j = JSON.parse($s[0].textContent);
+          expect(j['@type']).to.not.equal('FAQPage');
+        } catch (e) {
+          // non-JSON content is fine
+        }
+      });
+    });
+
+    it('canonical-points to the slug URL', () => {
+      cy.get('link[rel="canonical"]').should(
+        'have.attr',
+        'href'
+      ).and('match', /\/influxdb3\/which-influxdb-3\/?$/);
+    });
+  });
+});
+```
+
+- [ ] **Step 2: Run the E2E test**
+
+Run:
+
+```bash
+node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/which-influxdb-3.cy.js"
+```
+
+Expected: all 8 test cases pass.
+
+If any case fails, fix the underlying content/template — do not weaken the test.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add cypress/e2e/content/which-influxdb-3.cy.js
+git commit -m "test(cypress): add E2E suite for which InfluxDB 3 decision page"
+```
+
+---
+
+## Task 13: Final validation suite
+
+- [ ] **Step 1: Run Vale on the new and modified content files**
+
+Run:
+
+```bash
+.ci/vale/vale.sh \
+  content/shared/influxdb3/which-influxdb-3.md \
+  content/influxdb3/which-influxdb-3.md \
+  content/influxdb3/_index.md \
+  content/platform/faq.md \
+  content/shared/influxdb3/_index.md \
+  content/influxdb3/cloud-dedicated/_index.md \
+  content/influxdb3/cloud-serverless/_index.md \
+  content/influxdb3/clustered/_index.md
+```
+
+Expected: 0 errors. Warnings and suggestions are acceptable but worth a quick review.
+
+- [ ] **Step 2: Run link-checker on the new and modified content**
+
+```bash
+# Map markdown to built HTML, then check
+for f in content/influxdb3/which-influxdb-3.md content/influxdb3/_index.md \
+         content/platform/faq.md; do
+  link-checker map "$f" | xargs link-checker check
+done
+```
+
+Expected: 0 broken links. If any in-repo migration guide URLs are broken, update the shared body (Task 3) and re-run.
+
+- [ ] **Step 3: Run the full Cypress suite for content changes**
+
+Run: `yarn test:e2e`
+
+Expected: all suites pass. Pay attention to any sidebar / nav tests that may have changed because of the new `/influxdb3/` hub landing.
+
+- [ ] **Step 4: Smoke test the dev server manually**
+
+Run: `npx hugo server`
+
+Visit in browser:
+
+1. `http://localhost:1313/influxdb3/` — verify hub renders with children + FAQ; no FAQPage JSON-LD (View Source → search `application/ld+json`); canonical link points to `/influxdb3/which-influxdb-3/`
+2. `http://localhost:1313/influxdb3/which-influxdb-3/` — verify all sections + 7 FAQ Q&As; FAQPage JSON-LD present; self-canonical
+3. `http://localhost:1313/influxdb3/core/`, `/enterprise/`, `/cloud-dedicated/`, `/cloud-serverless/`, `/clustered/` — verify cross-link callout renders at top of each
+4. `http://localhost:1313/platform/faq/` — verify the new "Which version of InfluxDB should I use?" Q&A appears
+
+- [ ] **Step 5: Final commit (if any fixes from Steps 1–4)**
+
+If any of the validation steps surfaced fixes, commit them. If everything was clean, no commit needed.
+
+---
+
+## Task 14: Prepare PR
+
+- [ ] **Step 1: Review the commit history**
+
+Run: `git log --oneline master..HEAD`
+
+Expected: ~10-12 commits, one per substantive task, with conventional-commit-style messages.
+
+- [ ] **Step 2: Push and open PR**
+
+Run:
+
+```bash
+git push -u origin worktree-add-decision-pages
+gh pr create \
+  --title 'feat(influxdb3): "Which InfluxDB 3 should I use?" decision page' \
+  --body "$(cat <<'EOF'
+## Summary
+
+- Adds canonical `/influxdb3/which-influxdb-3/` decision page with 7 FAQ Q&As driven by a Hugo data file
+- Adds new `/influxdb3/` hub landing (didn't exist before) that transcludes the same body
+- Adds `{{< faq >}}` shortcode and `FAQPage` JSON-LD partial gated on `faq_canonical`
+- Adds `## Choosing InfluxDB` section to `llms.txt`
+- Adds per-product cross-link callouts (Core, Enterprise, Cloud Dedicated, Cloud Serverless, Clustered)
+- Adds cross-link Q&A to `/platform/faq/`
+
+Implements Phase 0 item #4 from `docs/plans/2026-05-11-ai-visibility.md`. Design spec at `docs/plans/2026-05-11-which-influxdb-3-decision-page-design.md`.
+
+## Test plan
+
+- [ ] Cypress E2E suite passes (`cypress/e2e/content/which-influxdb-3.cy.js`)
+- [ ] Vale: 0 errors on changed content
+- [ ] link-checker: 0 broken links on changed content
+- [ ] Google Rich Results Test: canonical page emits 1 FAQ rich result with 7 questions, 0 errors
+- [ ] Manual: hub landing renders without FAQPage JSON-LD (canonical equity routed correctly)
+- [ ] Manual: each v3 product index page renders the cross-link callout at top
+EOF
+)"
+```
+
+Expected: PR URL returned.
+
+---
+
+## Self-Review Notes
+
+Plan checks against spec sections:
+
+| Spec section | Plan task(s) |
+|---|---|
+| 3.1 Page content shape | Task 3 (shared body) |
+| 3.2 FAQ Q&A list | Task 1 (data file) |
+| 3.3 Self-canonical | Task 4 (no `canonical:` field on canonical page → defaults to self) + Task 12 E2E assertion |
+| 4 Hub landing | Task 8 |
+| 5.1 llms.txt | Task 9 |
+| 5.2 Cross-link callouts (per-product wording) | Task 10 |
+| 5.3 Platform FAQ cross-link | Task 11 |
+| 5.4 Marketing FAQ outbound link | Task 3 (included in "Related" section of shared body) |
+| 6 FAQPage JSON-LD | Tasks 5, 6, 7 |
+| 7 New Hugo assets | Tasks 1, 2, 5, 6 |
+| 8 Files to create/edit | Tasks 1-11 cover every listed file |
+| 9 Acceptance criteria | Tasks 4, 6, 7, 8, 9, 10, 11, 12, 13 collectively |
+| 10 Quality bar | Editorial responsibility in Task 3 (prose) + Task 13 (Vale lint) |
+| 11 Open implementation decisions | Resolved in plan: (1) decision content first / children below — handled via `show_children` flag at top of body; (2) "Choose X when..." wording — baked into Task 3 body; (3) migration URLs — flagged in Task 3 implementer note; (4) FAQ rendering style — flat H2 markdown (per shortcode in Task 2) |
+
+Placeholders / red flags: none found.
+Type / property consistency: `faq_data`, `faq_canonical`, `show_children`, `canonical` used consistently across data file, shortcode, partial, and all stubs.

@@ -226,7 +226,7 @@ influxdb:
     - v1
   latest: v2.9
   latest_patches:
-    v2: 2.9.0
+    v2: 2.9.1
     v1: 1.12.4
   latest_cli:
     v2: 2.8.0
@@ -304,7 +304,7 @@ telegraf:
   versions: [v1]
   latest: v1.38
   latest_patches:
-    v1: 1.38.3
+    v1: 1.38.4
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?

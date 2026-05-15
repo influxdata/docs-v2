@@ -364,7 +364,15 @@ yarn test:lint-codeblocks
 
 ## LLM-Friendly Markdown Generation
 
-The documentation includes tooling to generate LLM-friendly Markdown versions of documentation pages, both locally via CLI and on-demand via Lambda\@Edge in production.
+The documentation generates LLM-friendly Markdown alongside HTML at build time. Three layers of artifacts:
+
+| Artifact | Granularity | Generator | Discoverable via |
+|---|---|---|---|
+| `public/<path>/index.md` | per page | `scripts/build-llm-markdown.js` | `<link rel="alternate" type="text/markdown">` in HTML head; `/sitemap-md.xml` |
+| `public/<path>/index.section.md` | per section (page + descendants) | `scripts/build-llm-markdown.js` | `/llms.txt` "Main documentation sections" block |
+| `public/<product>/llms-full.txt` | per product (flattened corpus) | `scripts/build-llms-full-txt.js` | `/llms.txt` "Full corpora" block |
+
+Agents pick a layer based on the question: a focused question fetches one page's `.md`; a corpus-grounded question fetches one product's `llms-full.txt`.
 
 ### Quick Start
 
@@ -381,6 +389,39 @@ node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 10
 node cypress/support/run-e2e-specs.js \
   --spec "cypress/e2e/content/markdown-content-validation.cy.js"
 ```
+
+### Per-product full corpora
+
+`scripts/build-llms-full-txt.js` produces `public/<product>/llms-full.txt` for each product. The corpus list is derived from `data/products.yml` via `scripts/lib/corpus-paths.js` — a shared utility mirrored by the Hugo template at `layouts/index.llmstxt.txt`. Eligibility per page comes from `/sitemap-md.xml`, which is also the source of the corpus origin (so staging builds produce staging URLs, production builds produce production URLs).
+
+```bash
+# After build:md, generate the per-product corpora
+yarn build:llms-full
+
+# Spot-check
+ls -lh public/influxdb3/core/llms-full.txt public/telegraf/v1/llms-full.txt
+head -5 public/influxdb3/core/llms-full.txt
+```
+
+Unit tests:
+
+```bash
+yarn test:build-llms-full   # build script behavior
+yarn test:corpus-paths      # data/products.yml -> corpus path derivation
+```
+
+### Autodiscovery coherence guard
+
+`yarn check:md-coherence` runs two checks after the full build, catching drift across the three autodiscovery surfaces:
+
+1. **Head-link → `.md` exists.** Every HTML page that emits `<link rel="alternate" type="text/markdown">` must have a corresponding `.md` file on disk. Catches drift between the Hugo eligibility predicate and `build-llm-markdown.js` output.
+2. **Hugo `/llms.txt` ↔ `getCorpusPaths()`.** The corpus list rendered into `/llms.txt` by the Hugo template must match what `scripts/lib/corpus-paths.js` derives from `data/products.yml`. Catches logic drift between the two surfaces that consume products.yml. Also verifies each linked `llms-full.txt` file exists on disk.
+
+```bash
+yarn check:md-coherence
+```
+
+Runs automatically after `yarn build:md` in the staging deploy pipeline (`scripts/deploy-staging.sh`) and on master in CircleCI (`.circleci/config.yml`). Skipped on PR builds where `build:md --only-changed` produces only a partial `.md` set.
 
 ### Comprehensive Documentation
 
