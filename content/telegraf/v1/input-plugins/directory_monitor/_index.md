@@ -8,9 +8,6 @@ menu:
 tags: [Directory Monitor, "input-plugins", "configuration", "system"]
 introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/directory_monitor/README.md, Directory Monitor Plugin Source
 ---
 
 # Directory Monitor Input Plugin

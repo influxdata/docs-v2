@@ -8,9 +8,6 @@ menu:
 tags: [Kafka, "output-plugins", "configuration", "messaging"]
 introduced: "v0.1.7"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/kafka/README.md, Kafka Plugin Source
 ---
 
 # Kafka Output Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Tag Limit, "processor-plugins", "configuration", "filtering"]
 introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/processors/tag_limit/README.md, Tag Limit Plugin Source
 ---
 
 # Tag Limit Processor Plugin

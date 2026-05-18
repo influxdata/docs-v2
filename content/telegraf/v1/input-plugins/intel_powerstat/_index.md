@@ -8,9 +8,6 @@ menu:
 tags: [Intel PowerStat, "input-plugins", "configuration", "hardware", "system"]
 introduced: "v1.17.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/intel_powerstat/README.md, Intel PowerStat Plugin Source
 ---
 
 # Intel PowerStat Input Plugin

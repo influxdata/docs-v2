@@ -8,9 +8,6 @@ menu:
 tags: [Kubernetes, "input-plugins", "configuration", "containers"]
 introduced: "v1.1.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/kubernetes/README.md, Kubernetes Plugin Source
 ---
 
 # Kubernetes Input Plugin

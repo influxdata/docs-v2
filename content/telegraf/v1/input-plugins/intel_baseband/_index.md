@@ -8,9 +8,6 @@ menu:
 tags: [Intel Baseband Accelerator, "input-plugins", "configuration", "hardware", "network", "system"]
 introduced: "v1.27.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/intel_baseband/README.md, Intel Baseband Accelerator Plugin Source
 ---
 
 # Intel Baseband Accelerator Input Plugin

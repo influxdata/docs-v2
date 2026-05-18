@@ -8,9 +8,6 @@ menu:
 tags: [Tacacs, "input-plugins", "configuration", "network"]
 introduced: "v1.28.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/tacacs/README.md, Tacacs Plugin Source
 ---
 
 # Tacacs Input Plugin

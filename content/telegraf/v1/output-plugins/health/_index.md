@@ -8,9 +8,6 @@ menu:
 tags: [Health, "output-plugins", "configuration", "applications"]
 introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/health/README.md, Health Plugin Source
 ---
 
 # Health Output Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [S2 Geo, "processor-plugins", "configuration", "annotation"]
 introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/processors/s2geo/README.md, S2 Geo Plugin Source
 ---
 
 # S2 Geo Processor Plugin

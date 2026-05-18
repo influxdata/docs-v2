@@ -8,9 +8,6 @@ menu:
 tags: [File, "input-plugins", "configuration", "system"]
 introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/file/README.md, File Plugin Source
 ---
 
 # File Input Plugin

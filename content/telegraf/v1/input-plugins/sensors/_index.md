@@ -8,9 +8,6 @@ menu:
 tags: [LM Sensors, "input-plugins", "configuration", "hardware", "system"]
 introduced: "v0.10.1"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/sensors/README.md, LM Sensors Plugin Source
 ---
 
 # LM Sensors Input Plugin

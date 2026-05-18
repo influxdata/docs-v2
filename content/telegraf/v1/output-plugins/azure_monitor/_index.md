@@ -8,9 +8,6 @@ menu:
 tags: [Azure Monitor, "output-plugins", "configuration", "cloud", "datastore"]
 introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/azure_monitor/README.md, Azure Monitor Plugin Source
 ---
 
 # Azure Monitor Output Plugin

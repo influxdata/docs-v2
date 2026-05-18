@@ -8,9 +8,6 @@ menu:
 tags: [Amazon Kinesis, "output-plugins", "configuration", "cloud", "messaging"]
 introduced: "v0.2.5"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/kinesis/README.md, Amazon Kinesis Plugin Source
 ---
 
 # Amazon Kinesis Output Plugin

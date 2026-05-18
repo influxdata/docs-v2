@@ -8,9 +8,6 @@ menu:
 tags: [Port Name Lookup, "processor-plugins", "configuration", "annotation"]
 introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/processors/port_name/README.md, Port Name Lookup Plugin Source
 ---
 
 # Port Name Lookup Processor Plugin

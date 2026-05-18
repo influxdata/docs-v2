@@ -8,9 +8,6 @@ menu:
 tags: [BIND 9 Nameserver, "input-plugins", "configuration", "server"]
 introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/bind/README.md, BIND 9 Nameserver Plugin Source
 ---
 
 # BIND 9 Nameserver Input Plugin

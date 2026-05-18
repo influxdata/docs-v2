@@ -8,9 +8,6 @@ menu:
 tags: [Cisco Model-Driven Telemetry (MDT), "input-plugins", "configuration", "applications"]
 introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/cisco_telemetry_mdt/README.md, Cisco Model-Driven Telemetry (MDT) Plugin Source
 ---
 
 # Cisco Model-Driven Telemetry (MDT) Input Plugin
