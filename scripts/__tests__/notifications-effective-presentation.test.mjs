@@ -57,6 +57,40 @@ test('sortPosts orders critical>warning>info then newest id first', () => {
   assert.deepEqual(sorted, ['00000000-b', '00000000-c', '00000000-a']);
 });
 
+test('missing presentation field defaults to drawer', () => {
+  assert.equal(effectivePresentation({}, '/x/', productMap), 'drawer');
+});
+
+test('undefined contexts is null-safe and returns native', () => {
+  assert.equal(
+    effectivePresentation({ presentation: 'banner' }, '/x/', productMap),
+    'banner'
+  );
+});
+
+test('bucketBySurface excludes drawer-effective items from both buckets', () => {
+  const items = [
+    {
+      id: 'd',
+      read: false,
+      dismissed: false,
+      post: post({ presentation: 'drawer' }),
+    },
+    {
+      id: 'b',
+      read: false,
+      dismissed: false,
+      post: post({ presentation: 'banner' }),
+    },
+  ];
+  const { banner, blocking } = bucketBySurface(items, '/x/', productMap);
+  assert.deepEqual(
+    banner.map((i) => i.id),
+    ['b']
+  );
+  assert.deepEqual(blocking, []);
+});
+
 test('bucketBySurface skips read and dismissed, buckets by effective presentation', () => {
   const items = [
     {
