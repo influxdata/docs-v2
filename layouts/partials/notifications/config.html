@@ -1,0 +1,30 @@
+{{- $env := site.Params.environment -}}
+{{- $hub := "https://notifications.influxdata.com" -}}
+{{- if eq $env "development" -}}{{- $hub = "http://localhost:8080" -}}{{- end -}}
+{{- with site.Params.notification_hub_url -}}{{- $hub = . -}}{{- end -}}
+{{- $pm := dict -}}
+{{- range $key, $p := site.Data.products -}}
+  {{- $paths := slice -}}
+  {{- $cp := $p.content_path -}}
+  {{- if reflect.IsSlice $cp -}}
+    {{- range $cp -}}{{- $paths = $paths | append (printf "/%s/" .) -}}{{- end -}}
+  {{- else if reflect.IsMap $cp -}}
+    {{- range $v, $vp := $cp -}}{{- $paths = $paths | append (printf "/%s/" $vp) -}}{{- end -}}
+  {{- else if $cp -}}
+    {{- $paths = $paths | append (printf "/%s/" $cp) -}}
+  {{- end -}}
+  {{- if gt (len $paths) 0 -}}{{- $pm = merge $pm (dict $key $paths) -}}{{- end -}}
+{{- end -}}
+{{- $cfg := dict "hubUrl" $hub "version" hugo.Version "productMap" $pm -}}
+<script id="notif-config" type="application/json">{{- $cfg | jsonify | safeJS -}}</script>
+<div id="notif-banners" class="notif-banners" role="region" aria-label="Site notifications"></div>
+<div id="notif-drawer" class="notif-drawer" hidden>
+  <div class="notif-drawer-header">
+    <span>Notifications</span>
+    <button class="notif-drawer-close" type="button" aria-label="Close">
+      <span class="cf-icon Remove_New"></span>
+    </button>
+  </div>
+  <div class="notif-drawer-list"></div>
+</div>
+<div id="notif-blocking" hidden></div>

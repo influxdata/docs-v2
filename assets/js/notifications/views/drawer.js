@@ -73,5 +73,8 @@ export function initDrawer(manager) {
     if (open) renderList();
   });
 
+  const closeBtn = panel.querySelector('.notif-drawer-close');
+  if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+
   renderBadge();
 }
