@@ -10,9 +10,10 @@ export function initDrawer(manager) {
   const bellBtn = document.getElementById('notif-bell-btn');
   const badge = document.getElementById('notif-badge');
   const panel = document.getElementById('notif-drawer');
-  if (!bellBtn || !panel) return;
+  if (!bellBtn || !badge || !panel) return;
 
   const list = panel.querySelector('.notif-drawer-list');
+  if (!list) return;
   let open = false;
 
   function renderBadge() {
