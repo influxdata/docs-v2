@@ -8,9 +8,6 @@ menu:
 tags: [Redis Time Series, "output-plugins", "configuration", "datastore"]
 introduced: "v1.0.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/redistimeseries/README.md, Redis Time Series Plugin Source
 ---
 
 # Redis Time Series Output Plugin

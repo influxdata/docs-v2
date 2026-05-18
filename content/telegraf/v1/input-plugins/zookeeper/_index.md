@@ -8,9 +8,6 @@ menu:
 tags: [Apache Zookeeper, "input-plugins", "configuration", "applications"]
 introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/zookeeper/README.md, Apache Zookeeper Plugin Source
 ---
 
 # Apache Zookeeper Input Plugin

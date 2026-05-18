@@ -8,9 +8,6 @@ menu:
 tags: [InfiniBand, "input-plugins", "configuration", "network"]
 introduced: "v1.14.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/infiniband/README.md, InfiniBand Plugin Source
 ---
 
 # InfiniBand Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Basic Statistics, "aggregator-plugins", "configuration", "statistics"]
 introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/aggregators/basicstats/README.md, Basic Statistics Plugin Source
 ---
 
 # Basic Statistics Aggregator Plugin

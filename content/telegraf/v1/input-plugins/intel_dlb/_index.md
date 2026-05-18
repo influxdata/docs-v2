@@ -8,9 +8,6 @@ menu:
 tags: [Intel® Dynamic Load Balancer, "input-plugins", "configuration", "applications"]
 introduced: "v1.25.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/intel_dlb/README.md, Intel® Dynamic Load Balancer Plugin Source
 ---
 
 # Intel® Dynamic Load Balancer Input Plugin

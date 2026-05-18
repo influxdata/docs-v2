@@ -8,9 +8,6 @@ menu:
 tags: [Arista LANZ Consumer, "input-plugins", "configuration", "network"]
 introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/lanz/README.md, Arista LANZ Consumer Plugin Source
 ---
 
 # Arista LANZ Consumer Input Plugin

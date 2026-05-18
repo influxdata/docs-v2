@@ -8,9 +8,6 @@ menu:
 tags: [Memory, "input-plugins", "configuration", "system"]
 introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/mem/README.md, Memory Plugin Source
 ---
 
 # Memory Input Plugin

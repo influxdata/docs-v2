@@ -8,9 +8,6 @@ menu:
 tags: [S.M.A.R.T., "input-plugins", "configuration", "hardware", "system"]
 introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
 ---
 
 # S.M.A.R.T. Input Plugin

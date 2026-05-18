@@ -8,9 +8,6 @@ menu:
 tags: [Netfilter Conntrack, "input-plugins", "configuration", "system"]
 introduced: "v1.0.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/conntrack/README.md, Netfilter Conntrack Plugin Source
 ---
 
 # Netfilter Conntrack Input Plugin

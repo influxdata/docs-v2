@@ -8,9 +8,6 @@ menu:
 tags: [Socket Statistics, "input-plugins", "configuration", "network"]
 introduced: "v1.22.0"
 os_support: "freebsd, linux, macos"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/socketstat/README.md, Socket Statistics Plugin Source
 ---
 
 # Socket Statistics Input Plugin

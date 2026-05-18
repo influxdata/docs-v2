@@ -8,9 +8,6 @@ menu:
 tags: [Microsoft Fabric, "output-plugins", "configuration", "datastore"]
 introduced: "v1.35.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/microsoft_fabric/README.md, Microsoft Fabric Plugin Source
 ---
 
 # Microsoft Fabric Output Plugin

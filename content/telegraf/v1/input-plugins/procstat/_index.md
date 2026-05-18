@@ -8,9 +8,6 @@ menu:
 tags: [Procstat, "input-plugins", "configuration", "system"]
 introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/procstat/README.md, Procstat Plugin Source
 ---
 
 # Procstat Input Plugin

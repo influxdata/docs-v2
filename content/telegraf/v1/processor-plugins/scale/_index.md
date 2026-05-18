@@ -8,9 +8,6 @@ menu:
 tags: [Scale, "processor-plugins", "configuration", "transformation"]
 introduced: "v1.27.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/processors/scale/README.md, Scale Plugin Source
 ---
 
 # Scale Processor Plugin

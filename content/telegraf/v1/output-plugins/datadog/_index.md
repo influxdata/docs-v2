@@ -8,9 +8,6 @@ menu:
 tags: [Datadog, "output-plugins", "configuration", "applications", "cloud", "datastore"]
 introduced: "v0.1.6"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/datadog/README.md, Datadog Plugin Source
 ---
 
 # Datadog Output Plugin

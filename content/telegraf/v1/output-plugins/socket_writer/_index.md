@@ -8,9 +8,6 @@ menu:
 tags: [Socket Writer, "output-plugins", "configuration", "applications", "network"]
 introduced: "v1.3.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/socket_writer/README.md, Socket Writer Plugin Source
 ---
 
 # Socket Writer Output Plugin

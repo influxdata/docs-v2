@@ -8,9 +8,6 @@ menu:
 tags: [Inlong, "output-plugins", "configuration", "messaging"]
 introduced: "v1.35.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/inlong/README.md, Inlong Plugin Source
 ---
 
 # Inlong Output Plugin

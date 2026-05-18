@@ -8,9 +8,6 @@ menu:
 tags: [Kernel, "input-plugins", "configuration", "system"]
 introduced: "v0.11.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/kernel/README.md, Kernel Plugin Source
 ---
 
 # Kernel Input Plugin

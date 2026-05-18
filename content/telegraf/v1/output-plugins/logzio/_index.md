@@ -8,9 +8,6 @@ menu:
 tags: [Logz.io, "output-plugins", "configuration", "cloud", "datastore"]
 introduced: "v1.17.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/logzio/README.md, Logz.io Plugin Source
 ---
 
 # Logz.io Output Plugin

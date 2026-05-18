@@ -8,9 +8,6 @@ menu:
 tags: [Zipkin, "input-plugins", "configuration", "cloud"]
 introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/zipkin/README.md, Zipkin Plugin Source
 ---
 
 # Zipkin Input Plugin
