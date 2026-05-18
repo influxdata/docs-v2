@@ -7,7 +7,7 @@
   - influxdata_docs_preferences: Docs UI/UX-related preferences (obj)
   - influxdata_docs_urls: User-defined InfluxDB URLs for each product (obj)
   - influxdata_docs_notifications: 
-    - messages: Messages (data/notifications.yaml) that have been seen (array)
+    - messages: Legacy read-state array (retired; retained for backward compatibility)
     - callouts: Feature callouts that have been seen (array)
 */
 
