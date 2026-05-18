@@ -32,6 +32,7 @@ export function initBlocking(manager, ctx) {
     modal.className = 'notif-blocking-modal';
     modal.setAttribute('role', 'alertdialog');
     modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', `notif-${item.post.id}`);
 
     const card = buildCard(item.post, {
       onExpand: () => {},
@@ -51,6 +52,7 @@ export function initBlocking(manager, ctx) {
     manager.recordImpressionOnce(item.id);
   }
 
+  // No Escape handler: blocking modals require explicit acknowledgment.
   manager.addEventListener('change', render);
   render();
 }
