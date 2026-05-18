@@ -4,10 +4,10 @@
   (scope/exclude) and the effective-presentation logic (display_override).
 
   An entry resolves in this order:
-    1. "home"            -> matches only the exact home page ("/")
-    2. product key       -> productMap[key] content-path prefixes
-    3. literal path "/x" -> that path as a startsWith prefix
-    4. bare token "tel"  -> "/tel/" namespace prefix
+    1. "home", "/", or "" -> the exact home page only
+    2. product key        -> productMap[key] content-path prefixes
+    3. literal path "/x"  -> that path as a startsWith prefix
+    4. bare token "tel"   -> "/tel/" namespace prefix
 */
 
 export function normalizePath(pathname) {
@@ -22,7 +22,7 @@ function withTrailingSlash(p) {
 }
 
 export function resolveEntry(entry, productMap) {
-  if (entry === 'home') return { home: true };
+  if (entry === 'home' || entry === '/' || entry === '') return { home: true };
   if (entry.startsWith('/')) return { prefixes: [withTrailingSlash(entry)] };
   if (productMap && productMap[entry]) {
     return { prefixes: productMap[entry].map(withTrailingSlash) };

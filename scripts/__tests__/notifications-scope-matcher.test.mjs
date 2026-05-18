@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   normalizePath,
+  resolveEntry,
   entryMatches,
   matchesAny,
   inDocsScope,
@@ -42,10 +43,18 @@ test('product key with multiple content paths matches any', () => {
   );
 });
 
-test('bare token resolves to /token/ namespace prefix', () => {
+test('product key takes precedence over bare-token fallback', () => {
   assert.equal(
     entryMatches('telegraf', '/telegraf/controller/', productMap),
     true
+  );
+});
+
+test('bare token (not a product key) resolves to /token/ prefix', () => {
+  assert.equal(entryMatches('chronograf', '/chronograf/v1/', productMap), true);
+  assert.equal(
+    entryMatches('chronograf', '/influxdb3/core/', productMap),
+    false
   );
   assert.equal(entryMatches('influxdb3', '/influxdb3/core/', productMap), true);
 });
@@ -86,4 +95,45 @@ test('inDocsScope: home + product, no excludes needed', () => {
 test('matchesAny is false for empty/missing list', () => {
   assert.equal(matchesAny([], '/x/', productMap), false);
   assert.equal(matchesAny(undefined, '/x/', productMap), false);
+});
+
+// Fix 3: direct resolveEntry coverage
+test('resolveEntry: home/slash/empty all resolve to the home sentinel', () => {
+  assert.deepEqual(resolveEntry('home', productMap), { home: true });
+  assert.deepEqual(resolveEntry('/', productMap), { home: true });
+  assert.deepEqual(resolveEntry('', productMap), { home: true });
+});
+
+test('resolveEntry: product key expands to all its prefixes', () => {
+  assert.deepEqual(resolveEntry('influxdb', productMap), {
+    prefixes: ['/influxdb/v2/', '/influxdb/v1/'],
+  });
+});
+
+test('resolveEntry: literal path gets a trailing slash', () => {
+  assert.deepEqual(resolveEntry('/telegraf/v1.11', productMap), {
+    prefixes: ['/telegraf/v1.11/'],
+  });
+});
+
+// Fix 4: null-safety + scope/exclude composition
+test('normalizePath handles null/undefined', () => {
+  assert.equal(normalizePath(null), '/');
+  assert.equal(normalizePath(undefined), '/');
+});
+
+test('inDocsScope: multi-prefix scope with subtractive exclude', () => {
+  const ctx = { scope: ['influxdb'], exclude: ['/influxdb/v1/'] };
+  assert.equal(inDocsScope(ctx, '/influxdb/v2/write/', productMap), true);
+  assert.equal(inDocsScope(ctx, '/influxdb/v1/query/', productMap), false);
+  assert.equal(inDocsScope(ctx, '/telegraf/', productMap), false);
+});
+
+test('literal "/" entry behaves as home, not a wildcard', () => {
+  assert.equal(entryMatches('/', '/', productMap), true);
+  assert.equal(entryMatches('/', '/telegraf/', productMap), false);
+  assert.equal(
+    inDocsScope({ scope: ['/'] }, '/influxdb3/core/', productMap),
+    false
+  );
 });
