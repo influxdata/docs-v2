@@ -8,9 +8,6 @@ menu:
 tags: [Mesosphere Distributed Cloud OS, "input-plugins", "configuration", "containers"]
 introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/dcos/README.md, Mesosphere Distributed Cloud OS Plugin Source
 ---
 
 # Mesosphere Distributed Cloud OS Input Plugin

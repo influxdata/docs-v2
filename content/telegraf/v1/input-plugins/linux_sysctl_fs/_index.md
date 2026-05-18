@@ -8,9 +8,6 @@ menu:
 tags: [Linux Sysctl Filesystem, "input-plugins", "configuration", "system"]
 introduced: "v1.24.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/linux_sysctl_fs/README.md, Linux Sysctl Filesystem Plugin Source
 ---
 
 # Linux Sysctl Filesystem Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [OpenWeatherMap, "input-plugins", "configuration", "applications", "web"]
 introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/openweathermap/README.md, OpenWeatherMap Plugin Source
 ---
 
 # OpenWeatherMap Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [OpenTSDB, "output-plugins", "configuration", "datastore"]
 introduced: "v0.1.9"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/opentsdb/README.md, OpenTSDB Plugin Source
 ---
 
 # OpenTSDB Output Plugin

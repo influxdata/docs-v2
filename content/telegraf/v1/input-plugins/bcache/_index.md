@@ -8,9 +8,6 @@ menu:
 tags: [Bcache, "input-plugins", "configuration", "system"]
 introduced: "v0.2.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/bcache/README.md, Bcache Plugin Source
 ---
 
 # Bcache Input Plugin

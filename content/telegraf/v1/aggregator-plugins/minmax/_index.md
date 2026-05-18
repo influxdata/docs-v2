@@ -8,9 +8,6 @@ menu:
 tags: [Minimum-Maximum, "aggregator-plugins", "configuration", "statistics"]
 introduced: "v1.1.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/aggregators/minmax/README.md, Minimum-Maximum Plugin Source
 ---
 
 # Minimum-Maximum Aggregator Plugin

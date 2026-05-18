@@ -8,9 +8,6 @@ menu:
 tags: [Windows Eventlog, "input-plugins", "configuration", "logging"]
 introduced: "v1.16.0"
 os_support: "windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/win_eventlog/README.md, Windows Eventlog Plugin Source
 ---
 
 # Windows Eventlog Input Plugin

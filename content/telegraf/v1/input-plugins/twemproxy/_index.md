@@ -8,9 +8,6 @@ menu:
 tags: [Twemproxy, "input-plugins", "configuration", "server"]
 introduced: "v0.3.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/twemproxy/README.md, Twemproxy Plugin Source
 ---
 
 # Twemproxy Input Plugin

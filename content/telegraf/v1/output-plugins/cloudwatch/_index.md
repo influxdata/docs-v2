@@ -8,9 +8,6 @@ menu:
 tags: [Amazon CloudWatch, "output-plugins", "configuration", "cloud"]
 introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/cloudwatch/README.md, Amazon CloudWatch Plugin Source
 ---
 
 # Amazon CloudWatch Output Plugin

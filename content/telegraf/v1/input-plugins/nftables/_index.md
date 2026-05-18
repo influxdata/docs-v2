@@ -8,9 +8,6 @@ menu:
 tags: [Nftables, "input-plugins", "configuration", "network", "system"]
 introduced: "v1.37.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/nftables/README.md, Nftables Plugin Source
 ---
 
 # Nftables Plugin

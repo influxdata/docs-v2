@@ -8,9 +8,6 @@ menu:
 tags: [Varnish, "input-plugins", "configuration", "server", "web"]
 introduced: "v0.13.1"
 os_support: "freebsd, linux, macos"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/varnish/README.md, Varnish Plugin Source
 ---
 
 # Varnish Input Plugin
