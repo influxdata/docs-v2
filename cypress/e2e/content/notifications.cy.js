@@ -43,10 +43,12 @@ describe('hub notifications', () => {
     stubHub(postFixture());
     cy.visit('/');
     cy.wait('@posts');
-    cy.get('#notif-badge', { timeout: 10000 }).should('not.have.attr', 'hidden');
-    // The drawer is fixed-position and overlaps the bell in the top-right
-    // viewport corner; use force:true to click through the overlay.
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-badge', { timeout: 10000 }).should(
+      'not.have.attr',
+      'hidden'
+    );
+    cy.get('#notif-drawer').should('not.be.visible');
+    cy.get('#notif-bell-btn').click();
     cy.get('#notif-drawer').should('be.visible');
     cy.contains('.notif-card .notif-title', 'Test notification');
   });
@@ -55,7 +57,7 @@ describe('hub notifications', () => {
     stubHub(postFixture({ contexts: { docs: { scope: ['telegraf'] } } }));
     cy.visit('/influxdb3/core/');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('not.exist');
   });
 
@@ -63,7 +65,7 @@ describe('hub notifications', () => {
     stubHub(postFixture({ contexts: { docs: { scope: ['telegraf'] } } }));
     cy.visit('/telegraf/');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('exist');
   });
 
@@ -83,12 +85,12 @@ describe('hub notifications', () => {
     stubHub(postFixture());
     cy.visit('/');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-dismiss').click();
     cy.get('.notif-card').should('not.exist');
     cy.reload();
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('not.exist');
   });
 });
