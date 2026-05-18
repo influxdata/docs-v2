@@ -14,7 +14,7 @@ import { delay } from './helpers.js';
 import { InfluxDBUrl } from './influxdb-url.js';
 import * as localStorage from './services/local-storage.js';
 import * as modals from './modals.js';
-import * as notifications from './notifications.js';
+import * as notifications from './notifications/index.js';
 import * as pageContext from './page-context.js';
 import * as pageFeedback from './page-feedback.js';
 import * as tabbedContent from './tabbed-content.js';
