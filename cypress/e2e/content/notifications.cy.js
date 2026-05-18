@@ -44,7 +44,8 @@ describe('hub notifications', () => {
   it('shows an unscoped post in the drawer', () => {
     stubHub(postFixture());
     cy.visit('/');
-    cy.wait('@topics'); cy.wait('@posts');
+    cy.wait('@topics');
+    cy.wait('@posts');
     cy.get('#notif-badge', { timeout: 10000 }).should(
       'not.have.attr',
       'hidden'
@@ -58,7 +59,8 @@ describe('hub notifications', () => {
   it('honors docs scope (hidden off-scope)', () => {
     stubHub(postFixture({ contexts: { docs: { scope: ['telegraf'] } } }));
     cy.visit('/influxdb3/core/');
-    cy.wait('@topics'); cy.wait('@posts');
+    cy.wait('@topics');
+    cy.wait('@posts');
     cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('not.exist');
   });
@@ -66,7 +68,8 @@ describe('hub notifications', () => {
   it('honors docs scope (shown on-scope)', () => {
     stubHub(postFixture({ contexts: { docs: { scope: ['telegraf'] } } }));
     cy.visit('/telegraf/');
-    cy.wait('@topics'); cy.wait('@posts');
+    cy.wait('@topics');
+    cy.wait('@posts');
     cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('exist');
   });
@@ -79,7 +82,8 @@ describe('hub notifications', () => {
       })
     );
     cy.visit('/');
-    cy.wait('@topics'); cy.wait('@posts');
+    cy.wait('@topics');
+    cy.wait('@posts');
     cy.get('#notif-banners .notif-banner', { timeout: 10000 }).should('exist');
   });
 
@@ -87,12 +91,14 @@ describe('hub notifications', () => {
     cy.clearLocalStorage();
     stubHub(postFixture());
     cy.visit('/');
-    cy.wait('@topics'); cy.wait('@posts');
+    cy.wait('@topics');
+    cy.wait('@posts');
     cy.get('#notif-bell-btn').click();
     cy.get('.notif-dismiss').click();
     cy.get('.notif-card').should('not.exist');
     cy.reload();
-    cy.wait('@topics'); cy.wait('@posts');
+    cy.wait('@topics');
+    cy.wait('@posts');
     cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('not.exist');
   });
