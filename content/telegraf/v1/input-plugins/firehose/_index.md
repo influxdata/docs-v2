@@ -8,9 +8,6 @@ menu:
 tags: [AWS Data Firehose, "input-plugins", "configuration", "cloud", "messaging"]
 introduced: "v1.34.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/firehose/README.md, AWS Data Firehose Plugin Source
 ---
 
 # AWS Data Firehose Input Plugin

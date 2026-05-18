@@ -8,9 +8,6 @@ menu:
 tags: [Suricata, "input-plugins", "configuration", "applications", "network"]
 introduced: "v1.13.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/suricata/README.md, Suricata Plugin Source
 ---
 
 # Suricata Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Turbostat, "input-plugins", "configuration", "hardware", "system"]
 introduced: "v1.36.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/turbostat/README.md, Turbostat Plugin Source
 ---
 
 # Turbostat Input Plugin

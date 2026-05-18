@@ -8,9 +8,6 @@ menu:
 tags: [Nvidia System Management Interface (SMI), "input-plugins", "configuration", "hardware", "system"]
 introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/nvidia_smi/README.md, Nvidia System Management Interface (SMI) Plugin Source
 ---
 
 # Nvidia System Management Interface (SMI) Input Plugin

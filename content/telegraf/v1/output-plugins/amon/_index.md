@@ -10,9 +10,6 @@ introduced: "v0.2.1"
 deprecated: v1.37.0
 removal: v1.40.0
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/amon/README.md, Amon Plugin Source
 ---
 
 # Amon Output Plugin

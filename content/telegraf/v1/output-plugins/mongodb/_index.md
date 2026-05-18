@@ -8,9 +8,6 @@ menu:
 tags: [MongoDB, "output-plugins", "configuration", "datastore"]
 introduced: "v1.21.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/mongodb/README.md, MongoDB Plugin Source
 ---
 
 # MongoDB Output Plugin

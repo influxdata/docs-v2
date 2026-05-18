@@ -8,9 +8,6 @@ menu:
 tags: [SNMP Lookup, "processor-plugins", "configuration", "annotation"]
 introduced: "v1.30.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/processors/snmp_lookup/README.md, SNMP Lookup Plugin Source
 ---
 
 # SNMP Lookup Processor Plugin

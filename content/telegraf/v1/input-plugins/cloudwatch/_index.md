@@ -8,9 +8,6 @@ menu:
 tags: [Amazon CloudWatch Statistics, "input-plugins", "configuration", "cloud"]
 introduced: "v0.12.1"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/cloudwatch/README.md, Amazon CloudWatch Statistics Plugin Source
 ---
 
 # Amazon CloudWatch Statistics Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Logical Volume Manager, "input-plugins", "configuration", "system"]
 introduced: "v1.21.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/lvm/README.md, Logical Volume Manager Plugin Source
 ---
 
 # Logical Volume Manager Input Plugin

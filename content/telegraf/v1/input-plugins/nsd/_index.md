@@ -8,9 +8,6 @@ menu:
 tags: [NLnet Labs Name Server Daemon, "input-plugins", "configuration", "server"]
 introduced: "v1.0.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/nsd/README.md, NLnet Labs Name Server Daemon Plugin Source
 ---
 
 # NLnet Labs Name Server Daemon Input Plugin

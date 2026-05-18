@@ -8,9 +8,6 @@ menu:
 tags: [Docker, "input-plugins", "configuration", "containers"]
 introduced: "v0.1.9"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/docker/README.md, Docker Plugin Source
 ---
 
 # Docker Input Plugin

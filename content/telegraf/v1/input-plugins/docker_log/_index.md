@@ -8,9 +8,6 @@ menu:
 tags: [Docker Log, "input-plugins", "configuration", "containers", "logging"]
 introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/docker_log/README.md, Docker Log Plugin Source
 ---
 
 # Docker Log Input Plugin

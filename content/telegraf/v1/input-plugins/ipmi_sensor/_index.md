@@ -8,9 +8,6 @@ menu:
 tags: [IPMI Sensor, "input-plugins", "configuration", "hardware", "system"]
 introduced: "v0.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/ipmi_sensor/README.md, IPMI Sensor Plugin Source
 ---
 
 # IPMI Sensor Input Plugin

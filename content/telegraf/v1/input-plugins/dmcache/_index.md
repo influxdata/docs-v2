@@ -8,9 +8,6 @@ menu:
 tags: [Device Mapper Cache, "input-plugins", "configuration", "system"]
 introduced: "v1.3.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/dmcache/README.md, Device Mapper Cache Plugin Source
 ---
 
 # Device Mapper Cache Input Plugin

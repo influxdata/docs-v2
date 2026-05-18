@@ -8,9 +8,6 @@ menu:
 tags: [NATS Consumer, "input-plugins", "configuration", "messaging"]
 introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/nats_consumer/README.md, NATS Consumer Plugin Source
 ---
 
 # NATS Consumer Input Plugin

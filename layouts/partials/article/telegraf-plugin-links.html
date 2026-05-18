@@ -1,5 +1,5 @@
 {{ if (eq .Params.product "telegraf") }}
-  {{ $telegraf_latest := .Site.Data.products.telegraf.latest_patches.v1 }} 
+  {{ $telegraf_latest := .Site.Data.products.telegraf.latest_patches.v1 }}
   {{ if .Parent.HasShortcode "telegraf/plugins" }}
     {{ $plugin_data := split .Params.menu.telegraf_v1_ref.identifier "-" }}
     {{ $plugin_category := print (index $plugin_data 0) "s" }}
@@ -8,6 +8,6 @@
     <a class="btn download"
        data-component="download-external"
        data-filename="telegraf-{{ index $plugin_data 0 }}-{{ $plugin_id }}.sample.conf"
-       href="https://raw.githubusercontent.com/influxdata/telegraf/refs/tags/v{{$telegraf_latest}}/plugins/{{ $plugin_category }}/{{ $plugin_id }}/sample.conf">Download sample.conf</a>
+       href="https://raw.githubusercontent.com/influxdata/telegraf/refs/tags/v{{$telegraf_latest}}/plugins/{{ $plugin_category }}/{{ $plugin_id }}/sample.conf">Download configuration</a>
   {{ end }}
 {{ end }}
