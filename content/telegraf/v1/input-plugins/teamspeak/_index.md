@@ -8,9 +8,6 @@ menu:
 tags: [Teamspeak, "input-plugins", "configuration", "server"]
 introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/teamspeak/README.md, Teamspeak Plugin Source
 ---
 
 # Teamspeak Input Plugin

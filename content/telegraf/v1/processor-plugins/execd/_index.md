@@ -8,9 +8,6 @@ menu:
 tags: [Execd, "processor-plugins", "configuration", "general purpose"]
 introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/processors/execd/README.md, Execd Plugin Source
 ---
 
 # Execd Processor Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Execd, "input-plugins", "configuration", "system"]
 introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/execd/README.md, Execd Plugin Source
 ---
 
 # Execd Input Plugin

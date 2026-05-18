@@ -8,9 +8,6 @@ menu:
 tags: [PostgreSQL, "output-plugins", "configuration", "datastore"]
 introduced: "v1.24.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/postgresql/README.md, PostgreSQL Plugin Source
 ---
 
 # PostgreSQL Output Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Google Cloud Monitoring, "output-plugins", "configuration", "cloud", "datastore"]
 introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/stackdriver/README.md, Google Cloud Monitoring Plugin Source
 ---
 
 # Google Cloud Monitoring Output Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Temperature, "input-plugins", "configuration", "hardware", "system"]
 introduced: "v1.8.0"
 os_support: "linux, macos, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/temp/README.md, Temperature Plugin Source
 ---
 
 # Temperature Input Plugin

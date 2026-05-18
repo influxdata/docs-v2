@@ -8,9 +8,6 @@ menu:
 tags: [SQL, "input-plugins", "configuration", "datastore"]
 introduced: "v1.19.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/sql/README.md, SQL Plugin Source
 ---
 
 # SQL Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Ethtool, "input-plugins", "configuration", "network", "system"]
 introduced: "v1.13.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/ethtool/README.md, Ethtool Plugin Source
 ---
 
 # Ethtool Input Plugin

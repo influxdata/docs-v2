@@ -8,9 +8,6 @@ menu:
 tags: [Fail2ban, "input-plugins", "configuration", "network", "system"]
 introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/fail2ban/README.md, Fail2ban Plugin Source
 ---
 
 # Fail2ban Input Plugin

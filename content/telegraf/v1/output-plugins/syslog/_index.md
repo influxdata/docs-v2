@@ -8,9 +8,6 @@ menu:
 tags: [Syslog, "output-plugins", "configuration", "logging"]
 introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/syslog/README.md, Syslog Plugin Source
 ---
 
 # Syslog Output Plugin

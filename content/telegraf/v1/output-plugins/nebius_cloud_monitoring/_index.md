@@ -8,9 +8,6 @@ menu:
 tags: [Nebius Cloud Monitoring, "output-plugins", "configuration", "cloud", "datastore"]
 introduced: "v1.27.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/nebius_cloud_monitoring/README.md, Nebius Cloud Monitoring Plugin Source
 ---
 
 # Nebius Cloud Monitoring Output Plugin

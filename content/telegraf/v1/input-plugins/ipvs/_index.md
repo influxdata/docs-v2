@@ -8,9 +8,6 @@ menu:
 tags: [IPVS, "input-plugins", "configuration", "network", "system"]
 introduced: "v1.9.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/ipvs/README.md, IPVS Plugin Source
 ---
 
 # IPVS Input Plugin

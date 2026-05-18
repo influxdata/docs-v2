@@ -8,9 +8,6 @@ menu:
 tags: [Riak, "input-plugins", "configuration", "server"]
 introduced: "v0.10.4"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/riak/README.md, Riak Plugin Source
 ---
 
 # Riak Input Plugin

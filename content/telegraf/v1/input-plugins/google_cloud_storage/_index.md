@@ -8,9 +8,6 @@ menu:
 tags: [Google Cloud Storage, "input-plugins", "configuration", "cloud", "datastore"]
 introduced: "v1.25.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/google_cloud_storage/README.md, Google Cloud Storage Plugin Source
 ---
 
 # Google Cloud Storage Input Plugin

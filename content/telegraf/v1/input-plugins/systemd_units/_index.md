@@ -8,9 +8,6 @@ menu:
 tags: [Systemd-Units, "input-plugins", "configuration", "system"]
 introduced: "v1.13.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/systemd_units/README.md, Systemd-Units Plugin Source
 ---
 
 # Systemd-Units Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Azure Event Hub Consumer, "input-plugins", "configuration", "iot", "messaging"]
 introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/eventhub_consumer/README.md, Azure Event Hub Consumer Plugin Source
 ---
 
 # Azure Event Hub Consumer Input Plugin
