@@ -5,14 +5,24 @@ $notif-warning: #f0b400;
 $notif-critical: #d4334a;
 
 @mixin severity-accent {
-  &.notif-info { border-left: 4px solid $notif-info; }
-  &.notif-warning { border-left: 4px solid $notif-warning; }
-  &.notif-critical { border-left: 4px solid $notif-critical; }
+  &.notif-info {
+    border-left: 4px solid $notif-info;
+  }
+  &.notif-warning {
+    border-left: 4px solid $notif-warning;
+  }
+  &.notif-critical {
+    border-left: 4px solid $notif-critical;
+  }
 }
 
 .notif-bell {
   position: relative;
-  button { background: none; border: 0; cursor: pointer; }
+  button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
   .notif-badge {
     position: absolute;
     top: -4px;
@@ -41,6 +51,10 @@ $notif-critical: #d4334a;
   display: flex;
   flex-direction: column;
 
+  &[hidden] {
+    display: none;
+  }
+
   .notif-drawer-header {
     display: flex;
     justify-content: space-between;
@@ -48,7 +62,11 @@ $notif-critical: #d4334a;
     padding: 1rem;
     font-weight: 700;
     border-bottom: 1px solid #eee;
-    button { background: none; border: 0; cursor: pointer; }
+    button {
+      background: none;
+      border: 0;
+      cursor: pointer;
+    }
   }
   .notif-drawer-list {
     overflow-y: auto;
@@ -69,9 +87,15 @@ $notif-critical: #d4334a;
   border-radius: 4px;
   @include severity-accent;
 
-  &.notif-read { opacity: 0.6; }
-  .notif-title { font-weight: 700; }
-  .notif-summary { margin-top: 0.25rem; }
+  &.notif-read {
+    opacity: 0.6;
+  }
+  .notif-title {
+    font-weight: 700;
+  }
+  .notif-summary {
+    margin-top: 0.25rem;
+  }
   .notif-expand {
     margin-top: 0.5rem;
     background: none;
@@ -88,7 +112,11 @@ $notif-critical: #d4334a;
     border: 0;
     cursor: pointer;
   }
-  .notif-ctas { margin-top: 0.5rem; display: flex; gap: 0.5rem; }
+  .notif-ctas {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+  }
 }
 
 .notif-banners {
@@ -104,8 +132,13 @@ $notif-critical: #d4334a;
   background: #fff7e0;
   @include severity-accent;
 
-  .notif-banner-text { flex: 1; }
-  .notif-banner-summary { margin-left: 0.5rem; color: #555; }
+  .notif-banner-text {
+    flex: 1;
+  }
+  .notif-banner-summary {
+    margin-left: 0.5rem;
+    color: #555;
+  }
   .notif-banner-close {
     background: none;
     border: 0;
@@ -129,5 +162,7 @@ $notif-critical: #d4334a;
   max-width: 520px;
   width: 90vw;
 
-  .notif-ack { margin-top: 1rem; }
+  .notif-ack {
+    margin-top: 1rem;
+  }
 }
