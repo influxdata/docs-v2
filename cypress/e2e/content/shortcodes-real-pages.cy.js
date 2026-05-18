@@ -56,7 +56,7 @@ describe('Shortcodes on real content pages', function () {
       cy.get('.plugin-card .info .meta code')
         .first()
         .invoke('text')
-        .should('match', /^(input|output|processor|aggregator)s\./);
+        .should('match', /^(input|output|processor|aggregator|secretstore)s\./);
     });
   });
 

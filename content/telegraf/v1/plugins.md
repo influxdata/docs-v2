@@ -16,6 +16,7 @@ aliases:
   - /telegraf/v1/plugins/plugin-list/
   - /telegraf/v1/plugins/plugins-list/
   - /telegraf/v1/plugins/processors/
+  - /telegraf/v1/plugins/secretstores/
 ---
 
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
@@ -31,6 +32,7 @@ that integrate with the Telegraf Execd processor plugin.
 - [Output plugins](#output-plugins)
 - [Aggregator plugins](#aggregator-plugins)
 - [Processor plugins](#processor-plugins)
+- [Secret store plugins](#secret-store-plugins)
 
 ## Input plugins
 
@@ -56,3 +58,9 @@ Telegraf aggregator plugins create aggregate metrics (for example, mean, min, ma
 Telegraf output plugins transform, decorate, and filter metrics.
 
 {{< telegraf/plugins type="processor" >}}
+
+## Secret store plugins
+
+Telegraf secret store plugins provide secrets such as credentials to plugins.
+
+{{< telegraf/plugins type="secretstore" >}}
