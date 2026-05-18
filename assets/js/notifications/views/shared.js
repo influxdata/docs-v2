@@ -6,6 +6,13 @@
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
+function safeHref(url) {
+  if (typeof url !== 'string') return '#';
+  // Allow only http(s), mailto, and root-relative or anchor links.
+  if (/^(https?:|mailto:)/i.test(url) || /^[/#]/.test(url)) return url;
+  return '#';
+}
+
 export function renderBody(markdown) {
   if (!markdown) return '';
   const html = marked.parse(markdown, { breaks: true, gfm: true });
@@ -31,9 +38,9 @@ export function buildCTAs(post, onClick) {
     const isButton = cta.style === 'button';
     const el = document.createElement('a');
     el.className = isButton ? 'notif-cta btn' : 'notif-cta';
-    el.href = cta.url;
+    el.href = safeHref(cta.url);
     el.target = '_blank';
-    el.rel = 'noopener';
+    el.rel = 'noopener noreferrer';
     el.textContent = cta.label;
     el.addEventListener('click', () => onClick(post, i));
     wrap.appendChild(el);
