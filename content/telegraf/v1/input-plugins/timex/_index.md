@@ -8,9 +8,6 @@ menu:
 tags: [Timex, "input-plugins", "configuration", "hardware", "system"]
 introduced: "v1.37.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/timex/README.md, Timex Plugin Source
 ---
 
 # Timex Input Plugin

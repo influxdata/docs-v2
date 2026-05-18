@@ -8,9 +8,6 @@ menu:
 tags: [Logstash, "input-plugins", "configuration", "server"]
 introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/logstash/README.md, Logstash Plugin Source
 ---
 
 # Logstash Input Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [Socket Listener, "input-plugins", "configuration", "network"]
 introduced: "v1.3.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/socket_listener/README.md, Socket Listener Plugin Source
 ---
 
 # Socket Listener Input Plugin

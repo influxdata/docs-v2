@@ -8,9 +8,6 @@ menu:
 tags: [WHOIS, "input-plugins", "configuration", "network", "web"]
 introduced: "v1.35.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/whois/README.md, WHOIS Plugin Source
 ---
 
 # WHOIS Input Plugin

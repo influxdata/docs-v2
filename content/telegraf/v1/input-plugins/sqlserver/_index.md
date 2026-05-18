@@ -8,9 +8,6 @@ menu:
 tags: [Microsoft SQL Server, "input-plugins", "configuration", "datastore"]
 introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/sqlserver/README.md, Microsoft SQL Server Plugin Source
 ---
 
 # Microsoft SQL Server Input Plugin

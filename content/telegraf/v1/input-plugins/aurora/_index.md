@@ -8,9 +8,6 @@ menu:
 tags: [Apache Aurora, "input-plugins", "configuration", "applications", "server"]
 introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/aurora/README.md, Apache Aurora Plugin Source
 ---
 
 # Apache Aurora Input Plugin

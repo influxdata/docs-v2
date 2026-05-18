@@ -8,9 +8,6 @@ menu:
 tags: [Amazon CloudWatch Metric Streams, "input-plugins", "configuration", "cloud"]
 introduced: "v1.24.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/cloudwatch_metric_streams/README.md, Amazon CloudWatch Metric Streams Plugin Source
 ---
 
 # Amazon CloudWatch Metric Streams Input Plugin

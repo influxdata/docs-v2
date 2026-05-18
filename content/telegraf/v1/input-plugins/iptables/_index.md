@@ -8,9 +8,6 @@ menu:
 tags: [Iptables, "input-plugins", "configuration", "network", "system"]
 introduced: "v1.1.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/iptables/README.md, Iptables Plugin Source
 ---
 
 # Iptables Input Plugin

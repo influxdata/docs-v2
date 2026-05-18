@@ -8,9 +8,6 @@ menu:
 tags: [Apache Tomcat, "input-plugins", "configuration", "server", "web"]
 introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/tomcat/README.md, Apache Tomcat Plugin Source
 ---
 
 # Apache Tomcat Input Plugin

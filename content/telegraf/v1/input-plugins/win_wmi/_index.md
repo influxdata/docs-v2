@@ -8,9 +8,6 @@ menu:
 tags: [Windows Management Instrumentation, "input-plugins", "configuration", "system"]
 introduced: "v1.26.0"
 os_support: "windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/win_wmi/README.md, Windows Management Instrumentation Plugin Source
 ---
 
 # Windows Management Instrumentation Input Plugin

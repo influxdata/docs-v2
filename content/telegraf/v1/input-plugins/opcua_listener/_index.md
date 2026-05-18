@@ -8,9 +8,6 @@ menu:
 tags: [OPC UA Client Listener, "input-plugins", "configuration", "iot"]
 introduced: "v1.25.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/opcua_listener/README.md, OPC UA Client Listener Plugin Source
 ---
 
 # OPC UA Client Listener Input Plugin

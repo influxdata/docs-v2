@@ -8,9 +8,6 @@ menu:
 tags: [Fluentd, "input-plugins", "configuration", "server"]
 introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/fluentd/README.md, Fluentd Plugin Source
 ---
 
 # Fluentd Input Plugin

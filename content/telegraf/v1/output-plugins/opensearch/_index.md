@@ -8,9 +8,6 @@ menu:
 tags: [OpenSearch, "output-plugins", "configuration", "datastore", "logging"]
 introduced: "v1.29.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/opensearch/README.md, OpenSearch Plugin Source
 ---
 
 # OpenSearch Output Plugin

@@ -8,9 +8,6 @@ menu:
 tags: [RAS Daemon, "input-plugins", "configuration", "server"]
 introduced: "v1.16.0"
 os_support: "linux"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/ras/README.md, RAS Daemon Plugin Source
 ---
 
 # RAS Daemon Input Plugin

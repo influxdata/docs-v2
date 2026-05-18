@@ -8,9 +8,6 @@ menu:
 tags: [Amazon Elastic Container Service, "input-plugins", "configuration", "cloud"]
 introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/ecs/README.md, Amazon Elastic Container Service Plugin Source
 ---
 
 # Amazon Elastic Container Service Input Plugin

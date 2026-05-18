@@ -8,9 +8,6 @@ menu:
 tags: [Histogram, "aggregator-plugins", "configuration", "statistics"]
 introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/aggregators/histogram/README.md, Histogram Plugin Source
 ---
 
 # Histogram Aggregator Plugin

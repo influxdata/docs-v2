@@ -8,9 +8,6 @@ menu:
 tags: [Filecount, "input-plugins", "configuration", "system"]
 introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
-related:
-  - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/filecount/README.md, Filecount Plugin Source
 ---
 
 # Filecount Input Plugin
