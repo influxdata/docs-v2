@@ -73,11 +73,7 @@ describe('hub notifications (Subscriber UX Standard)', () => {
     cy.get('#notif-badge')
       .should('have.attr', 'data-count', '1')
       .and('have.text', '1');
-    // { force: true }: the .search-btn container has width:0 but its 30px
-    // child button overflows and visually covers the adjacent bell button at
-    // the default Cypress viewport. The bell is fully functional; force
-    // bypasses the actionability overlay check without weakening the assertion.
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('#notif-drawer').should('have.attr', 'data-state', 'open');
     cy.get('.notif-card-drawer__title').should(
       'contain.text',
@@ -96,7 +92,7 @@ describe('hub notifications (Subscriber UX Standard)', () => {
     visitReducedMotion('/');
     cy.wait('@topics');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card-drawer[data-unread="true"]').should('exist');
     cy.get('.notif-card-drawer__dot').click();
     cy.get('.notif-card-drawer[data-unread="false"]').should('exist');
@@ -108,7 +104,7 @@ describe('hub notifications (Subscriber UX Standard)', () => {
     visitReducedMotion('/influxdb3/core/');
     cy.wait('@topics');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card-drawer').should('not.exist');
   });
 
@@ -117,7 +113,7 @@ describe('hub notifications (Subscriber UX Standard)', () => {
     visitReducedMotion('/telegraf/');
     cy.wait('@topics');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card-drawer').should('exist');
   });
 
@@ -162,13 +158,13 @@ describe('hub notifications (Subscriber UX Standard)', () => {
     visitReducedMotion('/');
     cy.wait('@topics');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card-drawer__dismiss').click();
     cy.get('.notif-card-drawer', { timeout: 10000 }).should('not.exist');
     cy.reload();
     cy.wait('@topics');
     cy.wait('@posts');
-    cy.get('#notif-bell-btn').click({ force: true });
+    cy.get('#notif-bell-btn').click();
     cy.get('.notif-card-drawer').should('not.exist');
   });
 });
