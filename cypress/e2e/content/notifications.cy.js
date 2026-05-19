@@ -56,6 +56,17 @@ describe('hub notifications', () => {
     cy.contains('.notif-card .notif-title', 'Test notification');
   });
 
+  it('bell badge shows the unread count', () => {
+    stubHub(postFixture());
+    cy.visit('/');
+    cy.wait('@topics');
+    cy.wait('@posts');
+    cy.get('#notif-badge', { timeout: 10000 }).should(($badge) => {
+      expect($badge).not.to.have.attr('hidden');
+      expect($badge.text()).to.equal('1');
+    });
+  });
+
   it('honors docs scope (hidden off-scope)', () => {
     stubHub(postFixture({ contexts: { docs: { scope: ['telegraf'] } } }));
     cy.visit('/influxdb3/core/');
@@ -101,5 +112,28 @@ describe('hub notifications', () => {
     cy.wait('@posts');
     cy.get('#notif-bell-btn').click();
     cy.get('.notif-card').should('not.exist');
+  });
+
+  it('blocking modal requires Acknowledge to dismiss', () => {
+    cy.clearLocalStorage();
+    stubHub(postFixture({ presentation: 'blocking' }));
+    cy.visit('/');
+    cy.wait('@topics');
+    cy.wait('@posts');
+    // Modal appears
+    cy.get('#notif-blocking .notif-blocking-modal', { timeout: 10000 }).should(
+      'be.visible'
+    );
+    cy.get('#notif-blocking [role="alertdialog"]').should(
+      'have.attr',
+      'aria-modal',
+      'true'
+    );
+    // Escape must NOT close a blocking modal
+    cy.get('body').type('{esc}');
+    cy.get('#notif-blocking .notif-blocking-modal').should('be.visible');
+    // Acknowledge closes it
+    cy.contains('#notif-blocking .notif-ack', 'Acknowledge').click();
+    cy.get('#notif-blocking .notif-blocking-modal').should('not.exist');
   });
 });
