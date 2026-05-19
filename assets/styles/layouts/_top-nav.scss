@@ -187,7 +187,7 @@
     margin-left: .5rem;
   }
 
-  .theme-switch, #search-btn, .url-trigger {
+  .theme-switch, #search-btn, .url-trigger, #notif-bell-btn {
     display: inline-block;
     padding: 0;
     line-height: 0;
@@ -217,9 +217,15 @@
     z-index: 1;
   }
 
+  #notif-bell-btn {
+    font-size: 1.1rem;
+    vertical-align: top;
+  }
+
   .search-btn {
     width: 0;
     opacity: 0;
+    overflow: hidden;
   }
 
   &.feature-board {
