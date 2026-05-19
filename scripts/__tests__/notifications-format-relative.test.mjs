@@ -28,3 +28,6 @@ test('missing input returns empty string', () => {
   assert.equal(formatRelative(undefined, now), '');
   assert.equal(formatRelative(null, now), '');
 });
+test('invalid ISO string returns empty string', () => {
+  assert.equal(formatRelative('not-a-date', now), '');
+});
