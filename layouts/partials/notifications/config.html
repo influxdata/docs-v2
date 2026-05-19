@@ -17,14 +17,30 @@
 {{- end -}}
 {{- $cfg := dict "hubUrl" $hub "version" hugo.Version "productMap" $pm -}}
 <script id="notif-config" type="application/json">{{- $cfg | jsonify | safeJS -}}</script>
-<div id="notif-banners" class="notif-banners" role="region" aria-label="Site notifications"></div>
-<div id="notif-drawer" class="notif-drawer" hidden>
-  <div class="notif-drawer-header">
-    <span>Notifications</span>
-    <button class="notif-drawer-close" type="button" aria-label="Close">
-      <span class="cf-icon Remove_New"></span>
+<div
+  id="notif-banner-stack"
+  class="notif-banner-stack"
+  aria-live="polite"
+></div>
+<aside
+  id="notif-drawer"
+  class="notif-drawer"
+  role="dialog"
+  aria-modal="false"
+  aria-label="Notifications"
+  data-state="closed"
+>
+  <header class="notif-drawer__header">
+    <h2>Notifications</h2>
+    <button
+      id="notif-drawer-close"
+      class="notif-drawer__close"
+      type="button"
+      aria-label="Close"
+    >
+      ×
     </button>
-  </div>
-  <div class="notif-drawer-list"></div>
-</div>
-<div id="notif-blocking" hidden></div>
+  </header>
+  <div id="notif-drawer-list" class="notif-drawer__list"></div>
+</aside>
+<div id="notif-blocking-mount"></div>
