@@ -1,80 +1,74 @@
 /*
-  Drawer (inbox) view. Wires the topnav bell + badge to a slide-out panel
-  rendered from manager.getDrawerItems(). Pure render — all state lives in
-  the manager.
+  Drawer controller (Subscriber UX Standard). Pure render off the manager;
+  no notification state held here. Path-independent — uses
+  manager.getDrawerItems() (the docs scope/exclude/display_override layer is
+  applied upstream in contextFilter / effective-presentation).
 */
 
-import { buildCard } from './shared.js';
+import { renderDrawerCard } from './shared.js';
 
 export function initDrawer(manager) {
   const bellBtn = document.getElementById('notif-bell-btn');
   const badge = document.getElementById('notif-badge');
-  const panel = document.getElementById('notif-drawer');
-  if (!bellBtn || !badge || !panel) return;
-
-  const list = panel.querySelector('.notif-drawer-list');
+  const drawer = document.getElementById('notif-drawer');
+  if (!bellBtn || !badge || !drawer) return;
+  const list = drawer.querySelector('#notif-drawer-list');
+  const closeBtn = drawer.querySelector('#notif-drawer-close');
   if (!list) return;
+
   let open = false;
 
-  function renderBadge() {
-    const count = manager.getUnreadCount();
-    if (count > 0) {
-      badge.textContent = String(count);
-      badge.hidden = false;
-    } else {
-      badge.hidden = true;
-    }
+  function renderCounter() {
+    const n = manager.getUnreadCount();
+    badge.textContent = n > 99 ? '99+' : String(n);
+    badge.dataset.count = String(n);
+    badge.hidden = n === 0;
+    bellBtn.setAttribute('aria-label', `Notifications, ${n} unread`);
   }
 
   function renderList() {
-    list.textContent = '';
+    list.innerHTML = '';
     const items = manager.getDrawerItems();
-    if (!items.length) {
+    if (items.length === 0) {
       const empty = document.createElement('div');
-      empty.className = 'notif-empty';
-      empty.textContent = 'No notifications';
+      empty.className = 'notif-drawer__empty';
+      empty.textContent = "You're all caught up.";
       list.appendChild(empty);
       return;
     }
     for (const item of items) {
-      const card = buildCard(item.post, {
-        onExpand: () => manager.expandSummary(item.id),
-        onCTA: (post, i) => manager.handleCTAClick(post, i, 'drawer'),
-      });
-      if (item.read) card.classList.add('notif-read');
-      const dismiss = document.createElement('button');
-      dismiss.className = 'notif-dismiss';
-      dismiss.type = 'button';
-      dismiss.setAttribute('aria-label', 'Dismiss');
-      dismiss.innerHTML = '<span class="cf-icon Remove_New"></span>';
-      dismiss.addEventListener('click', () =>
-        manager.dismissFromDrawer(item.id)
-      );
-      card.appendChild(dismiss);
-      list.appendChild(card);
-      manager.recordImpressionOnce(item.id);
+      list.appendChild(renderDrawerCard(item, manager));
+      if (open) manager.recordImpressionOnce(item.id);
     }
+  }
+
+  function render() {
+    drawer.dataset.state = open ? 'open' : 'closed';
+    bellBtn.setAttribute('aria-expanded', String(open));
+    renderCounter();
+    renderList();
   }
 
   function setOpen(next) {
     open = next;
-    panel.hidden = !open;
-    bellBtn.setAttribute('aria-expanded', String(open));
-    if (open) renderList();
+    render();
   }
 
   bellBtn.addEventListener('click', () => setOpen(!open));
+  if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+
+  // composedPath stays stable even when the click target is detached by a
+  // synchronous re-render (e.g. dismiss). contains(e.target) would not.
+  document.addEventListener('click', (e) => {
+    if (!open) return;
+    const path = e.composedPath();
+    if (path.includes(drawer) || path.includes(bellBtn)) return;
+    setOpen(false);
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && open) setOpen(false);
   });
 
-  manager.addEventListener('change', () => {
-    renderBadge();
-    if (open) renderList();
-  });
-
-  const closeBtn = panel.querySelector('.notif-drawer-close');
-  if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
-
-  renderBadge();
+  manager.addEventListener('change', render);
+  render();
 }
