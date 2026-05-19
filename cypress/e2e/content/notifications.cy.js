@@ -88,10 +88,7 @@ describe('hub notifications (Subscriber UX Standard)', () => {
       'contain.text',
       'bold'
     );
-    cy.get('.notif-card-drawer__summary').should(
-      'not.contain.text',
-      '**'
-    );
+    cy.get('.notif-card-drawer__summary').should('not.contain.text', '**');
   });
 
   it('unread dot marks the item read', () => {
