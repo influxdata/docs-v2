@@ -99,6 +99,52 @@ describe('hub notifications (Subscriber UX Standard)', () => {
     cy.get('#notif-badge').should('have.attr', 'data-count', '0');
   });
 
+  it('bell aria-label reflects the unread count', () => {
+    cy.clearLocalStorage();
+    stubHub(postFixture());
+    visitReducedMotion('/');
+    cy.wait('@topics');
+    cy.wait('@posts');
+    cy.get('#notif-bell-btn', { timeout: 10000 }).should(
+      'have.attr',
+      'aria-label',
+      'Notifications, 1 unread'
+    );
+  });
+
+  it('counter caps at 99+ for >99 unread', () => {
+    cy.clearLocalStorage();
+    const many = Array.from({ length: 100 }, (_, i) =>
+      postFixture({
+        id: `01911edb-3d5a-72b0-935f-${String(i).padStart(12, '0')}`,
+      })
+    );
+    cy.intercept('GET', '**/api/topics', {
+      product: ['https://influxdata.com/topics/product/influxdb-v3'],
+    }).as('topics');
+    cy.intercept('GET', '**/api/subscriber-token*', {
+      token: 'test-token',
+      expiresAt: '2099-01-01T00:00:00Z',
+    });
+    cy.intercept('GET', '**/api/posts*', {
+      posts: many,
+      latestId: many[many.length - 1].id,
+    }).as('posts');
+    cy.intercept('GET', '**/.well-known/mercure*', { statusCode: 204 });
+    cy.intercept('POST', '**/api/posts/**', { statusCode: 204 });
+    visitReducedMotion('/');
+    cy.wait('@topics');
+    cy.wait('@posts');
+    cy.get('#notif-badge', { timeout: 10000 })
+      .should('have.text', '99+')
+      .and('have.attr', 'data-count', '100');
+    cy.get('#notif-bell-btn').should(
+      'have.attr',
+      'aria-label',
+      'Notifications, 100 unread'
+    );
+  });
+
   it('honors docs scope (hidden off-scope)', () => {
     stubHub(postFixture({ contexts: { docs: { scope: ['telegraf'] } } }));
     visitReducedMotion('/influxdb3/core/');
