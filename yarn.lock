@@ -261,10 +261,8 @@
     "@iconify/types" "^2.0.0"
     import-meta-resolve "^4.2.0"
 
-"@influxdata/notification-hub-client@^1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@influxdata/notification-hub-client/-/notification-hub-client-1.0.1.tgz#30e02ef2b4bd467fe28302f22c30b11d643f231d"
-  integrity sha512-eVb7OgnGu7C7WtFmGMjOGJaXiDkMfYQaVBwxjXbJr4WqO6ftbuo0SOa2AZi4mMCcLpJJ3FtuGpxAca64fOg2CA==
+"@influxdata/notification-hub-client@file:/Users/scott/Projects/notification-hub/clients/js":
+  version "1.0.2"
 
 "@isaacs/fs-minipass@^4.0.0":
   version "4.0.1"

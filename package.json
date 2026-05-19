@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "@influxdata/notification-hub-client": "^1",
+    "@influxdata/notification-hub-client": "file:/Users/scott/Projects/notification-hub/clients/js",
     "@types/turndown": "^5.0.6",
     "axios": "^1.15.2",
     "dompurify": "^3.4.5",
