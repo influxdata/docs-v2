@@ -128,3 +128,53 @@ test('bucketBySurface skips read and dismissed, buckets by effective presentatio
     ['4']
   );
 });
+
+test('bucketBySurface excludes posts out-of-scope for the current path', () => {
+  const items = [
+    {
+      id: 'a',
+      read: false,
+      dismissed: false,
+      post: post({
+        presentation: 'banner',
+        contexts: { docs: { scope: ['/telegraf/controller'] } },
+      }),
+    },
+    {
+      id: 'b',
+      read: false,
+      dismissed: false,
+      post: post({
+        presentation: 'banner',
+        contexts: { docs: { scope: ['home'] } },
+      }),
+    },
+    {
+      id: 'c',
+      read: false,
+      dismissed: false,
+      post: post({ presentation: 'banner', contexts: {} }), // no scope = everywhere
+    },
+  ];
+
+  // On /telegraf/controller/: a in scope; b not (home only); c (no scope) shows.
+  let result = bucketBySurface(items, '/telegraf/controller/', productMap);
+  assert.deepEqual(
+    result.banner.map((i) => i.id).sort(),
+    ['a', 'c']
+  );
+
+  // On /: b in scope (home); a not (telegraf only); c (no scope) shows.
+  result = bucketBySurface(items, '/', productMap);
+  assert.deepEqual(
+    result.banner.map((i) => i.id).sort(),
+    ['b', 'c']
+  );
+
+  // On /influxdb3/core/: only c (no scope) shows.
+  result = bucketBySurface(items, '/influxdb3/core/', productMap);
+  assert.deepEqual(
+    result.banner.map((i) => i.id),
+    ['c']
+  );
+});

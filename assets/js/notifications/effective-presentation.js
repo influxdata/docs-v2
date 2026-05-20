@@ -4,7 +4,7 @@
   Pure — unit-tested with `node --test`.
 */
 
-import { matchesAny } from './scope-matcher.js';
+import { matchesAny, inDocsScope } from './scope-matcher.js';
 
 const PRECEDENCE = ['blocking', 'banner', 'drawer']; // most intrusive first
 const SEVERITY_RANK = { critical: 0, warning: 1, info: 2 };
@@ -39,6 +39,11 @@ export function bucketBySurface(items, pathname, productMap) {
   const blocking = [];
   for (const item of items) {
     if (item.dismissed || item.read) continue;
+    // Scope/exclude is enforced at render time against the current page.
+    // Out-of-scope posts are skipped entirely (no banner, no blocking) —
+    // display_override only matters for posts that are in scope.
+    const docsCtx = item.post.contexts && item.post.contexts.docs;
+    if (!inDocsScope(docsCtx, pathname, productMap)) continue;
     const presentation = effectivePresentation(item.post, pathname, productMap);
     if (presentation === 'banner') banner.push(item);
     else if (presentation === 'blocking') blocking.push(item);

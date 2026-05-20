@@ -1,8 +1,15 @@
 /*
   Notification system boot. Fetches the canonical topic list, constructs the
-  hub client + manager + per-browser storage, applies docs scope/exclude via
-  contextFilter, and wires the drawer/banner/blocking views. Non-critical:
-  any failure logs and leaves the page untouched.
+  hub client + manager + per-browser storage, and wires the drawer / banner /
+  blocking views. Non-critical: any failure logs and leaves the page
+  untouched.
+
+  Scope/exclude/display_override is enforced at RENDER time per page (in the
+  view layer via inDocsScope + bucketBySurface), NOT at ingest. Storage is
+  the source of truth and holds every live post; each page evaluates scope
+  freshly against window.location.pathname. Filtering at ingest would couple
+  storage contents to whichever page the post first arrived on, leaking
+  stored posts to pages where they shouldn't render.
 */
 
 import {
@@ -10,7 +17,6 @@ import {
   NotificationManager,
   LocalOnlyStorage,
 } from '@influxdata/notification-hub-client';
-import { inDocsScope } from './scope-matcher.js';
 import { initDrawer } from './views/drawer.js';
 import { initBanner } from './views/banner.js';
 import { initBlocking } from './views/blocking.js';
@@ -23,6 +29,41 @@ function readConfig() {
   } catch {
     return null;
   }
+}
+
+/*
+  Console helper — clears every `influxdata_notif*` localStorage key (the
+  client library's instance-id, last-id cursor, and items cache for this
+  client) and reloads the page. Useful when a notification didn't arrive
+  due to the cursor gap, or when iterating on storage state during dev.
+
+  Usage (in DevTools console):
+    influxdatadocs.notifications.resetStorage();          // clears + reloads
+    influxdatadocs.notifications.resetStorage({ reload: false }); // clears only
+
+  Returns the array of cleared keys.
+*/
+function resetStorage({ reload = true } = {}) {
+  const removed = [];
+  for (const key of Object.keys(localStorage)) {
+    if (key.startsWith('influxdata_notif')) {
+      localStorage.removeItem(key);
+      removed.push(key);
+    }
+  }
+  // eslint-disable-next-line no-console
+  console.info('[notifications] reset storage; cleared keys:', removed);
+  if (reload) location.reload();
+  return removed;
+}
+
+// Expose the console helper on the docs global. Defensive: if main.js hasn't
+// initialized the namespace yet, create it (it merges its own props later).
+if (typeof window !== 'undefined') {
+  window.influxdatadocs = window.influxdatadocs || {};
+  window.influxdatadocs.notifications =
+    window.influxdatadocs.notifications || {};
+  window.influxdatadocs.notifications.resetStorage = resetStorage;
 }
 
 async function initialize() {
@@ -43,8 +84,8 @@ async function initialize() {
       version: cfg.version || undefined,
       topics,
       autoRecordImpressions: false,
-      contextFilter: (post) =>
-        inDocsScope(post.contexts && post.contexts.docs, pathname, productMap),
+      // No contextFilter: store every live post. Scope/exclude/display_override
+      // is applied per-page at render time in the view layer.
     });
 
     let manager;
@@ -66,6 +107,13 @@ async function initialize() {
 
     await manager.start();
     await client.start();
+
+    // manager.start() hydrates LocalOnlyStorage from localStorage silently
+    // (no `change` event), and catch-up dedups already-stored posts — so the
+    // views' initial render (run before start()) shows a stale empty state
+    // until the next live event or user interaction. Force one render now so
+    // restored unread items (e.g. the bell counter) paint on page load.
+    manager.notifyExternalChange();
   } catch (err) {
     console.warn('[notifications] init failed, disabled:', err);
   }
