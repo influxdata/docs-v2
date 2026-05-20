@@ -51,7 +51,6 @@ function resetStorage({ reload = true } = {}) {
       removed.push(key);
     }
   }
-  // eslint-disable-next-line no-console
   console.info('[notifications] reset storage; cleared keys:', removed);
   if (reload) location.reload();
   return removed;
