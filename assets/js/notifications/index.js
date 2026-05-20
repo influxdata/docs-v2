@@ -56,13 +56,25 @@ function resetStorage({ reload = true } = {}) {
   return removed;
 }
 
-// Expose the console helper on the docs global. Defensive: if main.js hasn't
+// Diagnostic — surface the hub's client_registry state for this `client: 'docs'`
+// identity. Populated after `client.start()` resolves; reads as 'unknown' until
+// then (and also when the JWT can't be decoded). One of 'unknown' / 'ignored' /
+// 'known' / 'disabled'. 'disabled' itself is unreachable here — disabled clients
+// fail token mint and never expose a getter — but it's still useful to read
+// 'known' vs 'unknown' to confirm whether `allowedClients` filtering is active.
+let activeClient = null;
+function getClientState() {
+  return activeClient ? activeClient.clientState : 'unknown';
+}
+
+// Expose console helpers on the docs global. Defensive: if main.js hasn't
 // initialized the namespace yet, create it (it merges its own props later).
 if (typeof window !== 'undefined') {
   window.influxdatadocs = window.influxdatadocs || {};
   window.influxdatadocs.notifications =
     window.influxdatadocs.notifications || {};
   window.influxdatadocs.notifications.resetStorage = resetStorage;
+  window.influxdatadocs.notifications.getClientState = getClientState;
 }
 
 async function initialize() {
@@ -101,9 +113,22 @@ async function initialize() {
     client.addEventListener('error', (e) => {
       const phase = e.detail && e.detail.phase;
       const err = e.detail && e.detail.error;
-      console.warn('[notifications]', phase, err && err.message);
+      const msg = (err && err.message) || '';
+      // 1.1 contract: a `token`-phase 403 means an admin has explicitly
+      // disabled this client id in the hub's client_registry. The client lib
+      // throws `subscriber-token failed: 403` for this case. Don't retry; just
+      // surface it more loudly so it's recognizable in logs. Other phases
+      // (`catchup`, `sse`, `analytics`) stay at warn-level.
+      if (phase === 'token' && msg.includes('403')) {
+        console.warn(
+          '[notifications] hub disabled this client; notifications are off'
+        );
+        return;
+      }
+      console.warn('[notifications]', phase, msg);
     });
 
+    activeClient = client;
     await manager.start();
     await client.start();
 
