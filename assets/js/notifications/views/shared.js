@@ -27,6 +27,22 @@ function safeHref(url) {
   return '#';
 }
 
+/*
+  CTA URLs that leave the docs site open in a new tab; in-docs links open
+  in the same tab. mailto: is treated as in-tab (the browser's mail handler
+  takes over, no navigation occurs).
+*/
+function isExternalHref(href) {
+  if (!href || href === '#') return false;
+  if (href.startsWith('mailto:')) return false;
+  try {
+    const u = new URL(href, window.location.href);
+    return !!u.hostname && u.hostname !== window.location.hostname;
+  } catch {
+    return false;
+  }
+}
+
 export function onAnimationDone(el, cb) {
   let done = false;
   const finish = () => {
@@ -43,8 +59,13 @@ export function renderCTA(cta) {
   a.className = 'notif-cta';
   a.dataset.style = cta.style ?? 'link';
   a.href = safeHref(cta.url);
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
+  // Only force a new tab for links that leave the docs origin. In-docs and
+  // mailto: links use the default in-tab behavior. rel="noopener noreferrer"
+  // only matters with target="_blank", so it's set together.
+  if (isExternalHref(a.href)) {
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  }
   a.textContent = cta.label;
   return a;
 }
@@ -63,7 +84,13 @@ function appendCTAs(parent, post, surface, manager, className) {
   parent.appendChild(wrap);
 }
 
-export function renderDrawerCard(item, manager) {
+/*
+  Drawer card. opts.initialExpanded restores the body's expanded state when
+  the drawer re-renders (the controller owns a Set<id> across re-renders;
+  see drawer.js). opts.onToggle is fired with the new expanded boolean so
+  the controller can update its Set.
+*/
+export function renderDrawerCard(item, manager, opts = {}) {
   const post = item.post;
   const card = document.createElement('article');
   card.className = 'notif-card-drawer';
@@ -92,6 +119,7 @@ export function renderDrawerCard(item, manager) {
   dismiss.className = 'notif-card-drawer__dismiss';
   dismiss.type = 'button';
   dismiss.setAttribute('aria-label', 'Dismiss');
+  dismiss.title = 'Dismiss';
   dismiss.textContent = '×';
   dismiss.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -102,13 +130,55 @@ export function renderDrawerCard(item, manager) {
   header.appendChild(dismiss);
   text.appendChild(header);
 
-  // Summary is markdown (1.0.2 contract); fall back to body markdown.
+  // Summary is markdown (1.0.2 contract). When a post has BOTH a summary and
+  // a body, the body sits behind a "Show more" toggle (mirrors the
+  // banner/blocking top-bar card). With only a body, it's shown as the
+  // summary fallback.
   if (post.summary && post.summary.trim() !== '') {
     const summary = document.createElement('div');
     summary.className =
       'notif-card-drawer__summary notif-card-drawer__summary--md';
     summary.innerHTML = renderMarkdown(post.summary);
     text.appendChild(summary);
+
+    if (post.body) {
+      const body = document.createElement('div');
+      body.className =
+        'notif-card-drawer__summary notif-card-drawer__summary--md notif-card-drawer__body';
+      body.id = `notif-drawer-body-${item.id}`;
+      // Drive show/hide via [data-expanded] (CSS-animatable) instead of the
+      // [hidden] attribute (display:none — not animatable). aria-hidden
+      // preserves the assistive-tech semantic.
+      let expanded = !!opts.initialExpanded;
+      body.dataset.expanded = String(expanded);
+      body.setAttribute('aria-hidden', String(!expanded));
+      body.innerHTML = renderMarkdown(post.body);
+      text.appendChild(body);
+
+      const toggle = document.createElement('button');
+      toggle.className = 'notif-card__expand';
+      toggle.type = 'button';
+      toggle.setAttribute('aria-expanded', String(expanded));
+      toggle.setAttribute('aria-controls', body.id);
+      toggle.textContent = expanded ? '↑ Show less' : '↓ Show more';
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        expanded = !expanded;
+        body.dataset.expanded = String(expanded);
+        body.setAttribute('aria-hidden', String(!expanded));
+        toggle.textContent = expanded ? '↑ Show less' : '↓ Show more';
+        toggle.setAttribute('aria-expanded', String(expanded));
+        // Tell the controller so it can persist this across re-renders.
+        if (typeof opts.onToggle === 'function') opts.onToggle(expanded);
+        // Expanding to read the body advances read state — consistent with
+        // the top-bar card and the standard's "summary expansion = read".
+        // expandSummary emits 'change' which triggers the drawer to
+        // re-render every card; the controller-owned expanded Set keeps
+        // this card open across that re-render via opts.initialExpanded.
+        if (expanded) manager.expandSummary(item.id);
+      });
+      text.appendChild(toggle);
+    }
   } else if (post.body) {
     const fallback = document.createElement('div');
     fallback.className =
@@ -126,6 +196,7 @@ export function renderDrawerCard(item, manager) {
   dot.className = 'notif-card-drawer__dot';
   dot.type = 'button';
   dot.setAttribute('aria-label', 'Mark as read');
+  dot.title = 'Mark as read';
   dot.addEventListener('click', (e) => {
     e.stopPropagation();
     manager.markRead(item.id);
@@ -162,13 +233,9 @@ export function renderTopBarCard(item, surface, manager) {
   const meta = document.createElement('div');
   meta.className = 'notif-card__meta';
 
-  if (surface !== 'banner') {
-    const pill = document.createElement('span');
-    pill.className = 'notif-card__pill';
-    pill.dataset.sev = post.severity;
-    pill.textContent = post.severity;
-    meta.appendChild(pill);
-  }
+  // Severity pill is omitted on all top-bar surfaces — banner conveys
+  // severity via the left bar; blocking has the modal context (and the
+  // user prefers no badge there).
 
   const cat = document.createElement('span');
   cat.className = 'notif-card__category';
@@ -202,8 +269,13 @@ export function renderTopBarCard(item, surface, manager) {
 
   const hasSummary = !!(post.summary && post.summary.trim());
   const hasBody = !!post.body;
+  // Banner AND blocking render CTAs inside the card body. (Drawer cards use
+  // their own renderer; blocking's modal footer holds only the Acknowledge
+  // button — no CTAs there.)
   const hasInlineCTAs =
-    surface === 'banner' && post.ctas && post.ctas.length > 0;
+    (surface === 'banner' || surface === 'blocking') &&
+    post.ctas &&
+    post.ctas.length > 0;
 
   if (hasSummary) {
     const summary = document.createElement('div');
@@ -211,21 +283,21 @@ export function renderTopBarCard(item, surface, manager) {
     summary.innerHTML = renderMarkdown(post.summary);
     inner.appendChild(summary);
 
-    if (hasBody || hasInlineCTAs) {
+    // Only the body lives behind the Show more toggle — CTAs stay outside
+    // (always visible), matching the drawer card. With no body there's
+    // nothing to reveal, so the toggle is omitted.
+    if (hasBody) {
       const expandable = document.createElement('div');
       expandable.className = 'notif-card__expandable';
       expandable.id = `notif-expandable-${item.id}-${surface}`;
-      expandable.hidden = true;
+      // CSS-animatable state — see drawer card above for the rationale.
+      expandable.dataset.expanded = 'false';
+      expandable.setAttribute('aria-hidden', 'true');
 
-      if (hasBody) {
-        const body = document.createElement('div');
-        body.className = 'notif-card__body';
-        body.innerHTML = renderMarkdown(post.body);
-        expandable.appendChild(body);
-      }
-      if (hasInlineCTAs) {
-        appendCTAs(expandable, post, 'banner', manager, 'notif-card__ctas');
-      }
+      const body = document.createElement('div');
+      body.className = 'notif-card__body';
+      body.innerHTML = renderMarkdown(post.body);
+      expandable.appendChild(body);
       inner.appendChild(expandable);
 
       const toggle = document.createElement('button');
@@ -237,16 +309,22 @@ export function renderTopBarCard(item, surface, manager) {
       let expanded = false;
       toggle.addEventListener('click', () => {
         expanded = !expanded;
-        expandable.hidden = !expanded;
+        expandable.dataset.expanded = String(expanded);
+        expandable.setAttribute('aria-hidden', String(!expanded));
         toggle.textContent = expanded ? '↑ Show less' : '↓ Show more';
         toggle.setAttribute('aria-expanded', String(expanded));
-        // Expanding a banner must NOT mark read (it would unmount the banner
-        // mid-read). Drawer/blocking expand advances read state.
-        if (expanded && surface !== 'banner') {
-          manager.expandSummary(item.id);
-        }
+        // Top-bar expand does NOT advance read state on either surface:
+        // - banner: marking read removes it from the banner queue mid-read.
+        // - blocking: marking read makes the modal close on its own.
+        // Only explicit X (banner) or Acknowledge (blocking) marks read.
+        // The drawer card's renderer handles its own read advancement.
       });
       inner.appendChild(toggle);
+    }
+
+    // CTAs always visible, after summary (and any expandable + toggle).
+    if (hasInlineCTAs) {
+      appendCTAs(inner, post, surface, manager, 'notif-card__ctas');
     }
   } else {
     if (hasBody) {
@@ -256,7 +334,7 @@ export function renderTopBarCard(item, surface, manager) {
       inner.appendChild(body);
     }
     if (hasInlineCTAs) {
-      appendCTAs(inner, post, 'banner', manager, 'notif-card__ctas');
+      appendCTAs(inner, post, surface, manager, 'notif-card__ctas');
     }
   }
 

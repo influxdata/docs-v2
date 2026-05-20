@@ -58,4 +58,30 @@ export function initBanner(manager, ctx) {
 
   manager.addEventListener('change', render);
   render();
+
+  // The docs topnav is `position: relative` and scrolls 1:1 with the page.
+  // Goal: stack starts at --notif-banner-top (matches the CSS fallback),
+  // decreases with scrollY as the topnav rides out, and clamps at
+  // --notif-banner-right so the "stuck" position has symmetric top/right
+  // padding from the viewport corner.
+  let initialTop = 0;
+  let rightPad = 0;
+  const refreshOffsets = () => {
+    const cs = getComputedStyle(stack);
+    initialTop =
+      parseFloat(cs.getPropertyValue('--notif-banner-top').trim()) || 0;
+    rightPad =
+      parseFloat(cs.getPropertyValue('--notif-banner-right').trim()) || 0;
+  };
+  const syncStackOffset = () => {
+    const top = Math.max(rightPad, initialTop - window.scrollY);
+    stack.style.top = `${top}px`;
+  };
+  refreshOffsets();
+  syncStackOffset();
+  window.addEventListener('scroll', syncStackOffset, { passive: true });
+  window.addEventListener('resize', () => {
+    refreshOffsets();
+    syncStackOffset();
+  });
 }

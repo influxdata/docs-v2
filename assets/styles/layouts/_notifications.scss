@@ -28,6 +28,7 @@ $notif-critical: #d4334a;
   --notif-card-radius: 6px;
   --notif-card-padding: 16px;
   --notif-card-text: #{$article-text};
+  --notif-card-text-light: #{rgba($article-text, 0.8)};
   --notif-card-meta-text: #{rgba($article-text, 0.6)};
   --notif-card-shadow: 0 1px 3px #{rgba($g0-obsidian, 0.18)};
 
@@ -36,41 +37,74 @@ $notif-critical: #d4334a;
   --notif-drawer-border: #{$article-hr};
   --notif-drawer-shadow: -4px 0 24px #{rgba($g0-obsidian, 0.25)};
 
-  --notif-banner-top: 90px;
+  --notif-banner-top: 65px;
   --notif-banner-right: 16px;
-  --notif-banner-width: 360px;
+  --notif-banner-width: 380px;
   --notif-banner-gap: 12px;
 
-  --notif-modal-backdrop: #{rgba($g0-obsidian, 0.5)};
-  --notif-modal-max-width: 520px;
+  // Match the docs modal backdrop ($grad-Miyazakisky at 0.85 opacity — the
+  // same look every other modal in the site uses). Alpha is baked into the
+  // gradient stops so the modal's content stays at full opacity.
+  --notif-modal-backdrop: linear-gradient(
+    45deg,
+    #{rgba($p-star, 0.85)},
+    #{rgba($b-pool, 0.85)}
+  );
+  --notif-modal-max-width: 570px;
   --notif-modal-radius: 8px;
   --notif-modal-shadow: 0 16px 48px #{rgba($g0-obsidian, 0.4)};
 
-  --notif-counter-bg: #{$notif-critical};
+  // Inline code + codeblocks in notification markdown inherit the docs
+  // article's code palette so they read like content code.
+  --notif-code-bg: #{$article-code-bg};
+  --notif-code-text: #{$article-code};
+
+  // Match the product-selector menu pink ($grad-burningDusk start color).
+  --notif-counter-bg: #{$br-new-magenta};
   --notif-counter-text: #{$g20-white};
 
   --notif-cta-link-color: #{$article-link};
-  --notif-cta-button-bg: #{$article-link};
+  --notif-cta-link-hover: #{$article-link-hover};
+  --notif-cta-button-bg: #{$article-btn-gradient};
   --notif-cta-button-text: #{$g20-white};
   --notif-cta-button-radius: 4px;
 
-  --notif-ack-bg: #{$article-bold};
-  --notif-ack-text: #{$article-bg};
-  --notif-ack-radius: 4px;
+  // (Acknowledge button styling now matches the docs `a.btn` pattern below —
+  // no ack-specific variables needed.)
 
-  --notif-z-banner: 9000;
+  // Banner stack sits BELOW the topnav's stacking context (z-index: 99 in
+  // _top-nav.scss). Otherwise the product-selector dropdown — which is
+  // capped by topnav's stacking context — gets visually covered by banners
+  // that open below the topnav. The drawer + modal stay sky-high so they
+  // correctly overlay the topnav when open.
+  --notif-z-banner: 50;
   --notif-z-drawer: 9100;
   --notif-z-modal: 9200;
 
   --notif-anim-in: 200ms;
   --notif-anim-out: 150ms;
+  // Slower expand for "Show more" reveals; collapse stays snappy at anim-in.
+  --notif-anim-expand: 350ms;
   --notif-anim-easing: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Counter badge on the topnav bell. */
+.notif-bell {
+  position: relative;
+}
 #notif-badge {
   background: var(--notif-counter-bg);
   color: var(--notif-counter-text);
+  font-size: 0.6rem;
+  padding: 0 0.3rem;
+  border-radius: 7px;
+  min-width: 14px;
+  min-height: 12px;
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  right: 0;
+  line-height: 0.9rem;
 }
 #notif-badge[data-count='0'] {
   display: none;
@@ -122,7 +156,7 @@ $notif-critical: #d4334a;
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
-  color: var(--notif-card-meta-text);
+  color: var(--notif-card-text-light);
 }
 .notif-drawer__list {
   flex: 1;
@@ -136,7 +170,7 @@ $notif-critical: #d4334a;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--notif-card-meta-text);
+  color: var(--notif-card-text-light);
   font-style: italic;
 }
 
@@ -208,6 +242,11 @@ $notif-critical: #d4334a;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  opacity: 1;
+  transition: opacity var(--notif-anim-out) var(--notif-anim-easing);
+}
+.notif-modal-backdrop[data-transition='leaving'] {
+  opacity: 0;
 }
 .notif-modal {
   background: var(--notif-card-bg);
@@ -219,6 +258,33 @@ $notif-critical: #d4334a;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  // Height transitions while the controller swaps between stacked
+  // blocking notifications (measure-swap-animate; see blocking.js).
+  transition: height var(--notif-anim-in) var(--notif-anim-easing);
+}
+.notif-modal__body,
+.notif-modal__footer {
+  opacity: 1;
+  transition: opacity var(--notif-anim-out) var(--notif-anim-easing);
+}
+// Outgoing modal: fade body + footer (height locked from JS so the next
+// item can animate FROM that height, not from natural-collapse).
+.notif-modal[data-transition='leaving'] .notif-modal__body,
+.notif-modal[data-transition='leaving'] .notif-modal__footer {
+  opacity: 0;
+}
+// Mid-swap state: new modal mounted at old height, content invisible.
+// `entering` is set before the reflow, then JS sets height + flips to
+// `entered` so the height + opacity both animate to the natural target.
+.notif-modal[data-transition='entering'] .notif-modal__body,
+.notif-modal[data-transition='entering'] .notif-modal__footer {
+  opacity: 0;
+  transition: none;
+}
+.notif-modal[data-transition='entered'] .notif-modal__body,
+.notif-modal[data-transition='entered'] .notif-modal__footer {
+  opacity: 1;
 }
 .notif-modal__body {
   flex: 1;
@@ -233,14 +299,38 @@ $notif-critical: #d4334a;
   align-items: center;
   gap: 12px;
 }
+/* Match the docs `a.btn` button style (article/_buttons.scss). */
 .notif-modal__ack {
-  background: var(--notif-ack-bg);
-  color: var(--notif-ack-text);
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0.85rem 1.5rem;
+  color: $article-btn-text !important;
   border: 0;
-  padding: 8px 16px;
-  border-radius: var(--notif-ack-radius);
+  border-radius: $radius;
+  font-size: 1rem;
+  font-weight: $medium;
   cursor: pointer;
-  font-weight: 500;
+  z-index: 1;
+  @include gradient($article-btn-gradient);
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $radius;
+    @include gradient($article-btn-gradient-hover);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: -1;
+  }
+  &:hover:after {
+    opacity: 1;
+  }
 }
 
 /* ---- Banner / blocking card (top severity bar) ---- */
@@ -304,17 +394,17 @@ $notif-critical: #d4334a;
 }
 .notif-card__category {
   text-transform: capitalize;
-  font-size: 11px;
+  font-size: 12px;
 }
 .notif-card__time {
   margin-left: auto;
-  font-size: 11px;
+  font-size: 12px;
 }
 .notif-card__dismiss {
   background: transparent;
   border: 0;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
   padding: 0 4px;
   color: var(--notif-card-meta-text);
@@ -323,14 +413,14 @@ $notif-critical: #d4334a;
 }
 .notif-card__title {
   margin: 0 0 4px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
   overflow-wrap: break-word;
 }
 .notif-card__summary {
-  margin: 0 0 6px;
-  font-size: 13px;
-  color: var(--notif-card-meta-text);
+  margin: 8px 0 6px;
+  font-size: 14px;
+  color: var(--notif-card-text-light);
   line-height: 1.5;
   overflow-wrap: break-word;
 }
@@ -341,9 +431,10 @@ $notif-critical: #d4334a;
   margin-bottom: 0;
 }
 .notif-card__body {
-  font-size: 13px;
-  line-height: 1.6;
-  margin-top: 4px;
+  font-size: 14px;
+  color: var(--notif-card-text-light);
+  line-height: 1.4;
+  margin-top: 8px;
 }
 .notif-card__body > :first-child {
   margin-top: 0;
@@ -359,19 +450,42 @@ $notif-critical: #d4334a;
   margin: 0 0 8px;
   padding-left: 20px;
 }
-.notif-card__body code {
-  font-family: ui-monospace, monospace;
-  font-size: 12px;
-  background: #{rgba($g0-obsidian, 0.08)};
-  padding: 1px 4px;
+/* Inline code + codeblocks inside notification markdown — match the docs
+   article code styling ($article-code-* via --notif-code-*). Scopes:
+   - banner/blocking summary (`.notif-card__summary--md`)
+   - banner/blocking body (`.notif-card__body`)
+   - drawer summary + body (`.notif-card-drawer__summary--md`, which is also
+     applied to the drawer __body fallback). */
+.notif-card__summary--md code,
+.notif-card__body code,
+.notif-card-drawer__summary--md code {
+  font-family: $code;
+  background: var(--notif-code-bg);
+  color: var(--notif-code-text);
+  padding: 0.05rem 0.35rem 0.1rem;
   border-radius: 3px;
+  font-size: 0.92em;
 }
-.notif-card__body pre {
-  background: #{rgba($g0-obsidian, 0.08)};
-  padding: 8px 10px;
+.notif-card__summary--md pre,
+.notif-card__body pre,
+.notif-card-drawer__summary--md pre {
+  font-family: $code;
+  background: var(--notif-code-bg);
+  color: var(--notif-code-text);
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.75rem;
   border-radius: 4px;
   overflow-x: auto;
-  font-size: 12px;
+  font-size: 0.92em;
+  line-height: 1.5;
+}
+.notif-card__summary--md pre code,
+.notif-card__body pre code,
+.notif-card-drawer__summary--md pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  white-space: pre;
 }
 .notif-card__expand {
   background: transparent;
@@ -380,10 +494,86 @@ $notif-critical: #d4334a;
   color: var(--notif-cta-link-color);
   cursor: pointer;
   font-size: 12px;
+  font-weight: $medium;
   margin-top: 4px;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 .notif-card__expand:hover {
-  text-decoration: underline;
+  color: var(--notif-cta-link-hover);
+  text-decoration: none;
+}
+
+/* Divider above the body when it follows a summary.
+   Banner/blocking: the body lives INSIDE .notif-card__expandable, which
+   clips it via max-height:0 + overflow:hidden when collapsed — so the
+   divider can be unconditional on the body element (clipped along with
+   the rest of the body when the wrapper is closed). */
+.notif-card__expandable .notif-card__body {
+  border-top: 1px solid var(--notif-drawer-border);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+/* Animated reveal/collapse: drive via [data-expanded] (JS sets it on click).
+   Default state = collapsed: zero max-height + faded + slightly scaled down
+   from the top. Expanded = full reveal. The card naturally grows/shrinks
+   because max-height animates in the flex layout. */
+.notif-card__expandable,
+.notif-card-drawer__body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: scaleY(0.96);
+  transform-origin: top;
+  transition:
+    max-height var(--notif-anim-in) var(--notif-anim-easing),
+    opacity var(--notif-anim-in) var(--notif-anim-easing),
+    transform var(--notif-anim-in) var(--notif-anim-easing);
+}
+.notif-card__expandable[data-expanded='true'],
+.notif-card-drawer__body[data-expanded='true'] {
+  max-height: 1500px;
+  opacity: 1;
+  transform: scaleY(1);
+  // Expanding uses the destination rule's transition — slower than collapsing
+  // (which uses the base rule's transition at var(--notif-anim-in)).
+  transition:
+    max-height var(--notif-anim-expand) var(--notif-anim-easing),
+    opacity var(--notif-anim-expand) var(--notif-anim-easing),
+    transform var(--notif-anim-expand) var(--notif-anim-easing);
+}
+
+/* Drawer divider — the .notif-card-drawer__body element IS the expandable
+   wrapper itself. Padding/border/margin on it would be OUTSIDE the
+   max-height clip (with content-box sizing), so they'd leave a visible
+   gap when collapsed. Keep these zeroed by default and animate them in on
+   expand alongside the max-height/opacity/transform reveal. */
+.notif-card-drawer__body {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0 solid var(--notif-drawer-border);
+  transition:
+    max-height var(--notif-anim-in) var(--notif-anim-easing),
+    opacity var(--notif-anim-in) var(--notif-anim-easing),
+    transform var(--notif-anim-in) var(--notif-anim-easing),
+    margin-top var(--notif-anim-in) var(--notif-anim-easing),
+    padding-top var(--notif-anim-in) var(--notif-anim-easing),
+    border-top-width var(--notif-anim-in) var(--notif-anim-easing);
+}
+.notif-card-drawer__body[data-expanded='true'] {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top-width: 1px;
+  // Override the combined-rule transition above so all 6 expanding
+  // properties (incl. margin/padding/border) run at the slower duration.
+  transition:
+    max-height var(--notif-anim-expand) var(--notif-anim-easing),
+    opacity var(--notif-anim-expand) var(--notif-anim-easing),
+    transform var(--notif-anim-expand) var(--notif-anim-easing),
+    margin-top var(--notif-anim-expand) var(--notif-anim-easing),
+    padding-top var(--notif-anim-expand) var(--notif-anim-easing),
+    border-top-width var(--notif-anim-expand) var(--notif-anim-easing);
 }
 .notif-card__ctas {
   display: flex;
@@ -460,8 +650,8 @@ $notif-critical: #d4334a;
   margin-bottom: 2px;
 }
 .notif-card-drawer__title {
-  margin: 0;
-  font-size: 13px;
+  margin: 0 0 4px;
+  font-size: 15px;
   font-weight: 600;
   flex: 1;
   min-width: 0;
@@ -471,7 +661,7 @@ $notif-critical: #d4334a;
   background: transparent;
   border: 0;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   padding: 0 2px;
   color: var(--notif-card-meta-text);
@@ -479,8 +669,8 @@ $notif-critical: #d4334a;
 }
 .notif-card-drawer__summary {
   margin: 0 0 4px;
-  font-size: 12px;
-  color: var(--notif-card-meta-text);
+  font-size: 13px;
+  color: var(--notif-card-text-light);
   line-height: 1.5;
   overflow-wrap: break-word;
 }
@@ -499,7 +689,7 @@ $notif-critical: #d4334a;
   padding-left: 18px;
 }
 .notif-card-drawer__meta {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--notif-card-meta-text);
   opacity: 0.75;
   text-transform: capitalize;
@@ -539,24 +729,77 @@ $notif-critical: #d4334a;
 
 /* ---- Shared CTA ---- */
 .notif-cta {
-  font-size: 13px;
+  font-size: 14px;
   display: inline-block;
 }
 .notif-cta[data-style='link'] {
   color: var(--notif-cta-link-color);
-  text-decoration: underline;
+  font-weight: $medium;
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover {
+    color: var(--notif-cta-link-hover);
+  }
 }
 .notif-cta[data-style='button'] {
-  background: var(--notif-cta-button-bg);
+  background: linear-gradient(90deg, var(--notif-cta-button-bg));
+  font-weight: $medium;
   color: var(--notif-cta-button-text);
   padding: 6px 12px;
   border-radius: var(--notif-cta-button-radius);
   text-decoration: none;
 }
 
+/* Blocking surface scales the top-bar card up so summary + body read at
+   article-body size. Relative type hierarchy stays the same as the banner. */
+.notif-card[data-surface='blocking'] {
+  .notif-card__inner {
+    padding: 20px 22px 20px 25px;
+  }
+  .notif-card__meta {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  .notif-card__pill {
+    font-size: 0.7rem;
+    padding: 3px 9px;
+  }
+  .notif-card__category {
+    font-size: 0.85rem;
+  }
+  .notif-card__time {
+    font-size: 0.85rem;
+  }
+  .notif-card__title {
+    font-size: 1.25rem;
+    margin: 0 0 6px;
+  }
+  .notif-card__summary {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .notif-card__body {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .notif-card__expand {
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
+  .notif-cta {
+    font-size: 1rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .notif-drawer,
-  .notif-drawer[data-state='open'] {
+  .notif-drawer[data-state='open'],
+  .notif-card__expandable,
+  .notif-card-drawer__body,
+  .notif-modal,
+  .notif-modal__body,
+  .notif-modal__footer,
+  .notif-modal-backdrop {
     transition: none;
   }
   .notif-banner[data-state='entering'],
