@@ -196,36 +196,6 @@ pre-push:
         node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/index.cy.js" content/example.md
         exit $?
 
-    # Manage Docker containers
-    # Disabled: original task fails when docker is not installed or running.
-    # Replaced by list-legacy-containers below, which exits 0 when docker
-    # is unavailable so the push is not blocked.
-    # prune-legacy-containers:
-    #   priority: 1
-    #   tags: test
-    #   run: '(docker container ls --format "{{.ID}}"
-    #       --filter label=tag=influxdata-docs
-    #       --filter status=exited | xargs docker rm)
-    #       || true'
-    list-legacy-containers:
-      tags: test
-      run: |
-        if ! command -v docker >/dev/null 2>&1; then
-          exit 0
-        fi
-        if ! docker info >/dev/null 2>&1; then
-          exit 0
-        fi
-        legacy=$(docker container ls -a \
-          --format "{{.ID}} {{.Names}}" \
-          --filter label=tag=influxdata-docs \
-          --filter status=exited 2>/dev/null)
-        if [ -n "$legacy" ]; then
-          echo "Note: exited influxdata-docs containers found (push not blocked):"
-          echo "$legacy" | sed 's/^/    /'
-          echo "Prune with: docker container prune --filter label=tag=influxdata-docs"
-        fi
-        exit 0
     # Disabled: builds the pytest image used by the *-pytest tasks below.
     # Now that those tasks are disabled, this task is dead weight and fails
     # when docker is not installed. Run `yarn build:pytest:image` manually
