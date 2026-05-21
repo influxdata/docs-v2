@@ -51,8 +51,6 @@ To query the home sensor sample data you wrote in
 [Write data to {{% product-name %}}](/influxdb3/version/get-started/write/#write-data-using-the-cli),
 run the following command:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#)
@@ -61,24 +59,24 @@ run the following command:
 {{% code-tab-content %}}
 
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   "SELECT * FROM home ORDER BY time"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   --language influxql \
   "SELECT * FROM home"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 _Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
 with the name of the database to query._
@@ -86,8 +84,6 @@ with the name of the database to query._
 To query from a specific time range, use the `WHERE` clause to designate the
 boundaries of your time range.
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#)
@@ -96,24 +92,24 @@ boundaries of your time range.
 {{% code-tab-content %}}
 
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   "SELECT * FROM home WHERE time >= now() - INTERVAL '7 days' ORDER BY time"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 query \
   --database DATABASE_NAME \
   --language influxql \
   "SELECT * FROM home WHERE time >= now() - 7d"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 ### Example queries
 
@@ -307,14 +303,12 @@ Use the `format` parameter to specify the response format: `pretty`, `jsonl`, `p
 
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl -G "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --header 'Authorization: Bearer AUTH_TOKEN' \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=select * from cpu limit 5"
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
@@ -325,12 +319,10 @@ Replace the following placeholders with your values:
 
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 curl http://{{< influxdb/host >}}/api/v3/query_sql \
   --data '{"db": "DATABASE_NAME", "q": "select * from cpu limit 5"}'
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
@@ -354,8 +346,7 @@ pip install influxdb3-python
 
 From here, you can connect to your database with the client library using just the **host** and **database name:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```python
+```python { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
@@ -364,7 +355,6 @@ client = InfluxDBClient3(
     database='DATABASE_NAME'
 )
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 

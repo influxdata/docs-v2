@@ -1,0 +1,92 @@
+---
+description: "Telegraf plugin for collecting metrics from NSQ Consumer"
+menu:
+  telegraf_v1_ref:
+    parent: input_plugins_reference
+    name: NSQ Consumer
+    identifier: input-nsq_consumer
+tags: [NSQ Consumer, "input-plugins", "configuration", "messaging"]
+introduced: "v0.10.1"
+os_support: "freebsd, linux, macos, solaris, windows"
+---
+
+# NSQ Consumer Input Plugin
+
+This service plugin consumes messages from [NSQ](https://nsq.io/) realtime distributed
+messaging platform brokers in one of the supported [data formats](/telegraf/v1/data_formats/input).
+
+**Introduced in:** Telegraf v0.10.1
+**Tags:** messaging
+**OS support:** all
+
+[nsq]: https://nsq.io/
+[data_formats]: /docs/DATA_FORMATS_INPUT.md
+
+## Service Input <!-- @/docs/includes/service_input.md -->
+
+This plugin is a service input. Normal plugins gather metrics determined by the
+interval setting. Service plugins start a service to listen and wait for
+metrics or events to occur. Service plugins have two key differences from
+normal plugins:
+
+1. The global or plugin specific `interval` setting may not apply
+2. The CLI options of `--test`, `--test-wait`, and `--once` may not produce
+   output for this plugin
+
+## Tracking metric support <!-- @/docs/includes/plugin_tracking_metrics.md -->
+
+This plugin supports [tracking metrics](../../../docs/METRICS.md#tracking-metrics), which allows the plugin
+to be notified when metrics have been delivered to all outputs, enabling proper
+acknowledgment back to the source.
+
+[METRICS.md]: ../../../docs/METRICS.md#tracking-metrics
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Read metrics from NSQD topic(s)
+[[inputs.nsq_consumer]]
+  ## An array representing the NSQD TCP HTTP Endpoints
+  nsqd = ["localhost:4150"]
+
+  ## An array representing the NSQLookupd HTTP Endpoints
+  nsqlookupd = ["localhost:4161"]
+  topic = "telegraf"
+  channel = "consumer"
+  max_in_flight = 100
+
+  ## Max undelivered messages
+  ## This plugin uses tracking metrics, which ensure messages are read to
+  ## outputs before acknowledging them to the original broker to ensure data
+  ## is not lost. This option sets the maximum messages to read from the
+  ## broker that have not been written by an output.
+  ##
+  ## This value needs to be picked with awareness of the agent's
+  ## metric_batch_size value as well. Setting max undelivered messages too high
+  ## can result in a constant stream of data batches to the output. While
+  ## setting it too low may never flush the broker's messages.
+  # max_undelivered_messages = 1000
+
+  ## Data format to consume.
+  ## Each data format has its own unique set of configuration options, read
+  ## more about them here:
+  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
+  data_format = "influx"
+```
+
+## Metrics
+
+The plugin accepts arbitrary input and parses it according to the `data_format`
+setting. There is no predefined metric format.
+
+## Example Output
+
+There is no predefined metric format, so output depends on plugin input.

@@ -25,9 +25,7 @@ Use the [`outputs.influxdb_v2`](/telegraf/v1/plugins/#output-influxdb_v2) plugin
 to connect to the InfluxDB v2 write API included in {{% product-name %}} and
 write metrics collected by Telegraf to {{< product-name >}}.
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-
-```toml
+```toml { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 # ...
 
 [[outputs.influxdb_v2]]
@@ -38,8 +36,6 @@ write metrics collected by Telegraf to {{< product-name >}}.
 
 # ...
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

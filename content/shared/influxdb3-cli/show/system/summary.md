@@ -30,13 +30,11 @@ In the examples below, replace
 {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}} with
 the name of the database to operate on.
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
 ### Summarize system table data
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 show system --database DATABASE_NAME summary
 ```
 
@@ -44,8 +42,6 @@ influxdb3 show system --database DATABASE_NAME summary
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 show system --database DATABASE_NAME summary --format json
 ```
-
-{{% /code-placeholders %}}

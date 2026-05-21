@@ -36,11 +36,9 @@ to delete a user. Provide the following:
   `INFLUX_TOKEN` environment variable, or the `--token, -t` flag.
 - The user ID _(provided in the output of `influx user list`)_
 
-{{% code-placeholders "USER_ID" %}}
-```sh
+```sh { placeholders="USER_ID" }
 influx user delete --id USER_ID
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`USER_ID`{{% /code-placeholder-key %}} with
 the ID of the user to delete.

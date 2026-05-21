@@ -19,8 +19,7 @@ The mechanism for providing your token depends on the client you use to interact
 When using the `influxdb3` CLI, you can set the `INFLUXDB3_AUTH_TOKEN` environment variable to automatically provide your
 authorization token to all `influxdb3` commands--for example:
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="YOUR_AUTH_TOKEN" }
 # Export your token as an environment variable
 export INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 
@@ -29,19 +28,16 @@ influxdb3 query \
   --database DATABASE_NAME \
   "SELECT * FROM 'DATABASE_NAME' WHERE time > now() - INTERVAL '10 minutes'"
 ```
-{{% /code-placeholders %}}
 
 To specify a token in the command and override the environment variable, pass the `--token` option with your authorization token--for example:
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="YOUR_AUTH_TOKEN" }
 # Include the --token option in your influxdb3 command
 influxdb3 query \
   --token YOUR_AUTH_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM 'DATABASE_NAME' WHERE time > now() - INTERVAL '10 minutes'"
 ```
-{{% /code-placeholders %}}
 
 You can also set the `INFLUXDB3_AUTH_TOKEN` environment variable to automatically provide your
 authorization token to all `influxdb3` commands.
@@ -54,15 +50,13 @@ The `Authorization: Bearer AUTH_TOKEN` scheme works with all HTTP API endpoints 
 
 The following examples use `curl` to show to authenticate to the HTTP API.
 
-{{% code-placeholders "AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 # Add your token to the HTTP Authorization header
 curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM 'DATABASE_NAME' WHERE time > now() - INTERVAL '10 minutes'"
 ```
-{{% /code-placeholders %}}
 
 ### Authenticate using v1 and v2 compatibility
 
@@ -74,16 +68,14 @@ With the InfluxDB v2-compatible `/api/v2/write` endpoint, you can use tokens in 
 The following examples show how to authenticate with the InfluxDB v1-compatible and v2-compatible APIs
 in InfluxDB 3:
 
-{{% code-placeholders "AUTH_TOKEN" %}}
-
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 # Token scheme with v2 /api/v2/write
 curl http://localhost:8181/api/v2/write\?bucket\=DATABASE_NAME \
   --header "Authorization: Token AUTH_TOKEN" \
   --data-raw "home,room=Kitchen temp=23.5 1622547800"
 ```
 
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 # Basic scheme with v1 /write
 # Username is ignored, but required for the request
 # Password is your auth token encoded in base64
@@ -92,13 +84,13 @@ curl "http://localhost:8181/write?db=DATABASE_NAME" \
   --data-raw "home,room=Kitchen temp=23.5 1622547800"
 ```
 
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 # URL auth parameters with v1 /write
 # Username is ignored, but required for the request
 curl "http://localhost:8181/write?db=DATABASE_NAME&u=any&p=AUTH_TOKEN" \
   --data-raw "home,room=Kitchen temp=23.5 1622547800"
 ```
-{{% /code-placeholders %}}
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 

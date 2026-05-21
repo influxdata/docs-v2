@@ -3,7 +3,11 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
 {{ $pageRoot := print $product "/" $version }}
-{{ $useRootProductLink := or (eq $product nil) (in (slice "resources" "platform") $product) }}
+{{/* When a product hub (e.g., /influxdb3/) has no version segment, the
+     pageRoot regex doesn't match anything in RelPermalink — every product
+     link resolves back to the current page. Treat versionless pages as root
+     so each link goes to its product's landing URL. */}}
+{{ $useRootProductLink := or (eq $product nil) (in (slice "resources" "platform") $product) (not $version) }}
 {{ $altLinks := .Page.Params.alt_links | default dict }}
 
 <!--

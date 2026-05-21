@@ -56,8 +56,7 @@ To send data to {{< product-name >}}, enable and configure the
 [`influxdb_v2` output plugin](/influxdb3/version/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin)
 in your `telegraf.conf`.
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```toml
+```toml { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 [[inputs.file]]
   files = ["/path/to/example.csv"]
   data_format = "csv"
@@ -88,7 +87,6 @@ in your `telegraf.conf`.
   bucket = "DATABASE_NAME"
   content_encoding = "gzip"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
