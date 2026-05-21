@@ -52,7 +52,9 @@ pre-commit:
     build-agent-instructions:
       glob: "data/products.yml"
       run: yarn build:agent:instructions
-    # Auto-fix markdown formatting for instruction and README files (like prettier)
+    # Auto-fix markdown formatting for instruction and README files (like prettier).
+    # The wrapper at .ci/remark/remark.sh runs the local Node install when present
+    # and falls back to the Compose remark-lint service when Node isn't available.
     lint-markdown-instructions:
       tags: lint
       glob:
@@ -61,11 +63,11 @@ pre-commit:
         - ".github/**/*.md"
         - ".claude/**/*.md"
       run: |
-        # Filter out content and layout files (shortcode .md files contain Hugo template syntax
-        # that remark-lint would escape), then prepend /workdir/ to each remaining file
-        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | grep -v '^layouts/' | sed 's|^|/workdir/|' | tr '\n' ' ' | sed 's/ $//')
+        # Shortcode .md files contain Hugo template syntax that remark-lint would
+        # escape, so filter content/ and layouts/ paths before running remark.
+        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | grep -v '^layouts/' | tr '\n' ' ' | sed 's/ $//')
         if [ -n "$files" ]; then
-          docker compose run --rm --name remark-lint remark-lint $files --output --quiet || \
+          .ci/remark/remark.sh $files --output --quiet || \
             { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
         fi
       stage_fixed: true
