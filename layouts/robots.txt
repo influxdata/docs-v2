@@ -1,3 +1,11 @@
+{{- range $.Site.Data.ai_bots -}}
+User-agent: {{ . }}
+{{ if eq $.Site.Params.environment "staging" -}}
+Disallow: /
+{{ else -}}
+Allow: /
+{{ end }}
+{{ end -}}
 User-agent: *
 {{ if eq .Site.Params.environment "staging" }}Disallow: /
 {{- else }}{{ range where .Site.Pages ".Params.noindex" true }}

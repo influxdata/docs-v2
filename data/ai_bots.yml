@@ -1,0 +1,31 @@
+# AI/LLM crawlers we explicitly allow on production (Disallow on staging).
+# Each entry becomes a named User-agent block in /robots.txt.
+# Bot identifiers come from each vendor's published crawler documentation.
+
+# OpenAI
+- GPTBot          # training + search
+- OAI-SearchBot   # ChatGPT search results
+- ChatGPT-User    # user-initiated browsing
+
+# Anthropic
+- ClaudeBot       # current canonical name
+- anthropic-ai    # legacy identifier still observed
+- Claude-Web      # legacy identifier still observed
+
+# Perplexity
+- PerplexityBot
+
+# Common Crawl (feeds many LLM training corpora)
+- CCBot
+
+# Google (controls Gemini/Vertex AI; separate from Googlebot search)
+- Google-Extended
+
+# Meta
+- FacebookBot
+
+# ByteDance (powers Doubao)
+- Bytespider
+
+# Amazon
+- Amazonbot
