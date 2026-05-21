@@ -1,0 +1,70 @@
+name: Remark Markdown Lint
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'DOCS-*.md'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
+      - '.github/**/*.md'
+      - '.claude/**/*.md'
+      - 'docs/**/*.md'
+      - '.ci/remark-lint/**'
+      - '.remarkrc.yaml'
+      - '.github/workflows/pr-remark-check.yml'
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  remark-check:
+    name: Remark formatting check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: .ci/remark-lint/package.json
+
+      - name: Detect changed instruction files
+        id: detect
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git diff --name-only --diff-filter=d "$BASE_SHA"..."$HEAD_SHA" \
+            | grep -v '^content/' \
+            | grep -v '^layouts/' \
+            | grep -E '^(README\.md|DOCS-.*\.md|AGENTS\.md|CLAUDE\.md|CHANGELOG\.md|CONTRIBUTING\.md|\.github/.*\.md|\.claude/.*\.md|docs/.*\.md)$' \
+            > files_to_check.txt || true
+
+          if [[ -s files_to_check.txt ]]; then
+            FILE_COUNT=$(wc -l < files_to_check.txt | tr -d ' ')
+            echo "Found $FILE_COUNT file(s) to check"
+            cat files_to_check.txt
+            echo "has-files=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No instruction-style markdown files changed"
+            echo "has-files=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install remark dependencies
+        if: steps.detect.outputs.has-files == 'true'
+        run: npm install --no-audit --no-fund --prefix .ci/remark-lint
+
+      - name: Run remark (frail — fail on warnings/errors)
+        if: steps.detect.outputs.has-files == 'true'
+        run: |
+          xargs -a files_to_check.txt .ci/remark/remark.sh --frail --quiet
