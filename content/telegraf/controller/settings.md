@@ -84,3 +84,13 @@ Changes made on the **Settings** page override initialized settings.
 
 _For detailed descriptions and bootstrap behavior, see the
 [Authentication and security section in the configuration options reference](/telegraf/controller/reference/config-options/#authentication-and-security)._
+
+## Enterprise
+
+License management for {{% product-name %}} lives at **Settings → Enterprise**.
+Owners can view the current Telegraf Enterprise license, upload a new
+license, and remove a license. All users see current entitlements and usage.
+
+For details on applying, replacing, and removing a license---and on what
+each license state means---see
+[Manage your license](/telegraf/controller/licensing/).
