@@ -54,7 +54,8 @@ unlicensed  →  valid  →  expiring  →  grace period  →  expired
 | **grace period** | License has expired but less than 15 days have elapsed | Licensed entitlements still apply; an error banner appears in the UI. |
 | **expired** | License expired 15 or more days ago | Limits revert to the free tier; enterprise features are disabled. |
 
-For full details on what changes at each stage, see
+For full details on what changes at each stage---including the API status
+names for each state (such as `expired_grace`)---see
 [License enforcement](/telegraf/controller/licensing/license-enforcement/).
 
 {{< children hlevel="h2" >}}

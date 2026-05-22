@@ -125,10 +125,10 @@ checks to detect license-related issues before they affect users.
 
 ## What users see in the UI
 
-- **Owners and Administrators** see banners with a **Manage license** button
-  that links to **Settings → Enterprise**.
-- **Other authenticated users** see the same banners with a "Contact your
-  administrator" message instead of the button.
+- **Owners** see banners with a **Manage license** button that links to
+  **Settings → Enterprise**.
+- **All other authenticated users** (including Administrators) see the same
+  banners with a "Contact your administrator" message instead of the button.
 - **Gated features in the UI** (such as the Audit Logs page) display a lock
   icon with hover text explaining that the feature requires a Telegraf
   Enterprise license.

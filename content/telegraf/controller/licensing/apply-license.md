@@ -162,10 +162,13 @@ to see the current entitlements and usage. This is the recommended endpoint
 for status checks in scripts and monitoring dashboards because it doesn't
 require the Owner role.
 
-```bash
-curl -H "Authorization: Bearer $TC_API_TOKEN" \
-  https://controller.example.com/api/license/entitlements
+```bash { placeholders="YOUR_TC_API_TOKEN" }
+curl -H "Authorization: Bearer YOUR_TC_API_TOKEN" \
+  https://telegraf_controller.example.com/api/license/entitlements
 ```
+
+Replace {{% code-placeholder-key %}}`YOUR_TC_API_TOKEN`{{% /code-placeholder-key %}}
+with your {{% product-name %}} API token.
 
 Example response when a license is active:
 

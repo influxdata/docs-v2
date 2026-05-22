@@ -31,9 +31,8 @@ free tier.
 
 - **License ID** --- the unique identifier for your license. Include this
   value when contacting InfluxData support.
-- **Loaded** --- the date and time the license was first applied to this
+- **Loaded** --- the date and time the license was applied to this
   {{% product-name %}} instance.
-- **Updated** --- the date and time the license was last replaced.
 - **Expires** --- the contractual expiration date, with a status chip
   indicating current state (valid, expiring, or expired).
 - **Max configurations** --- the configurations entitlement from the license.
@@ -45,10 +44,13 @@ free tier.
 **From the API**, an Owner can call `GET /api/license` to retrieve the same
 information for scripted checks:
 
-```bash
-curl -H "Authorization: Bearer $TC_API_TOKEN" \
-  https://controller.example.com/api/license
+```bash { placeholders="YOUR_TC_API_TOKEN" }
+curl -H "Authorization: Bearer YOUR_TC_API_TOKEN" \
+  https://telegraf_controller.example.com/api/license
 ```
+
+Replace {{% code-placeholder-key %}}`YOUR_TC_API_TOKEN`{{% /code-placeholder-key %}}
+with your {{% product-name %}} API token.
 
 Example response:
 
@@ -74,10 +76,13 @@ choice for monitoring dashboards and capacity-planning scripts because it
 doesn't require the Owner role and works on both licensed and unlicensed
 instances.
 
-```bash
-curl -H "Authorization: Bearer $TC_API_TOKEN" \
-  https://controller.example.com/api/license/entitlements
+```bash { placeholders="YOUR_TC_API_TOKEN" }
+curl -H "Authorization: Bearer YOUR_TC_API_TOKEN" \
+  https://telegraf_controller.example.com/api/license/entitlements
 ```
+
+Replace {{% code-placeholder-key %}}`YOUR_TC_API_TOKEN`{{% /code-placeholder-key %}}
+with your {{% product-name %}} API token.
 
 Example response on a licensed instance:
 
