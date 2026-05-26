@@ -11,6 +11,8 @@
       "Bash(trash:*)",
       "Bash(stat:*)",
       "Bash(.ci/vale/vale.sh:*)",
+      "Bash(.ci/shellcheck/shellcheck.sh:*)",
+      "Bash(shellcheck:*)",
       "Bash(npm:*)",
       "Bash(yarn:*)",
       "Bash(pnpm:*)",
@@ -66,19 +68,47 @@
       "LS",
       "Skill(superpowers:brainstorming)",
       "Skill(superpowers:brainstorming:*)",
-      "mcp__acp__Bash"
+      "mcp__acp__Bash",
+      "mcp__github__pull_request_read"
     ],
     "deny": [
       "Read(./.env)",
       "Read(./.env.*)",
       "Read(./secrets/**)",
       "Read(./config/credentials.json)",
-      "Read(./build)"
+      "Read(./build)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/credentials*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/id_rsa)",
+      "Read(**/id_dsa)",
+      "Read(**/id_ecdsa)",
+      "Read(**/id_ed25519)",
+      "Read(**/.netrc)",
+      "Read(**/.npmrc)",
+      "Read(**/.pypirc)",
+      "Read(**/.git-credentials)",
+      "Read(**/.ssh/**)",
+      "Read(**/.aws/**)",
+      "Read(**/.gnupg/**)",
+      "Read(**/.config/gh/hosts.yml)"
     ],
     "ask": [
       "Bash(git push:*)",
       "Bash(rm:*)",
-      "Read(/tmp)"
+      "Read(/tmp)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git rebase:*)",
+      "Bash(sudo:*)",
+      "Bash(dd:*)",
+      "Bash(shred:*)",
+      "Bash(mkfs:*)"
     ]
   },
   "hooks": {
