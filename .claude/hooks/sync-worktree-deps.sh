@@ -17,6 +17,9 @@ main_checkout="$(dirname "$(git rev-parse --git-common-dir)")"
 cmp -s yarn.lock "$main_checkout/yarn.lock" && exit 0
 
 # Diverged -> remove only the symlink (no -r, no trailing slash) and install.
+# Install failure is intentionally non-fatal: an async SessionStart hook must
+# never block the session, so a broken lockfile leaves node_modules absent and
+# surfaces when a build/test command runs, not here.
 rm -f node_modules
 CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_DOWNLOAD=1 \
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
