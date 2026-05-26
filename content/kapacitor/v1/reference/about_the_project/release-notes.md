@@ -9,6 +9,14 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.8.6 {date="2026-05-26"}
+
+### Dependency updates
+
+- Upgrade Go to 1.25.10.
+- Upgrade google.golang.org/grpc
+- upgrade aws-sdk-go-v2
+
 ## v1.8.5 {date="2026-05-06"}
 
 ### Dependency updates
