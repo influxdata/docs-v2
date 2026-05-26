@@ -426,7 +426,7 @@ subsequent restarts.
 If the file is missing, unreadable, or contains an invalid license,
 {{% product-name %}} starts in free-tier mode and logs the validation error.
 
-See [Apply a license](/telegraf/controller/licensing/apply-license/) for full
+See [Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/) for full
 guidance, including systemd and Docker examples.
 
 | Command flag | Environment variable |

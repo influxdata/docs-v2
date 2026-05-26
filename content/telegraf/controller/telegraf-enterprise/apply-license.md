@@ -8,11 +8,11 @@ description: >
 menu:
   telegraf_controller:
     name: Apply a license
-    parent: Manage your license
-weight: 111
+    parent: Telegraf Enterprise
+weight: 101
 related:
-  - /telegraf/controller/licensing/manage-license/
-  - /telegraf/controller/licensing/troubleshoot/
+  - /telegraf/controller/telegraf-enterprise/manage-license/
+  - /telegraf/controller/telegraf-enterprise/troubleshoot/
   - /telegraf/controller/reference/config-options/
 ---
 
@@ -38,9 +38,8 @@ Telegraf Enterprise licenses are signed JSON Web Tokens (JWTs). The license
 file is plain text and you can open it to confirm it parses as a JWT, but you
 should not edit it---any change invalidates the cryptographic signature.
 
-{{% product-name %}} validates the license locally using a signing key built
-into the {{% product-name %}} binary, so licensing works in air-gapped
-deployments.
+{{% product-name %}} validates licenses in both connected and
+air-gapped environments.
 
 ## Apply a license at startup
 
@@ -55,13 +54,13 @@ infrastructure-as-code deployments.
 
 2. **Set the `LICENSE_FILE_PATH` environment variable.**
 
-   {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+   {{< tabs-wrapper >}}
+{{% tabs %}}
 [systemd](#)
 [Docker](#)
 [Shell](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% /tabs %}}
+{{% tab-content %}}
 
 Add an `Environment=` line to your systemd unit file (typically
 `/etc/systemd/system/telegraf-controller.service`):
@@ -78,8 +77,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart telegraf-controller
 ```
 
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 
 Pass the environment variable and mount the license file when starting the
 container:
@@ -91,8 +90,8 @@ docker run \
   influxdata/telegraf-controller
 ```
 
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 
 Export the variable in your shell before starting {{% product-name %}}:
 
@@ -101,8 +100,8 @@ export LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt
 telegraf_controller --no-interactive
 ```
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 3. **Start (or restart) {{% product-name %}}.**
 
@@ -116,15 +115,13 @@ telegraf_controller --no-interactive
 > If the {{% product-name %}} database already contains a license,
 > `LICENSE_FILE_PATH` is ignored on subsequent restarts. To replace a license
 > applied this way, either [upload a new license through the UI](#apply-a-license-through-the-user-interface)
-> or [remove the existing license](/telegraf/controller/licensing/manage-license/#remove-a-license)
+> or [remove the existing license](/telegraf/controller/telegraf-enterprise/manage-license/#remove-a-license)
 > first.
 
 If the file is missing, unreadable, or contains an invalid license,
 {{% product-name %}} starts in free-tier mode and logs the validation error.
-See [Troubleshoot licensing](/telegraf/controller/licensing/troubleshoot/) for
+See [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/) for
 the error catalog.
-
-<!-- TODO: screenshot of server logs showing successful license bootstrap, save to /static/img/telegraf/controller-licensing-bootstrap-log.png and replace with img-hd shortcode -->
 
 ## Apply a license through the user interface
 
@@ -132,9 +129,9 @@ Use the {{% product-name %}} UI to apply or replace a license at runtime
 without restarting the application. This method requires the **Owner** role.
 
 1. Sign in to {{% product-name %}} as a user with the **Owner** role.
-2. Navigate to **Settings → Enterprise**.
+2. Navigate to **Settings > Enterprise**.
 
-   <!-- TODO: screenshot of the Settings → Enterprise upload form (drop zone + paste textarea), save to /static/img/telegraf/controller-licensing-upload-form.png and replace with img-hd shortcode -->
+   <!-- TODO: screenshot of the Settings > Enterprise upload form (drop zone + paste textarea), save to /static/img/telegraf/controller-licensing-upload-form.png and replace with img-hd shortcode -->
 
 3. Provide the license in one of two ways:
    - **Drag and drop** the `.jwt` (or `.txt`) license file into the drop zone.
@@ -146,13 +143,13 @@ refreshes to show the license ID, expiration date, and entitlements. No
 restart is required---enterprise features and the new scale limits take
 effect for all in-flight and subsequent requests.
 
-If validation fails, an error toast describes the reason. The previously
-active license (if any) remains in effect---{{% product-name %}} never
-downgrades from a valid license because of a failed upload.
+If validation fails, an error toast messages describes the reason. The previously
+active license (if any) remains in effect. {{% product-name %}} never downgrades
+from a valid license because of a failed upload.
 
 ## Verify the license is active
 
-**In the UI**, navigate to **Settings → Enterprise** to view the current
+**In the UI**, navigate to **Settings > Enterprise** to view the current
 license details: license ID, the date the license was loaded, the expiration
 date, the maximum configurations entitlement, and the maximum reporting agents
 entitlement.
@@ -175,7 +172,7 @@ Example response when a license is active:
 ```json
 {
   "status": "valid",
-  "licenseId": "2ba3cecd-4e19-44f2-8fcf-e744e516ad8d",
+  "licenseId": "Xxxx0oXx-Xx0o-00Xx-oXxX-xX0oXx0oXx0o",
   "expiresAt": "2026-12-31T00:00:00Z",
   "enterpriseEnabled": true,
   "entitlements": {
@@ -196,5 +193,5 @@ When no license is applied, `status` is `"unlicensed"`, `enterpriseEnabled` is
 
 {{% product-name %}} rejects malformed, unsigned, expired (beyond the grace
 period), or otherwise invalid licenses. See
-[Troubleshoot licensing](/telegraf/controller/licensing/troubleshoot/) for the
+[Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/) for the
 full catalog of validation errors and how to resolve them.

@@ -8,17 +8,17 @@ description: >
 menu:
   telegraf_controller:
     name: License enforcement
-    parent: Manage your license
-weight: 113
+    parent: Telegraf Enterprise
+weight: 103
 related:
-  - /telegraf/controller/licensing/troubleshoot/
+  - /telegraf/controller/telegraf-enterprise/troubleshoot/
   - /telegraf/controller/reference/authorization/
 ---
 
 {{% product-name %}} enforces two things based on your license status: how
-many resources you can create (scale limits) and which features are available
-(enterprise feature gating). This page describes both kinds of enforcement
-and how license expiration affects them.
+many resources you can create (scale limits) and which features are available.
+This page describes both kinds of enforcement and how license expiration affects
+them.
 
 - [Scale limits](#scale-limits)
 - [Enterprise feature gating](#enterprise-feature-gating)
@@ -33,7 +33,7 @@ and how license expiration affects them.
 maximum number of reporting agents per instance.
 
 | Resource | Free tier | Telegraf Enterprise |
-| :------- | :-------- | :------------------ |
+| :------- | :-------: | :------------------ |
 | Configurations | 20 | Defined by `ent_max_configs` in your license (per contract) |
 | Reporting agents | 100 | Defined by `ent_max_agents` in your license (per contract) |
 
@@ -42,7 +42,7 @@ cannot be overridden.
 
 ### What happens when a limit is reached
 
-- Create endpoints (such as `POST /api/configs`) return
+- "Create" endpoints (such as `POST /api/configs`) return
   `402 Payment Required` with an error body identifying the resource, the
   current count, and the limit:
 
@@ -68,11 +68,9 @@ operators have advance notice before requests start being rejected.
 
 A valid Telegraf Enterprise license unlocks the following features:
 
-| Feature | Free tier | Telegraf Enterprise |
-| :------ | :-------- | :------------------ |
-| Audit logging | Disabled | Enabled |
-| LDAP authentication | Disabled | Enabled |
-| OIDC authentication | Disabled | Enabled |
+- Audit logging
+- LDAP authentication
+- OIDC authentication
 
 API endpoints that require an enterprise feature return `403 Forbidden` when
 called on a free-tier instance:
@@ -86,7 +84,7 @@ called on a free-tier instance:
 ```
 
 > [!Note]
-> #### IdP environment variables on a free-tier instance
+> #### Identity provider environment variables on a free-tier instance
 >
 > If `AUTH_LDAP_*` or `AUTH_OIDC_*` environment variables are set on a
 > free-tier instance, {{% product-name %}} starts normally and logs a
@@ -109,7 +107,7 @@ expiration) date:
 The grace period is fixed at 14 days and is not configurable. Expiration
 status is re-evaluated hourly, so a status change takes effect within one
 hour without requiring a restart. To switch back to a valid status sooner,
-apply a renewed license through the UI---uploads take effect immediately.
+apply a renewed license through the UI. Uploads take effect immediately.
 
 ## Response headers
 
@@ -122,16 +120,6 @@ checks to detect license-related issues before they affect users.
 | `X-License-Expiring` | License expires within 30 days | ISO 8601 expiration date |
 | `X-License-Expired` | License is past expiration but still in grace | `true` |
 | `X-Entitlement-Warning` | One or more entitlements at 90% or more of the limit | Comma-separated `resource current/limit` pairs, for example `configs 18/20; agents 95/100` |
-
-## What users see in the UI
-
-- **Owners** see banners with a **Manage license** button that links to
-  **Settings → Enterprise**.
-- **All other authenticated users** (including Administrators) see the same
-  banners with a "Contact your administrator" message instead of the button.
-- **Gated features in the UI** (such as the Audit Logs page) display a lock
-  icon with hover text explaining that the feature requires a Telegraf
-  Enterprise license.
 
 <!-- TODO: screenshot of a site-wide license-expiring banner with the Manage license button, save to /static/img/telegraf/controller-licensing-expiring-banner.png and replace with img-hd shortcode -->
 

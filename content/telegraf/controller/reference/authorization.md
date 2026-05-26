@@ -83,7 +83,7 @@ skip authentication, update the value and restart {{% product-name %}}.
 ## License management
 
 {{% product-name %}} exposes two permission resources for the
-[Telegraf Enterprise license](/telegraf/controller/licensing/):
+[Telegraf Enterprise license](/telegraf/controller/telegraf-enterprise/):
 
 | Resource | Actions | Required role | Description |
 | :------- | :------ | :------------ | :---------- |
@@ -91,10 +91,10 @@ skip authentication, update the value and restart {{% product-name %}}.
 | `entitlements` | `read` | Any authenticated user | View current entitlements (scale limits, enterprise feature availability) and usage. |
 
 Only the **Owner** can apply, replace, or remove a license. This restriction
-applies to both the {{% product-name %}} UI (the **Settings → Enterprise**
+applies to both the {{% product-name %}} UI (the **Settings > Enterprise**
 controls are hidden for other roles) and the API (`POST /api/license` and
 `DELETE /api/license` return `403 Forbidden` for non-owner tokens).
 
-Any authenticated user---including Viewers---can call
+Any authenticated user, including Viewers, can call
 `GET /api/license/entitlements` to read the current entitlements and usage.
 This endpoint is intended for monitoring and capacity-planning scripts.

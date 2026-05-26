@@ -8,15 +8,15 @@ description: >
 menu:
   telegraf_controller:
     name: View and update a license
-    parent: Manage your license
-weight: 112
+    parent: Telegraf Enterprise
+weight: 102
 related:
-  - /telegraf/controller/licensing/apply-license/
-  - /telegraf/controller/licensing/license-enforcement/
+  - /telegraf/controller/telegraf-enterprise/apply-license/
+  - /telegraf/controller/telegraf-enterprise/license-enforcement/
 ---
 
 After a Telegraf Enterprise license is applied to {{% product-name %}}, use
-the user interface or API to inspect the license, monitor entitlements and
+the user interface (UI) or API to inspect the license, monitor entitlements and
 usage, replace the license at renewal, or remove the license to revert to the
 free tier.
 
@@ -27,7 +27,7 @@ free tier.
 
 ## View the current license
 
-**In the UI**, navigate to **Settings → Enterprise** to view:
+**In the UI**, navigate to **Settings > Enterprise** to view:
 
 - **License ID** --- the unique identifier for your license. Include this
   value when contacting InfluxData support.
@@ -39,7 +39,7 @@ free tier.
 - **Max reporting agents** --- the reporting agents entitlement from the
   license.
 
-<!-- TODO: screenshot of the license details card on Settings → Enterprise, save to /static/img/telegraf/controller-licensing-details-card.png and replace with img-hd shortcode -->
+<!-- TODO: screenshot of the license details card on Settings > Enterprise, save to /static/img/telegraf/controller-licensing-details-card.png and replace with img-hd shortcode -->
 
 **From the API**, an Owner can call `GET /api/license` to retrieve the same
 information for scripted checks:
@@ -57,7 +57,7 @@ Example response:
 ```json
 {
   "status": "valid",
-  "licenseId": "2ba3cecd-4e19-44f2-8fcf-e744e516ad8d",
+  "licenseId": "Xxxx0oXx-Xx0o-00Xx-oXxX-xX0oXx0oXx0o",
   "issuedAt": "2024-01-15T10:00:00Z",
   "expiresAt": "2026-12-31T00:00:00Z",
   "maxConfigs": 100000,
@@ -89,7 +89,7 @@ Example response on a licensed instance:
 ```json
 {
   "status": "valid",
-  "licenseId": "2ba3cecd-4e19-44f2-8fcf-e744e516ad8d",
+  "licenseId": "Xxxx0oXx-Xx0o-00Xx-oXxX-xX0oXx0oXx0o",
   "expiresAt": "2026-12-31T00:00:00Z",
   "enterpriseEnabled": true,
   "entitlements": {
@@ -125,8 +125,8 @@ Example response on an unlicensed instance:
 ## Replace a license
 
 To apply a renewed or upgraded license, upload the new license file through
-**Settings → Enterprise** exactly the same way you
-[applied the first one](/telegraf/controller/licensing/apply-license/#apply-a-license-through-the-user-interface).
+**Settings > Enterprise** exactly the same way you
+[applied the first one](/telegraf/controller/telegraf-enterprise/apply-license/#apply-a-license-through-the-user-interface).
 {{% product-name %}} validates the new license and replaces the existing one
 in place. The new entitlements take effect immediately with no restart.
 
@@ -136,7 +136,7 @@ in place. The new entitlements take effect immediately with no restart.
 > If the new license fails validation, {{% product-name %}} retains the
 > previously active license and returns an error describing the validation
 > failure. Your enterprise features and scale limits are unaffected. See
-> [Troubleshoot licensing](/telegraf/controller/licensing/troubleshoot/) for
+> [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/) for
 > the error catalog.
 
 ## Remove a license
@@ -144,7 +144,7 @@ in place. The new entitlements take effect immediately with no restart.
 Removing a license reverts {{% product-name %}} to the free tier. Only the
 **Owner** can remove a license.
 
-1. Navigate to **Settings → Enterprise**.
+1. Navigate to **Settings > Enterprise**.
 2. Click **Remove license**.
 3. Confirm the action in the dialog.
 
@@ -163,7 +163,11 @@ After removal:
   rejected with `402 Payment Required` until usage drops below the free-tier
   limit.
 - **Existing IdP-authenticated sessions remain valid** until they expire on
-  their own. New LDAP or OIDC logins are blocked.
+  their own. New LDAP or OIDC logins are blocked. Local authentication becomes
+  the only authentication method for the UI. For users that only used IdP
+  authentication and do not have a configured password, an Owner or
+  Administrator must [initiate a password reset](/telegraf/controller/users/update/#reset-a-users-password)
+  for that user.
 
 To restore enterprise features and licensed entitlements, apply a license
-again. See [Apply a license](/telegraf/controller/licensing/apply-license/).
+again. See [Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/).

@@ -8,11 +8,11 @@ description: >
 menu:
   telegraf_controller:
     name: Troubleshoot licensing
-    parent: Manage your license
-weight: 114
+    parent: Telegraf Enterprise
+weight: 104
 related:
-  - /telegraf/controller/licensing/apply-license/
-  - /telegraf/controller/licensing/license-enforcement/
+  - /telegraf/controller/telegraf-enterprise/apply-license/
+  - /telegraf/controller/telegraf-enterprise/license-enforcement/
 ---
 
 Use this page to diagnose common {{% product-name %}} Enterprise license
@@ -30,16 +30,61 @@ issues.
 When a license upload fails validation, {{% product-name %}} returns an error
 describing the cause. The previously active license (if any) is retained.
 
-| Error message | Cause | What to do |
-| :------------ | :---- | :--------- |
-| `malformed JWT header` | The file is not a JWT, or is truncated or corrupted. | Re-download the license file from InfluxData and try again. |
-| `unknown kid: <value>` | The license was signed with a key the {{% product-name %}} binary doesn't recognize. | Check that the {{% product-name %}} build matches what the license was issued for. Contact InfluxData if the mismatch persists. |
-| `issuer mismatch` | The `iss` claim is not `InfluxData Licensing Server`. | The file is not a valid InfluxData license. Re-download the file from InfluxData. |
-| `exp is in the past` | The JWT itself has expired. | Request a renewed license from InfluxData. |
-| `iat is in the future` | The license issue time is in the future relative to the {{% product-name %}} host clock. | Check the host system clock. NTP misconfiguration is the typical cause. |
-| `license is past grace period` | The license expired more than 14 days ago. | Apply a renewed license. See [Apply a license](/telegraf/controller/licensing/apply-license/). |
-| `ent_max_configs is not a positive integer` | A license entitlement claim is malformed. | Contact InfluxData; the license needs to be reissued. |
-| `ent_max_agents is not a positive integer` | A license entitlement claim is malformed. | Contact InfluxData; the license needs to be reissued. |
+{{% expand-wrapper %}}
+{{% expand "`malformed JWT header`" %}}
+**Cause:** The file is not a JWT, or is truncated or corrupted.
+
+**What to do:** Re-download the license file from InfluxData and try again.
+{{% /expand %}}
+
+{{% expand "`unknown kid: <value>`" %}}
+**Cause:** The license was signed with a key the {{% product-name %}} binary
+doesn't recognize.
+
+**What to do:** Check that the {{% product-name %}} build matches what the
+license was issued for. Contact InfluxData if the mismatch persists.
+{{% /expand %}}
+
+{{% expand "`issuer mismatch`" %}}
+**Cause:** The `iss` claim is not `InfluxData Licensing Server`.
+
+**What to do:** The file is not a valid InfluxData license.
+Re-download the file from InfluxData.
+{{% /expand %}}
+
+{{% expand "`exp is in the past`" %}}
+**Cause:** The JWT itself has expired.
+
+**What to do:** Request a renewed license from InfluxData.
+{{% /expand %}}
+
+{{% expand "`iat is in the future`" %}}
+**Cause:** The license issue time is in the future relative to the
+{{% product-name %}} host clock.
+
+**What to do:** Check the host system clock. NTP misconfiguration is the typical
+cause.
+{{% /expand %}}
+
+{{% expand "`license is past grace period`" %}}
+**Cause:** The license expired more than 14 days ago.
+
+**What to do:** Apply a renewed license. See
+[Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/).
+{{% /expand %}}
+
+{{% expand "`ent_max_configs is not a positive integer`" %}}
+**Cause:** A license entitlement claim is malformed.
+
+**What to do:** Contact InfluxData; the license needs to be reissued.
+{{% /expand %}}
+
+{{% expand "`ent_max_agents is not a positive integer`" %}}
+**Cause:** A license entitlement claim is malformed.
+
+**What to do:** Contact InfluxData; the license needs to be reissued.
+{{% /expand %}}
+{{% /expand-wrapper %}}
 
 > [!Note]
 > #### Failed uploads never downgrade a valid license
@@ -58,7 +103,7 @@ Work through this checklist:
 - **Does the database already contain a license?** `LICENSE_FILE_PATH` is
   consulted only when no license is stored in the database. To re-run
   bootstrap from `LICENSE_FILE_PATH`, first
-  [remove the existing license](/telegraf/controller/licensing/manage-license/#remove-a-license)
+  [remove the existing license](/telegraf/controller/telegraf-enterprise/manage-license/#remove-a-license)
   through the UI.
 - **Check the startup logs** for the license bootstrap message. A successful
   bootstrap logs the license ID. A validation failure logs the reason. See
@@ -68,14 +113,14 @@ Work through this checklist:
 
 License expiration status is re-evaluated hourly, so the status may not
 reflect a renewal until the next hourly check. To pick up the new license
-immediately, [apply the renewed license through the UI](/telegraf/controller/licensing/apply-license/#apply-a-license-through-the-user-interface)---UI
+immediately, [apply the renewed license through the UI](/telegraf/controller/telegraf-enterprise/apply-license/#apply-a-license-through-the-user-interface)---UI
 uploads take effect with no waiting.
 
 ## Enterprise features are still disabled after applying a license
 
 Verify the license is active:
 
-1. Open **Settings → Enterprise** and confirm the license details are
+1. Open **Settings > Enterprise** and confirm the license details are
    present and the status chip shows **Valid**.
 2. From the API, call `GET /api/license/entitlements` and confirm the
    response shows `"enterpriseEnabled": true`.
@@ -105,11 +150,11 @@ Look for log lines containing:
 
 ## Get help
 
-Contact [InfluxData support](https://support.influxdata.com/s/contactsupport) for any
-licensing issue you can't resolve from this page. When opening a support
+Contact [InfluxData support](https://support.influxdata.com/s/contactsupport)
+for any licensing issue you can't resolve from this page. When opening a support
 request, include:
 
-- Your **license ID** (visible in **Settings → Enterprise** or in the
+- Your **license ID** (visible in **Settings > Enterprise** or in the
   `GET /api/license` response).
 - The {{% product-name %}} **version**.
 - The **exact validation error message** if you encountered one.

@@ -606,7 +606,7 @@ export LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt
 You can also apply a license through the {{% product-name %}} UI after the
 application is running. For full details on both methods, including systemd
 and Docker examples, see
-[Apply a license](/telegraf/controller/licensing/apply-license/).
+[Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/).
 
 Without a license, {{% product-name %}} runs in a free tier with reduced
 scale limits and enterprise features disabled. See
