@@ -96,6 +96,8 @@ telegraf_controller --no-interactive
 - [EULA and setup](#eula-and-setup)
   - [eula-accept](#eula-accept)
   - [no-interactive](#no-interactive)
+- [Licensing](#licensing)
+  - [license-file-path](#license-file-path)
 
 ---
 
@@ -407,3 +409,38 @@ provide owner account values and EULA acceptance through other options.
 | Command flag       | Environment variable |
 | :----------------- | :------------------- |
 | `--no-interactive` | _(none)_             |
+
+---
+
+### Licensing
+
+- [license-file-path](#license-file-path)
+
+#### license-file-path
+
+Path to a Telegraf Enterprise license JWT file. {{% product-name %}} reads
+this file on startup, validates the license, and stores it in the database.
+If the database already contains a license, this variable is ignored on
+subsequent restarts.
+
+If the file is missing, unreadable, or contains an invalid license,
+{{% product-name %}} starts in free-tier mode and logs the validation error.
+
+See [Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/) for full
+guidance, including systemd and Docker examples.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `LICENSE_FILE_PATH`  |
+
+---
+
+> [!Note]
+> #### Authentication provider environment variables require a license
+>
+> The `AUTH_LDAP_*` and `AUTH_OIDC_*` environment variables that configure
+> LDAP and OIDC authentication require a valid Telegraf Enterprise license
+> to take effect. If they are set on a free-tier instance,
+> {{% product-name %}} starts normally, logs a warning, and leaves the
+> authentication provider inactive. After applying a license, restart
+> {{% product-name %}} so these variables are re-read.
