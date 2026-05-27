@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-26 11:12:12 -0600 -0600">
+<meta name="last-modified" content="2026-05-27 09:28:29 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1520,7 +1520,7 @@ the license ID.</p>
 <div class="block note">
   
   
-  <h4 id="license_file_path-is-read-only-when-the-database-has-no-license"><code>LICENSE_FILE_PATH</code> is read only when the database has no license</h4>
+  <h4 id="license_file_path-is-read-only-when-the-database-has-no-license"><code>LICENSE_FILE_PATH</code> is read-only when the database has no license</h4>
 <p>If the Telegraf Controller database already contains a license,
 <code>LICENSE_FILE_PATH</code> is ignored on subsequent restarts. To replace a license
 applied this way, either <a href="#apply-a-license-through-the-user-interface">upload a new license through the UI</a>
@@ -1555,9 +1555,9 @@ without restarting the application. This method requires the <strong>Owner</stro
 </ol>
 <p>Telegraf Controller validates the license immediately. On success, the page
 refreshes to show the license ID, expiration date, and entitlements. No
-restart is required&mdash;enterprise features and the new scale limits take
+restart is required. Enterprise features and the new scale limits take
 effect for all in-flight and subsequent requests.</p>
-<p>If validation fails, an error toast messages describes the reason. The previously
+<p>If validation fails, an error message describes the reason. The previously
 active license (if any) remains in effect. Telegraf Controller never downgrades
 from a valid license because of a failed upload.</p>
 <h2 id="verify-the-license-is-active">Verify the license is active</h2>

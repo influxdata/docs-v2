@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-26 11:12:12 -0600 -0600">
+<meta name="last-modified" content="2026-05-27 09:28:29 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1529,10 +1529,7 @@ skip authentication, update the value and restart Telegraf Controller.</p>
       </tr>
   </tbody>
 </table>
-<p>Only the <strong>Owner</strong> can apply, replace, or remove a license. This restriction
-applies to both the Telegraf Controller UI (the <strong>Settings &gt; Enterprise</strong>
-controls are hidden for other roles) and the API (<code>POST /api/license</code> and
-<code>DELETE /api/license</code> return <code>403 Forbidden</code> for non-owner tokens).</p>
+<p>Only the <strong>Owner</strong> can apply, replace, or remove a license.</p>
 <p>Any authenticated user, including Viewers, can call
 <code>GET /api/license/entitlements</code> to read the current entitlements and usage.
 This endpoint is intended for monitoring and capacity-planning scripts.</p>

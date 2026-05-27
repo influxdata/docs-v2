@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-26 20:04:06 &#43;0000 UTC">
+<meta name="last-modified" content="2026-05-27 09:28:29 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1439,7 +1439,6 @@ them.</p>
 <li><a href="#enterprise-feature-gating">Enterprise feature gating</a></li>
 <li><a href="#license-expiration-lifecycle">License expiration lifecycle</a></li>
 <li><a href="#response-headers">Response headers</a></li>
-<li><a href="#what-users-see-in-the-ui">What users see in the UI</a></li>
 <li><a href="#reference-jwt-claims">Reference: JWT claims</a></li>
 </ul>
 <h2 id="scale-limits">Scale limits</h2>
@@ -1490,7 +1489,7 @@ and shows a tooltip explaining the limit.</p>
 <a href="#response-headers">Response headers</a>).</p>
 </li>
 </ul>
-<p>A warning banner appears in the UI once usage reaches 80% of a limit so
+<p>A warning banner appears in the UI when usage reaches 80% of a limit so
 operators have advance notice before requests start being rejected.</p>
 <h2 id="enterprise-feature-gating">Enterprise feature gating</h2>
 <p>A valid Telegraf Enterprise license unlocks the following features:</p>
@@ -1594,44 +1593,6 @@ checks to detect license-related issues before they affect users.</p>
       </tr>
   </tbody>
 </table>
-<h2 id="what-users-see-in-the-ui">What users see in the UI</h2>
-<p><strong>Scale limits:</strong> When usage reaches 80% of a scale limit, a warning banner
-appears at the top of every page so operators have advance notice before
-requests start being rejected. When a limit is reached, the corresponding
-create button is disabled and shows a tooltip explaining the limit.</p>
-<!-- TODO: screenshot of a site-wide license-expiring banner with the Manage license button, save to /static/img/telegraf/controller-licensing-expiring-banner.png and replace with img-hd shortcode -->
-<p><strong>License expiration:</strong> The UI displays a persistent banner reflecting the
-current license status:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">License status</th>
-          <th style="text-align: left">Banner type</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>valid</code> (more than 30 days remaining)</td>
-          <td style="text-align: left">No banner</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>expiring</code> (1&ndash;30 days remaining)</td>
-          <td style="text-align: left">Info banner with a countdown to expiration</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>expired_grace</code> (0&ndash;14 days past expiration)</td>
-          <td style="text-align: left">Error banner with a countdown to grace-period end</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>expired</code> (15 or more days past expiration)</td>
-          <td style="text-align: left">Error banner</td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Enterprise feature gating:</strong> Pages for enterprise-only features (such as
-audit logs or identity-provider configuration) display a locked state when
-accessed on a free-tier instance.</p>
-<!-- TODO: screenshot of a locked enterprise feature (audit logs page with lock state), save to /static/img/telegraf/controller-licensing-feature-locked.png and replace with img-hd shortcode -->
 <h2 id="reference-jwt-claims">Reference: JWT claims</h2>
 <p>The following table describes the claims contained in a Telegraf Enterprise
 license JWT. Claims are informational&mdash;you don&rsquo;t author license files
