@@ -24,7 +24,6 @@ them.
 - [Enterprise feature gating](#enterprise-feature-gating)
 - [License expiration lifecycle](#license-expiration-lifecycle)
 - [Response headers](#response-headers)
-- [What users see in the UI](#what-users-see-in-the-ui)
 - [Reference: JWT claims](#reference-jwt-claims)
 
 ## Scale limits
@@ -61,7 +60,7 @@ cannot be overridden.
 - The response includes an `X-Entitlement-Warning` header (see
   [Response headers](#response-headers)).
 
-A warning banner appears in the UI once usage reaches 80% of a limit so
+A warning banner appears in the UI when usage reaches 80% of a limit so
 operators have advance notice before requests start being rejected.
 
 ## Enterprise feature gating
@@ -120,31 +119,6 @@ checks to detect license-related issues before they affect users.
 | `X-License-Expiring` | License expires within 30 days | ISO 8601 expiration date |
 | `X-License-Expired` | License is past expiration but still in grace | `true` |
 | `X-Entitlement-Warning` | One or more entitlements at 90% or more of the limit | Comma-separated `resource current/limit` pairs, for example `configs 18/20; agents 95/100` |
-
-## What users see in the UI
-
-**Scale limits:** When usage reaches 80% of a scale limit, a warning banner
-appears at the top of every page so operators have advance notice before
-requests start being rejected. When a limit is reached, the corresponding
-create button is disabled and shows a tooltip explaining the limit.
-
-<!-- TODO: screenshot of a site-wide license-expiring banner with the Manage license button, save to /static/img/telegraf/controller-licensing-expiring-banner.png and replace with img-hd shortcode -->
-
-**License expiration:** The UI displays a persistent banner reflecting the
-current license status:
-
-| License status | Banner type |
-| :------------- | :---------- |
-| `valid` (more than 30 days remaining) | No banner |
-| `expiring` (1--30 days remaining) | Info banner with a countdown to expiration |
-| `expired_grace` (0--14 days past expiration) | Error banner with a countdown to grace-period end |
-| `expired` (15 or more days past expiration) | Error banner |
-
-**Enterprise feature gating:** Pages for enterprise-only features (such as
-audit logs or identity-provider configuration) display a locked state when
-accessed on a free-tier instance.
-
-<!-- TODO: screenshot of a locked enterprise feature (audit logs page with lock state), save to /static/img/telegraf/controller-licensing-feature-locked.png and replace with img-hd shortcode -->
 
 ## Reference: JWT claims
 

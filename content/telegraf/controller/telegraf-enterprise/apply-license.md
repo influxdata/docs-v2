@@ -110,7 +110,7 @@ telegraf_controller --no-interactive
    the license ID.
 
 > [!Note]
-> #### `LICENSE_FILE_PATH` is read only when the database has no license
+> #### `LICENSE_FILE_PATH` is read-only when the database has no license
 >
 > If the {{% product-name %}} database already contains a license,
 > `LICENSE_FILE_PATH` is ignored on subsequent restarts. To replace a license
@@ -140,10 +140,10 @@ without restarting the application. This method requires the **Owner** role.
 
 {{% product-name %}} validates the license immediately. On success, the page
 refreshes to show the license ID, expiration date, and entitlements. No
-restart is required---enterprise features and the new scale limits take
+restart is required. Enterprise features and the new scale limits take
 effect for all in-flight and subsequent requests.
 
-If validation fails, an error toast messages describes the reason. The previously
+If validation fails, an error message describes the reason. The previously
 active license (if any) remains in effect. {{% product-name %}} never downgrades
 from a valid license because of a failed upload.
 
