@@ -61,3 +61,45 @@ describe('Tags page JSON-LD exclusion', function () {
     });
   });
 });
+
+// Regression guard: products whose landing is a versioned section root
+// (content_path is the bare product, e.g. `telegraf`, but the landing is
+// /telegraf/v1/). The SoftwareApplication node must emit on the versioned
+// landing and a child page's isPartOf must resolve to it — not to a
+// non-existent /telegraf/#software node.
+describe('Versioned-landing product JSON-LD (Telegraf)', function () {
+  it('emits SoftwareApplication on the versioned landing with the patch version', function () {
+    cy.visit('/telegraf/v1/');
+    cy.document().then((doc) => {
+      const [sw] = ldByType(Cypress.$, doc, 'SoftwareApplication');
+      expect(sw, 'SoftwareApplication present on /telegraf/v1/').to.exist;
+      expect(sw['@id']).to.match(/\/telegraf\/v1\/#software$/);
+      expect(sw.softwareVersion).to.match(/^1\.\d+/);
+    });
+  });
+
+  it('child page isPartOf resolves to the versioned landing, not a dangling node', function () {
+    cy.visit('/telegraf/v1/install/');
+    cy.document().then((doc) => {
+      const [ta] = ldByType(Cypress.$, doc, 'TechArticle');
+      expect(ta, 'TechArticle present').to.exist;
+      expect(ta.isPartOf['@id']).to.match(/\/telegraf\/v1\/#software$/);
+      // articleSection must be the docs section, not the version segment.
+      expect(ta.articleSection).to.not.match(/^V?\d/i);
+    });
+  });
+});
+
+// Multi-version product (influxdb has a map content_path): each versioned
+// landing emits its own SoftwareApplication node with that version's patch.
+describe('Multi-version product JSON-LD (InfluxDB v2)', function () {
+  it('emits a SoftwareApplication scoped to /influxdb/v2/', function () {
+    cy.visit('/influxdb/v2/');
+    cy.document().then((doc) => {
+      const [sw] = ldByType(Cypress.$, doc, 'SoftwareApplication');
+      expect(sw, 'SoftwareApplication present on /influxdb/v2/').to.exist;
+      expect(sw['@id']).to.match(/\/influxdb\/v2\/#software$/);
+      expect(sw.softwareVersion).to.match(/^2\./);
+    });
+  });
+});

@@ -4,9 +4,13 @@
   key), the page Kind is "page" or "section" (excludes taxonomy/term/home —
   e.g. tags pages), and frontmatter does not set `techarticle: false`.
 
-  articleSection encodes the top-level docs section (e.g. "Reference",
-  "Get started"). isPartOf references the product's SoftwareApplication node
-  emitted on the landing page.
+  articleSection encodes the docs section relative to the product landing page
+  (e.g. "Reference", "Get started"). isPartOf references the product's
+  SoftwareApplication node, which is emitted on the landing page (see
+  layouts/partials/header/softwareapplication-jsonld.html). The landing page is
+  resolved structurally via product/landing.html, so isPartOf and articleSection
+  stay correct for versioned landings (/telegraf/v1/) as well as bare product
+  roots (/influxdb3/core/).
 
   safeJS opts out of Go's JS-context re-escaping so jsonify output is verbatim,
   matching layouts/partials/header/faq-jsonld.html.
@@ -26,15 +30,16 @@
   {{- with .Description | default .Summary -}}
     {{- $article = merge $article (dict "description" (. | plainify | strings.TrimSpace)) -}}
   {{- end -}}
-  {{- if eq (printf "%T" $product.content_path) "string" -}}
-    {{- $base := printf "/%s/" $product.content_path -}}
-    {{- $rel := strings.TrimPrefix $base .RelPermalink -}}
+  {{- with partial "product/landing.html" . -}}
+    {{- /* articleSection: first path segment below the landing page. Empty on
+           the landing page itself. Function-call form of `replace` (input
+           first) — a pipe would silently reorder args and yield "-". */ -}}
+    {{- $rel := strings.TrimPrefix .RelPermalink $.RelPermalink -}}
     {{- $seg := index (split $rel "/") 0 -}}
     {{- with $seg -}}
       {{- $article = merge $article (dict "articleSection" (title (replace . "-" " "))) -}}
     {{- end -}}
-    {{- $landing := $base | absURL -}}
-    {{- $article = merge $article (dict "isPartOf" (dict "@type" "SoftwareApplication" "@id" (printf "%s#software" $landing))) -}}
+    {{- $article = merge $article (dict "isPartOf" (dict "@type" "SoftwareApplication" "@id" (printf "%s#software" .Permalink))) -}}
   {{- end -}}
   <script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
 {{- end -}}
