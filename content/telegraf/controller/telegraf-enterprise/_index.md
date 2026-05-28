@@ -39,11 +39,11 @@ for the free-tier defaults.
 A Telegraf Enterprise license unlocks the following features in
 {{% product-name %}}:
 
-- **Audit logging** --- Tamper-evident log of administrative actions
+- **Audit logging**: Tamper-evident log of administrative actions
   performed in {{% product-name %}}.
-- **LDAP authentication** --- Authenticate {{% product-name %}} users
+- **LDAP authentication**: Authenticate {{% product-name %}} users
   against an LDAP directory.
-- **OIDC authentication** --- Single sign-on through OpenID Connect
+- **OIDC authentication**: Single sign-on through OpenID Connect
   providers such as Okta, Auth0, and Microsoft Entra ID.
 
 ### Enterprise support contract

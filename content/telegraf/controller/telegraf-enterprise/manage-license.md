@@ -29,14 +29,14 @@ free tier.
 
 **In the UI**, navigate to **Settings > Enterprise** to view:
 
-- **License ID** --- the unique identifier for your license. Include this
+- **License ID**: the unique identifier for your license. Include this
   value when contacting InfluxData support.
-- **Loaded** --- the date and time the license was applied to this
+- **Loaded**: the date and time the license was applied to this
   {{% product-name %}} instance.
-- **Expires** --- the contractual expiration date, with a status chip
+- **Expires**: the contractual expiration date, with a status chip
   indicating current state (valid, expiring, or expired).
-- **Max configurations** --- the configurations entitlement from the license.
-- **Max reporting agents** --- the reporting agents entitlement from the
+- **Max configurations**: the configurations entitlement from the license.
+- **Max reporting agents**: the reporting agents entitlement from the
   license.
 
 <!-- TODO: screenshot of the license details card on Settings > Enterprise, save to /static/img/telegraf/controller-licensing-details-card.png and replace with img-hd shortcode -->

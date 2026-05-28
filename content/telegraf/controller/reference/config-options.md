@@ -93,6 +93,15 @@ telegraf_controller --no-interactive
 - [Logging](#logging)
   - [rust-log](#rust-log)
   - [logs-dir](#logs-dir)
+- [Audit logging](#audit-logging)
+  - [audit-enabled](#audit-enabled)
+  - [audit-log-retention](#audit-log-retention)
+  - [audit-syslog-host](#audit-syslog-host)
+  - [audit-syslog-port](#audit-syslog-port)
+  - [audit-syslog-protocol](#audit-syslog-protocol)
+  - [audit-webhook-url](#audit-webhook-url)
+  - [audit-webhook-auth-header](#audit-webhook-auth-header)
+  - [audit-file-path](#audit-file-path)
 - [EULA and setup](#eula-and-setup)
   - [eula-accept](#eula-accept)
   - [no-interactive](#no-interactive)
@@ -381,6 +390,130 @@ Absolute path for heartbeat agent logs.
 | Command flag | Environment variable |
 | :----------- | :------------------- |
 | `--logs-dir` | `LOGS_DIR`           |
+
+---
+
+### Audit logging
+
+Audit logging is a [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/)
+feature. All of the following options are read at startup only; changes
+after startup require a restart. For a task-based walkthrough, see
+[Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+
+- [audit-enabled](#audit-enabled)
+- [audit-log-retention](#audit-log-retention)
+- [audit-syslog-host](#audit-syslog-host)
+- [audit-syslog-port](#audit-syslog-port)
+- [audit-syslog-protocol](#audit-syslog-protocol)
+- [audit-webhook-url](#audit-webhook-url)
+- [audit-webhook-auth-header](#audit-webhook-auth-header)
+- [audit-file-path](#audit-file-path)
+
+#### audit-enabled
+
+Enable audit logging on startup. Audit logging requires a Telegraf
+Enterprise license to take effect.
+
+**Default:** `false`
+
+| Command flag      | Environment variable |
+| :---------------- | :------------------- |
+| `--audit-enabled` | `AUDIT_ENABLED`      |
+
+---
+
+#### audit-log-retention
+
+Sets the initial audit log retention period, in hours.
+{{% product-name %}} persists this value to the database on first startup;
+later changes to the environment variable have no effect.
+Update retention after first startup from the **Settings** page.
+
+Supported values: `720` (30 days), `2160` (90 days), `4320` (180 days),
+`8760` (1 year), `17520` (2 years), or `0` (infinite).
+
+**Default:** `2160`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `AUDIT_LOG_RETENTION` |
+
+---
+
+#### audit-syslog-host
+
+Hostname or IP address of a syslog server.
+When set together with [`audit-syslog-port`](#audit-syslog-port) and
+[`audit-syslog-protocol`](#audit-syslog-protocol),
+{{% product-name %}} forwards each audit event to the configured syslog
+destination.
+
+| Command flag          | Environment variable |
+| :-------------------- | :------------------- |
+| `--audit-syslog-host` | `AUDIT_SYSLOG_HOST`  |
+
+---
+
+#### audit-syslog-port
+
+Port number of the syslog server. Required to enable syslog forwarding.
+
+| Command flag          | Environment variable |
+| :-------------------- | :------------------- |
+| `--audit-syslog-port` | `AUDIT_SYSLOG_PORT`  |
+
+---
+
+#### audit-syslog-protocol
+
+Transport protocol used to deliver audit events to the syslog server.
+Required to enable syslog forwarding.
+
+Supported values: `tcp`, `udp`
+
+| Command flag              | Environment variable    |
+| :------------------------ | :---------------------- |
+| `--audit-syslog-protocol` | `AUDIT_SYSLOG_PROTOCOL` |
+
+---
+
+#### audit-webhook-url
+
+URL that receives each audit event as a JSON-encoded HTTP `POST` request.
+{{% product-name %}} retries each delivery up to three times with backoff
+and honors `Retry-After` response headers.
+
+| Command flag          | Environment variable |
+| :-------------------- | :------------------- |
+| `--audit-webhook-url` | `AUDIT_WEBHOOK_URL`  |
+
+---
+
+#### audit-webhook-auth-header
+
+Optional value sent as the `Authorization` HTTP header on webhook requests.
+Use it to pass a bearer token, basic-auth credential, or other shared
+secret your webhook endpoint requires.
+
+| Command flag                  | Environment variable        |
+| :---------------------------- | :-------------------------- |
+| `--audit-webhook-auth-header` | `AUDIT_WEBHOOK_AUTH_HEADER` |
+
+---
+
+#### audit-file-path
+
+Absolute path to a local file.
+When set, {{% product-name %}} appends each audit event as a single JSON
+object on its own line (`.jsonl` format).
+The path must be writable by the {{% product-name %}} process.
+
+{{% product-name %}} does not rotate or trim this file.
+Pair it with a system log rotator if you keep the forwarder on long term.
+
+| Command flag        | Environment variable |
+| :------------------ | :------------------- |
+| `--audit-file-path` | `AUDIT_FILE_PATH`    |
 
 ---
 
