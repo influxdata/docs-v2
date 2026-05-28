@@ -137,6 +137,17 @@
             "statusMessage": "Installing dependencies and lint toolchain"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/sync-worktree-deps.sh",
+            "timeout": 300,
+            "async": true,
+            "statusMessage": "Syncing worktree dependencies"
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -153,5 +164,8 @@
   },
   "enabledPlugins": {
     "github@claude-plugins-official": true
+  },
+  "worktree": {
+    "symlinkDirectories": ["node_modules", ".cache"]
   }
 }
