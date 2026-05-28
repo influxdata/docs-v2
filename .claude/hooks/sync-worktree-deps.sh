@@ -10,9 +10,10 @@ set -euo pipefail
 [ -L node_modules ] || exit 0
 
 # git-common-dir resolves to the source checkout's .git from any worktree;
-# its parent is the source checkout root.
-main_checkout="$(dirname "$(git rev-parse --git-common-dir)")"
-
+# normalize it to an absolute path and then take its parent as the source root.
+git_common_dir=$(git rev-parse --git-common-dir 2>/dev/null) || exit 0
+git_common_dir=$(cd "$git_common_dir" && pwd)
+main_checkout=$(cd "$git_common_dir/.." && pwd)
 # Lockfile matches the source -> the shared symlink is correct; keep it.
 cmp -s yarn.lock "$main_checkout/yarn.lock" && exit 0
 
