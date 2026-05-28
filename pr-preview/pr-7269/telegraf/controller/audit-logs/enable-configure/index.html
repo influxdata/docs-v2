@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-28 09:18:14 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 09:28:07 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1646,13 +1646,13 @@ period when Telegraf Controller initializes its settings on first startup.</p>
   
   <p><code>AUDIT_LOG_RETENTION</code> only sets the initial value.
 After first startup, the database is authoritative.
-Update retention from the <strong>Settings</strong> page.</p>
+To update audit log retention, use the <strong>Settings</strong> page.</p>
 </div>
 <h2 id="forward-audit-events">Forward audit events</h2>
 <p>Telegraf Controller can forward each audit event to one or more external
 destinations in addition to writing it to local storage.
-Forwarders are configured <strong>at startup only</strong> and run independently.
-You can enable any combination of syslog, webhook, and file forwarders.</p>
+Forwarders are configured <strong>at startup only</strong> and run independently, which lets
+you enable any combination of syslog, webhook, and file forwarders.</p>
 <h3 id="forward-to-syslog">Forward to syslog</h3>
 <p>Forward audit events to a syslog server over TCP or UDP.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AUDIT_SYSLOG_HOST</span><span class="o">=</span>syslog.example.com
