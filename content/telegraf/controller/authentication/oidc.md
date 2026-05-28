@@ -217,12 +217,12 @@ Group-to-role mappings translate values from the OIDC groups claim into
 1. On the **Settings** page, scroll to **OIDC Authentication >
    Group role mappings**.
 2. Click **Add mapping** and provide:
-   - **Provider ID** --- a label that identifies the OIDC provider
+   - **Provider ID**: a label that identifies the OIDC provider
      instance. Use the default `default` unless you run multiple
      providers.
-   - **Group name** --- the exact string the provider emits in the
+   - **Group name**: the exact string the provider emits in the
      groups claim (for example `telegraf-admins`).
-   - **Role** --- `administrator`, `manager`, or `viewer`.
+   - **Role**: `administrator`, `manager`, or `viewer`.
 3. Click **Save**.
 
 When a user signs in, {{% product-name %}} matches each group in the token

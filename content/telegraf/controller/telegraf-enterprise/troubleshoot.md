@@ -130,7 +130,7 @@ Verify the license is active:
 If both look correct but a specific authentication provider (LDAP or OIDC)
 isn't working, check whether the corresponding `AUTH_LDAP_*` or `AUTH_OIDC_*`
 environment variables were set before {{% product-name %}} started. These
-variables are read at startup---if they were added or changed after
+variables are read at startup. If they were added or changed after
 {{% product-name %}} started, restart {{% product-name %}} so the new values
 take effect.
 

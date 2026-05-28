@@ -20,9 +20,9 @@ related:
 
 {{% product-name %}} distinguishes two security questions:
 
-- **Authentication** --- who is making this request? Verified by a sign-in
+- **Authentication**: who is making this request? Verified by a sign-in
   flow (local, LDAP, or OIDC) or by a presented API token.
-- **Authorization** --- what is the authenticated identity allowed to do?
+- **Authorization**: what is the authenticated identity allowed to do?
   Determined by the user's role and by endpoint-level access policies.
 
 This page is the reference for both. For task-based instructions, see
@@ -78,10 +78,10 @@ When an LDAP or OIDC user signs in for the first time,
 {{% product-name %}} applies the provider's **provisioning strategy** to
 decide whether to create a {{% product-name %}} account:
 
-- `invite_only` --- requires a matching pending invite (default).
-- `domain_restricted` --- admits invited users; otherwise requires an email
+- `invite_only`: requires a matching pending invite (default).
+- `domain_restricted`: admits invited users; otherwise requires an email
   domain in the allow list.
-- `auto_create` --- creates an account for any user the provider
+- `auto_create`: creates an account for any user the provider
   authenticates.
 
 The provider's **default role** and **group-to-role mappings** determine
@@ -135,7 +135,7 @@ connections to {{% product-name %}}.
 
 Each token is scoped to the user who created it.
 The token's effective permissions are restricted to the creating user's
-role---a token cannot exceed the permissions of its owner.
+role. A token cannot exceed the permissions of its owner.
 If a user's role changes to a role with less permissions, all of that
 user's existing tokens are automatically updated with restricted
 permissions or revoked to match the new role.
@@ -145,7 +145,7 @@ configuration files and scripts.
 
 > [!Important]
 > A token value is shown only once at the time of creation.
-> Store it in a secure location immediately---you cannot retrieve it later.
+> Store it in a secure location immediately. You cannot retrieve it later.
 
 API tokens are independent of the authentication provider that created the
 underlying user account. An LDAP user, an OIDC user, and a local user all

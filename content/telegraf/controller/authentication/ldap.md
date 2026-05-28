@@ -192,12 +192,12 @@ Group-to-role mappings translate directory group membership into
 1. On the **Settings** page, scroll to **LDAP Authentication >
    Group role mappings**.
 2. Click **Add mapping** and provide:
-   - **Provider ID** --- a label that identifies the LDAP instance. Use the
+   - **Provider ID**: a label that identifies the LDAP instance. Use the
      default `default` unless you run multiple directories.
-   - **Group name** --- the value {{% product-name %}} receives in the
+   - **Group name**: the value {{% product-name %}} receives in the
      `AUTH_LDAP_ATTR_GROUPS` attribute (for example `cn=telegraf-admins,ou=groups,dc=example,dc=com`
      or the bare `telegraf-admins`, depending on your directory).
-   - **Role** --- `administrator`, `manager`, or `viewer`.
+   - **Role**: `administrator`, `manager`, or `viewer`.
 3. Click **Save**.
 
 When a user signs in, {{% product-name %}} matches each of their groups

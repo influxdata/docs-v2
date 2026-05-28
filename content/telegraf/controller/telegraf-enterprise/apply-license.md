@@ -38,7 +38,7 @@ through an environment variable or at runtime through the user interface.
 
 Telegraf Enterprise licenses are signed JSON Web Tokens (JWTs). The license
 file is plain text and you can open it to confirm it parses as a JWT, but you
-should not edit it---any change invalidates the cryptographic signature.
+should not edit it. Any change invalidates the cryptographic signature.
 
 {{% product-name %}} validates licenses in both connected and
 air-gapped environments.

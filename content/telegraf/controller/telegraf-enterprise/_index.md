@@ -101,8 +101,8 @@ A license moves through the following states as its expiration date approaches:
 | **Grace Period** | License has expired but less than 15 days have elapsed | Licensed entitlements still apply; an error banner appears in the UI. |
 | **Expired** | License expired 15 or more days ago | Limits revert to the free tier; enterprise features are disabled. |
 
-For full details on what changes at each stage---including the API status
-names for each state (such as `expired_grace`)---see
+For full details on what changes at each stage, including the API status
+names for each state (such as `expired_grace`), see
 [License enforcement](/telegraf/controller/telegraf-enterprise/license-enforcement/).
 
 ## How to obtain Telegraf Enterprise

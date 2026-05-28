@@ -126,7 +126,7 @@ checks to detect license-related issues before they affect users.
 ## Reference: JWT claims
 
 The following table describes the claims contained in a Telegraf Enterprise
-license JWT. Claims are informational---you don't author license files
+license JWT. Claims are informational. You don't author license files
 yourself, but understanding what each claim controls helps when reading
 license details, scripting around licensing, or interpreting validation
 errors.
