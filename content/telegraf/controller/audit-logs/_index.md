@@ -58,7 +58,7 @@ platform-specific data directory:
 | macOS    | `~/Library/Logs/telegraf-controller/`                                                    |
 | Windows  | `%LOCALAPPDATA%\telegraf-controller\Log`                                                 |
 
-Files are named `audit-YYYY-MM.log`, one per calendar month.
+Files are named `audit-YYYY-MM.log`--one per calendar month.
 Each file is a SQLite database that enforces immutability through a database
 trigger: attempts to delete rows are rolled back.
 {{% product-name %}} keeps up to 48 months of audit files available for query.

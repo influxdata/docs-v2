@@ -148,14 +148,14 @@ export AUDIT_LOG_RETENTION=8760
 > [!Note]
 > `AUDIT_LOG_RETENTION` only sets the initial value.
 > After first startup, the database is authoritative.
-> Update retention from the **Settings** page.
+> To update audit log retention, use the **Settings** page.
 
 ## Forward audit events
 
 {{% product-name %}} can forward each audit event to one or more external
 destinations in addition to writing it to local storage.
-Forwarders are configured **at startup only** and run independently.
-You can enable any combination of syslog, webhook, and file forwarders.
+Forwarders are configured **at startup only** and run independently, which lets
+you enable any combination of syslog, webhook, and file forwarders.
 
 ### Forward to syslog
 
