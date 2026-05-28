@@ -31,7 +31,9 @@ describe('Product landing page JSON-LD', function () {
       expect(ta.about['@id']).to.match(/\/influxdb3\/core\/#software$/);
       expect(ta.isPartOf['@id']).to.match(/\/influxdb3\/core\/#software$/);
       // dateModified must be ISO 8601 with a timezone offset.
-      expect(ta.dateModified).to.match(/T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2}|Z)$/);
+      expect(ta.dateModified).to.match(
+        /T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2}|Z)$/
+      );
     });
   });
 
