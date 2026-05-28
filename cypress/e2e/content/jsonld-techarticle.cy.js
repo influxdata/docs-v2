@@ -25,8 +25,13 @@ describe('Product landing page JSON-LD', function () {
       expect(ta['@context']).to.equal('https://schema.org');
       expect(ta.name).to.be.a('string').and.not.empty;
       expect(ta.mainEntityOfPage).to.match(/\/influxdb3\/core\/$/);
-      expect(ta.about['@type']).to.equal('SoftwareApplication');
+      // about and isPartOf are @id references to the SoftwareApplication node
+      // (not inline objects — an inline {@type,name} would be parsed as a
+      // separate, incomplete SoftwareApplication and fail validation).
+      expect(ta.about['@id']).to.match(/\/influxdb3\/core\/#software$/);
       expect(ta.isPartOf['@id']).to.match(/\/influxdb3\/core\/#software$/);
+      // dateModified must be ISO 8601 with a timezone offset.
+      expect(ta.dateModified).to.match(/T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2}|Z)$/);
     });
   });
 

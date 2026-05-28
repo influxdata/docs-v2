@@ -23,14 +23,20 @@
       "headline" .Title
       "name" .Title
       "mainEntityOfPage" .Permalink
-      "about" (dict "@type" "SoftwareApplication" "name" $product.name)
-      "dateModified" (.Lastmod.Format "2006-01-02")
+      "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
       "inLanguage" "en"
   -}}
   {{- with .Description | default .Summary -}}
     {{- $article = merge $article (dict "description" (. | plainify | strings.TrimSpace)) -}}
   {{- end -}}
   {{- with partial "product/landing.html" . -}}
+    {{- /* Reference the product's SoftwareApplication node by @id only. A bare
+           @id is a node reference, not a re-declared entity — emitting an inline
+           {@type:SoftwareApplication, name} here would be parsed as a separate,
+           incomplete SoftwareApplication and fail validation. The full node is
+           emitted once on the landing page (softwareapplication-jsonld.html). */ -}}
+    {{- $swRef := dict "@id" (printf "%s#software" .Permalink) -}}
+    {{- $article = merge $article (dict "about" $swRef "isPartOf" $swRef) -}}
     {{- /* articleSection: first path segment below the landing page. Empty on
            the landing page itself. Function-call form of `replace` (input
            first) — a pipe would silently reorder args and yield "-". */ -}}
@@ -39,7 +45,6 @@
     {{- with $seg -}}
       {{- $article = merge $article (dict "articleSection" (title (replace . "-" " "))) -}}
     {{- end -}}
-    {{- $article = merge $article (dict "isPartOf" (dict "@type" "SoftwareApplication" "@id" (printf "%s#software" .Permalink))) -}}
   {{- end -}}
   <script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
 {{- end -}}
