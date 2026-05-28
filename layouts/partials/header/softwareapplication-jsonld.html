@@ -1,0 +1,36 @@
+{{- /*
+  Emits a schema.org SoftwareApplication JSON-LD <script> once per product, on
+  the product landing page (the section root where RelPermalink equals
+  "/<content_path>/"). Reads optional metadata from data/products.yml `schema`:
+  operating_system, application_category (default "DatabaseApplication"), and
+  offers. Absent fields are omitted rather than emitted empty.
+
+  Skipped when content_path is a map (multi-version products like `influxdb`),
+  which have no single landing node.
+*/ -}}
+{{- $product := partial "product/get-data.html" . -}}
+{{- if and $product (eq (printf "%T" $product.content_path) "string") -}}
+  {{- $base := printf "/%s/" $product.content_path -}}
+  {{- if eq .RelPermalink $base -}}
+    {{- $schema := $product.schema | default dict -}}
+    {{- $url := $base | absURL -}}
+    {{- $sw := dict
+        "@context" "https://schema.org"
+        "@type" "SoftwareApplication"
+        "@id" (printf "%s#software" $url)
+        "name" $product.name
+        "applicationCategory" (index $schema "application_category" | default "DatabaseApplication")
+        "url" $url
+    -}}
+    {{- with $product.latest_patch | default $product.latest -}}
+      {{- $sw = merge $sw (dict "softwareVersion" .) -}}
+    {{- end -}}
+    {{- with index $schema "operating_system" -}}
+      {{- $sw = merge $sw (dict "operatingSystem" .) -}}
+    {{- end -}}
+    {{- with index $schema "offers" -}}
+      {{- $sw = merge $sw (dict "offers" (dict "@type" "Offer" "price" .price "priceCurrency" .price_currency)) -}}
+    {{- end -}}
+    <script type="application/ld+json">{{ $sw | jsonify | safeJS }}</script>
+  {{- end -}}
+{{- end -}}
