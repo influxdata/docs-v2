@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-28 13:23:59 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 13:35:27 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1532,9 +1532,9 @@
 
   <p>Telegraf Controller distinguishes two security questions:</p>
 <ul>
-<li><strong>Authentication</strong> &mdash; who is making this request? Verified by a sign-in
+<li><strong>Authentication</strong>: who is making this request? Verified by a sign-in
 flow (local, LDAP, or OIDC) or by a presented API token.</li>
-<li><strong>Authorization</strong> &mdash; what is the authenticated identity allowed to do?
+<li><strong>Authorization</strong>: what is the authenticated identity allowed to do?
 Determined by the user&rsquo;s role and by endpoint-level access policies.</li>
 </ul>
 <p>This page is the reference for both. For task-based instructions, see
@@ -1605,10 +1605,10 @@ OIDC provider. The <code>externalId</code> is the <code>sub</code> claim from th
 Telegraf Controller applies the provider&rsquo;s <strong>provisioning strategy</strong> to
 decide whether to create a Telegraf Controller account:</p>
 <ul>
-<li><code>invite_only</code> &mdash; requires a matching pending invite (default).</li>
-<li><code>domain_restricted</code> &mdash; admits invited users; otherwise requires an email
+<li><code>invite_only</code>: requires a matching pending invite (default).</li>
+<li><code>domain_restricted</code>: admits invited users; otherwise requires an email
 domain in the allow list.</li>
-<li><code>auto_create</code> &mdash; creates an account for any user the provider
+<li><code>auto_create</code>: creates an account for any user the provider
 authenticates.</li>
 </ul>
 <p>The provider&rsquo;s <strong>default role</strong> and <strong>group-to-role mappings</strong> determine
@@ -1675,7 +1675,7 @@ to another user.</p>
 connections to Telegraf Controller.</p>
 <p>Each token is scoped to the user who created it.
 The token&rsquo;s effective permissions are restricted to the creating user&rsquo;s
-role&mdash;a token cannot exceed the permissions of its owner.
+role. A token cannot exceed the permissions of its owner.
 If a user&rsquo;s role changes to a role with less permissions, all of that
 user&rsquo;s existing tokens are automatically updated with restricted
 permissions or revoked to match the new role.</p>
@@ -1686,7 +1686,7 @@ configuration files and scripts.</p>
   
   
   <p>A token value is shown only once at the time of creation.
-Store it in a secure location immediately&mdash;you cannot retrieve it later.</p>
+Store it in a secure location immediately. You cannot retrieve it later.</p>
 </div>
 <p>API tokens are independent of the authentication provider that created the
 underlying user account. An LDAP user, an OIDC user, and a local user all
