@@ -1,7 +1,8 @@
 ---
 title: Manage settings
 description: >
-  Configure login security and password policies in Telegraf Controller.
+  Configure login security, password policies, and audit log retention in
+  Telegraf Controller.
 menu:
   telegraf_controller:
     name: Manage settings
@@ -9,6 +10,7 @@ weight: 9
 related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/authorization/
+  - /telegraf/controller/audit-logs/
 ---
 
 Owners and administrators can configure login security and password requirements
@@ -84,6 +86,28 @@ Changes made on the **Settings** page override initialized settings.
 
 _For detailed descriptions and bootstrap behavior, see the
 [Authentication and security section in the configuration options reference](/telegraf/controller/reference/config-options/#authentication-and-security)._
+
+## Audit logging
+
+When audit logging is enabled, the **Settings** page lets you change the
+retention period for audit entries.
+The default retention is 90 days (2160 hours), and available values range
+from 30 days to 2 years or infinite.
+
+> [!Note]
+> Audit logging itself is enabled at startup only and requires a
+> [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+> For details, see
+> [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+
+To change the audit log retention period:
+
+1. Navigate to the **Settings** page.
+2. In the **Audit Logging** section, select a value from
+   **Audit log retention**.
+3. Click **Save**.
+
+<!-- TODO: screenshot of the Settings > Audit Logging section showing the Audit log retention dropdown. Save to /static/img/telegraf/controller-settings-audit-retention.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}} -->
 
 ## Enterprise licensing
 
