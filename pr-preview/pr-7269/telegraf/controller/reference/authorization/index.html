@@ -46,10 +46,10 @@
 
 
 
-<title>Manage settings | &lt;nil&gt; Documentation</title>
+<title>Authorization | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Configure login security, password policies, and audit log retention in Telegraf Controller.">
+    <meta name="description" content="Understand how authentication and authorization work in Telegraf Controller, including user roles, API tokens, and endpoint security.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/authorization/" />
 
     
     
@@ -114,7 +114,7 @@
 
 
 
-<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/index.md">
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/authorization/index.md">
 
 
     
@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-27 23:17:01 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 09:18:14 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1050,7 +1050,7 @@
     
     
 
-    <li class="nav-category active">
+    <li class="nav-category ">
       
         
         
@@ -1185,10 +1185,10 @@
     <li class="nav-category ">
       
         
-        <a href="#" class="children-toggle "></a>
+        <a href="#" class="children-toggle open"></a>
         <a href='/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/'>Reference</a>
         
-          <ul class="children ">
+          <ul class="children open">
           
   
   
@@ -1236,7 +1236,7 @@
     
     
 
-    <li class="nav-item ">
+    <li class="nav-item active">
       
         
         
@@ -1357,7 +1357,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Manage settings</h1>
+      <h1>Authorization</h1>
       
 
 
@@ -1470,160 +1470,117 @@
 
 
 
-  <p>Owners and administrators can configure login security and password requirements
-for Telegraf Controller.</p>
-<p>Navigate to the <strong>Settings</strong> page from the left navigation menu to view and
-modify these settings.</p>
-<h2 id="login-security">Login security</h2>
-<h3 id="login-attempts">Login attempts</h3>
-<p>You can configure the number of failed login attempts allowed before an account is locked out.
-The default threshold is 5 attempts, with a minimum of 1.</p>
-<p>To change the login attempt threshold:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Update the <strong>Login attempts</strong> value.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-<h3 id="login-lockout">Login lockout</h3>
-<p>When a user exceeds the failed attempt threshold, their account is locked for a configurable duration.
-The default lockout duration is 15 minutes, with a minimum of 1 minute.
-The lockout clears automatically after the configured duration has elapsed.</p>
-<p>To change the lockout duration:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Update the <strong>Login lockout duration</strong> value.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
+  <p>Telegraf Controller uses session-based authentication for the web UI and
+token-based authentication for API and Telegraf agent requests.
+Both mechanisms work together to control who can access the system and what
+actions they can perform.</p>
+<h2 id="user-roles">User roles</h2>
+<p>Telegraf Controller enforces a four-tier role hierarchy.
+Each role inherits the permissions of the roles below it, and higher roles
+unlock additional administrative capabilities.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Role</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Owner</strong></td>
+          <td style="text-align: left">Full system access. Manages users, tokens, and settings. Only one owner exists at a time. Created during initial setup.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Administrator</strong></td>
+          <td style="text-align: left">Full system access. Same capabilities as the owner except cannot transfer ownership.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Manager</strong></td>
+          <td style="text-align: left">Manages configurations, agents, labels, and reporting rules. Manages own API tokens. Cannot manage users or settings.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Viewer</strong></td>
+          <td style="text-align: left">Read-only access to configurations, agents, labels, and reporting rules. Cannot manage tokens, users, or settings.</td>
+      </tr>
+  </tbody>
+</table>
+<p>Only one owner can exist at a time.
+The owner account is created during initial setup and cannot be deleted.
+If you need to change the owner, the current owner must transfer ownership to
+another user.</p>
 
 <div class="block tip">
   
   
-  <p>If a user is locked out, an owner or administrator can <a href="/telegraf/controller/users/update/#reset-a-users-password">reset their password</a> to unlock the account.</p>
+  <p>To change the owner of your Telegraf Controller instance, see <a href="/telegraf/controller/users/transfer-ownership/">Transfer ownership</a>.</p>
 </div>
-<h3 id="password-complexity-requirements">Password complexity requirements</h3>
-<p>Telegraf Controller provides three password complexity levels that apply to all
-password operations, including initial setup, password changes, password resets,
-and invite completion.</p>
+<h2 id="api-tokens">API tokens</h2>
+<p>API tokens authenticate programmatic API requests and Telegraf agent connections
+to Telegraf Controller.</p>
+<p>Each token is scoped to the user who created it.
+The token&rsquo;s effective permissions are restricted to the creating user&rsquo;s role&mdash;a
+token cannot exceed the permissions of its owner.
+If a user&rsquo;s role changes to a role with less permissions, all of that user&rsquo;s
+existing tokens are automatically updated with restricted permissions or revoked
+to match the new role.</p>
+<p>Tokens use the <code>tc-apiv1_</code> prefix, making them easy to identify in configuration
+files and scripts.</p>
+
+<div class="block important">
+  
+  
+  <p>A token value is shown only once at the time of creation.
+Store it in a secure location immediately&mdash;you cannot retrieve it later.</p>
+</div>
+<h2 id="endpoint-authentication">Endpoint authentication</h2>
+<p>By default, Telegraf Controller requires authentication for API endpoints.
+Operators can selectively disable authentication for individual endpoint groups
+at startup:</p>
+<ul>
+<li><strong>Agents</strong>: agent management endpoints</li>
+<li><strong>Configs</strong>: configuration management endpoints</li>
+<li><strong>Labels</strong>: label management endpoints</li>
+<li><strong>Reporting rules</strong>: reporting rule management endpoints</li>
+<li><strong>Heartbeat</strong>: agent heartbeat endpoints</li>
+</ul>
+<p>When authentication is enabled for an endpoint group, every request to that
+group must include a valid API token or an active session.</p>
+<p>Authentication policy is controlled exclusively by the
+<a href="/telegraf/controller/reference/config-options/#disable-auth-endpoints"><code>--disable-auth-endpoints</code> CLI flag or <code>DISABLED_AUTH_ENDPOINTS</code> environment
+variable</a>,
+read once at startup and immutable at runtime. To change which endpoint groups
+skip authentication, update the value and restart Telegraf Controller.</p>
+<h2 id="license-management">License management</h2>
+<p>Telegraf Controller exposes two permission resources for the
+<a href="/telegraf/controller/telegraf-enterprise/">Telegraf Enterprise license</a>:</p>
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Level</th>
-          <th style="text-align: center">Min length</th>
-          <th style="text-align: center">Uppercase*</th>
-          <th style="text-align: center">Lowercase*</th>
-          <th style="text-align: center">Digits*</th>
-          <th style="text-align: center">Special characters*</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><strong>Low</strong></td>
-          <td style="text-align: center">8</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Medium</strong></td>
-          <td style="text-align: center">10</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">No</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>High</strong></td>
-          <td style="text-align: center">12</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-      </tr>
-  </tbody>
-</table>
-
-<div class="caption"><p>* Passwords require at least one of the defined character types.</p>
-</div>
-<p>To change the password complexity level:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Select the desired <strong>Password complexity</strong> level.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-
-<div class="block note">
-  
-  
-  <p>Changing the password complexity level does not affect existing passwords. The new requirements apply only when users set or change their passwords.</p>
-</div>
-<h3 id="environment-variables">Environment variables</h3>
-<p>You can set initial defaults for login security settings using environment variables.
-These values are applied when Telegraf Controller initializes its settings for the first time.
-Changes made on the <strong>Settings</strong> page override initialized settings.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Environment variable</th>
+          <th style="text-align: left">Resource</th>
+          <th style="text-align: left">Actions</th>
+          <th style="text-align: left">Required role</th>
           <th style="text-align: left">Description</th>
-          <th style="text-align: center">Default</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><code>LOGIN_LOCKOUT_ATTEMPTS</code></td>
-          <td style="text-align: left">Failed attempts before lockout</td>
-          <td style="text-align: center"><code>5</code></td>
+          <td style="text-align: left"><code>license</code></td>
+          <td style="text-align: left"><code>read</code>, <code>write</code></td>
+          <td style="text-align: left"><strong>Owner</strong></td>
+          <td style="text-align: left">View, apply, replace, and remove the license.</td>
       </tr>
       <tr>
-          <td style="text-align: left"><code>LOGIN_LOCKOUT_MINUTES</code></td>
-          <td style="text-align: left">Minutes to lock account</td>
-          <td style="text-align: center"><code>15</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>PASSWORD_COMPLEXITY</code></td>
-          <td style="text-align: left">Complexity level (<code>low</code>, <code>medium</code>, <code>high</code>)</td>
-          <td style="text-align: center"><code>low</code></td>
+          <td style="text-align: left"><code>entitlements</code></td>
+          <td style="text-align: left"><code>read</code></td>
+          <td style="text-align: left">Any authenticated user</td>
+          <td style="text-align: left">View current entitlements (scale limits, enterprise feature availability) and usage.</td>
       </tr>
   </tbody>
 </table>
-<p><em>For detailed descriptions and bootstrap behavior, see the
-<a href="/telegraf/controller/reference/config-options/#authentication-and-security">Authentication and security section in the configuration options reference</a>.</em></p>
-<h2 id="audit-logging">Audit logging</h2>
-<p>When audit logging is enabled, the <strong>Settings</strong> page lets you change the
-retention period for audit entries.
-The default retention is 90 days (2160 hours), and available values range
-from 30 days to 2 years or infinite.</p>
-
-<div class="block note">
-  
-  
-  <p>Audit logging itself is enabled at startup only and requires a
-<a href="/telegraf/controller/telegraf-enterprise/">Telegraf Enterprise</a> license.
-For details, see
-<a href="/telegraf/controller/audit-logs/enable-configure/">Enable and configure audit logging</a>.</p>
-</div>
-<p>To change the audit log retention period:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>In the <strong>Audit Logging</strong> section, select a value from
-<strong>Audit log retention</strong>.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-<!-- TODO: screenshot of the Settings > Audit Logging section showing the Audit log retention dropdown. Save to /static/img/telegraf/controller-settings-audit-retention.png and replace this comment with: 
-
-
-
-
-<img src='/img/telegraf/controller-settings-audit-retention.png' alt='Telegraf Controller audit log retention dropdown'/>
-
- -->
-<h2 id="enterprise-licensing">Enterprise licensing</h2>
-<p>License management for Telegraf Controller lives at <strong>Settings &gt; Enterprise</strong>.
-Owners can view the current Telegraf Enterprise license, upload a new
-license, and remove a license. All users see current entitlements and usage.</p>
-<p>For details on applying, replacing, and removing a license, see
-<a href="/telegraf/controller/telegraf-enterprise/">Manage your license</a>.</p>
+<p>Only the <strong>Owner</strong> can apply, replace, or remove a license.</p>
+<p>Any authenticated user, including Viewers, can call
+<code>GET /api/license/entitlements</code> to read the current entitlements and usage.
+This endpoint is intended for monitoring and capacity-planning scripts.</p>
 
 
 
@@ -1642,7 +1599,7 @@ license, and remove a license. All users see current entitlements and usage.</p>
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/config-options/">Telegraf Controller configuration options</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/users/">Manage users</a></li>
           
         
       
@@ -1654,7 +1611,7 @@ license, and remove a license. All users see current entitlements and usage.</p>
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/authorization/">Authorization</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/tokens/">Manage API tokens</a></li>
           
         
       
@@ -1666,7 +1623,7 @@ license, and remove a license. All users see current entitlements and usage.</p>
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/audit-logs/">Audit logs</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/">Manage settings</a></li>
           
         
       
@@ -1751,8 +1708,8 @@ license, and remove a license. All users see current entitlements and usage.</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/settings.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/reference/authorization.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/authorization/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     
       <a href="https://github.com/influxdata/telegraf/issues/new/choose/" class="btn issue" target="_blank">Submit Telegraf issue</a>
     

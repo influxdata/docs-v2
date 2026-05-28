@@ -46,10 +46,10 @@
 
 
 
-<title>Manage settings | &lt;nil&gt; Documentation</title>
+<title>Troubleshoot Telegraf Enterprise licensing | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Configure login security, password policies, and audit log retention in Telegraf Controller.">
+    <meta name="description" content="Diagnose and resolve common Telegraf Enterprise license issues, including validation errors on upload, missing licenses at startup, and unexpected enforcement behavior.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/troubleshoot/" />
 
     
     
@@ -114,7 +114,7 @@
 
 
 
-<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/index.md">
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/troubleshoot/index.md">
 
 
     
@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-27 23:17:01 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 09:18:14 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1050,7 +1050,7 @@
     
     
 
-    <li class="nav-category active">
+    <li class="nav-category ">
       
         
         
@@ -1065,10 +1065,10 @@
     <li class="nav-category ">
       
         
-        <a href="#" class="children-toggle "></a>
+        <a href="#" class="children-toggle open"></a>
         <a href='/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/'>Telegraf Enterprise</a>
         
-          <ul class="children ">
+          <ul class="children open">
           
   
   
@@ -1116,7 +1116,7 @@
     
     
 
-    <li class="nav-item ">
+    <li class="nav-item active">
       
         
         
@@ -1357,7 +1357,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Manage settings</h1>
+      <h1>Troubleshoot Telegraf Enterprise licensing</h1>
       
 
 
@@ -1365,6 +1365,14 @@
 
 
       
+<ul class="metadata">
+
+  <li>Telegraf Enterprise</li>
+  
+  
+  
+</ul>
+
       <div class="page-actions">
         <div
   class="format-selector"
@@ -1470,160 +1478,176 @@
 
 
 
-  <p>Owners and administrators can configure login security and password requirements
-for Telegraf Controller.</p>
-<p>Navigate to the <strong>Settings</strong> page from the left navigation menu to view and
-modify these settings.</p>
-<h2 id="login-security">Login security</h2>
-<h3 id="login-attempts">Login attempts</h3>
-<p>You can configure the number of failed login attempts allowed before an account is locked out.
-The default threshold is 5 attempts, with a minimum of 1.</p>
-<p>To change the login attempt threshold:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Update the <strong>Login attempts</strong> value.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-<h3 id="login-lockout">Login lockout</h3>
-<p>When a user exceeds the failed attempt threshold, their account is locked for a configurable duration.
-The default lockout duration is 15 minutes, with a minimum of 1 minute.
-The lockout clears automatically after the configured duration has elapsed.</p>
-<p>To change the lockout duration:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Update the <strong>Login lockout duration</strong> value.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-
-<div class="block tip">
-  
-  
-  <p>If a user is locked out, an owner or administrator can <a href="/telegraf/controller/users/update/#reset-a-users-password">reset their password</a> to unlock the account.</p>
+  <p>Use this page to diagnose common Telegraf Controller Enterprise license
+issues.</p>
+<ul>
+<li><a href="#license-upload-was-rejected">License upload was rejected</a></li>
+<li><a href="#license_file_path-is-set-but-the-license-isnt-loaded"><code>LICENSE_FILE_PATH</code> is set but the license isn&rsquo;t loaded</a></li>
+<li><a href="#banners-say-expired-but-i-just-renewed">Banners say &ldquo;expired&rdquo; but I just renewed</a></li>
+<li><a href="#enterprise-features-are-still-disabled-after-applying-a-license">Enterprise features are still disabled after applying a license</a></li>
+<li><a href="#where-to-look-in-logs">Where to look in logs</a></li>
+<li><a href="#get-help">Get help</a></li>
+</ul>
+<h2 id="license-upload-was-rejected">License upload was rejected</h2>
+<p>When a license upload fails validation, Telegraf Controller returns an error
+describing the cause. The previously active license (if any) is retained.</p>
+<div class="expand-wrapper">
+<div class="expand" id="malformed-jwt-header">
+  <a class="expand-link" href="#malformed-jwt-header"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>malformed JWT header</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> The file is not a JWT, or is truncated or corrupted.</p>
+<p><strong>What to do:</strong> Re-download the license file from InfluxData and try again.</p>
+  </div>
 </div>
-<h3 id="password-complexity-requirements">Password complexity requirements</h3>
-<p>Telegraf Controller provides three password complexity levels that apply to all
-password operations, including initial setup, password changes, password resets,
-and invite completion.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Level</th>
-          <th style="text-align: center">Min length</th>
-          <th style="text-align: center">Uppercase*</th>
-          <th style="text-align: center">Lowercase*</th>
-          <th style="text-align: center">Digits*</th>
-          <th style="text-align: center">Special characters*</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><strong>Low</strong></td>
-          <td style="text-align: center">8</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Medium</strong></td>
-          <td style="text-align: center">10</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">No</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>High</strong></td>
-          <td style="text-align: center">12</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-      </tr>
-  </tbody>
-</table>
-
-<div class="caption"><p>* Passwords require at least one of the defined character types.</p>
+<div class="expand" id="unknown-kid-">
+  <a class="expand-link" href="#unknown-kid-"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>unknown kid: &lt;value&gt;</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> The license was signed with a key the Telegraf Controller binary
+doesn&rsquo;t recognize.</p>
+<p><strong>What to do:</strong> Check that the Telegraf Controller build matches what the
+license was issued for. Contact InfluxData if the mismatch persists.</p>
+  </div>
 </div>
-<p>To change the password complexity level:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Select the desired <strong>Password complexity</strong> level.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
+<div class="expand" id="issuer-mismatch">
+  <a class="expand-link" href="#issuer-mismatch"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>issuer mismatch</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> The <code>iss</code> claim is not <code>InfluxData Licensing Server</code>.</p>
+<p><strong>What to do:</strong> The file is not a valid InfluxData license.
+Re-download the file from InfluxData.</p>
+  </div>
+</div>
+<div class="expand" id="exp-is-in-the-past">
+  <a class="expand-link" href="#exp-is-in-the-past"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>exp is in the past</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> The JWT itself has expired.</p>
+<p><strong>What to do:</strong> Request a renewed license from InfluxData.</p>
+  </div>
+</div>
+<div class="expand" id="iat-is-in-the-future">
+  <a class="expand-link" href="#iat-is-in-the-future"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>iat is in the future</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> The license issue time is in the future relative to the
+Telegraf Controller host clock.</p>
+<p><strong>What to do:</strong> Check the host system clock. NTP misconfiguration is the typical
+cause.</p>
+  </div>
+</div>
+<div class="expand" id="license-is-past-grace-period">
+  <a class="expand-link" href="#license-is-past-grace-period"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>license is past grace period</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> The license expired more than 14 days ago.</p>
+<p><strong>What to do:</strong> Apply a renewed license. See
+<a href="/telegraf/controller/telegraf-enterprise/apply-license/">Apply a license</a>.</p>
+  </div>
+</div>
+<div class="expand" id="ent_max_configs-is-not-a-positive-integer">
+  <a class="expand-link" href="#ent_max_configs-is-not-a-positive-integer"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>ent_max_configs is not a positive integer</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> A license entitlement claim is malformed.</p>
+<p><strong>What to do:</strong> Contact InfluxData; the license needs to be reissued.</p>
+  </div>
+</div>
+<div class="expand" id="ent_max_agents-is-not-a-positive-integer">
+  <a class="expand-link" href="#ent_max_agents-is-not-a-positive-integer"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><code>ent_max_agents is not a positive integer</code></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p><strong>Cause:</strong> A license entitlement claim is malformed.</p>
+<p><strong>What to do:</strong> Contact InfluxData; the license needs to be reissued.</p>
+  </div>
+</div>
+</div>
 
 <div class="block note">
   
   
-  <p>Changing the password complexity level does not affect existing passwords. The new requirements apply only when users set or change their passwords.</p>
+  <h4 id="failed-uploads-never-downgrade-a-valid-license">Failed uploads never downgrade a valid license</h4>
+<p>When replacing an existing valid license, a validation failure on the new
+upload leaves the previous license active. Your enterprise features and
+scale limits are unaffected.</p>
 </div>
-<h3 id="environment-variables">Environment variables</h3>
-<p>You can set initial defaults for login security settings using environment variables.
-These values are applied when Telegraf Controller initializes its settings for the first time.
-Changes made on the <strong>Settings</strong> page override initialized settings.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Environment variable</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: center">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>LOGIN_LOCKOUT_ATTEMPTS</code></td>
-          <td style="text-align: left">Failed attempts before lockout</td>
-          <td style="text-align: center"><code>5</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>LOGIN_LOCKOUT_MINUTES</code></td>
-          <td style="text-align: left">Minutes to lock account</td>
-          <td style="text-align: center"><code>15</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>PASSWORD_COMPLEXITY</code></td>
-          <td style="text-align: left">Complexity level (<code>low</code>, <code>medium</code>, <code>high</code>)</td>
-          <td style="text-align: center"><code>low</code></td>
-      </tr>
-  </tbody>
-</table>
-<p><em>For detailed descriptions and bootstrap behavior, see the
-<a href="/telegraf/controller/reference/config-options/#authentication-and-security">Authentication and security section in the configuration options reference</a>.</em></p>
-<h2 id="audit-logging">Audit logging</h2>
-<p>When audit logging is enabled, the <strong>Settings</strong> page lets you change the
-retention period for audit entries.
-The default retention is 90 days (2160 hours), and available values range
-from 30 days to 2 years or infinite.</p>
-
-<div class="block note">
-  
-  
-  <p>Audit logging itself is enabled at startup only and requires a
-<a href="/telegraf/controller/telegraf-enterprise/">Telegraf Enterprise</a> license.
-For details, see
-<a href="/telegraf/controller/audit-logs/enable-configure/">Enable and configure audit logging</a>.</p>
-</div>
-<p>To change the audit log retention period:</p>
+<h2 id="license_file_path-is-set-but-the-license-isnt-loaded"><code>LICENSE_FILE_PATH</code> is set but the license isn&rsquo;t loaded</h2>
+<p>Work through this checklist:</p>
+<ul>
+<li><strong>Is the file readable by the Telegraf Controller process?</strong> Check file
+permissions and the user account Telegraf Controller runs as. A
+permission-denied error on the file appears in the startup logs.</li>
+<li><strong>Does the database already contain a license?</strong> <code>LICENSE_FILE_PATH</code> is
+consulted only when no license is stored in the database. To re-run
+bootstrap from <code>LICENSE_FILE_PATH</code>, first
+<a href="/telegraf/controller/telegraf-enterprise/manage-license/#remove-a-license">remove the existing license</a>
+through the UI.</li>
+<li><strong>Check the startup logs</strong> for the license bootstrap message. A successful
+bootstrap logs the license ID. A validation failure logs the reason. See
+<a href="#where-to-look-in-logs">Where to look in logs</a>.</li>
+</ul>
+<h2 id="banners-say-expired-but-i-just-renewed">Banners say &ldquo;expired&rdquo; but I just renewed</h2>
+<p>License expiration status is re-evaluated hourly, so the status may not
+reflect a renewal until the next hourly check. To pick up the new license
+immediately, <a href="/telegraf/controller/telegraf-enterprise/apply-license/#apply-a-license-through-the-user-interface">apply the renewed license through the UI</a>&mdash;UI
+uploads take effect with no waiting.</p>
+<h2 id="enterprise-features-are-still-disabled-after-applying-a-license">Enterprise features are still disabled after applying a license</h2>
+<p>Verify the license is active:</p>
 <ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>In the <strong>Audit Logging</strong> section, select a value from
-<strong>Audit log retention</strong>.</li>
-<li>Click <strong>Save</strong>.</li>
+<li>Open <strong>Settings &gt; Enterprise</strong> and confirm the license details are
+present and the status chip shows <strong>Valid</strong>.</li>
+<li>From the API, call <code>GET /api/license/entitlements</code> and confirm the
+response shows <code>&quot;enterpriseEnabled&quot;: true</code>.</li>
 </ol>
-<!-- TODO: screenshot of the Settings > Audit Logging section showing the Audit log retention dropdown. Save to /static/img/telegraf/controller-settings-audit-retention.png and replace this comment with: 
-
-
-
-
-<img src='/img/telegraf/controller-settings-audit-retention.png' alt='Telegraf Controller audit log retention dropdown'/>
-
- -->
-<h2 id="enterprise-licensing">Enterprise licensing</h2>
-<p>License management for Telegraf Controller lives at <strong>Settings &gt; Enterprise</strong>.
-Owners can view the current Telegraf Enterprise license, upload a new
-license, and remove a license. All users see current entitlements and usage.</p>
-<p>For details on applying, replacing, and removing a license, see
-<a href="/telegraf/controller/telegraf-enterprise/">Manage your license</a>.</p>
+<p>If both look correct but a specific authentication provider (LDAP or OIDC)
+isn&rsquo;t working, check whether the corresponding <code>AUTH_LDAP_*</code> or <code>AUTH_OIDC_*</code>
+environment variables were set before Telegraf Controller started. These
+variables are read at startup&mdash;if they were added or changed after
+Telegraf Controller started, restart Telegraf Controller so the new values
+take effect.</p>
+<h2 id="where-to-look-in-logs">Where to look in logs</h2>
+<p>License-related events are written to the Telegraf Controller application
+logs (stdout and stderr by default).</p>
+<p>Look for log lines containing:</p>
+<ul>
+<li><code>license</code>: license bootstrap, validation, and replacement events.</li>
+<li><code>License bootstrap</code>: the message emitted when <code>LICENSE_FILE_PATH</code> is
+processed at startup. A successful load includes the license ID; a failure
+includes the validation error.</li>
+<li><code>License upload</code>: the message emitted when a license is uploaded
+through the UI.</li>
+<li><code>License expiration</code>: messages emitted by the hourly expiration check
+when a license transitions between lifecycle states.</li>
+</ul>
+<h2 id="get-help">Get help</h2>
+<p>Contact <a href="https://support.influxdata.com/s/contactsupport">InfluxData support</a>
+for any licensing issue you can&rsquo;t resolve from this page. When opening a support
+request, include:</p>
+<ul>
+<li>Your <strong>license ID</strong> (visible in <strong>Settings &gt; Enterprise</strong> or in the
+<code>GET /api/license</code> response).</li>
+<li>The Telegraf Controller <strong>version</strong>.</li>
+<li>The <strong>exact validation error message</strong> if you encountered one.</li>
+<li>A relevant <strong>excerpt from the Telegraf Controller logs</strong> showing the
+problem.</li>
+</ul>
 
 
 
@@ -1642,7 +1666,7 @@ license, and remove a license. All users see current entitlements and usage.</p>
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/config-options/">Telegraf Controller configuration options</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/apply-license/">Apply a Telegraf Enterprise license</a></li>
           
         
       
@@ -1654,19 +1678,7 @@ license, and remove a license. All users see current entitlements and usage.</p>
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/authorization/">Authorization</a></li>
-          
-        
-      
-    
-      
-      
-        
-        
-        
-          
-          
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/audit-logs/">Audit logs</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/license-enforcement/">Telegraf Enterprise license enforcement</a></li>
           
         
       
@@ -1751,8 +1763,8 @@ license, and remove a license. All users see current entitlements and usage.</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/settings.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/telegraf-enterprise/troubleshoot.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/troubleshoot/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     
       <a href="https://github.com/influxdata/telegraf/issues/new/choose/" class="btn issue" target="_blank">Submit Telegraf issue</a>
     

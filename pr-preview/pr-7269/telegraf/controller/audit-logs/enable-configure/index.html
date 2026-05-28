@@ -135,10 +135,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/light-theme.b4cf66fafd478f6a7299bf58718de5a3fc8af1c01b9d3f6549e06b7a900b1c0c.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/light-theme.d8c212bf72ceb42303cb301a08073d3f61b451f4c854868630e5e23935e3c3cb.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/dark-theme.7e927604a28eae796286f4a795dbe9da21a7f1b0ffba697a0785533cf86f8b22.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/dark-theme.8f34091f35294d022501703ca82b7fe943b0cf7f8cfe6578f2261b288f2ee200.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7269/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-27 23:17:01 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 09:18:14 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1481,6 +1481,22 @@
   <p>Enable audit logging in Telegraf Controller at startup, change the
 retention period as needed, and optionally forward events to external
 destinations for long-term storage or SIEM integration.</p>
+
+
+<div class="block special-state">
+  <div class="state-content telegraf-enterprise">
+    <div class="telegraf-enterprise-text">
+      <h4 id="telegraf-enterprise-feature">Available with Telegraf Enterprise</h4>
+      <p>
+        Audit logging is only available with Telegraf Enterprise. If you are interested in learning more about Telegraf Enterprise, 
+        <a href="https://www.influxdata.com/products/telegraf-enterprise/">contact us</a>.
+      </p>
+    </div>
+    <div class="telegraf-enterprise-cta">
+      <a href="https://www.influxdata.com/products/telegraf-enterprise/" class="btn"><span class="cf-icon Shield"></span> Upgrade to Enterprise</a>
+    </div>
+  </div>
+</div>
 <ul>
 <li><a href="#prerequisites">Prerequisites</a></li>
 <li><a href="#enable-audit-logging">Enable audit logging</a></li>
@@ -1629,14 +1645,14 @@ period when Telegraf Controller initializes its settings on first startup.</p>
   
   
   <p><code>AUDIT_LOG_RETENTION</code> only sets the initial value.
-After first startup, the database is authoritative &mdash; update retention
-from the <strong>Settings</strong> page.</p>
+After first startup, the database is authoritative.
+Update retention from the <strong>Settings</strong> page.</p>
 </div>
 <h2 id="forward-audit-events">Forward audit events</h2>
 <p>Telegraf Controller can forward each audit event to one or more external
 destinations in addition to writing it to local storage.
-Forwarders are configured <strong>at startup only</strong> and run independently &mdash; you
-can enable any combination of syslog, webhook, and file forwarders.</p>
+Forwarders are configured <strong>at startup only</strong> and run independently.
+You can enable any combination of syslog, webhook, and file forwarders.</p>
 <h3 id="forward-to-syslog">Forward to syslog</h3>
 <p>Forward audit events to a syslog server over TCP or UDP.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AUDIT_SYSLOG_HOST</span><span class="o">=</span>syslog.example.com
@@ -1699,7 +1715,7 @@ Telegraf Controller honors a <code>Retry-After</code> response header when prese
 <h3 id="append-to-a-file">Append to a file</h3>
 <p>Append each event to a file as a single JSON object per line (<code>.jsonl</code>).</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AUDIT_FILE_PATH</span><span class="o">=</span>/var/log/telegraf-controller/audit.jsonl</span></span></code></pre></div><p>The path must be writable by the Telegraf Controller process.
-Telegraf Controller does not rotate or trim this file &mdash; pair it with a
+Telegraf Controller does not rotate or trim this file. Pair it with a
 system log rotator (such as <code>logrotate</code>) if you keep the forwarder on long
 term.</p>
 <h2 id="disable-audit-logging">Disable audit logging</h2>

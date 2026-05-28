@@ -135,10 +135,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/light-theme.b4cf66fafd478f6a7299bf58718de5a3fc8af1c01b9d3f6549e06b7a900b1c0c.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/light-theme.d8c212bf72ceb42303cb301a08073d3f61b451f4c854868630e5e23935e3c3cb.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/dark-theme.7e927604a28eae796286f4a795dbe9da21a7f1b0ffba697a0785533cf86f8b22.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7269/dark-theme.8f34091f35294d022501703ca82b7fe943b0cf7f8cfe6578f2261b288f2ee200.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7269/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-27 23:17:01 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 09:18:14 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1483,6 +1483,22 @@
 tamper-evident audit log.
 Use audit logs to investigate access patterns, detect unauthorized changes,
 and demonstrate compliance with internal or external policies.</p>
+
+
+<div class="block special-state">
+  <div class="state-content telegraf-enterprise">
+    <div class="telegraf-enterprise-text">
+      <h4 id="telegraf-enterprise-feature">Available with Telegraf Enterprise</h4>
+      <p>
+        Audit logging is only available with Telegraf Enterprise. If you are interested in learning more about Telegraf Enterprise, 
+        <a href="https://www.influxdata.com/products/telegraf-enterprise/">contact us</a>.
+      </p>
+    </div>
+    <div class="telegraf-enterprise-cta">
+      <a href="https://www.influxdata.com/products/telegraf-enterprise/" class="btn"><span class="cf-icon Shield"></span> Upgrade to Enterprise</a>
+    </div>
+  </div>
+</div>
 <ul>
 <li><a href="#what-gets-audited">What gets audited</a></li>
 <li><a href="#where-audit-logs-are-stored">Where audit logs are stored</a></li>
@@ -1492,20 +1508,20 @@ and demonstrate compliance with internal or external policies.</p>
 <h2 id="what-gets-audited">What gets audited</h2>
 <p>Telegraf Controller captures the following categories of events:</p>
 <ul>
-<li><strong>Authentication</strong> &mdash; user sign-in (local, LDAP, or OIDC) and sign-out.</li>
-<li><strong>Agent lifecycle</strong> &mdash; agent registration, status transitions (such as
+<li><strong>Authentication</strong>: user sign-in (local, LDAP, or OIDC) and sign-out.</li>
+<li><strong>Agent lifecycle</strong>: agent registration, status transitions (such as
 moving in and out of the <strong>not reporting</strong> state), and agent deletion
 (manual deletions and removals driven by reporting-rule retention).</li>
 </ul>
 <p>Each entry records:</p>
 <ul>
-<li><strong>Action</strong> &mdash; the specific event identifier.</li>
-<li><strong>Actor</strong> &mdash; the user, API token, or system component that triggered
+<li><strong>Action</strong>: the specific event identifier.</li>
+<li><strong>Actor</strong>: the user, API token, or system component that triggered
 the event.</li>
-<li><strong>Source</strong> &mdash; IP address and user-agent of the request, where applicable.</li>
-<li><strong>Outcome</strong> &mdash; <code>Success</code>, <code>Failure</code>, or <code>Denied</code>.</li>
-<li><strong>Timestamp</strong> &mdash; when the event occurred, in UTC.</li>
-<li><strong>Sequence number, hash, and previous hash</strong> &mdash; used to detect tampering.</li>
+<li><strong>Source</strong>: IP address and user-agent of the request, where applicable.</li>
+<li><strong>Outcome</strong>: <code>Success</code>, <code>Failure</code>, or <code>Denied</code>.</li>
+<li><strong>Timestamp</strong>: when the event occurred, in UTC.</li>
+<li><strong>Sequence number, hash, and previous hash</strong>: used to detect tampering.</li>
 </ul>
 <h2 id="where-audit-logs-are-stored">Where audit logs are stored</h2>
 <p>Telegraf Controller writes audit entries to per-month SQLite files in a
@@ -1532,7 +1548,7 @@ platform-specific data directory:</p>
       </tr>
   </tbody>
 </table>
-<p>Files are named <code>audit-YYYY-MM.log</code> &mdash; one per calendar month.
+<p>Files are named <code>audit-YYYY-MM.log</code>, one per calendar month.
 Each file is a SQLite database that enforces immutability through a database
 trigger: attempts to delete rows are rolled back.
 Telegraf Controller keeps up to 48 months of audit files available for query.</p>

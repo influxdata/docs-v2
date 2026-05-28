@@ -46,10 +46,10 @@
 
 
 
-<title>Manage settings | &lt;nil&gt; Documentation</title>
+<title>Telegraf Enterprise | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Configure login security, password policies, and audit log retention in Telegraf Controller.">
+    <meta name="description" content="Telegraf Enterprise combines Telegraf Controller with higher scale limits, enterprise authentication and audit logging, and enterprise support from InfluxData for organizations running Telegraf at scale.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/" />
 
     
     
@@ -114,7 +114,7 @@
 
 
 
-<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/index.md">
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/index.md">
 
 
     
@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-27 23:17:01 -0600 -0600">
+<meta name="last-modified" content="2026-05-28 09:18:14 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1050,7 +1050,7 @@
     
     
 
-    <li class="nav-category active">
+    <li class="nav-category ">
       
         
         
@@ -1062,13 +1062,13 @@
     
     
 
-    <li class="nav-category ">
+    <li class="nav-category active">
       
         
-        <a href="#" class="children-toggle "></a>
+        <a href="#" class="children-toggle open"></a>
         <a href='/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/'>Telegraf Enterprise</a>
         
-          <ul class="children ">
+          <ul class="children open">
           
   
   
@@ -1357,7 +1357,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Manage settings</h1>
+      <h1>Telegraf Enterprise</h1>
       
 
 
@@ -1365,19 +1365,28 @@
 
 
       
+<ul class="metadata">
+
+  <li>Telegraf Enterprise</li>
+  
+  
+  
+</ul>
+
       <div class="page-actions">
         <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="0"
-  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+  data-child-count="4"
+  data-estimated-tokens="2000"
+  data-section-download-url="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/-download.zip"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
 >
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy page for AI - Access documentation in different formats"
+    aria-label="Copy section for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -1387,7 +1396,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy page for AI
+      Copy section for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -1470,160 +1479,238 @@
 
 
 
-  <p>Owners and administrators can configure login security and password requirements
-for Telegraf Controller.</p>
-<p>Navigate to the <strong>Settings</strong> page from the left navigation menu to view and
-modify these settings.</p>
-<h2 id="login-security">Login security</h2>
-<h3 id="login-attempts">Login attempts</h3>
-<p>You can configure the number of failed login attempts allowed before an account is locked out.
-The default threshold is 5 attempts, with a minimum of 1.</p>
-<p>To change the login attempt threshold:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Update the <strong>Login attempts</strong> value.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-<h3 id="login-lockout">Login lockout</h3>
-<p>When a user exceeds the failed attempt threshold, their account is locked for a configurable duration.
-The default lockout duration is 15 minutes, with a minimum of 1 minute.
-The lockout clears automatically after the configured duration has elapsed.</p>
-<p>To change the lockout duration:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Update the <strong>Login lockout duration</strong> value.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-
-<div class="block tip">
-  
-  
-  <p>If a user is locked out, an owner or administrator can <a href="/telegraf/controller/users/update/#reset-a-users-password">reset their password</a> to unlock the account.</p>
-</div>
-<h3 id="password-complexity-requirements">Password complexity requirements</h3>
-<p>Telegraf Controller provides three password complexity levels that apply to all
-password operations, including initial setup, password changes, password resets,
-and invite completion.</p>
+  <p>Telegraf Enterprise is the premium offering for organizations running
+Telegraf at scale. It combines Telegraf Controller with higher scale limits,
+enterprise authentication and audit logging, and enterprise support from
+InfluxData.</p>
+<ul>
+<li><a href="#whats-included">What&rsquo;s included</a></li>
+<li><a href="#free-tier-and-enterprise-comparison">Free tier and Enterprise comparison</a></li>
+<li><a href="#how-licensing-works">How licensing works</a></li>
+<li><a href="#license-lifecycle">License lifecycle</a></li>
+<li><a href="#how-to-obtain-telegraf-enterprise">How to obtain Telegraf Enterprise</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ul>
+<h2 id="whats-included">What&rsquo;s included</h2>
+<h3 id="higher-scale-limits">Higher scale limits</h3>
+<p>Telegraf Enterprise raises the per-instance limits on configurations and
+reporting agents that Telegraf Controller can manage. The exact limits are
+defined in your license and are part of your contract. See
+<a href="#free-tier-and-enterprise-comparison">Free tier and Enterprise comparison</a>
+for the free-tier defaults.</p>
+<h3 id="enterprise-features">Enterprise features</h3>
+<p>A Telegraf Enterprise license unlocks the following features in
+Telegraf Controller:</p>
+<ul>
+<li><strong>Audit logging</strong>: Tamper-evident log of administrative actions
+performed in Telegraf Controller.</li>
+<li><strong>LDAP authentication</strong>: Authenticate Telegraf Controller users
+against an LDAP directory.</li>
+<li><strong>OIDC authentication</strong>: Single sign-on through OpenID Connect
+providers such as Okta, Auth0, and Microsoft Entra ID.</li>
+</ul>
+<h3 id="enterprise-support-contract">Enterprise support contract</h3>
+<p>Telegraf Enterprise includes a support contract from InfluxData covering
+both Telegraf Controller and Telegraf itself. For details on support
+coverage and SLAs, <a href="https://www.influxdata.com/contact-sales/">contact InfluxData</a>.</p>
+<h2 id="free-tier-and-enterprise-comparison">Free tier and Enterprise comparison</h2>
+<p>Telegraf Controller runs in a free tier suitable for evaluation and small
+deployments when no license is applied.</p>
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Level</th>
-          <th style="text-align: center">Min length</th>
-          <th style="text-align: center">Uppercase*</th>
-          <th style="text-align: center">Lowercase*</th>
-          <th style="text-align: center">Digits*</th>
-          <th style="text-align: center">Special characters*</th>
+          <th style="text-align: left"></th>
+          <th style="text-align: left">Free tier</th>
+          <th style="text-align: left">Telegraf Enterprise</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><strong>Low</strong></td>
-          <td style="text-align: center">8</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
-          <td style="text-align: center">No</td>
+          <td style="text-align: left">Configurations</td>
+          <td style="text-align: left">20</td>
+          <td style="text-align: left">Defined per contract</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>Medium</strong></td>
-          <td style="text-align: center">10</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">No</td>
+          <td style="text-align: left">Reporting agents</td>
+          <td style="text-align: left">100</td>
+          <td style="text-align: left">Defined per contract</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>High</strong></td>
-          <td style="text-align: center">12</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
-          <td style="text-align: center">Yes</td>
+          <td style="text-align: left">Audit logging</td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left">Included</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">LDAP authentication</td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left">Included</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">OIDC authentication</td>
+          <td style="text-align: left">&mdash;</td>
+          <td style="text-align: left">Included</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Local authentication and API tokens</td>
+          <td style="text-align: left">Included</td>
+          <td style="text-align: left">Included</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">User management (RBAC)</td>
+          <td style="text-align: left">Included</td>
+          <td style="text-align: left">Included</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Support</td>
+          <td style="text-align: left">Community</td>
+          <td style="text-align: left">Enterprise support contract</td>
       </tr>
   </tbody>
 </table>
-
-<div class="caption"><p>* Passwords require at least one of the defined character types.</p>
-</div>
-<p>To change the password complexity level:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>Select the desired <strong>Password complexity</strong> level.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-
-<div class="block note">
-  
-  
-  <p>Changing the password complexity level does not affect existing passwords. The new requirements apply only when users set or change their passwords.</p>
-</div>
-<h3 id="environment-variables">Environment variables</h3>
-<p>You can set initial defaults for login security settings using environment variables.
-These values are applied when Telegraf Controller initializes its settings for the first time.
-Changes made on the <strong>Settings</strong> page override initialized settings.</p>
+<h2 id="how-licensing-works">How licensing works</h2>
+<p>Licenses are signed <a href="https://jwt.io/">JSON Web Tokens (JWTs)</a> issued by
+InfluxData. Telegraf Controller validates licenses in both connected and
+air-gapped environments.</p>
+<p>A Telegraf Controller instance has one active license at a time.
+Replacing a license takes effect immediately, with no restart required.</p>
+<p>Telegraf Controller accepts a license two ways:</p>
+<ul>
+<li><strong>At startup</strong> using the <code>LICENSE_FILE_PATH</code> environment variable.
+Preferred for automated and infrastructure-as-code deployments.</li>
+<li><strong>At runtime</strong> by uploading the license through the Telegraf Controller
+user interface. Preferred for interactive setup.</li>
+</ul>
+<p>The <strong>Owner</strong> role is required to apply, replace, or remove a license. Any
+authenticated user can view the current entitlements and usage.</p>
+<h2 id="license-lifecycle">License lifecycle</h2>
+<p>A license moves through the following states as its expiration date approaches:</p>
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">Environment variable</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: center">Default</th>
+          <th style="text-align: left">State</th>
+          <th style="text-align: left">When</th>
+          <th style="text-align: left">Behavior</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><code>LOGIN_LOCKOUT_ATTEMPTS</code></td>
-          <td style="text-align: left">Failed attempts before lockout</td>
-          <td style="text-align: center"><code>5</code></td>
+          <td style="text-align: left"><strong>Unlicensed</strong></td>
+          <td style="text-align: left">No license applied</td>
+          <td style="text-align: left">Free-tier limits apply; enterprise features are disabled.</td>
       </tr>
       <tr>
-          <td style="text-align: left"><code>LOGIN_LOCKOUT_MINUTES</code></td>
-          <td style="text-align: left">Minutes to lock account</td>
-          <td style="text-align: center"><code>15</code></td>
+          <td style="text-align: left"><strong>Valid</strong></td>
+          <td style="text-align: left">License is active and more than 30 days from expiration</td>
+          <td style="text-align: left">Licensed entitlements apply; enterprise features are enabled.</td>
       </tr>
       <tr>
-          <td style="text-align: left"><code>PASSWORD_COMPLEXITY</code></td>
-          <td style="text-align: left">Complexity level (<code>low</code>, <code>medium</code>, <code>high</code>)</td>
-          <td style="text-align: center"><code>low</code></td>
+          <td style="text-align: left"><strong>Expiring</strong></td>
+          <td style="text-align: left">License expires within 30 days</td>
+          <td style="text-align: left">Licensed entitlements still apply; an informational banner appears in the UI.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Grace Period</strong></td>
+          <td style="text-align: left">License has expired but less than 15 days have elapsed</td>
+          <td style="text-align: left">Licensed entitlements still apply; an error banner appears in the UI.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Expired</strong></td>
+          <td style="text-align: left">License expired 15 or more days ago</td>
+          <td style="text-align: left">Limits revert to the free tier; enterprise features are disabled.</td>
       </tr>
   </tbody>
 </table>
-<p><em>For detailed descriptions and bootstrap behavior, see the
-<a href="/telegraf/controller/reference/config-options/#authentication-and-security">Authentication and security section in the configuration options reference</a>.</em></p>
-<h2 id="audit-logging">Audit logging</h2>
-<p>When audit logging is enabled, the <strong>Settings</strong> page lets you change the
-retention period for audit entries.
-The default retention is 90 days (2160 hours), and available values range
-from 30 days to 2 years or infinite.</p>
-
-<div class="block note">
-  
-  
-  <p>Audit logging itself is enabled at startup only and requires a
-<a href="/telegraf/controller/telegraf-enterprise/">Telegraf Enterprise</a> license.
-For details, see
-<a href="/telegraf/controller/audit-logs/enable-configure/">Enable and configure audit logging</a>.</p>
-</div>
-<p>To change the audit log retention period:</p>
-<ol>
-<li>Navigate to the <strong>Settings</strong> page.</li>
-<li>In the <strong>Audit Logging</strong> section, select a value from
-<strong>Audit log retention</strong>.</li>
-<li>Click <strong>Save</strong>.</li>
-</ol>
-<!-- TODO: screenshot of the Settings > Audit Logging section showing the Audit log retention dropdown. Save to /static/img/telegraf/controller-settings-audit-retention.png and replace this comment with: 
+<p>For full details on what changes at each stage&mdash;including the API status
+names for each state (such as <code>expired_grace</code>)&mdash;see
+<a href="/telegraf/controller/telegraf-enterprise/license-enforcement/">License enforcement</a>.</p>
+<h2 id="how-to-obtain-telegraf-enterprise">How to obtain Telegraf Enterprise</h2>
+<p>To purchase Telegraf Enterprise or request an evaluation license,
+<a href="https://www.influxdata.com/contact-sales/">contact InfluxData sales</a>.
+InfluxData issues a license file that you apply to your Telegraf Controller
+instance.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>If you already have a license file:</p>
+<ul>
+<li><a href="/telegraf/controller/telegraf-enterprise/apply-license/">Apply a license to Telegraf Controller</a></li>
+<li><a href="/telegraf/controller/telegraf-enterprise/manage-license/">View and update a license</a></li>
+<li><a href="/telegraf/controller/telegraf-enterprise/license-enforcement/">Understand license enforcement</a></li>
+</ul>
 
 
 
 
-<img src='/img/telegraf/controller-settings-audit-retention.png' alt='Telegraf Controller audit log retention dropdown'/>
 
- -->
-<h2 id="enterprise-licensing">Enterprise licensing</h2>
-<p>License management for Telegraf Controller lives at <strong>Settings &gt; Enterprise</strong>.
-Owners can view the current Telegraf Enterprise license, upload a new
-license, and remove a license. All users see current entitlements and usage.</p>
-<p>For details on applying, replacing, and removing a license, see
-<a href="/telegraf/controller/telegraf-enterprise/">Manage your license</a>.</p>
+
+
+
+	
+
+
+
+
+
+	<div class="children-links">
+		
+			
+			
+			
+			 <h2 id="apply-a-license"><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/apply-license/" target="">Apply a license</a></h2>
+			
+			<p>Apply a Telegraf Enterprise license to Telegraf Controller using the LICENSE_FILE_PATH environment variable at startup or by uploading the license through the UI.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h2 id="view-and-update-a-license"><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/manage-license/" target="">View and update a license</a></h2>
+			
+			<p>View the current Telegraf Enterprise license details, check entitlements and usage, replace an expiring license, or remove the license to revert to the free tier.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h2 id="license-enforcement"><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/license-enforcement/" target="">License enforcement</a></h2>
+			
+			<p>How Telegraf Controller enforces scale limits and Enterprise feature gating based on your license status, including expiration phases, grace period behavior, and response headers.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h2 id="troubleshoot-licensing"><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/troubleshoot/" target="">Troubleshoot licensing</a></h2>
+			
+			<p>Diagnose and resolve common Telegraf Enterprise license issues, including validation errors on upload, missing licenses at startup, and unexpected enforcement behavior.</p>
+			
+			
+
+			
+
+			
+			
+	
+	</div>
+
+
+
 
 
 
@@ -1631,49 +1718,6 @@ license, and remove a license. All users see current entitlements and usage.</p>
 
     
     
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
-    
-      
-      
-        
-        
-        
-          
-          
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/config-options/">Telegraf Controller configuration options</a></li>
-          
-        
-      
-    
-      
-      
-        
-        
-        
-          
-          
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/reference/authorization/">Authorization</a></li>
-          
-        
-      
-    
-      
-      
-        
-        
-        
-          
-          
-            <li><a href="/docs-v2/pr-preview/pr-7269/telegraf/controller/audit-logs/">Audit logs</a></li>
-          
-        
-      
-    
-    </ul>
-  </div>
-
 
     
 
@@ -1751,8 +1795,8 @@ license, and remove a license. All users see current entitlements and usage.</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/settings.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/settings/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/telegraf-enterprise/_index.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7269/telegraf/controller/telegraf-enterprise/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     
       <a href="https://github.com/influxdata/telegraf/issues/new/choose/" class="btn issue" target="_blank">Submit Telegraf issue</a>
     
