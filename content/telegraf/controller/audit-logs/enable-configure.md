@@ -19,6 +19,8 @@ Enable audit logging in {{% product-name %}} at startup, change the
 retention period as needed, and optionally forward events to external
 destinations for long-term storage or SIEM integration.
 
+{{< telegraf/enterprise-feature "Audit logging" >}}
+
 - [Prerequisites](#prerequisites)
 - [Enable audit logging](#enable-audit-logging)
 - [Configure retention](#configure-retention)
@@ -145,15 +147,15 @@ export AUDIT_LOG_RETENTION=8760
 
 > [!Note]
 > `AUDIT_LOG_RETENTION` only sets the initial value.
-> After first startup, the database is authoritative --- update retention
-> from the **Settings** page.
+> After first startup, the database is authoritative.
+> Update retention from the **Settings** page.
 
 ## Forward audit events
 
 {{% product-name %}} can forward each audit event to one or more external
 destinations in addition to writing it to local storage.
-Forwarders are configured **at startup only** and run independently --- you
-can enable any combination of syslog, webhook, and file forwarders.
+Forwarders are configured **at startup only** and run independently.
+You can enable any combination of syslog, webhook, and file forwarders.
 
 ### Forward to syslog
 
@@ -200,7 +202,7 @@ export AUDIT_FILE_PATH=/var/log/telegraf-controller/audit.jsonl
 ```
 
 The path must be writable by the {{% product-name %}} process.
-{{% product-name %}} does not rotate or trim this file --- pair it with a
+{{% product-name %}} does not rotate or trim this file. Pair it with a
 system log rotator (such as `logrotate`) if you keep the forwarder on long
 term.
 

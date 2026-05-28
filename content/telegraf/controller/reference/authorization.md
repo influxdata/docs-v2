@@ -65,11 +65,11 @@ By default, {{% product-name %}} requires authentication for API endpoints.
 Operators can selectively disable authentication for individual endpoint groups
 at startup:
 
-- **Agents** --- agent management endpoints
-- **Configs** --- configuration management endpoints
-- **Labels** --- label management endpoints
-- **Reporting rules** --- reporting rule management endpoints
-- **Heartbeat** --- agent heartbeat endpoints
+- **Agents**: agent management endpoints
+- **Configs**: configuration management endpoints
+- **Labels**: label management endpoints
+- **Reporting rules**: reporting rule management endpoints
+- **Heartbeat**: agent heartbeat endpoints
 
 When authentication is enabled for an endpoint group, every request to that
 group must include a valid API token or an active session.

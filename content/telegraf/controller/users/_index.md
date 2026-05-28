@@ -21,11 +21,11 @@ your {{% product-name %}} instance.
 
 Each user account is in one of the following states:
 
-- **Active** --- The user can log in and perform actions based on their assigned
+- **Active**: The user can log in and perform actions based on their assigned
   role.
-- **Disabled** --- The user cannot log in. Existing API tokens remain associated
+- **Disabled**: The user cannot log in. Existing API tokens remain associated
   with the account but are unusable while the user is disabled.
-- **Locked** --- A temporary state triggered by too many failed login attempts.
+- **Locked**: A temporary state triggered by too many failed login attempts.
   The lock clears automatically after the configured lockout period. See the
   [Settings](/telegraf/controller/settings/) page for configuration options.
 

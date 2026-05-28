@@ -21,6 +21,8 @@ tamper-evident audit log.
 Use audit logs to investigate access patterns, detect unauthorized changes,
 and demonstrate compliance with internal or external policies.
 
+{{< telegraf/enterprise-feature "Audit logging" >}}
+
 - [What gets audited](#what-gets-audited)
 - [Where audit logs are stored](#where-audit-logs-are-stored)
 - [Tamper detection](#tamper-detection)
@@ -30,20 +32,20 @@ and demonstrate compliance with internal or external policies.
 
 {{% product-name %}} captures the following categories of events:
 
-- **Authentication** --- user sign-in (local, LDAP, or OIDC) and sign-out.
-- **Agent lifecycle** --- agent registration, status transitions (such as
+- **Authentication**: user sign-in (local, LDAP, or OIDC) and sign-out.
+- **Agent lifecycle**: agent registration, status transitions (such as
   moving in and out of the **not reporting** state), and agent deletion
   (manual deletions and removals driven by reporting-rule retention).
 
 Each entry records:
 
-- **Action** --- the specific event identifier.
-- **Actor** --- the user, API token, or system component that triggered
+- **Action**: the specific event identifier.
+- **Actor**: the user, API token, or system component that triggered
   the event.
-- **Source** --- IP address and user-agent of the request, where applicable.
-- **Outcome** --- `Success`, `Failure`, or `Denied`.
-- **Timestamp** --- when the event occurred, in UTC.
-- **Sequence number, hash, and previous hash** --- used to detect tampering.
+- **Source**: IP address and user-agent of the request, where applicable.
+- **Outcome**: `Success`, `Failure`, or `Denied`.
+- **Timestamp**: when the event occurred, in UTC.
+- **Sequence number, hash, and previous hash**: used to detect tampering.
 
 ## Where audit logs are stored
 
@@ -56,7 +58,7 @@ platform-specific data directory:
 | macOS    | `~/Library/Logs/telegraf-controller/`                                                    |
 | Windows  | `%LOCALAPPDATA%\telegraf-controller\Log`                                                 |
 
-Files are named `audit-YYYY-MM.log` --- one per calendar month.
+Files are named `audit-YYYY-MM.log`, one per calendar month.
 Each file is a SQLite database that enforces immutability through a database
 trigger: attempts to delete rows are rolled back.
 {{% product-name %}} keeps up to 48 months of audit files available for query.

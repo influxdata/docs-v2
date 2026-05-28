@@ -139,13 +139,13 @@ logs (stdout and stderr by default).
 
 Look for log lines containing:
 
-- `license` --- license bootstrap, validation, and replacement events.
-- `License bootstrap` --- the message emitted when `LICENSE_FILE_PATH` is
+- `license`: license bootstrap, validation, and replacement events.
+- `License bootstrap`: the message emitted when `LICENSE_FILE_PATH` is
   processed at startup. A successful load includes the license ID; a failure
   includes the validation error.
-- `License upload` --- the message emitted when a license is uploaded
+- `License upload`: the message emitted when a license is uploaded
   through the UI.
-- `License expiration` --- messages emitted by the hourly expiration check
+- `License expiration`: messages emitted by the hourly expiration check
   when a license transitions between lifecycle states.
 
 ## Get help
