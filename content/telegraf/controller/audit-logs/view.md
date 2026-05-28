@@ -11,7 +11,7 @@ menu:
 weight: 102
 related:
   - /telegraf/controller/audit-logs/enable-configure/
-  - /telegraf/controller/reference/authorization/
+  - /telegraf/controller/reference/authentication-authorization/
   - /telegraf/controller/tokens/create/
 ---
 

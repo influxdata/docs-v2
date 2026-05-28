@@ -17,6 +17,8 @@ Telegraf at scale. It combines {{% product-name %}} with higher scale limits,
 enterprise authentication and audit logging, and enterprise support from
 InfluxData.
 
+{{< telegraf/enterprise-upgrade >}}
+
 - [What's included](#whats-included)
 - [Free tier and Enterprise comparison](#free-tier-and-enterprise-comparison)
 - [How licensing works](#how-licensing-works)

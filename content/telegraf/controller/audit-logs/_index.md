@@ -12,7 +12,7 @@ cascade:
   metadata: [Telegraf Enterprise]
   related:
     - /telegraf/controller/reference/config-options/
-    - /telegraf/controller/reference/authorization/
+    - /telegraf/controller/reference/authentication-authorization/
     - /telegraf/controller/telegraf-enterprise/
 ---
 

@@ -12,13 +12,16 @@ menu:
 weight: 103
 related:
   - /telegraf/controller/telegraf-enterprise/troubleshoot/
-  - /telegraf/controller/reference/authorization/
+  - /telegraf/controller/authentication/
+  - /telegraf/controller/reference/authentication-authorization/
 ---
 
 {{% product-name %}} enforces two things based on your license status: how
 many resources you can create (scale limits) and which features are available.
 This page describes both kinds of enforcement and how license expiration affects
 them.
+
+{{< telegraf/enterprise-upgrade >}}
 
 - [Scale limits](#scale-limits)
 - [Enterprise feature gating](#enterprise-feature-gating)
@@ -67,9 +70,9 @@ operators have advance notice before requests start being rejected.
 
 A valid Telegraf Enterprise license unlocks the following features:
 
-- Audit logging
-- LDAP authentication
-- OIDC authentication
+- [Audit logging](/telegraf/controller/audit-logs/)
+- [LDAP authentication](/telegraf/controller/authentication/ldap/)
+- [OIDC authentication](/telegraf/controller/authentication/oidc/)
 
 API endpoints that require an enterprise feature return `403 Forbidden` when
 called on a free-tier instance:

@@ -19,6 +19,8 @@ related:
 Apply a Telegraf Enterprise license to {{% product-name %}} either at startup
 through an environment variable or at runtime through the user interface.
 
+{{< telegraf/enterprise-upgrade >}}
+
 - [Prerequisites](#prerequisites)
 - [About the license file](#about-the-license-file)
 - [Apply a license at startup](#apply-a-license-at-startup)
@@ -110,7 +112,7 @@ telegraf_controller --no-interactive
    the license ID.
 
 > [!Note]
-> #### `LICENSE_FILE_PATH` is read-only when the database has no license
+> #### `LICENSE_FILE_PATH` is read only when the database has no license
 >
 > If the {{% product-name %}} database already contains a license,
 > `LICENSE_FILE_PATH` is ignored on subsequent restarts. To replace a license

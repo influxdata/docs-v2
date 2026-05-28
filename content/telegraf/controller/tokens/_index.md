@@ -9,7 +9,7 @@ menu:
 weight: 8
 cascade:
   related:
-    - /telegraf/controller/reference/authorization/
+    - /telegraf/controller/reference/authentication-authorization/
 ---
 
 API tokens authenticate requests to the {{% product-name %}} API and Telegraf agent connections.

@@ -18,6 +18,8 @@ related:
 Use this page to diagnose common {{% product-name %}} Enterprise license
 issues.
 
+{{< telegraf/enterprise-upgrade >}}
+
 - [License upload was rejected](#license-upload-was-rejected)
 - [`LICENSE_FILE_PATH` is set but the license isn't loaded](#license_file_path-is-set-but-the-license-isnt-loaded)
 - [Banners say "expired" but I just renewed](#banners-say-expired-but-i-just-renewed)

@@ -20,6 +20,8 @@ the user interface (UI) or API to inspect the license, monitor entitlements and
 usage, replace the license at renewal, or remove the license to revert to the
 free tier.
 
+{{< telegraf/enterprise-upgrade >}}
+
 - [View the current license](#view-the-current-license)
 - [View entitlements and usage](#view-entitlements-and-usage)
 - [Replace a license](#replace-a-license)
