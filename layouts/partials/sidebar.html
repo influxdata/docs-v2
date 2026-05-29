@@ -91,9 +91,9 @@
   {{ $latestFlux := $.Site.Data.products.flux.latest }}
   {{ if gt (len (findRE $fluxWhitelist $productAndVersion)) 0 }}
     <h4 class="flux">Flux</h4>
-    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/">Flux {{ $latestFlux }} Documentation</a></li>
-    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/get-started/">Get started with Flux</a></li>
-    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/stdlib/">Flux standard library</a></li>
+    <li class="nav-category"><a href="{{ printf "/flux/%s/" $latestFlux | relURL }}">Flux {{ $latestFlux }} Documentation</a></li>
+    <li class="nav-category"><a href="{{ printf "/flux/%s/get-started/" $latestFlux | relURL }}">Get started with Flux</a></li>
+    <li class="nav-category"><a href="{{ printf "/flux/%s/stdlib/" $latestFlux | relURL }}">Flux standard library</a></li>
   {{ end }}
 
   <!-- Feature Board link for supported products -->
@@ -114,8 +114,8 @@
   {{ $resourcesVersionWhitelist := `(?:v\d\.(?:\d{1,2}|x))|cloud$` }}
   {{ if and (in $resourcesProductWhitelist $product) (gt (len (findRE $resourcesVersionWhitelist $currentVersion)) 0) }}
     <h4 class="resources">Additional resources</h4>
-    <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
-    <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>
+    <li class="nav-category"><a href="{{ "/resources/videos/" | relURL }}">Videos</a></li>
+    <li class="nav-category"><a href="{{ "/resources/how-to-guides/" | relURL }}">How-to Guides</a></li>
   {{ end }}
 
   </ul>
