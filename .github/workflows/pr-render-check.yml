@@ -46,6 +46,9 @@ jobs:
       - name: Scan built HTML for render artifacts
         run: .ci/scripts/check-render-artifacts.sh public
 
+      - name: Assert no test fixtures shipped to production
+        run: .ci/scripts/check-no-test-fixtures.sh public
+
   cypress-render:
     name: Cypress render-regression spec
     runs-on: ubuntu-latest

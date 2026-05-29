@@ -46,6 +46,7 @@ test-results.xml
 tmp
 .tmp
 .test-cache
+.cache/
 
 # IDE files
 .vscode/*
