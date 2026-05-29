@@ -7,7 +7,7 @@
 {{- $deprecated := cond (isset . "deprecated") true false -}}
 {{- $deprecatedVersion := cond $deprecated .deprecated 0.0 -}}
   <li>
-    {{ if .nolink }}{{ .flag }}{{ else }}<a href="/influxdb/{{ $currentVersion }}/reference/config-options/{{ $flagAnchor }}">{{ .flag }}</a>{{ end }}
+    {{ if .nolink }}{{ .flag }}{{ else }}<a href="{{ printf "/influxdb/%s/reference/config-options/%s" $currentVersion $flagAnchor | relURL }}">{{ .flag }}</a>{{ end }}
     {{ if $deprecated }}<em style="opacity:.65;"> - (deprecated in InfluxDB {{ $deprecatedVersion }})</em>{{ end }}
   </li>
 {{- end -}}
