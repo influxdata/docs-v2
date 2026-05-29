@@ -1,0 +1,67 @@
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: *
+
+Disallow: /docs-v2/pr-preview/pr-7282/chronograf/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/enterprise_influxdb/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/flux/v0/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb/cloud/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb/v2/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb3/cloud-dedicated/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb3/cloud-serverless/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb3/clustered/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb3/core/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb3/enterprise/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/influxdb3/explorer/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/kapacitor/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-7282/telegraf/v1/__tests__/shortcodes/
+Sitemap: https://influxdata.github.io/docs-v2/pr-preview/pr-7282/sitemap.xml
+Sitemap: https://influxdata.github.io/docs-v2/pr-preview/pr-7282/sitemap-md.xml
