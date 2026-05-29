@@ -4,7 +4,7 @@
   {{- range $influxdbVersions -}}
   {{- if in . "v2" -}}
   {{- if lt (float (replaceRE "v" "" .)) (float (replaceRE "v" "" $currentVersion)) -}}
-  <li><a href="/influxdb/{{ . }}/install/">Install InfluxDB {{ replaceRE "v" "" . }}</a></li>
+  <li><a href="{{ printf "/influxdb/%s/install/" . | relURL }}">Install InfluxDB {{ replaceRE "v" "" . }}</a></li>
   {{- end -}}
   {{- end -}}
   {{- end -}}

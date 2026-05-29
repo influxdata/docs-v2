@@ -1,7 +1,7 @@
 {{- $productData := partial "product/get-data.html" . -}}
 {{- $version := .Page.Params.version -}}
 {{- if $productData.distributed_architecture -}}
-<a href="/influxdb3/{{ $version }}/reference/sample-data/#get-started-home-sensor-data">Get started home sensor sample data</a>
+<a href="{{ printf "/influxdb3/%s/reference/sample-data/#get-started-home-sensor-data" $version | relURL }}">Get started home sensor sample data</a>
 {{- else -}}
-<a href="/influxdb3/{{ $version }}/reference/sample-data/#home-sensor-data">Home sensor sample data</a>
+<a href="{{ printf "/influxdb3/%s/reference/sample-data/#home-sensor-data" $version | relURL }}">Home sensor sample data</a>
 {{- end -}}
