@@ -1139,6 +1139,18 @@ The shortcode accepts two positional arguments:
 
 The rendered callout reads: *"{feature} {wordForm} only available with Telegraf Enterprise..."* followed by a link and an **Upgrade to Enterprise** call-to-action button.
 
+### Telegraf Enterprise upgrade callout
+
+Use the `{{< telegraf/enterprise-upgrade >}}` shortcode on Telegraf Controller pages to display an "Upgrade to Telegraf Enterprise" call-to-action that links to the Telegraf Enterprise product page.
+
+```md
+{{< telegraf/enterprise-upgrade >}}
+```
+
+The shortcode takes no arguments. The rendered callout reads *"Upgrade to Telegraf Enterprise"*, a short summary of Enterprise benefits, and an **Upgrade to Enterprise** button.
+
+Use this on Telegraf Controller pages that describe free-tier scale limits or Enterprise-only capabilities to give readers a path to upgrade. For inline feature-gating callouts on individual Enterprise features, use [`{{< telegraf/enterprise-feature >}}`](#telegraf-enterprise-feature-callout) instead.
+
 ### Reference content
 
 The InfluxDB documentation is "task-based," meaning content primarily focuses on what a user is **doing**, not what they are **using**. However, there is a need to document tools and other things that don't necessarily fit in the task-based style. This is referred to as "reference content."

@@ -9,7 +9,8 @@ menu:
 weight: 9
 related:
   - /telegraf/controller/reference/config-options/
-  - /telegraf/controller/reference/authorization/
+  - /telegraf/controller/reference/authentication-authorization/
+  - /telegraf/controller/authentication/
   - /telegraf/controller/audit-logs/
 ---
 
@@ -86,6 +87,85 @@ Changes made on the **Settings** page override initialized settings.
 
 _For detailed descriptions and bootstrap behavior, see the
 [Authentication and security section in the configuration options reference](/telegraf/controller/reference/config-options/#authentication-and-security)._
+
+## LDAP authentication
+
+When LDAP authentication is enabled at startup, the **LDAP Authentication**
+section on the **Settings** page lets the owner review the active LDAP
+configuration and tune how external identities map to {{% product-name %}}
+accounts.
+
+> [!Note]
+> LDAP authentication requires a
+> [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+> For setup instructions, see
+> [Configure LDAP authentication](/telegraf/controller/authentication/ldap/).
+
+The section displays:
+
+- A read-only summary of the LDAP server URL, bind DN, user search base,
+  TLS settings, and attribute mappings. These values are environment-only
+  and can be changed only by restarting {{% product-name %}}.
+- Runtime-editable provisioning controls described in the table below.
+
+| Setting                          | Description                                                                                                                  |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Provisioning strategy**        | `invite_only`, `domain_restricted`, or `auto_create`. See [Provisioning strategies](/telegraf/controller/authentication/#provisioning-strategies). |
+| **Default role**                 | Role assigned when no group mapping matches an authenticated user.                                                           |
+| **Allowed email domains**        | Comma-separated list of domains, used when **Provisioning strategy** is `domain_restricted`.                                 |
+| **Auto-link by verified email**  | When enabled, link an LDAP user to an existing local user with a matching email address.                                     |
+| **On no group match**            | `use_default_role` admits the user with the default role; `reject` denies the sign-in.                                       |
+| **Group role mappings**          | List of `(provider ID, group name, role)` rows that map directory groups to {{% product-name %}} roles.                      |
+
+To update LDAP settings:
+
+1. Sign in as the **Owner**.
+2. Navigate to the **Settings** page.
+3. In the **LDAP Authentication** section, update the values.
+4. Click **Save**.
+
+<!-- TODO: screenshot of the Settings > LDAP Authentication panel showing the redacted connection summary, provisioning controls, and a populated group mappings table. Save to /static/img/telegraf/controller-settings-ldap.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-ldap.png" alt="Telegraf Controller LDAP authentication settings" />}} -->
+
+## OIDC authentication
+
+When OIDC authentication is enabled at startup, the **OIDC Authentication**
+section on the **Settings** page lets the owner review the active OIDC
+configuration and tune how external identities map to {{% product-name %}}
+accounts.
+
+> [!Note]
+> OIDC authentication requires a
+> [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+> For setup instructions, see
+> [Configure OIDC authentication](/telegraf/controller/authentication/oidc/).
+
+The section displays:
+
+- A read-only summary of the issuer, client ID, redirect URI, scopes, and
+  username claim, plus the provider discovery status. These values are
+  environment-only and can be changed only by restarting
+  {{% product-name %}}.
+- Runtime-editable provisioning controls described in the table below.
+
+| Setting                          | Description                                                                                                                  |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Provisioning strategy**        | `invite_only`, `domain_restricted`, or `auto_create`. See [Provisioning strategies](/telegraf/controller/authentication/#provisioning-strategies). |
+| **Default role**                 | Role assigned when no group mapping matches an authenticated user.                                                           |
+| **Allowed email domains**        | Comma-separated list of domains, used when **Provisioning strategy** is `domain_restricted`.                                 |
+| **Auto-link by verified email**  | When enabled, link an OIDC user to an existing local user whose email is verified and matches.                               |
+| **On no group match**            | `use_default_role` admits the user with the default role; `reject` denies the sign-in.                                       |
+| **Display name**                 | Overrides the startup-time `AUTH_OIDC_DISPLAY_NAME` on the sign-in button.                                                   |
+| **Groups claim**                 | Overrides the startup-time `AUTH_OIDC_GROUPS_CLAIM` for incoming tokens.                                                     |
+| **Group role mappings**          | List of `(provider ID, group name, role)` rows that map OIDC group values to {{% product-name %}} roles.                     |
+
+To update OIDC settings:
+
+1. Sign in as the **Owner**.
+2. Navigate to the **Settings** page.
+3. In the **OIDC Authentication** section, update the values.
+4. Click **Save**.
+
+<!-- TODO: screenshot of the Settings > OIDC Authentication panel showing the redacted issuer/client ID, discovery status, provisioning controls, and a populated group mappings table. Save to /static/img/telegraf/controller-settings-oidc.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-oidc.png" alt="Telegraf Controller OIDC authentication settings" />}} -->
 
 ## Audit logging
 

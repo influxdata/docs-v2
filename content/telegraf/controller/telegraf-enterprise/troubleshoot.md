@@ -18,6 +18,8 @@ related:
 Use this page to diagnose common {{% product-name %}} Enterprise license
 issues.
 
+{{< telegraf/enterprise-upgrade >}}
+
 - [License upload was rejected](#license-upload-was-rejected)
 - [`LICENSE_FILE_PATH` is set but the license isn't loaded](#license_file_path-is-set-but-the-license-isnt-loaded)
 - [Banners say "expired" but I just renewed](#banners-say-expired-but-i-just-renewed)
@@ -128,7 +130,7 @@ Verify the license is active:
 If both look correct but a specific authentication provider (LDAP or OIDC)
 isn't working, check whether the corresponding `AUTH_LDAP_*` or `AUTH_OIDC_*`
 environment variables were set before {{% product-name %}} started. These
-variables are read at startup---if they were added or changed after
+variables are read at startup. If they were added or changed after
 {{% product-name %}} started, restart {{% product-name %}} so the new values
 take effect.
 

@@ -591,7 +591,7 @@ mode, the web interface displays a setup page where you can create one.
 {{< img-hd src="/img/telegraf/controller-setup-owner-account.png" alt="Owner account setup page" />}}
 
 For more information about user roles and permissions, see
-[Authorization](/telegraf/controller/reference/authorization/).
+[Authentication and authorization](/telegraf/controller/reference/authentication-authorization/).
 
 ## Apply a Telegraf Enterprise license (optional)
 
