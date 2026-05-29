@@ -177,7 +177,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-28 13:23:59 -0600 -0600">
+<meta name="last-modified" content="2026-05-29 16:19:50 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1680,8 +1680,8 @@ decide whether to create a Telegraf Controller account for them.</p>
       </tr>
   </tbody>
 </table>
-<p>Each external provider has its own provisioning strategy. You can run LDAP
-in <code>invite_only</code> while OIDC is in <code>auto_create</code>, for example.</p>
+<p>Each external provider has its own provisioning strategy. For example, you can run LDAP
+in <code>invite_only</code> while OIDC is in <code>auto_create</code>.</p>
 <h2 id="group-to-role-mapping">Group-to-role mapping</h2>
 <p>For LDAP and OIDC, Telegraf Controller reads a list of groups from the
 identity provider and maps them to Telegraf Controller roles. You define
@@ -1691,9 +1691,7 @@ mappings on the <strong>Settings</strong> page as rows of <code>(provider, group
 <li>If a user matches no mapping, the provider&rsquo;s <strong>default role</strong> is assigned
 or sign-in is rejected, depending on the provider&rsquo;s
 <strong>On no group match</strong> setting.</li>
-<li>The <strong>Owner</strong> role is never assigned through a mapping. Transfer ownership
-through <a href="/telegraf/controller/users/transfer-ownership/">Transfer ownership</a>
-instead.</li>
+<li>The <strong>Owner</strong> role is never assigned through a mapping. You can <a href="/telegraf/controller/users/transfer-ownership/">Transfer ownership</a> instead.</li>
 </ul>
 <h2 id="owner-account-behavior">Owner account behavior</h2>
 <p>The owner is the only account that can change LDAP and OIDC settings and is
