@@ -14,7 +14,7 @@
   </div>
   <div class="topnav-right">
     {{ if eq $layout "feature-board" }}
-      <a class="back-btn" href="/{{ $product }}/{{ $version }}/">{{ $productName }} Docs</a>
+      <a class="back-btn" href="{{ printf "/%s/%s/" $product $version | relURL }}">{{ $productName }} Docs</a>
     {{ else }}
       <div class="selector-dropdowns">
         {{ partial "topnav/product-selector.html" . }}
