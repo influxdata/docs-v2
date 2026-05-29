@@ -99,8 +99,8 @@ decide whether to create a {{% product-name %}} account for them.
 | `domain_restricted` | A pending invite admits the user; otherwise, the email must end with an allowed domain.              |
 | `auto_create`       | A pending invite admits the user; otherwise, any user the provider authenticates is auto-created.    |
 
-Each external provider has its own provisioning strategy. You can run LDAP
-in `invite_only` while OIDC is in `auto_create`, for example.
+Each external provider has its own provisioning strategy. For example, you can run LDAP
+in `invite_only` while OIDC is in `auto_create`.
 
 ## Group-to-role mapping
 
@@ -112,9 +112,7 @@ mappings on the **Settings** page as rows of `(provider, group name, role)`.
 - If a user matches no mapping, the provider's **default role** is assigned
   or sign-in is rejected, depending on the provider's
   **On no group match** setting.
-- The **Owner** role is never assigned through a mapping. Transfer ownership
-  through [Transfer ownership](/telegraf/controller/users/transfer-ownership/)
-  instead.
+- The **Owner** role is never assigned through a mapping. You can [Transfer ownership](/telegraf/controller/users/transfer-ownership/) instead.
 
 ## Owner account behavior
 
