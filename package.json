@@ -86,6 +86,7 @@
     "check:md-coherence": "node scripts/check-md-alternate-coherence.js",
     "test:build-llms-full": "node --test scripts/__tests__/build-llms-full-txt.test.mjs",
     "test:corpus-paths": "node --test scripts/__tests__/corpus-paths.test.mjs",
+    "test:build-md": "node --test scripts/__tests__/build-llm-markdown.test.mjs scripts/__tests__/provenance.test.mjs",
     "deploy:staging": "sh scripts/deploy-staging.sh",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
