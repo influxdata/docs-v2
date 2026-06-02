@@ -26,6 +26,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
 import { getCorpusPaths } from './lib/corpus-paths.js';
+import { loadOrgIdentity } from './lib/provenance.js';
 
 /**
  * Resolve --public-dir <path> from argv, defaulting to ./public.
@@ -139,7 +140,8 @@ export async function loadEligibleUrls(publicRoot = PUBLIC_ROOT) {
 export async function buildProduct(
   product,
   eligible,
-  publicRoot = PUBLIC_ROOT
+  publicRoot = PUBLIC_ROOT,
+  org
 ) {
   const { urls: eligibleUrls, origin } = eligible;
   const productRoot = path.join(publicRoot, product.path);
@@ -168,11 +170,19 @@ export async function buildProduct(
   pages.sort((a, b) => a.pagePath.localeCompare(b.pagePath));
 
   const timestamp = new Date().toISOString();
+  const identityLines =
+    org && org.name
+      ? [
+          `> Publisher: ${org.name} (${org.url})`,
+          `> sameAs: ${org.sameAs.join(', ')}`,
+        ]
+      : [];
   const header = [
     `# ${product.name} — full Markdown corpus`,
     '',
     `> Generated ${timestamp} from ${origin}/${product.path}/`,
     `> See ${origin}/llms.txt for the cross-product table of contents.`,
+    ...identityLines,
     '',
   ].join('\n');
 
@@ -197,11 +207,12 @@ async function main() {
   console.log(
     `Loaded ${eligible.urls.size} eligible URLs from sitemap-md.xml (origin: ${eligible.origin})`
   );
+  const org = await loadOrgIdentity();
 
   const results = [];
   for (const product of PRODUCT_PATHS) {
     try {
-      const result = await buildProduct(product, eligible);
+      const result = await buildProduct(product, eligible, PUBLIC_ROOT, org);
       results.push(result);
     } catch (err) {
       console.error(`Failed to build ${product.path}: ${err.message}`);
