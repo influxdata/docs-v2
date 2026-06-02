@@ -12,7 +12,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.9.2
+  latest_patch: 3.9.3
   placeholder_host: localhost:8181
   limits:
     database: 5
@@ -56,7 +56,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.9.2
+  latest_patch: 3.9.3
   placeholder_host: localhost:8181
   limits:
     database: 100
