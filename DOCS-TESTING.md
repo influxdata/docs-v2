@@ -923,6 +923,39 @@ Vale runs automatically on pull requests that modify markdown files. The workflo
 
 The CI check uses the same product-specific configs as local development, ensuring consistency between local and CI linting.
 
+## Structured Data (JSON-LD) Validation
+
+The `layouts/partials/header/*-jsonld.html` partials emit schema.org JSON-LD
+(`Organization`, `TechArticle`, `SoftwareApplication`, `FAQPage`). Validate
+changes with the **Schema Markup Validator (`https://validator.schema.org`)**,
+**not** the Google Rich Results Test.
+
+The Rich Results Test only reports types eligible for a *visual* search
+enhancement. Most JSON-LD this repo emits is not eligible, so the Rich Results
+Test reports "no items detected" even for valid markup — a false negative:
+
+| Emitted type          | Rich Results Test | Why |
+| --------------------- | ----------------- | --- |
+| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result |
+| `TechArticle`         | Not reported      | Google's Article rich result fires only for `Article`/`NewsArticle`/`BlogPosting` |
+| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result |
+| `FAQPage`             | Reported          | One of the few eligible types here |
+
+**Local checks:**
+
+- **Cypress** proves the markup is *emitted where intended*, not that it is
+  schema-correct. Assertions are scope-aware: page-scoped nodes
+  (`TechArticle`/`SoftwareApplication`) assert presence where they belong and
+  *absence* where they don't (over-emission guard); global nodes
+  (`Organization`, emitted site-wide with a stable `@id`) assert *exactly one*
+  per page class. See `cypress/e2e/content/jsonld-organization.cy.js` and
+  `jsonld-techarticle.cy.js`.
+- **Schema correctness** is confirmed manually via `validator.schema.org`
+  against a deployed preview URL (expect 0 errors).
+
+See the `hugo-template-dev` and `cypress-e2e-testing` skills for the full
+workflow and code snippets.
+
 ## PR Preview Pages
 
 The PR preview workflow (`.github/workflows/pr-preview.yml`) deploys only the pages listed in the PR description to a stable GitHub Pages preview URL. Reviewers verify rendered output on the exact pages the author tested without checking out the branch or running `npx hugo server` locally.
