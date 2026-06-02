@@ -31,6 +31,17 @@ test('loadOrgIdentity reads name, url, and sameAs from data file', async () => {
   }
 });
 
+test('loadOrgIdentity throws when organization.name is missing', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'prov-'));
+  try {
+    const file = join(dir, 'influxdata.yml');
+    writeFileSync(file, 'organization:\n  url: https://www.influxdata.com\n');
+    await assert.rejects(() => loadOrgIdentity(file), /Missing organization\.name/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('readSitemapOrigin extracts origin from sitemap-md.xml', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'prov-'));
   try {
@@ -81,4 +92,14 @@ test('injectPageProvenance canonical does not use the localhost build url', () =
 test('injectPageProvenance returns input unchanged when no frontmatter', () => {
   const input = 'no frontmatter here';
   assert.equal(injectPageProvenance(input, { publisher: 'X', canonical: 'Y' }), input);
+});
+
+test('injectPageProvenance stamps frontmatter with CRLF line endings', () => {
+  const twin = '---\r\ntitle: T\r\n---\r\n\r\nBody.\r\n';
+  const out = injectPageProvenance(twin, {
+    publisher: 'InfluxData',
+    canonical: 'https://docs.influxdata.com/x/',
+  });
+  assert.match(out, /publisher: InfluxData/);
+  assert.match(out, /canonical: https:\/\/docs\.influxdata\.com\/x\//);
 });

@@ -59,7 +59,7 @@ export async function readSitemapOrigin(publicDir = 'public') {
  * @returns {string}
  */
 export function injectPageProvenance(markdown, { publisher, canonical }) {
-  const match = markdown.match(/^---\n([\s\S]+?)\n---\n\n([\s\S]+)$/);
+  const match = markdown.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n+([\s\S]+)$/);
   if (!match) return markdown;
   let fm;
   try {
