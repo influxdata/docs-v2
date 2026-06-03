@@ -26,7 +26,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
 import { getCorpusPaths } from './lib/corpus-paths.js';
-import { loadOrgIdentity } from './lib/provenance.js';
+import { loadOrgIdentity, FALLBACK_ORIGIN } from './lib/provenance.js';
 
 /**
  * Resolve --public-dir <path> from argv, defaulting to ./public.
@@ -45,14 +45,9 @@ function parsePublicDir() {
 
 const PUBLIC_ROOT = parsePublicDir();
 
-/**
- * Production fallback used only if sitemap-md.xml lacks a usable origin.
- * In a normal build, the origin is derived from the sitemap (which Hugo
- * generates with the active environment's baseURL — staging vs production
- * vs pr-preview vs local). Hardcoding the production URL as the corpus
- * source would put production URLs into staging artifacts (#7211 review).
- */
-const FALLBACK_SITE_URL = 'https://docs.influxdata.com';
+// FALLBACK_ORIGIN (imported) is used only if sitemap-md.xml lacks a usable
+// origin. In a normal build, the origin is derived from the sitemap so staging
+// builds don't carry production URLs (#7211 review). See loadEligibleUrls.
 
 /**
  * Load and derive the per-product corpus list from data/products.yml.
@@ -70,7 +65,10 @@ function loadProductPaths() {
   const __dirname = path.dirname(__filename);
   const productsPath = path.resolve(__dirname, '..', 'data', 'products.yml');
   const products = yaml.load(readFileSync(productsPath, 'utf-8'));
-  return getCorpusPaths(products).map(({ path: p, name }) => ({ path: p, name }));
+  return getCorpusPaths(products).map(({ path: p, name }) => ({
+    path: p,
+    name,
+  }));
 }
 
 const PRODUCT_PATHS = loadProductPaths();
@@ -127,7 +125,7 @@ export async function loadEligibleUrls(publicRoot = PUBLIC_ROOT) {
       /* skip malformed URL */
     }
   }
-  return { urls, origin: origin || FALLBACK_SITE_URL };
+  return { urls, origin: origin || FALLBACK_ORIGIN };
 }
 
 /**

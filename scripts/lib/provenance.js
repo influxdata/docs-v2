@@ -10,7 +10,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import yaml from 'js-yaml';
 
-const FALLBACK_ORIGIN = 'https://docs.influxdata.com';
+export const FALLBACK_ORIGIN = 'https://docs.influxdata.com';
 
 /**
  * Load InfluxData org identity from data/influxdata.yml.
