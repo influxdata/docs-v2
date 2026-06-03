@@ -170,3 +170,27 @@ test('buildProduct sorts pages by URL path', async () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('buildProduct emits the org identity block exactly once per corpus', async () => {
+  const { root, productPath } = setupFixture();
+  try {
+    const eligible = await loadEligibleUrls(root);
+    const org = {
+      name: 'InfluxData',
+      url: 'https://www.influxdata.com',
+      sameAs: ['https://github.com/influxdata', 'https://hub.docker.com/u/influxdata'],
+    };
+    await buildProduct({ path: productPath, name: 'Foo v1' }, eligible, root, org);
+
+    const corpus = readFileSync(join(root, productPath, 'llms-full.txt'), 'utf-8');
+    // Publisher line appears exactly once (corpus header), not per page.
+    const publisherMatches = corpus.match(/> Publisher: InfluxData/g) || [];
+    assert.equal(publisherMatches.length, 1, 'publisher line must appear once');
+    assert.match(corpus, /> sameAs: https:\/\/github\.com\/influxdata/);
+    // Still has both page bodies (block did not displace content).
+    assert.match(corpus, /# Alpha Page/);
+    assert.match(corpus, /# Gamma Page/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
