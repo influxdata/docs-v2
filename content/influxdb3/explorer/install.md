@@ -340,7 +340,7 @@ Instead of configuring connections through the UI, you can pre-define connection
    > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
    > - If InfluxDB is running natively on your machine (not in Docker), use `localhost`.
    >
-   > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host).
+   > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/).
 
 2. **Mount the configuration directory:**
 
