@@ -34,19 +34,21 @@ integration tests pass.
 
 ## Constraints and decisions
 
-| Decision                     | Choice                                                                                                                                                                                                                                                     |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Direction                    | Rust is the production converter; remove JS conversion entirely                                                                                                                                                                                            |
-| Parity bar                   | **Semantic parity** — diff the full corpus, fix all semantic diffs, document accepted cosmetic diffs                                                                                                                                                       |
-| Binary delivery              | **Build from source in CI** (lockstep source/binary), plus a guarded local `postinstall`                                                                                                                                                                   |
-| Fallback                     | **No silent fallback** — hard-fail loudly if the Rust binary can't load                                                                                                                                                                                    |
-| `markdown-converter.cjs`     | **Delete it**; repoint consumers and `package.json` `exports` at the Rust module                                                                                                                                                                           |
-| `date`/`lastmod` source      | **Rust extracts from the HTML head** `<meta name="last-modified">` (Hugo `.Lastmod`), same as `canonical`. No new param; API stays `(html, url_path, base_url)`. Keeps HTML parsing in Rust only (JS stays jsdom-free). Omitted if the meta tag is absent. |
-| Section bundling ownership   | **Stays in JS** (`build-llm-markdown.js` `combineMarkdown`/`findSections`, untouched). It concatenates generated `.md` files, not HTML. The Rust `convert_section_to_markdown` binding is unused → removed.                                                |
-| `pages` semantics            | **Preserve `children.length + 1`** (parent + children), the current active contract. Preserved automatically since section bundling is untouched.                                                                                                          |
-| Legacy `html-to-markdown.js` | **Retire it** (and `build:md:legacy` / `build:md:verbose`). It is the only caller of `convertSectionToMarkdown`, not used in CI, and superseded by `build-llm-markdown.js`.                                                                                |
-| docs-tooling                 | **Does not consume the converter** — removal is fully safe, no cross-repo coordination needed                                                                                                                                                              |
-| Acceptance                   | All markdown e2e + integration tests pass                                                                                                                                                                                                                  |
+| Decision                     | Choice                                                                                                                                                                                                                                         |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Direction                    | Rust is the production converter; remove JS conversion entirely                                                                                                                                                                                |
+| Parity bar                   | **Semantic parity** — diff the full corpus, fix all semantic diffs, document accepted cosmetic diffs                                                                                                                                           |
+| Binary delivery              | **Build from source in CI** (lockstep source/binary), plus a guarded local `postinstall`                                                                                                                                                       |
+| Fallback                     | **No silent fallback** — hard-fail loudly if the Rust binary can't load                                                                                                                                                                        |
+| `markdown-converter.cjs`     | **Delete it**; repoint consumers and `package.json` `exports` at the Rust module                                                                                                                                                               |
+| `publisher`/`canonical`      | **JS post-step, not the converter.** #7294 added `scripts/lib/provenance.js`; `injectPageProvenance` (per page) and `combineMarkdown` (sections) stamp them after conversion. It is converter-agnostic by design. Rust does **not** emit them. |
+| `date`/`lastmod`             | **JS post-step too** — fold into `injectPageProvenance`, sourced from `sitemap-md.xml` `<lastmod>` (per page only). Keeps Rust an exact drop-in; near-zero build cost (one sitemap parse at startup, O(1)/page). Rust does **not** emit them.  |
+| Rust converter scope         | **Exact drop-in.** Emits only `title`, `description`, `url`, `estimated_tokens`, `product`, `version` — matching the post-#7294 JS converter field-for-field. API stays `(html, url_path, base_url)`; no HTML-head extraction.                 |
+| Section bundling ownership   | **Stays in JS** (`build-llm-markdown.js` `combineMarkdown`/`findSections`, untouched). It concatenates generated `.md` files, not HTML. The Rust `convert_section_to_markdown` binding is unused → removed.                                    |
+| `pages` semantics            | **Preserve `children.length + 1`** (parent + children), the current active contract. Preserved automatically since section bundling is untouched.                                                                                              |
+| Legacy `html-to-markdown.js` | **Retire it** (and `build:md:legacy` / `build:md:verbose`). It is the only caller of `convertSectionToMarkdown`, not used in CI, and superseded by `build-llm-markdown.js`.                                                                    |
+| docs-tooling                 | **Does not consume the converter** — removal is fully safe, no cross-repo coordination needed                                                                                                                                                  |
+| Acceptance                   | All markdown e2e + integration tests pass                                                                                                                                                                                                      |
 
 ## Current state (verified)
 
@@ -55,8 +57,21 @@ integration tests pass.
   Both `require('./lib/markdown-converter.cjs')`.
 - `package.json` `exports: "./markdown-converter"` points at the `.cjs`. No
   external repo consumes it (docs-tooling does not use the converter).
+- **`publisher`/`canonical` are added by a JS post-step, not the converter.**
+  \#7294 added `scripts/lib/provenance.js`. `build-llm-markdown.js:154` calls
+  `injectPageProvenance(markdown, { publisher, canonical })` after conversion
+  (`canonical` = sitemap `origin` + `urlPath`); `combineMarkdown` does the same
+  for sections. `injectPageProvenance` is documented converter-agnostic. #7294
+  also added `test:build-md` (`build-llm-markdown.test.mjs`, `provenance.test.mjs`)
+  — part of the acceptance gate; both stay green untouched.
+- The post-#7294 JS converter base frontmatter
+  (`markdown-converter.cjs:501-513`) emits exactly `title`, `description`,
+  `url`, `estimated_tokens`, `product`, `version`. This is the Rust drop-in
+  target.
 - The Rust `lib.rs` is a **full** reimplementation: it emits frontmatter and
-  product detection, not just the HTML→MD body.
+  product detection, not just the HTML→MD body. It currently emits
+  `product_version` (not `version`) and build-time `date`/`lastmod` — both must
+  change (rename, and remove timestamps) to become a drop-in.
 - **Product mappings are already configuration on the Rust side.** `build.rs`
   reads `data/products.yml` at build time (`cargo:rerun-if-changed`) and
   generates the URL→product map. The JS converter hardcodes its own copy
@@ -86,67 +101,62 @@ path — it is reachable only from the legacy `html-to-markdown.js`, which is
 retired. The migration's parity scope is therefore **per-page conversion only**;
 section frontmatter is preserved by construction.
 
-## The real parity work: fix the existing per-page frontmatter drift
+## The real parity work: make Rust an exact drop-in
 
-The per-page JS and Rust converters have already silently diverged. Before Rust
-becomes canonical, fix the drift:
+The Rust converter must emit the **same base frontmatter as the post-#7294 JS
+converter**, field-for-field, so the JS post-steps (provenance, timestamps)
+layer on identically. The converter's only job is the six base fields;
+everything else is JS.
 
-Parity baseline = **post-#7294 master output** (rebase before implementing).
-The diff harness compares against actual current output, so the live field set
-is captured automatically — it does not hardcode a field list. The sourcing of
-each field below must be read from the post-#7294 JS at implementation time.
-
-| Per-page field    | Post-#7294 JS                                                      | Current Rust                | Action                                                                                                                       |
-| ----------------- | ------------------------------------------------------------------ | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `version`         | `version:`                                                         | `product_version:`          | rename in Rust                                                                                                               |
-| `publisher`       | `InfluxData` (constant)                                            | missing                     | add (constant)                                                                                                               |
-| `canonical`       | from page `<link rel="canonical">` (localhost locally, prod in CI) | missing                     | add; extract from HTML, do **not** compute from `base_url`                                                                   |
-| `url`             | from `base_url` + path                                             | from `base_url` + path      | unchanged                                                                                                                    |
-| `date`/`lastmod`  | **omitted**                                                        | build-time `now()` (churns) | add from Hugo `.Lastmod` via `<meta name="last-modified">` (intentional additive change; harness expects them on every page) |
-| HTML strip-list   | \~12 selectors, 2 lists                                            | \~20 selectors              | reconcile (no content loss)                                                                                                  |
-| conversion engine | turndown/jsdom                                                     | html2md/scraper             | html2md/scraper                                                                                                              |
+| Per-page base field     | Post-#7294 JS               | Current Rust       | Action               |
+| ----------------------- | --------------------------- | ------------------ | -------------------- |
+| `title`                 | ✓                           | ✓                  | unchanged            |
+| `description`           | ✓                           | ✓                  | unchanged            |
+| `url`                   | `base_url` + path           | `base_url` + path  | unchanged            |
+| `estimated_tokens`      | ✓                           | ✓                  | unchanged            |
+| `product`               | ✓ (optional)                | ✓ (optional)       | unchanged            |
+| `version`               | `version:`                  | `product_version:` | rename in Rust       |
+| `date`/`lastmod`        | added later by JS post-step | build-time `now()` | **remove** from Rust |
+| `publisher`/`canonical` | added later by JS post-step | not emitted        | keep not-emitted     |
+| conversion engine       | turndown/jsdom              | html2md/scraper    | html2md/scraper      |
 
 Required Rust changes before cutover:
 
 1. Rename frontmatter field `product_version` → `version`.
-2. Add `publisher` (constant `InfluxData`) and `canonical` (extracted from the
-   page's `<link rel="canonical">`, not computed from `base_url`). Match the
-   exact sourcing in the post-#7294 JS.
-3. Add Hugo-sourced `date`/`lastmod` extracted from the HTML head (intentional
-   additive change). Remove `chrono::Utc::now()`; drop the `chrono` dependency
-   if it becomes unused.
-4. Match the post-#7294 field order.
+2. **Remove** `date`/`lastmod` from the Rust frontmatter (the JS post-step owns
+   them now). Remove `chrono::Utc::now()`; drop the `chrono` dependency if it
+   becomes unused.
+3. Match the post-#7294 base field order exactly: `title`, `description`,
+   `url`, `estimated_tokens`, `product`, `version`.
 
 The build script gains one responsibility: resolve `base_url` (port
 `detectBaseUrl` from the deleted `.cjs`) and pass it to the binding, which it
-currently does not.
+currently does not (`build-llm-markdown.js:144` calls it with two args).
 
 ### Converter API contract
 
-The binding signature is unchanged:
+The binding signature is unchanged, and Rust does **no** HTML-head extraction:
 
 ```
 convert_to_markdown(
   html_content: String,
   url_path: String,
   base_url: String,
-) -> Option<String>
+) -> Option<String>   // frontmatter: title, description, url,
+                      //   estimated_tokens, product?, version?
 ```
 
-Inside the converter, Rust extracts two values from the HTML head (it already
-DOM-parses the document):
+`publisher`, `canonical`, `date`, and `lastmod` are added afterward in JS:
 
-- `canonical` from `<link rel="canonical">` — reflects the build host
-  (localhost locally, production in CI), independent of the `url` field.
-- `last_modified` from `<meta name="last-modified">`
-  (`layouts/partials/header/coveo-meta-data.html`, Hugo `.Lastmod`), emitted as
-  both `date` and `lastmod`. Omitted if the meta tag is absent (no build-time
-  `now()` fallback).
+- `injectPageProvenance` (`scripts/lib/provenance.js`) already stamps
+  `publisher` and `canonical` (= sitemap `origin` + `urlPath`). It is
+  converter-agnostic.
+- Extend the same step to also stamp `date`/`lastmod` from `sitemap-md.xml`
+  `<lastmod>` (per page). One parse at startup builds a `urlPath → lastmod`
+  Map; O(1) per page. Sections keep provenance only (no per-page timestamp).
 
-Keeping both extractions in Rust means the JS build script never parses HTML,
-so removing `jsdom` is clean. The caller's only new responsibility is supplying
-`base_url`, which the deleted `.cjs` used to resolve internally
-(`detectBaseUrl`, ported into the build script).
+The caller's only new responsibility is supplying `base_url`, which the deleted
+`.cjs` resolved internally (`detectBaseUrl`, ported into the build script).
 
 The `convert_section_to_markdown` binding is removed.
 
@@ -257,10 +267,11 @@ can be done first.
 
 ## File structure
 
-- Modify: `scripts/rust-markdown-converter/src/lib.rs` — frontmatter struct + head extraction; remove section binding.
+- Modify: `scripts/rust-markdown-converter/src/lib.rs` — drop-in frontmatter (rename `version`, remove timestamps); remove section binding.
 - Create: `scripts/build-rust-converter.js` — postinstall build (cargo-guarded).
 - Create: `scripts/lib/base-url.js` — ported `detectBaseUrl` (ESM).
-- Modify: `scripts/build-llm-markdown.js` — require Rust module, resolve+pass base\_url, hard-fail on load.
+- Modify: `scripts/lib/provenance.js` — add `readSitemapLastmods`; stamp `date`/`lastmod` in `injectPageProvenance`.
+- Modify: `scripts/build-llm-markdown.js` — require Rust module, resolve+pass base\_url, build lastmod Map, hard-fail on load.
 - Delete: `scripts/lib/markdown-converter.cjs`, `scripts/html-to-markdown.js`.
 - Modify: `package.json` — `exports`, `postinstall`, remove deps + legacy scripts.
 - Modify: `.circleci/config.yml` — Rust toolchain + `napi build` step.
@@ -474,25 +485,23 @@ git commit -m "refactor(rust): remove unused convert_section_to_markdown binding
 
 ***
 
-## Task 5: Bring the Rust per-page frontmatter to the post-#7294 contract
+## Task 5: Make the Rust per-page frontmatter an exact drop-in
 
 **Files:**
 
-- Modify: `scripts/rust-markdown-converter/src/lib.rs` (the `Frontmatter` struct \~517-529, `generate_frontmatter` \~531-576, `convert_to_markdown` \~591-604, and `#[cfg(test)] mod tests`)
+- Modify: `scripts/rust-markdown-converter/src/lib.rs` (the `Frontmatter` struct, `generate_frontmatter`, and `#[cfg(test)] mod tests`)
+- Modify: `scripts/rust-markdown-converter/Cargo.toml` (drop `chrono`)
 
-Target field set and order (from the post-#7294 sample): `title`, `description`, `url`, `estimated_tokens`, `product`, `version`, `publisher`, `canonical`, then the additive `date`, `lastmod`. **Verify the exact order against the rebased `markdown-converter.cjs` (Task 1, Step 2)** and match it; the diff harness (Task 9) is the final arbiter.
+Target field set/order = the post-#7294 JS converter base output (`markdown-converter.cjs:501-513`): `title`, `description`, `url`, `estimated_tokens`, `product`, `version`. Rust emits exactly these — **no** `publisher`/`canonical`/`date`/`lastmod` (those are JS post-steps; see Task 8b). `convert_to_markdown`'s signature is unchanged and does no HTML-head extraction.
 
-- [ ] **Step 1: Write failing unit tests for the new frontmatter**
+- [ ] **Step 1: Write/adjust unit tests for the drop-in frontmatter**
 
-Append to the `#[cfg(test)] mod tests` block in `lib.rs`:
+In the `#[cfg(test)] mod tests` block in `lib.rs`, append:
 
 ```rust
     #[test]
-    fn test_frontmatter_uses_version_and_publisher() {
-        let html = r#"<html><head>
-            <link rel="canonical" href="https://docs.influxdata.com/influxdb3/core/get-started/">
-            <meta name="last-modified" content="2025-01-15T00:00:00Z">
-          </head><body>
+    fn test_frontmatter_uses_version_not_product_version() {
+        let html = r#"<html><head></head><body>
             <article class="article--content"><h1>Get started</h1><p>Body.</p></article>
           </body></html>"#;
         let out = convert_to_markdown(
@@ -504,16 +513,16 @@ Append to the `#[cfg(test)] mod tests` block in `lib.rs`:
         .unwrap();
         assert!(out.contains("\nversion: core\n"));
         assert!(!out.contains("product_version:"));
-        assert!(out.contains("\npublisher: InfluxData\n"));
-        assert!(out.contains("canonical: https://docs.influxdata.com/influxdb3/core/get-started/"));
-        assert!(out.contains("date: 2025-01-15T00:00:00Z"));
-        assert!(out.contains("lastmod: 2025-01-15T00:00:00Z"));
     }
 
     #[test]
-    fn test_frontmatter_omits_timestamps_without_meta() {
-        let html = r#"<html><head></head><body>
-            <article class="article--content"><h1>No meta</h1><p>Body.</p></article>
+    fn test_frontmatter_omits_provenance_and_timestamps() {
+        // publisher/canonical/date/lastmod are added later by the JS post-step,
+        // never by the converter.
+        let html = r#"<html><head>
+            <meta name="last-modified" content="2025-01-15T00:00:00Z">
+          </head><body>
+            <article class="article--content"><h1>X</h1><p>Body.</p></article>
           </body></html>"#;
         let out = convert_to_markdown(
             html.to_string(),
@@ -522,6 +531,8 @@ Append to the `#[cfg(test)] mod tests` block in `lib.rs`:
         )
         .unwrap()
         .unwrap();
+        assert!(!out.contains("publisher:"));
+        assert!(!out.contains("canonical:"));
         assert!(!out.contains("date:"));
         assert!(!out.contains("lastmod:"));
     }
@@ -530,37 +541,11 @@ Append to the `#[cfg(test)] mod tests` block in `lib.rs`:
 - [ ] **Step 2: Run the tests to confirm they fail**
 
 Run: `cd scripts/rust-markdown-converter && cargo test`
-Expected: FAIL — current struct emits `product_version`, no `publisher`/`canonical`, and build-time timestamps.
+Expected: FAIL — current struct emits `product_version` and build-time `date`/`lastmod`.
 
-- [ ] **Step 3: Add a head-extraction helper**
+- [ ] **Step 3: Update the `Frontmatter` struct to the drop-in field set/order**
 
-In `lib.rs`, add the helper below near the other parsing helpers. `scraper` is
-already a dependency used by `extract_article_content`; reuse the existing
-`use scraper::...` import rather than adding a duplicate. Confirm `Html` and
-`Selector` are in scope (`grep -n "use scraper" src/lib.rs`) and extend that
-line if needed instead of adding a new `use`.
-
-```rust
-/// Extract `<link rel="canonical">` href and `<meta name="last-modified">`
-/// content from the document head. Returns (canonical, last_modified).
-fn extract_head_metadata(html: &str) -> (Option<String>, Option<String>) {
-    let doc = Html::parse_document(html);
-    let canonical = Selector::parse(r#"link[rel="canonical"]"#)
-        .ok()
-        .and_then(|sel| doc.select(&sel).next())
-        .and_then(|el| el.value().attr("href").map(str::to_string));
-    let last_modified = Selector::parse(r#"meta[name="last-modified"]"#)
-        .ok()
-        .and_then(|sel| doc.select(&sel).next())
-        .and_then(|el| el.value().attr("content").map(str::to_string))
-        .filter(|s| !s.trim().is_empty());
-    (canonical, last_modified)
-}
-```
-
-- [ ] **Step 4: Update the `Frontmatter` struct to the target field set/order**
-
-Replace the struct (\~517-529) with:
+Replace the struct with:
 
 ```rust
 #[derive(Debug, Serialize)]
@@ -573,19 +558,12 @@ struct Frontmatter {
     product: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     version: Option<String>,
-    publisher: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    canonical: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    date: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    lastmod: Option<String>,
 }
 ```
 
-- [ ] **Step 5: Update `generate_frontmatter` to accept head metadata and drop `chrono`**
+- [ ] **Step 4: Simplify `generate_frontmatter` (rename field, drop `chrono`)**
 
-Change the signature and body of `generate_frontmatter` to take `canonical` and `last_modified`, remove the `chrono::Utc::now()` block, and build the struct:
+Remove the `chrono::Utc::now()` block and the `date`/`lastmod`/`product_version` fields; build the struct with `version`. The signature is unchanged (5 args), so `convert_to_markdown` needs no edit:
 
 ```rust
 fn generate_frontmatter(
@@ -594,8 +572,6 @@ fn generate_frontmatter(
     url_path: &str,
     content_length: usize,
     base_url: &str,
-    canonical: Option<String>,
-    last_modified: Option<String>,
 ) -> String {
     let product = detect_product(url_path);
 
@@ -620,10 +596,6 @@ fn generate_frontmatter(
         estimated_tokens,
         product: product.as_ref().map(|p| p.name.clone()),
         version: product.as_ref().map(|p| p.version.clone()),
-        publisher: "InfluxData".to_string(),
-        canonical,
-        date: last_modified.clone(),
-        lastmod: last_modified,
     };
 
     match serde_yaml::to_string(&frontmatter) {
@@ -633,42 +605,20 @@ fn generate_frontmatter(
 }
 ```
 
-- [ ] **Step 6: Thread head metadata through `convert_to_markdown`**
+- [ ] **Step 5: Remove the now-unused `chrono` dependency**
 
-Update `convert_to_markdown` to extract head metadata from the full HTML and pass it down:
+Run `grep -n chrono src/lib.rs`. If no matches remain, delete the `chrono = "0.4"` line from `scripts/rust-markdown-converter/Cargo.toml`.
 
-```rust
-#[napi]
-pub fn convert_to_markdown(html_content: String, url_path: String, base_url: String) -> Result<Option<String>> {
-    match extract_article_content(&html_content) {
-        Some((title, description, content)) => {
-            let markdown = html_to_markdown(&content, true);
-            let (canonical, last_modified) = extract_head_metadata(&html_content);
-            let frontmatter = generate_frontmatter(
-                &title, &description, &url_path, markdown.len(), &base_url,
-                canonical, last_modified,
-            );
-            Ok(Some(format!("{}\n\n{}\n", frontmatter, markdown)))
-        }
-        None => Ok(None),
-    }
-}
-```
-
-- [ ] **Step 7: Remove the now-unused `chrono` dependency**
-
-In `scripts/rust-markdown-converter/Cargo.toml`, delete the `chrono = "0.4"` line. (If `cargo build` later reports `chrono` still used elsewhere, keep it; grep first: `grep -n chrono src/lib.rs`.)
-
-- [ ] **Step 8: Run the tests to confirm they pass**
+- [ ] **Step 6: Run the tests to confirm they pass**
 
 Run: `cd scripts/rust-markdown-converter && cargo test`
 Expected: PASS, including the two new tests and the existing `test_product_detection` / `test_html_to_markdown`.
 
-- [ ] **Step 9: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
 git add scripts/rust-markdown-converter/src/lib.rs scripts/rust-markdown-converter/Cargo.toml
-git commit -m "feat(rust): match post-#7294 per-page frontmatter (version, publisher, canonical, Hugo timestamps)"
+git commit -m "feat(rust): emit drop-in per-page frontmatter (version, no timestamps)"
 ```
 
 ***
@@ -856,6 +806,173 @@ git commit -m "chore: remove JS markdown converter, legacy CLI, and turndown/jsd
 
 ***
 
+## Task 8b: Stamp `date`/`lastmod` in the JS provenance step
+
+The Rust converter no longer emits timestamps. Add them as a JS post-step,
+folded into the existing provenance injection so there is no extra pass over
+each `.md`. Per page only; sections keep provenance (publisher/canonical) alone.
+
+**Files:**
+
+- Modify: `scripts/lib/provenance.js` (add `readSitemapLastmods`, extend `injectPageProvenance`)
+
+- Modify: `scripts/build-llm-markdown.js` (build the lastmod Map once, pass per page)
+
+- Test: `scripts/__tests__/provenance.test.mjs`
+
+- [ ] **Step 1: Write failing tests for sitemap lastmod parsing + stamping**
+
+Append to `scripts/__tests__/provenance.test.mjs` (it already imports `injectPageProvenance` and the fs/tmp helpers):
+
+```js
+import { readSitemapLastmods } from '../lib/provenance.js';
+
+test('readSitemapLastmods maps urlPath to lastmod from sitemap-md.xml', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'prov-'));
+  try {
+    writeFileSync(
+      join(dir, 'sitemap-md.xml'),
+      '<urlset><url><loc>https://docs.influxdata.com/influxdb3/core/index.md</loc>' +
+        '<lastmod>2025-01-15T00:00:00Z</lastmod></url></urlset>'
+    );
+    const map = await readSitemapLastmods(dir);
+    assert.equal(map.get('/influxdb3/core/'), '2025-01-15T00:00:00Z');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('injectPageProvenance stamps date/lastmod when lastmod is provided', () => {
+  const md = '---\ntitle: X\nurl: https://docs.influxdata.com/x/\n---\n\nBody.\n';
+  const out = injectPageProvenance(md, {
+    publisher: 'InfluxData',
+    canonical: 'https://docs.influxdata.com/x/',
+    lastmod: '2025-01-15T00:00:00Z',
+  });
+  const fm = out.match(/^---\n([\s\S]+?)\n---/)[1];
+  assert.match(fm, /date: 2025-01-15T00:00:00Z/);
+  assert.match(fm, /lastmod: 2025-01-15T00:00:00Z/);
+});
+
+test('injectPageProvenance omits timestamps when lastmod is absent', () => {
+  const md = '---\ntitle: X\nurl: https://docs.influxdata.com/x/\n---\n\nBody.\n';
+  const out = injectPageProvenance(md, {
+    publisher: 'InfluxData',
+    canonical: 'https://docs.influxdata.com/x/',
+  });
+  assert.doesNotMatch(out, /date:/);
+  assert.doesNotMatch(out, /lastmod:/);
+});
+```
+
+- [ ] **Step 2: Run the tests to confirm they fail**
+
+Run: `node --test scripts/__tests__/provenance.test.mjs`
+Expected: FAIL — `readSitemapLastmods` is not exported and `injectPageProvenance` ignores `lastmod`.
+
+- [ ] **Step 3: Add `readSitemapLastmods` to `scripts/lib/provenance.js`**
+
+```js
+/**
+ * Build a urlPath -> lastmod map from sitemap-md.xml. Keys are site-relative
+ * paths (e.g. "/influxdb3/core/"), matching the build script's urlPath.
+ * @param {string} publicDir
+ * @returns {Promise<Map<string,string>>}
+ */
+export async function readSitemapLastmods(publicDir = 'public') {
+  const map = new Map();
+  try {
+    const xml = await fs.readFile(
+      path.join(publicDir, 'sitemap-md.xml'),
+      'utf-8'
+    );
+    const re = /<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g;
+    let m;
+    while ((m = re.exec(xml)) !== null) {
+      const urlPath = new URL(m[1]).pathname.replace(/index\.md$/, '');
+      map.set(urlPath, m[2]);
+    }
+  } catch {
+    /* no sitemap -> empty map -> timestamps omitted */
+  }
+  return map;
+}
+```
+
+- [ ] **Step 4: Extend `injectPageProvenance` to stamp `date`/`lastmod`**
+
+Update its destructured arg and body (omit timestamps when `lastmod` is falsy):
+
+```js
+export function injectPageProvenance(markdown, { publisher, canonical, lastmod }) {
+  const match = markdown.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n+([\s\S]+)$/);
+  if (!match) return markdown;
+  let fm;
+  try {
+    fm = yaml.load(match[1]);
+  } catch {
+    return markdown;
+  }
+  if (!fm || typeof fm !== 'object') return markdown;
+  fm.publisher = publisher;
+  fm.canonical = canonical;
+  if (lastmod) {
+    fm.date = lastmod;
+    fm.lastmod = lastmod;
+  }
+  const body = match[2];
+  const serialized = yaml.dump(fm, { lineWidth: -1, noRefs: true }).trim();
+  return `---\n${serialized}\n---\n\n${body}`;
+}
+```
+
+- [ ] **Step 5: Build the map once and pass `lastmod` per page in `build-llm-markdown.js`**
+
+Add the import (\~line 52), build the map in the provenance setup (\~line 491), and pass the per-page value at the call site (\~line 154):
+
+```js
+// imports (~line 52)
+import {
+  loadOrgIdentity,
+  readSitemapOrigin,
+  readSitemapLastmods,
+  injectPageProvenance,
+} from './lib/provenance.js';
+
+// provenance setup (~line 491)
+const [org, origin, lastmods] = await Promise.all([
+  loadOrgIdentity(),
+  readSitemapOrigin(cliOptions.publicDir),
+  readSitemapLastmods(cliOptions.publicDir),
+]);
+const provenance = { publisher: org.name, origin, lastmods };
+
+// call site in buildPageMarkdown (~line 154)
+const output = provenance
+  ? injectPageProvenance(markdown, {
+      publisher: provenance.publisher,
+      canonical: `${provenance.origin}${urlPath}`,
+      lastmod: provenance.lastmods.get(urlPath),
+    })
+  : markdown;
+```
+
+`provenance` is already threaded into `buildPageMarkdown` via `options`, so `lastmods` rides along. `combineMarkdown` (sections) is unchanged.
+
+- [ ] **Step 6: Run the tests to confirm they pass**
+
+Run: `node --test scripts/__tests__/provenance.test.mjs scripts/__tests__/build-llm-markdown.test.mjs`
+Expected: PASS (new timestamp tests + the existing #7294 provenance/section tests).
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add scripts/lib/provenance.js scripts/build-llm-markdown.js scripts/__tests__/provenance.test.mjs
+git commit -m "feat: stamp date/lastmod from sitemap in the provenance step"
+```
+
+***
+
 ## Task 9: Migration parity gate (per-page diff harness)
 
 **Files:**
@@ -871,7 +988,7 @@ Create `scripts/parity-diff.mjs`:
 /**
  * Compare the JS baseline (.parity-baseline/) against current Rust-generated
  * per-page Markdown (public/). Reports per-file diffs and a summary so each can
- * be classified semantic vs cosmetic. Exit 1 if any file differs.
+ * be classified semantic vs cosmetic. Diagnostic only — does not gate.
  *
  * Usage: node scripts/parity-diff.mjs [baselineDir] [currentDir]
  */
@@ -968,7 +1085,7 @@ node -e "const {convertToMarkdown}=require('./scripts/rust-markdown-converter');
 head -15 scripts/__tests__/fixtures/get-started.expected.md
 ```
 
-Expected: valid frontmatter with the full field set; sane body. Confirm by eye before locking it as the golden file.
+Expected: frontmatter with exactly the six base fields (`title`, `description`, `url`, `estimated_tokens`, `product`, `version`) and a sane body. No `publisher`/`canonical`/`date`/`lastmod` — those are added later by the JS post-step, not the converter. Confirm by eye before locking it as the golden file.
 
 - [ ] **Step 3: Write the golden test**
 
@@ -996,7 +1113,7 @@ test('Rust converter output matches the golden snapshot', () => {
   assert.equal(out, readFileSync(EXPECTED, 'utf-8'));
 });
 
-test('frontmatter uses the post-#7294 contract', () => {
+test('converter emits the drop-in base frontmatter only', () => {
   const html = readFileSync(FIXTURE, 'utf-8');
   const out = convertToMarkdown(
     html,
@@ -1004,8 +1121,12 @@ test('frontmatter uses the post-#7294 contract', () => {
     'https://docs.influxdata.com'
   );
   assert.match(out, /\nversion: core\n/);
-  assert.match(out, /\npublisher: InfluxData\n/);
   assert.doesNotMatch(out, /product_version:/);
+  // provenance + timestamps are JS post-steps, not the converter:
+  assert.doesNotMatch(out, /publisher:/);
+  assert.doesNotMatch(out, /canonical:/);
+  assert.doesNotMatch(out, /date:/);
+  assert.doesNotMatch(out, /lastmod:/);
 });
 ```
 
@@ -1050,9 +1171,10 @@ Expected: all succeed; `public/**/index.md`, `index.section.md`, and `llms-full.
 yarn check:md-coherence --public-dir public
 yarn test:build-llms-full
 yarn test:corpus-paths
+yarn test:build-md
 ```
 
-Expected: all PASS.
+Expected: all PASS. `test:build-md` runs the #7294 provenance/section tests plus the new `date`/`lastmod` stamping tests (Task 8b).
 
 - [ ] **Step 3: Cypress markdown validation**
 
@@ -1090,7 +1212,7 @@ In `DOCS-TESTING.md`, replace references to `scripts/lib/markdown-converter.js`/
 
 - [ ] **Step 2: Align the documented frontmatter schema to the Rust contract**
 
-Update the frontmatter example fields to the actual emitted set/order: `title`, `description`, `url`, `estimated_tokens`, `product`, `version`, `publisher`, `canonical`, `date`, `lastmod`, and for sections `type`, `pages` (= parent + children), `child_pages`.
+Update the frontmatter example fields to the actual shipped set/order: the converter emits `title`, `description`, `url`, `estimated_tokens`, `product`, `version`; the JS provenance post-step then adds `publisher`, `canonical`, `date`, `lastmod`. For sections: `type`, `pages` (= parent + children), `child_pages`, plus provenance. Note which fields come from the converter vs. the post-step.
 
 - [ ] **Step 3: Lint the docs change**
 
@@ -1108,14 +1230,17 @@ git commit -m "docs: document the Rust converter and its frontmatter contract"
 
 ## Spec coverage map
 
-| Spec section                      | Task(s)                     |
-| --------------------------------- | --------------------------- |
-| Wire Rust into CI (§1)            | 2, 3                        |
-| No silent fallback (§2)           | 7 (load guard)              |
-| Delete JS + legacy + deps (§3)    | 4, 8                        |
-| Pin frontmatter contract (§4)     | 5, 10, 12                   |
-| Golden-snapshot test (§5)         | 10                          |
-| Migration parity gate (§6)        | 1, 9                        |
-| Acceptance gate (§7)              | 11                          |
-| date/lastmod from Hugo, base\_url | 5, 6, 7                     |
-| Section bundling stays in JS      | (untouched; verified in 11) |
+| Spec section                         | Task(s)                     |
+| ------------------------------------ | --------------------------- |
+| Wire Rust into CI (§1)               | 2, 3                        |
+| No silent fallback (§2)              | 7 (load guard)              |
+| Delete JS + legacy + deps (§3)       | 4, 8                        |
+| Pin frontmatter contract (§4)        | 5, 10, 12                   |
+| Golden-snapshot test (§5)            | 10                          |
+| Migration parity gate (§6)           | 1, 9                        |
+| Acceptance gate (§7)                 | 11                          |
+| Rust = exact drop-in (6 base fields) | 5, 10                       |
+| publisher/canonical (JS post-step)   | (untouched #7294; in 8b/11) |
+| date/lastmod (JS post-step, sitemap) | 8b                          |
+| base\_url resolution                 | 6, 7                        |
+| Section bundling stays in JS         | (untouched; verified in 11) |
