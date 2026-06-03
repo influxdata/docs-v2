@@ -450,8 +450,6 @@ The script documentation includes:
 
 - **CLI tool**: `scripts/html-to-markdown.js` - Comprehensive inline documentation
 - **Core logic**: `scripts/lib/markdown-converter.js` - Shared conversion library
-- **Lambda handler**: `deploy/llm-markdown/lambda-edge/markdown-generator/index.js` - Production deployment
-- **Lambda docs**: `deploy/llm-markdown/README.md` - Deployment guide
 - **Cypress tests**: `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
 
 ### Frontmatter Structure
@@ -624,10 +622,7 @@ docs-v2/
 The shared library (`scripts/lib/markdown-converter.js`) is:
 
 - Used by local markdown generation scripts
-- Imported by docs-tooling Lambda\@Edge for on-demand generation
 - Tested independently with isolated conversion logic
-
-For deployment details, see [deploy/lambda-edge/markdown-generator/README.md](deploy/lambda-edge/markdown-generator/README.md).
 
 ## Link Validation with Link-Checker
 
@@ -1152,7 +1147,6 @@ yarn test:codeblocks:stop-monitors
 - **Markdown generation**:
   - `scripts/html-to-markdown.js` - CLI wrapper
   - `scripts/lib/markdown-converter.js` - Core conversion library
-  - `deploy/lambda-edge/markdown-generator/` - Lambda deployment
   - `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
 
 ## Getting Help

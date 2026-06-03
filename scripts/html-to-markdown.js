@@ -4,14 +4,10 @@
  * HTML to Markdown Converter CLI for InfluxData Documentation
  *
  * Generates LLM-friendly Markdown from Hugo-generated HTML documentation.
- * This script is the local CLI companion to the Lambda@Edge function that serves
- * Markdown on-demand at docs.influxdata.com.
  *
  * ## Architecture
  *
- * The core conversion logic lives in ./lib/markdown-converter.js, which is shared
- * between this CLI tool and the Lambda@Edge function in deploy/llm-markdown/.
- * This ensures local builds and production Lambda use identical conversion logic.
+ * The core conversion logic lives in ./lib/markdown-converter.js.
  *
  * ## Prerequisites
  *
@@ -152,7 +148,6 @@
  * ## Related Files
  *
  * - Core logic: `scripts/lib/markdown-converter.js`
- * - Lambda handler: `deploy/llm-markdown/lambda-edge/markdown-generator/index.js`
  * - Product detection: `dist/utils/product-mappings.js` (compiled from TypeScript)
  * - Cypress tests: `cypress/e2e/content/markdown-content-validation.cy.js`
  */
