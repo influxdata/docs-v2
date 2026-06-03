@@ -476,10 +476,15 @@ canonical: https://docs.influxdata.com/influxdb3/core/get-started/
 
 **Provenance fields (#7290):** `publisher` and `canonical` identify InfluxData as
 the authoritative source. Both are stamped at build time from
-`data/influxdata.yml` by `scripts/lib/provenance.js`. `canonical` always uses the
-production origin from `public/sitemap-md.xml`, not the build `url` (which may be
-`localhost` in dev). `llms-full.txt` carries the same identity (publisher + url +
-`sameAs`) once in each corpus header; `llms.txt` carries a single publisher line.
+`data/influxdata.yml` by `scripts/lib/provenance.js`. `canonical` uses the origin
+from `public/sitemap-md.xml`, which reflects the build environment's `baseURL`
+(production in production builds, staging in preview builds, `localhost` in local
+dev) — the same origin `llms-full.txt` uses for its `Source:` lines. It is derived
+independently of the per-page `url` field, so the two can differ within one build
+(for example, a local `npx hugo` build emits a production sitemap origin while the
+converter sets `url` to `localhost`). `llms-full.txt` carries the same identity
+(publisher + url + `sameAs`) once in each corpus header; `llms.txt` carries a
+single publisher line.
 
 Section pages include additional fields:
 
