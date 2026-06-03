@@ -66,8 +66,11 @@ import {
  * @param {string} options.baseBranch - Base branch for comparison (default: 'origin/master')
  */
 async function buildPageMarkdown(publicDir = 'public', options = {}) {
-  const { onlyChanged = false, baseBranch = 'origin/master', provenance = null } =
-    options;
+  const {
+    onlyChanged = false,
+    baseBranch = 'origin/master',
+    provenance = null,
+  } = options;
 
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
   const startTime = Date.now();
@@ -241,7 +244,12 @@ async function buildSectionBundles(publicDir = 'public', options = {}) {
         );
 
         // Combine markdown files (string manipulation only)
-        const combined = combineMarkdown(parentMd, childMds, section.url, provenance);
+        const combined = combineMarkdown(
+          parentMd,
+          childMds,
+          section.url,
+          provenance
+        );
 
         // Write section bundle
         const sectionMdPath = section.mdPath.replace(
