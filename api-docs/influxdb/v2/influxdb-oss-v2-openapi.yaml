@@ -7892,6 +7892,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ready'
           description: The instance is ready
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ready'
+          description: |
+            The instance is still starting and isn't ready yet.
+            One or more readiness checks haven't passed.
+            The `checks` property of the response body contains only the failing checks.
         default:
           $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
@@ -16885,6 +16894,13 @@ components:
           type: object
     Ready:
       properties:
+        checks:
+          description: |
+            Readiness checks that haven't passed yet.
+            Present only in a `503` response and contains only the failing checks.
+          items:
+            $ref: '#/components/schemas/HealthCheck'
+          type: array
         started:
           example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
@@ -16892,6 +16908,7 @@ components:
         status:
           enum:
             - ready
+            - starting
           type: string
         up:
           example: 14m45.911966424s
