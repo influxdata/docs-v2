@@ -243,6 +243,14 @@ Unifying all three onto `data/products.yml` is a real content-as-data cleanup,
 but it is a different feature area from "Rust converter in CI." File it as a
 separate issue rather than expanding this migration's scope.
 
+**Frontmatter `version` semantics → [#7299](https://github.com/influxdata/docs-v2/issues/7299).**
+The emitted `version` field is the docs edition slug (`core`, `enterprise`, …),
+not a software release; the real release (`latest_patch`, e.g. `3.9.3`) is never
+surfaced. Clarifying the key (e.g. `edition`) and optionally adding a real
+release field is a frontmatter-contract change affecting all twins + consumers,
+so it stays out of this migration. **This migration keeps `version: <slug>` for
+drop-in parity with the post-#7294 JS baseline.**
+
 ***
 
 # Rust Markdown Converter Migration — Implementation Plan
@@ -1022,7 +1030,7 @@ git commit -m "feat: stamp date/lastmod from sitemap in the provenance step"
 
 ## Task 9: Migration parity gate (fixture diff + structural scan)
 
-Do **not** byte-diff all ~4,700 pages — that is dominated by the intentional
+Do **not** byte-diff all \~4,700 pages — that is dominated by the intentional
 `date`/`lastmod` additions plus cosmetic whitespace, and engine regressions are
 classes of bugs that a curated sample exercises just as well. Instead:
 
@@ -1045,7 +1053,7 @@ snapshot from Task 1 is the reference for both checks.
 
 Create `scripts/parity-scan.mjs`:
 
-```js
+````js
 #!/usr/bin/env node
 /**
  * Corpus-wide parity scan: flags OBJECTIVE breakage in Rust-generated per-page
@@ -1109,7 +1117,7 @@ for (const file of files) {
 for (const f of flags) console.log(f);
 console.log(`\n${flags.length} flag(s) across ${files.length} pages.`);
 process.exit(flags.length === 0 ? 0 : 1);
-```
+````
 
 - [ ] **Step 2: Regenerate the corpus with Rust and run the scan**
 
@@ -1123,7 +1131,7 @@ Expected: ideally `0 flag(s)`. Any flag is a short, concrete list to inspect —
 
 - [ ] **Step 3: Diff the feature-coverage fixture set**
 
-Pick ~12 real pages from `public/` that, together, exercise: fenced code blocks with language identifiers, GFM tables, all five GitHub callout types (`note`/`warning`/`important`/`tip`/`caution`), tabbed content, nested + ordered lists, inline links, and a reference page dense with these. Spread across 2–3 products (e.g. influxdb3/core, telegraf, influxdb/v2). Verify each page actually contains the feature before choosing it (`grep` the baseline `.md`).
+Pick \~12 real pages from `public/` that, together, exercise: fenced code blocks with language identifiers, GFM tables, all five GitHub callout types (`note`/`warning`/`important`/`tip`/`caution`), tabbed content, nested + ordered lists, inline links, and a reference page dense with these. Spread across 2–3 products (e.g. influxdb3/core, telegraf, influxdb/v2). Verify each page actually contains the feature before choosing it (`grep` the baseline `.md`).
 
 For each, compare baseline vs Rust and confirm the only differences are the expected `date`/`lastmod` additions plus cosmetic whitespace/escaping:
 
@@ -1264,6 +1272,7 @@ clipboard/serving bug, if the test fails, is a follow-up outside this migration.
 **Files:**
 
 - Create: `scripts/__tests__/markdown-completeness.test.mjs`
+
 - Modify: `package.json` (add `test:markdown-completeness`)
 
 - [ ] **Step 1: Write the completeness test**
@@ -1413,7 +1422,7 @@ git add scripts/__tests__/markdown-completeness.test.mjs package.json
 git commit -m "test: guard against truncated markdown twins"
 ```
 
----
+***
 
 ## Task 11: Run the full acceptance suite
 
