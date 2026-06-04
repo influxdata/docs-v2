@@ -42,6 +42,27 @@ jobs:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - /home/circleci/bin
+      - restore_cache:
+          keys:
+            - rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+            - rust-
+      - run:
+          name: Install Rust toolchain
+          command: |
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+              | sh -s -- -y --profile minimal --default-toolchain stable
+            echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+      - run:
+          name: Build Rust markdown converter
+          command: |
+            source "$HOME/.cargo/env"
+            node scripts/build-rust-converter.js
+      - save_cache:
+          key: rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+          paths:
+            - /home/circleci/.cargo
+            - /home/circleci/.rustup
+            - scripts/rust-markdown-converter/target
       - run:
           name: Hugo Build
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
