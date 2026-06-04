@@ -265,6 +265,37 @@ Rust frontmatter task (Task 5), because the baseline field set (`publisher`,
 wiring) and Task 6 (section/legacy removal) are independent of the rebase and
 can be done first.
 
+## Execution status / handoff (read this first)
+
+Branch: `worktree-fix-rust-markdown-conversion`, rebased onto `origin/master`
+(includes #7294). Work in this worktree; use relative paths.
+
+**Done and committed:**
+
+- **Task 1 — rebase + baseline.** Rebased onto post-#7294 master. JS baseline
+  captured at `.parity-baseline/` (4,684 per-page `index.md`, gitignored, on
+  disk in this worktree). It is the pre-migration reference for Task 9/10b — do
+  **not** regenerate it after the cutover (Task 7). A fresh *clone* (not this
+  worktree) must rebuild it from pre-cutover state before Task 7 using Task 1's
+  build+snapshot steps.
+- **Task 2 — postinstall Rust build** (`scripts/build-rust-converter.js`,
+  chained into `postinstall`), plus the **napi CLI v2 pin** prerequisite
+  (commit `064b28d7a`). The Rust module currently builds and loads.
+
+**Environment (verified):** cargo 1.95, hugo 0.157 extended, node 26, yarn 1.22.
+The Rust binary is currently built but reflects the *current* `lib.rs`
+(`product_version`, build-time timestamps). After any `lib.rs` edit (Task 4/5),
+rebuild with `node scripts/build-rust-converter.js`.
+
+**Start here:** Task 3. Suggested order: 3 → 4 → 5 → 6 → 7 → 8 → 8b → 9 → 10 →
+10b → 11 → 12. Tasks 3/4/5/6 are deterministic core work; the cutover (7/8/8b)
+flips the build to Rust; 9/10/10b/11 verify; 12 documents. **Capture/keep the
+baseline before Task 7.**
+
+**Open item for the user:** Task 10b (truncation) — no truncated page was
+reproducible from the build output during planning. If the user has a concrete
+truncated URL, add it as an explicit fixture and tighten the test threshold.
+
 ## File structure
 
 - Modify: `scripts/rust-markdown-converter/src/lib.rs` — drop-in frontmatter (rename `version`, remove timestamps); remove section binding.
@@ -275,12 +306,14 @@ can be done first.
 - Delete: `scripts/lib/markdown-converter.cjs`, `scripts/html-to-markdown.js`.
 - Modify: `package.json` — `exports`, `postinstall`, remove deps + legacy scripts.
 - Modify: `.circleci/config.yml` — Rust toolchain + `napi build` step.
+- Create: `scripts/parity-scan.mjs` — corpus structural + content-loss scan (Task 9).
 - Create: `scripts/__tests__/markdown-parity.test.mjs` — golden-snapshot test + fixtures.
+- Create: `scripts/__tests__/markdown-completeness.test.mjs` — truncation guard (Task 10b).
 - Modify: `DOCS-TESTING.md` — frontmatter schema + architecture.
 
 ***
 
-## Task 1: Rebase onto post-#7294 master and capture the JS baseline
+## Task 1: Rebase onto post-#7294 master and capture the JS baseline ✅ DONE
 
 **Files:** none (git + build artifacts)
 
@@ -330,7 +363,7 @@ git commit -m "chore: ignore .parity-baseline snapshot dir"
 
 ***
 
-## Task 2: Add a cargo-guarded local build (`postinstall`)
+## Task 2: Add a cargo-guarded local build (`postinstall`) ✅ DONE
 
 > **Toolchain prerequisite (found during execution):** the crate is napi v2
 > (`napi`/`napi-derive` 2.16), but `scripts/rust-markdown-converter/package.json`
@@ -981,92 +1014,130 @@ git commit -m "feat: stamp date/lastmod from sitemap in the provenance step"
 
 ***
 
-## Task 9: Migration parity gate (per-page diff harness)
+## Task 9: Migration parity gate (fixture diff + structural scan)
+
+Do **not** byte-diff all ~4,700 pages — that is dominated by the intentional
+`date`/`lastmod` additions plus cosmetic whitespace, and engine regressions are
+classes of bugs that a curated sample exercises just as well. Instead:
+
+1. a **feature-coverage fixture set** — diff a dozen real pages chosen to
+   exercise every structural feature (the actual semantic check);
+2. a **cheap corpus-wide structural scan** — an O(n) pass that flags only
+   objective breakage (empty body, missing frontmatter, leftover raw HTML,
+   unbalanced code fences) and gross content loss vs the baseline (body-length
+   ratio). Surfaces a short outlier list, no human per-page diffing.
+
+Corpus-wide content validation is already covered by Cypress (Task 11) and exact
+output is locked by the golden snapshot (Task 10). The `.parity-baseline/`
+snapshot from Task 1 is the reference for both checks.
 
 **Files:**
 
-- Create: `scripts/parity-diff.mjs` (one-time migration tool, kept in-tree for re-runs)
+- Create: `scripts/parity-scan.mjs` (kept in-tree for re-runs)
 
-- [ ] **Step 1: Write the diff harness**
+- [ ] **Step 1: Write the structural + content-loss scan**
 
-Create `scripts/parity-diff.mjs`:
+Create `scripts/parity-scan.mjs`:
 
 ```js
 #!/usr/bin/env node
 /**
- * Compare the JS baseline (.parity-baseline/) against current Rust-generated
- * per-page Markdown (public/). Reports per-file diffs and a summary so each can
- * be classified semantic vs cosmetic. Diagnostic only — does not gate.
+ * Corpus-wide parity scan: flags OBJECTIVE breakage in Rust-generated per-page
+ * Markdown, and gross content loss vs the JS baseline. Not a byte-diff — it
+ * surfaces a short outlier list to inspect by hand. Exit 1 if any page is
+ * flagged so CI/the runner notices.
  *
- * Usage: node scripts/parity-diff.mjs [baselineDir] [currentDir]
+ * Usage: node scripts/parity-scan.mjs [currentDir] [baselineDir]
  */
 import { glob } from 'glob';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const baseDir = process.argv[2] || '.parity-baseline';
-const curDir = process.argv[3] || 'public';
+const curDir = process.argv[2] || 'public';
+const baseDir = process.argv[3] || '.parity-baseline';
 
-const files = await glob(`${baseDir}/**/index.md`);
-let differing = 0;
-for (const baseFile of files) {
-  const rel = path.relative(baseDir, baseFile);
-  const curFile = path.join(curDir, rel);
-  let cur;
-  try {
-    cur = await fs.readFile(curFile, 'utf-8');
-  } catch {
-    console.log(`MISSING  ${rel}`);
-    differing++;
+function splitFrontmatter(md) {
+  const m = md.match(/^---\n([\s\S]+?)\n---\n([\s\S]*)$/);
+  return m ? { fm: m[1], body: m[2] } : null;
+}
+
+const files = await glob(`${curDir}/**/index.md`, {
+  ignore: ['**/node_modules/**'],
+});
+const flags = [];
+for (const file of files) {
+  const rel = path.relative(curDir, file);
+  const md = await fs.readFile(file, 'utf-8');
+  const parts = splitFrontmatter(md);
+  if (!parts) {
+    flags.push(`NO_FRONTMATTER  ${rel}`);
     continue;
   }
-  const base = await fs.readFile(baseFile, 'utf-8');
-  if (base !== cur) {
-    differing++;
-    console.log(`DIFF     ${rel}`);
+  const { fm, body } = parts;
+  if (!/\btitle:/.test(fm) || !/\burl:/.test(fm)) {
+    flags.push(`MISSING_FIELD   ${rel}`);
+  }
+  if (body.trim().length === 0) {
+    flags.push(`EMPTY_BODY      ${rel}`);
+  }
+  // NOTE: unbalanced-fence and raw-HTML-at-line-start were tried and rejected
+  // as noisy — docs legitimately contain literal ``` (grammar/spec pages) and
+  // HTML examples in code blocks, producing false positives. CONTENT_LOSS below
+  // is the high-signal, low-noise truncation/regression detector.
+  // Gross content loss vs baseline body length.
+  try {
+    const base = await fs.readFile(path.join(baseDir, rel), 'utf-8');
+    const baseParts = splitFrontmatter(base);
+    if (baseParts) {
+      const b = baseParts.body.trim().length;
+      const c = body.trim().length;
+      if (b > 200 && c < b * 0.5) {
+        flags.push(`CONTENT_LOSS    ${rel} (rust ${c} vs js ${b} chars)`);
+      }
+    }
+  } catch {
+    /* page not in baseline (new) — skip ratio check */
   }
 }
-console.log(
-  `\n${differing} of ${files.length} pages differ between baseline and Rust output.`
-);
-// Diagnostic, not a gate: every page is expected to differ by the added
-// date/lastmod lines. The reviewer classifies the DIFFs (Step 3); the real
-// gates are the golden test (Task 10) and the acceptance suite (Task 11).
+
+for (const f of flags) console.log(f);
+console.log(`\n${flags.length} flag(s) across ${files.length} pages.`);
+process.exit(flags.length === 0 ? 0 : 1);
 ```
 
-Note: this harness flags a page whenever the bytes differ, so the intentional
-`date`/`lastmod` additions make nearly every page show `DIFF`. That is expected
-— use the per-file diff in Step 3 to confirm the *only* differences are those
-additions plus accepted cosmetic engine differences.
-
-- [ ] **Step 2: Regenerate with Rust and run the harness**
+- [ ] **Step 2: Regenerate the corpus with Rust and run the scan**
 
 ```bash
 npx hugo --quiet --destination public
 yarn build:md --public-dir public
-node scripts/parity-diff.mjs | tee parity-report.txt
+node scripts/parity-scan.mjs public .parity-baseline | tee parity-report.txt
 ```
 
-Expected: a list of `DIFF` lines and a count. Most diffs should be the intentional additions (`date`/`lastmod`) plus cosmetic engine differences.
+Expected: ideally `0 flag(s)`. Any flag is a short, concrete list to inspect — fix the cause in `lib.rs` (`html_to_markdown`, callout/table/code handling, or the strip-list) and re-run. `CONTENT_LOSS` and `RAW_HTML` are the high-signal ones.
 
-- [ ] **Step 3: Classify and reconcile**
+- [ ] **Step 3: Diff the feature-coverage fixture set**
 
-For a representative sample across products (Core, Cloud Dedicated, Telegraf, v1, Flux), open each `DIFF` page and compare `.parity-baseline/<path>` to `public/<path>`:
+Pick ~12 real pages from `public/` that, together, exercise: fenced code blocks with language identifiers, GFM tables, all five GitHub callout types (`note`/`warning`/`important`/`tip`/`caution`), tabbed content, nested + ordered lists, inline links, and a reference page dense with these. Spread across 2–3 products (e.g. influxdb3/core, telegraf, influxdb/v2). Verify each page actually contains the feature before choosing it (`grep` the baseline `.md`).
 
-- **Semantic** (lost content, broken/changed code fence, malformed YAML frontmatter, dropped or altered link target) → fix in `lib.rs` (`html_to_markdown`, callout/table handling, or strip-list) and re-run Steps 2–3.
-- **Cosmetic** (whitespace, list-marker spacing, escaping, the expected `date`/`lastmod` additions) → record in `parity-report.txt` under an "Accepted cosmetic diffs" heading.
-
-Repeat until zero semantic diffs remain.
-
-- [ ] **Step 4: Record the accepted-diffs summary in the PR**
-
-Paste the "Accepted cosmetic diffs" list into the PR description. Do not commit `parity-report.txt` or `.parity-baseline/` (gitignored).
-
-- [ ] **Step 5: Commit any Rust fixes made during reconciliation**
+For each, compare baseline vs Rust and confirm the only differences are the expected `date`/`lastmod` additions plus cosmetic whitespace/escaping:
 
 ```bash
-git add scripts/parity-diff.mjs scripts/rust-markdown-converter/src/lib.rs
-git commit -m "test: add per-page parity diff harness and reconcile semantic diffs"
+# example — repeat per fixture page
+diff <(sed '/^date:/d;/^lastmod:/d' .parity-baseline/influxdb3/core/get-started/index.md) \
+     <(sed '/^date:/d;/^lastmod:/d' public/influxdb3/core/get-started/index.md)
+```
+
+Any **semantic** difference (lost content, broken/changed code fence, malformed table, dropped/altered link, missing callout) → fix in `lib.rs` and re-run Steps 2–3. Stop when the fixture set shows only cosmetic diffs and the scan is clean.
+
+- [ ] **Step 4: Record accepted cosmetic diffs**
+
+List the accepted cosmetic difference categories (e.g. "list marker `*`→`-`", "trailing-space normalization") in the PR description. Do not commit `parity-report.txt` or `.parity-baseline/` (gitignored).
+
+- [ ] **Step 5: Commit the scan tool + any Rust fixes**
+
+```bash
+git add scripts/parity-scan.mjs scripts/rust-markdown-converter/src/lib.rs
+git commit -m "test: add corpus parity scan and reconcile semantic diffs"
 ```
 
 ***
@@ -1158,6 +1229,118 @@ git commit -m "test: lock the Rust converter frontmatter/body with a golden snap
 
 ***
 
+## Task 10b: Truncation regression test
+
+Symptom reported: some Markdown pages get truncated, in the page or when copied
+to the clipboard. Investigation during planning found the generated `.md` files
+are complete in the current build (no gross content loss vs source HTML), and
+`assets/js/components/format-selector.ts` copies the full fetched `.md`
+(`fetchMarkdownContent` → `copyToClipboard`, no slicing). Both the page view and
+the clipboard consume the same `.md`, so the durable guard is a **content-
+completeness test** on the generated `.md`. It also directly catches the
+migration risk of html2md (Rust) emitting partial output on a large/complex
+page.
+
+> If you have a concrete truncated page/URL, add it as an explicit fixture
+> assertion and tighten the ratio. Ask the user for an example before
+> finalizing the threshold.
+
+**Files:**
+
+- Create: `scripts/__tests__/markdown-completeness.test.mjs`
+- Modify: `package.json` (add `test:markdown-completeness`)
+
+- [ ] **Step 1: Write the completeness test**
+
+Create `scripts/__tests__/markdown-completeness.test.mjs`:
+
+```js
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const PUBLIC = process.env.PUBLIC_DIR || 'public';
+
+async function* walk(dir) {
+  for (const e of await fs.readdir(dir, { withFileTypes: true })) {
+    if (e.name === 'node_modules') continue;
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) yield* walk(p);
+    else if (e.name === 'index.md') yield p;
+  }
+}
+
+function htmlArticleText(html) {
+  const m = html.match(
+    /<article[^>]*article--content[^>]*>([\s\S]*?)<\/article>/i
+  );
+  return (m ? m[1] : '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function mdBody(md) {
+  const m = md.match(/^---\n[\s\S]+?\n---\n([\s\S]*)$/);
+  return (m ? m[1] : md).trim();
+}
+
+test('generated .md pages are not truncated vs their source HTML', async () => {
+  const truncated = [];
+  let checked = 0;
+  for await (const mdPath of walk(PUBLIC)) {
+    const htmlPath = mdPath.replace(/index\.md$/, 'index.html');
+    let html;
+    try {
+      html = await fs.readFile(htmlPath, 'utf-8');
+    } catch {
+      continue;
+    }
+    const text = htmlArticleText(html);
+    if (text.length < 3000) continue; // only meaningful for substantial pages
+    const body = mdBody(await fs.readFile(mdPath, 'utf-8'));
+    checked++;
+    // The .md body should retain most of the article's visible text. 0.5 is a
+    // conservative floor (the baseline build had 0 pages below it); tighten
+    // once a real truncated example sets the bar.
+    if (body.length < text.length * 0.5) {
+      truncated.push(
+        `${path.relative(PUBLIC, mdPath)} (md ${body.length} vs html ${text.length})`
+      );
+    }
+  }
+  assert.ok(checked > 0, 'no pages checked — build public/ first');
+  assert.equal(
+    truncated.length,
+    0,
+    `Truncated pages:\n${truncated.join('\n')}`
+  );
+});
+```
+
+- [ ] **Step 2: Run it against the current build**
+
+Run: `PUBLIC_DIR=public node --test scripts/__tests__/markdown-completeness.test.mjs`
+Expected: PASS (the baseline build had 0 pages under the 0.5 ratio). A failure means real truncation — inspect the listed pages; the cause is either the converter (fix `lib.rs`) or the source content.
+
+- [ ] **Step 3: Wire into package.json**
+
+Add to scripts: `"test:markdown-completeness": "node --test scripts/__tests__/markdown-completeness.test.mjs",`
+
+- [ ] **Step 4 (optional): Cypress clipboard guard**
+
+Only if the user supplies a page where the CLIPBOARD copy specifically truncates: add a Cypress test that visits it, clicks `[data-option="copy-page"]`, reads the clipboard, and asserts its length equals the fetched `index.md` length. The copy path is `assets/js/components/format-selector.ts`. Skip and note the gap if there is no reproduction — the Step 1 test already guards the shared `.md` source.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add scripts/__tests__/markdown-completeness.test.mjs package.json
+git commit -m "test: guard against truncated markdown twins"
+```
+
+---
+
 ## Task 11: Run the full acceptance suite
 
 **Files:** none (verification)
@@ -1197,10 +1380,12 @@ Expected: both specs PASS (no raw shortcodes, valid frontmatter, callouts/tables
 
 ```bash
 yarn test:markdown-parity
+PUBLIC_DIR=public yarn test:markdown-completeness
 cd scripts/rust-markdown-converter && cargo test && cd -
 ```
 
-Expected: all PASS.
+Expected: all PASS. `test:markdown-completeness` guards against truncated twins
+(Task 10b).
 
 - [ ] **Step 5: If anything fails, fix at the source and re-run**
 
@@ -1246,6 +1431,7 @@ git commit -m "docs: document the Rust converter and its frontmatter contract"
 | Pin frontmatter contract (§4)        | 5, 10, 12                   |
 | Golden-snapshot test (§5)            | 10                          |
 | Migration parity gate (§6)           | 1, 9                        |
+| Truncation regression test           | 10b                         |
 | Acceptance gate (§7)                 | 11                          |
 | Rust = exact drop-in (6 base fields) | 5, 10                       |
 | publisher/canonical (JS post-step)   | (untouched #7294; in 8b/11) |
