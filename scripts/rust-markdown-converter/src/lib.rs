@@ -519,13 +519,11 @@ struct Frontmatter {
     title: String,
     description: String,
     url: String,
+    estimated_tokens: usize,
     #[serde(skip_serializing_if = "Option::is_none")]
     product: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    product_version: Option<String>,
-    date: String,
-    lastmod: String,
-    estimated_tokens: usize,
+    version: Option<String>,
 }
 
 fn generate_frontmatter(
@@ -552,9 +550,6 @@ fn generate_frontmatter(
     // Estimate tokens (4 chars per token)
     let estimated_tokens = (content_length + 3) / 4;
 
-    // Generate current timestamp in ISO 8601 format
-    let now = chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true);
-
     // Convert relative URL to full URL using the provided base URL
     let full_url = format!("{}{}", base_url, url_path);
 
@@ -562,11 +557,9 @@ fn generate_frontmatter(
         title: title.to_string(),
         description,
         url: full_url,
-        product: product.as_ref().map(|p| p.name.clone()),
-        product_version: product.as_ref().map(|p| p.version.clone()),
-        date: now.clone(),
-        lastmod: now,
         estimated_tokens,
+        product: product.as_ref().map(|p| p.name.clone()),
+        version: product.as_ref().map(|p| p.version.clone()),
     };
 
     match serde_yaml::to_string(&frontmatter) {
@@ -627,5 +620,43 @@ mod tests {
         let html = "<p>Hello <strong>world</strong>!</p>";
         let md = html_to_markdown(html, false);
         assert!(md.contains("Hello **world**!"));
+    }
+
+    #[test]
+    fn test_frontmatter_uses_version_not_product_version() {
+        let html = r#"<html><head></head><body>
+            <article class="article--content"><h1>Get started</h1><p>Body.</p></article>
+          </body></html>"#;
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/get-started/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        assert!(out.contains("\nversion: core\n"));
+        assert!(!out.contains("product_version:"));
+    }
+
+    #[test]
+    fn test_frontmatter_omits_provenance_and_timestamps() {
+        // publisher/canonical/date/lastmod are added later by the JS post-step,
+        // never by the converter.
+        let html = r#"<html><head>
+            <meta name="last-modified" content="2025-01-15T00:00:00Z">
+          </head><body>
+            <article class="article--content"><h1>X</h1><p>Body.</p></article>
+          </body></html>"#;
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/x/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        assert!(!out.contains("publisher:"));
+        assert!(!out.contains("canonical:"));
+        assert!(!out.contains("date:"));
+        assert!(!out.contains("lastmod:"));
     }
 }
