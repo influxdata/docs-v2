@@ -128,6 +128,23 @@ canonical: /path/to/canonical/doc/
 canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
 ```
 
+#### Force self-canonical with `canonical: self`
+
+When a page uses `source:` to share content with a higher-priority sibling
+product (for example, a Core page sharing content with Enterprise), the
+canonical partial routes the canonical to the sibling product by default.
+Use the literal value `self` to keep the page's own permalink as the
+canonical — appropriate for product-narrative pages (landings, install,
+quickstart) whose URL marks the product identity even when the body is
+shared.
+
+```yaml
+canonical: self
+```
+
+_**Note:** The value is case-sensitive. `Self` or `SELF` is interpreted as
+a URL path and produces a broken canonical._
+
 ### v2 Equivalent Documentation
 
 To display a notice on a 1.x page that links to an equivalent 2.0 page,

@@ -118,8 +118,6 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 
 ##### Example
 
-{{% code-placeholders "INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" %}}
-
 {{% show-in "v2" %}}
 
 {{< code-tabs-wrapper >}}
@@ -131,14 +129,17 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 
 <!--pytest.mark.skip-->
 
-```sh
+```sh { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```js
+
+```js { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{% get-shared-text "api/v1-compat/auth/oss/basic-auth.js" %}}
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -156,15 +157,18 @@ Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 
 <!--pytest.mark.skip-->
 
-```sh
+```sh { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
+
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-```js
+
+```js { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -188,7 +192,7 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 {{% show-in "v2" %}}
 
-```http
+```http { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
  /query/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  /write/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  ```
@@ -197,7 +201,7 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 {{% show-in "cloud,cloud-serverless" %}}
 
-```http
+```http { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 /query/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 /write/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 ```
@@ -216,14 +220,17 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 <!--pytest.mark.skip-->
 
-```sh
+```sh { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.sh" >}}
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```js
+
+```js { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.js" >}}
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -244,19 +251,20 @@ Replace the following:
 
 <!--pytest.mark.skip-->
 
-```sh
+```sh { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
+
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-```js
+
+```js { placeholders="INFLUX_(USERNAME|PASSWORD_OR_TOKEN|API_TOKEN)|exampleuser@influxdata.com" }
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace the following:
 - {{% code-placeholder-key %}}`exampleuser@influxdata.com`{{% /code-placeholder-key %}}: the email address that you signed up with

@@ -1,0 +1,15 @@
+<!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
+
+## v0.19.0 {date="2026-04-23"}
+
+### Added
+- New `query_stream` method for large result sets.
+
+### Fixed
+- Connection pool leak on timeout.
+
+## v0.18.0 {date="2026-03-10"}
+
+### Added
+- Support for custom timeout per query.
+

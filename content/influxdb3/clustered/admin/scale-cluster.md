@@ -145,9 +145,7 @@ resource minimums and limits per pod and replicas per component:
 {{< expand-wrapper >}}
 {{% expand "View example `AppInstance` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
-
-```yml
+```yml { placeholders="(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -198,8 +196,6 @@ spec:
             cpu: GC_CPU_MAX
             memory: GC_MEMORY_MAX
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -263,9 +259,7 @@ replicas per component:
 {{< expand-wrapper >}}
 {{% expand "View example `values.yaml` with resource requests and limits" %}}
 
-{{% code-placeholders "(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" %}}
-
-```yml
+```yml { placeholders="(INGESTER|COMPACTOR|QUERIER|ROUTER|GC)_(CPU_(MAX|MIN)|MEMORY_(MAX|MIN)|REPLICAS)" }
 # ...
   resources:
     ingester:
@@ -308,8 +302,6 @@ replicas per component:
         cpu: GC_CPU_MAX
         memory: GC_MEMORY_MAX
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -504,15 +496,14 @@ if using Helm, the `ingesterStorage` property of your `values.yaml`.
 {{< expand-wrapper >}}
 {{% expand "View example Ingester storage configuration" %}}
 
-{{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [AppInstance](#)
 [Helm](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```yml
+
+```yml { placeholders="STORAGE_(CLASS|SIZE)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -528,9 +519,11 @@ spec:
         # Set the storage size (minimum 2Gi recommended)
         storage: STORAGE_SIZE
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```yml
+
+```yml { placeholders="STORAGE_(CLASS|SIZE)" }
 # ...
 ingesterStorage:
   # (Optional) Set the storage class. This will differ based on the K8s
@@ -540,10 +533,9 @@ ingesterStorage:
   # Set the storage size (minimum 2Gi recommended)
   storage: STORAGE_SIZE
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

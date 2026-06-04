@@ -46,6 +46,7 @@ test-results.xml
 tmp
 .tmp
 .test-cache
+.cache/
 
 # IDE files
 .vscode/*
@@ -82,3 +83,6 @@ deploy/llm-markdown/lambda-edge/markdown-generator/config.json
 *.js.map
 .eslintcache
 .worktrees/
+
+# Planning docs (kept locally, not tracked)
+docs/plans/

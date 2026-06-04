@@ -432,6 +432,8 @@ To use Kapacitor with an InfluxDB instance that requires authentication,
 the InfluxDB user must have [admin privileges](/influxdb/v1/administration/authentication_and_authorization/#admin-users).
 {{% /note %}}
 
+To connect to InfluxDB OSS 1.x or InfluxDB Enterprise, use the following configuration:
+
 {{< keep-url >}}
 ```toml
 # ...
@@ -440,9 +442,7 @@ the InfluxDB user must have [admin privileges](/influxdb/v1/administration/authe
   # Connect to InfluxDB
   # Kapacitor can subscribe, query, and write to this cluster.
   # Using InfluxDB is not required and can be disabled.
-  # To connect to InfluxDB OSS 1.x or InfluxDB Enterprise, 
-  # use the following configuration:
-  
+
   enabled = true
   default = true
   name = "localhost"
@@ -450,17 +450,20 @@ the InfluxDB user must have [admin privileges](/influxdb/v1/administration/authe
   username = ""
   password = ""
   timeout = 0
+```
 
-  # To connect to InfluxDB OSS 2.x or InfluxDB Cloud, 
-  # use the following configuration:
-  
+To connect to InfluxDB OSS 2.x or InfluxDB Cloud, use the following configuration instead:
+
+{{< keep-url >}}
+```toml
+[[influxdb]]
   enabled = true
   default = true
   name = "localhost"
   urls = ["http://localhost:8086"]
   token = ""
-  timeout = 0 
-  
+  timeout = 0
+
   # By default, all data sent to InfluxDB is compressed in gzip format.
   # To turn off gzip compression, add the following config setting:
   compression = "none"

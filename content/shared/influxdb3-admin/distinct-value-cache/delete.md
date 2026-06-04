@@ -13,15 +13,13 @@ to delete a Distinct Value Cache (DVC). Provide the following:
   DVC you want to delete is associated with.
 - **Cache name**: The name of the DVC to delete.
 
-{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN" }
 influxdb3 delete distinct_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
   DVC_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

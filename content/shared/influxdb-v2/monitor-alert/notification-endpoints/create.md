@@ -48,7 +48,7 @@ The following endpoints are available for the InfluxDB Cloud Free Plan and Usage
         page, and the following included in the PagerDuty trigger event:
 
           ```json
-          "client_url": "http://localhost:8086/orgs/<your-org-ID>/alert-history"
+          { "client_url": "http://localhost:8086/orgs/<your-org-ID>/alert-history" }
           ```
 
 6. Click **{{< caps >}}Create Notification Endpoint{{< /caps >}}**.

@@ -10,6 +10,18 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.11.3 {date="2026-05-27"}
+
+### Maintenance updates
+
+- Upgrade Go to 1.25.10.
+
+## v1.11.2 {date="2026-05-06"}
+
+### Maintenance updates
+
+- Upgrade Go to 1.25.9.
+
 ## v1.11.1 {date="2026-04-15"}
 
 - Adds support for Darwin arm64.

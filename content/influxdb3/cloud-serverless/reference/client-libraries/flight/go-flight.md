@@ -169,7 +169,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 {{% influxdb/custom-timestamps %}}
 {{< expand-wrapper >}}
 {{% expand "View program output" %}}
-```json
+```text
 RECORD BATCH
 [
   {

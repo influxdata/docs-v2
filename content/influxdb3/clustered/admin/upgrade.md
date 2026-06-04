@@ -119,9 +119,7 @@ upgrade to a checkpoint before upgrading beyond it.
 In your `myinfluxdb.yml`, update the package version defined in
 `spec.package.image` to the version you want to upgrade to.
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
-
-```yml
+```yml { placeholders="PACKAGE_VERSION" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -130,8 +128,6 @@ spec:
     # ...
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
-
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with
 the version number to upgrade to.

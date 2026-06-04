@@ -47,6 +47,12 @@ import {
   mapContentToPublic,
 } from './lib/content-utils.js';
 
+import {
+  loadOrgIdentity,
+  readSitemapOrigin,
+  injectPageProvenance,
+} from './lib/provenance.js';
+
 // ============================================================================
 // PHASE 1: HTML → MARKDOWN CONVERSION
 // ============================================================================
@@ -60,7 +66,11 @@ import {
  * @param {string} options.baseBranch - Base branch for comparison (default: 'origin/master')
  */
 async function buildPageMarkdown(publicDir = 'public', options = {}) {
-  const { onlyChanged = false, baseBranch = 'origin/master' } = options;
+  const {
+    onlyChanged = false,
+    baseBranch = 'origin/master',
+    provenance = null,
+  } = options;
 
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
   const startTime = Date.now();
@@ -140,7 +150,13 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
 
         // Write .md file next to .html
         const mdPath = htmlPath.replace(/index\.html$/, 'index.md');
-        await fs.writeFile(mdPath, markdown, 'utf-8');
+        const output = provenance
+          ? injectPageProvenance(markdown, {
+              publisher: provenance.publisher,
+              canonical: `${provenance.origin}${urlPath}`,
+            })
+          : markdown;
+        await fs.writeFile(mdPath, output, 'utf-8');
 
         converted++;
 
@@ -196,7 +212,8 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
  * Fast string concatenation with minimal memory usage
  * @param {string} publicDir - Directory containing Hugo build output
  */
-async function buildSectionBundles(publicDir = 'public') {
+async function buildSectionBundles(publicDir = 'public', options = {}) {
+  const { provenance = null } = options;
   console.log('📦 Building section bundles...\n');
   const startTime = Date.now();
 
@@ -227,7 +244,12 @@ async function buildSectionBundles(publicDir = 'public') {
         );
 
         // Combine markdown files (string manipulation only)
-        const combined = combineMarkdown(parentMd, childMds, section.url);
+        const combined = combineMarkdown(
+          parentMd,
+          childMds,
+          section.url,
+          provenance
+        );
 
         // Write section bundle
         const sectionMdPath = section.mdPath.replace(
@@ -310,7 +332,7 @@ function extractTitleFromMd(mdPath) {
 /**
  * Combine parent and child markdown into section bundle
  */
-function combineMarkdown(parentMd, childMds, sectionUrl) {
+function combineMarkdown(parentMd, childMds, sectionUrl, provenance = null) {
   // Parse parent frontmatter + content
   const parent = parseMarkdown(parentMd);
 
@@ -355,6 +377,11 @@ function combineMarkdown(parentMd, childMds, sectionUrl) {
       title: c.title,
     })),
   };
+
+  if (provenance) {
+    frontmatterObj.publisher = provenance.publisher;
+    frontmatterObj.canonical = `${provenance.origin}${sectionUrl}`;
+  }
 
   // Serialize to YAML (handles special characters properly)
   const sectionFrontmatter =
@@ -458,14 +485,25 @@ async function main() {
 
   const overallStart = Date.now();
 
+  // Load org identity + production origin once for provenance stamping (#7290).
+  const [org, origin] = await Promise.all([
+    loadOrgIdentity(),
+    readSitemapOrigin(cliOptions.publicDir),
+  ]);
+  const provenance = { publisher: org.name, origin };
+  console.log(`🏷️  Provenance: publisher=${org.name}, origin=${origin}\n`);
+
   // Phase 1: Generate individual page markdown
   const pageResults = await buildPageMarkdown(cliOptions.publicDir, {
     onlyChanged: cliOptions.onlyChanged,
     baseBranch: cliOptions.baseBranch,
+    provenance,
   });
 
   // Phase 2: Build section bundles
-  const sectionResults = await buildSectionBundles(cliOptions.publicDir);
+  const sectionResults = await buildSectionBundles(cliOptions.publicDir, {
+    provenance,
+  });
 
   // Summary
   const totalDuration = ((Date.now() - overallStart) / 1000).toFixed(1);
@@ -492,10 +530,13 @@ async function main() {
 }
 
 // Run if called directly
-main().catch((error) => {
-  console.error('Fatal error:', error);
-  process.exit(1);
-});
+const isMain = import.meta.url === `file://${process.argv[1]}`;
+if (isMain) {
+  main().catch((error) => {
+    console.error('Fatal error:', error);
+    process.exit(1);
+  });
+}
 
 // Export functions for testing
 export {

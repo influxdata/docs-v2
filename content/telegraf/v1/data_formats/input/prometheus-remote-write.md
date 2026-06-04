@@ -39,7 +39,7 @@ additional configuration options for Prometheus Remote Write Samples.
 
 ## Example Input
 
-```json
+```go
 prompb.WriteRequest{
         Timeseries: []*prompb.TimeSeries{
             {

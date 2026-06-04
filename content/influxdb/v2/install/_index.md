@@ -71,21 +71,17 @@ To use the SHA checksum to verify the downloaded file, do the following:
    <!--test:actual
    ```bash
    curl -s --location -O \
-   "https://dl.influxdata.com/influxdb/releases/influxdb2-${influxdb_latest_patches_v2}_linux_amd64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/influxdb2-${influxdb_latest_patches_v2}_linux_amd64.tar.gz"
    ```
    -->
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf" %}}
-
-```bash
+```bash { placeholders="8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf" }
 # Use 2 spaces to separate the checksum from the filename
 echo "8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf  influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" \
 | sha256sum --check -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -133,15 +129,11 @@ binary releases:
    ```
    -->
 
-{{% code-placeholders "https://repos.influxdata.com/influxdata-archive.key" %}}
-
-```sh
+```sh { placeholders="https://repos.influxdata.com/influxdata-archive.key" }
 curl --silent --location https://repos.influxdata.com/influxdata-archive.key \
  | gpg --import - 2>&1 \
  | grep 'InfluxData Package Signing Key <support@influxdata.com>'
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -163,13 +155,13 @@ gpg: key 7C3D57159FC2F927: public key "InfluxData Package Signing Key <support@i
    <!--test:setup
    ```sh
    curl --silent --location --output-dir ~/Downloads -O \
-   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
    ```
    -->
 
    ```sh
    curl --silent --location \
-   https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz.asc \
+   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz.asc \
    | gpg --verify - ~/Downloads/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
@@ -238,26 +230,22 @@ brew install influxdb
 
 1. In your browser or your terminal, download the InfluxDB package.
 
-   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" download>InfluxDB v2 (macOS)</a>
+   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" download>InfluxDB v2 (macOS)</a>
 
    ```sh
    # Download using cURL
    curl --location -O \
-   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz"
    ```
 
 2. {{< req text="Recommended:" color="magenta" >}}: Verify the integrity of the download--for example, enter the
    following command in your terminal:
 
-{{% code-placeholders "224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b" %}}
-
-```sh
+```sh { placeholders="224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b" }
 # Use 2 spaces to separate the checksum from the filename
 echo "224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b  influxdb2-{{< latest-patch >}}_darwin_amd64.tar.gz" \
 | shasum --algorithm 256 --quiet --check -
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -442,18 +430,18 @@ _If necessary, adjust the example file paths and utilities for your system._
 1. In your browser or your terminal, download the InfluxDB binary for your
    system architecture (AMD64 or ARM).
 
-   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
-   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
+   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
+   <a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a>
 
    <!--test:actual
    ```sh
    curl -s --location -O \
-   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz"
    ```
 
    ```sh
    curl -s --location -O \
-   "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz"
+   "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz"
    ```
    -->
 
@@ -462,7 +450,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    ```sh
    # Use curl to download the amd64 binary.
    curl --location -O \
-   https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
+   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz
    ```
 
    <!--pytest.mark.skip-->
@@ -470,7 +458,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    ```sh
    # Use curl to download the arm64 binary.
    curl --location -O \
-   https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
+   https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz
    ```
 
 2. [Choose the InfluxData key-pair for your OS version](#choose-the-influxdata-key-pair-for-your-os-version).
@@ -504,7 +492,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    | grep 'InfluxData Package Signing Key <support@influxdata.com>' \
    &&
    # Download and verify the binary's signature file
-   curl --silent --location "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc" \
+   curl --silent --location "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz.asc" \
    | gpg --verify - influxdb2-{{< latest-patch >}}_linux_amd64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
@@ -518,7 +506,7 @@ _If necessary, adjust the example file paths and utilities for your system._
    | grep 'InfluxData Package Signing Key <support@influxdata.com>' \
    &&
    # Download and verify the binary's signature file
-   curl --silent --location "https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz.asc" \
+   curl --silent --location "https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz.asc" \
    | gpg --verify - influxdb2-{{< latest-patch >}}_linux_arm64.tar.gz \
    2>&1 | grep 'InfluxData Package Signing Key <support@influxdata.com>'
    ```
@@ -617,7 +605,7 @@ chmod 0750 ~/.influxdbv2
 > 
 > _You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
-<a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}-windows_amd64.zip" download >InfluxDB v2 (Windows)</a>
+<a class="btn download" href="https://download.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows_amd64.zip" download >InfluxDB v2 (Windows)</a>
 
 Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the
 files if desired.
@@ -678,11 +666,9 @@ _If you don't specify InfluxDB initial setup options, you can
 [set up manually](/influxdb/v2/get-started/setup/) later using the UI or CLI in a running
 container._
 
-{{% code-placeholders "ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" %}}
-
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="ADMIN_(USERNAME|PASSWORD)|ORG_NAME|BUCKET_NAME" }
 docker run \
  --name influxdb2 \
  --publish 8086:8086 \
@@ -695,8 +681,6 @@ docker run \
  --env DOCKER_INFLUXDB_INIT_BUCKET=BUCKET_NAME \
  influxdb:2
 ```
-
-{{% /code-placeholders %}}
 
 The command passes the following arguments:
 

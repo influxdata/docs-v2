@@ -339,6 +339,60 @@ it('contains valid internal links', () => {
 });
 ```
 
+### Testing structured data (JSON-LD)
+
+The `layouts/partials/header/*-jsonld.html` partials emit schema.org JSON-LD.
+The right assertions depend on the node's scope:
+
+- **Page-scoped nodes** (`TechArticle`, `SoftwareApplication`) describe a
+  specific page or product. Assert presence/shape where they belong and
+  **absence** where they don't — the absence check guards against over-emission
+  (e.g. a SoftwareApplication node leaking onto deep pages instead of only
+  product landing roots).
+- **Global nodes** (`Organization`) describe the site's single entity and are
+  emitted site-wide with a stable `@id`. Assert **exactly one** per page across
+  page classes — that catches both omission (a page class emitting nothing) and
+  accidental duplicate emission.
+
+Parse `<script type="application/ld+json">` by `@type`, then assert. See
+`cypress/e2e/content/jsonld-organization.cy.js` and `jsonld-techarticle.cy.js`
+for the established pattern:
+
+```javascript
+function ldByType(win$, doc, type) {
+  return [...win$(doc).find('script[type="application/ld+json"]')]
+    .map((s) => { try { return JSON.parse(s.textContent); } catch { return null; } })
+    .filter((j) => j && j['@type'] === type);
+}
+
+// Page-scoped: present on the landing root, absent on a deep page.
+it('emits SoftwareApplication on the product root, none on deep pages', () => {
+  cy.visit('/influxdb3/core/');
+  cy.document().then((doc) => {
+    expect(ldByType(Cypress.$, doc, 'SoftwareApplication')).to.have.length(1);
+  });
+  cy.visit('/influxdb3/core/admin/');
+  cy.document().then((doc) => {
+    expect(ldByType(Cypress.$, doc, 'SoftwareApplication')).to.have.length(0);
+  });
+});
+
+// Global: exactly one on every page class (hub, root, deep article).
+it('emits exactly one Organization on a deep page', () => {
+  cy.visit('/influxdb3/core/admin/');
+  cy.document().then((doc) => {
+    expect(ldByType(Cypress.$, doc, 'Organization')).to.have.length(1);
+  });
+});
+```
+
+**Cypress proves the markup is emitted where intended. It does not validate
+schema correctness.** For that, use the Schema Markup Validator
+(`https://validator.schema.org`) — **not** the Google Rich Results Test, which
+reports "no items detected" for `Organization`, `TechArticle`, and
+`SoftwareApplication` because they aren't rich-result types (only `FAQPage`
+is). See the hugo-template-dev skill, "Validating structured data (JSON-LD)".
+
 ## CI/CD Considerations
 
 In CI environments:
@@ -366,10 +420,11 @@ Before concluding test analysis:
 - [ ] Failed selectors verified against current templates
 - [ ] Broken links identified and reported
 - [ ] JavaScript console errors investigated (if relevant)
+- [ ] For JSON-LD changes: presence/absence asserted in Cypress, and schema validated via `validator.schema.org` (not the Rich Results Test)
 
 ## Related Skills
 
-- **hugo-template-dev** - For Hugo template syntax, data access patterns, and runtime testing
+- **hugo-template-dev** - For Hugo template syntax, data access patterns, and runtime testing. Includes the **PR preview-pages mechanism** — when the change is visual or structural (canonical/meta tags, JSON-LD, head fragments, layout reflows) and Cypress is overkill, list affected URLs in the PR description so the preview workflow lands reviewers on the exact pages without local setup.
 - **docs-cli-workflow** - For creating/editing documentation content with CLI tools
 - **ts-component-dev** (agent) - TypeScript component behavior and interactivity
 - **hugo-ui-dev** (agent) - Hugo templates and SASS/CSS styling

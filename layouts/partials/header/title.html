@@ -34,6 +34,8 @@
   {{ $scratch.Set "siteTitle" (print "InfluxDB OSS " $version " Documentation") }}
 {{ else if and (eq $product "influxdb3") (eq $currentVersion "enterprise")}}
   {{ $scratch.Set "siteTitle" (print "InfluxDB 3 Enterprise Documentation") }}
+{{ else if eq $product "influxdb3"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB 3 Documentation" }}
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else if and (eq $product "enterprise_influxdb") (in $currentVersion "v1")}}
@@ -49,7 +51,11 @@
 {{ end }}
 
 {{ $scratch.Set "pageTitle" "" }}
-{{ if or (eq $product "platform") (gt (len $productPathData) 2) }}
+{{ if or
+    (eq $product "platform")
+    (gt (len $productPathData) 2)
+    (and (eq $product "influxdb3") (eq (len $productPathData) 2) (not .IsSection))
+}}
   {{ $scratch.Set "pageTitle" (cond (ne .Params.seotitle nil) .Params.seotitle .Title) }}
   <!-- Add Experimental to title if page has experimental in path -->
   {{ if and (in .RelPermalink "/experimental/") (eq (len (findRE `[e,E]xperimental` ($scratch.Get "pageTitle") )) 0) }}

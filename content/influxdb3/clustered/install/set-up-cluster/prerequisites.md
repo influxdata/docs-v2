@@ -260,8 +260,7 @@ the correct permissions to allow InfluxDB to perform all the actions it needs to
 
 The IAM role that you use to access AWS S3 should have the following policy:
 
-{{% code-placeholders "S3_BUCKET_NAME" %}}
-```json
+```json { placeholders="S3_BUCKET_NAME" }
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -277,7 +276,7 @@ The IAM role that you use to access AWS S3 should have the following policy:
                 "s3:DeleteObject",
                 "s3:AbortMultipartUpload"
             ],
-            "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*",
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*"
         },
         {
             "Sid": "",
@@ -286,18 +285,17 @@ The IAM role that you use to access AWS S3 should have the following policy:
                 "s3:ListBucket",
                 "s3:GetBucketLocation"
             ],
-            "Resource": "arn:aws:s3:::S3_BUCKET_NAME",
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME"
         },
         {
             "Sid": "",
             "Effect": "Allow",
             "Action": "s3:ListAllMyBuckets",
-            "Resource": "*",
+            "Resource": "*"
         }
     ]
 }
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -310,14 +308,12 @@ Replace the following:
 To use Google Cloud Storage (GCS) as your object store, your [IAM principal](https://cloud.google.com/iam/docs/overview) should be granted the `roles/storage.objectUser` role.
 For example, if using [Google Service Accounts](https://cloud.google.com/iam/docs/service-account-overview):
 
-{{% code-placeholders "GCP_SERVICE_ACCOUNT|GCP_BUCKET" %}}
-```bash
+```bash { placeholders="GCP_SERVICE_ACCOUNT|GCP_BUCKET" }
 gcloud storage buckets add-iam-policy-binding \
     gs://GCP_BUCKET \
     --member="serviceAccount:GCP_SERVICE_ACCOUNT" \
     --role="roles/storage.objectUser"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -333,14 +329,12 @@ should be granted the `Storage Blob Data Contributor` role.
 This is a built-in role for Azure which encompasses common permissions.
 You can assign it using the following command:
 
-{{% code-placeholders "PRINCIPAL|AZURE_SUBSCRIPTION|AZURE_RESOURCE_GROUP|AZURE_STORAGE_ACCOUNT|AZURE_STORAGE_CONTAINER" %}}
-```bash
+```bash { placeholders="PRINCIPAL|AZURE_SUBSCRIPTION|AZURE_RESOURCE_GROUP|AZURE_STORAGE_ACCOUNT|AZURE_STORAGE_CONTAINER" }
 az role assignment create \
     --role "Storage Blob Data Contributor" \
     --assignee PRINCIPAL \
     --scope "/subscriptions/AZURE_SUBSCRIPTION/resourceGroups/AZURE_RESOURCE_GROUP/providers/Microsoft.Storage/storageAccounts/AZURE_STORAGE_ACCOUNT/blobServices/default/containers/AZURE_STORAGE_CONTAINER"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

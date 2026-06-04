@@ -109,6 +109,25 @@ build_markdown() {
     success "Markdown generation complete"
 }
 
+# Generate per-product llms-full.txt corpora
+build_llms_full() {
+    if [ "$SKIP_MARKDOWN" = "true" ]; then
+        warning "Skipping llms-full.txt generation (SKIP_MARKDOWN=true)"
+        return
+    fi
+
+    info "Generating per-product llms-full.txt corpora..."
+    yarn build:llms-full
+    success "llms-full.txt generation complete"
+}
+
+# Verify every emitted Markdown alternate link has a corresponding .md file
+check_md_coherence() {
+    info "Checking Markdown alternate link coherence..."
+    yarn check:md-coherence
+    success "Coherence check passed"
+}
+
 # Deploy to S3
 deploy_to_s3() {
     if [ "$SKIP_DEPLOY" = "true" ]; then
@@ -172,6 +191,8 @@ main() {
     echo ""
     build_hugo
     build_markdown
+    build_llms_full
+    check_md_coherence
 
     echo ""
     deploy_to_s3

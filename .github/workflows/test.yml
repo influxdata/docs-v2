@@ -36,6 +36,9 @@ on:
 #   - v1 → content/influxdb/v1
 #   - explorer → content/influxdb3/explorer
 
+permissions:
+  contents: read
+
 jobs:
   detect-changes:
     name: Detect changed content

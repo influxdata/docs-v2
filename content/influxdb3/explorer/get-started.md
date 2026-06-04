@@ -54,18 +54,23 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
        > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
        > - If InfluxDB is running natively on your machine (not in Docker), use `localhost`.
        >
-       > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host).
+       > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/).
 
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
       We recommend using an InfluxDB 3 _admin_ token.
       
       > [!Important]
-      > #### Token permissions may limit Explorer functionality
+      > #### Token permissions determine Explorer's access
       >
       > The permissions associated with the provided token determine what
       > databases you can access using this server configuration. InfluxDB 3
       > tokens with limited permissions may not be able to use some Explorer
       > functionality.
+      >
+      > The token's permissions also define what anyone with access to this
+      > Explorer instance can do. Use a token scoped to what you need, and
+      > control who can reach Explorer. See
+      > [Network exposure and access control](/influxdb3/explorer/install/#network-exposure-and-access-control).
 
 4.  Click **Add Server**.
 

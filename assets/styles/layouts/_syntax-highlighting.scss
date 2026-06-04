@@ -73,9 +73,19 @@ pre[class*="language-"] {
 
 	.gi 		/* Generic.Inserted */
 					{
+						/* `display: block` keeps each diff line on its own
+						   row — chroma puts a trailing `\n` inside the .gi
+						   span, and `inline-block` would swallow it, leaving
+						   every diff line collapsed onto a single inline row.
+						   `width: max-content` lets the box grow with the
+						   line content when it overflows the visible area;
+						   `min-width: 100%` keeps short lines tinted to the
+						   right edge of the code block. */
 						display: block;
-						background-color: rgba(0, 134, 88, 0.35);
-						border-left: 3px solid #009f5f;
+						width: max-content;
+						min-width: 100%;
+						background-color: rgba($gr-rainforest, 0.12);
+						border-left: 3px solid $gr-viridian;
 					}
 
 	.k, 		/* Keyword */
@@ -121,9 +131,13 @@ pre[class*="language-"] {
 	
 	.gd     /* Generic.Deleted */
 					{
+						/* See .gi above for the rationale on `display: block`
+						   + `width: max-content` + `min-width: 100%`. */
 						display: block;
-						background-color: rgba(191, 61, 94, 0.25);
-						border-left: 3px solid #bf3d5e;
+						width: max-content;
+						min-width: 100%;
+						background-color: rgba($r-curacao, 0.10);
+						border-left: 3px solid $r-ruby;
 					}
 
 	.m,  		/* Literal.Number */

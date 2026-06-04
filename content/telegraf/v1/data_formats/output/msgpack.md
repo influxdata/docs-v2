@@ -33,7 +33,7 @@ The `msgpack` output data format (serializer) translates the Telegraf metric for
 
 Output of this format is MessagePack binary representation of metrics with a structure identical to the following JSON:
 
-```json
+```text
 {
    "name":"cpu",
    "time": <TIMESTAMP>, // https://github.com/msgpack/msgpack/blob/master/spec.md#timestamp-extension-type
