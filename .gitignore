@@ -47,6 +47,7 @@ tmp
 .tmp
 .test-cache
 .cache/
+/.cache
 
 # IDE files
 .vscode/*

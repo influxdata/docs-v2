@@ -31,7 +31,7 @@ describe('Markdown Content Validation', () => {
 
     // Generate markdown for get-started section
     cy.exec(
-      'node scripts/html-to-markdown.js --path influxdb3/core/get-started',
+      'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/get-started',
       {
         failOnNonZeroExit: false,
         timeout: 60000,
@@ -47,7 +47,7 @@ describe('Markdown Content Validation', () => {
 
     // Generate markdown for enterprise index page
     cy.exec(
-      'node scripts/html-to-markdown.js --path influxdb3/enterprise --limit 1',
+      'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/enterprise --limit 1',
       {
         failOnNonZeroExit: false,
         timeout: 60000,
@@ -299,7 +299,7 @@ describe('Markdown Content Validation', () => {
     before(() => {
       // Generate markdown for pages with tabs
       cy.exec(
-        'node scripts/html-to-markdown.js --path influxdb3/enterprise/write-data/client-libraries --limit 1',
+        'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/enterprise/write-data/client-libraries --limit 1',
         {
           failOnNonZeroExit: false,
           timeout: 60000,
@@ -307,7 +307,7 @@ describe('Markdown Content Validation', () => {
       );
 
       cy.exec(
-        'node scripts/html-to-markdown.js --path influxdb3/core/query-data/execute-queries/influxdb3-cli --limit 1',
+        'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/query-data/execute-queries/influxdb3-cli --limit 1',
         {
           failOnNonZeroExit: false,
           timeout: 60000,
@@ -490,7 +490,7 @@ describe('Markdown Content Validation', () => {
     before(() => {
       // Ensure markdown is generated for this specific page
       cy.exec(
-        'node scripts/html-to-markdown.js --path influxdb3/enterprise/get-started',
+        'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/enterprise/get-started',
         {
           failOnNonZeroExit: false,
           timeout: 60000,

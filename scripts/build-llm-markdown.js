@@ -76,12 +76,16 @@ import { detectBaseUrl } from './lib/base-url.js';
  * @param {Object} options - Build options
  * @param {boolean} options.onlyChanged - Only process files changed since base branch
  * @param {string} options.baseBranch - Base branch for comparison (default: 'origin/master')
+ * @param {string} options.pathFilter - Only process pages under this site-relative path (e.g. 'influxdb3/core/get-started')
+ * @param {number} options.limitCount - Process at most this many pages (after path filtering)
  */
 async function buildPageMarkdown(publicDir = 'public', options = {}) {
   const {
     onlyChanged = false,
     baseBranch = 'origin/master',
     provenance = null,
+    pathFilter = null,
+    limitCount = null,
   } = options;
 
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
@@ -95,6 +99,25 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
 
   const totalFiles = htmlFiles.length;
   console.log(`Found ${totalFiles} HTML files\n`);
+
+  // Filter to a site-relative path subtree if requested (used by targeted
+  // generation, e.g. Cypress fixture setup for a single product path).
+  if (pathFilter) {
+    const normalized = pathFilter.replace(/^\/+|\/+$/g, '');
+    const prefix = `${publicDir.replace(/\/+$/, '')}/${normalized}`;
+    htmlFiles = htmlFiles.filter(
+      (f) => f === `${prefix}/index.html` || f.startsWith(`${prefix}/`)
+    );
+    console.log(
+      `🎯 Path filter '${normalized}': ${htmlFiles.length}/${totalFiles} files\n`
+    );
+  }
+
+  // Cap the number of pages processed if requested (applied after path filter).
+  if (limitCount != null && htmlFiles.length > limitCount) {
+    htmlFiles = htmlFiles.slice(0, limitCount);
+    console.log(`🔢 Limit: processing first ${limitCount} file(s)\n`);
+  }
 
   // Filter to only changed files if requested
   if (onlyChanged) {
@@ -449,6 +472,8 @@ function parseArgs() {
     publicDir: 'public',
     onlyChanged: false,
     baseBranch: 'origin/master',
+    pathFilter: null,
+    limitCount: null,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -460,6 +485,10 @@ function parseArgs() {
       options.onlyChanged = true;
     } else if (args[i] === '--base-branch' && args[i + 1]) {
       options.baseBranch = args[++i];
+    } else if (args[i] === '--path' && args[i + 1]) {
+      options.pathFilter = args[++i];
+    } else if (args[i] === '--limit' && args[i + 1]) {
+      options.limitCount = Number.parseInt(args[++i], 10);
     }
   }
 
@@ -510,6 +539,8 @@ async function main() {
   const pageResults = await buildPageMarkdown(cliOptions.publicDir, {
     onlyChanged: cliOptions.onlyChanged,
     baseBranch: cliOptions.baseBranch,
+    pathFilter: cliOptions.pathFilter,
+    limitCount: cliOptions.limitCount,
     provenance,
   });
 
