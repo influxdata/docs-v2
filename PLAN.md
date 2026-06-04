@@ -315,10 +315,12 @@ needed, is a separate follow-up under #6792.
 - Create: `scripts/build-rust-converter.js` — postinstall build (cargo-guarded).
 - Create: `scripts/lib/base-url.js` — ported `detectBaseUrl` (ESM).
 - Modify: `scripts/lib/provenance.js` — add `readSitemapLastmods`; stamp `date`/`lastmod` in `injectPageProvenance`.
-- Modify: `scripts/build-llm-markdown.js` — require Rust module, resolve+pass base\_url, build lastmod Map, hard-fail on load.
+- Modify: `scripts/build-llm-markdown.js` — require Rust module, resolve+pass base\_url, build lastmod Map, hard-fail on load, add `--path`/`--limit` targeting (Task 8).
 - Delete: `scripts/lib/markdown-converter.cjs`, `scripts/html-to-markdown.js`.
+- Modify: `cypress/e2e/content/markdown-content-validation.cy.js`, `cypress/e2e/content/llm-format-selector.cy.js` — generate fixtures via `build:md --path` instead of the deleted legacy script; update `product_version:`→`version:` assertions (Task 8/11).
 - Modify: `package.json` — `exports`, `postinstall`, remove deps + legacy scripts.
 - Modify: `.circleci/config.yml` — Rust toolchain + `napi build` step.
+- Rewrite: `scripts/README.md` — drop legacy `html-to-markdown.js` docs, document Rust + `build-llm-markdown.js` (Task 12).
 - Create: `scripts/parity-scan.mjs` — corpus structural + content-loss scan (Task 9).
 - Create: `scripts/__tests__/markdown-parity.test.mjs` — golden-snapshot test + fixtures.
 - Create: `scripts/__tests__/markdown-completeness.test.mjs` — truncation guard, pages + sections (Task 10b).
@@ -806,57 +808,84 @@ git commit -m "feat: generate per-page Markdown with the Rust converter"
 
 ***
 
-## Task 8: Delete the JS converter, retire the legacy script, drop deps
+## Task 8: Delete the JS converter, retire the legacy script, drop deps ✅ DONE
+
+> **Plan gap found during execution:** Task 8's original consumer grep scoped
+> only `scripts/ deploy/` and declared `html-to-markdown.js` safe to delete. But
+> the **Cypress acceptance specs invoke it in `before()` to generate fixtures**
+> — `markdown-content-validation.cy.js` (5×) and `llm-format-selector.cy.js`
+> (2×) call `node scripts/html-to-markdown.js --path <p> [--limit N]`. Deleting
+> it would have broken the Task 11 acceptance gate. Fix (chosen with the user,
+> option A): give the surviving generator the `--path`/`--limit` targeting the
+> legacy script provided, migrate the specs onto it, **then** delete. The specs
+> now exercise the real Rust path.
 
 **Files:**
 
 - Delete: `scripts/lib/markdown-converter.cjs`, `scripts/html-to-markdown.js`
 
-- Modify: `package.json` (`exports`, scripts, deps)
+- Modify: `package.json` (`exports`, scripts, deps), `scripts/build-llm-markdown.js`
+  (add `--path`/`--limit`), `cypress/e2e/content/markdown-content-validation.cy.js`,
+  `cypress/e2e/content/llm-format-selector.cy.js`
 
-- [ ] **Step 1: Delete the JS converter and the legacy CLI**
+- [x] **Step 1: Add `--path`/`--limit` targeting to `build-llm-markdown.js`**
+
+`parseArgs` gains `--path <site-relative-path>` and `--limit <n>`;
+`buildPageMarkdown` filters the `index.html` glob to the path subtree and caps
+the count (path filter first, then limit). This is the per-path generation the
+Cypress specs used the legacy script for. (Phase 2 section bundling still scans
+the whole `public/`, which is fine — the targeted page's children were just
+generated.)
+
+- [x] **Step 2: Migrate the Cypress fixture generation off the legacy script**
+
+In both specs, replace every
+`node scripts/html-to-markdown.js --path …` with
+`node scripts/build-llm-markdown.js --public-dir public --path …` (path + any
+`--limit` preserved verbatim). 7 invocations total.
+
+- [x] **Step 3: Delete the JS converter and the legacy CLI**
 
 ```bash
 git rm scripts/lib/markdown-converter.cjs scripts/html-to-markdown.js
 ```
 
-- [ ] **Step 2: Repoint `exports` and remove legacy/dep entries in `package.json`**
+- [x] **Step 4: Repoint `exports` and remove legacy/dep entries in `package.json`**
 
-- Change `exports` (line 8):
-  ```json
-  "./markdown-converter": "./scripts/rust-markdown-converter/index.js",
-  ```
+- `exports./markdown-converter` → `./scripts/rust-markdown-converter/index.js`
 
 - Remove the `build:md:legacy` and `build:md:verbose` script lines.
 
 - Remove `turndown`, `@types/turndown`, and `jsdom` from `dependencies`.
 
-- [ ] **Step 3: Confirm nothing else imports the removed modules**
-
-Run:
+- [x] **Step 5: Confirm nothing else imports the removed modules (grep MUST include `cypress/`)**
 
 ```bash
-grep -rnE "markdown-converter\.cjs|html-to-markdown|require\('turndown'\)|from 'turndown'|jsdom" scripts/ deploy/ | grep -v node_modules
+grep -rnE "markdown-converter\.cjs|html-to-markdown|turndown|jsdom" \
+  scripts deploy cypress | grep -v node_modules | grep -vE "\.md:|README"
 ```
 
-Expected: no matches (the only remaining `markdown-converter` references are `dist/`/docs, not code imports). If a match appears, fix that consumer before continuing.
+Expected: only the intentional doc comment in `scripts/lib/base-url.js`. Note:
+`scripts/README.md` still documents the deleted `html-to-markdown.js` end to end
+— its rewrite is folded into **Task 12** (docs).
 
-- [ ] **Step 4: Reinstall and verify the active build still runs**
-
-Run:
+- [x] **Step 6: Reinstall and verify the active build still runs**
 
 ```bash
-yarn install
-yarn build:md --public-dir public --only-changed --base-branch HEAD~1
+CYPRESS_INSTALL_BINARY=0 yarn install
+node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/get-started
 ```
 
-Expected: install succeeds without `turndown`/`jsdom`; `build:md` exits 0.
+Expected: install succeeds without `turndown`/`jsdom` and rebuilds Rust;
+targeted `build:md` exits 0.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 7: Commit (stage explicit paths — `git add -A` grabs the worktree
+  `.cache` symlink, which `.gitignore`'s `.cache/` rule does not match; add
+  `/.cache` to `.gitignore`)**
 
 ```bash
-git add -A
-git commit -m "chore: remove JS markdown converter, legacy CLI, and turndown/jsdom deps"
+git add scripts package.json cypress yarn.lock .gitignore
+git commit -m "chore: remove JS markdown converter and legacy CLI; add build:md --path/--limit"
 ```
 
 ***
@@ -1029,6 +1058,29 @@ git commit -m "feat: stamp date/lastmod from sitemap in the provenance step"
 ***
 
 ## Task 9: Migration parity gate (fixture diff + structural scan)
+
+> **Semantic diffs already found during cutover (Task 7), vs the
+> `.parity-baseline/` JS output — these are the concrete `lib.rs` fixes Task 9
+> must land before the scan/fixtures can pass:**
+>
+> 1. **h1 is stripped but must be kept.** `convert_to_markdown` calls
+>    `html_to_markdown(&content, true)` (remove h1). The JS baseline keeps the
+>    body `# Heading` (≈83% of sampled pages), and
+>    `markdown-content-validation.cy.js:240` asserts `/^# /m`. Change the
+>    single-page call to keep the h1 (the section path already passes `false`).
+> 2. **`for AI` widget text leaks on \~2,690/4,684 pages.** The format-selector
+>    ("Copy page for AI" / "Copy section for AI") is only partially stripped —
+>    the `Copy page`/`Copy section` prefix goes but `for AI` remains. Extend the
+>    Rust strip-list to drop the whole `format-selector` element. Baseline: 0.
+> 3. **Support sections leak.** The Rust output keeps the "Find support …" Tip
+>    callout + Discord/Customer-portal block; the JS baseline strips it and
+>    `markdown-content-validation.cy.js:599-604` asserts its absence. Add the
+>    support block to the strip-list.
+>
+> After fixing, re-run `yarn build:md` and the scan/fixtures below. These are
+> also why Task 11's Cypress run currently fails; see Task 11's note on the
+> `product_version:` → `version:` assertion updates (a contract change, not a
+> converter bug — update the test, don't weaken it).
 
 Do **not** byte-diff all \~4,700 pages — that is dominated by the intentional
 `date`/`lastmod` additions plus cosmetic whitespace, and engine regressions are
@@ -1452,6 +1504,20 @@ Expected: all PASS. `test:build-md` runs the #7294 provenance/section tests plus
 
 - [ ] **Step 3: Cypress markdown validation**
 
+> **Test-contract updates required (do these, they are not "weakening to
+> pass"):** `markdown-content-validation.cy.js` predates #7294 and this
+> migration. Two assertions encode the OLD contract and must be updated to the
+> shipped one:
+>
+> - `:121` and `:433` assert `product_version:` — the converter now emits
+>   `version:` (matches the post-#7294 JS baseline). Update both to `version:`.
+> - `:130-131` assert `date:`/`lastmod:` — now added by the JS provenance
+>   post-step (Task 8b), so they pass once 8b is in. Keep them.
+>
+> Everything else in this spec (h1 present `:240`, no `Copy page` `:209/588`, no
+> support section `:599-604`) is a **real Rust converter requirement** — satisfy
+> it by fixing `lib.rs` (Task 9), not by editing the test.
+
 ```bash
 node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/markdown-content-validation.cy.js"
 node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/markdown-autodiscovery.cy.js"
@@ -1481,6 +1547,13 @@ Any Cypress failure about frontmatter or stripped UI is a Rust converter fix (`l
 **Files:**
 
 - Modify: `DOCS-TESTING.md` (frontmatter schema + architecture sections)
+
+- Rewrite: `scripts/README.md` — currently documents only the deleted
+  `html-to-markdown.js` (purpose, turndown config, `--path`/`--limit`/`--verbose`
+  usage). Replace with the current architecture: `build-llm-markdown.js`
+  (Phase 1 = Rust per-page conversion, Phase 2 = JS section bundling), the Rust
+  napi converter, and the surviving `--path`/`--limit` flags. Remove all
+  turndown/legacy references.
 
 - [ ] **Step 1: Update the architecture diagram and "Related Files"**
 
