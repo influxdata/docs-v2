@@ -292,9 +292,14 @@ rebuild with `node scripts/build-rust-converter.js`.
 flips the build to Rust; 9/10/10b/11 verify; 12 documents. **Capture/keep the
 baseline before Task 7.**
 
-**Open item for the user:** Task 10b (truncation) — no truncated page was
-reproducible from the build output during planning. If the user has a concrete
-truncated URL, add it as an explicit fixture and tighten the test threshold.
+**Truncation (Task 10b):** tracked by **#6792** (section markdown truncated in
+clipboard; example `/influxdb3/enterprise/admin/last-value-cache/`). Diagnosed
+during planning: generation is complete (both `index.md` and `index.section.md`
+match their source/parts), so #6792 lives in the runtime fetch/clipboard path in
+`format-selector.ts` — a UI subsystem **outside this migration's scope**. Task
+10b ships a build-time completeness test (pages + sections) and a Cypress
+clipboard test that reproduces/locks #6792; the underlying clipboard fix, if
+needed, is a separate follow-up under #6792.
 
 ## File structure
 
@@ -308,7 +313,8 @@ truncated URL, add it as an explicit fixture and tighten the test threshold.
 - Modify: `.circleci/config.yml` — Rust toolchain + `napi build` step.
 - Create: `scripts/parity-scan.mjs` — corpus structural + content-loss scan (Task 9).
 - Create: `scripts/__tests__/markdown-parity.test.mjs` — golden-snapshot test + fixtures.
-- Create: `scripts/__tests__/markdown-completeness.test.mjs` — truncation guard (Task 10b).
+- Create: `scripts/__tests__/markdown-completeness.test.mjs` — truncation guard, pages + sections (Task 10b).
+- Create: `cypress/e2e/content/section-clipboard-copy.cy.js` — #6792 clipboard guard (Task 10b).
 - Modify: `DOCS-TESTING.md` — frontmatter schema + architecture.
 
 ***
@@ -1231,19 +1237,29 @@ git commit -m "test: lock the Rust converter frontmatter/body with a golden snap
 
 ## Task 10b: Truncation regression test
 
-Symptom reported: some Markdown pages get truncated, in the page or when copied
-to the clipboard. Investigation during planning found the generated `.md` files
-are complete in the current build (no gross content loss vs source HTML), and
-`assets/js/components/format-selector.ts` copies the full fetched `.md`
-(`fetchMarkdownContent` → `copyToClipboard`, no slicing). Both the page view and
-the clipboard consume the same `.md`, so the durable guard is a **content-
-completeness test** on the generated `.md`. It also directly catches the
-migration risk of html2md (Rust) emitting partial output on a large/complex
-page.
+Tracking issue: **influxdata/docs-v2#6792 — "Section markdown truncated in
+clipboard."** The reported example is the section page
+`/influxdb3/enterprise/admin/last-value-cache/` ("Copy section for AI").
 
-> If you have a concrete truncated page/URL, add it as an explicit fixture
-> assertion and tighten the ratio. Ask the user for an example before
-> finalizing the threshold.
+**Diagnosis from planning (verified against the current build):**
+
+- The generated `index.md` files are complete (no gross content loss vs source
+  HTML).
+- The generated `index.section.md` is **also complete** — the LVC section body
+  (19,402 chars) equals the sum of its parent + four child bodies (19,373). So
+  the truncation is **not in generation**.
+- The clipboard path is `assets/js/components/format-selector.ts`:
+  `handleCopySection` → `fetch(index.section.md)` → `clipboard.writeText`. The
+  code does no slicing, so #6792 is in the **fetch/clipboard runtime path**
+  (e.g. how `.section.md` is served, or a clipboard limit) — a UI subsystem
+  **separate from the Rust converter migration**, which does not touch section
+  generation or `format-selector.ts`.
+
+So this task ships two complementary guards: a **build-time completeness test**
+(pages *and* sections — guards generation, and the html2md large-page risk) and
+a **Cypress clipboard test** on the real #6792 page (guards the runtime path).
+The Cypress test is what actually reproduces/locks #6792; fixing the underlying
+clipboard/serving bug, if the test fails, is a follow-up outside this migration.
 
 **Files:**
 
@@ -1317,6 +1333,47 @@ test('generated .md pages are not truncated vs their source HTML', async () => {
     `Truncated pages:\n${truncated.join('\n')}`
   );
 });
+
+test('section bundles contain their child pages (not truncated)', async () => {
+  // A section's body should be roughly the sum of its parent + child page
+  // bodies. Far less means combineMarkdown dropped children. Guards #6792 at
+  // the generation layer (the runtime clipboard path is covered by Cypress).
+  const short = [];
+  let checked = 0;
+  async function* walkSections(dir) {
+    for (const e of await fs.readdir(dir, { withFileTypes: true })) {
+      if (e.name === 'node_modules') continue;
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) yield* walkSections(p);
+      else if (e.name === 'index.section.md') yield p;
+    }
+  }
+  for await (const secPath of walkSections(PUBLIC)) {
+    const dir = path.dirname(secPath);
+    const parts = [path.join(dir, 'index.md')];
+    for (const e of await fs.readdir(dir, { withFileTypes: true })) {
+      if (e.isDirectory()) parts.push(path.join(dir, e.name, 'index.md'));
+    }
+    let sum = 0;
+    for (const p of parts) {
+      try {
+        sum += mdBody(await fs.readFile(p, 'utf-8')).length;
+      } catch {
+        /* missing child md — skip */
+      }
+    }
+    if (sum < 3000) continue;
+    const secBody = mdBody(await fs.readFile(secPath, 'utf-8'));
+    checked++;
+    if (secBody.length < sum * 0.6) {
+      short.push(
+        `${path.relative(PUBLIC, secPath)} (section ${secBody.length} vs parts ${sum})`
+      );
+    }
+  }
+  assert.ok(checked > 0, 'no section bundles checked — build public/ first');
+  assert.equal(short.length, 0, `Truncated sections:\n${short.join('\n')}`);
+});
 ```
 
 - [ ] **Step 2: Run it against the current build**
@@ -1328,9 +1385,26 @@ Expected: PASS (the baseline build had 0 pages under the 0.5 ratio). A failure m
 
 Add to scripts: `"test:markdown-completeness": "node --test scripts/__tests__/markdown-completeness.test.mjs",`
 
-- [ ] **Step 4 (optional): Cypress clipboard guard**
+- [ ] **Step 4: Cypress clipboard guard for #6792 (section copy)**
 
-Only if the user supplies a page where the CLIPBOARD copy specifically truncates: add a Cypress test that visits it, clicks `[data-option="copy-page"]`, reads the clipboard, and asserts its length equals the fetched `index.md` length. The copy path is `assets/js/components/format-selector.ts`. Skip and note the gap if there is no reproduction — the Step 1 test already guards the shared `.md` source.
+This reproduces/locks the actual reported bug. On the #6792 example section page
+`/influxdb3/enterprise/admin/last-value-cache/`, the "Copy section for AI"
+option (`[data-option="copy-section"]`) fetches `index.section.md` and writes it
+to the clipboard. Add a Cypress test that:
+
+1. visits the page (Hugo server running);
+2. grants clipboard permission and stubs/reads `navigator.clipboard.writeText`;
+3. opens the format selector, clicks `[data-option="copy-section"]`;
+4. fetches `/influxdb3/enterprise/admin/last-value-cache/index.section.md`
+   directly and asserts the clipboard text **equals** the fetched file (same
+   length and content) — i.e. not truncated.
+
+Put it under `cypress/e2e/content/` next to the other content specs. If the test
+**fails** (clipboard shorter than the file), that confirms #6792 is in the
+runtime fetch/clipboard path; fixing it (e.g. how `.section.md` is served, or a
+`writeText` size issue) is a follow-up tracked by #6792, separate from this
+migration. If it **passes**, #6792 is already resolved by the current build and
+the test prevents regression.
 
 - [ ] **Step 5: Commit**
 
