@@ -332,6 +332,14 @@ git commit -m "chore: ignore .parity-baseline snapshot dir"
 
 ## Task 2: Add a cargo-guarded local build (`postinstall`)
 
+> **Toolchain prerequisite (found during execution):** the crate is napi v2
+> (`napi`/`napi-derive` 2.16), but `scripts/rust-markdown-converter/package.json`
+> pinned `@napi-rs/cli@^3.4.1` (v3), which builds the `.node` binary but does
+> **not** emit the `index.js` JS wrapper for a v2 crate — so the module can't be
+> `require`d. Pin the CLI to `^2.18.4` (and regenerate the subpackage
+> `yarn.lock`) so `napi build` emits `index.js`/`index.d.ts`. Done in commit
+> `064b28d7a`.
+
 **Files:**
 
 - Create: `scripts/build-rust-converter.js`
