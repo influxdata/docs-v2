@@ -79,3 +79,6 @@ tmp
 
 # Planning docs (kept locally, not tracked)
 docs/plans/
+
+# Migration parity baseline snapshot (Task 1) — local only
+.parity-baseline/
