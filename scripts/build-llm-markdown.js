@@ -19,7 +19,17 @@ import pLimit from 'p-limit';
 
 // Create require function for CommonJS modules
 const require = createRequire(import.meta.url);
-const { convertToMarkdown } = require('./lib/markdown-converter.cjs');
+let convertToMarkdown;
+try {
+  ({ convertToMarkdown } = require('./rust-markdown-converter'));
+} catch (err) {
+  console.error(
+    '✗ Rust markdown converter is not built.\n' +
+      '  Build it with: node scripts/build-rust-converter.js\n' +
+      `  (load error: ${err.message})`
+  );
+  process.exit(1);
+}
 
 // ============================================================================
 // CONFIGURATION
@@ -53,6 +63,8 @@ import {
   injectPageProvenance,
 } from './lib/provenance.js';
 
+import { detectBaseUrl } from './lib/base-url.js';
+
 // ============================================================================
 // PHASE 1: HTML → MARKDOWN CONVERSION
 // ============================================================================
@@ -74,6 +86,7 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
 
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
   const startTime = Date.now();
+  const baseUrl = detectBaseUrl();
 
   // Find all HTML files
   let htmlFiles = await glob(`${publicDir}/**/index.html`, {
@@ -140,8 +153,8 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
           .replace(new RegExp(`^${publicDir}`), '')
           .replace(/\/index\.html$/, '/');
 
-        // Convert to markdown (JSDOM + Turndown processing)
-        const markdown = await convertToMarkdown(html, urlPath);
+        // Convert to markdown (Rust html2md + scraper)
+        const markdown = await convertToMarkdown(html, urlPath, baseUrl);
 
         if (!markdown) {
           skipped++;
