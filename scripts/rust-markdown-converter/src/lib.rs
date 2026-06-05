@@ -16,7 +16,7 @@
 extern crate napi_derive;
 
 use napi::Result;
-use scraper::{Html, Selector};
+use scraper::{ElementRef, Html, Selector};
 use serde::{Deserialize, Serialize};
 use regex::Regex;
 use lazy_static::lazy_static;
@@ -53,49 +53,60 @@ fn detect_product(url_path: &str) -> Option<ProductInfo> {
 // HTML Processing
 // ============================================================================
 
-/// Remove unwanted UI elements from HTML
-fn clean_html(html: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut cleaned = html.to_string();
+// Configurable list of CSS selectors for elements to remove from article
+// content. Add new selectors here to remove unwanted UI widgets, forms,
+// navigation, etc.
+const REMOVE_SELECTORS: &[&str] = &[
+    // Navigation and structure
+    "nav",
+    "header",
+    "footer",
+    // Scripts and styles
+    "script",
+    "style",
+    "noscript",
+    "iframe",
+    // UI widgets and controls
+    ".format-selector",
+    ".format-selector__button",
+    "button[aria-label*='Copy']",
+    "hr",
+    // Feedback and support sections (inside article content)
+    ".helpful",           // "Was this page helpful?" form
+    "div.feedback.block", // Block-level feedback sections (combined class selector)
+    ".feedback",          // General feedback sections (must come after specific .feedback.block)
+    ".page-feedback",
+    "#page-feedback",
+    ".feedback-widget",
+    ".support", // Support section at bottom of pages
+];
 
-    // Configurable list of CSS selectors for elements to remove from article content
-    // Add new selectors here to remove unwanted UI elements, forms, navigation, etc.
-    let remove_selectors = vec![
-        // Navigation and structure
-        "nav",
-        "header",
-        "footer",
+/// Remove unwanted UI elements from an article element.
+///
+/// Both the haystack (`article.html()`) and the per-element needles
+/// (`element.html()`) are serialized from the **same** parse tree, so html5ever
+/// guarantees each descendant's serialization is a verbatim substring of the
+/// article's — making the string removal reliable. (Re-parsing the article
+/// HTML, as a previous version did, restructured the tree — e.g. inserted
+/// `<tbody>` — so re-serialized needles no longer matched and complex widgets
+/// like the format-selector leaked their text.)
+fn clean_article_html(article: ElementRef) -> String {
+    let mut cleaned = article.html();
 
-        // Scripts and styles
-        "script",
-        "style",
-        "noscript",
-        "iframe",
-
-        // UI widgets and controls
-        ".format-selector",
-        ".format-selector__button",
-        "button[aria-label*='Copy']",
-        "hr",
-
-        // Feedback and support sections (inside article content)
-        ".helpful",                    // "Was this page helpful?" form
-        "div.feedback.block",          // Block-level feedback sections (combined class selector)
-        ".feedback",                   // General feedback sections (must come after specific .feedback.block)
-        ".page-feedback",
-        "#page-feedback",
-        ".feedback-widget",
-        ".support",                    // Support section at bottom of pages
-    ];
-
-    for selector_str in remove_selectors {
+    // Collect every element to remove, then strip longest-first so a parent is
+    // removed before a (also-matched) child, avoiding a stale child needle that
+    // no longer matches the already-shortened haystack.
+    let mut needles: Vec<String> = Vec::new();
+    for selector_str in REMOVE_SELECTORS {
         if let Ok(selector) = Selector::parse(selector_str) {
-            for element in document.select(&selector) {
-                // Get the full HTML of the element to remove
-                let element_html = element.html();
-                cleaned = cleaned.replace(&element_html, "");
+            for element in article.select(&selector) {
+                needles.push(element.html());
             }
         }
+    }
+    needles.sort_by_key(|h| std::cmp::Reverse(h.len()));
+    for needle in needles {
+        cleaned = cleaned.replace(&needle, "");
     }
 
     cleaned
@@ -175,7 +186,7 @@ fn extract_article_content(html: &str) -> Option<(String, String, String)> {
     };
 
     // Get cleaned article HTML
-    let content = clean_html(&article.html());
+    let content = clean_article_html(article);
 
     Some((title, description, content))
 }
@@ -585,7 +596,9 @@ fn generate_frontmatter(
 pub fn convert_to_markdown(html_content: String, url_path: String, base_url: String) -> Result<Option<String>> {
     match extract_article_content(&html_content) {
         Some((title, description, content)) => {
-            // For single pages, remove h1 since title is in frontmatter
+            // Omit the body h1 (the rendered page title): the title is already
+            // in frontmatter, and dropping it keeps the LLM-facing twins
+            // consistent with the API-reference markdown, which also omits it.
             let markdown = html_to_markdown(&content, true);
             let frontmatter = generate_frontmatter(&title, &description, &url_path, markdown.len(), &base_url);
 
@@ -636,6 +649,39 @@ mod tests {
         .unwrap();
         assert!(out.contains("\nversion: core\n"));
         assert!(!out.contains("product_version:"));
+    }
+
+    #[test]
+    fn test_omits_body_h1_and_strips_format_selector() {
+        // Minified attributes (unquoted) like the real Hugo output — the
+        // format-selector widget must be fully removed, and the body h1 (page
+        // title) omitted (it lives in frontmatter; matches the API-ref twins).
+        let html = r#"<html><head></head><body>
+            <article class=article--content>
+              <div class=format-selector data-component=format-selector>
+                <button class=format-selector__button aria-label="Copy page for AI">Copy page</button>
+                <ul><li>for AI</li><li>View as Markdown</li></ul>
+              </div>
+              <h1>Get started</h1>
+              <p>Real body content.</p>
+            </article>
+          </body></html>"#;
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/get-started/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        let body = out.split("---").nth(2).unwrap();
+        // Title is in frontmatter; the body must not repeat it as an h1
+        // (ATX `# ` or setext `Get started\n===`).
+        assert!(!body.contains("# Get started"), "ATX h1 must be omitted");
+        assert!(!body.contains("Get started\n="), "setext h1 must be omitted");
+        assert!(body.contains("Real body content."));
+        assert!(!body.contains("for AI"), "format-selector text must be stripped");
+        assert!(!body.contains("Copy page"));
+        assert!(!body.contains("View as Markdown"));
     }
 
     #[test]
