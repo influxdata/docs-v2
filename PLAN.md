@@ -1059,28 +1059,40 @@ git commit -m "feat: stamp date/lastmod from sitemap in the provenance step"
 
 ## Task 9: Migration parity gate (fixture diff + structural scan)
 
-> **Semantic diffs already found during cutover (Task 7), vs the
-> `.parity-baseline/` JS output — these are the concrete `lib.rs` fixes Task 9
-> must land before the scan/fixtures can pass:**
+> **Body diffs found during cutover (Task 7), vs the `.parity-baseline/` JS
+> output, and how each was resolved:**
 >
-> 1. **h1 is stripped but must be kept.** `convert_to_markdown` calls
->    `html_to_markdown(&content, true)` (remove h1). The JS baseline keeps the
->    body `# Heading` (≈83% of sampled pages), and
->    `markdown-content-validation.cy.js:240` asserts `/^# /m`. Change the
->    single-page call to keep the h1 (the section path already passes `false`).
-> 2. **`for AI` widget text leaks on \~2,690/4,684 pages.** The format-selector
->    ("Copy page for AI" / "Copy section for AI") is only partially stripped —
->    the `Copy page`/`Copy section` prefix goes but `for AI` remains. Extend the
->    Rust strip-list to drop the whole `format-selector` element. Baseline: 0.
-> 3. **Support sections leak.** The Rust output keeps the "Find support …" Tip
->    callout + Discord/Customer-portal block; the JS baseline strips it and
->    `markdown-content-validation.cy.js:599-604` asserts its absence. Add the
->    support block to the strip-list.
+> 1. **`for AI` widget leak on \~2,690/4,684 pages — FIXED (commit after Task 8).**
+>    Root cause was not a missing selector: `clean_html` re-parsed
+>    `article.html()`, and html5ever restructuring (e.g. `<tbody>` insertion)
+>    meant the re-serialized element needles no longer matched the haystack, so
+>    `.replace()` silently removed nothing for complex subtrees like the
+>    format-selector. Fix: compute haystack + needles from the **same** parse
+>    (`clean_article_html(article: ElementRef)`), strip longest-first. Locked by
+>    `test_omits_body_h1_and_strips_format_selector`.
+> 2. **Body h1 — DECIDED: omit (keep `html_to_markdown(&content, true)`).**
+>    Earlier note said "keep"; reversed by the user. The title is in frontmatter,
+>    and the **API-reference markdown twins also omit the body h1**, so omitting
+>    keeps one consistent convention across all LLM-facing twins. This is an
+>    **accepted, documented parity diff** vs the pre-migration JS baseline (which
+>    kept the h1), not a regression. **Task 11 must update
+>    `markdown-content-validation.cy.js:240`** (`/^# /m`) — the body no longer
+>    has an h1; assert it has headings (e.g. `/^## /m`) instead.
+> 3. **Note-callout vs paragraph — NOT a regression (Rust is more faithful).**
+>    Authored `> [!Note]` callouts render as `<div class="block note">`; Rust
+>    round-trips them to `> [!Note]` (which `markdown-content-validation.cy.js:455`
+>    expects), while JS flattened them to plain paragraphs, losing the callout.
+>    Treat callout-vs-paragraph diffs as an **accepted improvement** in the scan.
+>    (The "support section leak" worry was wrong — the baseline keeps the
+>    get-started "Find support" Tip callout too; the Cypress no-Discord assertion
+>    runs on the leaf page, which has none.)
 >
-> After fixing, re-run `yarn build:md` and the scan/fixtures below. These are
-> also why Task 11's Cypress run currently fails; see Task 11's note on the
-> `product_version:` → `version:` assertion updates (a contract change, not a
-> converter bug — update the test, don't weaken it).
+> **Still open for the scan/fixtures:** heading style (html2md emits **setext**
+> `Title\n===` / `---` for h1/h2; the JS baseline is **ATX** `#`/`##`) — likely a
+> broad diff to normalize in `postprocess_markdown` (setext→ATX) or accept. The
+> scan below will surface its true scope. See Task 11's note on the
+> `product_version:` → `version:` assertion updates (also a contract change, not
+> a converter bug).
 
 Do **not** byte-diff all \~4,700 pages — that is dominated by the intentional
 `date`/`lastmod` additions plus cosmetic whitespace, and engine regressions are
@@ -1513,10 +1525,16 @@ Expected: all PASS. `test:build-md` runs the #7294 provenance/section tests plus
 >   `version:` (matches the post-#7294 JS baseline). Update both to `version:`.
 > - `:130-131` assert `date:`/`lastmod:` — now added by the JS provenance
 >   post-step (Task 8b), so they pass once 8b is in. Keep them.
+> - `:240` asserts `/^# /m` (a body h1) — the body h1 is now **intentionally
+>   omitted** (title in frontmatter; matches the API-ref twins). Update to assert
+>   a section heading instead, e.g. `/^## /m`. This is a contract change, not
+>   test-weakening (see Task 9 note 2).
 >
-> Everything else in this spec (h1 present `:240`, no `Copy page` `:209/588`, no
-> support section `:599-604`) is a **real Rust converter requirement** — satisfy
-> it by fixing `lib.rs` (Task 9), not by editing the test.
+> The rest is a **real Rust converter requirement** — satisfy by fixing `lib.rs`
+> (Task 9), not by editing the test: no `Copy page` `:209/588/585-595` (FIXED by
+> the format-selector strip), callouts as `> [!Note]` `:455` (Rust already
+> renders these). The `:599-604` no-Discord check runs on the **leaf** page,
+> which has no support section in either converter — it already passes.
 
 ```bash
 node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/markdown-content-validation.cy.js"
