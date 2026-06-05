@@ -201,6 +201,10 @@ lazy_static! {
     static ref SEPARATOR_ARTIFACTS: Regex = Regex::new(r"\* \* \*\s*\n\s*\* \* \*").unwrap();
     static ref TRAILING_SEPARATOR: Regex = Regex::new(r"\* \* \*\s*$").unwrap();
     static ref CODE_FENCE: Regex = Regex::new(r"```(\w+)?\n").unwrap();
+    // Heading normalization (see normalize_headings)
+    static ref SETEXT_H1: Regex = Regex::new(r"(?m)^([^#>|\-*+\s].*\S)\n=+[ \t]*$").unwrap();
+    static ref SETEXT_H2: Regex = Regex::new(r"(?m)^([^#>|\-*+\s].*\S)\n-+[ \t]*$").unwrap();
+    static ref CLOSED_ATX: Regex = Regex::new(r"(?m)^(#{1,6} .*?)[ \t]+#+[ \t]*$").unwrap();
 }
 
 /// Convert HTML blockquote callouts to GitHub-style
@@ -396,6 +400,20 @@ fn add_tab_delimiters_to_markdown(markdown: &str) -> String {
     }).to_string()
 }
 
+/// Normalize markdown headings to open-ATX style.
+///
+/// Converts setext headings (`Text\n====` → `# Text`, `Text\n----` → `## Text`)
+/// and strips closing hashes from closed-ATX headings (`## Text ##` → `## Text`).
+/// The setext text line must begin with a content character (not `#`, `>`, `|`,
+/// `-`, `*`, `+`, or whitespace) so list items, blockquotes, and table rows are
+/// never matched, and the underline must be a whole line of only `=`/`-`.
+fn normalize_headings(markdown: &str) -> String {
+    let result = SETEXT_H1.replace_all(markdown, "# $1");
+    let result = SETEXT_H2.replace_all(&result, "## $1");
+    let result = CLOSED_ATX.replace_all(&result, "$1");
+    result.into_owned()
+}
+
 /// Post-process markdown to clean up formatting
 fn postprocess_markdown(markdown: &str, html: &str, remove_h1: bool) -> String {
     let mut result = markdown.to_string();
@@ -416,6 +434,15 @@ fn postprocess_markdown(markdown: &str, html: &str, remove_h1: bool) -> String {
             result = h1_setext_pattern.replace(&result, "").to_string();
         }
     }
+
+    // Normalize headings to open-ATX. html2md emits setext for h1/h2
+    // (`Text\n====` / `Text\n----`) and sometimes closed-ATX (`## Text ##`); the
+    // baseline and the rest of the corpus use open-ATX. Run before callouts and
+    // tables so a table separator (`| --- |`, contains `|`) or a thematic break
+    // (blank line above) is never mistaken for a setext underline: the text line
+    // must start with a content char (not `#>|-*+` or whitespace) and sit
+    // directly above an all-`=`/`-` line.
+    result = normalize_headings(&result);
 
     // Convert callouts
     result = convert_callouts(&result, html);
@@ -649,6 +676,27 @@ mod tests {
         .unwrap();
         assert!(out.contains("\nversion: core\n"));
         assert!(!out.contains("product_version:"));
+    }
+
+    #[test]
+    fn test_normalize_headings_setext_and_closed_atx() {
+        let md = "Data model\n----------\n\nBody.\n\n#### Related ####\n\n| Col |\n| --- |\n| x |\n";
+        let out = normalize_headings(md);
+        assert!(out.contains("## Data model"), "setext h2 -> open ATX");
+        assert!(!out.contains("----------"), "setext underline removed");
+        assert!(out.contains("#### Related\n"), "closed ATX -> open ATX");
+        assert!(!out.contains("Related ####"), "trailing hashes stripped");
+        // GFM table separator must be untouched.
+        assert!(out.contains("| --- |"), "table separator preserved");
+    }
+
+    #[test]
+    fn test_normalize_headings_ignores_thematic_break() {
+        // A thematic break (blank line above) is not a setext underline.
+        let md = "A paragraph.\n\n---\n\nNext.\n";
+        let out = normalize_headings(md);
+        assert!(out.contains("\n---\n"), "thematic break preserved");
+        assert!(!out.contains("## A paragraph"), "paragraph not promoted");
     }
 
     #[test]
