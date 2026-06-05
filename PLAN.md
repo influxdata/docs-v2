@@ -278,27 +278,58 @@ can be done first.
 Branch: `worktree-fix-rust-markdown-conversion`, rebased onto `origin/master`
 (includes #7294). Work in this worktree; use relative paths.
 
-**Done and committed:**
+### Working preference (directive)
 
-- **Task 1 — rebase + baseline.** Rebased onto post-#7294 master. JS baseline
-  captured at `.parity-baseline/` (4,684 per-page `index.md`, gitignored, on
-  disk in this worktree). It is the pre-migration reference for Task 9/10b — do
-  **not** regenerate it after the cutover (Task 7). A fresh *clone* (not this
-  worktree) must rebuild it from pre-cutover state before Task 7 using Task 1's
-  build+snapshot steps.
-- **Task 2 — postinstall Rust build** (`scripts/build-rust-converter.js`,
-  chained into `postinstall`), plus the **napi CLI v2 pin** prerequisite
-  (commit `064b28d7a`). The Rust module currently builds and loads.
+**Continue autonomously through the remaining tasks. Surface only genuine
+decisions** — choices the plan/code/sensible-defaults can't resolve and that
+change what gets built (e.g. an output-contract change affecting all twins, a
+naming/schema choice, deleting something you didn't create). Do **not** pause
+for routine progress check-ins or "should I proceed?" Make and state reversible
+calls; keep moving. Commit per task; let lefthook run.
 
-**Environment (verified):** cargo 1.95, hugo 0.157 extended, node 26, yarn 1.22.
-The Rust binary is currently built but reflects the *current* `lib.rs`
-(`product_version`, build-time timestamps). After any `lib.rs` edit (Task 4/5),
-rebuild with `node scripts/build-rust-converter.js`.
+### Done and committed
 
-**Start here:** Task 3. Suggested order: 3 → 4 → 5 → 6 → 7 → 8 → 8b → 9 → 10 →
-10b → 11 → 12. Tasks 3/4/5/6 are deterministic core work; the cutover (7/8/8b)
-flips the build to Rust; 9/10/10b/11 verify; 12 documents. **Capture/keep the
-baseline before Task 7.**
+- **Task 1** — rebase onto post-#7294 master + JS baseline at `.parity-baseline/`
+  (4,684 per-page `index.md`, gitignored, on disk here). Pre-migration reference
+  for Task 9/10b — do **not** regenerate after cutover. A fresh *clone* must
+  rebuild it from pre-cutover state before Task 7.
+- **Task 2** — postinstall Rust build (`scripts/build-rust-converter.js`) + napi
+  CLI v2 pin.
+- **Task 3** — CI builds Rust before `build:md` (`.circleci/config.yml`).
+- **Task 4** — removed unused `convert_section_to_markdown` binding.
+- **Task 5** — drop-in frontmatter: `version` (not `product_version`), no
+  build-time timestamps, `chrono` dropped.
+- **Task 6** — `detectBaseUrl` → `scripts/lib/base-url.js`.
+- **Task 7** — `build:md` cut over to the Rust module (hard-fail load guard).
+- **Task 8** — deleted JS converter + legacy CLI; dropped turndown/jsdom; added
+  `build:md --path/--limit`; migrated Cypress fixture generation. **(plan gap
+  fixed: the grep must include `cypress/`.)**
+- **Task 9 (partial) — converter parity fixes:** format-selector leak fixed
+  (reliable same-parse `clean_article_html`); body **h1 omitted** (decided with
+  user — title in frontmatter, matches API-ref twins); Note-callout faithfulness
+  confirmed as an accepted improvement. See the Task 9 note for details.
+
+### Decisions on record (don't re-litigate)
+
+- **Frontmatter key = `version`** (edition slug), matching the JS baseline.
+  Renaming/adding a real release version is out of scope → **#7299**.
+- **Body h1 = omitted** (title in frontmatter; consistent with API-ref twins).
+  Accepted parity diff vs the pre-migration baseline; update Cypress `:240`.
+- **Note callouts** rendered as `> [!Note]` are a Rust improvement over JS —
+  accept callout-vs-paragraph diffs in the scan.
+
+### Environment
+
+cargo 1.95, hugo 0.157 extended, node 26, yarn 1.22. After any `lib.rs` edit,
+rebuild the napi module: `node scripts/build-rust-converter.js`.
+
+### Start here
+
+**Task 9 remaining → 8b → 10 → 10b → 11 → 12.** Immediate next converter fix:
+**normalize headings to open-ATX** (html2md emits setext `Title\n---` for h2 and
+closed-ATX `#### X ####`; the baseline is consistent open-ATX `## X` / `#### X`).
+Then build the parity scan (Task 9 Step 1) to surface anything else, then the
+remaining verification/doc tasks.
 
 **Truncation (Task 10b):** tracked by **#6792** (section markdown truncated in
 clipboard; example `/influxdb3/enterprise/admin/last-value-cache/`). Diagnosed
@@ -1111,7 +1142,29 @@ snapshot from Task 1 is the reference for both checks.
 
 **Files:**
 
+- Modify: `scripts/rust-markdown-converter/src/lib.rs` (heading normalization — Step 0)
+
 - Create: `scripts/parity-scan.mjs` (kept in-tree for re-runs)
+
+- [ ] **Step 0: Normalize headings to open-ATX in `postprocess_markdown`**
+
+html2md emits **setext** for h2 (`Data model\n----------`) and **closed-ATX**
+elsewhere (`#### Related ####`); the JS baseline is consistent **open-ATX**
+(`## Data model`, `#### Related`). Rust output is also internally mixed, so
+normalize regardless of parity. Add to `postprocess_markdown`:
+
+- **setext → ATX:** a non-blank text line immediately followed (no blank line
+  between) by a line of only `=` → `# `, or only `-` → `## `. Guard against
+  false positives: skip if the text line already starts with `#`, `|`, `>`, or a
+  list marker, and require the underline to be the whole line. Crucially this
+  must run **before** `convert_tables` so a table separator (`---` under a
+  `| … |` row) is never seen as setext — or exclude lines containing `|`.
+- **closed-ATX → open:** strip a trailing run of spaces + `#` from ATX heading
+  lines (`^(#{1,6} .*?)\s+#+\s*$` → `$1`).
+
+Add a unit test (mixed setext h2 + closed-ATX h4 + a GFM table → all headings
+become open-ATX, table separators untouched). Rebuild
+(`node scripts/build-rust-converter.js`) before the scan.
 
 - [ ] **Step 1: Write the structural + content-loss scan**
 
