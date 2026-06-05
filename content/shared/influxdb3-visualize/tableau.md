@@ -73,11 +73,9 @@ the **Flight SQL JDBC driver**.
 
 #### Example connection URL
 
-{{< code-placeholders "DATABASE_NAME" >}}
-```
+``` { placeholders="DATABASE_NAME" }
 jdbc:arrow-flight-sql://{{< influxdb/host >}}?useSystemTrustStore=false&database=DATABASE_NAME
 ```
-{{< /code-placeholders >}}
 
 ## Query InfluxDB
 

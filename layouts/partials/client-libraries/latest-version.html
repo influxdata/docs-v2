@@ -1,0 +1,18 @@
+{{/*
+  Renders a "Latest version" callout for a v3 client library.
+  Expects the current page to have a child "release-notes" with `latest_version`
+  and `latest_release_date` in frontmatter. Silently renders nothing if the
+  child page or the metadata is missing.
+*/}}
+{{ $rn := .GetPage "release-notes" }}
+{{ if $rn }}
+  {{ $v := $rn.Params.latest_version }}
+  {{ $d := $rn.Params.latest_release_date }}
+  {{ if and $v $d }}
+    <div class="client-library-latest-version">
+      <strong>Latest version:</strong>
+      <a href="{{ $rn.RelPermalink }}">v{{ $v }}</a>
+      <span class="latest-release-date"> ({{ $d }})</span>
+    </div>
+  {{ end }}
+{{ end }}

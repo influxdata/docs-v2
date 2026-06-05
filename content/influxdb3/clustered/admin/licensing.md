@@ -86,13 +86,9 @@ If a `Pod` fails to start, run the following command to view pod information:
 
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "POD_NAME" %}}
-
-```sh
+```sh { placeholders="POD_NAME" }
 kubectl describe pod POD_NAME --namespace influxdb
 ```
-
-{{% /code-placeholders %}}
 
 ### Verify the `Secret` exists 
 

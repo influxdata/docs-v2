@@ -67,16 +67,12 @@ In the examples below, replace the following:
 
 ### Revoke a database token
 
-{{% code-placeholders "TOKEN_ID" %}}
-```sh
+```sh { placeholders="TOKEN_ID" }
 influxctl token revoke TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 ### Revoke multiple database tokens
 
-{{% code-placeholders "TOKEN_ID_\d{1}" %}}
-```sh
+```sh { placeholders="TOKEN_ID_\d" }
 influxctl token revoke TOKEN_ID_1 TOKEN_ID_2
 ```
-{{% /code-placeholders %}}

@@ -40,6 +40,57 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
+- id: influxdb-v2-9-token-hashing-default
+  level: note
+  scope:
+    - /influxdb/v2/
+  title: 'InfluxDB OSS 2.9.0: API tokens are hashed by default'
+  slug: |
+    Stronger token security in **InfluxDB OSS 2.9.0** — tokens are
+    hashed on disk by default. Existing tokens are hashed on first
+    startup and can't be recovered afterward. **Capture any plaintext
+    tokens you still need before you upgrade.**
+
+    [View InfluxDB OSS 2.9.0 release notes](/influxdb/v2/reference/release-notes/influxdb/#v290)
+  message: |
+    Hashed tokens authenticate exactly like unhashed tokens — clients
+    and integrations keep working.
+
+    **Also new in 2.9.0:**
+
+    - Configurable backup compression
+    - Restore support for backups containing hashed tokens
+    - Tighter Edge Data Replication queue validation
+    - Flux upgrade
+    - Compaction reliability improvements
+
+- id: explorer-1-8-key-enhancements
+  level: note
+  scope:
+    - /
+    - /influxdb3/explorer/
+    - /influxdb3/core/
+    - /influxdb3/enterprise/
+  title: Key enhancements in Explorer 1.8
+  slug: |
+    Explorer 1.8 is now available with streaming data subscriptions (beta),
+    line protocol preview, and query history & saved queries.
+
+    <a class="btn" href="/influxdb3/explorer/release-notes/#v180">View Explorer 1.8 release notes</a>
+  message: |
+    Explorer 1.8 includes new features and improvements that make it easier to ingest,
+    explore, and manage data.
+
+    **Highlights:**
+
+    - **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources.
+    - **Line protocol preview**: Preview line protocol, schema, and parse errors before data is written.
+    - **Custom sample data**: Generate custom sample datasets with line protocol and schema preview.
+    - **Query history and saved queries**: Browse query history and save/re-run named queries.
+    - **Retention period management**: Set, update, or clear retention periods on databases and tables.
+
+    For more details, see [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
+
 - id: influxdb3-9-performance-preview
   level: note
   scope:
@@ -106,16 +157,16 @@
     - [Telegraf Controller Documentation](/telegraf/controller/)
     - [Download and install Telegraf Controller](/telegraf/controller/install/)
 
-- id: telegraf-controller-0.0.6-beta
+- id: telegraf-controller-0.0.7-beta
   level: note
   scope:
     - /telegraf/controller/
-  title: Telegraf Controller v0.0.6-beta now available
+  title: Telegraf Controller v0.0.7-beta now available
   slug: |
-    Telegraf Controller v0.0.6-beta is now available with new features, improvements, and bug fixes.
+    Telegraf Controller v0.0.7-beta is now available with new features, improvements, bug fixes, and an important breaking change.
     
-    <a href="/telegraf/controller/reference/release-notes/#v006-beta">View the release notes</a>  
-    <a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.6-beta</a>
+    <a href="/telegraf/controller/reference/release-notes/#v007-beta">View the release notes</a>  
+    <a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.7-beta</a>
 
 # - id: influxdb3.8-explorer-1.6
 #   level: note
@@ -138,7 +189,7 @@
 #     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
 #     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-- id: influxdb-docker-latest-tag-apr
+- id: influxdb-docker-latest-tag-sept
   level: warn
   scope:
     - /
@@ -153,7 +204,7 @@
     - /influxdb/cloud
   title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
   slug: |
-    On **May 27, 2026**, the `latest` tag for InfluxDB Docker images will
+    On **September 15, 2026**, the `latest` tag for InfluxDB Docker images will
     point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
     tags in your Docker deployments.
   message: |

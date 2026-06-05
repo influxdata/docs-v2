@@ -40,9 +40,7 @@ To use the HTTP API to query cached data, send a `GET` or `POST` request to the 
 
 {{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/query-data/#operation/PostExecuteQuerySQL" %}}
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TABLE_NAME|CACHE_NAME" %}}
-
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN|TABLE_NAME|CACHE_NAME" }
 curl -X POST "https://localhost:8181/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
@@ -51,8 +49,6 @@ curl -X POST "https://localhost:8181/api/v3/query_sql" \
     "format": "json"
   }'
 ```
-
-{{% /code-placeholders %}}
 
 ## Example with WHERE clause
 

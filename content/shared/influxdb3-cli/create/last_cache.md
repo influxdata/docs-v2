@@ -2,18 +2,15 @@ The `influxdb3 create last_cache` command creates a last value cache, which stor
 
 ## Usage
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN|CACHE_NAME" %}}
-
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN|CACHE_NAME" }
 influxdb3 create last_cache [OPTIONS] \
   --database DATABASE_NAME \
   --table TABLE_NAME \
   --token AUTH_TOKEN \
   CACHE_NAME
 ```
-{{% /code-placeholders %}}
 
 ## Arguments
 
@@ -29,8 +26,8 @@ influxdb3 create last_cache [OPTIONS] \
 | `-t`   | `--table`         | _({{< req >}})_ Table to create the cache for                                                                                                                         |
 |        | `--key-columns`   | Comma-separated list of columns to use as keys in the cache--for example: `foo,bar,baz`                                                                               |
 |        | `--value-columns` | Comma-separated list of columns to store as values in the cache--for example: `foo,bar,baz`                                                                           |
-|        | `--count`         | Number of entries per unique key column combination to store in the cache                                                                                             |
-|        | `--ttl`           | Cache entries' time-to-live (TTL) in [Humantime form](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)--for example: `10s`, `1min 30sec`, `3 hours` |
+|        | `--count`         | Number of entries per unique key column combination to store in the cache (default `1`)                                                                               |
+|        | `--ttl`           | Cache entries' time-to-live (TTL) in [Humantime form](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)--for example: `10s`, `1min 30sec`, `3 hours` (default `4 hours`) |
 |        | `--tls-ca`        | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                                                  |
 |        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                                             |
 | `-h`   | `--help`          | Print help information                                                                                                                                                |

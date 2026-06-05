@@ -78,8 +78,7 @@ Provide the following credentials for each client:
   want to query and write to.
 - **database**: InfluxDB bucket name
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -99,7 +98,6 @@ influxdb_downsampled = InfluxDBClient3(
     org=''
 )
 ```
-{{% /code-placeholders %}}
 
 ## Query InfluxDB
 
@@ -293,8 +291,7 @@ influxdb_downsampled.write(
 <!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -338,7 +335,6 @@ influxdb_downsampled.write(
     data_frame_tag_columns=['room']
 )
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 <!---------------------------------- END SQL ---------------------------------->
@@ -346,8 +342,7 @@ influxdb_downsampled.write(
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -392,7 +387,6 @@ influxdb_downsampled.write(
     data_frame_tag_columns=['room']
 )
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 <!-------------------------------- END INFLUXQL ------------------------------->

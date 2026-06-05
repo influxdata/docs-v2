@@ -55,13 +55,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME|AUTH_TOKEN" %}}
-
 ### Create a new file index for a database
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE)_NAME|AUTH_TOKEN" }
 influxdb3 create file_index \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -72,12 +70,10 @@ influxdb3 create file_index \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE)_NAME|AUTH_TOKEN" }
 influxdb3 create file_index \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
   column1 column2 column3
 ```
-
-{{% /code-placeholders %}}

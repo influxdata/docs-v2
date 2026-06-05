@@ -55,6 +55,29 @@ jobs:
               # Incremental build for PRs - only process changed files
               yarn build:md --public-dir workspace/public --only-changed --base-branch origin/master
             fi
+      - run:
+          name: Generate per-product llms-full.txt corpora
+          # Per-product corpora aggregate every page's .md, so a partial set
+          # from --only-changed would produce incomplete corpora. Run on
+          # master only — matches the deploy filter below.
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              yarn build:llms-full --public-dir workspace/public
+            else
+              echo "Skipping llms-full build (master-only)"
+            fi
+      - run:
+          name: Verify Markdown alternate link coherence
+          # Catches drift between the head-link partial (which advertises
+          # the .md twin) and build-llm-markdown.js (which generates it).
+          # Master-only so PR incremental builds don't false-positive on
+          # the partial .md set.
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              yarn check:md-coherence --public-dir workspace/public
+            else
+              echo "Skipping coherence check (master-only)"
+            fi
       - persist_to_workspace:
           root: workspace
           paths:

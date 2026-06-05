@@ -127,13 +127,11 @@ influx bucket delete \
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "ORG|BUCKET_NAME|72h" %}}
-```sh
+```sh { placeholders="ORG|BUCKET_NAME|72h" }
 influx bucket create \
   --name BUCKET_NAME \
   --retention 72h
 ```
-{{% /code-placeholders %}}
 
 ## Retention period syntax
 
@@ -211,8 +209,7 @@ influx bucket delete --name BUCKET_NAME
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "API_TOKEN|ORG_ID|86400" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG_ID|86400" }
 curl --silent -w "%{response_code}: %{errormsg}\n" \
   -XPOST "https://{{< influxdb/host >}}/api/v2/buckets" \
   --header "Authorization: Token API_TOKEN" \
@@ -230,7 +227,6 @@ curl --silent -w "%{response_code}: %{errormsg}\n" \
   }
 EOF
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -15,6 +15,11 @@ cascade:
   version: cloud-dedicated
 ---
 
+> [!Tip]
+> Comparing InfluxDB Cloud Dedicated to other InfluxDB 3 products?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a
+> full decision guide.
+
 InfluxDB Cloud Dedicated is a hosted and managed InfluxDB Cloud cluster
 dedicated to a single tenant.
 The InfluxDB time series platform is designed to handle high write and query loads.

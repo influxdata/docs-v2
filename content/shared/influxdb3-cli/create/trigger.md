@@ -303,3 +303,45 @@ influxdb3 create trigger \
   --error-behavior disable \
   TRIGGER_NAME
 ```
+
+{{% show-in "enterprise" %}}
+
+### Pin a trigger to specific nodes in a cluster
+
+In a multi-node {{% product-name %}} cluster, the default `--node-spec all` makes every node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured try to execute the trigger.
+For schedule triggers, this causes duplicate execution on every plugin-capable node.
+For request triggers, the route exists only on the node receiving the HTTP request, and other nodes return `404 not found` — there's no internal cross-node routing.
+
+To pin a trigger to specific node(s), pass `--node-spec nodes:<node-id>[,<node-id>...]`:
+
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
+# Pin a schedule trigger to a process-capable node
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --path schedule_rollup.py \
+  --trigger-spec "every:5s" \
+  --node-spec "nodes:NODE_ID" \
+  hourly_rollup
+
+# Pin a request trigger to a query-capable node (the node that serves HTTP)
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --path request_top_n.py \
+  --trigger-spec "request:top_n" \
+  --node-spec "nodes:NODE_ID" \
+  top_n
+```
+
+The cluster validates the node IDs in `--node-spec` against current cluster membership at create time.
+A typo or unknown node ID is rejected with `HTTP 500: invalid node name (<id>)`.
+
+The cluster doesn't validate the trigger type against the pinned node's mode at create time.
+Pinning a schedule trigger to a `compact`-only node, or a request trigger to an `ingest`-only node, succeeds — but the trigger fails or returns `404` at execution time.
+Choose the pinned node by what the trigger needs at execution:
+
+- **Schedule trigger** — pin to a node with `process,query` mode if the plugin reads with `influxdb3_local.query()`; otherwise the call HTTP-hops to another query node.
+- **Request trigger** — pin to the node(s) you want to serve external HTTP traffic. The `/api/v3/engine/<trigger_name>` route only exists on pinned nodes; clients hitting any other node receive `404 not found`.
+
+{{% /show-in %}}

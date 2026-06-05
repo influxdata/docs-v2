@@ -80,7 +80,8 @@ enabled = true
   [[servers.group-mappings]]
     group = "web-support"
     role = "web-traffic-ro"
-meta1:/# influxd-ctl ldap sample-config -h
+
+# Output from: meta1:/# influxd-ctl ldap sample-config -h
 # Sample TOML for ldap config.
 # First, save this file and edit it for your LDAP server.
 # Then test the config with: influxd-ctl ldap verify -ldap-config /path/to/ldap.toml

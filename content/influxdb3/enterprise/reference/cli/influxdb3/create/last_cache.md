@@ -8,6 +8,7 @@ menu:
     name: influxdb3 create last_cache
 weight: 400
 source: /shared/influxdb3-cli/create/last_cache.md
+lastVerified: v3.9.1
 ---
 
 <!--

@@ -35,11 +35,9 @@ to revoke a management token and remove all access associated with the token.
 
 4.  Confirm that you want to delete the token.
 
-{{% code-placeholders "TOKEN_ID" %}}
-```sh
+```sh { placeholders="TOKEN_ID" }
 influxctl management revoke --force TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`TOKEN_ID`{{% /code-placeholder-key %}} with
 the ID of the token you want to revoke.
