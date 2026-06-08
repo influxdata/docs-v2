@@ -304,10 +304,29 @@ calls; keep moving. Commit per task; let lefthook run.
 - **Task 8** — deleted JS converter + legacy CLI; dropped turndown/jsdom; added
   `build:md --path/--limit`; migrated Cypress fixture generation. **(plan gap
   fixed: the grep must include `cypress/`.)**
-- **Task 9 (partial) — converter parity fixes:** format-selector leak fixed
-  (reliable same-parse `clean_article_html`); body **h1 omitted** (decided with
-  user — title in frontmatter, matches API-ref twins); Note-callout faithfulness
-  confirmed as an accepted improvement. See the Task 9 note for details.
+- **Task 9 — converter parity fixes + scan.** format-selector leak fixed
+  (reliable same-parse `clean_article_html`); body **h1 omitted**; headings
+  normalized to open-ATX (`normalize_headings`); Note-callout faithfulness
+  accepted. **Parity scan: 0 semantic regressions over 4,684 pages** (only 2
+  pre-existing `EMPTY_BODY` landing pages). `scripts/parity-scan.mjs` in-tree.
+- **Task 8b** — `date`/`lastmod` stamped from `sitemap-md.xml` in the JS
+  provenance post-step (`readSitemapLastmods` + extended `injectPageProvenance`).
+- **Task 10** — golden snapshot (`markdown-parity.test.mjs`); fixture stored as
+  `.txt` so markdown formatters don't rewrite it.
+- **Task 10b** — completeness guards (pages + sections) and the #6792 Cypress
+  clipboard test (`section-clipboard-copy.cy.js`).
+- **Task 11 — acceptance (mostly green).** Passing: `cargo test` (7),
+  `test:build-md` (13), `test:corpus-paths` (8), `test:build-llms-full` (8),
+  `test:markdown-parity` (2), `test:markdown-completeness` (2),
+  `check:md-coherence`, `build:llms-full`. Cypress
+  `markdown-content-validation`: 46/48 pass, 1 skipped, **1 dev-only artifact**
+  — "no localhost URLs in frontmatter" fails because `detectBaseUrl` returns
+  `http://localhost:1313` under `NODE_ENV=development`; the JS baseline has the
+  same localhost URLs, so it is pre-existing and passes in CI/production.
+  Cypress `markdown-autodiscovery` 10/10 and `section-clipboard-copy` (#6792
+  guard) 1/1 — the clipboard receives the full `index.section.md`.
+- **Task 12** — docs: rewrote `scripts/README.md`, updated `DOCS-TESTING.md`
+  (architecture, frontmatter, `--path/--limit`).
 
 ### Decisions on record (don't re-litigate)
 
