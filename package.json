@@ -83,6 +83,7 @@
     "test:corpus-paths": "node --test scripts/__tests__/corpus-paths.test.mjs",
     "test:build-md": "node --test scripts/__tests__/build-llm-markdown.test.mjs scripts/__tests__/provenance.test.mjs",
     "test:markdown-parity": "node --test scripts/__tests__/markdown-parity.test.mjs",
+    "test:markdown-completeness": "node --test scripts/__tests__/markdown-completeness.test.mjs",
     "deploy:staging": "sh scripts/deploy-staging.sh",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
