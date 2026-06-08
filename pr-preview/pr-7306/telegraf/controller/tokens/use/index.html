@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7306/docs-v2/pr-preview/pr-7306/telegraf/controller/tokens/use/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7306/telegraf/controller/#software"},"articleSection":"Tokens","dateModified":"2026-06-08T13:43:31-06:00","description":"Use API tokens to authenticate Telegraf agents, heartbeat requests, and external API clients with Telegraf Controller.","headline":"Use API tokens","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7306/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7306/telegraf/controller/tokens/use/","name":"Use API tokens"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7306/telegraf/controller/#software"},"articleSection":"Tokens","dateModified":"2026-06-08T13:56:58-06:00","description":"Use API tokens to authenticate Telegraf agents, heartbeat requests, and external API clients with Telegraf Controller.","headline":"Use API tokens","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7306/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7306/telegraf/controller/tokens/use/","name":"Use API tokens"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-08 13:43:31 -0600 -0600">
+<meta name="last-modified" content="2026-06-08 13:56:58 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1609,8 +1609,9 @@ Requests made with a token that lacks the required permissions are rejected with
 <div class="block note">
   
   
-  <p>If authentication is disabled for an endpoint group in <strong>Settings</strong>, requests to those endpoints do not require a token.
-See <a href="/telegraf/controller/settings/#require-authentication-per-endpoint">Settings</a> for details on configuring authentication requirements per endpoint.</p>
+  <p>If authentication is disabled for an endpoint, requests to those endpoints do not require a token.
+See <a href="/telegraf/controller/reference/authentication-authorization/#endpoint-authentication">Endpoint authentication</a>
+for details on configuring authentication requirements per endpoint.</p>
 </div>
 
 
