@@ -386,7 +386,7 @@ yarn build:ts
 npx hugo --quiet
 
 # Generate Markdown
-node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 10
+yarn build:md --public-dir public --path influxdb3/core/get-started --limit 10
 
 # Validate generated Markdown
 node cypress/support/run-e2e-specs.js \
@@ -428,12 +428,9 @@ Runs automatically after `yarn build:md` in the staging deploy pipeline (`script
 
 ### Comprehensive Documentation
 
-For complete documentation including prerequisites, usage examples, output formats, frontmatter structure, troubleshooting, and architecture details, see the inline documentation:
-
-```bash
-# Or view the first 150 lines in terminal
-head -150 scripts/html-to-markdown.js
-```
+For complete documentation including prerequisites, usage examples, output
+formats, frontmatter structure, and architecture details, see
+[scripts/README.md](scripts/README.md).
 
 The script documentation includes:
 
@@ -448,29 +445,36 @@ The script documentation includes:
 
 ### Related Files
 
-- **CLI tool**: `scripts/html-to-markdown.js` - Comprehensive inline documentation
-- **Core logic**: `scripts/lib/markdown-converter.js` - Shared conversion library
+- **Orchestrator**: `scripts/build-llm-markdown.js` - Phase 1/2 + provenance
+- **Converter**: `scripts/rust-markdown-converter/src/lib.rs` - Rust (html2md + scraper)
+- **Provenance**: `scripts/lib/provenance.js` - publisher/canonical/date/lastmod
 - **Cypress tests**: `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
 
 ### Frontmatter Structure
 
-All generated markdown files include structured YAML frontmatter:
+All generated page markdown files include structured YAML frontmatter:
 
 ```yaml
 ---
-title: Page Title
+# Base fields — emitted by the Rust converter:
+title: Get started with InfluxDB 3 Core
 description: Page description for SEO
-url: /influxdb3/core/get-started/
-product: InfluxDB 3 Core
-version: core
-date: 2024-01-15T00:00:00Z
-lastmod: 2024-11-20T00:00:00Z
-type: page
+url: https://docs.influxdata.com/influxdb3/core/get-started/
 estimated_tokens: 2500
+product: InfluxDB 3 Core
+version: core # docs edition slug (not a software release; see #7299)
+# Added by the JS provenance post-step:
 publisher: InfluxData
 canonical: https://docs.influxdata.com/influxdb3/core/get-started/
+date: '2024-01-15T00:00:00Z'
+lastmod: '2024-11-20T00:00:00Z'
 ---
 ```
+
+The converter emits only the six base fields (no `publisher`/`canonical`/`date`/
+`lastmod`), which keeps it an exact drop-in. The body h1 (page title) is omitted —
+the title is in frontmatter, matching the API-reference twins. The JS provenance
+post-step then stamps the remaining fields.
 
 **Provenance fields (#7290):** `publisher` and `canonical` identify InfluxData as
 the authoritative source. Both are stamped at build time from
@@ -503,8 +507,8 @@ child_pages:
 #### Manual Testing
 
 ```bash
-# Generate markdown with verbose output
-node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 2 --verbose
+# Generate markdown for a path subtree
+yarn build:md --public-dir public --path influxdb3/core/get-started --limit 2
 
 # Check files were created
 ls -la public/influxdb3/core/get-started/*.md
@@ -572,8 +576,8 @@ ls -la dist/utils/product-mappings.js
 **Solution**: Use `--limit` flag to process in batches:
 
 ```bash
-# Process 1000 files at a time
-node scripts/html-to-markdown.js --limit 1000
+# Process a path subtree, capped to 1000 files
+yarn build:md --public-dir public --path influxdb3 --limit 1000
 ```
 
 #### Issue: Missing or incorrect product detection
@@ -605,24 +609,31 @@ Before committing markdown generation changes:
 
 ### Architecture
 
-The markdown generation uses a shared library architecture:
+Markdown generation runs in two phases, driven by `build-llm-markdown.js`:
 
 ```
 docs-v2/
 ├── scripts/
-│   ├── html-to-markdown.js          # CLI wrapper (filesystem operations)
-│   └── lib/
-│       └── markdown-converter.js    # Core conversion logic (shared library)
-├── dist/
-│   └── utils/
-│       └── product-mappings.js      # Product detection (compiled from TS)
+│   ├── build-llm-markdown.js        # Orchestrator: Phase 1 + Phase 2, provenance
+│   ├── build-rust-converter.js      # Builds the napi module (postinstall/CI)
+│   ├── lib/
+│   │   ├── base-url.js              # Resolves base_url per environment
+│   │   └── provenance.js           # Stamps publisher/canonical/date/lastmod
+│   └── rust-markdown-converter/     # Rust converter (html2md + scraper, napi)
+│       ├── src/lib.rs              # Conversion + base frontmatter
+│       └── build.rs                # Bakes URL→product map from data/products.yml
 └── public/                          # Generated HTML + Markdown files
 ```
 
-The shared library (`scripts/lib/markdown-converter.js`) is:
-
-- Used by local markdown generation scripts
-- Tested independently with isolated conversion logic
+- **Phase 1 (Rust):** `convertToMarkdown(html, urlPath, baseUrl)` converts each
+  page's `article.article--content` and emits the base frontmatter (`title`,
+  `description`, `url`, `estimated_tokens`, `product`, `version`). The body h1 is
+  omitted (title is in frontmatter). Built from source — no JS fallback; the
+  build hard-fails if the module is missing.
+- **Phase 2 (JS):** `combineMarkdown` concatenates the per-page `.md` into
+  `index.section.md` (parent + children) with section frontmatter.
+- **Provenance post-step (JS):** `provenance.js` adds `publisher`, `canonical`,
+  and per-page `date`/`lastmod` (from `sitemap-md.xml`) after conversion.
 
 ## Link Validation with Link-Checker
 
@@ -1145,8 +1156,8 @@ yarn test:codeblocks:stop-monitors
 - **Test data**: `./test/` directory
 - **Vale config**: `.ci/vale/styles/`
 - **Markdown generation**:
-  - `scripts/html-to-markdown.js` - CLI wrapper
-  - `scripts/lib/markdown-converter.js` - Core conversion library
+  - `scripts/build-llm-markdown.js` - orchestrator (Phase 1 Rust, Phase 2 JS)
+  - `scripts/rust-markdown-converter/` - Rust converter (html2md + scraper, napi)
   - `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
 
 ## Getting Help
