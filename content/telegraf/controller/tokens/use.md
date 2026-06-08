@@ -95,5 +95,6 @@ The token's permissions determine which API endpoints and operations are accessi
 Requests made with a token that lacks the required permissions are rejected with an authorization error.
 
 > [!Note]
-> If authentication is disabled for an endpoint group in **Settings**, requests to those endpoints do not require a token.
-> See [Settings](/telegraf/controller/settings/#require-authentication-per-endpoint) for details on configuring authentication requirements per endpoint.
+> If authentication is disabled for an endpoint, requests to those endpoints do not require a token.
+> See [Endpoint authentication](/telegraf/controller/reference/authentication-authorization/#endpoint-authentication)
+> for details on configuring authentication requirements per endpoint.
