@@ -24,30 +24,48 @@ Telegraf agents require API tokens with the following permissions:
 - **Configs**: Read
 - **Heartbeat**: Write
 
-### Use the INFLUX_TOKEN environment variable
+### Use the TELEGRAF_CONTROLLER_TOKEN environment variable {note="Telegraf 1.39+"}
 
-When retrieving a configuration from a URL, Telegraf only sends an `Authorization`
-when it detects the `INFLUX_TOKEN` environment variable. To authorize Telegraf
-to retrieve a configuration from {{% product-name %}}, define the `INFLUX_TOKEN`
-environment variable:
+When retrieving a configuration from a URL, Telegraf only sends an
+`Authorization` header when it detects an authentication environment variable.
+To authorize Telegraf to retrieve a configuration from {{% product-name %}},
+define the `TELEGRAF_CONTROLLER_TOKEN` environment variable before starting
+Telegraf:
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="YOUR_TC_API_TOKEN" }
-export INFLUX_TOKEN=YOUR_TC_API_TOKEN
+export TELEGRAF_CONTROLLER_TOKEN=YOUR_TC_API_TOKEN
 
 telegraf \
-  --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml
+  --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml"
 ```
 
 Replace {{% code-placeholder-key %}}`YOUR_TC_API_TOKEN`{{% /code-placeholder-key %}}
 with your {{% product-name %}} API token.
 
+When `TELEGRAF_CONTROLLER_TOKEN` is set, Telegraf sends the token in the
+`Authorization` header using the `Bearer` scheme. The Telegraf config watcher
+(enabled with `--config-url-watch-interval`) uses the same environment variable
+to authorize its periodic update checks.
+
+> [!Note]
+> #### Using Telegraf 1.38.x or earlier?
+>
+> Telegraf 1.39+ is required to read `TELEGRAF_CONTROLLER_TOKEN`. On earlier
+> versions, use the `INFLUX_TOKEN` environment variable instead. Telegraf sends
+> `INFLUX_TOKEN` in the `Authorization` header using the `Token` scheme.
+> {{% product-name %}} accepts tokens sent with either scheme, so you can
+> upgrade Telegraf at your own pace.
+>
+> If both environment variables are set on Telegraf 1.39+,
+> `TELEGRAF_CONTROLLER_TOKEN` takes precedence.
+
 ### For heartbeat requests
 
 Telegraf uses the [Heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/)
 to send heartbeats to {{% product-name %}}.
-Use the `INFLUX_TOKEN` environment variable to define the `token` option in your
-heartbeat plugin configuration.
+Use the `TELEGRAF_CONTROLLER_TOKEN` environment variable to define the `token`
+option in your heartbeat plugin configuration.
 Telegraf uses the environment variable value defined when starting Telegraf.
 
 ```toml { .tc-dynamic-values }
@@ -56,7 +74,7 @@ Telegraf uses the environment variable value defined when starting Telegraf.
   instance_id = "&{agent_id}"
   interval = "1m"
   include = ["hostname", "statistics", "configs"]
-  token = "${INFLUX_TOKEN}"
+  token = "${TELEGRAF_CONTROLLER_TOKEN}"
 ```
 
 When authentication is required for the heartbeat endpoint, agents must include

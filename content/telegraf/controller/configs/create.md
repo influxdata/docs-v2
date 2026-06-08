@@ -71,7 +71,7 @@ url = "http://localhost:8000/agents/heartbeat"
 instance_id = "&{agent_id}"
 interval = "1m"
 include = ["hostname", "statistics", "configs"]
-token = "${INFLUX_TOKEN}"
+token = "${TELEGRAF_CONTROLLER_TOKEN}"
 ```
 
 To monitor agents with {{% product-name %}}, include a heartbeat plugin in
@@ -85,8 +85,10 @@ your Telegraf configurations.
 > Provide a {{% product-name %}} token with **write** permissions on the
 > **Heartbeat** API.
 >
-> We recommend defining the `INFLUX_TOKEN` environment variable when starting
-> Telegraf and using that to define the token in your heartbeat plugin.
+> We recommend defining the `TELEGRAF_CONTROLLER_TOKEN` environment variable
+> when starting Telegraf and using it to define the token in your heartbeat
+> plugin. On **Telegraf 1.38.x or earlier**, use `INFLUX_TOKEN` instead. For
+> details, see [Use API tokens](/telegraf/controller/tokens/use/#for-heartbeat-requests).
 
 ## Next steps
 
