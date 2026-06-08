@@ -1260,15 +1260,34 @@ diff <(sed '/^date:/d;/^lastmod:/d' .parity-baseline/influxdb3/core/get-started/
 
 Any **semantic** difference (lost content, broken/changed code fence, malformed table, dropped/altered link, missing callout) → fix in `lib.rs` and re-run Steps 2–3. Stop when the fixture set shows only cosmetic diffs and the scan is clean.
 
-- [ ] **Step 4: Record accepted cosmetic diffs**
+- [x] **Step 4: Record accepted cosmetic diffs**
 
-List the accepted cosmetic difference categories (e.g. "list marker `*`→`-`", "trailing-space normalization") in the PR description. Do not commit `parity-report.txt` or `.parity-baseline/` (gitignored).
+**Scan result (4,684 pages): 0 semantic regressions.** Only 2 `EMPTY_BODY`
+flags — `influxdb/v2/index.md` and `influxdb/cloud/index.md` — both **pre-existing**
+(the JS baseline also produced 0 body chars; these landing pages have an
+`article--content` of nav cards with no prose). Not regressions.
 
-- [ ] **Step 5: Commit the scan tool + any Rust fixes**
+Accepted differences vs the JS baseline (for the PR description), all
+semantically neutral:
+
+- **Body h1 omitted** (intentional decision; title in frontmatter).
+- **Note/callout faithfulness** — Rust renders authored `> [!Note]` callouts
+  that JS flattened to paragraphs (improvement).
+- **Hard line-wrapping** — html2md wraps paragraph text at \~80 cols; the baseline
+  kept one line per paragraph. Renders identically (single `\n` = space); links
+  are not split.
+- **List marker `*` vs `-`** and **list indent** (`* x` vs `-   x`). Both valid.
+- **Heading style normalized to open-ATX** — now matches the baseline (was
+  setext/closed-ATX before the Step 0 fix).
+
+Do not commit `parity-report.txt` or `.parity-baseline/` (gitignored).
+
+- [x] **Step 5: Commit the scan tool + Rust fixes** (fixes already committed:
+  format-selector strip, h1-omit, heading normalization). Commit the scan tool.
 
 ```bash
-git add scripts/parity-scan.mjs scripts/rust-markdown-converter/src/lib.rs
-git commit -m "test: add corpus parity scan and reconcile semantic diffs"
+git add scripts/parity-scan.mjs
+git commit -m "test: add corpus parity scan (0 semantic regressions over 4,684 pages)"
 ```
 
 ***
