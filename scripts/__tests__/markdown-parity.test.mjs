@@ -7,7 +7,9 @@ const require = createRequire(import.meta.url);
 const { convertToMarkdown } = require('../rust-markdown-converter');
 
 const FIXTURE = new URL('./fixtures/get-started.html', import.meta.url);
-const EXPECTED = new URL('./fixtures/get-started.expected.md', import.meta.url);
+// Stored as .txt (not .md) so markdown formatters/linters never rewrite the
+// golden output (e.g. escaping `[!Note]` or reflowing tables).
+const EXPECTED = new URL('./fixtures/get-started.expected.txt', import.meta.url);
 
 test('Rust converter output matches the golden snapshot', () => {
   const html = readFileSync(FIXTURE, 'utf-8');
