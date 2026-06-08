@@ -11,14 +11,14 @@ This guide covers all testing procedures for the InfluxData documentation, inclu
 
 ## Test Types Overview
 
-| Test Type               | Purpose                                                                 | Command                    |
-| ----------------------- | ----------------------------------------------------------------------- | -------------------------- |
-| **Code blocks**         | Validate shell/Python code examples                                     | `yarn test:codeblocks:all` |
-| **Link validation**     | Check internal/external links                                           | `yarn test:links`          |
-| **Style linting**       | Enforce writing standards                                               | `.ci/vale/vale.sh`         |
-| **Markdown generation** | Generate LLM-friendly Markdown                                          | `yarn build:md`            |
-| **E2E tests**           | UI and functionality testing                                            | `yarn test:e2e`            |
-| **PR preview pages**    | Reviewer-facing hosted preview of pages listed in the PR description    | List URLs in the PR body   |
+| Test Type               | Purpose                                                              | Command                    |
+| ----------------------- | -------------------------------------------------------------------- | -------------------------- |
+| **Code blocks**         | Validate shell/Python code examples                                  | `yarn test:codeblocks:all` |
+| **Link validation**     | Check internal/external links                                        | `yarn test:links`          |
+| **Style linting**       | Enforce writing standards                                            | `.ci/vale/vale.sh`         |
+| **Markdown generation** | Generate LLM-friendly Markdown                                       | `yarn build:md`            |
+| **E2E tests**           | UI and functionality testing                                         | `yarn test:e2e`            |
+| **PR preview pages**    | Reviewer-facing hosted preview of pages listed in the PR description | List URLs in the PR body   |
 
 ## Code Block Testing
 
@@ -145,6 +145,7 @@ yarn test:codeblocks:sql
 ```
 
 **Benefits:**
+
 - Faster feedback for specific language changes
 - Easier debugging of language-specific issues
 - Enables parallel execution in CI
@@ -165,6 +166,7 @@ yarn test:cache:clean
 ```
 
 **How it works:**
+
 - Creates content hash for files/directories
 - Caches successful test results for 7 days
 - Skips tests if content unchanged and cache valid
@@ -181,9 +183,9 @@ yarn test:cache:clear   # Remove all entries
 
 #### Performance Comparison
 
-**Without optimization:** ~45 minutes (sequential)
-**With parallel execution:** ~18 minutes (59% faster)
-**With caching (2nd run):** ~5 seconds (97% faster)
+**Without optimization:** \~45 minutes (sequential)
+**With parallel execution:** \~18 minutes (59% faster)
+**With caching (2nd run):** \~5 seconds (97% faster)
 
 For comprehensive performance optimization documentation, see [test/TEST-PERFORMANCE.md](test/TEST-PERFORMANCE.md).
 
@@ -219,11 +221,11 @@ to test; actual test execution runs via `workflow_dispatch`.
 
 **Products that run against a live server in CI:**
 
-| Product | Status | How |
-| --- | --- | --- |
-| `influxdb3_core` | Runs live | Started via `docker compose up influxdb3-core` with a preconfigured offline admin token generated at job start |
-| `influxdb3_enterprise` | Gated on license blob | Requires `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` repo secret (see below). When unset, Enterprise is skipped with an informational notice |
-| `telegraf`, `v2`, `cloud`, `cloud-dedicated`, `cloud-serverless`, `clustered` | Mock credentials | Tests that hit real endpoints may fail; content-only checks still run |
+| Product                                                                       | Status                | How                                                                                                                                  |
+| ----------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `influxdb3_core`                                                              | Runs live             | Started via `docker compose up influxdb3-core` with a preconfigured offline admin token generated at job start                       |
+| `influxdb3_enterprise`                                                        | Gated on license blob | Requires `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` repo secret (see below). When unset, Enterprise is skipped with an informational notice |
+| `telegraf`, `v2`, `cloud`, `cloud-dedicated`, `cloud-serverless`, `clustered` | Mock credentials      | Tests that hit real endpoints may fail; content-only checks still run                                                                |
 
 ### Provision InfluxDB 3 Enterprise for CI
 
@@ -291,6 +293,7 @@ The Enterprise job should now decode the blob into
 server, and run pytest against it.
 
 > \[!Note]
+>
 > #### License expiration
 >
 > Trial licenses have a finite validity window. When the license
@@ -309,9 +312,9 @@ allowlisted subset of runnable examples.
 
 **Blocking policy:**
 
-| Language | Policy on parse failure |
-| --- | --- |
-| JSON, YAML, TOML | `::error::` — fails the PR check |
+| Language                 | Policy on parse failure                    |
+| ------------------------ | ------------------------------------------ |
+| JSON, YAML, TOML         | `::error::` — fails the PR check           |
 | bash, python, javascript | `::warning::` — does not fail the PR check |
 
 Languages outside this set (go, java, sql, powershell, text, etc.) are
@@ -366,11 +369,11 @@ yarn test:lint-codeblocks
 
 The documentation generates LLM-friendly Markdown alongside HTML at build time. Three layers of artifacts:
 
-| Artifact | Granularity | Generator | Discoverable via |
-|---|---|---|---|
-| `public/<path>/index.md` | per page | `scripts/build-llm-markdown.js` | `<link rel="alternate" type="text/markdown">` in HTML head; `/sitemap-md.xml` |
-| `public/<path>/index.section.md` | per section (page + descendants) | `scripts/build-llm-markdown.js` | `/llms.txt` "Main documentation sections" block |
-| `public/<product>/llms-full.txt` | per product (flattened corpus) | `scripts/build-llms-full-txt.js` | `/llms.txt` "Full corpora" block |
+| Artifact                         | Granularity                      | Generator                        | Discoverable via                                                              |
+| -------------------------------- | -------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
+| `public/<path>/index.md`         | per page                         | `scripts/build-llm-markdown.js`  | `<link rel="alternate" type="text/markdown">` in HTML head; `/sitemap-md.xml` |
+| `public/<path>/index.section.md` | per section (page + descendants) | `scripts/build-llm-markdown.js`  | `/llms.txt` "Main documentation sections" block                               |
+| `public/<product>/llms-full.txt` | per product (flattened corpus)   | `scripts/build-llms-full-txt.js` | `/llms.txt` "Full corpora" block                                              |
 
 Agents pick a layer based on the question: a focused question fetches one page's `.md`; a corpus-grounded question fetches one product's `llms-full.txt`.
 
@@ -466,8 +469,22 @@ date: 2024-01-15T00:00:00Z
 lastmod: 2024-11-20T00:00:00Z
 type: page
 estimated_tokens: 2500
+publisher: InfluxData
+canonical: https://docs.influxdata.com/influxdb3/core/get-started/
 ---
 ```
+
+**Provenance fields (#7290):** `publisher` and `canonical` identify InfluxData as
+the authoritative source. Both are stamped at build time from
+`data/influxdata.yml` by `scripts/lib/provenance.js`. `canonical` uses the origin
+from `public/sitemap-md.xml`, which reflects the build environment's `baseURL`
+(production in production builds, staging in preview builds, `localhost` in local
+dev) — the same origin `llms-full.txt` uses for its `Source:` lines. It is derived
+independently of the per-page `url` field, so the two can differ within one build
+(for example, a local `npx hugo` build emits a production sitemap origin while the
+converter sets `url` to `localhost`). `llms-full.txt` carries the same identity
+(publisher + url + `sameAs`) once in each corpus header; `llms.txt` carries a
+single publisher line.
 
 Section pages include additional fields:
 
@@ -912,16 +929,51 @@ Vale runs automatically on pull requests that modify markdown files. The workflo
 5. Reports results as inline annotations and a PR summary comment
 
 **Alert levels:**
+
 - **Errors** block merging
 - **Warnings** and **suggestions** are informational only
 
 **Files checked:**
+
 - `content/**/*.md`
 - `README.md`, `DOCS-*.md`
 - `**/AGENTS.md`, `**/CLAUDE.md`
 - `.github/**/*.md`, `.claude/**/*.md`
 
 The CI check uses the same product-specific configs as local development, ensuring consistency between local and CI linting.
+
+## Structured Data (JSON-LD) Validation
+
+The `layouts/partials/header/*-jsonld.html` partials emit schema.org JSON-LD
+(`Organization`, `TechArticle`, `SoftwareApplication`, `FAQPage`). Validate
+changes with the **Schema Markup Validator (`https://validator.schema.org`)**,
+**not** the Google Rich Results Test.
+
+The Rich Results Test only reports types eligible for a *visual* search
+enhancement. Most JSON-LD this repo emits is not eligible, so the Rich Results
+Test reports "no items detected" even for valid markup — a false negative:
+
+| Emitted type          | Rich Results Test | Why                                                                               |
+| --------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result                |
+| `TechArticle`         | Not reported      | Google's Article rich result fires only for `Article`/`NewsArticle`/`BlogPosting` |
+| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result                               |
+| `FAQPage`             | Reported          | One of the few eligible types here                                                |
+
+**Local checks:**
+
+- **Cypress** proves the markup is *emitted where intended*, not that it is
+  schema-correct. Assertions are scope-aware: page-scoped nodes
+  (`TechArticle`/`SoftwareApplication`) assert presence where they belong and
+  *absence* where they don't (over-emission guard); global nodes
+  (`Organization`, emitted site-wide with a stable `@id`) assert *exactly one*
+  per page class. See `cypress/e2e/content/jsonld-organization.cy.js` and
+  `jsonld-techarticle.cy.js`.
+- **Schema correctness** is confirmed manually via `validator.schema.org`
+  against a deployed preview URL (expect 0 errors).
+
+See the `hugo-template-dev` and `cypress-e2e-testing` skills for the full
+workflow and code snippets.
 
 ## PR Preview Pages
 

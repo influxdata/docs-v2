@@ -195,9 +195,9 @@ yarn test:lint-codeblocks
 
 **Blocking policy (mirrors CI):**
 
-| Language | On failure |
-| --- | --- |
-| JSON, YAML, TOML | `::error::` — fails the PR check |
+| Language                 | On failure                         |
+| ------------------------ | ---------------------------------- |
+| JSON, YAML, TOML         | `::error::` — fails the PR check   |
 | bash, python, javascript | `::warning::` — informational only |
 
 **Normalization:** declared `placeholders="TOKEN|DURATION"` fence attributes and Hugo shortcodes (`{{< >}}`, `{{% %}}`) are substituted before parsing. See `DOCS-TESTING.md § "Parse/compile code-block lint"` for details.
@@ -501,12 +501,12 @@ yarn hugo server
 
 ## Part 6: Troubleshooting
 
-| Problem | Solution |
-| --- | --- |
-| Hugo build fails | Run `yarn hugo` (no `--quiet`) for detailed errors — check frontmatter YAML, shortcode tags, partial refs |
-| Shared content edits not appearing | Touch sourcing files: `grep -r "source: /shared/path" content/` then `touch` each, or use `docs edit` |
-| MCP not responding | Verify network allows `*.kapa.ai`; check rate limits (40 req/hr OAuth, 60 req/min API key); if using API key, verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set |
-| Cypress tests fail | See **cypress-e2e-testing** skill; check `cat /tmp/hugo_server.log \| tail -50`, run `yarn cypress open`, run `yarn build:api-docs` if API content missing |
+| Problem                            | Solution                                                                                                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hugo build fails                   | Run `yarn hugo` (no `--quiet`) for detailed errors — check frontmatter YAML, shortcode tags, partial refs                                                  |
+| Shared content edits not appearing | Touch sourcing files: `grep -r "source: /shared/path" content/` then `touch` each, or use `docs edit`                                                      |
+| MCP not responding                 | Verify network allows `*.kapa.ai`; check rate limits (40 req/hr OAuth, 60 req/min API key); if using API key, verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set |
+| Cypress tests fail                 | See **cypress-e2e-testing** skill; check `cat /tmp/hugo_server.log \| tail -50`, run `yarn cypress open`, run `yarn build:api-docs` if API content missing |
 
 ## Part 7: Quick Reference
 
@@ -530,6 +530,43 @@ yarn hugo server
 
 **Note:** `--products` accepts both product keys (`influxdb3_core`) and content paths (`/influxdb3/core`).
 
+## Part 8: Security Review for Deployment and Install Docs
+
+Install guides, deployment recipes, and runnable code samples can teach users
+an insecure default without anyone intending it. Apply this lens whenever you
+write or edit a guide that starts a service, publishes a port, or handles a
+credential.
+
+### What to flag
+
+- **Ports published to all interfaces.** A `docker run --publish 8888:8080` or
+  Compose `"8888:8080"` binds to `0.0.0.0` (all interfaces). For a UI or admin
+  service, default the example to the loopback interface
+  (`127.0.0.1:8888:8080`) and document how to widen exposure deliberately.
+- **Credentials entered into a network-reachable service without auth.** If a
+  guide tells users to paste a token, password, or key into a service that has
+  no built-in authentication, state plainly that reaching the service equals
+  holding the credential, and recommend least-privilege credentials.
+- **Firewall assumptions.** Docker port publishing adds its own firewall rules
+  and can bypass `ufw`/`firewalld`. Don't imply a host firewall protects a
+  published port; tell users to verify reachability from another host.
+- **"Production" framing.** Don't label a setup "production" if it only means
+  "run locally against a production instance." Say which one you mean.
+- **Recipes we don't test.** Prefer describing a secure pattern (loopback +
+  authenticating reverse proxy + TLS) and linking to upstream docs over
+  shipping a full config we'd have to test and maintain in CI.
+
+### Apply it consistently for the reader
+
+- Use a GitHub-flavored callout (`> [!Important]` or `> [!Caution]`) with a
+  short `####` sub-heading, placed where the user makes the decision (near the
+  first exposing example), not buried at the end.
+- State the current behavior factually. Don't forecast or discount unreleased
+  fixes--alarmist or workaround-flavored copy ages badly and gets cached by
+  search engines and LLMs. Track product-side concerns in a separate issue.
+- Make the safe path the copy-paste path. A loopback-bound example does more
+  than a paragraph of warning.
+
 ## Related Skills
 
 - **docs-cli-workflow** - When to use CLI vs direct editing (decision guidance)
@@ -550,4 +587,5 @@ yarn hugo server
 - [ ] Code examples tested (if applicable)
 - [ ] E2E tests pass for affected pages
 - [ ] Visual preview confirms changes look correct
+- [ ] If the guide starts a service, publishes a port, or handles a credential: security review applied (see Part 8)
 - [ ] Related documentation updated (if needed)

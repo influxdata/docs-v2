@@ -12,7 +12,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.9.2
+  latest_patch: 3.9.3
   placeholder_host: localhost:8181
   limits:
     database: 5
@@ -39,6 +39,12 @@ influxdb3_core:
     - Help me write a plugin for the Python Processing engine using InfluxDB 3 Core
   ai_input_placeholder: 'Specify your version and product ("Core", "InfluxDB 3 Enterprise", "OSS v1") for better results'
   ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "DatabaseApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
 
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
@@ -50,7 +56,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.9.2
+  latest_patch: 3.9.3
   placeholder_host: localhost:8181
   limits:
     database: 100
@@ -77,6 +83,9 @@ influxdb3_enterprise:
     - How do I start a read replica node using InfluxDB 3 Enterprise?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB 3 Enterprise", "Core", "Enterprise v1") for better results'
   ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "DatabaseApplication"
 
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
@@ -96,6 +105,12 @@ influxdb3_explorer:
     - How do I visualize data using Explorer?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB 3 Explorer and Enterprise", "InfluxDB 3 Explorer and Core") for better results'
   ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "BusinessApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -131,6 +146,9 @@ influxdb3_cloud_serverless:
     - What tools can I use to write data to InfluxDB Cloud Serverless?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB Cloud Serverless", "InfluxDB 3 Enterprise", "Core") for better results'
   ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
 
 influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -164,6 +182,9 @@ influxdb3_cloud_dedicated:
     - How do I use SQL and parameterized queries with InfluxDB Cloud Dedicated?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB Cloud Dedicated", "InfluxDB 3 Enterprise", "Core") for better results'
   ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
 
 influxdb3_clustered:
   name: InfluxDB Clustered
@@ -198,6 +219,9 @@ influxdb3_clustered:
     - How do I use SQL and parameterized queries with InfluxDB Clustered?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB Clustered", "InfluxDB 3 Enterprise", "Core") for better results'
   ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Kubernetes"
+    application_category: "DatabaseApplication"
 
 influxdb:
   name: InfluxDB
@@ -256,6 +280,12 @@ influxdb:
     - How do I query data with InfluxQL using InfluxDB OSS v1?
     - How do I set up continuous queries in InfluxDB OSS v1?
   ai_source_group_ids__v1: 'd809f67b-867d-4f17-95f0-c33dbadbf15f'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "DatabaseApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -289,6 +319,9 @@ influxdb_cloud:
     - How is Cloud (TSM) different from Cloud Serverless?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB Cloud (TSM)", "InfluxDB 3 Enterprise", "Core") for better results'
   ai_source_group_ids: '3e905caa-dd6f-464b-abf9-c3880e09f128'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
 
 telegraf:
   name: Telegraf
@@ -310,6 +343,12 @@ telegraf:
     - How do I write a custom Telegraf plugin?
     - How do I use Telegraf for MQTT?
   ai_input_placeholder: 'Ask questions about Telegraf and InfluxDB'
+  schema:
+    operating_system: "Linux, macOS, Windows, FreeBSD, Docker"
+    application_category: "DeveloperApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
 
 telegraf_controller:
   name: Telegraf Controller
@@ -319,6 +358,9 @@ telegraf_controller:
   versions: [v1]
   latest: 0.0
   latest_patch: 0.0.5-beta
+  schema:
+    operating_system: "Docker"
+    application_category: "DeveloperApplication"
 
 chronograf:
   name: Chronograf
@@ -334,12 +376,18 @@ chronograf:
   versions: [v1]
   latest: v1.11
   latest_patches:
-    v1: 1.11.2
+    v1: 1.11.3
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
     - How do I use Grafana to visualize data stored in InfluxDB 3?
   ai_input_placeholder: 'Ask questions about Chronograf and InfluxDB'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "BusinessApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
 
 kapacitor:
   name: Kapacitor
@@ -355,12 +403,18 @@ kapacitor:
   versions: [v1]
   latest: v1.8
   latest_patches:
-    v1: 1.8.5
+    v1: 1.8.6
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?
     - How do I create tasks using InfluxDB 3 Core?
   ai_input_placeholder: 'Ask questions about Kapacitor'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "DeveloperApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
 
 enterprise_influxdb:
   name: 'InfluxDB Enterprise v1'
@@ -392,6 +446,9 @@ enterprise_influxdb:
     - How do I replicate data from OSS to InfluxDB Enterprise v1?
   ai_input_placeholder: 'Specify your version and product ("Enterprise v1", "InfluxDB 3 Enterprise", "Core") for better results'
   ai_source_group_ids: 'd809f67b-867d-4f17-95f0-c33dbadbf15f'
+  schema:
+    operating_system: "Linux, Docker"
+    application_category: "DatabaseApplication"
 
 influxdb_cloud1:
   name: InfluxDB Cloud 1
@@ -417,6 +474,9 @@ influxdb_cloud1:
     - Where can I find documentation for InfluxDB Cloud 1?
   ai_input_placeholder: 'Specify your version and product ("InfluxDB Cloud 1", "Enterprise v1", "InfluxDB 3 Enterprise") for better results'
   ai_source_group_ids: 'd809f67b-867d-4f17-95f0-c33dbadbf15f'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
 
 flux:
   name: Flux
@@ -438,3 +498,9 @@ flux:
     - How do I join data with Flux?
   ai_input_placeholder: 'Ask questions about Flux and InfluxDB'
   ai_source_group_ids: 'd809f67b-867d-4f17-95f0-c33dbadbf15f,3e905caa-dd6f-464b-abf9-c3880e09f128'
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "DeveloperApplication"
+    offers:
+      price: "0"
+      price_currency: "USD"
