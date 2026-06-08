@@ -106,6 +106,9 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## If not specified or empty, all sources are allowed.
   # allowed_sources = []
 
+  ## Source IP for Source-Specific Multicast (SSM / IGMPv3)
+  # multicast_source = ""
+
   ## Framing technique used for messages transport
   ## Available settings are:
   ##   octet-counting  -- see RFC5425#section-4.3.1 and RFC6587#section-3.4.1
