@@ -60,6 +60,7 @@ import {
 import {
   loadOrgIdentity,
   readSitemapOrigin,
+  readSitemapLastmods,
   injectPageProvenance,
 } from './lib/provenance.js';
 
@@ -190,6 +191,7 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
           ? injectPageProvenance(markdown, {
               publisher: provenance.publisher,
               canonical: `${provenance.origin}${urlPath}`,
+              lastmod: provenance.lastmods?.get(urlPath),
             })
           : markdown;
         await fs.writeFile(mdPath, output, 'utf-8');
@@ -527,12 +529,14 @@ async function main() {
 
   const overallStart = Date.now();
 
-  // Load org identity + production origin once for provenance stamping (#7290).
-  const [org, origin] = await Promise.all([
+  // Load org identity + production origin once for provenance stamping (#7290),
+  // plus a urlPath -> lastmod map from the sitemap for per-page date/lastmod.
+  const [org, origin, lastmods] = await Promise.all([
     loadOrgIdentity(),
     readSitemapOrigin(cliOptions.publicDir),
+    readSitemapLastmods(cliOptions.publicDir),
   ]);
-  const provenance = { publisher: org.name, origin };
+  const provenance = { publisher: org.name, origin, lastmods };
   console.log(`🏷️  Provenance: publisher=${org.name}, origin=${origin}\n`);
 
   // Phase 1: Generate individual page markdown
