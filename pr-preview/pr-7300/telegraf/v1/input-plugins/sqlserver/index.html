@@ -1,0 +1,7986 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>&lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="Telegraf plugin for collecting metrics from Microsoft SQL Server">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-7300/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7300/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sqlserver/" />
+
+    
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7300/telegraf/v1/#software"},"articleSection":"Input Plugins","dateModified":"2026-06-08T19:45:36+02:00","description":"Telegraf plugin for collecting metrics from Microsoft SQL Server","headline":"","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7300/telegraf/v1/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sqlserver/","name":""}</script>
+    
+    <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
+    
+
+
+
+
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sqlserver/index.md">
+
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7300/light-theme.b4cf66fafd478f6a7299bf58718de5a3fc8af1c01b9d3f6549e06b7a900b1c0c.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7300/dark-theme.7e927604a28eae796286f4a795dbe9da21a7f1b0ffba697a0785533cf86f8b22.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7300/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-7300/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-7300/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2026-06-08 19:45:36 &#43;0200 &#43;0200">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    
+      <div class="selector-dropdowns">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+        <li>
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/platform/#influxdb-cloud-1' >InfluxDB Cloud 1</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' class="active">Telegraf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="buttons">
+        <div class="search-btn" data-component="search-button">
+          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+        </div>
+        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <span data-component="theme-switch">
+          <button class="theme-switch theme-switch-light">
+            <span class="cf-icon Lightmode_New"></span></button>
+          <button class="theme-switch theme-switch-dark">
+            <span class="cf-icon Darkmode_New"></span></button>
+        </span>
+      </div>
+    
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search Telegraf'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/'>Telegraf</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/install/'>Install</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/get-started/'>Get started</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/'>Configure plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/input_plugins/'>Input plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/input_plugins/using_http/'>Using the HTTP plugin</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/output_plugins/'>Output plugins</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/aggregator_processor/'>Aggregator and processor plugins</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/external_plugins/'>External plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/external_plugins/shim/'>Use the `execd` shim</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/external_plugins/write_external_plugin/'>Write an external plugin</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/troubleshoot/'>Troubleshoot</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+
+
+  
+  
+    <h4 class="reference">Reference</h4>
+    
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle open"></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/plugins/'>Plugin directory</a>
+        
+          <ul class="children open">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/'>Aggregator plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/basicstats/'>Basic Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/derivative/'>Derivative</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/final/'>Final</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/histogram/'>Histogram</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/merge/'>Merge</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/minmax/'>Minimum-Maximum</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/quantile/'>Quantile</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/starlark/'>Starlark</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/aggregator-plugins/valuecounter/'>Value Counter</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle open"></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/'>Input plugins</a>
+        
+          <ul class="children open">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/activemq/'>ActiveMQ</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/aerospike/'>Aerospike</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/aliyuncms/'>Alibaba Cloud Monitor Service (Aliyun)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cloudwatch_metric_streams/'>Amazon CloudWatch Metric Streams</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cloudwatch/'>Amazon CloudWatch Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ecs/'>Amazon Elastic Container Service</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/amd_rocm_smi/'>AMD ROCm System Management Interface (SMI)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/amqp_consumer/'>AMQP Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/apache/'>Apache</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/aurora/'>Apache Aurora</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/couchdb/'>Apache CouchDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kafka_consumer/'>Apache Kafka Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mesos/'>Apache Mesos</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/solr/'>Apache Solr</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/tomcat/'>Apache Tomcat</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/zookeeper/'>Apache Zookeeper</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/apcupsd/'>APC UPSD</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/lanz/'>Arista LANZ Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/firehose/'>AWS Data Firehose</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/eventhub_consumer/'>Azure Event Hub Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/azure_monitor/'>Azure Monitor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/azure_storage_queue/'>Azure Queue Storage</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/bcache/'>Bcache</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/beanstalkd/'>Beanstalkd</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/beat/'>Beat</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/bind/'>BIND 9 Nameserver</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/bond/'>Bond</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ctrlx_datalayer/'>Bosch Rexroth ctrlX Data Layer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/burrow/'>Burrow</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ceph/'>Ceph Storage</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/chrony/'>chrony</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cisco_telemetry_mdt/'>Cisco Model-Driven Telemetry (MDT)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/clickhouse/'>ClickHouse</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cgroup/'>Control Group</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/couchbase/'>Couchbase</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/csgo/'>Counter-Strike Global Offensive (CSGO)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cpu/'>CPU</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/dpdk/'>Data Plane Development Kit (DPDK)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/xtremio/'>Dell EMC XtremIO</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/dmcache/'>Device Mapper Cache</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/directory_monitor/'>Directory Monitor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/disk/'>Disk</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/diskio/'>DiskIO</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/disque/'>Disque</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/dns_query/'>DNS Query</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/docker/'>Docker</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/docker_log/'>Docker Log</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/dovecot/'>Dovecot</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/elasticsearch/'>Elasticsearch</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/elasticsearch_query/'>Elasticsearch Query</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ethtool/'>Ethtool</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/exec/'>Exec</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/execd/'>Execd</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/fail2ban/'>Fail2ban</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/fibaro/'>Fibaro</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/file/'>File</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/filestat/'>File statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/filecount/'>Filecount</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/fireboard/'>Fireboard</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/fluentd/'>Fluentd</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/fritzbox/'>Fritzbox</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/github/'>GitHub</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/gnmi/'>gNMI (gRPC Network Management Interface)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/gnmi_listener/'>gNMI (gRPC Network Management Interface) dial-out</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cloud_pubsub/'>Google Cloud PubSub</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/cloud_pubsub_push/'>Google Cloud PubSub Push</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/google_cloud_storage/'>Google Cloud Storage</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/graylog/'>GrayLog</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/haproxy/'>HAProxy</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/consul/'>Hashicorp Consul</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/consul_agent/'>Hashicorp Consul Agent</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nomad/'>Hashicorp Nomad</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/vault/'>Hashicorp Vault</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/hddtemp/'>HDDtemp</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/http/'>HTTP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/http_listener_v2/'>HTTP Listener v2</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/http_response/'>HTTP Response</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/huebridge/'>HueBridge</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/hugepages/'>Hugepages</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/icinga2/'>Icinga2</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/infiniband/'>InfiniBand</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/influxdb/'>InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/influxdb_listener/'>InfluxDB Listener</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/influxdb_v2_listener/'>InfluxDB V2 Listener</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/intel_baseband/'>Intel Baseband Accelerator</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/intel_pmu/'>Intel Performance Monitoring Unit</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/intel_powerstat/'>Intel PowerStat</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/intel_rdt/'>Intel RDT</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/intel_dlb/'>Intel® Dynamic Load Balancer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/intel_pmt/'>Intel® Platform Monitoring Technology</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/internet_speed/'>Internet Speed Monitor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/interrupts/'>Interrupts</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ipmi_sensor/'>IPMI Sensor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ipset/'>Ipset</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/iptables/'>Iptables</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ipvs/'>IPVS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/jenkins/'>Jenkins</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/jolokia2_agent/'>Jolokia2 Agent</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/jolokia2_proxy/'>Jolokia2 Proxy</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/jti_openconfig_telemetry/'>Juniper Telemetry</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kapacitor/'>Kapacitor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kernel/'>Kernel</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nstat/'>Kernel Network Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kernel_vmstat/'>Kernel VM Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kibana/'>Kibana</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kinesis_consumer/'>Kinesis Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/knx_listener/'>KNX</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kubernetes/'>Kubernetes</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/kube_inventory/'>Kubernetes Inventory</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ldap/'>LDAP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/leofs/'>LeoFS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/libvirt/'>Libvirt</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/linux_cpu/'>Linux CPU</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/linux_sysctl_fs/'>Linux Sysctl Filesystem</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sensors/'>LM Sensors</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/lvm/'>Logical Volume Manager</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/logql/'>LogQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/logstash/'>Logstash</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/lustre2/'>Lustre</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mailchimp/'>Mailchimp</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/marklogic/'>MarkLogic</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mavlink/'>MavLink</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mcrouter/'>Mcrouter</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mdstat/'>MD RAID Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/memcached/'>Memcached</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mem/'>Memory</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/dcos/'>Mesosphere Distributed Cloud OS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item active">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sqlserver/'>Microsoft SQL Server</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/minecraft/'>Minecraft</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mock/'>Mock Data</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/modbus/'>Modbus</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mongodb/'>MongoDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/monit/'>Monit</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mqtt_consumer/'>MQTT Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/multifile/'>Multifile</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/mysql/'>MySQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nats_consumer/'>NATS Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nats/'>NATS Server Monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/neoom_beaam/'>Neoom Beaam</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/neptune_apex/'>Neptune Apex</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/conntrack/'>Netfilter Conntrack</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/netflow/'>Netflow</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nsdp/'>Netgear Switch Discovery Protocol</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/net/'>Network</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/netstat/'>Network Connection Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nfsclient/'>Network Filesystem</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/net_response/'>Network Response</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ntpq/'>Network Time Protocol Query</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nftables/'>Nftables</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nginx/'>Nginx</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nginx_plus/'>Nginx Plus</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nginx_plus_api/'>Nginx Plus API</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nginx_sts/'>Nginx Stream Server Traffic</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nginx_upstream_check/'>Nginx Upstream Check</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nginx_vts/'>Nginx Virtual Host Traffic</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nsd/'>NLnet Labs Name Server Daemon</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nsq/'>NSQ</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nsq_consumer/'>NSQ Consumer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/nvidia_smi/'>Nvidia System Management Interface (SMI)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/opcua_listener/'>OPC UA Client Listener</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/opcua/'>OPC UA Client Reader</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/openldap/'>OpenLDAP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/openntpd/'>OpenNTPD</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/opensearch_query/'>OpenSearch Query</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/opensmtpd/'>OpenSMTPD</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/openstack/'>OpenStack</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/opentelemetry/'>OpenTelemetry</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/openweathermap/'>OpenWeatherMap</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/p4runtime/'>P4 Runtime</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/passenger/'>Passenger</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/pf/'>PF</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/pgbouncer/'>PgBouncer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/phpfpm/'>PHP-FPM</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ping/'>Ping</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/postfix/'>Postfix</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/postgresql/'>PostgreSQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/postgresql_extensible/'>PostgreSQL Extensible</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/powerdns/'>PowerDNS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/powerdns_recursor/'>PowerDNS Recursor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/processes/'>Processes</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/procstat/'>Procstat</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/prometheus/'>Prometheus</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/promql/'>PromQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/proxmox/'>Proxmox</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/puppetagent/'>Puppet Agent</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/rabbitmq/'>RabbitMQ</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/radius/'>Radius</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/raindrops/'>Raindrops Middleware</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ras/'>RAS Daemon</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/ravendb/'>RavenDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/redfish/'>Redfish</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/redis/'>Redis</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/redis_sentinel/'>Redis Sentinel</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/rethinkdb/'>RethinkDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/riak/'>Riak</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/riemann_listener/'>Riemann Listener</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/smart/'>S.M.A.R.T.</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/salesforce/'>Salesforce</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sflow/'>SFlow</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/s7comm/'>Siemens S7</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sip/'>SIP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/slab/'>Slab</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/slurm/'>SLURM</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/smartctl/'>smartctl JSON</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/snmp/'>SNMP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/snmp_trap/'>SNMP Trap</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/socket_listener/'>Socket Listener</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/socketstat/'>Socket Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sql/'>SQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/stackdriver/'>Stackdriver Google Cloud Monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/statsd/'>StatsD</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/supervisor/'>Supervisor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/suricata/'>Suricata</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/swap/'>Swap</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/synproxy/'>Synproxy</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/syslog/'>Syslog</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/system/'>System</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sysstat/'>System Performance Statistics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/systemd_units/'>Systemd-Units</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/tacacs/'>Tacacs</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/tail/'>Tail</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/teamspeak/'>Teamspeak</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/internal/'>Telegraf Internal</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/temp/'>Temperature</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/tengine/'>Tengine Web Server</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/timex/'>Timex</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/trig/'>Trig</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/turbostat/'>Turbostat</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/twemproxy/'>Twemproxy</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/unbound/'>Unbound</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/upsd/'>UPSD</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/uwsgi/'>uWSGI</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/varnish/'>Varnish</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/vsphere/'>VMware vSphere</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/webhooks/'>Webhooks</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/whois/'>WHOIS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/win_eventlog/'>Windows Eventlog</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/win_wmi/'>Windows Management Instrumentation</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/win_perf_counters/'>Windows Performance Counters</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/win_services/'>Windows Services</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/wireguard/'>Wireguard</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/wireless/'>Wireless</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/x509_cert/'>x509 Certificate</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/zfs/'>ZFS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/zipkin/'>Zipkin</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/'>Processor plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/aws_ec2/'>AWS EC2 Metadata</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/batch/'>Batch</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/clone/'>Clone</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/converter/'>Converter</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/cumulative_sum/'>Cumulative Sum</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/date/'>Date</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/dedup/'>Dedup</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/defaults/'>Defaults</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/enum/'>Enum</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/execd/'>Execd</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/filepath/'>Filepath</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/filter/'>Filter</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/lookup/'>Lookup</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/ifname/'>Network Interface Name</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/noise/'>Noise</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/override/'>Override</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/parser/'>Parser</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/pivot/'>Pivot</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/port_name/'>Port Name Lookup</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/printer/'>Printer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/regex/'>Regex</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/rename/'>Rename</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/reverse_dns/'>Reverse DNS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/round/'>Round</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/s2geo/'>S2 Geo</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/scale/'>Scale</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/snmp_lookup/'>SNMP Lookup</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/split/'>Split</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/starlark/'>Starlark</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/strings/'>Strings</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/tag_limit/'>Tag Limit</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/template/'>Template</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/timestamp/'>Timestamp</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/topk/'>TopK</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/processor-plugins/unpivot/'>Unpivot</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/'>Output plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/stomp/'>ActiveMQ STOMP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/cloudwatch/'>Amazon CloudWatch</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/cloudwatch_logs/'>Amazon CloudWatch Logs</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/kinesis/'>Amazon Kinesis</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/timestream/'>Amazon Timestream</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/amon/'>Amon</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/amqp/'>AMQP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/iotdb/'>Apache IoTDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/arc/'>Arc</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/application_insights/'>Azure Application Insights</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/azure_data_explorer/'>Azure Data Explorer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/event_hubs/'>Azure Event Hubs</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/azure_monitor/'>Azure Monitor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/clarify/'>Clarify</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/cratedb/'>CrateDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/datadog/'>Datadog</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/discard/'>Discard</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/dynatrace/'>Dynatrace</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/elasticsearch/'>Elasticsearch</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/exec/'>Executable</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/execd/'>Executable Daemon</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/file/'>File</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/bigquery/'>Google BigQuery</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/stackdriver/'>Google Cloud Monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/cloud_pubsub/'>Google Cloud PubSub</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/loki/'>Grafana Loki</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/graphite/'>Graphite</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/graylog/'>Graylog</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/groundwork/'>GroundWork</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/health/'>Health</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/heartbeat/'>Heartbeat</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/http/'>HTTP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/influxdb/'>InfluxDB v1.x</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/influxdb_v2/'>InfluxDB v2.x</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/influxdb_v3/'>InfluxDB v3.x</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/inlong/'>Inlong</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/instrumental/'>Instrumental</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/kafka/'>Kafka</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/librato/'>Librato</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/logzio/'>Logz.io</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/microsoft_fabric/'>Microsoft Fabric</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/mongodb/'>MongoDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/mqtt/'>MQTT Producer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/nats/'>NATS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/nebius_cloud_monitoring/'>Nebius Cloud Monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/newrelic/'>New Relic</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/nsq/'>NSQ</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/opensearch/'>OpenSearch</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/opentelemetry/'>OpenTelemetry</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/opentsdb/'>OpenTSDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/parquet/'>Parquet</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/postgresql/'>PostgreSQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/prometheus_client/'>Prometheus</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/quix/'>Quix</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/redistimeseries/'>Redis Time Series</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/remotefile/'>Remote File</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/riemann/'>Riemann</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/sensu/'>Sensu Go</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/signalfx/'>SignalFx</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/socket_writer/'>Socket Writer</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/sql/'>SQL</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/sumologic/'>Sumo Logic</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/syslog/'>Syslog</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/warp10/'>Warp10</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/wavefront/'>Wavefront</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/websocket/'>Websocket</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/yandex_cloud_monitoring/'>Yandex Cloud Monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/output-plugins/zabbix/'>Zabbix</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configure_plugins/template-patterns/'>Template patterns</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/'>Telegraf commands</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/config/'>telegraf config</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/config/create/'>telegraf config create</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/config/migrate/'>telegraf config migrate</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/'>telegraf plugins</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/inputs/'>telegraf plugins inputs</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/outputs/'>telegraf plugins outputs</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/parsers/'>telegraf plugins parsers</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/serializers/'>telegraf plugins serializers</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/processors/'>telegraf plugins processors</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/aggregators/'>telegraf plugins aggregators</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/plugins/secretstores/'>telegraf plugins secretstores</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/secrets/'>telegraf secrets</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/secrets/get/'>telegraf secrets get</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/secrets/list/'>telegraf secrets list</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/secrets/set/'>telegraf secrets set</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/commands/version/'>telegraf version</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/configuration/'>Configuration options</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/'>Data formats</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/'>Input data formats</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/avro/'>Avro</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/binary/'>Binary</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/collectd/'>collectd</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/csv/'>CSV</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/dropwizard/'>Dropwizard</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/form_urlencoded/'>Form URL-encoded</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/graphite/'>Graphite</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/grok/'>Grok</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/influx/'>InfluxDB line protocol</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/json/'>JSON</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/json_v2/'>JSON v2</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/logfmt/'>logfmt</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/nagios/'>Nagios</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/opentsdb/'>OpenTSDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/prometheus-remote-write/'>Prometheus Remote Write</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/value/'>Value</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/wavefront/'>Wavefront</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/xml/'>XML</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/xpath_json/'>XPath JSON</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/xpath_msgpack/'>XPath MessagePack</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/input/xpath_protobuf/'>XPath Protocol Buffers</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/'>Output data formats</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/binary/'>Binary</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/carbon2/'>Carbon2</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/cloudevents/'>CloudEvents</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/csv/'>CSV</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/graphite/'>Graphite</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/influx/'>InfluxDB line protocol</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/json/'>JSON</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/msgpack/'>MessagePack</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/prometheus/'>Prometheus</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/prometheusremotewrite/'>Prometheus Remote Write</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/nowmetric/'>ServiceNow metrics</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/splunkmetric/'>Splunk metric</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/template/'>Template</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/data_formats/output/wavefront/'>Wavefront</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/release-notes/'>Release notes</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/glossary/'>Glossary</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/contribute/'>Contribute to Telegraf</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/mcp-server/'>Documentation MCP server</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href=''>Concepts</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/telegraf/v1/metrics/'>Metrics</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+    <h4 class="platform">InfluxData Platform</h4>
+    
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/'>Introduction</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/getting-started/'>Get started</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/mcp/server/'>Documentation MCP server</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/'>Monitor</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/'>Monitor the InfluxData Platform</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/internal-vs-external/'>Configurations for monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/monitoring-dashboards/'>Monitoring dashboards</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/external-monitor-setup/'>Configure a watcher of watchers</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/tools/'>Other monitoring tools</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/tools/measurements-internal/'>InfluxDB _internal measurements</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/tools/kapacitor-measurements/'>Kapacitor measurements</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/tools/show-diagnostics/'>SHOW DIAGNOSTICS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/influxdata-platform/tools/show-stats/'>SHOW STATS</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/containers/'>Monitor containers</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/monitoring/containers/kubernetes/'>Monitor Kubernetes</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7300/platform/troubleshoot/'>Troubleshoot</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/troubleshoot/oom-loops/'>Out-of-memory loops</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/troubleshoot/disk-usage/'>Disk usage</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/faq/'>Frequently asked questions</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7300/platform/identify-version/'>Identify version</a>
+        
+      
+    </li>
+  
+
+
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1></h1>
+      
+
+
+
+
+
+<ul class="metadata">
+  <li>
+    &lt;nil&gt; v0.10.1+
+  </li>
+</ul>
+
+      
+      <div class="page-actions">
+        <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+>
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+        
+
+
+
+        
+  
+  
+    
+    
+    
+    <a class="btn github" href="https://github.com/influxdata/telegraf/tree/v1.39.0/plugins/inputs/sqlserver/" target="_blank">Plugin source</a>
+    <a class="btn download"
+       data-component="download-external"
+       data-filename="telegraf-input-sqlserver.sample.conf"
+       href="https://raw.githubusercontent.com/influxdata/telegraf/refs/tags/v1.39.0/plugins/inputs/sqlserver/sample.conf">Download configuration</a>
+  
+
+      </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <h1 id="microsoft-sql-server-input-plugin">Microsoft SQL Server Input Plugin</h1>
+<p>This plugin provides metrics for your <a href="https://docs.microsoft.com/en-us/sql/sql-server">SQL Server</a> instance. Recorded
+metrics are lightweight and use Dynamic Management Views supplied by SQL Server.</p>
+
+<div class="block note">
+  
+  
+  <p>This plugin supports SQL server versions supported by Microsoft (see
+<a href="https://docs.microsoft.com/en-us/sql/sql-server/end-of-support/sql-server-end-of-life-overview?view=sql-server-ver15#lifecycle-dates">lifecycle dates</a>), Azure SQL Databases (Single), Azure SQL Managed
+Instances, Azure SQL Elastic Pools and Azure Arc-enabled SQL Managed
+Instances.</p>
+</div>
+<p><strong>Introduced in:</strong> Telegraf v0.10.1
+<strong>Tags:</strong> datastore
+<strong>OS support:</strong> all</p>
+<h2 id="global-configuration-options">Global configuration options <!-- @/docs/includes/plugin_config.md --></h2>
+<p>Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See <a href="/telegraf/v1/configuration/#plugins">CONFIGURATION.md</a> for more details.</p>
+<h2 id="secret-store-support">Secret store support</h2>
+<p>This plugin supports secrets from secret stores for the <code>servers</code> option.
+See the <a href="/telegraf/v1/configuration/#secret-store-secrets">secret store documentation</a> for more details on how
+to use them.</p>
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Read metrics from Microsoft SQL Server</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">sqlserver</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## Specify instances to monitor with a list of connection strings.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## All connection parameters are optional.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## By default, the host is localhost, listening on default port, TCP 1433.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">##   for Windows, the user is the currently running AD user (SSO).</span>
+</span></span><span class="line"><span class="cl">  <span class="c">##   See https://github.com/microsoft/go-mssqldb for detailed connection</span>
+</span></span><span class="line"><span class="cl">  <span class="c">##   parameters, in particular, tls connections can be created like so:</span>
+</span></span><span class="line"><span class="cl">  <span class="c">##   &#34;encrypt=true;certificate=&lt;cert&gt;;hostNameInCertificate=&lt;SqlServer host fqdn&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">servers</span> <span class="p">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Server=192.168.1.10;Port=1433;User Id=&lt;user&gt;;Password=&lt;pw&gt;;app name=telegraf;log=1;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Timeout for query execution operation</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## Note that the timeout for queries is per query not per gather.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## 0 value means no timeout</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># query_timeout = &#34;0s&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Authentication method</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## valid methods: &#34;connection_string&#34;, &#34;AAD&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># auth_method = &#34;connection_string&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## ClientID is the is the client ID of the user assigned identity of the VM</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## that should be used to authenticate to the Azure SQL server.</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># client_id = &#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## &#34;database_type&#34; enables a specific set of queries depending on the database type. If specified, it replaces azuredb = true/false and query_version = 2</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## In the config file, the sql server plugin section should be repeated each with a set of servers for a specific database_type.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## Possible values for database_type are - &#34;SQLServer&#34; or &#34;AzureSQLDB&#34; or &#34;AzureSQLManagedInstance&#34; or &#34;AzureSQLPool&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">database_type</span> <span class="p">=</span> <span class="s2">&#34;SQLServer&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## A list of queries to include. If not specified, all the below listed queries are used.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">include_query</span> <span class="p">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## A list of queries to explicitly ignore.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">exclude_query</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;SQLServerAvailabilityReplicaStates&#34;</span><span class="p">,</span> <span class="s2">&#34;SQLServerDatabaseReplicaStates&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Force using the deprecated ADAL authentication method instead of the recommended</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## MSAL method. Setting this option is not recommended and only exists for backward</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## compatibility.</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># use_deprecated_adal_authentication = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Queries enabled by default for database_type = &#34;SQLServer&#34; are -</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## SQLServerPerformanceCounters, SQLServerWaitStatsCategorized, SQLServerDatabaseIO, SQLServerProperties, SQLServerMemoryClerks,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## SQLServerSchedulers, SQLServerRequests, SQLServerVolumeSpace, SQLServerCpu, SQLServerAvailabilityReplicaStates, SQLServerDatabaseReplicaStates,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## SQLServerRecentBackups</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Queries enabled by default for database_type = &#34;AzureSQLDB&#34; are -</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLDBResourceStats, AzureSQLDBResourceGovernance, AzureSQLDBWaitStats, AzureSQLDBDatabaseIO, AzureSQLDBServerProperties,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLDBOsWaitstats, AzureSQLDBMemoryClerks, AzureSQLDBPerformanceCounters, AzureSQLDBRequests, AzureSQLDBSchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Queries enabled by default for database_type = &#34;AzureSQLManagedInstance&#34; are -</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLMIResourceStats, AzureSQLMIResourceGovernance, AzureSQLMIDatabaseIO, AzureSQLMIServerProperties, AzureSQLMIOsWaitstats,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLMIMemoryClerks, AzureSQLMIPerformanceCounters, AzureSQLMIRequests, AzureSQLMISchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Queries enabled by default for database_type = &#34;AzureSQLPool&#34; are -</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLPoolResourceStats, AzureSQLPoolResourceGovernance, AzureSQLPoolDatabaseIO, AzureSQLPoolWaitStats,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLPoolMemoryClerks, AzureSQLPoolPerformanceCounters, AzureSQLPoolSchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Queries enabled by default for database_type = &#34;AzureArcSQLManagedInstance&#34; are -</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLMIDatabaseIO, AzureSQLMIServerProperties, AzureSQLMIOsWaitstats,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## AzureSQLMIMemoryClerks, AzureSQLMIPerformanceCounters, AzureSQLMIRequests, AzureSQLMISchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Following are old config settings</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## You may use them only if you are using the earlier flavor of queries, however it is recommended to use</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## the new mechanism of identifying the database_type there by use it&#39;s corresponding queries</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Optional parameter, setting this to 2 will use a new version</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## of the collection queries that break compatibility with the original</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## dashboards.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## Version 2 - is compatible from SQL Server 2012 and later versions and also for SQL Azure DB</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># query_version = 2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## If you are using AzureDB, setting this to true will gather resource utilization metrics</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># azuredb = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Toggling this to true will emit an additional metric called &#34;sqlserver_telegraf_health&#34;.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## This metric tracks the count of attempted queries and successful queries for each SQL instance specified in &#34;servers&#34;.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## The purpose of this metric is to assist with identifying and diagnosing any connectivity or query issues.</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## This setting/metric is optional and is disabled by default.</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># health_metric = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Possible queries across different versions of the collectors</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## Queries enabled by default for specific Database Type</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## database_type =  AzureSQLDB  by default collects the following queries</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBWaitStats</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBResourceStats</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBResourceGovernance</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBDatabaseIO</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBServerProperties</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBOsWaitstats</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBMemoryClerks</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBPerformanceCounters</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBRequests</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLDBSchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## database_type =  AzureSQLManagedInstance by default collects the following queries</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIResourceStats</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIResourceGovernance</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIDatabaseIO</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIServerProperties</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIOsWaitstats</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIMemoryClerks</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIPerformanceCounters</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMIRequests</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLMISchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## database_type =  AzureSQLPool by default collects the following queries</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolResourceStats</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolResourceGovernance</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolDatabaseIO</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolOsWaitStats,</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolMemoryClerks</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolPerformanceCounters</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - AzureSQLPoolSchedulers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## database_type =  SQLServer by default collects the following queries</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerPerformanceCounters</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerWaitStatsCategorized</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerDatabaseIO</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerProperties</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerMemoryClerks</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerSchedulers</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerRequests</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerVolumeSpace</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerCpu</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerRecentBackups</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## and following as optional (if mentioned in the include_query list)</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerAvailabilityReplicaStates</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## - SQLServerDatabaseReplicaStates</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Maximum number of open connections to the database, 0 allows the driver to decide.</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># max_open_connections = 0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">## Maximum number of idle connections in the connection pool, 0 allows the driver to decide.</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># max_idle_connections = 0</span></span></span></code></pre></div><p>For available options in the <code>servers</code> DSN check the <a href="https://github.com/microsoft/go-mssqldb">driver documentation</a>.</p>
+<p>The plugin supports the named-pipe and LPC protocol <strong>on Windows AMD64 and i386</strong>
+for connections. On other platforms those protocols are not available. See the
+<a href="https://github.com/microsoft/go-mssqldb?tab=readme-ov-file#protocol-configuration">protocol configuration section</a> of the driver documentation on
+how to specify the protocols.</p>
+<h3 id="additional-setup">Additional Setup</h3>
+<p>You have to create a login on every SQL Server instance or Azure SQL Managed
+instance you want to monitor, with following script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">LOGIN</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">]</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;mystrongpassword&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">SERVER</span><span class="w"> </span><span class="k">STATE</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="k">ANY</span><span class="w"> </span><span class="n">DEFINITION</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span></span></span></code></pre></div><p>For Azure SQL Database, you require the View Database State permission
+and can create a user with a password directly in the database.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">]</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;mystrongpassword&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">STATE</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span></span></span></code></pre></div><p>For Azure SQL Elastic Pool, please follow the following instructions to collect
+metrics. On master logical database, create an SQL login &rsquo;telegraf&rsquo; and assign
+it to the server-level role ##MS_ServerStateReader##.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">LOGIN</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">]</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="s1">&#39;mystrongpassword&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">SERVER</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="o">##</span><span class="n">MS_ServerStateReader</span><span class="o">##</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">ADD</span><span class="w"> </span><span class="n">MEMBER</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span></span></span></code></pre></div><p>Elastic pool metrics can be collected from any database in the pool if a user
+for the <code>telegraf</code> login is created in that database. For collection to work,
+this database must remain in the pool, and must not be renamed. If you plan
+to add/remove databases from this pool, create a separate database for
+monitoring purposes that will remain in the pool.</p>
+
+<div class="block note">
+  
+  
+  <p>To avoid duplicate monitoring data, do not collect elastic pool metrics
+from more than one database in the same pool.</p>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="p">[</span><span class="n">telegraf</span><span class="p">]</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">LOGIN</span><span class="w"> </span><span class="n">telegraf</span><span class="p">;</span></span></span></code></pre></div><p>For Service SID authentication to SQL Server (Windows service installations
+only) check the <a href="https://docs.microsoft.com/en-us/sql/relational-databases/security/using-service-sids-to-grant-permissions-to-services-in-sql-server">howto document</a>. In an administrative command prompt
+configure the telegraf service for use with a service SID</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Batchfile" data-lang="Batchfile"><span class="line"><span class="cl">sc.exe sidtype <span class="s2">&#34;telegraf&#34;</span> unrestricted</span></span></code></pre></div><p>To create the login for the telegraf service run the following script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">LOGIN</span><span class="w"> </span><span class="p">[</span><span class="n">NT</span><span class="w"> </span><span class="n">SERVICE</span><span class="err">\</span><span class="n">telegraf</span><span class="p">]</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">WINDOWS</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">SERVER</span><span class="w"> </span><span class="k">STATE</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">[</span><span class="n">NT</span><span class="w"> </span><span class="n">SERVICE</span><span class="err">\</span><span class="n">telegraf</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="k">ANY</span><span class="w"> </span><span class="n">DEFINITION</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">[</span><span class="n">NT</span><span class="w"> </span><span class="n">SERVICE</span><span class="err">\</span><span class="n">telegraf</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">GO</span></span></span></code></pre></div><p>Remove User Id and Password keywords from the connection string in your
+config file to use windows authentication.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">sqlserver</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">servers</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;Server=192.168.1.10;Port=1433;app name=telegraf;log=1;&#34;</span><span class="p">,]</span></span></span></code></pre></div><p>To set up a configurable timeout, add timeout to the connections string
+in your config file.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">servers</span> <span class="p">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;Server=192.168.1.10;Port=1433;User Id=&lt;user&gt;;Password=&lt;pw&gt;;app name=telegraf;log=1;dial timeout=30&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span></span></span></code></pre></div><h3 id="azure-active-directory-aad-authentication-using-managed-identity">Azure Active Directory (AAD) authentication using Managed Identity</h3>
+<p>Azure SQL Database instances support two main methods of
+<a href="https://docs.microsoft.com/en-us/azure/azure-sql/database/security-overview#authentication">authentication</a>: SQL authentication and AAD authentication. The
+recommended practice is to use <a href="https://docs.microsoft.com/en-us/azure/azure-sql/database/authentication-aad-overview">AAD authentication</a> when possible as
+it is a more modern authentication protocol, allows for easier credential and
+role management and can eliminate the need to include passwords in connection
+strings.</p>
+<p>If more then one managed identity is assigned to the VM, you need specify the
+<code>client_id</code> of the identity you wish to use to authenticate with the SQL Server.
+Please check <a href="https://github.com/microsoft/go-mssqldb#azure-active-directory-authentication">SQL Server driver</a> documentation for available options.</p>
+<h3 id="azure-active-directory-aad-authentication-using-msi">Azure Active Directory (AAD) authentication using MSI</h3>
+<p>AAD based auth is currently only supported for Azure SQL Database and Azure SQL
+Managed Instance but not for SQL Server. To use MSI configure
+&ldquo;system-assigned managed identity&rdquo; for Azure resources on the Monitoring VM
+(the VM connecting to the SQL server/database) <a href="https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-portal-windows-vm">using the Azure portal</a>.
+Create a user with the name of the Monitoring VM as the principal on the
+database being monitored using the below script. This might require
+allow-listing the client machine&rsquo;s IP address (from where the below SQL script
+is being run) on the SQL Server resource.</p>
+<p>In case of multiple assigned identities on one VM you can use the parameter
+user_assigned_id to specify the <code>client_id</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXECUTE</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;IF EXISTS(SELECT * FROM sys.database_principals WHERE name = &#39;&#39;&lt;Monitoring_VM_Name&gt;&#39;&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">    BEGIN
+</span></span></span><span class="line"><span class="cl"><span class="s1">        DROP USER [&lt;Monitoring_VM_Name&gt;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">    END&#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">EXECUTE</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;CREATE USER [&lt;Monitoring_VM_Name&gt;] FROM EXTERNAL PROVIDER&#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">EXECUTE</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;GRANT VIEW DATABASE STATE TO [&lt;Monitoring_VM_Name&gt;]&#39;</span><span class="p">)</span></span></span></code></pre></div><p>On the SQL Server resource of the database(s) being monitored, go to
+&ldquo;Firewalls and Virtual Networks&rdquo; tab and allowlist the monitoring VM IP address.
+On the Monitoring VM, update the telegraf config file with the database
+connection string in the following format. The connection string only provides
+the server and database name, but no password (since the VM&rsquo;s system-assigned
+managed identity would be used for authentication). The auth method must be
+set to &ldquo;AAD&rdquo;</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl">  <span class="nx">servers</span> <span class="p">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Server=&lt;Azure_SQL_Server_Name&gt;.database.windows.net;Port=1433;Database=&lt;Azure_SQL_Database_Name&gt;;app name=telegraf;log=1;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">auth_method</span> <span class="p">=</span> <span class="s2">&#34;AAD&#34;</span></span></span></code></pre></div><h2 id="metrics">Metrics</h2>
+<p>To provide backwards compatibility, this plugin support two versions of
+metrics queries.</p>
+
+<div class="block note">
+  
+  
+  <p>Version 2 queries are not backwards compatible with the old queries. Any
+dashboards or queries based on the old query format will not work with the new
+format. The version 2 queries only report raw metrics, no math has been done
+to calculate deltas. To graph this data you must calculate deltas in your
+dashboarding software.</p>
+</div>
+<h3 id="query-version-1">Query Version 1</h3>
+
+<div class="block caution">
+  
+  
+  <p>The <code>query_version</code> option was <strong>deprecated</strong> in Telegraf v1.16. All future
+development will be under configuration option<code>database_type</code>.</p>
+</div>
+<p>The original metrics queries provide:</p>
+<ul>
+<li><em>Performance counters</em>: 1000+ metrics from <code>sys.dm_os_performance_counters</code></li>
+<li><em>Performance metrics</em>: special performance and ratio metrics</li>
+<li><em>Wait stats</em>: wait tasks categorized from <code>sys.dm_os_wait_stats</code></li>
+<li><em>Memory clerk</em>: memory breakdown from <code>sys.dm_os_memory_clerks</code></li>
+<li><em>Database size</em>: databases size trend from <code>sys.dm_io_virtual_file_stats</code></li>
+<li><em>Database IO</em>: databases I/O from <code>sys.dm_io_virtual_file_stats</code></li>
+<li><em>Database latency</em>: databases latency from <code>sys.dm_io_virtual_file_stats</code></li>
+<li><em>Database properties</em>: databases properties, state and recovery model, from <code>sys.databases</code></li>
+<li><em>OS Volume</em>: available, used and total space from <code>sys.dm_os_volume_stats</code></li>
+<li><em>CPU</em>: cpu usage from <code>sys.dm_os_ring_buffers</code></li>
+</ul>
+<p>If you are using the original queries all stats have the following tags:</p>
+<ul>
+<li><code>servername</code>:  hostname:instance</li>
+<li><code>type</code>: type of stats to easily filter measurements</li>
+</ul>
+<h3 id="query-version-2">Query Version 2</h3>
+
+<div class="block caution">
+  
+  
+  <p>The <code>query_version</code> option was <strong>deprecated</strong> in Telegraf v1.16. All future
+development will be under configuration option<code>database_type</code>.</p>
+</div>
+<p>The new (version 2) metrics provide:</p>
+<ul>
+<li>
+<p><em>Database IO</em>: IO stats from <code>sys.dm_io_virtual_file_stats</code>.</p>
+</li>
+<li>
+<p><em>Memory Clerk</em>: Memory clerk breakdown from <code>sys.dm_os_memory_clerks</code>, most
+clerks have been given a friendly name.</p>
+</li>
+<li>
+<p><em>Performance Counters</em>:  A select list of performance counters from
+<code>sys.dm_os_performance_counters</code>. Some of the
+important metrics included:</p>
+<ul>
+<li><em>Activity</em>:            Transactions/sec/database, Batch requests/sec,
+blocked processes and more</li>
+<li><em>Availability Groups</em>: Bytes sent to replica, Bytes received from replica,
+Log bytes received, Log send queue, transaction delay
+and more</li>
+<li><em>Log activity</em>:        Log bytes flushed/sec, Log flushes/sec, Log Flush
+Wait Time</li>
+<li><em>Memory</em>:              PLE, Page reads/sec, Page writes/sec and more</li>
+<li><em>TempDB</em>:              Free space, Version store usage, Active temp tables,
+temp table creation rate and more</li>
+<li><em>Resource Governor</em>:   CPU Usage, Requests/sec, Queued Requests, and Blocked
+tasks per workload group and more</li>
+</ul>
+</li>
+<li>
+<p><em>Server properties</em>:     Number of databases in all possible states (online,
+offline, suspect, etc.), cpu count, total physical
+memory, available physical memory, SQL Server service
+uptime, SQL Server SPID, and SQL Server version. In
+the case of Azure SQL relevant properties such as
+Tier, #Vcores, Memory etc.</p>
+</li>
+<li>
+<p><em>Wait stats</em>:            Wait time in ms, number of waiting tasks, resource
+wait time, signal wait time, max wait time in ms,
+wait type, and wait category. The waits are
+categorized using the same categories used in
+Query Store.</p>
+</li>
+<li>
+<p><em>Schedulers</em>:            This captures <code>sys.dm_os_schedulers</code>.</p>
+</li>
+<li>
+<p><em>SqlRequests</em>:           This captures a snapshot of <code>sys.dm_exec_requests</code>
+and <code>sys.dm_exec_sessions</code> that gives you running
+requests as well as wait types and blocking sessions.
+Telegraf&rsquo;s monitoring request is omitted unless it is
+a heading blocker. Also includes sleeping sessions
+with open transactions.</p>
+</li>
+<li>
+<p><em>VolumeSpace</em>:           uses <code>sys.dm_os_volume_stats</code> to get total, used and
+occupied space on every disk that contains a data or
+log file. (Note that even if enabled it won&rsquo;t get any
+data from Azure SQL Database or SQL Managed Instance).
+It is pointless to run this with high frequency
+(ie: every 10s), but it won&rsquo;t cause any problem.</p>
+</li>
+<li>
+<p><em>Cpu</em>:                   uses the buffer ring (<code>sys.dm_os_ring_buffers</code>) to
+get CPU data, the table is updated once per minute.
+(Note that even if enabled it won&rsquo;t get any data from
+Azure SQL Database or SQL Managed Instance).</p>
+<p>In order to allow tracking on a per statement basis this query produces a
+unique tag for each query.  Depending on the database workload, this may
+result in a high cardinality series.  Reference the FAQ for tips on
+<a href="/docs/FAQ.md#user-content-q-how-can-i-manage-series-cardinality">managing series cardinality</a>.</p>
+</li>
+<li>
+<p><em>Azure Managed Instances</em></p>
+<ul>
+<li>Stats from <code>sys.server_resource_stats</code></li>
+<li>Resource governance stats from <code>sys.dm_instance_resource_governance</code></li>
+</ul>
+</li>
+<li>
+<p><em>Azure SQL Database</em> in addition to other stats</p>
+<ul>
+<li>Stats from <code>sys.dm_db_wait_stats</code></li>
+<li>Resource governance stats from <code>sys.dm_user_db_resource_governance</code></li>
+<li>Stats from <code>sys.dm_db_resource_stats</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="database-type-azuresqldb">Database Type &ldquo;AzureSQLDB&rdquo;</h3>
+<p>These are metrics for Azure SQL Database (single database) and are very
+similar to version 2 but split out for maintenance reasons, better ability
+to test,differences in DMVs:</p>
+<ul>
+<li><em>AzureSQLDBDatabaseIO</em>:          IO stats from <code>sys.dm_io_virtual_file_stats</code>
+including resource governance time, RBPEX, IO
+for Hyperscale.</li>
+<li><em>AzureSQLDBMemoryClerks</em>:        Memory clerk breakdown from <code>sys.dm_os_memory_clerks</code>.</li>
+<li><em>AzureSQLDBResourceGovernance</em>:  Relevant properties indicatign resource
+limits from <code>sys.dm_user_db_resource_governance</code></li>
+<li><em>AzureSQLDBPerformanceCounters</em>: A select list of performance counters from
+<code>sys.dm_os_performance_counters</code> including
+cloud specific counters for SQL Hyperscale.</li>
+<li><em>AzureSQLDBServerProperties</em>:    Relevant Azure SQL relevant properties from
+such as Tier, #Vcores, Memory etc, storage, etc.</li>
+<li><em>AzureSQLDBWaitstats</em>:           Wait time in ms from <code>sys.dm_db_wait_stats</code>,
+number of waiting tasks, resource wait time,
+signal wait time, max wait time in ms, wait
+type, and wait category. The waits are
+categorized using the same categories used in
+Query Store. These waits are collected only
+as of the end of the a statement. and for a
+specific database only.</li>
+<li><em>AzureSQLOsWaitstats</em>:           Wait time in ms from <code>sys.dm_os_wait_stats</code>,
+number of waiting tasks, resource wait time,
+signal wait time, max wait time in ms, wait
+type, and wait category. The waits are
+categorized using the same categories used in
+Query Store. These waits are collected as
+they occur and instance wide</li>
+<li><em>AzureSQLDBRequests</em>:            Requests which are blocked or have a wait
+type from <code>sys.dm_exec_sessions</code> and
+<code>sys.dm_exec_requests</code>. Telegraf&rsquo;s monitoring
+request is omitted unless it is a heading blocker</li>
+<li><em>AzureSQLDBSchedulers</em>:          This captures <code>sys.dm_os_schedulers</code> snapshots.</li>
+</ul>
+<h3 id="database-type-azuresqlmanagedinstance">Database Type &ldquo;AzureSQLManagedInstance&rdquo;</h3>
+<p>These are metrics for Azure SQL Managed instance, are very similar to version
+2 but split out for maintenance reasons, better ability to test, differences
+in DMVs:</p>
+<ul>
+<li><em>AzureSQLMIDatabaseIO</em>:          IO stats from <code>sys.dm_io_virtual_file_stats</code>
+including resource governance time, RBPEX, IO
+for Hyperscale.</li>
+<li><em>AzureSQLMIMemoryClerks</em>:        Memory clerk breakdown from <code>sys.dm_os_memory_clerks</code>.</li>
+<li><em>AzureSQLMIResourceGovernance</em>:  Relevant properties indicatign resource limits
+from <code>sys.dm_instance_resource_governance</code></li>
+<li><em>AzureSQLMIPerformanceCounters</em>: A select list of performance counters from
+<code>sys.dm_os_performance_counters</code> including
+cloud specific counters for SQL Hyperscale.</li>
+<li><em>AzureSQLMIServerProperties</em>:    Relevant Azure SQL relevant properties such
+as Tier, #Vcores, Memory etc, storage, etc.</li>
+<li><em>AzureSQLMIOsWaitstats</em>:         Wait time in ms from <code>sys.dm_os_wait_stats</code>,
+number of waiting tasks, resource wait time,
+signal wait time, max wait time in ms, wait
+type, and wait category. The waits are
+categorized using the same categories used in
+Query Store. These waits are collected as
+they occur and instance wide</li>
+<li><em>AzureSQLMIRequests</em>:            Requests which are blocked or have a wait
+type from <code>sys.dm_exec_sessions</code> and
+<code>sys.dm_exec_requests</code>. Telegraf&rsquo;s monitoring
+request is omitted unless it is a heading blocker</li>
+<li><em>AzureSQLMISchedulers</em>: This captures <code>sys.dm_os_schedulers</code> snapshots.</li>
+</ul>
+<h3 id="database-type-azuresqlpool">Database Type &ldquo;AzureSQLPool&rdquo;</h3>
+<p>These are metrics for Azure SQL to monitor resources usage at Elastic Pool
+level. These metrics require additional permissions to be collected, please
+ensure to check additional setup section in this documentation.</p>
+<ul>
+<li><em>AzureSQLPoolResourceStats</em>:       Returns resource usage statistics for the
+current elastic pool in a SQL Database
+server. Queried from <code>sys.dm_resource_governor_resource_pools_history_ex</code>.</li>
+<li><em>AzureSQLPoolResourceGovernance</em>:  Returns actual configuration and capacity
+settings used by resource governance
+mechanisms in the current elastic pool.
+Queried from <code>sys.dm_user_db_resource_governance</code>.</li>
+<li><em>AzureSQLPoolDatabaseIO</em>:          Returns I/O statistics for data and log
+files for each database in the pool.
+Queried from <code>sys.dm_io_virtual_file_stats</code>.</li>
+<li><em>AzureSQLPoolOsWaitStats</em>:         Returns information about all the waits
+encountered by threads that executed.
+Queried from <code>sys.dm_os_wait_stats</code>.</li>
+<li><em>AzureSQLPoolMemoryClerks</em>:        Memory clerk breakdown from <code>sys.dm_os_memory_clerks</code>.</li>
+<li><em>AzureSQLPoolPerformanceCounters</em>: A selected list of performance counters
+from <code>sys.dm_os_performance_counters</code>.
+Note: Performance counters where the
+cntr_type column value is 537003264 are
+already returned with a percentage format
+between 0 and 100. For other counters,
+please check <a href="https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-os-performance-counters-transact-sql?view=azuresqldb-current">sys.dm_os_performance_counters</a>
+documentation.</li>
+<li><em>AzureSQLPoolSchedulers</em>: This captures <code>sys.dm_os_schedulers</code> snapshots.</li>
+</ul>
+<h3 id="database-type-sqlserver">Database Type &ldquo;SQLServer&rdquo;</h3>
+<ul>
+<li><em>SQLServerDatabaseIO</em>:           IO stats from <code>sys.dm_io_virtual_file_stats</code></li>
+<li><em>SQLServerMemoryClerks</em>:         Memory clerk breakdown from <code>sys.dm_os_memory_clerks</code>,
+most clerks have been given a friendly name.</li>
+<li><em>SQLServerPerformanceCounters</em>:  A select list of performance counters from
+<code>sys.dm_os_performance_counters</code>. Some of the
+important metrics included:
+<ul>
+<li><em>Activity</em>:                    Transactions/sec/database, Batch requests/sec,
+blocked processes and more</li>
+<li><em>Availability Groups</em>:         Bytes sent to replica, Bytes received from
+replica, Log bytes received, Log send queue,
+transaction delay and more</li>
+<li><em>Log activity</em>:                Log bytes flushed/sec, Log flushes/sec,
+Log Flush Wait Time</li>
+<li><em>Memory</em>:                      PLE, Page reads/sec, Page writes/sec and more</li>
+<li><em>TempDB</em>:                      Free space, Version store usage, Active temp
+tables, temp table creation rate and more</li>
+<li><em>Resource Governor</em>:           CPU Usage, Requests/sec, Queued Requests, and
+Blocked tasks per workload group and more</li>
+</ul>
+</li>
+<li><em>SQLServerProperties</em>:           Number of databases in all possible states
+(online, offline, suspect, etc.), cpu count,
+total physical memory, available physical memory,
+SQL Server service uptime, SQL Server SPID and
+SQL Server version. In the case of Azure SQL
+relevant properties such as Tier, #Vcores,
+Memory etc.</li>
+<li><em>SQLServerWaitStatsCategorized</em>: Wait time in ms, number of waiting tasks,
+resource wait time, signal wait time, max
+wait time in ms, wait type, and wait category.
+The waits are categorized using the same
+categories used in Query Store.</li>
+<li><em>SQLServerSchedulers</em>:           This captures <code>sys.dm_os_schedulers</code>.</li>
+<li><em>SQLServerRequests</em>:             This captures a snapshot of <code>sys.dm_exec_requests</code>
+and <code>sys.dm_exec_sessions</code> that gives you
+running requests as well as wait types and
+blocking sessions.</li>
+<li><em>SQLServerVolumeSpace</em>:          Uses <code>sys.dm_os_volume_stats</code> to get total,
+used and occupied space on every disk that
+contains a data or log file. (Note that even
+if enabled it won&rsquo;t get any data from Azure
+SQL Database or SQL Managed Instance). It is
+pointless to run this with high frequency
+(ie: every 10s), but it won&rsquo;t cause any problem.</li>
+<li>SQLServerCpu:                    Uses the buffer ring (<code>sys.dm_os_ring_buffers</code>)
+to get CPU data, the table is updated once
+per minute. (Note that even if enabled it
+won&rsquo;t get any data from Azure SQL Database or
+SQL Managed Instance).</li>
+<li>SQLServerAvailabilityReplicaStates: Collects availability replica state
+information from <code>sys.dm_hadr_availability_replica_states</code>
+for a High Availability / Disaster
+Recovery (HADR) setup</li>
+<li>SQLServerDatabaseReplicaStates:  Collects database replica state information
+from <code>sys.dm_hadr_database_replica_states</code>
+for a High Availability / Disaster Recovery
+(HADR) setup</li>
+<li>SQLServerRecentBackups:          Collects latest full, differential and
+transaction log backup date and size from <code>msdb.dbo.backupset</code></li>
+<li>SQLServerPersistentVersionStore: Collects persistent version store information
+from <code>sys.dm_tran_persistent_version_store_stats</code>
+for databases with Accelerated Database
+Recovery enabled</li>
+</ul>
+<h3 id="output-measures">Output Measures</h3>
+<p>The guiding principal is that all data collected from the same primary DMV ends
+up in the same measure irrespective of database_type.</p>
+<ul>
+<li><code>sqlserver_database_io</code>       - Used by AzureSQLDBDatabaseIO,
+AzureSQLMIDatabaseIO, SQLServerDatabaseIO,
+DatabaseIO given the data is from <code>sys.dm_io_virtual_file_stats</code></li>
+<li><code>sqlserver_waitstats</code>         - Used by WaitStatsCategorized,
+AzureSQLDBOsWaitstats, AzureSQLMIOsWaitstats</li>
+<li><code>sqlserver_server_properties</code> - Used by SQLServerProperties,
+AzureSQLDBServerProperties,
+AzureSQLMIServerProperties, ServerProperties</li>
+<li><code>sqlserver_memory_clerks</code>     - Used by SQLServerMemoryClerks,
+AzureSQLDBMemoryClerks, AzureSQLMIMemoryClerks,
+MemoryClerk</li>
+<li><code>sqlserver_performance</code>       - Used by SQLServerPerformanceCounters,
+AzureSQLDBPerformanceCounters,
+AzureSQLMIPerformanceCounters, PerformanceCounters</li>
+<li><code>sys.dm_os_schedulers</code>        - Used by SQLServerSchedulers,
+AzureSQLDBServerSchedulers, AzureSQLMIServerSchedulers</li>
+</ul>
+<p>The following Performance counter metrics can be used directly, with no delta
+calculations:</p>
+<ul>
+<li>SQLServer:Buffer Manager\Buffer cache hit ratio</li>
+<li>SQLServer:Buffer Manager\Page life expectancy</li>
+<li>SQLServer:Buffer Node\Page life expectancy</li>
+<li>SQLServer:Database Replica\Log Apply Pending Queue</li>
+<li>SQLServer:Database Replica\Log Apply Ready Queue</li>
+<li>SQLServer:Database Replica\Log Send Queue</li>
+<li>SQLServer:Database Replica\Recovery Queue</li>
+<li>SQLServer:Databases\Data File(s) Size (KB)</li>
+<li>SQLServer:Databases\Log File(s) Size (KB)</li>
+<li>SQLServer:Databases\Log File(s) Used Size (KB)</li>
+<li>SQLServer:Databases\XTP Memory Used (KB)</li>
+<li>SQLServer:General Statistics\Active Temp Tables</li>
+<li>SQLServer:General Statistics\Processes blocked</li>
+<li>SQLServer:General Statistics\Temp Tables For Destruction</li>
+<li>SQLServer:General Statistics\User Connections</li>
+<li>SQLServer:Memory Broker Clerks\Memory broker clerk size</li>
+<li>SQLServer:Memory Manager\Memory Grants Pending</li>
+<li>SQLServer:Memory Manager\Target Server Memory (KB)</li>
+<li>SQLServer:Memory Manager\Total Server Memory (KB)</li>
+<li>SQLServer:Resource Pool Stats\Active memory grant amount (KB)</li>
+<li>SQLServer:Resource Pool Stats\Disk Read Bytes/sec</li>
+<li>SQLServer:Resource Pool Stats\Disk Read IO Throttled/sec</li>
+<li>SQLServer:Resource Pool Stats\Disk Read IO/sec</li>
+<li>SQLServer:Resource Pool Stats\Disk Write Bytes/sec</li>
+<li>SQLServer:Resource Pool Stats\Disk Write IO Throttled/sec</li>
+<li>SQLServer:Resource Pool Stats\Disk Write IO/sec</li>
+<li>SQLServer:Resource Pool Stats\Used memory (KB)</li>
+<li>SQLServer:Transactions\Free Space in tempdb (KB)</li>
+<li>SQLServer:Transactions\Version Store Size (KB)</li>
+<li>SQLServer:User Settable\Query</li>
+<li>SQLServer:Workload Group Stats\Blocked tasks</li>
+<li>SQLServer:Workload Group Stats\CPU usage %</li>
+<li>SQLServer:Workload Group Stats\Queued requests</li>
+<li>SQLServer:Workload Group Stats\Requests completed/sec</li>
+</ul>
+<p>Version 2 queries have the following tags:</p>
+<ul>
+<li><code>sql_instance</code>:  Physical host and instance name (hostname:instance)</li>
+<li><code>database_name</code>: For Azure SQLDB, database_name denotes the name of the
+Azure SQL Database as server name is a logical construct.</li>
+</ul>
+<h3 id="health-metric">Health Metric</h3>
+<p>All collection versions (version 1, version 2, and database_type) support an
+optional plugin health metric called <code>sqlserver_telegraf_health</code>. This metric
+tracks if connections to SQL Server are succeeding or failing. Users can
+leverage this metric to detect if their SQL Server monitoring is not working
+as intended.</p>
+<p>In the configuration file, toggling <code>health_metric</code> to <code>true</code> will enable
+collection of this metric. By default, this value is set to <code>false</code> and
+the metric is not collected. The health metric emits one record for each
+connection specified by <code>servers</code> in the configuration file.</p>
+<p>The health metric emits the following tags:</p>
+<ul>
+<li><code>sql_instance</code> -   Name of the server specified in the connection string. This
+value is emitted as-is in the connection string. If the
+server could not be parsed from the connection string, a
+constant placeholder value is emitted</li>
+<li><code>database_name</code> -  Name of the database or (initial catalog) specified in the
+connection string. This value is emitted as-is in the
+connection string. If the database could not be parsed from
+the connection string, a constant placeholder value is
+emitted</li>
+</ul>
+<p>The health metric emits the following fields:</p>
+<ul>
+<li><code>attempted_queries</code>  - Number of queries that were attempted for this connection</li>
+<li><code>successful_queries</code> - Number of queries that completed successfully for this
+connection</li>
+<li><code>database_type</code>      - Type of database as specified by <code>database_type</code>.
+If <code>database_type</code> is empty, the <code>QueryVersion</code> and
+<code>AzureDB</code> fields are concatenated instead</li>
+</ul>
+<p>If <code>attempted_queries</code> and <code>successful_queries</code> are not equal for
+a given connection, some metrics were not successfully gathered for
+that connection. If <code>successful_queries</code> is 0, no metrics were successfully
+gathered.</p>
+<h2 id="example-output">Example Output</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sqlserver_cpu_other_process_cpu{host=&#34;servername&#34;,measurement_db_type=&#34;SQLServer&#34;,sql_instance=&#34;SERVERNAME:INST&#34;} 9
+</span></span><span class="line"><span class="cl">sqlserver_performance{counter=&#34;Log File(s) Size (KB)&#34;,counter_type=&#34;65792&#34;,host=&#34;servername&#34;,instance=&#34;instance_name&#34;,measurement_db_type=&#34;SQLServer&#34;,object=&#34;MSSQL$INSTANCE_NAME:Databases&#34;,sql_instance=&#34;SERVERNAME:INSTANCE_NAME&#34;} 1.048568e+06</span></span></code></pre></div>
+
+
+    
+
+    
+    
+
+    
+
+
+
+
+
+    
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for Telegraf and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/v1/input-plugins/sqlserver.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7300/telegraf/v1/input-plugins/sqlserver/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    
+      <a href="https://github.com/influxdata/telegraf/issues/new/choose/" class="btn issue" target="_blank">Submit Telegraf issue</a>
+    
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>Where are you running InfluxDB?</h3>
+  <p>Select your <strong>InfluxDB Cloud region and cluster</strong> or your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll customize code examples for you. <em><a href="/influxdb/cloud/reference/regions/#regions-with-multiple-clusters">Identify your InfluxDB Cloud cluster</a></em>.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud regions</a> or <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;ai_source_group_ids__v1&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud1&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;InfluxQL&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;cloud.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud 1&#34;,&#34;placeholder_host&#34;:&#34;cloud.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb-v2-9-token-hashing-default" data-scope='/influxdb/v2/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB OSS 2.9.0: API tokens are hashed by default</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Stronger token security in <strong>InfluxDB OSS 2.9.0</strong> — tokens are
+hashed on disk by default. Existing tokens are hashed on first
+startup and can&rsquo;t be recovered afterward. <strong>Capture any plaintext
+tokens you still need before you upgrade.</strong></p>
+<p><a href="/influxdb/v2/reference/release-notes/influxdb/#v290">View InfluxDB OSS 2.9.0 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Hashed tokens authenticate exactly like unhashed tokens — clients
+and integrations keep working.</p>
+<p><strong>Also new in 2.9.0:</strong></p>
+<ul>
+<li>Configurable backup compression</li>
+<li>Restore support for backups containing hashed tokens</li>
+<li>Tighter Edge Data Replication queue validation</li>
+<li>Flux upgrade</li>
+<li>Compaction reliability improvements</li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="explorer-1-8-key-enhancements" data-scope='/,/influxdb3/explorer/,/influxdb3/core/,/influxdb3/enterprise/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Key enhancements in Explorer 1.8</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Explorer 1.8 is now available with streaming data subscriptions (beta),
+line protocol preview, and query history &amp; saved queries.</p>
+<p><a class="btn" href="/influxdb3/explorer/release-notes/#v180">View Explorer 1.8 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Explorer 1.8 includes new features and improvements that make it easier to ingest,
+explore, and manage data.</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Streaming data subscriptions (beta)</strong>: Stream data into Explorer from MQTT, Kafka, and AMQP sources.</li>
+<li><strong>Line protocol preview</strong>: Preview line protocol, schema, and parse errors before data is written.</li>
+<li><strong>Custom sample data</strong>: Generate custom sample datasets with line protocol and schema preview.</li>
+<li><strong>Query history and saved queries</strong>: Browse query history and save/re-run named queries.</li>
+<li><strong>Retention period management</strong>: Set, update, or clear retention periods on databases and tables.</li>
+</ul>
+<p>For more details, see <a href="/influxdb3/explorer/release-notes/#v180">Explorer 1.8 release notes</a></p>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Enterprise now in public beta</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
+<ul>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-controller-0.0.7-beta" data-scope='/telegraf/controller/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Controller v0.0.7-beta now available</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Telegraf Controller v0.0.7-beta is now available with new features, improvements, bug fixes, and an important breaking change.</p>
+<p><a href="/telegraf/controller/reference/release-notes/#v007-beta">View the release notes</a><br>
+<a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.7-beta</a></p>
+
+      </div>
+      
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag-sept" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>September 15, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
