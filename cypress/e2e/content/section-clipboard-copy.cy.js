@@ -30,7 +30,9 @@ describe('Section markdown clipboard copy (#6792)', () => {
     cy.visit(SECTION_URL, {
       onBeforeLoad(win) {
         // Capture what gets written to the clipboard.
-        cy.stub(win.navigator.clipboard, 'writeText').resolves().as('writeText');
+        cy.stub(win.navigator.clipboard, 'writeText')
+          .resolves()
+          .as('writeText');
       },
     });
 

@@ -118,7 +118,7 @@ describe('Markdown Content Validation', () => {
         const frontmatter = frontmatterMatch[1];
 
         expect(frontmatter).to.include('product:');
-        expect(frontmatter).to.include('product_version:');
+        expect(frontmatter).to.include('version:');
       });
     });
 
@@ -236,8 +236,10 @@ describe('Markdown Content Validation', () => {
 
     it('should have proper markdown headings', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        // Should contain markdown headings (# or ##)
-        expect(response.body).to.match(/^# /m);
+        // The body h1 (page title) is intentionally omitted (title is in
+        // frontmatter; matches the API-reference twins), so assert section
+        // headings (h2-h6) instead.
+        expect(response.body).to.match(/^#{2,6} /m);
       });
     });
 
@@ -429,9 +431,7 @@ describe('Markdown Content Validation', () => {
         it('should have correct product metadata', () => {
           cy.request(`${product.url}index.md`).then((response) => {
             expect(response.body).to.include(`product: ${product.name}`);
-            expect(response.body).to.include(
-              `product_version: ${product.version}`
-            );
+            expect(response.body).to.include(`version: ${product.version}`);
           });
         });
 
