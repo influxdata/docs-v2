@@ -1,7 +1,10 @@
 # IA sharing mechanism — canonical-honoring validation and decision rubric
 
-**Status:** Design — validation pending. No route chosen until the test in
-section 3 produces data.
+**Status:** Decided. Route chosen on field evidence (see "Test results and
+decision"). The original "no route until the section-3 test produces data" gate
+is lifted: the test, as specified, could not produce an outcome that changed the
+action, so it is repurposed as non-blocking before/after validation on the pilot
+pages.
 **Closes:** [#7233](https://github.com/influxdata/docs-v2/issues/7233) (Phase 2 design review)
 **Parent:** [#7230](https://github.com/influxdata/docs-v2/issues/7230) (AI visibility)
 **Blocks:** [#7232](https://github.com/influxdata/docs-v2/issues/7232) (job-led IA migration kickoff)
@@ -10,15 +13,18 @@ section 3 produces data.
 ## Goal
 
 Decide how the job-led IA shares content across Core, Enterprise, and
-deployment variants — but decide it on evidence, not assumption. The IA's
-"engine docs live once, thin overlays elsewhere" model needs a sharing
-mechanism. The choice between candidate mechanisms hinges on one empirical
-question that no one has measured: **do LLM retrievers honor `rel=canonical`?**
+deployment variants — and decide it on evidence. The IA's "engine docs live
+once, thin overlays elsewhere" model needs a sharing mechanism. The original
+plan framed the choice as hinging on one unmeasured empirical question: **do LLM
+retrievers honor `rel=canonical`?**
 
-This document defines the test that answers that question and a rubric that
-maps each possible outcome to a route. It does not pick the route. The route is
-chosen when the validation test has data and recorded under "Test results and
-decision."
+That question turns out to be largely answered by published field evidence (see
+"Field evidence"), and — more decisively — the decision rubric below contains no
+outcome that argues against canonical consolidation. When no test result can
+change the action, the test is not a gate. This document therefore picks the
+route now, on field evidence and the rubric's own logic, and records it under
+"Test results and decision." The section-3 protocol is retained as non-blocking
+before/after validation, not as a precondition.
 
 ## Intent (the two pillars)
 
@@ -68,18 +74,32 @@ fragment** includes (reuse a 60-word snippet inline); `source:` is whole-page
 only. And the inversion is a *discipline and placement* change to the existing
 mechanism, not a new engine. This is scoped in chunk 5, after the decision.
 
-## Validation test (spec — run manually)
+## Validation test (spec — non-blocking before/after)
+
+This protocol is **no longer a gate** on the route decision (see "Test results
+and decision"). It is retained, reframed, as before/after validation on the pilot
+pages: measure citation behavior before the canonical cleanup, apply the cleanup,
+then measure the same pages again. That design removes the content-type confound
+of the original contrast pair — the same page is compared against itself, with
+only its canonical/`noindex` state changed over time. Run it to confirm the
+cleanup did something, not to decide whether to do it.
 
 Per the epic, measurement tooling lives in `influxdata/docs-tooling` and is out
 of docs-v2 scope. This document is the **protocol**; execution is manual against
-production (already-indexed) content. Results land under "Test results and
-decision."
+production (already-indexed) content. Reliable per-retriever behavioral intel is
+a separate research track that needs the `docs-tooling` pipeline, not this hand-run.
 
-### Targets — a contrast pair
+### Targets — before/after on the pilot pages
 
-The test isolates the marginal effect of `rel=canonical` by comparing two
-"identical content at multiple live URLs" situations that differ only in whether
-canonical is declared.
+The original spec compared a contrast pair (Control with canonical, Realistic
+without). That pair is confounded: Control is release-notes across 5 products,
+Realistic is admin prose across 2–3, so content type and duplicate count vary
+alongside the tag. The reframed test instead measures the **same pilot pages
+before and after** the cleanup. The contrast-pair targets below are kept only as
+an optional secondary observation, not the primary measurement.
+
+The original contrast pair compared two "identical content at multiple live URLs"
+situations that differ primarily in whether canonical is declared.
 
 |                   | Content                                                               | Live URLs                                                                                                                                | Canonical state                            |
 | ----------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
@@ -139,38 +159,148 @@ observations. Doable by hand in one sitting.
 In every row, the readability inversion still proceeds (see Key reframe). The
 rubric only sets the consolidation investment.
 
+**Read the rubric column-by-column.** Every route lean — every row — still does
+canonical signaling and reduces duplicate URL surface. No outcome says "don't add
+canonical." A test whose every branch leads to the same next action has near-zero
+decision value for that action. That is the structural reason the canonical
+cleanup is not gated on the test.
+
+## Field evidence (2026)
+
+The "do LLM retrievers honor `rel=canonical`" question is less unmeasured than the
+original framing assumed. The major AI retrievers do not form independent opinions
+about canonical — they inherit the canonical handling of the search indexes they
+ride on, so the effect happens at the **index/dedup layer, upstream of the LLM**:
+
+- **ChatGPT search** runs largely on Bing's index (reported \~92% of grounded
+  queries). Bing treats canonical as a consolidation signal, so ChatGPT tends to
+  cite whatever URL Bing already canonicalized — often before the model layer
+  chooses.
+- **Google AI Overviews and Gemini grounding** run on Google's index. Google
+  honors canonical as a *hint* and can override the declared canonical with its
+  own choice; that override cascades into what the AI surface can cite.
+- **Perplexity and Claude** (Brave / independent crawl) are the weak-dedup cases —
+  more likely to index and cite multiple variants. Between-retriever divergence is
+  large: published audits report only \~11% domain overlap between ChatGPT and
+  Perplexity citations on identical queries.
+
+Two practical consequences:
+
+1. **`noindex` on true secondary duplicates is the more reliable lever than
+   canonical alone.** Google can ignore a canonical hint; it cannot ignore
+   `noindex`. The cleanup should be "canonical + selectively `noindex` secondary
+   copies," not canonical only. This is adopted from known practice — it does not
+   require our own study. **Caveat:** `noindex` is safe only on *pure* duplicates.
+   A page that mixes shared reference with per-product usage is not a duplicate;
+   `noindex`ing it would suppress distinct content. See "Reference vs usage."
+2. **The high between-retriever variance means a hand-run N=3 audit cannot
+   reliably separate "canonical consolidates" from noise.** Citation selection is
+   stochastic; the variance swamps \~100 observations. Reliable per-retriever
+   intel needs the `docs-tooling` measurement pipeline (out of docs-v2 scope per
+   the epic), not a one-sitting hand-run.
+
+Sources: Passionfruit (canonical tags and AI citations); Glenn Gabe / GSQI
+(canonical-as-hint cascade to ChatGPT; AI search and syndicated content);
+ai-visibility.org.uk (how AI search works); Topic Intelligence (per-engine source
+selection).
+
 ## Test results and decision
 
-> Pending. Fill the results table from the validation test's coding scheme, then state the
-> chosen route and a one-paragraph rationale keyed to the matching rubric row.
-> Filling this section closes #7233 and unblocks #7232.
+**Decision (2026-06-08): Route 1 — promote #7245 canonical cleanup to do-now,
+paired with Route 2 conventional split and the readability inversion. The
+section-3 measurement is repurposed as non-blocking before/after validation.**
+
+This is the rubric's first row ("canonical does real work → promote #7245 +
+conventional split. Cheap, high-leverage"), reached on field evidence rather than
+a hand-run audit, for three reasons:
+
+1. **No rubric outcome stops the canonical work.** Every route lean in the table
+   still adds canonical signaling and reduces duplicate URL surface. A gating test
+   whose every branch leads to the same action has near-zero decision value. The
+   action is decided by the structure of the rubric itself.
+
+2. **Field evidence already points to consolidation working at the index layer.**
+   The two highest-traffic AI surfaces — ChatGPT (via Bing) and AI Overviews /
+   Gemini (via Google) — inherit canonical/dedup decisions from indexes that honor
+   the signal (Google as a hint it may override; Bing more directly). Canonical
+   cleanup helps these surfaces and classic SEO at once, with no downside, and the
+   repo already has the `canonical:` machinery (296 files). It is a no-regret move;
+   gating it was the real cost.
+
+3. **The hand-run audit could not have settled it anyway.** N=3 across five
+   retrievers with \~11% cross-retriever citation overlap is underpowered for a
+   stochastic outcome; variance swamps the signal. And the contrast pair was
+   confounded (release-notes-×5 vs admin-prose-×3). The reliable version of that
+   measurement belongs in the `docs-tooling` pipeline, out of docs-v2 scope.
+
+**Implementation note carried into #7245:** classify each page first (see
+"Reference vs usage") — pure shared reference gets consolidated; per-product
+usage stays distinct and indexed. For pure duplicates, consolidate with
+**canonical + selective `noindex`**, not canonical alone, since Google can ignore
+a canonical hint but not `noindex`. Pair the canonical reference page with
+bidirectional links to each product's usage guides. The readability inversion
+proceeds regardless, per the Key reframe.
+
+This decision closes #7233 and unblocks #7232. The before/after validation
+(section 3, reframed) runs during the pilot conversion (#7298) to confirm the
+cleanup consolidated citations; it does not block the migration.
+
+## Reference vs usage — what gets consolidated
+
+Canonical consolidation applies to **shared reference**, not to **per-product
+usage**. These are different content types and the cleanup must not collapse them.
+
+| Content type          | Example                                                               | Across products   | Canonical / index treatment                                                                    |
+| --------------------- | --------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| **Shared reference**  | v3 Python client release notes; client API surface                    | byte-identical    | One product owns canonical. Secondary copies `canonical:` → owner; `noindex` if pure duplicate |
+| **Per-product usage** | how the client is used in Serverless vs Core; setup, examples, guides | genuinely differs | Each page self-canonical, stays indexed, discoverable on its own. Never `noindex`              |
+
+The v3 Python client control case shows the split cleanly: the **release notes**
+are the same across all v3 products and versions, so one product (Core) owns that
+canonical. But *how the client is used* differs by product, deployment, and
+version — that usage is distinct content that each product keeps.
+
+**Linking pattern (bidirectional hub-and-spoke):**
+
+- The canonical reference page links out to each product's usage guides
+  ("Using the client in Core / Serverless / Dedicated ...").
+- Each per-product usage guide links back to the canonical reference for the
+  shared parts (release notes, full API).
+
+This is the natural output of Route 2: the split *is* the reference/usage
+boundary. The classification pass — deciding, per page, whether a body is pure
+reference (dedup) or carries per-product usage (keep distinct) — is the first
+step of the #7245 cleanup, ahead of any `noindex`.
 
 ## Work chunks
 
-Small, sequenced. Only chunk 1 is this session.
+Small, sequenced.
 
 1. **This design doc** — protocol + rubric. The #7233 artifact. *(done)*
-2. **Execute and record** — run the section 3 queries manually; paste results
-   into section 5. *(manual; you)*
-3. **Decision record** — pick the route from the rubric, write the rationale
-   under "Test results and decision," close #7233, unblock #7232.
+2. **Decision record** — route picked on field evidence and rubric structure;
+   rationale under "Test results and decision"; closes #7233, unblocks #7232.
+   *(done)*
 
-Opened only **after** the decision:
+Now unblocked (the canonical cleanup is decoupled from any test gate):
 
-4. **#7245 canonical audit** — promoted to do-now if the rubric says canonical
-   helps; deferred or reshaped otherwise.
-5. **Inverted-transclusion mechanism spike** ([#7297](https://github.com/influxdata/docs-v2/issues/7297)) —
+3. **#7245 canonical cleanup** — promoted to do-now. Add `canonical:` everywhere
+   it is missing on duplicate engine-concept pages, and add `noindex` to true
+   secondary duplicates. No-regret; machinery exists.
+4. **Inverted-transclusion mechanism spike** ([#7297](https://github.com/influxdata/docs-v2/issues/7297)) —
    the Hugo question: make a real published page the authoritative source
    instead of a `/shared/` stub; define how consumers include it; decide whether
    sub-page fragment includes are needed.
-6. **Pilot conversion** ([#7298](https://github.com/influxdata/docs-v2/issues/7298)) —
-   top `show-in`/`hide-in` pages, using the chosen route.
+5. **Pilot conversion** ([#7298](https://github.com/influxdata/docs-v2/issues/7298)) —
+   top `show-in`/`hide-in` pages, using the chosen route. Run the reframed
+   before/after validation (section 3) on these pilot pages — non-blocking.
 
 ## Explicitly out of scope
 
-- The route decision itself (deferred to "Test results and decision", post-data).
 - Migration guides per competitor (separate content workstream).
 - The Phase 1 IA skeleton (#7232 predecessor) and Phase 3 editorial discipline
   (#7234 successor).
 - The prompt-audit data pipeline and measurement tooling
   (`influxdata/docs-tooling`).
+- Reliable per-retriever behavioral intel (how ChatGPT vs Perplexity vs Gemini
+  pick sources). Strategically valuable for the parent epic (#7230) but needs the
+  `docs-tooling` pipeline with adequate sample size — not a one-sitting hand-run.
