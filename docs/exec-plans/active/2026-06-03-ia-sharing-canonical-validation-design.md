@@ -235,7 +235,10 @@ a hand-run audit, for three reasons:
 
 **Implementation note carried into #7245:** classify each page first (see
 "Reference vs usage") — pure shared reference gets consolidated; per-product
-usage stays distinct and indexed. For pure duplicates, consolidate with
+usage stays distinct and indexed. **The urgent pass covers only Core↔Enterprise
+shared content (canonical → Enterprise);** reference shared across all v3 editions
+(client libraries, etc.) keeps its current canonical and is deferred to the
+broader cross-edition IA work. For pure duplicates in scope, consolidate with
 **canonical + selective `noindex`**, not canonical alone, since Google can ignore
 a canonical hint but not `noindex`. Pair the canonical reference page with
 bidirectional links to each product's usage guides. The readability inversion
@@ -256,9 +259,33 @@ usage**. These are different content types and the cleanup must not collapse the
 | **Per-product usage** | how the client is used in Serverless vs Core; setup, examples, guides | genuinely differs | Each page self-canonical, stays indexed, discoverable on its own. Never `noindex`              |
 
 The v3 Python client control case shows the split cleanly: the **release notes**
-are the same across all v3 products and versions, so one product (Core) owns that
+are the same across all v3 products and versions, so one product owns that
 canonical. But *how the client is used* differs by product, deployment, and
 version — that usage is distinct content that each product keeps.
+
+### Canonical owner by sharing scope (urgent vs deferred)
+
+*Which* product owns the canonical depends on the sharing scope, and the two
+scopes have different urgency.
+
+| Sharing scope          | Example                                                 | Canonical owner                                                 | When                                                                 |
+| ---------------------- | ------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Core ↔ Enterprise only | engine internals (storage, compaction, indexing)        | **Enterprise** (most complete edition; strict superset of Core) | **Urgent — this pass (#7245).** Fill missing canonicals now          |
+| All v3 editions        | client libraries, line protocol, SQL/InfluxQL reference | **Deferred** — keep current canonical                           | **Broader cross-edition IA work, not this pass.** Do not re-home now |
+| Single edition         | Core install/quickstart; Enterprise HA/clustering       | **self**                                                        | already correct by default                                           |
+
+**Urgent now:** add the missing `canonical:` (→ Enterprise) on Core↔Enterprise
+shared content — the original #7245 gap. This is unambiguous on present facts:
+Enterprise is the most complete edition and a strict superset of Core, so it owns
+the shared engine reference.
+
+**Deferred:** canonical ownership for reference shared across *all* v3 editions
+(client libraries, etc.) is **not settled in this pass.** Those pages keep their
+current canonical. Resolving them — including whether to unify all shared
+reference under one owner — is folded into the broader cross-edition IA effort,
+where the relationship between editions is being reworked. Canonical re-pointing
+is a cheap, reversible frontmatter change, so deferring costs little. Leaving the
+current state in place is the conservative choice until that effort lands.
 
 **Linking pattern (bidirectional hub-and-spoke):**
 
@@ -283,9 +310,12 @@ Small, sequenced.
 
 Now unblocked (the canonical cleanup is decoupled from any test gate):
 
-3. **#7245 canonical cleanup** — promoted to do-now. Add `canonical:` everywhere
-   it is missing on duplicate engine-concept pages, and add `noindex` to true
-   secondary duplicates. No-regret; machinery exists.
+3. **#7245 canonical cleanup (urgent scope)** — promoted to do-now, scoped to
+   **Core↔Enterprise shared content**. Add `canonical:` (→ Enterprise) wherever it
+   is missing on shared engine-concept pages, and add `noindex` to true secondary
+   duplicates. No-regret; machinery exists. Reference shared across all v3 editions
+   (client libraries, etc.) is **out of this pass** — keep current canonical.
+   Deferred to the broader cross-edition IA work.
 4. **Inverted-transclusion mechanism spike** ([#7297](https://github.com/influxdata/docs-v2/issues/7297)) —
    the Hugo question: make a real published page the authoritative source
    instead of a `/shared/` stub; define how consumers include it; decide whether
