@@ -20,6 +20,8 @@
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud (TSM) Documentation" }}
 {{ else if eq $currentVersion "core"}}
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Core Documentation" }}
+{{ else if and (eq $product "telegraf") (eq $currentVersion "enterprise")}}
+  {{ $scratch.Set "siteTitle" "Telegraf Enterprise Documentation" }}
 {{ else if eq $currentVersion "enterprise"}}
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Enterprise Documentation" }}
 {{ else if eq $currentVersion "explorer"}}

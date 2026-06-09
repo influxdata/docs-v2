@@ -6,10 +6,9 @@ description: >
   enterprise support contract from InfluxData for organizations running
   Telegraf at scale.
 menu:
-  telegraf:
+  telegraf_enterprise:
     name: Telegraf Enterprise
-    weight: 3
-weight: 3
+weight: 1
 ---
 
 **Telegraf Enterprise** is the commercial package for organizations running
