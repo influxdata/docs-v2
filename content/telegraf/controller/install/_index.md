@@ -595,7 +595,7 @@ For more information about user roles and permissions, see
 
 ## Apply a Telegraf Enterprise license (optional)
 
-If you have a [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/)
+If you have a [Telegraf Enterprise](/telegraf/enterprise/)
 license, you can apply it at startup by setting the `LICENSE_FILE_PATH`
 environment variable to the path of your license file.
 
@@ -610,7 +610,7 @@ and Docker examples, see
 
 Without a license, {{% product-name %}} runs in a free tier with reduced
 scale limits and enterprise features disabled. See
-[Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) for a
+[Telegraf Enterprise](/telegraf/enterprise/) for a
 comparison.
 
 ## Access {{% product-name %}}

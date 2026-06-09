@@ -44,8 +44,8 @@ individually or together:
 | Provider  | Availability                                                     | How users sign in                                    |
 | :-------- | :--------------------------------------------------------------- | :--------------------------------------------------- |
 | **Local** | Free tier                                                        | Username and password stored in {{% product-name %}} |
-| **LDAP**  | [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) | Bind against an LDAP or Active Directory server      |
-| **OIDC**  | [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) | Authorization code + PKCE flow with an OIDC provider |
+| **LDAP**  | [Telegraf Enterprise](/telegraf/enterprise/) | Bind against an LDAP or Active Directory server      |
+| **OIDC**  | [Telegraf Enterprise](/telegraf/enterprise/) | Authorization code + PKCE flow with an OIDC provider |
 
 Each provider is enabled at startup with a dedicated environment variable
 (`AUTH_LOCAL_ENABLED`, `AUTH_LDAP_ENABLED`, `AUTH_OIDC_ENABLED`). Provider
@@ -181,7 +181,7 @@ groups skip authentication, update the value and restart
 ## License management
 
 {{% product-name %}} exposes two permission resources for the
-[Telegraf Enterprise license](/telegraf/controller/telegraf-enterprise/):
+[Telegraf Enterprise license](/telegraf/enterprise/):
 
 | Resource | Actions | Required role | Description |
 | :------- | :------ | :------------ | :---------- |

@@ -38,7 +38,7 @@ Every user account is tied to one authentication provider:
   and [group-to-role mappings](/telegraf/controller/authentication/#group-to-role-mapping).
 
 LDAP and OIDC require a
-[Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+[Telegraf Enterprise](/telegraf/enterprise/) license.
 For setup instructions, see
 [Authentication](/telegraf/controller/authentication/).
 

@@ -12,7 +12,7 @@ menu:
 weight: 103
 related:
   - /telegraf/controller/authentication/
-  - /telegraf/controller/telegraf-enterprise/
+  - /telegraf/enterprise/
   - /telegraf/controller/reference/config-options/#authentication-and-security
   - /telegraf/controller/settings/
 ---
@@ -36,7 +36,7 @@ provision accounts.
 
 ## Prerequisites
 
-- A valid [Telegraf Enterprise license](/telegraf/controller/telegraf-enterprise/)
+- A valid [Telegraf Enterprise license](/telegraf/enterprise/)
   applied to your {{% product-name %}} instance.
 - An OIDC-compliant identity provider that supports authorization code flow
   with PKCE (S256).

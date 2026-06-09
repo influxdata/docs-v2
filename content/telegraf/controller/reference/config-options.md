@@ -414,7 +414,7 @@ telegraf_controller --disable-auth-endpoints="*"
 
 Local authentication is enabled by default and is the only authentication
 provider available without a
-[Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+[Telegraf Enterprise](/telegraf/enterprise/) license.
 The variables in this group apply only when
 [`auth-local-enabled`](#auth-local-enabled) is `true`. LDAP and OIDC
 providers enforce their own credential and lockout policies.
@@ -503,7 +503,7 @@ initial setup, password changes, password resets, and invite completion.
 #### LDAP authentication
 
 LDAP authentication is a
-[Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) feature.
+[Telegraf Enterprise](/telegraf/enterprise/) feature.
 If `AUTH_LDAP_*` variables are set on an unlicensed instance,
 {{% product-name %}} starts normally, logs a warning, and leaves LDAP
 inactive until a license is applied and the application is restarted.
@@ -681,7 +681,7 @@ group-to-role mappings configured on the **Settings** page.
 #### OIDC authentication
 
 OIDC authentication is a
-[Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) feature.
+[Telegraf Enterprise](/telegraf/enterprise/) feature.
 If `AUTH_OIDC_*` variables are set on an unlicensed instance,
 {{% product-name %}} starts normally, logs a warning, and leaves OIDC
 inactive until a license is applied and the application is restarted.
@@ -866,7 +866,7 @@ Absolute path for heartbeat agent logs.
 
 ### Audit logging
 
-Audit logging is a [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/)
+Audit logging is a [Telegraf Enterprise](/telegraf/enterprise/)
 feature. All of the following options are read at startup only; changes
 after startup require a restart. For a task-based walkthrough, see
 [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).

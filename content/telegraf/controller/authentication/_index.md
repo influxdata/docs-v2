@@ -21,8 +21,8 @@ individually or together:
 | Provider  | Availability                                                     | How users sign in                                    |
 | :-------- | :--------------------------------------------------------------- | :--------------------------------------------------- |
 | **Local** | Free                                                             | Username and password stored in {{% product-name %}} |
-| **LDAP**  | [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) | Bind against an LDAP or Active Directory server      |
-| **OIDC**  | [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) | Authorization code + PKCE flow with an OIDC provider |
+| **LDAP**  | [Telegraf Enterprise](/telegraf/enterprise/) | Bind against an LDAP or Active Directory server      |
+| **OIDC**  | [Telegraf Enterprise](/telegraf/enterprise/) | Authorization code + PKCE flow with an OIDC provider |
 
 Each provider is enabled and configured independently. You can run all three
 at once and let users choose at the sign-in screen, or restrict sign-in to a

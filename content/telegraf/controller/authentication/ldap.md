@@ -12,7 +12,7 @@ menu:
 weight: 102
 related:
   - /telegraf/controller/authentication/
-  - /telegraf/controller/telegraf-enterprise/
+  - /telegraf/enterprise/
   - /telegraf/controller/reference/config-options/#authentication-and-security
   - /telegraf/controller/settings/
 ---
@@ -35,7 +35,7 @@ roles and provision accounts.
 
 ## Prerequisites
 
-- A valid [Telegraf Enterprise license](/telegraf/controller/telegraf-enterprise/)
+- A valid [Telegraf Enterprise license](/telegraf/enterprise/)
   applied to your {{% product-name %}} instance.
 - A reachable LDAP server (`ldap://` or `ldaps://`) and a service-account
   bind DN that can search the user subtree.

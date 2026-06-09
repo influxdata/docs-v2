@@ -29,7 +29,7 @@ destinations for long-term storage or SIEM integration.
 
 ## Prerequisites
 
-- A valid [Telegraf Enterprise license](/telegraf/controller/telegraf-enterprise/)
+- A valid [Telegraf Enterprise license](/telegraf/enterprise/)
   applied to your {{% product-name %}} instance.
 - Permission to modify the {{% product-name %}} startup environment (for
   example, the systemd unit file or Docker run command).

@@ -13,7 +13,7 @@ cascade:
   related:
     - /telegraf/controller/reference/config-options/
     - /telegraf/controller/reference/authentication-authorization/
-    - /telegraf/controller/telegraf-enterprise/
+    - /telegraf/enterprise/
 ---
 
 {{% product-name %}} records security-relevant events to an append-only,
@@ -72,7 +72,7 @@ Any modification, deletion, or out-of-order insertion breaks the chain.
 
 ## License and permissions
 
-Audit logging is part of [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/)
+Audit logging is part of [Telegraf Enterprise](/telegraf/enterprise/)
 and is unavailable in the free tier.
 With a valid license:
 
