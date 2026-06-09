@@ -64,7 +64,7 @@ If no metrics arrive, fall back to the `fail` status.
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
-  token = "${INFLUX_TOKEN}"
+  token = "${TELEGRAF_CONTROLLER_TOKEN}"
   interval = "1m"
   include = ["hostname", "statistics", "configs", "logs", "status"]
 
@@ -81,7 +81,7 @@ Warn when errors are logged, fail when the error count is high.
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
-  token = "${INFLUX_TOKEN}"
+  token = "${TELEGRAF_CONTROLLER_TOKEN}"
   interval = "1m"
   include = ["hostname", "statistics", "configs", "logs", "status"]
 
@@ -101,7 +101,7 @@ Combine error count and buffer pressure signals.
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
-  token = "${INFLUX_TOKEN}"
+  token = "${TELEGRAF_CONTROLLER_TOKEN}"
   interval = "1m"
   include = ["hostname", "statistics", "configs", "logs", "status"]
 
