@@ -356,11 +356,23 @@ telegraf_controller:
   namespace: telegraf
   menu_category: other
   versions: [v1]
-  latest: 0.0
-  latest_patch: 0.0.5-beta
+  latest: 1.0
+  latest_patch: 1.0.0
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
+
+telegraf_enterprise:
+  name: Telegraf Enterprise
+  altname: Telegraf Enterprise
+  namespace: telegraf
+  menu_category: other
+  versions: [v1]
+  latest: 1.0
+  latest_patch: 1.0.0
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "BusinessApplication"
 
 chronograf:
   name: Chronograf

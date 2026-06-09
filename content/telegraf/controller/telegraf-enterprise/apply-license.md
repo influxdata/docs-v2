@@ -8,7 +8,7 @@ description: >
 menu:
   telegraf_controller:
     name: Apply a license
-    parent: Telegraf Enterprise
+    parent: Telegraf Enterprise licensing
 weight: 101
 related:
   - /telegraf/controller/telegraf-enterprise/manage-license/

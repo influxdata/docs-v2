@@ -1,7 +1,11 @@
+{{ $influxdb3CoreVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_core.latest_patch }}
+{{ $influxdb3EnterpriseVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_enterprise.latest_patch }}
+{{ $influxdb3ExplorerVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_explorer.latest_patch }}
 {{ $influxdbVersionV2 := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb.latest_patches.v2 }}
 {{ $influxdbVersionV1 := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb.latest_patches.v1 }}
 {{ $enterpriseVersion := replaceRE "v" "" .Site.Data.products.enterprise_influxdb.latest }}
 {{ $telegrafVersion := replaceRE "v" "" .Site.Data.products.telegraf.latest }}
+{{ $telegrafControllerVersion := replaceRE `\.[0-9]+$` ""  .Site.Data.products.telegraf_controller.latest_patch }}
 {{ $chronografVersion := replaceRE "v" "" .Site.Data.products.chronograf.latest }}
 {{ $kapacitorVersion := replaceRE "v" "" .Site.Data.products.kapacitor.latest }}
 {{ $fluxVersion := cond (isset .Site.Data.products.flux "version_label") .Site.Data.products.flux.version_label (replaceRE "v" "" .Site.Data.products.flux.latest) }}
@@ -39,7 +43,7 @@
     <div id="influxdb3" class="product-group">      
       <h2>InfluxDB 3</h2>
       <p>InfluxDB 3 is the current generation of InfluxDB and the recommended platform for new time series workloads—built for high-speed, high-cardinality data from the edge to the cloud.</p>
-      <p class="decision-cta">Not sure which product fits your use case? See <a href="/influxdb3/which-influxdb-3/">Which InfluxDB 3 should I use?</a></p>
+      <p class="decision-cta">Not sure which product fits your use case? See <a class="alt-color" href="/influxdb3/which-influxdb-3/">Which InfluxDB 3 should I use?</a></p>
       <div class="categories">
         <div class="category full">
           <div class="category-head">
@@ -48,7 +52,7 @@
           <div class="products">
             <div class="product">
               <div class="product-info">
-                <h3 state="New"><a href="/influxdb3/core/">InfluxDB 3 Core</a></h3>
+                <h3><a href="/influxdb3/core/">InfluxDB 3 Core <span class="version">{{ $influxdb3CoreVersion }}</span></a></h3>
                 <p>The open source recent data engine optimized for time series and event data.</p>
               </div>
               <ul class="product-links">
@@ -58,7 +62,7 @@
             </div>
             <div class="product" >
               <div class="product-info">
-                <h3 state="New"><a href="/influxdb3/enterprise/">InfluxDB 3 Enterprise</a></h3>
+                <h3><a href="/influxdb3/enterprise/">InfluxDB 3 Enterprise <span class="version">{{ $influxdb3EnterpriseVersion }}</span></a></h3>
                 <p>The scalable data engine built for recent and historical time series and event data.</p>
               </div>
               <ul class="product-links">
@@ -112,7 +116,7 @@
           <div class="products">
             <div class="product">
               <div class="product-info">
-                <h3 state="New"><a href="/influxdb3/explorer/">InfluxDB 3 Explorer</a></h3>
+                <h3><a href="/influxdb3/explorer/">InfluxDB 3 Explorer <span class="version">{{ $influxdb3ExplorerVersion }}</span></a></h3>
                 <p>A standalone UI designed for visualizing, querying, and managing data in InfluxDB 3 Core and Enterprise.</p>
               </div>
               <ul class="product-links">
@@ -143,7 +147,7 @@
         </div>
         <div class="product">
           <div class="product-info">
-            <h3 state="beta"><a href="/telegraf/controller/">Telegraf Controller</a></h3>
+            <h3 state="New"><a href="/telegraf/controller/">Telegraf Controller</a></h3>
             <p>Centralized Telegraf configuration management and agent observability with an intuitive UI.</p>
           </div>
           <ul class="product-links">
@@ -153,12 +157,12 @@
         </div>
         <div class="product">
           <div class="product-info">
-            <h3><a href="/telegraf/enterprise/">Telegraf Enterprise</a></h3>
+            <h3 state="New"><a href="/telegraf/enterprise/">Telegraf Enterprise</a></h3>
             <p>Enterprise support for Telegraf and Telegraf Controller, plus higher limits and enterprise security features in Telegraf Controller.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/telegraf/enterprise/">View Telegraf Enterprise overview</a></li>
-            <li><a href="https://www.influxdata.com/contact-sales/">Contact InfluxData sales</a></li>
+            <li><a href="/telegraf/enterprise/">Telegraf Enterprise overview</a></li>
+            <li><a href="https://www.influxdata.com/contact-sales/">Upgrade to Telegraf Enterprise</a></li>
           </ul>
         </div>
       </div>
