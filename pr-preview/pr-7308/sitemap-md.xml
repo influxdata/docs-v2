@@ -2582,7 +2582,7 @@
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/configs/create/index.md</loc>
-    <lastmod>2026-06-09T07:55:14-06:00</lastmod>
+    <lastmod>2026-06-09T22:05:40-06:00</lastmod>
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/v2/admin/users/create-user/index.md</loc>
@@ -5778,7 +5778,7 @@
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/configs/ui/index.md</loc>
-    <lastmod>2025-12-31T14:49:32-07:00</lastmod>
+    <lastmod>2026-06-09T22:05:40-06:00</lastmod>
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/reference/config-options/index.md</loc>
@@ -10030,7 +10030,7 @@
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/configs/ui/telegraf-builder/index.md</loc>
-    <lastmod>2025-12-31T14:49:32-07:00</lastmod>
+    <lastmod>2026-06-09T22:05:40-06:00</lastmod>
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/cloud/admin/buckets/view-buckets/index.md</loc>
@@ -17003,7 +17003,7 @@
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/index.md</loc>
-    <lastmod>2026-06-09T11:39:17-06:00</lastmod>
+    <lastmod>2026-06-09T22:05:40-06:00</lastmod>
   </url>
   <url>
     <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/kapacitor/v1/reference/event_handlers/telegram/index.md</loc>

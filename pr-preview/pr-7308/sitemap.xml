@@ -4660,7 +4660,7 @@
     
       <url>
         <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/configs/create/</loc>
-        <lastmod>2026-06-09T07:55:14-06:00</lastmod>
+        <lastmod>2026-06-09T22:05:40-06:00</lastmod>
       </url>
     
   
@@ -10253,7 +10253,7 @@
     
       <url>
         <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/configs/ui/</loc>
-        <lastmod>2025-12-31T14:49:32-07:00</lastmod>
+        <lastmod>2026-06-09T22:05:40-06:00</lastmod>
       </url>
     
   
@@ -17700,7 +17700,7 @@
     
       <url>
         <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/controller/configs/ui/telegraf-builder/</loc>
-        <lastmod>2025-12-31T14:49:32-07:00</lastmod>
+        <lastmod>2026-06-09T22:05:40-06:00</lastmod>
       </url>
     
   
@@ -27613,7 +27613,7 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/core/tags/api/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/clustered/tags/api/</loc>
         <lastmod>2026-04-20T11:26:19-05:00</lastmod>
       </url>
     
@@ -27627,7 +27627,7 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/clustered/tags/api/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/core/tags/api/</loc>
         <lastmod>2026-04-20T11:26:19-05:00</lastmod>
       </url>
     
@@ -28061,8 +28061,8 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/clustered/tags/cli/</loc>
-        <lastmod>2026-05-15T15:46:14-06:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/core/tags/cli/</loc>
+        <lastmod>2025-09-11T16:18:12-05:00</lastmod>
       </url>
     
   
@@ -28075,8 +28075,8 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/core/tags/cli/</loc>
-        <lastmod>2025-09-11T16:18:12-05:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/clustered/tags/cli/</loc>
+        <lastmod>2026-05-15T15:46:14-06:00</lastmod>
       </url>
     
   
@@ -30427,8 +30427,8 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/cloud/tags/influxql/</loc>
-        <lastmod>2025-04-02T15:54:32-06:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/v2/tags/influxql/</loc>
+        <lastmod>2026-05-15T15:46:14-06:00</lastmod>
       </url>
     
   
@@ -30455,8 +30455,8 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/v2/tags/influxql/</loc>
-        <lastmod>2026-05-15T15:46:14-06:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/cloud/tags/influxql/</loc>
+        <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
   
@@ -30777,14 +30777,14 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/cloud/tags/javascript/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/v2/tags/javascript/</loc>
         <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/v2/tags/javascript/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb/cloud/tags/javascript/</loc>
         <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
@@ -32905,15 +32905,15 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/core/tags/sql/</loc>
-        <lastmod>2026-05-07T15:42:44-05:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/clustered/tags/sql/</loc>
+        <lastmod>2026-05-15T15:46:14-06:00</lastmod>
       </url>
     
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/clustered/tags/sql/</loc>
-        <lastmod>2026-05-15T15:46:14-06:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/influxdb3/core/tags/sql/</loc>
+        <lastmod>2026-05-07T15:42:44-05:00</lastmod>
       </url>
     
   
@@ -33394,7 +33394,7 @@
     
       <url>
         <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7308/telegraf/</loc>
-        <lastmod>2026-06-09T11:39:17-06:00</lastmod>
+        <lastmod>2026-06-09T22:05:40-06:00</lastmod>
       </url>
     
   
