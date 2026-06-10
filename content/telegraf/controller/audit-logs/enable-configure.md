@@ -32,7 +32,7 @@ destinations for long-term storage or SIEM integration.
 - A valid [Telegraf Enterprise license](/telegraf/enterprise/)
   applied to your {{% product-name %}} instance.
 - Permission to modify the {{% product-name %}} startup environment (for
-  example, the systemd unit file or Docker run command).
+  example, the systemd unit file or startup environment).
 - The **Owner** or **Administrator** role to change the retention period
   from the UI.
 
@@ -51,8 +51,9 @@ Set `AUDIT_ENABLED` to `true` before starting {{% product-name %}}.
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [systemd](#)
-[Docker](#)
 [Shell](#)
+[Windows (Powershell)](#)
+<!-- [Docker](#) -->
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -74,17 +75,6 @@ sudo systemctl restart telegraf-controller
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Pass `AUDIT_ENABLED=true` when starting the container:
-
-```bash
-docker run \
-  -e AUDIT_ENABLED=true \
-  influxdata/telegraf-controller
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
 Set the variable, or pass `--audit-enabled` on the command line:
 
 ```bash
@@ -97,6 +87,35 @@ telegraf_controller --audit-enabled --no-interactive
 ```
 
 {{% /tab-content %}}
+{{% tab-content %}}
+
+Set the variable in PowerShell, or pass `--audit-enabled` on the command line:
+
+```powershell
+$env:AUDIT_ENABLED="true"
+./telegraf_controller.exe --no-interactive
+```
+
+```powershell
+./telegraf_controller.exe --audit-enabled --no-interactive
+```
+
+{{% /tab-content %}}
+<!-- {{% tab-content %}} -->
+<!-- BEGIN Docker example — hidden until an official
+     influxdata/telegraf-controller Docker image is published.
+     Restore this tab (and its button above) when the image ships.
+
+Pass `AUDIT_ENABLED=true` when starting the container:
+
+```bash
+docker run \
+  -e AUDIT_ENABLED=true \
+  influxdata/telegraf-controller
+```
+
+END Docker example -->
+<!-- {{% /tab-content %}} -->
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts:

@@ -29,7 +29,7 @@ installation and is the only provider available in the free tier.
 ## Prerequisites
 
 - Permission to modify the {{% product-name %}} startup environment (for
-  example, the systemd unit file or Docker run command) when changing
+  example, the systemd unit file or startup environment) when changing
   startup-only settings.
 - The **Owner** or **Administrator** role to change login security from the
   UI.
@@ -179,8 +179,9 @@ Set `AUTH_LOCAL_ENABLED` to `false` and restart {{% product-name %}}.
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [systemd](#)
-[Docker](#)
 [Shell](#)
+[Windows (Powershell)](#)
+<!-- [Docker](#) -->
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -202,6 +203,29 @@ sudo systemctl restart telegraf-controller
 {{% /tab-content %}}
 {{% tab-content %}}
 
+Export the variable or pass it on the command line:
+
+```bash
+export AUTH_LOCAL_ENABLED=false
+telegraf_controller --no-interactive
+```
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Set the variable in PowerShell, or pass it on the command line:
+
+```powershell
+$env:AUTH_LOCAL_ENABLED="false"
+./telegraf_controller.exe --no-interactive
+```
+
+{{% /tab-content %}}
+<!-- {{% tab-content %}} -->
+<!-- BEGIN Docker example — hidden until an official
+     influxdata/telegraf-controller Docker image is published.
+     Restore this tab (and its button above) when the image ships.
+
 Pass the variable when starting the container:
 
 ```bash
@@ -212,17 +236,8 @@ docker run \
   influxdata/telegraf-controller
 ```
 
-{{% /tab-content %}}
-{{% tab-content %}}
-
-Export the variable or pass it on the command line:
-
-```bash
-export AUTH_LOCAL_ENABLED=false
-telegraf_controller --no-interactive
-```
-
-{{% /tab-content %}}
+END Docker example -->
+<!-- {{% /tab-content %}} -->
 {{< /tabs-wrapper >}}
 
 After restart:
