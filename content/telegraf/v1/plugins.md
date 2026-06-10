@@ -31,6 +31,7 @@ that integrate with the Telegraf Execd processor plugin.
 - [Output plugins](#output-plugins)
 - [Aggregator plugins](#aggregator-plugins)
 - [Processor plugins](#processor-plugins)
+- [Secret store plugins](#secret-store-plugins)
 
 ## Input plugins
 
@@ -56,3 +57,10 @@ Telegraf aggregator plugins create aggregate metrics (for example, mean, min, ma
 Telegraf output plugins transform, decorate, and filter metrics.
 
 {{< telegraf/plugins type="processor" >}}
+
+## Secret store plugins
+
+Telegraf secret store plugins provide secrets like usernames, passwords or
+tokens to other plugins.
+
+{{< telegraf/plugins type="secretstore" >}}

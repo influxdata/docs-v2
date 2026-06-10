@@ -46,6 +46,12 @@ const PLUGIN_CATEGORIES = {
     displayName: 'Aggregator Plugins',
     singular: 'aggregator plugin',
   },
+  secretstores: {
+    sourcePath: 'plugins/secretstores',
+    docsPath: 'content/telegraf/v1/secretstore-plugins',
+    displayName: 'Secret Store Plugins',
+    singular: 'secret store plugin',
+  },
 };
 
 /**
@@ -74,8 +80,8 @@ const DATA_FORMAT_CATEGORIES = {
  * Directories to exclude from scanning (not actual plugins)
  */
 const EXCLUDED_DIRS = new Set([
-  'all',           // Meta-package that imports all plugins
-  'common',        // Shared utilities
+  'all', // Meta-package that imports all plugins
+  'common', // Shared utilities
 ]);
 
 /**
@@ -131,7 +137,9 @@ export class TelegrafAuditor {
       await this.generateReport(comparison);
 
       console.log('\n✅ Telegraf plugin documentation audit complete!');
-      console.log(`📄 Report saved to: ${join(this.outputDir, 'telegraf-audit-report.md')}`);
+      console.log(
+        `📄 Report saved to: ${join(this.outputDir, 'telegraf-audit-report.md')}`
+      );
 
       return comparison;
     } finally {
@@ -146,7 +154,10 @@ export class TelegrafAuditor {
    * Ensure Telegraf repository is cloned and at correct version
    */
   async ensureTelegrafRepo() {
-    const exists = await fs.access(this.telegrafRepoPath).then(() => true).catch(() => false);
+    const exists = await fs
+      .access(this.telegrafRepoPath)
+      .then(() => true)
+      .catch(() => false);
 
     if (exists) {
       console.log('📁 Using existing Telegraf repository clone');
@@ -154,18 +165,32 @@ export class TelegrafAuditor {
       // Unshallow the repository first if it's a shallow clone, then fetch tags
       // This ensures tags are available even if the repo was initially cloned with --depth 1
       try {
-        await this.runCommand('git', ['fetch', '--unshallow'], this.telegrafRepoPath);
+        await this.runCommand(
+          'git',
+          ['fetch', '--unshallow'],
+          this.telegrafRepoPath
+        );
       } catch {
         // Already unshallowed or not a shallow clone, ignore the error
       }
-      await this.runCommand('git', ['fetch', '--tags', '--force'], this.telegrafRepoPath);
-      await this.runCommand('git', ['checkout', this.version], this.telegrafRepoPath);
+      await this.runCommand(
+        'git',
+        ['fetch', '--tags', '--force'],
+        this.telegrafRepoPath
+      );
+      await this.runCommand(
+        'git',
+        ['checkout', this.version],
+        this.telegrafRepoPath
+      );
     } else {
       console.log('📥 Cloning Telegraf repository...');
       await this.runCommand('git', [
         'clone',
-        '--depth', '1',
-        '--branch', this.version,
+        '--depth',
+        '1',
+        '--branch',
+        this.version,
         'https://github.com/influxdata/telegraf.git',
         this.telegrafRepoPath,
       ]);
@@ -177,20 +202,28 @@ export class TelegrafAuditor {
    * Clone docs-v2 repository with sparse checkout
    */
   async cloneDocsRepo() {
-    console.log(`📥 Cloning docs-v2 repository (branch: ${this.docsBranch}) with sparse-checkout...`);
+    console.log(
+      `📥 Cloning docs-v2 repository (branch: ${this.docsBranch}) with sparse-checkout...`
+    );
 
     // Clone with no-checkout
     await this.runCommand('git', [
       'clone',
       '--no-checkout',
-      '--depth', '1',
-      '--branch', this.docsBranch,
+      '--depth',
+      '1',
+      '--branch',
+      this.docsBranch,
       'https://github.com/influxdata/docs-v2.git',
       this.docsRepoPath,
     ]);
 
     // Configure sparse-checkout
-    await this.runCommand('git', ['sparse-checkout', 'init', '--cone'], this.docsRepoPath);
+    await this.runCommand(
+      'git',
+      ['sparse-checkout', 'init', '--cone'],
+      this.docsRepoPath
+    );
 
     // Set sparse-checkout patterns
     const patterns = [
@@ -200,10 +233,18 @@ export class TelegrafAuditor {
       'content/telegraf/v1/aggregator-plugins',
       'content/telegraf/v1/data_formats',
     ];
-    await this.runCommand('git', ['sparse-checkout', 'set', ...patterns], this.docsRepoPath);
+    await this.runCommand(
+      'git',
+      ['sparse-checkout', 'set', ...patterns],
+      this.docsRepoPath
+    );
 
     // Checkout the files
-    await this.runCommand('git', ['checkout', this.docsBranch], this.docsRepoPath);
+    await this.runCommand(
+      'git',
+      ['checkout', this.docsBranch],
+      this.docsRepoPath
+    );
 
     console.log('✅ docs-v2 repository cloned successfully');
   }
@@ -222,15 +263,25 @@ export class TelegrafAuditor {
     // Scan plugin categories
     for (const [category, config] of Object.entries(PLUGIN_CATEGORIES)) {
       const sourcePath = join(this.telegrafRepoPath, config.sourcePath);
-      results.plugins[category] = await this.scanPluginDirectory(sourcePath, category);
-      console.log(`  Found ${results.plugins[category].length} ${config.displayName.toLowerCase()}`);
+      results.plugins[category] = await this.scanPluginDirectory(
+        sourcePath,
+        category
+      );
+      console.log(
+        `  Found ${results.plugins[category].length} ${config.displayName.toLowerCase()}`
+      );
     }
 
     // Scan data format categories
     for (const [category, config] of Object.entries(DATA_FORMAT_CATEGORIES)) {
       const sourcePath = join(this.telegrafRepoPath, config.sourcePath);
-      results.dataFormats[category] = await this.scanPluginDirectory(sourcePath, category);
-      console.log(`  Found ${results.dataFormats[category].length} ${config.displayName.toLowerCase()}`);
+      results.dataFormats[category] = await this.scanPluginDirectory(
+        sourcePath,
+        category
+      );
+      console.log(
+        `  Found ${results.dataFormats[category].length} ${config.displayName.toLowerCase()}`
+      );
     }
 
     return results;
@@ -253,7 +304,10 @@ export class TelegrafAuditor {
         const readmePath = join(pluginPath, 'README.md');
 
         // Check if README.md exists
-        const hasReadme = await fs.access(readmePath).then(() => true).catch(() => false);
+        const hasReadme = await fs
+          .access(readmePath)
+          .then(() => true)
+          .catch(() => false);
 
         if (hasReadme) {
           plugins.push({
@@ -276,7 +330,9 @@ export class TelegrafAuditor {
    * Scan docs-v2 repository for Telegraf plugin documentation
    */
   async scanDocsPlugins() {
-    console.log('\n📂 Scanning docs-v2 repository for Telegraf documentation...');
+    console.log(
+      '\n📂 Scanning docs-v2 repository for Telegraf documentation...'
+    );
 
     const results = {
       plugins: {},
@@ -286,15 +342,27 @@ export class TelegrafAuditor {
     // Scan plugin categories (directories with _index.md)
     for (const [category, config] of Object.entries(PLUGIN_CATEGORIES)) {
       const docsPath = join(this.docsRepoPath, config.docsPath);
-      results.plugins[category] = await this.scanDocsDirectory(docsPath, category, false);
-      console.log(`  Found ${results.plugins[category].length} documented ${config.displayName.toLowerCase()}`);
+      results.plugins[category] = await this.scanDocsDirectory(
+        docsPath,
+        category,
+        false
+      );
+      console.log(
+        `  Found ${results.plugins[category].length} documented ${config.displayName.toLowerCase()}`
+      );
     }
 
     // Scan data format categories (flat .md files)
     for (const [category, config] of Object.entries(DATA_FORMAT_CATEGORIES)) {
       const docsPath = join(this.docsRepoPath, config.docsPath);
-      results.dataFormats[category] = await this.scanDocsDirectory(docsPath, category, true);
-      console.log(`  Found ${results.dataFormats[category].length} documented ${config.displayName.toLowerCase()}`);
+      results.dataFormats[category] = await this.scanDocsDirectory(
+        docsPath,
+        category,
+        true
+      );
+      console.log(
+        `  Found ${results.dataFormats[category].length} documented ${config.displayName.toLowerCase()}`
+      );
     }
 
     return results;
@@ -333,7 +401,10 @@ export class TelegrafAuditor {
           // For plugins: look for directories
           if (entry.isDirectory()) {
             const indexPath = join(dirPath, entry.name, '_index.md');
-            const hasIndex = await fs.access(indexPath).then(() => true).catch(() => false);
+            const hasIndex = await fs
+              .access(indexPath)
+              .then(() => true)
+              .catch(() => false);
 
             if (hasIndex) {
               docs.push({
@@ -375,12 +446,18 @@ export class TelegrafAuditor {
 
     // Compare plugin categories
     for (const category of Object.keys(PLUGIN_CATEGORIES)) {
-      const sourceSet = new Set(source.plugins[category].map(p => p.id));
-      const docsSet = new Set(docs.plugins[category].map(p => p.id));
+      const sourceSet = new Set(source.plugins[category].map((p) => p.id));
+      const docsSet = new Set(docs.plugins[category].map((p) => p.id));
 
-      const missing = source.plugins[category].filter(p => !docsSet.has(p.id));
-      const orphaned = docs.plugins[category].filter(p => !sourceSet.has(p.id));
-      const documented = source.plugins[category].filter(p => docsSet.has(p.id));
+      const missing = source.plugins[category].filter(
+        (p) => !docsSet.has(p.id)
+      );
+      const orphaned = docs.plugins[category].filter(
+        (p) => !sourceSet.has(p.id)
+      );
+      const documented = source.plugins[category].filter((p) =>
+        docsSet.has(p.id)
+      );
 
       comparison.plugins[category] = {
         config: PLUGIN_CATEGORIES[category],
@@ -399,12 +476,18 @@ export class TelegrafAuditor {
 
     // Compare data format categories
     for (const category of Object.keys(DATA_FORMAT_CATEGORIES)) {
-      const sourceSet = new Set(source.dataFormats[category].map(p => p.id));
-      const docsSet = new Set(docs.dataFormats[category].map(p => p.id));
+      const sourceSet = new Set(source.dataFormats[category].map((p) => p.id));
+      const docsSet = new Set(docs.dataFormats[category].map((p) => p.id));
 
-      const missing = source.dataFormats[category].filter(p => !docsSet.has(p.id));
-      const orphaned = docs.dataFormats[category].filter(p => !sourceSet.has(p.id));
-      const documented = source.dataFormats[category].filter(p => docsSet.has(p.id));
+      const missing = source.dataFormats[category].filter(
+        (p) => !docsSet.has(p.id)
+      );
+      const orphaned = docs.dataFormats[category].filter(
+        (p) => !sourceSet.has(p.id)
+      );
+      const documented = source.dataFormats[category].filter((p) =>
+        docsSet.has(p.id)
+      );
 
       comparison.dataFormats[category] = {
         config: DATA_FORMAT_CATEGORIES[category],
@@ -415,7 +498,8 @@ export class TelegrafAuditor {
         documented,
       };
 
-      comparison.summary.totalSourceDataFormats += source.dataFormats[category].length;
+      comparison.summary.totalSourceDataFormats +=
+        source.dataFormats[category].length;
       comparison.summary.totalDocumentedDataFormats += documented.length;
       comparison.summary.totalMissingDataFormatDocs += missing.length;
       comparison.summary.totalOrphanedDataFormatDocs += orphaned.length;
@@ -428,7 +512,8 @@ export class TelegrafAuditor {
    * Generate markdown audit report
    */
   async generateReport(comparison) {
-    const { generateTelegrafAuditReport } = await import('./telegraf-audit-reporter.js');
+    const { generateTelegrafAuditReport } =
+      await import('./telegraf-audit-reporter.js');
     await generateTelegrafAuditReport(
       comparison,
       this.version,
@@ -466,7 +551,9 @@ export class TelegrafAuditor {
         if (code === 0) {
           resolve({ code, stdout, stderr });
         } else {
-          reject(new Error(`Command failed with code ${code}: ${stderr || stdout}`));
+          reject(
+            new Error(`Command failed with code ${code}: ${stderr || stdout}`)
+          );
         }
       });
 
@@ -483,7 +570,11 @@ export class TelegrafAuditor {
  * @param {string} docsBranch - docs-v2 branch
  * @param {string} outputFormat - Output format (currently only 'report' supported)
  */
-export async function runTelegrafAudit(version = 'master', docsBranch = 'master', outputFormat = 'report') {
+export async function runTelegrafAudit(
+  version = 'master',
+  docsBranch = 'master',
+  outputFormat = 'report'
+) {
   const auditor = new TelegrafAuditor(version, docsBranch);
   return auditor.run();
 }
