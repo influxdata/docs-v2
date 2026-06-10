@@ -97,7 +97,7 @@ accounts.
 
 > [!Note]
 > LDAP authentication requires a
-> [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+> [Telegraf Enterprise](/telegraf/enterprise/) license.
 > For setup instructions, see
 > [Configure LDAP authentication](/telegraf/controller/authentication/ldap/).
 
@@ -135,7 +135,7 @@ accounts.
 
 > [!Note]
 > OIDC authentication requires a
-> [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+> [Telegraf Enterprise](/telegraf/enterprise/) license.
 > For setup instructions, see
 > [Configure OIDC authentication](/telegraf/controller/authentication/oidc/).
 
@@ -176,7 +176,7 @@ from 30 days to 2 years or infinite.
 
 > [!Note]
 > Audit logging itself is enabled at startup only and requires a
-> [Telegraf Enterprise](/telegraf/controller/telegraf-enterprise/) license.
+> [Telegraf Enterprise](/telegraf/enterprise/) license.
 > For details, see
 > [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
 
@@ -196,4 +196,4 @@ Owners can view the current Telegraf Enterprise license, upload a new
 license, and remove a license. All users see current entitlements and usage.
 
 For details on applying, replacing, and removing a license, see
-[Manage your license](/telegraf/controller/telegraf-enterprise/).
+[Manage your license](/telegraf/controller/telegraf-enterprise/manage-license/).

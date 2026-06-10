@@ -79,9 +79,11 @@
       {{ if and (eq $product "influxdb3") (or (eq $version "core") (eq $version "enterprise") (eq $version "explorer")) }}
         <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank"><strong>InfluxDB Discord Server</strong> <em style="opacity:.5">(Preferred)</em></a></li>
         <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
-      {{ else }}
+      {{ else if or (eq $product "influxdb3") (and (eq $product "influxdb")) }}
         <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
         <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      {{ else }}
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
       {{ end }}
       <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
       <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
