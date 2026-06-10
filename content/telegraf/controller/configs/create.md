@@ -41,10 +41,11 @@ _For detailed information about using the Code Editor, see
 
 {{< img-hd src="/img/telegraf/controller-code-editor.png" alt="Telegraf Controller Code Editor" />}}
 
-### Use the Telegraf Builder
+### Use the Telegraf Builder {note="Beta"}
 
 The **Telegraf Builder** is a visual interface for adding and configuring
-Telegraf plugins in a Telegraf configuration.
+Telegraf plugins in a Telegraf configuration. The Telegraf Builder is
+currently a beta feature.
 
 _For detailed information about using the Telegraf Builder, see
 [Use the Telegraf Builder](/telegraf/controller/configs/ui/telegraf-builder)._
