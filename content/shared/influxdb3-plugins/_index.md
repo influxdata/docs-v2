@@ -1288,36 +1288,74 @@ For more security configuration options, see [Configuration options](/influxdb3/
 
 ## Distributed cluster considerations
 
-When you deploy {{% product-name %}} in a multi-node environment, configure each node based on its role and the plugins it runs.
+When you deploy {{% product-name %}} as a multi-node cluster, plugin execution depends on three independent factors: which nodes have `--plugin-dir` configured, which nodes the trigger pins to with `--node-spec`, and what each trigger type requires of its host node.
+
+> [!Note]
+> #### End-to-end cluster reference
+>
+> For a complete worked example of the patterns described in this section, see [`influxdata/influxdb3-ref-network-telemetry`](https://github.com/influxdata/influxdb3-ref-network-telemetry) — a 5-node Enterprise cluster that ships WAL-free schedule and request triggers with cross-node write-back.
+
+### Configure `--plugin-dir` on every node
+
+The Enterprise catalog registers triggers cluster-wide.
+Every node validates the registered triggers at startup, even nodes that don't execute them.
+If the plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
+
+Configure `--plugin-dir` on every node and make the same plugin files available to each one (for example, by mounting a shared directory in your container or pod spec).
+Use `--node-spec` on each trigger to control which nodes actually execute it — see [Pin triggers to specific nodes](#pin-triggers-to-specific-nodes).
 
 ### Match plugin types to the correct node
 
-Each plugin must run on a node that supports its trigger type:
+| Plugin type   | Trigger spec             | Pin to                                            | Notes                                                                                          |
+|---------------|--------------------------|---------------------------------------------------|------------------------------------------------------------------------------------------------|
+| WAL rows      | `table:` or `all_tables` | An ingest-capable node                            | Each ingester owns its own WAL — the trigger fires per-ingester on only that node's writes.    |
+| Scheduled     | `every:` or `cron:`      | A node with `process` mode (typically `process,query`) | The plugin can call `influxdb3_local.query()` locally; results write back to an ingester via HTTP. |
+| HTTP request  | `request:`               | A node with `query` mode (the host-exposed port)  | The route exists only on the pinned node(s). Other nodes return `404 not found`.               |
 
-| Plugin type        | Trigger spec             | Runs on                     |
-|--------------------|--------------------------|-----------------------------|
-| WAL rows           | `table:` or `all_tables` | Ingester nodes              |
-| Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
-| HTTP request       | `request:`               | Nodes that serve API traffic|
+#### WAL triggers fan out per ingester
 
-For example:
-- Run write-ahead log (WAL) plugins on ingester nodes.
-- Run scheduled plugins on any node configured to execute them.
-- Run HTTP-triggered plugins on querier nodes or any node that handles HTTP endpoints.
+Each ingester owns its own WAL.
+A WAL trigger pinned to one ingester fires only on writes that arrived at that ingester.
+A WAL trigger pinned to all ingesters (`--node-spec all` or multiple `nodes:`) fires once per ingester per write — the plugin must be idempotent.
 
-Place all plugin files in the `--plugin-dir` directory configured for each node.
+Many production clusters avoid WAL triggers entirely and use the schedule + request pattern instead, where one node pulls aggregated state on a schedule and an HTTP endpoint serves point queries.
 
-> [!Note]
-> Triggers fail if the plugin file isn’t available on the node where it runs.
+#### Schedule triggers write back via HTTP
 
-### Route third-party clients to querier nodes
+A schedule trigger pinned to a node without `ingest` mode can't write results to the cluster locally.
+Instead, the plugin should POST line protocol via HTTP to an ingest node.
+For a worked example, see the reference architecture's [`plugins/_writeback.py`](https://github.com/influxdata/influxdb3-ref-network-telemetry/blob/main/plugins/_writeback.py) helper, which round-robins writes across configured ingest URLs with a fallback hop on connection error.
 
-External tools—such as Grafana, custom dashboards, or REST clients—must connect to querier nodes in your InfluxDB Enterprise deployment.
+#### Request triggers don't route across nodes
+
+The `/api/v3/engine/<trigger_name>` route exists only on the node(s) the trigger is pinned to.
+A client that hits a node where the trigger isn't pinned receives `HTTP 404 {error: "not found"}`.
+Pin request triggers to your query-serving node(s) and route external clients to those nodes.
+
+### Pin triggers to specific nodes
+
+Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) when creating a trigger to control which node(s) execute it:
+
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --path schedule_rollup.py \
+  --trigger-spec "every:5s" \
+  --node-spec "nodes:NODE_ID" \
+  hourly_rollup
+```
+
+The default is `--node-spec all`, which makes every plugin-capable node try to execute the trigger — appropriate for single-node deployments, but causes duplicate execution for schedule triggers in a cluster.
+
+### Route third-party clients to query nodes
+
+External tools — such as Grafana, custom dashboards, or REST clients — must connect to query nodes in your InfluxDB Enterprise deployment.
 
 #### Examples
 
-- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a querier node URL, such as:
-`https://querier.example.com:8086`
-- **REST clients**: Applications using `POST /api/v3/query/sql` or similar endpoints must target a querier node.
+- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a query node URL, such as:
+  `https://query.example.com:8086`
+- **REST clients**: Applications using `POST /api/v3/query/sql` or `POST /api/v3/engine/<trigger>` must target a query node.
 
 {{% /show-in %}}

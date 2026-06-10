@@ -774,9 +774,9 @@ input:
   - name: Fritzbox
     id: fritzbox
     description: |
-      This plugin gathers status information from [AVM](https://en.avm.de/)
+      This plugin gathers status information from [FRITZ!](https://fritz.com/)
       devices (routers, repeaters, etc) using the device's
-      [TR-064](https://avm.de/service/schnittstellen/) interface.
+      [TR-064](https://fritz.com/en/pages/interfaces) interface.
     introduced: v1.35.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, network]
@@ -806,6 +806,17 @@ input:
       as produced by Cisco IOS XR (64-bit) version 6.5.1, Cisco NX-OS 9.3 and
       Cisco IOS XE 16.12 and later.
     introduced: v1.15.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [network]
+  - name: gNMI (gRPC Network Management Interface) dial-out
+    id: gnmi_listener
+    description: |
+      This plugin consumes telemetry data based on
+      [gNMI](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md)
+      messages sent by network devices in dial-out mode. This plugin supports a
+      list of vendor protocols such as [Nokia dial-out
+      telemetry](https://infocenter.nokia.com/public/7750SR222R1A/index.jsp?topic=%2Fcom.nokia.System_Mgmt_Guide%2Fdial-out_teleme-ai9exj5ye3.html).
+    introduced: v1.39.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Google Cloud Storage

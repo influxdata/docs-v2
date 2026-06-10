@@ -38,15 +38,12 @@ Provide the following:
   If no table is specified, the custom indexing strategy is removed from all
   tables in the specified database.
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE|TABLE|COLUMNS" %}}
-
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE|TABLE|COLUMNS" }
 influxdb3 delete file_index \
   --host http://localhost:8585 \
   --database DATABASE_NAME \
   --table TABLE_NAME \
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 

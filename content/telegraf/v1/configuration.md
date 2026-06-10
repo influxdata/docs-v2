@@ -274,7 +274,14 @@ INFLUX_BUCKET="replace_with_your_bucket_name"
 
 In the Telegraf configuration file (`/etc/telegraf.conf`), reference the variables--for example:
 
-```toml
+<!--
+  This example uses Telegraf's `${VAR}` substitution (bare, unquoted)
+  for non-string values like the `skip_database_creation` boolean.
+  That syntax is a Telegraf preprocessor extension, not strict TOML,
+  so the fence is `text` rather than `toml`.
+-->
+
+```text
 [global_tags]
   user = "${USER}"
 

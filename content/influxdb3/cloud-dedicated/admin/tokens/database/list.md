@@ -121,16 +121,12 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
 The following example shows how to use the Management API to list database tokens:
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
    --header "Accept: application/json" \
    --header "Authorization: Bearer MANAGEMENT_TOKEN"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
@@ -155,16 +151,12 @@ To retrieve a specific database token by ID, send a request to the following {{%
    - `Accept: application/json` to ensure the response body is JSON content
    - `Authorization: Bearer` and a [Management API token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your cluster _(see how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for Management API requests)_.
 
-{{% code-placeholders "TOKEN_ID|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="TOKEN_ID|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
  --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
  --header "Accept: application/json" \
  --header "Authorization: Bearer MANAGEMENT_TOKEN" \
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -232,7 +224,7 @@ The output is a JSON array of token objects that include additional fields such 
         "action": "read",
         "resource": "mydb1"
       }
-    ],
+    ]
   },
   {
     "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
@@ -245,7 +237,7 @@ The output is a JSON array of token objects that include additional fields such 
         "action": "read",
         "resource": "mydb2"
       }
-  ],
+    ]
   },
   {
     "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
@@ -258,7 +250,7 @@ The output is a JSON array of token objects that include additional fields such 
         "action": "read",
         "resource": "mydb3"
       }
-  ],
+    ]
   }
 ]
 ```

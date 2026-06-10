@@ -45,11 +45,9 @@ _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/in
 
 ## Examples
 
-{{% code-placeholders "(FIRST|LAST)_NAME|EMAIL" %}}
-```sh
+```sh { placeholders="(FIRST|LAST)_NAME|EMAIL" }
 influxctl user invite FIRST_NAME LAST_NAME EMAIL
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

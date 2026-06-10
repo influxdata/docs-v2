@@ -36,11 +36,9 @@ _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/in
 
 ## Examples
 
-{{% code-placeholders "TOKEN_ID" %}}
-```sh
+```sh { placeholders="TOKEN_ID" }
 influxctl token get TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

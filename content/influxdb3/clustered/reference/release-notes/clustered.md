@@ -34,9 +34,8 @@ InfluxDB Clustered:
     authorize the use of InfluxDB Clustered images.
 3.  Run the following shell script:
 
-{{% code-placeholders "RELEASE_VERSION" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="RELEASE_VERSION" }
 INFLUXDB_RELEASE="RELEASE_VERSION"
 IMAGE="us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:$INFLUXDB_RELEASE"
 DOCKER_CFG="/tmp/influxdbsecret"
@@ -46,7 +45,6 @@ DIGEST=$(DOCKER_CONFIG="$DOCKER_CFG" crane manifest "$IMAGE" | jq -r '.layers[1]
 DOCKER_CONFIG="$DOCKER_CFG" \
 crane blob "$IMAGE@$DIGEST" | tar -xvzf - -C ./
 ```
-{{% /code-placeholders %}}
 
 _Replace {{% code-placeholder-key %}}`RELEASE_VERSION`{{% /code-placeholder-key %}}
 with the InfluxDB Clustered release version you want to download artifacts for._
@@ -172,7 +170,7 @@ Customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoin
 `spec.package.spec.objectStore.bucket` need to disable the
 `CATALOG_BACKUP_DATA_SNAPSHOT` feature:
 
-```yaml
+```diff
  spec:
    package:
      spec:
@@ -732,13 +730,13 @@ spec:
     image: <IMAGE>
     apiVersion: influxdata.com/v1alpha1
     spec:
-      ## ...snip
+      # ... other spec fields elided ...
       admin:
         users:
-          - ...
+          # - ... user entries elided ...
         dsn:
           valueFrom:
-            ...
+            # ... dsn source elided ...
         identityProvider: <PROVIDER>
         jwksEndpoint: <JWKS_ENDPOINT>
 ```
@@ -850,11 +848,11 @@ metadata:
   name: influxdb
   namespace: influxdb
 spec:
-   ...
-      resources:
-        querier:
-          requests:
-            #replicas: 3 # No longer required!
+  # ... other spec fields elided ...
+  resources:
+    querier:
+      requests:
+        #replicas: 3 # No longer required!
 ```
 
 If you wish to keep the number of queriers to 1, you must override the
@@ -1774,19 +1772,20 @@ kubectl -n influxdb create  configmap custom-ca  --from-file=ca.pem
 ```
 
 ```yaml
-....
+# ... other top-level fields elided ...
 kind: AppInstance
 spec:
-    ...
+  # ... other spec fields elided ...
+  package:
     spec:
-      ...
+      # ... other package.spec fields elided ...
       egress:
-         customCertificates:
-            valueFrom:
-              configMapKeyRef:
-                key: ca.pem
-                name: custom-ca
-      ...
+        customCertificates:
+          valueFrom:
+            configMapKeyRef:
+              key: ca.pem
+              name: custom-ca
+      # ... more package.spec fields elided ...
 ```
 
 ### Changes

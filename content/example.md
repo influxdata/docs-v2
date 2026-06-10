@@ -1576,3 +1576,64 @@ curl --request POST \
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Diff fence — subtractive only
+
+The previous `display: inline-block` rule on `.gi`/`.gd` (influxdata/docs-v2#7173)
+swallowed the trailing `\n` inside each chroma diff-line span and collapsed
+every line onto a single inline row. These fixtures cover the replacement
+`display: block` + `width: max-content` + `min-width: 100%` behavior.
+
+```diff
+- net,host=server01 bytes_sent=1000,bytes_received=500
+- net,host=server01 bytes_sent=2500,bytes_received=1500
+- net,host=server01 bytes_sent=3000,bytes_received=2500
+```
+
+### Diff fence — subtractive with overflow
+
+Lines wider than the visible code-block must keep the red tint extending
+past the visible edge (`width: max-content`).
+
+```diff
+- net,host=server01,region=us-west-2,environment=production bytes_sent=1000,bytes_received=500,bytes_dropped=12,packets_total=4823
+- net,host=server02,region=us-west-2,environment=production bytes_sent=2500,bytes_received=1500,bytes_dropped=4,packets_total=9120
+```
+
+### Diff fence — subtractive with surrounding context
+
+Only `-` lines should be tinted; bare context lines stay unhighlighted.
+
+```diff
+ spec:
+   package:
+     spec:
+-      replicas: 3
+-      image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240101-000000
+       resources:
+         limits:
+           memory: 2Gi
+```
+
+### Diff fence — mixed additions and deletions
+
+Both `.gi` and `.gd` blocks must stack on their own rows, with palette-aligned
+green and red tints.
+
+```diff
+ apiVersion: kubecfg.dev/v1alpha1
+ kind: AppInstance
+ spec:
+   package:
+     spec:
+-      replicas: 3
+-      image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240101-000000
++      replicas: 5
++      image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20260101-999999
++      components:
++        garbage-collector:
++          enabled: true
+       resources:
+         limits:
+           memory: 2Gi
+```
+

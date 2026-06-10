@@ -174,16 +174,13 @@ Use `crane` to copy images from the InfluxData registry to your own private regi
    for your system.
 2. Create a container registry secret file and verify access:
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
-
-```bash
+```bash { placeholders="PACKAGE_VERSION" }
 mkdir -p /tmp/influxdbsecret
 cp influxdb-docker-config.json /tmp/influxdbsecret/config.json
 DOCKER_CONFIG=/tmp/influxdbsecret \
   crane manifest \
   us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
-{{% /code-placeholders %}}
 
 ---
 
@@ -235,19 +232,15 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 3. Extract the list of InfluxDB images from the package metadata:
 You can use any standard OCI image inspection tool--for example:
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="PACKAGE_VERSION" }
 DOCKER_CONFIG=/tmp/influxdbsecret \
 crane config \
   us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION \
   | jq -r '.metadata["oci.image.list"].images[]' \
   > /tmp/images.txt
 ```
-
-{{% /code-placeholders %}}
 
 The output is a list of image names, similar to the following:
 
@@ -259,15 +252,11 @@ us-docker.pkg.dev/influxdb2-artifacts/iox/iox@sha256:b59d80add235f29b806badf7410
 
 4. Use `crane` to copy the images to your private registry:
 
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="REGISTRY_HOSTNAME" }
 </tmp/images.txt xargs -I% crane cp % REGISTRY_HOSTNAME/%
 ```
-
-{{% /code-placeholders %}}
 
 
 Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}}
@@ -288,8 +277,8 @@ In your `myinfluxdb.yml`:
 
 {{% expand-wrapper %}}
 {{% expand "View `myinfluxdb.yml` AppInstance configuration" %}}
-{{% code-placeholders "REGISTRY_HOSTNAME | PULL_SECRET_NAME" %}}
-```yaml
+
+```yaml { placeholders="REGISTRY_HOSTNAME | PULL_SECRET_NAME" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 metadata:
@@ -316,7 +305,7 @@ spec:
   imagePullSecrets:
     - name: PULL_SECRET_NAME
 ```
-{{% /code-placeholders %}}
+
 {{% /expand %}}
 {{% /expand-wrapper %}}
 
@@ -411,9 +400,7 @@ following fields in your `myinfluxdb.yml`:
     - `secretKey.value`: Object storage secret key
     - `region`: Object storage region
 
-{{% code-placeholders "S3_(URL|ACCESS_KEY|SECRET_KEY|BUCKET_NAME|REGION)" %}}
-
-```yml
+```yml { placeholders="S3_(URL|ACCESS_KEY|SECRET_KEY|BUCKET_NAME|REGION)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -445,8 +432,6 @@ spec:
           region: S3_REGION
 ```
 
-{{% /code-placeholders %}}
-
 ---
 
 Replace the following:
@@ -477,9 +462,7 @@ following fields in your `myinfluxdb.yml`:
     - `account.value`: Azure Blob Storage account ID
       _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
 
-{{% code-placeholders "AZURE_(BUCKET_NAME|ACCESS_KEY|STORAGE_ACCOUNT)" %}}
-
-```yml
+```yml { placeholders="AZURE_(BUCKET_NAME|ACCESS_KEY|STORAGE_ACCOUNT)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -501,8 +484,6 @@ spec:
           account:
             value: AZURE_STORAGE_ACCOUNT
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -532,9 +513,7 @@ following fields in your `myinfluxdb.yml`:
     - `serviceAccountSecret.key`: the key inside of your Google IAM secret that
       contains your Google IAM account credentials
 
-{{% code-placeholders "GOOGLE_(BUCKET_NAME|IAM_SECRET|CREDENTIALS_KEY)" %}}
-
-```yml
+```yml { placeholders="GOOGLE_(BUCKET_NAME|IAM_SECRET|CREDENTIALS_KEY)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -555,8 +534,6 @@ spec:
             # The key within the Secret containing the credentials.
             key: GOOGLE_CREDENTIALS_KEY
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -593,9 +570,7 @@ provide values for the following fields in your `myinfluxdb.yml` configuration f
   - `.name`: Secret name
   - `.key`: Key in the secret that contains the DSN
 
-{{% code-placeholders "SECRET_(NAME|KEY)" %}}
-
-```yml
+```yml { placeholders="SECRET_(NAME|KEY)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -611,8 +586,6 @@ spec:
               name: SECRET_NAME
               key: SECRET_KEY
 ```
-
-{{% /code-placeholders %}}
 
 ---
 
@@ -682,9 +655,7 @@ following fields in your `myinfluxdb.yml` configuration file:
     This differs based on the Kubernetes environment and desired storage characteristics.
   - `storage`: Storage size. We recommend a minimum of 2 gibibytes (`2Gi`).
 
-{{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
-
-```yaml
+```yaml { placeholders="STORAGE_(CLASS|SIZE)" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -695,8 +666,6 @@ spec:
         storageClassName: STORAGE_CLASS
         storage: STORAGE_SIZE
 ```
-
-{{% /code-placeholders %}}
 
 ---
 

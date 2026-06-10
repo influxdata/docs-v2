@@ -134,7 +134,9 @@ The following configuration settings are especially beneficial for systems with 
 - [`storage-max-concurrent-compactions`](/influxdb/v2/reference/config-options/#storage-max-concurrent-compactions)
 - [`storage-max-index-log-file-size`](/influxdb/v2/reference/config-options/#storage-max-index-log-file-size)
 - [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
-- [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
+
+In InfluxDB OSS v2, `storage-compact-throughput-burst` effectively controls both the sustained and burst compaction throughput.
+Use it to scale compaction write throughput as you scale CPU and disk.
 
 In systems with stable loads, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
 

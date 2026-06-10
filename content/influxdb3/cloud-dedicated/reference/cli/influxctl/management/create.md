@@ -68,13 +68,11 @@ influxctl management create
 
 ### Create a management token with an expiration and description
 
-{{% code-placeholders "RFC3339_EXPIRATION|TOKEN_DESCRIPTION" %}}
-```sh
+```sh { placeholders="RFC3339_EXPIRATION|TOKEN_DESCRIPTION" }
 influxctl management create \
   --expires-at RFC3339_EXPIRATION \
   --description "TOKEN_DESCRIPTION"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

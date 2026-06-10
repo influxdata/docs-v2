@@ -70,7 +70,7 @@ function assertNoEscapedHighlightMarkup() {
  */
 function assertHasHighlightedCodeBlock() {
   cy.get(
-    'pre code.language-bash, pre code.language-sh, pre code.language-js, pre code.language-python, pre code.language-sql, pre code.language-yaml, pre code.language-json',
+    'pre code.language-bash, pre code.language-sh, pre code.language-js, pre code.language-python, pre code.language-sql, pre code.language-yaml, pre code.language-json, pre code.language-diff',
     { timeout: 10000 }
   ).should('have.length.gte', 1);
 }
@@ -123,5 +123,72 @@ describe('Representative product pages', () => {
       assertHasHighlightedCodeBlock();
       assertNoEscapedHighlightMarkup();
     });
+  });
+});
+
+describe('Diff fence highlighting', () => {
+  // Guards against influxdata/docs-v2#7173: `display: inline-block` on
+  // .gi/.gd swallowed the trailing `\n` that chroma puts inside each
+  // diff-line span, collapsing every line onto a single inline row. The
+  // replacement (`display: block` + `width: max-content` + `min-width:
+  // 100%`) keeps each line on its own row and lets the highlight extend
+  // past the visible width on overflowing lines. Fixtures live in
+  // content/example.md under "Diff fence — …".
+  beforeEach(() => {
+    cy.visit('/example/');
+  });
+
+  it('renders each .gd line on its own row in the subtractive fixture', () => {
+    cy.get('#diff-fence--subtractive-only')
+      .nextUntil('h3')
+      .find('pre.chroma .gd')
+      .should('have.length', 3)
+      .then(($spans) => {
+        const tops = new Set(
+          $spans
+            .toArray()
+            .map((el) => Math.round(el.getBoundingClientRect().top))
+        );
+        expect(
+          tops.size,
+          'each .gd span must render on its own row (no inline-block concatenation)'
+        ).to.equal($spans.length);
+      });
+  });
+
+  it('applies display:block to .gd and .gi', () => {
+    cy.get('#diff-fence--mixed-additions-and-deletions')
+      .nextUntil('h3')
+      .find('pre.chroma .gd, pre.chroma .gi')
+      .should('have.length.gte', 2)
+      .each(($el) => {
+        expect($el).to.have.css('display', 'block');
+      });
+  });
+
+  it('extends the highlight past the visible width on overflowing lines', () => {
+    // width: max-content lets the .gd box grow to its content width when
+    // a line overflows the visible code-block area. Without it, the tint
+    // would clip at the visible width and leave overflowing text untinted.
+    cy.get('#diff-fence--subtractive-with-overflow')
+      .nextUntil('h3')
+      .find('pre.chroma .gd')
+      .first()
+      .then(($el) => {
+        const el = $el[0];
+        expect(
+          el.offsetWidth,
+          '.gd should grow with content (width: max-content)'
+        ).to.be.greaterThan(el.parentElement.clientWidth);
+      });
+  });
+
+  it('does not tint context lines in the surrounding-context fixture', () => {
+    cy.get('#diff-fence--subtractive-with-surrounding-context')
+      .nextUntil('h3')
+      .find('pre.chroma .gd')
+      .should('have.length', 2);
+    // Context lines (` spec:`, `   package:`, etc.) are plain text inside
+    // .cl spans without a .gd/.gi child — assert the count stays at 2.
   });
 });

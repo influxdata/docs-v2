@@ -66,15 +66,13 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: Authentication token
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: Name of the trigger to update
 
-{{% code-placeholders "(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" %}}
-
 ### Update trigger plugin code
 
 Update a trigger to use modified plugin code from the server's plugin directory.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
 influxdb3 update trigger \
   --database DATABASE_NAME \
   --trigger-name TRIGGER_NAME \
@@ -88,7 +86,7 @@ Upload new plugin code from your local machine and update the trigger in a singl
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
 # Upload single-file plugin
 influxdb3 update trigger \
   --database DATABASE_NAME \
@@ -114,7 +112,7 @@ Modify the arguments passed to a trigger's plugin code.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
 influxdb3 update trigger \
   --database DATABASE_NAME \
   --trigger-name TRIGGER_NAME \
@@ -128,7 +126,7 @@ Change the trigger's enabled state without modifying other configuration.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
 # Disable a trigger
 influxdb3 update trigger \
   --database DATABASE_NAME \
@@ -150,7 +148,7 @@ Change how the trigger responds to errors.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
 # Log errors without retrying
 influxdb3 update trigger \
   --database DATABASE_NAME \
@@ -172,5 +170,3 @@ influxdb3 update trigger \
   --error-behavior disable \
   --token AUTH_TOKEN
 ```
-
-{{% /code-placeholders %}}

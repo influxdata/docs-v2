@@ -488,7 +488,7 @@ _**Example kapacitor.conf**_
 [[kafka]]
   enabled = true
   id = "localhost"
-  timeout = 10s
+  timeout = "10s"
 ```
 
 _**Example TICKscript**_

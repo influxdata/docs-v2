@@ -16,7 +16,7 @@
 extern crate napi_derive;
 
 use napi::Result;
-use scraper::{Html, Selector};
+use scraper::{ElementRef, Html, Selector};
 use serde::{Deserialize, Serialize};
 use regex::Regex;
 use lazy_static::lazy_static;
@@ -53,49 +53,60 @@ fn detect_product(url_path: &str) -> Option<ProductInfo> {
 // HTML Processing
 // ============================================================================
 
-/// Remove unwanted UI elements from HTML
-fn clean_html(html: &str) -> String {
-    let document = Html::parse_document(html);
-    let mut cleaned = html.to_string();
+// Configurable list of CSS selectors for elements to remove from article
+// content. Add new selectors here to remove unwanted UI widgets, forms,
+// navigation, etc.
+const REMOVE_SELECTORS: &[&str] = &[
+    // Navigation and structure
+    "nav",
+    "header",
+    "footer",
+    // Scripts and styles
+    "script",
+    "style",
+    "noscript",
+    "iframe",
+    // UI widgets and controls
+    ".format-selector",
+    ".format-selector__button",
+    "button[aria-label*='Copy']",
+    "hr",
+    // Feedback and support sections (inside article content)
+    ".helpful",           // "Was this page helpful?" form
+    "div.feedback.block", // Block-level feedback sections (combined class selector)
+    ".feedback",          // General feedback sections (must come after specific .feedback.block)
+    ".page-feedback",
+    "#page-feedback",
+    ".feedback-widget",
+    ".support", // Support section at bottom of pages
+];
 
-    // Configurable list of CSS selectors for elements to remove from article content
-    // Add new selectors here to remove unwanted UI elements, forms, navigation, etc.
-    let remove_selectors = vec![
-        // Navigation and structure
-        "nav",
-        "header",
-        "footer",
+/// Remove unwanted UI elements from an article element.
+///
+/// Both the haystack (`article.html()`) and the per-element needles
+/// (`element.html()`) are serialized from the **same** parse tree, so html5ever
+/// guarantees each descendant's serialization is a verbatim substring of the
+/// article's — making the string removal reliable. (Re-parsing the article
+/// HTML, as a previous version did, restructured the tree — e.g. inserted
+/// `<tbody>` — so re-serialized needles no longer matched and complex widgets
+/// like the format-selector leaked their text.)
+fn clean_article_html(article: ElementRef) -> String {
+    let mut cleaned = article.html();
 
-        // Scripts and styles
-        "script",
-        "style",
-        "noscript",
-        "iframe",
-
-        // UI widgets and controls
-        ".format-selector",
-        ".format-selector__button",
-        "button[aria-label*='Copy']",
-        "hr",
-
-        // Feedback and support sections (inside article content)
-        ".helpful",                    // "Was this page helpful?" form
-        "div.feedback.block",          // Block-level feedback sections (combined class selector)
-        ".feedback",                   // General feedback sections (must come after specific .feedback.block)
-        ".page-feedback",
-        "#page-feedback",
-        ".feedback-widget",
-        ".support",                    // Support section at bottom of pages
-    ];
-
-    for selector_str in remove_selectors {
+    // Collect every element to remove, then strip longest-first so a parent is
+    // removed before a (also-matched) child, avoiding a stale child needle that
+    // no longer matches the already-shortened haystack.
+    let mut needles: Vec<String> = Vec::new();
+    for selector_str in REMOVE_SELECTORS {
         if let Ok(selector) = Selector::parse(selector_str) {
-            for element in document.select(&selector) {
-                // Get the full HTML of the element to remove
-                let element_html = element.html();
-                cleaned = cleaned.replace(&element_html, "");
+            for element in article.select(&selector) {
+                needles.push(element.html());
             }
         }
+    }
+    needles.sort_by_key(|h| std::cmp::Reverse(h.len()));
+    for needle in needles {
+        cleaned = cleaned.replace(&needle, "");
     }
 
     cleaned
@@ -175,7 +186,7 @@ fn extract_article_content(html: &str) -> Option<(String, String, String)> {
     };
 
     // Get cleaned article HTML
-    let content = clean_html(&article.html());
+    let content = clean_article_html(article);
 
     Some((title, description, content))
 }
@@ -190,6 +201,10 @@ lazy_static! {
     static ref SEPARATOR_ARTIFACTS: Regex = Regex::new(r"\* \* \*\s*\n\s*\* \* \*").unwrap();
     static ref TRAILING_SEPARATOR: Regex = Regex::new(r"\* \* \*\s*$").unwrap();
     static ref CODE_FENCE: Regex = Regex::new(r"```(\w+)?\n").unwrap();
+    // Heading normalization (see normalize_headings)
+    static ref SETEXT_H1: Regex = Regex::new(r"(?m)^([^#>|\-*+\s].*\S)\n=+[ \t]*$").unwrap();
+    static ref SETEXT_H2: Regex = Regex::new(r"(?m)^([^#>|\-*+\s].*\S)\n-+[ \t]*$").unwrap();
+    static ref CLOSED_ATX: Regex = Regex::new(r"(?m)^(#{1,6} .*?)[ \t]+#+[ \t]*$").unwrap();
 }
 
 /// Convert HTML blockquote callouts to GitHub-style
@@ -385,6 +400,20 @@ fn add_tab_delimiters_to_markdown(markdown: &str) -> String {
     }).to_string()
 }
 
+/// Normalize markdown headings to open-ATX style.
+///
+/// Converts setext headings (`Text\n====` → `# Text`, `Text\n----` → `## Text`)
+/// and strips closing hashes from closed-ATX headings (`## Text ##` → `## Text`).
+/// The setext text line must begin with a content character (not `#`, `>`, `|`,
+/// `-`, `*`, `+`, or whitespace) so list items, blockquotes, and table rows are
+/// never matched, and the underline must be a whole line of only `=`/`-`.
+fn normalize_headings(markdown: &str) -> String {
+    let result = SETEXT_H1.replace_all(markdown, "# $1");
+    let result = SETEXT_H2.replace_all(&result, "## $1");
+    let result = CLOSED_ATX.replace_all(&result, "$1");
+    result.into_owned()
+}
+
 /// Post-process markdown to clean up formatting
 fn postprocess_markdown(markdown: &str, html: &str, remove_h1: bool) -> String {
     let mut result = markdown.to_string();
@@ -405,6 +434,15 @@ fn postprocess_markdown(markdown: &str, html: &str, remove_h1: bool) -> String {
             result = h1_setext_pattern.replace(&result, "").to_string();
         }
     }
+
+    // Normalize headings to open-ATX. html2md emits setext for h1/h2
+    // (`Text\n====` / `Text\n----`) and sometimes closed-ATX (`## Text ##`); the
+    // baseline and the rest of the corpus use open-ATX. Run before callouts and
+    // tables so a table separator (`| --- |`, contains `|`) or a thematic break
+    // (blank line above) is never mistaken for a setext underline: the text line
+    // must start with a content char (not `#>|-*+` or whitespace) and sit
+    // directly above an all-`=`/`-` line.
+    result = normalize_headings(&result);
 
     // Convert callouts
     result = convert_callouts(&result, html);
@@ -519,13 +557,11 @@ struct Frontmatter {
     title: String,
     description: String,
     url: String,
+    estimated_tokens: usize,
     #[serde(skip_serializing_if = "Option::is_none")]
     product: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    product_version: Option<String>,
-    date: String,
-    lastmod: String,
-    estimated_tokens: usize,
+    version: Option<String>,
 }
 
 fn generate_frontmatter(
@@ -552,9 +588,6 @@ fn generate_frontmatter(
     // Estimate tokens (4 chars per token)
     let estimated_tokens = (content_length + 3) / 4;
 
-    // Generate current timestamp in ISO 8601 format
-    let now = chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true);
-
     // Convert relative URL to full URL using the provided base URL
     let full_url = format!("{}{}", base_url, url_path);
 
@@ -562,11 +595,9 @@ fn generate_frontmatter(
         title: title.to_string(),
         description,
         url: full_url,
-        product: product.as_ref().map(|p| p.name.clone()),
-        product_version: product.as_ref().map(|p| p.version.clone()),
-        date: now.clone(),
-        lastmod: now,
         estimated_tokens,
+        product: product.as_ref().map(|p| p.name.clone()),
+        version: product.as_ref().map(|p| p.version.clone()),
     };
 
     match serde_yaml::to_string(&frontmatter) {
@@ -592,7 +623,9 @@ fn generate_frontmatter(
 pub fn convert_to_markdown(html_content: String, url_path: String, base_url: String) -> Result<Option<String>> {
     match extract_article_content(&html_content) {
         Some((title, description, content)) => {
-            // For single pages, remove h1 since title is in frontmatter
+            // Omit the body h1 (the rendered page title): the title is already
+            // in frontmatter, and dropping it keeps the LLM-facing twins
+            // consistent with the API-reference markdown, which also omits it.
             let markdown = html_to_markdown(&content, true);
             let frontmatter = generate_frontmatter(&title, &description, &url_path, markdown.len(), &base_url);
 
@@ -601,71 +634,6 @@ pub fn convert_to_markdown(html_content: String, url_path: String, base_url: Str
         }
         None => Ok(None),
     }
-}
-
-/// Convert section HTML with child pages to aggregated Markdown
-///
-/// # Arguments
-/// * `section_html` - HTML content of the section index page
-/// * `section_url_path` - URL path for the section
-/// * `child_htmls` - Array of child page objects with `{html, url}` structure
-/// * `base_url` - Base URL for the site (e.g., "http://localhost:1313" or "https://docs.influxdata.com")
-///
-/// # Returns
-/// Aggregated markdown content or null if conversion fails
-#[napi(object)]
-pub struct ChildPageInput {
-    pub html: String,
-    pub url: String,
-}
-
-#[napi]
-pub fn convert_section_to_markdown(
-    section_html: String,
-    section_url_path: String,
-    child_htmls: Vec<ChildPageInput>,
-    base_url: String,
-) -> Result<Option<String>> {
-    // Extract section metadata
-    let (section_title, section_description, section_content) = match extract_article_content(&section_html) {
-        Some(data) => data,
-        None => return Ok(None),
-    };
-
-    // For section pages, keep the h1 title in content
-    let section_markdown = html_to_markdown(&section_content, false);
-
-    // Process child pages
-    let mut child_contents = Vec::new();
-    let mut total_length = section_markdown.len();
-
-    for child in child_htmls {
-        if let Some((title, _desc, content)) = extract_article_content(&child.html) {
-            // For child pages, remove h1 since we add them as h2
-            let child_markdown = html_to_markdown(&content, true);
-
-            // Add as h2 heading with URL
-            let full_child_url = format!("{}{}", base_url, child.url);
-            child_contents.push(format!("## {}\n\n**URL**: {}\n\n{}", title, full_child_url, child_markdown));
-            total_length += child_markdown.len();
-        }
-    }
-
-    // Generate frontmatter
-    let frontmatter = generate_frontmatter(
-        &section_title,
-        &section_description,
-        &section_url_path,
-        total_length,
-        &base_url,
-    );
-
-    // Combine all content
-    let mut all_content = vec![section_markdown];
-    all_content.extend(child_contents);
-    let combined = all_content.join("\n\n---\n\n");
-
-    Ok(Some(format!("{}\n\n{}\n", frontmatter, combined)))
 }
 
 /// Detect product from URL path
@@ -692,5 +660,97 @@ mod tests {
         let html = "<p>Hello <strong>world</strong>!</p>";
         let md = html_to_markdown(html, false);
         assert!(md.contains("Hello **world**!"));
+    }
+
+    #[test]
+    fn test_frontmatter_uses_version_not_product_version() {
+        let html = r#"<html><head></head><body>
+            <article class="article--content"><h1>Get started</h1><p>Body.</p></article>
+          </body></html>"#;
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/get-started/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        assert!(out.contains("\nversion: core\n"));
+        assert!(!out.contains("product_version:"));
+    }
+
+    #[test]
+    fn test_normalize_headings_setext_and_closed_atx() {
+        let md = "Data model\n----------\n\nBody.\n\n#### Related ####\n\n| Col |\n| --- |\n| x |\n";
+        let out = normalize_headings(md);
+        assert!(out.contains("## Data model"), "setext h2 -> open ATX");
+        assert!(!out.contains("----------"), "setext underline removed");
+        assert!(out.contains("#### Related\n"), "closed ATX -> open ATX");
+        assert!(!out.contains("Related ####"), "trailing hashes stripped");
+        // GFM table separator must be untouched.
+        assert!(out.contains("| --- |"), "table separator preserved");
+    }
+
+    #[test]
+    fn test_normalize_headings_ignores_thematic_break() {
+        // A thematic break (blank line above) is not a setext underline.
+        let md = "A paragraph.\n\n---\n\nNext.\n";
+        let out = normalize_headings(md);
+        assert!(out.contains("\n---\n"), "thematic break preserved");
+        assert!(!out.contains("## A paragraph"), "paragraph not promoted");
+    }
+
+    #[test]
+    fn test_omits_body_h1_and_strips_format_selector() {
+        // Minified attributes (unquoted) like the real Hugo output — the
+        // format-selector widget must be fully removed, and the body h1 (page
+        // title) omitted (it lives in frontmatter; matches the API-ref twins).
+        let html = r#"<html><head></head><body>
+            <article class=article--content>
+              <div class=format-selector data-component=format-selector>
+                <button class=format-selector__button aria-label="Copy page for AI">Copy page</button>
+                <ul><li>for AI</li><li>View as Markdown</li></ul>
+              </div>
+              <h1>Get started</h1>
+              <p>Real body content.</p>
+            </article>
+          </body></html>"#;
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/get-started/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        let body = out.split("---").nth(2).unwrap();
+        // Title is in frontmatter; the body must not repeat it as an h1
+        // (ATX `# ` or setext `Get started\n===`).
+        assert!(!body.contains("# Get started"), "ATX h1 must be omitted");
+        assert!(!body.contains("Get started\n="), "setext h1 must be omitted");
+        assert!(body.contains("Real body content."));
+        assert!(!body.contains("for AI"), "format-selector text must be stripped");
+        assert!(!body.contains("Copy page"));
+        assert!(!body.contains("View as Markdown"));
+    }
+
+    #[test]
+    fn test_frontmatter_omits_provenance_and_timestamps() {
+        // publisher/canonical/date/lastmod are added later by the JS post-step,
+        // never by the converter.
+        let html = r#"<html><head>
+            <meta name="last-modified" content="2025-01-15T00:00:00Z">
+          </head><body>
+            <article class="article--content"><h1>X</h1><p>Body.</p></article>
+          </body></html>"#;
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/x/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        assert!(!out.contains("publisher:"));
+        assert!(!out.contains("canonical:"));
+        assert!(!out.contains("date:"));
+        assert!(!out.contains("lastmod:"));
     }
 }

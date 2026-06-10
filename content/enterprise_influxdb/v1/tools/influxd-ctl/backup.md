@@ -46,7 +46,7 @@ influxd-ctl backup [flags] <backup-dir>
 
 - **backup-dir**: Directory to store backup files in
 
-## Flags
+## Flags {.no-shorthand}
 
 | Flag        | Description                                                         |
 | :---------- | :------------------------------------------------------------------ |

@@ -91,9 +91,8 @@ options:
   group: '{{ .Group }}'
   value: 'some-value'
   origin: 'kapacitor'
-  correlate: 'event1', 'event2'
+  correlate: ['event1', 'event2']
   service: ['service1', 'service2']
-  correlate: ['service1', 'service2']
   timeout: 24h
   attributes:
     key1: value1

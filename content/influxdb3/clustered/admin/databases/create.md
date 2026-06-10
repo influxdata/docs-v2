@@ -49,9 +49,7 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 <!--Allow fail for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|30d|500|200" }
 influxctl database create \
   --retention-period 30d \
   --max-tables 500 \
@@ -63,8 +61,6 @@ influxctl database create \
   --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME
 ```
-
-{{% /code-placeholders %}}
 
 - [Retention period syntax](#retention-period-syntax)
 - [Database naming restrictions](#database-naming-restrictions)

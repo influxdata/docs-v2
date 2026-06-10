@@ -134,17 +134,13 @@ to update a database token's permissions in your {{< product-name omit=" Cluster
 
     - the token ID
 
-{{% code-placeholders "DATABASE_NAME|TOKEN_ID" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_ID" }
 influxctl token update \
   --description "my updated test token" \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
   TOKEN_ID
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -183,9 +179,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
 The following example shows how to use the Management API to update a token's permissions:
 
-{{% code-placeholders "DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
    --request PATCH \
@@ -214,7 +208,6 @@ Replace the following in your request:
 - {{% code-placeholder-key %}}`MANAGEMENT TOKEN`{{% /code-placeholder-key %}}: a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for your {{% product-name %}} cluster
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: a {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/) that the token will have read or write permission to
 
-{{% /code-placeholders %}}
 <!------------------------------- END cURL ------------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -246,7 +239,6 @@ In the examples below, replace the following:
 
 #### Update a token for read and write access to a database
 
-{{% code-placeholders "DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
@@ -254,7 +246,7 @@ In the examples below, replace the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 influxctl token update \
   --description "Read/write to DATABASE_NAME" \
   --read-database DATABASE_NAME \
@@ -265,7 +257,7 @@ influxctl token update \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
    --request PATCH \
@@ -289,11 +281,9 @@ curl \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Update a token with read and write access to all databases
 
-{{% code-placeholders "TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
@@ -301,15 +291,17 @@ curl \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 influxctl token update \
   --read-database "*" \
   --write-database "*" \
   TOKEN_ID
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
    --request PATCH \
@@ -329,13 +321,12 @@ curl \
       ]
    }'
 ```
+
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
-{{% /code-placeholders %}}
 
 #### Update a token for read-only access to a database
 
-{{% code-placeholders "DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
@@ -343,7 +334,7 @@ curl \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 influxctl token update \
   --read-database DATABASE_NAME \
   TOKEN_ID
@@ -352,7 +343,7 @@ influxctl token update \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
    --request PATCH \
@@ -372,11 +363,9 @@ curl \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Update a token to provide read-only access to multiple databases
 
-{{% code-placeholders "DATABASE2_NAME|DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
@@ -384,7 +373,7 @@ curl \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE2_NAME|DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 influxctl token update \
   --description "Read-only token for DATABASE_NAME and DATABASE2_NAME" \
   --read-database DATABASE_NAME \
@@ -395,7 +384,7 @@ influxctl token update \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE2_NAME|DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
    --request PATCH \
@@ -419,11 +408,9 @@ curl \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 #### Update a token to provide mixed permissions to multiple databases
 
-{{% code-placeholders "DATABASE2_NAME|DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [influxctl](#)
@@ -431,7 +418,7 @@ curl \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE2_NAME|DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 influxctl token update \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
@@ -442,7 +429,7 @@ influxctl token update \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```sh
+```sh { placeholders="DATABASE2_NAME|DATABASE_NAME|TOKEN_ID|MANAGEMENT_TOKEN|ACCOUNT_ID|CLUSTER_ID" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
    --request PATCH \
@@ -470,4 +457,3 @@ curl \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}

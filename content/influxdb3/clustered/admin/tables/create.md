@@ -44,8 +44,7 @@ to a table, you must manually create the table before you write any data to it.
     > [!Note]
     > _{{< product-name >}} supports up to 7 total tags or tag buckets in the partition template._
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
-```sh
+```sh { placeholders="(DATABASE|TABLE)_NAME" }
 influxctl table create \
   --template-tag tag1 \
   --template-tag tag2 \
@@ -55,7 +54,6 @@ influxctl table create \
   DATABASE_NAME \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 ### Custom partitioning
 

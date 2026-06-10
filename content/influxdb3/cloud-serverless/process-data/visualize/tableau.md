@@ -95,11 +95,9 @@ To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and 
 
 #### Example connection URL
 
-{{< code-placeholders "BUCKET_NAME" >}}
-```
+``` { placeholders="BUCKET_NAME" }
 jdbc:arrow-flight-sql://us-east-1-1.aws.cloud2.influxdata.com:443?useSystemTrustStore=false&database=BUCKET_NAME
 ```
-{{< /code-placeholders >}}
 
 ## Query InfluxDB Cloud Serverless
 

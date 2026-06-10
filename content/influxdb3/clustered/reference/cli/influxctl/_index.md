@@ -302,9 +302,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{< expand-wrapper >}}
 {{% expand "View sample `config.toml`" %}}
 
-{{% code-placeholders "(PROFILE|INFLUXDB|OAUTH)_(NAME|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" %}}
-
-```toml
+```toml { placeholders="(PROFILE|INFLUXDB|OAUTH)_(NAME|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" }
 ## influxctl - example configuration
 
 [[profile]]
@@ -361,8 +359,6 @@ If stored at a non-default location, include the `--config` flag with each
         device_url = "OAUTH_DEVICE_URL"
 
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following values in the sample:
 

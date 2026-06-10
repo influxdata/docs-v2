@@ -170,6 +170,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
 - [storage-compact-full-write-cold-duration](#storage-compact-full-write-cold-duration)
+- [storage-compact-throughput](#storage-compact-throughput)
 - [storage-compact-throughput-burst](#storage-compact-throughput-burst)
 - [storage-max-concurrent-compactions](#storage-max-concurrent-compactions)
 - [storage-max-index-log-file-size](#storage-max-index-log-file-size)
@@ -2190,8 +2191,78 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 
 ---
 
+### storage-compact-throughput
+Sustained rate limit (in bytes per second) that TSM compactions can write to disk.
+
+InfluxDB also supports a separate burst limit (`storage-compact-throughput-burst`).
+In InfluxDB OSS v2, the sustained and burst compaction throughput values are currently the same.
+To tune compaction write throughput, set `storage-compact-throughput-burst` and verify the effective values in the `Compaction settings` log entry at startup.
+
+Example log entry:
+
+```text
+Compaction settings {"max_concurrent_compactions": 7, "throughput_bytes_per_second": 50331648, "throughput_bytes_per_second_burst": 50331648}
+```
+
+**Default:** `50331648`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| _Not available_ | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_COMPACT_THROUGHPUT=50331648
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-compact-throughput: 50331648
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-compact-throughput = 50331648
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-compact-throughput": 50331648
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### storage-compact-throughput-burst
-Rate limit (in bytes per second) that TSM compactions can write to disk.
+Maximum rate limit (in bytes per second) that TSM compactions can write to disk.
+
+In InfluxDB OSS v2, this setting also effectively controls the sustained compaction throughput.
+
+#### Scale compaction throughput
+
+If you scale to larger machines and faster storage, increase this value to let compactions keep up with ingest.
+If you set this too high, compactions can compete with writes and queries for disk I/O and hurt performance.
+
+To identify a compaction bottleneck, monitor the following:
+
+- `storage_compactions_queued` and `storage_compactions_active` from the `/metrics` endpoint
+- Disk I/O utilization and throughput from your OS or infrastructure metrics
+
+Example values:
+
+- `50331648` (default, about 48 MiB/s)
+- `100663296` (about 96 MiB/s)
+- `201326592` (about 192 MiB/s)
 
 **Default:** `50331648`
 
@@ -3472,7 +3543,9 @@ ui-disabled = true
 ---
 
 ### use-hashed-tokens
-Enable storing hashed API tokens on disk. Hashed tokens are disabled by default in version 2.8. Hashed tokens will be enabled by default in a future version.
+Enable storing hashed API tokens on disk. Token hashing is **enabled by
+default in InfluxDB 2.9.0 and later**. In InfluxDB 2.8.0–2.8.x, token
+hashing was available but disabled by default.
 
 Storing hashed tokens increases security by storing API tokens as hashes on disk. When enabled, all unhashed tokens are converted to hashed tokens on every startup leaving no unhashed tokens on disk. Newly created tokens are also stored as hashes. Lost tokens must be replaced when token hashing is enabled because the hashing prevents them from being recovered.
 
@@ -3480,7 +3553,11 @@ If token hashing is disabled after being enabled, any hashed tokens on disk rema
 
 Hashed token support is available in versions 2.8.0 and newer. Downgrading to older versions is not recommended after enabling hashed tokens because the downgrade process deletes all stored hashed tokens. All hashed tokens must be replaced on a downgrade after hashed tokens are enabled.
 
-**Default:** `false`
+To opt out of the default and continue storing tokens unhashed (for
+example, to preserve compatibility with a possible downgrade to
+InfluxDB 2.7 or earlier), set `use-hashed-tokens` to `false`.
+
+**Default:** `true` _(in InfluxDB 2.9.0 and later; `false` in 2.8.x)_
 
 | influxd flag    | Environment variable  | Configuration key |
 | :-------------- | :-------------------- | :---------------- |
@@ -3490,12 +3567,14 @@ Hashed token support is available in versions 2.8.0 and newer. Downgrading to ol
 <!--pytest.mark.skip-->
 
 ```sh
-influxd --use-hashed-tokens
+# Disable token hashing (opt out of the 2.9.0 default)
+influxd --use-hashed-tokens=false
 ```
 
 ###### Environment variable
 ```sh
-export INFLUXD_USE_HASHED_TOKENS=true
+# Disable token hashing (opt out of the 2.9.0 default)
+export INFLUXD_USE_HASHED_TOKENS=false
 ```
 
 ###### Configuration file
@@ -3507,18 +3586,18 @@ export INFLUXD_USE_HASHED_TOKENS=true
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-use-hashed-tokens: true
+use-hashed-tokens: false
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-use-hashed-tokens = true
+use-hashed-tokens = false
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "use-hashed-tokens": true
+  "use-hashed-tokens": false
 }
 ```
 {{% /code-tab-content %}}
