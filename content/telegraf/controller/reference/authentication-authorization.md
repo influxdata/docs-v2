@@ -16,6 +16,7 @@ related:
   - /telegraf/controller/users/
   - /telegraf/controller/tokens/
   - /telegraf/controller/settings/
+  - /telegraf/controller/reference/api/
 ---
 
 {{% product-name %}} distinguishes two security questions:
