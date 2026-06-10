@@ -121,7 +121,7 @@
 
       .telegraf-enterprise-text {
         flex: 2;
-        min-width: 400px;
+        min-width: 360px;
         p { margin-bottom: 0; }
       }
       .telegraf-enterprise-cta {
@@ -135,5 +135,15 @@
         }
       }
     }
+  }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .block.special-state .state-content.telegraf-enterprise {
+    flex-direction: column;
+    align-items: flex-start;
+    .telegraf-enterprise-text { min-width: unset; }
   }
 }
