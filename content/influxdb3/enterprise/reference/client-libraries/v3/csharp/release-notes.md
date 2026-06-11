@@ -10,8 +10,8 @@ menu:
 weight: 301
 canonical: /influxdb3/core/reference/client-libraries/v3/csharp/release-notes/
 source: /shared/influxdb-client-libraries-reference/v3/release-notes/csharp.md
-latest_version: "1.8.0"
-latest_release_date: "2026-04-23"
+latest_version: "1.9.0"
+latest_release_date: "2026-06-11"
 ---
 
 <!-- Content sourced from content/shared/influxdb-client-libraries-reference/v3/release-notes/csharp.md -->
