@@ -23,6 +23,12 @@ const PRODUCTS = [
   'clustered',
 ];
 
+/**
+ * Return release-notes URL paths for existing client-library stub pages.
+ * @param {string} docsRoot
+ * @param {string} slug
+ * @returns {string[]}
+ */
 function getReleaseNotesPaths(docsRoot, slug) {
   const paths = [];
   for (const product of PRODUCTS) {
@@ -212,11 +218,9 @@ function formatSummary(results) {
           : sanitizeTableCell(r.reason ?? '');
     return `| \`${r.client}\` | ${r.status} | ${detail} |`;
   });
-  return [
-    '| Client | Status | Detail |',
-    '| --- | --- | --- |',
-    ...rows,
-  ].join('\n');
+  return ['| Client | Status | Detail |', '| --- | --- | --- |', ...rows].join(
+    '\n'
+  );
 }
 
 function emitAnnotations(results) {
