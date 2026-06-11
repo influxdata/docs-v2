@@ -23,6 +23,21 @@ const PRODUCTS = [
   'clustered',
 ];
 
+function getReleaseNotesPaths(docsRoot, slug) {
+  const paths = [];
+  for (const product of PRODUCTS) {
+    const stubPath = resolve(
+      docsRoot,
+      `content/influxdb3/${product}/reference/client-libraries/v3/${slug}/release-notes.md`
+    );
+    if (!existsSync(stubPath)) continue;
+    paths.push(
+      `/influxdb3/${product}/reference/client-libraries/v3/${slug}/release-notes/`
+    );
+  }
+  return paths;
+}
+
 function setFrontmatterFields(content, fields) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
   if (!match) return content;
@@ -143,6 +158,7 @@ function syncOne(client, sourcePath, docsRoot) {
     latestVersion,
     outputPath: client.outputPath,
     stubsUpdated,
+    releaseNotesPaths: getReleaseNotesPaths(docsRoot, client.slug),
   };
 }
 
@@ -265,12 +281,22 @@ function main() {
 
   const summary = formatSummary(results);
   const needsAttention = results.some((r) => ATTENTION_STATUSES.has(r.status));
+  const releaseNotesPaths = Array.from(
+    new Set(
+      results.flatMap((r) =>
+        r.status === 'updated' && Array.isArray(r.releaseNotesPaths)
+          ? r.releaseNotesPaths
+          : []
+      )
+    )
+  ).sort();
 
   emitAnnotations(results);
   writeStepSummary(`## Client library release-notes sync\n\n${summary}`);
   writeStepOutputs({
     needs_attention: needsAttention ? 'true' : 'false',
     summary,
+    release_notes_paths: releaseNotesPaths.join('\n'),
   });
 
   const hadFatal = results.some((r) => FATAL_STATUSES.has(r.status));

@@ -104,6 +104,7 @@ jobs:
         env:
           NEEDS_ATTENTION: ${{ steps.sync.outputs.needs_attention }}
           SUMMARY: ${{ steps.sync.outputs.summary }}
+          RELEASE_NOTES_PATHS: ${{ steps.sync.outputs.release_notes_paths }}
         run: |
           BODY_FILE="$RUNNER_TEMP/pr-body.md"
           {
@@ -120,6 +121,17 @@ jobs:
             echo
             printf '%s\n' "$SUMMARY"
             echo
+            if [ -n "$RELEASE_NOTES_PATHS" ]; then
+              echo '## Pages to preview'
+              echo
+              echo '| URL | Expected |'
+              echo '| --- | --- |'
+              while IFS= read -r path; do
+                [ -n "$path" ] || continue
+                printf '| `%s` | Client-library release notes render correctly. |\n' "$path"
+              done <<< "$RELEASE_NOTES_PATHS"
+              echo
+            fi
             echo '## Sources'
             echo
             echo '- https://github.com/InfluxCommunity/influxdb3-python/blob/main/CHANGELOG.md'
