@@ -1,8 +1,8 @@
 ---
 name: exec-plan-writing
-description: "Capture durable goal, intent, and decisions for a unit of work as an execution plan under docs/exec-plans/. Use when finishing a non-trivial change that needs a decision record, when a PR closes one or more issues and the rationale would otherwise live only in commit messages or PR descriptions, or when the user asks to write an exec-plan, decision doc, or to document the why behind a change. Distinct from PLAN.md (ephemeral, scrubbed by CI on merge) and design-docs (architectural)."
+description: "Capture durable goal, intent, and decisions for a unit of work as an execution plan under docs/exec-plans/. Use when finishing a non-trivial change that needs a decision record, when a PR closes one or more issues and the rationale would otherwise live only in commit messages or PR descriptions, or when the user asks to write an exec-plan, decision doc, or to document the why behind a change. Distinct from ephemeral in-session plans and design-docs (architectural)."
 author: InfluxData
-version: "0.1"
+version: "0.2"
 ---
 
 # Writing Execution Plans
@@ -13,7 +13,7 @@ Execution plans are durable, checked-in records of *why* a unit of work was done
 
 They are **not**:
 
-- **PLAN.md** at the repo root — that file is the in-flight working plan and is scrubbed by a CI workflow before merge. PLAN.md captures step-by-step *how*; the exec-plan captures durable *why*.
+- **In-session planning** — keep ephemeral implementation steps in your session memory or conversation. Don't commit working notes that have no long-term value.
 - **Design docs** under `docs/design-docs/` (coming) — those capture architectural beliefs and cross-cutting decisions. Exec-plans are scoped to one change/PR.
 - **Commit messages or PR descriptions** — both are useful but tied to a specific moment; PR descriptions get buried, and squash-merge commit messages frequently lose detail.
 
@@ -103,7 +103,7 @@ Before opening (or updating) the PR:
 - [ ] Every bullet under **Decisions** is a choice + a reason — no restatement of what's in the diff
 - [ ] **Out of scope** lists every adjacent issue the reader might expect, with links
 - [ ] Sections that don't apply are removed, not left empty
-- [ ] The doc is shorter than PLAN.md — if it's longer, content has leaked from "decisions" into "implementation steps"
+- [ ] The doc is shorter than a typical session planning doc — if it's longer, content has leaked from "decisions" into "implementation steps"
 
 ## After merge
 
@@ -117,5 +117,5 @@ This housekeeping can ride along on the next docs-touching PR — it doesn't nee
 
 ## Related skills and conventions
 
-- The repo-root `PLAN.md` convention (ephemeral working plan, scrubbed by CI on merge) is documented in `CLAUDE.md` and `.claude/worktrees/add-decision-pages/CLAUDE.md`.
+- For durable decision records, use exec-plans under `docs/exec-plans/`. This skill documents the format and workflow.
 - Future skills will cover `docs/design-docs/` (architectural beliefs), `docs/product-specs/` (product specifications), and `docs/references/` (LLM-ingestible reference corpora) — see the structure overview in the next gardening pass.

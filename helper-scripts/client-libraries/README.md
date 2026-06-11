@@ -26,5 +26,3 @@ node helper-scripts/client-libraries/sync-release-notes.js \
 ```sh
 node --test helper-scripts/client-libraries/test/transform-changelog.test.js
 ```
-
-See [PLAN.md](../../PLAN.md) at the repo root for design context.
