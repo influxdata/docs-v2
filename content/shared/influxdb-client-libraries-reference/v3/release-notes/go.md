@@ -1,5 +1,11 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v2.16.0 {date="2026-06-11"}
+
+### Dependencies
+
+1. [#261](https://github.com/InfluxCommunity/influxdb3-go/pull/261): Upgrade dependencies.
+
 ## v2.15.0 {date="2026-05-15"}
 
 ### Bug Fixes
