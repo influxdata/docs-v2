@@ -15,6 +15,10 @@ cascade:
     - /telegraf/controller/settings/
 ---
 
+This section describes how users sign in to {{% product-name %}}.
+To authenticate API requests and Telegraf agent connections, see
+[Manage API tokens](/telegraf/controller/tokens/).
+
 {{% product-name %}} supports three authentication providers that you can run
 individually or together:
 
