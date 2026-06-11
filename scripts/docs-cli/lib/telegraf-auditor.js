@@ -231,6 +231,7 @@ export class TelegrafAuditor {
       'content/telegraf/v1/output-plugins',
       'content/telegraf/v1/processor-plugins',
       'content/telegraf/v1/aggregator-plugins',
+      'content/telegraf/v1/secretstore-plugins',
       'content/telegraf/v1/data_formats',
     ];
     await this.runCommand(
