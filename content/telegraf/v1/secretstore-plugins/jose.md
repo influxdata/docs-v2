@@ -1,5 +1,5 @@
 ---
-description: "Telegraf plugin retrieving secrets from Javascript Object Signing and Encryption"
+description: "Telegraf plugin for retrieving secrets from Javascript Object Signing and Encryption"
 menu:
   telegraf_v1_ref:
     parent: secretstore_plugins_reference

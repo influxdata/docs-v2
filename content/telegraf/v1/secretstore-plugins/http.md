@@ -1,5 +1,5 @@
 ---
-description: "Telegraf plugin retrieving secrets from HTTP Secret store"
+description: "Telegraf plugin for retrieving secrets from HTTP Secret store"
 menu:
   telegraf_v1_ref:
     parent: secretstore_plugins_reference

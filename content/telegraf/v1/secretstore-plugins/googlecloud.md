@@ -1,5 +1,5 @@
 ---
-description: "Telegraf plugin retrieving secrets from GoogleCloud Credentials"
+description: "Telegraf plugin for retrieving secrets from GoogleCloud Credentials"
 menu:
   telegraf_v1_ref:
     parent: secretstore_plugins_reference

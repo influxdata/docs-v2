@@ -1,5 +1,5 @@
 ---
-description: "Telegraf plugin retrieving secrets from Docker"
+description: "Telegraf plugin for retrieving secrets from Docker"
 menu:
   telegraf_v1_ref:
     parent: secretstore_plugins_reference

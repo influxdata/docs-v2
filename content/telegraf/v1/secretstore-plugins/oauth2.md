@@ -1,5 +1,5 @@
 ---
-description: "Telegraf plugin retrieving secrets from OAuth2"
+description: "Telegraf plugin for retrieving secrets from OAuth2"
 menu:
   telegraf_v1_ref:
     parent: secretstore_plugins_reference
