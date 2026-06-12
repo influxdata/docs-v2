@@ -85,10 +85,11 @@ x-influxdb-version: {{% latest-patch %}}
 
 {{% show-in "enterprise" %}}
 > [!Note]
-> The `/ping` endpoint requires authentication by default in InfluxDB 3 Enterprise.
-> Use an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
+> The [`/ping` endpoint](/influxdb3/enterprise/api/v3/#operation/GetPing) requires authentication by default in InfluxDB 3 Enterprise.
+> Include an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
 > [system token](/influxdb3/enterprise/admin/tokens/resource/create/#create-a-system-token)
-> with `system:ping:read` permission.
+> (with `system:ping:read` permission) using [****** authentication](/influxdb3/enterprise/api/v3/#section/Authentication/BearerAuthentication)
+> in the `Authorization` header.
 {{% /show-in %}}
 
 {{% /show-in %}}
@@ -260,10 +261,11 @@ x-influxdb-version: 3.8.0
 ```
 
 > [!Note]
-> The `/ping` endpoint requires authentication by default in [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
-> Use an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
+> The [`/ping` endpoint](/influxdb3/enterprise/api/v3/#operation/GetPing) requires authentication by default in [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+> Include an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
 > [system token](/influxdb3/enterprise/admin/tokens/resource/create/#create-a-system-token)
-> with `system:ping:read` permission.
+> (with `system:ping:read` permission) using [****** authentication](/influxdb3/enterprise/api/v3/#section/Authentication/BearerAuthentication)
+> in the `Authorization` header.
 
 > [!Note]
 > #### SQL version() function
