@@ -15,6 +15,10 @@ cascade:
 API tokens authenticate requests to the {{% product-name %}} API and Telegraf agent connections.
 Use tokens to authorize Telegraf agents, heartbeat requests, and external API clients.
 
+API tokens are separate from user sign-in.
+To configure how users sign in to {{% product-name %}}, see
+[Authentication](/telegraf/controller/authentication/).
+
 ## Token format
 
 All API tokens use the `tc-apiv1_` prefix, making them easy to identify in
