@@ -59,8 +59,9 @@ infrastructure-as-code deployments.
    {{< tabs-wrapper >}}
 {{% tabs %}}
 [systemd](#)
-[Docker](#)
 [Shell](#)
+[Windows (Powershell)](#)
+<!-- [Docker](#) -->
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -82,6 +83,30 @@ sudo systemctl restart telegraf-controller
 {{% /tab-content %}}
 {{% tab-content %}}
 
+Export the variable in your shell before starting {{% product-name %}}:
+
+```bash
+export LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt
+telegraf_controller --no-interactive
+```
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Set the environment variable in PowerShell before starting
+{{% product-name %}}:
+
+```powershell
+$env:LICENSE_FILE_PATH="C:\ProgramData\telegraf-controller\license.jwt"
+./telegraf_controller.exe --no-interactive
+```
+
+{{% /tab-content %}}
+<!-- {{% tab-content %}} -->
+<!-- BEGIN Docker example — hidden until an official
+     influxdata/telegraf-controller Docker image is published.
+     Restore this tab (and its button above) when the image ships.
+
 Pass the environment variable and mount the license file when starting the
 container:
 
@@ -92,17 +117,8 @@ docker run \
   influxdata/telegraf-controller
 ```
 
-{{% /tab-content %}}
-{{% tab-content %}}
-
-Export the variable in your shell before starting {{% product-name %}}:
-
-```bash
-export LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt
-telegraf_controller --no-interactive
-```
-
-{{% /tab-content %}}
+END Docker example -->
+<!-- {{% /tab-content %}} -->
 {{< /tabs-wrapper >}}
 
 3. **Start (or restart) {{% product-name %}}.**

@@ -1031,7 +1031,7 @@ If the file is missing, unreadable, or contains an invalid license,
 {{% product-name %}} starts in unlicensed mode and logs the validation error.
 
 See [Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/) for full
-guidance, including systemd and Docker examples.
+guidance, including systemd examples.
 
 | Command flag | Environment variable |
 | :----------- | :------------------- |

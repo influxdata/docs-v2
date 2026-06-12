@@ -89,8 +89,9 @@ For the full description of each variable, including defaults, see
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [systemd](#)
-[Docker](#)
 [Shell](#)
+[Windows (Powershell)](#)
+<!-- [Docker](#) -->
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -117,22 +118,6 @@ sudo systemctl restart telegraf-controller
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Pass the variables when starting the container:
-
-```bash
-docker run \
-  -e AUTH_LDAP_ENABLED=true \
-  -e AUTH_LDAP_URL=ldaps://ldap.example.com:636 \
-  -e AUTH_LDAP_BIND_DN='cn=svc-controller,ou=services,dc=example,dc=com' \
-  -e AUTH_LDAP_BIND_PASSWORD=changeme \
-  -e AUTH_LDAP_USER_SEARCH_BASE='ou=people,dc=example,dc=com' \
-  -e AUTH_LDAP_USER_SEARCH_FILTER='(uid={{username}})' \
-  influxdata/telegraf-controller
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
 Export the variables, or pass equivalent flags on the command line:
 
 ```bash
@@ -147,6 +132,42 @@ telegraf_controller --no-interactive
 ```
 
 {{% /tab-content %}}
+{{% tab-content %}}
+
+Set the variables in PowerShell, or pass equivalent flags on the command line:
+
+```powershell
+$env:AUTH_LDAP_ENABLED="true"
+$env:AUTH_LDAP_URL="ldaps://ldap.example.com:636"
+$env:AUTH_LDAP_BIND_DN="cn=svc-controller,ou=services,dc=example,dc=com"
+$env:AUTH_LDAP_BIND_PASSWORD="changeme"
+$env:AUTH_LDAP_USER_SEARCH_BASE="ou=people,dc=example,dc=com"
+$env:AUTH_LDAP_USER_SEARCH_FILTER="(uid={{username}})"
+
+./telegraf_controller.exe --no-interactive
+```
+
+{{% /tab-content %}}
+<!-- {{% tab-content %}} -->
+<!-- BEGIN Docker example — hidden until an official
+     influxdata/telegraf-controller Docker image is published.
+     Restore this tab (and its button above) when the image ships.
+
+Pass the variables when starting the container:
+
+```bash
+docker run \
+  -e AUTH_LDAP_ENABLED=true \
+  -e AUTH_LDAP_URL=ldaps://ldap.example.com:636 \
+  -e AUTH_LDAP_BIND_DN='cn=svc-controller,ou=services,dc=example,dc=com' \
+  -e AUTH_LDAP_BIND_PASSWORD=changeme \
+  -e AUTH_LDAP_USER_SEARCH_BASE='ou=people,dc=example,dc=com' \
+  -e AUTH_LDAP_USER_SEARCH_FILTER='(uid={{username}})' \
+  influxdata/telegraf-controller
+```
+
+END Docker example -->
+<!-- {{% /tab-content %}} -->
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts, sign in as an owner and confirm:

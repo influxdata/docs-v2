@@ -111,8 +111,9 @@ For the full description of each variable, including defaults, see
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [systemd](#)
-[Docker](#)
 [Shell](#)
+[Windows (Powershell)](#)
+<!-- [Docker](#) -->
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -139,22 +140,6 @@ sudo systemctl restart telegraf-controller
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Pass the variables when starting the container:
-
-```bash
-docker run \
-  -e AUTH_OIDC_ENABLED=true \
-  -e AUTH_OIDC_ISSUER=https://idp.example.com \
-  -e AUTH_OIDC_CLIENT_ID=telegraf-controller \
-  -e AUTH_OIDC_CLIENT_SECRET='<client-secret>' \
-  -e AUTH_OIDC_REDIRECT_URI=https://controller.example.com/api/auth/oidc/callback \
-  -e AUTH_OIDC_DISPLAY_NAME='Example IdP' \
-  influxdata/telegraf-controller
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
 Export the variables, or pass equivalent flags on the command line:
 
 ```bash
@@ -169,6 +154,42 @@ telegraf_controller --no-interactive
 ```
 
 {{% /tab-content %}}
+{{% tab-content %}}
+
+Set the variables in PowerShell, or pass equivalent flags on the command line:
+
+```powershell
+$env:AUTH_OIDC_ENABLED="true"
+$env:AUTH_OIDC_ISSUER="https://idp.example.com"
+$env:AUTH_OIDC_CLIENT_ID="telegraf-controller"
+$env:AUTH_OIDC_CLIENT_SECRET="<client-secret>"
+$env:AUTH_OIDC_REDIRECT_URI="https://controller.example.com/api/auth/oidc/callback"
+$env:AUTH_OIDC_DISPLAY_NAME="Example IdP"
+
+./telegraf_controller.exe --no-interactive
+```
+
+{{% /tab-content %}}
+<!-- {{% tab-content %}} -->
+<!-- BEGIN Docker example — hidden until an official
+     influxdata/telegraf-controller Docker image is published.
+     Restore this tab (and its button above) when the image ships.
+
+Pass the variables when starting the container:
+
+```bash
+docker run \
+  -e AUTH_OIDC_ENABLED=true \
+  -e AUTH_OIDC_ISSUER=https://idp.example.com \
+  -e AUTH_OIDC_CLIENT_ID=telegraf-controller \
+  -e AUTH_OIDC_CLIENT_SECRET='<client-secret>' \
+  -e AUTH_OIDC_REDIRECT_URI=https://controller.example.com/api/auth/oidc/callback \
+  -e AUTH_OIDC_DISPLAY_NAME='Example IdP' \
+  influxdata/telegraf-controller
+```
+
+END Docker example -->
+<!-- {{% /tab-content %}} -->
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts, sign in as an owner and confirm:
