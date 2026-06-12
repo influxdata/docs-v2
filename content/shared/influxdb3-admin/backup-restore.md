@@ -298,7 +298,7 @@ BACKUP_DIR="/backup/BACKUP_DATE"
 DATA_DIR="/path/to/data"
 
 # 1. Stop InfluxDB
-systemctl stop influxdb3 || docker stop influxdb3-core
+systemctl stop influxdb3-{{< product-key >}} || docker stop influxdb3-{{< product-key >}}
 
 # 2. Optional: Clear existing data for clean restore
 rm -rf ${DATA_DIR}/${NODE_ID}/*
@@ -315,7 +315,7 @@ cp -r ${BACKUP_DIR}/snapshots ${DATA_DIR}/${NODE_ID}/
 chown -R influxdb:influxdb ${DATA_DIR}/${NODE_ID}
 
 # 5. Start InfluxDB
-systemctl start influxdb3 || docker start influxdb3-core
+systemctl start influxdb3-{{< product-key >}} || docker start influxdb3-{{< product-key >}}
 ```
 
 Replace the following:
