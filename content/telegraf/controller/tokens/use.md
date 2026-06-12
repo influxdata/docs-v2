@@ -94,6 +94,10 @@ Authorization: Bearer tc-apiv1_<token>
 The token's permissions determine which API endpoints and operations are accessible.
 Requests made with a token that lacks the required permissions are rejected with an authorization error.
 
+For more information about using the API, including how to explore the
+interactive API reference, see the
+[{{% product-name %}} API](/telegraf/controller/reference/api/).
+
 > [!Note]
 > If authentication is disabled for an endpoint, requests to those endpoints do not require a token.
 > See [Endpoint authentication](/telegraf/controller/reference/authentication-authorization/#endpoint-authentication)
