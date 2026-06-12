@@ -16,12 +16,38 @@ This guide walks you through the core workflow: creating a configuration,
 starting a Telegraf agent using the configuration, and verifying that the agent
 reports back to {{% product-name %}}.
 
-1. [Create a Telegraf configuration](#create-a-telegraf-configuration)
-2. [Create an API token](#create-an-api-token)
+1. [Create an API token](#create-an-api-token)
+2. [Create a Telegraf configuration](#create-a-telegraf-configuration)
 3. [Start a Telegraf agent](#start-a-telegraf-agent)
 4. [View the reporting agent](#view-the-reporting-agent)
 5. [Update the configuration](#update-the-configuration)
 6. [Verify the configuration update](#verify-the-configuration-update)
+
+## Create an API token
+
+API tokens authenticate Telegraf agents when they retrieve configurations and
+send heartbeats to {{% product-name %}}.
+
+1.  Navigate to the **API Tokens** page.
+2.  Click **+ Create API Token**.
+3.  Enter a description--for example, `Getting started agent token`.
+4.  Select a token **Expiration**.
+4.  Select the permissions to assign to the token. For convenience, you can
+    select the one of the available **Permission Presets**.
+    
+    > [!Tip]
+    > The **Telegraf Agent** preset includes all permissions a Telegraf agent
+    > needs to interact with {{% product-name %}}.
+
+5.  Click **Create Token**.
+
+> [!Important]
+> #### Copy and store your token
+>
+> Copy your API token immediately after creation.
+> The full token value is only displayed once and cannot be retrieved later.
+
+_For more information about token permissions, see [Manage API tokens](/telegraf/controller/tokens/)._
 
 ## Create a Telegraf configuration
 
@@ -33,7 +59,7 @@ stdout and reports agent health back to {{% product-name %}}.
 1.  In the {{% product-name %}} user interface (UI), select **Configurations**
     in the navigation bar.
 2.  Click **{{% icon "plus" %}} Add Config**.
-3.  Enter a name and description for the configuration—for example,
+3.  Enter a name and description for the configuration--for example,
     "Getting Started."
 4.  In the **Code Editor**, enter the following TOML:
 
@@ -43,7 +69,7 @@ stdout and reports agent health back to {{% product-name %}}.
 [Windows](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-<!-------------------------- BEGIN LINUX/MACOS -------------------------->
+<!----------------------------- BEGIN LINUX/MACOS ----------------------------->
 
 ```toml { .tc-dynamic-values }
 [[inputs.exec]]
@@ -63,16 +89,18 @@ stdout and reports agent health back to {{% product-name %}}.
   instance_id = "&{agent_id}"
   interval = "1m"
   include = ["hostname", "statistics", "configs", "status"]
-  token = "${INFLUX_TOKEN}"
+  # Include to authorize with Telegraf Controller
+  # Note: If using Telegraf 1.38.x or earlier, use INFLUX_TOKEN
+  token = "${TELEGRAF_CONTROLLER_TOKEN}"
 
   [outputs.heartbeat.status]
     default = "ok"
 ```
 
-<!--------------------------- END LINUX/MACOS --------------------------->
+<!------------------------------ END LINUX/MACOS ------------------------------>
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-<!-------------------------- BEGIN SECTION -------------------------->
+<!------------------------------- BEGIN WINDOWS ------------------------------->
 
 ```toml { .tc-dynamic-values }
 [[inputs.exec]]
@@ -92,13 +120,15 @@ stdout and reports agent health back to {{% product-name %}}.
   instance_id = "&{agent_id}"
   interval = "1m"
   include = ["hostname", "statistics", "configs", "status"]
-  token = "${INFLUX_TOKEN}"
+  # Include to authorize with Telegraf Controller
+  # Note: If using Telegraf 1.38.x or earlier, use INFLUX_TOKEN
+  token = "${TELEGRAF_CONTROLLER_TOKEN}"
 
   [outputs.heartbeat.status]
     default = "ok"
 ```
 
-<!--------------------------- END SECTION --------------------------->
+<!-------------------------------- END WINDOW --------------------------------->
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}    
 
@@ -110,7 +140,8 @@ stdout and reports agent health back to {{% product-name %}}.
     - Uses the heartbeat plugin to periodically sends agent status information
       back to {{% product-name %}}, which lets you monitor agent health, track
       which configurations are loaded, and detect when agents stop reporting.
-    - Uses the `INFLUX_TOKEN` environment variable to authorize with
+    - Uses the `TELEGRAF_CONTROLLER_TOKEN` (Telegraf 1.39+) or the`INFLUX_TOKEN`
+      (Telegraf 1.38.x or earlier) environment variable to authorize with
       {{% product-name %}}.
     - Uses the `agent_id` [parameter](/telegraf/controller/configs/dynamic-values/#parameters)
       to set the `instance_id` which uniquely identifies the Telegraf agent.
@@ -119,36 +150,10 @@ stdout and reports agent health back to {{% product-name %}}.
     > #### Heartbeat URL and port
     >
     > The example above uses `http://localhost` and the default heartbeat port,
-    > `8000`. If you are using HTTPS or a custom domain and port, update the
-    > `url` setting in the Heartbeat output plugin accordingly.
+    > `8000`. Your {{% product-name %}} instance provides a default heartbeat
+    > configuration with the heartbeat URL and port for your instance.
 
 5.  Click **Create Configuration**.
-
-## Create an API token
-
-API tokens authenticate Telegraf agents when they retrieve configurations and
-send heartbeats to {{% product-name %}}.
-
-1.  Navigate to the **API Tokens** page.
-2.  Click **+ Create API Token**.
-3.  Enter a description—for example, `Getting started agent token`.
-4.  Select a token **Expiration**.
-4.  Select the permissions to assign to the token. For convenience, you can
-    select the one of the available **Permission Presets**.
-    
-    > [!Tip]
-    > The **Telegraf Agent** preset includes all permissions a Telegraf agent
-    > needs to interact with {{% product-name %}}.
-
-5.  Click **Create Token**.
-
-> [!Important]
-> #### Copy and store your token
->
-> Copy your API token immediately after creation.
-> The full token value is only displayed once and cannot be retrieved later.
-
-_For more information about token permissions, see [Manage API tokens](/telegraf/controller/tokens/)._
 
 ## Start a Telegraf agent
 
@@ -195,7 +200,8 @@ port, configuration ID, API token, and agent ID:
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="YOUR_TC_API_TOKEN|YOUR_CONFIG_ID|AGENT_ID" }
-export INFLUX_TOKEN=YOUR_TC_API_TOKEN
+# Note: If using Telegraf 1.38.x or earlier, use INFLUX_TOKEN environment variable
+export TELEGRAF_CONTROLLER_TOKEN=YOUR_TC_API_TOKEN
 
 telegraf \
   --config "http://localhost:8888/api/configs/YOUR_CONFIG_ID/toml?agent_id=AGENT_ID" \
@@ -209,7 +215,8 @@ telegraf \
 
 <!--pytest.mark.skip-->
 ```powershell { placeholders="YOUR_TC_API_TOKEN|YOUR_CONFIG_ID|AGENT_ID" }
-$env:INFLUX_TOKEN="YOUR_TC_API_TOKEN"
+# Note: If using Telegraf 1.38.x or earlier, use INFLUX_TOKEN environment variable
+$env:TELEGRAF_CONTROLLER_TOKEN="YOUR_TC_API_TOKEN"
 
 telegraf.exe `
   --config "http://localhost:8888/api/configs/YOUR_CONFIG_ID/toml?agent_id=AGENT_ID" `
@@ -229,8 +236,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`AGENT_ID`{{% /code-placeholder-key %}}:
   A unique ID for your Telegraf agent
 
-The `INFLUX_TOKEN` environment variable authorizes the agent to retrieve the
-configuration and send heartbeats to {{% product-name %}}.
+The `TELEGRAF_CONTROLLER_TOKEN` (Telegraf 1.39+) or the`INFLUX_TOKEN`
+(Telegraf 1.38.x or earlier) environment variables authorize the agent to
+retrieve the configuration and send heartbeats to {{% product-name %}}.
 
 The `--config-url-watch-interval` flag tells Telegraf to check for configuration
 updates at the specified interval.
