@@ -7,10 +7,12 @@ description: >
 weight: 301
 menu:
   influxdb3_cloud_serverless:
-    parent: Write data
+    parent: write-http-api
     name: Use the v1 HTTP write API
 influxdb3/cloud-serverless/tags: [query, influxql, python]
 metadata: [InfluxQL]
+aliases:
+  - /influxdb3/cloud-serverless/write-data/api/v1-http/
 related:
   - /influxdb3/cloud-serverless/guides/api-compatibility/v1/
   - /influxdb3/cloud-serverless/reference/client-libraries/v1/
