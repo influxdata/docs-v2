@@ -21,13 +21,15 @@ It provides the performance and scalability of InfluxDB 3's diskless
 architecture as a managed service, so you can write and query time series data
 without provisioning or operating your own infrastructure.
 
-InfluxDB 3 Cloud is the recommended platform for
-[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) customers.
 
 {{< children type="articles" hlevel="h2" >}}
 
-> [!Tip]
-> #### Not sure which product fits your use case?
+> [!Important]
+> #### InfluxDB 3 Cloud is in early access
 >
-> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a
-> full comparison of all InfluxDB 3 products and migration guidance.
+> InfluxDB 3 Cloud is currently an early access release offered to select
+> customers as we continue to expand availability.
+>
+> Interested in trying InfluxDB 3 Cloud?
+> [Contact InfluxData sales](https://www.influxdata.com/contact-sales/) to
+> request access.
