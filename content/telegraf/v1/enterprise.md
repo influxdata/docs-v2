@@ -8,6 +8,14 @@ menu:
   telegraf_v1:
     name: Telegraf Enterprise
     weight: 90
+    params:
+      state: new
+  telegraf_enterprise:
+    name: Enterprise support for Telegraf
+    weight: 11
+    parent: Telegraf
+    params:
+      state: new
 weight: 90
 ---
 
@@ -16,9 +24,11 @@ Telegraf in production. It provides an enterprise support contract from
 InfluxData covering Telegraf, plus higher limits and enterprise security
 features in [Telegraf Controller](/telegraf/controller/).
 
-For the full Telegraf Enterprise overview — what's included, the free-tier
-comparison, and how licensing works — see
+For the full Telegraf Enterprise overview--what's included, the free-tier
+comparison, and how licensing works--see
 [Telegraf Enterprise](/telegraf/enterprise/).
+
+{{% telegraf/enterprise-upgrade %}}
 
 ## Enterprise support for Telegraf
 
@@ -31,7 +41,7 @@ A Telegraf Enterprise contract gives your organization:
   deployments.
 
 For coverage and SLA details,
-[contact InfluxData](https://www.influxdata.com/contact-sales/).
+[contact InfluxData]({{% cta-link %}}).
 
 ## What else is in the package
 
@@ -52,4 +62,4 @@ For details on these features, see
 ## How to obtain Telegraf Enterprise
 
 To purchase Telegraf Enterprise or request an evaluation license,
-[contact InfluxData sales](https://www.influxdata.com/contact-sales/).
+[contact InfluxData sales]({{% cta-link %}}).

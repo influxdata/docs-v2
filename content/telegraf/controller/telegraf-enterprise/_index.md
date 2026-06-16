@@ -20,7 +20,8 @@ in {{% product-name %}}. For the Telegraf Enterprise package overview
 
 This section documents how to apply, manage, and troubleshoot Telegraf
 Enterprise licenses *in {{% product-name %}}*. The license file itself, and
-the purchasing/contract process, are handled by InfluxData —
-[contact sales](https://www.influxdata.com/contact-sales/) to obtain a license.
+the purchasing/contract process, are handled by InfluxData.
+To purchase a Telegraf Enterprise license,
+[contact InfluxData]({{% cta-link %}}).
 
 {{< children >}}
