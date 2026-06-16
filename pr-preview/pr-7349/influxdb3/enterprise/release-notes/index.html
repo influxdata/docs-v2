@@ -4790,10 +4790,10 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <h4 id="features">Features</h4>
 <ul>
 <li>
-<p><strong>Catalog v3</strong>: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. Back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code> before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog. (<a href="https://github.com/influxdata/influxdb/pull/3752">#3752</a>)</p>
+<p><strong>Catalog v3</strong>: InfluxDB 3.10 automatically migrates the on-disk catalog to a new format on first startup. The updated catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. Back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code> before upgrading — the migration is one-way and 3.9.x binaries cannot read the new catalog. (<a href="https://github.com/influxdata/influxdb/pull/3752">#3752</a>)</p>
 </li>
 <li>
-<p><strong><code>influxdb3 debug catalog</code> command</strong>: Inspect catalog state offline directly from object storage — no running server required. Subcommands: <code>list</code>, <code>snapshot</code>, <code>sequence</code>. Available in both Core and Enterprise. (<a href="https://github.com/influxdata/influxdb/pull/3670">#3670</a>)</p>
+<p><strong><code>influxdb3 debug catalog</code> command</strong>: Inspect catalog state offline directly from object storage — no running server required. Subcommands: <code>list</code>, <code>snapshot</code>, <code>sequence</code>. (<a href="https://github.com/influxdata/influxdb/pull/3670">#3670</a>)</p>
 </li>
 <li>
 <p><strong><code>--max-concurrent-queries</code> flag</strong>: Limit the number of queries that run concurrently. The limit can also be updated at runtime via <code>POST /api/v3/configure/query_concurrency_limit</code>. (<a href="https://github.com/influxdata/influxdb/pull/2892">#2892</a>)</p>
@@ -4811,13 +4811,7 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <p><strong>Observability: always-on heap profiling</strong>: Heap profiling is now enabled at startup with negligible overhead (~&lt;1% CPU). Access profiles at the existing pprof endpoint. To disable, set <code>MALLOC_CONF=prof:false</code> before starting the server. (<a href="https://github.com/influxdata/influxdb/pull/3322">#3322</a>)</p>
 </li>
 <li>
-<p><strong>Observability: 36 new compactor metrics</strong>: 36 new <code>influxdb3_compactor_*</code> Prometheus metrics are now emitted. The primary health signal is <code>influxdb3_compactor_snapshot_lag_seconds</code>. A new <code>influxdb3_compaction_sequence_number</code> gauge tracks Parquet engine lag.</p>
-</li>
-<li>
 <p><strong>Observability: per-request query traces</strong>: Query tracing is now opt-in per request rather than enabled for all queries. This reduces trace volume for high-throughput deployments. See the monitoring documentation for how to enable tracing on individual requests.</p>
-</li>
-<li>
-<p><strong>Wide-tag support</strong>: Tag IDs have been widened from u8 to u16. This raises the practical limit to thousands of tables and millions of columns per database. (<a href="https://github.com/influxdata/influxdb/pull/3324">#3324</a>)</p>
 </li>
 <li>
 <p><strong>Embedded Python updated to 3.13.14</strong>: The Processing engine&rsquo;s embedded Python is updated to 3.13.14, which includes upstream security fixes. (<a href="https://github.com/influxdata/influxdb/pull/4137">#4137</a>)</p>
@@ -4842,17 +4836,6 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <ul>
 <li>
 <p><strong>Catalog v3 migration is one-way</strong>: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code> before upgrading. (<a href="https://github.com/influxdata/influxdb/pull/3752">#3752</a>)</p>
-</li>
-<li>
-<p><strong><code>--pt-partition-count</code> renamed to <code>--pt-shard-count</code></strong>: The flag has no alias. Update any startup scripts that pass <code>--pt-partition-count</code> before upgrading to 3.10.</p>
-</li>
-<li>
-<p><strong>System table columns renamed</strong>: The following columns in storage engine system tables are renamed. Update any dashboards or queries that reference the old names:</p>
-<ul>
-<li><code>partition_id</code> → <code>shard_id</code></li>
-<li><code>partition_start_time</code> → <code>shard_start_time</code>
-(<a href="https://github.com/influxdata/influxdb/pull/3415">#3415</a>)</li>
-</ul>
 </li>
 <li>
 <p><strong><code>influxdb3 write</code> output changed</strong>: The write command now prints a throughput report on success instead of printing <code>success</code>. Scripts that parse the previous output should use <code>--quiet</code> (<code>-q</code>) to suppress all output.</p>
@@ -4919,6 +4902,9 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <p><strong>Licensing: object-store portability</strong>: Enterprise licenses are no longer bound to the object-store configuration (type, bucket, endpoint, region). Validation now enforces only JWT signature, expiry, and licensed core count. You can move to a different bucket or store with the same license. When moving to an empty store, copy <code>{cluster-id}/commercial_license</code> from the old store or restart with <code>--license-file</code>.</p>
 </li>
 <li>
+<p><strong>Observability: 36 new compactor metrics</strong>: 36 new <code>influxdb3_compactor_*</code> Prometheus metrics are now emitted. The primary health signal is <code>influxdb3_compactor_snapshot_lag_seconds</code>. A new <code>influxdb3_compaction_sequence_number</code> gauge tracks Parquet engine lag.</p>
+</li>
+<li>
 <p><strong><code>influxdb3 debug object-store-check</code> command</strong>: Validate S3-compatible backend semantics before putting a store into production. Checks that the backend correctly implements the operations that InfluxDB relies on.</p>
 </li>
 </ul>
@@ -4962,6 +4948,17 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 </li>
 <li>
 <p><strong><code>--package-manager</code> flag deprecated</strong>: The <code>uv</code> package manager has been removed. <code>pip</code> is always used for plugin package installation. The <code>--package-manager</code> flag still starts the server but prints a deprecation warning. Remove it from your startup configuration.</p>
+</li>
+<li>
+<p><strong><code>--pt-partition-count</code> renamed to <code>--pt-shard-count</code></strong>: The flag has no alias. Update any startup scripts that pass <code>--pt-partition-count</code> before upgrading to 3.10.</p>
+</li>
+<li>
+<p><strong>System table columns renamed</strong>: The following columns in storage engine system tables are renamed. Update any dashboards or queries that reference the old names:</p>
+<ul>
+<li><code>partition_id</code> → <code>shard_id</code></li>
+<li><code>partition_start_time</code> → <code>shard_start_time</code>
+(<a href="https://github.com/influxdata/influxdb/pull/3415">#3415</a>)</li>
+</ul>
 </li>
 </ul>
 <hr>

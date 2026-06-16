@@ -4452,8 +4452,8 @@
   
   <h4 id="upgrading-to-influxdb-310-is-a-one-way-migration">Upgrading to InfluxDB 3.10 is a one-way migration</h4>
 <p>The first time you start InfluxDB 3.10, it automatically migrates the on-disk
-catalog to v3 format. After migration, 3.9.x binaries cannot read the catalog
-and fail to start against the same object store.</p>
+catalog to and updated format. After migration, 3.9.x and older binaries are
+unable to read the new catalog, and fail to start on the same cluster data.</p>
 <p>Before upgrading, back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code>.
 Restoring these objects is the only way to roll back to 3.9.x.</p>
 </div>
