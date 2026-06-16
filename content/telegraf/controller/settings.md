@@ -1,8 +1,8 @@
 ---
 title: Manage settings
 description: >
-  Configure login security, password policies, and audit log retention in
-  Telegraf Controller.
+  Configure public endpoints, login security, password policies, and audit log
+  retention in Telegraf Controller.
 menu:
   telegraf_controller:
     name: Manage settings
@@ -14,11 +14,40 @@ related:
   - /telegraf/controller/audit-logs/
 ---
 
-Owners and administrators can configure login security and password requirements
-for {{% product-name %}}.
+Owners and administrators can configure public endpoints, login security, and
+password requirements for {{% product-name %}}.
 
 Navigate to the **Settings** page from the left navigation menu to view and
 modify these settings.
+
+## Public endpoints
+
+The **Public Endpoints** section at the top of the **Settings** page lets owners
+and administrators set the base URLs that {{% product-name %}} shows to users and
+agents. These are display-only values: {{% product-name %}} stores and returns
+them, but does not bind to or resolve them. Set a public endpoint when the server
+is reachable at a different address than the one {{% product-name %}} detects
+locally, for example when it runs behind a reverse proxy. Leave a field blank to
+use the auto-detected URL.
+
+| Setting                | Description                                                                                                                                        | Auto-detected fallback                                                                                 |
+| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
+| **User Interface URL** | Base URL used to access the {{% product-name %}} web interface. Used to build [user invite links](/telegraf/controller/users/invite/).            | Browser origin                                                                                        |
+| **API URL**            | Base URL used to access the {{% product-name %}} API. Shown in the configuration builder and agent commands.                                      | Browser origin                                                                                        |
+| **Heartbeat URL**      | Base URL Telegraf agents use to send heartbeats to the {{% product-name %}} heartbeat server. Applied when you add a heartbeat output to a config. | Host address with the [heartbeat port](/telegraf/controller/reference/config-options/#heartbeat-port) |
+
+Each URL must be an absolute URL that includes a scheme and host (for example,
+`https://telegraf.example.com`), must not end with a trailing slash, and can be
+at most 2048 characters.
+
+To set a public endpoint:
+
+1. Navigate to the **Settings** page.
+2. In the **Public Endpoints** section, enter a URL for **User Interface URL**,
+   **API URL**, or **Heartbeat URL**.
+3. Click **Save**.
+
+<!-- TODO: screenshot of the Settings > Public Endpoints section showing the User Interface URL, API URL, and Heartbeat URL fields. Save to /static/img/telegraf/controller-settings-public-endpoints.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-public-endpoints.png" alt="Telegraf Controller public endpoints settings" />}} -->
 
 ## Login security
 
