@@ -53,7 +53,7 @@
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.7",
-    "js-yaml": "^4.1.1",
+    "js-yaml": "^4.2.0",
     "lefthook": "^1.10.10",
     "markdown-link": "^0.1.1",
     "mermaid": "^11.15.0",
