@@ -8,12 +8,12 @@ How you back up and restore that data depends on your storage engine:
   built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
   This is the recommended path when the storage engine upgrade is enabled.
 - **Enterprise on the default Parquet engine**: use the
-  [manual object-storage procedure](#backup-process) to copy object storage
+  [manual object-storage procedure](#manual-backup-process) to copy object storage
   files in a specific order.
 {{% /show-in %}}
 {{% show-in "core" %}}
 {{% product-name %}} does not include built-in backup and restore commands.
-Back up and restore your data with the [manual object-storage procedure](#backup-process),
+Back up and restore your data with the [manual object-storage procedure](#manual-backup-process),
 which copies object storage files in a specific order to ensure consistency.
 {{% /show-in %}}
 
@@ -147,7 +147,12 @@ cluster ID and node ID** as the original deployment, then restart the node(s).
 
 {{% /show-in %}}
 
-## Backup process
+## Manual backup process
+
+Use this manual object-storage procedure to back up {{% product-name %}}
+{{% show-in "enterprise" %}}running on the default Parquet engine—when the
+storage engine upgrade (`--use-pacha-tree`) is _not_ enabled{{% /show-in %}}.
+It copies object storage files in a specific order to ensure consistency.
 
 > [!Important]
 > Copy files in the recommended order to reduce risk of creating inconsistent backups. Perform backups during downtime or minimal load periods when possible.
@@ -368,7 +373,11 @@ Replace the following:
 {{< /tabs-wrapper >}}
 {{% /show-in %}}
 
-## Restore process
+## Manual restore process
+
+Use this manual object-storage procedure to restore {{% product-name %}}
+{{% show-in "enterprise" %}}running on the default Parquet engine—when the
+storage engine upgrade (`--use-pacha-tree`) is _not_ enabled{{% /show-in %}}.
 
 > [!Warning]
 > Restoring overwrites existing data. Always verify you have correct backups before proceeding.
@@ -587,7 +596,7 @@ Periodic backups to a separate object store remain the only predictable, repeata
 - Accidental or malicious deletion of data.
 - Bad data written into the primary store (a replica of bad data is not a valid recovery point).
 
-The [backup process](#backup-process) above is provider-agnostic — you can use any provider-native tool to copy to a separate bucket, container, or account, as long as you preserve the documented directory structure and file ordering.
+The [backup process](#manual-backup-process) above is provider-agnostic — you can use any provider-native tool to copy to a separate bucket, container, or account, as long as you preserve the documented directory structure and file ordering.
 Schedule copies during low-load periods or downtime windows when possible.
 
 {{% show-in "enterprise" %}}
