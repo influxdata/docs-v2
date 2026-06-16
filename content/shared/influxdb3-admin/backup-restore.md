@@ -90,8 +90,7 @@ commands. Before you use them, ensure the following:
 The backup and restore subcommands map to the
 `/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
 API endpoints. For complete command syntax and flags, see the
-[`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/). A
-dedicated HTTP API guide for these endpoints is planned as a follow-up.
+[`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/).
 
 ### Create a backup
 
@@ -103,7 +102,7 @@ influxdb3 create backup
 
 > [!Note]
 > - `create backup` **refuses to overwrite an existing backup name** and returns
->   an error instead of clobbering the existing backup.
+>   an error instead.
 > - Backups don't include unpersisted WAL data. To capture the most recent
 >   writes in a backup, force a snapshot and compaction before you create the
 >   backup.
