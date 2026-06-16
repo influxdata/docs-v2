@@ -19,6 +19,18 @@ Before upgrading your {{% product-name %}} instance, review the [release notes](
 Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
 {{% /show-in %}}
 
+> [!Warning]
+> #### Upgrading to InfluxDB 3.10 is a one-way migration
+>
+> The first time you start InfluxDB 3.10, it automatically migrates the on-disk
+> catalog to v3 format. After migration, 3.9.x binaries cannot read the catalog
+> and fail to start against the same object store.
+>
+> Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
+> Restoring these objects is the only way to roll back to 3.9.x.
+>
+> {{% show-in "enterprise" %}}If you have enabled the storage engine upgrade (`--use-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+
 ### Verify your current version
 
 Before upgrading, verify the {{% product-name %}} version running on each node.
