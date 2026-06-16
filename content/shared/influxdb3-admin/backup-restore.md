@@ -1,10 +1,21 @@
 <!-- Allow leading shortcode -->
 {{% product-name %}} persists all data and metadata to object storage.
-Back up your data by copying object storage files in a specific order to ensure consistency and reliability.
+How you back up and restore that data depends on your storage engine:
 
-> [!Warning]
-> Currently, {{% product-name %}} does not include built-in backup and restore tools.
-> Because copying files during periods of activity is a transient process, we highly recommended you follow the below procedures and copy order to minimize risk of creating inconsistent backups.
+{{% show-in "enterprise" %}}
+- **Enterprise with the storage engine upgrade enabled** (the server is started
+  with the `--use-pacha-tree` storage engine configuration flag): use the
+  built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
+  This is the recommended path when the storage engine upgrade is enabled.
+- **Enterprise on the default Parquet engine**: use the
+  [manual object-storage procedure](#backup-process) to copy object storage
+  files in a specific order.
+{{% /show-in %}}
+{{% show-in "core" %}}
+{{% product-name %}} does not include built-in backup and restore commands.
+Back up and restore your data with the [manual object-storage procedure](#backup-process),
+which copies object storage files in a specific order to ensure consistency.
+{{% /show-in %}}
 
 ## Supported object storage
 
