@@ -4899,8 +4899,7 @@ were removed before release; a request with <code>type=incremental</code> return
 <p>The backup and restore subcommands map to the
 <code>/api/v3/enterprise/backup[/{name}]</code> and <code>/api/v3/enterprise/restore[/{id}]</code> HTTP
 API endpoints. For complete command syntax and flags, see the
-<a href="/influxdb3/version/reference/cli/influxdb3/"><code>influxdb3</code> CLI reference</a>. A
-dedicated HTTP API guide for these endpoints is planned as a follow-up.</p>
+<a href="/influxdb3/version/reference/cli/influxdb3/"><code>influxdb3</code> CLI reference</a>.</p>
 <h3 id="create-a-backup">Create a backup</h3>
 <p>Use <code>influxdb3 create backup</code> to create a full backup:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 create backup</span></span></code></pre></div>
@@ -4909,7 +4908,7 @@ dedicated HTTP API guide for these endpoints is planned as a follow-up.</p>
   
   <ul>
 <li><code>create backup</code> <strong>refuses to overwrite an existing backup name</strong> and returns
-an error instead of clobbering the existing backup.</li>
+an error instead.</li>
 <li>Backups don&rsquo;t include unpersisted WAL data. To capture the most recent
 writes in a backup, force a snapshot and compaction before you create the
 backup.</li>
