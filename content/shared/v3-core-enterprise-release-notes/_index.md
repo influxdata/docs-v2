@@ -73,11 +73,11 @@ All Core updates are included in Enterprise. The following updates are exclusive
 
 #### Features
 
-- **Row-level deletion**: Delete rows by time range and tag predicates using `influxdb3 delete rows` and `influxdb3 cancel row-delete`. Deletion is asynchronous — requests persist to object storage and the compactor applies them when rewriting run sets. Requires `--use-pacha-tree`. Monitor pending deletes with the `system.row_deletes` system table and 9 new `influxdb3_compactor_row_delete_*` metrics. ([#3091](https://github.com/influxdata/influxdb/pull/3091))
+- **Row-level deletion**: Delete rows by time range and tag predicates using `influxdb3 delete rows` and `influxdb3 cancel row-delete`. Deletion is asynchronous — requests persist to object storage and the compactor applies them when rewriting run sets. Requires `--use-pacha-tree`. Monitor pending deletes with the `system.row_deletes` system table and 9 new `influxdb3_compactor_row_delete_*` metrics.
 
-- **Backup and restore**: Create and manage full backups of Enterprise data with `influxdb3 create backup`, `influxdb3 status backup`, `influxdb3 show backups`, `influxdb3 delete backup`, and `influxdb3 cancel backup`. Initiate restore operations with `influxdb3 create restore`, `influxdb3 status restore`, `influxdb3 show restores`, and `influxdb3 cancel restore`. Backup and restore require `--use-pacha-tree` and a compactor node with an admin token. `create backup` refuses to overwrite an existing backup. Only one restore runs at a time across the cluster. After a restore completes, restart the node(s) for the in-memory view to update. API: `POST|GET|DELETE /api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]`. ([#3991](https://github.com/influxdata/influxdb/pull/3991), [#4125](https://github.com/influxdata/influxdb/pull/4125), [#4126](https://github.com/influxdata/influxdb/pull/4126))
+- **Backup and restore**: Create and manage full backups of Enterprise data with `influxdb3 create backup`, `influxdb3 status backup`, `influxdb3 show backups`, `influxdb3 delete backup`, and `influxdb3 cancel backup`. Initiate restore operations with `influxdb3 create restore`, `influxdb3 status restore`, `influxdb3 show restores`, and `influxdb3 cancel restore`. Backup and restore require `--use-pacha-tree` and a compactor node with an admin token. `create backup` refuses to overwrite an existing backup. Only one restore runs at a time across the cluster. After a restore completes, restart the node(s) for the in-memory view to update. API: `POST|GET|DELETE /api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]`.
 
-- **Bulk import**: Import generic (non-IOx) Parquet files into Enterprise with `influxdb3 import upload`. Map Parquet columns to InfluxDB types (`i64`, `u64`, `f64`, `bool`, `string`, `time`, `tag`) using `--column` flags. Unmapped columns become fields. List in-progress and completed import jobs with `influxdb3 import list`. The target database and table must exist before importing. ([#3162](https://github.com/influxdata/influxdb/pull/3162))
+- **Bulk import**: Import generic (non-IOx) Parquet files into Enterprise with `influxdb3 import upload`. Map Parquet columns to InfluxDB types (`i64`, `u64`, `f64`, `bool`, `string`, `time`, `tag`) using `--column` flags. Unmapped columns become fields. List in-progress and completed import jobs with `influxdb3 import list`. The target database and table must exist before importing.
 
 - **User auth and RBAC preview**: Multi-user authentication is now available as a preview feature. It is off by default (`--without-user-auth true`). When enabled, users authenticate with username and password to receive JWTs. Optional OAuth/OIDC is supported. Three built-in roles are available: Admin, Auditor, and Member.
 
@@ -97,41 +97,41 @@ All Core updates are included in Enterprise. The following updates are exclusive
 
   New serve flags: `--without-user-auth`, `--jwt-key-id`, `--jwt-private-key`, `--jwt-issuer`, `--jwt-default-ttl-seconds`, `--oauth-issuer`, `--oauth-audience`, `--oauth-client-id`, `--oauth-scopes`, and `--rbac-authoring-disabled`.
 
-  JWT keys must be PKCS#1 format (`openssl genrsa -traditional`). PKCS#8 format silently fails. ([#3781](https://github.com/influxdata/influxdb/pull/3781))
+  JWT keys must be PKCS#1 format (`openssl genrsa -traditional`). PKCS#8 format silently fails.
 
-- **`influxdb3 manage` command group**: A new `manage` subcommand groups offline administrative operations: `influxdb3 manage init-admin`, `influxdb3 manage add-admin-token`, and `influxdb3 manage downgrade-to-parquet`. The `downgrade-to-parquet` command has moved from the top level to this group (the old spelling still works but prints a deprecation warning). ([#3774](https://github.com/influxdata/influxdb/pull/3774))
+- **`influxdb3 manage` command group**: A new `manage` subcommand groups offline administrative operations: `influxdb3 manage init-admin`, `influxdb3 manage add-admin-token`, and `influxdb3 manage downgrade-to-parquet`. The `downgrade-to-parquet` command has moved from the top level to this group (the old spelling still works but prints a deprecation warning).
 
-- **`influxdb3 remove node` command**: Remove a stopped node from the catalog. The compactor drains the node's data before removal completes. ([#3710](https://github.com/influxdata/influxdb/pull/3710))
+- **`influxdb3 remove node` command**: Remove a stopped node from the catalog. The compactor drains the node's data before removal completes.
 
-- **Service-level logs**: Structured query and storage logging is now available for observability. Configure log output format and levels using new `serve` flags. ([#3099](https://github.com/influxdata/influxdb/pull/3099))
+- **Service-level logs**: Structured query and storage logging is now available for observability. Configure log output format and levels using new `serve` flags.
 
-- **Processing engine: internode gRPC for plugin writes**: Plugin writes from non-ingester nodes now route over internode gRPC rather than HTTP. This improves reliability in multi-node clusters. Requires `--internode-bind-addr` and `--conn-info` pointing at the gRPC port. ([#3577](https://github.com/influxdata/influxdb/pull/3577))
+- **Processing engine: internode gRPC for plugin writes**: Plugin writes from non-ingester nodes now route over internode gRPC rather than HTTP. This improves reliability in multi-node clusters. Requires `--internode-bind-addr` and `--conn-info` pointing at the gRPC port.
 
-- **Licensing: object-store portability**: Enterprise licenses are no longer bound to the object-store configuration (type, bucket, endpoint, region). Validation now enforces only JWT signature, expiry, and licensed core count. You can move to a different bucket or store with the same license. When moving to an empty store, copy `{cluster-id}/commercial_license` from the old store or restart with `--license-file`. ([#3663](https://github.com/influxdata/influxdb/pull/3663))
+- **Licensing: object-store portability**: Enterprise licenses are no longer bound to the object-store configuration (type, bucket, endpoint, region). Validation now enforces only JWT signature, expiry, and licensed core count. You can move to a different bucket or store with the same license. When moving to an empty store, copy `{cluster-id}/commercial_license` from the old store or restart with `--license-file`.
 
 - **`influxdb3 debug object-store-check` command**: Validate S3-compatible backend semantics before putting a store into production. Checks that the backend correctly implements the operations that InfluxDB relies on.
 
 #### Bug fixes
 
-- **Compaction stability**: Several compaction bugs are fixed, including: compaction incorrectly setting `ingest_time` (causing deduplication and row delete bugs), compactor deadlock and write amplification, stopped compactor nodes blocking storage engine upgrades, and compactor orphaning gen1 files. ([#2795](https://github.com/influxdata/influxdb/pull/2795), [#2772](https://github.com/influxdata/influxdb/pull/2772), [#2747](https://github.com/influxdata/influxdb/pull/2747), [#3540](https://github.com/influxdata/influxdb/pull/3540))
+- **Compaction stability**: Several compaction bugs are fixed, including: compaction incorrectly setting `ingest_time` (causing deduplication and row delete bugs), compactor deadlock and write amplification, stopped compactor nodes blocking storage engine upgrades, and compactor orphaning gen1 files.
 
-- **Tag case preserved during storage engine upgrades**: Tag names now preserve their original case when upgrading from Parquet to the new storage engine. ([#2748](https://github.com/influxdata/influxdb/pull/2748))
+- **Tag case preserved during storage engine upgrades**: Tag names now preserve their original case when upgrading from Parquet to the new storage engine.
 
-- **Bulk import memory usage reduced**: Peak memory during multi-file bulk import operations is significantly reduced. ([#3869](https://github.com/influxdata/influxdb/pull/3869))
+- **Bulk import memory usage reduced**: Peak memory during multi-file bulk import operations is significantly reduced.
 
-- **Last cache delete deadlock fixed**: Deleting a last-value cache entry no longer causes a deadlock. ([#3046](https://github.com/influxdata/influxdb/pull/3046))
+- **Last cache delete deadlock fixed**: Deleting a last-value cache entry no longer causes a deadlock.
 
-- **Row delete: aborted requests no longer processed**: Row delete requests that were aborted are no longer picked up by the compactor. ([#3263](https://github.com/influxdata/influxdb/pull/3263))
+- **Row delete: aborted requests no longer processed**: Row delete requests that were aborted are no longer picked up by the compactor.
 
-- **Table and database soft-delete name collision fixed**: Deleting a table or database and recreating it with the same name now works correctly. ([#3960](https://github.com/influxdata/influxdb/pull/3960))
+- **Table and database soft-delete name collision fixed**: Deleting a table or database and recreating it with the same name now works correctly.
 
-- **TLS CA flag cleanup**: The `serve` command no longer accepts `--tls-ca` — it was non-functional there. Client commands (such as `query` and `write`) still accept `--tls-ca` to trust a custom or self-signed CA, and the flag is now consistently bound to the `INFLUXDB3_TLS_CA` environment variable across commands that were previously missing the binding. The `cancel row-delete` command now also accepts TLS options. ([#4130](https://github.com/influxdata/influxdb/pull/4130))
+- **TLS CA flag cleanup**: The `serve` command no longer accepts `--tls-ca` — it was non-functional there. Client commands (such as `query` and `write`) still accept `--tls-ca` to trust a custom or self-signed CA, and the flag is now consistently bound to the `INFLUXDB3_TLS_CA` environment variable across commands that were previously missing the binding. The `cancel row-delete` command now also accepts TLS options.
 
 #### Breaking changes
 
-- **`influxdb3 row-delete` → `influxdb3 delete rows` and `influxdb3 cancel row-delete`**: The old `row-delete` top-level command is removed. Update scripts to use the new `delete rows` and `cancel row-delete` subcommands. ([#3091](https://github.com/influxdata/influxdb/pull/3091))
+- **`influxdb3 row-delete` → `influxdb3 delete rows` and `influxdb3 cancel row-delete`**: The old `row-delete` top-level command is removed. Update scripts to use the new `delete rows` and `cancel row-delete` subcommands.
 
-- **`--conn-info` must point to the internode gRPC port for plugin writes**: In multi-node deployments, `--conn-info` must now reference the internode gRPC port (not the HTTP port) for plugin writes to reach the ingester. Update your cluster configuration before upgrading. ([#3577](https://github.com/influxdata/influxdb/pull/3577))
+- **`--conn-info` must point to the internode gRPC port for plugin writes**: In multi-node deployments, `--conn-info` must now reference the internode gRPC port (not the HTTP port) for plugin writes to reach the ingester. Update your cluster configuration before upgrading.
 
 - **PT compactor stale-job timeout changed from 5 minutes to 1 hour**: Compactor jobs that appear stuck take up to 1 hour to be retried (previously 5 minutes). This reduces false-positive preemption on slow storage backends.
 
