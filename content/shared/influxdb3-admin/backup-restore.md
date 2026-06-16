@@ -65,6 +65,88 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | `<node_id>/c`                             | Generation detail and [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                                                                             |
 {{% /show-in %}}
 
+{{% show-in "enterprise" %}}
+## Back up and restore with the influxdb3 CLI
+
+When the [storage engine upgrade](/influxdb3/version/reference/config-options/)
+is enabled, {{% product-name %}} provides built-in `influxdb3` backup and restore
+commands. Before you use them, ensure the following:
+
+- The server is started with the `--use-pacha-tree` storage engine configuration flag.
+- You run the commands against a **compactor node**.
+- You authenticate with an **admin token**.
+
+> [!Note]
+> #### Availability and node-role requirements
+>
+> - The backup and restore commands and endpoints are available **only when the
+>   storage engine upgrade is enabled**. On the default Parquet engine, the
+>   backup endpoints return `404`.
+> - Backup and restore run on a **compactor node** only. Query nodes return
+>   `503` and ingest-only nodes return `404`.
+> - {{% product-name %}} 3.10 supports **full backups only**. Incremental backups
+>   were removed before release; a request with `type=incremental` returns `400`.
+
+The backup and restore subcommands map to the
+`/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
+API endpoints. For complete command syntax and flags, see the
+[`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/). A
+dedicated HTTP API guide for these endpoints is planned as a follow-up.
+
+### Create a backup
+
+Use `influxdb3 create backup` to create a full backup:
+
+```bash
+influxdb3 create backup
+```
+
+> [!Note]
+> - `create backup` **refuses to overwrite an existing backup name** and returns
+>   an error instead of clobbering the existing backup.
+> - Backups don't include unpersisted WAL data. To capture the most recent
+>   writes in a backup, force a snapshot and compaction before you create the
+>   backup.
+
+### Inspect and manage backups
+
+| Command | Description |
+| ------- | ----------- |
+| `influxdb3 status backup` | Show the status of a backup |
+| `influxdb3 show backups`  | List existing backups |
+| `influxdb3 delete backup` | Delete a backup |
+| `influxdb3 cancel backup` | Cancel an in-progress backup |
+
+### Restore from a backup
+
+Use `influxdb3 create restore` to start a restore, and the related commands to
+monitor or cancel it:
+
+| Command | Description |
+| ------- | ----------- |
+| `influxdb3 create restore`  | Start a restore from a backup |
+| `influxdb3 status restore`  | Show the status of a restore |
+| `influxdb3 show restores`   | List restores |
+| `influxdb3 cancel restore`  | Cancel an in-progress restore |
+
+A restore is **asynchronous** and **append-only**: data written after the backup
+was taken becomes unreferenced rather than deleted. **Only one restore can run at
+a time across the cluster**; concurrent restore attempts return `409`.
+
+> [!Warning]
+> #### Restart nodes after a restore
+>
+> After a restore completes, **restart the affected node(s)**. The live
+> in-memory view is not updated until the node restarts.
+
+### Disaster recovery
+
+To recover into a new object store, copy the backup directory
+`{cluster_id}/backups/{name}/` into an empty object store that uses the **same
+cluster ID and node ID** as the original deployment, then restart the node(s).
+
+{{% /show-in %}}
+
 ## Backup process
 
 > [!Important]
