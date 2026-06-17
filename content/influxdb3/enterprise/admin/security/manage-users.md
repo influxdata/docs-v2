@@ -23,7 +23,7 @@ related:
 >
 > - `influxdb3 auth logout` removes local credentials but does **not** revoke the
 >   issued JWT server-side.
-> - A non-admin user can currently create tokens broader than their assigned role.
+> - A non-admin user can currently create tokens with broader permissions than their assigned role.
 
 Multi-user authentication lets users log in to {{% product-name %}} with
 individual credentials that issue JSON Web Tokens (JWTs), with access governed by
@@ -43,6 +43,21 @@ influxdb3 serve --without-user-auth false
 For the complete list of authentication serve flags, see the
 [`influxdb3 serve`](/influxdb3/enterprise/reference/cli/influxdb3/serve/) CLI
 reference.
+
+## Configure JWT signing keys
+
+User authentication signs JWTs with an RSA private key that **must be in PKCS#1 format**. Generate a compatible key with the `-traditional` flag:
+
+```bash
+openssl genrsa -traditional -out jwt-private-key.pem 2048
+```
+
+> [!Warning]
+> #### Use PKCS#1 keys, not PKCS#8
+>
+> A PKCS#8 key (the default `openssl genrsa` output without `-traditional`)
+> **silently fails** to sign tokens. Always generate the key with
+> `openssl genrsa -traditional`.
 
 ## Bootstrap the initial admin
 
@@ -73,22 +88,6 @@ automatically.
 > `influxdb3 auth logout` removes the local credentials but does **not** revoke
 > the issued JWT server-side. The token remains valid until it expires.
 
-## Configure JWT signing keys
-
-User authentication signs JWTs with an RSA private key that **must be in PKCS#1
-format**. Generate a compatible key with the `-traditional` flag:
-
-```bash
-openssl genrsa -traditional -out jwt-private-key.pem 2048
-```
-
-> [!Warning]
-> #### Use PKCS#1 keys, not PKCS#8
->
-> A PKCS#8 key (the default `openssl genrsa` output without `-traditional`)
-> **silently fails** to sign tokens. Always generate the key with
-> `openssl genrsa -traditional`.
-
 ## Optional: Authenticate with OAuth/OIDC
 
 You can optionally delegate authentication to an OAuth/OIDC identity provider
@@ -105,5 +104,4 @@ For details on each role and the permissions model, see
 [Role-based access control (RBAC)](/influxdb3/enterprise/reference/internals/rbac/).
 
 > [!Note]
-> Authoring custom roles is gated and incomplete in {{% product-name %}} 3.10 and
-> is not documented. Use the built-in roles.
+> Authoring custom roles is not available in InfluxDB 3.10. Use the built-in roles.

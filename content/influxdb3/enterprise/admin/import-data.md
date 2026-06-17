@@ -25,7 +25,7 @@ into them.
 
 ## How bulk import works
 
-Bulk import reads your generic (non-IOx) Parquet files, maps their columns to
+Bulk import reads your generic Parquet files, maps their columns to
 {{% product-name %}} types, and writes the resulting rows into an existing table.
 Each file becomes a separate import job.
 
@@ -35,8 +35,8 @@ Rows become queryable after the compactor processes them, not immediately after
 the upload completes.
 
 > [!Note]
-> Because imported data is queryable only after compaction, don't expect rows to
-> appear in query results immediately after `influxdb3 import upload` returns.
+> Because imported data is queryable only after compaction, expect a delay before
+> imported rows appear in query results after `influxdb3 import upload` returns.
 
 ## Import Parquet files
 
