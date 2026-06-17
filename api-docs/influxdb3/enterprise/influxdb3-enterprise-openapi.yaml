@@ -3757,7 +3757,8 @@ paths:
       summary: Require a user to reset their password on next login
       description: >-
         Marks the specified user as requiring a password reset. The user must
-        set a new password the next time they log in.
+        set a new password before they are able to authenticate and receive
+        a token.
 
 
         Requires a token or user with permission to update users.
