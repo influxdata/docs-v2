@@ -4777,7 +4777,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Returns the role with the specified name.</p>
-<p>Requires a token with permission to read roles.</p>
+<p>Requires a token or user with permission to read roles.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -5795,7 +5795,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Returns the permissions granted to the role with the specified ID.</p>
-<p>Requires a token with permission to read roles.</p>
+<p>Requires a token or user with permission to read roles.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -6602,7 +6602,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Returns the user associated with the specified OAuth identity-provider ID. Requires the server to be configured with an OAuth validator.</p>
-<p>Requires a token with permission to read users.</p>
+<p>Requires a token or user with permission to read users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -7729,7 +7729,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Updates a user&rsquo;s profile information. Currently, only the user&rsquo;s display name can be updated.</p>
-<p>Requires a token with permission to update users.</p>
+<p>Requires a token or user with permission to update users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -9147,7 +9147,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Soft deletes a user. A user can delete their own account as long as they are not the last remaining user; the last user can only be deleted with an operator token. Deleting a user revokes all of that user&rsquo;s refresh tokens.</p>
-<p>Requires a token with permission to delete users.</p>
+<p>Requires a token or user with permission to delete users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -10267,7 +10267,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Marks the specified user as requiring a password reset. The user must set a new password the next time they log in.</p>
-<p>Requires a token with permission to update users.</p>
+<p>Requires a token or user with permission to update users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -11396,7 +11396,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Lists all roles assigned to the specified user.</p>
-<p>Requires a token with permission to read users.</p>
+<p>Requires a token or user with permission to read users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>
@@ -12203,7 +12203,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   <div class="api-operation-description">
     <p>Replaces all role assignments for the specified user with the provided list of role IDs. Roles not included in the request are removed from the user.</p>
-<p>Requires a token with permission to update users.</p>
+<p>Requires a token or user with permission to update users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
   </div>

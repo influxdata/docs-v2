@@ -52,7 +52,7 @@
 
 
     <meta name="description" content="Create, list, retrieve, and delete backups, and start, list, and cancel restores.
-Backup and restore endpoints require the new storage engine, enabled with the --use-pacha-tree flag, and a compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these endpoints return 503 Service Unavailable. All endpoints require an admin (operator) token.
+Backup and restore endpoints require the upgraded storage engine, enabled with the --use-pacha-tree flag, and a compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these endpoints return 503 Service Unavailable. All endpoints require an admin (operator) token or admin user.
 Backups and restores run asynchronously: starting one returns immediately with a handle that you poll for status. Only one restore can run cluster-wide at a time.
 ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -114,7 +114,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7362/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/api/backup-and-restore/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"articleSection":"Api","dateModified":"0001-01-01T00:00:00Z","description":"Create, list, retrieve, and delete backups, and start, list, and cancel restores.\n\nBackup and restore endpoints require the new storage engine, enabled with the `--use-pacha-tree` flag, and a compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these endpoints return `503 Service Unavailable`. All endpoints require an admin (operator) token.\n\nBackups and restores run asynchronously: starting one returns immediately with a handle that you poll for status. Only one restore can run cluster-wide at a time.","headline":"Backup and restore","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/api/backup-and-restore/","name":"Backup and restore"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"articleSection":"Api","dateModified":"0001-01-01T00:00:00Z","description":"Create, list, retrieve, and delete backups, and start, list, and cancel restores.\n\nBackup and restore endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these endpoints return `503 Service Unavailable`. All endpoints require an admin (operator) token or admin user.\n\nBackups and restores run asynchronously: starting one returns immediately with a handle that you poll for status. Only one restore can run cluster-wide at a time.","headline":"Backup and restore","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/api/backup-and-restore/","name":"Backup and restore"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -4733,7 +4733,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   <section class="api-tag-overview">
     <div class="api-tag-description">
       <p>Create, list, retrieve, and delete backups, and start, list, and cancel restores.</p>
-<p>Backup and restore endpoints require the new storage engine, enabled with the <code>--use-pacha-tree</code> flag, and a compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these endpoints return <code>503 Service Unavailable</code>. All endpoints require an admin (operator) token.</p>
+<p>Backup and restore endpoints require the upgraded storage engine, enabled with the <code>--use-pacha-tree</code> flag, and a compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these endpoints return <code>503 Service Unavailable</code>. All endpoints require an admin (operator) token or admin user.</p>
 <p>Backups and restores run asynchronously: starting one returns immediately with a handle that you poll for status. Only one restore can run cluster-wide at a time.</p>
 
     </div>
@@ -4779,7 +4779,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Lists all full backups.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -5628,7 +5628,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   <div class="api-operation-description">
     <p>Registers and asynchronously starts a full backup. Returns immediately with the resolved backup name and an in-progress acknowledgement.</p>
 <p>Backups run asynchronously. Poll <a href="#operation/list_backups">List backups</a> or <a href="#operation/get_backup">Get a backup</a> to track progress.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -6890,7 +6890,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Cancels an in-progress backup job by name.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -8028,7 +8028,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Returns a single backup&rsquo;s manifest.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -8915,7 +8915,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Deletes a backup by name.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -10032,7 +10032,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Lists every restore for the cluster, newest first, including in-flight and completed restores.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -10881,7 +10881,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   <div class="api-operation-description">
     <p>Registers and asynchronously starts a restore from a named backup. Returns a <code>restore_id</code> handle for tracking and cancellation.</p>
 <p>Restores run asynchronously. Poll <a href="#operation/get_restore">Get a restore</a> to track progress. Only one restore can run cluster-wide at a time; if a restore is already running, this endpoint returns <code>409 Conflict</code>.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -12044,7 +12044,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Reports a restore&rsquo;s state by <code>restore_id</code>. Reads the persisted manifest, so it works for in-flight and completed restores.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
+<p>Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node; otherwise the endpoint returns <code>503 Service Unavailable</code>.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -13242,7 +13242,7 @@ Backups and restores run asynchronously: starting one returns immediately with a
   
   <div class="api-operation-description">
     <p>Cancels an in-flight restore by <code>restore_id</code>.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node.</p>
+<p>Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag) present on a compactor node.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>

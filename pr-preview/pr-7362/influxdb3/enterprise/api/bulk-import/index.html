@@ -52,7 +52,7 @@
 
 
     <meta name="description" content="Upload Parquet files for bulk import into existing tables and list the status of bulk import jobs.
-Bulk import endpoints require the new storage engine, enabled with the --use-pacha-tree flag, and a compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin (operator) token.
+Bulk import endpoints require the upgraded storage engine, enabled with the --use-pacha-tree flag, and a compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin (operator) token.
 ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
@@ -113,7 +113,7 @@ Bulk import endpoints require the new storage engine, enabled with the --use-pac
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7362/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/api/bulk-import/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"articleSection":"Api","dateModified":"0001-01-01T00:00:00Z","description":"Upload Parquet files for bulk import into existing tables and list the status of bulk import jobs.\n\nBulk import endpoints require the new storage engine, enabled with the `--use-pacha-tree` flag, and a compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin (operator) token.","headline":"Bulk import","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/api/bulk-import/","name":"Bulk import"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"articleSection":"Api","dateModified":"0001-01-01T00:00:00Z","description":"Upload Parquet files for bulk import into existing tables and list the status of bulk import jobs.\n\nBulk import endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin (operator) token.","headline":"Bulk import","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7362/influxdb3/enterprise/api/bulk-import/","name":"Bulk import"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -4732,7 +4732,7 @@ Bulk import endpoints require the new storage engine, enabled with the --use-pac
   <section class="api-tag-overview">
     <div class="api-tag-description">
       <p>Upload Parquet files for bulk import into existing tables and list the status of bulk import jobs.</p>
-<p>Bulk import endpoints require the new storage engine, enabled with the <code>--use-pacha-tree</code> flag, and a compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin (operator) token.</p>
+<p>Bulk import endpoints require the upgraded storage engine, enabled with the <code>--use-pacha-tree</code> flag, and a compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin (operator) token.</p>
 
     </div>
   </section>
@@ -4777,7 +4777,7 @@ Bulk import endpoints require the new storage engine, enabled with the --use-pac
   
   <div class="api-operation-description">
     <p>Lists the status of all uploaded bulk import jobs.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag).</p>
+<p>Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag).</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
@@ -5422,7 +5422,7 @@ Bulk import endpoints require the new storage engine, enabled with the --use-pac
   
   <div class="api-operation-description">
     <p>Uploads a Parquet file, and optional column metadata, for bulk import into an existing table. The compactor node asynchronously picks up and imports the file. Returns the staged import job info synchronously after the upload is staged.</p>
-<p>Requires an admin (operator) token. Requires the new storage engine (enabled with the <code>--use-pacha-tree</code> flag); the compactor node runs the bulk import scheduler that completes the import.</p>
+<p>Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the <code>--use-pacha-tree</code> flag); the compactor node runs the bulk import scheduler that completes the import.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise.</p>
 
   </div>
