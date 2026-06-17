@@ -73,8 +73,8 @@ is enabled, {{% product-name %}} provides built-in `influxdb3` backup and restor
 commands. Before you use them, ensure the following:
 
 - The server is started with the `--use-pacha-tree` storage engine configuration flag.
-- You run the commands against a **compactor node**.
-- You authenticate with an **admin token**.
+- You run the commands against any node that acts as the **compactor**, including `mode=all`.
+- You authenticate with an **admin token** or as an **admin user**.
 
 > [!Note]
 > #### Availability and node-role requirements
@@ -82,16 +82,14 @@ commands. Before you use them, ensure the following:
 > - The backup and restore commands and endpoints are available **only when the
 >   storage engine upgrade is enabled**. On the default Parquet engine, the
 >   backup endpoints return `404`.
-> - Backup and restore run on a **compactor node** only. Query nodes return
+> - Backup and restore run on a node running **compaction**. Query-only nodes return
 >   `503` and ingest-only nodes return `404`.
-> - {{% product-name %}} 3.10 supports **full backups only**. Incremental backups
->   were removed before release; a request with `type=incremental` returns `400`.
+> - {{% product-name %}} 3.10 supports **full backups only**.
 
 The backup and restore subcommands map to the
 `/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
 API endpoints. For complete command syntax and flags, see the
-[`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/). A
-dedicated HTTP API guide for these endpoints is planned as a follow-up.
+[`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/).
 
 ### Create a backup
 
@@ -103,10 +101,23 @@ influxdb3 create backup
 
 > [!Note]
 > - `create backup` **refuses to overwrite an existing backup name** and returns
->   an error instead of clobbering the existing backup.
-> - Backups don't include unpersisted WAL data. To capture the most recent
->   writes in a backup, force a snapshot and compaction before you create the
->   backup.
+>   an error instead.
+> - **A backup only includes data already persisted to object storage**--your
+>   most recent writes may still be buffered and not yet captured. See
+>   [What a backup includes](#what-a-backup-includes).
+
+#### What a backup includes
+
+A backup captures data already persisted to object storage. Writes still
+buffered in memory and not yet flushed to the
+[write-ahead log (WAL)](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence)
+aren't included.
+
+To minimize the window of unpersisted writes before a backup, use the default
+[`no_sync=false`](/influxdb3/version/write-data/http-api/v3-write-lp/#use-no_sync-for-immediate-write-responses)
+write behavior, which acknowledges writes only after WAL persistence completes.
+For the full ingest and persistence path, see
+[InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
 
 ### Inspect and manage backups
 
@@ -138,6 +149,12 @@ a time across the cluster**; concurrent restore attempts return `409`.
 >
 > After a restore completes, **restart the affected node(s)**. The live
 > in-memory view is not updated until the node restarts.
+
+> [!Warning]
+> #### Known beta issue: row deletes may persist across restores
+>
+> Backup (beta) doesn't currently pick up row-delete state files in object
+> storage, so row deletes may persist across a restore.
 
 ### Disaster recovery
 
