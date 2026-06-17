@@ -90,7 +90,6 @@ SELECT * FROM system.row_deletes
 {{% product-name %}} also emits nine `influxdb3_compactor_row_delete_*` metrics
 that report row-deletion activity in the compactor.
 
-
 ## Known issues
 
 ### Ghost rows after a completed delete
