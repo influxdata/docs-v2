@@ -25,7 +25,7 @@ into them.
 
 ## How bulk import works
 
-Bulk import reads your generic (non-IOx) Parquet files, maps their columns to
+Bulk import reads your generic Parquet files, maps their columns to
 {{% product-name %}} types, and writes the resulting rows into an existing table.
 Each file becomes a separate import job.
 
