@@ -4974,7 +4974,7 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <p><strong>Multi-shard data loss with <code>--use-pacha-tree</code></strong>: When the <code>--use-pacha-tree</code> storage engine is enabled, running with more than one shard (<code>--pt-shard-count &gt; 1</code>) can cause data loss and a bootstrap deadlock. Workaround: keep <code>--pt-shard-count</code> at <code>1</code>.</p>
 </li>
 <li>
-<p><strong>Backup does not capture row-delete state</strong>: Backup (beta) doesn&rsquo;t currently pick up row-delete state files in object storage, so row deletes may persist across a restore. Workaround: re-issue affected row deletes after the restore completes.</p>
+<p><strong>Backup does not capture row-delete state</strong>: Backup (beta) doesn&rsquo;t currently pick up row-delete state files in object storage, so row deletes may persist across a restore.</p>
 </li>
 </ul>
 <h2 date="2026-05-29" id="v393">v3.9.3</h2>
