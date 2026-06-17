@@ -4990,6 +4990,14 @@ a time across the cluster</strong>; concurrent restore attempts return <code>409
 <p>After a restore completes, <strong>restart the affected node(s)</strong>. The live
 in-memory view is not updated until the node restarts.</p>
 </div>
+
+<div class="block warning">
+  
+  
+  <h4 id="known-beta-issue-row-deletes-may-persist-across-restores">Known beta issue: row deletes may persist across restores</h4>
+<p>Backup (beta) doesn&rsquo;t currently pick up row-delete state files in object
+storage, so row deletes may persist across a restore.</p>
+</div>
 <h3 id="disaster-recovery">Disaster recovery</h3>
 <p>To recover into a new object store, copy the backup directory
 <code>{cluster_id}/backups/{name}/</code> into an empty object store that uses the <strong>same
