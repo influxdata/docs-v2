@@ -103,9 +103,29 @@ influxdb3 create backup
 > [!Note]
 > - `create backup` **refuses to overwrite an existing backup name** and returns
 >   an error instead.
-> - Backups don't include unpersisted WAL data. To capture the most recent
->   writes in a backup, force a snapshot and compaction before you create the
->   backup.
+> - **A backup only includes data already persisted to object storage**--your
+>   most recent writes may still be buffered and not yet captured. See
+>   [What a backup includes](#what-a-backup-includes).
+
+#### What a backup includes
+
+A backup captures data already persisted to object storage. Writes still
+buffered in memory and not yet flushed to the
+[write-ahead log (WAL)](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence)
+aren't included. Persistence happens automatically--{{% product-name %}}
+flushes the WAL to object storage every second by default
+([`--wal-flush-interval`](/influxdb3/version/reference/config-options/#wal-flush-interval))
+and snapshots buffered data to Parquet based on the
+[`--gen1-duration`](/influxdb3/version/reference/config-options/#gen1-duration),
+[`--wal-snapshot-size`](/influxdb3/version/reference/config-options/#wal-snapshot-size),
+and [`--force-snapshot-mem-threshold`](/influxdb3/version/reference/config-options/#force-snapshot-mem-threshold)
+settings.
+
+To minimize the window of unpersisted writes before a backup, use the default
+[`no_sync=false`](/influxdb3/version/write-data/http-api/v3-write-lp/#use-no_sync-for-immediate-write-responses)
+write behavior, which acknowledges writes only after WAL persistence completes.
+For the full ingest and persistence path, see
+[InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
 
 ### Inspect and manage backups
 
