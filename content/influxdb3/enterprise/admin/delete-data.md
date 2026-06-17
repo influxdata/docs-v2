@@ -90,8 +90,6 @@ SELECT * FROM system.row_deletes
 {{% product-name %}} also emits nine `influxdb3_compactor_row_delete_*` metrics
 that report row-deletion activity in the compactor.
 
-> [!Note]
-> Until then, this guide documents the `system.row_deletes` table.
 
 ## Known issues
 
