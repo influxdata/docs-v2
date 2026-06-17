@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7353/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/admin/delete-data/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-06-16T16:50:52-05:00","description":"Delete rows from InfluxDB 3 Enterprise by time range and tag predicate using the influxdb3 delete rows command. Deletes are asynchronous and applied by the compactor.","headline":"Delete data","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/admin/delete-data/","name":"Delete data"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-06-16T21:03:39-05:00","description":"Delete rows from InfluxDB 3 Enterprise by time range and tag predicate using the `influxdb3 delete rows` command. Deletes are asynchronous and applied by the compactor.","headline":"Delete data","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7353/influxdb3/enterprise/admin/delete-data/","name":"Delete data"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-16 16:50:52 -0500 -0500">
+<meta name="last-modified" content="2026-06-16 21:03:39 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -4807,13 +4807,6 @@ cluster.</p>
 requests:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">row_deletes</span></span></span></code></pre></div><p>InfluxDB 3 Enterprise also emits nine <code>influxdb3_compactor_row_delete_*</code> metrics
 that report row-deletion activity in the compactor.</p>
-
-<div class="block note">
-  
-  
-  <p>A dedicated system-tables reference is planned as a follow-up.
-Until then, this guide documents the <code>system.row_deletes</code> table.</p>
-</div>
 <h2 id="known-issues">Known issues</h2>
 <h3 id="ghost-rows-after-a-completed-delete">Ghost rows after a completed delete</h3>
 <p>Rows in the un-compacted ingest tail can survive after a delete request reports
