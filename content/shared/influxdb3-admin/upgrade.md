@@ -22,9 +22,10 @@ Before upgrading your {{% product-name %}} cluster, review the [release notes](/
 > [!Warning]
 > #### Upgrading to InfluxDB 3.10 is a one-way migration
 >
-> The first time you start InfluxDB 3.10, it automatically migrates the on-disk
-> catalog to an updated format. After migration, 3.9.x and older binaries are
-> unable to read the new catalog, and fail to start on the same cluster data.
+> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
+> catalog format from v2 to v3. After migration, 3.9.x and older
+> binaries are unable to read the new catalog, and fail to start on the same
+> cluster data.
 >
 > Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
 > Restoring these objects is the only way to roll back to 3.9.x.
