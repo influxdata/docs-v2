@@ -46,8 +46,4 @@ for the user-management workflow.
 
 RBAC has the following known limitations in {{% product-name %}}:
 
-- **Token scope can exceed role scope**: A non-admin user can currently create
-  tokens with broader permissions than their assigned role.
-- **Custom roles aren't documented**: Authoring custom roles is double-gated
-  (behind a server flag and a CLI environment variable) and incomplete.
-  Use the built-in roles.
+- **Token scope can exceed role scope**: A non-admin user can currently create tokens with broader permissions than their assigned role.
