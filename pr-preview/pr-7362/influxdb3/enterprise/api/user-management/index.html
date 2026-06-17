@@ -9146,7 +9146,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   
   <div class="api-operation-description">
-    <p>Soft deletes a user. A user can delete their own account as long as they are not the last remaining user; the last user can only be deleted with an operator token. Deleting a user revokes all of that user&rsquo;s refresh tokens.</p>
+    <p>Soft deletes a user. A user can self-delete as long as they are not the last remaining user; the last user can only be deleted with an operator token. Deleting a user revokes all of that user&rsquo;s refresh tokens.</p>
 <p>Requires a token or user with permission to delete users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
@@ -10266,7 +10266,7 @@ These endpoints are only available in InfluxDB 3 Enterprise. User authentication
   
   
   <div class="api-operation-description">
-    <p>Marks the specified user as requiring a password reset. The user must set a new password the next time they log in.</p>
+    <p>Marks the specified user as requiring a password reset. The user must set a new password before they are able to authenticate and receive a token.</p>
 <p>Requires a token or user with permission to update users.</p>
 <p>This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by setting <code>--without-user-auth false</code>.</p>
 
