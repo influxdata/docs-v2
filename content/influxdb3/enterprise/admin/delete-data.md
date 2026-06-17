@@ -3,7 +3,7 @@ title: Delete data
 seotitle: Delete data from InfluxDB 3 Enterprise
 description: >
   Delete rows from InfluxDB 3 Enterprise by time range and tag predicate using
-  the influxdb3 delete rows command. Deletes are asynchronous and applied by the
+  the `influxdb3 delete rows` command. Deletes are asynchronous and applied by the
   compactor.
 menu:
   influxdb3_enterprise:
