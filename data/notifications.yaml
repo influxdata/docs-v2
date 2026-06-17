@@ -97,15 +97,12 @@
     - /influxdb3/core/
   title: 'InfluxDB 3.10 is now available'
   slug: |
-    InfluxDB 3 Core 3.10 adds catalog v3 migration, a configurable
-    query-concurrency limit, and processing engine improvements.
-
+    InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
+    configurable query-concurrency limit, and processing engine improvements.
   message: |
-    InfluxDB 3 Core 3.10 is now available.
+    **Key updates in InfluxDB 3 Core 3.10:**
 
-    **Key updates:**
-
-    - **Catalog v3**: the on-disk catalog migrates automatically on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
+    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
     - **`--max-concurrent-queries`**: limit concurrent queries (adjustable at runtime).
     - **`GET /ready` endpoint** for readiness probes.
     - **Processing engine**: cross-database queries and trigger lockdown flags.
@@ -127,24 +124,21 @@
   title: 'InfluxDB 3.10 is now available'
   slug: |
     InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
-    deletions, and user management, with catalog v3 migration and performance
-    preview improvements.
-
+    deletions, and user management, with an automatic catalog format upgrade
+    and performance preview improvements.
   message: |
-    InfluxDB 3 Enterprise 3.10 is now available.
+    **Key updates in InfluxDB 3 Enterprise 3.10:**
 
-    **Key updates:**
-
-    - **Catalog v3**: the on-disk catalog migrates automatically on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
+    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
     - **Automated backup and restore** (beta)
     - **Row-level deletions**
     - **User management** (authentication and RBAC) — preview
     - **Performance preview improvements**
 
     Backup and restore, row-level deletions, and the performance preview require
-    the Enterprise storage engine upgrade, available as an opt-in beta.
-    _Beta and preview features are subject to breaking changes and aren't
-    recommended for production use._
+    the Enterprise storage engine upgrade (opt-in beta). _Beta and preview
+    features are subject to breaking changes and aren't recommended for
+    production use._
 
     For more information, see the
     [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
