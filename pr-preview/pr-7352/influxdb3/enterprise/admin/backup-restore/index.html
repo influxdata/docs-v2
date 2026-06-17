@@ -4909,11 +4909,28 @@ API endpoints. For complete command syntax and flags, see the
   <ul>
 <li><code>create backup</code> <strong>refuses to overwrite an existing backup name</strong> and returns
 an error instead.</li>
-<li>Backups don&rsquo;t include unpersisted WAL data. To capture the most recent
-writes in a backup, force a snapshot and compaction before you create the
-backup.</li>
+<li><strong>A backup only includes data already persisted to object storage</strong>&ndash;your
+most recent writes may still be buffered and not yet captured. See
+<a href="#what-a-backup-includes">What a backup includes</a>.</li>
 </ul>
 </div>
+<h4 id="what-a-backup-includes">What a backup includes</h4>
+<p>A backup captures data already persisted to object storage. Writes still
+buffered in memory and not yet flushed to the
+<a href="/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence">write-ahead log (WAL)</a>
+aren&rsquo;t included. Persistence happens automatically&ndash;InfluxDB 3 Enterprise
+flushes the WAL to object storage every second by default
+(<a href="/influxdb3/version/reference/config-options/#wal-flush-interval"><code>--wal-flush-interval</code></a>)
+and snapshots buffered data to Parquet based on the
+<a href="/influxdb3/version/reference/config-options/#gen1-duration"><code>--gen1-duration</code></a>,
+<a href="/influxdb3/version/reference/config-options/#wal-snapshot-size"><code>--wal-snapshot-size</code></a>,
+and <a href="/influxdb3/version/reference/config-options/#force-snapshot-mem-threshold"><code>--force-snapshot-mem-threshold</code></a>
+settings.</p>
+<p>To minimize the window of unpersisted writes before a backup, use the default
+<a href="/influxdb3/version/write-data/http-api/v3-write-lp/#use-no_sync-for-immediate-write-responses"><code>no_sync=false</code></a>
+write behavior, which acknowledges writes only after WAL persistence completes.
+For the full ingest and persistence path, see
+<a href="/influxdb3/version/reference/internals/durability/">InfluxDB 3 internals: durability</a>.</p>
 <h3 id="inspect-and-manage-backups">Inspect and manage backups</h3>
 <table>
   <thead>
