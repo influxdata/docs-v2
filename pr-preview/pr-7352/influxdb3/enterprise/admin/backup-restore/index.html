@@ -4878,8 +4878,8 @@ is enabled, InfluxDB 3 Enterprise provides built-in <code>influxdb3</code> backu
 commands. Before you use them, ensure the following:</p>
 <ul>
 <li>The server is started with the <code>--use-pacha-tree</code> storage engine configuration flag.</li>
-<li>You run the commands against a <strong>compactor node</strong>.</li>
-<li>You authenticate with an <strong>admin token</strong>.</li>
+<li>You run the commands against any node that acts as the <strong>compactor</strong>, including <code>mode=all</code>.</li>
+<li>You authenticate with an <strong>admin token</strong> or as an <strong>admin user</strong>.</li>
 </ul>
 
 <div class="block note">
@@ -4890,10 +4890,9 @@ commands. Before you use them, ensure the following:</p>
 <li>The backup and restore commands and endpoints are available <strong>only when the
 storage engine upgrade is enabled</strong>. On the default Parquet engine, the
 backup endpoints return <code>404</code>.</li>
-<li>Backup and restore run on a <strong>compactor node</strong> only. Query nodes return
+<li>Backup and restore run on a node running <strong>compaction</strong>. Query-only nodes return
 <code>503</code> and ingest-only nodes return <code>404</code>.</li>
-<li>InfluxDB 3 Enterprise 3.10 supports <strong>full backups only</strong>. Incremental backups
-were removed before release; a request with <code>type=incremental</code> returns <code>400</code>.</li>
+<li>InfluxDB 3 Enterprise 3.10 supports <strong>full backups only</strong>.</li>
 </ul>
 </div>
 <p>The backup and restore subcommands map to the
@@ -4918,14 +4917,7 @@ most recent writes may still be buffered and not yet captured. See
 <p>A backup captures data already persisted to object storage. Writes still
 buffered in memory and not yet flushed to the
 <a href="/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence">write-ahead log (WAL)</a>
-aren&rsquo;t included. Persistence happens automatically&ndash;InfluxDB 3 Enterprise
-flushes the WAL to object storage every second by default
-(<a href="/influxdb3/version/reference/config-options/#wal-flush-interval"><code>--wal-flush-interval</code></a>)
-and snapshots buffered data to Parquet based on the
-<a href="/influxdb3/version/reference/config-options/#gen1-duration"><code>--gen1-duration</code></a>,
-<a href="/influxdb3/version/reference/config-options/#wal-snapshot-size"><code>--wal-snapshot-size</code></a>,
-and <a href="/influxdb3/version/reference/config-options/#force-snapshot-mem-threshold"><code>--force-snapshot-mem-threshold</code></a>
-settings.</p>
+aren&rsquo;t included.</p>
 <p>To minimize the window of unpersisted writes before a backup, use the default
 <a href="/influxdb3/version/write-data/http-api/v3-write-lp/#use-no_sync-for-immediate-write-responses"><code>no_sync=false</code></a>
 write behavior, which acknowledges writes only after WAL persistence completes.
