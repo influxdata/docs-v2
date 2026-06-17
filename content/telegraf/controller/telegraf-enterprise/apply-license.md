@@ -9,6 +9,10 @@ menu:
   telegraf_controller:
     name: Apply a license
     parent: Telegraf Enterprise licensing
+  telegraf_enterprise:
+    name: Apply a license
+    weight: 21
+    parent: Telegraf Controller
 weight: 101
 related:
   - /telegraf/controller/telegraf-enterprise/manage-license/
@@ -31,7 +35,7 @@ through an environment variable or at runtime through the user interface.
 ## Prerequisites
 
 - A Telegraf Enterprise license file (`.jwt` or `.txt`) issued by InfluxData.
-  If you don't have one, [contact InfluxData sales](https://www.influxdata.com/contact-sales/).
+  If you don't have one, [contact InfluxData sales]({{% cta-link %}}).
 - For the UI method: the **Owner** role on the {{% product-name %}} instance.
 
 ## About the license file

@@ -20,43 +20,6 @@ blackfriday:
   hrefTargetBlank: true
   smartDashes: false
 
-# telegraf_enterprise sidebar: curated cross-section nav for the
-# /telegraf/enterprise/ landing. These entries are explicit URLs (not pages)
-# because the landing routes users into Telegraf, Telegraf Controller, and
-# the license-management operational pages — none of which are descendants
-# of /telegraf/enterprise/.
-menu:
-  telegraf_enterprise:
-    - name: Telegraf
-      url: /telegraf/v1/
-      weight: 10
-    - name: Enterprise support for Telegraf
-      url: /telegraf/v1/enterprise/
-      weight: 11
-      parent: Telegraf
-    - name: Telegraf Controller
-      url: /telegraf/controller/
-      weight: 20
-    - name: Apply a license
-      url: /telegraf/controller/telegraf-enterprise/apply-license/
-      weight: 21
-      parent: Telegraf Controller
-    - name: Manage a license
-      url: /telegraf/controller/telegraf-enterprise/manage-license/
-      weight: 22
-      parent: Telegraf Controller
-    - name: License enforcement
-      url: /telegraf/controller/telegraf-enterprise/license-enforcement/
-      weight: 23
-      parent: Telegraf Controller
-    - name: Troubleshoot licensing
-      url: /telegraf/controller/telegraf-enterprise/troubleshoot/
-      weight: 24
-      parent: Telegraf Controller
-    - name: Contact InfluxData sales
-      url: https://www.influxdata.com/contact-sales/
-      weight: 99
-
 taxonomies:
   influxdb/v2/tag: influxdb/v2/tags
   influxdb/cloud/tag: influxdb/cloud/tags

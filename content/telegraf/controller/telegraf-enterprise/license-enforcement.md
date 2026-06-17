@@ -9,6 +9,10 @@ menu:
   telegraf_controller:
     name: License enforcement
     parent: Telegraf Enterprise licensing
+  telegraf_enterprise:
+    name: License enforcement
+    weight: 23
+    parent: Telegraf Controller
 weight: 103
 related:
   - /telegraf/controller/telegraf-enterprise/troubleshoot/

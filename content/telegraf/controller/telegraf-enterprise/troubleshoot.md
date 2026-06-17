@@ -9,6 +9,10 @@ menu:
   telegraf_controller:
     name: Troubleshoot licensing
     parent: Telegraf Enterprise licensing
+  telegraf_enterprise:
+    name: Troubleshoot licensing
+    weight: 24
+    parent: Telegraf Controller
 weight: 104
 related:
   - /telegraf/controller/telegraf-enterprise/apply-license/

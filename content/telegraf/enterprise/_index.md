@@ -9,6 +9,8 @@ menu:
   telegraf_enterprise:
     name: Telegraf Enterprise
 weight: 1
+cascade:
+  product: telegraf_enterprise
 ---
 
 **Telegraf Enterprise** is the commercial package for organizations running
@@ -16,6 +18,8 @@ weight: 1
 scale. It combines higher Telegraf Controller limits, enterprise authentication
 and audit logging, and an enterprise support contract from InfluxData covering
 both the Telegraf agent and Telegraf Controller.
+
+<a href="{{% cta-link %}}" class="btn magenta large">Purchase Telegraf Enterprise</a>
 
 - [What's included](#whats-included)
 - [Free tier and Enterprise comparison](#free-tier-and-enterprise-comparison)
@@ -31,7 +35,7 @@ both the Telegraf agent and Telegraf Controller.
 Telegraf Enterprise includes an enterprise support contract from InfluxData
 covering both the open source Telegraf agent and Telegraf Controller. For
 details on support coverage and SLAs,
-[contact InfluxData](https://www.influxdata.com/contact-sales/).
+[contact InfluxData]({{% cta-link %}}).
 
 ### Higher scale limits in Telegraf Controller
 
@@ -107,7 +111,7 @@ names for each state (such as `expired_grace`), see
 ## How to obtain Telegraf Enterprise
 
 To purchase Telegraf Enterprise or request an evaluation license,
-[contact InfluxData sales](https://www.influxdata.com/contact-sales/).
+[contact InfluxData sales]({{% cta-link %}}).
 InfluxData issues a license file that you apply to your Telegraf Controller
 instance.
 
@@ -124,4 +128,4 @@ If you're evaluating:
 
 - [Telegraf documentation](/telegraf/v1/)
 - [Telegraf Controller documentation](/telegraf/controller/)
-- [Contact InfluxData sales](https://www.influxdata.com/contact-sales/)
+- [Contact InfluxData sales]({{% cta-link %}})

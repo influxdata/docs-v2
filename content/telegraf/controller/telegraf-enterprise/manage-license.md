@@ -9,6 +9,10 @@ menu:
   telegraf_controller:
     name: View and update a license
     parent: Telegraf Enterprise licensing
+  telegraf_enterprise:
+    name: Manage a license
+    weight: 22
+    parent: Telegraf Controller
 weight: 102
 related:
   - /telegraf/controller/telegraf-enterprise/apply-license/
