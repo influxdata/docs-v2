@@ -150,6 +150,12 @@ a time across the cluster**; concurrent restore attempts return `409`.
 > After a restore completes, **restart the affected node(s)**. The live
 > in-memory view is not updated until the node restarts.
 
+> [!Warning]
+> #### Known beta issue: row deletes may persist across restores
+>
+> Backup (beta) doesn't currently pick up row-delete state files in object
+> storage, so row deletes may persist across a restore.
+
 ### Disaster recovery
 
 To recover into a new object store, copy the backup directory
