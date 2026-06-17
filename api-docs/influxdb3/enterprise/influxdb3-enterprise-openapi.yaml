@@ -307,11 +307,11 @@ tags:
       restores.
 
 
-      Backup and restore endpoints require the new storage engine, enabled with
+      Backup and restore endpoints require the upgraded storage engine, enabled with
       the `--use-pacha-tree` flag, and a compactor node that runs the backup and
       restore engine. If the storage engine is not present on the node, these
       endpoints return `503 Service Unavailable`. All endpoints require an admin
-      (operator) token.
+      (operator) token or admin user.
 
 
       Backups and restores run asynchronously: starting one returns immediately
@@ -324,7 +324,7 @@ tags:
       status of bulk import jobs.
 
 
-      Bulk import endpoints require the new storage engine, enabled with the
+      Bulk import endpoints require the upgraded storage engine, enabled with the
       `--use-pacha-tree` flag, and a compactor node that runs the bulk import
       scheduler to complete the import. All endpoints require an admin
       (operator) token.
@@ -2983,7 +2983,7 @@ paths:
         or [Get a backup](#operation/get_backup) to track progress.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3034,9 +3034,9 @@ paths:
         Cancels an in-progress backup job by name.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
+        Requires an admin (operator) token or admin user. Requires the upgraded
+        storage engine (enabled with the `--use-pacha-tree` flag) present on a
+        compactor node; otherwise the endpoint returns `503 Service Unavailable`.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise.
@@ -3083,7 +3083,7 @@ paths:
         Lists all full backups.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3126,7 +3126,7 @@ paths:
         Returns a single backup's manifest.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3174,7 +3174,7 @@ paths:
         Deletes a backup by name.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3235,7 +3235,7 @@ paths:
         the upload is staged.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag); the compactor node runs the
         bulk import scheduler that completes the import.
 
@@ -3292,7 +3292,7 @@ paths:
         Lists the status of all uploaded bulk import jobs.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag).
 
 
@@ -3334,7 +3334,7 @@ paths:
         restore is already running, this endpoint returns `409 Conflict`.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3390,7 +3390,7 @@ paths:
         and completed restores.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3433,7 +3433,7 @@ paths:
         so it works for in-flight and completed restores.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node;
         otherwise the endpoint returns `503 Service Unavailable`.
 
@@ -3480,7 +3480,7 @@ paths:
         Cancels an in-flight restore by `restore_id`.
 
 
-        Requires an admin (operator) token. Requires the new storage engine
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
         (enabled with the `--use-pacha-tree` flag) present on a compactor node.
 
 
@@ -3519,7 +3519,7 @@ paths:
         Returns the permissions granted to the role with the specified ID.
 
 
-        Requires a token with permission to read roles.
+        Requires a token or user with permission to read roles.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3562,7 +3562,7 @@ paths:
         Returns the role with the specified name.
 
 
-        Requires a token with permission to read roles.
+        Requires a token or user with permission to read roles.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3605,7 +3605,7 @@ paths:
         Returns the updated request with a disposition of `aborted`.
 
 
-        Requires a token with `delete` permission on the database that the
+        Requires a token or user with `delete` permission on the database that the
         row-delete request targets.
 
 
@@ -3658,7 +3658,7 @@ paths:
         display name can be updated.
 
 
-        Requires a token with permission to update users.
+        Requires a token or user with permission to update users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3710,7 +3710,7 @@ paths:
         refresh tokens.
 
 
-        Requires a token with permission to delete users.
+        Requires a token or user with permission to delete users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3760,7 +3760,7 @@ paths:
         set a new password the next time they log in.
 
 
-        Requires a token with permission to update users.
+        Requires a token or user with permission to update users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3805,7 +3805,7 @@ paths:
         Lists all roles assigned to the specified user.
 
 
-        Requires a token with permission to read users.
+        Requires a token or user with permission to read users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3848,7 +3848,7 @@ paths:
         user.
 
 
-        Requires a token with permission to update users.
+        Requires a token or user with permission to update users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3900,7 +3900,7 @@ paths:
         ID. Requires the server to be configured with an OAuth validator.
 
 
-        Requires a token with permission to read users.
+        Requires a token or user with permission to read users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
