@@ -147,6 +147,8 @@ All Core updates are included in Enterprise. The following updates are exclusive
 
 - **Multi-shard data loss with `--use-pacha-tree`**: When the `--use-pacha-tree` storage engine is enabled, running with more than one shard (`--pt-shard-count > 1`) can cause data loss and a bootstrap deadlock. Workaround: keep `--pt-shard-count` at `1`.
 
+- **Backup does not capture row-delete state**: Backup (beta) doesn't currently pick up row-delete state files in object storage, so row deletes may persist across a restore. 
+
 ## v3.9.3 {date="2026-05-29"}
 
 ### Core
