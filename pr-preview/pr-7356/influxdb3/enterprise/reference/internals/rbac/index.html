@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7356/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/reference/internals/rbac/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"articleSection":"Reference","dateModified":"2026-06-16T20:26:40-05:00","description":"How {{% product-name %}} role-based access control (RBAC) works: built-in roles, the permissions model, and current limitations. RBAC is part of the user authentication preview.","headline":"Role-based access control (RBAC)","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/reference/internals/rbac/","name":"Role-based access control (RBAC)"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"articleSection":"Reference","dateModified":"2026-06-16T22:28:58-04:00","description":"How {{% product-name %}} role-based access control (RBAC) works: built-in roles, the permissions model, and current limitations. RBAC is part of the user authentication preview.","headline":"Role-based access control (RBAC)","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/reference/internals/rbac/","name":"Role-based access control (RBAC)"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-16 20:26:40 -0500 -0500">
+<meta name="last-modified" content="2026-06-16 22:28:58 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -4821,11 +4821,7 @@ for the user-management workflow.</p>
 <h2 id="limitations">Limitations</h2>
 <p>RBAC has the following known limitations in InfluxDB 3 Enterprise:</p>
 <ul>
-<li><strong>Token scope can exceed role scope</strong>: A non-admin user can currently create
-tokens with broader permissions than their assigned role.</li>
-<li><strong>Custom roles aren&rsquo;t documented</strong>: Authoring custom roles is double-gated
-(behind a server flag and a CLI environment variable) and incomplete.
-Use the built-in roles.</li>
+<li><strong>Token scope can exceed role scope</strong>: A non-admin user can currently create tokens with broader permissions than their assigned role.</li>
 </ul>
 
 

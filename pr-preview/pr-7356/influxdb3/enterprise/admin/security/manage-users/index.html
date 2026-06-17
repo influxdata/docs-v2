@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7356/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/admin/security/manage-users/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-06-16T17:08:36-05:00","description":"Enable multi-user authentication in {{% product-name %}}, bootstrap the initial admin, and manage user login. User authentication is a preview feature.","headline":"Manage users and authentication","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/admin/security/manage-users/","name":"Manage users and authentication"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-06-16T22:28:58-04:00","description":"Enable multi-user authentication in {{% product-name %}}, bootstrap the initial admin, and manage user login. User authentication is a preview feature.","headline":"Manage users and authentication","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7356/influxdb3/enterprise/admin/security/manage-users/","name":"Manage users and authentication"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-16 17:08:36 -0500 -0500">
+<meta name="last-modified" content="2026-06-16 22:28:58 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -4804,7 +4804,7 @@ unaffected. Two known limitations apply:</p>
 <ul>
 <li><code>influxdb3 auth logout</code> removes local credentials but does <strong>not</strong> revoke the
 issued JWT server-side.</li>
-<li>A non-admin user can currently create tokens broader than their assigned role.</li>
+<li>A non-admin user can currently create tokens with broader permissions than their assigned role.</li>
 </ul>
 </div>
 <p>Multi-user authentication lets users log in to InfluxDB 3 Enterprise with
@@ -4818,6 +4818,17 @@ To enable it, start the server with <code>--without-user-auth false</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve --without-user-auth false</span></span></code></pre></div><p>For the complete list of authentication serve flags, see the
 <a href="/influxdb3/enterprise/reference/cli/influxdb3/serve/"><code>influxdb3 serve</code></a> CLI
 reference.</p>
+<h2 id="configure-jwt-signing-keys">Configure JWT signing keys</h2>
+<p>User authentication signs JWTs with an RSA private key that <strong>must be in PKCS#1 format</strong>. Generate a compatible key with the <code>-traditional</code> flag:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">openssl genrsa -traditional -out jwt-private-key.pem <span class="m">2048</span></span></span></code></pre></div>
+<div class="block warning">
+  
+  
+  <h4 id="use-pkcs1-keys-not-pkcs8">Use PKCS#1 keys, not PKCS#8</h4>
+<p>A PKCS#8 key (the default <code>openssl genrsa</code> output without <code>-traditional</code>)
+<strong>silently fails</strong> to sign tokens. Always generate the key with
+<code>openssl genrsa -traditional</code>.</p>
+</div>
 <h2 id="bootstrap-the-initial-admin">Bootstrap the initial admin</h2>
 <p>After enabling user authentication, create the initial admin user and operator
 token with <code>influxdb3 manage init-admin</code>:</p>
@@ -4836,18 +4847,6 @@ automatically.</p>
   <p><code>influxdb3 auth logout</code> removes the local credentials but does <strong>not</strong> revoke
 the issued JWT server-side. The token remains valid until it expires.</p>
 </div>
-<h2 id="configure-jwt-signing-keys">Configure JWT signing keys</h2>
-<p>User authentication signs JWTs with an RSA private key that <strong>must be in PKCS#1
-format</strong>. Generate a compatible key with the <code>-traditional</code> flag:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">openssl genrsa -traditional -out jwt-private-key.pem <span class="m">2048</span></span></span></code></pre></div>
-<div class="block warning">
-  
-  
-  <h4 id="use-pkcs1-keys-not-pkcs8">Use PKCS#1 keys, not PKCS#8</h4>
-<p>A PKCS#8 key (the default <code>openssl genrsa</code> output without <code>-traditional</code>)
-<strong>silently fails</strong> to sign tokens. Always generate the key with
-<code>openssl genrsa -traditional</code>.</p>
-</div>
 <h2 id="optional-authenticate-with-oauthoidc">Optional: Authenticate with OAuth/OIDC</h2>
 <p>You can optionally delegate authentication to an OAuth/OIDC identity provider
 using the <code>--oauth-*</code> serve flags (for example, <code>--oauth-issuer</code>,
@@ -4863,8 +4862,7 @@ For details on each role and the permissions model, see
 <div class="block note">
   
   
-  <p>Authoring custom roles is gated and incomplete in InfluxDB 3 Enterprise 3.10 and
-is not documented. Use the built-in roles.</p>
+  <p>Authoring custom roles is not available in InfluxDB 3.10. Use the built-in roles.</p>
 </div>
 
 
