@@ -91,35 +91,63 @@
 
     For more details, see [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
 
-- id: influxdb3-9-performance-preview
+- id: influxdb3-10-core-release
   level: note
   scope:
-    - /influxdb3/enterprise/
-  exclude:
-    - /influxdb3/enterprise/performance-preview/
-  title: 'InfluxDB 3.9: Performance upgrade preview'
+    - /influxdb3/core/
+  title: 'InfluxDB 3.10 is now available'
   slug: |
-    InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
-    with faster single-series queries, wide-and-sparse table support, and more.
+    InfluxDB 3 Core 3.10 adds catalog v3 migration, a configurable
+    query-concurrency limit, and processing engine improvements.
 
   message: |
-    InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
-    feature updates.
+    InfluxDB 3 Core 3.10 is now available.
 
-    **Key improvements:**
+    **Key updates:**
 
-    - Faster single-series queries
-    - Consistent resource usage
-    - Wide-and-sparse table support
-    - Automatic distinct value caches for reduced latency with metadata queries
+    - **Catalog v3**: the on-disk catalog migrates automatically on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
+    - **`--max-concurrent-queries`**: limit concurrent queries (adjustable at runtime).
+    - **`GET /ready` endpoint** for readiness probes.
+    - **Processing engine**: cross-database queries and trigger lockdown flags.
 
-    _Preview features are subject to breaking changes._
+    For more information, see the
+    [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/).
 
-    For more information, see:
+- id: influxdb3-10-enterprise-release
+  level: note
+  scope:
+    - /influxdb3/
+    - /influxdb3/enterprise/
+  exclude:
+    - /influxdb3/core/
+    - /influxdb3/explorer/
+    - /influxdb3/cloud-dedicated/
+    - /influxdb3/cloud-serverless/
+    - /influxdb3/clustered/
+  title: 'InfluxDB 3.10 is now available'
+  slug: |
+    InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
+    deletions, and user management, with catalog v3 migration and performance
+    preview improvements.
 
-    - [Performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-    - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
-    - [InfluxData Blog post](https://www.influxdata.com/blog/influxdb-3-9/)
+  message: |
+    InfluxDB 3 Enterprise 3.10 is now available.
+
+    **Key updates:**
+
+    - **Catalog v3**: the on-disk catalog migrates automatically on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
+    - **Automated backup and restore** (beta)
+    - **Row-level deletions**
+    - **User management** (authentication and RBAC) — preview
+    - **Performance preview improvements**
+
+    Backup and restore, row-level deletions, and the performance preview require
+    the Enterprise storage engine upgrade, available as an opt-in beta.
+    _Beta and preview features are subject to breaking changes and aren't
+    recommended for production use._
+
+    For more information, see the
+    [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
 - id: telegraf-enterprise-beta
   level: note
