@@ -3704,7 +3704,7 @@ paths:
       operationId: delete_user
       summary: Delete a user
       description: >-
-        Soft deletes a user. A user can delete their own account as long as
+        Soft deletes a user. A user can self-delete as long as
         they are not the last remaining user; the last user can only be deleted
         with an operator token. Deleting a user revokes all of that user's
         refresh tokens.
