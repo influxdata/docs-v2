@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7332/docs-v2/pr-preview/pr-7332/telegraf/controller/get-started/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"articleSection":"Get Started","dateModified":"2026-06-12T15:53:18-06:00","description":"Get started with Telegraf Controller by creating a configuration, generating an API token, starting a Telegraf agent, and verifying agent reporting.","headline":"Get started with Telegraf Controller","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/get-started/","name":"Get started with Telegraf Controller"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"articleSection":"Get Started","dateModified":"2026-06-16T21:54:22-06:00","description":"Get started with Telegraf Controller by creating a configuration, generating an API token, starting a Telegraf agent, and verifying agent reporting.","headline":"Get started with Telegraf Controller","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/get-started/","name":"Get started with Telegraf Controller"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-12 15:53:18 -0600 -0600">
+<meta name="last-modified" content="2026-06-16 21:54:22 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1464,7 +1464,7 @@ in the navigation bar.</p>
 <section class="code-tab-content"><!----------------------------- BEGIN LINUX/MACOS ----------------------------->
 <div class="highlight tc-dynamic-values" data-component="tc-dynamic-values"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">exec</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">commands</span> <span class="p">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;echo &#39;Telegraf started using configuration from Telegraf Controller&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;echo&#34;</span><span class="p">,</span> <span class="s2">&#34;Telegraf started using configuration from Telegraf Controller&#34;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;value&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">data_type</span> <span class="p">=</span> <span class="s2">&#34;string&#34;</span>
@@ -1491,7 +1491,7 @@ in the navigation bar.</p>
 <section class="code-tab-content"><!------------------------------- BEGIN WINDOWS ------------------------------->
 <div class="highlight tc-dynamic-values" data-component="tc-dynamic-values"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">exec</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">commands</span> <span class="p">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;cmd /C echo Telegraf started using configuration from Telegraf Controller&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;cmd&#34;</span><span class="p">,</span> <span class="s2">&#34;/C&#34;</span><span class="p">,</span> <span class="s2">&#34;echo Telegraf started using configuration from Telegraf Controller&#34;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;value&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">data_type</span> <span class="p">=</span> <span class="s2">&#34;string&#34;</span>
