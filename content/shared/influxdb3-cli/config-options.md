@@ -300,10 +300,10 @@ This option supports the following values:
 
 #### use-pacha-tree <span class="badge experimental">Experimental</span> {#use-pacha-tree}
 
-Enables the PachaTree storage engine.
+Enables the storage engine upgrade (performance upgrade preview).
 
 > [!Caution]
-> PachaTree is an experimental feature not for production use.
+> The storage engine upgrade is an experimental, opt-in preview not for production use.
 > It might not be compatible with other features and configuration options.
 
 **Default:** `false`
@@ -370,7 +370,17 @@ interactive license prompt. Provide one of the following license types:
 - [disable-authz](#disable-authz)
 - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [admin-token-file](#admin-token-file)
-  {{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file){{% /show-in %}}
+  {{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file)
+- [without-user-auth](#without-user-auth)
+- [jwt-key-id](#jwt-key-id)
+- [jwt-private-key](#jwt-private-key)
+- [jwt-issuer](#jwt-issuer)
+- [jwt-default-ttl-seconds](#jwt-default-ttl-seconds)
+- [oauth-issuer](#oauth-issuer)
+- [oauth-audience](#oauth-audience)
+- [oauth-client-id](#oauth-client-id)
+- [oauth-scopes](#oauth-scopes)
+- [rbac-authoring-disabled](#rbac-authoring-disabled){{% /show-in %}}
 
 #### tls-key
 
@@ -589,6 +599,131 @@ influxdb3 create token \
 # Start {{% product-name %}} using the generated token
 influxdb3 serve --permission-tokens-file ./path/to/tokens.json
 ```
+
+***
+
+#### without-user-auth
+
+Disables user authentication.
+Set to `false` to enable multi-user authentication, where users authenticate
+with a username and password to receive a JWT.
+
+> [!Note]
+> #### User authentication is a preview feature
+>
+> Multi-user authentication is available as a preview in {{% product-name %}}
+> 3.10 and is **off by default**. Existing `apiv3_` token workflows are
+> unaffected.
+
+**Default:** `true`
+
+| influxdb3 serve option | Environment variable          |
+| :--------------------- | :---------------------------- |
+| `--without-user-auth`  | `INFLUXDB3_WITHOUT_USER_AUTH` |
+
+***
+
+#### jwt-key-id
+
+RSA key ID used for signing JWTs for user authentication.
+Required together with [jwt-private-key](#jwt-private-key) to enable JWT authentication.
+
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--jwt-key-id`         | `INFLUXDB3_JWT_KEY_ID` |
+
+***
+
+#### jwt-private-key
+
+RSA private key (PEM) used for signing JWTs for user authentication.
+Required together with [jwt-key-id](#jwt-key-id) to enable JWT authentication.
+
+| influxdb3 serve option | Environment variable        |
+| :--------------------- | :-------------------------- |
+| `--jwt-private-key`    | `INFLUXDB3_JWT_PRIVATE_KEY` |
+
+***
+
+#### jwt-issuer
+
+Issuer claim for user authentication JWTs.
+
+**Default:** `influxdb3-enterprise`
+
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--jwt-issuer`         | `INFLUXDB3_JWT_ISSUER` |
+
+***
+
+#### jwt-default-ttl-seconds
+
+Default TTL (in seconds) for user authentication JWTs.
+
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--jwt-default-ttl-seconds` | `INFLUXDB3_JWT_DEFAULT_TTL_SECONDS` |
+
+***
+
+#### oauth-issuer
+
+OAuth issuer URL for validating OAuth tokens.
+Required together with [oauth-audience](#oauth-audience) to enable OAuth authentication.
+
+| influxdb3 serve option | Environment variable    |
+| :--------------------- | :---------------------- |
+| `--oauth-issuer`       | `INFLUXDB3_OAUTH_ISSUER` |
+
+***
+
+#### oauth-audience
+
+OAuth audience for validating OAuth tokens.
+Required together with [oauth-issuer](#oauth-issuer) to enable OAuth authentication.
+
+| influxdb3 serve option | Environment variable      |
+| :--------------------- | :------------------------ |
+| `--oauth-audience`     | `INFLUXDB3_OAUTH_AUDIENCE` |
+
+***
+
+#### oauth-client-id
+
+OAuth client ID for the device-code login flow.
+Required to enable `influxdb3 auth login --oauth`.
+
+| influxdb3 serve option | Environment variable       |
+| :--------------------- | :------------------------- |
+| `--oauth-client-id`    | `INFLUXDB3_OAUTH_CLIENT_ID` |
+
+***
+
+#### oauth-scopes
+
+OAuth scopes to request during device-code login (comma-separated).
+
+**Default:** `openid,offline_access`
+
+| influxdb3 serve option | Environment variable    |
+| :--------------------- | :---------------------- |
+| `--oauth-scopes`       | `INFLUXDB3_OAUTH_SCOPES` |
+
+***
+
+#### rbac-authoring-disabled
+
+Disables RBAC authoring (creating or modifying custom roles).
+Accepts `true` or `false`.
+
+<!-- TODO: Confirm the environment variable name and default value.
+This flag is recognized by the server but is not listed in
+`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
+
+| influxdb3 serve option      | Environment variable |
+| :-------------------------- | :------------------- |
+| `--rbac-authoring-disabled` |                      |
 
 ***
 
@@ -1763,6 +1898,8 @@ the following side-effects:
 - [plugin-repo](#plugin-repo)
 - [virtual-env-location](#virtual-env-location)
 - [package-manager](#package-manager)
+- [restrict-plugin-triggers-to](#restrict-plugin-triggers-to)
+  {{% show-in "enterprise" %}}- [plugin-dir-only](#plugin-dir-only){{% /show-in %}}
 
 #### plugin-dir
 
@@ -1882,6 +2019,17 @@ engine uses.
 
 #### package-manager
 
+> [!Caution]
+> #### Deprecated in {{% product-name %}} 3.10
+>
+> `--package-manager` is deprecated.
+> Python and `pip` are bundled with {{< product-name >}}, and `pip` is always
+> used for plugin dependency installation.
+> The server still starts if you set this option, but prints a deprecation
+> warning.
+> `disabled` continues to block plugin package installation API calls for
+> compatibility.
+
 Specifies the Python package manager that the Processing Engine uses to install plugin dependencies.
 
 This option supports the following values:
@@ -1926,6 +2074,32 @@ For more information about plugins and package management, see [Processing Engin
 | :--------------------- | :-------------------------- |
 | `--package-manager`    | `INFLUXDB3_PACKAGE_MANAGER` |
 
+***
+
+#### restrict-plugin-triggers-to
+
+Restrict plugin triggers to one or more trigger types.
+Provide one or more of `wal`, `schedule`, or `request`.
+
+| influxdb3 serve option          | Environment variable                    |
+| :------------------------------ | :-------------------------------------- |
+| `--restrict-plugin-triggers-to` | `INFLUXDB3_RESTRICT_PLUGIN_TRIGGERS_TO` |
+
+{{% show-in "enterprise" %}}
+
+***
+
+#### plugin-dir-only
+
+Only allow plugins that already exist in the configured plugin directory.
+Blocks plugin installation from any other source.
+
+| influxdb3 serve option | Environment variable        |
+| :--------------------- | :-------------------------- |
+| `--plugin-dir-only`    | `INFLUXDB3_PLUGIN_DIR_ONLY` |
+
+{{% /show-in %}}
+
 {{% show-in "enterprise" %}}
 
 ***
@@ -1935,6 +2109,7 @@ For more information about plugins and package management, see [Processing Engin
 - [replication-interval](#replication-interval)
 - [catalog-sync-interval](#catalog-sync-interval)
 - [wait-for-running-ingestor](#wait-for-running-ingestor)
+- [conn-info](#conn-info)
 
 #### replication-interval
 
@@ -1970,6 +2145,23 @@ Specifies how long to wait for a running ingestor during startup.
 | :---------------------------- | :----------------------------------------------- |
 | `--wait-for-running-ingestor` | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` |
 
+***
+
+#### conn-info
+
+In multi-node deployments, specifies the connection information used to reach
+the ingester over the internode gRPC port (not the HTTP port).
+Required for Processing Engine plugin writes from non-ingester nodes, and used
+together with the `--internode-bind-addr` option.
+
+<!-- TODO: Confirm the environment variable name and default value.
+This flag is recognized by the server but is not listed in
+`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--conn-info`          |                      |
+
 {{% /show-in %}}
 
 ***
@@ -1980,6 +2172,7 @@ Specifies how long to wait for a running ingestor during startup.
 
 - [num-cores](#num-cores)
   {{% /show-in %}}
+- [max-concurrent-queries](#max-concurrent-queries)
 - [datafusion-num-threads](#datafusion-num-threads)
 - *[num-io-threads](#num-io-threads) - See [Global configuration options](#global-configuration-options)*
   {{% show-in "enterprise" %}}
@@ -2025,6 +2218,21 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 | :--------------------- | :------------------------------- |
 | `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES` |
 | {{% /show-in %}}       |                                  |
+
+#### max-concurrent-queries
+
+Limits the number of queries that can run concurrently.
+You can also update the limit at runtime with
+`POST /api/v3/configure/query_concurrency_limit`.
+
+<!-- Environment variable not listed in `influxdb3 serve --help-all`
+(verified against 3.10.0-0.rc.2). Confirm before documenting. -->
+
+| influxdb3 serve option     | Environment variable |
+| :------------------------- | :------------------- |
+| `--max-concurrent-queries` |                      |
+
+***
 
 #### datafusion-num-threads
 
