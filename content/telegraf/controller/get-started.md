@@ -74,7 +74,7 @@ stdout and reports agent health back to {{% product-name %}}.
 ```toml { .tc-dynamic-values }
 [[inputs.exec]]
   commands = [
-    "echo 'Telegraf started using configuration from Telegraf Controller'"
+    ["echo", "Telegraf started using configuration from Telegraf Controller"]
   ]
   data_format = "value"
   data_type = "string"
@@ -105,7 +105,7 @@ stdout and reports agent health back to {{% product-name %}}.
 ```toml { .tc-dynamic-values }
 [[inputs.exec]]
   commands = [
-    "cmd /C echo Telegraf started using configuration from Telegraf Controller"
+    ["cmd", "/C", "echo Telegraf started using configuration from Telegraf Controller"]
   ]
   data_format = "value"
   data_type = "string"
