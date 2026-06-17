@@ -119,6 +119,11 @@ For comprehensive testing workflows, see [.claude/skills/content-editing/SKILL.m
 - Use appropriate shortcodes for UI elements
 - Follow Google Developer Documentation Style Guide
 - Use active voice, present tense, second person
+- Use data-ownership framing: when writing import/write/load guidance, point the
+  verb at the resource the user owns ("import your data into a database or
+  table"), not at the product ("import data into InfluxDB"). The user owns their
+  data in their own object storage; InfluxDB reads and writes it but doesn't take
+  custody of it.
 
 ## Most Common Shortcodes
 
