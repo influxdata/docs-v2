@@ -19,7 +19,7 @@ related:
 > #### RBAC is part of the user authentication preview
 >
 > Role-based access control applies to the multi-user authentication preview,
-> which is **off by default** in {{% product-name %}} 3.10. Existing `apiv3_`
+> which is **off by default** in {{% product-name %}}. Existing `apiv3_`
 > token workflows are unaffected. See
 > [Manage users and authentication](/influxdb3/enterprise/admin/security/manage-users/)
 > to enable the preview.
@@ -44,10 +44,10 @@ for the user-management workflow.
 
 ## Limitations
 
-RBAC has the following known limitations in {{% product-name %}} 3.10:
+RBAC has the following known limitations in {{% product-name %}}:
 
 - **Token scope can exceed role scope**: A non-admin user can currently create
   tokens with broader permissions than their assigned role.
 - **Custom roles aren't documented**: Authoring custom roles is double-gated
-  (behind a server flag and a CLI environment variable) and incomplete in 3.10.
+  (behind a server flag and a CLI environment variable) and incomplete.
   Use the built-in roles.
