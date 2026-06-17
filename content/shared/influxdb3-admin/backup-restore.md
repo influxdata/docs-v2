@@ -73,8 +73,8 @@ is enabled, {{% product-name %}} provides built-in `influxdb3` backup and restor
 commands. Before you use them, ensure the following:
 
 - The server is started with the `--use-pacha-tree` storage engine configuration flag.
-- You run the commands against a **compactor node**.
-- You authenticate with an **admin token**.
+- You run the commands against any node that acts as the **compactor**, including `mode=all`.
+- You authenticate with an **admin token** or as an **admin user**.
 
 > [!Note]
 > #### Availability and node-role requirements
@@ -82,10 +82,9 @@ commands. Before you use them, ensure the following:
 > - The backup and restore commands and endpoints are available **only when the
 >   storage engine upgrade is enabled**. On the default Parquet engine, the
 >   backup endpoints return `404`.
-> - Backup and restore run on a **compactor node** only. Query nodes return
+> - Backup and restore run on a node running **compaction**. Query-only nodes return
 >   `503` and ingest-only nodes return `404`.
-> - {{% product-name %}} 3.10 supports **full backups only**. Incremental backups
->   were removed before release; a request with `type=incremental` returns `400`.
+> - {{% product-name %}} 3.10 supports **full backups only**.
 
 The backup and restore subcommands map to the
 `/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
@@ -112,14 +111,7 @@ influxdb3 create backup
 A backup captures data already persisted to object storage. Writes still
 buffered in memory and not yet flushed to the
 [write-ahead log (WAL)](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence)
-aren't included. Persistence happens automatically--{{% product-name %}}
-flushes the WAL to object storage every second by default
-([`--wal-flush-interval`](/influxdb3/version/reference/config-options/#wal-flush-interval))
-and snapshots buffered data to Parquet based on the
-[`--gen1-duration`](/influxdb3/version/reference/config-options/#gen1-duration),
-[`--wal-snapshot-size`](/influxdb3/version/reference/config-options/#wal-snapshot-size),
-and [`--force-snapshot-mem-threshold`](/influxdb3/version/reference/config-options/#force-snapshot-mem-threshold)
-settings.
+aren't included.
 
 To minimize the window of unpersisted writes before a backup, use the default
 [`no_sync=false`](/influxdb3/version/write-data/http-api/v3-write-lp/#use-no_sync-for-immediate-write-responses)
