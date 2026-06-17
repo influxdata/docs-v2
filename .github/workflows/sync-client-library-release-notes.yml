@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       client:
-        description: 'Client to sync (python, go, javascript, csharp, java, or all)'
+        description: 'Client to sync (python, go, javascript, csharp, java, rust, or all)'
         required: true
         default: 'all'
         type: choice
@@ -18,6 +18,7 @@ on:
           - javascript
           - csharp
           - java
+          - rust
 
 permissions:
   contents: write
@@ -69,6 +70,14 @@ jobs:
         with:
           repository: InfluxCommunity/influxdb3-java
           path: sources/influxdb3-java
+          sparse-checkout: |
+            CHANGELOG.md
+
+      - name: Checkout influxdb3-rust
+        uses: actions/checkout@v6
+        with:
+          repository: InfluxCommunity/influxdb3-rust
+          path: sources/influxdb3-rust
           sparse-checkout: |
             CHANGELOG.md
 
@@ -127,6 +136,7 @@ jobs:
             echo '- https://github.com/InfluxCommunity/influxdb3-js/blob/main/CHANGELOG.md'
             echo '- https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/CHANGELOG.md'
             echo '- https://github.com/InfluxCommunity/influxdb3-java/blob/main/CHANGELOG.md'
+            echo '- https://github.com/InfluxCommunity/influxdb3-rust/blob/main/CHANGELOG.md'
             echo
             echo 'Changed files include body-only release notes under'
             echo '`content/shared/influxdb-client-libraries-reference/v3/release-notes/`'
