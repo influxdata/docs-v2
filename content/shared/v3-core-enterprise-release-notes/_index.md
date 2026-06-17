@@ -12,43 +12,53 @@
 
 #### Features
 
-- **Catalog v3**: InfluxDB 3.10 automatically migrates the on-disk catalog to a new format on first startup. The updated catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading — the migration is one-way and 3.9.x binaries cannot read the new catalog. ([#3752](https://github.com/influxdata/influxdb/pull/3752))
+- **Catalog v3**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.
 
-- **`influxdb3 debug catalog` command**: Inspect catalog state offline directly from object storage — no running server required. Subcommands: `list`, `snapshot`, `sequence`. ([#3670](https://github.com/influxdata/influxdb/pull/3670))
+- **`influxdb3 debug catalog` command**: Inspect catalog state offline directly from object storage — no running server required. Subcommands: `list`, `snapshot`, `sequence`. Available in both Core and Enterprise.
 
-- **`--max-concurrent-queries` flag**: Limit the number of queries that run concurrently. The limit can also be updated at runtime via `POST /api/v3/configure/query_concurrency_limit`. ([#2892](https://github.com/influxdata/influxdb/pull/2892))
+- **`--max-concurrent-queries` flag**: Limit the number of queries that run concurrently. The limit can also be updated at runtime via `POST /api/v3/configure/query_concurrency_limit`.
 
-- **Processing engine: cross-database queries**: Plugins can now read data from any database using the optional `database=` keyword argument on `influxdb3_local.query()`. ([#3192](https://github.com/influxdata/influxdb/pull/3192))
+- **Processing engine: cross-database queries**: Plugins can now read data from any database using the optional `database=` keyword argument on `influxdb3_local.query()`.
 
-- **Processing engine: trigger lockdown flags**: Two new serve flags restrict plugin behavior. `--restrict-plugin-triggers-to` limits triggers to one or more of `wal`, `schedule`, or `request`. `--plugin-dir-only` (Enterprise) blocks plugin installation from any source other than the configured plugin directory.  ([#3376](https://github.com/influxdata/influxdb/pull/3376), [#3293](https://github.com/influxdata/influxdb/pull/3293))
+- **Processing engine: trigger lockdown flags**: Two new serve flags restrict plugin behavior. `--restrict-plugin-triggers-to` limits triggers to one or more of `wal`, `schedule`, or `request`. `--plugin-dir-only` (Enterprise) blocks plugin installation from any source other than the configured plugin directory.
 
-- **`GET /ready` endpoint**: Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems. ([#3185](https://github.com/influxdata/influxdb/pull/3185))
+- **`GET /ready` endpoint**: Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems.
 
-- **Observability: always-on heap profiling**: Heap profiling is now enabled at startup with negligible overhead (~<1% CPU). Access profiles at the existing pprof endpoint. To disable, set `MALLOC_CONF=prof:false` before starting the server. ([#3322](https://github.com/influxdata/influxdb/pull/3322))
+- **Observability: always-on heap profiling**: Heap profiling is now enabled at startup with negligible overhead (~<1% CPU). Access profiles at the existing pprof endpoint. To disable, set `MALLOC_CONF=prof:false` before starting the server.
+
+- **Observability: 36 new compactor metrics**: 36 new `influxdb3_compactor_*` Prometheus metrics are now emitted. The primary health signal is `influxdb3_compactor_snapshot_lag_seconds`. A new `influxdb3_compaction_sequence_number` gauge tracks Parquet engine lag.
 
 - **Observability: per-request query traces**: Query tracing is now opt-in per request rather than enabled for all queries. This reduces trace volume for high-throughput deployments. See the monitoring documentation for how to enable tracing on individual requests.
 
-- **Embedded Python updated to 3.13.14**: The Processing engine's embedded Python is updated to 3.13.14, which includes upstream security fixes. ([#4137](https://github.com/influxdata/influxdb/pull/4137))
+- **Wide-tag support**: Tag IDs have been widened from u8 to u16. This raises the practical limit to thousands of tables and millions of columns per database.
+
+- **Embedded Python updated to 3.13.14**: The Processing engine's embedded Python is updated to 3.13.14, which includes upstream security fixes.
 
 #### Bug fixes
 
-- **`/api/v2/write` returns 403 for unauthorized tokens**: A valid token that lacks write permission on the target database now receives `403 Forbidden` instead of `401 Unauthorized`. Update client-side retry logic if it differentiates on these status codes. ([#3040](https://github.com/influxdata/influxdb/pull/3040))
+- **`/api/v2/write` returns 403 for unauthorized tokens**: A valid token that lacks write permission on the target database now receives `403 Forbidden` instead of `401 Unauthorized`. Update client-side retry logic if it differentiates on these status codes.
 
-- **Line-protocol parse errors return 400**: Malformed line protocol sent to the v1 `/write` or v2 `/api/v2/write` endpoints now returns `400 Bad Request` instead of `500 Internal Server Error`. ([#3598](https://github.com/influxdata/influxdb/pull/3598))
+- **Line-protocol parse errors return 400**: Malformed line protocol sent to the v1 `/write` or v2 `/api/v2/write` endpoints now returns `400 Bad Request` instead of `500 Internal Server Error`.
 
-- **Invalid queries return HTTP 4xx**: A syntactically invalid query now returns an appropriate 4xx response rather than a 5xx error. ([#3027](https://github.com/influxdata/influxdb/pull/3027))
+- **Invalid queries return HTTP 4xx**: A syntactically invalid query now returns an appropriate 4xx response rather than a 5xx error.
 
-- **Query log records `query_text` on terminal phases**: The query log now includes the `query_text` field for queries that have reached a terminal phase. ([#4071](https://github.com/influxdata/influxdb/pull/4071))
+- **Query log records `query_text` on terminal phases**: The query log now includes the `query_text` field for queries that have reached a terminal phase.
 
 #### Breaking changes
 
-- **Catalog v3 migration is one-way**: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading. ([#3752](https://github.com/influxdata/influxdb/pull/3752))
+- **Catalog v3 migration is one-way**: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading.
+
+- **`--pt-partition-count` renamed to `--pt-shard-count`**: The flag has no alias. Update any startup scripts that pass `--pt-partition-count` before upgrading to 3.10.
+
+- **System table columns renamed**: The following columns in storage engine system tables are renamed. Update any dashboards or queries that reference the old names:
+  - `partition_id` → `shard_id`
+  - `partition_start_time` → `shard_start_time`
 
 - **`influxdb3 write` output changed**: The write command now prints a throughput report on success instead of printing `success`. Scripts that parse the previous output should use `--quiet` (`-q`) to suppress all output.
 
-- **`/api/v2/write` returns 403 instead of 401**: See bug fixes above. Clients that treat 401 and 403 differently must be updated. ([#3040](https://github.com/influxdata/influxdb/pull/3040))
+- **`/api/v2/write` returns 403 instead of 401**: See bug fixes above. Clients that treat 401 and 403 differently must be updated.
 
-- **Line-protocol parse errors return 400 instead of 500**: See bug fixes above. ([#3598](https://github.com/influxdata/influxdb/pull/3598))
+- **Line-protocol parse errors return 400 instead of 500**: See bug fixes above.
 
 - **Heap profiling is always on**: The ~<1% CPU overhead is present by default. Opt out with `MALLOC_CONF=prof:false`.
 
@@ -135,8 +145,6 @@ All Core updates are included in Enterprise. The following updates are exclusive
 - **System table columns renamed**: The following columns in storage engine system tables are renamed. Update any dashboards or queries that reference the old names:
   - `partition_id` → `shard_id`
   - `partition_start_time` → `shard_start_time`
-  ([#3415](https://github.com/influxdata/influxdb/pull/3415))
-
 ---
 
 ### Known issues
