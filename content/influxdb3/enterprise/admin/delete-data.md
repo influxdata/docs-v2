@@ -91,7 +91,6 @@ SELECT * FROM system.row_deletes
 that report row-deletion activity in the compactor.
 
 > [!Note]
-> A dedicated system-tables reference is planned as a follow-up.
 > Until then, this guide documents the `system.row_deletes` table.
 
 ## Known issues
