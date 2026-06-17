@@ -35,8 +35,8 @@ Rows become queryable after the compactor processes them, not immediately after
 the upload completes.
 
 > [!Note]
-> Because imported data is queryable only after compaction, don't expect rows to
-> appear in query results immediately after `influxdb3 import upload` returns.
+> Because imported data is queryable only after compaction, expect a delay before
+> imported rows appear in query results after `influxdb3 import upload` returns.
 
 ## Import Parquet files
 
