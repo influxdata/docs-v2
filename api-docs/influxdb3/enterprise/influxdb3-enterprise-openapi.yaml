@@ -3519,7 +3519,7 @@ paths:
         Returns the permissions granted to the role with the specified ID.
 
 
-        Requires a token or user with permission to read roles.
+        Requires a token or user whose roles have permission to read roles.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3562,7 +3562,7 @@ paths:
         Returns the role with the specified name.
 
 
-        Requires a token or user with permission to read roles.
+        Requires a token or user whose roles have permission to read roles.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3658,7 +3658,7 @@ paths:
         display name can be updated.
 
 
-        Requires a token or user with permission to update users.
+        Requires a token or user whose roles have permission to update users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3710,7 +3710,7 @@ paths:
         refresh tokens.
 
 
-        Requires a token or user with permission to delete users.
+        Requires a token or user whose roles have permission to delete users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3761,7 +3761,7 @@ paths:
         a token.
 
 
-        Requires a token or user with permission to update users.
+        Requires a token or user whose roles have permission to update users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3806,7 +3806,7 @@ paths:
         Lists all roles assigned to the specified user.
 
 
-        Requires a token or user with permission to read users.
+        Requires a token or user whose roles have permission to read users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3849,7 +3849,7 @@ paths:
         user.
 
 
-        Requires a token or user with permission to update users.
+        Requires a token or user whose roles have permission to update users.
 
 
         This endpoint is only available in InfluxDB 3 Enterprise. User
@@ -3885,51 +3885,6 @@ paths:
           $ref: "#/components/responses/Forbidden"
         "404":
           description: Not found. No user exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-
-  /api/v3/users_by_oauth_id/{oauth_id}:
-    get:
-      operationId: get_user_by_oauth_id
-      summary: Get a user by OAuth identity-provider ID
-      description: >-
-        Returns the user associated with the specified OAuth identity-provider
-        ID. Requires the server to be configured with an OAuth validator.
-
-
-        Requires a token or user with permission to read users.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: oauth_id
-          in: path
-          required: true
-          description: The OAuth identity-provider ID of the user.
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Success. Returns the matching user.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: >-
-            Not found. No user matches the specified OAuth ID, or OAuth is not
-            configured on the server.
           content:
             application/json:
               schema:
