@@ -7,7 +7,7 @@ Complete development work by cleaning up ephemeral documents and preparing for m
 This skill handles the end of a development workflow:
 
 1. Reads the full contents of PLAN.md
-2. Preserves the plan as a PR comment, or promotes durable decision context to
+2. Summarizes the plan as a PR comment, or promotes durable decision context to
    `docs/exec-plans/`
 3. Removes ephemeral planning documents before the default-branch PR check runs
 4. Creates a cleanup commit
