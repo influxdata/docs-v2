@@ -1,8 +1,6 @@
 ---
 name: docs-cli-workflow
 description: Guides when to use docs create/edit CLI tools versus direct file editing for InfluxData documentation.
-author: InfluxData
-version: "1.0"
 ---
 
 # docs CLI Workflow Guidance

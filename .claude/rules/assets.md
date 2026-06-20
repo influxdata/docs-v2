@@ -1,5 +1,7 @@
 ---
-applyTo: "assets/js/**/*.js, assets/js/**/*.ts"
+paths:
+  - "assets/js/**/*.js"
+  - "assets/js/**/*.ts"
 ---
 
 <!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
@@ -9,7 +11,7 @@ applyTo: "assets/js/**/*.js, assets/js/**/*.ts"
 # JavaScript and TypeScript Guidelines
 
 **For detailed TypeScript and Hugo asset pipeline guidance**, see
-[.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
+[.github/agents/typescript-hugo-agent.md](../../.github/agents/typescript-hugo-agent.md)
 which covers:
 
 - TypeScript migration strategies
@@ -85,6 +87,6 @@ For complete JavaScript documentation, see
 ## Related Resources
 
 - **TypeScript & Hugo development**:
-  [.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
+  [.github/agents/typescript-hugo-agent.md](../../.github/agents/typescript-hugo-agent.md)
 - **Contributing guidelines**:
   [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui)

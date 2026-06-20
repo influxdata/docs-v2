@@ -85,6 +85,7 @@
     "build:api-docs:scripts": "tsc --project api-docs/scripts/tsconfig.json",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
+    "validate:agent-instructions": "node ./helper-scripts/validate-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
     "build:ts:watch": "tsc --project tsconfig.json --outDir dist --watch",
     "build:md": "node scripts/build-llm-markdown.js",

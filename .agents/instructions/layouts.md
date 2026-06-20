@@ -1,10 +1,9 @@
 ---
-applyTo: "layouts/**/*.html"
+name: layouts
+description: Instructions for Hugo layout, partial, and shortcode implementation.
+paths:
+  - "layouts/**/*.html"
 ---
-
-<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
-
-<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
 
 # Layout and Shortcode Implementation Guidelines
 
@@ -12,7 +11,7 @@ applyTo: "layouts/**/*.html"
 **Test examples**: [content/example.md](../../content/example.md)
 
 **For detailed Hugo template development workflow**, see
-[hugo-template-dev skill](../../.agents/skills/hugo-template-dev/SKILL.md) which covers:
+[hugo-template-dev skill](../skills/hugo-template-dev/SKILL.md) which covers:
 
 - Hugo template syntax and data access patterns
 - Build-time vs runtime testing strategies
@@ -77,7 +76,7 @@ documentation.
 ## Related Resources
 
 - **Complete Hugo template workflow**:
-  [hugo-template-dev skill](../../.agents/skills/hugo-template-dev/SKILL.md)
+  [hugo-template-dev skill](../skills/hugo-template-dev/SKILL.md)
 - **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - **Test examples**: [content/example.md](../../content/example.md)
 - **Article-level page actions** (buttons/links next to the page title — when

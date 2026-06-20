@@ -1,8 +1,6 @@
 ---
 name: hugo-template-dev
 description: Hugo template development skill for InfluxData docs-v2. Enforces proper build and runtime testing to catch template errors that build-only validation misses.
-author: InfluxData
-version: "1.2"
 ---
 
 # Hugo Template Development Skill
@@ -133,12 +131,12 @@ enhancement. Most JSON-LD this repo emits is **not** eligible, so the Rich
 Results Test reports "no items detected" even for valid markup — a false
 negative that looks like failure:
 
-| Emitted type          | Rich Results Test | Why |
-| --------------------- | ----------------- | --- |
-| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result |
+| Emitted type          | Rich Results Test | Why                                                                               |
+| --------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result                |
 | `TechArticle`         | Not reported      | Google's Article rich result fires only for `Article`/`NewsArticle`/`BlogPosting` |
-| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result |
-| `FAQPage`             | Reported          | One of the few eligible types here |
+| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result                               |
+| `FAQPage`             | Reported          | One of the few eligible types here                                                |
 
 `validator.schema.org` validates every schema.org type regardless of
 rich-result eligibility — that's what confirms the node is well-formed.

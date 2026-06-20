@@ -1,8 +1,6 @@
 ---
 name: content-editing
 description: "Create, edit, and validate InfluxData documentation. Manages Hugo shared content across InfluxDB products, runs Vale style linting and Hugo builds, validates frontmatter and code blocks, and fact-checks via the documentation MCP server. Use when creating new doc pages, editing markdown .md files, managing shared content, running Vale or Hugo builds, or testing InfluxDB, Telegraf, or Flux documentation."
-author: InfluxData
-version: "1.0"
 ---
 
 # Content Editing Workflow

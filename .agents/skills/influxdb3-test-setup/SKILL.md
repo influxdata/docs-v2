@@ -1,8 +1,6 @@
 ---
 name: influxdb3-test-setup
 description: Set up InfluxDB 3 Core and Enterprise instances for running documentation code block tests. Handles service initialization, worktree-specific databases, and test environment configuration.
-author: InfluxData
-version: "1.0"
 ---
 
 # InfluxDB 3 Test Setup Skill

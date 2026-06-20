@@ -1,8 +1,6 @@
 ---
 name: vale-rule-config
 description: Configure Vale style linting rules, write custom patterns, and manage CI/quality checks for InfluxData documentation
-author: InfluxData
-version: "1.0"
 ---
 
 # Vale Rule Configuration

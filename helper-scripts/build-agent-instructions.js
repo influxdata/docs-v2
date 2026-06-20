@@ -1,24 +1,262 @@
 #!/usr/bin/env node
 
 /**
- * Script to generate GitHub Copilot instructions
- * for InfluxData documentation.
+ * Script to generate agent instruction adapters for InfluxData documentation.
  */
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
-import { execSync } from 'child_process';
+import matter from 'gray-matter';
+import { pathToFileURL } from 'url';
 
-// Get the current file path and directory
-export { buildPlatformReference };
+export {
+  buildAgentInstructionAdapters,
+  buildPlatformReference,
+  ensureClaudeSkillsSymlink,
+};
 
-(async () => {
-  try {
-    await buildPlatformReference();
-  } catch (error) {
-    console.error('Error generating agent instructions:', error);
+const PROJECT_ROOT = process.cwd();
+const CANONICAL_INSTRUCTIONS_DIR = path.join(
+  PROJECT_ROOT,
+  '.agents',
+  'instructions'
+);
+const CANONICAL_SKILLS_DIR = path.join(PROJECT_ROOT, '.agents', 'skills');
+const CLAUDE_SKILLS_PATH = path.join(PROJECT_ROOT, '.claude', 'skills');
+const GENERATED_HEADER =
+  '<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->\n\n' +
+  "<!-- Run 'yarn build:agent:instructions' to regenerate it. -->\n\n";
+
+const SCOPED_AGENTS = [
+  { dir: 'api-docs', title: 'API Documentation' },
+  { dir: 'assets', title: 'Asset Development' },
+  { dir: 'content', title: 'Documentation Content' },
+  { dir: 'layouts', title: 'Hugo Layouts and Shortcodes' },
+];
+
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  (async () => {
+    try {
+      await buildPlatformReference();
+      await buildAgentInstructionAdapters();
+      ensureClaudeSkillsSymlink();
+    } catch (error) {
+      console.error('Error generating agent instructions:', error);
+      process.exitCode = 1;
+    }
+  })();
+}
+
+async function buildAgentInstructionAdapters() {
+  const instructions = readCanonicalInstructions();
+
+  fs.mkdirSync(path.join(PROJECT_ROOT, '.github', 'instructions'), {
+    recursive: true,
+  });
+  fs.mkdirSync(path.join(PROJECT_ROOT, '.claude', 'rules'), {
+    recursive: true,
+  });
+
+  for (const instruction of instructions) {
+    writeCopilotInstruction(instruction);
+    writeClaudeRule(instruction);
   }
-})();
+
+  writeScopedAgents(instructions);
+
+  console.log(`✅ Generated ${instructions.length} instruction adapter set(s)`);
+}
+
+function readCanonicalInstructions() {
+  if (!fs.existsSync(CANONICAL_INSTRUCTIONS_DIR)) {
+    return [];
+  }
+
+  const files = fs
+    .readdirSync(CANONICAL_INSTRUCTIONS_DIR)
+    .filter((file) => file.endsWith('.md'))
+    .sort();
+
+  return files.map((file) => {
+    const sourcePath = path.join(CANONICAL_INSTRUCTIONS_DIR, file);
+    const parsed = matter.read(sourcePath);
+    const { name, description, paths } = parsed.data;
+
+    const hasRequiredFields =
+      name && description && Array.isArray(paths) && paths.length > 0;
+
+    if (!hasRequiredFields) {
+      throw new Error(
+        `${path.relative(PROJECT_ROOT, sourcePath)} must define name, ` +
+          'description, and paths[]'
+      );
+    }
+
+    return {
+      body: parsed.content.trimStart(),
+      description,
+      name,
+      paths,
+      sourceDir: path.dirname(sourcePath),
+      sourcePath,
+    };
+  });
+}
+
+function writeCopilotInstruction(instruction) {
+  const outputPath = path.join(
+    PROJECT_ROOT,
+    '.github',
+    'instructions',
+    `${instruction.name}.instructions.md`
+  );
+  const frontmatter = [
+    '---',
+    `applyTo: "${instruction.paths.join(', ')}"`,
+    '---',
+    '',
+  ].join('\n');
+
+  writeGeneratedMarkdown(outputPath, instruction, frontmatter);
+}
+
+function writeClaudeRule(instruction) {
+  const outputPath = path.join(
+    PROJECT_ROOT,
+    '.claude',
+    'rules',
+    `${instruction.name}.md`
+  );
+  const frontmatter = [
+    '---',
+    'paths:',
+    ...instruction.paths.map((glob) => `  - "${glob}"`),
+    '---',
+    '',
+  ].join('\n');
+
+  writeGeneratedMarkdown(outputPath, instruction, frontmatter);
+}
+
+function writeGeneratedMarkdown(outputPath, instruction, frontmatter) {
+  const body = rewriteRelativeLinks(
+    instruction.body,
+    instruction.sourceDir,
+    path.dirname(outputPath)
+  );
+  fs.writeFileSync(outputPath, `${frontmatter}\n${GENERATED_HEADER}${body}`);
+}
+
+function writeScopedAgents(instructions) {
+  for (const scopedAgent of SCOPED_AGENTS) {
+    const matchingInstructions = instructions
+      .filter((instruction) =>
+        instruction.paths.some((glob) => glob.startsWith(`${scopedAgent.dir}/`))
+      )
+      .sort((a, b) => {
+        const aExact = a.name === scopedAgent.dir ? 0 : 1;
+        const bExact = b.name === scopedAgent.dir ? 0 : 1;
+        return aExact - bExact || a.name.localeCompare(b.name);
+      });
+
+    if (matchingInstructions.length === 0) continue;
+
+    const outputPath = path.join(PROJECT_ROOT, scopedAgent.dir, 'AGENTS.md');
+    const parts = [
+      GENERATED_HEADER.trimEnd(),
+      '',
+      `# ${scopedAgent.title} Agent Instructions`,
+      '',
+      `These instructions apply when working in \`${scopedAgent.dir}/\`.`,
+      '',
+    ];
+
+    for (const instruction of matchingInstructions) {
+      parts.push(
+        demoteHeadings(
+          rewriteRelativeLinks(
+            instruction.body,
+            instruction.sourceDir,
+            path.dirname(outputPath)
+          )
+        ),
+        ''
+      );
+    }
+
+    fs.writeFileSync(outputPath, parts.join('\n').trimEnd() + '\n');
+  }
+}
+
+function demoteHeadings(markdown) {
+  let inFence = false;
+
+  return markdown
+    .split('\n')
+    .map((line) => {
+      if (/^```/.test(line) || /^````/.test(line)) {
+        inFence = !inFence;
+        return line;
+      }
+
+      if (inFence) return line;
+      return line.replace(/^(#{1,5}) /, '#$1 ');
+    })
+    .join('\n');
+}
+
+function rewriteRelativeLinks(markdown, sourceDir, targetDir) {
+  return markdown.replace(
+    /\]\((?![a-z][a-z0-9+.-]*:|#|\/)([^)]+)\)/gi,
+    (match, rawTarget) => {
+      const [targetAndMaybeTitle, ...titleParts] = rawTarget.split(/\s+/);
+      const [targetPath, hash = ''] = targetAndMaybeTitle.split('#');
+
+      if (!targetPath || targetPath.startsWith('<')) {
+        return match;
+      }
+
+      const absoluteTarget = path.resolve(sourceDir, targetPath);
+      let relativeTarget = path.relative(targetDir, absoluteTarget);
+
+      if (!relativeTarget.startsWith('.')) {
+        relativeTarget = `./${relativeTarget}`;
+      }
+
+      relativeTarget = relativeTarget.split(path.sep).join('/');
+      const title = titleParts.length > 0 ? ` ${titleParts.join(' ')}` : '';
+      return `](${relativeTarget}${hash ? `#${hash}` : ''}${title})`;
+    }
+  );
+}
+
+function ensureClaudeSkillsSymlink() {
+  const expectedTarget = path.relative(
+    path.dirname(CLAUDE_SKILLS_PATH),
+    CANONICAL_SKILLS_DIR
+  );
+
+  if (!fs.existsSync(CANONICAL_SKILLS_DIR)) {
+    console.warn('⚠️  .agents/skills does not exist; skipping Claude symlink');
+    return;
+  }
+
+  if (fs.existsSync(CLAUDE_SKILLS_PATH)) {
+    const stat = fs.lstatSync(CLAUDE_SKILLS_PATH);
+
+    if (!stat.isSymbolicLink()) {
+      throw new Error('.claude/skills must be a symlink to ../.agents/skills');
+    }
+
+    const actualTarget = fs.readlinkSync(CLAUDE_SKILLS_PATH);
+    if (actualTarget !== expectedTarget) {
+      fs.unlinkSync(CLAUDE_SKILLS_PATH);
+      fs.symlinkSync(expectedTarget, CLAUDE_SKILLS_PATH, 'dir');
+    }
+  } else {
+    fs.symlinkSync(expectedTarget, CLAUDE_SKILLS_PATH, 'dir');
+  }
+}
 
 /**
  * Build PLATFORM_REFERENCE.md from data/products.yml
@@ -37,12 +275,16 @@ async function buildPlatformReference() {
   const products = yaml.load(productsContent);
 
   // Generate markdown content
-  let content = `<!-- This file is auto-generated from data/products.yml. Do not edit directly. -->
-<!-- Run 'npm run build:agent:instructions' to regenerate this file. -->
-
-Use the following information to help determine which InfluxDB version and product the user is asking about:
-
-`;
+  let content = [
+    '<!-- This file is auto-generated from data/products.yml. Do not edit directly. -->',
+    '',
+    "<!-- Run 'npm run build:agent:instructions' to regenerate this file. -->",
+    '',
+    'Use the following information to help determine which InfluxDB version and',
+    'product the user is asking about:',
+    '',
+    '',
+  ].join('\n');
 
   // Define product order
   const productOrder = [
@@ -77,12 +319,12 @@ Use the following information to help determine which InfluxDB version and produ
               ? `${product.name} OSS ${version}`
               : `${product.name} ${version}`;
 
-        content += `${versionName}:\n`;
+        content += `${versionName}:\n\n`;
 
         // Documentation URL
         const docUrl = generateDocUrlForVersion(productKey, product, version);
         if (docUrl) {
-          content += `  - Documentation: ${docUrl}\n`;
+          content += `- Documentation: <${docUrl}>\n`;
         }
 
         // Query languages
@@ -90,25 +332,25 @@ Use the following information to help determine which InfluxDB version and produ
           const languages = Object.keys(
             product.detector_config.query_languages
           ).join(' and ');
-          content += `  - Query languages: ${languages}\n`;
+          content += `- Query languages: ${languages}\n`;
         }
 
         // Clients/Tools
-        const clients = generateClientsInfo(productKey, product);
+        const clients = generateClientsInfo(productKey);
         if (clients) {
-          content += `  - Clients: ${clients}\n`;
+          content += `- Clients: ${clients}\n`;
         }
 
         content += '\n';
       }
     } else {
       // Single version products
-      content += `${product.name}:\n`;
+      content += `${product.name}:\n\n`;
 
       // Documentation URL
       const docUrl = generateDocUrl(productKey, product);
       if (docUrl) {
-        content += `  - Documentation: ${docUrl}\n`;
+        content += `- Documentation: <${docUrl}>\n`;
       }
 
       // Query languages
@@ -116,13 +358,13 @@ Use the following information to help determine which InfluxDB version and produ
         const languages = Object.keys(
           product.detector_config.query_languages
         ).join(' and ');
-        content += `  - Query languages: ${languages}\n`;
+        content += `- Query languages: ${languages}\n`;
       }
 
       // Clients/Tools
-      const clients = generateClientsInfo(productKey, product);
+      const clients = generateClientsInfo(productKey);
       if (clients) {
-        content += `  - Clients: ${clients}\n`;
+        content += `- Clients: ${clients}\n`;
       }
 
       content += '\n';
@@ -137,19 +379,6 @@ Use the following information to help determine which InfluxDB version and produ
   console.log(
     `✅ Generated platform reference at ${referencePath} (${sizeInKB}KB)`
   );
-
-  // Add the file to git if it has changed
-  try {
-    const gitStatus = execSync(
-      `git status --porcelain "${referencePath}"`
-    ).toString();
-    if (gitStatus.trim()) {
-      execSync(`git add "${referencePath}"`);
-      console.log('✅ Added platform reference to git staging');
-    }
-  } catch (error) {
-    console.warn('⚠️  Could not add file to git:', error.message);
-  }
 }
 
 /**
@@ -209,7 +438,7 @@ function generateDocUrlForVersion(productKey, product, version) {
 /**
  * Generate client/tool information for a product
  */
-function generateClientsInfo(productKey, product) {
+function generateClientsInfo(productKey) {
   const v3Products = [
     'influxdb3_core',
     'influxdb3_enterprise',

@@ -1,18 +1,22 @@
 # Instructions for InfluxData Documentation
 
+@AGENTS.md
+
 > **For Claude with MCP**
 >
-> This is a lightweight pointer file for Claude. For comprehensive instructions, see the files referenced below.
->
+> This is a lightweight pointer file for Claude.
+> Shared project instructions are imported from `AGENTS.md` above.
 > **Full instruction resources**:
 >
 > - [.github/copilot-instructions.md](.github/copilot-instructions.md) - For GitHub Copilot (technical setup, automation)
 > - [AGENTS.md](AGENTS.md) - Shared project guidelines (style, constraints, content structure)
+> - [.agents/](.agents/) - Canonical agent skills and path-specific instructions
 > - [.github/LABEL\_GUIDE.md](.github/LABEL_GUIDE.md) - Label taxonomy and pipeline usage
 > - [.claude/](.claude/) - Claude MCP configuration directory with:
 >   - Custom commands in `.claude/commands/`
 >   - Specialized agents in `.claude/agents/`
->   - Custom skills in `.claude/skills/`
+>   - Path rules in `.claude/rules/`
+>   - Skills adapter at `.claude/skills` (symlink to `.agents/skills`)
 
 ## Documentation MCP server
 
@@ -22,7 +26,7 @@ Use it to verify technical accuracy, check API syntax, and find related docs.
 - **`influxdb-docs`** — API key auth. Set `INFLUXDATA_DOCS_KAPA_API_KEY` env var before launching Claude Code.
 - **`influxdb-docs-oauth`** — OAuth fallback. No setup needed.
 
-See [content-editing skill](.claude/skills/content-editing/SKILL.md#part-4-fact-checking-with-the-documentation-mcp-server) for usage details.
+See [content-editing skill](.agents/skills/content-editing/SKILL.md#part-4-fact-checking-with-the-documentation-mcp-server) for usage details.
 
 ## Purpose and scope
 
@@ -50,6 +54,15 @@ testing, link validation, style linting, and advanced testing procedures.
 
 See @api-docs/README.md for information about the API reference documentation, how to
 generate it, and how to contribute to it.
+
+## Agent instructions and skills
+
+Edit canonical skills in `.agents/skills/`.
+Claude discovers them through the `.claude/skills` symlink.
+
+Edit canonical path-specific guidance in `.agents/instructions/`.
+Run `yarn build:agent:instructions` to regenerate `.claude/rules/` and other
+agent harness adapters.
 
 ## Design docs and implementation plans (superpowers skills)
 

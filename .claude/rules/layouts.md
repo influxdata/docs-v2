@@ -1,5 +1,6 @@
 ---
-applyTo: "layouts/**/*.html"
+paths:
+  - "layouts/**/*.html"
 ---
 
 <!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
