@@ -1,0 +1,28 @@
+name: Block ephemeral planning docs
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  block-ephemeral-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Fail if ephemeral planning docs would merge
+        run: |
+          found=0
+
+          for file in PLAN.md HANDOVER.md; do
+            if [ -e "$file" ]; then
+              echo "::error file=$file::$file is allowed on feature branches but must be removed or promoted before merging to the default branch."
+              found=1
+            fi
+          done
+
+          exit "$found"
