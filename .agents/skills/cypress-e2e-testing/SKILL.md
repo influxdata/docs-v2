@@ -1,6 +1,6 @@
 ---
 name: cypress-e2e-testing
-description: Run, validate, and analyze Cypress E2E tests for the InfluxData documentation site. Covers Hugo server management, test execution modes, and failure analysis.
+description: "Run, validate, and analyze Cypress E2E tests for the InfluxData documentation site. Covers Hugo server management, test execution modes, and failure analysis. Use when writing or running Cypress tests, verifying rendered pages, checking JSON-LD/structured data, or debugging E2E failures after template, layout, or content changes."
 ---
 
 # Cypress E2E Testing Skill

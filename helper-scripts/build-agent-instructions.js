@@ -403,8 +403,7 @@ function getProductAliases(product, version) {
   }
 
   return [...aliases].filter(
-    (alias) =>
-      alias && alias !== getProductDisplayName(product, version)
+    (alias) => alias && alias !== getProductDisplayName(product, version)
   );
 }
 

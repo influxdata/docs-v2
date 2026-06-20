@@ -1250,7 +1250,7 @@ async function executePhase(options) {
     log('  1. Review generated frontmatter and content');
     log('  2. Test locally: npx hugo server');
     log(
-      `  3. Test links: yarn test:links ${result.created[0].replace(/\/[^/]+$/, '/')}**/*.md`
+      `  3. Test links: link-checker map ${result.created[0].replace(/\/[^/]+$/, '/')}**/*.md | xargs link-checker check`
     );
     log('  4. Commit changes: git add content/ && git commit');
 

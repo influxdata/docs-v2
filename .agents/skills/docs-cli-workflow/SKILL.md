@@ -1,6 +1,6 @@
 ---
 name: docs-cli-workflow
-description: Guides when to use docs create/edit CLI tools versus direct file editing for InfluxData documentation.
+description: "Guides when to use the docs create/edit CLI tools versus direct file editing for InfluxData documentation. Use when deciding whether to scaffold new pages with docs create, open existing pages with docs edit, or edit Markdown files directly."
 ---
 
 # docs CLI Workflow Guidance
@@ -102,12 +102,12 @@ Which do you prefer?
 
 ## Edge Cases
 
-| Situation                           | Behavior                                                 |
-| ----------------------------------- | -------------------------------------------------------- |
-| Already in a `docs create` workflow | Don't re-suggest                                         |
-| URL points to non-existent page     | Suggest `docs create --url <url>` instead of `docs edit` |
-| User provides both URL and draft    | Suggest `docs create --url <url> --from-draft <draft>`   |
-| User declines CLI twice in session  | Stop suggesting, respect preference                      |
+| Situation                           | Behavior                                                                                                 |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Already in a `docs create` workflow | Don't re-suggest                                                                                         |
+| URL points to non-existent page     | Suggest creating a draft, then run `docs create --url <url> --from-draft <draft>` instead of `docs edit` |
+| User provides both URL and draft    | Suggest `docs create --url <url> --from-draft <draft>`                                                   |
+| User declines CLI twice in session  | Stop suggesting, respect preference                                                                      |
 
 ## After User Confirms
 

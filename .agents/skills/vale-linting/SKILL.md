@@ -1,6 +1,6 @@
 ---
 name: vale-linting
-description: Vale style linting workflow for InfluxData documentation. Covers running Vale, understanding rules, adding vocabulary, and creating custom rules.
+description: "Run, debug, and maintain Vale style linting for InfluxData documentation: run Vale, interpret alerts, manage vocabulary, configure product-specific .vale.ini files, and understand which rules are enabled and why. Use when running Vale, investigating or fixing Vale warnings, adding accept/ignore vocabulary terms, or setting up a product config. To author custom rule patterns and regex, see vale-rule-config."
 ---
 
 # Vale Style Linting Workflow
@@ -169,6 +169,11 @@ deadman
 | Variable name appearing in prose        | `ignore.txt` |
 
 ## Part 4: Creating Custom Rules
+
+> This section covers where rules live in this repo and shows two real
+> examples. For the rule-authoring deep dive — rule types, the regexp2 engine,
+> PCRE lookarounds, and testing patterns in isolation — use the
+> **vale-rule-config** skill.
 
 ### Rule File Location
 

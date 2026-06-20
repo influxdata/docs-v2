@@ -110,10 +110,10 @@ weight:      # Sort order (1-99, 101-199, 201-299...)
 
 ```bash
 # 1. Verify Hugo build
-hugo --quiet
+npx hugo --quiet
 
-# 2. Validate links
-yarn test:links
+# 2. Validate links (build first; see DOCS-TESTING.md)
+link-checker map content/path/*.md | xargs link-checker check
 
 # 3. Test code blocks (if applicable)
 yarn test:codeblocks:all
