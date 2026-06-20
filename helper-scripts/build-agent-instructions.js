@@ -260,33 +260,14 @@ function ensureClaudeSkillsSymlink() {
 
 /**
  * Build PLATFORM_REFERENCE.md from data/products.yml
- * This generates a reference document for AI agents to understand
- * the different InfluxDB versions and products
+ * This generates a compact product disambiguation reference for AI agents using
+ * canonical product metadata only.
  */
 async function buildPlatformReference() {
   const yaml = await import('js-yaml');
-
-  // Paths
-  const productsPath = path.join(process.cwd(), 'data', 'products.yml');
-  const referencePath = path.join(process.cwd(), 'PLATFORM_REFERENCE.md');
-
-  // Read and parse the products.yml file
-  const productsContent = fs.readFileSync(productsPath, 'utf8');
-  const products = yaml.load(productsContent);
-
-  // Generate markdown content
-  let content = [
-    '<!-- This file is auto-generated from data/products.yml. Do not edit directly. -->',
-    '',
-    "<!-- Run 'npm run build:agent:instructions' to regenerate this file. -->",
-    '',
-    'Use the following information to help determine which InfluxDB version and',
-    'product the user is asking about:',
-    '',
-    '',
-  ].join('\n');
-
-  // Define product order
+  const productsPath = path.join(PROJECT_ROOT, 'data', 'products.yml');
+  const referencePath = path.join(PROJECT_ROOT, 'PLATFORM_REFERENCE.md');
+  const products = yaml.load(fs.readFileSync(productsPath, 'utf8'));
   const productOrder = [
     'influxdb',
     'enterprise_influxdb',
@@ -303,77 +284,39 @@ async function buildPlatformReference() {
     'flux',
   ];
 
-  // Process each product in order
+  const lines = [
+    '<!-- This file is auto-generated from data/products.yml. Do not edit directly. -->',
+    '',
+    "<!-- Run 'yarn build:agent:instructions' to regenerate this file. -->",
+    '',
+    'Use this compact product disambiguation reference to map user requests to',
+    'canonical product names, content paths, and production documentation URLs.',
+    '',
+    'Production docs URL rule:',
+    '- For each entry with a `Content path`, map it to',
+    '  `https://docs.influxdata.com/<content-path>/`.',
+    '- Treat `data/products.yml` as the canonical source of truth when you need',
+    '  details not listed here.',
+    '',
+  ];
+
   for (const productKey of productOrder) {
     const product = products[productKey];
     if (!product) continue;
 
-    // Handle products with multiple versions (like influxdb with v1 and v2)
     if (product.versions && product.versions.length > 1) {
-      // Generate entries for each version
       for (const version of product.versions) {
-        const versionName =
-          version === 'v2'
-            ? `${product.name} OSS ${version}`
-            : version === 'v1'
-              ? `${product.name} OSS ${version}`
-              : `${product.name} ${version}`;
-
-        content += `${versionName}:\n\n`;
-
-        // Documentation URL
-        const docUrl = generateDocUrlForVersion(productKey, product, version);
-        if (docUrl) {
-          content += `- Documentation: <${docUrl}>\n`;
-        }
-
-        // Query languages
-        if (product.detector_config?.query_languages) {
-          const languages = Object.keys(
-            product.detector_config.query_languages
-          ).join(' and ');
-          content += `- Query languages: ${languages}\n`;
-        }
-
-        // Clients/Tools
-        const clients = generateClientsInfo(productKey);
-        if (clients) {
-          content += `- Clients: ${clients}\n`;
-        }
-
-        content += '\n';
+        lines.push(
+          ...renderProductReferenceEntry(productKey, product, version)
+        );
       }
     } else {
-      // Single version products
-      content += `${product.name}:\n\n`;
-
-      // Documentation URL
-      const docUrl = generateDocUrl(productKey, product);
-      if (docUrl) {
-        content += `- Documentation: <${docUrl}>\n`;
-      }
-
-      // Query languages
-      if (product.detector_config?.query_languages) {
-        const languages = Object.keys(
-          product.detector_config.query_languages
-        ).join(' and ');
-        content += `- Query languages: ${languages}\n`;
-      }
-
-      // Clients/Tools
-      const clients = generateClientsInfo(productKey);
-      if (clients) {
-        content += `- Clients: ${clients}\n`;
-      }
-
-      content += '\n';
+      lines.push(...renderProductReferenceEntry(productKey, product));
     }
   }
 
+  let content = `${lines.join('\n')}\n`;
   content = content.replace(/\n+$/, '\n');
-
-  // Write the file
   fs.writeFileSync(referencePath, content);
 
   const fileSize = fs.statSync(referencePath).size;
@@ -383,86 +326,125 @@ async function buildPlatformReference() {
   );
 }
 
-/**
- * Generate documentation URL for a product
- */
-function generateDocUrl(productKey, product) {
-  const baseUrl = 'https://docs.influxdata.com';
+function renderProductReferenceEntry(productKey, product, version = null) {
+  const lines = [];
+  const displayName = getProductDisplayName(product, version);
+  const aliases = getProductAliases(product, version);
+  const contentPath = getContentPath(product, version);
+  const queryLanguages = getQueryLanguages(product);
+  const placeholderHost = product.placeholder_host;
+  const characteristics = getCharacteristics(product);
+  const urlHints = getDetectionUrlHints(product);
+  const pingHeaders = getPingHeaders(product);
 
-  switch (productKey) {
-    case 'influxdb':
-      return `${baseUrl}/influxdb/${product.latest}/`;
-    case 'enterprise_influxdb':
-      return `${baseUrl}/enterprise_influxdb/${product.latest}/`;
-    case 'influxdb_cloud':
-      return `${baseUrl}/influxdb/cloud/`;
-    case 'influxdb3_cloud_serverless':
-      return `${baseUrl}/influxdb3/cloud-serverless/`;
-    case 'influxdb3_cloud_dedicated':
-      return `${baseUrl}/influxdb3/cloud-dedicated/`;
-    case 'influxdb3_clustered':
-      return `${baseUrl}/influxdb3/clustered/`;
-    case 'influxdb3_core':
-      return `${baseUrl}/influxdb3/core/`;
-    case 'influxdb3_enterprise':
-      return `${baseUrl}/influxdb3/enterprise/`;
-    case 'influxdb3_explorer':
-      return `${baseUrl}/influxdb3/explorer/`;
-    case 'telegraf':
-      return `${baseUrl}/telegraf/${product.latest}/`;
-    case 'chronograf':
-      return `${baseUrl}/chronograf/${product.latest}/`;
-    case 'kapacitor':
-      return `${baseUrl}/kapacitor/${product.latest}/`;
-    case 'flux':
-      return `${baseUrl}/flux/${product.latest}/`;
-    default:
-      return null;
+  lines.push(`${displayName}:`, '');
+
+  if (aliases.length > 0) {
+    lines.push(`- Aliases: ${aliases.join(', ')}`);
   }
+
+  if (contentPath) {
+    lines.push(`- Content path: \`${contentPath}\``);
+    lines.push(
+      `- Production docs URL: <${buildDocsUrlFromContentPath(contentPath)}>`
+    );
+  }
+
+  if (queryLanguages.length > 0) {
+    lines.push(`- Query languages: ${queryLanguages.join(', ')}`);
+  }
+
+  if (placeholderHost) {
+    lines.push(`- Host hint: \`${placeholderHost}\``);
+  }
+
+  if (characteristics.length > 0) {
+    lines.push(`- Characteristics: ${characteristics.join(', ')}`);
+  }
+
+  if (urlHints.length > 0) {
+    lines.push(`- URL contains hints: ${urlHints.join(', ')}`);
+  }
+
+  if (pingHeaders.length > 0) {
+    lines.push(`- Ping header hints: ${pingHeaders.join(', ')}`);
+  }
+
+  lines.push('');
+  return lines;
 }
 
-/**
- * Generate documentation URL for a specific version of a product
- */
-function generateDocUrlForVersion(productKey, product, version) {
+function buildDocsUrlFromContentPath(contentPath) {
   const baseUrl = 'https://docs.influxdata.com';
-
-  switch (productKey) {
-    case 'influxdb':
-      return `${baseUrl}/influxdb/${version}/`;
-    case 'enterprise_influxdb':
-      return `${baseUrl}/enterprise_influxdb/${version}/`;
-    default:
-      return generateDocUrl(productKey, product);
-  }
+  return `${baseUrl}/${contentPath.replace(/^\/+|\/+$/g, '')}/`;
 }
 
-/**
- * Generate client/tool information for a product
- */
-function generateClientsInfo(productKey) {
-  const v3Products = [
-    'influxdb3_core',
-    'influxdb3_enterprise',
-    'influxdb3_cloud_dedicated',
-    'influxdb3_cloud_serverless',
-    'influxdb3_clustered',
-  ];
+function getProductDisplayName(product, version) {
+  if (version && product[`name__${version}`]) {
+    return product[`name__${version}`];
+  }
 
-  if (productKey === 'influxdb3_core') {
-    return 'Telegraf, influxdb3 CLI, v3 client libraries, InfluxDB 3 Explorer';
-  } else if (productKey === 'influxdb3_enterprise') {
-    return 'Telegraf, influxdb3 CLI, v3 client libraries, InfluxDB 3 Explorer';
-  } else if (v3Products.includes(productKey)) {
-    return 'Telegraf, influxctl CLI, v3 client libraries';
-  } else if (
-    productKey === 'influxdb' ||
-    productKey === 'enterprise_influxdb'
-  ) {
-    return 'Telegraf, influx CLI, v1/v2 client libraries';
-  } else if (productKey === 'influxdb_cloud') {
-    return 'Telegraf, influx CLI, v2 client libraries';
+  return product.name;
+}
+
+function getProductAliases(product, version) {
+  const aliases = new Set();
+
+  if (product.altname) {
+    aliases.add(product.altname);
+  }
+
+  if (version && product.version_label) {
+    aliases.add(product.version_label);
+  }
+
+  if (version) {
+    aliases.add(version);
+  }
+
+  return [...aliases].filter(
+    (alias) =>
+      alias && alias !== getProductDisplayName(product, version)
+  );
+}
+
+function getContentPath(product, version) {
+  if (!product.content_path) return null;
+
+  if (typeof product.content_path === 'string') {
+    return product.content_path;
+  }
+
+  if (version && product.content_path[version]) {
+    return product.content_path[version];
   }
 
   return null;
+}
+
+function getQueryLanguages(product) {
+  return Object.keys(product.detector_config?.query_languages || {});
+}
+
+function getCharacteristics(product) {
+  const characteristics = product.detector_config?.characteristics;
+  if (!Array.isArray(characteristics)) return [];
+
+  if (characteristics.length === 1 && Array.isArray(characteristics[0])) {
+    return characteristics[0];
+  }
+
+  return characteristics;
+}
+
+function getDetectionUrlHints(product) {
+  const urlHints = product.detector_config?.detection?.url_contains;
+  return Array.isArray(urlHints) ? urlHints : [];
+}
+
+function getPingHeaders(product) {
+  const headers = product.detector_config?.detection?.ping_headers;
+  if (!headers || typeof headers !== 'object') return [];
+
+  return Object.entries(headers).map(([name, value]) => `${name}=${value}`);
 }
