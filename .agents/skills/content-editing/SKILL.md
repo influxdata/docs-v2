@@ -115,7 +115,7 @@ import matter from 'gray-matter';
 function isSharedContent(filePath) {
   const content = readFileSync(filePath, 'utf8');
   const { data, content: body } = matter(content);
-  
+
   // If has source: frontmatter and minimal/no body content
   return data.source && body.trim().length < 50;
 }
