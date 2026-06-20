@@ -1,6 +1,6 @@
 # Agent harness instructions and skills migration
 
-**Status:** Planned — not implemented
+**Status:** Implemented on `chore/agent-instructions-skills-plan`
 
 ## Goal
 
@@ -54,37 +54,34 @@ This makes `.agents/` a reasonable canonical authoring location.
   can later be packaged for `influxdata/docs-tooling`, but do not build the
   plugin in this pass.
 
-## Implementation plan
+## Implementation status
 
-1. Move current `.claude/skills/*` directories to `.agents/skills/*`.
-2. Replace `.claude/skills` with a symlink to `../.agents/skills`.
-3. Normalize canonical skill frontmatter to the shared subset:
-   `name` and `description`.
-4. Create `.agents/instructions/*.md` as canonical path instruction sources.
-   Include frontmatter fields:
-   - `name`
-   - `description`
-   - `paths`
-5. Migrate the current `.github/instructions/*.instructions.md` bodies into the
-   canonical `.agents/instructions` files.
-6. Extend `helper-scripts/build-agent-instructions.js` so it:
+Completed in this branch:
+
+1. Moved project skills from `.claude/skills/*` to `.agents/skills/*`.
+2. Replaced `.claude/skills` with a symlink to `../.agents/skills`.
+3. Created canonical path instruction sources in `.agents/instructions/` with
+   `name`, `description`, and `paths` frontmatter.
+4. Migrated current `.github/instructions/*.instructions.md` content into the
+   canonical `.agents/instructions/*.md` files.
+5. Extended `helper-scripts/build-agent-instructions.js` so it:
    - keeps generating `PLATFORM_REFERENCE.md` from `data/products.yml`;
    - generates `.github/instructions/{name}.instructions.md` with `applyTo`;
-   - generates `.claude/rules/{name}.md` with `paths`;
-   - generates scoped `AGENTS.md` files for major directory roots;
-   - verifies or repairs the `.claude/skills` symlink.
-7. Add `helper-scripts/validate-agent-instructions.js` to check:
-   - canonical instruction frontmatter and glob shape;
-   - generated adapters are up to date;
-   - skills have unique hyphen-case names and descriptions;
-   - `.claude/skills` is the expected symlink.
-8. Add package scripts:
-   - `build:agent:instructions` remains the generator entrypoint;
-   - `validate:agent-instructions` runs drift and skill validation.
-9. Update `lefthook.yml` so changes to `AGENTS.md`, `.agents/instructions/**`,
-   `.agents/skills/**`, and `data/products.yml` regenerate and stage adapters.
-10. Update navigation docs and instruction references to describe `.agents/` as
-    canonical and `.github/` / `.claude/` as adapters.
+   - generates `.claude/rules/{name}.md` with Claude `paths` frontmatter;
+   - generates scoped `AGENTS.md` files for `api-docs/`, `assets/`,
+     `content/`, and `layouts/`;
+   - verifies the `.claude/skills` symlink target;
+   - normalizes generated trailing newlines to prevent validation drift.
+6. Added `helper-scripts/validate-agent-instructions.js` to validate canonical
+   instruction files, skill metadata, generator drift, and the Claude skills
+   symlink.
+7. Added and wired package scripts:
+   - `yarn build:agent:instructions`
+   - `yarn validate:agent-instructions`
+8. Updated `lefthook.yml` so relevant changes regenerate and validate adapter
+   files.
+9. Updated repo guidance and references so `.agents/` is documented as the
+   canonical source and `.github/` / `.claude/` are adapters.
 
 ## Explicitly out of scope
 
@@ -103,9 +100,18 @@ This makes `.agents/` a reasonable canonical authoring location.
 - Do not edit generated `.github/instructions/*.instructions.md` or
   `.claude/rules/*.md` directly.
 
+## Remaining follow-up
+
+- Decide whether to extract a reusable subset of `.agents/skills` into a
+  separate plugin-oriented repository for `influxdata/docs-tooling`, or to keep
+  plugin packaging logic in this repo and publish from canonical sources later.
+- If plugin extraction proceeds, keep `.agents/` as the source of truth and add
+  packaging/export automation rather than introducing another authored skill
+  tree.
+
 ## Verification
 
-Planned checks for the implementation commit:
+Checks used for this migration:
 
 ```bash
 yarn build:agent:instructions
@@ -119,6 +125,6 @@ yarn validate:agent-instructions
   --quiet
 ```
 
-Run `yarn lint` before final review if time permits.
-Do not require a Hugo build unless the implementation changes site-rendered
-content.
+`yarn lint` also ran as a final aggregate hook check.
+No Hugo build is required because this change affects agent metadata and helper
+scripts, not site-rendered content.
