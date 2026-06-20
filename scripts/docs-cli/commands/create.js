@@ -487,9 +487,8 @@ async function preparePhase(draftPath, options, stdinContent = null) {
     const context = prepareContext(draft);
 
     // Extract links from draft
-    const { extractLinks, followLocalLinks, fetchExternalLinks } = await import(
-      '../../lib/content-scaffolding.js'
-    );
+    const { extractLinks, followLocalLinks, fetchExternalLinks } =
+      await import('../../lib/content-scaffolding.js');
 
     const links = extractLinks(draft.content);
 
