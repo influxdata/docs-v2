@@ -1,13 +1,14 @@
 # Instructions for InfluxData Documentation
 
 > **For Claude with MCP**
-> 
+>
 > This is a lightweight pointer file for Claude. For comprehensive instructions, see the files referenced below.
-> 
+>
 > **Full instruction resources**:
+>
 > - [.github/copilot-instructions.md](.github/copilot-instructions.md) - For GitHub Copilot (technical setup, automation)
 > - [AGENTS.md](AGENTS.md) - Shared project guidelines (style, constraints, content structure)
-> - [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) - Label taxonomy and pipeline usage
+> - [.github/LABEL\_GUIDE.md](.github/LABEL_GUIDE.md) - Label taxonomy and pipeline usage
 > - [.claude/](.claude/) - Claude MCP configuration directory with:
 >   - Custom commands in `.claude/commands/`
 >   - Specialized agents in `.claude/agents/`
@@ -56,14 +57,15 @@ The `superpowers:brainstorming` and `superpowers:writing-plans` skills default t
 writing output under `docs/superpowers/specs/` and `docs/superpowers/plans/`.
 Do **not** use those paths in this repo. Instead:
 
-- **Implementation plan** → `PLAN.md` at the repo root. A CI workflow deletes
-  `PLAN.md` before merging to `master`, so the plan stays visible on the branch
-  during review but never lands in `master`.
+- **Implementation plan** → `PLAN.md` at the repo root. This file is tracked on
+  feature branches so the plan travels with the worktree and remains visible in
+  GitHub review. A required PR check blocks `PLAN.md` and `HANDOVER.md` from
+  merging to `master`; remove or promote them before merge.
 - **Design spec** → if a design doc is genuinely useful post-merge, put it in
   an existing docs location (for example, `DOCS-*.md` or product-specific
   `content/` frontmatter). Otherwise skip committing it; keep the spec in the
-  session only, or save it alongside `PLAN.md` on the branch so it gets
-  scrubbed by the same workflow.
+  session only, or save it alongside `PLAN.md` on the branch and remove it
+  before merge.
 
 When a superpowers skill asks where to save a plan or spec, use `PLAN.md` (or
 ask the user) — never write to `docs/superpowers/`.

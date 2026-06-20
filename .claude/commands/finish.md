@@ -5,9 +5,11 @@ Complete development work by cleaning up ephemeral documents and preparing for m
 ## Description
 
 This skill handles the end of a development workflow:
+
 1. Reads the full contents of PLAN.md
-2. Posts the complete plan details as a PR comment
-3. Removes ephemeral planning documents
+2. Preserves the plan as a PR comment, or promotes durable decision context to
+   `docs/exec-plans/`
+3. Removes ephemeral planning documents before the default-branch PR check runs
 4. Creates a cleanup commit
 5. Optionally merges the PR
 
@@ -30,6 +32,7 @@ This skill handles the end of a development workflow:
 ### 1. Verify Prerequisites
 
 Check that we're ready to finish:
+
 - Confirm we're in a git worktree (not main branch)
 - Check for PLAN.md existence
 - Verify no uncommitted changes (or warn)
@@ -49,6 +52,7 @@ gh pr view --json state,url 2>/dev/null
 ### 2. Read Full PLAN.md Contents
 
 Read the entire PLAN.md file and preserve all sections:
+
 - Source metadata
 - Objective
 - All tasks (completed and incomplete)
@@ -61,20 +65,29 @@ PLAN_CONTENTS="$(cat PLAN.md)"
 
 ### 3. Post Plan Details as PR Comment
 
-Post the **complete** PLAN.md contents as a PR comment. Do not summarize or
-abbreviate the plan -- include all details so they are preserved after the file
-is deleted. Always use a comment (not the PR description) to keep the
-description clean and editable.
+By default, summarize the PLAN.md contents as a PR comment.
+Include all important details so they are preserved
+after the file is deleted. Always use a comment (not the PR description) to keep
+the description clean and editable.
+
+If the plan contains durable decision context, such as architectural, layout, or policy that should outlive the branch,
+promote the relevant "why" to `docs/exec-plans/YYYY-MM-DD-slug.md` instead of
+keeping the task checklist. Exec-plans are for rationale, rejected alternatives,
+scope boundaries, and update instructions; PLAN.md remains the in-flight task
+tracker.
 
 ```bash
+# Summarize the full plan before posting.
+PLAN_SUMMARY="<summary of objective, completed work, decisions, and follow-ups>"
+
 gh pr comment --body "$(cat <<EOF
 ## Development Plan
 
-Full plan details preserved from PLAN.md before cleanup:
+Summary preserved from PLAN.md before cleanup:
 
 ---
 
-${PLAN_CONTENTS}
+${PLAN_SUMMARY}
 EOF
 )"
 ```
@@ -113,20 +126,24 @@ gh pr merge --squash --delete-branch
 ## Edge Cases
 
 ### No PLAN.md exists
+
 - Warn user: "No PLAN.md found. Nothing to cleanup."
 - Offer to proceed with merge anyway if --merge flag
 
 ### Uncommitted changes
+
 - Warn user about uncommitted changes
 - Ask for confirmation before proceeding
 - Suggest committing or stashing first
 
 ### No open PR
+
 - Skip PR update step
 - Warn: "No open PR found for this branch"
 - Still cleanup files if they exist
 
 ### Incomplete tasks in PLAN.md
+
 - Warn: "PLAN.md has X incomplete tasks"
 - Show remaining tasks
 - Ask for confirmation before proceeding
@@ -134,6 +151,7 @@ gh pr merge --squash --delete-branch
 ## Examples
 
 ### Example 1: Standard cleanup
+
 ```
 User: /finish
 
@@ -152,7 +170,7 @@ Agent:
 
 ### Actions:
 1. Read full PLAN.md contents (42 lines, all sections preserved)
-2. Posted full plan details as comment on PR #6789
+2. Posted summarized plan as comment on PR #6789
 3. Removed PLAN.md
 4. Created commit: "chore: remove planning docs"
 5. Pushed to origin
@@ -161,6 +179,7 @@ Ready for merge! Run `/finish --merge` or merge manually.
 ```
 
 ### Example 2: Cleanup with merge
+
 ```
 User: /finish --merge
 
@@ -176,6 +195,7 @@ Done! PR merged successfully.
 ```
 
 ### Example 3: Incomplete tasks warning
+
 ```
 User: /finish
 
@@ -195,6 +215,7 @@ Agent: Proceeding with cleanup...
 ```
 
 ### Example 4: Dry run
+
 ```
 User: /finish --dry-run
 
@@ -203,7 +224,7 @@ Agent:
 
 Would perform the following actions:
 1. Read full PLAN.md contents
-2. Post full plan details as comment on PR #6789
+2. Post summarized plan as comment on PR #6789
 3. Run: git rm PLAN.md
 4. Run: git commit -m "chore: remove planning docs"
 5. Run: git push
@@ -214,9 +235,10 @@ No changes made. Run `/finish` to execute.
 ## Notes
 
 - Always reads full PLAN.md contents before deleting it
-- Preserves complete plan details (not just a summary) as a PR comment for future reference
+- Preserves summarized plan as a PR comment for future reference
 - Always uses a PR comment, keeping the PR description clean and editable
 - Squash merge is recommended to keep main branch clean
 - The deleted PLAN.md remains in branch history (recoverable if needed)
-- Works with GitHub Actions cleanup as a fallback safety net
+- A GitHub Actions PR check blocks PLAN.md and HANDOVER.md from merging to the
+  default branch
 - Use `--no-comment` to skip posting plan details to the PR
