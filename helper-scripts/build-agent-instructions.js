@@ -320,12 +320,10 @@ async function buildPlatformReference() {
 
     if (product.versions && product.versions.length > 1) {
       for (const version of product.versions) {
-        lines.push(
-          ...renderProductReferenceEntry(productKey, product, version)
-        );
+        lines.push(...renderProductReferenceEntry(product, version));
       }
     } else {
-      lines.push(...renderProductReferenceEntry(productKey, product));
+      lines.push(...renderProductReferenceEntry(product));
     }
   }
 
@@ -340,7 +338,7 @@ async function buildPlatformReference() {
   );
 }
 
-function renderProductReferenceEntry(productKey, product, version = null) {
+function renderProductReferenceEntry(product, version = null) {
   const lines = [];
   const displayName = getProductDisplayName(product, version);
   const aliases = getProductAliases(product, version);
