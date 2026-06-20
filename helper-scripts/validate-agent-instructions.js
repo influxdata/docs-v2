@@ -12,6 +12,7 @@ import {
   buildAgentInstructionAdapters,
   buildPlatformReference,
   ensureClaudeSkillsSymlink,
+  MATTER_OPTIONS,
 } from './build-agent-instructions.js';
 
 const PROJECT_ROOT = process.cwd();
@@ -47,7 +48,7 @@ function validateInstructions() {
     if (!file.endsWith('.md')) continue;
 
     const filePath = path.join(INSTRUCTIONS_DIR, file);
-    const parsed = matter.read(filePath);
+    const parsed = matter.read(filePath, MATTER_OPTIONS);
     const expectedName = path.basename(file, '.md');
     const { name, description, paths } = parsed.data;
     const relPath = path.relative(PROJECT_ROOT, filePath);
@@ -100,7 +101,7 @@ function validateSkills() {
       continue;
     }
 
-    const parsed = matter.read(skillPath);
+    const parsed = matter.read(skillPath, MATTER_OPTIONS);
     const { name, description } = parsed.data;
 
     if (name !== entry) {

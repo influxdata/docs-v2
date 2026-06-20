@@ -7,12 +7,26 @@ import fs from 'fs';
 import path from 'path';
 import process from 'process';
 import matter from 'gray-matter';
+import yaml from 'js-yaml';
 import { pathToFileURL } from 'url';
 
 export {
   buildAgentInstructionAdapters,
   buildPlatformReference,
   ensureClaudeSkillsSymlink,
+  MATTER_OPTIONS,
+};
+
+// gray-matter 4.0.3 binds its default YAML engine to the removed
+// js-yaml 3 safeLoad/safeDump APIs. js-yaml 4 is safe by default, so point
+// the engine at load/dump to stay compatible with the pinned js-yaml version.
+const MATTER_OPTIONS = {
+  engines: {
+    yaml: {
+      parse: (input) => yaml.load(input),
+      stringify: (input) => yaml.dump(input),
+    },
+  },
 };
 
 const PROJECT_ROOT = process.cwd();
@@ -79,7 +93,7 @@ function readCanonicalInstructions() {
 
   return files.map((file) => {
     const sourcePath = path.join(CANONICAL_INSTRUCTIONS_DIR, file);
-    const parsed = matter.read(sourcePath);
+    const parsed = matter.read(sourcePath, MATTER_OPTIONS);
     const { name, description, paths } = parsed.data;
 
     const hasRequiredFields =
@@ -264,7 +278,6 @@ function ensureClaudeSkillsSymlink() {
  * canonical product metadata only.
  */
 async function buildPlatformReference() {
-  const yaml = await import('js-yaml');
   const productsPath = path.join(PROJECT_ROOT, 'data', 'products.yml');
   const referencePath = path.join(PROJECT_ROOT, 'PLATFORM_REFERENCE.md');
   const products = yaml.load(fs.readFileSync(productsPath, 'utf8'));
