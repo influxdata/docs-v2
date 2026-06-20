@@ -1,60 +1,24 @@
 # InfluxData Documentation Repository (docs-v2)
 
 > **For GitHub Copilot and other AI coding agents**
->
-> **Instruction resources**:
->
-> - [.github/instructions/](instructions/) - **Pattern-specific** (auto-loaded by file type)
-> - [AGENTS.md](../AGENTS.md) - Shared project guidelines (style, constraints, content structure)
-> - [.agents/](../.agents/) - Canonical agent skills and path-specific instruction sources
-> - [.github/LABEL\_GUIDE.md](LABEL_GUIDE.md) - Label taxonomy and review pipeline
 
-## Quick Reference
+This is Copilot's pointer file. Shared, harness-neutral instructions —
+commands, style, constraints, content structure, and where detailed guidance
+lives — come from [AGENTS.md](../AGENTS.md). Only Copilot-specific
+configuration belongs here.
 
-| Task             | Command                                 | Time    |
-| ---------------- | --------------------------------------- | ------- |
-| Install          | `CYPRESS_INSTALL_BINARY=0 yarn install` | \~4s    |
-| Build            | `npx hugo --quiet`                      | \~75s   |
-| Dev Server       | `npx hugo server`                       | \~92s   |
-| Create Docs      | `docs create <draft> --products <keys>` | varies  |
-| Edit Docs        | `docs edit <url>`                       | instant |
-| Add Placeholders | `docs placeholders <file>`              | instant |
-| Audit Docs       | `docs audit --products <keys>`          | varies  |
-| Test All         | `yarn test:codeblocks:all`              | 15-45m  |
-| Lint             | `yarn lint`                             | \~1m    |
+## Instruction resources
 
-**NEVER CANCEL** Hugo builds (\~75s) or test runs (15-45m).
+- [AGENTS.md](../AGENTS.md) — shared project guidelines (start here)
+- [.agents/](../.agents/) — canonical agent skills and path-specific instruction sources
+- [.github/instructions/](instructions/) — pattern-specific instructions, auto-loaded by file type (see table below)
+- [.github/LABEL\_GUIDE.md](LABEL_GUIDE.md) — label taxonomy and review pipeline
 
-## CLI Tools
+## File pattern-specific instructions
 
-```bash
-docs --help                                     # Full reference
-```
-
-Non-blocking by default. Use `--wait` for interactive editing.
-
-## Workflows
-
-- **Content editing**: See [content-editing skill](../.agents/skills/content-editing/SKILL.md)
-- **Testing**: See [DOCS-TESTING.md](../DOCS-TESTING.md)
-- **Hugo templates**: See [hugo-template-dev skill](../.agents/skills/hugo-template-dev/SKILL.md)
-
-## Product and Content Paths
-
-Defined in [data/products.yml](../data/products.yml).
-
-## Content Guidelines
-
-- [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md) - Style, workflow, commit format
-- [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) - Shortcode reference
-- [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md) - Frontmatter reference
-- [content/example.md](../content/example.md) - Working shortcode examples
-
-## File Pattern-Specific Instructions
-
-Auto-loaded by GitHub Copilot based on changed files.
-These files are generated from `.agents/instructions/`; edit the canonical
-source and run `yarn build:agent:instructions`.
+GitHub Copilot auto-loads these based on the files you change. They are
+generated from `.agents/instructions/`; edit the canonical source and run
+`yarn build:agent:instructions` to regenerate them.
 
 | Pattern                  | File                                                                          | Description                                      |
 | ------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------ |

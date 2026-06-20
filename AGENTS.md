@@ -29,6 +29,19 @@ yarn validate:agent-instructions
 | Test code blocks | `yarn test:codeblocks:all`              | 15-45m; never cancel                          |
 | Lint             | `yarn lint`                             | Runs pre-commit and pre-push hook validations |
 
+## docs CLI
+
+Scaffold and manage documentation with the `docs` CLI (`docs --help` for full
+reference). Non-blocking by default; use `--wait` for interactive editing.
+
+- `docs create <draft> --products <keys>` — scaffold new pages
+- `docs edit <url|path>` — open existing pages
+- `docs placeholders <file>` — add placeholder syntax to code blocks
+- `docs audit --products <keys>` — audit coverage
+
+See [README.md](README.md) and the
+[docs-cli-workflow skill](.agents/skills/docs-cli-workflow/SKILL.md) for details.
+
 ## Worktree and path rules
 
 - This repo uses git worktrees. The current working directory is the repo root.
@@ -67,6 +80,22 @@ yarn validate:agent-instructions
 - Prefer active voice, present tense, and second person.
 - Use long options in CLI examples.
 - Keep code blocks within 80 characters where practical.
+
+## Documentation search (MCP)
+
+A hosted InfluxDB documentation search server is configured for this repo.
+Use it to verify technical accuracy, check API syntax, and find related docs.
+Harness-specific setup (Claude Code: `.mcp.json`) lives in each harness's own
+instruction file.
+
+## Plans and design docs
+
+- Implementation plans → `PLAN.md` at the repo root. Tracked on feature
+  branches; a required PR check blocks `PLAN.md` and `HANDOVER.md` from merging
+  to the default branch — remove or promote them before merge.
+- Design specs → an existing docs location (`DOCS-*.md` or product `content/`
+  frontmatter) only if useful post-merge; otherwise keep them in the session or
+  alongside `PLAN.md` and remove before merge.
 
 ## Where detailed guidance lives
 
