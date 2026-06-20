@@ -306,6 +306,7 @@ async function buildPlatformReference() {
     'canonical product names, content paths, and production documentation URLs.',
     '',
     'Production docs URL rule:',
+    '',
     '- For each entry with a `Content path`, map it to',
     '  `https://docs.influxdata.com/<content-path>/`.',
     '- Treat `data/products.yml` as the canonical source of truth when you need',
@@ -458,5 +459,9 @@ function getPingHeaders(product) {
   const headers = product.detector_config?.detection?.ping_headers;
   if (!headers || typeof headers !== 'object') return [];
 
-  return Object.entries(headers).map(([name, value]) => `${name}=${value}`);
+  // Wrap each header token in an inline code span. Values are regex
+  // patterns (for example, `^3\.`); the backslash is meaningful regex
+  // syntax, but in prose Markdown the remark formatter strips it as an
+  // unnecessary escape. Inline code preserves the bytes verbatim.
+  return Object.entries(headers).map(([name, value]) => `\`${name}=${value}\``);
 }

@@ -21,7 +21,7 @@ InfluxDB OSS v2:
 - Host hint: `localhost:8086`
 - Characteristics: Free, Self-hosted, InfluxQL/Flux, Token or Username/Password, Buckets
 - URL contains hints: localhost:8086
-- Ping header hints: x-influxdb-build=OSS, x-influxdb-version=^(1|2).
+- Ping header hints: `x-influxdb-build=OSS`, `x-influxdb-version=^(1|2)\.`
 
 InfluxDB OSS v1:
 
@@ -32,7 +32,7 @@ InfluxDB OSS v1:
 - Host hint: `localhost:8086`
 - Characteristics: Free, Self-hosted, InfluxQL/Flux, Token or Username/Password, Buckets
 - URL contains hints: localhost:8086
-- Ping header hints: x-influxdb-build=OSS, x-influxdb-version=^(1|2).
+- Ping header hints: `x-influxdb-build=OSS`, `x-influxdb-version=^(1|2)\.`
 
 InfluxDB Enterprise v1:
 
@@ -40,7 +40,7 @@ InfluxDB Enterprise v1:
 - Production docs URL: <https://docs.influxdata.com/enterprise_influxdb/>
 - Query languages: InfluxQL, Flux
 - Characteristics: Paid, Self-hosted, InfluxQL/Flux, Username/Password, Databases
-- Ping header hints: x-influxdb-build=Enterprise
+- Ping header hints: `x-influxdb-build=Enterprise`
 
 InfluxDB Cloud (TSM):
 
@@ -79,7 +79,7 @@ InfluxDB Clustered:
 - Query languages: SQL, InfluxQL
 - Host hint: `cluster-host.com`
 - Characteristics: Paid, Self-hosted, SQL/InfluxQL, Token, Databases
-- Ping header hints: x-influxdb-version=influxqlbridged-development
+- Ping header hints: `x-influxdb-version=influxqlbridged-development`
 
 InfluxDB 3 Core:
 
@@ -89,7 +89,7 @@ InfluxDB 3 Core:
 - Host hint: `localhost:8181`
 - Characteristics: Free, Self-hosted, SQL/InfluxQL, No auth required, Databases
 - URL contains hints: localhost:8181
-- Ping header hints: x-influxdb-version=^3., x-influxdb-build=Core
+- Ping header hints: `x-influxdb-version=^3\.`, `x-influxdb-build=Core`
 
 InfluxDB 3 Enterprise:
 
@@ -99,7 +99,7 @@ InfluxDB 3 Enterprise:
 - Host hint: `localhost:8181`
 - Characteristics: Paid, Self-hosted, SQL/InfluxQL, Token, Databases
 - URL contains hints: localhost:8181
-- Ping header hints: x-influxdb-version=^3., x-influxdb-build=Enterprise
+- Ping header hints: `x-influxdb-version=^3\.`, `x-influxdb-build=Enterprise`
 
 InfluxDB 3 Explorer:
 
