@@ -371,6 +371,8 @@ async function buildPlatformReference() {
     }
   }
 
+  content = content.replace(/\n+$/, '\n');
+
   // Write the file
   fs.writeFileSync(referencePath, content);
 
