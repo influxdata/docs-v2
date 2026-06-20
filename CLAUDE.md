@@ -60,7 +60,7 @@ Do **not** use those paths in this repo. Instead:
 - **Implementation plan** → `PLAN.md` at the repo root. This file is tracked on
   feature branches so the plan travels with the worktree and remains visible in
   GitHub review. A required PR check blocks `PLAN.md` and `HANDOVER.md` from
-  merging to `master`; remove or promote them before merge.
+  merging to the default branch; remove or promote them before merge.
 - **Design spec** → if a design doc is genuinely useful post-merge, put it in
   an existing docs location (for example, `DOCS-*.md` or product-specific
   `content/` frontmatter). Otherwise skip committing it; keep the spec in the
