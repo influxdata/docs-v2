@@ -3887,36 +3887,64 @@ explore, and manage data.</p>
            
     </div>
   
-    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+    <div class="notification note min" id="influxdb3-10-core-release" data-scope='/influxdb3/core/' data-exclude=''>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
         
-        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+        <h3>InfluxDB 3.10 is now available</h3>
       </div>
       
       <div class="notification-slug">
-        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
-with faster single-series queries, wide-and-sparse table support, and more.
+        InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
+configurable query-concurrency limit, and processing engine improvements.
       </div>
       
       
       <div class="notification-content">
-        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
-feature updates.</p>
-<p><strong>Key improvements:</strong></p>
+        <p><strong>Key updates in InfluxDB 3 Core 3.10:</strong></p>
 <ul>
-<li>Faster single-series queries</li>
-<li>Consistent resource usage</li>
-<li>Wide-and-sparse table support</li>
-<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+<li><strong>Catalog format upgrade</strong>: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.</li>
+<li><strong><code>--max-concurrent-queries</code></strong>: limit concurrent queries (adjustable at runtime).</li>
+<li><strong><code>GET /ready</code> endpoint</strong> for readiness probes.</li>
+<li><strong>Processing engine</strong>: cross-database queries and trigger lockdown flags.</li>
 </ul>
-<p><em>Preview features are subject to breaking changes.</em></p>
-<p>For more information, see:</p>
+<p>For more information, see the
+<a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a>.</p>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="influxdb3-10-enterprise-release" data-scope='/influxdb3/,/influxdb3/enterprise/' data-exclude='/influxdb3/core/,/influxdb3/explorer/,/influxdb3/cloud-dedicated/,/influxdb3/cloud-serverless/,/influxdb3/clustered/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.10 is now available</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
+deletions, and user management, with an automatic catalog format upgrade
+and performance preview improvements.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p><strong>Key updates in InfluxDB 3 Enterprise 3.10:</strong></p>
 <ul>
-<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
-<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
-<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+<li><strong>Catalog format upgrade</strong>: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.</li>
+<li><strong>Automated backup and restore</strong> (beta)</li>
+<li><strong>Row-level deletions</strong></li>
+<li><strong>User management</strong> (authentication and RBAC) — preview</li>
+<li><strong>Performance preview improvements</strong></li>
 </ul>
+<p>Backup and restore, row-level deletions, and the performance preview require
+the Enterprise storage engine upgrade (opt-in beta). <em>Beta and preview
+features are subject to breaking changes and aren&rsquo;t recommended for
+production use.</em></p>
+<p>For more information, see the
+<a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></p>
 
       </div>
       <span class="show"></span>
