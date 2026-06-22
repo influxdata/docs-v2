@@ -120,6 +120,11 @@ server:
 ignoreLogs:
   - warning-goldmark-raw-html
 
+# Generated agent-instruction adapters may live under content/ for tooling,
+# but they are not publishable docs content.
+ignoreFiles:
+  - '(^|/)AGENTS\.md$'
+
 # Disable minification for development
 minify:
   disableJS: true
