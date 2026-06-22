@@ -1,8 +1,6 @@
 ---
 name: exec-plan-writing
-description: "Capture durable goal, intent, and decisions for a unit of work as an execution plan under docs/exec-plans/. Use when finishing a non-trivial change that needs a decision record, when a PR closes one or more issues and the rationale would otherwise live only in commit messages or PR descriptions, or when the user asks to write an exec-plan, decision doc, or to document the why behind a change. Distinct from PLAN.md (ephemeral, tracked on feature branches, and blocked from the default branch) and design-docs (architectural)."
-author: InfluxData
-version: "0.1"
+description: "Capture durable goal, intent, and decisions for a unit of work as an execution plan under docs/exec-plans/. Use when finishing a non-trivial change that needs a decision record, when a PR closes one or more issues and the rationale would otherwise live only in commit messages or PR descriptions, or when the user asks to write an exec-plan, decision doc, or to document the why behind a change. Distinct from PLAN.md (ephemeral, scrubbed by CI on merge) and design-docs (architectural)."
 ---
 
 # Writing Execution Plans
