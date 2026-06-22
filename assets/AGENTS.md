@@ -1,15 +1,15 @@
----
-applyTo: "assets/js/**/*.js, assets/js/**/*.ts"
----
-
 <!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
 
 <!-- Run 'yarn build:agent:instructions' to regenerate it. -->
 
-# JavaScript and TypeScript Guidelines
+# Asset Development Agent Instructions
+
+These instructions apply when working in `assets/`.
+
+## JavaScript and TypeScript Guidelines
 
 **For detailed TypeScript and Hugo asset pipeline guidance**, see
-[.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
+[.github/agents/typescript-hugo-agent.md](../.github/agents/typescript-hugo-agent.md)
 which covers:
 
 - TypeScript migration strategies
@@ -17,7 +17,7 @@ which covers:
 - Component architecture patterns
 - Advanced debugging techniques
 
-## TypeScript Configuration
+### TypeScript Configuration
 
 Project uses TypeScript with ES2020 target:
 
@@ -27,7 +27,7 @@ Project uses TypeScript with ES2020 target:
 - Build: `yarn build:ts`
 - Watch: `yarn build:ts:watch`
 
-## Component Pattern
+### Component Pattern
 
 1. Add `data-component` attribute to HTML element:
    ```html
@@ -49,15 +49,15 @@ Project uses TypeScript with ES2020 target:
    registerComponent('my-component', initMyComponent);
    ```
 
-## Debugging
+### Debugging
 
-### Method 1: Chrome DevTools with Source Maps
+#### Method 1: Chrome DevTools with Source Maps
 
 1. VS Code: Run > Start Debugging
 2. Select "Debug Docs (source maps)"
 3. Set breakpoints in `assets/js/ns-hugo-imp:` namespace
 
-### Method 2: Debug Helpers
+#### Method 2: Debug Helpers
 
 ```typescript
 import { debugLog, debugBreak, debugInspect } from './utils/debug-helpers';
@@ -72,7 +72,7 @@ Debug with: VS Code "Debug JS (debug-helpers)" configuration
 
 **Remove debug statements before committing.**
 
-## Type Safety
+### Type Safety
 
 - Use strict TypeScript mode
 - Add type annotations for parameters and returns
@@ -80,11 +80,11 @@ Debug with: VS Code "Debug JS (debug-helpers)" configuration
 - Enable `checkJs: false` for gradual migration
 
 For complete JavaScript documentation, see
-[DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui).
+[DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui).
 
-## Related Resources
+### Related Resources
 
 - **TypeScript & Hugo development**:
-  [.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
+  [.github/agents/typescript-hugo-agent.md](../.github/agents/typescript-hugo-agent.md)
 - **Contributing guidelines**:
-  [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui)
+  [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui)

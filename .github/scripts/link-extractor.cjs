@@ -8,8 +8,21 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const matter = require('gray-matter');
+const yaml = require('js-yaml');
 const path = require('path');
 const process = require('process');
+
+// gray-matter 4.0.3 binds its default YAML engine to the removed
+// js-yaml 3 safeLoad/safeDump APIs. js-yaml 4 is safe by default, so point
+// the engine at load/dump to stay compatible with the pinned js-yaml version.
+const MATTER_OPTIONS = {
+  engines: {
+    yaml: {
+      parse: (input) => yaml.load(input),
+      stringify: (input) => yaml.dump(input),
+    },
+  },
+};
 
 /**
  * Extract links from markdown content
@@ -276,7 +289,7 @@ function extractLinksFromFile(filePath) {
     // Parse frontmatter for .md files
     if (extension === '.md') {
       try {
-        const parsed = matter(content);
+        const parsed = matter(content, MATTER_OPTIONS);
         frontmatter = parsed.data || {};
         bodyContent = parsed.content;
       } catch (err) {
