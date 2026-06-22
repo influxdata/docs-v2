@@ -1,10 +1,11 @@
 ---
-applyTo: "api-docs/**/*.md, api-docs/**/*.yml, api-docs/**/*.yaml"
+name: api-docs
+description: Instructions for editing InfluxDB API documentation files and OpenAPI specs.
+paths:
+  - "api-docs/**/*.md"
+  - "api-docs/**/*.yml"
+  - "api-docs/**/*.yaml"
 ---
-
-<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
-
-<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
 
 # InfluxDB API Documentation
 

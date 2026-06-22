@@ -1,8 +1,6 @@
 ---
 name: vale-rule-config
-description: Configure Vale style linting rules, write custom patterns, and manage CI/quality checks for InfluxData documentation
-author: InfluxData
-version: "1.0"
+description: "Author and test custom Vale rules for InfluxData documentation: rule types (existence, substitution, conditional), the regexp2 engine and PCRE lookarounds, and testing rule patterns in isolation. Use when writing a new Vale rule, debugging why a rule pattern does not match, or working with Vale regex. To run Vale, manage vocabulary, or fix flagged content, see vale-linting."
 ---
 
 # Vale Rule Configuration
@@ -76,14 +74,18 @@ tokens:
 
 Suggests replacements for problematic patterns.
 
+Substitution rules in this repo expand abbreviations rather than introduce
+them (the real terminology rule lives in
+`.ci/vale/styles/InfluxDataDocs/WordList.yml`):
+
 ```yaml
-# .ci/vale/styles/InfluxDataDocs/Terms.yml
+# Illustrative — mirrors the style of InfluxDataDocs/WordList.yml
 extends: substitution
 message: "Use '%s' instead of '%s'"
 level: warning
 swap:
-  database: DB
-  endpoint: API
+  admin: administrator
+  repo: repository
 ```
 
 ### Conditional Rules
@@ -187,12 +189,13 @@ Vocabulary files manage accepted and rejected terms across the documentation.
 
 ```
 .ci/vale/styles/config/vocabularies/
-├── InfluxDataDocs/
-│   ├── accept.txt       # Accepted terms (won't be flagged)
-│   └── reject.txt       # Rejected terms (will be flagged)
-└── Cloud-Dedicated/
-    ├── accept.txt
-    └── reject.txt
+└── InfluxDataDocs/
+    ├── accept.txt       # Accepted terms (won't be flagged)
+    └── reject.txt       # Rejected terms (will be flagged)
+
+# Only InfluxDataDocs exists today. To add a product-specific vocabulary,
+# create a sibling directory (for example, Cloud-Dedicated/) with its own
+# accept.txt/reject.txt and reference it via Vocab in the product .vale.ini.
 ```
 
 ### accept.txt Format
@@ -234,19 +237,20 @@ obviously
 
 Create product-specific vocabularies by:
 
-1. Creating a new style directory in `.ci/vale/styles/`
-2. Adding vocabulary files
+1. Creating a new vocabulary directory in
+   `.ci/vale/styles/config/vocabularies/`
+2. Adding `accept.txt` and `reject.txt`
 3. Configuring in product's `.vale.ini`
 
 **Example:**
 
 ```yaml
-# content/influxdb/cloud-dedicated/.vale.ini
-StylesPath = .ci/vale/styles
+# content/influxdb3/cloud-dedicated/.vale.ini
+StylesPath = ../../../.ci/vale/styles
 Vocab = Cloud-Dedicated
 
 [*.md]
-BasedOnStyles = Google, InfluxDataDocs, Cloud-Dedicated
+BasedOnStyles = Vale, InfluxDataDocs, Cloud-Dedicated, Google, write-good
 ```
 
 ## Part 4: Vale Configuration Files
@@ -261,7 +265,7 @@ MinAlertLevel = suggestion
 Vocab = InfluxDataDocs
 
 [*.md]
-BasedOnStyles = Google, InfluxDataDocs
+BasedOnStyles = Vale, InfluxDataDocs, Google, write-good
 ```
 
 ### Product-Specific Config
@@ -280,7 +284,7 @@ Individual rules are YAML files in style directories:
 │   └── ...
 ├── InfluxDataDocs/
 │   ├── Branding.yml
-│   ├── TechnicalTerms.yml
+│   ├── WordList.yml
 │   └── ...
 └── config/
     └── vocabularies/
@@ -299,9 +303,9 @@ Individual rules are YAML files in style directories:
 
 # Test only error-level issues
 .ci/vale/vale.sh \
-  --config=content/influxdb/cloud-dedicated/.vale.ini \
+  --config=content/influxdb3/cloud-dedicated/.vale.ini \
   --minAlertLevel=error \
-  content/influxdb/cloud-dedicated/**/*.md
+  content/influxdb3/cloud-dedicated/**/*.md
 ```
 
 ### Test Rule Pattern Before Adding to Vale

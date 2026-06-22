@@ -20,14 +20,18 @@ docs-v2/
 │   ├── agents/
 │   │   └── typescript-hugo-agent.md   # Custom specialist for TypeScript/Hugo work
 │   └── instructions/
-│       ├── content.instructions.md    # Auto-loaded for content files
-│       ├── layouts.instructions.md    # Auto-loaded for layout files
-│       ├── api-docs.instructions.md   # Auto-loaded for API doc files
-│       └── assets.instructions.md     # Auto-loaded for JS/TS files
+│       ├── content.instructions.md    # Generated from .agents/instructions
+│       ├── layouts.instructions.md    # Generated from .agents/instructions
+│       ├── api-docs.instructions.md   # Generated from .agents/instructions
+│       └── assets.instructions.md     # Generated from .agents/instructions
+├── .agents/
+│   ├── instructions/                  # Canonical path-specific instructions
+│   └── skills/                        # Canonical Agent Skills
 ├── .claude/                           # Claude MCP configuration
 │   ├── agents/                        # Specialized agents for Claude
 │   ├── commands/                      # Custom commands for Claude
-│   ├── skills/                        # Claude skills
+│   ├── rules/                         # Generated from .agents/instructions
+│   ├── skills -> ../.agents/skills    # Claude skills adapter
 │   └── settings.json                  # Claude settings
 ├── AGENTS.md                          # Comprehensive guide for general AI assistants
 └── CLAUDE.md                          # Pointer for Claude with MCP
@@ -54,9 +58,15 @@ docs-v2/
 
 **[../CLAUDE.md](../CLAUDE.md)** - Lightweight pointer to other instruction resources
 
-**[instructions/](instructions/)** - Auto-loaded pattern-specific instructions:
+**[../.agents/](../.agents/)** - Canonical agent assets:
 
-- `content.instructions.md` - For Markdown content files (references Claude skills)
+- `instructions/` - Path-specific instruction sources for all harnesses
+- `skills/` - Agent Skills shared by Codex, Claude Code, GitHub Copilot, and
+  compatible harnesses
+
+**[instructions/](instructions/)** - Generated Copilot pattern-specific instructions:
+
+- `content.instructions.md` - For Markdown content files (references canonical skills)
 - `layouts.instructions.md` - For Hugo template files
 - `api-docs.instructions.md` - For OpenAPI spec files
 - `assets.instructions.md` - For JavaScript/TypeScript files
@@ -68,13 +78,14 @@ docs-v2/
 
 **[../.claude/](../.claude/)** - Claude MCP configuration with specialized agents, commands, and skills:
 
-- `skills/` - Detailed workflow guidance (referenced by Copilot instructions)
+- `skills/` - Symlink to canonical skills in `.agents/skills`
+- `rules/` - Generated path-specific Claude rules from `.agents/instructions`
 - `commands/` - Custom Claude commands
 - `agents/` - Claude-specific agents
 
 ## Choosing the Right Instructions
 
-- **GitHub Copilot?** → [copilot-instructions.md](copilot-instructions.md) (now references Claude skills)
+- **GitHub Copilot?** → [copilot-instructions.md](copilot-instructions.md) and generated [instructions/](instructions/)
 - **General AI assistants?** → [../AGENTS.md](../AGENTS.md)
 - **Claude with MCP?** → [../CLAUDE.md](../CLAUDE.md) and [../.claude/](../.claude/)
 - **Creating/improving Copilot instructions?** → [agents/copilot-instructions-agent.md](agents/copilot-instructions-agent.md)
@@ -83,7 +94,7 @@ docs-v2/
 
 1. **New to the repository?** Start with [../README.md](../README.md)
 2. **Using GitHub Copilot?** Read [copilot-instructions.md](copilot-instructions.md)
-   - For detailed workflows, refer to [../.claude/skills/](../.claude/skills/)
+   - For detailed workflows, refer to [../.agents/skills/](../.agents/skills/)
 3. **Using other AI assistants?** Read [../AGENTS.md](../AGENTS.md)
 4. **Using Claude with MCP?** Check [../CLAUDE.md](../CLAUDE.md) and [../.claude/](../.claude/)
 5. **Managing Copilot instructions?** Use [agents/copilot-instructions-agent.md](agents/copilot-instructions-agent.md)

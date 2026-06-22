@@ -1,10 +1,9 @@
 ---
-applyTo: "content/**/*.md"
+name: content-review
+description: Review criteria for documentation content changes in content/**/*.md.
+paths:
+  - "content/**/*.md"
 ---
-
-<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
-
-<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
 
 # Content Review Criteria
 
