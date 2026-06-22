@@ -1,10 +1,9 @@
 ---
-applyTo: "content/**/*.md"
+name: content
+description: Instructions for creating, editing, and testing documentation content files.
+paths:
+  - "content/**/*.md"
 ---
-
-<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
-
-<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
 
 # Content File Guidelines
 
@@ -13,7 +12,7 @@ applyTo: "content/**/*.md"
 **Working examples**: [content/example.md](../../content/example.md)
 
 **For complete content editing workflow**, see
-[content-editing skill](../../.agents/skills/content-editing/SKILL.md) which covers:
+[content-editing skill](../skills/content-editing/SKILL.md) which covers:
 
 - Creating and editing content with CLI tools
 - Shared content management and testing
@@ -24,7 +23,7 @@ applyTo: "content/**/*.md"
 
 The unified `docs` CLI provides tools for content creation and editing.
 For decision guidance on when to use CLI vs direct editing, see
-[docs-cli-workflow skill](../../.agents/skills/docs-cli-workflow/SKILL.md).
+[docs-cli-workflow skill](../skills/docs-cli-workflow/SKILL.md).
 
 ### Creating New Content
 
@@ -91,7 +90,7 @@ When editing files with `source:` frontmatter (shared content):
   Hugo rebuild
 
 For complete shared content workflow, see
-[content-editing skill](../../.agents/skills/content-editing/SKILL.md).
+[content-editing skill](../skills/content-editing/SKILL.md).
 
 ## Required for All Content Files
 
@@ -121,7 +120,7 @@ yarn test:codeblocks:all
 ```
 
 For comprehensive testing workflows, see
-[content-editing skill](../../.agents/skills/content-editing/SKILL.md).
+[content-editing skill](../skills/content-editing/SKILL.md).
 
 ## Style Guidelines
 
@@ -190,9 +189,9 @@ For complete shortcodes reference, see
 
 ## Related Resources
 
-- **Complete workflow**: [content-editing skill](../../.agents/skills/content-editing/SKILL.md)
+- **Complete workflow**: [content-editing skill](../skills/content-editing/SKILL.md)
 - **CLI decision guidance**:
-  [docs-cli-workflow skill](../../.agents/skills/docs-cli-workflow/SKILL.md)
+  [docs-cli-workflow skill](../skills/docs-cli-workflow/SKILL.md)
 - **Frontmatter**: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
 - **Shortcodes**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - **Contributing**: [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md)

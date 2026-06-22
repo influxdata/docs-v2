@@ -1,32 +1,32 @@
----
-applyTo: "content/**/*.md"
----
-
 <!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
 
 <!-- Run 'yarn build:agent:instructions' to regenerate it. -->
 
-# Content File Guidelines
+# Documentation Content Agent Instructions
 
-**Frontmatter reference**: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
-**Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
-**Working examples**: [content/example.md](../../content/example.md)
+These instructions apply when working in `content/`.
+
+## Content File Guidelines
+
+**Frontmatter reference**: [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md)
+**Shortcodes reference**: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md)
+**Working examples**: [content/example.md](./example.md)
 
 **For complete content editing workflow**, see
-[content-editing skill](../../.agents/skills/content-editing/SKILL.md) which covers:
+[content-editing skill](../.agents/skills/content-editing/SKILL.md) which covers:
 
 - Creating and editing content with CLI tools
 - Shared content management and testing
 - Fact-checking with MCP server
 - Complete validation workflows
 
-## CLI Tools for Content Workflow
+### CLI Tools for Content Workflow
 
 The unified `docs` CLI provides tools for content creation and editing.
 For decision guidance on when to use CLI vs direct editing, see
-[docs-cli-workflow skill](../../.agents/skills/docs-cli-workflow/SKILL.md).
+[docs-cli-workflow skill](../.agents/skills/docs-cli-workflow/SKILL.md).
 
-### Creating New Content
+#### Creating New Content
 
 Use `docs create` for AI-assisted scaffolding:
 
@@ -41,7 +41,7 @@ docs create drafts/feature.md --products influxdb3_core --open
 docs create drafts/feature.md --products influxdb3_core --open --wait
 ```
 
-### Editing Existing Content
+#### Editing Existing Content
 
 Use `docs edit` to quickly find and open content files:
 
@@ -66,7 +66,7 @@ docs edit /influxdb3/core/admin/databases/ --editor nano
 - Use `--list` with `docs edit` to see files without opening
 - Accepts both product keys (`influxdb3_core`) and paths (`/influxdb3/core`)
 
-### Other CLI Commands
+#### Other CLI Commands
 
 ```bash
 # Add placeholder syntax to code blocks
@@ -81,7 +81,7 @@ docs release-notes v3.1.0 v3.2.0 --products influxdb3_core
 
 For complete CLI reference, run `docs --help`.
 
-## Shared Content Management
+### Shared Content Management
 
 When editing files with `source:` frontmatter (shared content):
 
@@ -91,9 +91,9 @@ When editing files with `source:` frontmatter (shared content):
   Hugo rebuild
 
 For complete shared content workflow, see
-[content-editing skill](../../.agents/skills/content-editing/SKILL.md).
+[content-editing skill](../.agents/skills/content-editing/SKILL.md).
 
-## Required for All Content Files
+### Required for All Content Files
 
 Every content file needs:
 
@@ -107,7 +107,7 @@ menu:
 weight:      # Sort order (1-99, 101-199, 201-299...)
 ```
 
-## Testing After Content Changes
+### Testing After Content Changes
 
 ```bash
 # 1. Verify Hugo build
@@ -121,9 +121,9 @@ yarn test:codeblocks:all
 ```
 
 For comprehensive testing workflows, see
-[content-editing skill](../../.agents/skills/content-editing/SKILL.md).
+[content-editing skill](../.agents/skills/content-editing/SKILL.md).
 
-## Style Guidelines
+### Style Guidelines
 
 - Use semantic line feeds (one sentence per line)
 - Test all code examples before committing
@@ -136,7 +136,7 @@ For comprehensive testing workflows, see
   data in their own object storage; InfluxDB reads and writes it but doesn't take
   custody of it.
 
-## Most Common Shortcodes
+### Most Common Shortcodes
 
 **Callouts**:
 
@@ -186,13 +186,88 @@ Content for tab 2
 ```
 
 For complete shortcodes reference, see
-[DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md).
+[DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md).
 
-## Related Resources
+### Related Resources
 
-- **Complete workflow**: [content-editing skill](../../.agents/skills/content-editing/SKILL.md)
+- **Complete workflow**: [content-editing skill](../.agents/skills/content-editing/SKILL.md)
 - **CLI decision guidance**:
-  [docs-cli-workflow skill](../../.agents/skills/docs-cli-workflow/SKILL.md)
-- **Frontmatter**: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
-- **Shortcodes**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
-- **Contributing**: [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md)
+  [docs-cli-workflow skill](../.agents/skills/docs-cli-workflow/SKILL.md)
+- **Frontmatter**: [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md)
+- **Shortcodes**: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md)
+- **Contributing**: [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md)
+
+
+## Content Review Criteria
+
+Review documentation changes against these rules.
+Only flag issues you are confident about.
+Reference the linked docs for detailed rules.
+
+### Frontmatter
+
+Rules: [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md)
+
+- `title` and `description` are required on every page
+- `menu` structure matches the product's menu key
+- `weight` is present for pages in navigation
+- `source` paths point to valid `/shared/` paths
+- No duplicate or conflicting frontmatter keys
+
+### Shortcode Syntax
+
+Rules: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md)
+
+- `{{< >}}` for HTML output, `{{% %}}` for Markdown-processed content
+- Closing tags match opening tags
+- Required parameters are present
+- Callouts use GitHub-style syntax: `> [!Note]`, `> [!Warning]`, etc.
+
+### Heading Hierarchy
+
+- No h1 headings in content (h1 comes from `title` frontmatter)
+- Headings don't skip levels (h2 -> h4 without h3)
+
+### Semantic Line Feeds
+
+Rules: [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md)
+
+- One sentence per line (better diffs)
+- Long sentences on their own line, not concatenated
+
+### Terminology and Product Names
+
+Products defined in [data/products.yml](../data/products.yml):
+
+- Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
+  "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
+- Don't mix v2/v3 terminology (e.g., "bucket" in v3 Core docs)
+- Version references match the content path
+
+### Links
+
+- Internal links use relative paths or Hugo `relref` shortcodes
+- No hardcoded `docs.influxdata.com` links in content files
+- Anchor links match actual heading IDs
+
+### Code Blocks
+
+- Use `python` not `py` for language identifiers (pytest requirement)
+- Long options in CLI examples (`--output` not `-o`)
+- Keep lines within 80 characters
+- Include language identifier on fenced code blocks
+
+### Shared Content
+
+- `source:` frontmatter points to an existing shared file
+- Shared files don't contain frontmatter (only content)
+- Changes to shared content affect multiple products — flag if unintentional
+
+### Severity
+
+- **BLOCKING**: Broken rendering, wrong product names, missing required
+  frontmatter, malformed shortcodes, h1 in content body
+- **WARNING**: Missing semantic line feeds, skipped heading levels, missing
+  `weight`, long CLI options not used
+- **INFO**: Suggestions, code block missing language identifier, opportunities
+  to use shared content

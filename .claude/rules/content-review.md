@@ -1,5 +1,6 @@
 ---
-applyTo: "content/**/*.md"
+paths:
+  - "content/**/*.md"
 ---
 
 <!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->

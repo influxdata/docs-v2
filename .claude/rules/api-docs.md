@@ -1,5 +1,8 @@
 ---
-applyTo: "api-docs/**/*.md, api-docs/**/*.yml, api-docs/**/*.yaml"
+paths:
+  - "api-docs/**/*.md"
+  - "api-docs/**/*.yml"
+  - "api-docs/**/*.yaml"
 ---
 
 <!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->

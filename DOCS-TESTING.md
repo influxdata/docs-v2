@@ -14,7 +14,7 @@ This guide covers all testing procedures for the InfluxData documentation, inclu
 | Test Type               | Purpose                                                              | Command                    |
 | ----------------------- | -------------------------------------------------------------------- | -------------------------- |
 | **Code blocks**         | Validate shell/Python code examples                                  | `yarn test:codeblocks:all` |
-| **Link validation**     | Check internal/external links                                        | `yarn test:links`          |
+| **Link validation**     | Check internal/external links                                        | `link-checker` (see below) |
 | **Style linting**       | Enforce writing standards                                            | `.ci/vale/vale.sh`         |
 | **Markdown generation** | Generate LLM-friendly Markdown                                       | `yarn build:md`            |
 | **E2E tests**           | UI and functionality testing                                         | `yarn test:e2e`            |
@@ -900,7 +900,7 @@ Style linting uses [Vale](https://vale.sh/) to enforce documentation writing sta
 .ci/vale/vale.sh content/influxdb3/core/**/*.md
 
 # With product config and alert level
-.ci/vale/vale.sh --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
+.ci/vale/vale.sh --config=content/influxdb3/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb3/cloud-dedicated/write-data/**/*.md
 ```
 
 ### VS Code IDE Integration
@@ -920,7 +920,7 @@ Vale can raise different alert levels:
 
 - **Styles**: `.ci/vale/styles/` contains configuration for the custom `InfluxDataDocs` style
 - **Vocabulary**: Add accepted/rejected terms to `.ci/vale/styles/config/vocabularies`
-- **Product-specific**: Configure per-product styles like `content/influxdb/cloud-dedicated/.vale.ini`
+- **Product-specific**: Configure per-product styles like `content/influxdb3/cloud-dedicated/.vale.ini`
 
 For more configuration details, see [Vale configuration](https://vale.sh/docs/topics/config).
 

@@ -1,8 +1,6 @@
 ---
 name: content-editing
 description: "Create, edit, and validate InfluxData documentation. Manages Hugo shared content across InfluxDB products, runs Vale style linting and Hugo builds, validates frontmatter and code blocks, and fact-checks via the documentation MCP server. Use when creating new doc pages, editing markdown .md files, managing shared content, running Vale or Hugo builds, or testing InfluxDB, Telegraf, or Flux documentation."
-author: InfluxData
-version: "1.0"
 ---
 
 # Content Editing Workflow
@@ -14,7 +12,7 @@ CLI vs direct editing? → See docs-cli-workflow skill
 Shared content changes? → Touch sourcing files (Part 1)
 Run tests? → Hugo build, Vale, code-block lint, E2E (Part 2)
 Verify technical accuracy? → MCP server (Part 4)
-Write/debug Vale rules? → See vale-linting and vale-rule-config skills
+Run/fix Vale? → vale-linting skill. Author Vale rules/regex? → vale-rule-config skill
 ```
 
 ## Using `docs create` and `docs edit`
@@ -117,7 +115,7 @@ import matter from 'gray-matter';
 function isSharedContent(filePath) {
   const content = readFileSync(filePath, 'utf8');
   const { data, content: body } = matter(content);
-  
+
   // If has source: frontmatter and minimal/no body content
   return data.source && body.trim().length < 50;
 }
@@ -171,9 +169,19 @@ yarn hugo --quiet
 
 ### 2. Link Validation (Recommended)
 
+Link validation uses the `link-checker` binary (see
+[DOCS-TESTING.md § "Link Validation with Link-Checker"](../../../DOCS-TESTING.md#link-validation-with-link-checker)
+for installation). It validates the rendered HTML, so build the site first.
+
 ```bash
-# Test all links in the documentation
-yarn test:links
+# Build the site (link-checker reads public/ HTML)
+yarn hugo --quiet
+
+# Map changed Markdown to public HTML, then check the links
+link-checker map content/influxdb3/core/path/*.md | xargs link-checker check
+
+# Or check a built HTML subtree directly
+link-checker check public/influxdb3/core/get-started/
 
 # This checks:
 # - Internal links (relative paths)
@@ -285,9 +293,9 @@ Vale checks documentation for style guide violations, spelling errors, and brand
 
 # With specific config and alert level
 .ci/vale/vale.sh \
-  --config=content/influxdb/cloud-dedicated/.vale.ini \
+  --config=content/influxdb3/cloud-dedicated/.vale.ini \
   --minAlertLevel=error \
-  content/influxdb/cloud-dedicated/write-data/**/*.md
+  content/influxdb3/cloud-dedicated/write-data/**/*.md
 ```
 
 ### Understanding Vale Alerts
@@ -324,9 +332,9 @@ If Vale incorrectly flags something:
 3. Add inline comments to disable specific rules if necessary:
 
 ```markdown
-<!-- vale InfluxDataDocs.TechnicalTerms = NO -->
+<!-- vale InfluxDataDocs.Spelling = NO -->
 This paragraph contains technical terms that Vale might flag.
-<!-- vale InfluxDataDocs.TechnicalTerms = YES -->
+<!-- vale InfluxDataDocs.Spelling = YES -->
 ```
 
 ### When to Run Vale
@@ -356,7 +364,7 @@ Use the Documentation MCP Server when the information here is inconclusive, when
 **Don't use for:**
 
 - Basic style/grammar checks (use Vale)
-- Link validation (use `yarn test:links`)
+- Link validation (use `link-checker`)
 - Testing code examples (use `yarn test:codeblocks`)
 
 ### Setup
@@ -427,7 +435,7 @@ search_influxdb_knowledge_sources
 
 ```bash
 # Step 1: Create content from draft
-docs create database-tutorial.md --products influxdb3-core,influxdb3-enterprise
+docs create database-tutorial.md --products influxdb3_core,influxdb3_enterprise
 
 # CLI scaffolds files:
 # - content/shared/influxdb3/guides/database-tutorial.md
@@ -445,8 +453,10 @@ yarn hugo --quiet
 node cypress/support/run-e2e-specs.js \
   content/influxdb3/core/guides/database-tutorial.md
 
-# Step 5: Validate links
-yarn test:links
+# Step 5: Validate links (build first, then map + check)
+yarn hugo --quiet
+link-checker map content/influxdb3/core/guides/database-tutorial.md | \
+  xargs link-checker check
 
 # Step 6: Test code examples (if tutorial has code blocks)
 yarn test:codeblocks:all
@@ -479,8 +489,10 @@ node cypress/support/run-e2e-specs.js \
   content/influxdb3/core/reference/sql/_index.md \
   content/influxdb3/enterprise/reference/sql/_index.md
 
-# Step 6: Validate links in SQL reference
-yarn test:links
+# Step 6: Validate links in SQL reference (build first, then map + check)
+yarn hugo --quiet
+link-checker map content/influxdb3/core/reference/sql/_index.md | \
+  xargs link-checker check
 ```
 
 ### Example 3: Quick Fix Without CLI
@@ -520,7 +532,7 @@ yarn hugo server
 | Generate release notes     | `docs release-notes v3.1.0 v3.2.0 --products influxdb3_core`                      |
 | Build Hugo site            | `yarn hugo --quiet`                                                               |
 | Run Vale linting           | `.ci/vale/vale.sh --config=.vale.ini content/path/`                               |
-| Test links                 | `yarn test:links`                                                                 |
+| Test links                 | `link-checker map content/path/*.md \| xargs link-checker check` (build first)    |
 | Lint code block syntax     | `yarn lint-codeblocks content/path/*.md`                                          |
 | Test code blocks           | `yarn test:codeblocks:all`                                                        |
 | Test specific page         | `yarn test:e2e content/path/file.md`                                              |
@@ -570,10 +582,10 @@ credential.
 ## Related Skills
 
 - **docs-cli-workflow** - When to use CLI vs direct editing (decision guidance)
-- **vale-rule-config** - Writing Vale rules and understanding regex patterns (for CI/Quality Engineers)
+- **vale-linting** - Running Vale, fixing flagged content, vocabulary, and product config (operator workflow)
+- **vale-rule-config** - Authoring and testing custom Vale rules and regex (rule-author workflow)
 - **cypress-e2e-testing** - Detailed Cypress test execution and debugging
 - **hugo-template-dev** - Hugo template syntax and development
-- **vale-linting** - Vale style linting configuration and debugging
 
 ## Checklist: Before Claiming Content is Complete
 
@@ -583,7 +595,7 @@ credential.
 - [ ] Technical accuracy verified (MCP fact-check if needed)
 - [ ] Hugo builds without errors (`yarn hugo --quiet`)
 - [ ] Vale style linting passes (`.ci/vale/vale.sh --config=.vale.ini content/path/`)
-- [ ] Links validated (`yarn test:links`)
+- [ ] Links validated (`link-checker` — see DOCS-TESTING.md)
 - [ ] Code examples tested (if applicable)
 - [ ] E2E tests pass for affected pages
 - [ ] Visual preview confirms changes look correct
