@@ -130,14 +130,14 @@ Example response on an unlicensed instance:
 
 ## Replace a license
 
-To apply a renewed or upgraded license, upload the new license file through
+To apply a renewed or upgraded license, apply the new license through
 **Settings > Enterprise** exactly the same way you
 [applied the first one](/telegraf/controller/telegraf-enterprise/apply-license/#apply-a-license-through-the-user-interface).
 {{% product-name %}} validates the new license and replaces the existing one
 in place. The new entitlements take effect immediately with no restart.
 
 > [!Important]
-> #### Failed uploads never downgrade a valid license
+> #### Failed license updates never downgrade a valid license
 >
 > If the new license fails validation, {{% product-name %}} retains the
 > previously active license and returns an error describing the validation

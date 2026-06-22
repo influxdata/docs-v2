@@ -26,7 +26,7 @@ through an environment variable or at runtime through the user interface.
 {{< telegraf/enterprise-upgrade >}}
 
 - [Prerequisites](#prerequisites)
-- [About the license file](#about-the-license-file)
+- [About the license](#about-the-license)
 - [Apply a license at startup](#apply-a-license-at-startup)
 - [Apply a license through the user interface](#apply-a-license-through-the-user-interface)
 - [Verify the license is active](#verify-the-license-is-active)
@@ -34,24 +34,31 @@ through an environment variable or at runtime through the user interface.
 
 ## Prerequisites
 
-- A Telegraf Enterprise license file (`.jwt` or `.txt`) issued by InfluxData.
-  If you don't have one, [contact InfluxData sales]({{% cta-link %}}).
+- A Telegraf Enterprise license issued by InfluxData and provided to you as a
+  "license key." You can optionally store your license in a file with a `.jwt`
+  or `.txt` file extension.
+  
+  > [!Note]
+  > If you have already purchased Telegraf Enterprise, but have not recieved your
+  > license, [contact InfluxData support](https://support.influxdata.com).
+
 - For the UI method: the **Owner** role on the {{% product-name %}} instance.
 
-## About the license file
+## About the license
 
 Telegraf Enterprise licenses are signed JSON Web Tokens (JWTs). The license
-file is plain text and you can open it to confirm it parses as a JWT, but you
-should not edit it. Any change invalidates the cryptographic signature.
+is text string that you can optionally store in a file with a `.jwt`
+or `.txt` file extension. Take care not to edit the actual license key.
+Any change invalidates the cryptographic signature.
 
 {{% product-name %}} validates licenses in both connected and
 air-gapped environments.
 
 ## Apply a license at startup
 
-Use the `LICENSE_FILE_PATH` environment variable to apply a license when
-{{% product-name %}} starts. This method is recommended for automated and
-infrastructure-as-code deployments.
+Save your license key to a `.jwt` or `.txt` file and use the `LICENSE_FILE_PATH`
+environment variable to apply a license when {{% product-name %}} starts. This
+method is recommended for automated and infrastructure-as-code deployments.
 
 1. **Place the license file on the {{% product-name %}} host.**
 
@@ -142,8 +149,8 @@ END Docker example -->
 
 If the file is missing, unreadable, or contains an invalid license,
 {{% product-name %}} starts in free-tier mode and logs the validation error.
-See [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/) for
-the error catalog.
+See [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/)
+for the error catalog.
 
 ## Apply a license through the user interface
 
@@ -157,7 +164,7 @@ without restarting the application. This method requires the **Owner** role.
 
 3. Provide the license in one of two ways:
    - **Drag and drop** the `.jwt` (or `.txt`) license file into the drop zone.
-   - **Paste** the JWT string into the textarea.
+   - **Paste** the license key (JWT) string into the textarea.
 4. Click **Upload license**.
 
 {{% product-name %}} validates the license immediately. On success, the page
