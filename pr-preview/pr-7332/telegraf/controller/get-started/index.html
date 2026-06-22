@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7332/docs-v2/pr-preview/pr-7332/telegraf/controller/get-started/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"articleSection":"Get Started","dateModified":"2026-06-16T21:54:22-06:00","description":"Get started with Telegraf Controller by creating a configuration, generating an API token, starting a Telegraf agent, and verifying agent reporting.","headline":"Get started with Telegraf Controller","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/get-started/","name":"Get started with Telegraf Controller"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"articleSection":"Get Started","dateModified":"2026-06-22T14:15:13-06:00","description":"Get started with Telegraf Controller by creating a configuration, generating an API token, starting a Telegraf agent, and verifying agent reporting.","headline":"Get started with Telegraf Controller","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7332/telegraf/controller/get-started/","name":"Get started with Telegraf Controller"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-16 21:54:22 -0600 -0600">
+<meta name="last-modified" content="2026-06-22 14:15:13 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1409,7 +1409,7 @@ send heartbeats to Telegraf Controller.</p>
 </li>
 <li>
 <p>Select the permissions to assign to the token. For convenience, you can
-select the one of the available <strong>Permission Presets</strong>.</p>
+select one of the available <strong>Permission Presets</strong>.</p>
 
 <div class="block tip">
   
@@ -1511,7 +1511,7 @@ in the navigation bar.</p>
 </span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;${TELEGRAF_CONTROLLER_TOKEN}&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">heartbeat</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">default</span> <span class="p">=</span> <span class="s2">&#34;ok&#34;</span></span></span></code></pre></div><!-------------------------------- END WINDOW --------------------------------->
+</span></span><span class="line"><span class="cl">    <span class="nx">default</span> <span class="p">=</span> <span class="s2">&#34;ok&#34;</span></span></span></code></pre></div><!-------------------------------- END WINDOWS -------------------------------->
 </section>
 
     
@@ -1521,11 +1521,11 @@ in the navigation bar.</p>
 <ul>
 <li>Uses the <code>exec</code> input plugin to execute an <code>echo</code> command to output a message.</li>
 <li>Uses the <code>file</code> output plugin to output the message to <code>stdout</code>, formatted
-using a template includes a timestamp and the message.</li>
-<li>Uses the heartbeat plugin to periodically sends agent status information
+using a template that includes a timestamp and the message.</li>
+<li>Uses the heartbeat plugin to periodically send agent status information
 back to Telegraf Controller, which lets you monitor agent health, track
 which configurations are loaded, and detect when agents stop reporting.</li>
-<li>Uses the <code>TELEGRAF_CONTROLLER_TOKEN</code> (Telegraf 1.39+) or the<code>INFLUX_TOKEN</code>
+<li>Uses the <code>TELEGRAF_CONTROLLER_TOKEN</code> (Telegraf 1.39+) or the <code>INFLUX_TOKEN</code>
 (Telegraf 1.38.x or earlier) environment variable to authorize with
 Telegraf Controller.</li>
 <li>Uses the <code>agent_id</code> <a href="/telegraf/controller/configs/dynamic-values/#parameters">parameter</a>
@@ -1641,7 +1641,7 @@ Configuration ID from your configuration&rsquo;s detail page in Telegraf Control
 <li><span class="code-placeholder-key"><code>AGENT_ID</code></span>:
 A unique ID for your Telegraf agent</li>
 </ul>
-<p>The <code>TELEGRAF_CONTROLLER_TOKEN</code> (Telegraf 1.39+) or the<code>INFLUX_TOKEN</code>
+<p>The <code>TELEGRAF_CONTROLLER_TOKEN</code> (Telegraf 1.39+) or the <code>INFLUX_TOKEN</code>
 (Telegraf 1.38.x or earlier) environment variables authorize the agent to
 retrieve the configuration and send heartbeats to Telegraf Controller.</p>
 <p>The <code>--config-url-watch-interval</code> flag tells Telegraf to check for configuration
@@ -1685,14 +1685,14 @@ message generated by the <code>exec</code> input plugin.</p>
 
 
 <section class="code-tab-content"><!------------------- BEGIN LINUX/MACOS ------------------->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">exec</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">commands</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;echo &#39;Telegraf started using <span class='code-callout orange'>AN UPDATED</span> configuration from Telegraf Controller&#39;&#34;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="c"># ...</span></span></span></code></pre></div><!-------------------- END LINUX/MACOS -------------------->
 </section>
 
 
 <section class="code-tab-content"><!-------------------- BEGIN WINDOWS ---------------------->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">exec</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">commands</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;cmd /C echo &#39;Telegraf started using <span class='code-callout orange'>AN UPDATED</span> configuration from Telegraf Controller&#39;&#34;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="c"># ...</span></span></span></code></pre></div><!---------------------- END WINDOWS ---------------------->
 </section>
