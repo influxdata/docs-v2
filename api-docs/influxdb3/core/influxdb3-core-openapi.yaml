@@ -17,8 +17,8 @@ info:
     - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
-    [Download the OpenAPI specification](/openapi/influxdb3-core-openapi.yaml)
-  version: v3.8.0
+    [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
+  version: v3.10.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,8 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:1259b96096eab6c8dbf3f76c974924f124e9b3e08eedc6b0c9a66d3108857c52
+  x-source-hash: sha256:23db4833cc0e88c8c2f866b3f4d48a80bc7000f9e5531add14129551ba96f8df
+  x-influxdata-download-url: /openapi/influxdb3-core-openapi.yaml
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Core API URL
@@ -140,6 +141,31 @@ tags:
     x-related:
       - title: Use compatibility APIs to write data
         href: /influxdb3/core/write-data/http-api/compatibility-apis/
+  - name: Export data (beta)
+    description: |
+      Export compacted data as Parquet files for use with external tools.
+
+      > **Beta**: Export endpoints require the [performance upgrade preview](/influxdb3/core/performance-preview/)
+      > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+      > and **should not be used for production workloads**.
+
+      Data must be compacted before it can be exported.
+      Uncompacted data is not available for export at this time.
+
+      #### Export workflow
+
+      1. [List databases](#operation/GetExportDatabases) available for export.
+      2. [List tables](#operation/GetExportTables) in a database.
+      3. [List compacted windows](#operation/GetExportWindows) (24-hour UTC windows) for a table.
+      4. [Download window data](#operation/GetExportWindowData) as Parquet files.
+
+      You can also use the [`influxdb3 export`](/influxdb3/core/performance-preview/#export-to-parquet) CLI
+      commands, which call these endpoints.
+    x-related:
+      - title: Performance upgrade preview
+        href: /influxdb3/core/performance-preview/
+      - title: Export to Parquet
+        href: /influxdb3/core/performance-preview/#export-to-parquet
   - name: Database
     description: Manage databases
   - description: >
@@ -275,6 +301,38 @@ tags:
       | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
 
       All timestamps are stored internally as nanoseconds.
+  - name: Backup and restore
+    description: >
+      Create, list, retrieve, and delete backups, and start, list, and cancel restores.
+
+
+      Backup and restore endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a
+      compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these
+      endpoints return `503 Service Unavailable`. All endpoints require an admin (operator) token or admin user.
+
+
+      Backups and restores run asynchronously: starting one returns immediately with a handle that you poll for status.
+      Only one restore can run cluster-wide at a time.
+  - name: Bulk import
+    description: >
+      Upload Parquet files for bulk import into existing tables and list the status of bulk import jobs.
+
+
+      Bulk import endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a
+      compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin
+      (operator) token.
+  - name: Data deletion
+    description: |
+      Manage row-delete requests.
+
+      These endpoints are only available in InfluxDB 3 Core.
+  - name: User management
+    description: >
+      Manage users and their role assignments, and look up users and roles.
+
+
+      These endpoints are only available in InfluxDB 3 Core. User authentication is a preview feature enabled by
+      starting the server with `--without-user-auth false`.
 paths:
   /api/v1/health:
     get:
@@ -302,10 +360,10 @@ paths:
       tags:
         - Server information
         - Compatibility endpoints
+      x-docs-v2-operationId: GetHealthV1
   /api/v2/write:
     post:
-      operationId: PostV2Write
-      x-compatibility-version: v2
+      operationId: parse_v2
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -320,6 +378,7 @@ paths:
           description: Access denied.
         "413":
           description: Request entity too large.
+      x-docs-v2-operationId: PostV2Write
       summary: Write line protocol (v2-compatible)
       description: >
         Writes line protocol to the specified database.
@@ -404,7 +463,7 @@ paths:
         - Write data
   /api/v3/configure/database:
     delete:
-      operationId: DeleteConfigureDatabase
+      operationId: delete_database
       parameters:
         - $ref: "#/components/parameters/db"
         - name: data_only
@@ -455,6 +514,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Database not found.
+      x-docs-v2-operationId: DeleteConfigureDatabase
       summary: Delete a database
       description: |
         Soft deletes a database.
@@ -464,7 +524,7 @@ paths:
       tags:
         - Database
     get:
-      operationId: GetConfigureDatabase
+      operationId: show_databases
       responses:
         "200":
           description: Success. The response body contains the list of databases.
@@ -478,6 +538,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Database not found.
+      x-docs-v2-operationId: GetConfigureDatabase
       summary: List databases
       description: Retrieves a list of databases.
       parameters:
@@ -494,7 +555,13 @@ paths:
       tags:
         - Database
     post:
-      operationId: PostConfigureDatabase
+      operationId: create_database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDatabaseRequest"
       responses:
         "200":
           description: Success. Database created.
@@ -504,14 +571,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "409":
           description: Database already exists.
+      x-docs-v2-operationId: PostConfigureDatabase
       summary: Create a database
       description: Creates a new database in the system.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateDatabaseRequest"
       tags:
         - Database
     put:
@@ -553,9 +615,17 @@ paths:
           description: Database not found.
       tags:
         - Database
+      x-docs-v2-operationId: DeleteDatabaseRetentionPeriod
   /api/v3/configure/distinct_cache:
     delete:
-      operationId: DeleteConfigureDistinctCache
+      operationId: configure_distinct_cache_delete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: DistinctCacheDeleteRequest
       responses:
         "200":
           description: Success. The distinct cache has been deleted.
@@ -565,6 +635,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Cache not found.
+      x-docs-v2-operationId: DeleteConfigureDistinctCache
       summary: Delete distinct cache
       description: Deletes a distinct cache.
       parameters:
@@ -585,7 +656,7 @@ paths:
         - Cache data
         - Table
     post:
-      operationId: PostConfigureDistinctCache
+      operationId: configure_distinct_cache_create
       responses:
         "201":
           description: Success. The distinct cache has been created.
@@ -598,6 +669,7 @@ paths:
             configuration.
         "409":
           description: Conflict. A distinct cache with this configuration already exists.
+      x-docs-v2-operationId: PostConfigureDistinctCache
       summary: Create distinct cache
       description: Creates a distinct cache for a table.
       requestBody:
@@ -611,7 +683,14 @@ paths:
         - Table
   /api/v3/configure/last_cache:
     delete:
-      operationId: DeleteConfigureLastCache
+      operationId: configure_last_cache_delete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: LastCacheDeleteRequest
       responses:
         "200":
           description: Success. The last cache has been deleted.
@@ -621,6 +700,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Cache not found.
+      x-docs-v2-operationId: DeleteConfigureLastCache
       summary: Delete last cache
       description: Deletes a last cache.
       parameters:
@@ -641,7 +721,13 @@ paths:
         - Cache data
         - Table
     post:
-      operationId: PostConfigureLastCache
+      operationId: configure_last_cache_create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LastCacheCreateRequest"
       responses:
         "201":
           description: Success. Last cache created.
@@ -651,14 +737,9 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Cache not found.
+      x-docs-v2-operationId: PostConfigureLastCache
       summary: Create last cache
       description: Creates a last cache for a table.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/LastCacheCreateRequest"
       tags:
         - Cache data
         - Table
@@ -708,6 +789,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostInstallPluginPackages
   /api/v3/configure/plugin_environment/install_requirements:
     post:
       operationId: PostInstallPluginRequirements
@@ -754,6 +836,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostInstallPluginRequirements
   /api/v3/configure/processing_engine_trigger:
     post:
       operationId: PostConfigureProcessingEngineTrigger
@@ -898,6 +981,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostConfigureProcessingEngineTrigger
     delete:
       operationId: DeleteConfigureProcessingEngineTrigger
       summary: Delete processing engine trigger
@@ -929,6 +1013,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: DeleteConfigureProcessingEngineTrigger
   /api/v3/configure/processing_engine_trigger/disable:
     post:
       operationId: PostDisableProcessingEngineTrigger
@@ -958,6 +1043,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostDisableProcessingEngineTrigger
   /api/v3/configure/processing_engine_trigger/enable:
     post:
       operationId: PostEnableProcessingEngineTrigger
@@ -987,9 +1073,10 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostEnableProcessingEngineTrigger
   /api/v3/configure/table:
     delete:
-      operationId: DeleteConfigureTable
+      operationId: delete_table
       parameters:
         - $ref: "#/components/parameters/db"
         - name: table
@@ -1030,6 +1117,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+      x-docs-v2-operationId: DeleteConfigureTable
       summary: Delete a table
       description: |
         Soft deletes a table.
@@ -1044,7 +1132,13 @@ paths:
       tags:
         - Table
     post:
-      operationId: PostConfigureTable
+      operationId: create_table
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTableRequest"
       responses:
         "200":
           description: Success. The table has been created.
@@ -1054,19 +1148,14 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Database not found.
+      x-docs-v2-operationId: PostConfigureTable
       summary: Create a table
       description: Creates a new table within a database.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateTableRequest"
       tags:
         - Table
   /api/v3/configure/token:
     delete:
-      operationId: DeleteToken
+      operationId: delete_token
       parameters:
         - name: token_name
           in: query
@@ -1081,6 +1170,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Token not found.
+      x-docs-v2-operationId: DeleteToken
       summary: Delete token
       description: |
         Deletes a token.
@@ -1089,7 +1179,7 @@ paths:
         - Token
   /api/v3/configure/token/admin:
     post:
-      operationId: PostCreateAdminToken
+      operationId: create_admin_token
       responses:
         "201":
           description: |
@@ -1101,6 +1191,7 @@ paths:
                 $ref: "#/components/schemas/AdminTokenObject"
         "401":
           $ref: "#/components/responses/Unauthorized"
+      x-docs-v2-operationId: PostCreateAdminToken
       summary: Create admin token
       description: |
         Creates an admin token.
@@ -1127,9 +1218,10 @@ paths:
       tags:
         - Authentication
         - Token
+      x-docs-v2-operationId: PostRegenerateAdminToken
   /api/v3/configure/token/named_admin:
     post:
-      operationId: PostCreateNamedAdminToken
+      operationId: create_named_admin_token
       responses:
         "201":
           description: |
@@ -1143,13 +1235,11 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "409":
           description: A token with this name already exists.
+      x-docs-v2-operationId: PostCreateNamedAdminToken
       summary: Create named admin token
       description: |
         Creates a named admin token.
         A named admin token is a special type of admin token with a custom name for identification and management.
-      tags:
-        - Authentication
-        - Token
       requestBody:
         required: true
         content:
@@ -1166,9 +1256,12 @@ paths:
                   nullable: true
               required:
                 - token_name
+      tags:
+        - Authentication
+        - Token
   /api/v3/engine/{request_path}:
     get:
-      operationId: GetProcessingEnginePluginRequest
+      operationId: processing_engine_request_plugin
       responses:
         "200":
           description: Success. The plugin request has been executed.
@@ -1180,6 +1273,7 @@ paths:
           description: Plugin not found.
         "500":
           description: Processing failure.
+      x-docs-v2-operationId: GetProcessingEnginePluginRequest
       summary: On Request processing engine plugin request
       description: >
         Executes the On Request processing engine plugin specified in the trigger's `plugin_filename`.
@@ -1202,7 +1296,7 @@ paths:
       tags:
         - Processing engine
     post:
-      operationId: PostProcessingEnginePluginRequest
+      operationId: processing_engine_request_plugin
       responses:
         "200":
           description: Success. The plugin request has been executed.
@@ -1214,6 +1308,7 @@ paths:
           description: Plugin not found.
         "500":
           description: Processing failure.
+      x-docs-v2-operationId: PostProcessingEnginePluginRequest
       summary: On Request processing engine plugin request
       description: >
         Executes the On Request processing engine plugin specified in the trigger's `plugin_filename`.
@@ -1266,7 +1361,7 @@ paths:
           type: string
   /api/v3/plugin_test/schedule:
     post:
-      operationId: PostTestSchedulingPlugin
+      operationId: test_processing_engine_schedule_plugin
       responses:
         "200":
           description: Success. The plugin test has been executed.
@@ -1276,6 +1371,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Plugin not enabled.
+      x-docs-v2-operationId: PostTestSchedulingPlugin
       summary: Test scheduling plugin
       description: Executes a test of a scheduling plugin.
       requestBody:
@@ -1288,7 +1384,7 @@ paths:
         - Processing engine
   /api/v3/plugin_test/wal:
     post:
-      operationId: PostTestWALPlugin
+      operationId: test_processing_engine_wal_plugin
       responses:
         "200":
           description: Success. The plugin test has been executed.
@@ -1298,6 +1394,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Plugin not enabled.
+      x-docs-v2-operationId: PostTestWALPlugin
       summary: Test WAL plugin
       description: Executes a test of a write-ahead logging (WAL) plugin.
       requestBody:
@@ -1310,7 +1407,7 @@ paths:
         - Processing engine
   /api/v3/plugins/directory:
     put:
-      operationId: PutPluginDirectory
+      operationId: replace_plugin_directory
       requestBody:
         required: true
         content:
@@ -1326,6 +1423,7 @@ paths:
           description: Forbidden. Admin token required.
         "500":
           description: Plugin not found. The `plugin_name` does not match any registered trigger.
+      x-docs-v2-operationId: PutPluginDirectory
       summary: Update a multi-file plugin directory
       description: |
         Replaces all files in a multi-file plugin directory. The
@@ -1342,12 +1440,6 @@ paths:
   /api/v3/plugins/files:
     post:
       operationId: create_plugin_file
-      summary: Create a plugin file
-      description: |
-        Creates a single plugin file in the plugin directory. Writes the
-        `content` to a file named after `plugin_name`. Does not require an
-        existing trigger—use this to upload plugin files before creating
-        triggers that reference them.
       requestBody:
         required: true
         content:
@@ -1361,21 +1453,17 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           description: Forbidden. Admin token required.
+      summary: Create a plugin file
+      description: |
+        Creates a single plugin file in the plugin directory. Writes the
+        `content` to a file named after `plugin_name`. Does not require an
+        existing trigger—use this to upload plugin files before creating
+        triggers that reference them.
       tags:
         - Processing engine
       x-security-note: Requires an admin token
     put:
-      operationId: PutPluginFile
-      summary: Update a plugin file
-      description: |
-        Updates a single plugin file for an existing trigger. The
-        `plugin_name` must match a registered trigger name—the server
-        resolves the trigger's `plugin_filename` and overwrites that file
-        with the provided `content`.
-
-        To upload a new plugin file before creating a trigger, use
-        `POST /api/v3/plugins/files` instead. To update a multi-file
-        plugin directory, use `PUT /api/v3/plugins/directory`.
+      operationId: update_plugin_file
       requestBody:
         required: true
         content:
@@ -1391,42 +1479,23 @@ paths:
           description: Forbidden. Admin token required.
         "500":
           description: Plugin not found. The `plugin_name` does not match any registered trigger.
+      x-docs-v2-operationId: PutPluginFile
+      summary: Update a plugin file
+      description: |
+        Updates a single plugin file for an existing trigger. The
+        `plugin_name` must match a registered trigger name—the server
+        resolves the trigger's `plugin_filename` and overwrites that file
+        with the provided `content`.
+
+        To upload a new plugin file before creating a trigger, use
+        `POST /api/v3/plugins/files` instead. To update a multi-file
+        plugin directory, use `PUT /api/v3/plugins/directory`.
       tags:
         - Processing engine
       x-security-note: Requires an admin token
   /api/v3/query_influxql:
     get:
-      operationId: GetExecuteInfluxQLQuery
-      responses:
-        "200":
-          description: Success. The response body contains query results.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/QueryResponse"
-            text/csv:
-              schema:
-                type: string
-            application/vnd.apache.parquet:
-              schema:
-                type: string
-            application/jsonl:
-              schema:
-                type: string
-        "400":
-          description: Bad request.
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          description: Access denied.
-        "404":
-          description: Database not found.
-        "405":
-          description: Method not allowed.
-        "422":
-          description: Unprocessable entity.
-      summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      operationId: query_influxql
       parameters:
         - $ref: "#/components/parameters/dbQueryParam"
         - name: q
@@ -1447,10 +1516,13 @@ paths:
             type: string
             description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
           description: JSON-encoded query parameters for parameterized queries.
-      tags:
-        - Query data
-    post:
-      operationId: PostExecuteQueryInfluxQL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1479,18 +1551,84 @@ paths:
           description: Method not allowed.
         "422":
           description: Unprocessable entity.
+      x-docs-v2-operationId: GetExecuteInfluxQLQuery
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
+      tags:
+        - Query data
+    post:
+      operationId: query_influxql
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
       requestBody:
         $ref: "#/components/requestBodies/queryRequestBody"
+      responses:
+        "200":
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      x-docs-v2-operationId: PostExecuteQueryInfluxQL
+      summary: Execute InfluxQL query
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       tags:
         - Query data
   /api/v3/query_sql:
     get:
-      operationId: GetExecuteQuerySQL
+      operationId: query_sql
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - $ref: "#/components/parameters/querySqlParam"
+        - $ref: "#/components/parameters/format"
+        - $ref: "#/components/parameters/AcceptQueryHeader"
+        - $ref: "#/components/parameters/ContentType"
+        - name: params
+          in: query
+          required: false
+          schema:
+            type: string
+            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
+          description: JSON-encoded query parameters for parameterized queries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1529,25 +1667,25 @@ paths:
           description: Method not allowed.
         "422":
           description: Unprocessable entity.
+      x-docs-v2-operationId: GetExecuteQuerySQL
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
-      parameters:
-        - $ref: "#/components/parameters/db"
-        - $ref: "#/components/parameters/querySqlParam"
-        - $ref: "#/components/parameters/format"
-        - $ref: "#/components/parameters/AcceptQueryHeader"
-        - $ref: "#/components/parameters/ContentType"
-        - name: params
-          in: query
-          required: false
-          schema:
-            type: string
-            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
-          description: JSON-encoded query parameters for parameterized queries.
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        a query to retrieve detailed execution statistics.
       tags:
         - Query data
     post:
-      operationId: PostExecuteQuerySQL
+      operationId: query_sql
+      parameters:
+        - $ref: "#/components/parameters/AcceptQueryHeader"
+        - $ref: "#/components/parameters/ContentType"
+      requestBody:
+        $ref: "#/components/requestBodies/queryRequestBody"
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1576,47 +1714,42 @@ paths:
           description: Method not allowed.
         "422":
           description: Unprocessable entity.
+      x-docs-v2-operationId: PostExecuteQuerySQL
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
-      parameters:
-        - $ref: "#/components/parameters/AcceptQueryHeader"
-        - $ref: "#/components/parameters/ContentType"
-      requestBody:
-        $ref: "#/components/requestBodies/queryRequestBody"
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        a query to retrieve detailed execution statistics.
       tags:
         - Query data
   /api/v3/write_lp:
     post:
-      operationId: PostWriteLP
+      operationId: write_lp
       parameters:
-        - $ref: "#/components/parameters/dbWriteParam"
-        - $ref: "#/components/parameters/accept_partial"
-        - $ref: "#/components/parameters/precisionParam"
-        - name: no_sync
+        - name: db
           in: query
-          schema:
-            $ref: "#/components/schemas/NoSync"
-        - name: Content-Type
-          in: header
-          description: |
-            The content type of the request payload.
-          schema:
-            $ref: "#/components/schemas/LineProtocol"
-          required: false
-        - name: Accept
-          in: header
-          description: |
-            The content type that the client can understand.
-            Writes only return a response body if they fail (partially or completely)--for example,
-            due to a syntax problem or type mismatch.
+          required: true
           schema:
             type: string
-            default: application/json
-            enum:
-              - application/json
+        - name: precision
+          in: query
           required: false
-        - $ref: "#/components/parameters/ContentEncoding"
-        - $ref: "#/components/parameters/ContentLength"
+          schema:
+            type: string
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -1633,54 +1766,54 @@ paths:
           description: Request entity too large.
         "422":
           description: Unprocessable entity.
+      x-docs-v2-operationId: PostWriteLP
       summary: Write line protocol
-      description: >
+      description: |
         Writes line protocol to the specified database.
 
-
         This is the native InfluxDB 3 Core write endpoint that provides enhanced control
-
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
-
-        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to
-        InfluxDB.
-
-        Use query parameters to specify options for writing data.
-
+        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format
+        to InfluxDB. Use query parameters to specify options for writing data.
 
         #### Features
 
-
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
-
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
-        times but sacrificing durability guarantees
-
+          times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
 
+        #### Column families (performance upgrade preview)
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), you can assign fields to column families using the `::` delimiter
+        in field names. The portion before `::` is the family name; everything after is the field name.
+
+        ```txt
+        metrics,host=sA cpu::usage_user=55.2,cpu::usage_sys=12.1,mem::free=2048i 1000000000
+        ```
+
+        Fields in the same family are stored together on disk. For wide tables, this reduces I/O
+        by letting queries read only the families they need. Fields written without `::` are assigned
+        to auto-generated families.
+
+        For more information, see [Column families](/influxdb3/core/performance-preview/#column-families).
 
         #### Auto precision detection
 
-
         When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
-
         the timestamp precision based on the magnitude of the timestamp value:
 
-
         - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
-
         - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
-
         - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
-
         - Larger timestamps → Nanosecond precision (no conversion needed)
-
 
         #### Related
 
-
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/core/write-data/http-api/v3-write-lp/)
+        - [Performance upgrade preview](/influxdb3/core/performance-preview/)
       requestBody:
         $ref: "#/components/requestBodies/lineProtocolRequestBody"
       tags:
@@ -1720,7 +1853,7 @@ paths:
             disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
   /health:
     get:
-      operationId: GetHealth
+      operationId: health
       responses:
         "200":
           description: Service is running. Returns `OK`.
@@ -1733,6 +1866,7 @@ paths:
           description: Unauthorized. Authentication is required.
         "500":
           description: Service is unavailable.
+      x-docs-v2-operationId: GetHealth
       summary: Health check
       description: |
         Checks the status of the service.
@@ -1745,17 +1879,18 @@ paths:
         - Server information
   /metrics:
     get:
-      operationId: GetMetrics
+      operationId: handle_metrics
       responses:
         "200":
           description: Success
+      x-docs-v2-operationId: GetMetrics
       summary: Metrics
       description: Retrieves Prometheus-compatible server metrics.
       tags:
         - Server information
   /ping:
     get:
-      operationId: GetPing
+      operationId: ping
       responses:
         "200":
           description: Success. The response body contains server information.
@@ -1793,7 +1928,7 @@ paths:
           description: |
             Not Found. Returned for HEAD requests.
             Use a GET request to retrieve version information.
-      x-client-method: ping
+      x-docs-v2-operationId: GetPing
       summary: Ping the server
       description: |
         Returns version information for the server.
@@ -1853,8 +1988,7 @@ paths:
         - Server information
   /query:
     get:
-      operationId: GetV1ExecuteQuery
-      x-compatibility-version: v1
+      operationId: ""
       responses:
         "200":
           description: |
@@ -1896,6 +2030,7 @@ paths:
           description: Method not allowed.
         "422":
           description: Unprocessable entity.
+      x-docs-v2-operationId: GetV1ExecuteQuery
       summary: Execute InfluxQL query (v1-compatible)
       description: >
         Executes an InfluxQL query to retrieve data from the specified database.
@@ -1999,8 +2134,7 @@ paths:
         - Query data
         - Compatibility endpoints
     post:
-      operationId: PostExecuteV1Query
-      x-compatibility-version: v1
+      operationId: ""
       responses:
         "200":
           description: |
@@ -2042,6 +2176,7 @@ paths:
           description: Method not allowed.
         "422":
           description: Unprocessable entity.
+      x-docs-v2-operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
       description: >
         Executes an InfluxQL query to retrieve data from the specified database.
@@ -2199,8 +2334,7 @@ paths:
         - Compatibility endpoints
   /write:
     post:
-      operationId: PostV1Write
-      x-compatibility-version: v1
+      operationId: ""
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -2250,6 +2384,7 @@ paths:
           description: Access denied.
         "413":
           description: Request entity too large.
+      x-docs-v2-operationId: PostV1Write
       summary: Write line protocol (v1-compatible)
       description: >
         Writes line protocol to the specified database.
@@ -2556,16 +2691,6 @@ components:
       description: |-
         The format of data in the response body.
         `json_lines` is the canonical name; `jsonl` is accepted as an alias.
-    NoSync:
-      type: boolean
-      default: false
-      description: |
-        Acknowledges a successful write without waiting for WAL persistence.
-
-        #### Related
-
-        - [Use the HTTP API and client libraries to write data](/influxdb3/core/write-data/api-client-libraries/)
-        - [Data durability](/influxdb3/core/reference/internals/durability/)
     PrecisionWriteCompatibility:
       enum:
         - ms
