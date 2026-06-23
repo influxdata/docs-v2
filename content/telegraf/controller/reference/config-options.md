@@ -80,6 +80,11 @@ telegraf_controller --no-interactive
 - [TLS](#tls)
   - [ssl-cert-path](#ssl-cert-path)
   - [ssl-key-path](#ssl-key-path)
+- [Database TLS](#database-tls)
+  - [sslmode](#sslmode)
+  - [sslrootcert](#sslrootcert)
+  - [database-ca-cert](#database-ca-cert)
+  - [database-ssl-no-verify](#database-ssl-no-verify)
 - [Owner account](#owner-account)
   - [owner-email](#owner-email)
   - [owner-username](#owner-username)
@@ -194,28 +199,132 @@ telegraf_controller --database="/path/to/database.db"
 
 ### TLS
 
+Provide both a certificate and a private key to serve the
+{{% product-name %}} web interface, API, and the agent heartbeat service over
+HTTPS. The web interface, API, and heartbeat service share the same
+certificate and key.
+
 - [ssl-cert-path](#ssl-cert-path)
 - [ssl-key-path](#ssl-key-path)
 
+> [!Note]
+> #### Provide both the certificate and the key
+>
+> The certificate and key are required together. If you set only one of
+> [`ssl-cert-path`](#ssl-cert-path) or [`ssl-key-path`](#ssl-key-path),
+> {{% product-name %}} logs a warning and serves plain HTTP. When both are set,
+> the certificate and key must be valid PEM files. An invalid certificate or
+> key prevents the heartbeat service from starting.
+
 #### ssl-cert-path
 
-Path to the SSL/TLS certificate file. Required to enable HTTPS for the web
-interface and API.
+Path to a PEM-encoded SSL/TLS certificate. Set this together with
+[`ssl-key-path`](#ssl-key-path) to enable HTTPS.
 
-| Command flag | Environment variable |
-| :----------- | :------------------- |
-| _(none)_     | `SSL_CERT_PATH`      |
+| Command flag  | Environment variable |
+| :------------ | :------------------- |
+| `--ssl-cert`  | `SSL_CERT_PATH`      |
 
 ---
 
 #### ssl-key-path
 
-Path to the SSL/TLS private key file. Required to enable HTTPS for the web
-interface and API.
+Path to the PEM-encoded SSL/TLS private key that matches
+[`ssl-cert-path`](#ssl-cert-path). Set this together with the certificate to
+enable HTTPS.
 
 | Command flag | Environment variable |
 | :----------- | :------------------- |
-| _(none)_     | `SSL_KEY_PATH`       |
+| `--ssl-key`  | `SSL_KEY_PATH`       |
+
+---
+
+### Database TLS
+
+When you connect {{% product-name %}} to PostgreSQL, use the following options
+to encrypt the database connection and to control how
+{{% product-name %}} verifies the PostgreSQL server's certificate. These
+options apply only to PostgreSQL connections and have no effect when you use
+SQLite.
+
+- [sslmode](#sslmode)
+- [sslrootcert](#sslrootcert)
+- [database-ca-cert](#database-ca-cert)
+- [database-ssl-no-verify](#database-ssl-no-verify)
+
+#### sslmode
+
+Set `sslmode` as a query parameter in the PostgreSQL
+[`database`](#database) connection URL to control whether {{% product-name %}}
+uses TLS and whether it verifies the server certificate.
+
+```bash { callout="sslmode=verify-full" callout-color="orange"}
+telegraf_controller \
+  --database="postgresql://user:password@localhost:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
+```
+
+{{% product-name %}} supports the following `sslmode` values:
+
+| `sslmode`     | Connection behavior                                              |
+| :------------ | :-------------------------------------------------------------- |
+| `disable`     | Connect without TLS.                                            |
+| `allow`       | Use TLS if the server supports it. Equivalent to `prefer`.      |
+| `prefer`      | Use TLS if the server supports it, otherwise connect without it. |
+| `require`     | Require TLS, but do not verify the server certificate unless you also provide a CA certificate. |
+| `verify-ca`   | Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate. |
+| `verify-full` | Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate. |
+
+To verify the server certificate, provide a CA certificate with
+[`sslrootcert`](#sslrootcert), [`database-ca-cert`](#database-ca-cert), or
+`PGSSLROOTCERT`. If you request verification but do not provide a CA
+certificate, {{% product-name %}} falls back to the system trust store.
+
+> [!Note]
+> #### Client certificate authentication is not supported
+>
+> {{% product-name %}} does not support PostgreSQL client certificate
+> authentication. {{% product-name %}} ignores the `sslcert` and `sslkey`
+> connection parameters and logs a warning if you set them.
+
+---
+
+#### sslrootcert
+
+Path to a PEM-encoded CA certificate used to verify the PostgreSQL server's
+certificate. Set `sslrootcert` as a query parameter in the
+[`database`](#database) connection URL. This is equivalent to setting
+[`database-ca-cert`](#database-ca-cert). When you provide a CA certificate,
+{{% product-name %}} verifies the server certificate even if
+[`database-ssl-no-verify`](#database-ssl-no-verify) is set.
+
+---
+
+#### database-ca-cert
+
+Path to a PEM-encoded CA certificate used to verify the PostgreSQL server's
+certificate. Use this environment variable as an alternative to the
+[`sslrootcert`](#sslrootcert) connection parameter. {{% product-name %}} also
+accepts the standard `PGSSLROOTCERT` environment variable for the same purpose.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `DATABASE_CA_CERT`   |
+
+---
+
+#### database-ssl-no-verify
+
+When set to `1`, `true`, or `yes`, {{% product-name %}} encrypts the
+PostgreSQL connection but does not verify the server certificate.
+Use this only for development or troubleshooting. If you also provide a CA
+certificate, {{% product-name %}} verifies the server certificate and ignores
+this setting.
+
+**Default:** `false`
+
+| Command flag | Environment variable     |
+| :----------- | :----------------------- |
+| _(none)_     | `DATABASE_SSL_NO_VERIFY` |
 
 ---
 
