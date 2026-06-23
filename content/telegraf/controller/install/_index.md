@@ -22,6 +22,7 @@ configurations, monitoring agents, and organizing plugins.
 - [Set up your database](#set-up-your-database)
 - [Configure {{% product-name %}}](#configure-telegraf-controller)
 - [Set up the owner account](#set-up-the-owner-account)
+- [Apply a Telegraf Enterprise license (optional)](#apply-a-telegraf-enterprise-license-optional)
 - [Access {{% product-name %}}](#access-telegraf-controller)
 
 ## System Requirements
@@ -590,7 +591,27 @@ mode, the web interface displays a setup page where you can create one.
 {{< img-hd src="/img/telegraf/controller-setup-owner-account.png" alt="Owner account setup page" />}}
 
 For more information about user roles and permissions, see
-[Authorization](/telegraf/controller/reference/authorization/).
+[Authentication and authorization](/telegraf/controller/reference/authentication-authorization/).
+
+## Apply a Telegraf Enterprise license (optional)
+
+If you have a [Telegraf Enterprise](/telegraf/enterprise/)
+license, you can apply it at startup by setting the `LICENSE_FILE_PATH`
+environment variable to the path of your license file.
+
+```bash
+export LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt
+```
+
+You can also apply a license through the {{% product-name %}} UI after the
+application is running. For full details on both methods, including systemd
+and Docker examples, see
+[Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/).
+
+Without a license, {{% product-name %}} runs in a free tier with reduced
+scale limits and enterprise features disabled. See
+[Telegraf Enterprise](/telegraf/enterprise/) for a
+comparison.
 
 ## Access {{% product-name %}}
 

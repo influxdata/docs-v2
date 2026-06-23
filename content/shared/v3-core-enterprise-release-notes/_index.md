@@ -151,6 +151,8 @@ All Core updates are included in Enterprise. The following updates are exclusive
 
 - **Backup does not capture row-delete state**: Backup (beta) doesn't currently pick up row-delete state files in object storage, so row deletes may persist across a restore. 
 
+- **Built-in roles grant narrower access than their descriptions suggest**: With the user authentication preview enabled, the Auditor and Member roles enforce less access than their role descriptions imply. Auditor users can list databases but cannot query data or read users or roles. Member users can read and write data but cannot list users or roles. Workaround: use an Admin-role user or an admin token for user and role management.
+
 ## v3.9.3 {date="2026-05-29"}
 
 ### Core

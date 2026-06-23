@@ -11,7 +11,8 @@ weight: 103
 related:
   - /telegraf/controller/install/
   - /telegraf/controller/settings/
-  - /telegraf/controller/reference/authorization/
+  - /telegraf/controller/authentication/
+  - /telegraf/controller/reference/authentication-authorization/
 ---
 
 {{% product-name %}} accepts configuration through environment variables and,
@@ -84,18 +85,59 @@ telegraf_controller --no-interactive
   - [owner-username](#owner-username)
   - [owner-password](#owner-password)
   - [reset-owner-password](#reset-owner-password)
+  - [owner-auth-provider](#owner-auth-provider)
+  - [owner-external-id](#owner-external-id)
 - [Authentication and security](#authentication-and-security)
   - [session-secret](#session-secret)
-  - [login-lockout-attempts](#login-lockout-attempts)
-  - [login-lockout-minutes](#login-lockout-minutes)
-  - [password-complexity](#password-complexity)
   - [disable-auth-endpoints](#disable-auth-endpoints)
+  - [Local authentication](#local-authentication)
+    - [auth-local-enabled](#auth-local-enabled)
+    - [login-lockout-attempts](#login-lockout-attempts)
+    - [login-lockout-minutes](#login-lockout-minutes)
+    - [password-complexity](#password-complexity)
+  - [LDAP authentication](#ldap-authentication)
+    - [auth-ldap-enabled](#auth-ldap-enabled)
+    - [auth-ldap-url](#auth-ldap-url)
+    - [auth-ldap-bind-dn](#auth-ldap-bind-dn)
+    - [auth-ldap-bind-password](#auth-ldap-bind-password)
+    - [auth-ldap-user-search-base](#auth-ldap-user-search-base)
+    - [auth-ldap-user-search-filter](#auth-ldap-user-search-filter)
+    - [auth-ldap-start-tls](#auth-ldap-start-tls)
+    - [auth-ldap-ca-cert-path](#auth-ldap-ca-cert-path)
+    - [auth-ldap-reject-unauthorized](#auth-ldap-reject-unauthorized)
+    - [auth-ldap-attr-username](#auth-ldap-attr-username)
+    - [auth-ldap-attr-email](#auth-ldap-attr-email)
+    - [auth-ldap-attr-display-name](#auth-ldap-attr-display-name)
+    - [auth-ldap-attr-groups](#auth-ldap-attr-groups)
+  - [OIDC authentication](#oidc-authentication)
+    - [auth-oidc-enabled](#auth-oidc-enabled)
+    - [auth-oidc-issuer](#auth-oidc-issuer)
+    - [auth-oidc-client-id](#auth-oidc-client-id)
+    - [auth-oidc-client-secret](#auth-oidc-client-secret)
+    - [auth-oidc-redirect-uri](#auth-oidc-redirect-uri)
+    - [auth-oidc-scopes](#auth-oidc-scopes)
+    - [auth-oidc-username-claim](#auth-oidc-username-claim)
+    - [auth-oidc-groups-claim](#auth-oidc-groups-claim)
+    - [auth-oidc-display-name](#auth-oidc-display-name)
+    - [auth-oidc-post-login-redirect](#auth-oidc-post-login-redirect)
+    - [auth-oidc-allow-insecure](#auth-oidc-allow-insecure)
 - [Logging](#logging)
   - [rust-log](#rust-log)
   - [logs-dir](#logs-dir)
+- [Audit logging](#audit-logging)
+  - [audit-enabled](#audit-enabled)
+  - [audit-log-retention](#audit-log-retention)
+  - [audit-syslog-host](#audit-syslog-host)
+  - [audit-syslog-port](#audit-syslog-port)
+  - [audit-syslog-protocol](#audit-syslog-protocol)
+  - [audit-webhook-url](#audit-webhook-url)
+  - [audit-webhook-auth-header](#audit-webhook-auth-header)
+  - [audit-file-path](#audit-file-path)
 - [EULA and setup](#eula-and-setup)
   - [eula-accept](#eula-accept)
   - [no-interactive](#no-interactive)
+- [Licensing](#licensing)
+  - [license-file-path](#license-file-path)
 
 ---
 
@@ -187,15 +229,18 @@ administrative access to {{% product-name %}}.
 - [owner-username](#owner-username)
 - [owner-password](#owner-password)
 - [reset-owner-password](#reset-owner-password)
+- [owner-auth-provider](#owner-auth-provider)
+- [owner-external-id](#owner-external-id)
 
 > [!Note]
 > #### Bootstrap-only settings
 >
 > On first startup, {{% product-name %}} persists `OWNER_EMAIL`,
-> `OWNER_USERNAME`, and `OWNER_PASSWORD` in the database; the database is the
-> authoritative source thereafter. Changes to these environment variables or
-> CLI flags do not affect the stored values. To change owner account details
-> after bootstrap, use the {{% product-name %}} UI or API.
+> `OWNER_USERNAME`, `OWNER_PASSWORD`, `OWNER_AUTH_PROVIDER`, and
+> `OWNER_EXTERNAL_ID` in the database; the database is the authoritative
+> source thereafter. Changes to these environment variables or CLI flags
+> do not affect the stored values. To change owner account details after
+> bootstrap, use the {{% product-name %}} UI or API.
 
 #### owner-email
 
@@ -244,13 +289,80 @@ When set to `true`, forces an owner password reset on the next startup using
 
 ---
 
+#### owner-auth-provider
+
+Primary authentication provider for the bootstrap owner account.
+Set this when you intend to
+[disable local authentication](/telegraf/controller/authentication/local/#disable-local-authentication)
+after bootstrap. The owner can still sign in with the bootstrap password
+as a recovery credential.
+
+Supported values: `local`, `ldap`, `oidc`
+
+**Default:** `local`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `OWNER_AUTH_PROVIDER` |
+
+---
+
+#### owner-external-id
+
+External identifier that links the bootstrap owner to its identity in an
+external authentication provider. Required when
+[`owner-auth-provider`](#owner-auth-provider) is `ldap` or `oidc`.
+
+- For LDAP, set to the user's distinguished name (DN), for example
+  `uid=alice,ou=people,dc=example,dc=com`.
+- For OIDC, set to the `sub` claim from the ID token.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `OWNER_EXTERNAL_ID`  |
+
+---
+
 ### Authentication and security
 
 - [session-secret](#session-secret)
-- [login-lockout-attempts](#login-lockout-attempts)
-- [login-lockout-minutes](#login-lockout-minutes)
-- [password-complexity](#password-complexity)
 - [disable-auth-endpoints](#disable-auth-endpoints)
+
+- [Local authentication](#local-authentication)
+  - [auth-local-enabled](#auth-local-enabled)
+  - [login-lockout-attempts](#login-lockout-attempts)
+  - [login-lockout-minutes](#login-lockout-minutes)
+  - [password-complexity](#password-complexity)
+
+- [LDAP authentication](#ldap-authentication) _(Telegraf Enterprise)_
+  - [auth-ldap-enabled](#auth-ldap-enabled)
+  - [auth-ldap-url](#auth-ldap-url)
+  - [auth-ldap-bind-dn](#auth-ldap-bind-dn)
+  - [auth-ldap-bind-password](#auth-ldap-bind-password)
+  - [auth-ldap-user-search-base](#auth-ldap-user-search-base)
+  - [auth-ldap-user-search-filter](#auth-ldap-user-search-filter)
+  - [auth-ldap-start-tls](#auth-ldap-start-tls)
+  - [auth-ldap-ca-cert-path](#auth-ldap-ca-cert-path)
+  - [auth-ldap-reject-unauthorized](#auth-ldap-reject-unauthorized)
+  - [auth-ldap-attr-username](#auth-ldap-attr-username)
+  - [auth-ldap-attr-email](#auth-ldap-attr-email)
+  - [auth-ldap-attr-display-name](#auth-ldap-attr-display-name)
+  - [auth-ldap-attr-groups](#auth-ldap-attr-groups)
+
+- [OIDC authentication](#oidc-authentication) _(Telegraf Enterprise)_
+  - [auth-oidc-enabled](#auth-oidc-enabled)
+  - [auth-oidc-issuer](#auth-oidc-issuer)
+  - [auth-oidc-client-id](#auth-oidc-client-id)
+  - [auth-oidc-client-secret](#auth-oidc-client-secret)
+  - [auth-oidc-redirect-uri](#auth-oidc-redirect-uri)
+  - [auth-oidc-scopes](#auth-oidc-scopes)
+  - [auth-oidc-username-claim](#auth-oidc-username-claim)
+  - [auth-oidc-groups-claim](#auth-oidc-groups-claim)
+  - [auth-oidc-display-name](#auth-oidc-display-name)
+  - [auth-oidc-post-login-redirect](#auth-oidc-post-login-redirect)
+  - [auth-oidc-allow-insecure](#auth-oidc-allow-insecure)
+
+---
 
 #### session-secret
 
@@ -263,6 +375,74 @@ sessions valid across restarts.
 | Command flag       | Environment variable |
 | :----------------- | :------------------- |
 | `--session-secret` | `SESSION_SECRET`     |
+
+---
+
+#### disable-auth-endpoints
+
+Comma-separated list of API endpoint groups to skip authentication for.
+Use `"*"` to disable authentication for all endpoint groups.
+
+Valid endpoint groups:
+
+- `agents`
+- `configs`
+- `labels`
+- `reporting-rules`
+- `heartbeat`
+
+> [!Warning]
+> {{% product-name %}} reads this value once at startup; the value is
+> immutable at runtime. Anyone with network access to the listed endpoint
+> groups can use them without an API token.
+
+```bash
+# Disable authentication on agents and heartbeat only
+telegraf_controller --disable-auth-endpoints=agents,heartbeat
+
+# Disable authentication on all endpoint groups
+telegraf_controller --disable-auth-endpoints="*"
+```
+
+| Command flag               | Environment variable      |
+| :------------------------- | :------------------------ |
+| `--disable-auth-endpoints` | `DISABLED_AUTH_ENDPOINTS` |
+
+---
+
+#### Local authentication
+
+Local authentication is enabled by default and is the only authentication
+provider available without a
+[Telegraf Enterprise](/telegraf/enterprise/) license.
+The variables in this group apply only when
+[`auth-local-enabled`](#auth-local-enabled) is `true`. LDAP and OIDC
+providers enforce their own credential and lockout policies.
+
+For setup details, see
+[Configure local authentication](/telegraf/controller/authentication/local/).
+
+---
+
+#### auth-local-enabled
+
+Enable username and password authentication using credentials stored in
+{{% product-name %}}.
+Read once at startup; immutable at runtime.
+
+Set this to `false` to require sign-in through an external provider
+(LDAP or OIDC). When disabled, the owner must have been bootstrapped with
+[`owner-auth-provider`](#owner-auth-provider) and
+[`owner-external-id`](#owner-external-id) set to the external provider.
+
+**Default:** `true`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `AUTH_LOCAL_ENABLED`  |
+
+For setup details, see
+[Configure local authentication](/telegraf/controller/authentication/local/).
 
 ---
 
@@ -320,35 +500,337 @@ initial setup, password changes, password resets, and invite completion.
 
 ---
 
-#### disable-auth-endpoints
+#### LDAP authentication
 
-Comma-separated list of API endpoint groups to skip authentication for.
-Use `"*"` to disable authentication for all endpoint groups.
+LDAP authentication is a
+[Telegraf Enterprise](/telegraf/enterprise/) feature.
+If `AUTH_LDAP_*` variables are set on an unlicensed instance,
+{{% product-name %}} starts normally, logs a warning, and leaves LDAP
+inactive until a license is applied and the application is restarted.
 
-Valid endpoint groups:
+All `AUTH_LDAP_*` variables are read once at startup and are immutable at
+runtime. Provisioning rules, default role, allowed domains, and
+group-to-role mappings are runtime-editable from the **Settings** page.
 
-- `agents`
-- `configs`
-- `labels`
-- `reporting-rules`
-- `heartbeat`
+For setup details, see
+[Configure LDAP authentication](/telegraf/controller/authentication/ldap/).
 
-> [!Warning]
-> {{% product-name %}} reads this value once at startup; the value is
-> immutable at runtime. Anyone with network access to the listed endpoint
-> groups can use them without an API token.
+---
 
-```bash
-# Disable authentication on agents and heartbeat only
-telegraf_controller --disable-auth-endpoints=agents,heartbeat
+#### auth-ldap-enabled
 
-# Disable authentication on all endpoint groups
-telegraf_controller --disable-auth-endpoints="*"
-```
+Enable LDAP authentication.
 
-| Command flag               | Environment variable      |
-| :------------------------- | :------------------------ |
-| `--disable-auth-endpoints` | `DISABLED_AUTH_ENDPOINTS` |
+**Default:** `false`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUTH_LDAP_ENABLED`  |
+
+---
+
+#### auth-ldap-url
+
+LDAP server URL. Must use the `ldap://` or `ldaps://` scheme.
+Required when [`auth-ldap-enabled`](#auth-ldap-enabled) is `true`.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUTH_LDAP_URL`      |
+
+---
+
+#### auth-ldap-bind-dn
+
+Distinguished name (DN) of the service account that
+{{% product-name %}} binds as to search for users.
+Required when [`auth-ldap-enabled`](#auth-ldap-enabled) is `true`.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUTH_LDAP_BIND_DN`  |
+
+---
+
+#### auth-ldap-bind-password
+
+Password for the service account specified by
+[`auth-ldap-bind-dn`](#auth-ldap-bind-dn).
+Required when [`auth-ldap-enabled`](#auth-ldap-enabled) is `true`.
+
+| Command flag | Environment variable      |
+| :----------- | :------------------------ |
+| _(none)_     | `AUTH_LDAP_BIND_PASSWORD` |
+
+---
+
+#### auth-ldap-user-search-base
+
+Base DN under which {{% product-name %}} searches for user entries
+(for example, `ou=people,dc=example,dc=com`).
+Required when [`auth-ldap-enabled`](#auth-ldap-enabled) is `true`.
+
+| Command flag | Environment variable         |
+| :----------- | :--------------------------- |
+| _(none)_     | `AUTH_LDAP_USER_SEARCH_BASE` |
+
+---
+
+#### auth-ldap-user-search-filter
+
+LDAP filter used to locate a user. The literal token `{{username}}` is
+replaced with the value the user types on the sign-in page.
+
+**Default:** `(uid={{username}})`
+
+| Command flag | Environment variable           |
+| :----------- | :----------------------------- |
+| _(none)_     | `AUTH_LDAP_USER_SEARCH_FILTER` |
+
+---
+
+#### auth-ldap-start-tls
+
+When `true`, upgrade an unencrypted `ldap://` connection to TLS using
+StartTLS before binding. Ignored for `ldaps://` connections.
+
+**Default:** `false`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `AUTH_LDAP_START_TLS` |
+
+---
+
+#### auth-ldap-ca-cert-path
+
+Path to a PEM-encoded certificate authority used to verify the LDAP
+server's TLS certificate. Use this when your LDAP server is signed by a
+private CA not in the system trust store.
+
+| Command flag | Environment variable     |
+| :----------- | :----------------------- |
+| _(none)_     | `AUTH_LDAP_CA_CERT_PATH` |
+
+---
+
+#### auth-ldap-reject-unauthorized
+
+When `false`, accept any TLS certificate the LDAP server presents.
+For development and troubleshooting only.
+
+**Default:** `true`
+
+| Command flag | Environment variable            |
+| :----------- | :------------------------------ |
+| _(none)_     | `AUTH_LDAP_REJECT_UNAUTHORIZED` |
+
+---
+
+#### auth-ldap-attr-username
+
+LDAP attribute that supplies the {{% product-name %}} username for an
+authenticated user.
+
+**Default:** `sAMAccountName`
+
+| Command flag | Environment variable      |
+| :----------- | :------------------------ |
+| _(none)_     | `AUTH_LDAP_ATTR_USERNAME` |
+
+---
+
+#### auth-ldap-attr-email
+
+LDAP attribute that supplies the user's email address.
+
+**Default:** `mail`
+
+| Command flag | Environment variable   |
+| :----------- | :--------------------- |
+| _(none)_     | `AUTH_LDAP_ATTR_EMAIL` |
+
+---
+
+#### auth-ldap-attr-display-name
+
+LDAP attribute that supplies the user's display name.
+
+**Default:** `displayName`
+
+| Command flag | Environment variable          |
+| :----------- | :---------------------------- |
+| _(none)_     | `AUTH_LDAP_ATTR_DISPLAY_NAME` |
+
+---
+
+#### auth-ldap-attr-groups
+
+LDAP attribute that supplies the user's group memberships.
+{{% product-name %}} matches values from this attribute against the
+group-to-role mappings configured on the **Settings** page.
+
+**Default:** `memberOf`
+
+| Command flag | Environment variable    |
+| :----------- | :---------------------- |
+| _(none)_     | `AUTH_LDAP_ATTR_GROUPS` |
+
+---
+
+#### OIDC authentication
+
+OIDC authentication is a
+[Telegraf Enterprise](/telegraf/enterprise/) feature.
+If `AUTH_OIDC_*` variables are set on an unlicensed instance,
+{{% product-name %}} starts normally, logs a warning, and leaves OIDC
+inactive until a license is applied and the application is restarted.
+
+{{% product-name %}} always uses authorization code flow with PKCE
+(S256). All `AUTH_OIDC_*` variables are read once at startup and are
+immutable at runtime. Provisioning rules, default role, allowed domains,
+and group-to-role mappings are runtime-editable from the **Settings**
+page.
+
+For setup details, see
+[Configure OIDC authentication](/telegraf/controller/authentication/oidc/).
+
+---
+
+#### auth-oidc-enabled
+
+Enable OIDC authentication.
+
+**Default:** `false`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUTH_OIDC_ENABLED`  |
+
+---
+
+#### auth-oidc-issuer
+
+OIDC issuer URL.
+Required when [`auth-oidc-enabled`](#auth-oidc-enabled) is `true`.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUTH_OIDC_ISSUER`   |
+
+---
+
+#### auth-oidc-client-id
+
+OAuth2 client identifier registered with the OIDC provider.
+Required when [`auth-oidc-enabled`](#auth-oidc-enabled) is `true`.
+
+| Command flag | Environment variable   |
+| :----------- | :--------------------- |
+| _(none)_     | `AUTH_OIDC_CLIENT_ID`  |
+
+---
+
+#### auth-oidc-client-secret
+
+OAuth2 client secret.
+Required when [`auth-oidc-enabled`](#auth-oidc-enabled) is `true`.
+
+| Command flag | Environment variable      |
+| :----------- | :------------------------ |
+| _(none)_     | `AUTH_OIDC_CLIENT_SECRET` |
+
+---
+
+#### auth-oidc-redirect-uri
+
+Full callback URL registered with the OIDC provider. Must end with
+`/api/auth/oidc/callback`.
+Required when [`auth-oidc-enabled`](#auth-oidc-enabled) is `true`.
+
+| Command flag | Environment variable     |
+| :----------- | :----------------------- |
+| _(none)_     | `AUTH_OIDC_REDIRECT_URI` |
+
+---
+
+#### auth-oidc-scopes
+
+Space-separated list of OAuth2 scopes to request. `openid` is added
+automatically if missing.
+
+**Default:** `openid profile email`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUTH_OIDC_SCOPES`   |
+
+---
+
+#### auth-oidc-username-claim
+
+Name of the ID-token claim used as the {{% product-name %}} username.
+
+**Default:** `preferred_username`
+
+| Command flag | Environment variable        |
+| :----------- | :-------------------------- |
+| _(none)_     | `AUTH_OIDC_USERNAME_CLAIM`  |
+
+---
+
+#### auth-oidc-groups-claim
+
+Name of the ID-token claim that contains the user's group memberships.
+{{% product-name %}} matches values from this claim against the
+group-to-role mappings configured on the **Settings** page.
+
+**Default:** `groups`
+
+| Command flag | Environment variable     |
+| :----------- | :----------------------- |
+| _(none)_     | `AUTH_OIDC_GROUPS_CLAIM` |
+
+---
+
+#### auth-oidc-display-name
+
+Friendly name displayed on the **Sign in with...** button on the
+sign-in page. The **Settings > OIDC Authentication** panel can override
+this value at runtime.
+
+**Default:** `SSO`
+
+| Command flag | Environment variable     |
+| :----------- | :----------------------- |
+| _(none)_     | `AUTH_OIDC_DISPLAY_NAME` |
+
+---
+
+#### auth-oidc-post-login-redirect
+
+Path inside {{% product-name %}} where users are sent after a successful
+OIDC callback.
+
+**Default:** `/`
+
+| Command flag | Environment variable            |
+| :----------- | :------------------------------ |
+| _(none)_     | `AUTH_OIDC_POST_LOGIN_REDIRECT` |
+
+---
+
+#### auth-oidc-allow-insecure
+
+When `true`, allow `http://` issuer URLs and callback URLs.
+For development only. {{% product-name %}} logs a warning at startup when
+this is enabled.
+
+**Default:** `false`
+
+| Command flag | Environment variable       |
+| :----------- | :------------------------- |
+| _(none)_     | `AUTH_OIDC_ALLOW_INSECURE` |
 
 ---
 
@@ -382,6 +864,130 @@ Absolute path for heartbeat agent logs.
 
 ---
 
+### Audit logging
+
+Audit logging is a [Telegraf Enterprise](/telegraf/enterprise/)
+feature. All of the following options are read at startup only; changes
+after startup require a restart. For a task-based walkthrough, see
+[Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+
+- [audit-enabled](#audit-enabled)
+- [audit-log-retention](#audit-log-retention)
+- [audit-syslog-host](#audit-syslog-host)
+- [audit-syslog-port](#audit-syslog-port)
+- [audit-syslog-protocol](#audit-syslog-protocol)
+- [audit-webhook-url](#audit-webhook-url)
+- [audit-webhook-auth-header](#audit-webhook-auth-header)
+- [audit-file-path](#audit-file-path)
+
+#### audit-enabled
+
+Enable audit logging on startup. Audit logging requires a Telegraf
+Enterprise license to take effect.
+
+**Default:** `false`
+
+| Command flag      | Environment variable |
+| :---------------- | :------------------- |
+| `--audit-enabled` | `AUDIT_ENABLED`      |
+
+---
+
+#### audit-log-retention
+
+Sets the initial audit log retention period, in hours.
+{{% product-name %}} persists this value to the database on first startup;
+later changes to the environment variable have no effect.
+Update retention after first startup from the **Settings** page.
+
+Supported values: `720` (30 days), `2160` (90 days), `4320` (180 days),
+`8760` (1 year), `17520` (2 years), or `0` (infinite).
+
+**Default:** `2160`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `AUDIT_LOG_RETENTION` |
+
+---
+
+#### audit-syslog-host
+
+Hostname or IP address of a syslog server.
+When set together with [`audit-syslog-port`](#audit-syslog-port) and
+[`audit-syslog-protocol`](#audit-syslog-protocol),
+{{% product-name %}} forwards each audit event to the configured syslog
+destination.
+
+| Command flag          | Environment variable |
+| :-------------------- | :------------------- |
+| `--audit-syslog-host` | `AUDIT_SYSLOG_HOST`  |
+
+---
+
+#### audit-syslog-port
+
+Port number of the syslog server. Required to enable syslog forwarding.
+
+| Command flag          | Environment variable |
+| :-------------------- | :------------------- |
+| `--audit-syslog-port` | `AUDIT_SYSLOG_PORT`  |
+
+---
+
+#### audit-syslog-protocol
+
+Transport protocol used to deliver audit events to the syslog server.
+Required to enable syslog forwarding.
+
+Supported values: `tcp`, `udp`
+
+| Command flag              | Environment variable    |
+| :------------------------ | :---------------------- |
+| `--audit-syslog-protocol` | `AUDIT_SYSLOG_PROTOCOL` |
+
+---
+
+#### audit-webhook-url
+
+URL that receives each audit event as a JSON-encoded HTTP `POST` request.
+{{% product-name %}} retries each delivery up to three times with backoff
+and honors `Retry-After` response headers.
+
+| Command flag          | Environment variable |
+| :-------------------- | :------------------- |
+| `--audit-webhook-url` | `AUDIT_WEBHOOK_URL`  |
+
+---
+
+#### audit-webhook-auth-header
+
+Optional value sent as the `Authorization` HTTP header on webhook requests.
+Use it to pass a bearer token, basic-auth credential, or other shared
+secret your webhook endpoint requires.
+
+| Command flag                  | Environment variable        |
+| :---------------------------- | :-------------------------- |
+| `--audit-webhook-auth-header` | `AUDIT_WEBHOOK_AUTH_HEADER` |
+
+---
+
+#### audit-file-path
+
+Absolute path to a local file.
+When set, {{% product-name %}} appends each audit event as a single JSON
+object on its own line (`.jsonl` format).
+The path must be writable by the {{% product-name %}} process.
+
+{{% product-name %}} does not rotate or trim this file.
+Pair it with a system log rotator if you keep the forwarder on long term.
+
+| Command flag        | Environment variable |
+| :------------------ | :------------------- |
+| `--audit-file-path` | `AUDIT_FILE_PATH`    |
+
+---
+
 ### EULA and setup
 
 - [eula-accept](#eula-accept)
@@ -407,3 +1013,26 @@ provide owner account values and EULA acceptance through other options.
 | Command flag       | Environment variable |
 | :----------------- | :------------------- |
 | `--no-interactive` | _(none)_             |
+
+---
+
+### Licensing
+
+- [license-file-path](#license-file-path)
+
+#### license-file-path
+
+Path to a Telegraf Enterprise license JWT file. {{% product-name %}} reads
+this file on startup, validates the license, and stores it in the database.
+If the database already contains a license, this variable is ignored on
+subsequent restarts.
+
+If the file is missing, unreadable, or contains an invalid license,
+{{% product-name %}} starts in unlicensed mode and logs the validation error.
+
+See [Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/) for full
+guidance, including systemd examples.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `LICENSE_FILE_PATH`  |

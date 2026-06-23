@@ -2,17 +2,28 @@
 title: Use the Telegraf Builder
 description: >
   Use the **Telegraf Builder** visual interface in {{% product-name %}} to
-  manage and configure Telegraf plugins.
+  manage and configure Telegraf plugins. The Telegraf Builder is a beta
+  feature; for a generally available alternative, use the Code Editor.
 menu:
   telegraf_controller:
     name: Telegraf Builder
     parent: Configuration UI tools
+    params:
+      state: beta
 weight: 202
 ---
 
 The **Telegraf Builder** is a visual interface for managing and configuring
 Telegraf plugins in a configuration. The builder is available when creating or
 updating a configuration.
+
+> [!Important]
+> #### The Telegraf Builder is a beta feature
+>
+> The Telegraf Builder is in beta. Some plugins or options may be missing or
+> incomplete. For a generally available alternative, use the
+> [Code Editor](/telegraf/controller/configs/ui/code-editor/) to upload, write,
+> or edit raw Telegraf configuration TOML.
 
 {{< img-hd src="/img/telegraf/controller-telegraf-builder.png" alt="Telegraf Builder in Telegraf Controller" />}}
 

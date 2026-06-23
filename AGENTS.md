@@ -104,7 +104,10 @@ instruction file.
 - `layouts/AGENTS.md`: Hugo template and shortcode guidance.
 - `assets/AGENTS.md`: JS, CSS, and TypeScript guidance.
 - `api-docs/AGENTS.md`: API reference generation workflow.
-- `DOCS-TESTING.md`: content validation workflow.
+- `DOCS-TESTING.md`: content validation workflow (human contributor reference).
+- `.agents/skills/docs-testing/SKILL.md`: agent testing decision guide — maps
+  changed file types to exact test commands, documents what CI runs automatically,
+  and flags coverage gaps.
 - `DOCS-SHORTCODES.md`: shortcode reference.
 - `DOCS-FRONTMATTER.md`: frontmatter reference.
 - `DOCS-CONTRIBUTING.md`: contribution and commit conventions.
