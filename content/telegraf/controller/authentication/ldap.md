@@ -181,7 +181,7 @@ Call the public status endpoint to confirm the provider is registered:
 curl -s http://localhost:8888/api/auth/status
 ```
 
-<!-- TODO: screenshot of the Settings > LDAP Authentication panel showing the redacted connection block (URL, bind DN, search base) and ready status. Save to /static/img/telegraf/controller-settings-ldap.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-ldap.png" alt="Telegraf Controller LDAP authentication settings" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings-ldap.png" alt="Telegraf Controller LDAP authentication settings" />}}
 
 ## Configure provisioning
 

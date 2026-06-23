@@ -204,7 +204,7 @@ Call the public status endpoint to confirm the provider is registered:
 curl -s http://localhost:8888/api/auth/status
 ```
 
-<!-- TODO: screenshot of the Settings > OIDC Authentication panel showing the redacted issuer/client ID, discovered status, and provisioning options. Save to /static/img/telegraf/controller-settings-oidc.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-oidc.png" alt="Telegraf Controller OIDC authentication settings" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings-oidc.png" alt="Telegraf Controller OIDC authentication settings" />}}
 
 ## Configure provisioning
 
