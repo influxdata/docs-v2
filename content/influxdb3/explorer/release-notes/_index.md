@@ -20,7 +20,7 @@ docker pull influxdata/influxdb3-ui
 
 #### Features
 
-- **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter (powered by Kapa.ai) in a side-by-side Flux and SQL panel.
+- **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter in a side-by-side Flux and SQL panel.
 - **InfluxQL support**: Query data with InfluxQL in the Data Explorer and dashboards. Save and load queries as InfluxQL.
 - **InfluxQL visualizations**: Render line and bar charts from InfluxQL results with per-tag series grouping.
 - **SQL formatting**: Format SQL queries in the query editor for improved readability.
