@@ -17,7 +17,7 @@ list_code_example: |
   #### HTTP API
   ```bash
   curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
-    --header 'Authorization Bearer ADMIN_TOKEN' \
+    --header 'Authorization: Bearer ADMIN_TOKEN' \
     --json '{
               "name": "TOKEN_NAME"
             }'
