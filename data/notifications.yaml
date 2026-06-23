@@ -64,32 +64,32 @@
     - Flux upgrade
     - Compaction reliability improvements
 
-- id: explorer-1-8-key-enhancements
+- id: explorer-1-9-key-enhancements
   level: note
   scope:
     - /
     - /influxdb3/explorer/
     - /influxdb3/core/
     - /influxdb3/enterprise/
-  title: Key enhancements in Explorer 1.8
+  title: Key enhancements in Explorer 1.9
   slug: |
-    Explorer 1.8 is now available with streaming data subscriptions (beta),
-    line protocol preview, and query history & saved queries.
+    Explorer 1.9 is now available with InfluxQL support, an AI-assisted
+    Flux to SQL converter (beta), and new live sample data simulators.
 
-    <a class="btn" href="/influxdb3/explorer/release-notes/#v180">View Explorer 1.8 release notes</a>
+    <a class="btn" href="/influxdb3/explorer/release-notes/#v190">View Explorer 1.9 release notes</a>
   message: |
-    Explorer 1.8 includes new features and improvements that make it easier to ingest,
-    explore, and manage data.
+    Explorer 1.9 includes new features and improvements that make it easier to
+    query, visualize, and manage data.
 
     **Highlights:**
 
-    - **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources.
-    - **Line protocol preview**: Preview line protocol, schema, and parse errors before data is written.
-    - **Custom sample data**: Generate custom sample datasets with line protocol and schema preview.
-    - **Query history and saved queries**: Browse query history and save/re-run named queries.
-    - **Retention period management**: Set, update, or clear retention periods on databases and tables.
+    - **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter.
+    - **InfluxQL support**: Query data with InfluxQL in the Data Explorer and dashboards, and save and load InfluxQL queries.
+    - **InfluxQL visualizations**: Render line and bar charts from InfluxQL results with per-tag series grouping.
+    - **Query error history**: Review a history of query errors in the query tool.
+    - **Live sample data simulators**: Generate continuous live sample data with new bird data and signal generator simulators.
 
-    For more details, see [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
+    For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
 
 - id: influxdb3-10-core-release
   level: note
