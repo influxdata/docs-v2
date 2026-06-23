@@ -143,7 +143,7 @@
     For more information, see the
     [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-- id: telegraf-enterprise-beta
+- id: telegraf-enterprise-ga
   level: note
   scope:
     - /
@@ -156,39 +156,19 @@
     - /influxdb3/
     - /influxdb/
     - /flux/
-  title: Telegraf Enterprise now in public beta
-  slug: |   
-    Get early access to the **Telegraf Controller** and provide feedback to help
-    shape the future of **Telegraf Enterprise**.
-
-    <a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a>
-  message: |
-    The upcoming Telegraf Enterprise offering is for organizations running
-    Telegraf at scale and is comprised of two key components:
-
-    - **Telegraf Controller**: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.
-    - **Telegraf Enterprise Support**: Official support for Telegraf Controller and Telegraf plugins.
-
-    <a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
-    to get early access to the Telegraf Controller and provide feedback to help
-    shape the future of Telegraf Enterprise.
-
-    For more information:
-
-    - [See the announcement blog post](https://www.influxdata.com/blog/telegraf-enterprise-beta)
-    - [Telegraf Controller Documentation](/telegraf/controller/)
-    - [Download and install Telegraf Controller](/telegraf/controller/install/)
-
-- id: telegraf-controller-0.0.7-beta
-  level: note
-  scope:
-    - /telegraf/controller/
-  title: Telegraf Controller v0.0.7-beta now available
+  title: Telegraf Enterprise is now generally available
   slug: |
-    Telegraf Controller v0.0.7-beta is now available with new features, improvements, bug fixes, and an important breaking change.
-    
-    <a href="/telegraf/controller/reference/release-notes/#v007-beta">View the release notes</a>  
-    <a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.7-beta</a>
+    **Telegraf Enterprise** is now generally available, along with
+    **Telegraf Controller v1.0**.
+  message: |
+    Telegraf Enterprise combines Telegraf Controller, a centralized management
+    console for Telegraf, with official support from InfluxData. Manage
+    configurations, monitor fleet health, and operate tens of thousands of
+    Telegraf agents from a single system.
+
+    - [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-ga)
+    - [Documentation](/telegraf/enterprise/)
+    - [Download and install Telegraf Controller](/telegraf/controller/install/)
 
 # - id: influxdb3.8-explorer-1.6
 #   level: note
