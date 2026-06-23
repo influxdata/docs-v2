@@ -33,7 +33,7 @@ you can query with SQL.
 
 ### system.pt_ingest_wal
 
-View WAL files and their partitions:
+View WAL files and their shards:
 
 ```sql
 SELECT * FROM system.pt_ingest_wal;
@@ -41,15 +41,15 @@ SELECT * FROM system.pt_ingest_wal;
 
 Example output:
 
-| wal_file_id | partition_id | database_id | table_id | min_time | max_time | row_count | size_bytes |
-|:------------|:-------------|:------------|:---------|:---------|:---------|:----------|:-----------|
-| wal_001 | p_1 | db_1 | t_1 | 2024-01-01T00:00:00Z | 2024-01-01T00:10:00Z | 50000 | 2456789 |
-| wal_002 | p_1 | db_1 | t_1 | 2024-01-01T00:10:00Z | 2024-01-01T00:20:00Z | 48000 | 2345678 |
+| wal_file_id | shard_start_time | shard_duration_seconds | min_time | max_time | row_count | size_bytes |
+|:------------|:-----------------|:-----------------------|:---------|:---------|:----------|:-----------|
+| wal_001 | 2024-01-01T00:00:00Z | 86400 | 2024-01-01T00:00:00Z | 2024-01-01T00:10:00Z | 50000 | 2456789 |
+| wal_002 | 2024-01-01T00:00:00Z | 86400 | 2024-01-01T00:10:00Z | 2024-01-01T00:20:00Z | 48000 | 2345678 |
 
 Use this table to monitor:
 
 - **WAL accumulation**: Track the number and size of unmerged WAL files
-- **Partition distribution**: See how data is distributed across partitions
+- **Shard distribution**: See how data is distributed across shards
 - **Time coverage**: Verify data time ranges
 
 #### Monitor WAL backlog
