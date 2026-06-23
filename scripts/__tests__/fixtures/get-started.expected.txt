@@ -1,0 +1,111 @@
+---
+title: Get started with InfluxDB 3 Core
+description: InfluxDB 3 Core is an open source time series database designed and optimized for real-time and recent data. Learn how to use and leverage InfluxDB 3 in use cases such as edge data collection, IoT data, and events.
+url: https://docs.influxdata.com/influxdb3/core/get-started/
+estimated_tokens: 1353
+product: InfluxDB 3 Core
+version: core
+---
+
+> [!Note]
+> InfluxDB 3 Core is purpose-built for real-time data monitoring and recent data.
+> InfluxDB 3 Enterprise builds on top of Core with support for historical data
+> analysis and extended features.
+> querying, high availability, read replicas, and more.
+> Enterprise will soon unlock
+> enhanced security, row-level deletions, an administration UI, and more.
+> Learn more about [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+
+This guide walks through the basic steps of getting started with InfluxDB 3 Core,
+including the following:
+
+1. [Set up InfluxDB 3 Core](/influxdb3/core/get-started/setup/)
+2. [Write data to InfluxDB 3 Core](/influxdb3/core/get-started/write/)
+3. [Query data in InfluxDB 3 Core](/influxdb3/core/get-started/query/)
+4. [Process data in InfluxDB 3 Core](/influxdb3/core/get-started/process/)
+5. [Migrate from InfluxDB v1 or v2](/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/)
+
+#### Find support for InfluxDB 3 Core
+
+The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
+For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+
+## Data model
+
+The InfluxDB 3 Core server contains logical databases; databases contain
+tables; and tables are comprised of columns.
+
+Compared to previous versions of InfluxDB, you can think of a database as an
+InfluxDB v2 `bucket` in v2 or an InfluxDB v1 `db/retention_policy`.
+A `table` is equivalent to an InfluxDB v1 and v2 `measurement`.
+
+Columns in a table represent time, tags, and fields. Columns can be one of the
+following types:
+
+* String dictionary (tag)
+* `int64` (field)
+* `float64` (field)
+* `uint64` (field)
+* `bool` (field)
+* `string` (field)
+* `time` (time with nanosecond precision)
+
+In InfluxDB 3 Core, every table has a primary key–the ordered set of tags and the time–for its data.
+The primary key uniquely identifies each and determines the sort order for all
+Parquet files related to the table. When you create a table, either through an
+explicit call or by writing data into a table for the first time, it sets the
+primary key to the tags in the order they arrived.
+Although InfluxDB is still a *schema-on-write* database, the tag column
+definitions for a table are immutable.
+
+Tags should hold unique identifying information like `sensor_id`, `building_id`,
+or `trace_id`. All other data should be stored as fields.
+
+## Tools to use
+
+The following table compares tools that you can use to interact with InfluxDB 3 Core.
+This tutorial covers many of the recommended tools.
+
+|                                     Tool                                     |Administration|Write|Query|
+|------------------------------------------------------------------------------|--------------|-----|-----|
+|       **[`influxdb3` CLI](/influxdb3/core/reference/cli/influxdb3/)**        |    **✓**     |**✓**|**✓**|
+|           **[InfluxDB HTTP API](/influxdb3/core/reference/api/)**            |    **✓**     |**✓**|**✓**|
+|               **[InfluxDB 3 Explorer](/influxdb3/explorer/)**                |    **✓**     |**✓**|**✓**|
+|[InfluxDB 3 client libraries](/influxdb3/core/reference/client-libraries/v3/) |      \-      |**✓**|**✓**|
+|[InfluxDB v2 client libraries](/influxdb3/core/reference/client-libraries/v2/)|      \-      |**✓**| \-  |
+|[InfluxDB v1 client libraries](/influxdb3/core/reference/client-libraries/v1/)|      \-      |**✓**|**✓**|
+|           [InfluxDB 3 processing engine](/influxdb3/core/plugins/)           |              |**✓**|**✓**|
+|                          [Telegraf](/telegraf/v1/)                           |      \-      |**✓**| \-  |
+|                        [Chronograf](/chronograf/v1/)                         |      \-      | \-  | \-  |
+|                                 `influx` CLI                                 |      \-      | \-  | \-  |
+|                               `influxctl` CLI                                |      \-      | \-  | \-  |
+|                         InfluxDB v2.x user interface                         |      \-      | \-  | \-  |
+|                            **Third-party tools**                             |              |     |     |
+|                              Flight SQL clients                              |      \-      | \-  |**✓**|
+|              [Grafana](/influxdb3/core/visualize-data/grafana/)              |      \-      | \-  |**✓**|
+
+[Set up InfluxDB 3 Core](/influxdb3/core/get-started/setup/)
+
+#### Related
+
+* [Query system data](/influxdb3/core/admin/query-system-data/)
+* [Write data to InfluxDB 3 Core](/influxdb3/core/write-data/)
+* [Query data in InfluxDB 3 Core](/influxdb3/core/query-data/)
+| Tool | Administration | Write | Query |
+| --- | --- | --- | --- |
+| Tool | Administration | Write | Query |
+| influxdb3  CLI | ✓ | ✓ | ✓ |
+| InfluxDB HTTP API | ✓ | ✓ | ✓ |
+| InfluxDB 3 Explorer | ✓ | ✓ | ✓ |
+| InfluxDB 3 client libraries | - | ✓ | ✓ |
+| InfluxDB v2 client libraries | - | ✓ | - |
+| InfluxDB v1 client libraries | - | ✓ | ✓ |
+| InfluxDB 3 processing engine |  | ✓ | ✓ |
+| Telegraf | - | ✓ | - |
+| Chronograf | - | - | - |
+| influx  CLI | - | - | - |
+| influxctl  CLI | - | - | - |
+| InfluxDB v2.x user interface | - | - | - |
+| Third-party tools |  |  |  |
+| Flight SQL clients | - | - | ✓ |
+| Grafana | - | - | ✓ |

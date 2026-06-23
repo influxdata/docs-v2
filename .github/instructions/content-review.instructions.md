@@ -2,10 +2,15 @@
 applyTo: "content/**/*.md"
 ---
 
+<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
+
+<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
+
 # Content Review Criteria
 
-Review documentation changes against these rules. Only flag issues you are
-confident about. Reference the linked docs for detailed rules.
+Review documentation changes against these rules.
+Only flag issues you are confident about.
+Reference the linked docs for detailed rules.
 
 ## Frontmatter
 

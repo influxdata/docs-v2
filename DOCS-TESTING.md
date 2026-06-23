@@ -1,314 +1,137 @@
 # Testing Guide for InfluxData Documentation
 
-This guide covers all testing procedures for the InfluxData documentation, including code block testing, link validation, and style linting.
+This guide covers testing procedures for documentation contributors.
+For agent-specific guidance, see the [docs-testing skill](.agents/skills/docs-testing/SKILL.md).
 
-## Quick Start
+## Quick Reference
 
-1. **Prerequisites**: Install [Node.js](https://nodejs.org/en), [Yarn](https://yarnpkg.com/getting-started/install), and [Docker](https://docs.docker.com/get-docker/)
-2. **Install dependencies**: Run `yarn` to install all dependencies
-3. **Build test environment**: Run `docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .`
-4. **Run tests**: Use any of the test commands below
+| Test Type                | Local command                                         | When to run                    |
+| ------------------------ | ----------------------------------------------------- | ------------------------------ |
+| **Codeblock lint**       | `yarn lint-codeblocks <files>`                        | Any content change             |
+| **Code block execution** | `yarn test:codeblocks:<product>`                      | After adding runnable examples |
+| **Link validation**      | `link-checker map <path> \| xargs link-checker check` | After adding/changing links    |
+| **Style linting**        | `.ci/vale/vale.sh content/**/*.md`                    | Any content change             |
+| **E2E tests**            | `node cypress/support/run-e2e-specs.js <file>`        | Template or UI changes         |
+| **Shortcode examples**   | `yarn test:shortcode-examples`                        | Shortcode changes              |
 
-## Test Types Overview
+## What Runs Automatically
 
-| Test Type               | Purpose                                                              | Command                    |
-| ----------------------- | -------------------------------------------------------------------- | -------------------------- |
-| **Code blocks**         | Validate shell/Python code examples                                  | `yarn test:codeblocks:all` |
-| **Link validation**     | Check internal/external links                                        | `yarn test:links`          |
-| **Style linting**       | Enforce writing standards                                            | `.ci/vale/vale.sh`         |
-| **Markdown generation** | Generate LLM-friendly Markdown                                       | `yarn build:md`            |
-| **E2E tests**           | UI and functionality testing                                         | `yarn test:e2e`            |
-| **PR preview pages**    | Reviewer-facing hosted preview of pages listed in the PR description | List URLs in the PR body   |
+### Pre-commit hooks (Lefthook)
+
+When you run `git commit`, these checks run against staged files:
+
+| Hook                           | Trigger                                                        | What it checks                              |
+| ------------------------------ | -------------------------------------------------------------- | ------------------------------------------- |
+| `deprecated-markdown-patterns` | `content/**/*.md`                                              | Banned shortcodes, `py` instead of `python` |
+| `check-support-links`          | `content/**/*.md`                                              | Non-standard support.influxdata.com links   |
+| `check-source-paths`           | `content/**/*.md`                                              | `source:` values must start with `/shared/` |
+| Vale per-product               | `content/**/*.md`                                              | Style, branding, vocabulary                 |
+| `lint-markdown-instructions`   | `README.md`, `[A-Z]*.md`, `.github/**/*.md`, `.claude/**/*.md` | Remark formatting (auto-fixed)              |
+| `lint-instructions`            | Same as above                                                  | Vale (instructions config)                  |
+| `check-render-hook-whitespace` | `layouts/_default/_markup/render-*.html`                       | Whitespace leaks in render hooks            |
+| `check-feedback-links`         | `data/products.yml`, feedback template                         | Product feedback URL config                 |
+| `build-typescript`             | `assets/js/*.ts`                                               | Compiles TypeScript (auto-staged)           |
+| `prettier`                     | `*.{css,js,ts,jsx,tsx}`                                        | Code formatting (auto-fixed)                |
+| `lint-js`                      | `assets/js/*.{js,ts}`                                          | ESLint                                      |
+| `shellcheck`                   | `*.sh`                                                         | Shell script lint                           |
+
+### Pre-push hooks
+
+| Hook                     | Trigger                                           | What it checks                            |
+| ------------------------ | ------------------------------------------------- | ----------------------------------------- |
+| `packages-audit`         | Always                                            | `yarn audit` for security vulnerabilities |
+| `e2e-shortcode-examples` | `assets/`, `layouts/*.html`, `content/example.md` | Cypress shortcode rendering               |
+
+To skip hooks when needed:
+
+```sh
+git commit -m "..." --no-verify
+LEFTHOOK=0 git push
+```
+
+### CI checks on every PR
+
+- **Vale** (`.github/workflows/pr-vale-check.yml`) — errors block merge
+- **Link checker** (`.github/workflows/pr-link-check.yml`) — checks changed pages
+- **Codeblock lint** (`.github/workflows/test.yml`) — parse/compile check; JSON/YAML/TOML failures block merge
+- **Render regression** (`.github/workflows/pr-render-check.yml`) — checks for whitespace-escaped code blocks
+- **Remark** (`.github/workflows/pr-remark-check.yml`) — runs on repo docs (DOCS-\*.md, .github/, .claude/)
+- **Render artifacts** — site-wide grep for forbidden HTML patterns
+
+Code block **execution** runs on demand via `workflow_dispatch`, not automatically on PRs.
 
 ## Code Block Testing
 
-Code block testing validates that shell commands and Python scripts in documentation work correctly using [pytest-codeblocks](https://github.com/nschloe/pytest-codeblocks/tree/main).
+Code block testing runs shell and Python examples using [pytest-codeblocks](https://github.com/nschloe/pytest-codeblocks/tree/main).
 
-### Basic Usage
+### Setup
+
+1. Install [Docker](https://docs.docker.com/get-docker/).
+2. Build the test image:
+   ```sh
+   docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
+   ```
+3. Copy `./test/env.test.example` to each product directory as `.env.test` and fill in credentials.
+   > \[!Warning]
+   > Never commit `.env.test` files. Git ignores `.env*` by default.
+
+### Running tests
 
 ```bash
-# Test all code blocks
+# Run all code block tests
 yarn test:codeblocks:all
 
-# Test specific products
-yarn test:codeblocks:cloud
-yarn test:codeblocks:v2
+# Run for a specific product
+yarn test:codeblocks:influxdb3_core
 yarn test:codeblocks:telegraf
+yarn test:codeblocks:v2
 ```
 
-### Setup and Configuration
+For InfluxDB 3 Core and Enterprise local setup, see the [influxdb3-test-setup skill](.agents/skills/influxdb3-test-setup/SKILL.md).
 
-#### 1. Set executable permissions on test scripts
+### Writing testable code blocks
 
-```sh
-chmod +x ./test/src/*.sh
-```
-
-#### 2. Create test credentials
-
-Create databases, buckets, and tokens for the product(s) you're testing.
-If you don't have access to a Clustered instance, you can use your Cloud Dedicated instance for testing in most cases.
-
-#### 3. Configure environment variables
-
-Copy the `./test/env.test.example` file into each product directory and rename as `.env.test`:
-
-```sh
-# Example locations
-./content/influxdb/cloud-dedicated/.env.test
-./content/influxdb3/clustered/.env.test
-```
-
-Inside each product's `.env.test` file, assign your InfluxDB credentials:
-
-- Include the usual `INFLUX_` environment variables
-- For `cloud-dedicated/.env.test` and `clustered/.env.test`, also define:
-  - `ACCOUNT_ID`, `CLUSTER_ID`: Found in your `influxctl config.toml`
-  - `MANAGEMENT_TOKEN`: Generate with `influxctl management create`
-
-See `./test/src/prepare-content.sh` for the full list of variables you may need.
-
-#### 4. Configure influxctl commands
-
-For influxctl commands to run in tests, move or copy your `config.toml` file to the `./test` directory.
-
-> \[!Warning]
->
-> - The database you configure in `.env.test` and any written data may be deleted during test runs
-> - Don't add your `.env.test` files to Git. Git is configured to ignore `.env*` files to prevent accidentally committing credentials
-
-### Writing Testable Code Blocks
-
-#### Basic Example
+Use `python` (not `py`) for Python fences — pytest-codeblocks ignores `py`:
 
 ```python
 print("Hello, world!")
 ```
 
-<!--pytest-codeblocks:expected-output-->
+To hide a test block from users, wrap it in an HTML comment. pytest-codeblocks still runs it.
 
-```
-Hello, world!
-```
-
-#### Interactive Commands
-
-For commands that require TTY interaction (like `influxctl` authentication), wrap the command in a subshell and redirect output:
+For commands requiring TTY interaction (like `influxctl`), wrap in a subshell and redirect output:
 
 ```sh
-# Test the preceding command outside of the code block.
-# influxctl authentication requires TTY interaction--
-# output the auth URL to a file that the host can open.
-script -c "influxctl user list " \
- /dev/null > /shared/urls.txt
+script -c "influxctl user list" /dev/null > /shared/urls.txt
 ```
 
-To hide test blocks from users, wrap them in HTML comments. pytest-codeblocks will still collect and run them.
+See the [pytest-codeblocks README](https://github.com/nschloe/pytest-codeblocks/tree/main) for skip markers and expected-output syntax.
 
-#### Skipping Tests
+### CI behavior
 
-pytest-codeblocks has features for skipping tests and marking blocks as failed. See the [pytest-codeblocks README](https://github.com/nschloe/pytest-codeblocks/tree/main) for details.
-
-### Troubleshooting
-
-#### "Pytest collected 0 items"
-
-Potential causes:
-
-- Check test discovery options in `pytest.ini`
-- Use `python` (not `py`) for Python code block language identifiers:
-  ```python
-  # This works
-  ```
-  vs
-  ```py
-  # This is ignored
-  ```
-
-### Performance Optimization
-
-Code block testing can be time-consuming for large documentation sets. Several optimization strategies are available:
-
-#### Parallel Test Execution by Language
-
-Test specific programming languages independently:
-
-```bash
-# Test only Python code blocks
-yarn test:codeblocks:python
-
-# Test only Bash/Shell code blocks
-yarn test:codeblocks:bash
-
-# Test only SQL code blocks
-yarn test:codeblocks:sql
-```
-
-**Benefits:**
-
-- Faster feedback for specific language changes
-- Easier debugging of language-specific issues
-- Enables parallel execution in CI
-
-#### Test Result Caching
-
-Cache successful test results to avoid retesting unchanged content:
-
-```bash
-# Inside test container
-./test/scripts/cached-test.sh content/influxdb/cloud/get-started/
-
-# View cache statistics
-yarn test:cache:stats
-
-# Clean expired cache entries
-yarn test:cache:clean
-```
-
-**How it works:**
-
-- Creates content hash for files/directories
-- Caches successful test results for 7 days
-- Skips tests if content unchanged and cache valid
-- Bypasses cache with `TEST_CACHE_BYPASS=1`
-
-#### Cache Management Commands
-
-```bash
-yarn test:cache:stats   # Show cache statistics
-yarn test:cache:list    # List all cached results
-yarn test:cache:clean   # Remove expired entries (>7 days)
-yarn test:cache:clear   # Remove all entries
-```
-
-#### Performance Comparison
-
-**Without optimization:** \~45 minutes (sequential)
-**With parallel execution:** \~18 minutes (59% faster)
-**With caching (2nd run):** \~5 seconds (97% faster)
-
-For comprehensive performance optimization documentation, see [test/TEST-PERFORMANCE.md](test/TEST-PERFORMANCE.md).
-
-### Code block testing in CI
-
-The `Test Code Blocks` GitHub Actions workflow
-(`.github/workflows/test.yml`) runs code block tests on demand. Pull
-requests trigger a detection-only pass that suggests which products
-to test; actual test execution runs via `workflow_dispatch`.
-
-**On pull requests:**
-
-- Detects changed content and test-harness files (`content/**/*.md`,
-  `test/**`, `Dockerfile.pytest`, `compose.yaml`)
-- Resolves shared content changes to the consuming products
-- Posts a summary with suggested products, partitioned into
-  "runnable" (products with a pytest service in `compose.yaml`) and
-  "not yet runnable"
-- Does not run tests or block the PR
-
-**Manual runs (`workflow_dispatch`):**
-
-- Trigger from the Actions UI or with `gh workflow run`:
+- **On PRs**: Detection only. The CI workflow identifies which products are affected and posts a summary. It does not block the PR.
+- **Manual runs**: Trigger from the Actions UI or:
   ```bash
   gh workflow run "Test Code Blocks" \
     --repo influxdata/docs-v2 \
-    -f products=core,telegraf \
-    -f use_default_group=false
+    -f products=core,telegraf
   ```
-- The default group is `influxdb3_core` and `telegraf`
-- Content failures surface as `::warning::` annotations and in the
-  job summary; they do not fail the matrix job
+- **Live server in CI**: Only `influxdb3_core` runs against a real server. Enterprise requires `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` repo secret. All other products use mock credentials.
 
-**Products that run against a live server in CI:**
+## Codeblock Lint (Parse/Compile Check)
 
-| Product                                                                       | Status                | How                                                                                                                                  |
-| ----------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `influxdb3_core`                                                              | Runs live             | Started via `docker compose up influxdb3-core` with a preconfigured offline admin token generated at job start                       |
-| `influxdb3_enterprise`                                                        | Gated on license blob | Requires `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` repo secret (see below). When unset, Enterprise is skipped with an informational notice |
-| `telegraf`, `v2`, `cloud`, `cloud-dedicated`, `cloud-serverless`, `clustered` | Mock credentials      | Tests that hit real endpoints may fail; content-only checks still run                                                                |
+Runs on every PR that changes content. No credentials or network access required.
 
-### Provision InfluxDB 3 Enterprise for CI
+```sh
+# Lint specific files
+yarn lint-codeblocks content/influxdb3/core/admin/tokens/admin/*.md
 
-Enterprise trial-license activation requires email verification, which
-can't complete in a headless CI environment. CI therefore expects a
-pre-activated license blob stored as a repository secret. Produce it
-once locally, then upload.
+# Pretty summary (counts by severity, top files with errors)
+yarn lint-codeblocks:pretty content/**/*.md
 
-**1. Register the verification email.**
-
-Choose an email address you control and have InfluxData approve it for
-trial licensing. The email is stored in the repo secret
-`INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`.
-
-**2. Activate Enterprise locally with that email.**
-
-```bash
-# Create the directory Docker Compose expects
-mkdir -p ~/influxdata-docs/.influxdb3/enterprise/data
-
-# Point compose at the verified email
-echo "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=<verified-email>" \
-  > ~/influxdata-docs/.influxdb3/enterprise/.env
-
-# Generate an admin token file (compose mounts it as a secret)
-TOKEN="apiv3_$(openssl rand -hex 32)"
-cat > ~/influxdata-docs/.influxdb3/enterprise/admin-token.json <<EOF
-{"token":"${TOKEN}","name":"_admin","description":"Local admin token"}
-EOF
-chmod 0600 ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
-
-# Start Enterprise. Watch the logs until activation completes.
-docker compose --profile shared up -d influxdb3-enterprise
-docker compose logs -f influxdb3-enterprise
+# Run the linter's own tests
+yarn test:lint-codeblocks
 ```
-
-The first activation with a pre-approved email should skip the
-"Waiting for verification..." stall and persist a license file at
-`~/influxdata-docs/.influxdb3/enterprise/data/cluster0/trial_or_home_license`.
-After you see activation succeed, stop the server:
-
-```bash
-docker compose --profile shared down
-```
-
-**3. Upload the license blob as a repo secret.**
-
-```bash
-LICENSE=~/influxdata-docs/.influxdb3/enterprise/data/cluster0/trial_or_home_license
-base64 -i "$LICENSE" | gh secret set INFLUXDB3_ENTERPRISE_LICENSE_BLOB \
-  --repo influxdata/docs-v2
-```
-
-**4. Verify CI picks it up.**
-
-```bash
-gh workflow run "Test Code Blocks" \
-  --repo influxdata/docs-v2 \
-  -f products=enterprise \
-  -f use_default_group=false
-```
-
-The Enterprise job should now decode the blob into
-`/var/lib/influxdb3/data/cluster0/trial_or_home_license`, start the
-server, and run pytest against it.
-
-> \[!Note]
->
-> #### License expiration
->
-> Trial licenses have a finite validity window. When the license
-> encoded in `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` expires, Enterprise
-> CI jobs will fail to start. Re-run the activation locally and
-> upload a fresh blob.
-
-### Parse/compile code-block lint
-
-The `lint-codeblocks` job runs on every PR that changes content or
-shared content. It parses fenced code blocks in the changed canonical
-sources and reports syntax errors — without executing any code, without
-needing credentials, without touching the network. The check complements
-pytest-based code-block execution, which remains scoped to a smaller
-allowlisted subset of runnable examples.
 
 **Blocking policy:**
 
@@ -317,846 +140,137 @@ allowlisted subset of runnable examples.
 | JSON, YAML, TOML         | `::error::` — fails the PR check           |
 | bash, python, javascript | `::warning::` — does not fail the PR check |
 
-Languages outside this set (go, java, sql, powershell, text, etc.) are
-skipped. SQL and InfluxQL are planned follow-ups once dialect detection
-is designed.
+SQL, InfluxQL, Go, and other languages are not yet checked.
 
-**Run locally:**
+**Normalization**: The linter handles common docs patterns:
 
-```sh
-yarn lint-codeblocks content/influxdb3/core/admin/tokens/admin/*.md
-```
+- `{ placeholders="TOKEN_NAME|DURATION" }` fence attributes — tokens get language-safe substitutions before parsing
+- Hugo shortcodes inside fences — stripped with a safe replacement
 
-Exit code is 1 if any JSON/YAML/TOML block fails to parse. The step log
-groups output per file; every block's status is reported so you can see
-the full picture.
+## Link Validation
 
-**Pretty summary (large runs):**
-
-For a condensed report — counts by severity, failures by language, and
-the top files with blocking errors — use the pretty wrapper. Output is
-GitHub-flavored Markdown so it pastes cleanly into PRs and issues.
-
-```sh
-yarn lint-codeblocks:pretty content/**/*.md
-```
-
-Exit code matches `lint-codeblocks` (0 if no parse errors, 1 otherwise),
-so the wrapper can stand in for the raw command in scripts.
-
-**Normalization:** The linter handles some common docs patterns:
-
-- Fence attributes like `{ placeholders="TOKEN_NAME|DURATION" }` —
-  declared tokens are substituted with language-safe stand-ins before
-  parsing. `|` is the literal delimiter between token names; regex-style
-  groupings like `DATABASE_(TOKEN|NAME)` are not supported — list each
-  token name separately: `placeholders="DATABASE_TOKEN|DATABASE_NAME"`.
-- Hugo shortcodes inside fences (`{{% foo %}}`) — stripped with a
-  language-safe replacement.
-
-When normalization makes a block parse that wouldn't parse raw, the
-linter emits a `::notice::` annotation listing which rules fired. This
-is an audit signal: over time, rarely-fired rules get removed and
-often-fired patterns get fixed at the content source.
-
-**Run the linter's own tests:**
-
-```sh
-yarn test:lint-codeblocks
-```
-
-## LLM-Friendly Markdown Generation
-
-The documentation generates LLM-friendly Markdown alongside HTML at build time. Three layers of artifacts:
-
-| Artifact                         | Granularity                      | Generator                        | Discoverable via                                                              |
-| -------------------------------- | -------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
-| `public/<path>/index.md`         | per page                         | `scripts/build-llm-markdown.js`  | `<link rel="alternate" type="text/markdown">` in HTML head; `/sitemap-md.xml` |
-| `public/<path>/index.section.md` | per section (page + descendants) | `scripts/build-llm-markdown.js`  | `/llms.txt` "Main documentation sections" block                               |
-| `public/<product>/llms-full.txt` | per product (flattened corpus)   | `scripts/build-llms-full-txt.js` | `/llms.txt` "Full corpora" block                                              |
-
-Agents pick a layer based on the question: a focused question fetches one page's `.md`; a corpus-grounded question fetches one product's `llms-full.txt`.
-
-### Quick Start
+### Local setup (macOS)
 
 ```bash
-# Prerequisites (run once)
-yarn install
-yarn build:ts
-npx hugo --quiet
-
-# Generate Markdown
-node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 10
-
-# Validate generated Markdown
-node cypress/support/run-e2e-specs.js \
-  --spec "cypress/e2e/content/markdown-content-validation.cy.js"
-```
-
-### Per-product full corpora
-
-`scripts/build-llms-full-txt.js` produces `public/<product>/llms-full.txt` for each product. The corpus list is derived from `data/products.yml` via `scripts/lib/corpus-paths.js` — a shared utility mirrored by the Hugo template at `layouts/index.llmstxt.txt`. Eligibility per page comes from `/sitemap-md.xml`, which is also the source of the corpus origin (so staging builds produce staging URLs, production builds produce production URLs).
-
-```bash
-# After build:md, generate the per-product corpora
-yarn build:llms-full
-
-# Spot-check
-ls -lh public/influxdb3/core/llms-full.txt public/telegraf/v1/llms-full.txt
-head -5 public/influxdb3/core/llms-full.txt
-```
-
-Unit tests:
-
-```bash
-yarn test:build-llms-full   # build script behavior
-yarn test:corpus-paths      # data/products.yml -> corpus path derivation
-```
-
-### Autodiscovery coherence guard
-
-`yarn check:md-coherence` runs two checks after the full build, catching drift across the three autodiscovery surfaces:
-
-1. **Head-link → `.md` exists.** Every HTML page that emits `<link rel="alternate" type="text/markdown">` must have a corresponding `.md` file on disk. Catches drift between the Hugo eligibility predicate and `build-llm-markdown.js` output.
-2. **Hugo `/llms.txt` ↔ `getCorpusPaths()`.** The corpus list rendered into `/llms.txt` by the Hugo template must match what `scripts/lib/corpus-paths.js` derives from `data/products.yml`. Catches logic drift between the two surfaces that consume products.yml. Also verifies each linked `llms-full.txt` file exists on disk.
-
-```bash
-yarn check:md-coherence
-```
-
-Runs automatically after `yarn build:md` in the staging deploy pipeline (`scripts/deploy-staging.sh`) and on master in CircleCI (`.circleci/config.yml`). Skipped on PR builds where `build:md --only-changed` produces only a partial `.md` set.
-
-### Comprehensive Documentation
-
-For complete documentation including prerequisites, usage examples, output formats, frontmatter structure, troubleshooting, and architecture details, see the inline documentation:
-
-```bash
-# Or view the first 150 lines in terminal
-head -150 scripts/html-to-markdown.js
-```
-
-The script documentation includes:
-
-- Prerequisites and setup steps
-- Command-line options and examples
-- Output file types (single page vs section aggregation)
-- Frontmatter structure for both output types
-- Testing procedures
-- Common issues and solutions
-- Architecture overview
-- Related files
-
-### Related Files
-
-- **CLI tool**: `scripts/html-to-markdown.js` - Comprehensive inline documentation
-- **Core logic**: `scripts/lib/markdown-converter.js` - Shared conversion library
-- **Lambda handler**: `deploy/llm-markdown/lambda-edge/markdown-generator/index.js` - Production deployment
-- **Lambda docs**: `deploy/llm-markdown/README.md` - Deployment guide
-- **Cypress tests**: `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
-
-### Frontmatter Structure
-
-All generated markdown files include structured YAML frontmatter:
-
-```yaml
----
-title: Page Title
-description: Page description for SEO
-url: /influxdb3/core/get-started/
-product: InfluxDB 3 Core
-version: core
-date: 2024-01-15T00:00:00Z
-lastmod: 2024-11-20T00:00:00Z
-type: page
-estimated_tokens: 2500
-publisher: InfluxData
-canonical: https://docs.influxdata.com/influxdb3/core/get-started/
----
-```
-
-**Provenance fields (#7290):** `publisher` and `canonical` identify InfluxData as
-the authoritative source. Both are stamped at build time from
-`data/influxdata.yml` by `scripts/lib/provenance.js`. `canonical` uses the origin
-from `public/sitemap-md.xml`, which reflects the build environment's `baseURL`
-(production in production builds, staging in preview builds, `localhost` in local
-dev) — the same origin `llms-full.txt` uses for its `Source:` lines. It is derived
-independently of the per-page `url` field, so the two can differ within one build
-(for example, a local `npx hugo` build emits a production sitemap origin while the
-converter sets `url` to `localhost`). `llms-full.txt` carries the same identity
-(publisher + url + `sameAs`) once in each corpus header; `llms.txt` carries a
-single publisher line.
-
-Section pages include additional fields:
-
-```yaml
----
-type: section
-pages: 4
-child_pages:
-  - title: Set up InfluxDB 3 Core
-    url: /influxdb3/core/get-started/setup/
-  - title: Write data
-    url: /influxdb3/core/get-started/write/
----
-```
-
-### Testing Generated Markdown
-
-#### Manual Testing
-
-```bash
-# Generate markdown with verbose output
-node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 2 --verbose
-
-# Check files were created
-ls -la public/influxdb3/core/get-started/*.md
-
-# View generated content
-cat public/influxdb3/core/get-started/index.md
-
-# Check frontmatter
-head -20 public/influxdb3/core/get-started/index.md
-```
-
-#### Automated Testing with Cypress
-
-The repository includes comprehensive Cypress tests for markdown validation:
-
-```bash
-# Run all markdown validation tests
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/markdown-content-validation.cy.js"
-
-# Test specific content file
-node cypress/support/run-e2e-specs.js \
-  --spec "cypress/e2e/content/markdown-content-validation.cy.js" \
-  content/influxdb3/core/query-data/execute-queries/_index.md
-```
-
-The Cypress tests validate:
-
-- ✅ No raw Hugo shortcodes (`{{< >}}` or `{{% %}}`)
-- ✅ No HTML comments
-- ✅ Proper YAML frontmatter with required fields
-- ✅ UI elements removed (feedback forms, navigation)
-- ✅ GitHub-style callouts (Note, Warning, etc.)
-- ✅ Properly formatted tables, lists, and code blocks
-- ✅ Product context metadata
-- ✅ Clean link formatting
-
-### Common Issues and Solutions
-
-#### Issue: "No article content found" warnings
-
-**Cause**: Page doesn't have `<article class="article--content">` element (common for index/list pages)
-
-**Solution**: This is normal behavior. The converter skips pages without article content. To verify:
-
-```bash
-# Check HTML structure
-grep -l 'article--content' public/path/to/page/index.html
-```
-
-#### Issue: "Cannot find module" errors
-
-**Cause**: TypeScript not compiled (product-mappings.js missing)
-
-**Solution**: Build TypeScript first:
-
-```bash
-yarn build:ts
-ls -la dist/utils/product-mappings.js
-```
-
-#### Issue: Memory issues when processing all files
-
-**Cause**: Attempting to process thousands of pages at once
-
-**Solution**: Use `--limit` flag to process in batches:
-
-```bash
-# Process 1000 files at a time
-node scripts/html-to-markdown.js --limit 1000
-```
-
-#### Issue: Missing or incorrect product detection
-
-**Cause**: Product mappings not up to date or path doesn't match known patterns
-
-**Solution**:
-
-1. Rebuild TypeScript: `yarn build:ts`
-2. Check product mappings in `assets/js/utils/product-mappings.ts`
-3. Add new product paths if needed
-
-### Validation Checklist
-
-Before committing markdown generation changes:
-
-- [ ] Run TypeScript build: `yarn build:ts`
-- [ ] Build Hugo site: `npx hugo --quiet`
-- [ ] Generate markdown for affected paths
-- [ ] Run Cypress validation tests
-- [ ] Manually check sample output files:
-  - [ ] Frontmatter is valid YAML
-  - [ ] No shortcode remnants (`{{<`, `{{%`)
-  - [ ] No HTML comments (`<!--`, `-->`)
-  - [ ] Product context is correct
-  - [ ] Links are properly formatted
-  - [ ] Code blocks have language identifiers
-  - [ ] Tables render correctly
-
-### Architecture
-
-The markdown generation uses a shared library architecture:
-
-```
-docs-v2/
-├── scripts/
-│   ├── html-to-markdown.js          # CLI wrapper (filesystem operations)
-│   └── lib/
-│       └── markdown-converter.js    # Core conversion logic (shared library)
-├── dist/
-│   └── utils/
-│       └── product-mappings.js      # Product detection (compiled from TS)
-└── public/                          # Generated HTML + Markdown files
-```
-
-The shared library (`scripts/lib/markdown-converter.js`) is:
-
-- Used by local markdown generation scripts
-- Imported by docs-tooling Lambda\@Edge for on-demand generation
-- Tested independently with isolated conversion logic
-
-For deployment details, see [deploy/lambda-edge/markdown-generator/README.md](deploy/lambda-edge/markdown-generator/README.md).
-
-## Link Validation with Link-Checker
-
-Link validation uses the `link-checker` tool to validate internal and external links in documentation files.
-
-### Basic Usage
-
-#### Installation
-
-**Option 1: Build from source (macOS/local development)**
-
-For local development on macOS, build the link-checker from source:
-
-```bash
-# Clone and build link-checker
 git clone https://github.com/influxdata/docs-tooling.git
 cd docs-tooling/link-checker
 cargo build --release
-
-# Copy binary to your PATH or use directly
-cp target/release/link-checker /usr/local/bin/
-# OR use directly: ./target/release/link-checker
-```
-
-**Option 2: Download pre-built binary (GitHub Actions/Linux)**
-
-The link-checker binary is distributed via docs-v2 releases for reliable access from GitHub Actions workflows:
-
-```bash
-# Download Linux binary from docs-v2 releases
-curl -L -o link-checker \
-  https://github.com/influxdata/docs-v2/releases/download/link-checker-v1.0.0/link-checker-linux-x86_64
-chmod +x link-checker
-
-# Verify installation
-./link-checker --version
-```
-
-> \[!Note]
-> Pre-built binaries are currently Linux x86\_64 only. For macOS development, use Option 1 to build from source.
-
-```bash
-# Clone and build link-checker
-git clone https://github.com/influxdata/docs-tooling.git
-cd docs-tooling/link-checker
-cargo build --release
-
-# Copy binary to your PATH or use directly
 cp target/release/link-checker /usr/local/bin/
 ```
 
-#### Binary Release Process
-
-**For maintainers:** To create a new link-checker release in docs-v2:
-
-1. **Create release in docs-tooling** (builds and releases binary automatically):
-   ```bash
-   cd docs-tooling
-   git tag link-checker-v1.2.x
-   git push origin link-checker-v1.2.x
-   ```
-
-2. **Manually distribute to docs-v2** (required due to private repository access):
-   ```bash
-   # Download binary from docs-tooling release
-   curl -L -H "Authorization: Bearer $(gh auth token)" \
-     -o link-checker-linux-x86_64 \
-     "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/link-checker-linux-x86_64"
-
-   curl -L -H "Authorization: Bearer $(gh auth token)" \
-     -o checksums.txt \
-     "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/checksums.txt"
-
-   # Create docs-v2 release
-   gh release create \
-     --repo influxdata/docs-v2 \
-     --title "Link Checker Binary v1.2.x" \
-     --notes "Link validation tooling binary for docs-v2 GitHub Actions workflows." \
-     link-checker-v1.2.x \
-     link-checker-linux-x86_64 \
-     checksums.txt
-   ```
-
-3. **Update workflow reference** (if needed):
-   ```bash
-   # Update .github/workflows/pr-link-check.yml line 98 to use new version
-   sed -i 's/link-checker-v[0-9.]*/link-checker-v1.2.x/' .github/workflows/pr-link-check.yml
-   ```
-
 > \[!Note]
-> The manual distribution is required because docs-tooling is a private repository and the default GitHub token doesn't have cross-repository access for private repos.
+> Pre-built binaries (Linux x86\_64 only) are available from docs-v2 releases. macOS requires building from source.
 
-#### Core Commands
-
-```bash
-# Map content files to public HTML files
-link-checker map content/path/to/file.md
-
-# Check links in HTML files
-link-checker check public/path/to/file.html
-
-# Generate configuration file
-link-checker config
-```
-
-### Link Resolution Behavior
-
-The link-checker automatically handles relative link resolution based on the input type:
-
-**Local Files → Local Resolution**
+### Basic usage
 
 ```bash
-# When checking local files, relative links resolve to the local filesystem
-link-checker check public/influxdb3/core/admin/scale-cluster/index.html
-# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
-# → /path/to/public/influxdb3/clustered/tags/kubernetes/index.html
-```
+# Map changed markdown to HTML, then check links
+link-checker map content/influxdb3/core/get-started/ | xargs link-checker check
 
-**URLs → Production Resolution**
-
-```bash
-# When checking URLs, relative links resolve to the production site
-link-checker check https://docs.influxdata.com/influxdb3/core/admin/scale-cluster/
-# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
-# → https://docs.influxdata.com/influxdb3/clustered/tags/kubernetes/
-```
-
-**Why This Matters**
-
-- **Testing new content**: Tag pages generated locally will be found when testing local files
-- **Production validation**: Production URLs validate against the live site
-- **No false positives**: New content won't appear broken when testing locally before deployment
-
-### Content Mapping Workflows
-
-#### Scenario 1: Map and check InfluxDB 3 Core content
-
-```bash
-# Map Markdown files to HTML
-link-checker map content/influxdb3/core/get-started/
-
-# Check links in mapped HTML files
-link-checker check public/influxdb3/core/get-started/
-```
-
-#### Scenario 2: Map and check shared CLI content
-
-```bash
-# Map shared content files
-link-checker map content/shared/influxdb3-cli/
-
-# Check the mapped output files
-# (link-checker map outputs the HTML file paths)
-link-checker map content/shared/influxdb3-cli/ | \
-  xargs link-checker check
-```
-
-#### Scenario 3: Direct HTML checking
-
-```bash
-# Check HTML files directly without mapping
-link-checker check public/influxdb3/core/get-started/
-```
-
-#### Combined workflow for changed files
-
-```bash
 # Check only files changed in the last commit
 git diff --name-only HEAD~1 HEAD | grep '\.md$' | \
   xargs link-checker map | \
   xargs link-checker check
-```
 
-### Configuration Options
-
-#### Local usage (default configuration)
-
-```bash
-# Uses default settings or test.lycherc.toml if present
-link-checker check public/influxdb3/core/get-started/
-```
-
-#### Production usage (GitHub Actions)
-
-```bash
-# Use production configuration with comprehensive exclusions
+# Use production config (same as CI)
 link-checker check \
   --config .ci/link-checker/production.lycherc.toml \
   public/influxdb3/core/get-started/
 ```
 
-### GitHub Actions Integration
-
-**Automated Integration (docs-v2)**
-
-The docs-v2 repository includes automated link checking for pull requests:
-
-- **Trigger**: Runs automatically on PRs that modify content files
-- **Binary distribution**: Downloads latest pre-built binary from docs-v2 releases
-- **Smart detection**: Only checks files affected by PR changes
-- **Production config**: Uses optimized settings with exclusions for GitHub, social media, etc.
-- **Results reporting**: Broken links reported as GitHub annotations with detailed summaries
-
-The workflow automatically:
-
-1. Detects content changes in PRs using GitHub Files API
-2. Downloads latest link-checker binary from docs-v2 releases
-3. Builds Hugo site and maps changed content to public HTML files
-4. Runs link checking with production configuration
-5. Reports results with annotations and step summaries
-
-**Manual Integration (other repositories)**
-
-For other repositories, you can integrate link checking manually:
-
-```yaml
-name: Link Check
-on:
-  pull_request:
-    paths:
-      - 'content/**/*.md'
-
-jobs:
-  link-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Download link-checker
-        run: |
-          curl -L -o link-checker \
-            https://github.com/influxdata/docs-tooling/releases/latest/download/link-checker-linux-x86_64
-          chmod +x link-checker
-          cp target/release/link-checker ../../link-checker
-          cd ../..
-          
-      - name: Build Hugo site
-        run: |
-          npm install
-          npx hugo --minify
-          
-      - name: Check changed files
-        run: |
-          git diff --name-only origin/main HEAD | \
-            grep '\.md$' | \
-            xargs ./link-checker map | \
-            xargs ./link-checker check \
-              --config .ci/link-checker/production.lycherc.toml
-```
+Local checks resolve relative links to the local filesystem. CI checks resolve them to the production site.
 
 ## Style Linting (Vale)
 
-Style linting uses [Vale](https://vale.sh/) to enforce documentation writing standards, branding guidelines, and vocabulary consistency.
-
-### Setup
-
-1. **Install Vale locally (recommended):** `brew install vale` (or see [Vale installation guide](https://vale.sh/docs/install/))
-2. **Or use Docker:** The `.ci/vale/vale.sh` wrapper falls back to a pinned Docker image if `vale` isn't installed locally.
-
-### Basic Usage
+Install locally: `brew install vale` (recommended) or use the Docker fallback via `.ci/vale/vale.sh`.
 
 ```bash
 # Lint specific files
 .ci/vale/vale.sh content/influxdb3/core/**/*.md
 
-# With product config and alert level
-.ci/vale/vale.sh --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
+# With product config and minimum alert level
+.ci/vale/vale.sh \
+  --config=content/influxdb3/cloud-dedicated/.vale.ini \
+  --minAlertLevel=error \
+  content/influxdb3/cloud-dedicated/write-data/**/*.md
 ```
-
-### VS Code IDE Integration
-
-1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
-2. Set `Vale:Vale CLI:Path` to `vale` (or the full path to the binary).
-
-### Alert Levels
-
-Vale can raise different alert levels:
-
-- **Error**: Problems that can cause content to render incorrectly, violations of branding guidelines, rejected vocabulary terms
-- **Warning**: General style guide rules and best practices
-- **Suggestion**: Style preferences that may require refactoring or updates to an exceptions list
-
-### Configuration
-
-- **Styles**: `.ci/vale/styles/` contains configuration for the custom `InfluxDataDocs` style
-- **Vocabulary**: Add accepted/rejected terms to `.ci/vale/styles/config/vocabularies`
-- **Product-specific**: Configure per-product styles like `content/influxdb/cloud-dedicated/.vale.ini`
-
-For more configuration details, see [Vale configuration](https://vale.sh/docs/topics/config).
-
-### CI Integration
-
-Vale runs automatically on pull requests that modify markdown files. The workflow:
-
-1. Detects changed markdown files (content, README, instruction files)
-2. Resolves shared content to consuming product pages
-3. Maps files to appropriate Vale configs (matching local Lefthook behavior)
-4. Runs Vale via `.ci/vale/vale.sh` (local binary or Docker fallback)
-5. Reports results as inline annotations and a PR summary comment
 
 **Alert levels:**
 
-- **Errors** block merging
-- **Warnings** and **suggestions** are informational only
+- **Error** — blocks merge (branding violations, rejected terms, render-breaking patterns)
+- **Warning** — style guide rules (informational in CI)
+- **Suggestion** — style preferences (informational)
 
-**Files checked:**
+**Adding vocabulary terms:** edit `.ci/vale/styles/config/vocabularies`.
 
-- `content/**/*.md`
-- `README.md`, `DOCS-*.md`
-- `**/AGENTS.md`, `**/CLAUDE.md`
-- `.github/**/*.md`, `.claude/**/*.md`
+For creating or debugging Vale rules, see the [vale-linting skill](.agents/skills/vale-linting/SKILL.md) and [vale-rule-config skill](.agents/skills/vale-rule-config/SKILL.md).
 
-The CI check uses the same product-specific configs as local development, ensuring consistency between local and CI linting.
+## E2E Tests (Cypress)
+
+E2E tests validate UI components, rendered HTML, and page behavior.
+
+```bash
+# Test a specific content file
+node cypress/support/run-e2e-specs.js content/influxdb3/core/_index.md
+
+# Run a specific spec (no content mapping)
+node cypress/support/run-e2e-specs.js \
+  --spec "cypress/e2e/content/jsonld-organization.cy.js" \
+  --no-mapping
+
+# Test shortcode examples
+yarn test:shortcode-examples
+```
+
+The test runner manages Hugo automatically on port 1315. You don't need to start Hugo separately.
+
+For writing Cypress tests and debugging failures, see the [cypress-e2e-testing skill](.agents/skills/cypress-e2e-testing/SKILL.md).
 
 ## Structured Data (JSON-LD) Validation
 
-The `layouts/partials/header/*-jsonld.html` partials emit schema.org JSON-LD
-(`Organization`, `TechArticle`, `SoftwareApplication`, `FAQPage`). Validate
-changes with the **Schema Markup Validator (`https://validator.schema.org`)**,
-**not** the Google Rich Results Test.
+Cypress tests in `cypress/e2e/content/jsonld-*.cy.js` verify JSON-LD is emitted on the right pages. They confirm *presence*, not schema correctness.
 
-The Rich Results Test only reports types eligible for a *visual* search
-enhancement. Most JSON-LD this repo emits is not eligible, so the Rich Results
-Test reports "no items detected" even for valid markup — a false negative:
-
-| Emitted type          | Rich Results Test | Why                                                                               |
-| --------------------- | ----------------- | --------------------------------------------------------------------------------- |
-| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result                |
-| `TechArticle`         | Not reported      | Google's Article rich result fires only for `Article`/`NewsArticle`/`BlogPosting` |
-| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result                               |
-| `FAQPage`             | Reported          | One of the few eligible types here                                                |
-
-**Local checks:**
-
-- **Cypress** proves the markup is *emitted where intended*, not that it is
-  schema-correct. Assertions are scope-aware: page-scoped nodes
-  (`TechArticle`/`SoftwareApplication`) assert presence where they belong and
-  *absence* where they don't (over-emission guard); global nodes
-  (`Organization`, emitted site-wide with a stable `@id`) assert *exactly one*
-  per page class. See `cypress/e2e/content/jsonld-organization.cy.js` and
-  `jsonld-techarticle.cy.js`.
-- **Schema correctness** is confirmed manually via `validator.schema.org`
-  against a deployed preview URL (expect 0 errors).
-
-See the `hugo-template-dev` and `cypress-e2e-testing` skills for the full
-workflow and code snippets.
+For schema correctness, validate against [validator.schema.org](https://validator.schema.org) — **not** the Google Rich Results Test. Most JSON-LD types this repo emits (`Organization`, `TechArticle`, `SoftwareApplication`) never appear in the Rich Results Test even when valid.
 
 ## PR Preview Pages
 
-The PR preview workflow (`.github/workflows/pr-preview.yml`) deploys only the pages listed in the PR description to a stable GitHub Pages preview URL. Reviewers verify rendered output on the exact pages the author tested without checking out the branch or running `npx hugo server` locally.
+Add page URLs to the PR description to deploy a hosted preview automatically.
 
-### When to use
+The preview workflow (`.github/workflows/pr-preview.yml`) deploys only those pages to GitHub Pages. Use it when a reviewer would need a local Hugo build to verify a visual or structural change.
 
-List preview pages in the PR description whenever the change is visual or structural and a reviewer would otherwise need a local build to verify it:
+**URL formats the extractor recognizes:**
 
-- `layouts/**` template changes (canonical tags, `<head>` fragments, partials, shortcodes)
-- `assets/**` CSS or component changes
-- `data/**` changes that affect rendered pages
+- `https://docs.influxdata.com/<path>`
+- `http://localhost:1313/<path>`
+- Bare paths starting with a product namespace (`/influxdb3/...`, `/telegraf/...`)
 
-For interactive UI or JavaScript behavior, complement the preview with Cypress E2E tests — the preview gives static HTML; Cypress exercises runtime behavior.
+URLs inside fenced code blocks are ignored. List preview URLs as bare paths or markdown links.
 
-### How URLs are extracted
+**Convention:** pair each URL with an "Expected" column describing what the reviewer should verify.
 
-`.github/scripts/parse-pr-urls.js` scans the PR body for:
+Related files:
 
-- Production URLs: `https://docs.influxdata.com/<path>`
-- Localhost URLs: `http://localhost:1313/<path>`
-- Bare paths starting with a product namespace from `data/products.yml` (`/influxdb3/...`, `/telegraf/...`, etc.)
-
-**URLs inside fenced code blocks are stripped** before extraction so example URLs in code samples don't get deployed. List preview URLs as bare paths or markdown links — not inside backtick fences.
-
-### Convention: pair each URL with an "Expected" column
-
-For each preview URL, document what the reviewer should verify (DOM element, attribute value, copy, layout, etc.). This replaces "does this look right?" with concrete pass/fail criteria.
-
-Example PR body fragment:
-
-```markdown
-## Pages to preview
-
-| URL | Expected |
-| --- | --- |
-| /influxdb3/core/ | `<link rel=canonical>` points to `/influxdb3/core/` |
-| /influxdb3/core/write-data/ | `<link rel=canonical>` starts with `/influxdb3/enterprise/` |
-```
-
-Note that the example URLs above appear inside a fenced code block for illustration. In a real PR description, list them outside the fence so the URL extractor picks them up.
-
-### Related workflow files
-
-- `.github/workflows/pr-preview.yml` — the workflow itself
-- `.github/scripts/parse-pr-urls.js` — URL extractor (matches three patterns, strips code blocks)
-- `.github/scripts/detect-preview-pages.js` — change detector that decides whether the preview deploys at all
-
-## Pre-commit Hooks
-
-docs-v2 uses [Lefthook](https://github.com/evilmartians/lefthook) to manage Git hooks that run automatically during pre-commit and pre-push.
-
-### What Runs Automatically
-
-When you run `git commit`, Git runs:
-
-- **Vale**: Style linting (if configured)
-- **Prettier**: Code formatting
-- **Cypress**: Link validation tests
-- **Pytest**: Code block tests
-
-### Skipping Pre-commit Hooks
-
-We strongly recommend running linting and tests, but you can skip them:
-
-```sh
-# Skip with --no-verify flag
-git commit -m "<COMMIT_MESSAGE>" --no-verify
-
-# Skip with environment variable
-LEFTHOOK=0 git commit
-```
-
-## Advanced Testing
-
-### E2E Testing
-
-```bash
-# Run all E2E tests
-yarn test:e2e
-
-# Run specific E2E specs
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/index.cy.js"
-```
-
-### JavaScript Testing and Debugging
-
-For JavaScript code in the documentation UI (`assets/js`):
-
-#### Using Source Maps and Chrome DevTools
-
-1. In VS Code, select Run > Start Debugging
-2. Select "Debug Docs (source maps)" configuration
-3. Set breakpoints in the `assets/js/ns-hugo-imp:` namespace
-
-#### Using Debug Helpers
-
-1. Import debug helpers in your JavaScript module:
-   ```js
-   import { debugLog, debugBreak, debugInspect } from './utils/debug-helpers.js';
-   ```
-
-2. Insert debug statements:
-   ```js
-   const data = debugInspect(someData, 'Data');
-   debugLog('Processing data', 'myFunction');
-   debugBreak(); // Add breakpoint
-   ```
-
-3. Start Hugo: `yarn hugo server`
-
-4. In VS Code, select "Debug JS (debug-helpers)" configuration
-
-Remember to remove debug statements before committing.
-
-## Docker Compose Services
-
-Available test services:
-
-```bash
-# All code block tests
-docker compose --profile test up
-
-# Individual product tests
-docker compose run --rm cloud-pytest
-docker compose run --rm v2-pytest
-docker compose run --rm telegraf-pytest
-
-# Stop monitoring services
-yarn test:codeblocks:stop-monitors
-```
-
-## Testing Best Practices
-
-### Code Block Examples
-
-- Always test code examples before committing
-- Use realistic data and examples that users would encounter
-- Include proper error handling in examples
-- Format code to fit within 80 characters
-- Use long options in command-line examples (`--option` vs `-o`)
-
-### Markdown Generation
-
-- Build Hugo site before generating markdown: `npx hugo --quiet`
-- Compile TypeScript before generation: `yarn build:ts`
-- Test on small subsets first using `--limit` flag
-- Use `--verbose` flag to debug conversion issues
-- Always run Cypress validation tests after generation
-- Check sample output manually for quality
-- Verify shortcodes are evaluated (no `{{<` or `{{%` in output)
-- Ensure UI elements are removed (no "Copy page", "Was this helpful?")
-- Test both single pages (`index.md`) and section pages (`index.section.md`)
-
-### Link Validation
-
-- Test links regularly, especially after content restructuring
-- Use appropriate cache TTL settings for your validation needs
-- Monitor cache hit rates to optimize performance
-- Clean up expired cache entries periodically
-
-### Style Guidelines
-
-- Run Vale regularly to catch style issues early
-- Add accepted terms to vocabulary files rather than ignoring errors
-- Configure product-specific styles for branding consistency
-- Review suggestions periodically for content improvement opportunities
+- `.github/workflows/pr-preview.yml` — the workflow
+- `.github/scripts/parse-pr-urls.js` — URL extractor
+- `.github/scripts/detect-preview-pages.js` — decides whether preview deploys
 
 ## Related Files
 
-- **Configuration**: `pytest.ini`, `cypress.config.js`, `lefthook.yml`
-- **Docker**: `compose.yaml`, `Dockerfile.pytest`
-- **Scripts**: `.github/scripts/` directory
-- **Test data**: `./test/` directory
-- **Vale config**: `.ci/vale/styles/`
-- **Markdown generation**:
-  - `scripts/html-to-markdown.js` - CLI wrapper
-  - `scripts/lib/markdown-converter.js` - Core conversion library
-  - `deploy/lambda-edge/markdown-generator/` - Lambda deployment
-  - `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
+| File                       | Purpose                                      |
+| -------------------------- | -------------------------------------------- |
+| `lefthook.yml`             | Pre-commit and pre-push hook configuration   |
+| `test/pytest/pytest.ini`   | pytest-codeblocks discovery options          |
+| `cypress.config.js`        | Cypress configuration                        |
+| `compose.yaml`             | Docker Compose services for code block tests |
+| `Dockerfile.pytest`        | pytest image definition                      |
+| `.ci/vale/styles/`         | Vale rule configuration                      |
+| `.ci/link-checker/`        | Link checker configuration                   |
+| `test/`                    | Test scripts and shared test utilities       |
+| `scripts/README.md`        | LLM markdown generation documentation        |
+| `test/TEST-PERFORMANCE.md` | Code block test performance optimization     |
 
 ## Getting Help
 
-- **GitHub Issues**: [docs-v2 issues](https://github.com/influxdata/docs-v2/issues)
-- **Good first issues**: [good-first-issue label](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)
-- **InfluxData CLA**: [Sign here](https://www.influxdata.com/legal/cla/) for substantial contributions
+- [docs-v2 issues](https://github.com/influxdata/docs-v2/issues)
+- [Good first issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)
+- [InfluxData CLA](https://www.influxdata.com/legal/cla/) (required for substantial contributions)

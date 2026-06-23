@@ -1,5 +1,19 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v1.10.0 {date="2026-06-11"}
+
+### Features
+
+1. [#388](https://github.com/InfluxCommunity/influxdb3-java/pull/388): Adds partial writes support and defaults writes to the V2 API endpoint.
+   - `noSync` requires `useV2Api=false` and the V3 API endpoint.
+   - `acceptPartial` applies only when writes are sent to the V3 API endpoint and is ignored when using the V2 API endpoint.
+   - See [Partial writes](https://docs.influxdata.com/influxdb3/core/write-data/http-api/v3-write-lp/#partial-writes) for more.
+
+### Bug Fixes
+
+1. [#384](https://github.com/InfluxCommunity/influxdb3-java/pull/384): Always set `precision` to `nanosecond` when
+   writing Points.
+
 ## v1.9.0 {date="2026-04-23"}
 
 ### Features

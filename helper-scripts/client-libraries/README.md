@@ -1,8 +1,8 @@
 # Client library release notes sync
 
-Syncs `CHANGELOG.md` from the five InfluxDB v3 client library repos
-(`InfluxCommunity/influxdb3-{python,go,js,csharp,java}`) into Hugo-flavored
-release notes pages under `content/shared/`.
+Syncs `CHANGELOG.md` from the InfluxDB v3 client library repos
+(`InfluxCommunity/influxdb3-{python,go,js,csharp,java,rust}`) into
+Hugo-flavored release notes pages under `content/shared/`.
 
 Driven by `.github/workflows/sync-client-library-release-notes.yml`
 (nightly cron + manual dispatch).
