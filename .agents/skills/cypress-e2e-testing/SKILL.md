@@ -1,8 +1,6 @@
 ---
 name: cypress-e2e-testing
-description: Run, validate, and analyze Cypress E2E tests for the InfluxData documentation site. Covers Hugo server management, test execution modes, and failure analysis.
-author: InfluxData
-version: "1.0"
+description: "Run, validate, and analyze Cypress E2E tests for the InfluxData documentation site. Covers Hugo server management, test execution modes, and failure analysis. Use when writing or running Cypress tests, verifying rendered pages, checking JSON-LD/structured data, or debugging E2E failures after template, layout, or content changes."
 ---
 
 # Cypress E2E Testing Skill
@@ -140,12 +138,12 @@ node cypress/support/run-e2e-specs.js \
 
 ## Available Test Specs
 
-| Spec File                                               | Purpose                                       |
-| ------------------------------------------------------- | --------------------------------------------- |
+| Spec File                                               | Purpose                                                     |
+| ------------------------------------------------------- | ----------------------------------------------------------- |
 | `cypress/e2e/content/api-reference.cy.js`               | API reference pages (Hugo-native templates, layouts, links) |
-| `cypress/e2e/content/index.cy.js`                       | General content validation                    |
-| `cypress/e2e/content/markdown-content-validation.cy.js` | LLM markdown generation                       |
-| `cypress/e2e/page-context.cy.js`                        | Page context and navigation                   |
+| `cypress/e2e/content/index.cy.js`                       | General content validation                                  |
+| `cypress/e2e/content/markdown-content-validation.cy.js` | LLM markdown generation                                     |
+| `cypress/e2e/page-context.cy.js`                        | Page context and navigation                                 |
 
 ## Understanding Test Output
 

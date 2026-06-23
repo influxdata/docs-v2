@@ -19,11 +19,15 @@ related:
 >
 > Multi-user authentication is available as a preview in {{% product-name %}}
 > 3.10 and is **off by default**. Existing `apiv3_` token workflows are
-> unaffected. Two known limitations apply:
+> unaffected. The following known limitations apply:
 >
 > - `influxdb3 auth logout` removes local credentials but does **not** revoke the
 >   issued JWT server-side.
 > - A non-admin user can currently create tokens with broader permissions than their assigned role.
+> - Role-based permissions are limited and still being finalized. Only the
+>   **Admin** role (or an admin token) currently has full access. The **Auditor**
+>   and **Member** roles grant less access than their names suggest. Use an admin
+>   token for user and role management.
 
 Multi-user authentication lets users log in to {{% product-name %}} with
 individual credentials that issue JSON Web Tokens (JWTs), with access governed by

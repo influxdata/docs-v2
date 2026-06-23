@@ -1,8 +1,6 @@
 ---
 name: vale-linting
-description: Vale style linting workflow for InfluxData documentation. Covers running Vale, understanding rules, adding vocabulary, and creating custom rules.
-author: InfluxData
-version: "1.0"
+description: "Run, debug, and maintain Vale style linting for InfluxData documentation: run Vale, interpret alerts, manage vocabulary, configure product-specific .vale.ini files, and understand which rules are enabled and why. Use when running Vale, investigating or fixing Vale warnings, adding accept/ignore vocabulary terms, or setting up a product config. To author custom rule patterns and regex, see vale-rule-config."
 ---
 
 # Vale Style Linting Workflow
@@ -86,32 +84,32 @@ Rules are disabled in two categories across `.vale.ini` and all product configs:
 
 **Mechanical rules disabled** (replaced by custom equivalents or incompatible with InfluxDB syntax):
 
-| Rule | Reason |
-|------|--------|
-| `Google.Acronyms` | Custom `InfluxDataDocs.Acronyms` handles this |
-| `Google.DateFormat` | Custom `InfluxDataDocs.DateFormat` handles this |
-| `Google.Ellipses` | Custom `InfluxDataDocs.Ellipses` handles this |
-| `Google.Headings` | Too strict for technical doc headings |
-| `Google.WordList` | Custom `InfluxDataDocs.WordList` handles this |
-| `Google.Units` | Flags InfluxDB duration literals (30d, 24h); custom `InfluxDataDocs.Units` checks byte units only |
-| `Vale.Spelling` | Custom `InfluxDataDocs.Spelling` handles this |
-| `Vale.Terms` | False positives from URLs, file paths, and code |
+| Rule                | Reason                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------------------- |
+| `Google.Acronyms`   | Custom `InfluxDataDocs.Acronyms` handles this                                                     |
+| `Google.DateFormat` | Custom `InfluxDataDocs.DateFormat` handles this                                                   |
+| `Google.Ellipses`   | Custom `InfluxDataDocs.Ellipses` handles this                                                     |
+| `Google.Headings`   | Too strict for technical doc headings                                                             |
+| `Google.WordList`   | Custom `InfluxDataDocs.WordList` handles this                                                     |
+| `Google.Units`      | Flags InfluxDB duration literals (30d, 24h); custom `InfluxDataDocs.Units` checks byte units only |
+| `Vale.Spelling`     | Custom `InfluxDataDocs.Spelling` handles this                                                     |
+| `Vale.Terms`        | False positives from URLs, file paths, and code                                                   |
 
 **Style rules disabled** (high false-positive rate in technical docs):
 
-| Rule | Reason |
-|------|--------|
-| `Google.Contractions` | Not relevant to InfluxData style |
-| `Google.FirstPerson` | Tutorials use "I" intentionally |
-| `Google.Passive` | Technical docs use passive voice legitimately |
-| `Google.We` | "We recommend" is standard in docs |
-| `Google.Will` | Future tense is standard in docs |
-| `write-good.Cliches` | High false positive rate |
-| `write-good.Passive` | Duplicate of Google.Passive concern |
-| `write-good.So` | Starting with "So" is fine |
-| `write-good.ThereIs` | Often the clearest phrasing |
+| Rule                  | Reason                                                  |
+| --------------------- | ------------------------------------------------------- |
+| `Google.Contractions` | Not relevant to InfluxData style                        |
+| `Google.FirstPerson`  | Tutorials use "I" intentionally                         |
+| `Google.Passive`      | Technical docs use passive voice legitimately           |
+| `Google.We`           | "We recommend" is standard in docs                      |
+| `Google.Will`         | Future tense is standard in docs                        |
+| `write-good.Cliches`  | High false positive rate                                |
+| `write-good.Passive`  | Duplicate of Google.Passive concern                     |
+| `write-good.So`       | Starting with "So" is fine                              |
+| `write-good.ThereIs`  | Often the clearest phrasing                             |
 | `write-good.TooWordy` | Flags legitimate terms: aggregate, expiration, multiple |
-| `write-good.Weasel` | Context-dependent, better handled during content review |
+| `write-good.Weasel`   | Context-dependent, better handled during content review |
 
 ### Active Custom Rules
 
@@ -171,6 +169,11 @@ deadman
 | Variable name appearing in prose        | `ignore.txt` |
 
 ## Part 4: Creating Custom Rules
+
+> This section covers where rules live in this repo and shows two real
+> examples. For the rule-authoring deep dive — rule types, the regexp2 engine,
+> PCRE lookarounds, and testing patterns in isolation — use the
+> **vale-rule-config** skill.
 
 ### Rule File Location
 
@@ -329,7 +332,7 @@ echo "systemd" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
 
 ### Creating a Product-Specific Override
 
-> [!Important]
+> \[!Important]
 > Product-specific `.vale.ini` files must include the same disabled rules as the
 > root `.vale.ini`. Rules disabled in the root config are **not** inherited by
 > product-specific configs. Omitting them re-enables the rules for those products.
@@ -410,15 +413,15 @@ grep TokenIgnores .vale.ini
 
 ## Related Files
 
-| File | Purpose |
-|------|---------|
-| `.vale.ini` | Main configuration |
-| `.vale-instructions.ini` | Config for non-content files (READMEs, AGENTS.md, etc.) |
-| `.ci/vale/vale.sh` | Vale wrapper (local binary or Docker fallback) |
-| `.ci/vale/styles/` | All Vale style rules |
-| `.ci/scripts/check-support-links.sh` | Support URL validation (can't use Vale — see Part 6) |
-| `.github/scripts/vale-check.sh` | CI script: groups files by product config, runs Vale |
+| File                                        | Purpose                                                 |
+| ------------------------------------------- | ------------------------------------------------------- |
+| `.vale.ini`                                 | Main configuration                                      |
+| `.vale-instructions.ini`                    | Config for non-content files (READMEs, AGENTS.md, etc.) |
+| `.ci/vale/vale.sh`                          | Vale wrapper (local binary or Docker fallback)          |
+| `.ci/vale/styles/`                          | All Vale style rules                                    |
+| `.ci/scripts/check-support-links.sh`        | Support URL validation (can't use Vale — see Part 6)    |
+| `.github/scripts/vale-check.sh`             | CI script: groups files by product config, runs Vale    |
 | `.github/scripts/resolve-shared-content.sh` | CI script: resolves `content/shared/*` to product pages |
-| `.github/workflows/pr-vale-check.yml` | CI workflow: runs Vale on PR changes |
-| `lefthook.yml` | Pre-commit hooks that run Vale |
-| `DOCS-TESTING.md` | Testing documentation (includes Vale CI section) |
+| `.github/workflows/pr-vale-check.yml`       | CI workflow: runs Vale on PR changes                    |
+| `lefthook.yml`                              | Pre-commit hooks that run Vale                          |
+| `DOCS-TESTING.md`                           | Testing documentation (includes Vale CI section)        |

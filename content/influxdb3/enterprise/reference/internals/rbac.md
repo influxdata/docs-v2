@@ -32,9 +32,17 @@ determine their permissions.
 
 {{% product-name %}} provides three built-in roles:
 
-- **Admin**: Full administrative access, including user and role management.
-- **Auditor**: Read access intended for reviewing and auditing the system.
-- **Member**: Standard access for working with data.
+- **Admin**
+- **Auditor**
+- **Member**
+
+> [!Important]
+> #### Role permissions are limited in this preview
+>
+> Role-based permissions are limited and still being finalized. Only the **Admin**
+> role (or an admin token) currently has full access. The **Auditor** and
+> **Member** roles grant less access than their names suggest. Use an
+> admin token for user and role management.
 
 ## Assign roles
 

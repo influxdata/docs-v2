@@ -1,8 +1,6 @@
 ---
 name: hugo-template-dev
-description: Hugo template development skill for InfluxData docs-v2. Enforces proper build and runtime testing to catch template errors that build-only validation misses.
-author: InfluxData
-version: "1.2"
+description: "Hugo template development for InfluxData docs-v2, enforcing build and runtime testing to catch template errors that build-only validation misses. Use when creating or editing Hugo layouts, partials, or shortcodes, debugging template errors, or accessing site data in templates."
 ---
 
 # Hugo Template Development Skill
@@ -23,11 +21,17 @@ Template errors like accessing undefined fields, nil values, or incorrect type a
 
 After modifying files in `layouts/`, `layouts/partials/`, or `layouts/shortcodes/`:
 
-**Step 1: Start Hugo server and capture output**
+**Step 1: Start Hugo server in the background and capture output**
 
 ```bash
-npx hugo server --port 1315 2>&1 | head -50
+rm -f /tmp/hugo-1315.log
+npx hugo server --port 1315 >/tmp/hugo-1315.log 2>&1 &
+sleep 5
+head -50 /tmp/hugo-1315.log
 ```
+
+This keeps the server running for the next steps while still showing startup
+output.
 
 **Success criteria:**
 
@@ -72,7 +76,11 @@ pkill -f "hugo server --port 1315"
 Use this one-liner to test and get immediate feedback:
 
 ```bash
-timeout 15 npx hugo server --port 1315 2>&1 | grep -E "(error|Error|ERROR|fail|FAIL)" | head -20; pkill -f "hugo server --port 1315" 2>/dev/null
+rm -f /tmp/hugo-1315.log
+npx hugo server --port 1315 >/tmp/hugo-1315.log 2>&1 &
+sleep 5
+grep -E "(error|Error|ERROR|fail|FAIL)" /tmp/hugo-1315.log | head -20
+pkill -f "hugo server --port 1315" 2>/dev/null
 ```
 
 If output is empty, no errors were detected.
@@ -133,12 +141,12 @@ enhancement. Most JSON-LD this repo emits is **not** eligible, so the Rich
 Results Test reports "no items detected" even for valid markup — a false
 negative that looks like failure:
 
-| Emitted type          | Rich Results Test | Why |
-| --------------------- | ----------------- | --- |
-| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result |
+| Emitted type          | Rich Results Test | Why                                                                               |
+| --------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| `Organization`        | Not reported      | Feeds the knowledge graph / entity resolution, never a rich result                |
 | `TechArticle`         | Not reported      | Google's Article rich result fires only for `Article`/`NewsArticle`/`BlogPosting` |
-| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result |
-| `FAQPage`             | Reported          | One of the few eligible types here |
+| `SoftwareApplication` | Not reported      | Google retired the general software-app rich result                               |
+| `FAQPage`             | Reported          | One of the few eligible types here                                                |
 
 `validator.schema.org` validates every schema.org type regardless of
 rich-result eligibility — that's what confirms the node is well-formed.
@@ -172,18 +180,25 @@ rich-result eligibility — that's what confirms the node is well-formed.
 
 ## Common Hugo Template Errors
 
-### 1. Accessing Hyphenated Keys
+### 1. Accessing Keys with Hyphens or Dynamic Names
 
-**Wrong:**
+Hugo's dot notation only works for keys that are valid Go identifiers
+(letters, digits, underscores). This repo's data dir is `article_data`
+(underscore), so `.Site.Data.article_data` works. But a hyphenated key — or a
+key held in a variable — must use `index`:
+
+**Wrong (hyphen breaks dot notation; `dataKey` is a variable):**
 
 ```go
-{{ .Site.Data.article-data.influxdb }}
+{{ .Site.Data.my-data.influxdb }}
+{{ .Site.Data.article_data.dataKey }}
 ```
 
 **Correct:**
 
 ```go
-{{ index .Site.Data "article-data" "influxdb" }}
+{{ index .Site.Data "my-data" "influxdb" }}
+{{ index .Site.Data "article_data" $dataKey }}
 ```
 
 ### 2. Nil Field Access
@@ -256,7 +271,7 @@ rich-result eligibility — that's what confirms the node is well-formed.
 
 ```go
 {{/* Build up access with nil checks at each level */}}
-{{ $articleDataRoot := index .Site.Data "article-data" }}
+{{ $articleDataRoot := index .Site.Data "article_data" }}
 {{ if $articleDataRoot }}
   {{ $influxdbData := index $articleDataRoot "influxdb" }}
   {{ if $influxdbData }}
@@ -493,7 +508,7 @@ npx hugo server --port 1315 --verbose 2>&1 | head -100
 
 ```bash
 # Verify data files exist and are valid YAML
-cat data/article-data/influxdb/influxdb3-core/articles.yml | head -20
+cat data/article_data/influxdb3/core/api/articles.yml | head -20
 ```
 
 ## Integration with CI/CD
