@@ -348,6 +348,22 @@ PostgreSQL-compatible server running.
 
 The application will automatically run migrations on first startup.
 
+#### Connect to PostgreSQL over TLS
+
+To encrypt the connection to a PostgreSQL or PostgreSQL-compatible server,
+add the `sslmode` query parameter to the database URL. To verify the server
+certificate, use `sslmode=verify-full` and provide a CA certificate with
+`sslrootcert`:
+
+```sh { callout="sslmode=verify-full|sslrootcert=/etc/ssl/certs/ca.pem" callout-color="orange" }
+./telegraf_controller \
+  --database="postgresql://user:password@db.example.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
+```
+
+For all PostgreSQL TLS options, including supported `sslmode` values and the
+`DATABASE_CA_CERT` and `DATABASE_SSL_NO_VERIFY` environment variables, see
+[Database TLS](/telegraf/controller/reference/config-options/#database-tls).
+
 ## Configure {{% product-name %}}
 
 Use the following command line options to configure {{% product-name %}}.
@@ -360,8 +376,8 @@ Use the following command line options to configure {{% product-name %}}.
 | `--heartbeat-port`          | `HEARTBEAT_PORT`           | Agent heartbeat service port                 | `8000`               |
 | `--database`                | `DATABASE_URL`             | Database connection string                   | Auto-detected SQLite |
 | `--logs-dir`                | `LOGS_DIR`                 | Absolute path for agent logs                 | System temp dir      |
-|                             | `SSL_CERT_PATH`            | SSL certificate file path                    | None                 |
-|                             | `SSL_KEY_PATH`             | SSL private key file path                    | None                 |
+| `--ssl-cert`                | `SSL_CERT_PATH`            | PEM SSL/TLS certificate file (enables HTTPS) | None                 |
+| `--ssl-key`                 | `SSL_KEY_PATH`             | PEM SSL/TLS private key file (enables HTTPS) | None                 |
 | `--owner-email`             | `OWNER_EMAIL`              | Bootstrap owner email address                | None                 |
 | `--owner-username`          | `OWNER_USERNAME`           | Bootstrap owner username                     | None                 |
 | `--owner-password`          | `OWNER_PASSWORD`           | Bootstrap owner password                     | None                 |
