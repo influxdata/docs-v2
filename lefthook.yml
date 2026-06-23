@@ -50,8 +50,13 @@ pre-commit:
       run: yarn eslint {staged_files}
       fail_text: "Debug helpers found! Remove debug imports and calls before committing."
     build-agent-instructions:
-      glob: "data/products.yml"
+      glob:
+        - "AGENTS.md"
+        - ".agents/instructions/**/*.md"
+        - ".agents/skills/**/SKILL.md"
+        - "data/products.yml"
       run: yarn build:agent:instructions
+      stage_fixed: true
     # Auto-fix markdown formatting for instruction and README files (like prettier).
     # The wrapper at .ci/remark/remark.sh runs the local Node install when present
     # and falls back to the Compose remark-lint service when Node isn't available.
@@ -60,8 +65,13 @@ pre-commit:
       glob:
         - "README.md"
         - "[A-Z]*.md"
+        - ".agents/**/*.md"
         - ".github/**/*.md"
         - ".claude/**/*.md"
+        - "api-docs/AGENTS.md"
+        - "assets/AGENTS.md"
+        - "content/AGENTS.md"
+        - "layouts/AGENTS.md"
       run: |
         # Shortcode .md files contain Hugo template syntax that remark-lint would
         # escape, so filter content/ and layouts/ paths before running remark.
@@ -74,7 +84,7 @@ pre-commit:
     # Lint instruction and repository documentation files with generic Vale config
     lint-instructions:
       tags: lint
-      glob: "{[A-Z]*.md,.github/**/*.md,.claude/**/*.md,api-docs/README.md}"
+      glob: "{[A-Z]*.md,.agents/**/*.md,.github/**/*.md,.claude/**/*.md,api-docs/README.md,api-docs/AGENTS.md,assets/AGENTS.md,content/AGENTS.md,layouts/AGENTS.md}"
       run: '.ci/vale/vale.sh
         --config=.vale-instructions.ini
         --minAlertLevel=warning {staged_files}'
@@ -172,6 +182,22 @@ pre-commit:
       fail_text: "ShellCheck found issues in shell scripts. Fix errors before committing."
 pre-push:
   commands:
+    validate-agent-instructions:
+      tags: lint
+      glob:
+        - "AGENTS.md"
+        - ".agents/instructions/**/*.md"
+        - ".agents/skills/**/SKILL.md"
+        - ".github/instructions/**/*.md"
+        - ".claude/rules/**/*.md"
+        - "api-docs/AGENTS.md"
+        - "assets/AGENTS.md"
+        - "content/AGENTS.md"
+        - "layouts/AGENTS.md"
+        - "helper-scripts/build-agent-instructions.js"
+        - "helper-scripts/validate-agent-instructions.js"
+      run: yarn validate:agent-instructions
+
     packages-audit:
       tags: frontend security
       run: |

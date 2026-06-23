@@ -10,6 +10,7 @@ import { join } from 'node:path';
 import {
   loadOrgIdentity,
   readSitemapOrigin,
+  readSitemapLastmods,
   injectPageProvenance,
 } from '../lib/provenance.js';
 
@@ -102,4 +103,42 @@ test('injectPageProvenance stamps frontmatter with CRLF line endings', () => {
   });
   assert.match(out, /publisher: InfluxData/);
   assert.match(out, /canonical: https:\/\/docs\.influxdata\.com\/x\//);
+});
+
+test('readSitemapLastmods maps urlPath to lastmod from sitemap-md.xml', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'prov-'));
+  try {
+    writeFileSync(
+      join(dir, 'sitemap-md.xml'),
+      '<urlset><url><loc>https://docs.influxdata.com/influxdb3/core/index.md</loc>' +
+        '<lastmod>2025-01-15T00:00:00Z</lastmod></url></urlset>'
+    );
+    const map = await readSitemapLastmods(dir);
+    assert.equal(map.get('/influxdb3/core/'), '2025-01-15T00:00:00Z');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('injectPageProvenance stamps date/lastmod when lastmod is provided', () => {
+  const md = '---\ntitle: X\nurl: https://docs.influxdata.com/x/\n---\n\nBody.\n';
+  const out = injectPageProvenance(md, {
+    publisher: 'InfluxData',
+    canonical: 'https://docs.influxdata.com/x/',
+    lastmod: '2025-01-15T00:00:00Z',
+  });
+  const fm = out.match(/^---\n([\s\S]+?)\n---/)[1];
+  // js-yaml quotes timestamp-like strings to keep them strings (not YAML dates).
+  assert.match(fm, /date: '?2025-01-15T00:00:00Z'?/);
+  assert.match(fm, /lastmod: '?2025-01-15T00:00:00Z'?/);
+});
+
+test('injectPageProvenance omits timestamps when lastmod is absent', () => {
+  const md = '---\ntitle: X\nurl: https://docs.influxdata.com/x/\n---\n\nBody.\n';
+  const out = injectPageProvenance(md, {
+    publisher: 'InfluxData',
+    canonical: 'https://docs.influxdata.com/x/',
+  });
+  assert.doesNotMatch(out, /date:/);
+  assert.doesNotMatch(out, /lastmod:/);
 });

@@ -11,6 +11,7 @@ import matter from 'gray-matter';
 import path from 'path';
 import process from 'process';
 import { fileURLToPath } from 'url';
+import { MATTER_OPTIONS } from '../../scripts/lib/file-operations.js';
 
 /**
  * Extract links from markdown content
@@ -277,7 +278,7 @@ function extractLinksFromFile(filePath) {
     // Parse frontmatter for .md files
     if (extension === '.md') {
       try {
-        const parsed = matter(content);
+        const parsed = matter(content, MATTER_OPTIONS);
         frontmatter = parsed.data || {};
         bodyContent = parsed.content;
       } catch (err) {

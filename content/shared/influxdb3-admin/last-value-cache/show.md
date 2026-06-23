@@ -1,5 +1,5 @@
 
-Use the [`influxdb3 show system table` command](/influxdb3/version/reference/cli/influxdb3/show/syste/table/)
+Use the [`influxdb3 show system table` command](/influxdb3/version/reference/cli/influxdb3/show/system/table/)
 to query and output Last Value Cache information from the `last_caches` system table.
 
 <!-- pytest.mark.skip -->
