@@ -124,7 +124,7 @@ After {{% product-name %}} starts:
 - Audit entries begin appearing in the platform data directory described in
   [Where audit logs are stored](/telegraf/controller/audit-logs/#where-audit-logs-are-stored).
 
-<!-- TODO: screenshot of the Settings > Audit Logging section rendering as enabled (header, status indicator, and retention dropdown visible). Save to /static/img/telegraf/controller-settings-audit-enabled.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-audit-enabled.png" alt="Telegraf Controller Settings page showing Audit Logging enabled" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}}
 
 ## Configure retention
 
@@ -149,8 +149,6 @@ Available retention values:
 2. Navigate to the **Settings** page from the left navigation menu.
 3. In the **Audit Logging** section, select a value from **Audit log retention**.
 4. Click **Save**.
-
-<!-- TODO: screenshot of the Settings > Audit Logging section with the Audit log retention dropdown expanded, showing the 30 days / 3 months / 6 months / 1 year / 2 years / Infinite options. Save to /static/img/telegraf/controller-settings-audit-retention.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}} -->
 
 The new retention value takes effect immediately.
 The next cleanup run removes any entries that fall outside the new window.

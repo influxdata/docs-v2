@@ -69,11 +69,11 @@ using the `startup_error_behavior` setting. Available values are:
             the plugin in case probing fails. If the plugin does not support
             probing, Telegraf will behave as if `ignore` was set instead.
 
-## Secret-store support
+## Secret store support
 
-This plugin supports secrets from secret-stores for the `sasl_username`,
+This plugin supports secrets from secret stores for the `sasl_username`,
 `sasl_password` and `sasl_access_token` option.
-See the [secret-store documentation](/telegraf/v1/configuration/#secret-store-secrets) for more details on how
+See the [secret store documentation](/telegraf/v1/configuration/#secret-store-secrets) for more details on how
 to use them.
 
 [SECRETSTORE]: ../../../docs/CONFIGURATION.md#secret-store-secrets
@@ -249,6 +249,15 @@ to use them.
   ## negotiating sizes and not actually consuming. Similar to the JVM's
   ## `fetch.message.max.bytes`.
   # consumer_fetch_default = "1MB"
+
+  ## The minimum number of message bytes to fetch in a request; the broker
+  ## waits until at least this many bytes are available or 'consumer_fetch_max_wait'
+  ## elapses before responding.
+  # consumer_fetch_min = "1B"
+
+  ## The maximum amount of time the broker waits for 'consumer_fetch_min' bytes
+  ## to become available before responding with fewer bytes anyway.
+  # consumer_fetch_max_wait = "500ms"
 
   ## Data format to consume.
   ## Each data format has its own unique set of configuration options, read

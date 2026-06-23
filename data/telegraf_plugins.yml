@@ -774,9 +774,9 @@ input:
   - name: Fritzbox
     id: fritzbox
     description: |
-      This plugin gathers status information from [AVM](https://en.avm.de/)
+      This plugin gathers status information from [FRITZ!](https://fritz.com/)
       devices (routers, repeaters, etc) using the device's
-      [TR-064](https://avm.de/service/schnittstellen/) interface.
+      [TR-064](https://fritz.com/en/pages/interfaces) interface.
     introduced: v1.35.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, network]
@@ -806,6 +806,17 @@ input:
       as produced by Cisco IOS XR (64-bit) version 6.5.1, Cisco NX-OS 9.3 and
       Cisco IOS XE 16.12 and later.
     introduced: v1.15.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [network]
+  - name: gNMI (gRPC Network Management Interface) dial-out
+    id: gnmi_listener
+    description: |
+      This plugin consumes telemetry data based on
+      [gNMI](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md)
+      messages sent by network devices in dial-out mode. This plugin supports a
+      list of vendor protocols such as [Nokia dial-out
+      telemetry](https://infocenter.nokia.com/public/7750SR222R1A/index.jsp?topic=%2Fcom.nokia.System_Mgmt_Guide%2Fdial-out_teleme-ai9exj5ye3.html).
+    introduced: v1.39.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Google Cloud Storage
@@ -4301,3 +4312,99 @@ processor:
     introduced: v1.12.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [transformation]
+secretstore:
+  - name: Docker
+    id: docker
+    description: |
+      This plugin allows to access [Docker
+      secrets](https://docs.docker.com/engine/swarm/secrets/) mounted by the
+      engine during container runtime. The secrets are accessible as files
+      under `/run/secrets` from within the container.
+    introduced: v1.27.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [containers]
+  - name: GoogleCloud Credentials
+    id: googlecloud
+    description: |
+      This plugin allows to retrieve token-based [Google Cloud
+      Credentials](https://docs.cloud.google.com/docs/authentication).
+    introduced: v1.37.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [cloud]
+  - name: HTTP Secret store
+    id: http
+    description: |
+      This plugin allows to query secrets from an HTTP endpoint, transmitting
+      the secrets either plain-text or in an encrypted fashion.
+    introduced: v1.27.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [cloud]
+  - name: Javascript Object Signing and Encryption
+    id: jose
+    description: |
+      This plugin allows to read local secrets from files protected by the
+      [Javascript Object Signing and
+      Encryption](https://github.com/dvsekhvalnov/jose2go) algorithm.
+    introduced: v1.25.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [system]
+  - name: OAuth2
+    id: oauth2
+    description: |
+      This plugin allows to retrieve and maintain secrets from various OAuth2
+      services such as [Auth0](https://auth0.com),
+      [AzureAD](https://azure.microsoft.com/en/products/active-directory) or
+      others (see Configuration section. Expired tokens will be renewed
+      automatically for allowing plugins referencing those tokens to perform
+      their API calls without hassle.
+
+      > [!NOTE]
+      > This plugin only supports the *2-legged client credentials* flow.
+    introduced: v1.28.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [web]
+  - name: OS
+    id: os
+    description: |
+      This plugin allows to read and manage secrets using the native Operating
+      System keyring. For Windows this plugin uses the [credential
+      manager](https://support.microsoft.com/windows/credential-manager-in-windows-1b5c916a-6a16-889f-8581-fc16e8165ac0),
+      on Linux the [kernel
+      keyring](https://docs.kernel.org/security/keys/core.html) is used and on
+      MacOS we use the
+      [Keychain](https://support.apple.com/guide/keychain-access/kyca1083/mac)
+      implementation.
+    introduced: v1.25.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [system]
+  - name: Systemd
+    id: systemd
+    description: |
+      This plugin allows utilizing credentials and secrets provided to the
+      Telegraf service by
+      [systemd](https://www.freedesktop.org/wiki/Software/systemd/). Systemd
+      ensures that only the intended service can access the credentials for the
+      lifetime of this service. The credentials appear as plaintext files to
+      the consuming service but are stored encrypted on the host system. This
+      encryption can also use TPM2 protection if available (see [this
+      article](https://systemd.io/CREDENTIALS) for details).
+
+      This plugin does not support setting the credentials. See the credentials
+      management section below for how to setup systemd credentials and how to
+      add credentials
+
+      > [!NOTE]
+      > This plugin requires systemd version 250+.
+    introduced: v1.29.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [system]
+  - name: HashiCorp Vault
+    id: vault
+    description: |
+      This plugin allows to access secrets provided by a [HashiCorp
+      Vault](https://www.hashicorp.com/en/products/vault) server via the Vault
+      API. It supports authentication via a pre-obtained token or via the
+      `AppRole` method.
+    introduced: v1.37.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [web]

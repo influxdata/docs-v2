@@ -157,15 +157,15 @@ for the error catalog.
 Use the {{% product-name %}} UI to apply or replace a license at runtime
 without restarting the application. This method requires the **Owner** role.
 
-1. Sign in to {{% product-name %}} as a user with the **Owner** role.
-2. Navigate to **Settings > Enterprise**.
+1.  Sign in to {{% product-name %}} as a user with the **Owner** role.
+2.  Navigate to **Settings > Enterprise**.
 
-   <!-- TODO: screenshot of the Settings > Enterprise upload form (drop zone + paste textarea), save to /static/img/telegraf/controller-licensing-upload-form.png and replace with img-hd shortcode -->
+    {{< img-hd src="/img/telegraf/controller-licensing-upload-form.png" alt="Upload your Telegraf Enterprise license to Telegraf Controller" />}}
 
-3. Provide the license in one of two ways:
-   - **Drag and drop** the `.jwt` (or `.txt`) license file into the drop zone.
-   - **Paste** the license key (JWT) string into the textarea.
-4. Click **Upload license**.
+3.  Provide the license in one of two ways:
+    - **Drag and drop** the `.jwt` (or `.txt`) license file into the drop zone.
+    - **Paste** the license key (JWT) string into the textarea.
+4.  Click **Upload license**.
 
 {{% product-name %}} validates the license immediately. On success, the page
 refreshes to show the license ID, expiration date, and entitlements. No

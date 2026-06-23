@@ -51,14 +51,44 @@ export async function readSitemapOrigin(publicDir = 'public') {
 }
 
 /**
- * Inject publisher + canonical into an already-serialized twin Markdown
- * string. Converter-agnostic: works whether the Rust or JS converter produced
- * the frontmatter. Returns the input unchanged if it has no frontmatter.
+ * Build a urlPath -> lastmod map from sitemap-md.xml. Keys are site-relative
+ * paths (e.g. "/influxdb3/core/"), matching the build script's urlPath.
+ * @param {string} publicDir
+ * @returns {Promise<Map<string,string>>}
+ */
+export async function readSitemapLastmods(publicDir = 'public') {
+  const map = new Map();
+  try {
+    const xml = await fs.readFile(
+      path.join(publicDir, 'sitemap-md.xml'),
+      'utf-8'
+    );
+    const re = /<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g;
+    let m;
+    while ((m = re.exec(xml)) !== null) {
+      const urlPath = new URL(m[1]).pathname.replace(/index\.md$/, '');
+      map.set(urlPath, m[2]);
+    }
+  } catch {
+    /* no sitemap -> empty map -> timestamps omitted */
+  }
+  return map;
+}
+
+/**
+ * Inject publisher + canonical (and optionally date/lastmod) into an
+ * already-serialized twin Markdown string. Converter-agnostic: works whether
+ * the Rust or JS converter produced the frontmatter. Returns the input
+ * unchanged if it has no frontmatter. Timestamps are omitted when `lastmod`
+ * is falsy (e.g. the page is absent from the sitemap).
  * @param {string} markdown
- * @param {{publisher: string, canonical: string}} provenance
+ * @param {{publisher: string, canonical: string, lastmod?: string}} provenance
  * @returns {string}
  */
-export function injectPageProvenance(markdown, { publisher, canonical }) {
+export function injectPageProvenance(
+  markdown,
+  { publisher, canonical, lastmod }
+) {
   const match = markdown.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n+([\s\S]+)$/);
   if (!match) return markdown;
   let fm;
@@ -70,6 +100,10 @@ export function injectPageProvenance(markdown, { publisher, canonical }) {
   if (!fm || typeof fm !== 'object') return markdown;
   fm.publisher = publisher;
   fm.canonical = canonical;
+  if (lastmod) {
+    fm.date = lastmod;
+    fm.lastmod = lastmod;
+  }
   const body = match[2];
   const serialized = yaml.dump(fm, { lineWidth: -1, noRefs: true }).trim();
   return `---\n${serialized}\n---\n\n${body}`;
