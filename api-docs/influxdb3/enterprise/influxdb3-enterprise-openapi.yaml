@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
-  version: v3.9.0
+  version: v3.10.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,8 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:1259b96096eab6c8dbf3f76c974924f124e9b3e08eedc6b0c9a66d3108857c52
+  x-source-hash: sha256:59e0d108505b9909361470ccdd95015b6ea1bffcf2c5a9892e7217eabff5b994
+  x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Enterprise API URL
@@ -303,54 +304,40 @@ tags:
       All timestamps are stored internally as nanoseconds.
   - name: Backup and restore
     description: >
-      Create, list, retrieve, and delete backups, and start, list, and cancel
-      restores.
+      Create, list, retrieve, and delete backups, and start, list, and cancel restores.
 
 
-      Backup and restore endpoints require the upgraded storage engine, enabled with
-      the `--use-pacha-tree` flag, and a compactor node that runs the backup and
-      restore engine. If the storage engine is not present on the node, these
-      endpoints return `503 Service Unavailable`. All endpoints require an admin
-      (operator) token or admin user.
+      Backup and restore endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a
+      compactor node that runs the backup and restore engine. If the storage engine is not present on the node, these
+      endpoints return `503 Service Unavailable`. All endpoints require an admin (operator) token or admin user.
 
 
-      Backups and restores run asynchronously: starting one returns immediately
-      with a handle that you poll for status. Only one restore can run
-      cluster-wide at a time.
-
+      Backups and restores run asynchronously: starting one returns immediately with a handle that you poll for status.
+      Only one restore can run cluster-wide at a time.
   - name: Bulk import
     description: >
-      Upload Parquet files for bulk import into existing tables and list the
-      status of bulk import jobs.
+      Upload Parquet files for bulk import into existing tables and list the status of bulk import jobs.
 
 
-      Bulk import endpoints require the upgraded storage engine, enabled with the
-      `--use-pacha-tree` flag, and a compactor node that runs the bulk import
-      scheduler to complete the import. All endpoints require an admin
+      Bulk import endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a
+      compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin
       (operator) token.
-
   - name: Data deletion
-    description: >
+    description: |
       Manage row-delete requests.
 
-
       These endpoints are only available in InfluxDB 3 Enterprise.
-
   - name: User management
     description: >
       Manage users and their role assignments, and look up users and roles.
 
 
-      These endpoints are only available in InfluxDB 3 Enterprise. User
-      authentication is a preview feature enabled by starting the server with
-      `--without-user-auth false`.
-
-
-      **Preview limitation:** Role-based permissions are limited and still being
-      finalized. Only the **Admin** role (or an admin token) currently has full
-      access. The **Auditor** and **Member** roles grant less access than their
-      names suggest. Use an admin token for user and role management.
-
+      These endpoints are only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+      starting the server with `--without-user-auth false`.
+  - name: Enterprise
+    description: >-
+      Endpoints available only in InfluxDB 3 Enterprise. Operations carrying this tag also set `x-enterprise-only: true`
+      for programmatic detection.
 paths:
   /api/v1/health:
     get:
@@ -381,7 +368,6 @@ paths:
   /api/v2/write:
     post:
       operationId: PostV2Write
-      x-compatibility-version: v2
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -478,124 +464,54 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
-  /api/v3/export/databases:
-    get:
-      operationId: GetExportDatabases
-      summary: "List databases available for export (beta)"
-      description: |
-        Returns a list of databases that have compacted data available for Parquet export.
-
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+  /api/v3/authorize:
+    post:
+      operationId: PostAuthorize
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: AuthorizeRequest
       responses:
         "200":
-          description: Success. Returns a list of database names.
-          content:
-            application/json:
-              schema:
-                type: object
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+          description: Success
+      x-enterprise-only: true
       tags:
-        - Export data (beta)
-  /api/v3/export/tables:
-    get:
-      operationId: GetExportTables
-      summary: "List tables available for export (beta)"
-      description: |
-        Returns a list of tables in a database that have compacted data available for Parquet export.
-
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
-      parameters:
-        - $ref: "#/components/parameters/db"
+        - Enterprise
+  /api/v3/authorize/refresh:
+    post:
+      operationId: PostAuthorizeRefresh
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: RefreshTokenRequest
       responses:
         "200":
-          description: Success. Returns a list of table names.
-          content:
-            application/json:
-              schema:
-                type: object
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          description: Database not found.
+          description: Success
+      x-enterprise-only: true
       tags:
-        - Export data (beta)
-  /api/v3/export/windows:
-    get:
-      operationId: GetExportWindows
-      summary: "List compacted windows for a table (beta)"
-      description: |
-        Returns a list of compacted 24-hour UTC windows for a table.
-        Each window represents a time range of compacted data that can be exported as Parquet.
-
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
-      parameters:
-        - $ref: "#/components/parameters/db"
-        - name: table
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The table name.
+        - Enterprise
+  /api/v3/authorize/reset-password:
+    post:
+      operationId: PostAuthorizeResetPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: ResetPasswordRequest
       responses:
         "200":
-          description: Success. Returns a list of compacted 24-hour windows.
-          content:
-            application/json:
-              schema:
-                type: object
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          description: Database or table not found.
+          description: Success
+      x-enterprise-only: true
       tags:
-        - Export data (beta)
-  /api/v3/export/window_data:
-    get:
-      operationId: GetExportWindowData
-      summary: "Export window data as Parquet (beta)"
-      description: |
-        Downloads compacted data for the specified windows as a tar archive containing Parquet files.
-
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
-      parameters:
-        - $ref: "#/components/parameters/db"
-        - name: table
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The table name.
-        - name: windows
-          in: query
-          required: false
-          schema:
-            type: string
-          description: |
-            Comma-separated list of window dates to export (for example, `2026-01-15,2026-01-16`).
-            If omitted, exports all available windows.
-      responses:
-        "200":
-          description: Success. Returns a tar archive containing Parquet files.
-          content:
-            application/x-tar:
-              schema:
-                type: string
-                format: binary
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          description: Database, table, or window not found.
-      tags:
-        - Export data (beta)
+        - Enterprise
   /api/v3/configure/database:
     delete:
       operationId: DeleteConfigureDatabase
@@ -689,6 +605,12 @@ paths:
         - Database
     post:
       operationId: PostConfigureDatabase
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDatabaseRequest"
       responses:
         "200":
           description: Success. Database created.
@@ -700,16 +622,10 @@ paths:
           description: Database already exists.
       summary: Create a database
       description: Creates a new database in the system.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateDatabaseRequest"
       tags:
         - Database
     put:
-      operationId: update_database
+      operationId: PutConfigureDatabase
       responses:
         "200":
           description: Success. The database has been updated.
@@ -750,6 +666,13 @@ paths:
   /api/v3/configure/distinct_cache:
     delete:
       operationId: DeleteConfigureDistinctCache
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: DistinctCacheDeleteRequest
       responses:
         "200":
           description: Success. The distinct cache has been deleted.
@@ -806,6 +729,13 @@ paths:
   /api/v3/configure/last_cache:
     delete:
       operationId: DeleteConfigureLastCache
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: LastCacheDeleteRequest
       responses:
         "200":
           description: Success. The last cache has been deleted.
@@ -836,6 +766,12 @@ paths:
         - Table
     post:
       operationId: PostConfigureLastCache
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LastCacheCreateRequest"
       responses:
         "201":
           description: Success. Last cache created.
@@ -847,12 +783,6 @@ paths:
           description: Cache not found.
       summary: Create last cache
       description: Creates a last cache for a table.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/LastCacheCreateRequest"
       tags:
         - Cache data
         - Table
@@ -1181,6 +1111,89 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+  /api/v3/configure/query_concurrency_limit:
+    get:
+      operationId: GetConfigureQueryConcurrencyLimit
+      summary: Get the query concurrency limit
+      description: >-
+        Returns the current runtime limit on the maximum number of queries that can run concurrently. When the limit is
+        set to the maximum allowed value, `maxConcurrentQueries` is omitted from the response.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns the current query concurrency limit.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryConcurrencyLimitResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+      tags:
+        - Server information
+        - Enterprise
+    put:
+      operationId: PutConfigureQueryConcurrencyLimit
+      summary: Set the query concurrency limit
+      description: >-
+        Sets the runtime limit on the maximum number of queries that can run concurrently. Omit `max_concurrent_queries`
+        (or set it to `null`) to restore the limit configured at server startup.
+
+
+        Values below 16 are rejected unless `force=true` is set in the query string. A value of `0` is invalid, and
+        values above the maximum allowed limit are rejected.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      parameters:
+        - name: force
+          in: query
+          required: false
+          description: Set to `true` to allow setting `max_concurrent_queries` to a value below the minimum of 16.
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetQueryConcurrencyLimitRequest"
+      responses:
+        "204":
+          description: No content. The query concurrency limit was updated.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+      tags:
+        - Server information
+        - Enterprise
+    delete:
+      operationId: DeleteConfigureQueryConcurrencyLimit
+      summary: Reset the query concurrency limit
+      description: |-
+        Resets the runtime query concurrency limit to the value configured at server startup.
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      responses:
+        "204":
+          description: No content. The query concurrency limit was reset.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+      tags:
+        - Server information
+        - Enterprise
   /api/v3/configure/table:
     delete:
       operationId: DeleteConfigureTable
@@ -1239,6 +1252,12 @@ paths:
         - Table
     post:
       operationId: PostConfigureTable
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTableRequest"
       responses:
         "200":
           description: Success. The table has been created.
@@ -1250,12 +1269,6 @@ paths:
           description: Database not found.
       summary: Create a table
       description: Creates a new table within a database.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateTableRequest"
       tags:
         - Table
     put:
@@ -1269,6 +1282,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+      x-enterprise-only: true
       summary: Update a table
       description: |
         Updates table configuration, such as retention period.
@@ -1280,7 +1294,7 @@ paths:
               $ref: "#/components/schemas/UpdateTableRequest"
       tags:
         - Table
-      x-enterprise-only: true
+        - Enterprise
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -1364,9 +1378,6 @@ paths:
       description: |
         Creates a named admin token.
         A named admin token is a special type of admin token with a custom name for identification and management.
-      tags:
-        - Authentication
-        - Token
       requestBody:
         required: true
         content:
@@ -1383,6 +1394,25 @@ paths:
                   nullable: true
               required:
                 - token_name
+      tags:
+        - Authentication
+        - Token
+  /api/v3/configure/user:
+    post:
+      operationId: PostConfigureUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: CreateInitialUserRequest
+      responses:
+        "200":
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
   /api/v3/engine/{request_path}:
     get:
       operationId: GetProcessingEnginePluginRequest
@@ -1481,9 +1511,249 @@ paths:
         required: true
         schema:
           type: string
+  /api/v3/enterprise/backup:
+    post:
+      operationId: PostEnterpriseBackup
+      summary: Start a backup
+      description: >-
+        Registers and asynchronously starts a full backup. Returns immediately with the resolved backup name and an
+        in-progress acknowledgement.
+
+
+        Backups run asynchronously. Poll [List backups](#operation/GetEnterpriseBackup) or [Get a
+        backup](#operation/GetEnterpriseBackupByName) to track progress.
+
+
+        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
+        flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBackupRequest"
+      responses:
+        "202":
+          description: Accepted. The backup has started.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateBackupResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "409":
+          description: >-
+            Conflict. A backup with that name already exists and `force` is `false`, or a duplicate backup job is
+            already in flight.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The backup engine is not present on this node (not a compactor node).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+    delete:
+      operationId: DeleteEnterpriseBackup
+      summary: Cancel a running backup
+      description: >-
+        Cancels an in-progress backup job by name.
+
+
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the
+        `--use-pacha-tree` flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CancelBackupRequest"
+      responses:
+        "200":
+          description: Success. The cancellation has been accepted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CancelBackupResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No backup is running with that name.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The backup engine is not present on this node (not a compactor node).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+    get:
+      operationId: GetEnterpriseBackup
+      summary: List backups
+      description: >-
+        Lists all full backups.
+
+
+        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
+        flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns the list of backups.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListBackupsResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          description: Internal server error. Listing backups failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The backup engine is not present on this node (not a compactor node).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+  /api/v3/enterprise/backup/{name}:
+    get:
+      operationId: GetEnterpriseBackupByName
+      summary: Get a backup
+      description: >-
+        Returns a single backup's manifest.
+
+
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the
+        `--use-pacha-tree` flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The backup name. URL-encoded names are decoded by the server.
+      responses:
+        "200":
+          description: Success. Returns the backup manifest.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBackupResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No backup exists with that name.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The backup engine is not present on this node (not a compactor node).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+    delete:
+      operationId: DeleteEnterpriseBackupByName
+      summary: Delete a backup
+      description: >-
+        Deletes a backup by name.
+
+
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the
+        `--use-pacha-tree` flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The backup name. URL-encoded names are decoded by the server.
+      responses:
+        "200":
+          description: Success. The backup has been deleted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteBackupResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No backup exists with that name.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "409":
+          description: Conflict. The backup is in progress and cannot be deleted, or the backup chain is in a conflicting state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The backup engine is not present on this node (not a compactor node).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
   /api/v3/enterprise/configure/file_index:
     post:
-      operationId: configure_file_index_create
+      operationId: PostEnterpriseConfigureFileIndex
       summary: Create a file index
       description: >-
         Creates a file index for a database or table.
@@ -1513,8 +1783,9 @@ paths:
       tags:
         - Database
         - Table
+        - Enterprise
     delete:
-      operationId: configure_file_index_delete
+      operationId: DeleteEnterpriseConfigureFileIndex
       summary: Delete a file index
       description: |-
         Deletes a file index from a database or table.
@@ -1539,9 +1810,10 @@ paths:
       tags:
         - Database
         - Table
+        - Enterprise
   /api/v3/enterprise/configure/node/stop:
     post:
-      operationId: stop_node
+      operationId: PostEnterpriseConfigureNodeStop
       summary: Mark a node as stopped
       description: >-
         Marks a node as stopped in the catalog, freeing up the licensed cores it was using for other nodes.
@@ -1581,9 +1853,10 @@ paths:
           description: Node not found.
       tags:
         - Server information
+        - Enterprise
   /api/v3/enterprise/configure/table/retention_period:
     post:
-      operationId: create_or_update_retention_period_for_table
+      operationId: PostEnterpriseConfigureTableRetentionPeriod
       summary: Set table retention period
       description: >-
         Sets or updates the retention period for a specific table.
@@ -1631,8 +1904,9 @@ paths:
           description: Database or table not found.
       tags:
         - Table
+        - Enterprise
     delete:
-      operationId: delete_retention_period_for_table
+      operationId: DeleteEnterpriseConfigureTableRetentionPeriod
       summary: Clear table retention period
       description: >-
         Removes the retention period from a specific table, reverting to the database-level retention period (or
@@ -1669,6 +1943,7 @@ paths:
           description: Database or table not found.
       tags:
         - Table
+        - Enterprise
   /api/v3/enterprise/configure/token:
     post:
       operationId: PostCreateResourceToken
@@ -1692,6 +1967,7 @@ paths:
       tags:
         - Authentication
         - Token
+        - Enterprise
       x-enterprise-only: true
       requestBody:
         required: true
@@ -1699,6 +1975,409 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateTokenWithPermissionsRequest"
+  /api/v3/enterprise/import:
+    post:
+      operationId: PostEnterpriseImport
+      summary: Upload a Parquet file for bulk import
+      description: >-
+        Uploads a Parquet file, and optional column metadata, for bulk import into an existing table. The compactor node
+        asynchronously picks up and imports the file. Returns the staged import job info synchronously after the upload
+        is staged.
+
+
+        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
+        flag); the compactor node runs the bulk import scheduler that completes the import.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/BulkImportUploadRequest"
+      responses:
+        "200":
+          description: Success. The upload has been staged for import.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadedImportInfo"
+        "400":
+          description: >-
+            Bad request. Possible reasons: missing multipart boundary; missing `file_bytes`, `database`, or `table`;
+            unparseable multipart; invalid or empty Parquet; malformed `column_metadata`; column type or mapping
+            mismatch; or a missing time column.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. The target database or table does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "500":
+          description: Internal server error. Object store, status write, or catalog failure.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Bulk import
+        - Enterprise
+    get:
+      operationId: GetEnterpriseImport
+      summary: List bulk import statuses
+      description: >-
+        Lists the status of all uploaded bulk import jobs.
+
+
+        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
+        flag).
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns the list of bulk import statuses.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UploadedImportInfo"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          description: Internal server error. Object store or read failure.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Bulk import
+        - Enterprise
+  /api/v3/enterprise/restore:
+    post:
+      operationId: PostEnterpriseRestore
+      summary: Start a restore
+      description: >-
+        Registers and asynchronously starts a restore from a named backup. Returns a `restore_id` handle for tracking
+        and cancellation.
+
+
+        Restores run asynchronously. Poll [Get a restore](#operation/GetEnterpriseRestoreById) to track progress. Only
+        one restore can run cluster-wide at a time; if a restore is already running, this endpoint returns `409
+        Conflict`.
+
+
+        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
+        flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRestoreRequest"
+      responses:
+        "202":
+          description: Accepted. The restore has started.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateRestoreResponse"
+        "400":
+          description: Bad request. `backup_name` is empty.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "409":
+          description: Conflict. A restore is already running. Only one restore can run at a time.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: >-
+            Service unavailable. The restore engine is not present on this node, or the restore lease could not be
+            acquired.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+    get:
+      operationId: GetEnterpriseRestore
+      summary: List restores
+      description: >-
+        Lists every restore for the cluster, newest first, including in-flight and completed restores.
+
+
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the
+        `--use-pacha-tree` flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns the list of restores.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRestoresResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          description: Internal server error. Listing restores failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The restore engine is not present on this node.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+  /api/v3/enterprise/restore/{id}:
+    get:
+      operationId: GetEnterpriseRestoreById
+      summary: Get a restore
+      description: >-
+        Reports a restore's state by `restore_id`. Reads the persisted manifest, so it works for in-flight and completed
+        restores.
+
+
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the
+        `--use-pacha-tree` flag) present on a compactor node; otherwise the endpoint returns `503 Service Unavailable`.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The `restore_id` returned when the restore started.
+      responses:
+        "200":
+          description: Success. Returns the restore status.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetRestoreResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No restore exists with that ID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "503":
+          description: Service unavailable. The restore engine is not present on this node.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+    delete:
+      operationId: DeleteEnterpriseRestoreById
+      summary: Cancel a running restore
+      description: >-
+        Cancels an in-flight restore by `restore_id`.
+
+
+        Requires an admin (operator) token or admin user. Requires the upgraded storage engine (enabled with the
+        `--use-pacha-tree` flag) present on a compactor node.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The `restore_id` returned when the restore started.
+      responses:
+        "204":
+          description: No content. The cancellation has been accepted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: >-
+            Not found. No restore exists with that ID, the restore is already completed, or the restore engine is not
+            present on this node.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - Backup and restore
+        - Enterprise
+  /api/v3/export/databases:
+    get:
+      operationId: GetExportDatabases
+      responses:
+        "200":
+          description: Success. Returns a list of database names.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      x-enterprise-only: true
+      summary: List databases available for export (beta)
+      description: |
+        Returns a list of databases that have compacted data available for Parquet export.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      tags:
+        - Export data (beta)
+        - Enterprise
+  /api/v3/export/tables:
+    get:
+      operationId: GetExportTables
+      parameters:
+        - $ref: "#/components/parameters/db"
+      responses:
+        "200":
+          description: Success. Returns a list of table names.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database not found.
+      x-enterprise-only: true
+      summary: List tables available for export (beta)
+      description: |
+        Returns a list of tables in a database that have compacted data available for Parquet export.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      tags:
+        - Export data (beta)
+        - Enterprise
+  /api/v3/export/window_data:
+    get:
+      operationId: GetExportWindowData
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The table name.
+        - name: windows
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Comma-separated list of window dates to export (for example, `2026-01-15,2026-01-16`).
+            If omitted, exports all available windows.
+      responses:
+        "200":
+          description: Success. Returns a tar archive containing Parquet files.
+          content:
+            application/x-tar:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database, table, or window not found.
+      x-enterprise-only: true
+      summary: Export window data as Parquet (beta)
+      description: |
+        Downloads compacted data for the specified windows as a tar archive containing Parquet files.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      tags:
+        - Export data (beta)
+        - Enterprise
+  /api/v3/export/windows:
+    get:
+      operationId: GetExportWindows
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The table name.
+      responses:
+        "200":
+          description: Success. Returns a list of compacted 24-hour windows.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database or table not found.
+      x-enterprise-only: true
+      summary: List compacted windows for a table (beta)
+      description: |
+        Returns a list of compacted 24-hour UTC windows for a table.
+        Each window represents a time range of compacted data that can be exported as Parquet.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      tags:
+        - Export data (beta)
+        - Enterprise
   /api/v3/plugin_test/schedule:
     post:
       operationId: PostTestSchedulingPlugin
@@ -1776,13 +2455,7 @@ paths:
       x-security-note: Requires an admin token
   /api/v3/plugins/files:
     post:
-      operationId: create_plugin_file
-      summary: Create a plugin file
-      description: |
-        Creates a single plugin file in the plugin directory. Writes the
-        `content` to a file named after `plugin_name`. Does not require an
-        existing trigger—use this to upload plugin files before creating
-        triggers that reference them.
+      operationId: PostPluginsFiles
       requestBody:
         required: true
         content:
@@ -1796,21 +2469,17 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           description: Forbidden. Admin token required.
+      summary: Create a plugin file
+      description: |
+        Creates a single plugin file in the plugin directory. Writes the
+        `content` to a file named after `plugin_name`. Does not require an
+        existing trigger—use this to upload plugin files before creating
+        triggers that reference them.
       tags:
         - Processing engine
       x-security-note: Requires an admin token
     put:
       operationId: PutPluginFile
-      summary: Update a plugin file
-      description: |
-        Updates a single plugin file for an existing trigger. The
-        `plugin_name` must match a registered trigger name—the server
-        resolves the trigger's `plugin_filename` and overwrites that file
-        with the provided `content`.
-
-        To upload a new plugin file before creating a trigger, use
-        `POST /api/v3/plugins/files` instead. To update a multi-file
-        plugin directory, use `PUT /api/v3/plugins/directory`.
       requestBody:
         required: true
         content:
@@ -1826,47 +2495,22 @@ paths:
           description: Forbidden. Admin token required.
         "500":
           description: Plugin not found. The `plugin_name` does not match any registered trigger.
+      summary: Update a plugin file
+      description: |
+        Updates a single plugin file for an existing trigger. The
+        `plugin_name` must match a registered trigger name—the server
+        resolves the trigger's `plugin_filename` and overwrites that file
+        with the provided `content`.
+
+        To upload a new plugin file before creating a trigger, use
+        `POST /api/v3/plugins/files` instead. To update a multi-file
+        plugin directory, use `PUT /api/v3/plugins/directory`.
       tags:
         - Processing engine
       x-security-note: Requires an admin token
   /api/v3/query_influxql:
     get:
       operationId: GetExecuteInfluxQLQuery
-      responses:
-        "200":
-          description: Success. The response body contains query results.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/QueryResponse"
-            text/csv:
-              schema:
-                type: string
-            application/vnd.apache.parquet:
-              schema:
-                type: string
-            application/jsonl:
-              schema:
-                type: string
-        "400":
-          description: Bad request.
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          description: Access denied.
-        "404":
-          description: Database not found.
-        "405":
-          description: Method not allowed.
-        "422":
-          description: Unprocessable entity.
-      summary: Execute InfluxQL query
-      description: |
-        Executes an InfluxQL query to retrieve data from the specified database.
-
-        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
-        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/dbQueryParam"
         - name: q
@@ -1887,10 +2531,13 @@ paths:
             type: string
             description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
           description: JSON-encoded query parameters for parameterized queries.
-      tags:
-        - Query data
-    post:
-      operationId: PostExecuteQueryInfluxQL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1926,16 +2573,75 @@ paths:
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
         (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
         `.pt` files (hybrid query mode).
+      tags:
+        - Query data
+    post:
+      operationId: PostExecuteQueryInfluxQL
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
       requestBody:
         $ref: "#/components/requestBodies/queryRequestBody"
+      responses:
+        "200":
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      summary: Execute InfluxQL query
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       tags:
         - Query data
   /api/v3/query_sql:
     get:
       operationId: GetExecuteQuerySQL
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - $ref: "#/components/parameters/querySqlParam"
+        - $ref: "#/components/parameters/format"
+        - $ref: "#/components/parameters/AcceptQueryHeader"
+        - $ref: "#/components/parameters/ContentType"
+        - name: params
+          in: query
+          required: false
+          schema:
+            type: string
+            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
+          description: JSON-encoded query parameters for parameterized queries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1981,25 +2687,17 @@ paths:
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
         (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
         `.pt` files (hybrid query mode). Use the
-        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        `/api/v3/query_sql_telemetry` endpoint after executing
         a query to retrieve detailed execution statistics.
-      parameters:
-        - $ref: "#/components/parameters/db"
-        - $ref: "#/components/parameters/querySqlParam"
-        - $ref: "#/components/parameters/format"
-        - $ref: "#/components/parameters/AcceptQueryHeader"
-        - $ref: "#/components/parameters/ContentType"
-        - name: params
-          in: query
-          required: false
-          schema:
-            type: string
-            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
-          description: JSON-encoded query parameters for parameterized queries.
       tags:
         - Query data
     post:
       operationId: PostExecuteQuerySQL
+      parameters:
+        - $ref: "#/components/parameters/AcceptQueryHeader"
+        - $ref: "#/components/parameters/ContentType"
+      requestBody:
+        $ref: "#/components/requestBodies/queryRequestBody"
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -2035,152 +2733,435 @@ paths:
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
         (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
         `.pt` files (hybrid query mode). Use the
-        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        `/api/v3/query_sql_telemetry` endpoint after executing
         a query to retrieve detailed execution statistics.
-      parameters:
-        - $ref: "#/components/parameters/AcceptQueryHeader"
-        - $ref: "#/components/parameters/ContentType"
-      requestBody:
-        $ref: "#/components/requestBodies/queryRequestBody"
       tags:
         - Query data
-  /api/v3/query_sql_telemetry:
+  /api/v3/roles:
     get:
-      operationId: GetQuerySQLTelemetry
-      summary: "Get query telemetry (beta)"
-      description: |
-        Returns detailed execution statistics for the most recent SQL query, including per-chunk I/O,
-        cache hit rates, and timing breakdowns.
-
-        Use this endpoint after executing a query to analyze performance.
-
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
-
-        For more information, see
-        [Query telemetry](/influxdb3/enterprise/performance-preview/monitor/#query-telemetry).
+      operationId: GetRoles
       responses:
         "200":
-          description: Success. Returns query telemetry data.
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
+  /api/v3/roles/{id}/permissions:
+    get:
+      operationId: GetRolesByIdPermissions
+      summary: Get a role's permissions
+      description: >-
+        Returns the permissions granted to the role with the specified ID.
+
+
+        Requires a token or user with permission to read roles.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+        setting `--without-user-auth false`.
+      x-enterprise-only: true
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the role.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Success. Returns the role's permissions.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  query_id:
-                    type: string
-                    description: Unique identifier for the query.
-                  execution_time_us:
-                    type: integer
-                    description: Total execution time in microseconds.
-                  chunks:
-                    type: array
-                    description: Per-chunk statistics.
-                    items:
-                      type: object
-                      properties:
-                        chunk_id:
-                          type: string
-                        files_scanned:
-                          type: integer
-                        blocks_processed:
-                          type: integer
-                        rows_read:
-                          type: integer
-                        rows_returned:
-                          type: integer
-                        bytes_read:
-                          type: integer
-                  cache_stats:
-                    type: object
-                    description: Cache hit rates by type.
-                    properties:
-                      gen0_hits:
-                        type: integer
-                      gen0_misses:
-                        type: integer
-                      compacted_hits:
-                        type: integer
-                      compacted_misses:
-                        type: integer
-              example:
-                query_id: "q_12345"
-                execution_time_us: 4523
-                chunks:
-                  - chunk_id: "c_1"
-                    files_scanned: 3
-                    blocks_processed: 12
-                    rows_read: 24000
-                    rows_returned: 150
-                    bytes_read: 1234567
-                cache_stats:
-                  gen0_hits: 5
-                  gen0_misses: 1
-                  compacted_hits: 8
-                  compacted_misses: 2
+                $ref: "#/components/schemas/RolePermissionsResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No role exists with the specified ID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
       tags:
-        - Query data
+        - User management
+        - Enterprise
+  /api/v3/roles_by_name/{roleName}:
+    get:
+      operationId: GetRolesByNameByRoleName
+      summary: Get a role by name
+      description: >-
+        Returns the role with the specified name.
+
+
+        Requires a token or user with permission to read roles.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+        setting `--without-user-auth false`.
+      x-enterprise-only: true
+      parameters:
+        - name: roleName
+          in: path
+          required: true
+          description: The name of the role to retrieve.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success. Returns the matching role.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleByNameResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No role exists with the specified name.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - User management
+        - Enterprise
+  /api/v3/row_delete_requests:
+    get:
+      operationId: GetRowDeleteRequests
+      parameters:
+        - name: db
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: table
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: disposition
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: min_sequence
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: max_sequence
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: include_progress
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: "Default: (default)"
+      responses:
+        "200":
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
     post:
-      operationId: PostQuerySQLTelemetry
-      summary: "Get query telemetry (beta)"
-      description: |
-        Returns detailed execution statistics for the most recent SQL query, including per-chunk I/O,
-        cache hit rates, and timing breakdowns.
-
-        Use this endpoint after executing a query to analyze performance.
-
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
-
-        For more information, see
-        [Query telemetry](/influxdb3/enterprise/performance-preview/monitor/#query-telemetry).
+      operationId: PostRowDeleteRequests
       responses:
         "200":
-          description: Success. Returns query telemetry data.
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
+  /api/v3/row_delete_requests/{seq}/abort:
+    post:
+      operationId: PostRowDeleteRequestsBySeqAbort
+      summary: Abort a pending row-delete request
+      description: >-
+        Aborts a pending row-delete request identified by its sequence number. Returns the updated request with a
+        disposition of `aborted`.
+
+
+        Requires a token or user with `delete` permission on the database that the row-delete request targets.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      parameters:
+        - name: seq
+          in: path
+          required: true
+          description: The sequence number of the row-delete request to abort.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AbortDeleteRequestBody"
+      responses:
+        "200":
+          description: Success. Returns the aborted row-delete request.
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/DeleteRequestResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No row-delete request exists with the specified sequence number.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
       tags:
-        - Query data
+        - Data deletion
+        - Enterprise
+  /api/v3/users:
+    get:
+      operationId: GetUsers
+      responses:
+        "200":
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
+    post:
+      operationId: PostUsers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: InviteUserRequest
+      responses:
+        "200":
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
+  /api/v3/users/{id}:
+    get:
+      operationId: GetUsersById
+      responses:
+        "200":
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
+  /api/v3/users/{id}/require-password-reset:
+    post:
+      operationId: PostUsersByIdRequirePasswordReset
+      summary: Require a user to reset their password on next login
+      description: >-
+        Marks the specified user as requiring a password reset. The user must set a new password before they are able to
+        authenticate and receive a token.
+
+
+        Requires a token or user with permission to update users.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+        setting `--without-user-auth false`.
+      x-enterprise-only: true
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The numeric ID of the user.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Success. Returns the user with `requiresPasswordReset` set to `true`.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No user exists with the specified ID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - User management
+        - Enterprise
+  /api/v3/users/{id}/roles:
+    get:
+      operationId: GetUsersByIdRoles
+      summary: List all roles assigned to a user
+      description: >-
+        Lists all roles assigned to the specified user.
+
+
+        Requires a token or user with permission to read users.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+        setting `--without-user-auth false`.
+      x-enterprise-only: true
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The numeric ID of the user.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Success. Returns the list of roles assigned to the user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListUserRolesResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No user exists with the specified ID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - User management
+        - Enterprise
+    put:
+      operationId: PutUsersByIdRoles
+      summary: Replace all roles assigned to a user
+      description: >-
+        Replaces all role assignments for the specified user with the provided list of role IDs. Roles not included in
+        the request are removed from the user.
+
+
+        Requires a token or user with permission to update users.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+        setting `--without-user-auth false`.
+      x-enterprise-only: true
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The numeric ID of the user.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRolesRequest"
+      responses:
+        "200":
+          description: Success. Returns the user's updated role assignments.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateUserRolesResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No user exists with the specified ID.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - User management
+        - Enterprise
+  /api/v3/users_by_oauth_id/{oauth_id}:
+    get:
+      operationId: GetUsersByOauthIdByOauthId
+      summary: Get a user by OAuth identity-provider ID
+      description: >-
+        Returns the user associated with the specified OAuth identity-provider ID. Requires the server to be configured
+        with an OAuth validator.
+
+
+        Requires a token or user with permission to read users.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise. User authentication is a preview feature enabled by
+        setting `--without-user-auth false`.
+      x-enterprise-only: true
+      parameters:
+        - name: oauth_id
+          in: path
+          required: true
+          description: The OAuth identity-provider ID of the user.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success. Returns the matching user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Not found. No user matches the specified OAuth ID, or OAuth is not configured on the server.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+      tags:
+        - User management
+        - Enterprise
   /api/v3/write_lp:
     post:
       operationId: PostWriteLP
       parameters:
-        - $ref: "#/components/parameters/dbWriteParam"
-        - $ref: "#/components/parameters/accept_partial"
-        - $ref: "#/components/parameters/precisionParam"
-        - name: no_sync
+        - name: db
           in: query
-          schema:
-            $ref: "#/components/schemas/NoSync"
-        - name: Content-Type
-          in: header
-          description: |
-            The content type of the request payload.
-          schema:
-            $ref: "#/components/schemas/LineProtocol"
-          required: false
-        - name: Accept
-          in: header
-          description: |
-            The content type that the client can understand.
-            Writes only return a response body if they fail (partially or completely)--for example,
-            due to a syntax problem or type mismatch.
+          required: true
           schema:
             type: string
-            default: application/json
-            enum:
-              - application/json
+        - name: precision
+          in: query
           required: false
-        - $ref: "#/components/parameters/ContentEncoding"
-        - $ref: "#/components/parameters/ContentLength"
+          schema:
+            type: string
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -2356,7 +3337,6 @@ paths:
           description: |
             Not Found. Returned for HEAD requests.
             Use a GET request to retrieve version information.
-      x-client-method: ping
       summary: Ping the server
       description: |
         Returns version information for the server.
@@ -2417,7 +3397,6 @@ paths:
   /query:
     get:
       operationId: GetV1ExecuteQuery
-      x-compatibility-version: v1
       responses:
         "200":
           description: |
@@ -2563,7 +3542,6 @@ paths:
         - Compatibility endpoints
     post:
       operationId: PostExecuteV1Query
-      x-compatibility-version: v1
       responses:
         "200":
           description: |
@@ -2760,10 +3738,18 @@ paths:
       tags:
         - Query data
         - Compatibility endpoints
+  /ready:
+    get:
+      operationId: ready
+      responses:
+        "200":
+          description: Success
+      x-enterprise-only: true
+      tags:
+        - Enterprise
   /write:
     post:
       operationId: PostV1Write
-      x-compatibility-version: v1
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -2888,1016 +3874,6 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
-  /api/v3/configure/query_concurrency_limit:
-    get:
-      operationId: get_query_concurrency_limit
-      summary: Get the query concurrency limit
-      description: >-
-        Returns the current runtime limit on the maximum number of queries that
-        can run concurrently. When the limit is set to the maximum allowed
-        value, `maxConcurrentQueries` is omitted from the response.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      responses:
-        "200":
-          description: Success. Returns the current query concurrency limit.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/QueryConcurrencyLimitResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-      tags:
-        - Server information
-    put:
-      operationId: set_query_concurrency_limit
-      summary: Set the query concurrency limit
-      description: >-
-        Sets the runtime limit on the maximum number of queries that can run
-        concurrently. Omit `max_concurrent_queries` (or set it to `null`) to
-        restore the limit configured at server startup.
-
-
-        Values below 16 are rejected unless `force=true` is set in the query
-        string. A value of `0` is invalid, and values above the maximum allowed
-        limit are rejected.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      parameters:
-        - name: force
-          in: query
-          required: false
-          description: >-
-            Set to `true` to allow setting `max_concurrent_queries` to a value
-            below the minimum of 16.
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SetQueryConcurrencyLimitRequest"
-      responses:
-        "204":
-          description: No content. The query concurrency limit was updated.
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-      tags:
-        - Server information
-    delete:
-      operationId: reset_query_concurrency_limit
-      summary: Reset the query concurrency limit
-      description: >-
-        Resets the runtime query concurrency limit to the value configured at
-        server startup.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      responses:
-        "204":
-          description: No content. The query concurrency limit was reset.
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-      tags:
-        - Server information
-
-  /api/v3/enterprise/backup:
-    post:
-      operationId: create_backup
-      summary: Start a backup
-      description: >-
-        Registers and asynchronously starts a full backup. Returns immediately
-        with the resolved backup name and an in-progress acknowledgement.
-
-
-        Backups run asynchronously. Poll [List backups](#operation/list_backups)
-        or [Get a backup](#operation/get_backup) to track progress.
-
-
-        Requires an admin (operator) token. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateBackupRequest"
-      responses:
-        "202":
-          description: Accepted. The backup has started.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateBackupResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "409":
-          description: >-
-            Conflict. A backup with that name already exists and `force` is
-            `false`, or a duplicate backup job is already in flight.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The backup engine is not present on this node
-            (not a compactor node).
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-    delete:
-      operationId: cancel_backup
-      summary: Cancel a running backup
-      description: >-
-        Cancels an in-progress backup job by name.
-
-
-        Requires an admin (operator) token or admin user. Requires the upgraded
-        storage engine (enabled with the `--use-pacha-tree` flag) present on a
-        compactor node; otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CancelBackupRequest"
-      responses:
-        "200":
-          description: Success. The cancellation has been accepted.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CancelBackupResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No backup is running with that name.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The backup engine is not present on this node
-            (not a compactor node).
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-    get:
-      operationId: list_backups
-      summary: List backups
-      description: >-
-        Lists all full backups.
-
-
-        Requires an admin (operator) token. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      responses:
-        "200":
-          description: Success. Returns the list of backups.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListBackupsResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "500":
-          description: Internal server error. Listing backups failed.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The backup engine is not present on this node
-            (not a compactor node).
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-
-  /api/v3/enterprise/backup/{name}:
-    get:
-      operationId: get_backup
-      summary: Get a backup
-      description: >-
-        Returns a single backup's manifest.
-
-
-        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The backup name. URL-encoded names are decoded by the server.
-      responses:
-        "200":
-          description: Success. Returns the backup manifest.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GetBackupResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No backup exists with that name.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The backup engine is not present on this node
-            (not a compactor node).
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-    delete:
-      operationId: delete_backup
-      summary: Delete a backup
-      description: >-
-        Deletes a backup by name.
-
-
-        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The backup name. URL-encoded names are decoded by the server.
-      responses:
-        "200":
-          description: Success. The backup has been deleted.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DeleteBackupResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No backup exists with that name.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "409":
-          description: >-
-            Conflict. The backup is in progress and cannot be deleted, or the
-            backup chain is in a conflicting state.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The backup engine is not present on this node
-            (not a compactor node).
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-
-  /api/v3/enterprise/import:
-    post:
-      operationId: create_bulk_import
-      summary: Upload a Parquet file for bulk import
-      description: >-
-        Uploads a Parquet file, and optional column metadata, for bulk import
-        into an existing table. The compactor node asynchronously picks up and
-        imports the file. Returns the staged import job info synchronously after
-        the upload is staged.
-
-
-        Requires an admin (operator) token. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag); the compactor node runs the
-        bulk import scheduler that completes the import.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: "#/components/schemas/BulkImportUploadRequest"
-      responses:
-        "200":
-          description: Success. The upload has been staged for import.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UploadedImportInfo"
-        "400":
-          description: >-
-            Bad request. Possible reasons: missing multipart boundary; missing
-            `file_bytes`, `database`, or `table`; unparseable multipart; invalid
-            or empty Parquet; malformed `column_metadata`; column type or mapping
-            mismatch; or a missing time column.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. The target database or table does not exist.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "500":
-          description: >-
-            Internal server error. Object store, status write, or catalog
-            failure.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Bulk import
-    get:
-      operationId: list_bulk_imports
-      summary: List bulk import statuses
-      description: >-
-        Lists the status of all uploaded bulk import jobs.
-
-
-        Requires an admin (operator) token. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag).
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      responses:
-        "200":
-          description: Success. Returns the list of bulk import statuses.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/UploadedImportInfo"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "500":
-          description: Internal server error. Object store or read failure.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Bulk import
-
-  /api/v3/enterprise/restore:
-    post:
-      operationId: create_restore
-      summary: Start a restore
-      description: >-
-        Registers and asynchronously starts a restore from a named backup.
-        Returns a `restore_id` handle for tracking and cancellation.
-
-
-        Restores run asynchronously. Poll [Get a restore](#operation/get_restore)
-        to track progress. Only one restore can run cluster-wide at a time; if a
-        restore is already running, this endpoint returns `409 Conflict`.
-
-
-        Requires an admin (operator) token. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateRestoreRequest"
-      responses:
-        "202":
-          description: Accepted. The restore has started.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateRestoreResponse"
-        "400":
-          description: Bad request. `backup_name` is empty.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "409":
-          description: >-
-            Conflict. A restore is already running. Only one restore can run at a
-            time.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The restore engine is not present on this node,
-            or the restore lease could not be acquired.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-    get:
-      operationId: list_restores
-      summary: List restores
-      description: >-
-        Lists every restore for the cluster, newest first, including in-flight
-        and completed restores.
-
-
-        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      responses:
-        "200":
-          description: Success. Returns the list of restores.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListRestoresResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "500":
-          description: Internal server error. Listing restores failed.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The restore engine is not present on this node.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-
-  /api/v3/enterprise/restore/{id}:
-    get:
-      operationId: get_restore
-      summary: Get a restore
-      description: >-
-        Reports a restore's state by `restore_id`. Reads the persisted manifest,
-        so it works for in-flight and completed restores.
-
-
-        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node;
-        otherwise the endpoint returns `503 Service Unavailable`.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The `restore_id` returned when the restore started.
-      responses:
-        "200":
-          description: Success. Returns the restore status.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GetRestoreResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No restore exists with that ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "503":
-          description: >-
-            Service unavailable. The restore engine is not present on this node.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-    delete:
-      operationId: cancel_restore
-      summary: Cancel a running restore
-      description: >-
-        Cancels an in-flight restore by `restore_id`.
-
-
-        Requires an admin (operator) token or admin user. Requires the upgraded storage engine
-        (enabled with the `--use-pacha-tree` flag) present on a compactor node.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The `restore_id` returned when the restore started.
-      responses:
-        "204":
-          description: No content. The cancellation has been accepted.
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: >-
-            Not found. No restore exists with that ID, the restore is already
-            completed, or the restore engine is not present on this node.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Backup and restore
-
-  /api/v3/roles/{id}/permissions:
-    get:
-      operationId: get_role_permissions
-      summary: Get a role's permissions
-      description: >-
-        Returns the permissions granted to the role with the specified ID.
-
-
-        Requires a token or user whose roles have permission to read roles.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the role.
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: Success. Returns the role's permissions.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RolePermissionsResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No role exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-
-  /api/v3/roles_by_name/{roleName}:
-    get:
-      operationId: get_role_by_name
-      summary: Get a role by name
-      description: >-
-        Returns the role with the specified name.
-
-
-        Requires a token or user whose roles have permission to read roles.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: roleName
-          in: path
-          required: true
-          description: The name of the role to retrieve.
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Success. Returns the matching role.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RoleByNameResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No role exists with the specified name.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-
-  /api/v3/row_delete_requests/{seq}/abort:
-    post:
-      operationId: abort_row_delete_request
-      summary: Abort a pending row-delete request
-      description: >-
-        Aborts a pending row-delete request identified by its sequence number.
-        Returns the updated request with a disposition of `aborted`.
-
-
-        Requires a token or user with `delete` permission on the database that the
-        row-delete request targets.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise.
-      x-enterprise-only: true
-      parameters:
-        - name: seq
-          in: path
-          required: true
-          description: The sequence number of the row-delete request to abort.
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AbortDeleteRequestBody"
-      responses:
-        "200":
-          description: Success. Returns the aborted row-delete request.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DeleteRequestResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: >-
-            Not found. No row-delete request exists with the specified sequence
-            number.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - Data deletion
-
-  /api/v3/users/{id}:
-    patch:
-      operationId: update_user
-      summary: Update a user's information
-      description: >-
-        Updates a user's profile information. Currently, only the user's
-        display name can be updated.
-
-
-        Requires a token or user whose roles have permission to update users.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The numeric ID of the user to update.
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateUserRequest"
-      responses:
-        "200":
-          description: Success. Returns the updated user.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No user exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-    delete:
-      operationId: delete_user
-      summary: Delete a user
-      description: >-
-        Soft deletes a user. A user can self-delete as long as
-        they are not the last remaining user; the last user can only be deleted
-        with an operator token. Deleting a user revokes all of that user's
-        refresh tokens.
-
-
-        Requires a token or user whose roles have permission to delete users.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The numeric ID of the user to delete.
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: Success. Returns the deleted user with `deletedAt` set.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          description: >-
-            Access denied. The caller cannot delete their own account when they
-            are the last remaining user, or lacks permission to delete users.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-        "404":
-          description: Not found. No user exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-
-  /api/v3/users/{id}/require-password-reset:
-    post:
-      operationId: require_password_reset
-      summary: Require a user to reset their password on next login
-      description: >-
-        Marks the specified user as requiring a password reset. The user must
-        set a new password before they are able to authenticate and receive
-        a token.
-
-
-        Requires a token or user whose roles have permission to update users.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The numeric ID of the user.
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: >-
-            Success. Returns the user with `requiresPasswordReset` set to
-            `true`.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No user exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-
-  /api/v3/users/{id}/roles:
-    get:
-      operationId: list_user_roles
-      summary: List all roles assigned to a user
-      description: >-
-        Lists all roles assigned to the specified user.
-
-
-        Requires a token or user whose roles have permission to read users.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The numeric ID of the user.
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: Success. Returns the list of roles assigned to the user.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListUserRolesResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No user exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-    put:
-      operationId: update_user_roles
-      summary: Replace all roles assigned to a user
-      description: >-
-        Replaces all role assignments for the specified user with the provided
-        list of role IDs. Roles not included in the request are removed from the
-        user.
-
-
-        Requires a token or user whose roles have permission to update users.
-
-
-        This endpoint is only available in InfluxDB 3 Enterprise. User
-        authentication is a preview feature enabled by setting
-        `--without-user-auth false`.
-      x-enterprise-only: true
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The numeric ID of the user.
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateUserRolesRequest"
-      responses:
-        "200":
-          description: Success. Returns the user's updated role assignments.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UpdateUserRolesResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          description: Not found. No user exists with the specified ID.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMessage"
-      tags:
-        - User management
-
 components:
   parameters:
     AcceptQueryHeader:
@@ -4904,14 +4880,12 @@ components:
         - reason
       example:
         reason: Predicate was too broad
-
     ApiPermission:
       type: object
       description: >-
-        A permission granted to a user or role. `resourceType` discriminates the
-        permission category and `actions` lists the granted actions (snake_case)
-        for that category. Database permissions may additionally carry
-        `identifiers` (specific databases) or `allResources: true`.
+        A permission granted to a user or role. `resourceType` discriminates the permission category and `actions` lists
+        the granted actions (snake_case) for that category. Database permissions may additionally carry `identifiers`
+        (specific databases) or `allResources: true`.
       properties:
         resourceType:
           type: string
@@ -4930,26 +4904,22 @@ components:
         identifiers:
           type: array
           description: >-
-            Database permissions only. Specific database names the permission
-            targets. Empty when `allResources` is `true`.
+            Database permissions only. Specific database names the permission targets. Empty when `allResources` is
+            `true`.
           items:
             type: string
         allResources:
           type: boolean
-          description: >-
-            Database permissions only. `true` when the permission applies to all
-            databases.
+          description: Database permissions only. `true` when the permission applies to all databases.
       required:
         - resourceType
         - actions
-
     BackupKind:
       type: string
       enum:
         - full
         - incremental
       description: The backup type.
-
     BackupStatus:
       type: string
       enum:
@@ -4957,7 +4927,6 @@ components:
         - completed
         - failed
       description: The status of a backup or restore.
-
     BulkImportColumnType:
       type: string
       enum:
@@ -4968,10 +4937,7 @@ components:
         - string
         - time
         - tag
-      description: >-
-        The InfluxDB column type for a mapped column. These are the supported
-        `--column` types.
-
+      description: The InfluxDB column type for a mapped column. These are the supported `--column` types.
     BulkImportJobStatus:
       type: string
       enum:
@@ -4982,12 +4948,11 @@ components:
         - failed
         - terminal_failed
       description: The status of a bulk import job.
-
     BulkImportUploadRequest:
       type: object
       description: >-
-        Multipart form data for a bulk import upload. Send `database`, `table`,
-        and `file_bytes`, and optionally `column_metadata`.
+        Multipart form data for a bulk import upload. Send `database`, `table`, and `file_bytes`, and optionally
+        `column_metadata`.
       properties:
         database:
           type: string
@@ -4998,15 +4963,13 @@ components:
         file_bytes:
           type: string
           format: binary
-          description: >-
-            The Parquet file bytes. Must be valid Parquet with at least one row.
+          description: The Parquet file bytes. Must be valid Parquet with at least one row.
         column_metadata:
           $ref: "#/components/schemas/ColumnMetadata"
       required:
         - database
         - table
         - file_bytes
-
     CancelBackupRequest:
       type: object
       description: Request body for cancelling a running backup.
@@ -5018,7 +4981,6 @@ components:
         - name
       example:
         name: nightly-backup
-
     CancelBackupResponse:
       type: object
       description: Response returned when a backup is cancelled.
@@ -5030,18 +4992,17 @@ components:
         - backup_name
       example:
         backup_name: nightly-backup
-
     ColumnMetadata:
       type: object
       description: >-
-        Column metadata for a bulk import. Maps column names to InfluxDB column
-        types to declare tag, field, and time columns.
+        Column metadata for a bulk import. Maps column names to InfluxDB column types to declare tag, field, and time
+        columns.
       properties:
         column_mapping:
           type: object
           description: >-
-            A map of column name to InfluxDB column type. The JSON key accepts
-            the aliases `column_mapping`, `schema`, and `column_metadata`.
+            A map of column name to InfluxDB column type. The JSON key accepts the aliases `column_mapping`, `schema`,
+            and `column_metadata`.
           additionalProperties:
             $ref: "#/components/schemas/BulkImportColumnType"
       required:
@@ -5051,7 +5012,6 @@ components:
           room: tag
           temp: f64
           time: time
-
     CreateBackupRequest:
       type: object
       description: Request body for starting a backup.
@@ -5074,7 +5034,6 @@ components:
         type: full
         name: nightly-backup
         force: false
-
     CreateBackupResponse:
       type: object
       description: Response returned when a backup starts.
@@ -5090,13 +5049,11 @@ components:
       example:
         backup_name: nightly-backup
         status: in_progress
-
     CreateBackupStatus:
       type: string
       enum:
         - in_progress
       description: The status of a newly started backup. Always `in_progress`.
-
     CreateRestoreRequest:
       type: object
       description: Request body for starting a restore.
@@ -5108,7 +5065,6 @@ components:
         - backup_name
       example:
         backup_name: nightly-backup
-
     CreateRestoreResponse:
       type: object
       description: Response returned when a restore starts.
@@ -5124,13 +5080,11 @@ components:
       example:
         restore_id: 01J8X9Z0ABCDEF
         status: in_progress
-
     CreateRestoreStatus:
       type: string
       enum:
         - in_progress
       description: The status of a newly started restore. Always `in_progress`.
-
     DeleteBackupResponse:
       type: object
       description: Response returned when a backup is deleted.
@@ -5146,7 +5100,6 @@ components:
       example:
         backup_name: nightly-backup
         type: full
-
     DeleteRequestProgressDto:
       type: object
       description: Progress tracking for a single row-delete request.
@@ -5163,7 +5116,6 @@ components:
         - sequence_id
         - in_range
         - out_of_range
-
     DeleteRequestResponse:
       type: object
       description: A row-delete request.
@@ -5188,14 +5140,10 @@ components:
           description: The name of the target table.
         db_name_stale:
           type: boolean
-          description: >-
-            Whether the database name no longer matches the current catalog
-            state for the stored database ID.
+          description: Whether the database name no longer matches the current catalog state for the stored database ID.
         table_name_stale:
           type: boolean
-          description: >-
-            Whether the table name no longer matches the current catalog state
-            for the stored table ID.
+          description: Whether the table name no longer matches the current catalog state for the stored table ID.
         min_time:
           type: integer
           format: int64
@@ -5213,26 +5161,18 @@ components:
           description: The Unix timestamp (seconds) when the request was created.
         disposition:
           type: string
-          description: >-
-            The current disposition of the request: `pending`, `completed`, or
-            `aborted`.
+          description: "The current disposition of the request: `pending`, `completed`, or `aborted`."
         completed_at:
           type: integer
           format: int64
-          description: >-
-            The Unix timestamp (seconds) when the request completed. Present
-            only for completed requests.
+          description: The Unix timestamp (seconds) when the request completed. Present only for completed requests.
         aborted_at:
           type: integer
           format: int64
-          description: >-
-            The Unix timestamp (seconds) when the request was aborted. Present
-            only for aborted requests.
+          description: The Unix timestamp (seconds) when the request was aborted. Present only for aborted requests.
         abort_reason:
           type: string
-          description: >-
-            The reason the request was aborted. Present only for aborted
-            requests.
+          description: The reason the request was aborted. Present only for aborted requests.
         progress:
           $ref: "#/components/schemas/DeleteRequestProgressDto"
       required:
@@ -5254,12 +5194,11 @@ components:
         table_name: home
         db_name_stale: false
         table_name_stale: false
-        delete_predicate: "room = 'kitchen'"
+        delete_predicate: room = 'kitchen'
         created_at: 1717000000
         disposition: aborted
         aborted_at: 1717000100
         abort_reason: Predicate was too broad
-
     FullBackupListItem:
       type: object
       description: A single backup's manifest.
@@ -5302,12 +5241,10 @@ components:
         completed_at: "2025-06-16T02:05:30Z"
         total_files: 128
         total_size_bytes: 524288000
-
     GetBackupResponse:
       allOf:
         - $ref: "#/components/schemas/FullBackupListItem"
       description: A single backup's manifest. Only full backups are returned.
-
     GetRestoreResponse:
       type: object
       description: The status of a single restore.
@@ -5352,7 +5289,6 @@ components:
         completed_at: null
         total_files: 128
         total_size_bytes: 524288000
-
     LevelProgressDto:
       type: object
       description: Progress for a single compaction level.
@@ -5368,7 +5304,6 @@ components:
       required:
         - total
         - processed
-
     ListBackupsResponse:
       type: object
       description: Response containing the list of backups.
@@ -5380,7 +5315,6 @@ components:
             $ref: "#/components/schemas/FullBackupListItem"
       required:
         - backups
-
     ListRestoresResponse:
       type: object
       description: Response containing the list of restores.
@@ -5392,7 +5326,6 @@ components:
             $ref: "#/components/schemas/RestoreListItem"
       required:
         - restores
-
     ListUserRolesResponse:
       type: object
       description: The roles assigned to a user.
@@ -5404,12 +5337,9 @@ components:
             $ref: "#/components/schemas/UserRoleResponse"
       required:
         - items
-
     OutOfRangeCountsDto:
       type: object
-      description: >-
-        Progress counts for run sets outside the delete criteria that require
-        only watermark updates.
+      description: Progress counts for run sets outside the delete criteria that require only watermark updates.
       properties:
         total:
           type: integer
@@ -5422,12 +5352,9 @@ components:
       required:
         - total
         - processed
-
     PerLevelCountsDto:
       type: object
-      description: >-
-        Per-level progress counts for run sets that overlap the delete
-        criteria.
+      description: Per-level progress counts for run sets that overlap the delete criteria.
       properties:
         l1:
           $ref: "#/components/schemas/LevelProgressDto"
@@ -5442,7 +5369,6 @@ components:
         - l2
         - l3
         - l4
-
     QueryConcurrencyLimitResponse:
       type: object
       description: The current runtime query concurrency limit.
@@ -5450,11 +5376,10 @@ components:
         max_concurrent_queries:
           type: integer
           description: >-
-            The maximum number of queries that can run concurrently. Omitted
-            when the limit is set to the maximum allowed value.
+            The maximum number of queries that can run concurrently. Omitted when the limit is set to the maximum
+            allowed value.
       example:
         max_concurrent_queries: 32
-
     RestoreListItem:
       type: object
       description: A single restore's status.
@@ -5490,7 +5415,6 @@ components:
         - created_at
         - total_files
         - total_size_bytes
-
     RoleByNameResponse:
       type: object
       description: A role retrieved by name.
@@ -5528,7 +5452,6 @@ components:
         isRequiredRole: false
         createdAt: 1717000000
         updatedAt: 1717000000
-
     RolePermissionsResponse:
       type: object
       description: The permissions granted to a role.
@@ -5540,7 +5463,6 @@ components:
             $ref: "#/components/schemas/ApiPermission"
       required:
         - permissions
-
     SetQueryConcurrencyLimitRequest:
       type: object
       description: Request body for setting the runtime query concurrency limit.
@@ -5549,12 +5471,10 @@ components:
           type: integer
           nullable: true
           description: >-
-            The maximum number of queries that can run concurrently. Set to
-            `null` (or omit) to restore the limit configured at server startup.
-            Must be a positive integer; values below 16 require `force=true`.
+            The maximum number of queries that can run concurrently. Set to `null` (or omit) to restore the limit
+            configured at server startup. Must be a positive integer; values below 16 require `force=true`.
       example:
         max_concurrent_queries: 32
-
     UpdateUserRequest:
       type: object
       description: Request body for updating a user's profile.
@@ -5564,7 +5484,6 @@ components:
           description: The user's new display name.
       example:
         displayName: Jane Smith
-
     UpdateUserRolesRequest:
       type: object
       description: Request body for replacing all of a user's role assignments.
@@ -5581,7 +5500,6 @@ components:
         roleIds:
           - 1
           - 2
-
     UpdateUserRolesResponse:
       type: object
       description: A user's role assignments after an update.
@@ -5593,7 +5511,6 @@ components:
             $ref: "#/components/schemas/UserRoleResponse"
       required:
         - items
-
     UploadedImportInfo:
       type: object
       description: The status of a staged or completed bulk import job.
@@ -5619,9 +5536,7 @@ components:
         created_at:
           type: integer
           format: int64
-          description: >-
-            When the uploaded file was ready for import, in nanoseconds since the
-            Unix epoch.
+          description: When the uploaded file was ready for import, in nanoseconds since the Unix epoch.
         started_at:
           type: integer
           format: int64
@@ -5670,7 +5585,6 @@ components:
         - row_count
         - min_timestamp_ns
         - max_timestamp_ns
-
     UserResponse:
       type: object
       description: A user account.
@@ -5681,17 +5595,15 @@ components:
           description: The numeric ID of the user.
         username:
           type: string
-          description: >-
-            The user's username. Present when the user has a username and
-            password login identity.
+          description: The user's username. Present when the user has a username and password login identity.
         displayName:
           type: string
           description: The user's display name.
         requiresPasswordReset:
           type: boolean
           description: >-
-            Whether the user must reset their password on next login. Present
-            when the user has a username and password login identity.
+            Whether the user must reset their password on next login. Present when the user has a username and password
+            login identity.
         createdAt:
           type: integer
           format: int64
@@ -5703,18 +5615,13 @@ components:
         deletedAt:
           type: integer
           format: int64
-          description: >-
-            The Unix timestamp (seconds) when the user was deleted. Present only
-            for deleted users.
+          description: The Unix timestamp (seconds) when the user was deleted. Present only for deleted users.
         operatorToken:
           type: string
-          description: >-
-            The operator token. Returned only when creating the initial user.
+          description: The operator token. Returned only when creating the initial user.
         oauthId:
           type: string
-          description: >-
-            The user's OAuth identity-provider ID. Present when the user has an
-            OAuth login identity.
+          description: The user's OAuth identity-provider ID. Present when the user has an OAuth login identity.
       required:
         - userId
         - createdAt
@@ -5726,7 +5633,6 @@ components:
         requiresPasswordReset: false
         createdAt: 1717000000
         updatedAt: 1717000000
-
     UserRoleResponse:
       type: object
       description: A role assigned to or available to a user.
@@ -5764,7 +5670,6 @@ components:
         isRequiredRole: false
         createdAt: 1717000000
         updatedAt: 1717000000
-
   responses:
     Unauthorized:
       description: Unauthorized access.
@@ -5815,8 +5720,8 @@ components:
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
 
 
-        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints
-        in InfluxDB 3.
+        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1ExecuteQuery)
+        endpoints in InfluxDB 3.
 
 
         When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an
@@ -5862,7 +5767,7 @@ components:
 
 
         Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and
-        [`/query`](#operation/GetV1Query) endpoints.
+        [`/query`](#operation/GetV1ExecuteQuery) endpoints.
 
 
         When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
