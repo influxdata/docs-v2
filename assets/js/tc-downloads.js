@@ -140,9 +140,9 @@ function initMarketoForm() {
   MktoForms2.loadForm(
     'https://get.influxdata.com',
     '972-GDU-533',
-    3195,
+    2756,
     function (form) {
-      form.addHiddenFields({ mkto_content_name: 'Telegraf Enterprise Alpha' });
+      form.addHiddenFields({ mkto_content_name: 'Telegraf Enterprise' });
 
       form.onSuccess(function () {
         setDownloadKey();

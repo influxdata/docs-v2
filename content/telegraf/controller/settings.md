@@ -45,9 +45,10 @@ To set a public endpoint:
 1. Navigate to the **Settings** page.
 2. In the **Public Endpoints** section, enter a URL for **User Interface URL**,
    **API URL**, or **Heartbeat URL**.
-3. Click **Save**.
 
-<!-- TODO: screenshot of the Settings > Public Endpoints section showing the User Interface URL, API URL, and Heartbeat URL fields. Save to /static/img/telegraf/controller-settings-public-endpoints.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-public-endpoints.png" alt="Telegraf Controller public endpoints settings" />}} -->
+   {{< img-hd src="/img/telegraf/controller-settings-public-endpoints.png" alt="Telegraf Controller public endpoints settings" />}}
+
+3. Click **Save**.
 
 ## Login security
 
@@ -153,7 +154,7 @@ To update LDAP settings:
 3. In the **LDAP Authentication** section, update the values.
 4. Click **Save**.
 
-<!-- TODO: screenshot of the Settings > LDAP Authentication panel showing the redacted connection summary, provisioning controls, and a populated group mappings table. Save to /static/img/telegraf/controller-settings-ldap.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-ldap.png" alt="Telegraf Controller LDAP authentication settings" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings-ldap.png" alt="Telegraf Controller LDAP authentication settings" />}}
 
 ## OIDC authentication
 
@@ -194,7 +195,7 @@ To update OIDC settings:
 3. In the **OIDC Authentication** section, update the values.
 4. Click **Save**.
 
-<!-- TODO: screenshot of the Settings > OIDC Authentication panel showing the redacted issuer/client ID, discovery status, provisioning controls, and a populated group mappings table. Save to /static/img/telegraf/controller-settings-oidc.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-oidc.png" alt="Telegraf Controller OIDC authentication settings" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings-oidc.png" alt="Telegraf Controller OIDC authentication settings" />}}
 
 ## Audit logging
 
@@ -216,7 +217,7 @@ To change the audit log retention period:
    **Audit log retention**.
 3. Click **Save**.
 
-<!-- TODO: screenshot of the Settings > Audit Logging section showing the Audit log retention dropdown. Save to /static/img/telegraf/controller-settings-audit-retention.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}}
 
 ## Enterprise licensing
 

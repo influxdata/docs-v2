@@ -45,7 +45,7 @@ free tier.
 - **Max reporting agents**: the reporting agents entitlement from the
   license.
 
-<!-- TODO: screenshot of the license details card on Settings > Enterprise, save to /static/img/telegraf/controller-licensing-details-card.png and replace with img-hd shortcode -->
+{{< img-hd src="/img/telegraf/controller-licensing-details-card.png" alt="Telegraf Enterprise license details in Telegraf Controller" />}}
 
 **From the API**, an Owner can call `GET /api/license` to retrieve the same
 information for scripted checks:
@@ -150,11 +150,11 @@ in place. The new entitlements take effect immediately with no restart.
 Removing a license reverts {{% product-name %}} to the free tier. Only the
 **Owner** can remove a license.
 
-1. Navigate to **Settings > Enterprise**.
-2. Click **Remove license**.
-3. Confirm the action in the dialog.
+1.  Navigate to **Settings > Enterprise**.
+2.  Click **Remove license**.
+3.  Confirm the action in the dialog.
 
-   <!-- TODO: screenshot of the remove license confirmation dialog, save to /static/img/telegraf/controller-licensing-remove-confirm.png and replace with img-hd shortcode -->
+    {{< img-hd src="/img/telegraf/controller-licensing-remove-confirm.png" alt="Confirm that you want to remove your Telegraf Enterprise license" />}}
 
 The change takes effect immediately, with no restart required.
 
