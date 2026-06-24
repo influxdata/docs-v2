@@ -86,11 +86,42 @@ jobs:
           # from --only-changed would produce incomplete corpora. Run on
           # master only — matches the deploy filter below.
           command: |
-            if [ "$CIRCLE_BRANCH" = "master" ]; then
-              yarn build:llms-full --public-dir workspace/public
-            else
+            if [ "$CIRCLE_BRANCH" != "master" ]; then
               echo "Skipping llms-full build (master-only)"
+              exit 0
             fi
+
+            PUBLIC_DIR=workspace/public
+            MD_SITEMAP="$PUBLIC_DIR/sitemap-md.xml"
+
+            if [ -f "$MD_SITEMAP" ]; then
+              yarn build:llms-full --public-dir "$PUBLIC_DIR"
+              exit 0
+            fi
+
+            # sitemap-md.xml is missing. It is emitted by Hugo's home output
+            # in the same render phase as the HTML sitemap, so the HTML
+            # sitemap is our canary: if it is present and healthy the build
+            # completed and only the per-product corpora are affected (safe
+            # to skip and ship). If it is also missing/truncated, the Hugo
+            # build is incomplete and we must NOT deploy a partial site.
+            echo "WARNING: $MD_SITEMAP not found."
+            HTML_SITEMAP="$PUBLIC_DIR/sitemap.xml"
+            MIN_BYTES=100000
+            SITEMAP_BYTES=0
+            [ -f "$HTML_SITEMAP" ] && SITEMAP_BYTES=$(wc -c < "$HTML_SITEMAP" | tr -d ' ')
+
+            if [ "$SITEMAP_BYTES" -ge "$MIN_BYTES" ]; then
+              echo "HTML sitemap healthy (${SITEMAP_BYTES} bytes) — Hugo build is complete."
+              echo "Skipping per-product llms-full corpora for this deploy."
+              echo "Corpora will go stale until sitemap-md.xml emission is restored."
+              exit 0
+            fi
+
+            echo "ERROR: HTML sitemap missing or truncated (${SITEMAP_BYTES} bytes)."
+            echo "Hugo build appears incomplete — refusing to deploy a partial site."
+            echo "Re-run the build (clear the CircleCI cache) and investigate Hugo."
+            exit 1
       - run:
           name: Verify Markdown alternate link coherence
           # Catches drift between the head-link partial (which advertises
