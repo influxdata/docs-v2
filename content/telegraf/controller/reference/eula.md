@@ -9,7 +9,7 @@ menu:
     name: EULA
     parent: Reference
 weight: 110
-metadata: ['Updated April 8, 2026']
+metadata: ['Updated June 24, 2026']
 ---
 
 **(Telegraf Controller)**

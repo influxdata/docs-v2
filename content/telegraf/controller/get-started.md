@@ -39,6 +39,12 @@ send heartbeats to {{% product-name %}}.
     > The **Telegraf Agent** preset includes all permissions a Telegraf agent
     > needs to interact with {{% product-name %}}.
 
+    Telegraf agents need the following permissions to interact with
+    {{% product-name %}}:
+
+    - **Configurations**: Read
+    - **Heartbeat**: Write
+
 6.  Click **Create Token**.
 
 > [!Important]
