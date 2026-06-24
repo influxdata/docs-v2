@@ -73,6 +73,12 @@ jobs:
             set -o pipefail
             yarn hugo config --environment production > /tmp/hugo-config.toml
 
+            echo "Raw outputFormats config:"
+            grep -n -A25 -B2 "outputFormats:" config/_default/hugo.yml || true
+
+            echo "Merged custom output formats:"
+            grep -i -A10 -B2 "llmstxt\|sitemapmd" /tmp/hugo-config.toml || true
+
             echo "Hugo output config:"
             grep -A8 -E '^\[outputformats\.(llmstxt|sitemapmd)\]|^\[outputs\]' /tmp/hugo-config.toml || true
 
