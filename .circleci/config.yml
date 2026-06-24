@@ -71,6 +71,36 @@ jobs:
           name: Hugo Build
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
       - run:
+          name: Verify Hugo build completeness
+          # A complete production build always emits sitemap-md.xml (a home
+          # output rendered last) and ~5800 index.html files. A missing
+          # sitemap-md.xml or a low page count means Hugo produced a partial
+          # public/. Deploying that lets s3deploy prune the absent pages from
+          # S3 (default -max-delete=256) and 404 live docs. Fail HERE to abort
+          # the job before persist_to_workspace/deploy. This makes explicit the
+          # gate that build:llms-full's hard-failure used to provide by accident.
+          command: |
+            PUBLIC_DIR=workspace/public
+            MIN_PAGES=5000
+            FAIL=0
+            if [ ! -f "$PUBLIC_DIR/sitemap-md.xml" ]; then
+              echo "ERROR: $PUBLIC_DIR/sitemap-md.xml missing — Hugo build incomplete."
+              FAIL=1
+            fi
+            PAGES=$(find "$PUBLIC_DIR" -name index.html | wc -l | tr -d ' ')
+            echo "Rendered index.html pages: $PAGES (floor: $MIN_PAGES)"
+            if [ "$PAGES" -lt "$MIN_PAGES" ]; then
+              echo "ERROR: page count $PAGES below floor $MIN_PAGES — build incomplete."
+              FAIL=1
+            fi
+            if [ "$FAIL" -ne 0 ]; then
+              echo "Refusing to continue: a partial deploy would delete live pages."
+              echo "Re-run the build (clear the CircleCI cache). If it recurs,"
+              echo "investigate the Hugo Build step (OOM/errors) before deploying."
+              exit 1
+            fi
+            echo "Build completeness OK."
+      - run:
           name: Generate LLM-friendly Markdown
           command: |
             if [ "$CIRCLE_BRANCH" = "master" ]; then
@@ -86,42 +116,11 @@ jobs:
           # from --only-changed would produce incomplete corpora. Run on
           # master only — matches the deploy filter below.
           command: |
-            if [ "$CIRCLE_BRANCH" != "master" ]; then
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              yarn build:llms-full --public-dir workspace/public
+            else
               echo "Skipping llms-full build (master-only)"
-              exit 0
             fi
-
-            PUBLIC_DIR=workspace/public
-            MD_SITEMAP="$PUBLIC_DIR/sitemap-md.xml"
-
-            if [ -f "$MD_SITEMAP" ]; then
-              yarn build:llms-full --public-dir "$PUBLIC_DIR"
-              exit 0
-            fi
-
-            # sitemap-md.xml is missing. It is emitted by Hugo's home output
-            # in the same render phase as the HTML sitemap, so the HTML
-            # sitemap is our canary: if it is present and healthy the build
-            # completed and only the per-product corpora are affected (safe
-            # to skip and ship). If it is also missing/truncated, the Hugo
-            # build is incomplete and we must NOT deploy a partial site.
-            echo "WARNING: $MD_SITEMAP not found."
-            HTML_SITEMAP="$PUBLIC_DIR/sitemap.xml"
-            MIN_BYTES=100000
-            SITEMAP_BYTES=0
-            [ -f "$HTML_SITEMAP" ] && SITEMAP_BYTES=$(wc -c < "$HTML_SITEMAP" | tr -d ' ')
-
-            if [ "$SITEMAP_BYTES" -ge "$MIN_BYTES" ]; then
-              echo "HTML sitemap healthy (${SITEMAP_BYTES} bytes) — Hugo build is complete."
-              echo "Skipping per-product llms-full corpora for this deploy."
-              echo "Corpora will go stale until sitemap-md.xml emission is restored."
-              exit 0
-            fi
-
-            echo "ERROR: HTML sitemap missing or truncated (${SITEMAP_BYTES} bytes)."
-            echo "Hugo build appears incomplete — refusing to deploy a partial site."
-            echo "Re-run the build (clear the CircleCI cache) and investigate Hugo."
-            exit 1
       - run:
           name: Verify Markdown alternate link coherence
           # Catches drift between the head-link partial (which advertises
