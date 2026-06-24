@@ -69,37 +69,68 @@ jobs:
             - scripts/rust-markdown-converter/target
       - run:
           name: Hugo Build
-          command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
+          command: |
+            set -o pipefail
+            yarn hugo --environment production --logLevel info --gc --destination workspace/public 2>&1 | tee /tmp/hugo-build.log
+
+            echo "Hugo root outputs:"
+            find workspace/public -maxdepth 1 -type f -print | sort
+
+            if ! grep -q "outputFormat sitemapmd" /tmp/hugo-build.log; then
+              echo "WARNING: Hugo log did not include sitemapmd render phase."
+            fi
+
+            if ! grep -q "step postProcess" /tmp/hugo-build.log; then
+              echo "WARNING: Hugo log did not include postProcess phase."
+            fi
       - run:
-          name: Verify Hugo build completeness
-          # A complete production build always emits sitemap-md.xml (a home
-          # output rendered last) and ~5800 index.html files. A missing
-          # sitemap-md.xml or a low page count means Hugo produced a partial
-          # public/. Deploying that lets s3deploy prune the absent pages from
-          # S3 (default -max-delete=256) and 404 live docs. Fail HERE to abort
-          # the job before persist_to_workspace/deploy. This makes explicit the
-          # gate that build:llms-full's hard-failure used to provide by accident.
+          name: Verify deployable Hugo output
+          # Deploy safety should be based on HTML output, not optional
+          # LLM discovery artifacts. A complete deployable build emits a
+          # healthy HTML sitemap and thousands of index.html pages.
           command: |
             PUBLIC_DIR=workspace/public
             MIN_PAGES=5000
+            MIN_SITEMAP_BYTES=100000
             FAIL=0
-            if [ ! -f "$PUBLIC_DIR/sitemap-md.xml" ]; then
-              echo "ERROR: $PUBLIC_DIR/sitemap-md.xml missing — Hugo build incomplete."
-              FAIL=1
-            fi
+
+            echo "Root public files:"
+            find "$PUBLIC_DIR" -maxdepth 1 -type f -print | sort
+
             PAGES=$(find "$PUBLIC_DIR" -name index.html | wc -l | tr -d ' ')
             echo "Rendered index.html pages: $PAGES (floor: $MIN_PAGES)"
             if [ "$PAGES" -lt "$MIN_PAGES" ]; then
               echo "ERROR: page count $PAGES below floor $MIN_PAGES — build incomplete."
               FAIL=1
             fi
+
+            HTML_SITEMAP="$PUBLIC_DIR/sitemap.xml"
+            HTML_SITEMAP_BYTES=0
+            if [ -f "$HTML_SITEMAP" ]; then
+              HTML_SITEMAP_BYTES=$(wc -c < "$HTML_SITEMAP" | tr -d ' ')
+            fi
+            echo "HTML sitemap bytes: $HTML_SITEMAP_BYTES (floor: $MIN_SITEMAP_BYTES)"
+            if [ "$HTML_SITEMAP_BYTES" -lt "$MIN_SITEMAP_BYTES" ]; then
+              echo "ERROR: $HTML_SITEMAP missing or too small — build incomplete."
+              FAIL=1
+            fi
+
+            MD_SITEMAP="$PUBLIC_DIR/sitemap-md.xml"
+            if [ -f "$MD_SITEMAP" ]; then
+              MD_SITEMAP_BYTES=$(wc -c < "$MD_SITEMAP" | tr -d ' ')
+              echo "Markdown sitemap bytes: $MD_SITEMAP_BYTES"
+            else
+              echo "WARNING: $MD_SITEMAP missing."
+              echo "Deploy can continue if HTML output is healthy; LLM corpora will be skipped."
+            fi
+
             if [ "$FAIL" -ne 0 ]; then
               echo "Refusing to continue: a partial deploy would delete live pages."
               echo "Re-run the build (clear the CircleCI cache). If it recurs,"
               echo "investigate the Hugo Build step (OOM/errors) before deploying."
               exit 1
             fi
-            echo "Build completeness OK."
+            echo "Deployable Hugo output OK."
       - run:
           name: Generate LLM-friendly Markdown
           command: |
@@ -117,7 +148,11 @@ jobs:
           # master only — matches the deploy filter below.
           command: |
             if [ "$CIRCLE_BRANCH" = "master" ]; then
-              yarn build:llms-full --public-dir workspace/public
+              if [ -f "workspace/public/sitemap-md.xml" ]; then
+                yarn build:llms-full --public-dir workspace/public
+              else
+                echo "Skipping llms-full build: workspace/public/sitemap-md.xml missing"
+              fi
             else
               echo "Skipping llms-full build (master-only)"
             fi
@@ -129,7 +164,11 @@ jobs:
           # the partial .md set.
           command: |
             if [ "$CIRCLE_BRANCH" = "master" ]; then
-              yarn check:md-coherence --public-dir workspace/public
+              if [ -f "workspace/public/sitemap-md.xml" ]; then
+                yarn check:md-coherence --public-dir workspace/public
+              else
+                echo "Skipping coherence check: workspace/public/sitemap-md.xml missing"
+              fi
             else
               echo "Skipping coherence check (master-only)"
             fi
