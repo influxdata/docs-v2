@@ -42,9 +42,64 @@ jobs:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - /home/circleci/bin
+      - restore_cache:
+          keys:
+            - rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+            - rust-
+      - run:
+          name: Install Rust toolchain
+          command: |
+            # Skip the rustup-init download when the toolchain was restored
+            # from cache (~/.cargo, ~/.rustup); just re-export it onto PATH.
+            if [ ! -x "$HOME/.cargo/bin/cargo" ]; then
+              curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+                | sh -s -- -y --profile minimal --default-toolchain stable
+            fi
+            echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+      - run:
+          name: Build Rust markdown converter
+          command: |
+            source "$HOME/.cargo/env"
+            node scripts/build-rust-converter.js
+      - save_cache:
+          key: rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+          paths:
+            - /home/circleci/.cargo
+            - /home/circleci/.rustup
+            - scripts/rust-markdown-converter/target
       - run:
           name: Hugo Build
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
+      - run:
+          name: Verify Hugo build completeness
+          # A complete production build always emits sitemap-md.xml (a home
+          # output rendered last) and ~5800 index.html files. A missing
+          # sitemap-md.xml or a low page count means Hugo produced a partial
+          # public/. Deploying that lets s3deploy prune the absent pages from
+          # S3 (default -max-delete=256) and 404 live docs. Fail HERE to abort
+          # the job before persist_to_workspace/deploy. This makes explicit the
+          # gate that build:llms-full's hard-failure used to provide by accident.
+          command: |
+            PUBLIC_DIR=workspace/public
+            MIN_PAGES=5000
+            FAIL=0
+            if [ ! -f "$PUBLIC_DIR/sitemap-md.xml" ]; then
+              echo "ERROR: $PUBLIC_DIR/sitemap-md.xml missing — Hugo build incomplete."
+              FAIL=1
+            fi
+            PAGES=$(find "$PUBLIC_DIR" -name index.html | wc -l | tr -d ' ')
+            echo "Rendered index.html pages: $PAGES (floor: $MIN_PAGES)"
+            if [ "$PAGES" -lt "$MIN_PAGES" ]; then
+              echo "ERROR: page count $PAGES below floor $MIN_PAGES — build incomplete."
+              FAIL=1
+            fi
+            if [ "$FAIL" -ne 0 ]; then
+              echo "Refusing to continue: a partial deploy would delete live pages."
+              echo "Re-run the build (clear the CircleCI cache). If it recurs,"
+              echo "investigate the Hugo Build step (OOM/errors) before deploying."
+              exit 1
+            fi
+            echo "Build completeness OK."
       - run:
           name: Generate LLM-friendly Markdown
           command: |
@@ -54,6 +109,29 @@ jobs:
             else
               # Incremental build for PRs - only process changed files
               yarn build:md --public-dir workspace/public --only-changed --base-branch origin/master
+            fi
+      - run:
+          name: Generate per-product llms-full.txt corpora
+          # Per-product corpora aggregate every page's .md, so a partial set
+          # from --only-changed would produce incomplete corpora. Run on
+          # master only — matches the deploy filter below.
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              yarn build:llms-full --public-dir workspace/public
+            else
+              echo "Skipping llms-full build (master-only)"
+            fi
+      - run:
+          name: Verify Markdown alternate link coherence
+          # Catches drift between the head-link partial (which advertises
+          # the .md twin) and build-llm-markdown.js (which generates it).
+          # Master-only so PR incremental builds don't false-positive on
+          # the partial .md set.
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              yarn check:md-coherence --public-dir workspace/public
+            else
+              echo "Skipping coherence check (master-only)"
             fi
       - persist_to_workspace:
           root: workspace

@@ -35,6 +35,9 @@ on:
       - '.ci/scripts/check-feedback-links.js'
       - '.github/workflows/pr-feedback-links.yml'
 
+permissions:
+  contents: read
+
 jobs:
   check-feedback-links:
     name: Verify feedback button URLs

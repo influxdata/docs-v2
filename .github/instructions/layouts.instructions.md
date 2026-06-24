@@ -2,12 +2,17 @@
 applyTo: "layouts/**/*.html"
 ---
 
+<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
+
+<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
+
 # Layout and Shortcode Implementation Guidelines
 
 **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 **Test examples**: [content/example.md](../../content/example.md)
 
-**For detailed Hugo template development workflow**, see [.claude/skills/hugo-template-dev/SKILL.md](../../.claude/skills/hugo-template-dev/SKILL.md) which covers:
+**For detailed Hugo template development workflow**, see
+[hugo-template-dev skill](../../.agents/skills/hugo-template-dev/SKILL.md) which covers:
 
 - Hugo template syntax and data access patterns
 - Build-time vs runtime testing strategies
@@ -66,10 +71,15 @@ Add shortcode usage examples to `content/example.md` to verify:
 5. Test the functionality and check for JavaScript errors
 6. Verify the feature works as intended before marking complete
 
-See [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md) for complete shortcode documentation.
+See [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md) for complete shortcode
+documentation.
 
 ## Related Resources
 
-- **Complete Hugo template workflow**: [.claude/skills/hugo-template-dev/SKILL.md](../../.claude/skills/hugo-template-dev/SKILL.md)
+- **Complete Hugo template workflow**:
+  [hugo-template-dev skill](../../.agents/skills/hugo-template-dev/SKILL.md)
 - **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - **Test examples**: [content/example.md](../../content/example.md)
+- **Article-level page actions** (buttons/links next to the page title — when
+  to use, how to add a new one):
+  [DOCS-PAGE-ACTIONS.md](../../DOCS-PAGE-ACTIONS.md)

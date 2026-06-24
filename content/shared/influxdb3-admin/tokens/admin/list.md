@@ -29,7 +29,6 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 
 ### Filter for admin tokens
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#cli-query-tokens)
@@ -37,7 +36,7 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 query \
   --database _internal \
   --format csv \
@@ -47,7 +46,7 @@ influxdb3 query \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -59,11 +58,9 @@ curl -G \
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 ### Filter by date
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#cli-filter-in-query)
@@ -71,7 +68,7 @@ curl -G \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 query \
   --db _internal \
   "SELECT name, permissions FROM system.tokens WHERE created_at > '2025-01-01 00:00:00'"
@@ -80,7 +77,7 @@ influxdb3 query \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
 "http://{{< influxdb/host >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
@@ -91,7 +88,6 @@ curl -G \
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
-{{% /code-placeholders %}}
 
 ## Output formats
 
@@ -106,7 +102,6 @@ commands.
 - `csv`
 - `parquet` _([output to a file](#output-to-a-parquet-file))_
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#format-using-the-cli)
@@ -114,7 +109,7 @@ commands.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 show tokens \
   --format jsonl
 ```
@@ -122,7 +117,7 @@ influxdb3 show tokens \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -131,9 +126,9 @@ curl -G \
   --header 'Accept: text/csv' \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
+
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
-{{% /code-placeholders %}}
 
 ### Output to a Parquet file
 
@@ -145,7 +140,6 @@ with a destination path for the file.
 To output a Parquet file using the HTTP API, your client must be able to handle binary data--for example,
 using cURL's `--output` option.
 
-{{% code-placeholders "AUTH_TOKEN|(/PATH/TO/FILE.parquet)" %}}
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
 [CLI](#cli-output-to-parquet)
@@ -153,15 +147,16 @@ using cURL's `--output` option.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN|(/PATH/TO/FILE.parquet)" }
 influxdb3 show tokens \
   --format parquet \
   --output /PATH/TO/FILE.parquet
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN|(/PATH/TO/FILE.parquet)" }
 curl -G \
 "http://{{< influxdb/host >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
@@ -174,7 +169,6 @@ curl -G \
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`/PATH/TO/FILE.parquet`{{% /code-placeholder-key %}}
 with the path to the file where you want to save the Parquet data.
@@ -184,7 +178,6 @@ with the path to the file where you want to save the Parquet data.
 Use command-line tools such as `grep` or `jq` to filter the output of the
 `influxdb3 show tokens` command or the HTTP API response--for example:
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#cli-filter-admin-using-grep)
@@ -192,7 +185,7 @@ Use command-line tools such as `grep` or `jq` to filter the output of the
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 show tokens --format pretty |
 grep _admin
 ```
@@ -200,7 +193,7 @@ grep _admin
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -213,9 +206,7 @@ grep _admin
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}
 
-{{% code-placeholders "AUTH_TOKEN" %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [CLI](#cli-filter-output-using-jq)
@@ -223,7 +214,7 @@ grep _admin
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 show tokens --format json |
 jq '.[] | {name: .name, permissions: .permissions}'
 ```
@@ -231,7 +222,7 @@ jq '.[] | {name: .name, permissions: .permissions}'
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN HTTP API---------------------------------->
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -G \
   "http://{{< influxdb/host >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
@@ -244,4 +235,3 @@ jq '.[] | {name: .name, created_at: .created_at}'
 <!-----------------------------END HTTP API------------------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-{{% /code-placeholders %}}

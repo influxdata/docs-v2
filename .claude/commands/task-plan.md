@@ -4,7 +4,7 @@ Manage the PLAN.md planning document for the current worktree.
 
 ## Description
 
-This skill manages ephemeral planning documents that track objectives, tasks, and notes during development. PLAN.md lives inside the git worktree, is tracked on the feature branch, and should be deleted before merging to main.
+This skill manages ephemeral planning documents that track objectives, tasks, and notes during development. PLAN.md lives inside the git worktree, is tracked on the feature branch, and must be removed or promoted before merging to the default branch.
 
 ## Usage
 
@@ -22,18 +22,21 @@ This skill manages ephemeral planning documents that track objectives, tasks, an
 Display the current PLAN.md contents. If no PLAN.md exists, suggest creating one.
 
 **Steps:**
+
 1. Check if PLAN.md exists in current directory
 2. If exists: display contents with syntax highlighting
 3. If not exists: inform user and suggest `/task-plan create`
 
-### /task-plan create [issue-url]
+### /task-plan create \[issue-url]
 
 Create a new PLAN.md from template. Optionally fetch issue/PR details from GitHub.
 
 **Arguments:**
+
 - `issue-url` (optional): GitHub issue or PR URL to populate metadata
 
 **Steps:**
+
 1. Check if PLAN.md already exists (warn if overwriting)
 2. If issue-url provided:
    - Parse org/repo/type/id from URL
@@ -45,6 +48,7 @@ Create a new PLAN.md from template. Optionally fetch issue/PR details from GitHu
 5. Display the created file
 
 **Template:**
+
 ```markdown
 # [Title]
 
@@ -74,6 +78,7 @@ Create a new PLAN.md from template. Optionally fetch issue/PR details from GitHu
 Interactively update the PLAN.md - mark tasks complete, add notes, update objective.
 
 **Steps:**
+
 1. Read current PLAN.md
 2. Parse existing tasks (checkbox items)
 3. Ask user what to update:
@@ -89,6 +94,7 @@ Interactively update the PLAN.md - mark tasks complete, add notes, update object
 Show a summary of task completion status.
 
 **Steps:**
+
 1. Read PLAN.md
 2. Parse all checkbox items (`- [ ]` and `- [x]`)
 3. Calculate completion stats
@@ -111,6 +117,7 @@ Show a summary of task completion status.
 ## Examples
 
 ### Example 1: Create plan for GitHub issue
+
 ```
 User: /task-plan create https://github.com/influxdata/docs-v2/issues/6763
 
@@ -136,6 +143,7 @@ Agent: Created PLAN.md for issue #6763: "InfluxDB 3.9 Release Documentation"
 ```
 
 ### Example 2: Check status
+
 ```
 User: /task-plan status
 
@@ -154,6 +162,7 @@ Agent:
 ```
 
 ### Example 3: Update tasks
+
 ```
 User: /task-plan update
 
@@ -178,7 +187,8 @@ Agent: Updated PLAN.md:
 
 ## Notes
 
-- PLAN.md is ephemeral - delete before merging to main
+- PLAN.md is ephemeral - delete it before merging to the default branch, or
+  promote durable decision context into `docs/exec-plans/`
 - Use `/finish` skill to properly cleanup and merge
 - Tasks use standard markdown checkbox format: `- [ ]` and `- [x]`
 - A startup hook can be configured to auto-inject PLAN.md at session start

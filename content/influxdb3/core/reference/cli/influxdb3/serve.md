@@ -99,6 +99,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--log-destination`                                  | _See [configuration options](/influxdb3/core/reference/config-options/#log-destination)_                                  |
 |                  | `--log-filter`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#log-filter)_                                       |
 |                  | `--log-format`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#log-format)_                                       |
+|                  | `--max-concurrent-queries` | _See [configuration options](/influxdb3/core/reference/config-options/#max-concurrent-queries)_ |
 |                  | `--max-http-request-size`                            | _See [configuration options](/influxdb3/core/reference/config-options/#max-http-request-size)_                            |
 |                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | `--object-store-connection-limit`                    | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-connection-limit)_                    |
@@ -115,6 +116,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/core/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--query-file-limit`                                 | _See [configuration options](/influxdb3/core/reference/config-options/#query-file-limit)_                                 |
 |                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/core/reference/config-options/#query-log-size)_                                   |
+|                  | `--restrict-plugin-triggers-to` | _See [configuration options](/influxdb3/core/reference/config-options/#restrict-plugin-triggers-to)_ |
 |                  | `--retention-check-interval`                         | _See [configuration options](/influxdb3/core/reference/config-options/#retention-check-interval)_                         |
 |                  | `--snapshotted-wal-files-to-keep`                    | _See [configuration options](/influxdb3/core/reference/config-options/#snapshotted-wal-files-to-keep)_                    |
 |                  | `--table-index-cache-concurrency-limit`              | _See [configuration options](/influxdb3/core/reference/config-options/#table-index-cache-concurrency-limit)_              |
@@ -197,13 +199,11 @@ In the examples below, replace
 {{% code-placeholder-key %}}`my-host-01`{{% /code-placeholder-key %}}:
 with a unique string that identifies your {{< product-name >}} server.
 
-{{% code-placeholders "my-host-01" %}}
-
 ### Run the InfluxDB 3 server
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -214,7 +214,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -226,14 +226,12 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01" }
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01
 ```
-
-{{% /code-placeholders %}}
 
 
 ## Troubleshooting

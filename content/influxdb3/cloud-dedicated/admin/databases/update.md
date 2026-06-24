@@ -85,17 +85,13 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
     - _Optional_: Database [column limit](/influxdb3/cloud-dedicated/admin/databases/#column-limit).
       Default is `250`.
 
-{{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|30d|500|200" }
 influxctl database update \
   --retention-period 30d \
   --max-tables 500 \
   --max-columns 250 \
   DATABASE_NAME
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your command:
 
@@ -186,9 +182,7 @@ The retention period value cannot be negative or contain whitespace.
 
 The following example shows how to use the Management API to update a database:
 
-{{% code-placeholders "DATABASE_NAME|2592000000000000|500|250|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-  ```sh
+  ```sh { placeholders="DATABASE_NAME|2592000000000000|500|250|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
   curl \
     --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" \
     --request PATCH \
@@ -201,8 +195,6 @@ The following example shows how to use the Management API to update a database:
       "retentionPeriod": 2592000000000000
     }'
   ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 

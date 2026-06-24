@@ -22,6 +22,7 @@ configurations, monitoring agents, and organizing plugins.
 - [Set up your database](#set-up-your-database)
 - [Configure {{% product-name %}}](#configure-telegraf-controller)
 - [Set up the owner account](#set-up-the-owner-account)
+- [Apply a Telegraf Enterprise license (optional)](#apply-a-telegraf-enterprise-license-optional)
 - [Access {{% product-name %}}](#access-telegraf-controller)
 
 ## System Requirements
@@ -347,6 +348,22 @@ PostgreSQL-compatible server running.
 
 The application will automatically run migrations on first startup.
 
+#### Connect to PostgreSQL over TLS
+
+To encrypt the connection to a PostgreSQL or PostgreSQL-compatible server,
+add the `sslmode` query parameter to the database URL. To verify the server
+certificate, use `sslmode=verify-full` and provide a CA certificate with
+`sslrootcert`:
+
+```sh { callout="sslmode=verify-full|sslrootcert=/etc/ssl/certs/ca.pem" callout-color="orange" }
+./telegraf_controller \
+  --database="postgresql://user:password@db.example.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
+```
+
+For all PostgreSQL TLS options, including supported `sslmode` values and the
+`DATABASE_CA_CERT` and `DATABASE_SSL_NO_VERIFY` environment variables, see
+[Database TLS](/telegraf/controller/reference/config-options/#database-tls).
+
 ## Configure {{% product-name %}}
 
 Use the following command line options to configure {{% product-name %}}.
@@ -359,8 +376,8 @@ Use the following command line options to configure {{% product-name %}}.
 | `--heartbeat-port`          | `HEARTBEAT_PORT`           | Agent heartbeat service port                 | `8000`               |
 | `--database`                | `DATABASE_URL`             | Database connection string                   | Auto-detected SQLite |
 | `--logs-dir`                | `LOGS_DIR`                 | Absolute path for agent logs                 | System temp dir      |
-|                             | `SSL_CERT_PATH`            | SSL certificate file path                    | None                 |
-|                             | `SSL_KEY_PATH`             | SSL private key file path                    | None                 |
+| `--ssl-cert`                | `SSL_CERT_PATH`            | PEM SSL/TLS certificate file (enables HTTPS) | None                 |
+| `--ssl-key`                 | `SSL_KEY_PATH`             | PEM SSL/TLS private key file (enables HTTPS) | None                 |
 | `--owner-email`             | `OWNER_EMAIL`              | Bootstrap owner email address                | None                 |
 | `--owner-username`          | `OWNER_USERNAME`           | Bootstrap owner username                     | None                 |
 | `--owner-password`          | `OWNER_PASSWORD`           | Bootstrap owner password                     | None                 |
@@ -590,7 +607,27 @@ mode, the web interface displays a setup page where you can create one.
 {{< img-hd src="/img/telegraf/controller-setup-owner-account.png" alt="Owner account setup page" />}}
 
 For more information about user roles and permissions, see
-[Authorization](/telegraf/controller/reference/authorization/).
+[Authentication and authorization](/telegraf/controller/reference/authentication-authorization/).
+
+## Apply a Telegraf Enterprise license (optional)
+
+If you have a [Telegraf Enterprise](/telegraf/enterprise/)
+license, you can apply it at startup by setting the `LICENSE_FILE_PATH`
+environment variable to the path of your license file.
+
+```bash
+export LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt
+```
+
+You can also apply a license through the {{% product-name %}} UI after the
+application is running. For full details on both methods, including systemd
+and Docker examples, see
+[Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/).
+
+Without a license, {{% product-name %}} runs in a free tier with reduced
+scale limits and enterprise features disabled. See
+[Telegraf Enterprise](/telegraf/enterprise/) for a
+comparison.
 
 ## Access {{% product-name %}}
 

@@ -95,6 +95,17 @@
         ]
       },
       {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check-bash-worktree.sh",
+            "timeout": 5,
+            "statusMessage": "Checking worktree path safety"
+          }
+        ]
+      },
+      {
         "matcher": "WebFetch|WebSearch",
         "hooks": [
           {
@@ -121,10 +132,31 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ ! -d node_modules ] && CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_DOWNLOAD=1 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn install --frozen-lockfile 2>&1 | tail -3 || true",
+            "command": "bash .claude/hooks/session-start.sh",
+            "timeout": 300,
+            "statusMessage": "Installing dependencies and lint toolchain"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/sync-worktree-deps.sh",
             "timeout": 300,
             "async": true,
-            "statusMessage": "Checking dependencies"
+            "statusMessage": "Syncing worktree dependencies"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/worktree-context.sh",
+            "timeout": 5
           }
         ]
       }
@@ -132,5 +164,8 @@
   },
   "enabledPlugins": {
     "github@claude-plugins-official": true
+  },
+  "worktree": {
+    "symlinkDirectories": ["node_modules", ".cache"]
   }
 }

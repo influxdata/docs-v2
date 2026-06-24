@@ -75,6 +75,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--compaction-gen2-duration`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-gen2-duration)_                         |
 |                  | `--compaction-max-num-files-per-plan`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-max-num-files-per-plan)_                |
 |                  | `--compaction-multipliers`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-multipliers)_                           |
+|                  | `--conn-info` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#conn-info)_ |
 |                  | `--data-dir`                                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#data-dir)_                                         |
 |                  | `--datafusion-config`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#datafusion-config)_                                |
 |                  | `--datafusion-max-parquet-fanout`                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#datafusion-max-parquet-fanout)_                    |
@@ -102,6 +103,10 @@ influxdb3 serve [OPTIONS]
 | `-h`             | `--help`                                             | Print help information                                                                                                          |
 |                  | `--help-all`                                         | Print detailed help information                                                                                                 |
 |                  | `--http-bind`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#http-bind)_                                        |
+|                  | `--jwt-default-ttl-seconds` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#jwt-default-ttl-seconds)_ |
+|                  | `--jwt-issuer` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#jwt-issuer)_ |
+|                  | `--jwt-key-id` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#jwt-key-id)_ |
+|                  | `--jwt-private-key` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#jwt-private-key)_ |
 |                  | `--last-cache-eviction-interval`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#last-cache-eviction-interval)_                     |
 |                  | `--last-value-cache-disable-from-history`            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#last-value-cache-disable-from-history)_            |
 |                  | `--license-email`                                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#license-email)_                                    |
@@ -109,6 +114,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--log-destination`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-destination)_                                  |
 |                  | `--log-filter`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-filter)_                                       |
 |                  | `--log-format`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-format)_                                       |
+|                  | `--max-concurrent-queries` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#max-concurrent-queries)_ |
 |                  | `--max-http-request-size`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#max-http-request-size)_                            |
 |                  | `--mode`                                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#mode)_                                             |
 |                  | `--node-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id)_                                          |
@@ -118,6 +124,10 @@ influxdb3 serve [OPTIONS]
 |                  | `--num-database-limit`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-database-limit)_                               |
 |                  | `--num-table-limit`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-table-limit)_                                  |
 |                  | `--num-total-columns-per-table-limit`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit)_                |
+|                  | `--oauth-audience` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#oauth-audience)_ |
+|                  | `--oauth-client-id` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#oauth-client-id)_ |
+|                  | `--oauth-issuer` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#oauth-issuer)_ |
+|                  | `--oauth-scopes` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#oauth-scopes)_ |
 |                  | `--object-store`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store)_                                     |
 |                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | `--object-store-connection-limit`                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-connection-limit)_                    |
@@ -132,10 +142,13 @@ influxdb3 serve [OPTIONS]
 |                  | `--parquet-mem-cache-size`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#parquet-mem-cache-size)_                           |
 |                  | `--permission-tokens-file`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#permission-tokens-file)_                           |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir)_                                       |
+|                  | `--plugin-dir-only` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir-only)_ |
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--query-file-limit`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-file-limit)_                                 |
 |                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-log-size)_                                   |
+|                  | `--rbac-authoring-disabled` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#rbac-authoring-disabled)_ |
 |                  | `--replication-interval`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#replication-interval)_                             |
+|                  | `--restrict-plugin-triggers-to` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#restrict-plugin-triggers-to)_ |
 |                  | `--retention-check-interval`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#retention-check-interval)_                         |
 |                  | `--snapshotted-wal-files-to-keep`                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#snapshotted-wal-files-to-keep)_                    |
 |                  | `--table-index-cache-concurrency-limit`              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#table-index-cache-concurrency-limit)_              |
@@ -164,6 +177,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--wal-replay-fail-on-error`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-replay-fail-on-error)_                         |
 |                  | `--wal-snapshot-size`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-snapshot-size)_                                |
 |                  | `--without-auth`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#without-auth)_                                     |
+|                  | `--without-user-auth` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#without-user-auth)_ |
 
 ### Option environment variables
 
@@ -227,13 +241,11 @@ a unique string that identifies your {{< product-name >}} server.
 a unique string that identifies your {{< product-name >}} cluster.
 The value you use must be different from `--node-id` values in the cluster.
 
-{{% code-placeholders "my-host-01|my-cluster-01" %}}
-
 ### Run the InfluxDB 3 server
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -245,7 +257,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -259,7 +271,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -272,7 +284,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -285,15 +297,13 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01 \
   --cluster-id my-cluster-01
 ```
-
-{{% /code-placeholders %}}
 
 
 ## Troubleshooting

@@ -52,13 +52,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`FILENAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
-{{% code-placeholders "(DATABASE|PLUGIN_DIR|FILENAME|AUTH_TOKEN)" %}}
-
 ### Test a schedule plugin
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN_DIR|FILENAME|AUTH_TOKEN)" }
 influxdb3 test schedule_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -71,7 +69,7 @@ You can pass input arguments to your plugin as key-value pairs and specify a cus
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN_DIR|FILENAME|AUTH_TOKEN)" }
 influxdb3 test schedule_plugin \
   --host http://localhost:8182 \
   --database DATABASE_NAME \
@@ -82,5 +80,3 @@ influxdb3 test schedule_plugin \
 ```
 - Pass plugin parameters using `--input-arguments` as comma-separated key=value pairs.
 - Use `--schedule` to set the plugin’s execution time with a Quartz cron expression. For example, "0 0 * * * ?" runs the plugin at the start of every hour.
-
-{{% /code-placeholders %}}

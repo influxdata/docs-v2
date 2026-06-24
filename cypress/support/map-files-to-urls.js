@@ -8,6 +8,7 @@ import {
   findPagesReferencingSharedContent,
   categorizeContentFiles,
 } from '../../scripts/lib/content-utils.js';
+import { MATTER_OPTIONS } from '../../scripts/lib/file-operations.js';
 
 // Get file paths from command line arguments
 const filePaths = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
@@ -28,7 +29,7 @@ function extractSourceFromFile(filePath) {
   try {
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf8');
-      const { data } = matter(fileContent);
+      const { data } = matter(fileContent, MATTER_OPTIONS);
 
       // If source is specified in frontmatter, return it
       if (data.source) {

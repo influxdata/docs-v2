@@ -228,6 +228,44 @@
       background: $article-bg;
     }
 
+    a.alt-color {
+      text-decoration: none;
+      color: $article-link;
+      font-weight: $medium;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        height: 2px;
+        width: 0%;
+        @include gradient($grad-blue-light);
+        transition: width .2s;
+      }
+
+      &::after {
+        content: "\e90a";
+        font-family: 'icomoon-v4';
+        font-weight: bold;
+        font-size: 1.3rem;
+        display: inline-block;
+        position: absolute;
+        @include gradient($grad-blue-light);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        right: 0;
+        transform: translateX(.25rem);
+        opacity: 0;
+        transition: transform .2s, opacity .2s;
+      }
+
+      &:hover {
+        &::before {width: 100%;}
+        &::after {transform: translateX(1.5rem); opacity: 1;}
+      }
+    }
+
     .categories {
       display: flex;
       flex-direction: row;

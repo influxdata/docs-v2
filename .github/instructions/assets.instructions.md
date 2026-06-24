@@ -2,9 +2,15 @@
 applyTo: "assets/js/**/*.js, assets/js/**/*.ts"
 ---
 
+<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
+
+<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
+
 # JavaScript and TypeScript Guidelines
 
-**For detailed TypeScript and Hugo asset pipeline guidance**, see [.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md) which covers:
+**For detailed TypeScript and Hugo asset pipeline guidance**, see
+[.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
+which covers:
 
 - TypeScript migration strategies
 - Hugo asset pipeline integration
@@ -73,9 +79,12 @@ Debug with: VS Code "Debug JS (debug-helpers)" configuration
 - Use interfaces for complex objects
 - Enable `checkJs: false` for gradual migration
 
-For complete JavaScript documentation, see [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui).
+For complete JavaScript documentation, see
+[DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui).
 
 ## Related Resources
 
-- **TypeScript & Hugo development**: [.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
-- **Contributing guidelines**: [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui)
+- **TypeScript & Hugo development**:
+  [.github/agents/typescript-hugo-agent.md](../agents/typescript-hugo-agent.md)
+- **Contributing guidelines**:
+  [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md#javascript-in-the-documentation-ui)

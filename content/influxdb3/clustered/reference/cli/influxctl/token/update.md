@@ -65,45 +65,37 @@ In the examples below, replace the following:
 
 ### Update a token's permissions
 
-{{% code-placeholders "DATABASE_NAME|TOKEN_ID" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|TOKEN_ID" }
 influxctl token update \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
   TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 ### Update a token with read and write access to all databases
 
-{{% code-placeholders "TOKEN_ID" %}}
-```sh
+```sh { placeholders="TOKEN_ID" }
 influxctl token update \
   --read-database "*" \
   --write-database "*" \
   TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 ### Update a token with read-only access to multiple databases
 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME|TOKEN_ID" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE2_NAME|TOKEN_ID" }
 influxctl token update \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
   TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 ### Update a token with mixed permissions to multiple databases
 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME|TOKEN_ID" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE2_NAME|TOKEN_ID" }
 influxctl token update \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
   --write-database DATABASE2_NAME \
   TOKEN_ID
 ```
-{{% /code-placeholders %}}
