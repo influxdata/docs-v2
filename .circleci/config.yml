@@ -69,7 +69,20 @@ jobs:
             - scripts/rust-markdown-converter/target
       - run:
           name: Hugo Build
-          command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
+          command: |
+            set -o pipefail
+            yarn hugo --environment production --logLevel info --gc --destination workspace/public 2>&1 | tee /tmp/hugo-build.log
+
+            echo "Hugo root outputs:"
+            find workspace/public -maxdepth 1 -type f -print | sort
+
+            if ! grep -q "outputFormat sitemapmd" /tmp/hugo-build.log; then
+              echo "WARNING: Hugo log did not include sitemapmd render phase."
+            fi
+
+            if ! grep -q "step postProcess" /tmp/hugo-build.log; then
+              echo "WARNING: Hugo log did not include postProcess phase."
+            fi
       - run:
           name: Verify deployable Hugo output
           # Deploy safety should be based on HTML output, not optional
