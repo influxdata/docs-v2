@@ -71,6 +71,14 @@ jobs:
           name: Hugo Build
           command: |
             set -o pipefail
+            yarn hugo config --environment production > /tmp/hugo-config.toml
+
+            echo "Hugo output config:"
+            grep -A8 -E '^\[outputformats\.(llmstxt|sitemapmd)\]|^\[outputs\]' /tmp/hugo-config.toml || true
+
+            echo "Hugo custom output templates:"
+            ls -l layouts/index.llmstxt.txt layouts/index.sitemapmd.xml || true
+
             yarn hugo --environment production --logLevel info --gc --destination workspace/public 2>&1 | tee /tmp/hugo-build.log
 
             echo "Hugo root outputs:"
