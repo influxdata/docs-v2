@@ -10,7 +10,7 @@ menu:
 weight: 103
 related:
   - /telegraf/controller/reference/config-options/
-  - /telegraf/controller/reference/authorization/
+  - /telegraf/controller/reference/authentication-authorization/
 ---
 
 Owners and administrators can reset passwords and change roles for other users in {{% product-name %}}.

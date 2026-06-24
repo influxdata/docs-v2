@@ -2,11 +2,16 @@
 applyTo: "api-docs/**/*.md, api-docs/**/*.yml, api-docs/**/*.yaml"
 ---
 
+<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
+
+<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
+
 # InfluxDB API Documentation
 
 **Complete guide**: [api-docs/README.md](../../api-docs/README.md)
 
-API documentation uses OpenAPI specifications processed by a build pipeline, not Hugo shortcodes.
+API documentation uses OpenAPI specifications processed by a build pipeline, not
+Hugo shortcodes.
 
 ## Workflow
 
@@ -32,9 +37,10 @@ API documentation uses OpenAPI specifications processed by a build pipeline, not
 ## Writing tag content
 
 Each product has a colocated `tags.yml` that configures tag descriptions and
-related links. See [How to add tag content](../../api-docs/README.md#how-to-add-tag-content-or-describe-a-group-of-paths)
-in the API docs README for the full format reference, field descriptions,
-tag categories, and cross-product consistency guidelines.
+related links.
+See [How to add tag content](../../api-docs/README.md#how-to-add-tag-content-or-describe-a-group-of-paths)
+in the API docs README for the full format reference, field descriptions, tag
+categories, and cross-product consistency guidelines.
 
 ## Build pipeline
 
@@ -48,6 +54,8 @@ generate-openapi-articles.ts → generate Hugo pages + copy specs to static/open
 
 - **@redocly/cli**: Lints, bundles, and resolves `$ref`s in multi-file specs
 - **post-process-specs.ts**: Applies content overlays and tag configs
-- **generate-openapi-articles.ts**: Generates Hugo content pages and static spec downloads
+- **generate-openapi-articles.ts**: Generates Hugo content pages and static spec
+  downloads
 
-For complete documentation workflow, see [api-docs/README.md](../../api-docs/README.md).
+For complete documentation workflow, see
+[api-docs/README.md](../../api-docs/README.md).

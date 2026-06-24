@@ -71,6 +71,36 @@ jobs:
           name: Hugo Build
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
       - run:
+          name: Verify Hugo build completeness
+          # A complete production build always emits sitemap-md.xml (a home
+          # output rendered last) and ~5800 index.html files. A missing
+          # sitemap-md.xml or a low page count means Hugo produced a partial
+          # public/. Deploying that lets s3deploy prune the absent pages from
+          # S3 (default -max-delete=256) and 404 live docs. Fail HERE to abort
+          # the job before persist_to_workspace/deploy. This makes explicit the
+          # gate that build:llms-full's hard-failure used to provide by accident.
+          command: |
+            PUBLIC_DIR=workspace/public
+            MIN_PAGES=5000
+            FAIL=0
+            if [ ! -f "$PUBLIC_DIR/sitemap-md.xml" ]; then
+              echo "ERROR: $PUBLIC_DIR/sitemap-md.xml missing — Hugo build incomplete."
+              FAIL=1
+            fi
+            PAGES=$(find "$PUBLIC_DIR" -name index.html | wc -l | tr -d ' ')
+            echo "Rendered index.html pages: $PAGES (floor: $MIN_PAGES)"
+            if [ "$PAGES" -lt "$MIN_PAGES" ]; then
+              echo "ERROR: page count $PAGES below floor $MIN_PAGES — build incomplete."
+              FAIL=1
+            fi
+            if [ "$FAIL" -ne 0 ]; then
+              echo "Refusing to continue: a partial deploy would delete live pages."
+              echo "Re-run the build (clear the CircleCI cache). If it recurs,"
+              echo "investigate the Hugo Build step (OOM/errors) before deploying."
+              exit 1
+            fi
+            echo "Build completeness OK."
+      - run:
           name: Generate LLM-friendly Markdown
           command: |
             if [ "$CIRCLE_BRANCH" = "master" ]; then

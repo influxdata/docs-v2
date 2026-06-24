@@ -29,13 +29,14 @@ Identify products by their product path. Dictionary schema:
 {{ $influxdb3Clustered := dict "influxdb3/clustered" (slice $.Site.Data.products.influxdb3_clustered.name "clustered") }}
 {{ $telegraf := dict "telegraf/v1" (slice "Telegraf" "telegraf") }}
 {{ $telegrafController := dict "telegraf/controller" (slice "Telegraf Controller" "telegraf_controller") }}
+{{ $telegrafEnterprise := dict "telegraf/enterprise" (slice "Telegraf Enterprise" "telegraf_enterprise") }}
 {{ $chronograf := dict "chronograf/v1" (slice "Chronograf" "chronograf") }}
 {{ $kapacitor := dict "kapacitor/v1" (slice "Kapacitor" "kapacitor") }}
 {{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
 {{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 {{ $influxdbCloud1 := dict "influxcloud/v1" (slice $.Site.Data.products.influxdb_cloud1.name "v1") }}
 
-{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3Cloud $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb $influxdbCloud1 }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3Cloud $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $telegrafEnterprise $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb $influxdbCloud1 }}
 
 {{ define "productLink" }}
   {{ $specialLink := "" }}
@@ -96,7 +97,8 @@ Identify products by their product path. Dictionary schema:
       <div class="group-title"><p>Telegraf</p></div>
       <ul class="item-list products">
         <li>{{ template "productLink" (merge (dict "productPath" "telegraf/v1") $templateDefaults) }}</li>
-        <li>{{ template "productLink" (merge (dict "productPath" "telegraf/controller" "state" "beta") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "telegraf/controller" "state" "New") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "telegraf/enterprise" "state" "New") $templateDefaults) }}</li>
       </ul>
     </div>
     <div class="product-group">
@@ -108,4 +110,3 @@ Identify products by their product path. Dictionary schema:
     </div>
   </div>
 </div>
-

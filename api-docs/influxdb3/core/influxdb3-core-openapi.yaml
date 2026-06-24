@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-core-openapi.yaml)
-  version: v3.8.0
+  version: v3.10.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,8 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:1259b96096eab6c8dbf3f76c974924f124e9b3e08eedc6b0c9a66d3108857c52
+  x-source-hash: sha256:59e0d108505b9909361470ccdd95015b6ea1bffcf2c5a9892e7217eabff5b994
+  x-influxdata-download-url: /openapi/influxdb3-core-openapi.yaml
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Core API URL
@@ -305,7 +306,6 @@ paths:
   /api/v2/write:
     post:
       operationId: PostV2Write
-      x-compatibility-version: v2
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -495,6 +495,12 @@ paths:
         - Database
     post:
       operationId: PostConfigureDatabase
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDatabaseRequest"
       responses:
         "200":
           description: Success. Database created.
@@ -506,16 +512,10 @@ paths:
           description: Database already exists.
       summary: Create a database
       description: Creates a new database in the system.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateDatabaseRequest"
       tags:
         - Database
     put:
-      operationId: update_database
+      operationId: PutConfigureDatabase
       responses:
         "200":
           description: Success. The database has been updated.
@@ -556,6 +556,13 @@ paths:
   /api/v3/configure/distinct_cache:
     delete:
       operationId: DeleteConfigureDistinctCache
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: DistinctCacheDeleteRequest
       responses:
         "200":
           description: Success. The distinct cache has been deleted.
@@ -612,6 +619,13 @@ paths:
   /api/v3/configure/last_cache:
     delete:
       operationId: DeleteConfigureLastCache
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: LastCacheDeleteRequest
       responses:
         "200":
           description: Success. The last cache has been deleted.
@@ -642,6 +656,12 @@ paths:
         - Table
     post:
       operationId: PostConfigureLastCache
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LastCacheCreateRequest"
       responses:
         "201":
           description: Success. Last cache created.
@@ -653,12 +673,6 @@ paths:
           description: Cache not found.
       summary: Create last cache
       description: Creates a last cache for a table.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/LastCacheCreateRequest"
       tags:
         - Cache data
         - Table
@@ -1045,6 +1059,12 @@ paths:
         - Table
     post:
       operationId: PostConfigureTable
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTableRequest"
       responses:
         "200":
           description: Success. The table has been created.
@@ -1056,12 +1076,6 @@ paths:
           description: Database not found.
       summary: Create a table
       description: Creates a new table within a database.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateTableRequest"
       tags:
         - Table
   /api/v3/configure/token:
@@ -1147,9 +1161,6 @@ paths:
       description: |
         Creates a named admin token.
         A named admin token is a special type of admin token with a custom name for identification and management.
-      tags:
-        - Authentication
-        - Token
       requestBody:
         required: true
         content:
@@ -1166,6 +1177,9 @@ paths:
                   nullable: true
               required:
                 - token_name
+      tags:
+        - Authentication
+        - Token
   /api/v3/engine/{request_path}:
     get:
       operationId: GetProcessingEnginePluginRequest
@@ -1341,13 +1355,7 @@ paths:
       x-security-note: Requires an admin token
   /api/v3/plugins/files:
     post:
-      operationId: create_plugin_file
-      summary: Create a plugin file
-      description: |
-        Creates a single plugin file in the plugin directory. Writes the
-        `content` to a file named after `plugin_name`. Does not require an
-        existing trigger—use this to upload plugin files before creating
-        triggers that reference them.
+      operationId: PostPluginsFiles
       requestBody:
         required: true
         content:
@@ -1361,21 +1369,17 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "403":
           description: Forbidden. Admin token required.
+      summary: Create a plugin file
+      description: |
+        Creates a single plugin file in the plugin directory. Writes the
+        `content` to a file named after `plugin_name`. Does not require an
+        existing trigger—use this to upload plugin files before creating
+        triggers that reference them.
       tags:
         - Processing engine
       x-security-note: Requires an admin token
     put:
       operationId: PutPluginFile
-      summary: Update a plugin file
-      description: |
-        Updates a single plugin file for an existing trigger. The
-        `plugin_name` must match a registered trigger name—the server
-        resolves the trigger's `plugin_filename` and overwrites that file
-        with the provided `content`.
-
-        To upload a new plugin file before creating a trigger, use
-        `POST /api/v3/plugins/files` instead. To update a multi-file
-        plugin directory, use `PUT /api/v3/plugins/directory`.
       requestBody:
         required: true
         content:
@@ -1391,42 +1395,22 @@ paths:
           description: Forbidden. Admin token required.
         "500":
           description: Plugin not found. The `plugin_name` does not match any registered trigger.
+      summary: Update a plugin file
+      description: |
+        Updates a single plugin file for an existing trigger. The
+        `plugin_name` must match a registered trigger name—the server
+        resolves the trigger's `plugin_filename` and overwrites that file
+        with the provided `content`.
+
+        To upload a new plugin file before creating a trigger, use
+        `POST /api/v3/plugins/files` instead. To update a multi-file
+        plugin directory, use `PUT /api/v3/plugins/directory`.
       tags:
         - Processing engine
       x-security-note: Requires an admin token
   /api/v3/query_influxql:
     get:
       operationId: GetExecuteInfluxQLQuery
-      responses:
-        "200":
-          description: Success. The response body contains query results.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/QueryResponse"
-            text/csv:
-              schema:
-                type: string
-            application/vnd.apache.parquet:
-              schema:
-                type: string
-            application/jsonl:
-              schema:
-                type: string
-        "400":
-          description: Bad request.
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          description: Access denied.
-        "404":
-          description: Database not found.
-        "405":
-          description: Method not allowed.
-        "422":
-          description: Unprocessable entity.
-      summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
       parameters:
         - $ref: "#/components/parameters/dbQueryParam"
         - name: q
@@ -1447,10 +1431,13 @@ paths:
             type: string
             description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
           description: JSON-encoded query parameters for parameterized queries.
-      tags:
-        - Query data
-    post:
-      operationId: PostExecuteQueryInfluxQL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1480,17 +1467,73 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+      tags:
+        - Query data
+    post:
+      operationId: PostExecuteQueryInfluxQL
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
       requestBody:
         $ref: "#/components/requestBodies/queryRequestBody"
+      responses:
+        "200":
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        "400":
+          description: Bad request.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Access denied.
+        "404":
+          description: Database not found.
+        "405":
+          description: Method not allowed.
+        "422":
+          description: Unprocessable entity.
+      summary: Execute InfluxQL query
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
       tags:
         - Query data
   /api/v3/query_sql:
     get:
       operationId: GetExecuteQuerySQL
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - $ref: "#/components/parameters/querySqlParam"
+        - $ref: "#/components/parameters/format"
+        - $ref: "#/components/parameters/AcceptQueryHeader"
+        - $ref: "#/components/parameters/ContentType"
+        - name: params
+          in: query
+          required: false
+          schema:
+            type: string
+            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
+          description: JSON-encoded query parameters for parameterized queries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1530,24 +1573,17 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
-      parameters:
-        - $ref: "#/components/parameters/db"
-        - $ref: "#/components/parameters/querySqlParam"
-        - $ref: "#/components/parameters/format"
-        - $ref: "#/components/parameters/AcceptQueryHeader"
-        - $ref: "#/components/parameters/ContentType"
-        - name: params
-          in: query
-          required: false
-          schema:
-            type: string
-            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
-          description: JSON-encoded query parameters for parameterized queries.
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
       tags:
         - Query data
     post:
       operationId: PostExecuteQuerySQL
+      parameters:
+        - $ref: "#/components/parameters/AcceptQueryHeader"
+        - $ref: "#/components/parameters/ContentType"
+      requestBody:
+        $ref: "#/components/requestBodies/queryRequestBody"
       responses:
         "200":
           description: Success. The response body contains query results.
@@ -1577,46 +1613,34 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
-      parameters:
-        - $ref: "#/components/parameters/AcceptQueryHeader"
-        - $ref: "#/components/parameters/ContentType"
-      requestBody:
-        $ref: "#/components/requestBodies/queryRequestBody"
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
       tags:
         - Query data
   /api/v3/write_lp:
     post:
       operationId: PostWriteLP
       parameters:
-        - $ref: "#/components/parameters/dbWriteParam"
-        - $ref: "#/components/parameters/accept_partial"
-        - $ref: "#/components/parameters/precisionParam"
-        - name: no_sync
+        - name: db
           in: query
-          schema:
-            $ref: "#/components/schemas/NoSync"
-        - name: Content-Type
-          in: header
-          description: |
-            The content type of the request payload.
-          schema:
-            $ref: "#/components/schemas/LineProtocol"
-          required: false
-        - name: Accept
-          in: header
-          description: |
-            The content type that the client can understand.
-            Writes only return a response body if they fail (partially or completely)--for example,
-            due to a syntax problem or type mismatch.
+          required: true
           schema:
             type: string
-            default: application/json
-            enum:
-              - application/json
+        - name: precision
+          in: query
           required: false
-        - $ref: "#/components/parameters/ContentEncoding"
-        - $ref: "#/components/parameters/ContentLength"
+          schema:
+            type: string
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -1634,51 +1658,35 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Write line protocol
-      description: >
-        Writes line protocol to the specified database.
+      description: |
+        Writes line protocol data to the specified database.
 
-
-        This is the native InfluxDB 3 Core write endpoint that provides enhanced control
-
-        over write behavior with advanced parameters for high-performance and fault-tolerant operations.
-
-
-        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to
-        InfluxDB.
-
-        Use query parameters to specify options for writing data.
-
+        Use this endpoint to send data in
+        [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format
+        to InfluxDB. Use query parameters to specify options for writing data.
 
         #### Features
 
-
-        - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
-
-        - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
-        times but sacrificing durability guarantees
-
-        - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
-
+        - **Partial writes**: Use `accept_partial=true` to allow partial success when
+          some lines in a batch fail
+        - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL
+          synchronization, allowing faster response times but sacrificing durability
+          guarantees
+        - **Flexible precision**: Automatic timestamp precision detection with
+          `precision=auto` (default)
 
         #### Auto precision detection
 
+        When you use `precision=auto` or omit the precision parameter, InfluxDB 3
+        automatically detects the timestamp precision based on the magnitude of the
+        timestamp value:
 
-        When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
-
-        the timestamp precision based on the magnitude of the timestamp value:
-
-
-        - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
-
+        - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000)
         - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
-
         - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
-
         - Larger timestamps → Nanosecond precision (no conversion needed)
 
-
         #### Related
-
 
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/core/write-data/http-api/v3-write-lp/)
       requestBody:
@@ -1793,7 +1801,6 @@ paths:
           description: |
             Not Found. Returned for HEAD requests.
             Use a GET request to retrieve version information.
-      x-client-method: ping
       summary: Ping the server
       description: |
         Returns version information for the server.
@@ -1854,7 +1861,6 @@ paths:
   /query:
     get:
       operationId: GetV1ExecuteQuery
-      x-compatibility-version: v1
       responses:
         "200":
           description: |
@@ -2000,7 +2006,6 @@ paths:
         - Compatibility endpoints
     post:
       operationId: PostExecuteV1Query
-      x-compatibility-version: v1
       responses:
         "200":
           description: |
@@ -2200,7 +2205,6 @@ paths:
   /write:
     post:
       operationId: PostV1Write
-      x-compatibility-version: v1
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -2556,16 +2560,6 @@ components:
       description: |-
         The format of data in the response body.
         `json_lines` is the canonical name; `jsonl` is accepted as an alias.
-    NoSync:
-      type: boolean
-      default: false
-      description: |
-        Acknowledges a successful write without waiting for WAL persistence.
-
-        #### Related
-
-        - [Use the HTTP API and client libraries to write data](/influxdb3/core/write-data/api-client-libraries/)
-        - [Data durability](/influxdb3/core/reference/internals/durability/)
     PrecisionWriteCompatibility:
       enum:
         - ms
@@ -3129,8 +3123,8 @@ components:
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
 
 
-        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints
-        in InfluxDB 3.
+        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1ExecuteQuery)
+        endpoints in InfluxDB 3.
 
 
         When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an
@@ -3176,7 +3170,7 @@ components:
 
 
         Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and
-        [`/query`](#operation/GetV1Query) endpoints.
+        [`/query`](#operation/GetV1ExecuteQuery) endpoints.
 
 
         When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token

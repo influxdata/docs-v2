@@ -22,16 +22,21 @@ immediately active.
 
 1. Navigate to the **Users** page.
 2. Click the {{% icon "plus" %}} **Invite User** button.
-3. Enter a **Username** for the new user (3--50 characters).
-4. Enter the user's **Email** address.
-5. Select a **Role** for the new user:
+3. Select an **Authentication provider** for the new user. The selector
+   appears only when more than one provider is enabled. Default is
+   **Local**. See
+   [Invite an external provider user](#invite-an-external-provider-user)
+   for the LDAP and OIDC flows.
+4. Enter a **Username** for the new user (3--50 characters).
+5. Enter the user's **Email** address.
+6. Select a **Role** for the new user:
    - **Administrator** -- full access to all resources and user management.
    - **Manager** -- can manage configurations, agents, and labels but cannot
      manage users.
    - **Viewer** -- read-only access to all resources.
-6. Set the invite **Expiration** in hours. The default is 72 hours. Valid
+7. Set the invite **Expiration** in hours. The default is 72 hours. Valid
    values range from 1 to 720 hours (30 days).
-7. Click **Create Invite**.
+8. Click **Create Invite**.
 
 {{< img-hd src="/img/telegraf/controller-invite-user.png" alt="Telegraf Controller invite user form" />}}
 
@@ -39,6 +44,24 @@ immediately active.
 > You cannot invite a user with the **Owner** role. To make someone the owner,
 > first invite them as an **Administrator**, then
 > [transfer ownership](/telegraf/controller/users/transfer-ownership/).
+
+## Invite an external provider user
+
+When LDAP or OIDC authentication is enabled, you can pre-authorize an
+external user by selecting their provider in the **Authentication
+provider** dropdown when creating the invite.
+
+- The invite matches on **email + provider**. The user must sign in
+  through the selected provider with an email that matches the invite.
+- LDAP and OIDC invites do not require a password step; the external
+  provider authenticates the user.
+- Use invites when the provider's
+  [provisioning strategy](/telegraf/controller/authentication/#provisioning-strategies)
+  is `invite_only`, or when you want to pre-assign a role that overrides
+  the provider's default role.
+
+For provider setup, see
+[Authentication](/telegraf/controller/authentication/).
 
 ## Share the invite link
 
@@ -51,7 +74,9 @@ no longer be used and you must create a new invite.
 
 ## Accept an invite
 
-The invited user completes the following steps to activate their account:
+### Accept a local invite
+
+The invited user completes the following steps to activate a local account:
 
 1. Open the invite link in a browser.
 2. Set a password that meets the configured complexity requirements.
@@ -59,6 +84,18 @@ The invited user completes the following steps to activate their account:
 
 The account activates immediately and the user is automatically logged in with
 the role assigned during the invite.
+
+### Accept an LDAP or OIDC invite
+
+When the invite is tied to LDAP or OIDC, the invited user signs in through
+their identity provider instead of choosing a password:
+
+1. Open the invite link in a browser.
+2. Click the **LDAP** or **Sign in with `<display-name>`** button.
+3. Complete the provider's sign-in flow.
+
+The account activates the first time the user signs in successfully with
+an email address that matches the invite.
 
 ## Manage pending invites
 
