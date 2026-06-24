@@ -996,9 +996,9 @@ Enterprise license to take effect.
 
 **Default:** `false`
 
-| Command flag      | Environment variable |
-| :---------------- | :------------------- |
-| `--audit-enabled` | `AUDIT_ENABLED`      |
+| Command flag      | Environment variable    |
+| :---------------- | :---------------------- |
+| `--audit-enabled` | `AUDIT_LOGGING_ENABLED` |
 
 ---
 
