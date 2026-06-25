@@ -1,10 +1,10 @@
 
 Use the [`influxdb3 show databases` command](/influxdb3/version/reference/cli/influxdb3/show/databases/),
-the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint, or [InfluxDB 3 Explorer](/influxdb3/explorer/) to list databases in {{< product-name >}}.
+the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint{{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}} to list databases in {{< product-name >}}.
 
 - [List databases using the influxdb3 CLI](#list-databases-using-the-influxdb3-cli)
 - [List databases using the HTTP API](#list-databases-using-the-http-api)
-- [List databases using InfluxDB 3 Explorer](#list-databases-using-influxdb-3-explorer)
+{{% hide-in "cloud" %}}- [List databases using InfluxDB 3 Explorer](#list-databases-using-influxdb-3-explorer){{% /hide-in %}}
 
 ## List databases using the influxdb3 CLI
 
@@ -213,6 +213,7 @@ The response contains the databases list.
 
 A successful request returns HTTP status `200`.
 
+{{% hide-in "cloud" %}}
 ## List databases using InfluxDB 3 Explorer
 
 You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface:
@@ -226,3 +227,4 @@ You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explo
    - Creation date
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
+{{% /hide-in %}}

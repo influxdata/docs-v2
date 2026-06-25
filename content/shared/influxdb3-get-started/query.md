@@ -21,10 +21,12 @@ the [update on InfluxDB 3 Core’s 72-hour limitation](https://www.influxdata.co
 - [SQL vs InfluxQL](#sql-vs-influxql)
   - [SQL](#sql)
   - [InfluxQL](#influxql)
+{{% hide-in "cloud" %}}
 - [Optimize queries](#optimize-queries)
   - [Last values cache](#last-values-cache)
   - [Distinct values cache](#distinct-values-cache)
  {{% show-in "enterprise" %}}- [File indexes](#file-indexes){{% /show-in %}}
+{{% /hide-in %}}
 
 <!-- /TOC -->
 
@@ -313,7 +315,7 @@ curl -G "{{< influxdb/host-url >}}/api/v3/query_sql" \
 Replace the following placeholders with your values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission to query the specified database{{% /show-in %}}
 
 ##### Example: Query passing JSON parameters
 
@@ -327,7 +329,7 @@ curl {{< influxdb/host-url >}}/api/v3/query_sql \
 Replace the following placeholders with your values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission to query the specified database{{% /show-in %}}
 
 {{% /expand %}}
 
@@ -359,7 +361,7 @@ client = InfluxDBClient3(
 Replace the following placeholders with your values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query 
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission to query the specified database{{% /show-in %}}
 
 The following example shows how to query using SQL, and then
 use PyArrow to explore the schema and process results.
@@ -401,6 +403,7 @@ in GitHub.
 
 {{% /expand %}}
 
+{{% hide-in "cloud" %}}
 {{% expand "Query using InfluxDB 3 Explorer" %}}
 
 #### Query using InfluxDB 3 Explorer
@@ -411,6 +414,7 @@ For more information, see how to [install InfluxDB 3 Explorer](/influxdb3/explor
 using Docker and get started querying your data.
 
 {{% /expand %}}
+{{% /hide-in %}}
 {{< /expand-wrapper >}}
 
 ## SQL vs InfluxQL
@@ -445,6 +449,7 @@ InfluxQL and the established InfluxQL-related APIs you have been using.
 - [InfluxQL reference](/influxdb3/version/reference/influxql/)
 - [InfluxQL feature support](/influxdb3/version/reference/influxql/feature-support/)
 
+{{% hide-in "cloud" %}}
 ## Optimize queries
 
 {{% product-name %}} provides the following optimization options to improve
@@ -484,10 +489,20 @@ or specific tables. For more information, see
 [Manage file indexes](/influxdb3/enterprise/admin/file-index/).
 
 {{% /show-in %}}
+{{% /hide-in %}}
 
+{{% hide-in "cloud" %}}
 {{% page-nav
   prev="/influxdb3/version/get-started/write/"
   prevText="Write data"
   next="/influxdb3/version/get-started/process/"
   nextText="Processing engine"
 %}}
+{{% /hide-in %}}
+
+{{% show-in "cloud" %}}
+{{% page-nav
+  prev="/influxdb3/version/get-started/write/"
+  prevText="Write data"
+%}}
+{{% /show-in %}}
