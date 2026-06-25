@@ -76,7 +76,7 @@ Audit logging is part of [Telegraf Enterprise](/telegraf/enterprise/)
 and is unavailable in the free tier.
 With a valid license:
 
-- Audit logging is **enabled at startup only** by setting `AUDIT_ENABLED`.
+- Audit logging is **enabled at startup only** by setting `AUDIT_LOGGING_ENABLED`.
   See [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
 - Only the retention period is modifiable at runtime, from the **Settings**
   page.
