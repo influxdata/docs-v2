@@ -20,6 +20,18 @@ software and apply to a single cluster. Licenses are primarily based on the
 number of CPUs InfluxDB can use, but there are other limitations depending on
 the license type.
 
+> [!Note]
+> #### License storage portability in v3.10 and later
+>
+> Starting in **v3.10**, {{% product-name %}} licenses are no longer tied to a
+> specific cluster's storage location.
+> You can copy a license file to a new cluster and reuse it without contacting
+> InfluxData.
+> Licenses are still required--per-cluster CPU core limits and license
+> expiration continue to apply.
+> This change applies to Commercial, Trial, and At-Home licenses and isn't
+> backwards compatible with versions earlier than v3.10.
+
 - [License feature comparison](#license-feature-comparison)
 - [CPU limit](#cpu-limit)
   - [CPU accounting](#cpu-accounting)
