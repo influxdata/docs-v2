@@ -10,7 +10,7 @@ weight: 201
 list_code_example: |
   <!--pytest.mark.skip-->
 
-  ```sh{placeholders="DATABASE_NAME"}
+  ```sh{placeholders="DATABASE_NAME|AUTH_TOKEN"}
 
   # influxdb3 CLI
   influxdb3 create database \
