@@ -102,7 +102,7 @@ but the process of activating the license depends on the license type:
 1. Use the [`influxdb3 serve` command](/influxdb3/enterprise/reference/cli/influxdb3/serve/) to start the server.
    If the server doesn't find a license file or email address, the server prompts you
    to enter your email address.
-   If you're [activating an InfluxDB trial or home license with Docker](#activate-a-trial-or-home-license-with-docker) or [with DEB/RPM installs](#activate-a-trial-or-home-license-with-linux-packaging), include options to [skip the email prompt](#skip-the-email-prompt).
+   If you're [activating an InfluxDB trial or home license with Docker](?t=Docker+Compose#start-the-server-with-your-license-email) or [with DEB/RPM installs](?t=DEB%2FRPM+%28TOML%29#start-the-server-with-your-license-email), include options to [skip the email prompt](#skip-the-email-prompt).
 2. The server prompts you to select a license type. Select `trial` or `home`.
 3. In the verification email from {{% product-name %}},
    click the button to verify your email address.
@@ -121,8 +121,8 @@ The license file is a JWT file that contains the license information.
 > This ensures that the server can generate the license file after you
 > verify your email address. See the following examples:
 >
-> - [Docker Compose example](?t=Docker+compose#start-with-license-email-and-compose)
-> - [DEB and RPM TOML configuration](?t=DEB+and+RPM+TOML#start-with-license-email-and-toml)
+> - [Docker Compose example](?t=Docker+Compose#start-the-server-with-your-license-email)
+> - [DEB and RPM TOML configuration](?t=DEB%2FRPM+%28TOML%29#start-the-server-with-your-license-email)
 
 #### Skip the email prompt
 
@@ -212,8 +212,8 @@ The following examples show how to provide your license email for different
 {{% code-tabs %}}
 [Quick install (CLI)](#)
 [Quick install (env var)](#)
-[Docker Compose](#start-with-license-email-and-compose)
-[DEB/RPM (TOML)](#start-with-license-email-and-toml)
+[Docker Compose](#)
+[DEB/RPM (TOML)](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
@@ -313,7 +313,7 @@ The following examples show how to provide your license file for different
 {{% code-tabs %}}
 [Quick install (CLI)](#)
 [Quick install (env var)](#)
-[DEB/RPM (TOML)](#start-with-license-file-and-toml)
+[DEB/RPM (TOML)](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
