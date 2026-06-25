@@ -15,7 +15,7 @@ related:
   - /influxdb3/cloud/api-compatibility/v1/
 list_code_example: |
   ```sh
-  curl --get http://{{< influxdb/host >}}/api/v3/query_sql \
+  curl --get https://{{< influxdb/host >}}/api/v3/query_sql \
     --header "Authorization: Token DATABASE_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SELECT * FROM home"
