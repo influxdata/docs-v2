@@ -4,33 +4,27 @@
 [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
 InfluxData provisions and operates the InfluxDB 3 servers for you, so you don't
 install, run, or scale servers yourself.
-To get started, get your instance and admin token from InfluxData, install and
-configure the `influxdb3` CLI, and then create a database and token.
+To get started, get your instance host from InfluxData, configure the
+`influxdb3` CLI, log in, and then create a database.
 
-- [Get your instance and admin token](#get-your-instance-and-admin-token)
+- [Get your instance](#get-your-instance)
 - [Configure the influxdb3 CLI](#configure-the-influxdb3-cli)
   - [Connect to your instance](#connect-to-your-instance)
-  - [Set your token for authorization](#set-your-token-for-authorization)
+  - [Log in to your instance](#log-in-to-your-instance)
 - [Create a database](#create-a-database)
-- [Create a token](#create-a-token)
+- [Create a token for applications](#create-a-token-for-applications)
 
-## Get your instance and admin token
+## Get your instance
 
 During early access, InfluxData provisions {{% product-name %}} instances for
 you--there's no self-service signup.
 To request early access, see
 [InfluxDB 3 Cloud](https://www.influxdata.com/products/influxdb3-cloud/).
 
-After your instance is provisioned, InfluxData provides the following:
-
-- Your instance **host URL** (the endpoint you connect to)
-- An initial **admin token** for administering your instance
-
-Your admin token has full administrative privileges.
-Use it to authenticate with your instance and to create databases and
-additional tokens.
-Store it securely--you use it to authenticate the `influxdb3` CLI in the
-following steps.
+After your instance is provisioned, InfluxData provides your instance
+**host URL**--the endpoint you connect to.
+You authenticate as a user with your InfluxData account in the following
+steps--there's no token to copy or store for interactive use.
 
 ## Configure the influxdb3 CLI
 
@@ -38,7 +32,7 @@ The [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/) lets you
 administer your instance and write and query data from the command line.
 Because {{% product-name %}} is fully managed, there's nothing to install or run
 for {{% product-name %}} itself--you point the `influxdb3` CLI at your hosted
-instance and authenticate with your admin token.
+instance and log in with your InfluxData account.
 
 ### Connect to your instance
 
@@ -75,54 +69,42 @@ set INFLUXDB3_HOST_URL=https://{{< influxdb/host >}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-### Set your token for authorization
+### Log in to your instance
 
-Set the `INFLUXDB3_AUTH_TOKEN` environment variable to your admin token so the
-`influxdb3` CLI authenticates automatically--you don't need to pass `--token`
-with each command:
+<span id="set-your-token-for-authorization"></span>
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[macOS and Linux](#)
-[PowerShell](#)
-[CMD](#)
-{{% /tabs %}}
-{{% tab-content %}}
+Log in to your instance with the OAuth device-code flow.
+{{% product-name %}} uses your InfluxData account for authentication, so you
+don't manage static tokens for interactive use.
 
-```sh { placeholders="ADMIN_TOKEN" }
-export INFLUXDB3_AUTH_TOKEN=ADMIN_TOKEN
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
-```powershell { placeholders="ADMIN_TOKEN" }
-$env:INFLUXDB3_AUTH_TOKEN = "ADMIN_TOKEN"
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
-```sh { placeholders="ADMIN_TOKEN" }
-set INFLUXDB3_AUTH_TOKEN=ADMIN_TOKEN 
-# Make sure to include a space character at the end of this command.
-```
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
-
-Replace {{% code-placeholder-key %}}`ADMIN_TOKEN`{{% /code-placeholder-key %}}
-with the admin token InfluxData provided.
-
-Verify that the CLI can reach your instance by running a simple query:
+Run the following command and follow the printed instructions:
 
 <!--pytest.mark.skip-->
 
 ```sh
-influxdb3 query --database "_internal" "SELECT 1"
+influxdb3 auth login --oauth
 ```
 
-A successful response confirms that your host URL and token are configured
+The command prints a URL and a one-time user code.
+Open the URL in a browser, enter the code, and approve the request.
+After you approve, the CLI saves your credentials to
+`~/.influxdb3/credentials.json` and uses them automatically for subsequent
+commands--you don't need to pass a token.
+
+> [!Note]
+> Don't set the `INFLUXDB3_AUTH_TOKEN` environment variable for interactive use.
+> If it's set, the `influxdb3` CLI uses that token instead of your logged-in
+> session. Run `influxdb3 auth login --oauth` again when your session expires.
+
+Verify that you're authenticated by listing your databases:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 show databases
+```
+
+A successful response confirms that your host URL and login are configured
 correctly.
 
 ## Create a database
@@ -157,11 +139,17 @@ Replace the following:
 - {{% code-placeholder-key %}}`1y`{{% /code-placeholder-key %}}:
   the database retention period as a duration
 
-## Create a token
+> [!Note]
+> A newly created database can take a few seconds to appear in
+> `influxdb3 show databases`.
 
-Your admin token can write and query data, but for applications we recommend
-creating a **database token** scoped to only the databases and permissions it
-needs.
+## Create a token for applications
+
+Logging in authenticates you for interactive use with the `influxdb3` CLI.
+For applications and automated clients, create a **database token** scoped to
+only the databases and permissions it needs.
+Creating tokens requires admin privileges--if your user doesn't have admin
+access, ask an administrator to create a token for you.
 
 Use the
 [`influxdb3 create token` command](/influxdb3/cloud/reference/cli/influxdb3/)
@@ -188,18 +176,20 @@ with the name of the database to grant the token access to.
 The command returns the token string.
 Store the token string in a safe place.
 **This is the only time the token string is available in plain text.**
+Applications can authenticate with the token by setting the
+`INFLUXDB3_AUTH_TOKEN` environment variable or passing the `--token` option.
 
 > [!Note]
-> #### Token types in {{% product-name %}}
+> #### Authentication in {{% product-name %}}
 >
-> In {{% product-name %}}, you create and manage tokens with the `influxdb3` CLI.
-> {{% product-name %}} supports the following token types:
+> For interactive use, you authenticate as a user with
+> `influxdb3 auth login --oauth`--no token required.
+> For applications, create and manage tokens with the `influxdb3` CLI:
 >
-> - **Admin tokens**: Grant full administrative access. The first admin token
->   (the _operator_ token) is managed by InfluxData. Create additional named
->   admin tokens with `influxdb3 create token --admin --name "NAME"`.
 > - **Database tokens**: Grant scoped read and/or write access to specific
 >   databases.
+> - **Admin tokens**: Grant full administrative access. Create named admin
+>   tokens with `influxdb3 create token --admin --name "NAME"`.
 >
 > For more information, see
 > [Manage tokens](/influxdb3/cloud/admin/tokens/).
