@@ -23,12 +23,8 @@ the license type.
 > [!Note]
 > #### License storage portability in v3.10 and later
 >
-> Starting in **v3.10**, {{% product-name %}} licenses are no longer tied to a
-> specific cluster's storage location.
-> You can copy a license file to a new cluster and reuse it without contacting
-> InfluxData.
-> Licenses are still required--per-cluster CPU core limits and license
-> expiration continue to apply.
+> Starting in **v3.10**, {{% product-name %}} licenses are no longer tied to a specific cluster's storage location.
+> Licenses are still required, with per-cluster CPU core limits and license expiration continuing to apply.
 > This change applies to Commercial, Trial, and At-Home licenses and isn't
 > backwards compatible with versions earlier than v3.10.
 
