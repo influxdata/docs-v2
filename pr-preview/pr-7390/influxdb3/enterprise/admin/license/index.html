@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7390/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/admin/license/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-06-25T14:34:45-04:00","description":"{{\u003c product-name \u003e}} licenses authorize the use of the {{\u003c product-name \u003e}} software. Learn how licenses work, how to activate and renew licenses, and more.","headline":"Manage your InfluxDB 3 Enterprise license","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/admin/license/","name":"Manage your InfluxDB 3 Enterprise license"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-06-25T16:53:57-05:00","description":"{{\u003c product-name \u003e}} licenses authorize the use of the {{\u003c product-name \u003e}} software. Learn how licenses work, how to activate and renew licenses, and more.","headline":"Manage your InfluxDB 3 Enterprise license","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7390/influxdb3/enterprise/admin/license/","name":"Manage your InfluxDB 3 Enterprise license"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-25 14:34:45 -0400 -0400">
+<meta name="last-modified" content="2026-06-25 16:53:57 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -4936,7 +4936,7 @@ but the process of activating the license depends on the license type:</p>
 <li>Use the <a href="/influxdb3/enterprise/reference/cli/influxdb3/serve/"><code>influxdb3 serve</code> command</a> to start the server.
 If the server doesn&rsquo;t find a license file or email address, the server prompts you
 to enter your email address.
-If you&rsquo;re <a href="#activate-a-trial-or-home-license-with-docker">activating an InfluxDB trial or home license with Docker</a> or <a href="#activate-a-trial-or-home-license-with-linux-packaging">with DEB/RPM installs</a>, include options to <a href="#skip-the-email-prompt">skip the email prompt</a>.</li>
+If you&rsquo;re <a href="?t=Docker+Compose#start-the-server-with-your-license-email">activating an InfluxDB trial or home license with Docker</a> or <a href="?t=DEB%2FRPM+%28TOML%29#start-the-server-with-your-license-email">with DEB/RPM installs</a>, include options to <a href="#skip-the-email-prompt">skip the email prompt</a>.</li>
 <li>The server prompts you to select a license type. Select <code>trial</code> or <code>home</code>.</li>
 <li>In the verification email from InfluxDB 3 Enterprise,
 click the button to verify your email address.</li>
@@ -4956,8 +4956,8 @@ installed via DEB or RPM, you must use one of the methods to
 This ensures that the server can generate the license file after you
 verify your email address. See the following examples:</p>
 <ul>
-<li><a href="?t=Docker+compose#start-with-license-email-and-compose">Docker Compose example</a></li>
-<li><a href="?t=DEB+and+RPM+TOML#start-with-license-email-and-toml">DEB and RPM TOML configuration</a></li>
+<li><a href="?t=Docker+Compose#start-the-server-with-your-license-email">Docker Compose example</a></li>
+<li><a href="?t=DEB%2FRPM+%28TOML%29#start-the-server-with-your-license-email">DEB and RPM TOML configuration</a></li>
 </ul>
 </div>
 <h4 id="skip-the-email-prompt">Skip the email prompt</h4>
@@ -5043,8 +5043,8 @@ InfluxDB 3 Enterprise installation methods:</p>
 <div class="code-tabs">
   <p><a href="#">Quick install (CLI)</a>
 <a href="#">Quick install (env var)</a>
-<a href="#start-with-license-email-and-compose">Docker Compose</a>
-<a href="#start-with-license-email-and-toml">DEB/RPM (TOML)</a></p>
+<a href="#">Docker Compose</a>
+<a href="#">DEB/RPM (TOML)</a></p>
 
 </div>
 
@@ -5140,7 +5140,7 @@ InfluxDB 3 Enterprise installation methods:</p>
 <div class="code-tabs">
   <p><a href="#">Quick install (CLI)</a>
 <a href="#">Quick install (env var)</a>
-<a href="#start-with-license-file-and-toml">DEB/RPM (TOML)</a></p>
+<a href="#">DEB/RPM (TOML)</a></p>
 
 </div>
 
