@@ -101,6 +101,10 @@ influxdb3_cloud:
   placeholder_host: cluster-id.a.influxdb.io
   version_label: Cloud
   distributed_architecture: true
+  limits:
+    database: 100
+    table: 10000
+    column: 500
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I get started with InfluxDB 3 Cloud?
