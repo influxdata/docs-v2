@@ -18,7 +18,7 @@ aliases:
   - /influxdb3/cloud/query-data/influxql/execute-queries/influxdb-v1-api/
 list_code_example: |
   ```sh
-  curl --get http://{{< influxdb/host >}}/query \
+  curl --get https://{{< influxdb/host >}}/query \
     --header "Authorization: Token DATABASE_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SELECT * FROM home"
