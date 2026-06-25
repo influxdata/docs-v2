@@ -14,6 +14,8 @@ aliases:
   - /influxdb3/cloud/guides/api-compatibility/v1/
   - /influxdb3/cloud/guides/api-compatibility/v2/
   - /influxdb3/cloud/install/
+  - /influxdb3/cloud/write-data/use-telegraf/
+  - /influxdb3/cloud/write-data/use-telegraf/csv/
   - /influxdb3/cloud/reference/cli/influxdb3/create/database/
   - /influxdb3/cloud/reference/cli/influxdb3/create/table/
   - /influxdb3/cloud/reference/cli/influxdb3/delete/database/
@@ -53,9 +55,74 @@ aliases:
   - /influxdb3/cloud/reference/syntax/line-protocol/
   - /influxdb3/cloud/write-data/best-practices/optimize-writes/
   - /influxdb3/cloud/write-data/best-practices/schema-design/
-  - /influxdb3/cloud/write-data/use-telegraf/
-  - /influxdb3/cloud/write-data/use-telegraf/csv/
 ---
 
 To request more information about {{% product-name %}},
 [contact InfluxData support](https://support.influxdata.com).
+
+<!--
+Deep links from other pages point to anchors on the not-yet-published Cloud
+reference/API pages. Those paths redirect here; the hidden anchors below let the
+link checker resolve the original `#fragment` against this page. Remove an anchor
+when its target page is published for Cloud.
+-->
+<div style="display:none" aria-hidden="true">
+  <span id="at-time-zone"></span>
+  <span id="avoid-wide-schemas"></span>
+  <span id="boolean"></span>
+  <span id="database"></span>
+  <span id="date_bin"></span>
+  <span id="date_bin_gapfill"></span>
+  <span id="default-time-range"></span>
+  <span id="design-for-performance"></span>
+  <span id="field"></span>
+  <span id="field-key"></span>
+  <span id="float"></span>
+  <span id="from-clause"></span>
+  <span id="get-started-home-sensor-data"></span>
+  <span id="greatest"></span>
+  <span id="home-sensor-data"></span>
+  <span id="identifiers"></span>
+  <span id="integer"></span>
+  <span id="interpolate"></span>
+  <span id="keywords"></span>
+  <span id="lag"></span>
+  <span id="lead"></span>
+  <span id="locf"></span>
+  <span id="logical-operators"></span>
+  <span id="measurement_expression"></span>
+  <span id="notable-select-statement-behaviors"></span>
+  <span id="operation/DeleteConfigureDatabase"></span>
+  <span id="operation/DeleteConfigureTable"></span>
+  <span id="operation/GetConfigureDatabase"></span>
+  <span id="operation/GetExecuteQuerySQL"></span>
+  <span id="operation/PostConfigureDatabase"></span>
+  <span id="operation/PostConfigureTable"></span>
+  <span id="operation/update_database"></span>
+  <span id="options"></span>
+  <span id="show-field-keys"></span>
+  <span id="show-field-values"></span>
+  <span id="show-measurements"></span>
+  <span id="sort-tags-by-query-priority"></span>
+  <span id="string"></span>
+  <span id="table"></span>
+  <span id="tag"></span>
+  <span id="tag-key"></span>
+  <span id="tag/Database"></span>
+  <span id="tag/Table"></span>
+  <span id="tag/Token"></span>
+  <span id="time"></span>
+  <span id="time-ranges"></span>
+  <span id="time-syntax"></span>
+  <span id="timestamp"></span>
+  <span id="to_timestamp"></span>
+  <span id="to_timestamp_micros"></span>
+  <span id="to_timestamp_millis"></span>
+  <span id="to_timestamp_nanos"></span>
+  <span id="to_timestamp_seconds"></span>
+  <span id="to_unixtime"></span>
+  <span id="uinteger"></span>
+  <span id="unix-timestamp"></span>
+  <span id="write-home-sensor-data-to-influxdb"></span>
+  <span id="write-the-home-sensor-data-to-influxdb"></span>
+</div>
