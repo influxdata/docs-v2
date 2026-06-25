@@ -46,6 +46,11 @@ Example output:
 | 1 | 2024-01-01T00:00:00Z | 86400 | 2024-01-01T00:00:00Z | 2024-01-01T00:10:00Z | 50000 | 2456789 | false |
 | 2 | 2024-01-01T00:00:00Z | 86400 | 2024-01-01T00:10:00Z | 2024-01-01T00:20:00Z | 48000 | 2345678 | false |
 
+> [!Note]
+> **InfluxDB 3.10**: The `system.pt_ingest_wal` schema was updated to replace
+> `partition_id`, `database_id`, and `table_id` with `shard_start_time`,
+> `shard_duration_seconds`, and `is_merged`.
+
 Use this table to monitor:
 
 - **WAL accumulation**: Track the number and size of unmerged WAL files
