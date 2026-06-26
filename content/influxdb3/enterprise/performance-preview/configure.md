@@ -294,6 +294,9 @@ through four compaction levels (L1 through L4).
 | `--pt-final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `72h` |
 | `--pt-compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
 
+> [!Note]
+> **InfluxDB 3.10**: The `--pt-partition-count` option was renamed to `--pt-shard-count`.
+
 > [!Warning]
 > #### Keep `--pt-shard-count` at 1
 >
