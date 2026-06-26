@@ -44,7 +44,7 @@ wt_path_escapes() {
   while IFS= read -r root; do
     [[ -z "$root" ]] && continue
     if [[ "$target" == "$root" || "$target" == "$root"/* ]]; then
-      (( ${#root} > ${#match} )) && match=$root
+      if [[ ${#root} -gt ${#match} ]]; then match=$root; fi
     fi
   done < <(wt_all_roots)
 

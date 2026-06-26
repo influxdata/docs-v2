@@ -23,13 +23,18 @@ set -euo pipefail
 INPUT=$(cat)
 
 # Only WebFetch carries a URL. Anything without one passes through.
+# jq is required; if absent pass through rather than silently disabling the hook.
+command -v jq >/dev/null 2>&1 || exit 0
 URL=$(printf '%s' "$INPUT" | jq -r '.tool_input.url // empty' 2>/dev/null) || exit 0
 [[ -z "$URL" ]] && exit 0
 
-# Host = strip scheme, any user@creds, path, and :port; then lowercase.
+# Host = strip scheme, path/query/fragment, userinfo, port; then lowercase.
+# Path is stripped before userinfo so '@' in a query string can't mangle the host.
 HOST=${URL#*://}
-HOST=${HOST#*@}
 HOST=${HOST%%/*}
+HOST=${HOST%%\?*}
+HOST=${HOST%%#*}
+HOST=${HOST#*@}
 HOST=${HOST%%:*}
 HOST=$(printf '%s' "$HOST" | tr '[:upper:]' '[:lower:]')
 
