@@ -6,6 +6,53 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.10.1 {date="2026-06-25"}
+
+### Core
+
+#### Bug fixes
+
+- **Snapshot manifest persistence**: Snapshot manifests are now persisted using multipart uploads, preventing errors when writing large manifests to object storage.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Compacted generation deduplication**: Overlapping compacted generations are now co-partitioned so the querier correctly deduplicates them.
+- **Performance upgrade preview file access**: A canceled file fetch no longer cascades cancellation to other waiters with the storage engine upgrade (`--use-pacha-tree`).
+- Other bug fixes and performance improvements
+
+## v3.9.6 {date="2026-06-25"}
+
+### Core
+
+Maintenance release: v3.9.6 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Compacted generation deduplication**: Overlapping compacted generations are now co-partitioned so the querier correctly deduplicates them.
+- Other bug fixes and performance improvements
+
+## v3.9.5 {date="2026-06-23"}
+
+### Core
+
+#### Bug fixes
+
+- **Snapshot manifest persistence**: Snapshot manifests are now persisted using multipart uploads, preventing errors when writing large manifests to object storage.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+
 ## v3.10.0 {date="2026-06-17"}
 
 ### Core
