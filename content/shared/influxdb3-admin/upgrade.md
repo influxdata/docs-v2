@@ -150,12 +150,10 @@ Start-Service influxdb3
 Upgrade {{% product-name %}} instances to newer versions using rolling upgrades to minimize downtime.
 When upgrading multi-node clusters, you need to understand catalog version constraints and the recommended upgrade order for different node modes.
 
-- [Upgrade a single {{% product-name %}} instance](#upgrade-a-single--product-name--instance)
-- [Upgrade a multi-node cluster](#upgrade-a-multi-node-cluster)
-  - [Before you upgrade](#before-you-upgrade)
-  - [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
-  - [Upgrade constraints](#upgrade-constraints)
-  - [Troubleshooting](#troubleshooting)
+- [Catalog version compatibility](#catalog-version-compatibility)
+- [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
+- [Rolling upgrade constraints](#rolling-upgrade-constraints)
+- [Troubleshooting cluster upgrades](#troubleshooting-cluster-upgrades)
 
 ### Catalog version compatibility
 
