@@ -388,6 +388,14 @@ Use the following command line options to configure {{% product-name %}}.
 _For a full list of options, see the
 [{{% product-name %}} configuration options reference](/telegraf/controller/reference/config-options/)._
 
+> [!Note]
+> #### Enabling HTTPS also requires agent-side trust
+>
+> Setting `--ssl-cert`/`--ssl-key` enables HTTPS on the server, but agents must
+> also trust the certificate to fetch configurations and send heartbeats. For the
+> full server and agent setup, see
+> [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+
 #### Examples
 
 {{< tabs-wrapper >}}
