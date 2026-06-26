@@ -2,13 +2,18 @@
 applyTo: "content/**/*.md"
 ---
 
+<!-- This file is auto-generated from .agents/instructions. Do not edit directly. -->
+
+<!-- Run 'yarn build:agent:instructions' to regenerate it. -->
+
 # Content File Guidelines
 
 **Frontmatter reference**: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
 **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 **Working examples**: [content/example.md](../../content/example.md)
 
-**For complete content editing workflow**, see [.claude/skills/content-editing/SKILL.md](../../.claude/skills/content-editing/SKILL.md) which covers:
+**For complete content editing workflow**, see
+[content-editing skill](../../.agents/skills/content-editing/SKILL.md) which covers:
 
 - Creating and editing content with CLI tools
 - Shared content management and testing
@@ -17,7 +22,9 @@ applyTo: "content/**/*.md"
 
 ## CLI Tools for Content Workflow
 
-The unified `docs` CLI provides tools for content creation and editing. For decision guidance on when to use CLI vs direct editing, see [.claude/skills/docs-cli-workflow/SKILL.md](../../.claude/skills/docs-cli-workflow/SKILL.md).
+The unified `docs` CLI provides tools for content creation and editing.
+For decision guidance on when to use CLI vs direct editing, see
+[docs-cli-workflow skill](../../.agents/skills/docs-cli-workflow/SKILL.md).
 
 ### Creating New Content
 
@@ -78,10 +85,13 @@ For complete CLI reference, run `docs --help`.
 
 When editing files with `source:` frontmatter (shared content):
 
-- **Recommended**: Use `docs edit <url>` - automatically finds and opens all related files
-- **Manual**: If editing directly, remember to touch sourcing files to trigger Hugo rebuild
+- **Recommended**: Use `docs edit <url>` - automatically finds and opens all
+  related files
+- **Manual**: If editing directly, remember to touch sourcing files to trigger
+  Hugo rebuild
 
-For complete shared content workflow, see [.claude/skills/content-editing/SKILL.md](../../.claude/skills/content-editing/SKILL.md).
+For complete shared content workflow, see
+[content-editing skill](../../.agents/skills/content-editing/SKILL.md).
 
 ## Required for All Content Files
 
@@ -101,16 +111,17 @@ weight:      # Sort order (1-99, 101-199, 201-299...)
 
 ```bash
 # 1. Verify Hugo build
-hugo --quiet
+npx hugo --quiet
 
-# 2. Validate links
-yarn test:links
+# 2. Validate links (build first; see DOCS-TESTING.md)
+link-checker map content/path/*.md | xargs link-checker check
 
 # 3. Test code blocks (if applicable)
 yarn test:codeblocks:all
 ```
 
-For comprehensive testing workflows, see [.claude/skills/content-editing/SKILL.md](../../.claude/skills/content-editing/SKILL.md).
+For comprehensive testing workflows, see
+[content-editing skill](../../.agents/skills/content-editing/SKILL.md).
 
 ## Style Guidelines
 
@@ -119,6 +130,11 @@ For comprehensive testing workflows, see [.claude/skills/content-editing/SKILL.m
 - Use appropriate shortcodes for UI elements
 - Follow Google Developer Documentation Style Guide
 - Use active voice, present tense, second person
+- Use data-ownership framing: when writing import/write/load guidance, point the
+  verb at the resource the user owns ("import your data into a database or
+  table"), not at the product ("import data into InfluxDB"). The user owns their
+  data in their own object storage; InfluxDB reads and writes it but doesn't take
+  custody of it.
 
 ## Most Common Shortcodes
 
@@ -149,11 +165,11 @@ curl -X POST https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your database name
-
-````
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  your database name
 
 **Tabbed content**:
+
 ```markdown
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -167,14 +183,16 @@ Content for tab 1
 Content for tab 2
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
-````
+```
 
-For complete shortcodes reference, see [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md).
+For complete shortcodes reference, see
+[DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md).
 
 ## Related Resources
 
-- **Complete workflow**: [.claude/skills/content-editing/SKILL.md](../../.claude/skills/content-editing/SKILL.md)
-- **CLI decision guidance**: [.claude/skills/docs-cli-workflow/SKILL.md](../../.claude/skills/docs-cli-workflow/SKILL.md)
+- **Complete workflow**: [content-editing skill](../../.agents/skills/content-editing/SKILL.md)
+- **CLI decision guidance**:
+  [docs-cli-workflow skill](../../.agents/skills/docs-cli-workflow/SKILL.md)
 - **Frontmatter**: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
 - **Shortcodes**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - **Contributing**: [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md)

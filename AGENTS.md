@@ -1,198 +1,126 @@
 # InfluxData Documentation (docs-v2)
 
-> **Shared project guidelines for all AI assistants**
->
-> **Other instruction resources**:
-> - [.github/copilot-instructions.md](.github/copilot-instructions.md) - GitHub Copilot (CLI tools, workflows, repo structure)
-> - [CLAUDE.md](CLAUDE.md) - Claude with MCP (pointer file)
-> - [.claude/](.claude/) - Claude MCP configuration (commands, agents, skills)
-> - [.github/instructions/](.github/instructions/) - File pattern-specific instructions
+Shared startup guidance for all AI assistants working in this repository.
 
-## Commands
+## Canonical agent resources
 
-| Task | Command | Notes |
-|------|---------|-------|
-| Install | `CYPRESS_INSTALL_BINARY=0 yarn install` | ~4s |
-| Build | `npx hugo --quiet` | ~75s — **NEVER CANCEL** |
-| Dev server | `npx hugo server` | ~92s, port 1313 |
-| Test code blocks | `yarn test:codeblocks:all` | 15-45m — **NEVER CANCEL** |
-| Lint | `yarn lint` | ~1m |
+- `AGENTS.md` is the shared repo-wide instruction file.
+- `.agents/skills/` contains reusable Agent Skills shared by Codex, Claude
+  Code, GitHub Copilot, and other compatible harnesses.
+- `.agents/instructions/` contains canonical path-specific instruction sources.
+- `.github/instructions/*.instructions.md`, `.claude/rules/*.md`, and scoped
+  `AGENTS.md` files under major directories are generated adapters.
+- `.claude/skills` is a symlink to `.agents/skills`.
 
-## Repository Structure
+After editing `AGENTS.md` or `.agents/**`, run:
 
-```
-docs-v2/
-├── content/                 # Documentation content
-│   ├── influxdb3/          # InfluxDB 3 (core, enterprise, cloud-*)
-│   ├── influxdb/           # InfluxDB v2 and v1
-│   ├── enterprise_influxdb/ # InfluxDB Enterprise v1
-│   ├── telegraf/           # Telegraf docs
-│   ├── shared/             # Shared content across products
-│   └── example.md          # Shortcode testing playground
-├── layouts/                # Hugo templates and shortcodes
-├── assets/                 # JS, CSS, TypeScript
-├── api-docs/              # InfluxDB OpenAPI specifications, API reference documentation generation scripts
-├── data/                  # YAML/JSON data files
-├── public/                # Build output (gitignored, ~529MB)
-└── .github/
-    └── copilot-instructions.md  # Primary AI instructions
-```
-
-**Content Paths**: See [copilot-instructions.md](.github/copilot-instructions.md#content-organization)
-
-## Documentation MCP Server
-
-A hosted MCP server provides semantic search over all InfluxDB documentation.
-Use it to verify technical accuracy, check API syntax, and find related docs.
-
-See the [InfluxDB documentation MCP server guide](https://docs.influxdata.com/influxdb3/core/admin/mcp-server/) for setup instructions.
-
-## Common Workflows
-
-### Creating/Editing Content
-
-**Frontmatter** (page metadata):
-```yaml
-title: Page Title          # Required - becomes h1
-description: Brief desc    # Required - for SEO
-menu:
-  influxdb_2_0:
-    name: Nav Label       # Optional - nav display name
-    parent: Parent Node   # Optional - for nesting
-weight: 1                  # Required - sort order
-```
-
-**Shared Content** (avoid duplication):
-```yaml
-source: /shared/path/to/content.md
-```
-
-Shared content files (`/shared/path/to/content.md`):
-- Don't store frontmatter
-- Can use `{{% show-in %}}`, `{{% hide-in %}}`, and the `version` keyword (`/influxdb3/version/content.md`)
-
-**Common Shortcodes**:
-- Callouts: `> [!Note]`, `> [!Warning]`, `> [!Important]`, `> [!Tip]`
-- Tabs: `{{< tabs-wrapper >}}` + `{{% tabs %}}` + `{{% tab-content %}}`
-- Required: `{{< req >}}` or `{{< req type="key" >}}`
-- Code placeholders: `{ placeholders="<PLACEHOLDER>" }`
-
-**📖 Complete Reference**: [DOCS-SHORTCODES.md](DOCS-SHORTCODES.md) | [DOCS-FRONTMATTER.md](DOCS-FRONTMATTER.md)
-
-### Testing Changes
-
-**Always test before committing**:
 ```bash
-# Verify server renders (check 200 status)
-curl -s -o /dev/null -w "%{http_code}" http://localhost:1313/influxdb3/core/
-
-# Test specific content
-yarn test:links content/influxdb3/core/**/*.md
-
-# Run style linting
-.ci/vale/vale.sh content/**/*.md
+yarn build:agent:instructions
+yarn validate:agent-instructions
 ```
 
-**📖 Complete Reference**: [DOCS-TESTING.md](DOCS-TESTING.md)
+## Core commands
 
+| Task             | Command                                 | Notes                                         |
+| ---------------- | --------------------------------------- | --------------------------------------------- |
+| Install          | `CYPRESS_INSTALL_BINARY=0 yarn install` | Use in network-restricted environments        |
+| Build            | `npx hugo --quiet`                      | \~75s; never cancel                           |
+| Dev server       | `npx hugo server`                       | \~92s; serves on port 1313                    |
+| Test code blocks | `yarn test:codeblocks:all`              | 15-45m; never cancel                          |
+| Lint             | `yarn lint`                             | Runs pre-commit and pre-push hook validations |
 
-## Worktree Awareness
+## docs CLI
 
-This repository uses git worktrees. When running in a worktree, the working
-directory IS the repo root — use it for all file paths. Never hardcode or resolve
-paths to the main clone (`/Users/*/docs-v2/` without `.claude/worktrees/`).
+Scaffold and manage documentation with the `docs` CLI (`docs --help` for full
+reference). Non-blocking by default; use `--wait` for interactive editing.
 
-Scripts that need `PROJECT_ROOT` derive it from `SCRIPT_DIR` (see
-`test/scripts/init-influxdb3.sh`). Agents should use their current working
-directory, not the main clone path.
+- `docs create <draft> --products <keys>` — scaffold new pages
+- `docs edit <url|path>` — open existing pages
+- `docs placeholders <file>` — add placeholder syntax to code blocks
+- `docs audit --products <keys>` — audit coverage
 
-## Search Patterns
+See [README.md](README.md) and the
+[docs-cli-workflow skill](.agents/skills/docs-cli-workflow/SKILL.md) for details.
 
-When searching for InfluxDB 3 content, search these paths in parallel (not
-sequentially):
-- `content/shared/influxdb3-*/` — actual content (most content lives here)
-- `content/influxdb3/core/` — Core frontmatter stubs with `source:` references
-- `content/influxdb3/enterprise/` — Enterprise frontmatter stubs
+## Worktree and path rules
 
-Use Grep and Glob for all local content searches. Run independent searches in
-parallel — one call per directory — rather than one at a time.
+- This repo uses git worktrees. The current working directory is the repo root.
+- Never hardcode paths back to the main clone under `/Users/*/docs-v2/`.
+- Scripts that need `PROJECT_ROOT` derive it from `SCRIPT_DIR`; agents should
+  use the current working directory, not the main clone path.
+
+## Search rules
+
+- For InfluxDB 3 content, search these paths in parallel:
+  - `content/shared/influxdb3-*/`
+  - `content/influxdb3/core/`
+  - `content/influxdb3/enterprise/`
+- Use Grep and Glob for local content searches.
+- Run independent searches in parallel rather than one broad sequential search.
 
 ## Constraints
 
-- **NEVER cancel** Hugo builds (~75s) or test runs (15-45m) — the site has 5,359+ pages
-- Set timeouts: Hugo 180s+, tests 30m+
-- Use `python` not `py` for code block language identifiers (pytest won't collect `py` blocks)
-- Shared content files (`content/shared/`) have no frontmatter — the consuming page provides it via `source:` reference. For InfluxDB 3, the shared directories (`content/shared/influxdb3-*/`) contain the actual prose; product directories contain thin stubs
-- Product names and versions come from `data/products.yml` (single source of truth)
-- Commit format: `type(scope): description` — see [DOCS-CONTRIBUTING.md](DOCS-CONTRIBUTING.md#commit-guidelines)
-- Network-restricted environments: Cypress (`CYPRESS_INSTALL_BINARY=0`), Docker builds, and Alpine packages may fail
+- Never cancel Hugo builds or code block test runs.
+- Use timeouts of at least 180s for Hugo and 30m for long tests.
+- Use `python`, not `py`, for code block language identifiers.
+- Shared content files under `content/shared/` have no frontmatter; consuming
+  pages provide metadata through `source:`.
+- For InfluxDB 3, shared directories contain the prose; product directories are
+  usually thin stubs with `source:` references.
+- Product names and versions come from `data/products.yml`.
+- Commit format is `type(scope): description`.
+- Network-restricted environments may fail on Cypress downloads, Docker builds,
+  or Alpine package installs.
 
-## Style Rules
+## Dependency management
 
-Follows [Google Developer Documentation Style Guide](https://developers.google.com/style) with these project-specific additions:
+- **Dependabot is managed org-wide by the security team** for all influxdata
+  repos. Do not stand up a parallel dependency-update mechanism, and treat a
+  repo-level `.github/dependabot.yml` (if present) as supplementary to the org
+  config, not the source of truth.
+- Pin third-party GitHub Actions by full commit SHA (with a version comment) so
+  Dependabot can keep the pins current. `.github/workflows/pr-lockfile-lint.yml`
+  is the reference example.
+- Coordinate with the security team before changing dependency automation;
+  org-wide Dependabot security updates do not automatically include scheduled
+  `github-actions` version updates.
 
-- **Semantic line feeds** — one sentence per line (better diffs)
-- **No h1 in content** — `title` frontmatter auto-generates h1
-- Active voice, present tense, second person
-- Long options in CLI examples (`--output` not `-o`)
-- Code blocks within 80 characters
+## Documentation style
 
-## Content Structure
+- Follow the Google Developer Documentation Style Guide.
+- Use semantic line feeds: one sentence per line.
+- Do not add `#` h1 headings in content; `title` frontmatter generates the h1.
+- Prefer active voice, present tense, and second person.
+- Use long options in CLI examples.
+- Keep code blocks within 80 characters where practical.
 
-**Required frontmatter**: `title`, `description`, `menu`, `weight`
-— see [DOCS-FRONTMATTER.md](DOCS-FRONTMATTER.md)
+## Documentation search (MCP)
 
-**Shared content**: `source: /shared/path/to/content.md`
-— shared files use `{{% show-in %}}` / `{{% hide-in %}}` for product-specific content
+A hosted InfluxDB documentation search server is configured for this repo.
+Use it to verify technical accuracy, check API syntax, and find related docs.
+Harness-specific setup (Claude Code: `.mcp.json`) lives in each harness's own
+instruction file.
 
-**Shortcodes**: Callouts use `> [!Note]` / `> [!Warning]` syntax
-— see [DOCS-SHORTCODES.md](DOCS-SHORTCODES.md) and [content/example.md](content/example.md)
+## Plans and design docs
 
-## Product Content Paths
+- Implementation plans → `PLAN.md` at the repo root. Tracked on feature
+  branches; a required PR check blocks `PLAN.md` and `HANDOVER.md` from merging
+  to the default branch — remove or promote them before merge.
+- Design specs → an existing docs location (`DOCS-*.md` or product `content/`
+  frontmatter) only if useful post-merge; otherwise keep them in the session or
+  alongside `PLAN.md` and remove before merge.
 
-Canonical paths from `data/products.yml`:
+## Where detailed guidance lives
 
-| Product | Content Path |
-|---------|-------------|
-| InfluxDB 3 Core | `content/influxdb3/core/` |
-| InfluxDB 3 Enterprise | `content/influxdb3/enterprise/` |
-| InfluxDB 3 Explorer | `content/influxdb3/explorer/` |
-| InfluxDB Cloud Serverless | `content/influxdb3/cloud-serverless/` |
-| InfluxDB Cloud Dedicated | `content/influxdb3/cloud-dedicated/` |
-| InfluxDB Clustered | `content/influxdb3/clustered/` |
-| InfluxDB OSS v2 | `content/influxdb/v2/` |
-| InfluxDB OSS v1 | `content/influxdb/v1/` |
-| InfluxDB Cloud (TSM) | `content/influxdb/cloud/` |
-| InfluxDB Enterprise v1 | `content/enterprise_influxdb/` |
-| Telegraf | `content/telegraf/` |
-| Chronograf | `content/chronograf/` |
-| Kapacitor | `content/kapacitor/` |
-| Flux | `content/flux/` |
-| Shared content | `content/shared/` |
-
-## Doc Review Pipeline
-
-Automated PR review for documentation changes.
-See [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) for the label taxonomy.
-
-| Resource | Path |
-|----------|------|
-| Label guide | [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) |
-| Triage agent | [.claude/agents/doc-triage-agent.md](.claude/agents/doc-triage-agent.md) |
-| Content review instructions | [.github/instructions/content-review.instructions.md](.github/instructions/content-review.instructions.md) |
-| Review agent (local) | [.claude/agents/doc-review-agent.md](.claude/agents/doc-review-agent.md) |
-| Auto-label workflow | [.github/workflows/auto-label.yml](.github/workflows/auto-label.yml) |
-| Doc review workflow | [.github/workflows/doc-review.yml](.github/workflows/doc-review.yml) |
-
-## Reference
-
-| Document | Purpose |
-|----------|---------|
-| [DOCS-CONTRIBUTING.md](DOCS-CONTRIBUTING.md) | Style guidelines, commit format, contribution workflow |
-| [DOCS-TESTING.md](DOCS-TESTING.md) | Code block testing, link validation, Vale linting |
-| [DOCS-SHORTCODES.md](DOCS-SHORTCODES.md) | Complete shortcode reference |
-| [DOCS-FRONTMATTER.md](DOCS-FRONTMATTER.md) | Complete frontmatter field reference |
-| [api-docs/README.md](api-docs/README.md) | API documentation workflow |
-| [content/example.md](content/example.md) | Live shortcode examples |
-| [.github/copilot-instructions.md](.github/copilot-instructions.md) | CLI tools, repo structure, workflows |
-| [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) | Label taxonomy and review pipeline |
+- `content/AGENTS.md`: frontmatter, shortcodes, shared content, and doc editing
+  workflow.
+- `layouts/AGENTS.md`: Hugo template and shortcode guidance.
+- `assets/AGENTS.md`: JS, CSS, and TypeScript guidance.
+- `api-docs/AGENTS.md`: API reference generation workflow.
+- `DOCS-TESTING.md`: content validation workflow (human contributor reference).
+- `.agents/skills/docs-testing/SKILL.md`: agent testing decision guide — maps
+  changed file types to exact test commands, documents what CI runs automatically,
+  and flags coverage gaps.
+- `DOCS-SHORTCODES.md`: shortcode reference.
+- `DOCS-FRONTMATTER.md`: frontmatter reference.
+- `DOCS-CONTRIBUTING.md`: contribution and commit conventions.

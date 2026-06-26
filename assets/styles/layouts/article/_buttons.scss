@@ -56,6 +56,18 @@ a.btn {
     margin-right: -.65rem;
   }
 
+  &.magenta {
+    @include gradient($grad-burningDusk, -135deg);
+    &:after {
+      @include gradient($grad-coolDusk);
+    }
+  }
+
+  &.large {
+    padding: 1.25rem 2rem;
+    font-size: 1.15rem;
+  }
+
   &.small {
     padding: .4rem 1rem;
   }

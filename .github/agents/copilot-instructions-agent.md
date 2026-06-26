@@ -9,13 +9,13 @@ version: "1.0"
 
 ## Purpose
 
-This agent specializes in creating, improving, and managing GitHub Copilot instructions, custom instructions, and agent configurations. It helps maintain consistency between Claude and Copilot instruction files while adapting content appropriately for each platform.
+This agent specializes in creating, improving, and managing GitHub Copilot instructions, custom instructions, and agent configurations. It helps maintain consistency between canonical `.agents` sources and generated Copilot instruction files while adapting content appropriately for Copilot.
 
 **Use this agent when:**
 
 - Creating new Copilot instruction files
 - Improving existing Copilot instructions
-- Porting Claude skills/commands to Copilot format
+- Porting canonical `.agents` skills and instructions to Copilot format
 - Ensuring consistency across AI assistant configurations
 - Optimizing instructions for GitHub Copilot's capabilities
 
@@ -34,6 +34,7 @@ GitHub Copilot supports several types of customization:
    - Auto-loaded based on file patterns
    - Uses frontmatter `applyTo` field to specify glob patterns
    - More targeted than repository-wide instructions
+   - Generated from `.agents/instructions/*.md`; don't edit directly in this repo
 
 3. **Custom Agents** (`.github/agents/*.md`)
    - Specialized agents for specific tasks
@@ -266,23 +267,23 @@ When editing files with `source:` frontmatter:
 - Use `docs edit <url>` to automatically open all related files
 - Or manually touch sourcing files after editing source
 
-For complete workflow, see [.claude/skills/content-editing/](../../.claude/skills/content-editing/SKILL.md).
+For complete workflow, see [.agents/skills/content-editing/](../../.agents/skills/content-editing/SKILL.md).
 
 ````
 
-## Reference to Claude Resources
+## Reference to Canonical Agent Resources
 
-Copilot instructions should reference Claude resources for detailed workflows:
+Copilot instructions should reference canonical `.agents` resources for detailed workflows:
 
 ```markdown
 ## Detailed Workflows
 
 For comprehensive guidance:
 
-- **Content editing**: [.claude/skills/content-editing/](../.claude/skills/content-editing/SKILL.md)
-- **Testing**: [.claude/skills/cypress-e2e-testing/](../.claude/skills/cypress-e2e-testing/SKILL.md)
-- **InfluxDB setup**: [.claude/skills/influxdb3-test-setup/](../.claude/skills/influxdb3-test-setup/SKILL.md)
-- **Template dev**: [.claude/skills/hugo-template-dev/](../.claude/skills/hugo-template-dev/SKILL.md)
+- **Content editing**: [.agents/skills/content-editing/](../.agents/skills/content-editing/SKILL.md)
+- **Testing**: [.agents/skills/cypress-e2e-testing/](../.agents/skills/cypress-e2e-testing/SKILL.md)
+- **InfluxDB setup**: [.agents/skills/influxdb3-test-setup/](../.agents/skills/influxdb3-test-setup/SKILL.md)
+- **Template dev**: [.agents/skills/hugo-template-dev/](../.agents/skills/hugo-template-dev/SKILL.md)
 
 These resources provide detailed step-by-step guidance for complex workflows.
 ````
@@ -427,7 +428,7 @@ Before finalizing Copilot instructions:
 - [ ] **Consistent**: Matches other instruction formats
 - [ ] **Complete**: All necessary context provided
 - [ ] **CLI-aware**: Uses `docs` CLI where appropriate
-- [ ] **Cross-referenced**: Points to Claude skills when helpful
+- [ ] **Cross-referenced**: Points to canonical Agent Skills when helpful
 
 ## Maintenance Guidelines
 
@@ -503,7 +504,7 @@ From `.github/copilot-instructions.md`:
 
 | Skill | File | Description |
 |-------|------|-------------|
-| **content-editing** | [.claude/skills/content-editing/](../.claude/skills/content-editing/SKILL.md) | Complete content workflow |
+| **content-editing** | [.agents/skills/content-editing/](../.agents/skills/content-editing/SKILL.md) | Complete content workflow |
 ````
 
 ## Quick Checklist: Improving Existing Instructions
@@ -522,11 +523,12 @@ From `.github/copilot-instructions.md`:
 ## Resources
 
 - **GitHub Copilot Docs**: <https://docs.github.com/en/copilot>
-- **Claude skills directory**: `../.claude/skills/`
+- **Canonical skills directory**: `../.agents/skills/`
+- **Canonical path instructions**: `../.agents/instructions/`
 - **Existing Copilot instructions**: `.github/copilot-instructions.md`
 - **Pattern instructions**: `.github/instructions/`
 - **Main documentation**: `../AGENTS.md`, `../CLAUDE.md`
 
 ***
 
-Remember: Copilot instructions should be concise, actionable, and complementary to Claude's detailed skills. When in doubt, reference the detailed resource rather than duplicating it.
+Remember: Copilot instructions should be concise, actionable, and complementary to canonical Agent Skills. When in doubt, reference the detailed resource rather than duplicating it.

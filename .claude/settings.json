@@ -121,8 +121,9 @@
         "matcher": "Grep|Glob",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "If this search targeted content/influxdb3/core/ or content/influxdb3/enterprise/ but did NOT also search content/shared/influxdb3-*/, note that most InfluxDB 3 prose lives in shared content files. Suggest a follow-up search in content/shared/ if results look incomplete or only contain frontmatter stubs."
+            "type": "command",
+            "command": "bash .claude/hooks/suggest-shared-content.sh",
+            "timeout": 5
           }
         ]
       }
