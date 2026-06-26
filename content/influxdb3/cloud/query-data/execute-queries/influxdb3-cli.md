@@ -13,7 +13,6 @@ related:
   - /influxdb3/cloud/reference/cli/influxdb3/query/
   - /influxdb3/cloud/reference/sql/
   - /influxdb3/cloud/reference/influxql/
-  # - /influxdb3/cloud/query-data/execute-queries/, Get started querying data
 list_code_example: |
   ```sh
   influxdb3 query \

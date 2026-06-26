@@ -2,7 +2,7 @@
 title: Manage users in the Admin UI
 seotitle: Manage users in the {{< product-name >}} Admin UI
 description: >
-  Use the {{< product-name >}} console to view users, send invitations, assign
+  Use the {{< product-name >}} Admin UI to view users, send invitations, assign
   roles, and manage user access to your instance. Learn how to invite new users,
   revoke invitations, and understand role-based permissions.
 menu:
@@ -16,7 +16,7 @@ related:
   - /influxdb3/cloud/admin/tokens/
 ---
 
-Use the {{% product-name %}} console to manage users and control access to your instance through a web-based interface. The console provides self-service user management capabilities, allowing administrators to invite new users, assign roles, and manage invitations without contacting support.
+Use the {{% product-name %}} Admin UI to manage users and control access to your instance through a web-based interface. The Admin UI provides self-service user management, allowing administrators to invite new users, assign roles, and manage invitations.
 
 - [Access the Users page](#access-the-users-page)
 - [View existing users](#view-existing-users)
@@ -27,14 +27,14 @@ Use the {{% product-name %}} console to manage users and control access to your 
 
 ## Access the Users page
 
-Access the {{% product-name %}} console at
+Access the {{% product-name %}} Admin UI at
 [console.influxdata.com](https://console.influxdata.com).
 If you don't have login credentials,
 [contact InfluxData support](https://support.influxdata.com).
 
 <!-- TODO: Add an InfluxDB 3 Cloud console Users page screenshot. -->
 
-The Users page displays your account information and a table of existing users and invitations. Use the **Users** page to manage access to your InfluxDB account:
+The **Users** page displays your account information and a table of existing users and invitations. Use it to manage access to your InfluxDB account:
 
 - View all users who have accepted the user agreement and have access to the account
 - Invite new users to the account
@@ -83,7 +83,7 @@ Invitations expire after a set period. If an invitation expires, you'll need to 
 You can revoke pending invitations that haven't been accepted yet:
 
 1. In the Users table, locate the invitation you want to revoke.
-2. Click the **Actions** menu (⋮) for that invitation.
+2. Click the **Actions** menu (three vertical dots) for that invitation.
 3. Select **Revoke Invitation**.
 4. Confirm the revocation when prompted.
 
@@ -122,7 +122,7 @@ Click on any invitation in the table to view additional details, including:
 > #### Role assignment
 >
 > Admins assign a role when inviting a user and can update a user's role from
-> the console after the invitation is accepted.
+> the Admin UI after the invitation is accepted.
 
 <!-- TODO: Document the self-service steps to change a user's role and to
 remove a user from the account in the InfluxDB 3 Cloud console. -->
