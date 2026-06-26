@@ -1,4 +1,4 @@
-> [!Warning]
+> [!Important]
 > #### Upgrading to InfluxDB 3.10 is a one-way migration
 >
 > The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
