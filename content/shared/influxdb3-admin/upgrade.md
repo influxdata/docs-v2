@@ -19,7 +19,7 @@ Before upgrading your {{% product-name %}} instance, review the [release notes](
 Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
 {{% /show-in %}}
 
-> [!Warning]
+> [!Important]
 > #### Upgrading to InfluxDB 3.10 is a one-way migration
 >
 > The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
