@@ -7,11 +7,22 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version-file: .nvmrc
         cache: 'yarn'
-    
+
+    - name: Verify Node version matches .nvmrc
+      run: |
+        NVMRC_MAJOR=$(cat .nvmrc | tr -d 'v' | cut -d'.' -f1)
+        CURRENT_MAJOR=$(node --version | tr -d 'v' | cut -d'.' -f1)
+        if [ "$CURRENT_MAJOR" != "$NVMRC_MAJOR" ]; then
+          echo "Node major mismatch: running Node $CURRENT_MAJOR but .nvmrc requires $NVMRC_MAJOR"
+          exit 1
+        fi
+        echo "Node $CURRENT_MAJOR matches .nvmrc requirement"
+      shell: bash
+
     - name: Install dependencies
-      run: yarn install
+      run: yarn install --frozen-lockfile --non-interactive --prefer-offline
       shell: bash
     
     - name: Verify Hugo installation

@@ -87,7 +87,7 @@ jobs:
         if: steps.detect.outputs.has-changes == 'true'
         uses: actions/setup-node@v6
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
           cache: 'yarn'
 
       - name: Install dependencies

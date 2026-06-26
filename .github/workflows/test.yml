@@ -59,7 +59,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
 
       - name: Analyze changes and determine products
         id: check
@@ -227,7 +227,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
           cache: 'yarn'
       - name: Install dependencies
         run: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
@@ -335,7 +335,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
           cache: 'yarn'
 
       - name: Install dependencies
