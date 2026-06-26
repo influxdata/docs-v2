@@ -17,7 +17,7 @@ To get started, get your instance host from InfluxData, configure the
 ## Get your instance
 
 During early access, InfluxData provisions {{% product-name %}} instances for
-you--there's no self-service signup.
+you. You can't sign up for the service yourself.
 To request early access, see
 [InfluxDB 3 Cloud](https://www.influxdata.com/products/influxdb3-cloud/).
 

@@ -3,8 +3,8 @@ title: influxdb3 CLI
 list_title: influxdb3
 seotitle: influxdb3 CLI | {{% product-name %}}
 description: >
-  The `influxdb3` CLI interacts with {{% product-name %}} from the command line
-  to write and query data and administer your instance.
+  The `influxdb3` CLI writes and queries data and administers your
+  {{% product-name %}} instance from the command line.
 menu:
   influxdb3_cloud:
     parent: Reference

@@ -21,7 +21,6 @@ It provides the performance and scalability of InfluxDB 3's diskless
 architecture as a managed service, so you can write and query time series data
 without provisioning or operating your own infrastructure.
 
-
 {{< children type="articles" hlevel="h2" >}}
 
 > [!Important]
