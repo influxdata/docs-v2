@@ -73,6 +73,19 @@ Code block execution tests are **disabled** in pre-push hooks. Run them manually
 
 Code block **execution** is NOT a PR check. It runs on demand via `workflow_dispatch`.
 
+### Dependency updates (org-managed)
+
+**Dependabot runs org-wide** for all influxdata repos — it is managed by the
+security team, not by a workflow in this repo. Do not add a parallel
+dependency-update mechanism. Two implications for agents:
+
+- When you add or update a third-party GitHub Action, **pin it by full commit
+  SHA** with a version comment (see `.github/workflows/pr-lockfile-lint.yml`) so
+  Dependabot can bump it cleanly.
+- A repo-level `.github/dependabot.yml`, if present, supplements the org config;
+  scheduled `github-actions` version updates require an explicit entry there.
+  Coordinate with the security team before changing dependency automation.
+
 ***
 
 ## Part 3: Running Specific Tests
