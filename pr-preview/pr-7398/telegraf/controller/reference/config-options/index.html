@@ -1,0 +1,3994 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>Telegraf Controller configuration options | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="Telegraf Controller lets you customize startup behavior using command-line flags, environment variables, or a .env file.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-7398/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7398/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/config-options/" />
+
+    
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7398/telegraf/controller/#software"},"articleSection":"Reference","dateModified":"2026-06-26T12:13:26-06:00","description":"Telegraf Controller lets you customize startup behavior using command-line flags, environment variables, or a `.env` file.","headline":"Telegraf Controller configuration options","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7398/telegraf/controller/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/config-options/","name":"Telegraf Controller configuration options"}</script>
+    
+    <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
+    
+
+
+
+
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/config-options/index.md">
+
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7398/light-theme.a441dca3bdc8675d1f20cf20e368d0704aef97451965f731a4ba0112faf86150.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7398/dark-theme.538d51ada3446116a0e26b75f62fd012b0cce792888417dcd5573f7451f8ebd1.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7398/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-7398/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-7398/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2026-06-26 12:13:26 -0600 -0600">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    
+      <div class="selector-dropdowns">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+        <li>
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/platform/#influxdb-cloud-1' >InfluxDB Cloud 1</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' class="active">Telegraf Controller <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/enterprise/' >Telegraf Enterprise <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="buttons">
+        <div class="search-btn" data-component="search-button">
+          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+        </div>
+        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <span data-component="theme-switch">
+          <button class="theme-switch theme-switch-light">
+            <span class="cf-icon Lightmode_New"></span></button>
+          <button class="theme-switch theme-switch-dark">
+            <span class="cf-icon Darkmode_New"></span></button>
+        </span>
+      </div>
+    
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search Telegraf Controller'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/'>Telegraf Controller</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/install/'>Install Telegraf Controller</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/install/secure-tls/'>Secure with TLS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/install/troubleshoot/'>Troubleshoot installation</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/install/uninstall/'>Uninstall</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/get-started/'>Get started</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/'>Manage configurations</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/create/'>Create a configuration</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/update/'>Update a configuration</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/ui/'>Configuration UI tools</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/ui/code-editor/'>Code Editor</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " state="beta">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/ui/telegraf-builder/'>Telegraf Builder</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/dynamic-values/'>Use dynamic values</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/use/'>Use configurations</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/configs/delete/'>Delete configurations</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/agents/'>Manage agents</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/agents/create/'>Create agents</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/agents/reporting-rules/'>Define reporting rules</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/agents/status/'>Set agent statuses</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/agents/delete/'>Delete agents</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/'>Manage users</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/account/'>Manage your account</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/invite/'>Invite a new user</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/update/'>Update users</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/transfer-ownership/'>Transfer ownership</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/disable/'>Disable a user</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/users/delete/'>Delete a user</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/authentication/'>Authentication</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/authentication/local/'>Local</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/authentication/ldap/'>LDAP</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/authentication/oidc/'>OIDC</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/tokens/'>Manage API tokens</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/tokens/create/'>Create a token</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/tokens/use/'>Use tokens</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/tokens/reassign/'>Reassign a token</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/tokens/revoke/'>Revoke a token</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/tokens/delete/'>Delete a token</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/settings/'>Manage settings</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/telegraf-enterprise/'>Telegraf Enterprise licensing</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/telegraf-enterprise/apply-license/'>Apply a license</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/telegraf-enterprise/manage-license/'>View and update a license</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/telegraf-enterprise/license-enforcement/'>License enforcement</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/telegraf-enterprise/troubleshoot/'>Troubleshoot licensing</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/audit-logs/'>Audit logs</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/audit-logs/enable-configure/'>Enable and configure</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/audit-logs/view/'>View audit logs</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category " >
+      
+        
+        <a href="#" class="children-toggle open"></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/'>Reference</a>
+        
+          <ul class="children open">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/release-notes/'>Release notes</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item active" >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/config-options/'>Configuration options</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/api/'>API</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/architecture/'>Architectural overview</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/authentication-authorization/'>Authentication and authorization</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/agent-status-eval/'>Agent status evaluation</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/agent-status-eval/variables/'>Variables</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/agent-status-eval/functions/'>Functions</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/agent-status-eval/examples/'>Examples</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/glossary/'>Glossary</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item " >
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/eula/'>EULA</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>Telegraf Controller configuration options</h1>
+      
+
+
+
+
+
+      
+      <div class="page-actions">
+        <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+>
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+        
+
+
+
+        
+      </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>Telegraf Controller accepts configuration through environment variables and,
+in many cases, equivalent command-line flags. You can also load environment
+variables from a <code>.env</code> file in the working directory where you start
+Telegraf Controller.</p>
+<ul>
+<li><a href="#configure-telegraf-controller">Configure Telegraf Controller</a></li>
+<li><a href="#configuration-options">Configuration options</a></li>
+</ul>
+<h2 id="configure-telegraf-controller">Configure Telegraf Controller</h2>
+<p>Pass configuration options using command-line flags or environment variables.
+<strong>Command-line flags take precedence over environment variables.</strong></p>
+<h3 id="use-a-env-file">Use a <code>.env</code> file</h3>
+<p>Telegraf Controller loads environment variables from a <code>.env</code> file in the
+working directory where you start the application. Use a <code>.env</code> file to keep
+sensitive values out of shell history and to share configuration across
+processes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># .env</span>
+</span></span><span class="line"><span class="cl"><span class="nv">APP_PORT</span><span class="o">=</span><span class="m">3000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HEARTBEAT_PORT</span><span class="o">=</span><span class="m">9000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://user:password@localhost:5432/telegraf_controller
+</span></span><span class="line"><span class="cl"><span class="nv">TELEGRAF_CONTROLLER_EULA</span><span class="o">=</span>accept</span></span></code></pre></div><h3 id="example-command-flags">Example: command flags</h3>
+<!--pytest.mark.skip-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">telegraf_controller <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --port<span class="o">=</span><span class="m">3000</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --heartbeat-port<span class="o">=</span><span class="m">9000</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --database<span class="o">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_controller&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --eula-accept <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --no-interactive</span></span></code></pre></div><h3 id="example-environment-variables">Example: environment variables</h3>
+<!--pytest.mark.skip-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">APP_PORT</span><span class="o">=</span><span class="m">3000</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HEARTBEAT_PORT</span><span class="o">=</span><span class="m">9000</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_controller&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">TELEGRAF_CONTROLLER_EULA</span><span class="o">=</span>accept
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">telegraf_controller --no-interactive</span></span></code></pre></div><hr>
+<h2 id="configuration-options">Configuration options</h2>
+<ul>
+<li><a href="#general">General</a>
+<ul>
+<li><a href="#port">port</a></li>
+<li><a href="#heartbeat-port">heartbeat-port</a></li>
+<li><a href="#database">database</a></li>
+</ul>
+</li>
+<li><a href="#tls">TLS</a>
+<ul>
+<li><a href="#ssl-cert-path">ssl-cert-path</a></li>
+<li><a href="#ssl-key-path">ssl-key-path</a></li>
+</ul>
+</li>
+<li><a href="#database-tls">Database TLS</a>
+<ul>
+<li><a href="#sslmode">sslmode</a></li>
+<li><a href="#sslrootcert">sslrootcert</a></li>
+<li><a href="#database-ca-cert">database-ca-cert</a></li>
+<li><a href="#database-ssl-no-verify">database-ssl-no-verify</a></li>
+</ul>
+</li>
+<li><a href="#owner-account">Owner account</a>
+<ul>
+<li><a href="#owner-email">owner-email</a></li>
+<li><a href="#owner-username">owner-username</a></li>
+<li><a href="#owner-password">owner-password</a></li>
+<li><a href="#reset-owner-password">reset-owner-password</a></li>
+<li><a href="#owner-auth-provider">owner-auth-provider</a></li>
+<li><a href="#owner-external-id">owner-external-id</a></li>
+</ul>
+</li>
+<li><a href="#authentication-and-security">Authentication and security</a>
+<ul>
+<li><a href="#session-secret">session-secret</a></li>
+<li><a href="#disable-auth-endpoints">disable-auth-endpoints</a></li>
+<li><a href="#local-authentication">Local authentication</a>
+<ul>
+<li><a href="#auth-local-enabled">auth-local-enabled</a></li>
+<li><a href="#login-lockout-attempts">login-lockout-attempts</a></li>
+<li><a href="#login-lockout-minutes">login-lockout-minutes</a></li>
+<li><a href="#password-complexity">password-complexity</a></li>
+</ul>
+</li>
+<li><a href="#ldap-authentication">LDAP authentication</a>
+<ul>
+<li><a href="#auth-ldap-enabled">auth-ldap-enabled</a></li>
+<li><a href="#auth-ldap-url">auth-ldap-url</a></li>
+<li><a href="#auth-ldap-bind-dn">auth-ldap-bind-dn</a></li>
+<li><a href="#auth-ldap-bind-password">auth-ldap-bind-password</a></li>
+<li><a href="#auth-ldap-user-search-base">auth-ldap-user-search-base</a></li>
+<li><a href="#auth-ldap-user-search-filter">auth-ldap-user-search-filter</a></li>
+<li><a href="#auth-ldap-start-tls">auth-ldap-start-tls</a></li>
+<li><a href="#auth-ldap-ca-cert-path">auth-ldap-ca-cert-path</a></li>
+<li><a href="#auth-ldap-reject-unauthorized">auth-ldap-reject-unauthorized</a></li>
+<li><a href="#auth-ldap-attr-username">auth-ldap-attr-username</a></li>
+<li><a href="#auth-ldap-attr-email">auth-ldap-attr-email</a></li>
+<li><a href="#auth-ldap-attr-display-name">auth-ldap-attr-display-name</a></li>
+<li><a href="#auth-ldap-attr-groups">auth-ldap-attr-groups</a></li>
+</ul>
+</li>
+<li><a href="#oidc-authentication">OIDC authentication</a>
+<ul>
+<li><a href="#auth-oidc-enabled">auth-oidc-enabled</a></li>
+<li><a href="#auth-oidc-issuer">auth-oidc-issuer</a></li>
+<li><a href="#auth-oidc-client-id">auth-oidc-client-id</a></li>
+<li><a href="#auth-oidc-client-secret">auth-oidc-client-secret</a></li>
+<li><a href="#auth-oidc-redirect-uri">auth-oidc-redirect-uri</a></li>
+<li><a href="#auth-oidc-scopes">auth-oidc-scopes</a></li>
+<li><a href="#auth-oidc-username-claim">auth-oidc-username-claim</a></li>
+<li><a href="#auth-oidc-groups-claim">auth-oidc-groups-claim</a></li>
+<li><a href="#auth-oidc-display-name">auth-oidc-display-name</a></li>
+<li><a href="#auth-oidc-post-login-redirect">auth-oidc-post-login-redirect</a></li>
+<li><a href="#auth-oidc-allow-insecure">auth-oidc-allow-insecure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#logging">Logging</a>
+<ul>
+<li><a href="#rust-log">rust-log</a></li>
+<li><a href="#logs-dir">logs-dir</a></li>
+</ul>
+</li>
+<li><a href="#audit-logging">Audit logging</a>
+<ul>
+<li><a href="#audit-enabled">audit-enabled</a></li>
+<li><a href="#audit-log-retention">audit-log-retention</a></li>
+<li><a href="#audit-syslog-host">audit-syslog-host</a></li>
+<li><a href="#audit-syslog-port">audit-syslog-port</a></li>
+<li><a href="#audit-syslog-protocol">audit-syslog-protocol</a></li>
+<li><a href="#audit-webhook-url">audit-webhook-url</a></li>
+<li><a href="#audit-webhook-auth-header">audit-webhook-auth-header</a></li>
+<li><a href="#audit-file-path">audit-file-path</a></li>
+</ul>
+</li>
+<li><a href="#eula-and-setup">EULA and setup</a>
+<ul>
+<li><a href="#eula-accept">eula-accept</a></li>
+<li><a href="#no-interactive">no-interactive</a></li>
+</ul>
+</li>
+<li><a href="#licensing">Licensing</a>
+<ul>
+<li><a href="#license-file-path">license-file-path</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="general">General</h3>
+<ul>
+<li><a href="#port">port</a></li>
+<li><a href="#heartbeat-port">heartbeat-port</a></li>
+<li><a href="#database">database</a></li>
+</ul>
+<h4 id="port">port</h4>
+<p>Web interface and API port.</p>
+<p><strong>Default:</strong> <code>8888</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--port</code></td>
+          <td style="text-align: left"><code>APP_PORT</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="heartbeat-port">heartbeat-port</h4>
+<p>Agent heartbeat service port.</p>
+<p><strong>Default:</strong> <code>8000</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--heartbeat-port</code></td>
+          <td style="text-align: left"><code>HEARTBEAT_PORT</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="database">database</h4>
+<p>Database connection URL or filesystem path. Telegraf Controller supports
+SQLite and PostgreSQL.</p>
+<p><strong>Default:</strong> <code>file:./sqlite.db</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># PostgreSQL</span>
+</span></span><span class="line"><span class="cl">telegraf_controller --database<span class="o">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_controller&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Custom SQLite path</span>
+</span></span><span class="line"><span class="cl">telegraf_controller --database<span class="o">=</span><span class="s2">&#34;/path/to/database.db&#34;</span></span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--database</code></td>
+          <td style="text-align: left"><code>DATABASE_URL</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="tls">TLS</h3>
+<p>Provide both a certificate and a private key to serve the
+Telegraf Controller web interface, API, and the agent heartbeat service over
+HTTPS. The web interface, API, and heartbeat service share the same
+certificate and key.</p>
+<ul>
+<li><a href="#ssl-cert-path">ssl-cert-path</a></li>
+<li><a href="#ssl-key-path">ssl-key-path</a></li>
+</ul>
+<p>For a full walkthrough that includes configuring agents to trust the certificate,
+see <a href="/telegraf/controller/install/secure-tls/">Secure Telegraf Controller with TLS</a>.</p>
+
+<div class="block note">
+  
+  
+  <h4 id="provide-both-the-certificate-and-the-key">Provide both the certificate and the key</h4>
+<p>The certificate and key are required together. If you set only one of
+<a href="#ssl-cert-path"><code>ssl-cert-path</code></a> or <a href="#ssl-key-path"><code>ssl-key-path</code></a>,
+Telegraf Controller logs a warning and serves plain HTTP. When both are set,
+the certificate and key must be valid PEM files. An invalid certificate or
+key prevents the heartbeat service from starting.</p>
+</div>
+<h4 id="ssl-cert-path">ssl-cert-path</h4>
+<p>Path to a PEM-encoded SSL/TLS certificate. Set this together with
+<a href="#ssl-key-path"><code>ssl-key-path</code></a> to enable HTTPS.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--ssl-cert</code></td>
+          <td style="text-align: left"><code>SSL_CERT_PATH</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="ssl-key-path">ssl-key-path</h4>
+<p>Path to the PEM-encoded SSL/TLS private key that matches
+<a href="#ssl-cert-path"><code>ssl-cert-path</code></a>. Set this together with the certificate to
+enable HTTPS.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--ssl-key</code></td>
+          <td style="text-align: left"><code>SSL_KEY_PATH</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="database-tls">Database TLS</h3>
+<p>When you connect Telegraf Controller to PostgreSQL, use the following options
+to encrypt the database connection and to control how
+Telegraf Controller verifies the PostgreSQL server&rsquo;s certificate. These
+options apply only to PostgreSQL connections and have no effect when you use
+SQLite.</p>
+<ul>
+<li><a href="#sslmode">sslmode</a></li>
+<li><a href="#sslrootcert">sslrootcert</a></li>
+<li><a href="#database-ca-cert">database-ca-cert</a></li>
+<li><a href="#database-ssl-no-verify">database-ssl-no-verify</a></li>
+</ul>
+<h4 id="sslmode">sslmode</h4>
+<p>Set <code>sslmode</code> as a query parameter in the PostgreSQL
+<a href="#database"><code>database</code></a> connection URL to control whether Telegraf Controller
+uses TLS and whether it verifies the server certificate.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">telegraf_controller <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --database<span class="o">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_controller?<span class='code-callout orange'>sslmode=verify-full</span>&amp;sslrootcert=/etc/ssl/certs/ca.pem&#34;</span></span></span></code></pre></div><p>Telegraf Controller supports the following <code>sslmode</code> values:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><code>sslmode</code></th>
+          <th style="text-align: left">Connection behavior</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>disable</code></td>
+          <td style="text-align: left">Connect without TLS.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>allow</code></td>
+          <td style="text-align: left">Use TLS if the server supports it. Equivalent to <code>prefer</code>.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>prefer</code></td>
+          <td style="text-align: left">Use TLS if the server supports it, otherwise connect without it.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>require</code></td>
+          <td style="text-align: left">Require TLS, but do not verify the server certificate unless you also provide a CA certificate.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>verify-ca</code></td>
+          <td style="text-align: left">Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>verify-full</code></td>
+          <td style="text-align: left">Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate.</td>
+      </tr>
+  </tbody>
+</table>
+<p>To verify the server certificate, provide a CA certificate with
+<a href="#sslrootcert"><code>sslrootcert</code></a>, <a href="#database-ca-cert"><code>database-ca-cert</code></a>, or
+<code>PGSSLROOTCERT</code>. If you request verification but do not provide a CA
+certificate, Telegraf Controller falls back to the system trust store.</p>
+
+<div class="block note">
+  
+  
+  <h4 id="client-certificate-authentication-is-not-supported">Client certificate authentication is not supported</h4>
+<p>Telegraf Controller does not support PostgreSQL client certificate
+authentication. Telegraf Controller ignores the <code>sslcert</code> and <code>sslkey</code>
+connection parameters and logs a warning if you set them.</p>
+</div>
+<hr>
+<h4 id="sslrootcert">sslrootcert</h4>
+<p>Path to a PEM-encoded CA certificate used to verify the PostgreSQL server&rsquo;s
+certificate. Set <code>sslrootcert</code> as a query parameter in the
+<a href="#database"><code>database</code></a> connection URL. This is equivalent to setting
+<a href="#database-ca-cert"><code>database-ca-cert</code></a>. When you provide a CA certificate,
+Telegraf Controller verifies the server certificate even if
+<a href="#database-ssl-no-verify"><code>database-ssl-no-verify</code></a> is set.</p>
+<hr>
+<h4 id="database-ca-cert">database-ca-cert</h4>
+<p>Path to a PEM-encoded CA certificate used to verify the PostgreSQL server&rsquo;s
+certificate. Use this environment variable as an alternative to the
+<a href="#sslrootcert"><code>sslrootcert</code></a> connection parameter. Telegraf Controller also
+accepts the standard <code>PGSSLROOTCERT</code> environment variable for the same purpose.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>DATABASE_CA_CERT</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="database-ssl-no-verify">database-ssl-no-verify</h4>
+<p>When set to <code>1</code>, <code>true</code>, or <code>yes</code>, Telegraf Controller encrypts the
+PostgreSQL connection but does not verify the server certificate.
+Use this only for development or troubleshooting. If you also provide a CA
+certificate, Telegraf Controller verifies the server certificate and ignores
+this setting.</p>
+<p><strong>Default:</strong> <code>false</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>DATABASE_SSL_NO_VERIFY</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="owner-account">Owner account</h3>
+<p>Use the following options to bootstrap the owner account with non-default
+values on first startup of Telegraf Controller. The owner account has full
+administrative access to Telegraf Controller.</p>
+<ul>
+<li><a href="#owner-email">owner-email</a></li>
+<li><a href="#owner-username">owner-username</a></li>
+<li><a href="#owner-password">owner-password</a></li>
+<li><a href="#reset-owner-password">reset-owner-password</a></li>
+<li><a href="#owner-auth-provider">owner-auth-provider</a></li>
+<li><a href="#owner-external-id">owner-external-id</a></li>
+</ul>
+
+<div class="block note">
+  
+  
+  <h4 id="bootstrap-only-settings">Bootstrap-only settings</h4>
+<p>On first startup, Telegraf Controller persists <code>OWNER_EMAIL</code>,
+<code>OWNER_USERNAME</code>, <code>OWNER_PASSWORD</code>, <code>OWNER_AUTH_PROVIDER</code>, and
+<code>OWNER_EXTERNAL_ID</code> in the database; the database is the authoritative
+source thereafter. Changes to these environment variables or CLI flags
+do not affect the stored values. To change owner account details after
+bootstrap, use the Telegraf Controller UI or API.</p>
+</div>
+<h4 id="owner-email">owner-email</h4>
+<p>Email address for the bootstrap owner account.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--owner-email</code></td>
+          <td style="text-align: left"><code>OWNER_EMAIL</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="owner-username">owner-username</h4>
+<p>Username for the bootstrap owner account.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--owner-username</code></td>
+          <td style="text-align: left"><code>OWNER_USERNAME</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="owner-password">owner-password</h4>
+<p>Password for the bootstrap owner account. Also used as the new password when
+<a href="#reset-owner-password"><code>RESET_OWNER_PASSWORD</code></a> forces a password reset.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--owner-password</code></td>
+          <td style="text-align: left"><code>OWNER_PASSWORD</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="reset-owner-password">reset-owner-password</h4>
+<p>When set to <code>true</code>, forces an owner password reset on the next startup using
+<a href="#owner-password"><code>OWNER_PASSWORD</code></a> as the new password.</p>
+
+<div class="block important">
+  
+  
+  <p>Use <code>RESET_OWNER_PASSWORD</code> only to recover from a forgotten or compromised
+owner password. Unset the variable after the password has been reset to
+avoid resetting the password on subsequent restarts.</p>
+</div>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>RESET_OWNER_PASSWORD</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="owner-auth-provider">owner-auth-provider</h4>
+<p>Primary authentication provider for the bootstrap owner account.
+Set this when you intend to
+<a href="/telegraf/controller/authentication/local/#disable-local-authentication">disable local authentication</a>
+after bootstrap. The owner can still sign in with the bootstrap password
+as a recovery credential.</p>
+<p>Supported values: <code>local</code>, <code>ldap</code>, <code>oidc</code></p>
+<p><strong>Default:</strong> <code>local</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>OWNER_AUTH_PROVIDER</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="owner-external-id">owner-external-id</h4>
+<p>External identifier that links the bootstrap owner to its identity in an
+external authentication provider. Required when
+<a href="#owner-auth-provider"><code>owner-auth-provider</code></a> is <code>ldap</code> or <code>oidc</code>.</p>
+<ul>
+<li>For LDAP, set to the user&rsquo;s distinguished name (DN), for example
+<code>uid=alice,ou=people,dc=example,dc=com</code>.</li>
+<li>For OIDC, set to the <code>sub</code> claim from the ID token.</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>OWNER_EXTERNAL_ID</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="authentication-and-security">Authentication and security</h3>
+<ul>
+<li>
+<p><a href="#session-secret">session-secret</a></p>
+</li>
+<li>
+<p><a href="#disable-auth-endpoints">disable-auth-endpoints</a></p>
+</li>
+<li>
+<p><a href="#local-authentication">Local authentication</a></p>
+<ul>
+<li><a href="#auth-local-enabled">auth-local-enabled</a></li>
+<li><a href="#login-lockout-attempts">login-lockout-attempts</a></li>
+<li><a href="#login-lockout-minutes">login-lockout-minutes</a></li>
+<li><a href="#password-complexity">password-complexity</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#ldap-authentication">LDAP authentication</a> <em>(Telegraf Enterprise)</em></p>
+<ul>
+<li><a href="#auth-ldap-enabled">auth-ldap-enabled</a></li>
+<li><a href="#auth-ldap-url">auth-ldap-url</a></li>
+<li><a href="#auth-ldap-bind-dn">auth-ldap-bind-dn</a></li>
+<li><a href="#auth-ldap-bind-password">auth-ldap-bind-password</a></li>
+<li><a href="#auth-ldap-user-search-base">auth-ldap-user-search-base</a></li>
+<li><a href="#auth-ldap-user-search-filter">auth-ldap-user-search-filter</a></li>
+<li><a href="#auth-ldap-start-tls">auth-ldap-start-tls</a></li>
+<li><a href="#auth-ldap-ca-cert-path">auth-ldap-ca-cert-path</a></li>
+<li><a href="#auth-ldap-reject-unauthorized">auth-ldap-reject-unauthorized</a></li>
+<li><a href="#auth-ldap-attr-username">auth-ldap-attr-username</a></li>
+<li><a href="#auth-ldap-attr-email">auth-ldap-attr-email</a></li>
+<li><a href="#auth-ldap-attr-display-name">auth-ldap-attr-display-name</a></li>
+<li><a href="#auth-ldap-attr-groups">auth-ldap-attr-groups</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#oidc-authentication">OIDC authentication</a> <em>(Telegraf Enterprise)</em></p>
+<ul>
+<li><a href="#auth-oidc-enabled">auth-oidc-enabled</a></li>
+<li><a href="#auth-oidc-issuer">auth-oidc-issuer</a></li>
+<li><a href="#auth-oidc-client-id">auth-oidc-client-id</a></li>
+<li><a href="#auth-oidc-client-secret">auth-oidc-client-secret</a></li>
+<li><a href="#auth-oidc-redirect-uri">auth-oidc-redirect-uri</a></li>
+<li><a href="#auth-oidc-scopes">auth-oidc-scopes</a></li>
+<li><a href="#auth-oidc-username-claim">auth-oidc-username-claim</a></li>
+<li><a href="#auth-oidc-groups-claim">auth-oidc-groups-claim</a></li>
+<li><a href="#auth-oidc-display-name">auth-oidc-display-name</a></li>
+<li><a href="#auth-oidc-post-login-redirect">auth-oidc-post-login-redirect</a></li>
+<li><a href="#auth-oidc-allow-insecure">auth-oidc-allow-insecure</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="session-secret">session-secret</h4>
+<p>Secret used to encrypt session cookies. Telegraf Controller generates a value
+automatically if you do not set one. Set an explicit value to keep existing
+sessions valid across restarts.</p>
+<p><strong>Default:</strong> Generated at startup</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--session-secret</code></td>
+          <td style="text-align: left"><code>SESSION_SECRET</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="disable-auth-endpoints">disable-auth-endpoints</h4>
+<p>Comma-separated list of API endpoint groups to skip authentication for.
+Use <code>&quot;*&quot;</code> to disable authentication for all endpoint groups.</p>
+<p>Valid endpoint groups:</p>
+<ul>
+<li><code>agents</code></li>
+<li><code>configs</code></li>
+<li><code>labels</code></li>
+<li><code>reporting-rules</code></li>
+<li><code>heartbeat</code></li>
+</ul>
+
+<div class="block warning">
+  
+  
+  <p>Telegraf Controller reads this value once at startup; the value is
+immutable at runtime. Anyone with network access to the listed endpoint
+groups can use them without an API token.</p>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Disable authentication on agents and heartbeat only</span>
+</span></span><span class="line"><span class="cl">telegraf_controller --disable-auth-endpoints<span class="o">=</span>agents,heartbeat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Disable authentication on all endpoint groups</span>
+</span></span><span class="line"><span class="cl">telegraf_controller --disable-auth-endpoints<span class="o">=</span><span class="s2">&#34;*&#34;</span></span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--disable-auth-endpoints</code></td>
+          <td style="text-align: left"><code>DISABLED_AUTH_ENDPOINTS</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="local-authentication">Local authentication</h4>
+<p>Local authentication is enabled by default and is the only authentication
+provider available without a
+<a href="/telegraf/enterprise/">Telegraf Enterprise</a> license.
+The variables in this group apply only when
+<a href="#auth-local-enabled"><code>auth-local-enabled</code></a> is <code>true</code>. LDAP and OIDC
+providers enforce their own credential and lockout policies.</p>
+<p>For setup details, see
+<a href="/telegraf/controller/authentication/local/">Configure local authentication</a>.</p>
+<hr>
+<h4 id="auth-local-enabled">auth-local-enabled</h4>
+<p>Enable username and password authentication using credentials stored in
+Telegraf Controller.
+Read once at startup; immutable at runtime.</p>
+<p>Set this to <code>false</code> to require sign-in through an external provider
+(LDAP or OIDC). When disabled, the owner must have been bootstrapped with
+<a href="#owner-auth-provider"><code>owner-auth-provider</code></a> and
+<a href="#owner-external-id"><code>owner-external-id</code></a> set to the external provider.</p>
+<p><strong>Default:</strong> <code>true</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LOCAL_ENABLED</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>For setup details, see
+<a href="/telegraf/controller/authentication/local/">Configure local authentication</a>.</p>
+<hr>
+
+<div class="block note">
+  
+  
+  <h4 id="bootstrap-only-login-security-settings">Bootstrap-only login security settings</h4>
+<p>On first startup, Telegraf Controller persists <code>LOGIN_LOCKOUT_ATTEMPTS</code>,
+<code>LOGIN_LOCKOUT_MINUTES</code>, and <code>PASSWORD_COMPLEXITY</code> in the database; the
+database is the authoritative source thereafter. Changes to these
+environment variables do not affect the stored values. To change these
+settings after bootstrap, use the Telegraf Controller UI.</p>
+</div>
+<h4 id="login-lockout-attempts">login-lockout-attempts</h4>
+<p>Number of failed login attempts allowed before an account is locked out.
+Minimum: <code>1</code>.</p>
+<p><strong>Default:</strong> <code>5</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>LOGIN_LOCKOUT_ATTEMPTS</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="login-lockout-minutes">login-lockout-minutes</h4>
+<p>Number of minutes a locked-out account remains locked.
+Minimum: <code>1</code>.</p>
+<p><strong>Default:</strong> <code>15</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>LOGIN_LOCKOUT_MINUTES</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="password-complexity">password-complexity</h4>
+<p>Password complexity level applied to all password operations, including
+initial setup, password changes, password resets, and invite completion.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Level</th>
+          <th style="text-align: center">Min length</th>
+          <th style="text-align: center">Uppercase</th>
+          <th style="text-align: center">Lowercase</th>
+          <th style="text-align: center">Digits</th>
+          <th style="text-align: center">Special characters</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>low</code></td>
+          <td style="text-align: center">8</td>
+          <td style="text-align: center">No</td>
+          <td style="text-align: center">No</td>
+          <td style="text-align: center">No</td>
+          <td style="text-align: center">No</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>medium</code></td>
+          <td style="text-align: center">10</td>
+          <td style="text-align: center">Yes</td>
+          <td style="text-align: center">Yes</td>
+          <td style="text-align: center">Yes</td>
+          <td style="text-align: center">No</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>high</code></td>
+          <td style="text-align: center">12</td>
+          <td style="text-align: center">Yes</td>
+          <td style="text-align: center">Yes</td>
+          <td style="text-align: center">Yes</td>
+          <td style="text-align: center">Yes</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Default:</strong> <code>low</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>PASSWORD_COMPLEXITY</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="ldap-authentication">LDAP authentication</h4>
+<p>LDAP authentication is a
+<a href="/telegraf/enterprise/">Telegraf Enterprise</a> feature.
+If <code>AUTH_LDAP_*</code> variables are set on an unlicensed instance,
+Telegraf Controller starts normally, logs a warning, and leaves LDAP
+inactive until a license is applied and the application is restarted.</p>
+<p>All <code>AUTH_LDAP_*</code> variables are read once at startup and are immutable at
+runtime. Provisioning rules, default role, allowed domains, and
+group-to-role mappings are runtime-editable from the <strong>Settings</strong> page.</p>
+<p>For setup details, see
+<a href="/telegraf/controller/authentication/ldap/">Configure LDAP authentication</a>.</p>
+<hr>
+<h4 id="auth-ldap-enabled">auth-ldap-enabled</h4>
+<p>Enable LDAP authentication.</p>
+<p><strong>Default:</strong> <code>false</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_ENABLED</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-url">auth-ldap-url</h4>
+<p>LDAP server URL. Must use the <code>ldap://</code> or <code>ldaps://</code> scheme.
+Required when <a href="#auth-ldap-enabled"><code>auth-ldap-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_URL</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-bind-dn">auth-ldap-bind-dn</h4>
+<p>Distinguished name (DN) of the service account that
+Telegraf Controller binds as to search for users.
+Required when <a href="#auth-ldap-enabled"><code>auth-ldap-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_BIND_DN</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-bind-password">auth-ldap-bind-password</h4>
+<p>Password for the service account specified by
+<a href="#auth-ldap-bind-dn"><code>auth-ldap-bind-dn</code></a>.
+Required when <a href="#auth-ldap-enabled"><code>auth-ldap-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_BIND_PASSWORD</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-user-search-base">auth-ldap-user-search-base</h4>
+<p>Base DN under which Telegraf Controller searches for user entries
+(for example, <code>ou=people,dc=example,dc=com</code>).
+Required when <a href="#auth-ldap-enabled"><code>auth-ldap-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_USER_SEARCH_BASE</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-user-search-filter">auth-ldap-user-search-filter</h4>
+<p>LDAP filter used to locate a user. The literal token <code>{{username}}</code> is
+replaced with the value the user types on the sign-in page.</p>
+<p><strong>Default:</strong> <code>(uid={{username}})</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_USER_SEARCH_FILTER</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-start-tls">auth-ldap-start-tls</h4>
+<p>When <code>true</code>, upgrade an unencrypted <code>ldap://</code> connection to TLS using
+StartTLS before binding. Ignored for <code>ldaps://</code> connections.</p>
+<p><strong>Default:</strong> <code>false</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_START_TLS</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-ca-cert-path">auth-ldap-ca-cert-path</h4>
+<p>Path to a PEM-encoded certificate authority used to verify the LDAP
+server&rsquo;s TLS certificate. Use this when your LDAP server is signed by a
+private CA not in the system trust store.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_CA_CERT_PATH</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-reject-unauthorized">auth-ldap-reject-unauthorized</h4>
+<p>When <code>false</code>, accept any TLS certificate the LDAP server presents.
+For development and troubleshooting only.</p>
+<p><strong>Default:</strong> <code>true</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_REJECT_UNAUTHORIZED</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-attr-username">auth-ldap-attr-username</h4>
+<p>LDAP attribute that supplies the Telegraf Controller username for an
+authenticated user.</p>
+<p><strong>Default:</strong> <code>sAMAccountName</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_ATTR_USERNAME</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-attr-email">auth-ldap-attr-email</h4>
+<p>LDAP attribute that supplies the user&rsquo;s email address.</p>
+<p><strong>Default:</strong> <code>mail</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_ATTR_EMAIL</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-attr-display-name">auth-ldap-attr-display-name</h4>
+<p>LDAP attribute that supplies the user&rsquo;s display name.</p>
+<p><strong>Default:</strong> <code>displayName</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_ATTR_DISPLAY_NAME</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-ldap-attr-groups">auth-ldap-attr-groups</h4>
+<p>LDAP attribute that supplies the user&rsquo;s group memberships.
+Telegraf Controller matches values from this attribute against the
+group-to-role mappings configured on the <strong>Settings</strong> page.</p>
+<p><strong>Default:</strong> <code>memberOf</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_LDAP_ATTR_GROUPS</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="oidc-authentication">OIDC authentication</h4>
+<p>OIDC authentication is a
+<a href="/telegraf/enterprise/">Telegraf Enterprise</a> feature.
+If <code>AUTH_OIDC_*</code> variables are set on an unlicensed instance,
+Telegraf Controller starts normally, logs a warning, and leaves OIDC
+inactive until a license is applied and the application is restarted.</p>
+<p>Telegraf Controller always uses authorization code flow with PKCE
+(S256). All <code>AUTH_OIDC_*</code> variables are read once at startup and are
+immutable at runtime. Provisioning rules, default role, allowed domains,
+and group-to-role mappings are runtime-editable from the <strong>Settings</strong>
+page.</p>
+<p>For setup details, see
+<a href="/telegraf/controller/authentication/oidc/">Configure OIDC authentication</a>.</p>
+<hr>
+<h4 id="auth-oidc-enabled">auth-oidc-enabled</h4>
+<p>Enable OIDC authentication.</p>
+<p><strong>Default:</strong> <code>false</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_ENABLED</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-issuer">auth-oidc-issuer</h4>
+<p>OIDC issuer URL.
+Required when <a href="#auth-oidc-enabled"><code>auth-oidc-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_ISSUER</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-client-id">auth-oidc-client-id</h4>
+<p>OAuth2 client identifier registered with the OIDC provider.
+Required when <a href="#auth-oidc-enabled"><code>auth-oidc-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_CLIENT_ID</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-client-secret">auth-oidc-client-secret</h4>
+<p>OAuth2 client secret.
+Required when <a href="#auth-oidc-enabled"><code>auth-oidc-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_CLIENT_SECRET</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-redirect-uri">auth-oidc-redirect-uri</h4>
+<p>Full callback URL registered with the OIDC provider. Must end with
+<code>/api/auth/oidc/callback</code>.
+Required when <a href="#auth-oidc-enabled"><code>auth-oidc-enabled</code></a> is <code>true</code>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_REDIRECT_URI</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-scopes">auth-oidc-scopes</h4>
+<p>Space-separated list of OAuth2 scopes to request. <code>openid</code> is added
+automatically if missing.</p>
+<p><strong>Default:</strong> <code>openid profile email</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_SCOPES</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-username-claim">auth-oidc-username-claim</h4>
+<p>Name of the ID-token claim used as the Telegraf Controller username.</p>
+<p><strong>Default:</strong> <code>preferred_username</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_USERNAME_CLAIM</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-groups-claim">auth-oidc-groups-claim</h4>
+<p>Name of the ID-token claim that contains the user&rsquo;s group memberships.
+Telegraf Controller matches values from this claim against the
+group-to-role mappings configured on the <strong>Settings</strong> page.</p>
+<p><strong>Default:</strong> <code>groups</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_GROUPS_CLAIM</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-display-name">auth-oidc-display-name</h4>
+<p>Friendly name displayed on the <strong>Sign in with&hellip;</strong> button on the
+sign-in page. The <strong>Settings &gt; OIDC Authentication</strong> panel can override
+this value at runtime.</p>
+<p><strong>Default:</strong> <code>SSO</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_DISPLAY_NAME</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-post-login-redirect">auth-oidc-post-login-redirect</h4>
+<p>Path inside Telegraf Controller where users are sent after a successful
+OIDC callback.</p>
+<p><strong>Default:</strong> <code>/</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_POST_LOGIN_REDIRECT</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="auth-oidc-allow-insecure">auth-oidc-allow-insecure</h4>
+<p>When <code>true</code>, allow <code>http://</code> issuer URLs and callback URLs.
+For development only. Telegraf Controller logs a warning at startup when
+this is enabled.</p>
+<p><strong>Default:</strong> <code>false</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUTH_OIDC_ALLOW_INSECURE</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="logging">Logging</h3>
+<ul>
+<li><a href="#rust-log">rust-log</a></li>
+<li><a href="#logs-dir">logs-dir</a></li>
+</ul>
+<h4 id="rust-log">rust-log</h4>
+<p>Tracing level for the Rust heartbeat server. Supports <code>trace</code>, <code>debug</code>,
+<code>info</code>, <code>warn</code>, and <code>error</code>.</p>
+<p><strong>Default:</strong> <code>info</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>RUST_LOG</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="logs-dir">logs-dir</h4>
+<p>Absolute path for heartbeat agent logs.</p>
+<p><strong>Default:</strong> System temp directory</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--logs-dir</code></td>
+          <td style="text-align: left"><code>LOGS_DIR</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="audit-logging">Audit logging</h3>
+<p>Audit logging is a <a href="/telegraf/enterprise/">Telegraf Enterprise</a>
+feature. All of the following options are read at startup only; changes
+after startup require a restart. For a task-based walkthrough, see
+<a href="/telegraf/controller/audit-logs/enable-configure/">Enable and configure audit logging</a>.</p>
+<ul>
+<li><a href="#audit-enabled">audit-enabled</a></li>
+<li><a href="#audit-log-retention">audit-log-retention</a></li>
+<li><a href="#audit-syslog-host">audit-syslog-host</a></li>
+<li><a href="#audit-syslog-port">audit-syslog-port</a></li>
+<li><a href="#audit-syslog-protocol">audit-syslog-protocol</a></li>
+<li><a href="#audit-webhook-url">audit-webhook-url</a></li>
+<li><a href="#audit-webhook-auth-header">audit-webhook-auth-header</a></li>
+<li><a href="#audit-file-path">audit-file-path</a></li>
+</ul>
+<h4 id="audit-enabled">audit-enabled</h4>
+<p>Enable audit logging on startup. Audit logging requires a Telegraf
+Enterprise license to take effect.</p>
+<p><strong>Default:</strong> <code>false</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-enabled</code></td>
+          <td style="text-align: left"><code>AUDIT_LOGGING_ENABLED</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-log-retention">audit-log-retention</h4>
+<p>Sets the initial audit log retention period, in hours.
+Telegraf Controller persists this value to the database on first startup;
+later changes to the environment variable have no effect.
+Update retention after first startup from the <strong>Settings</strong> page.</p>
+<p>Supported values: <code>720</code> (30 days), <code>2160</code> (90 days), <code>4320</code> (180 days),
+<code>8760</code> (1 year), <code>17520</code> (2 years), or <code>0</code> (infinite).</p>
+<p><strong>Default:</strong> <code>2160</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>AUDIT_LOG_RETENTION</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-syslog-host">audit-syslog-host</h4>
+<p>Hostname or IP address of a syslog server.
+When set together with <a href="#audit-syslog-port"><code>audit-syslog-port</code></a> and
+<a href="#audit-syslog-protocol"><code>audit-syslog-protocol</code></a>,
+Telegraf Controller forwards each audit event to the configured syslog
+destination.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-syslog-host</code></td>
+          <td style="text-align: left"><code>AUDIT_SYSLOG_HOST</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-syslog-port">audit-syslog-port</h4>
+<p>Port number of the syslog server. Required to enable syslog forwarding.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-syslog-port</code></td>
+          <td style="text-align: left"><code>AUDIT_SYSLOG_PORT</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-syslog-protocol">audit-syslog-protocol</h4>
+<p>Transport protocol used to deliver audit events to the syslog server.
+Required to enable syslog forwarding.</p>
+<p>Supported values: <code>tcp</code>, <code>udp</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-syslog-protocol</code></td>
+          <td style="text-align: left"><code>AUDIT_SYSLOG_PROTOCOL</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-webhook-url">audit-webhook-url</h4>
+<p>URL that receives each audit event as a JSON-encoded HTTP <code>POST</code> request.
+Telegraf Controller retries each delivery up to three times with backoff
+and honors <code>Retry-After</code> response headers.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-webhook-url</code></td>
+          <td style="text-align: left"><code>AUDIT_WEBHOOK_URL</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-webhook-auth-header">audit-webhook-auth-header</h4>
+<p>Optional value sent as the <code>Authorization</code> HTTP header on webhook requests.
+Use it to pass a bearer token, basic-auth credential, or other shared
+secret your webhook endpoint requires.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-webhook-auth-header</code></td>
+          <td style="text-align: left"><code>AUDIT_WEBHOOK_AUTH_HEADER</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="audit-file-path">audit-file-path</h4>
+<p>Absolute path to a local file.
+When set, Telegraf Controller appends each audit event as a single JSON
+object on its own line (<code>.jsonl</code> format).
+The path must be writable by the Telegraf Controller process.</p>
+<p>Telegraf Controller does not rotate or trim this file.
+Pair it with a system log rotator if you keep the forwarder on long term.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--audit-file-path</code></td>
+          <td style="text-align: left"><code>AUDIT_FILE_PATH</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="eula-and-setup">EULA and setup</h3>
+<ul>
+<li><a href="#eula-accept">eula-accept</a></li>
+<li><a href="#no-interactive">no-interactive</a></li>
+</ul>
+<h4 id="eula-accept">eula-accept</h4>
+<p>Accept the <a href="/telegraf/controller/reference/eula/">InfluxData End User License Agreement</a>
+non-interactively. The <code>TELEGRAF_CONTROLLER_EULA</code> environment variable accepts
+the value <code>accept</code> to indicate acceptance.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--eula-accept</code></td>
+          <td style="text-align: left"><code>TELEGRAF_CONTROLLER_EULA</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="no-interactive">no-interactive</h4>
+<p>Skip interactive prompts at startup. When <code>--no-interactive</code> is set, you must
+provide owner account values and EULA acceptance through other options.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--no-interactive</code></td>
+          <td style="text-align: left"><em>(none)</em></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="licensing">Licensing</h3>
+<ul>
+<li><a href="#license-file-path">license-file-path</a></li>
+</ul>
+<h4 id="license-file-path">license-file-path</h4>
+<p>Path to a Telegraf Enterprise license JWT file. Telegraf Controller reads
+this file on startup, validates the license, and stores it in the database.
+If the database already contains a license, this variable is ignored on
+subsequent restarts.</p>
+<p>If the file is missing, unreadable, or contains an invalid license,
+Telegraf Controller starts in unlicensed mode and logs the validation error.</p>
+<p>See <a href="/telegraf/controller/telegraf-enterprise/apply-license/">Apply a license</a> for full
+guidance, including systemd examples.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command flag</th>
+          <th style="text-align: left">Environment variable</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><em>(none)</em></td>
+          <td style="text-align: left"><code>LICENSE_FILE_PATH</code></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+    
+
+    
+    
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7398/telegraf/controller/install/">Install Telegraf Controller</a></li>
+          
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7398/telegraf/controller/settings/">Manage settings</a></li>
+          
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7398/telegraf/controller/authentication/">Authentication</a></li>
+          
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/authentication-authorization/">Authentication and authorization</a></li>
+          
+        
+      
+    
+    </ul>
+  </div>
+
+
+    
+
+
+
+
+
+    
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for Telegraf and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/reference/config-options.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7398/telegraf/controller/reference/config-options/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    
+      <a href="https://github.com/influxdata/telegraf/issues/new/choose/" class="btn issue" target="_blank">Submit Telegraf issue</a>
+    
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>Where are you running InfluxDB?</h3>
+  <p>Select your <strong>InfluxDB Cloud region and cluster</strong> or your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll customize code examples for you. <em><a href="/influxdb/cloud/reference/regions/#regions-with-multiple-clusters">Identify your InfluxDB Cloud cluster</a></em>.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud regions</a> or <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;ai_source_group_ids__v1&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud1&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;InfluxQL&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;cloud.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud 1&#34;,&#34;placeholder_host&#34;:&#34;cloud.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb-v2-9-token-hashing-default" data-scope='/influxdb/v2/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB OSS 2.9.0: API tokens are hashed by default</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Stronger token security in <strong>InfluxDB OSS 2.9.0</strong> — tokens are
+hashed on disk by default. Existing tokens are hashed on first
+startup and can&rsquo;t be recovered afterward. <strong>Capture any plaintext
+tokens you still need before you upgrade.</strong></p>
+<p><a href="/influxdb/v2/reference/release-notes/influxdb/#v290">View InfluxDB OSS 2.9.0 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Hashed tokens authenticate exactly like unhashed tokens — clients
+and integrations keep working.</p>
+<p><strong>Also new in 2.9.0:</strong></p>
+<ul>
+<li>Configurable backup compression</li>
+<li>Restore support for backups containing hashed tokens</li>
+<li>Tighter Edge Data Replication queue validation</li>
+<li>Flux upgrade</li>
+<li>Compaction reliability improvements</li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="explorer-1-9-key-enhancements" data-scope='/,/influxdb3/explorer/,/influxdb3/core/,/influxdb3/enterprise/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Key enhancements in Explorer 1.9</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Explorer 1.9 is now available with InfluxQL support, an AI-assisted
+Flux to SQL converter (beta), and new live sample data simulators.</p>
+<p><a class="btn" href="/influxdb3/explorer/release-notes/#v190">View Explorer 1.9 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Explorer 1.9 includes new features and improvements that make it easier to
+query, visualize, and manage data.</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Flux to SQL converter (beta)</strong>: Convert Flux queries to SQL with an AI-assisted converter.</li>
+<li><strong>InfluxQL support</strong>: Query data with InfluxQL in the Data Explorer and dashboards, and save and load InfluxQL queries.</li>
+<li><strong>InfluxQL visualizations</strong>: Render line and bar charts from InfluxQL results with per-tag series grouping.</li>
+<li><strong>Query error history</strong>: Review a history of query errors in the query tool.</li>
+<li><strong>Live sample data simulators</strong>: Generate continuous live sample data with new bird data and signal generator simulators.</li>
+</ul>
+<p>For more details, see <a href="/influxdb3/explorer/release-notes/#v190">Explorer 1.9 release notes</a></p>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="influxdb3-10-core-release" data-scope='/influxdb3/core/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.10 is now available</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
+configurable query-concurrency limit, and processing engine improvements.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p><strong>Key updates in InfluxDB 3 Core 3.10:</strong></p>
+<ul>
+<li><strong>Catalog format upgrade</strong>: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.</li>
+<li><strong><code>--max-concurrent-queries</code></strong>: limit concurrent queries (adjustable at runtime).</li>
+<li><strong><code>GET /ready</code> endpoint</strong> for readiness probes.</li>
+<li><strong>Processing engine</strong>: cross-database queries and trigger lockdown flags.</li>
+</ul>
+<p>For more information, see the
+<a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a>.</p>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="influxdb3-10-enterprise-release" data-scope='/influxdb3/,/influxdb3/enterprise/' data-exclude='/influxdb3/core/,/influxdb3/explorer/,/influxdb3/cloud-dedicated/,/influxdb3/cloud-serverless/,/influxdb3/clustered/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.10 is now available</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
+deletions, and user management, with an automatic catalog format upgrade
+and performance preview improvements.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p><strong>Key updates in InfluxDB 3 Enterprise 3.10:</strong></p>
+<ul>
+<li><strong>Catalog format upgrade</strong>: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.</li>
+<li><strong>Automated backup and restore</strong> (beta)</li>
+<li><strong>Row-level deletions</strong></li>
+<li><strong>User management</strong> (authentication and RBAC) — preview</li>
+<li><strong>Performance preview improvements</strong></li>
+</ul>
+<p>Backup and restore, row-level deletions, and the performance preview require
+the Enterprise storage engine upgrade (opt-in beta). <em>Beta and preview
+features are subject to breaking changes and aren&rsquo;t recommended for
+production use.</em></p>
+<p>For more information, see the
+<a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></p>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-enterprise-ga" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Enterprise is now generally available</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <strong>Telegraf Enterprise</strong> is now generally available, along with
+<strong>Telegraf Controller v1.0</strong>.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Telegraf Enterprise combines Telegraf Controller, a centralized management
+console for Telegraf, with official support from InfluxData. Manage
+configurations, monitor fleet health, and operate tens of thousands of
+Telegraf agents from a single system.</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-ga">Read the announcement</a></li>
+<li><a href="/telegraf/enterprise/">Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
+</ul>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag-sept" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>September 15, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
