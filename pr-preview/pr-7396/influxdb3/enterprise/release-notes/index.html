@@ -4863,6 +4863,19 @@
 
   
   
+<div class="block important">
+  
+  
+  <h4 id="upgrading-to-influxdb-310-is-a-one-way-migration">Upgrading to InfluxDB 3.10 is a one-way migration</h4>
+<p>The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
+catalog format from v2 to v3. After migration, 3.9.x and older
+binaries are unable to read the new catalog, and fail to start on the same
+cluster data.</p>
+<p>Before upgrading, back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code>.
+Restoring these objects is the only way to roll back to 3.9.x.</p>
+<p>If you have enabled the storage engine upgrade (<code>--use-pacha-tree</code>), data written in the new <code>.pt</code> file format is also unreadable by 3.9.x.</p>
+</div>
+
 <div class="block note">
   
   
@@ -4910,7 +4923,7 @@ Additional Enterprise-specific updates:</p>
 <h4 id="features">Features</h4>
 <ul>
 <li>
-<p><strong>Catalog format upgrade (catalog v2 → v3)</strong>: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. Back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code> before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.</p>
+<p><strong>Catalog format upgrade (catalog v2 → v3)</strong>: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. <strong>Back up <code>{prefix}/catalogs/</code> and <code>{prefix}/_catalog_checkpoint</code> before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.</strong></p>
 </li>
 <li>
 <p><strong><code>influxdb3 debug catalog</code> command</strong>: Inspect catalog state offline directly from object storage — no running server required. Subcommands: <code>list</code>, <code>snapshot</code>, <code>sequence</code>. Available in both Core and Enterprise.</p>
