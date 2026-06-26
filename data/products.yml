@@ -12,7 +12,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.9.3
+  latest_patch: 3.10.0
   placeholder_host: localhost:8181
   limits:
     database: 5
@@ -56,7 +56,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.9.3
+  latest_patch: 3.10.0
   placeholder_host: localhost:8181
   limits:
     database: 100
@@ -97,7 +97,7 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.8.0
+  latest_patch: 1.9.0
   placeholder_host: localhost:8080
   ai_sample_questions:
     - How do I install and run Explorer?
@@ -161,7 +161,7 @@ influxdb3_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
-  latest_cli: 2.12.0
+  latest_cli: 2.12.1
   placeholder_host: cluster-id.a.influxdb.io
   version_label: Cloud Dedicated
   distributed_architecture: true
@@ -334,6 +334,7 @@ telegraf:
   label_group: telegraf
   menu_category: other
   list_order: 6
+  link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
   latest: v1.39
   latest_patches:
@@ -355,12 +356,26 @@ telegraf_controller:
   altname: Controller
   namespace: telegraf
   menu_category: other
+  link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 0.0
-  latest_patch: 0.0.5-beta
+  latest: 1.0
+  latest_patch: 1.0.0
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
+
+telegraf_enterprise:
+  name: Telegraf Enterprise
+  altname: Telegraf Enterprise
+  namespace: telegraf
+  menu_category: other
+  link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
+  versions: [v1]
+  latest: 1.0
+  latest_patch: 1.0.0
+  schema:
+    operating_system: "Linux, macOS, Windows, Docker"
+    application_category: "BusinessApplication"
 
 chronograf:
   name: Chronograf
@@ -376,7 +391,7 @@ chronograf:
   versions: [v1]
   latest: v1.11
   latest_patches:
-    v1: 1.11.3
+    v1: 1.11.4
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?

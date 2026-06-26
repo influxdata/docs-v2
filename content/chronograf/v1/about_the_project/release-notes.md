@@ -10,6 +10,12 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.11.4 {date="2026-06-16"}
+
+### Bug Fixes
+
+- Respect the custom base URL path in HTML assets.
+
 ## v1.11.3 {date="2026-05-27"}
 
 ### Maintenance updates

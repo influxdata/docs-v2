@@ -43,20 +43,25 @@ and then starts the `telegraf` process using the loaded configuration.
 ### Retrieve a configuration with authorization enabled
 
 If {{% product-name %}} is configured to require authentication on the **Configs**
-API, define the `INFLUX_TOKEN` environment variable to authorize Telegraf
-to retrieve a configuration:
+API, define the `TELEGRAF_CONTROLLER_TOKEN` environment variable to authorize
+Telegraf to retrieve a configuration:
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="YOUR_TC_API_TOKEN" }
-export INFLUX_TOKEN=YOUR_TC_API_TOKEN
+export TELEGRAF_CONTROLLER_TOKEN=YOUR_TC_API_TOKEN
 
 telegraf \
-  --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml
+  --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml"
 ```
 
 Replace {{% code-placeholder-key %}}`YOUR_TC_API_TOKEN`{{% /code-placeholder-key %}}
 with your {{% product-name %}} API token. This token must have **read**
 permissions on the **Configs** API.
+
+> [!Important]
+> `TELEGRAF_CONTROLLER_TOKEN` requires **Telegraf 1.39+**. On earlier versions,
+> use `INFLUX_TOKEN` instead. For details, see
+> [Use API tokens with Telegraf agents](/telegraf/controller/tokens/use/#with-telegraf-agents).
 
 ## Set dynamic values
 

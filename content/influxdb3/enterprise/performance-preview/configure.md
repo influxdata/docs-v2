@@ -289,10 +289,20 @@ through four compaction levels (L1 through L4).
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| `--pt-partition-count` | Target number of partitions per compaction window. | `1` |
+| `--pt-shard-count` | Target number of shards per compaction window. | `1` |
 | `--pt-compactor-input-size-budget` | Maximum total input bytes across all active compaction jobs. Acts as an admission control budget for the compactor scheduler. | 50% of system memory at startup |
 | `--pt-final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `72h` |
 | `--pt-compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
+
+> [!Note]
+> **InfluxDB 3.10**: The `--pt-partition-count` option was renamed to `--pt-shard-count`.
+
+> [!Warning]
+> #### Keep `--pt-shard-count` at 1
+>
+> In InfluxDB 3.10, running the storage engine upgrade with more than one shard
+> (`--pt-shard-count` greater than `1`) can cause data loss and a bootstrap
+> deadlock. Leave `--pt-shard-count` at its default value of `1`.
 
 ### Compaction budget
 
