@@ -49,7 +49,7 @@
 <title>Manage users and permissions in InfluxDB 3 Cloud | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Manage users and access to resources in your InfluxDB 3 Cloud instance. Use the console for self-service user management or contact support for advanced operations.">
+    <meta name="description" content="Manage users and access to resources in your InfluxDB 3 Cloud instance. Use the Admin UI for self-service user management or contact support for advanced operations.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-25T02:12:58-04:00","description":"Manage users and access to resources in your {{\u003c product-name \u003e}} instance. Use the console for self-service user management or contact support for advanced operations.","headline":"Manage users","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/","name":"Manage users"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-26T08:20:13-04:00","description":"Manage users and access to resources in your {{\u003c product-name \u003e}} instance. Use the Admin UI for self-service user management or contact support for advanced operations.","headline":"Manage users","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/","name":"Manage users"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-25 02:12:58 -0400 -0400">
+<meta name="last-modified" content="2026-06-26 08:20:13 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -1453,27 +1453,26 @@ user attributes, resource types, and environment context.</p>
 <li><a href="#user-management-methods">User management methods</a></li>
 </ul>
 <h2 id="available-user-groups">Available user groups</h2>
-<p>In InfluxDB 3 Cloud, users have &ldquo;management&rdquo; responsibilities, such as creating and
+<p>In InfluxDB 3 Cloud, users have management responsibilities, such as creating and
 deleting <a href="/influxdb3/cloud/admin/databases/">databases</a> and provisioning
 <a href="/influxdb3/cloud/admin/tokens/">database tokens</a> for reading and writing data.</p>
 <p>A user can belong to the following groups, each with predefined privileges:</p>
 <ul>
 <li><strong>Admin</strong>: Read and write permissions on all resources.</li>
 <li><strong>Member</strong>: Read permission on certain resources and create permission for
-database tokens; members can&rsquo;t delete or create databases or management tokens.</li>
+database tokens; members can&rsquo;t delete or create databases or admin tokens.</li>
 <li><strong>Auditor</strong>: Read permission on all resources; auditors can&rsquo;t modify resources.</li>
 </ul>
 
 <div class="block note">
   
   
-  <h4 id="existing-users-are-admin-by-default">Existing users are Admin by default</h4>
-<p>With the release of user groups for InfluxDB 3 Cloud, all existing users
-in your account are initially assigned to the Admin group, retaining full
-access to resources in your instance.</p>
+  <h4 id="users-are-admin-by-default">Users are Admin by default</h4>
+<p>All users in your account are initially assigned to the Admin group,
+retaining full access to resources in your instance.</p>
 </div>
 <h2 id="user-management-methods">User management methods</h2>
-<p>Use the console for user management tasks (available to Admin users only):</p>
+<p>Admin users can use the Admin UI to perform the following user management tasks:</p>
 <ul>
 <li><strong>View users and invitations</strong> - View existing users, invite status, invite ID, and invitation date</li>
 <li><strong>Invite new users</strong> - Send invitations with role assignment (Admin, Member, Auditor)</li>
@@ -1508,7 +1507,7 @@ access to resources in your instance.</p>
 			
 			 <h3 id="manage-users-in-the-admin-ui"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/admin-ui/" target="">Manage users in the Admin UI</a></h3>
 			
-			<p>Use the InfluxDB 3 Cloud console to view users, send invitations, assign roles, and manage user access to your instance. Learn how to invite new users, revoke invitations, and understand role-based permissions.</p>
+			<p>Use the InfluxDB 3 Cloud Admin UI to view users, send invitations, assign roles, and manage user access to your instance. Learn how to invite new users, revoke invitations, and understand role-based permissions.</p>
 			
 			
 

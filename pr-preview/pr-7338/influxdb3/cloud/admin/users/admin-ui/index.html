@@ -49,7 +49,7 @@
 <title>Manage users in the InfluxDB 3 Cloud Admin UI | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use the InfluxDB 3 Cloud console to view users, send invitations, assign roles, and manage user access to your instance. Learn how to invite new users, revoke invitations, and understand role-based permissions.">
+    <meta name="description" content="Use the InfluxDB 3 Cloud Admin UI to view users, send invitations, assign roles, and manage user access to your instance. Learn how to invite new users, revoke invitations, and understand role-based permissions.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/admin-ui/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-25T02:12:58-04:00","description":"Use the {{\u003c product-name \u003e}} console to view users, send invitations, assign roles, and manage user access to your instance. Learn how to invite new users, revoke invitations, and understand role-based permissions.","headline":"Manage users in the Admin UI","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/admin-ui/","name":"Manage users in the Admin UI"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-26T08:20:13-04:00","description":"Use the {{\u003c product-name \u003e}} Admin UI to view users, send invitations, assign roles, and manage user access to your instance. Learn how to invite new users, revoke invitations, and understand role-based permissions.","headline":"Manage users in the Admin UI","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/users/admin-ui/","name":"Manage users in the Admin UI"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-25 02:12:58 -0400 -0400">
+<meta name="last-modified" content="2026-06-26 08:20:13 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -1440,7 +1440,7 @@
 
 
 
-  <p>Use the InfluxDB 3 Cloud console to manage users and control access to your instance through a web-based interface. The console provides self-service user management capabilities, allowing administrators to invite new users, assign roles, and manage invitations without contacting support.</p>
+  <p>Use the InfluxDB 3 Cloud Admin UI to manage users and control access to your instance through a web-based interface. The Admin UI provides self-service user management, allowing administrators to invite new users, assign roles, and manage invitations.</p>
 <ul>
 <li><a href="#access-the-users-page">Access the Users page</a></li>
 <li><a href="#view-existing-users">View existing users</a></li>
@@ -1450,12 +1450,12 @@
 <li><a href="#limitations">Limitations</a></li>
 </ul>
 <h2 id="access-the-users-page">Access the Users page</h2>
-<p>Access the InfluxDB 3 Cloud console at
+<p>Access the InfluxDB 3 Cloud Admin UI at
 <a href="https://console.influxdata.com">console.influxdata.com</a>.
 If you don&rsquo;t have login credentials,
 <a href="https://support.influxdata.com">contact InfluxData support</a>.</p>
 <!-- TODO: Add an InfluxDB 3 Cloud console Users page screenshot. -->
-<p>The Users page displays your account information and a table of existing users and invitations. Use the <strong>Users</strong> page to manage access to your InfluxDB account:</p>
+<p>The <strong>Users</strong> page displays your account information and a table of existing users and invitations. Use it to manage access to your InfluxDB account:</p>
 <ul>
 <li>View all users who have accepted the user agreement and have access to the account</li>
 <li>Invite new users to the account</li>
@@ -1509,7 +1509,7 @@ If you don&rsquo;t have login credentials,
 <p>You can revoke pending invitations that haven&rsquo;t been accepted yet:</p>
 <ol>
 <li>In the Users table, locate the invitation you want to revoke.</li>
-<li>Click the <strong>Actions</strong> menu (⋮) for that invitation.</li>
+<li>Click the <strong>Actions</strong> menu (three vertical dots) for that invitation.</li>
 <li>Select <strong>Revoke Invitation</strong>.</li>
 <li>Confirm the revocation when prompted.</li>
 </ol>
@@ -1550,7 +1550,7 @@ If you don&rsquo;t have login credentials,
   
   <h4 id="role-assignment">Role assignment</h4>
 <p>Admins assign a role when inviting a user and can update a user&rsquo;s role from
-the console after the invitation is accepted.</p>
+the Admin UI after the invitation is accepted.</p>
 </div>
 <!-- TODO: Document the self-service steps to change a user's role and to
 remove a user from the account in the InfluxDB 3 Cloud console. -->

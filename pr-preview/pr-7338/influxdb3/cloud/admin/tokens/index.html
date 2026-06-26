@@ -109,7 +109,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/tokens/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-25T02:12:58-04:00","description":"Manage tokens to authenticate and authorize access to actions, resources, and data in your {{\u003c product-name \u003e}} instance.","headline":"Manage tokens","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/tokens/","name":"Manage tokens"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-26T08:20:13-04:00","description":"Manage tokens to authenticate and authorize access to actions, resources, and data in your {{\u003c product-name \u003e}} instance.","headline":"Manage tokens","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/tokens/","name":"Manage tokens"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -180,7 +180,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-25 02:12:58 -0400 -0400">
+<meta name="last-modified" content="2026-06-26 08:20:13 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -1458,20 +1458,51 @@ HTTP API.</p>
 <li><strong>Admin tokens</strong>: Grant full administrative access to all actions and
 resources in the instance.
 <ul>
-<li>The first admin token on an instance is the <em>operator</em> token. It never
-expires and is managed by InfluxData&ndash;InfluxData provides you an initial
-admin token to administer your instance.</li>
-<li><strong>Named admin tokens</strong> are additional admin tokens. They&rsquo;re long-lived by
-default and expire only if you set an expiration.</li>
+<li><strong>Operator token</strong>: The first admin token on an instance. InfluxData
+manages the operator token for your InfluxDB 3 Cloud instance.
+<ul>
+<li>Never expires</li>
+<li>Cannot be edited or deleted</li>
 </ul>
 </li>
-<li><strong>Database tokens</strong>: Grant scoped read and/or write access to specific
-databases. Use database tokens to authorize applications that write or query
-data.</li>
+<li><strong>Named admin tokens</strong>: Additional admin tokens that you create and manage.
+<ul>
+<li>Can be created, edited, and deleted</li>
+<li>Long-lived by default and expire only if you set an expiration</li>
+<li>Cannot modify or remove the operator token</li>
 </ul>
+</li>
+</ul>
+</li>
+<li><strong>Database tokens</strong>: Grant scoped read and write access to specific
+databases. Use database tokens to authorize applications that write or query
+data.
+<ul>
+<li>Grant <code>read</code>, <code>write</code>, or both to one or more databases</li>
+<li>Cannot perform administrative actions</li>
+</ul>
+</li>
+</ul>
+
+<div class="block note">
+  
+  
+  <h4 id="store-secure-tokens-in-a-secret-store">Store secure tokens in a secret store</h4>
+<p>Token strings are returned <em>only</em> when you create the token.
+Store tokens in a <strong>secure secret store</strong>.
+Anyone with access to an admin token has full control over your
+InfluxDB 3 Cloud instance.
+If you lose a token string, recreate the token.</p>
+</div>
 <h2 id="create-a-token">Create a token</h2>
-<p>Before you create tokens, <a href="/influxdb3/cloud/get-started/setup/#configure-the-influxdb3-cli">configure the <code>influxdb3</code> CLI</a>
-to connect to your instance and authenticate with your admin token.</p>
+<p>Before you create tokens:</p>
+<ul>
+<li><a href="/influxdb3/cloud/get-started/setup/#configure-the-influxdb3-cli">Configure the <code>influxdb3</code> CLI</a>
+and <a href="/influxdb3/cloud/get-started/setup/#log-in-to-your-instance">log in to your instance</a>.</li>
+<li>Make sure you have admin privileges. Creating tokens requires admin access.
+If your user doesn&rsquo;t have admin access, ask an administrator to create a token
+for you.</li>
+</ul>
 <p>Create a <strong>named admin token</strong>:</p>
 <!--pytest.mark.skip-->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 create token --admin --name <span class="s2">&#34;support-2026&#34;</span></span></span></code></pre></div><p>To set an expiration, add <code>--expiry</code> with a duration (for example, <code>90d</code> or
@@ -1481,8 +1512,8 @@ to connect to your instance and authenticate with your admin token.</p>
 <!--pytest.mark.skip-->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 create token <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --permission <span class="s2">&#34;db:<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>:read,write&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --name <span class="s2">&#34;Read/write token for <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>The raw token string is shown only once&ndash;copy it immediately and store it
-securely.</p>
+</span></span></span><span class="line"><span class="cl">  --name <span class="s2">&#34;Read/write token for <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>Copy the raw token string immediately and store it securely.
+It&rsquo;s shown only once.</p>
 <h2 id="list-tokens">List tokens</h2>
 <p>List token names, types, and expirations (token strings aren&rsquo;t shown):</p>
 <!--pytest.mark.skip-->
