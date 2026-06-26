@@ -130,12 +130,13 @@
         ]
       },
       {
-        "matcher": "WebFetch|WebSearch",
+        "matcher": "WebFetch",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "If this WebFetch or WebSearch is being used to search for or read content that exists in this repository (documentation pages, markdown files, frontmatter, shortcodes, Hugo templates), REJECT — use Grep, Glob, or Read for local content. Only allow WebFetch/WebSearch for truly external resources: GitHub issues/PRs, external APIs, third-party documentation, or URLs the user explicitly provided.",
-            "statusMessage": "Checking local-first search"
+            "type": "command",
+            "command": "bash .claude/hooks/check-web-local-first.sh",
+            "timeout": 5,
+            "statusMessage": "Checking local-first docs lookup"
           }
         ]
       }
