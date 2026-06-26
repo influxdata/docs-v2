@@ -20,6 +20,14 @@ software and apply to a single cluster. Licenses are primarily based on the
 number of CPUs InfluxDB can use, but there are other limitations depending on
 the license type.
 
+> [!Note]
+> #### License storage portability in v3.10 and later
+>
+> Starting in **v3.10**, {{% product-name %}} licenses are no longer tied to a specific cluster's storage location.
+> Licenses are still required, with per-cluster CPU core limits and license expiration continuing to apply.
+> This change applies to Commercial, Trial, and At-Home licenses and isn't
+> backwards compatible with versions earlier than v3.10.
+
 - [License feature comparison](#license-feature-comparison)
 - [CPU limit](#cpu-limit)
   - [CPU accounting](#cpu-accounting)
@@ -94,7 +102,7 @@ but the process of activating the license depends on the license type:
 1. Use the [`influxdb3 serve` command](/influxdb3/enterprise/reference/cli/influxdb3/serve/) to start the server.
    If the server doesn't find a license file or email address, the server prompts you
    to enter your email address.
-   If you're [activating an InfluxDB trial or home license with Docker](#activate-a-trial-or-home-license-with-docker) or [with DEB/RPM installs](#activate-a-trial-or-home-license-with-linux-packaging), include options to [skip the email prompt](#skip-the-email-prompt).
+   If you're [activating an InfluxDB trial or home license with Docker](?t=Docker+Compose#start-the-server-with-your-license-email) or [with DEB/RPM installs](?t=DEB%2FRPM+%28TOML%29#start-the-server-with-your-license-email), include options to [skip the email prompt](#skip-the-email-prompt).
 2. The server prompts you to select a license type. Select `trial` or `home`.
 3. In the verification email from {{% product-name %}},
    click the button to verify your email address.
@@ -113,8 +121,8 @@ The license file is a JWT file that contains the license information.
 > This ensures that the server can generate the license file after you
 > verify your email address. See the following examples:
 >
-> - [Docker Compose example](?t=Docker+compose#start-with-license-email-and-compose)
-> - [DEB and RPM TOML configuration](?t=DEB+and+RPM+TOML#start-with-license-email-and-toml)
+> - [Docker Compose example](?t=Docker+Compose#start-the-server-with-your-license-email)
+> - [DEB and RPM TOML configuration](?t=DEB%2FRPM+%28TOML%29#start-the-server-with-your-license-email)
 
 #### Skip the email prompt
 
@@ -204,8 +212,8 @@ The following examples show how to provide your license email for different
 {{% code-tabs %}}
 [Quick install (CLI)](#)
 [Quick install (env var)](#)
-[Docker Compose](#start-with-license-email-and-compose)
-[DEB/RPM (TOML)](#start-with-license-email-and-toml)
+[Docker Compose](#)
+[DEB/RPM (TOML)](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
@@ -305,7 +313,7 @@ The following examples show how to provide your license file for different
 {{% code-tabs %}}
 [Quick install (CLI)](#)
 [Quick install (env var)](#)
-[DEB/RPM (TOML)](#start-with-license-file-and-toml)
+[DEB/RPM (TOML)](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN INFLUXDB3 CLI OPTIONS ------------------------>
@@ -365,8 +373,8 @@ For more information about `influxdb3 serve` options, see the
 
 ## Change your license type
 
-If you need to change your {{< product-name >}} license type--for example,
-from Trial to At-Home, or from Trial to Commercial--follow these steps.
+If you need to change your {{< product-name >}} license type, see the
+appropriate section below based on your current and target license types.
 
 ### Identify your current license
 
@@ -377,168 +385,15 @@ Check your current license type and status:
 influxdb3 show license --host http://localhost:8181
 ```
 
-### Change from Trial or At-Home to a different Trial or At-Home license
+### Switch between Trial and At-Home licenses
 
-To switch between Trial and At-Home licenses (or to reset a Trial license),
-you need to remove the existing license file so the server prompts you to
-select a new license type.
+To switch between Trial and At-Home license types (or reset a Trial license),
+[contact InfluxData support](https://support.influxdata.com/s/contactsupport).
+Include the following information in your request:
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[Quick install (Linux/macOS)](#)
-[Docker](#)
-[DEB/RPM (systemd)](#)
-{{% /tabs %}}
-{{% tab-content %}}
-<!---------------------------- BEGIN QUICK INSTALL ---------------------------->
-
-1. **Stop the server** (press Ctrl+C or `pkill -f "influxdb3 serve"`).
-
-2. **Back up and remove the existing license file** from your data directory
-   (the path you passed to `--data-dir`).
-   The license file is stored at:
-
-    ```text
-    <DATA_DIR>/<CLUSTER_ID>/trial_or_home_license
-    ```
-
-    For example, if your data directory is `~/.influxdb3/data` and cluster ID is `cluster0`:
-
-    <!-- pytest.mark.skip -->
-    ```bash { placeholders="~/.influxdb3/data/|cluster0" }
-    # Back up the license file
-    mv ~/.influxdb3/data/cluster0/trial_or_home_license \
-       ~/.influxdb3/data/cluster0/trial_or_home_license.bak
-    ```
-
-3. **Restart the server** with your license email:
-
-    <!-- pytest.mark.skip -->
-    ```bash { placeholders="EMAIL_ADDRESS" }
-    influxdb3 serve \
-      --license-email EMAIL_ADDRESS \
-      # ... other options
-    ```
-
-    Replace {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} with your email address for license activation.
-
-4. **Select the new license type** when prompted (or the server automatically
-   activates the license associated with your email).
-
-5. **Verify your email** by clicking the link in the verification email.
-
-6. **Verify the new license:**
-
-    <!-- pytest.mark.skip -->
-    ```bash
-    influxdb3 show license --host http://localhost:8181
-    ```
-
-<!----------------------------- END QUICK INSTALL ----------------------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!------------------------------ BEGIN DOCKER --------------------------------->
-
-1. **Stop the container:**
-
-    <!-- pytest.mark.skip -->
-    ```bash
-    docker stop influxdb3-enterprise
-    ```
-
-2. **Back up and remove the existing license file** from your data volume.
-   The license file is stored in the **host path** mounted to your data volume:
-
-    ```text
-    <HOST_DATA_PATH>/<CLUSTER_ID>/trial_or_home_license
-    ```
-
-    For example, if your compose file mounts `~/.influxdb3/data` to `/var/lib/influxdb3/data`
-    and your cluster ID is `cluster0`:
-
-    <!-- pytest.mark.skip -->
-    ```bash { placeholders="~/.influxdb3/data/|cluster0" }
-    # Back up the license file on the host
-    mv ~/.influxdb3/data/cluster0/trial_or_home_license \
-       ~/.influxdb3/data/cluster0/trial_or_home_license.bak
-    ```
-
-3. **Restart the container** with your license email:
-
-    <!-- pytest.mark.skip -->
-    ```bash { placeholders="EMAIL_ADDRESS" }
-    docker run -d \
-      -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS \
-      # ... other options
-      influxdb:3-enterprise
-    ```
-
-    Replace {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}} with your email address for license activation.
-
-4. **Check your email** and click the verification link to activate the license.
-
-5. **Verify the new license:**
-
-    <!-- pytest.mark.skip -->
-    ```bash
-    influxdb3 show license --host http://localhost:8181
-    ```
-
-<!-------------------------------- END DOCKER --------------------------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!----------------------------- BEGIN DEB/RPM --------------------------------->
-
-1. **Stop the server:**
-
-    <!-- pytest.mark.skip -->
-    ```bash
-    sudo systemctl stop influxdb3-enterprise
-    ```
-
-2. **Back up and remove the existing license file** from the default data directory.
-   The license file is stored at:
-
-    ```text
-    /var/lib/influxdb3/data/<CLUSTER_ID>/trial_or_home_license
-    ```
-
-    For DEB/RPM installs using the default `primary-cluster` cluster ID:
-
-    <!-- pytest.mark.skip -->
-    ```bash { placeholders="primary-cluster" }
-    # Back up the license file
-    sudo mv /var/lib/influxdb3/data/primary-cluster/trial_or_home_license \
-            /var/lib/influxdb3/data/primary-cluster/trial_or_home_license.bak
-    ```
-
-3. **Update the license email** in your configuration file:
-
-    Edit `/etc/influxdb3/influxdb3-enterprise.conf`:
-
-    ```toml {{ placeholders="new-email@example.com" }}
-    license-email = "new-email@example.com"
-    ```
-
-4. **Restart the server:**
-
-    <!-- pytest.mark.skip -->
-    ```bash
-    sudo systemctl start influxdb3-enterprise
-    ```
-
-5. **Check your email** and click the verification link to activate the license.
-
-6. **Verify the new license:**
-
-    <!-- pytest.mark.skip -->
-    ```bash
-    influxdb3 show license --host http://localhost:8181
-    ```
-
-<!------------------------------- END DEB/RPM --------------------------------->
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+- The email address associated with your current license
+- Your current license type (Trial or At-Home)
+- The license type you want to switch to
 
 ### Change to a Commercial license
 

@@ -10,10 +10,25 @@ weight: 2
 
 Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 
+> [!Important]
+> #### Control who can reach Explorer
+>
+> Anyone who can reach the Explorer port can use the InfluxDB connection that
+> you configure in Explorer, with that token's permissions.
+> By default, Docker publishes a container port on all network interfaces
+> (`0.0.0.0`) and adds its own firewall rules, which can take effect even when
+> a host firewall (such as `ufw` or `firewalld`) is set to block the port.
+>
+> The examples in this guide publish Explorer on the loopback interface
+> (`127.0.0.1`) so it's reachable only from the same machine. Before you make
+> Explorer reachable from other hosts, see
+> [Network exposure and access control](#network-exposure-and-access-control).
+
 <!-- BEGIN TOC -->
 - [Quick start](#quick-start)
 - [Installation methods](#installation-methods)
 - [Configuration options](#configuration-options)
+  - [Network exposure and access control](#network-exposure-and-access-control)
   - [Persist data across restarts](#persist-data-across-restarts)
   - [Pre-configure InfluxDB connections](#pre-configure-influxdb-connections)
   - [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
@@ -36,7 +51,7 @@ Get {{% product-name %}} running in minutes:
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:8080 \
+     --publish 127.0.0.1:8888:8080 \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
 
@@ -71,7 +86,7 @@ Install [Docker](https://docs.docker.com/engine/) or [Docker Desktop](https://do
 ```bash
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:8080 \
+  --publish 127.0.0.1:8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /code-tab-content %}}
@@ -86,7 +101,7 @@ services:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
     container_name: influxdb3-explorer
     ports:
-      - "8888:8080"
+      - "127.0.0.1:8888:8080"
     volumes:
       - ./config:/app-root/config:ro
     restart: unless-stopped
@@ -101,9 +116,17 @@ docker-compose up -d
 {{< /code-tabs-wrapper >}}
 
 
-### Production setup
+### Run Explorer against a production instance
 
-For production deployments with persistence, admin mode, and automatic image updates:
+Use this setup to run Explorer with persistence, admin mode, and automatic
+image updates when administering a production InfluxDB 3 instance.
+
+> [!Caution]
+> This setup is for running Explorer in a controlled environment--for example,
+> on an operator's workstation or a restricted host--to administer a production
+> InfluxDB 3 instance. It isn't a recipe for hosting Explorer as a publicly
+> reachable service. The examples bind Explorer to `127.0.0.1`; before changing
+> that, see [Network exposure and access control](#network-exposure-and-access-control).
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -116,7 +139,7 @@ For production deployments with persistence, admin mode, and automatic image upd
 docker run --detach \
   --name influxdb3-explorer \
   --pull always \
-  --publish 8888:8080 \
+  --publish 127.0.0.1:8888:8080 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --env SESSION_SECRET_KEY=$(openssl rand -hex 32) \
@@ -138,7 +161,7 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:8080"
+      - "127.0.0.1:8888:8080"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
@@ -166,6 +189,35 @@ docker-compose up -d
 
 ## Configuration options
 
+### Network exposure and access control
+
+Explorer holds the InfluxDB connection details and token that you configure in
+it. Access to the Explorer interface is effectively access to that InfluxDB
+connection, so treat reaching the Explorer port the same as holding the token.
+
+Use the following practices to control access:
+
+- **Bind to the loopback interface for local use.** The examples in this guide
+  publish Explorer as `127.0.0.1:8888:8080`, which makes it reachable only from
+  the same machine. To reach Explorer from your browser on that machine, open
+  <http://localhost:8888>.
+- **Expose Explorer deliberately, not by default.** To reach Explorer from
+  another host, replace `127.0.0.1` with the specific interface address you
+  intend to use (for example, `192.0.2.10:8888:8080`). Publishing without an
+  address (`8888:8080`) binds to all interfaces (`0.0.0.0`).
+- **Account for Docker and the host firewall.** Docker publishes ports by
+  adding its own firewall rules, which can take effect even when a host
+  firewall such as `ufw` or `firewalld` is configured to block the port.
+  Verify reachability from another host rather than assuming the host firewall
+  applies.
+- **Put authentication in front of remote access.** If you need to reach
+  Explorer over a network, run it on the loopback interface and place an
+  authenticating reverse proxy with TLS in front of it (for example,
+  [NGINX](https://nginx.org/en/docs/) or [Caddy](https://caddyserver.com/docs/)).
+- **Prefer least-privilege tokens.** The token you configure in Explorer
+  determines what anyone with access to Explorer can do. Use a token scoped to
+  what the task requires.
+
 ### Persist data across restarts
 
 {{% product-name %}} stores application data in a SQLite database. To persist this data across container restarts:
@@ -188,7 +240,7 @@ docker-compose up -d
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:8080 \
+     --publish 127.0.0.1:8888:8080 \
      --volume $(pwd)/db:/db:rw \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -203,7 +255,7 @@ docker-compose up -d
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:8080"
+         - "127.0.0.1:8888:8080"
        volumes:
          - ./db:/db:rw
        restart: unless-stopped
@@ -288,7 +340,7 @@ Instead of configuring connections through the UI, you can pre-define connection
    > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
    > - If InfluxDB is running natively on your machine (not in Docker), use `localhost`.
    >
-   > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host).
+   > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/).
 
 2. **Mount the configuration directory:**
 
@@ -302,7 +354,7 @@ Instead of configuring connections through the UI, you can pre-define connection
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:8080 \
+     --publish 127.0.0.1:8888:8080 \
      --volume $(pwd)/config:/app-root/config:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -317,7 +369,7 @@ Instead of configuring connections through the UI, you can pre-define connection
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:8080"
+         - "127.0.0.1:8888:8080"
        volumes:
          - ./config:/app-root/config:ro
        restart: unless-stopped
@@ -354,7 +406,7 @@ To enable TLS/SSL for secure connections:
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:8443 \
+     --publish 127.0.0.1:8888:8443 \
      --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -369,7 +421,7 @@ To enable TLS/SSL for secure connections:
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:8443"
+         - "127.0.0.1:8888:8443"
        volumes:
          - ./ssl:/etc/nginx/ssl:ro
        restart: unless-stopped
@@ -435,7 +487,7 @@ To configure Explorer to trust self-signed or custom CA certificates when connec
 docker run --detach \
   --name influxdb3-explorer \
   --restart unless-stopped \
-  --publish 8888:8443 \
+  --publish 127.0.0.1:8888:8443 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
@@ -460,7 +512,7 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:8443"
+      - "127.0.0.1:8888:8443"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
@@ -498,14 +550,14 @@ Set the mode using the `--mode` parameter:
 # Query mode (default)
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:8080 \
+  --publish 127.0.0.1:8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=query
 
 # Admin mode
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:8080 \
+  --publish 127.0.0.1:8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
 ```
@@ -523,7 +575,7 @@ services:
     # For admin mode, add:
     command: ["--mode=admin"]
     ports:
-      - "8888:8080"
+      - "127.0.0.1:8888:8080"
     restart: unless-stopped
 ```
 {{% /code-tab-content %}}
@@ -572,7 +624,7 @@ services:
 
 ## Complete examples
 
-### Production setup with all features
+### Full configuration with all features
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -603,7 +655,7 @@ EOF
 docker run --detach \
   --name influxdb3-explorer \
   --pull always \
-  --publish 8888:8443 \
+  --publish 127.0.0.1:8888:8443 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
@@ -626,7 +678,7 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:8443"
+      - "127.0.0.1:8888:8443"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
@@ -662,7 +714,7 @@ docker-compose up -d
 ```bash
 docker run --rm \
   --name influxdb3-explorer \
-  --publish 8888:8080 \
+  --publish 127.0.0.1:8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /code-tab-content %}}
@@ -677,7 +729,7 @@ services:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
     container_name: influxdb3-explorer
     ports:
-      - "8888:8080"
+      - "127.0.0.1:8888:8080"
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

@@ -42,9 +42,112 @@ jobs:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - /home/circleci/bin
+      - restore_cache:
+          keys:
+            - rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+            - rust-
+      - run:
+          name: Install Rust toolchain
+          command: |
+            # Skip the rustup-init download when the toolchain was restored
+            # from cache (~/.cargo, ~/.rustup); just re-export it onto PATH.
+            if [ ! -x "$HOME/.cargo/bin/cargo" ]; then
+              curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+                | sh -s -- -y --profile minimal --default-toolchain stable
+            fi
+            echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+      - run:
+          name: Build Rust markdown converter
+          command: |
+            source "$HOME/.cargo/env"
+            node scripts/build-rust-converter.js
+      - save_cache:
+          key: rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+          paths:
+            - /home/circleci/.cargo
+            - /home/circleci/.rustup
+            - scripts/rust-markdown-converter/target
       - run:
           name: Hugo Build
-          command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
+          command: |
+            set -o pipefail
+            yarn hugo config --environment production > /tmp/hugo-config.toml
+
+            echo "Raw outputFormats config:"
+            grep -n -A25 -B2 "outputFormats:" config/_default/hugo.yml || true
+
+            echo "Merged custom output formats:"
+            grep -i -A10 -B2 "llmstxt\|sitemapmd" /tmp/hugo-config.toml || true
+
+            echo "Hugo output config:"
+            grep -A8 -E '^\[outputformats\.(llmstxt|sitemapmd)\]|^\[outputs\]' /tmp/hugo-config.toml || true
+
+            echo "Hugo custom output templates:"
+            ls -l layouts/index.llmstxt.txt layouts/index.sitemapmd.xml || true
+
+            yarn hugo --environment production --logLevel info --gc --destination workspace/public 2>&1 | tee /tmp/hugo-build.log
+
+            echo "Hugo root outputs:"
+            find workspace/public -maxdepth 1 -type f -print | sort
+
+            if ! grep -q "outputFormat sitemapmd" /tmp/hugo-build.log; then
+              echo "WARNING: Hugo log did not include sitemapmd render phase."
+            fi
+
+            if ! grep -q "step postProcess" /tmp/hugo-build.log; then
+              echo "WARNING: Hugo log did not include postProcess phase."
+            fi
+      - run:
+          name: Verify deployable Hugo output
+          # Deploy safety should be based on HTML output, not optional
+          # LLM discovery artifacts. A complete deployable build emits a
+          # healthy HTML sitemap and thousands of index.html pages.
+          command: |
+            PUBLIC_DIR=workspace/public
+            MIN_PAGES=5000
+            MIN_SITEMAP_BYTES=100000
+            FAIL=0
+
+            echo "Root public files:"
+            find "$PUBLIC_DIR" -maxdepth 1 -type f -print | sort
+
+            PAGES=$(find "$PUBLIC_DIR" -name index.html | wc -l | tr -d ' ')
+            echo "Rendered index.html pages: $PAGES (floor: $MIN_PAGES)"
+            if [ "$PAGES" -lt "$MIN_PAGES" ]; then
+              echo "ERROR: page count $PAGES below floor $MIN_PAGES — build incomplete."
+              FAIL=1
+            fi
+
+            HTML_SITEMAP="$PUBLIC_DIR/sitemap.xml"
+            HTML_SITEMAP_BYTES=0
+            if [ -f "$HTML_SITEMAP" ]; then
+              HTML_SITEMAP_BYTES=$(wc -c < "$HTML_SITEMAP" | tr -d ' ')
+            fi
+            echo "HTML sitemap bytes: $HTML_SITEMAP_BYTES (floor: $MIN_SITEMAP_BYTES)"
+            if [ "$HTML_SITEMAP_BYTES" -lt "$MIN_SITEMAP_BYTES" ]; then
+              echo "ERROR: $HTML_SITEMAP missing or too small — build incomplete."
+              FAIL=1
+            fi
+
+            MD_SITEMAP="$PUBLIC_DIR/sitemap-md.xml"
+            if [ -f "$MD_SITEMAP" ]; then
+              MD_SITEMAP_BYTES=$(wc -c < "$MD_SITEMAP" | tr -d ' ')
+              echo "Markdown sitemap bytes: $MD_SITEMAP_BYTES"
+            else
+              echo "WARNING: $MD_SITEMAP missing."
+              echo "The post-Hugo AI artifact step will regenerate it from HTML alternate links."
+            fi
+
+            if [ "$FAIL" -ne 0 ]; then
+              echo "Refusing to continue: a partial deploy would delete live pages."
+              echo "Re-run the build (clear the CircleCI cache). If it recurs,"
+              echo "investigate the Hugo Build step (OOM/errors) before deploying."
+              exit 1
+            fi
+            echo "Deployable Hugo output OK."
+      - run:
+          name: Generate AI discovery artifacts
+          command: yarn build:ai-artifacts --public-dir workspace/public
       - run:
           name: Generate LLM-friendly Markdown
           command: |

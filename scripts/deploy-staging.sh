@@ -97,6 +97,18 @@ build_hugo() {
     success "Hugo build complete"
 }
 
+# Generate AI discovery artifacts
+build_ai_artifacts() {
+    if [ "$SKIP_MARKDOWN" = "true" ]; then
+        warning "Skipping AI discovery artifacts (SKIP_MARKDOWN=true)"
+        return
+    fi
+
+    info "Generating AI discovery artifacts..."
+    yarn build:ai-artifacts
+    success "AI discovery artifact generation complete"
+}
+
 # Generate LLM-friendly Markdown
 build_markdown() {
     if [ "$SKIP_MARKDOWN" = "true" ]; then
@@ -190,6 +202,7 @@ main() {
 
     echo ""
     build_hugo
+    build_ai_artifacts
     build_markdown
     build_llms_full
     check_md_coherence

@@ -9,10 +9,64 @@ menu:
 weight: 101
 ---
 
-## v0.0.7-beta {date="2026-04-30"}
+## v1.0.0 {date="2026-06-23"}
 
 <!-- Link only be on the latest version, update and move with new versions. -->
-[Download Telegraf Controller v0.0.7-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.0.0](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+> [!Important]
+> #### Telegraf Controller v1.0 (General Availability)
+>
+> This is the first general availability (GA) release of {{% product-name %}}.
+> It includes an updated
+> [{{% product-name %}} EULA](/telegraf/controller/reference/eula/) for
+> general availability. After upgrading to this release, **you are required to
+> accept the updated EULA** before {{% product-name %}} starts. For information
+> about different ways to accept the updated EULA, see
+> [Install {{% product-name %}}--Review the EULA](https://docs.influxdata.com/telegraf/controller/install/#review-the-eula).
+
+### Features
+
+- Telegraf Enterprise features
+  - Add enterprise license management with entitlement validation.
+  - Add LDAP authentication with configurable directory connection settings.
+  - Add OpenID Connect (OIDC) single sign-on with identity provider configuration.
+  - Add per-provider authentication settings for LDAP and OIDC.
+  - Add role mapping and automatic user provisioning from your identity provider.
+  - Add an identity provider info endpoint for client auth discovery.
+  - Enhance invite management with authentication provider support and an updated
+    invite user form.
+  - Add audit logging with configurable settings and retention.
+- Add auth configuration, license, and entitlements in the token permissions
+  grid when creating an API token.
+- Replace Swagger UI with the [Scalar](https://scalar.com/) API reference at
+  `/api/docs`.
+- Configure {{% product-name %}} public URLs to use in generated commands and
+  configurations.
+- Add the `TELEGRAF_CONTROLLER_TOKEN` environment variable as the preferred way
+  to set the {{% product-name %}} API token. `INFLUX_TOKEN` continues to work
+  for backward compatibility.
+- Track configuration links during heartbeat batch processing.
+
+### Security
+
+- Add TLS support for the heartbeat server.
+- Add SSL/TLS support for PostgreSQL connections.
+- Sign release artifacts during the release build.
+
+### Bug fixes
+
+- Eliminate input lag on the configuration add page name and description fields.
+- Fix a crash on the agent detail page caused by a numeric status value.
+- Replace the humantime formatter with a custom formatter for consistent time
+  formatting.
+- Limit the length of reporting rule descriptions.
+- Fix agent auto-deletion.
+- Fix login screen flickering and improve the authentication flow.
+
+---
+
+## v0.0.7-beta {date="2026-04-30"}
 
 > [!Warning]
 > #### Breaking change: Only allow endpoint authorization control on startup

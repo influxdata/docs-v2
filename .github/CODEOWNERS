@@ -38,4 +38,5 @@ CLAUDE.md                              @influxdata/docs-team
 /.github/copilot-instructions.md       @influxdata/docs-team
 /.github/agents/                       @influxdata/docs-team
 /.github/instructions/                 @influxdata/docs-team
+/.agents/                              @influxdata/docs-team
 /.claude/                              @influxdata/docs-team
