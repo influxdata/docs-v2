@@ -5,6 +5,8 @@ description: >
 _build:
   list: never
   render: always
+# When a Cloud page is published at one of these paths, remove its alias below
+# and any matching hidden anchors in the body. Tracked in influxdata/docs-v2#7391.
 aliases:
   - /influxdb3/cloud/admin/tokens/admin/
   - /influxdb3/cloud/api/database/

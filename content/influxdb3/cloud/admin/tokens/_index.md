@@ -30,19 +30,38 @@ authorize actions in your instance.
 
 - **Admin tokens**: Grant full administrative access to all actions and
   resources in the instance.
-  - The first admin token on an instance is the _operator_ token. It never
-    expires and is managed by InfluxData--InfluxData provides you an initial
-    admin token to administer your instance.
-  - **Named admin tokens** are additional admin tokens. They're long-lived by
-    default and expire only if you set an expiration.
-- **Database tokens**: Grant scoped read and/or write access to specific
+  - **Operator token**: The first admin token on an instance. InfluxData
+    manages the operator token for your {{% product-name %}} instance.
+    - Never expires
+    - Cannot be edited or deleted
+  - **Named admin tokens**: Additional admin tokens that you create and manage.
+    - Can be created, edited, and deleted
+    - Long-lived by default and expire only if you set an expiration
+    - Cannot modify or remove the operator token
+- **Database tokens**: Grant scoped read and write access to specific
   databases. Use database tokens to authorize applications that write or query
   data.
+  - Grant `read`, `write`, or both to one or more databases
+  - Cannot perform administrative actions
+
+> [!Note]
+> #### Store secure tokens in a secret store
+>
+> Token strings are returned _only_ when you create the token.
+> Store tokens in a **secure secret store**.
+> Anyone with access to an admin token has full control over your
+> {{% product-name %}} instance.
+> If you lose a token string, recreate the token.
 
 ## Create a token
 
-Before you create tokens, [configure the `influxdb3` CLI](/influxdb3/cloud/get-started/setup/#configure-the-influxdb3-cli)
-to connect to your instance and authenticate with your admin token.
+Before you create tokens:
+
+- [Configure the `influxdb3` CLI](/influxdb3/cloud/get-started/setup/#configure-the-influxdb3-cli)
+  and [log in to your instance](/influxdb3/cloud/get-started/setup/#log-in-to-your-instance).
+- Make sure you have admin privileges. Creating tokens requires admin access.
+  If your user doesn't have admin access, ask an administrator to create a token
+  for you.
 
 Create a **named admin token**:
 
@@ -71,8 +90,8 @@ influxdb3 create token \
   --name "Read/write token for DATABASE_NAME"
 ```
 
-The raw token string is shown only once--copy it immediately and store it
-securely.
+Copy the raw token string immediately and store it securely.
+It's shown only once.
 
 ## List tokens
 

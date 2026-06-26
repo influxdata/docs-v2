@@ -2,8 +2,8 @@
 title: Perform a basic SQL query
 seotitle: Perform a basic SQL query in {{< product-name >}}
 description: >
-  A basic SQL query that queries data from {{< product-name >}} most commonly
-  includes   `SELECT`, `FROM`, and `WHERE` clauses.
+  A basic SQL query in {{< product-name >}} most commonly includes `SELECT`,
+  `FROM`, and `WHERE` clauses.
 menu:
   influxdb3_cloud:
     name: Basic query
