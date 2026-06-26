@@ -33,7 +33,7 @@ you can query with SQL.
 
 ### system.pt_ingest_wal
 
-View WAL files and their partitions:
+View WAL files and their shards:
 
 ```sql
 SELECT * FROM system.pt_ingest_wal;
@@ -41,16 +41,22 @@ SELECT * FROM system.pt_ingest_wal;
 
 Example output:
 
-| wal_file_id | partition_id | database_id | table_id | min_time | max_time | row_count | size_bytes |
-|:------------|:-------------|:------------|:---------|:---------|:---------|:----------|:-----------|
-| wal_001 | p_1 | db_1 | t_1 | 2024-01-01T00:00:00Z | 2024-01-01T00:10:00Z | 50000 | 2456789 |
-| wal_002 | p_1 | db_1 | t_1 | 2024-01-01T00:10:00Z | 2024-01-01T00:20:00Z | 48000 | 2345678 |
+| wal_file_id | shard_start_time | shard_duration_seconds | min_time | max_time | row_count | size_bytes | is_merged |
+|:------------|:-----------------|:-----------------------|:---------|:---------|:----------|:-----------|:----------|
+| 1 | 2024-01-01T00:00:00Z | 86400 | 2024-01-01T00:00:00Z | 2024-01-01T00:10:00Z | 50000 | 2456789 | false |
+| 2 | 2024-01-01T00:00:00Z | 86400 | 2024-01-01T00:10:00Z | 2024-01-01T00:20:00Z | 48000 | 2345678 | false |
+
+> [!Note]
+> **InfluxDB 3.10**: The `system.pt_ingest_wal` schema was updated to replace
+> `partition_id`, `database_id`, and `table_id` with `shard_start_time`,
+> `shard_duration_seconds`, and `is_merged`.
 
 Use this table to monitor:
 
 - **WAL accumulation**: Track the number and size of unmerged WAL files
-- **Partition distribution**: See how data is distributed across partitions
+- **Shard distribution**: See how data is distributed across shards
 - **Time coverage**: Verify data time ranges
+- **Merge status**: Identify WAL files where `is_merged` is `false`
 
 #### Monitor WAL backlog
 
@@ -75,10 +81,10 @@ SELECT * FROM system.pt_ingest_files;
 
 Example output:
 
-| file_id | generation | database_id | table_id | min_time | max_time | row_count | size_bytes |
-|:--------|:-----------|:------------|:---------|:---------|:---------|:----------|:-----------|
-| gen0_001 | 0 | db_1 | t_1 | 2024-01-01T00:00:00Z | 2024-01-01T01:00:00Z | 500000 | 45678901 |
-| gen0_002 | 0 | db_1 | t_1 | 2024-01-01T01:00:00Z | 2024-01-01T02:00:00Z | 480000 | 43567890 |
+| file_id | generation | min_time | max_time | row_count | size_bytes | has_bloom_filter |
+|:--------|:-----------|:---------|:---------|:----------|:-----------|:-----------------|
+| 1 | 0 | 2024-01-01T00:00:00Z | 2024-01-01T01:00:00Z | 500000 | 45678901 | true |
+| 2 | 0 | 2024-01-01T01:00:00Z | 2024-01-01T02:00:00Z | 480000 | 43567890 | true |
 
 Use this table to monitor:
 
@@ -101,6 +107,79 @@ FROM system.pt_ingest_files
 GROUP BY generation
 ORDER BY generation;
 ```
+
+### Compaction tables
+
+The following system tables expose the state of the pacha-tree compaction
+subsystem.
+
+#### system.pt_compaction_active_jobs
+
+View currently running compaction jobs:
+
+```sql
+SELECT * FROM system.pt_compaction_active_jobs;
+```
+
+Key columns:
+
+| Column | Description |
+|:-------|:------------|
+| `plan_id` | Unique job identifier |
+| `plan_type` | Job type (for example, `L0toL1`) |
+| `state` | Current job state (for example, `running`, `queued`) |
+| `shard_id` | Shard being compacted |
+| `total_slices` | Total work units in the job |
+| `completed_slices` | Work units completed so far |
+
+#### system.pt_compaction_ingest_nodes
+
+View per-ingest-node compaction lag:
+
+```sql
+SELECT * FROM system.pt_compaction_ingest_nodes;
+```
+
+Key columns:
+
+| Column | Description |
+|:-------|:------------|
+| `node_id` | Ingest node identifier |
+| `compaction_lag` | How far behind the compactor is on this node's data |
+| `seen_lag` | Lag between latest observed snapshot and latest compacted snapshot |
+| `deferred_snapshot_count` | Number of snapshots deferred due to compaction failures |
+
+Use `compaction_lag` and `deferred_snapshot_count` as the primary health
+indicators.
+A non-zero `deferred_snapshot_count` means snapshots failed to compact and
+are accumulating; check `system.pt_compaction_deferred_snapshots` for details.
+
+#### system.pt_compaction_nodes
+
+View compaction node state:
+
+```sql
+SELECT * FROM system.pt_compaction_nodes;
+```
+
+#### system.pt_compaction_run_sets
+
+View pending compaction work grouped by time window and shard:
+
+```sql
+SELECT * FROM system.pt_compaction_run_sets;
+```
+
+#### system.pt_compaction_deferred_snapshots
+
+View snapshots that failed to compact:
+
+```sql
+SELECT * FROM system.pt_compaction_deferred_snapshots;
+```
+
+A growing list here indicates a persistent compaction failure.
+Check `error_message` for the root cause.
 
 ## Parquet upgrade status
 

@@ -72,6 +72,19 @@ See [README.md](README.md) and the
 - Network-restricted environments may fail on Cypress downloads, Docker builds,
   or Alpine package installs.
 
+## Dependency management
+
+- **Dependabot is managed org-wide by the security team** for all influxdata
+  repos. Do not stand up a parallel dependency-update mechanism, and treat a
+  repo-level `.github/dependabot.yml` (if present) as supplementary to the org
+  config, not the source of truth.
+- Pin third-party GitHub Actions by full commit SHA (with a version comment) so
+  Dependabot can keep the pins current. `.github/workflows/pr-lockfile-lint.yml`
+  is the reference example.
+- Coordinate with the security team before changing dependency automation;
+  org-wide Dependabot security updates do not automatically include scheduled
+  `github-actions` version updates.
+
 ## Documentation style
 
 - Follow the Google Developer Documentation Style Guide.
