@@ -373,8 +373,8 @@ git commit -m "<COMMIT_MESSAGE>" --no-verify
 # Test code blocks
 yarn test:codeblocks:all
 
-# Test links
-yarn test:links content/influxdb3/core/**/*.md
+# Test links (build first; see DOCS-TESTING.md)
+link-checker map content/influxdb3/core/**/*.md | xargs link-checker check
 
 # Run style linting
 .ci/vale/vale.sh content/**/*.md
@@ -432,7 +432,7 @@ For detailed reference documentation, see:
 Run Vale with `.ci/vale/vale.sh`:
 
 1. Lint specific files: `.ci/vale/vale.sh content/influxdb3/core/**/*.md`
-2. Use a product config: `.ci/vale/vale.sh --config=content/influxdb/cloud-dedicated/.vale.ini content/path/`
+2. Use a product config: `.ci/vale/vale.sh --config=content/influxdb3/cloud-dedicated/.vale.ini content/path/`
 3. Set alert level: `.ci/vale/vale.sh --minAlertLevel=error content/path/`
 
 Vale raises the following alert levels:
@@ -450,7 +450,7 @@ Vale raises the following alert levels:
 
 The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/config/vocabularies`.
 
-To add accepted/rejected terms for specific products, configure a style for the product and include a `Branding.yml` configuration. As an example, see `content/influxdb/cloud-dedicated/.vale.ini` and `.ci/vale/styles/Cloud-Dedicated/Branding.yml`.
+To add accepted/rejected terms for specific products, configure a style for the product and include a `Branding.yml` configuration. As an example, see `content/influxdb3/cloud-dedicated/.vale.ini` and `.ci/vale/styles/Cloud-Dedicated/Branding.yml`.
 
 To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 

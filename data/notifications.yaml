@@ -64,64 +64,86 @@
     - Flux upgrade
     - Compaction reliability improvements
 
-- id: explorer-1-8-key-enhancements
+- id: explorer-1-9-key-enhancements
   level: note
   scope:
     - /
     - /influxdb3/explorer/
     - /influxdb3/core/
     - /influxdb3/enterprise/
-  title: Key enhancements in Explorer 1.8
+  title: Key enhancements in Explorer 1.9
   slug: |
-    Explorer 1.8 is now available with streaming data subscriptions (beta),
-    line protocol preview, and query history & saved queries.
+    Explorer 1.9 is now available with InfluxQL support, an AI-assisted
+    Flux to SQL converter (beta), and new live sample data simulators.
 
-    <a class="btn" href="/influxdb3/explorer/release-notes/#v180">View Explorer 1.8 release notes</a>
+    <a class="btn" href="/influxdb3/explorer/release-notes/#v190">View Explorer 1.9 release notes</a>
   message: |
-    Explorer 1.8 includes new features and improvements that make it easier to ingest,
-    explore, and manage data.
+    Explorer 1.9 includes new features and improvements that make it easier to
+    query, visualize, and manage data.
 
     **Highlights:**
 
-    - **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources.
-    - **Line protocol preview**: Preview line protocol, schema, and parse errors before data is written.
-    - **Custom sample data**: Generate custom sample datasets with line protocol and schema preview.
-    - **Query history and saved queries**: Browse query history and save/re-run named queries.
-    - **Retention period management**: Set, update, or clear retention periods on databases and tables.
+    - **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter.
+    - **InfluxQL support**: Query data with InfluxQL in the Data Explorer and dashboards, and save and load InfluxQL queries.
+    - **InfluxQL visualizations**: Render line and bar charts from InfluxQL results with per-tag series grouping.
+    - **Query error history**: Review a history of query errors in the query tool.
+    - **Live sample data simulators**: Generate continuous live sample data with new bird data and signal generator simulators.
 
-    For more details, see [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
+    For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
 
-- id: influxdb3-9-performance-preview
+- id: influxdb3-10-core-release
   level: note
   scope:
+    - /influxdb3/core/
+  title: 'InfluxDB 3.10 is now available'
+  slug: |
+    InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
+    configurable query-concurrency limit, and processing engine improvements.
+  message: |
+    **Key updates in InfluxDB 3 Core 3.10:**
+
+    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
+    - **`--max-concurrent-queries`**: limit concurrent queries (adjustable at runtime).
+    - **`GET /ready` endpoint** for readiness probes.
+    - **Processing engine**: cross-database queries and trigger lockdown flags.
+
+    For more information, see the
+    [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/).
+
+- id: influxdb3-10-enterprise-release
+  level: note
+  scope:
+    - /influxdb3/
     - /influxdb3/enterprise/
   exclude:
-    - /influxdb3/enterprise/performance-preview/
-  title: 'InfluxDB 3.9: Performance upgrade preview'
+    - /influxdb3/core/
+    - /influxdb3/explorer/
+    - /influxdb3/cloud-dedicated/
+    - /influxdb3/cloud-serverless/
+    - /influxdb3/clustered/
+  title: 'InfluxDB 3.10 is now available'
   slug: |
-    InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
-    with faster single-series queries, wide-and-sparse table support, and more.
-
+    InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
+    deletions, and user management, with an automatic catalog format upgrade
+    and performance preview improvements.
   message: |
-    InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
-    feature updates.
+    **Key updates in InfluxDB 3 Enterprise 3.10:**
 
-    **Key improvements:**
+    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
+    - **Automated backup and restore** (beta)
+    - **Row-level deletions**
+    - **User management** (authentication and RBAC) — preview
+    - **Performance preview improvements**
 
-    - Faster single-series queries
-    - Consistent resource usage
-    - Wide-and-sparse table support
-    - Automatic distinct value caches for reduced latency with metadata queries
+    Backup and restore, row-level deletions, and the performance preview require
+    the Enterprise storage engine upgrade (opt-in beta). _Beta and preview
+    features are subject to breaking changes and aren't recommended for
+    production use._
 
-    _Preview features are subject to breaking changes._
+    For more information, see the
+    [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-    For more information, see:
-
-    - [Performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-    - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
-    - [InfluxData Blog post](https://www.influxdata.com/blog/influxdb-3-9/)
-
-- id: telegraf-enterprise-beta
+- id: telegraf-enterprise-ga
   level: note
   scope:
     - /
@@ -134,39 +156,19 @@
     - /influxdb3/
     - /influxdb/
     - /flux/
-  title: Telegraf Enterprise now in public beta
-  slug: |   
-    Get early access to the **Telegraf Controller** and provide feedback to help
-    shape the future of **Telegraf Enterprise**.
-
-    <a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a>
-  message: |
-    The upcoming Telegraf Enterprise offering is for organizations running
-    Telegraf at scale and is comprised of two key components:
-
-    - **Telegraf Controller**: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.
-    - **Telegraf Enterprise Support**: Official support for Telegraf Controller and Telegraf plugins.
-
-    <a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
-    to get early access to the Telegraf Controller and provide feedback to help
-    shape the future of Telegraf Enterprise.
-
-    For more information:
-
-    - [See the announcement blog post](https://www.influxdata.com/blog/telegraf-enterprise-beta)
-    - [Telegraf Controller Documentation](/telegraf/controller/)
-    - [Download and install Telegraf Controller](/telegraf/controller/install/)
-
-- id: telegraf-controller-0.0.7-beta
-  level: note
-  scope:
-    - /telegraf/controller/
-  title: Telegraf Controller v0.0.7-beta now available
+  title: Telegraf Enterprise is now generally available
   slug: |
-    Telegraf Controller v0.0.7-beta is now available with new features, improvements, bug fixes, and an important breaking change.
-    
-    <a href="/telegraf/controller/reference/release-notes/#v007-beta">View the release notes</a>  
-    <a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.7-beta</a>
+    **Telegraf Enterprise** is now generally available, along with
+    **Telegraf Controller v1.0**.
+  message: |
+    Telegraf Enterprise combines Telegraf Controller, a centralized management
+    console for Telegraf, with official support from InfluxData. Manage
+    configurations, monitor fleet health, and operate tens of thousands of
+    Telegraf agents from a single system.
+
+    - [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-ga)
+    - [Documentation](/telegraf/enterprise/)
+    - [Download and install Telegraf Controller](/telegraf/controller/install/)
 
 # - id: influxdb3.8-explorer-1.6
 #   level: note
@@ -189,7 +191,7 @@
 #     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
 #     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-- id: influxdb-docker-latest-tag-apr
+- id: influxdb-docker-latest-tag-sept
   level: warn
   scope:
     - /
@@ -204,7 +206,7 @@
     - /influxdb/cloud
   title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
   slug: |
-    On **May 27, 2026**, the `latest` tag for InfluxDB Docker images will
+    On **September 15, 2026**, the `latest` tag for InfluxDB Docker images will
     point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
     tags in your Docker deployments.
   message: |

@@ -6,6 +6,9 @@ description: >
 menu:
   telegraf_v1:
     name: Telegraf
+  telegraf_enterprise:
+    name: Telegraf
+    weight: 10
 weight: 1
 related:
   - /resources/videos/intro-to-telegraf/

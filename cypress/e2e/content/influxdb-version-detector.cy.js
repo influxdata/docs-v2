@@ -16,7 +16,7 @@ const modalTriggerSelector = 'a.btn.influxdb-detector-trigger';
 describe('InfluxDB Version Detector Component', function () {
   describe('Component Initialization', function () {
     it('should open modal and display without console errors', function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
 
       // Wait for modal to be visible
@@ -58,7 +58,7 @@ describe('InfluxDB Version Detector Component', function () {
 
   describe('URL Detection', function () {
     beforeEach(function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]', {
         timeout: 5000,
@@ -137,7 +137,7 @@ describe('InfluxDB Version Detector Component', function () {
 
   describe('Questionnaire Flow', function () {
     it('should complete full questionnaire and show results', function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]', {
         timeout: 5000,
@@ -178,7 +178,7 @@ describe('InfluxDB Version Detector Component', function () {
 
   describe('Link Behavior - Non-Grafana Context', function () {
     beforeEach(function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]', {
         timeout: 5000,
@@ -281,7 +281,7 @@ describe('InfluxDB Version Detector Component', function () {
 
   describe('Source Group ID Mappings', function () {
     it('should map InfluxDB 3 products to v3 source group', function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]', {
         timeout: 5000,
@@ -324,7 +324,7 @@ describe('InfluxDB Version Detector Component', function () {
     });
 
     it('should map InfluxDB OSS v2 to v2 source group', function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]', {
         timeout: 5000,
@@ -366,7 +366,7 @@ describe('InfluxDB Version Detector Component', function () {
     });
 
     it('should map InfluxDB OSS v1 to v1 source group', function () {
-      cy.visit('/test-version-detector/');
+      cy.visit('/__tests__/test-version-detector/');
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]', {
         timeout: 5000,

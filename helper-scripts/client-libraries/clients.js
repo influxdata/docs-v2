@@ -48,6 +48,15 @@ export const CLIENTS = [
     outputPath:
       'content/shared/influxdb-client-libraries-reference/v3/release-notes/java.md',
   },
+  {
+    slug: 'rust',
+    displayName: 'influxdb3-rust',
+    language: 'Rust',
+    repo: 'InfluxCommunity/influxdb3-rust',
+    sourceFile: 'CHANGELOG.md',
+    outputPath:
+      'content/shared/influxdb-client-libraries-reference/v3/release-notes/rust.md',
+  },
 ];
 
 export function getClient(slug) {

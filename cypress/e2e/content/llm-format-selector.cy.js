@@ -19,7 +19,7 @@ describe('LLM Format Selector', () => {
 
     // Generate markdown for get-started section (small section + leaf page)
     cy.exec(
-      'node scripts/html-to-markdown.js --path influxdb3/core/get-started',
+      'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/get-started',
       {
         failOnNonZeroExit: false,
         timeout: 60000,
@@ -35,7 +35,7 @@ describe('LLM Format Selector', () => {
 
     // Generate markdown for query-data section (large section)
     cy.exec(
-      'node scripts/html-to-markdown.js --path influxdb3/core/query-data --limit 15',
+      'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/query-data --limit 15',
       {
         failOnNonZeroExit: false,
         timeout: 60000,

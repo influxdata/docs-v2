@@ -1,0 +1,50 @@
+{{- /*
+  Emits a schema.org TechArticle JSON-LD <script> for product documentation
+  pages. Gated on: the page resolves to a product (via the `product` cascade
+  key), the page Kind is "page" or "section" (excludes taxonomy/term/home —
+  e.g. tags pages), and frontmatter does not set `techarticle: false`.
+
+  articleSection encodes the docs section relative to the product landing page
+  (e.g. "Reference", "Get started"). isPartOf references the product's
+  SoftwareApplication node, which is emitted on the landing page (see
+  layouts/partials/header/softwareapplication-jsonld.html). The landing page is
+  resolved structurally via product/landing.html, so isPartOf and articleSection
+  stay correct for versioned landings (/telegraf/v1/) as well as bare product
+  roots (/influxdb3/core/).
+
+  safeJS opts out of Go's JS-context re-escaping so jsonify output is verbatim,
+  matching layouts/partials/header/faq-jsonld.html.
+*/ -}}
+{{- $product := partial "product/get-data.html" . -}}
+{{- if and $product (in (slice "page" "section") .Kind) (ne .Params.techarticle false) -}}
+  {{- $article := dict
+      "@context" "https://schema.org"
+      "@type" "TechArticle"
+      "headline" .Title
+      "name" .Title
+      "mainEntityOfPage" .Permalink
+      "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+      "inLanguage" "en"
+  -}}
+  {{- with .Description | default .Summary -}}
+    {{- $article = merge $article (dict "description" (. | plainify | strings.TrimSpace)) -}}
+  {{- end -}}
+  {{- with partial "product/landing.html" . -}}
+    {{- /* Reference the product's SoftwareApplication node by @id only. A bare
+           @id is a node reference, not a re-declared entity — emitting an inline
+           {@type:SoftwareApplication, name} here would be parsed as a separate,
+           incomplete SoftwareApplication and fail validation. The full node is
+           emitted once on the landing page (softwareapplication-jsonld.html). */ -}}
+    {{- $swRef := dict "@id" (printf "%s#software" .Permalink) -}}
+    {{- $article = merge $article (dict "about" $swRef "isPartOf" $swRef) -}}
+    {{- /* articleSection: first path segment below the landing page. Empty on
+           the landing page itself. Function-call form of `replace` (input
+           first) — a pipe would silently reorder args and yield "-". */ -}}
+    {{- $rel := strings.TrimPrefix .RelPermalink $.RelPermalink -}}
+    {{- $seg := index (split $rel "/") 0 -}}
+    {{- with $seg -}}
+      {{- $article = merge $article (dict "articleSection" (title (replace . "-" " "))) -}}
+    {{- end -}}
+  {{- end -}}
+  <script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
+{{- end -}}

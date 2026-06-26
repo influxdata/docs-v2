@@ -13,7 +13,7 @@
     {{/* Check if this is the InfluxDB HTTP API menu item for InfluxDB 3 products */}}
     {{ $isApiParent := and (or (eq .Name "InfluxDB HTTP API") (eq .Name "InfluxDB Management API")) (or (hasPrefix .URL "/influxdb3/") (hasPrefix .URL "/influxdb/") (hasPrefix .URL "/enterprise_influxdb/")) }}
 
-    <li class="nav-{{ $navClass }} {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
+    <li class="nav-{{ $navClass }} {{ if eq $currentPage.RelPermalink .URL }}active{{end}}" {{ if .Params.state }}state="{{ .Params.state }}"{{ end }}>
       {{ if $isApiParent }}
         {{/* API Reference: render custom API nav children instead of standard menu children */}}
         {{ $hasApiContent := or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) (hasPrefix $currentPage.RelPermalink .URL) }}

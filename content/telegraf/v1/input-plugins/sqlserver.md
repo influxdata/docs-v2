@@ -36,10 +36,10 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
-## Secret-store support
+## Secret store support
 
-This plugin supports secrets from secret-stores for the `servers` option.
-See the [secret-store documentation](/telegraf/v1/configuration/#secret-store-secrets) for more details on how
+This plugin supports secrets from secret stores for the `servers` option.
+See the [secret store documentation](/telegraf/v1/configuration/#secret-store-secrets) for more details on how
 to use them.
 
 [SECRETSTORE]: ../../../docs/CONFIGURATION.md#secret-store-secrets
@@ -708,7 +708,8 @@ The health metric emits the following tags:
 The health metric emits the following fields:
 
 - `attempted_queries`  - Number of queries that were attempted for this connection
-- `successful_queries` - Number of queries that completed successfully for this connection
+- `successful_queries` - Number of queries that completed successfully for this
+                         connection
 - `database_type`      - Type of database as specified by `database_type`.
                          If `database_type` is empty, the `QueryVersion` and
                          `AzureDB` fields are concatenated instead

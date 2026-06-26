@@ -70,6 +70,14 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
+## Secret store support
+
+This plugin supports secrets from secret stores for the `client_secret` option.
+See the [secret store documentation](/telegraf/v1/configuration/#secret-store-secrets) for more details on how
+to use them.
+
+[SECRETSTORE]: ../../../docs/CONFIGURATION.md#secret-store-secrets
+
 ## Configuration
 
 ```toml @sample.conf
@@ -86,6 +94,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   # - Managed Identity
   # - Azure CLI auth
   # - Developer Azure CLI auth
+  # Supports referencing values from secret stores using @{<store>:<key>} syntax
   client_secret = "<<CLIENT_SECRET>>"
   # can be found under Azure Active Directory->Properties
   tenant_id = "<<TENANT_ID>>"
