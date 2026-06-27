@@ -66,15 +66,21 @@ jobs:
       - run:
           name: Install Rust toolchain
           command: |
-            # Skip the rustup-init download when the toolchain was restored
-            # from cache (~/.cargo, ~/.rustup); just re-export it onto PATH.
-            # rust-toolchain.toml pins the exact version; --default-toolchain none
-            # avoids downloading an extra stable toolchain we won't use.
+            # Install rustup if not already cached in ~/.cargo/~/.rustup.
             if [ ! -x "$HOME/.cargo/bin/rustup" ]; then
               curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
                 | sh -s -- -y --profile minimal --default-toolchain none
             fi
             echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+            source "$HOME/.cargo/env"
+            # Install the exact toolchain pinned in rust-toolchain.toml and set it
+            # as the global default. This makes `cargo` available from any directory,
+            # including the repo root where build-rust-converter.js probes it before
+            # changing into scripts/rust-markdown-converter/.
+            RUST_CHANNEL=$(grep '^channel' scripts/rust-markdown-converter/rust-toolchain.toml \
+              | sed 's/.*= *"\([^"]*\)".*/\1/')
+            rustup toolchain install --profile minimal --no-self-update "$RUST_CHANNEL"
+            rustup default "$RUST_CHANNEL"
       - run:
           name: Build Rust markdown converter
           command: |
