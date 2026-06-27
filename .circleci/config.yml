@@ -33,10 +33,10 @@ jobs:
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NodeJS dependencies
-          command: yarn install
+          command: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile --non-interactive --prefer-offline
       - run:
           name: Install API documentation dependencies
-          command: cd api-docs && yarn install
+          command: cd api-docs && yarn install --frozen-lockfile --non-interactive --prefer-offline
       - run:
           name: Build API documentation scripts
           command: yarn build:api-docs:scripts
