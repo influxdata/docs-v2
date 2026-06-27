@@ -10,6 +10,17 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: Verify Node major matches .nvmrc
+          command: |
+            expected=$(tr -d 'v' < .nvmrc | cut -d'.' -f1)
+            actual=$(node --version | tr -d 'v' | cut -d'.' -f1)
+            if [ "$expected" != "$actual" ]; then
+              echo "ERROR: running Node major $actual != .nvmrc major $expected."
+              echo "Update the cimg/node image tag in .circleci/config.yml to match .nvmrc."
+              exit 1
+            fi
+            echo "Node major $actual matches .nvmrc."
       - restore_cache:
           keys:
             - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
