@@ -207,6 +207,9 @@ certificate and key.
 - [ssl-cert-path](#ssl-cert-path)
 - [ssl-key-path](#ssl-key-path)
 
+For a full walkthrough that includes configuring agents to trust the certificate,
+see [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+
 > [!Note]
 > #### Provide both the certificate and the key
 >
