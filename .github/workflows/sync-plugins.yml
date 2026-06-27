@@ -100,7 +100,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd docs-v2
-          CYPRESS_INSTALL_BINARY=0 yarn install
+          CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
 
       - name: Setup Python
         uses: actions/setup-python@v6
