@@ -23,20 +23,29 @@ jobs:
             echo "Node major $actual matches .nvmrc."
       - restore_cache:
           keys:
-            - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
-            - install-{{ .Environment.CACHE_VERSION }}-
+            - s3deploy-{{ checksum ".circleci/config.yml" }}
       - run:
           name: Make bin folder
           command: mkdir -p $HOME/bin
       - run:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
+      - save_cache:
+          key: s3deploy-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - ~/bin
+      - restore_cache:
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}-{{ checksum "api-docs/yarn.lock" }}-{{ checksum "scripts/rust-markdown-converter/yarn.lock" }}
+            - yarn-v1-{{ checksum "yarn.lock" }}-{{ checksum "api-docs/yarn.lock" }}-
+            - yarn-v1-{{ checksum "yarn.lock" }}-
+            - yarn-v1-
       - run:
           name: Install NodeJS dependencies
-          command: yarn install
+          command: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile --non-interactive --prefer-offline
       - run:
           name: Install API documentation dependencies
-          command: cd api-docs && yarn install
+          command: cd api-docs && yarn install --frozen-lockfile --non-interactive --prefer-offline
       - run:
           name: Build API documentation scripts
           command: yarn build:api-docs:scripts
@@ -49,34 +58,43 @@ jobs:
       - run:
           name: Update Flux/InfluxDB versions
           command: node ./flux-build-scripts/update-flux-versions.cjs
-      - save_cache:
-          key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - /home/circleci/bin
       - restore_cache:
           keys:
-            - rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
-            - rust-
+            - rust-{{ arch }}-{{ checksum "scripts/rust-markdown-converter/rust-toolchain.toml" }}-{{ checksum "scripts/rust-markdown-converter/Cargo.lock" }}
+            - rust-{{ arch }}-{{ checksum "scripts/rust-markdown-converter/rust-toolchain.toml" }}-
+            - rust-{{ arch }}-
       - run:
           name: Install Rust toolchain
           command: |
-            # Skip the rustup-init download when the toolchain was restored
-            # from cache (~/.cargo, ~/.rustup); just re-export it onto PATH.
-            if [ ! -x "$HOME/.cargo/bin/cargo" ]; then
+            # Install rustup if not already cached in ~/.cargo/~/.rustup.
+            if [ ! -x "$HOME/.cargo/bin/rustup" ]; then
               curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
-                | sh -s -- -y --profile minimal --default-toolchain stable
+                | sh -s -- -y --profile minimal --default-toolchain none
             fi
             echo 'source "$HOME/.cargo/env"' >> "$BASH_ENV"
+            source "$HOME/.cargo/env"
+            # Install the exact toolchain pinned in rust-toolchain.toml and set it
+            # as the global default. This makes `cargo` available from any directory,
+            # including the repo root where build-rust-converter.js probes it before
+            # changing into scripts/rust-markdown-converter/.
+            RUST_CHANNEL=$(grep '^channel' scripts/rust-markdown-converter/rust-toolchain.toml \
+              | sed 's/.*= *"\([^"]*\)".*/\1/')
+            rustup toolchain install --profile minimal --no-self-update "$RUST_CHANNEL"
+            rustup default "$RUST_CHANNEL"
       - run:
           name: Build Rust markdown converter
           command: |
             source "$HOME/.cargo/env"
             node scripts/build-rust-converter.js
       - save_cache:
-          key: rust-{{ checksum "scripts/rust-markdown-converter/Cargo.toml" }}
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ checksum "api-docs/yarn.lock" }}-{{ checksum "scripts/rust-markdown-converter/yarn.lock" }}
           paths:
-            - /home/circleci/.cargo
-            - /home/circleci/.rustup
+            - ~/.cache/yarn
+      - save_cache:
+          key: rust-{{ arch }}-{{ checksum "scripts/rust-markdown-converter/rust-toolchain.toml" }}-{{ checksum "scripts/rust-markdown-converter/Cargo.lock" }}
+          paths:
+            - ~/.cargo
+            - ~/.rustup
             - scripts/rust-markdown-converter/target
       - run:
           name: Hugo Build
@@ -204,8 +222,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
-            - install-{{ .Environment.CACHE_VERSION }}-
+            - s3deploy-{{ checksum ".circleci/config.yml" }}
       - attach_workspace:
           at: workspace
       - run:
