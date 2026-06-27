@@ -12,7 +12,7 @@ runs:
 
     - name: Verify Node version matches .nvmrc
       run: |
-        NVMRC_MAJOR=$(cat .nvmrc | tr -d 'v' | cut -d'.' -f1)
+        NVMRC_MAJOR=$(tr -d 'v' < .nvmrc | cut -d'.' -f1)
         CURRENT_MAJOR=$(node --version | tr -d 'v' | cut -d'.' -f1)
         if [ "$CURRENT_MAJOR" != "$NVMRC_MAJOR" ]; then
           echo "Node major mismatch: running Node $CURRENT_MAJOR but .nvmrc requires $NVMRC_MAJOR"
