@@ -113,6 +113,7 @@ jobs:
             scripts/lib/content-utils.js
             .github/scripts/workflow-utils.js
             package.json
+            .nvmrc
           sparse-checkout-cone-mode: false
 
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0

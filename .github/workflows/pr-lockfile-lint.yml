@@ -24,6 +24,7 @@ jobs:
           persist-credentials: false
           sparse-checkout: |
             yarn.lock
+            .nvmrc
           sparse-checkout-cone-mode: false
 
       - name: Setup Node.js
