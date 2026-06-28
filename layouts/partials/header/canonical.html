@@ -32,22 +32,15 @@ those that share the same source using the following product priority order:
 7. cloud
 -->
 {{ else if .Page.Params.source }}
-  {{ $productPriority := slice
-    "/enterprise/"
-    "/core/"
-    "/cloud-dedicated/"
-    "/clustered/"
-    "/cloud-serverless/"
-    "/v2/"
-    "/cloud/"
-  }}
-  {{ range where (sort .Site.Pages "Section" "desc") "Params.source" "eq" .Page.Params.source }}
-    {{ $pagePath := .RelPermalink }}
-    {{ range $productPriority }}
-      {{ if in $pagePath . }}
-        {{ $scratch.Set "canonicalURL" (print $baseURL $pagePath) }}
-      {{ end }}         
-    {{ end }}
+  {{/*
+    Resolve the shared-source canonical from a site-wide map built once in
+    header/canonical-map.html (partialCached, so it computes a single time per
+    build). Sources with no priority-matching page are absent from the map, so
+    those pages keep their own permalink set above. The product-priority
+    selection rules live in canonical-map.html.
+  */}}
+  {{ with index (partialCached "header/canonical-map" .) .Page.Params.source }}
+    {{ $scratch.Set "canonicalURL" . }}
   {{ end }}
 {{ end }}
 
