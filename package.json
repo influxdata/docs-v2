@@ -73,6 +73,7 @@
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
+    "preinstall": "node scripts/check-package-manager.js",
     "postinstall": "node scripts/setup-local-bin.js && node scripts/build-rust-converter.js",
     "docs": "node scripts/docs-cli/docs-cli.js",
     "docs:create": "node scripts/docs-cli/docs-cli.js create",
@@ -149,6 +150,7 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "packageManager": "yarn@1.22.22",
   "directories": {
     "test": "test"
   },
