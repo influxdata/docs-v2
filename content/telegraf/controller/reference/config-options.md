@@ -203,6 +203,12 @@ call the API. When set, `ui-port` must differ from [`port`](#port) and
 Database connection URL or filesystem path. {{% product-name %}} supports
 SQLite and PostgreSQL.
 
+For PostgreSQL, {{% product-name %}} accepts both the `postgresql://` and
+`postgres://` URL schemes. {{% product-name %}} removes surrounding quotes from
+the value before connecting, so quoting the connection string in your shell or
+`.env` file is safe. If the value is not a URL, {{% product-name %}} treats it
+as a SQLite file path and adds the `file:` scheme automatically.
+
 **Default:** `file:./sqlite.db`
 
 ```bash
