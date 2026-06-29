@@ -9,8 +9,6 @@ menu:
     name: influxctl
     parent: CLIs
 weight: 101
-aliases:
-  - /influxdb3/cloud-dedicated/reference/cli/
 influxdb3/cloud-dedicated/tags: [cli]
 ---
 
