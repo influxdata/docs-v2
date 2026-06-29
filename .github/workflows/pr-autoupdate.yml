@@ -44,7 +44,13 @@ jobs:
     steps:
       - name: Auto-update PR branches
         # Uses Docker image for faster startup (no checkout/build required)
-        uses: docker://chinthakagodawita/autoupdate-action:v1.7.0  # TODO: pin by commit SHA (no network in current env)
+        # BROKEN: docker://chinthakagodawita/autoupdate-action:v1.7.0
+        # The Docker image manifest is no longer available on Docker Hub and
+        # the upstream repo (chinthakagodawita/autoupdate-action) is archived.
+        # This step silently no-ops. Replace with an actively maintained
+        # alternative (e.g. actions/github-script + merge-queue, or remove this
+        # workflow if auto-update is no longer needed).
+        uses: docker://chinthakagodawita/autoupdate-action:v1.7.0
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 

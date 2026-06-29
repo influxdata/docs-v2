@@ -103,7 +103,7 @@ jobs:
           CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
 
       - name: Setup Python
-        uses: actions/setup-python@v6  # TODO: pin by commit SHA (no network in current env)
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6
         with:
           python-version: '3.9'
 
@@ -352,7 +352,7 @@ jobs:
       - name: Create Pull Request
         if: steps.validate.outputs.validation_passed == 'true'
         id: create-pr
-        uses: peter-evans/create-pull-request@v8  # TODO: pin by commit SHA (no network in current env)
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8
         with:
           path: docs-v2
           token: ${{ secrets.GITHUB_TOKEN }}

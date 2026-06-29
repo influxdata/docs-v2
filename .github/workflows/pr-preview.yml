@@ -235,7 +235,7 @@ jobs:
         if: steps.detect.outputs.pages-to-deploy != '[]'
         id: deploy-preview
         continue-on-error: true
-        uses: rossjrw/pr-preview-action@v1.4.8  # TODO: pin by commit SHA (no network in current env)
+        uses: rossjrw/pr-preview-action@430e3dfc1de8a8ae77e77d862d25676ef9db55d1  # v1.4.8
         with:
           source-dir: ./preview-staging
           preview-branch: gh-pages
