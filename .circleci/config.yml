@@ -202,8 +202,10 @@ jobs:
               exit 0
             fi
             tar -czf workspace/archive/public.tar.gz -C workspace public
-            sha256sum workspace/archive/public.tar.gz \
-              > workspace/archive/public.SHA256SUMS
+            (
+              cd workspace/archive
+              sha256sum public.tar.gz > public.SHA256SUMS
+            )
             HUGO_VERSION=$(yarn --silent hugo version 2>/dev/null | head -1)
             RUST_CHANNEL=$(grep '^channel' scripts/rust-markdown-converter/rust-toolchain.toml \
               | sed 's/.*= *"\([^"]*\)".*/\1/')
