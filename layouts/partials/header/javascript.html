@@ -24,12 +24,32 @@
 {{ end }}
 
 {{ $isDevelopmentOrTesting := or $isDevelopment $isTesting }}
+{{ $diagramRendererModuleURL := "" }}
+
+{{ with resources.Get "js/diagram-renderer.js" }}
+  {{ $diagramRendererOpts := dict
+    "minify" hugo.IsProduction
+    "sourceMap" (cond $isDevelopmentOrTesting "inline" "")
+    "format" "esm"
+    "bundle" true
+    "targetPath" "js/diagram-renderer.js"
+  }}
+  {{ with . | js.Build $diagramRendererOpts }}
+    {{ if hugo.IsProduction }}
+      {{ with . | fingerprint }}
+        {{ $diagramRendererModuleURL = .RelPermalink }}
+      {{ end }}
+    {{ else }}
+      {{ $diagramRendererModuleURL = .RelPermalink }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 {{ with resources.Get "js/main.js" }}
   {{ $opts := dict
     "minify" hugo.IsProduction
     "sourceMap" (cond $isDevelopmentOrTesting "inline" "")
-    "format" (cond $isDevelopmentOrTesting "esm" "iife")
+    "format" "esm"
     "bundle" true
     "targetPath" "js/main.js"
     "params" (dict
@@ -38,12 +58,13 @@
       "influxdb_urls" $influxdb_urls
       "cloudUrls" $cloudUrls
       "isDevelopment" $isDevelopmentOrTesting
+      "diagramRendererModuleUrl" $diagramRendererModuleURL
     )
   }}
   {{ with . | js.Build $opts }}
     {{ if hugo.IsProduction }}
       {{ with . | fingerprint }}
-        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+        <script type="module" src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
       {{ end }}
     {{ else }}
       <script type="module" src="{{ .RelPermalink }}"></script>
