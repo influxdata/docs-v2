@@ -42,6 +42,12 @@ client that connects. Agents interact with two listeners, and both use the
 - **Heartbeat service** on port `8000` (default): agents send heartbeats to this
   listener.
 
+> [!Note]
+> If you serve the web interface on a separate port
+> ([`ui-port`](/telegraf/controller/reference/config-options/#ui-port)), that
+> listener uses the same certificate and key. Browsers that connect to the web
+> interface must also trust the CA that signed the certificate.
+
 Before an agent trusts a connection, it verifies that the certificate was signed
 by a CA it already trusts. Agents (through Telegraf) ship with the same list of
 public CAs as a web browser. A certificate signed by a private or internal CA, or
