@@ -11,7 +11,7 @@ weight: 101
 
 ## v1.0.1 {date="2026-07-01"}
 
-<!-- Link only be on the latest version, update and move with new versions. -->
+<!-- Update and move the link to the latest version. -->
 [Download Telegraf Controller v1.0.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
 
 ### Features
