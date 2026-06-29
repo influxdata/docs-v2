@@ -80,7 +80,7 @@ jobs:
 
       - name: Create pull request
         if: steps.check.outputs.up-to-date == 'false'
-        uses: peter-evans/create-pull-request@v8  # TODO: pin by commit SHA (no network in current env)
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8
         with:
           commit-message: "chore(deps): update ${{ matrix.dep.name }} to v${{ steps.check.outputs.latest }}"
           branch: "chore/update-${{ matrix.dep.name }}-${{ steps.check.outputs.latest }}"
