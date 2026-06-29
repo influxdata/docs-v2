@@ -76,6 +76,7 @@ telegraf_controller --no-interactive
 - [General](#general)
   - [port](#port)
   - [heartbeat-port](#heartbeat-port)
+  - [ui-port](#ui-port)
   - [database](#database)
 - [TLS](#tls)
   - [ssl-cert-path](#ssl-cert-path)
@@ -150,6 +151,7 @@ telegraf_controller --no-interactive
 
 - [port](#port)
 - [heartbeat-port](#heartbeat-port)
+- [ui-port](#ui-port)
 - [database](#database)
 
 #### port
@@ -173,6 +175,26 @@ Agent heartbeat service port.
 | Command flag       | Environment variable |
 | :----------------- | :------------------- |
 | `--heartbeat-port` | `HEARTBEAT_PORT`     |
+
+---
+
+#### ui-port
+
+Serve the web interface on a separate port from the API. By default,
+{{% product-name %}} serves the web interface and the API together on
+[`port`](#port). Set `ui-port` to serve the web interface on its own port.
+
+In separate-port mode, the browser loads the web interface from `ui-port` and
+calls the API on [`port`](#port), so web clients must be able to reach both
+ports. {{% product-name %}} automatically allows the web interface origin to
+call the API. When set, `ui-port` must differ from [`port`](#port) and
+[`heartbeat-port`](#heartbeat-port).
+
+**Default:** Not set (the web interface is served on [`port`](#port))
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| `--ui-port`  | `UI_PORT`            |
 
 ---
 
