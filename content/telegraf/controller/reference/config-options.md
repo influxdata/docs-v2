@@ -1001,7 +1001,7 @@ Enterprise license to take effect.
 
 | Command flag      | Environment variable    |
 | :---------------- | :---------------------- |
-| `--audit-enabled` | `AUDIT_LOGGING_ENABLED` |
+| `--audit-enabled` | `AUDIT_ENABLED` |
 
 ---
 
