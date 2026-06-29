@@ -3,10 +3,6 @@ jobs:
   build:
     docker:
       - image: cimg/node:22.16.0
-        environment:
-          S3DEPLOY_VERSION: "2.11.0"
-          # From https://github.com/bep/s3deploy/releases
-          S3DEPLOY_VERSION_HASH: "d3566a6a56735ea5710cf22c35f8f411164e6efc22ded98743a1d7a5a21c740e"
 
     steps:
       - checkout
@@ -21,19 +17,6 @@ jobs:
               exit 1
             fi
             echo "Node major $actual matches .nvmrc."
-      - restore_cache:
-          keys:
-            - s3deploy-{{ checksum ".circleci/config.yml" }}
-      - run:
-          name: Make bin folder
-          command: mkdir -p $HOME/bin
-      - run:
-          name: Install s3deploy
-          command: ./deploy/ci-install-s3deploy.sh
-      - save_cache:
-          key: s3deploy-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - ~/bin
       - restore_cache:
           keys:
             - yarn-v1-{{ checksum "yarn.lock" }}-{{ checksum "api-docs/yarn.lock" }}-{{ checksum "scripts/rust-markdown-converter/yarn.lock" }}
@@ -210,29 +193,86 @@ jobs:
             else
               echo "Skipping coherence check (master-only)"
             fi
+      - run:
+          name: Archive build output (master only)
+          command: |
+            mkdir -p workspace/archive
+            if [ "$CIRCLE_BRANCH" != "master" ]; then
+              echo "Non-master build — skipping archive."
+              exit 0
+            fi
+            tar -czf workspace/archive/public.tar.gz -C workspace public
+            sha256sum workspace/archive/public.tar.gz \
+              > workspace/archive/public.SHA256SUMS
+            HUGO_VERSION=$(yarn --silent hugo version 2>/dev/null | head -1)
+            RUST_CHANNEL=$(grep '^channel' scripts/rust-markdown-converter/rust-toolchain.toml \
+              | sed 's/.*= *"\([^"]*\)".*/\1/')
+            cat > workspace/archive/build-manifest.json \<<EOF
+            {
+              "commit": "$CIRCLE_SHA1",
+              "branch": "$CIRCLE_BRANCH",
+              "build_num": $CIRCLE_BUILD_NUM,
+              "node_version": "$(node --version)",
+              "hugo_version": "$HUGO_VERSION",
+              "rust_channel": "$RUST_CHANNEL",
+              "yarn_lock_sha256": "$(sha256sum yarn.lock | cut -d' ' -f1)",
+              "api_docs_yarn_lock_sha256": "$(sha256sum api-docs/yarn.lock | cut -d' ' -f1)",
+              "cargo_lock_sha256": "$(sha256sum scripts/rust-markdown-converter/Cargo.lock | cut -d' ' -f1)"
+            }
+            EOF
+            echo "Archive: $(du -sh workspace/archive/public.tar.gz | cut -f1)"
       - persist_to_workspace:
           root: workspace
           paths:
-            - public
+            - archive
 
   deploy:
     docker:
       - image: cimg/go:1.22.2
+        environment:
+          S3DEPLOY_VERSION: "2.11.0"
+          # From https://github.com/bep/s3deploy/releases
+          S3DEPLOY_VERSION_HASH: "d3566a6a56735ea5710cf22c35f8f411164e6efc22ded98743a1d7a5a21c740e"
     steps:
       - checkout
       - restore_cache:
           keys:
-            - s3deploy-{{ checksum ".circleci/config.yml" }}
+            - s3deploy-{{ arch }}-{{ checksum ".circleci/config.yml" }}
+      - run:
+          name: Make bin folder
+          command: mkdir -p $HOME/bin
+      - run:
+          name: Install s3deploy
+          command: ./deploy/ci-install-s3deploy.sh
+      - save_cache:
+          key: s3deploy-{{ arch }}-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - ~/bin
       - attach_workspace:
           at: workspace
+      - run:
+          name: Verify archive checksum
+          command: |
+            cd workspace/archive
+            sha256sum -c public.SHA256SUMS
+            echo "Build manifest:"
+            cat build-manifest.json
+      - run:
+          name: Extract build archive
+          command: tar -xzf workspace/archive/public.tar.gz -C workspace/
       - run:
           name: Deploy to S3
           command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION -distribution-id=$CF_DISTRIBUTION_ID
       - run:
-          name: Post in Slack
+          name: Post success in Slack
           command: >
             export COMMIT_INFO="$(git log -1 --format='%n>>>%s%n%b%n_<https://github.com/influxdata/docs-v2/commit/%H|Commit %h> - by %an_')"; curl -X POST --data-urlencode "payload={\"username\": \"Doc the Docs Bot\", \"text\": \"The docs successfully deployed! :greeny_peeny:\n\n $COMMIT_INFO\", \"icon_emoji\": \":doc_green:\"}" $SLACK_DOCS_WEBHOOK_URL
           when: on_success
+      - run:
+          name: Post failure in Slack
+          command: >
+            export COMMIT_INFO="$(git log -1 --format='%n>>>%s%n_<https://github.com/influxdata/docs-v2/commit/%H|Commit %h> - by %an_')"; curl -X POST --data-urlencode "payload={\"username\": \"Doc the Docs Bot\", \"text\": \":red_circle: Docs deploy FAILED! :greeny_peeny:\n\n $COMMIT_INFO\", \"icon_emoji\": \":doc_green:\"}" $SLACK_DOCS_WEBHOOK_URL
+          when: on_fail
 
 workflows:
   build:
