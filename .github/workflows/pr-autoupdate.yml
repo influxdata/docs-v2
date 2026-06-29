@@ -44,7 +44,7 @@ jobs:
     steps:
       - name: Auto-update PR branches
         # Uses Docker image for faster startup (no checkout/build required)
-        uses: docker://chinthakagodawita/autoupdate-action:v1.7.0
+        uses: docker://chinthakagodawita/autoupdate-action:v1.7.0  # TODO: pin by commit SHA (no network in current env)
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 

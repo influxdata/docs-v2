@@ -29,12 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout docs-v2
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           path: docs-v2
 
       - name: Checkout influxdb3-python
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           repository: InfluxCommunity/influxdb3-python
           path: sources/influxdb3-python
@@ -42,7 +42,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-go
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           repository: InfluxCommunity/influxdb3-go
           path: sources/influxdb3-go
@@ -50,7 +50,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-js
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           repository: InfluxCommunity/influxdb3-js
           path: sources/influxdb3-js
@@ -58,7 +58,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-csharp
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           repository: InfluxCommunity/influxdb3-csharp
           path: sources/influxdb3-csharp
@@ -66,7 +66,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-java
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           repository: InfluxCommunity/influxdb3-java
           path: sources/influxdb3-java
@@ -74,7 +74,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-rust
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
           repository: InfluxCommunity/influxdb3-rust
           path: sources/influxdb3-rust
@@ -82,7 +82,7 @@ jobs:
             CHANGELOG.md
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
         with:
           node-version-file: docs-v2/.nvmrc
 
@@ -147,7 +147,7 @@ jobs:
           echo "path=$BODY_FILE" >> "$GITHUB_OUTPUT"
 
       - name: Create or update pull request
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v8  # TODO: pin by commit SHA (no network in current env)
         with:
           path: docs-v2
           branch: sync/client-library-release-notes
