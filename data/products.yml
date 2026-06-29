@@ -87,6 +87,34 @@ influxdb3_enterprise:
     operating_system: "Linux, macOS, Windows, Docker"
     application_category: "DatabaseApplication"
 
+influxdb3_cloud:
+  name: InfluxDB 3 Cloud
+  altname: InfluxDB 3 Cloud
+  namespace: influxdb3
+  content_path: influxdb3/cloud
+  label_group: v3-distributed
+  menu_category: managed
+  versions: [cloud]
+  list_order: 1
+  latest: cloud
+  link: 'https://www.influxdata.com/contact-sales/'
+  placeholder_host: cluster-id.a.influxdb.io
+  version_label: Cloud
+  distributed_architecture: true
+  limits:
+    database: 100
+    table: 10000
+    column: 500
+  ai_sample_questions:
+    - What's my InfluxDB version?
+    - How do I get started with InfluxDB 3 Cloud?
+    - How do I query data with InfluxDB 3 Cloud?
+  ai_input_placeholder: 'Specify your version and product ("InfluxDB 3 Cloud", "InfluxDB 3 Enterprise", "Core") for better results'
+  ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
+
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
   altname: Explorer

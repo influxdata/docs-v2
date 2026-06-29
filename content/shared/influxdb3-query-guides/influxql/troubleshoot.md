@@ -44,7 +44,7 @@ of the following:
   SHOW MEASUREMENTS ON DATABASE_NAME
   ```
 
-- If using the [InfluxDB v1 query API](/enterprise_influxdb/v1/api/query/),
+- If using the [InfluxDB v1 query API](/influxdb3/version/api/query-data/#operation/GetV1ExecuteQuery),
   Include the `db` query parameter in your request:
 
   ```sh { placeholders="DATABASE_(NAME|TOKEN)" }
