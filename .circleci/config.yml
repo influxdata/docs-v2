@@ -207,7 +207,7 @@ jobs:
             HUGO_VERSION=$(yarn --silent hugo version 2>/dev/null | head -1)
             RUST_CHANNEL=$(grep '^channel' scripts/rust-markdown-converter/rust-toolchain.toml \
               | sed 's/.*= *"\([^"]*\)".*/\1/')
-            cat > workspace/archive/build-manifest.json <<EOF
+            cat > workspace/archive/build-manifest.json \<<EOF
             {
               "commit": "$CIRCLE_SHA1",
               "branch": "$CIRCLE_BRANCH",
