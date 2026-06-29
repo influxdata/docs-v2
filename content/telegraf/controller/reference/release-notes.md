@@ -9,10 +9,28 @@ menu:
 weight: 101
 ---
 
-## v1.0.0 {date="2026-06-23"}
+## v1.0.1 {date="2026-07-01"}
 
 <!-- Link only be on the latest version, update and move with new versions. -->
-[Download Telegraf Controller v1.0.0](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.0.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Features
+
+- Serve the web UI on a separate port from the API using the `UI_PORT` option,
+  for deployments that run the web UI behind a reverse proxy.
+- Sort the agent list by column (Agent Details, Status, Last Reported), backed
+  by `sortBy` and `sortOrder` query parameters on `GET /api/agents`.
+- Accept both `postgresql://` and `postgres://` connection string schemes and
+  tolerate quoted `DATABASE_URL` values.
+
+### Bug fixes
+
+- Sync the agents quota counter with manual refresh and polling.
+- Fix an environment-variable example typo on the add-configuration page.
+
+---
+
+## v1.0.0 {date="2026-06-23"}
 
 > [!Important]
 > #### Telegraf Controller v1.0 (General Availability)
