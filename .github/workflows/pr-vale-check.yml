@@ -157,7 +157,6 @@ jobs:
 
             const errors = results.errors || 0;
             const warnings = results.warnings || 0;
-            const suggestions = results.suggestions || 0;
             const checkResult = '${{ steps.vale.outputs.check-result }}';
 
             // Build comment body
@@ -166,7 +165,6 @@ jobs:
             body += '|--------|-------|\n';
             body += `| Errors | ${errors} |\n`;
             body += `| Warnings | ${warnings} |\n`;
-            body += `| Suggestions | ${suggestions} |\n\n`;
 
             // List errors (blocking)
             if (errors > 0) {
@@ -250,7 +248,6 @@ jobs:
         run: |
           ERRORS="${{ steps.vale.outputs.error-count }}"
           WARNINGS="${{ steps.vale.outputs.warning-count }}"
-          SUGGESTIONS="${{ steps.vale.outputs.suggestion-count }}"
           RESULT="${{ steps.vale.outputs.check-result }}"
 
           echo "## Vale Style Check Results" >> $GITHUB_STEP_SUMMARY
@@ -259,7 +256,6 @@ jobs:
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Errors | ${ERRORS:-0} |" >> $GITHUB_STEP_SUMMARY
           echo "| Warnings | ${WARNINGS:-0} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Suggestions | ${SUGGESTIONS:-0} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
           if [[ "$RESULT" == "failed" ]]; then
