@@ -121,6 +121,10 @@ instruction file.
 - `.agents/skills/docs-testing/SKILL.md`: agent testing decision guide — maps
   changed file types to exact test commands, documents what CI runs automatically,
   and flags coverage gaps.
+- `.agents/skills/issue-investigation/SKILL.md`: issue investigation guide —
+  verify reported problems are real before fixing, check git history for existing
+  fixes, and distinguish root causes. Use before working on any bug report or
+  broken link.
 - `DOCS-SHORTCODES.md`: shortcode reference.
 - `DOCS-FRONTMATTER.md`: frontmatter reference.
 - `DOCS-CONTRIBUTING.md`: contribution and commit conventions.
