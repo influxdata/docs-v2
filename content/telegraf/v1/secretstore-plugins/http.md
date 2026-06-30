@@ -154,7 +154,7 @@ encryption section.
 
 Secrets are expected to be JSON data in the following flat key-value form
 
-```json
+```text
 {
     "secret name A": "secret value A",
     ...
