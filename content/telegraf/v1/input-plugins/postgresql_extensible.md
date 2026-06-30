@@ -126,7 +126,7 @@ using the postgresql extensions [pg_stat_statements](http://www.postgresql.org/d
 * telegraf.conf postgresql_extensible queries (assuming that you have configured
  correctly your connection)
 
-```toml
+```text
 [[inputs.postgresql_extensible.query]]
   sqlquery="SELECT * FROM pg_stat_database"
   version=901
