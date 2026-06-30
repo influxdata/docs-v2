@@ -110,15 +110,6 @@
     {{ partialCached "sidebar/nested-menu" (dict "menu" $platformMenu "siteData" .Site.Data) "platform" }}
   {{ end }}
 
-  <!-- Additional resources for all docs -->
-  {{ $resourcesProductWhitelist := slice "platform" "influxdb" "enterprise_influxdb" "telegraf" "chronograf" "kapacitor" "flux" }}
-  {{ $resourcesVersionWhitelist := `(?:v\d\.(?:\d{1,2}|x))|cloud$` }}
-  {{ if and (in $resourcesProductWhitelist $product) (gt (len (findRE $resourcesVersionWhitelist $currentVersion)) 0) }}
-    <h4 class="resources">Additional resources</h4>
-    <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
-    <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>
-  {{ end }}
-
   </ul>
   <script>
   (function(){
