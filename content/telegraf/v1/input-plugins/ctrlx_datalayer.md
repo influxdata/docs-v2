@@ -321,7 +321,7 @@ Configuration:
 
 Source:
 
-```json
+```text
 "framework/metrics/system/memavailable-mb" : 365.93359375
 "framework/metrics/system/memused-mb" : 567.67578125
 ```
@@ -348,7 +348,7 @@ Configuration:
 
 Source:
 
-```json
+```text
 "alldata/dynamic/array-of-bool8" : [true, false, true]
 "alldata/dynamic/array-of-uint8" : [0, 255]
 ```
@@ -375,7 +375,7 @@ Configuration:
 
 Source:
 
-```json
+```text
 "motion/axs/Axis_1/state/values/actual" : {"actualPos":65.249329860957,"actualVel":5,"actualAcc":0,"actualTorque":0,"distLeft":0,"actualPosUnit":"mm","actualVelUnit":"mm/min","actualAccUnit":"m/s^2","actualTorqueUnit":"Nm","distLeftUnit":"mm"}
 "motion/axs/Axis_2/state/values/actual" : {"actualPos":120,"actualVel":0,"actualAcc":0,"actualTorque":0,"distLeft":0,"actualPosUnit":"deg","actualVelUnit":"rpm","actualAccUnit":"rad/s^2","actualTorqueUnit":"Nm","distLeftUnit":"deg"}
 ```
