@@ -78,6 +78,11 @@ telegraf_controller --no-interactive
   - [heartbeat-port](#heartbeat-port)
   - [ui-port](#ui-port)
   - [database](#database)
+- [Public URLs and CORS](#public-urls-and-cors)
+  - [public-api-url](#public-api-url)
+  - [public-api-port](#public-api-port)
+  - [public-ui-url](#public-ui-url)
+  - [public-ui-port](#public-ui-port)
 - [TLS](#tls)
   - [ssl-cert-path](#ssl-cert-path)
   - [ssl-key-path](#ssl-key-path)
@@ -222,6 +227,77 @@ telegraf_controller --database="/path/to/database.db"
 | Command flag | Environment variable |
 | :----------- | :------------------- |
 | `--database` | `DATABASE_URL`       |
+
+---
+
+### Public URLs and CORS
+
+The following options apply only when you serve the web interface on a separate
+port with [`ui-port`](#ui-port). Use them when a reverse proxy or port remapping
+changes the URL or port that browsers use to reach the web interface or the API.
+They adjust the API URL the web interface calls and the origins the API accepts
+through CORS.
+
+- [public-api-url](#public-api-url)
+- [public-api-port](#public-api-port)
+- [public-ui-url](#public-ui-url)
+- [public-ui-port](#public-ui-port)
+
+> [!Note]
+> These options take effect only when [`ui-port`](#ui-port) is set. They are
+> separate from the **Public Endpoints** settings configured in the
+> {{% product-name %}} UI. See
+> [Public endpoints](/telegraf/controller/settings/#public-endpoints).
+
+#### public-api-url
+
+Base URL the web interface uses to reach the API. Set this when the API is
+reachable at a different URL than the web interface would otherwise derive from
+the browser address and [`port`](#port), for example when the API is behind a
+reverse proxy. When set, this value takes precedence over
+[`public-api-port`](#public-api-port).
+
+| Command flag       | Environment variable |
+| :----------------- | :------------------- |
+| `--public-api-url` | `PUBLIC_API_URL`     |
+
+---
+
+#### public-api-port
+
+Port the web interface uses to reach the API when the external API port differs
+from [`port`](#port), for example when a reverse proxy remaps it. The browser
+combines this port with its own hostname. Ignored when
+[`public-api-url`](#public-api-url) is set.
+
+**Default:** The value of [`port`](#port)
+
+| Command flag        | Environment variable |
+| :------------------ | :------------------- |
+| `--public-api-port` | `PUBLIC_API_PORT`    |
+
+---
+
+#### public-ui-url
+
+Web interface origin to allow in the API's CORS checks. Set this to the external
+origin that serves the web interface, such as the address exposed by a reverse
+proxy.
+
+| Command flag      | Environment variable |
+| :---------------- | :------------------- |
+| `--public-ui-url` | `PUBLIC_UI_URL`      |
+
+---
+
+#### public-ui-port
+
+Web interface port to allow in the API's CORS checks when the external port
+differs from [`ui-port`](#ui-port).
+
+| Command flag       | Environment variable |
+| :----------------- | :------------------- |
+| `--public-ui-port` | `PUBLIC_UI_PORT`     |
 
 ---
 

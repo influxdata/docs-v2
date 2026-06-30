@@ -18,10 +18,16 @@ weight: 101
 
 - Serve the web UI on a separate port from the API using the `UI_PORT` option,
   for deployments that run the web UI behind a reverse proxy.
+- When serving the web UI on a separate port, configure the API URL and the
+  allowed CORS origins with the `PUBLIC_API_URL`, `PUBLIC_API_PORT`,
+  `PUBLIC_UI_URL`, and `PUBLIC_UI_PORT` options for reverse-proxy and
+  remapped-port deployments.
 - Sort the agent list by column (Agent Details, Status, Last Reported), backed
   by `sortBy` and `sortOrder` query parameters on `GET /api/agents`.
 - Accept both `postgresql://` and `postgres://` connection string schemes and
   tolerate quoted `DATABASE_URL` values.
+- Accept command-line flags in both `--flag value` and `--flag=value` forms and
+  validate port options at startup.
 
 ### Bug fixes
 
