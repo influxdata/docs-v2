@@ -19,6 +19,38 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.10.2 {date="2026-06-30"}
+
+### Core
+
+Maintenance release: v3.10.2 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run. Previously, a synchronous scheduled trigger whose plugin run was still executing could block trigger `disable` and `delete --force` operations until the run finished.
+- Other bug fixes and performance improvements
+
+## v3.9.7 {date="2026-06-30"}
+
+### Core
+
+Maintenance release: v3.9.7 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run promptly. Previously, a synchronous scheduled trigger (the default, created without `--run-asynchronous`) whose plugin run was still executing could block trigger `disable`, `delete --force`, and even unrelated `create` operations until the run finished.
+- Other bug fixes and performance improvements
+
 ## v3.10.1 {date="2026-06-25"}
 
 ### Core
