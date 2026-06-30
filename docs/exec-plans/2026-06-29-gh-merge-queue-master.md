@@ -1,6 +1,6 @@
 # GitHub merge queue for `master`
 
-**Status:** In review — PR *TBD*
+**Status:** In review — PR [#7434](https://github.com/influxdata/docs-v2/pull/7434)
 **Closes:** [#7412](https://github.com/influxdata/docs-v2/issues/7412)
 **Depends on:** lint-codeblocks bug fix — [#7433](https://github.com/influxdata/docs-v2/issues/7433) (gates the Phase 2 follow-up)
 
