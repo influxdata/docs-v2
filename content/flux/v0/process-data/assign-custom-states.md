@@ -1,17 +1,33 @@
 ---
 title: Assign custom states to data
+list_title: Assign custom states
 description: >
-  Learn how overcome a limitation of the `monitor.stateChanges()` function and assign custom states to your data. 
+  Learn how to overcome a limitation of `monitor.stateChangesOnly()` and
+  assign custom states to your data.
 menu:
-  resources:
-    parent: How-to guides
+  flux_v0:
+    name: Assign custom states
+    parent: Process data
 weight: 101
+aliases:
+  - /resources/how-to-guides/assigning-more-than-four-states/
 ---
-## Problem
-You may want to use the [`monitor` package](/flux/v0/stdlib/influxdata/influxdb/monitor/) and take advantage of functions like [monitor.stateChangesOnly()](/flux/v0/stdlib/influxdata/influxdb/monitor/statechangesonly/). However, `monitor.stateChangesOnly()` only allows you to monitor four states: "crit", "warn", "ok", and "info". What if you want to be able to assign and monitor state changes across custom states or more than four states?
 
-## Solution 
-Define your own custom `stateChangesOnly()` function. Use the function from the source code here and alter it to accommodate more than four levels. Here we account for six different levels instead of just four.
+You may want to use the
+[`monitor` package](/flux/v0/stdlib/influxdata/influxdb/monitor/) and take
+advantage of functions like
+[`monitor.stateChangesOnly()`](/flux/v0/stdlib/influxdata/influxdb/monitor/statechangesonly/).
+However, `monitor.stateChangesOnly()` only lets you monitor four states:
+`crit`, `warn`, `ok`, and `info`.
+What if you want to assign and monitor state changes across custom states or
+more than four states?
+
+## Solution
+
+Define your own custom `stateChangesOnly()` function.
+Use the function from the source code below and alter it to accommodate more
+than four levels.
+This example accounts for six different levels instead of four.
 
 ```js
 import "dict"
@@ -42,7 +58,8 @@ stateChangesOnly = (tables=<-) => {
 }
 ```
 
-Construct some example data with [`array.from()`](/flux/v0/stdlib/array/from/) and map custom levels to it:
+Construct example data with
+[`array.from()`](/flux/v0/stdlib/array/from/) and map custom levels to it:
 
 ```js
 array.from(
@@ -73,7 +90,7 @@ array.from(
     )
 ```
 
-Where the example data looks like:
+The example data looks like this:
 
 | _value | _level       |
 | ------ | ------------ |
@@ -85,7 +102,7 @@ Where the example data looks like:
 | 9.0    | customLevel6 |
 | 11.0   | customLevel6 |
 
-Now apply our custom `stateChangesOnly()` function: 
+Now apply the custom `stateChangesOnly()` function:
 
 ```js
 import "array"
@@ -156,4 +173,3 @@ This returns:
 | 5.0    | customLevel4 |
 | 7.0    | customLevel5 |
 | 9.0    | customLevel6 |
-
