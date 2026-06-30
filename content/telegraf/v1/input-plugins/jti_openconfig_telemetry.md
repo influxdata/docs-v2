@@ -43,7 +43,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 
 ## Configuration
 
-```toml @sample.conf
+```text @sample.conf
 # Subscribe and receive OpenConfig Telemetry data using JTI
 [[inputs.jti_openconfig_telemetry]]
   ## List of device addresses to collect telemetry from
