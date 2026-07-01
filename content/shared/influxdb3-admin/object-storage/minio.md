@@ -17,16 +17,16 @@ While both can be used as your {{% product-name %}} object store,
 - [Object store requirements](#object-store-requirements)
 - [Set up MinIO](#set-up-minio)
 - [Configure InfluxDB to connect to MinIO](#configure-influxdb-to-connect-to-minio)
-- [Confirm the Object store is working](#confirm-the-object-store-is-working)
+- [Confirm the object store is working](#confirm-the-object-store-is-working)
 
 ## Object store requirements
 
-{{% product-name %}} uses the Object store as the source of truth for catalog
+{{% product-name %}} uses the object store as the source of truth for catalog
 state.
 The catalog write path relies on conditional PUT (PUT-if-not-exists) to
 serialize catalog log writes, and every node depends on immediate visibility
 of writes made by any other node.
-Your MinIO deployment must provide the Object store semantics
+Your MinIO deployment must provide the object store semantics
 {{% product-name %}} depends on.
 
 ### Consistency semantics
@@ -55,7 +55,7 @@ reads on node startup, and unexpected node-state warnings.
 >
 > - **MinIO backed by NFS.** NFS attribute caching can return stale reads,
 >   breaking read-after-write consistency.
->   Deploy MinIO on locally-attached storage formatted with XFS.
+>   Deploy MinIO on locally attached storage formatted with XFS.
 > - **Multiple independent MinIO instances sharing one backing volume**
 >   (for example, two containers mounting the same NFS export). If you need
 >   multi-node MinIO, use its supported
@@ -73,10 +73,10 @@ reads on node startup, and unexpected node-state warnings.
 {{% show-in "core" %}}
 
 > [!Note]
-> Deploy MinIO on locally-attached storage formatted with a POSIX-strong
+> Deploy MinIO on locally attached storage formatted with a POSIX-strong
 > filesystem such as XFS.
 > Avoid NFS-backed storage and topologies where multiple MinIO instances share
-> the same backing volume — both can violate the consistency semantics
+> the same backing volume—both can violate the consistency semantics
 > {{% product-name %}} depends on.
 > See MinIO's
 > [deployment guidance](https://min.io/docs/minio/linux/operations/installation.html)
@@ -87,7 +87,7 @@ reads on node startup, and unexpected node-state warnings.
 ### Verify your object store
 
 {{% product-name %}} 3.10.0 and later includes a debug subcommand that
-validates an object store against the semantic requirements above.
+validates an object store against the preceding semantic requirements.
 Run it against your MinIO endpoint before putting the deployment into
 production, and again after any change to the MinIO topology or backing
 storage:
@@ -326,7 +326,7 @@ Your MinIO server or cluster is now set up and ready to be used with {{% product
 
 ## Configure InfluxDB to connect to MinIO
 
-To use your MinIO server or cluster as the Object store for your {{% product-name %}}
+To use your MinIO server or cluster as the object store for your {{% product-name %}}
 instance, provide the following options or environment variables with the
 `influxdb3 serve` command:
 
@@ -396,7 +396,7 @@ influxdb3 serve
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Confirm the Object store is working
+## Confirm the object store is working
 
 When {{% product-name %}} starts, it will seed your MinIO object store with the
 necessary directory structure and begin storing data there. Confirm the object
