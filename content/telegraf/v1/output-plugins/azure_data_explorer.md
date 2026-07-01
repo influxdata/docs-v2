@@ -256,7 +256,7 @@ stored as dynamic data type, multiple ways to query this data-
    recommended performant way for querying over large volumes of data compared
    to querying directly over JSON attributes:
 
-  ```json
+  ```text
   // Function to transform data
   .create-or-alter function Transform_TargetTableName() {
         SourceTableName

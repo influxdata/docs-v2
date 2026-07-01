@@ -75,7 +75,7 @@ added to a metric if the key matches.
 
 In the `json` format, the input `files` must have the following format
 
-```json
+```text
 {
   "keyA": {
     "tag-name1": "tag-value1",
@@ -136,7 +136,7 @@ Please note that empty tag-values will be ignored and the tag will not be added.
 
 With a lookup table of
 
-```json
+```text
 {
   "xyzzy-green": {
     "location": "eu-central",

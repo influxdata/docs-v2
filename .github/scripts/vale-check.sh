@@ -82,10 +82,14 @@ for config in "${!CONFIG_GROUPS[@]}"; do
 
   # Run Vale via the repo wrapper (.ci/vale/vale.sh),
   # which uses a local binary if available or falls back to Docker.
+  # Surface warning/error in PRs only. Suggestion-level rules (e.g.
+  # Google.Parens, Google.Semicolons, InfluxDataDocs.Acronyms) are editing
+  # hints best left to the Vale editor extension; in PR review they're noise.
+  # This honors MinAlertLevel = warning in .vale.ini rather than overriding it.
   RESULT=$("$VALE_WRAPPER" \
     --config="$config" \
     --output=JSON \
-    --minAlertLevel=suggestion \
+    --minAlertLevel=warning \
     "${file_array[@]}" 2>/dev/null || true)
 
   if [[ -n "$RESULT" && "$RESULT" != "null" ]]; then

@@ -19,7 +19,7 @@ Th data is output in a format that conforms to the specified Splunk HEC JSON for
 [Send metrics in JSON format](http://dev.splunk.com/view/event-collector/SP-CAAAFDN).
 
 An example event looks like:
-```javascript
+```json
 {
   "time": 1529708430,
   "event": "metric",
@@ -104,7 +104,7 @@ Such as this example which overrides the index just on the cpu metric:
 You can use the file output when running telegraf on a machine with a Splunk forwarder.
 
 A sample event when `hec_routing` is false (or unset) looks like:
-```javascript
+```json
 {
     "_value": 0.6,
     "cpu": "cpu0",

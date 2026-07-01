@@ -119,7 +119,7 @@ You can update the following bucket properties:
 
     {{< api-endpoint method="patch" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}" api-ref="/influxdb3/cloud-serverless/api/buckets/#operation/PatchBucketsID" >}}
 
-    ```js
+    ```json
     {
       "name": "air_sensor",
       "description": "bucket holding air sensor data",

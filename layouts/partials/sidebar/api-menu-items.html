@@ -7,7 +7,6 @@
   Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
 
   Parameters:
-  - page: Current page context
   - url: URL of the API parent page (e.g., /influxdb3/core/api/)
   - siteData: site.Data reference
 
@@ -15,7 +14,6 @@
   Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
 */}}
 
-{{ $currentPage := .page }}
 {{ $apiUrl := .url }}
 {{ $siteData := .siteData }}
 
@@ -84,13 +82,10 @@
       {{ $specLabel = . }}
     {{ end }}
 
-    {{/* Is any page in this sub-section currently active? */}}
-    {{ $specActive := hasPrefix $currentPage.RelPermalink $specUrl }}
-
-    <li class="nav-item{{ if $specActive }} active{{ end }}">
-      <a href="#" class="children-toggle{{ if $specActive }} open{{ end }}"></a>
+    <li class="nav-item" data-nav-url="{{ $specUrl | relURL }}">
+      <a href="#" class="children-toggle"></a>
       <a href="{{ $specUrl | relURL }}">{{ $specLabel }}</a>
-      <ul class="children{{ if $specActive }} open{{ end }}">
+      <ul class="children">
         {{/* Separate conceptual and non-conceptual articles */}}
         {{ $conceptualArticles := slice }}
         {{ $operationArticles := slice }}
@@ -122,17 +117,15 @@
           {{/* Article path is "api/<tag-slug>"; build URL as api/<subSection>/<tag-slug>/ */}}
           {{ $tagSlug := path.Base $articlePath }}
           {{ $tagPageUrl := printf "%s%s/" $specUrl $tagSlug | relURL }}
-          {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $specUrl $tagSlug) }}
 
-          <li class="nav-item{{ if $isActive }} active{{ end }}">
+          <li class="nav-item" data-nav-url="{{ $tagPageUrl }}">
             <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
           </li>
         {{ end }}
 
         {{/* ALL ENDPOINTS for this sub-section */}}
         {{ $allEndpointsUrl := printf "%sall-endpoints/" $specUrl | relURL }}
-        {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $specUrl) }}
-        <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+        <li class="nav-item" data-nav-url="{{ $allEndpointsUrl }}">
           <a href="{{ $allEndpointsUrl }}">All endpoints</a>
         </li>
       </ul>
@@ -183,17 +176,15 @@
       {{/* Build URL relative to the API section page */}}
       {{ $tagSlug := path.Base $articlePath }}
       {{ $tagPageUrl := printf "%s%s/" $apiUrl $tagSlug | relURL }}
-      {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $apiUrl $tagSlug) }}
 
-      <li class="nav-item{{ if $isActive }} active{{ end }}">
+      <li class="nav-item" data-nav-url="{{ $tagPageUrl }}">
         <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
       </li>
     {{ end }}
 
     {{/* ALL ENDPOINTS - Link to all-endpoints page */}}
     {{ $allEndpointsUrl := printf "%sall-endpoints/" $apiUrl | relURL }}
-    {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $apiUrl) }}
-    <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+    <li class="nav-item" data-nav-url="{{ $allEndpointsUrl }}">
       <a href="{{ $allEndpointsUrl }}">All endpoints</a>
     </li>
   {{ end }}
