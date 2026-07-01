@@ -98,14 +98,14 @@ Run it against your MinIO endpoint before putting the deployment into
 production, and again after any change to the MinIO topology or backing
 storage:
 
-```sh
+```bash { placeholders="http://localhost:9000|MINIO_(USERNAME|PASSWORD)" }
 influxdb3 debug object-store-check \
   --object-store s3 \
-  --bucket BUCKET_NAME \
-  --aws-endpoint MINIO_URL \
-  --aws-access-key-id AWS_ACCESS_KEY_ID \
-  --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
-  --aws-default-region AWS_DEFAULT_REGION \
+  --bucket influxdb3 \
+  --aws-endpoint http://localhost:9000 \
+  --aws-access-key-id MINIO_USERNAME \
+  --aws-secret-access-key MINIO_PASSWORD \
+  --aws-allow-http \
   --check-prefix oscheck
 ```
 
