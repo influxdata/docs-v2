@@ -63,10 +63,10 @@ reads on node startup, and unexpected node-state warnings.
 >   with erasure coding across nodes that each have their own local storage.
 >
 > For MinIO's own guidance, see
-> [MinIO storage requirements](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/requirements/storage),
-> [MinIO's warning against NFS](https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees),
+> [on storage requirements](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/requirements/storage),
+> [against NFS](https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees),
 > and
-> [Strict consistency is a hard requirement for primary storage](https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/).
+> [about primary storage requiring strict consistency](https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/).
 
 {{% /show-in %}}
 
