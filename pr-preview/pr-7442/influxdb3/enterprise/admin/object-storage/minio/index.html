@@ -4746,6 +4746,12 @@ successful <code>PUT</code> includes the new key.</li>
 <li><strong>Conditional PUT (PUT-if-not-exists) semantics</strong>: concurrent creates of the
 same key serialize so that exactly one write succeeds and the other returns
 <code>AlreadyExists</code>.</li>
+<li><strong>Strict pagination and error semantics</strong>: listing that starts after an
+offset returns only keys strictly greater than the offset (including when
+the offset key does not exist), multi-page listings deliver every key and
+terminate, and <code>HEAD</code> on a missing key returns a <code>NotFound</code> variant
+specifically. Some S3-compatible backends misbehave on these edge cases;
+run <code>object-store-check</code> (below) to verify.</li>
 </ul>
 <p>A backend that violates these semantics can cause catalog split-brain, stale
 reads on node startup, and unexpected node-state warnings.</p>
@@ -4778,15 +4784,18 @@ validates an object store against the semantic requirements above.
 Run it against your MinIO endpoint before putting the deployment into
 production, and again after any change to the MinIO topology or backing
 storage:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 debug object-store-check <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 debug object-store-check <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --bucket BUCKET_NAME <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --aws-endpoint MINIO_URL <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --aws-default-region AWS_DEFAULT_REGION <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --bucket influxdb3 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --aws-endpoint <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit http://localhost:9000' class='code-placeholder' data-code-var='http://localhost:9000' data-code-var-value='http://localhost:9000' data-code-var-escaped="http://localhost:9000">http://localhost:9000<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --aws-access-key-id <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit MINIO_USERNAME' class='code-placeholder' data-code-var='MINIO_USERNAME' data-code-var-value='MINIO_USERNAME' data-code-var-escaped="MINIO_USERNAME">MINIO_USERNAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --aws-secret-access-key <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit MINIO_PASSWORD' class='code-placeholder' data-code-var='MINIO_PASSWORD' data-code-var-value='MINIO_PASSWORD' data-code-var-escaped="MINIO_PASSWORD">MINIO_PASSWORD<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --aws-allow-http <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --check-prefix oscheck</span></span></code></pre></div><p>The tool confines all writes to <code>&lt;check-prefix&gt;/oscheck-&lt;uuid&gt;/</code> and reports
 any semantic violation it finds.
+If the synthetic checks pass but a real catalog is still failing to load,
+pass <code>--probe-prefix &lt;your-catalog-prefix&gt;</code> to replay the loader&rsquo;s object
+store operations against your real catalog in read-only mode.
 Run <code>influxdb3 debug object-store-check --help</code> for the full flag reference.</p>
 <h2 id="set-up-minio">Set up MinIO</h2>
 <ol>
