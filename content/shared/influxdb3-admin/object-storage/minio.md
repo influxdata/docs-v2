@@ -64,7 +64,7 @@ reads on node startup, and unexpected node-state warnings.
 >
 > For MinIO's own guidance, see
 > [MinIO storage requirements](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/requirements/storage),
-> [MinIO warns against using NFS](https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees),
+> [MinIO's warning against NFS](https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees),
 > and
 > [Strict consistency is a hard requirement for primary storage](https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/).
 
