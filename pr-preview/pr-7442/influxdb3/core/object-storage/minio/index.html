@@ -49,7 +49,7 @@
 <title>Use MinIO for object storage | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use MinIO as the Object store for your InfluxDB 3 Core instance. InfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or cluster.">
+    <meta name="description" content="Use MinIO as the object store for your InfluxDB 3 Core instance. InfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or cluster.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -118,7 +118,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7442/docs-v2/pr-preview/pr-7442/influxdb3/enterprise/admin/object-storage/minio/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7442/influxdb3/core/#software"},"articleSection":"Object Storage","dateModified":"2026-07-01T17:54:37Z","description":"Use [MinIO](https://min.io) as the Object store for your {{% product-name %}} instance.\nInfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or\ncluster.","headline":"Use MinIO for object storage","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7442/influxdb3/core/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7442/influxdb3/core/object-storage/minio/","name":"Use MinIO for object storage"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7442/influxdb3/core/#software"},"articleSection":"Object Storage","dateModified":"2026-07-01T14:09:01-05:00","description":"Use [MinIO](https://min.io) as the object store for your {{% product-name %}} instance.\nInfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or\ncluster.","headline":"Use MinIO for object storage","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7442/influxdb3/core/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7442/influxdb3/core/object-storage/minio/","name":"Use MinIO for object storage"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -189,7 +189,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-07-01 17:54:37 &#43;0000 UTC">
+<meta name="last-modified" content="2026-07-01 14:09:01 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -4329,15 +4329,15 @@ While both can be used as your InfluxDB 3 Core object store,
 <li><a href="#object-store-requirements">Object store requirements</a></li>
 <li><a href="#set-up-minio">Set up MinIO</a></li>
 <li><a href="#configure-influxdb-to-connect-to-minio">Configure InfluxDB to connect to MinIO</a></li>
-<li><a href="#confirm-the-object-store-is-working">Confirm the Object store is working</a></li>
+<li><a href="#confirm-the-object-store-is-working">Confirm the object store is working</a></li>
 </ul>
 <h2 id="object-store-requirements">Object store requirements</h2>
-<p>InfluxDB 3 Core uses the Object store as the source of truth for catalog
+<p>InfluxDB 3 Core uses the object store as the source of truth for catalog
 state.
 The catalog write path relies on conditional PUT (PUT-if-not-exists) to
 serialize catalog log writes, and every node depends on immediate visibility
 of writes made by any other node.
-Your MinIO deployment must provide the Object store semantics
+Your MinIO deployment must provide the object store semantics
 InfluxDB 3 Core depends on.</p>
 <h3 id="consistency-semantics">Consistency semantics</h3>
 <p>InfluxDB 3 Core requires the following from any S3-compatible object
@@ -4357,10 +4357,10 @@ reads on node startup, and unexpected node-state warnings.</p>
 <div class="block note">
   
   
-  <p>Deploy MinIO on locally-attached storage formatted with a POSIX-strong
+  <p>Deploy MinIO on locally attached storage formatted with a POSIX-strong
 filesystem such as XFS.
 Avoid NFS-backed storage and topologies where multiple MinIO instances share
-the same backing volume — both can violate the consistency semantics
+the same backing volume—both can violate the consistency semantics
 InfluxDB 3 Core depends on.
 See MinIO&rsquo;s
 <a href="https://min.io/docs/minio/linux/operations/installation.html">deployment guidance</a>
@@ -4368,7 +4368,7 @@ for details.</p>
 </div>
 <h3 id="verify-your-object-store">Verify your object store</h3>
 <p>InfluxDB 3 Core 3.10.0 and later includes a debug subcommand that
-validates an object store against the semantic requirements above.
+validates an object store against the preceding semantic requirements.
 Run it against your MinIO endpoint before putting the deployment into
 production, and again after any change to the MinIO topology or backing
 storage:</p>
@@ -4601,7 +4601,7 @@ For information about managing MinIO user groups, see
 </ol>
 <p>Your MinIO server or cluster is now set up and ready to be used with InfluxDB 3 Core.</p>
 <h2 id="configure-influxdb-to-connect-to-minio">Configure InfluxDB to connect to MinIO</h2>
-<p>To use your MinIO server or cluster as the Object store for your InfluxDB 3 Core
+<p>To use your MinIO server or cluster as the object store for your InfluxDB 3 Core
 instance, provide the following options or environment variables with the
 <code>influxdb3 serve</code> command:</p>
 
@@ -4673,7 +4673,7 @@ your MinIO server or cluster (default is <code>false</code>)</li>
 
 </div>
 
-<h2 id="confirm-the-object-store-is-working">Confirm the Object store is working</h2>
+<h2 id="confirm-the-object-store-is-working">Confirm the object store is working</h2>
 <p>When InfluxDB 3 Core starts, it will seed your MinIO object store with the
 necessary directory structure and begin storing data there. Confirm the object
 store is functioning properly:</p>
