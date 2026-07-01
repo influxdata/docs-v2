@@ -4746,12 +4746,6 @@ successful <code>PUT</code> includes the new key.</li>
 <li><strong>Conditional PUT (PUT-if-not-exists) semantics</strong>: concurrent creates of the
 same key serialize so that exactly one write succeeds and the other returns
 <code>AlreadyExists</code>.</li>
-<li><strong>Strict pagination and error semantics</strong>: listing that starts after an
-offset returns only keys strictly greater than the offset (including when
-the offset key does not exist), multi-page listings deliver every key and
-terminate, and <code>HEAD</code> on a missing key returns a <code>NotFound</code> variant
-specifically. Some S3-compatible backends misbehave on these edge cases;
-run <code>object-store-check</code> (below) to verify.</li>
 </ul>
 <p>A backend that violates these semantics can cause catalog split-brain, stale
 reads on node startup, and unexpected node-state warnings.</p>
