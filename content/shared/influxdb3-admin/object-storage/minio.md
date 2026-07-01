@@ -14,9 +14,100 @@ and an enterprise version ([MinIO AIStor](https://min.io/download)).
 While both can be used as your {{% product-name %}} object store,
 **this guide walks through using MinIO Community Edition**.
 
+- [Object store requirements](#object-store-requirements)
 - [Set up MinIO](#set-up-minio)
 - [Configure InfluxDB to connect to MinIO](#configure-influxdb-to-connect-to-minio)
 - [Confirm the object store is working](#confirm-the-object-store-is-working)
+
+## Object store requirements
+
+{{% product-name %}} uses the object store as the source of truth for catalog
+state.
+The catalog write path relies on conditional PUT (PUT-if-not-exists) to
+serialize catalog log writes, and every node depends on immediate visibility
+of writes made by any other node.
+Your MinIO deployment must provide the object store semantics
+{{% product-name %}} depends on.
+
+### Consistency semantics
+
+{{% product-name %}} requires the following from any S3-compatible object
+store, including MinIO:
+
+- **Strong read-after-write consistency**: a `GET` immediately after a
+  successful `PUT` returns the new object.
+- **Strong list-after-write consistency**: a `LIST` immediately after a
+  successful `PUT` includes the new key.
+- **Conditional PUT (PUT-if-not-exists) semantics**: concurrent creates of the
+  same key serialize so that exactly one write succeeds and the other returns
+  `AlreadyExists`.
+
+A backend that violates these semantics can cause catalog split-brain, stale
+reads on node startup, and unexpected node-state warnings.
+
+{{% show-in "enterprise" %}}
+
+> [!Warning]
+> #### Deployment topologies to avoid
+>
+> The following MinIO topologies are known to violate the semantics
+> {{% product-name %}} depends on and are not supported for production:
+>
+> - **MinIO backed by NFS.** NFS attribute caching can return stale reads to
+>   MinIO after a write completes on another client, breaking read-after-write
+>   consistency. MinIO's own documentation recommends locally-attached storage
+>   formatted with XFS.
+> - **Multiple independent MinIO instances sharing a single backing volume**
+>   (for example, two MinIO containers mounting the same NFS export).
+>   This is not a supported MinIO topology and produces inconsistent views of
+>   the same object depending on which instance receives a request. If you
+>   need multi-node MinIO, deploy it in
+>   [distributed mode](https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html)
+>   with erasure coding across nodes that each have their own local storage.
+>
+> For MinIO's own deployment guidance, see
+> [MinIO deployment topologies](https://min.io/docs/minio/linux/operations/installation.html)
+> and
+> [Strict consistency is a hard requirement for primary storage](https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/).
+
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+
+> [!Note]
+> Deploy MinIO on locally-attached storage formatted with a POSIX-strong
+> filesystem such as XFS.
+> Avoid NFS-backed storage and topologies where multiple MinIO instances share
+> the same backing volume — both can violate the consistency semantics
+> {{% product-name %}} depends on.
+> See MinIO's
+> [deployment guidance](https://min.io/docs/minio/linux/operations/installation.html)
+> for details.
+
+{{% /show-in %}}
+
+### Verify your object store
+
+{{% product-name %}} 3.10.0 and later includes a debug subcommand that
+validates an object store against the semantic requirements above.
+Run it against your MinIO endpoint before putting the deployment into
+production, and again after any change to the MinIO topology or backing
+storage:
+
+```sh
+influxdb3 debug object-store-check \
+  --object-store s3 \
+  --bucket BUCKET_NAME \
+  --aws-endpoint MINIO_URL \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
+  --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
+  --aws-default-region AWS_DEFAULT_REGION \
+  --check-prefix oscheck
+```
+
+The tool confines all writes to `<check-prefix>/oscheck-<uuid>/` and reports
+any semantic violation it finds.
+Run `influxdb3 debug object-store-check --help` for the full flag reference.
 
 ## Set up MinIO
 
