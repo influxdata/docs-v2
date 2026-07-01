@@ -4754,23 +4754,21 @@ reads on node startup, and unexpected node-state warnings.</p>
   
   
   <h4 id="deployment-topologies-to-avoid">Deployment topologies to avoid</h4>
-<p>The following MinIO topologies are known to violate the semantics
-InfluxDB 3 Enterprise depends on and are not supported for production:</p>
+<p>The following MinIO topologies can violate the semantics InfluxDB 3 Enterprise
+depends on and are not supported for production:</p>
 <ul>
-<li><strong>MinIO backed by NFS.</strong> NFS attribute caching can return stale reads to
-MinIO after a write completes on another client, breaking read-after-write
-consistency. MinIO&rsquo;s own documentation recommends locally-attached storage
-formatted with XFS.</li>
-<li><strong>Multiple independent MinIO instances sharing a single backing volume</strong>
-(for example, two MinIO containers mounting the same NFS export).
-This is not a supported MinIO topology and produces inconsistent views of
-the same object depending on which instance receives a request. If you
-need multi-node MinIO, deploy it in
+<li><strong>MinIO backed by NFS.</strong> NFS attribute caching can return stale reads,
+breaking read-after-write consistency.
+Deploy MinIO on locally-attached storage formatted with XFS.</li>
+<li><strong>Multiple independent MinIO instances sharing one backing volume</strong>
+(for example, two containers mounting the same NFS export). If you need
+multi-node MinIO, use its supported
 <a href="https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html">distributed mode</a>
 with erasure coding across nodes that each have their own local storage.</li>
 </ul>
-<p>For MinIO&rsquo;s own deployment guidance, see
-<a href="https://min.io/docs/minio/linux/operations/installation.html">MinIO deployment topologies</a>
+<p>For MinIO&rsquo;s own guidance, see
+<a href="https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/requirements/storage">MinIO storage requirements</a>,
+<a href="https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees">MinIO warns against using NFS</a>,
 and
 <a href="https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/">Strict consistency is a hard requirement for primary storage</a>.</p>
 </div>
