@@ -50,23 +50,21 @@ reads on node startup, and unexpected node-state warnings.
 > [!Warning]
 > #### Deployment topologies to avoid
 >
-> The following MinIO topologies are known to violate the semantics
-> {{% product-name %}} depends on and are not supported for production:
+> The following MinIO topologies can violate the semantics {{% product-name %}}
+> depends on and are not supported for production:
 >
-> - **MinIO backed by NFS.** NFS attribute caching can return stale reads to
->   MinIO after a write completes on another client, breaking read-after-write
->   consistency. MinIO's own documentation recommends locally-attached storage
->   formatted with XFS.
-> - **Multiple independent MinIO instances sharing a single backing volume**
->   (for example, two MinIO containers mounting the same NFS export).
->   This is not a supported MinIO topology and produces inconsistent views of
->   the same object depending on which instance receives a request. If you
->   need multi-node MinIO, deploy it in
+> - **MinIO backed by NFS.** NFS attribute caching can return stale reads,
+>   breaking read-after-write consistency.
+>   Deploy MinIO on locally-attached storage formatted with XFS.
+> - **Multiple independent MinIO instances sharing one backing volume**
+>   (for example, two containers mounting the same NFS export). If you need
+>   multi-node MinIO, use its supported
 >   [distributed mode](https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html)
 >   with erasure coding across nodes that each have their own local storage.
 >
-> For MinIO's own deployment guidance, see
-> [MinIO deployment topologies](https://min.io/docs/minio/linux/operations/installation.html)
+> For MinIO's own guidance, see
+> [MinIO storage requirements](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/requirements/storage),
+> [MinIO warns against using NFS](https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees),
 > and
 > [Strict consistency is a hard requirement for primary storage](https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/).
 
