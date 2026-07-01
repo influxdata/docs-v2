@@ -67,6 +67,14 @@ exclude = [
   # index.html to check heading anchors).
   "^file://.*#",
 
+  # GitHub SPA tabs (e.g. ?tab=readme-ov-file#readme) — the fragment is
+  # only present in the DOM after client-side hydration, so the fragment
+  # checker can't find it in the initial HTML even though the anchor
+  # works in a browser. The URL itself resolves fine; only the fragment
+  # validation is a false positive. This pattern shows up any time a
+  # docs author copies a URL from the GitHub UI's tab bar.
+  "^https?://github\\.com/[^/]+/[^/]+\\?tab=[^#]+#",
+
   # Common documentation placeholders
   "YOUR_.*",
   "REPLACE_.*",
