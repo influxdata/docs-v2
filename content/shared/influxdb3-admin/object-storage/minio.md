@@ -41,6 +41,12 @@ store, including MinIO:
 - **Conditional PUT (PUT-if-not-exists) semantics**: concurrent creates of the
   same key serialize so that exactly one write succeeds and the other returns
   `AlreadyExists`.
+- **Strict pagination and error semantics**: listing that starts after an
+  offset returns only keys strictly greater than the offset (including when
+  the offset key does not exist), multi-page listings deliver every key and
+  terminate, and `HEAD` on a missing key returns a `NotFound` variant
+  specifically. Some S3-compatible backends misbehave on these edge cases;
+  run `object-store-check` (below) to verify.
 
 A backend that violates these semantics can cause catalog split-brain, stale
 reads on node startup, and unexpected node-state warnings.
@@ -105,6 +111,9 @@ influxdb3 debug object-store-check \
 
 The tool confines all writes to `<check-prefix>/oscheck-<uuid>/` and reports
 any semantic violation it finds.
+If the synthetic checks pass but a real catalog is still failing to load,
+pass `--probe-prefix <your-catalog-prefix>` to replay the loader's object
+store operations against your real catalog in read-only mode.
 Run `influxdb3 debug object-store-check --help` for the full flag reference.
 
 ## Set up MinIO
