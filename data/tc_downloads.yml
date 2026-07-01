@@ -4,21 +4,21 @@ platforms:
     builds:
       - arch: x64
         os: linux
-        sha256: "...placeholder..."
+        sha256: "74566dabff9edd3cd2f3e12c751ced77a74d854f973b2d13eb964db87899fcb9"
       - arch: arm64
         os: linux
-        sha256: "...placeholder..."
+        sha256: "cbca3b30449cd228314489e50b22823c692bdff2169c4d42eb6ff21b5225b041"
   - name: macOS
     builds:
       - arch: x64
         os: macos
-        sha256: "...placeholder..."
+        sha256: "1fc0381e3b4016a55c88fdcaab4d42c96b9a5e8354e6f6f2f8de229966706b8a"
       - arch: arm64
         os: macos
-        sha256: "...placeholder..."
+        sha256: "d6c879f1b5e27be7a8b98118efd8a689193f0858a05d27cedc8e3c689103cc05"
   - name: Windows
     builds:
       - arch: x64
         os: win
         ext: .exe
-        sha256: "...placeholder..."
+        sha256: "8aa5cb79b2e168ae147e7834838bb838b6a508d47173af9d7600ccb12796e36f"
