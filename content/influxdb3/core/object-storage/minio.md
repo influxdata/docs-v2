@@ -2,7 +2,7 @@
 title: Use MinIO for object storage
 list_title: MinIO
 description: |
-  Use [MinIO](https://min.io) as the Object store for your {{% product-name %}} instance.
+  Use [MinIO](https://min.io) as the object store for your {{% product-name %}} instance.
   InfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or
   cluster.
 menu:
