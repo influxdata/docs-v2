@@ -92,6 +92,14 @@ Run it against your MinIO endpoint before putting the deployment into
 production, and again after any change to the MinIO topology or backing
 storage:
 
+> [!Caution]
+> `object-store-check` sends live read, write, and delete requests to the
+> object store you point it at. The synthetic checks are isolated to a
+> disposable location (`<check-prefix>/oscheck-<uuid>/`) and don't touch your
+> real catalog data, but every request still counts against the target
+> endpoint's real request quota. Use credentials scoped to a non-production
+> bucket or prefix where possible.
+
 ```bash { placeholders="http://localhost:9000|MINIO_(USERNAME|PASSWORD)" }
 influxdb3 debug object-store-check \
   --object-store s3 \
