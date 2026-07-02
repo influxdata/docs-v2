@@ -1,5 +1,17 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v2.17.0 {date="2026-07-01"}
+
+### CI
+
+1. [#262](https://github.com/InfluxCommunity/influxdb3-go/pull/262): Update GPG support.
+2. [#263](https://github.com/InfluxCommunity/influxdb3-go/pull/263): Start automated releasing.
+3. [#264](https://github.com/InfluxCommunity/influxdb3-go/pull/264): Upgrade GitHub actions checkout.
+
+### Dependencies
+
+1. [#268](https://github.com/InfluxCommunity/influxdb3-go/pull/268): Upgrade Google gRPC to 1.82.0.
+
 ## v2.16.0 {date="2026-06-11"}
 
 ### Dependencies
