@@ -31,7 +31,7 @@ Your MinIO deployment must provide the object store semantics
 
 ### Consistency semantics
 
-{{% product-name %}} requires the following from any S3-compatible object
+{{% product-name %}} requires at least the following from any S3-compatible object
 store, including MinIO:
 
 - **Strong read-after-write consistency**: a `GET` immediately after a
