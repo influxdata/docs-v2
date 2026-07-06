@@ -4408,12 +4408,6 @@ Additional Enterprise-specific updates:</p>
 <p><strong>Processing engine: trigger lockdown flags</strong>: Two new serve flags restrict plugin behavior. <code>--restrict-plugin-triggers-to</code> limits triggers to one or more of <code>wal</code>, <code>schedule</code>, or <code>request</code>. <code>--plugin-dir-only</code> (Enterprise) blocks plugin installation from any source other than the configured plugin directory.</p>
 </li>
 <li>
-<p><strong><code>GET /ready</code> endpoint</strong> (Enterprise only):
-Returns <code>200 OK</code> when the server can reach object storage, or <code>503 Service Unavailable</code> when it cannot.
-Use this endpoint for readiness probes in load balancers and orchestration systems.
-Core support is tracked in <a href="https://github.com/influxdata/influxdb_pro/issues/3240">influxdb_pro#3240</a>.</p>
-</li>
-<li>
 <p><strong>Observability: always-on heap profiling</strong>: Heap profiling is now enabled at startup with negligible overhead (~&lt;1% CPU). Access profiles at the existing pprof endpoint. To disable, set <code>MALLOC_CONF=prof:false</code> before starting the server.</p>
 </li>
 <li>
@@ -4472,6 +4466,9 @@ Core support is tracked in <a href="https://github.com/influxdata/influxdb_pro/i
 </li>
 <li>
 <p><strong>Runtime query-concurrency limit</strong>: Adjust the maximum number of concurrent queries at runtime via the <code>/api/v3/configure/query_concurrency_limit</code> API — <code>GET</code> to read the current limit, <code>PUT</code> to set it, and <code>DELETE</code> to reset it to the startup default.</p>
+</li>
+<li>
+<p><strong><code>GET /ready</code> endpoint</strong>: Returns <code>200 OK</code> when the server can reach object storage, or <code>503 Service Unavailable</code> when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems.</p>
 </li>
 <li>
 <p><strong>Backup and restore</strong>: Create and manage full backups of Enterprise data with <code>influxdb3 create backup</code>, <code>influxdb3 status backup</code>, <code>influxdb3 show backups</code>, <code>influxdb3 delete backup</code>, and <code>influxdb3 cancel backup</code>. Initiate restore operations with <code>influxdb3 create restore</code>, <code>influxdb3 status restore</code>, <code>influxdb3 show restores</code>, and <code>influxdb3 cancel restore</code>. Backup and restore require <code>--use-pacha-tree</code> and a compactor node with an admin token. <code>create backup</code> refuses to overwrite an existing backup. Only one restore runs at a time across the cluster. After a restore completes, restart the node(s) for the in-memory view to update. API: <code>POST|GET|DELETE /api/v3/enterprise/backup[/{name}]</code> and <code>/api/v3/enterprise/restore[/{id}]</code>.</p>
