@@ -30,7 +30,7 @@ jobs:
       should-run: ${{ steps.check.outputs.should-run }}
     steps:
       - id: check
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -116,7 +116,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post fork notice comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { data: comments } = await github.rest.issues.listComments({
@@ -149,22 +149,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs-env
 
       - name: Fetch current PR body
         id: fetch-pr-body
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { data: pr } = await github.rest.pulls.get({
@@ -185,7 +179,7 @@ jobs:
 
       - name: Post pending comment (needs input)
         if: steps.detect.outputs.needs-author-input == 'true'
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
@@ -201,27 +195,30 @@ jobs:
           echo "No pages to deploy - skipping preview"
           echo "Reason: ${{ steps.detect.outputs.skip-reason || steps.detect.outputs.change-summary }}"
 
-      - name: Build API docs
+      - name: Start build timer
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        id: timer-start
+        run: echo "ts=$(date +%s)" >> "$GITHUB_OUTPUT"
+
+      - name: Build docs site
         # API reference pages under content/{product}/api/ are gitignored
         # and generated at build time from OpenAPI specs. Without this
         # step, Hugo builds a site with no API pages and preview URLs for
         # any /api/ route 404 (see #7123 for the symptom).
+        # Uses the canonical build-docs-site action for PR/prod parity.
         if: steps.detect.outputs.pages-to-deploy != '[]'
-        run: yarn build:api-docs
+        uses: ./.github/actions/build-docs-site
+        with:
+          hugo-environment: pr-preview
+          hugo-minify: 'true'
+          hugo-base-url: https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/
 
-      - name: Build Hugo site
+      - name: Record build time
         if: steps.detect.outputs.pages-to-deploy != '[]'
         id: build
-        env:
-          # Set baseURL for GitHub Pages preview subdirectory
-          PREVIEW_BASE_URL: https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/
         run: |
-          START_TIME=$(date +%s)
-          # Use pr-preview environment for path offset config
-          npx hugo --minify --baseURL "$PREVIEW_BASE_URL" -e pr-preview
-          END_TIME=$(date +%s)
-          DURATION=$((END_TIME - START_TIME))
-          echo "build-time=${DURATION}s" >> $GITHUB_OUTPUT
+          DURATION=$(( $(date +%s) - ${{ steps.timer-start.outputs.ts }} ))
+          echo "build-time=${DURATION}s" >> "$GITHUB_OUTPUT"
 
       - name: Prepare preview files
         if: steps.detect.outputs.pages-to-deploy != '[]'
@@ -235,7 +232,7 @@ jobs:
         if: steps.detect.outputs.pages-to-deploy != '[]'
         id: deploy-preview
         continue-on-error: true
-        uses: rossjrw/pr-preview-action@v1.4.8
+        uses: rossjrw/pr-preview-action@ffa7509e91a3ec8dfc2e5536c4d5c1acdf7a6de9  # v1.8.1
         with:
           source-dir: ./preview-staging
           preview-branch: gh-pages
@@ -263,7 +260,7 @@ jobs:
 
       - name: Post success comment
         if: steps.detect.outputs.pages-to-deploy != '[]' && steps.validate-deploy.outputs.status == 'ok'
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
@@ -279,7 +276,7 @@ jobs:
 
       - name: Post skipped comment
         if: steps.detect.outputs.pages-to-deploy == '[]' && steps.detect.outputs.needs-author-input != 'true'
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
@@ -295,7 +292,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout gh-pages
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: gh-pages
 
@@ -315,12 +312,12 @@ jobs:
           fi
 
       - name: Checkout scripts for comment deletion
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           path: scripts-checkout
 
       - name: Delete preview comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { deletePreviewComment } = await import('${{ github.workspace }}/scripts-checkout/.github/scripts/preview-comment.js');

@@ -3,8 +3,7 @@
   "baseUrl": ".",
   "paths": {
    "*": [
-    "*",
-    "../node_modules/*"
+    "*"
    ]
   }
  }

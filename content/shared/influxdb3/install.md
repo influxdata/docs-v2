@@ -151,6 +151,21 @@ docker pull \
 influxdb:3-{{< product-key >}}
 ```
 {{% /expand %}}
+{{% expand "Pin to a specific version" %}}
+The `3-{{< product-key >}}` tag always points to the latest 3.x release.
+To keep a deployment on a fixed version, pull a version-specific tag instead:
+
+```bash
+# Pin to a specific patch release
+docker pull influxdb:{{< latest-patch >}}-{{< product-key >}}
+
+# Pin to the latest patch in a minor series--for example, 3.10
+docker pull influxdb:3.10-{{< product-key >}}
+```
+
+To browse recent InfluxDB 3 image tags (Core and Enterprise), newest first, see
+[`influxdb` tags on Docker Hub](https://hub.docker.com/_/influxdb/tags?name=3.&ordering=last_updated).
+{{% /expand %}}
 {{< /expand-wrapper >}}
 
 

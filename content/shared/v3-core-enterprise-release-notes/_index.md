@@ -1,3 +1,16 @@
+> [!Important]
+> #### Upgrading to InfluxDB 3.10 is a one-way migration
+>
+> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
+> catalog format from v2 to v3. After migration, 3.9.x and older
+> binaries are unable to read the new catalog, and fail to start on the same
+> cluster data.
+>
+> Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
+> Restoring these objects is the only way to roll back to 3.9.x.
+>
+> {{% show-in "enterprise" %}}If you have enabled the storage engine upgrade (`--use-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+
 > \[!Note]
 >
 > #### InfluxDB 3 Core and Enterprise relationship
@@ -6,13 +19,92 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.10.2 {date="2026-06-30"}
+
+### Core
+
+Maintenance release: v3.10.2 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run. Previously, a synchronous scheduled trigger whose plugin run was still executing could block trigger `disable` and `delete --force` operations until the run finished.
+- Other bug fixes and performance improvements
+
+## v3.9.7 {date="2026-06-30"}
+
+### Core
+
+Maintenance release: v3.9.7 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run promptly. Previously, a synchronous scheduled trigger (the default, created without `--run-asynchronous`) whose plugin run was still executing could block trigger `disable`, `delete --force`, and even unrelated `create` operations until the run finished.
+- Other bug fixes and performance improvements
+
+## v3.10.1 {date="2026-06-25"}
+
+### Core
+
+#### Bug fixes
+
+- **Snapshot manifest persistence**: Snapshot manifests are now persisted using multipart uploads, preventing errors when writing large manifests to object storage.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Compacted generation deduplication**: Overlapping compacted generations are now co-partitioned so the querier correctly deduplicates them.
+- **Performance upgrade preview file access**: A canceled file fetch no longer cascades cancellation to other waiters with the storage engine upgrade (`--use-pacha-tree`).
+- Other bug fixes and performance improvements
+
+## v3.9.6 {date="2026-06-25"}
+
+### Core
+
+Maintenance release: v3.9.6 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Compacted generation deduplication**: Overlapping compacted generations are now co-partitioned so the querier correctly deduplicates them.
+- Other bug fixes and performance improvements
+
+## v3.9.5 {date="2026-06-23"}
+
+### Core
+
+#### Bug fixes
+
+- **Snapshot manifest persistence**: Snapshot manifests are now persisted using multipart uploads, preventing errors when writing large manifests to object storage.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+
 ## v3.10.0 {date="2026-06-17"}
 
 ### Core
 
 #### Features
 
-- **Catalog format upgrade (catalog v2 → v3)**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.
+- **Catalog format upgrade (catalog v2 → v3)**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. **Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.**
 
 - **`influxdb3 debug catalog` command**: Inspect catalog state offline directly from object storage — no running server required. Subcommands: `list`, `snapshot`, `sequence`. Available in both Core and Enterprise.
 

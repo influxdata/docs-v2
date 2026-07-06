@@ -29,6 +29,7 @@ configuration options to specify alternative ports:
 | Description           | Environment Variable | Command Flag       |
 | :-------------------- | -------------------- | ------------------ |
 | Web Interface and API | `APP_PORT`           | `--port`           |
+| Web Interface (separate port) | `UI_PORT`    | `--ui-port`        |
 | Heartbeat server      | `HEARTBEAT_PORT`     | `--heartbeat-port` |
 
 _For more information, see the
@@ -155,12 +156,18 @@ database you're using:
 Ensure the following ports are open in your network Firewall configuration:
 
 - **Web Interface and API**: TCP `8888` (or custom port)
+- **Web Interface (separate port)**: the
+  [`ui-port`](/telegraf/controller/reference/config-options/#ui-port) value, if
+  configured
 - **Heartbeat server**: TCP `8000` (or custom heartbeat port)
 
 ## Security considerations
 
 - **SSL/TLS**: Set the [`SSL_CERT_PATH` and `SSL_KEY_PATH`](/telegraf/controller/reference/config-options/#tls)
-  environment variables for production deployments
+  environment variables for production deployments. If agents log
+  `x509: certificate signed by unknown authority`, they do not trust the
+  certificate. See
+  [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/#trust-the-certificate-on-each-agent).
 - **Firewall**: Restrict access to the web interface and heartbeat ports
 - **Database Security**:
   - **PostgreSQL**: Use strong passwords

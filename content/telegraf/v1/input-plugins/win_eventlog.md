@@ -147,7 +147,7 @@ There are three types of filtering: **Event Log** name, **XPath Query** and
 
 **Event Log** name filtering is simple:
 
-```toml
+```text
   eventlog_name = "Application"
   xpath_query = '''
 ```
