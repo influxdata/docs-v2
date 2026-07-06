@@ -46,6 +46,8 @@ Human approval uses GitHub's native PR review system (CODEOWNERS), not labels.
 1. Read issue → identify product(s) → apply `product:*` labels
 2. Apply `source:*` label if applicable
 3. Determine readiness → apply `agent-ready` or `waiting:*`
+4. Applying `copilot:fix` triggers automated assignment of the Copilot
+   coding agent (see [assign-copilot-on-label](workflows/assign-copilot-on-label.yml))
 
 ### PR review pipeline
 
