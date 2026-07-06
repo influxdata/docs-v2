@@ -12,6 +12,9 @@ jobs:
   link-check:
     name: Check links in affected files
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -340,6 +343,66 @@ jobs:
           else
             echo "⚠️ **Link check could not complete** — no results file generated" >> $GITHUB_STEP_SUMMARY
           fi
+
+      - name: Post PR comment
+        # Sticky comment mirroring the step summary so results are visible
+        # on the PR page. Only created when problems are found; a passing
+        # run updates an existing comment to the success state.
+        # Fork PRs get a read-only GITHUB_TOKEN, so skip commenting there —
+        # the step summary and annotations remain the fallback.
+        if: >-
+          always() &&
+          steps.detect.outputs.has-changes == 'true' &&
+          steps.mapping.outputs.public-files != '' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          FILE_COUNT: ${{ steps.mapping.outputs.file-count }}
+          TOTAL_COUNT: ${{ steps.link-check.outputs.total-count }}
+          ERROR_COUNT: ${{ steps.link-check.outputs.error-count }}
+          WARNING_COUNT: ${{ steps.link-check.outputs.warning-count }}
+          SUCCESS_RATE: ${{ steps.link-check.outputs.success-rate }}
+          CHECK_RESULT: ${{ steps.link-check.outputs.check-result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
+            const { loadResults, upsertLinkCheckComment } =
+              await import('${{ github.workspace }}/.github/scripts/link-check-comment.js');
+            const results = loadResults('${{ github.workspace }}/link-check-results.json');
+            await upsertLinkCheckComment(github, context, {
+              ...results,
+              status: process.env.CHECK_RESULT || results.status || 'error',
+              filesChecked: process.env.FILE_COUNT,
+              totalLinks: process.env.TOTAL_COUNT || results.totalLinks,
+              errorCount: process.env.ERROR_COUNT || results.errorCount,
+              warningCount: process.env.WARNING_COUNT || results.warningCount,
+              successRate: process.env.SUCCESS_RATE || results.successRate,
+              runUrl: process.env.RUN_URL,
+            });
+
+      - name: Refresh stale comment when nothing was checked
+        # When a later commit removes the offending file, the mapping step
+        # finds no public files and the comment step above is skipped —
+        # refresh an existing failure comment instead of leaving it stale.
+        # updateOnly means: never create a comment on PRs that were never
+        # link-checked.
+        if: >-
+          always() &&
+          steps.detect.outputs.has-changes == 'true' &&
+          steps.mapping.outcome == 'success' &&
+          steps.mapping.outputs.public-files == '' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const { upsertLinkCheckComment } =
+              await import('${{ github.workspace }}/.github/scripts/link-check-comment.js');
+            await upsertLinkCheckComment(github, context, {
+              status: 'skipped',
+              updateOnly: true,
+            });
 
       - name: Upload detailed results
         if: always() && steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''
