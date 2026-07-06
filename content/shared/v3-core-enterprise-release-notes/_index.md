@@ -114,10 +114,10 @@ All Core updates are included in Enterprise.
 
 - **Processing engine: trigger lockdown flags**: Two new serve flags restrict plugin behavior. `--restrict-plugin-triggers-to` limits triggers to one or more of `wal`, `schedule`, or `request`. `--plugin-dir-only` (Enterprise) blocks plugin installation from any source other than the configured plugin directory.
 
-- **`GET /ready` endpoint** (Enterprise only):
-Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot.
-Use this endpoint for readiness probes in load balancers and orchestration systems.
-Core support is tracked in [influxdb_pro#3240](https://github.com/influxdata/influxdb_pro/issues/3240).
+- **`GET /ready` endpoint** (Enterprise-only):
+  Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot.
+  Use this endpoint for readiness probes in load balancers and orchestration systems.
+  Core support is planned; contact InfluxData Support if you need it in Core.
 
 - **Observability: always-on heap profiling**: Heap profiling is now enabled at startup with negligible overhead (~<1% CPU). Access profiles at the existing pprof endpoint. To disable, set `MALLOC_CONF=prof:false` before starting the server.
 
