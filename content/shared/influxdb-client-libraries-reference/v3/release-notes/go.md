@@ -2,11 +2,7 @@
 
 ## v2.17.0 {date="2026-07-01"}
 
-### CI
-
-1. [#262](https://github.com/InfluxCommunity/influxdb3-go/pull/262): Update GPG support.
-2. [#263](https://github.com/InfluxCommunity/influxdb3-go/pull/263): Start automated releasing.
-3. [#264](https://github.com/InfluxCommunity/influxdb3-go/pull/264): Upgrade GitHub actions checkout.
+- CI updates
 
 ### Dependencies
 
@@ -70,9 +66,7 @@
 
 ## v2.11.0 {date="2025-11-18"}
 
-### CI
-
-1. [#195](https://github.com/InfluxCommunity/influxdb3-go/pull/195): Fix pipelines not downloading the correct go images.
+- CI updates
 
 ### Features
 
@@ -92,11 +86,7 @@
 
 1. [#189](https://github.com/InfluxCommunity/influxdb3-go/pull/189): Add transparent gRPC compression support.
 
-### CI
-
-1. [#180](https://github.com/InfluxCommunity/influxdb3-go/pull/180):
-   - Add tests for arm64 CircleCI.
-   - Add tests for go v1.24 and v1.25.
+- CI updates
 
 ## v2.9.0 {date="2025-08-12"}
 
@@ -271,9 +261,7 @@ Update steps:
 1. [#97](https://github.com/InfluxCommunity/influxdb3-go/pull/97): Style and performance improvements discovered by `golangci-lint`
 1. [#98](https://github.com/InfluxCommunity/influxdb3-go/pull/98): Cloud Dedicated database creation ignores the name given by an argument
 
-### CI
-
-1. [#95](https://github.com/InfluxCommunity/influxdb3-go/pull/95): Add `golangci-lint` to CI
+- CI updates
 
 ## v0.9.0 {date="2024-08-12"}
 

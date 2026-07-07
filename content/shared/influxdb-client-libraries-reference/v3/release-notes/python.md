@@ -58,14 +58,7 @@
 
 1. [#177](https://github.com/InfluxCommunity/influxdb3-python/pull/177): Fix `TypeError` when writing DataFrames. Serializer-specific kwargs (e.g., `data_frame_measurement_name`) are now filtered before being passed to the HTTP layer.
 
-### CI
-
-1. [#164](https://github.com/InfluxCommunity/influxdb3-python/pull/164): Fix pipelines not downloading the correct python images.
-1. [#167](https://github.com/InfluxCommunity/influxdb3-python/pull/167):
-    - Remove incorrect symbol `>>` for config.yml.
-    - Added spacing for `<<` and `>>` just for consistency.
-1. [#176](https://github.com/InfluxCommunity/influxdb3-python/pull/176): Use `ConstantFlightServerDelayed` for timeout tests.
-1. [#183](https://github.com/InfluxCommunity/influxdb3-python/pull/183): Temporarily add annotation to support Python 3.8.
+- CI updates
 
 ## v0.16.0 {date="2025-09-15"}
 
@@ -80,9 +73,7 @@
          even in batching mode.
       - `client.query()` now propagates the argument `timeout` as a `float` in seconds on the call stack.
 
-### CI
-
-1. [#153](https://github.com/InfluxCommunity/influxdb3-python/pull/153) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v0.15.0 {date="2025-08-12"}
 
