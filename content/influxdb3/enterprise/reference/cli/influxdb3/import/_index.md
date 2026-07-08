@@ -15,7 +15,7 @@ related:
 The `influxdb3 import` command manages bulk imports of Parquet data into
 {{< product-name >}} databases and tables.
 
-> [!Note]
+> [!Important]
 > Bulk import requires the [storage engine upgrade](/influxdb3/enterprise/reference/config-options/)
 > (`--use-pacha-tree`).
 > The target database and table must exist before importing.
