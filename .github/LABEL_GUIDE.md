@@ -23,21 +23,21 @@ Human approval uses GitHub's native PR review system (CODEOWNERS), not labels.
 
 ## Renamed Labels
 
-| Old Name | New Name |
-|----------|----------|
-| `AI assistant tooling` | `ai:tooling` |
-| `ci:testing-and-validation` | `ci:testing` |
-| `design` | `area:site-ui` |
-| `InfluxDB Cloud` | `product:v2-cloud` |
-| `user feedback` | `source:feedback` |
-| `ai:tooling` | `area:agents` |
+| Old Name                    | New Name           |
+| --------------------------- | ------------------ |
+| `AI assistant tooling`      | `ai:tooling`       |
+| `ci:testing-and-validation` | `ci:testing`       |
+| `design`                    | `area:site-ui`     |
+| `InfluxDB Cloud`            | `product:v2-cloud` |
+| `user feedback`             | `source:feedback`  |
+| `ai:tooling`                | `area:agents`      |
 
 ## Deleted Labels
 
-| Label | Replacement | Reason |
-|-------|-------------|--------|
+| Label        | Replacement  | Reason                                 |
+| ------------ | ------------ | -------------------------------------- |
 | `Pending PR` | `waiting:pr` | Consolidated into `waiting:` namespace |
-| `broke-link` | `area:links` | Consolidated into `area:` namespace |
+| `broke-link` | `area:links` | Consolidated into `area:` namespace    |
 
 ## Common Workflows
 
@@ -46,6 +46,8 @@ Human approval uses GitHub's native PR review system (CODEOWNERS), not labels.
 1. Read issue → identify product(s) → apply `product:*` labels
 2. Apply `source:*` label if applicable
 3. Determine readiness → apply `agent-ready` or `waiting:*`
+4. Applying `copilot:fix` triggers automated assignment of the Copilot
+   coding agent (see [assign-copilot-on-label](workflows/assign-copilot-on-label.yml))
 
 ### PR review pipeline
 

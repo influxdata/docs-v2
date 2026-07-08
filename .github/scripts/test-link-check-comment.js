@@ -8,6 +8,7 @@ import {
   mapPublicToContentPath,
   escapeTableCell,
   generateLinkCheckComment,
+  generateReportUrl,
 } from './link-check-comment.js';
 
 let totalTests = 0;
@@ -47,6 +48,10 @@ function assertNotIncludes(haystack, needle, message = '') {
   if (haystack.includes(needle)) {
     throw new Error(`${message}\n  Expected NOT to include: ${needle}`);
   }
+}
+
+function assertTrue(value, message = '') {
+  if (!value) throw new Error(`${message}\n  Expected truthy value`);
 }
 
 console.log('\n=== Testing link-check-comment.js ===\n');
@@ -274,6 +279,153 @@ test('table safety: pipes in URLs and errors are escaped', () => {
   });
   assertIncludes(body, 'https://example.com/a\\|b');
   assertIncludes(body, 'weird \\| message');
+});
+
+// generateReportUrl
+
+test('generateReportUrl: includes template and encoded fields', () => {
+  const url = generateReportUrl(
+    {
+      url: 'https://example.com/missing?x=1&y=2',
+      error: '404 Not Found',
+      file: '/work/public/influxdb3/core/get-started/index.html',
+    },
+    42
+  );
+  assertIncludes(url, 'template=broken-link.yml');
+  assertIncludes(url, 'title=Broken+link%3A');
+  assertIncludes(
+    url,
+    'broken-url=https%3A%2F%2Fexample.com%2Fmissing%3Fx%3D1%26y%3D2'
+  );
+  assertIncludes(url, 'error-status=404+Not+Found');
+  assertIncludes(url, 'context=Found+by+link-checker+on+PR+%2342');
+  assertIncludes(
+    url,
+    'source-pages=content%2Finfluxdb3%2Fcore%2Fget-started%2F_index.md'
+  );
+});
+
+test('generateReportUrl: omits PR fragment when prNumber is undefined', () => {
+  const url = generateReportUrl({
+    url: 'https://example.com/x',
+    error: '404',
+    file: '/work/public/x/index.html',
+  });
+  assertIncludes(url, 'context=Found+by+link-checker');
+  assertNotIncludes(url, 'PR');
+});
+
+test('generateReportUrl: stays under length cap for pathological input', () => {
+  const url = generateReportUrl(
+    {
+      url: 'https://example.com/' + 'x'.repeat(1000),
+      error: 'y'.repeat(1000),
+      file: '/work/public/' + 'z'.repeat(1000) + '/index.html',
+    },
+    999999
+  );
+  if (url.length > 500) {
+    throw new Error(`Report URL too long: ${url.length} chars`);
+  }
+});
+
+// Known Issues section
+
+const knownIssueOptions = {
+  ...failedOptions,
+  errorCount: 1,
+  errors: [
+    {
+      url: 'https://example.com/unrelated',
+      error: '404 Not Found',
+      file: '/work/public/influxdb3/core/index.html',
+    },
+  ],
+  warningCount: 2,
+  knownIssueCount: 1,
+  warnings: [
+    {
+      url: '/flux/v0/release-notes/#v0-104-0',
+      error: 'Fragment not found',
+      file: '/work/public/influxdb/v2/reference/release-notes/influxdb/index.html',
+      knownIssue: {
+        number: 101,
+        title: 'Broken link: /flux/v0/release-notes/#v0-104-0',
+        url: 'https://github.com/influxdata/docs-v2/issues/101',
+      },
+    },
+    {
+      url: 'https://flaky.example.com/',
+      error: 'Timeout',
+      file: '/work/public/influxdb3/core/get-started/index.html',
+    },
+  ],
+};
+
+test('Known Issues section: renders outside <details>, with #NNN link', () => {
+  const body = generateLinkCheckComment(knownIssueOptions);
+  assertIncludes(body, '### ⚠️ Known Issues (downgraded to warnings)');
+  assertIncludes(
+    body,
+    '[#101](https://github.com/influxdata/docs-v2/issues/101)'
+  );
+  assertIncludes(body, '| Known Issues | 1 |');
+
+  const knownIndex = body.indexOf('### ⚠️ Known Issues');
+  const detailsIndex = body.indexOf('<details>');
+  assertTrue(
+    knownIndex < detailsIndex,
+    'Known Issues section should render before the collapsed warnings details'
+  );
+});
+
+test('Known Issues section: excluded from plain warnings details', () => {
+  const body = generateLinkCheckComment(knownIssueOptions);
+  const detailsSection = body.slice(body.indexOf('<details>'));
+  assertNotIncludes(
+    detailsSection,
+    '/flux/v0/release-notes/#v0-104-0',
+    'Known-issue warning should not duplicate into the plain warnings details'
+  );
+  assertIncludes(detailsSection, 'https://flaky.example.com/');
+});
+
+test('Known Issues section: still renders when status is passed', () => {
+  const body = generateLinkCheckComment({
+    ...knownIssueOptions,
+    status: 'passed',
+    errorCount: 0,
+    errors: [],
+  });
+  assertIncludes(body, '✅ **All links are valid**');
+  assertIncludes(body, '### ⚠️ Known Issues (downgraded to warnings)');
+});
+
+test('Known Issues section: errors table has Report column', () => {
+  const body = generateLinkCheckComment(knownIssueOptions);
+  assertIncludes(body, '| Source File | Broken URL | Error | Report |');
+  assertIncludes(
+    body,
+    '[Report](https://github.com/influxdata/docs-v2/issues/new?'
+  );
+});
+
+test('oversized comment with report links: stays under GitHub limit', () => {
+  const errors = Array.from({ length: 500 }, (_, i) => ({
+    url: `https://example.com/some/long/path/segment/${i}?query=value`,
+    error: 'x'.repeat(300),
+    file: `/work/public/influxdb3/core/a-fairly-long-page-name-${i}/index.html`,
+  }));
+  const body = generateLinkCheckComment({
+    ...failedOptions,
+    errorCount: errors.length,
+    errors,
+    prNumber: 42,
+  });
+  if (body.length > 65536) {
+    throw new Error(`Body too long: ${body.length} chars`);
+  }
 });
 
 // Print summary
