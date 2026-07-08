@@ -905,7 +905,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every:
                 summary: Schedule trigger using interval
                 description: |
@@ -919,7 +919,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_seconds:
                 summary: Schedule trigger using seconds interval
                 description: |
@@ -932,7 +932,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_minutes:
                 summary: Schedule trigger using minutes interval
                 description: |
@@ -945,7 +945,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               all_tables:
                 summary: All tables trigger example
                 description: |
@@ -958,7 +958,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -971,7 +971,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               api_request:
                 summary: On-demand request trigger example
                 description: |
@@ -984,7 +984,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -997,7 +997,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_monthly:
                 summary: Cron trigger for monthly execution
                 description: |
@@ -1010,7 +1010,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
       responses:
         "200":
           description: Success. Processing engine trigger created.
@@ -4493,15 +4493,15 @@ components:
         error_behavior:
           type: string
           enum:
-            - Log
-            - Retry
-            - Disable
+            - log
+            - retry
+            - disable
           description: |
             Specifies how to handle errors that occur during trigger execution:
-            - `Log`: Log the error and continue (default)
-            - `Retry`: Retry the trigger execution
-            - `Disable`: Disable the trigger after an error
-          default: Log
+            - `log`: Log the error and continue (default)
+            - `retry`: Retry the trigger execution
+            - `disable`: Disable the trigger after an error
+          default: log
       required:
         - run_async
         - error_behavior
