@@ -959,6 +959,20 @@ paths:
                   trigger_settings:
                     run_async: false
                     error_behavior: log
+              github_plugin:
+                summary: Trigger using a plugin fetched from GitHub
+                description: |
+                  Trigger that uses a plugin referenced with the `gh:` prefix.
+                  InfluxDB fetches the plugin from the default `influxdata/influxdb3_plugins`
+                  repository (or the repository configured with `--plugin-repo`)
+                  instead of the local `--plugins-dir`.
+                value:
+                  db: mydb
+                  plugin_filename: gh:examples/wal_plugin/wal_plugin.py
+                  trigger_name: my_trigger
+                  trigger_specification: all_tables
+                  disabled: false
+                  trigger_settings: {}
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -4365,6 +4379,25 @@ components:
             The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
+
+            #### Reference a plugin from GitHub
+
+            Prefix the path with `gh:` to fetch the plugin from a GitHub repository instead of the local `--plugins-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+            The path after `gh:` is relative to the repository root.
+
+            By default, InfluxDB fetches `gh:`-prefixed plugins from `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
+            To use a different repository, set the `--plugin-repo` server option or the `INFLUXDB3_PLUGIN_REPO` environment variable to a raw content URL base path--for example, `https://raw.githubusercontent.com/myorg/my-plugins/main/`.
+
+            InfluxDB fetches the plugin when the trigger is created (to validate it) and again each time the trigger starts--for example, on server startup or when re-enabled.
+            Unlike local plugins, `gh:`-prefixed plugins aren't automatically reloaded when the source changes. Disable and re-enable the trigger to fetch updates.
+
+            Only single-file plugins are supported with the `gh:` prefix. Multi-file plugin directories must be uploaded locally.
+
+            If the fetch fails, the API returns an error with the HTTP status code and URL--for example:
+
+            ```
+            error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
+            ```
         node_spec:
           $ref: "#/components/schemas/ApiNodeSpec"
         trigger_name:

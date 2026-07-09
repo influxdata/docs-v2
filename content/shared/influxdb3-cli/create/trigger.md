@@ -45,8 +45,26 @@ influxdb3 create trigger [OPTIONS] \
 | `-h`   | `--help`            | Print help information                                                                                   |
 |        | `--help-all`        | Print detailed help information                                                                          |
 
-If you want to use a plugin from the [Plugin Library](https://github.com/influxdata/influxdb3_plugins) repo, use the URL path with `gh:` specified as the prefix.
-For example, to use the [System Metrics](https://github.com/influxdata/influxdb3_plugins/blob/main/influxdata/system_metrics/system_metrics.py) plugin, the plugin filename is `gh:influxdata/system_metrics/system_metrics.py`.
+### Reference a plugin from GitHub
+
+To use a plugin directly from a GitHub repository without downloading it locally, prefix the plugin path with `gh:`. The path after the prefix is relative to the repository root--for example:
+
+```
+gh:examples/wal_plugin/wal_plugin.py
+```
+
+By default, `gh:`-prefixed plugins resolve against the [`influxdata/influxdb3_plugins`](https://github.com/influxdata/influxdb3_plugins) repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
+For example, `gh:examples/wal_plugin/wal_plugin.py` resolves to `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py`.
+
+To reference plugins from a different repository, set the `--plugin-repo` server option (or the `INFLUXDB3_PLUGIN_REPO` environment variable) to a raw content URL base path. For more information, see the [`plugin-repo` config option](/influxdb3/version/reference/config-options/#plugin-repo).
+
+InfluxDB fetches the plugin over HTTP when the trigger is created (to validate it), and again each time the trigger starts--for example, on server startup or when re-enabled. If the fetch fails, `influxdb3 create trigger` returns an error with the HTTP status code and URL:
+
+```
+error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
+```
+
+Unlike local plugins, `gh:`-prefixed plugins aren't automatically reloaded when the source changes--disable and re-enable the trigger to fetch updates. Only single-file plugins are supported with the `gh:` prefix; multi-file plugin directories must be uploaded locally with `--upload`.
 
 
 ### Option environment variables
