@@ -1,20 +1,20 @@
-The `influxdb3 install` command and its subcommands manage Python package
-installations for the {{< product-name >}} processing engine.
+The `influxdb3 debug` command includes diagnostic tools for troubleshooting
+your {{< product-name >}} deployment.
 
 ## Usage
 
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 install <SUBCOMMAND>
+influxdb3 debug <SUBCOMMAND>
 ```
 
 ## Subcommands
 
 | Subcommand | Description |
 | :--------- | :---------- |
-| [`package`](/influxdb3/version/reference/cli/influxdb3/install/package/) | Install Python packages for processing engine plugins |
-| `help` | Print command help or the help of a subcommand |
+| [object-store-check](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/) | Validate object store compatibility |
+| help | Print command help or the help of a subcommand |
 
 ## Options
 
