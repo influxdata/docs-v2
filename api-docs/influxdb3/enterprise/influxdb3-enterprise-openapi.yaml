@@ -965,7 +965,7 @@ paths:
                   Trigger that uses a plugin referenced with the `gh:` prefix.
                   InfluxDB fetches the plugin from the default `influxdata/influxdb3_plugins`
                   repository (or the repository configured with `--plugin-repo`)
-                  instead of the local `--plugins-dir`.
+                  instead of the local `--plugin-dir`.
                 value:
                   db: mydb
                   plugin_filename: gh:examples/wal_plugin/wal_plugin.py
@@ -4376,14 +4376,14 @@ components:
           description: |
             The path and filename of the plugin to execute--for example,
             `schedule.py` or `endpoints/report.py`.
-            The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+            The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
 
             #### Reference a plugin from GitHub
 
-            Prefix the path with `gh:` to fetch the plugin from a GitHub repository instead of the local `--plugins-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
-            The path after `gh:` is relative to the repository root.
+            Prefix the path with `gh:` to fetch the plugin from a GitHub repository instead of the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+            The path after `gh:` is appended to the configured `--plugin-repo`. This does not require GitHub or a Git repository--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
 
             By default, InfluxDB fetches `gh:`-prefixed plugins from `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
             To use a different repository, set the `--plugin-repo` server option or the `INFLUXDB3_PLUGIN_REPO` environment variable to a raw content URL base path--for example, `https://raw.githubusercontent.com/myorg/my-plugins/main/`.

@@ -54,11 +54,13 @@ Additional {{% product-name %}} option:
 
 ### Reference a plugin from GitHub
 
-To use a plugin directly from a GitHub repository without downloading it locally, prefix the plugin path with `gh:`. The path after the prefix is relative to the repository root--for example:
+To fetch a plugin remotely instead of downloading it locally, prefix the plugin path with `gh:`. The path after the prefix is appended to the configured `--plugin-repo`--for example:
 
 ```
 gh:examples/wal_plugin/wal_plugin.py
 ```
+
+Despite the name, `gh:` doesn't require GitHub or a Git repository--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
 
 By default, `gh:`-prefixed plugins resolve against the [`influxdata/influxdb3_plugins`](https://github.com/influxdata/influxdb3_plugins) repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
 For example, `gh:examples/wal_plugin/wal_plugin.py` resolves to `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py`.

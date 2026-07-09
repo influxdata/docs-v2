@@ -178,7 +178,12 @@ This approach:
 gh:<path-to-plugin-file>
 ```
 
-The path is relative to the repository root.
+The path after `gh:` is appended to the configured `--plugin-repo`.
+
+> [!Note]
+> #### The gh: prefix isn't GitHub-specific
+>
+> Despite the name, `gh:` doesn't require GitHub or a Git repository. `--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files--for example, an internal static file host or object storage endpoint. `gh:` just tells {{% product-name %}} to fetch the plugin remotely from that URL instead of reading it from the local `--plugin-dir`.
 
 By default, `gh:`-prefixed plugins resolve against the official [`influxdata/influxdb3_plugins`](https://github.com/influxdata/influxdb3_plugins) repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
 For example, `gh:examples/wal_plugin/wal_plugin.py` resolves to:
