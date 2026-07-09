@@ -4449,8 +4449,9 @@ processing engine.</p>
   </tbody>
 </table>
 <h3 id="reference-a-plugin-from-github">Reference a plugin from GitHub</h3>
-<p>To use a plugin directly from a GitHub repository without downloading it locally, prefix the plugin path with <code>gh:</code>. The path after the prefix is relative to the repository root&ndash;for example:</p>
-<pre tabindex="0"><code>gh:examples/wal_plugin/wal_plugin.py</code></pre><p>By default, <code>gh:</code>-prefixed plugins resolve against the <a href="https://github.com/influxdata/influxdb3_plugins"><code>influxdata/influxdb3_plugins</code></a> repository at <code>https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/</code>.
+<p>To fetch a plugin remotely instead of downloading it locally, prefix the plugin path with <code>gh:</code>. The path after the prefix is appended to the configured <code>--plugin-repo</code>&ndash;for example:</p>
+<pre tabindex="0"><code>gh:examples/wal_plugin/wal_plugin.py</code></pre><p>Despite the name, <code>gh:</code> doesn&rsquo;t require GitHub or a Git repository&ndash;<code>--plugin-repo</code> accepts any HTTP/HTTPS URL that serves raw plugin files.</p>
+<p>By default, <code>gh:</code>-prefixed plugins resolve against the <a href="https://github.com/influxdata/influxdb3_plugins"><code>influxdata/influxdb3_plugins</code></a> repository at <code>https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/</code>.
 For example, <code>gh:examples/wal_plugin/wal_plugin.py</code> resolves to <code>https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py</code>.</p>
 <p>To reference plugins from a different repository, set the <code>--plugin-repo</code> server option (or the <code>INFLUXDB3_PLUGIN_REPO</code> environment variable) to a raw content URL base path. For more information, see the <a href="/influxdb3/version/reference/config-options/#plugin-repo"><code>plugin-repo</code> config option</a>.</p>
 <p>InfluxDB fetches the plugin over HTTP when the trigger is created (to validate it), and again each time the trigger starts&ndash;for example, on server startup or when re-enabled. If the fetch fails, <code>influxdb3 create trigger</code> returns an error with the HTTP status code and URL:</p>

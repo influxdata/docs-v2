@@ -4963,7 +4963,14 @@ When the specified event occurs, InfluxDB runs the plugin.</p>
 <li>Reduces local storage requirements</li>
 </ul>
 <p><strong>Syntax:</strong></p>
-<pre tabindex="0"><code>gh:&lt;path-to-plugin-file&gt;</code></pre><p>The path is relative to the repository root.</p>
+<pre tabindex="0"><code>gh:&lt;path-to-plugin-file&gt;</code></pre><p>The path after <code>gh:</code> is appended to the configured <code>--plugin-repo</code>.</p>
+
+<div class="block note">
+  
+  
+  <h4 id="the-gh-prefix-isnt-github-specific">The gh: prefix isn&rsquo;t GitHub-specific</h4>
+<p>Despite the name, <code>gh:</code> doesn&rsquo;t require GitHub or a Git repository. <code>--plugin-repo</code> accepts any HTTP/HTTPS URL that serves raw plugin files&ndash;for example, an internal static file host or object storage endpoint. <code>gh:</code> just tells InfluxDB 3 Enterprise to fetch the plugin remotely from that URL instead of reading it from the local <code>--plugin-dir</code>.</p>
+</div>
 <p>By default, <code>gh:</code>-prefixed plugins resolve against the official <a href="https://github.com/influxdata/influxdb3_plugins"><code>influxdata/influxdb3_plugins</code></a> repository at <code>https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/</code>.
 For example, <code>gh:examples/wal_plugin/wal_plugin.py</code> resolves to:</p>
 <pre tabindex="0"><code>https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py</code></pre><p><strong>How <code>gh:</code> plugin resolution works:</strong></p>
