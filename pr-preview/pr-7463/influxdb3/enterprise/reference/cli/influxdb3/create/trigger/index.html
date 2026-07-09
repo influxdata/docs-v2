@@ -4870,15 +4870,43 @@ processing engine.</p>
       </tr>
       <tr>
           <td style="text-align: left"></td>
+          <td style="text-align: left"><code>--tls-ca</code></td>
+          <td style="text-align: left">Path to a custom TLS certificate authority (for self-signed or internal certificates)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"><code>--tls-no-verify</code></td>
+          <td style="text-align: left">Disable TLS certificate verification (<strong>Not recommended in production</strong>, useful for self-signed certificates)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>-h</code></td>
+          <td style="text-align: left"><code>--help</code></td>
+          <td style="text-align: left">Print help information</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"><code>--help-all</code></td>
+          <td style="text-align: left">Print detailed help information</td>
+      </tr>
+  </tbody>
+</table>
+<p>Additional InfluxDB 3 Enterprise option:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Option</th>
+          <th style="text-align: left"></th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"></td>
           <td style="text-align: left"><code>--node-spec</code></td>
           <td style="text-align: left">Which node(s) the trigger should be configured on. Two value formats are supported: <code>all</code> (default) - applies to all nodes, or <code>nodes:&lt;node-id&gt;[,&lt;node-id&gt;..]</code> - applies only to specified comma-separated list of nodes</td>
       </tr>
   </tbody>
 </table>
-<p>|        | <code>--tls-ca</code>          | Path to a custom TLS certificate authority (for self-signed or internal certificates)                    |
-|        | <code>--tls-no-verify</code>   | Disable TLS certificate verification (<strong>Not recommended in production</strong>, useful for self-signed certificates) |
-| <code>-h</code>   | <code>--help</code>            | Print help information                                                                                   |
-|        | <code>--help-all</code>        | Print detailed help information                                                                          |</p>
 <h3 id="reference-a-plugin-from-github">Reference a plugin from GitHub</h3>
 <p>To use a plugin directly from a GitHub repository without downloading it locally, prefix the plugin path with <code>gh:</code>. The path after the prefix is relative to the repository root&ndash;for example:</p>
 <pre tabindex="0"><code>gh:examples/wal_plugin/wal_plugin.py</code></pre><p>By default, <code>gh:</code>-prefixed plugins resolve against the <a href="https://github.com/influxdata/influxdb3_plugins"><code>influxdata/influxdb3_plugins</code></a> repository at <code>https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/</code>.
