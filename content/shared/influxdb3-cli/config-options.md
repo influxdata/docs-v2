@@ -1127,7 +1127,11 @@ The following are common component names you can use for targeted filtering:
 | `influxdb3_wal`                       | Write-ahead log operations                               |
 | `influxdb3_catalog`                   | Catalog and schema operations                            |
 | `influxdb3_cache`                     | Caching operations                                       |
-{{% show-in "enterprise" %}}`influxdb3_enterprise`                  | Enterprise-specific features                             |
+
+{{% show-in "enterprise" %}}
+| Component              | Description                  |
+| :---------------------- | :---------------------------- |
+| `influxdb3_enterprise` | Enterprise-specific features |
 {{% /show-in %}}
 
 > [!Note]
@@ -2243,7 +2247,8 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 | influxdb3 serve option | Environment variable             |
 | :--------------------- | :------------------------------- |
 | `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES` |
-| {{% /show-in %}}       |                                  |
+
+{{% /show-in %}}
 
 #### max-concurrent-queries
 
