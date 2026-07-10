@@ -86,8 +86,9 @@ reads on node startup, and unexpected node-state warnings.
 
 ### Verify your object store
 
-{{% product-name %}} 3.10.0 and later includes a debug subcommand that
-validates an object store against the preceding semantic requirements.
+{{% product-name %}} 3.10.0 and later includes the
+[`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
+command that validates an object store against the preceding semantic requirements.
 Run it against your MinIO endpoint before putting the deployment into
 production, and again after any change to the MinIO topology or backing
 storage:
@@ -108,7 +109,8 @@ any semantic violation it finds.
 If the synthetic checks pass but a real catalog is still failing to load,
 pass `--probe-prefix <your-catalog-prefix>` to replay the loader's object
 store operations against your real catalog in read-only mode.
-Run `influxdb3 debug object-store-check --help` for the full flag reference.
+See [`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
+for the full flag reference.
 
 ## Set up MinIO
 

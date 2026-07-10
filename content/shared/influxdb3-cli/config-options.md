@@ -1558,8 +1558,7 @@ The default is dynamically determined.
 
 {{% show-in "enterprise" %}}
 
-<!--- [compaction-row-limit](#compaction-row-limit) - NOT YET RELEASED in v3.5.0 -->
-
+- [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
 - [compaction-gen2-duration](#compaction-gen2-duration)
 - [compaction-multipliers](#compaction-multipliers)
@@ -1571,13 +1570,11 @@ The default is dynamically determined.
 
 {{% show-in "enterprise" %}}
 
-<!---
 #### compaction-row-limit
 
-NOTE: This option is not yet released in v3.5.0. Uncomment when available in a future release.
-
 Specifies the soft limit for the number of rows per file that the compactor
-writes. The compactor may write more rows than this limit.
+writes.
+The compactor may write more rows than this limit.
 
 **Default:** `1000000`
 
@@ -1585,8 +1582,7 @@ writes. The compactor may write more rows than this limit.
 | :----------------------- | :------------------------------------------ |
 | `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
 
----
--->
+***
 
 #### compaction-max-num-files-per-plan
 

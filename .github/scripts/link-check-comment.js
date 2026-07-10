@@ -21,6 +21,11 @@ const MAX_WARNINGS_SHOWN = 20;
 const MAX_URL_LENGTH = 100;
 const MAX_ERROR_LENGTH = 80;
 
+const REPORT_TEMPLATE = 'broken-link.yml';
+const REPORT_REPO = 'influxdata/docs-v2';
+const MAX_REPORT_URL_LENGTH = 400;
+const MAX_REPORT_FIELD_LENGTH = 150;
+
 /**
  * Map a built public HTML path back to its content source path.
  * Mirrors the sed mapping used for workflow annotations: strip everything
@@ -56,8 +61,8 @@ export function escapeTableCell(text, maxLength = MAX_ERROR_LENGTH) {
  * Load and normalize link-check-results.json
  * @param {string} resultsPath - Path to the results JSON file
  * @returns {Object} - { status?, errors, warnings, totalLinks, errorCount,
- *   warningCount, successRate }; status 'error' when the file is missing or
- *   unreadable
+ *   warningCount, knownIssueCount, successRate }; status 'error' when the
+ *   file is missing or unreadable
  */
 export function loadResults(resultsPath) {
   try {
@@ -70,6 +75,7 @@ export function loadResults(resultsPath) {
       totalLinks: summary.total_checked ?? 0,
       errorCount: summary.error_count ?? 0,
       warningCount: summary.warning_count ?? 0,
+      knownIssueCount: summary.known_issue_count ?? 0,
       successRate: summary.success_rate ?? 0,
     };
   } catch (error) {
@@ -81,22 +87,87 @@ export function loadResults(resultsPath) {
       totalLinks: 0,
       errorCount: 0,
       warningCount: 0,
+      knownIssueCount: 0,
       successRate: 0,
     };
   }
 }
 
-function renderErrorTable(errors, maxShown, runUrl) {
+/**
+ * Build a prefilled new-issue URL for an unmatched broken link, using the
+ * broken-link.yml issue form. Field ids double as the query param names
+ * GitHub uses to prefill issue-form fields.
+ * @param {{url:string, error:string, file:string}} entry
+ * @param {number|string} [prNumber] - PR number the link was found on
+ * @returns {string}
+ */
+function buildReportUrl(
+  url,
+  errorStatus,
+  sourcePages,
+  context,
+  includeSourcePages
+) {
+  const fields = {
+    template: REPORT_TEMPLATE,
+    title: `Broken link: ${url}`,
+    'broken-url': url,
+    'error-status': errorStatus,
+    context,
+  };
+  if (includeSourcePages) fields['source-pages'] = sourcePages;
+
+  const params = new URLSearchParams(fields);
+  return `https://github.com/${REPORT_REPO}/issues/new?${params.toString()}`;
+}
+
+export function generateReportUrl(entry, prNumber) {
+  const sourcePages = mapPublicToContentPath(entry.file);
+  const context = prNumber
+    ? `Found by link-checker on PR #${prNumber}`
+    : 'Found by link-checker';
+
+  // The URL appears twice (title + broken-url), so shrink progressively:
+  // full fields -> drop source-pages -> shorter url/error -> minimal fields.
+  const attempts = [
+    [MAX_REPORT_FIELD_LENGTH, MAX_ERROR_LENGTH, true],
+    [MAX_REPORT_FIELD_LENGTH, MAX_ERROR_LENGTH, false],
+    [60, 40, false],
+    [30, 20, false],
+  ];
+
+  let reportUrl;
+  for (const [urlLen, errorLen, includeSourcePages] of attempts) {
+    const url = String(entry.url || 'unknown').substring(0, urlLen);
+    const errorStatus = String(entry.error || 'Unknown error').substring(
+      0,
+      errorLen
+    );
+    reportUrl = buildReportUrl(
+      url,
+      errorStatus,
+      sourcePages,
+      context,
+      includeSourcePages
+    );
+    if (reportUrl.length <= MAX_REPORT_URL_LENGTH) break;
+  }
+
+  return reportUrl;
+}
+
+function renderErrorTable(errors, maxShown, runUrl, prNumber) {
   let section = `### Broken Links\n\n`;
-  section += `| Source File | Broken URL | Error |\n`;
-  section += `|------------|------------|-------|\n`;
+  section += `| Source File | Broken URL | Error | Report |\n`;
+  section += `|------------|------------|-------|--------|\n`;
 
   const displayErrors = errors.slice(0, maxShown);
   displayErrors.forEach((entry) => {
     const contentFile = mapPublicToContentPath(entry.file);
     const url = escapeTableCell(entry.url || 'unknown', MAX_URL_LENGTH);
     const message = escapeTableCell(entry.error || 'Unknown error');
-    section += `| \`${contentFile}\` | ${url} | ${message} |\n`;
+    const reportUrl = generateReportUrl(entry, prNumber);
+    section += `| \`${contentFile}\` | ${url} | ${message} | [Report](${reportUrl}) |\n`;
   });
 
   if (errors.length > maxShown) {
@@ -105,6 +176,26 @@ function renderErrorTable(errors, maxShown, runUrl) {
   }
 
   return section + '\n';
+}
+
+function renderKnownIssuesSection(knownWarnings) {
+  let section = `### ⚠️ Known Issues (downgraded to warnings)\n\n`;
+  section += `| Source File | URL | Error | Issue |\n`;
+  section += `|------------|-----|-------|-------|\n`;
+
+  knownWarnings.forEach((entry) => {
+    const contentFile = mapPublicToContentPath(entry.file);
+    const url = escapeTableCell(entry.url || 'unknown', MAX_URL_LENGTH);
+    const message = escapeTableCell(entry.error || 'Unknown');
+    const issueUrl =
+      entry.knownIssue.url ||
+      `https://github.com/${REPORT_REPO}/issues/${entry.knownIssue.number}`;
+    section += `| \`${contentFile}\` | ${url} | ${message} | [#${entry.knownIssue.number}](${issueUrl}) |\n`;
+  });
+
+  section += `\n_These match open \`area:links\` issues, so they don't fail CI. `;
+  section += `If a link is actually fixed, close the issue._\n\n`;
+  return section;
 }
 
 function renderWarningDetails(warnings, runUrl) {
@@ -138,10 +229,12 @@ function renderWarningDetails(warnings, runUrl) {
  * @param {string|number} [options.totalLinks] - Total links checked
  * @param {string|number} [options.errorCount] - Number of broken links
  * @param {string|number} [options.warningCount] - Number of warnings
+ * @param {string|number} [options.knownIssueCount] - Warnings downgraded from errors
  * @param {string|number} [options.successRate] - Success rate percentage
  * @param {Array} [options.errors] - Error entries from results JSON
  * @param {Array} [options.warnings] - Warning entries from results JSON
  * @param {string} [options.runUrl] - URL of the workflow run
+ * @param {number|string} [options.prNumber] - PR number, used in Report links
  * @returns {string} - Markdown comment body
  */
 export function generateLinkCheckComment(options) {
@@ -151,14 +244,19 @@ export function generateLinkCheckComment(options) {
     totalLinks = 0,
     errorCount = 0,
     warningCount = 0,
+    knownIssueCount = 0,
     successRate = 0,
     errors = [],
     warnings = [],
     runUrl = 'https://github.com/influxdata/docs-v2/actions',
+    prNumber,
   } = options;
 
   const timestamp =
     new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
+
+  const knownWarnings = warnings.filter((w) => w.knownIssue);
+  const plainWarnings = warnings.filter((w) => !w.knownIssue);
 
   const build = (maxErrors, includeWarnings) => {
     let body = `${COMMENT_MARKER}\n## 🔗 Link Check Results — Link Check Bot\n\n`;
@@ -185,14 +283,21 @@ export function generateLinkCheckComment(options) {
       body += `| Total Links | ${totalLinks} |\n`;
       body += `| Errors | ${errorCount} |\n`;
       body += `| Warnings | ${warningCount} |\n`;
+      if (Number(knownIssueCount) > 0) {
+        body += `| Known Issues | ${knownIssueCount} |\n`;
+      }
       body += `| Success Rate | ${successRate}% |\n\n`;
 
       if (status === 'failed' && errors.length > 0) {
-        body += renderErrorTable(errors, maxErrors, runUrl);
+        body += renderErrorTable(errors, maxErrors, runUrl, prNumber);
       }
 
-      if (includeWarnings && warnings.length > 0) {
-        body += renderWarningDetails(warnings, runUrl);
+      if (knownWarnings.length > 0) {
+        body += renderKnownIssuesSection(knownWarnings);
+      }
+
+      if (includeWarnings && plainWarnings.length > 0) {
+        body += renderWarningDetails(plainWarnings, runUrl);
       }
     }
 
