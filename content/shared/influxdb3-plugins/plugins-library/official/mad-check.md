@@ -97,7 +97,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Python packages**:
   - `requests` (for notification delivery)
-- **Notification Sender Plugin** *(optional)*: Required if using the `senders` parameter. See the [influxdata/notifier plugin](../notifier/README.md).
+- **Notification Sender Plugin** *(optional)*: Required if using the `senders` parameter. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 
 ### Installation steps
 
@@ -115,7 +115,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
    ```bash
    influxdb3 install package requests
    ```
-3. *(Optional)* For notifications, install the [influxdata/notifier plugin](../notifier/README.md) and create an HTTP trigger for it.
+3. *(Optional)* For notifications, install the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/) and create an HTTP trigger for it.
 
 ## Schema requirement
 

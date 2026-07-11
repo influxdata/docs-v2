@@ -275,9 +275,12 @@ When porting content from `influxdb3_plugins` to `docs-v2`:
 
 1. **Remove emoji metadata line** (already in plugin metadata)
 
-2. **Convert relative links to GitHub URLs**:
+2. **Convert relative links to GitHub URLs or sibling docs-v2 pages**:
    - `[file.toml](file.toml)` → `[file.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/[plugin]/file.toml)`
    - `/README.md` → `https://github.com/influxdata/influxdb3_plugins/blob/master/README.md`
+   - `../[plugin]/README.md` (a link to a *different* plugin's README) →
+     `/influxdb3/version/plugins/library/official/[plugin]/` (the sibling
+     plugin's docs-v2 page, with underscores converted to hyphens)
 
 3. **Add product shortcodes**:
    - Replace "InfluxDB 3" with `{{% product-name %}}`
