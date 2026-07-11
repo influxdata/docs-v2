@@ -8,6 +8,7 @@ menu:
     name: influxdb3 delete last_cache
 weight: 400
 source: /shared/influxdb3-cli/delete/last_cache.md
+canonical: self
 ---
 
 <!--

@@ -10,6 +10,7 @@ influxdb3/enterprise/tags: [plugins, processing engine, python, notifications, a
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/notifier, Notifier plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/notifier.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/notifier.md -->

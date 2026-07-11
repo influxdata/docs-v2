@@ -9,6 +9,7 @@ menu:
     name: Configuration options
 weight: 100
 source: /shared/influxdb3-cli/config-options.md
+canonical: self
 ---
 
 <!-- The content of this file is at

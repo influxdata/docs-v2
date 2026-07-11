@@ -8,6 +8,7 @@ menu:
     name: influxdb3 update database
 weight: 400
 source: /shared/influxdb3-cli/update/database/_index.md
+canonical: self
 ---
 
 <!-- 

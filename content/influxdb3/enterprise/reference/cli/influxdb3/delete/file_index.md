@@ -9,6 +9,7 @@ menu:
     name: influxdb3 delete file_index
 weight: 400
 source: /shared/influxdb3-cli/delete/file_index.md
+canonical: self
 ---
 
 <!--

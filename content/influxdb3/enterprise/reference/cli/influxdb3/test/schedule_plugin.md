@@ -8,6 +8,7 @@ menu:
     name: influxdb3 test schedule_plugin
 weight: 401
 source: /shared/influxdb3-cli/test/schedule_plugin.md
+canonical: self
 ---
 
 <!--

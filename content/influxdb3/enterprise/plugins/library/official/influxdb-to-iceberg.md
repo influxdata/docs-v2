@@ -10,6 +10,7 @@ influxdb3/enterprise/tags: [plugins, processing engine, python, iceberg, export,
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/influxdb_to_iceberg, InfluxDB to Iceberg plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/influxdb-to-iceberg.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/influxdb-to-iceberg.md -->

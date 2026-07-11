@@ -8,6 +8,7 @@ menu:
     name: influxdb3 disable
 weight: 300
 source: /shared/influxdb3-cli/disable/_index.md
+canonical: self
 ---
 
 <!--
