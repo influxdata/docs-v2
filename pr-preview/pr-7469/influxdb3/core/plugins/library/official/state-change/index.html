@@ -4515,13 +4515,13 @@
 </ul>
 <p>For more information on using TOML configuration files, see the Using TOML Configuration Files section in the <a href="https://github.com/influxdata/influxdb3_plugins/blob/master/README.md">influxdb3_plugins/README.md</a>.</p>
 <h3 id="channel-specific-configuration">Channel-specific configuration</h3>
-<p>Notification channels require additional parameters based on the sender type (same as the <a href="../notifier/README.md">influxdata/notifier plugin</a>).</p>
+<p>Notification channels require additional parameters based on the sender type (same as the <a href="/influxdb3/version/plugins/library/official/notifier/">influxdata/notifier plugin</a>).</p>
 <h2 id="schema-requirement">Schema requirement</h2>
 <p>The plugin assumes that the table schema is already defined in the database, as it relies on this schema to retrieve field and tag names required for processing.</p>
 <h2 id="software-requirements">Software Requirements</h2>
 <ul>
 <li><strong>InfluxDB 3 Core</strong>: with the Processing Engine enabled.</li>
-<li><strong>Notification Sender Plugin for InfluxDB 3 Core</strong>: Required for sending notifications. See the <a href="../notifier/README.md">influxdata/notifier plugin</a>.</li>
+<li><strong>Notification Sender Plugin for InfluxDB 3 Core</strong>: Required for sending notifications. See the <a href="/influxdb3/version/plugins/library/official/notifier/">influxdata/notifier plugin</a>.</li>
 <li><strong>Python packages</strong>:
 <ul>
 <li><code>requests</code> (for HTTP notifications)</li>
@@ -4541,7 +4541,7 @@
 <p>Install required Python packages:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 install package requests</span></span></code></pre></div></li>
 <li>
-<p><em>Optional</em>: For notifications, install and configure the <a href="../notifier/README.md">influxdata/notifier plugin</a></p>
+<p><em>Optional</em>: For notifications, install and configure the <a href="/influxdb3/version/plugins/library/official/notifier/">influxdata/notifier plugin</a></p>
 </li>
 </ol>
 <h2 id="trigger-setup">Trigger setup</h2>
