@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, downsampling, aggregat
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/downsampler, Downsampler plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/downsampler.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/downsampler.md -->

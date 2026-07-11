@@ -9,6 +9,7 @@ menu:
     name: Data durability
 weight: 200
 source: /shared/influxdb3-internals-reference/durability.md
+canonical: self
 ---
 
 <!--

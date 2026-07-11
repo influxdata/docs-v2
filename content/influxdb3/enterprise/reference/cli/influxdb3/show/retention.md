@@ -9,6 +9,7 @@ menu:
     name: influxdb3 show retention
 weight: 410
 source: /shared/influxdb3-cli/show/retention.md
+canonical: self
 ---
 
 <!--

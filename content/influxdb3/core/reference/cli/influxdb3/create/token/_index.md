@@ -8,6 +8,7 @@ menu:
     name: influxdb3 create token 
 weight: 400
 source: /shared/influxdb3-cli/create/token/_index.md
+canonical: self
 ---
 
 <!-- The content for this page is at

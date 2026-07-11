@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, anomaly-detection, adt
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/stateless_adtk_detector, Stateless ADTK detector plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/stateless-adtk-detector.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/stateless-adtk-detector.md -->
