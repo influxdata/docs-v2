@@ -100,7 +100,7 @@
     "test:markdown-parity": "node --test scripts/__tests__/markdown-parity.test.mjs",
     "test:markdown-completeness": "node --test scripts/__tests__/markdown-completeness.test.mjs",
     "deploy:staging": "sh scripts/deploy-staging.sh",
-    "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
+    "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && LEFTHOOK_EXCLUDE=test lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
     "test": "echo \"Run 'yarn test:e2e', 'yarn test:codeblocks:all', or a specific test command. For link validation, use the link-checker binary (see DOCS-TESTING.md). The e2e command takes a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",
     "test:codeblocks": "echo \"Run a specific codeblocks test command (e.g., yarn test:codeblocks:influxdb3_core)\" && exit 0",
