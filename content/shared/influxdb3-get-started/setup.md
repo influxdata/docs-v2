@@ -179,7 +179,7 @@ influxdb3 serve \
 {{% /expand %}}
 {{% expand "Docker with a mounted file system object store" %}}
 
-To run the [Docker image](/influxdb3/version/install/#docker-image) and persist
+To run the [Docker image](/influxdb3/version/install/#pull-the-docker-image) and persist
 data to the local file system, mount a volume for the object store--for example,
 provide the following options with your `docker run` command:
 

@@ -19,6 +19,51 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.10.3 {date="2026-07-07"}
+
+### Core
+
+#### Bug fixes
+
+- **Duplicate tag key rejection**: Writes that repeat a tag key (for example, `m,t=a,t=a f=1i`) are now rejected with a clear error, the same way duplicate field keys are rejected. Previously, a point with a repeated tag key was accepted into the WAL and later caused a panic during snapshotting that crash-looped the node on WAL replay.
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run in Core, extending the Enterprise fix from v3.10.2. Previously, a synchronous scheduled trigger whose plugin run was still executing could block trigger `disable` and `delete --force` operations until the run finished.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Compacted data load concurrency limit**: The new `--compacted-data-load-concurrency-limit` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` environment variable, default `20`) bounds concurrent object store reads when a node loads compacted data at startup. Previously, nodes with large compaction indexes issued unbounded concurrent reads at startup, which could saturate the network, cause object store timeouts, and starve other subsystems of object store connections.
+
+#### Bug fixes
+
+- **Corrupt peer WAL and snapshot handling**: A durably corrupt WAL or snapshot file from a peer node is now logged, counted, and skipped so replication continues with later files. Previously, a corrupt peer WAL file stalled replication from that node—or prevented server startup—and a corrupt snapshot manifest silently halted snapshot replication from that peer. Transient errors, such as network failures, still retry as before.
+- Other bug fixes and performance improvements
+
+## v3.9.8 {date="2026-07-07"}
+
+### Core
+
+#### Bug fixes
+
+- **Duplicate tag key rejection**: Writes that repeat a tag key (for example, `m,t=a,t=a f=1i`) are now rejected with a clear error, the same way duplicate field keys are rejected. Previously, a point with a repeated tag key was accepted into the WAL and later caused a panic during snapshotting that crash-looped the node on WAL replay.
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run in Core, extending the Enterprise fix from v3.9.7. Previously, a synchronous scheduled trigger (the default, created without `--run-asynchronous`) whose plugin run was still executing could block trigger `disable`, `delete --force`, and database deletion until the run finished.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Compacted data load concurrency limit**: The new `--compacted-data-load-concurrency-limit` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` environment variable, default `20`) bounds concurrent object store reads when a node loads compacted data at startup. Previously, nodes with large compaction indexes issued unbounded concurrent reads at startup, which could saturate the network, cause object store timeouts, and starve other subsystems of object store connections.
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
 ## v3.10.2 {date="2026-06-30"}
 
 ### Core
@@ -114,8 +159,6 @@ All Core updates are included in Enterprise.
 
 - **Processing engine: trigger lockdown flags**: Two new serve flags restrict plugin behavior. `--restrict-plugin-triggers-to` limits triggers to one or more of `wal`, `schedule`, or `request`. `--plugin-dir-only` (Enterprise) blocks plugin installation from any source other than the configured plugin directory.
 
-- **`GET /ready` endpoint**: Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems.
-
 - **Observability: always-on heap profiling**: Heap profiling is now enabled at startup with negligible overhead (~<1% CPU). Access profiles at the existing pprof endpoint. To disable, set `MALLOC_CONF=prof:false` before starting the server.
 
 - **Observability: per-request query traces**: Query tracing is now opt-in per request rather than enabled for all queries. This reduces trace volume for high-throughput deployments. See the monitoring documentation for how to enable tracing on individual requests.
@@ -159,6 +202,8 @@ All Core updates are included in Enterprise. The following updates are exclusive
 - **Row-level deletion**: Delete rows by time range and tag predicates using `influxdb3 delete rows` and `influxdb3 cancel row-delete`. Deletion is asynchronous — requests persist to object storage and the compactor applies them when rewriting run sets. Requires `--use-pacha-tree`. Monitor pending deletes with the `system.row_deletes` system table and 9 new `influxdb3_compactor_row_delete_*` metrics.
 
 - **Runtime query-concurrency limit**: Adjust the maximum number of concurrent queries at runtime via the `/api/v3/configure/query_concurrency_limit` API — `GET` to read the current limit, `PUT` to set it, and `DELETE` to reset it to the startup default.
+
+- **`GET /ready` endpoint**: Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems.
 
 - **Backup and restore**: Create and manage full backups of Enterprise data with `influxdb3 create backup`, `influxdb3 status backup`, `influxdb3 show backups`, `influxdb3 delete backup`, and `influxdb3 cancel backup`. Initiate restore operations with `influxdb3 create restore`, `influxdb3 status restore`, `influxdb3 show restores`, and `influxdb3 cancel restore`. Backup and restore require `--use-pacha-tree` and a compactor node with an admin token. `create backup` refuses to overwrite an existing backup. Only one restore runs at a time across the cluster. After a restore completes, restart the node(s) for the in-memory view to update. API: `POST|GET|DELETE /api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]`.
 

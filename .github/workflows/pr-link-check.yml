@@ -12,6 +12,9 @@ jobs:
   link-check:
     name: Check links in affected files
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -146,6 +149,22 @@ jobs:
           fi
           echo "✅ Using configuration: .ci/link-checker/production.lycherc.toml"
 
+      - name: Fetch known link issues
+        # Open issues labeled area:links; broken URLs matching one are
+        # downgraded to warnings so CI passes. Read-only API call, safe
+        # on fork PRs. On failure the classify step treats the list as
+        # empty and behavior is unchanged.
+        if: steps.detect.outputs.has-changes == 'true'
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const { writeKnownLinkIssues } =
+              await import('${{ github.workspace }}/.github/scripts/fetch-known-link-issues.js');
+            const count = await writeKnownLinkIssues(github, context,
+              '${{ github.workspace }}/known-link-issues.json');
+            core.info(`Loaded ${count} open area:links issue(s)`);
+
       - name: Map changed content to public files
         if: steps.detect.outputs.has-changes == 'true'
         id: mapping
@@ -200,27 +219,19 @@ jobs:
             TOTAL_COUNT=$(jq -r '.summary.total_checked // 0' link-check-results.json)
             SUCCESS_RATE=$(jq -r '.summary.success_rate // 0' link-check-results.json)
 
-            # Reclassify file-not-found warnings as errors
-            # link-checker classifies missing local files as warnings (no HTTP status code),
-            # but these represent genuinely broken internal links and should fail CI.
-            FILE_NOT_FOUND_COUNT=$(jq '[.warnings[] | select(.error | test("Cannot find file"))] | length' link-check-results.json 2>/dev/null || echo 0)
-            if [[ $FILE_NOT_FOUND_COUNT -gt 0 ]]; then
-              echo "⚠️ Found $FILE_NOT_FOUND_COUNT missing local file(s) — reclassifying as errors"
-              # Move file-not-found entries from warnings to errors
-              jq '
-                .errors += [.warnings[] | select(.error | test("Cannot find file")) | .severity = "error"]
-                | .warnings = [.warnings[] | select(.error | test("Cannot find file") | not)]
-                | .summary.error_count = (.errors | length)
-                | .summary.warning_count = (.warnings | length)
-              ' link-check-results.json > link-check-results-fixed.json
-              mv link-check-results-fixed.json link-check-results.json
+            # Reclassify file-not-found warnings as errors, and downgrade
+            # errors matching open area:links issues (known issues) back to
+            # warnings so tracked, already-reported links don't fail CI.
+            node .github/scripts/link-check-classify.js \
+              link-check-results.json known-link-issues.json
 
-              ERROR_COUNT=$(jq -r '.summary.error_count // 0' link-check-results.json)
-              WARNING_COUNT=$(jq -r '.summary.warning_count // 0' link-check-results.json)
-            fi
+            ERROR_COUNT=$(jq -r '.summary.error_count // 0' link-check-results.json)
+            WARNING_COUNT=$(jq -r '.summary.warning_count // 0' link-check-results.json)
+            KNOWN_COUNT=$(jq -r '.summary.known_issue_count // 0' link-check-results.json)
 
             echo "error-count=$ERROR_COUNT" >> $GITHUB_OUTPUT
             echo "warning-count=$WARNING_COUNT" >> $GITHUB_OUTPUT
+            echo "known-count=$KNOWN_COUNT" >> $GITHUB_OUTPUT
             echo "total-count=$TOTAL_COUNT" >> $GITHUB_OUTPUT
             echo "success-rate=$SUCCESS_RATE" >> $GITHUB_OUTPUT
 
@@ -228,15 +239,23 @@ jobs:
               echo "❌ Found $ERROR_COUNT broken links out of $TOTAL_COUNT total links"
               echo "check-result=failed" >> $GITHUB_OUTPUT
             else
-              echo "✅ All $TOTAL_COUNT links are valid ($WARNING_COUNT warnings)"
+              echo "✅ All $TOTAL_COUNT links are valid ($WARNING_COUNT warnings, $KNOWN_COUNT known issue(s))"
               echo "check-result=passed" >> $GITHUB_OUTPUT
+            fi
+
+            # Pass/fail is driven by the classified error count (post-downgrade),
+            # not the checker's raw exit code, so a known-issue downgrade can
+            # actually let CI pass.
+            if [[ $ERROR_COUNT -gt 0 ]]; then
+              exit 1
+            else
+              exit 0
             fi
           else
             echo "❌ Link check failed to generate results"
             echo "check-result=error" >> $GITHUB_OUTPUT
+            exit $EXIT_CODE
           fi
-
-          exit $EXIT_CODE
 
       - name: Process and report results
         if: always() && steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''
@@ -245,6 +264,7 @@ jobs:
           TOTAL_COUNT: ${{ steps.link-check.outputs.total-count }}
           ERROR_COUNT: ${{ steps.link-check.outputs.error-count }}
           WARNING_COUNT: ${{ steps.link-check.outputs.warning-count }}
+          KNOWN_COUNT: ${{ steps.link-check.outputs.known-count }}
           SUCCESS_RATE: ${{ steps.link-check.outputs.success-rate }}
           CHECK_RESULT: ${{ steps.link-check.outputs.check-result }}
         run: |
@@ -258,6 +278,9 @@ jobs:
             echo "| Total Links | ${TOTAL_COUNT} |" >> $GITHUB_STEP_SUMMARY
             echo "| Errors | ${ERROR_COUNT} |" >> $GITHUB_STEP_SUMMARY
             echo "| Warnings | ${WARNING_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            if [[ "${KNOWN_COUNT}" -gt 0 ]]; then
+              echo "| Known Issues | ${KNOWN_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            fi
             echo "| Success Rate | ${SUCCESS_RATE}% |" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
 
@@ -298,8 +321,34 @@ jobs:
               echo "✅ **All links are valid**" >> $GITHUB_STEP_SUMMARY
             fi
 
+            # Report known issues (downgraded from errors; don't fail CI)
+            KNOWN_ARRAY_LEN=$(jq '[.warnings[]? | select(.knownIssue)] | length' link-check-results.json 2>/dev/null || echo 0)
+            if [[ "$KNOWN_ARRAY_LEN" -gt 0 ]]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### Known Issues (downgraded — do not fail CI)" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "| Source File | URL | Error | Known Issue |" >> $GITHUB_STEP_SUMMARY
+              echo "|------------|-----|-------|-------------|" >> $GITHUB_STEP_SUMMARY
+
+              jq -c '.warnings[]? | select(.knownIssue)' link-check-results.json 2>/dev/null | while read -r entry; do
+                URL=$(echo "$entry" | jq -r '.url // "unknown"')
+                ERROR=$(echo "$entry" | jq -r '.error // "Unknown"')
+                FILE=$(echo "$entry" | jq -r '.file // "unknown"')
+                ISSUE_NUM=$(echo "$entry" | jq -r '.knownIssue.number')
+                CONTENT_FILE=$(echo "$FILE" | sed 's|.*/public/|content/|' | sed 's|/index\.html$|/_index.md|')
+                SAFE_URL=$(echo "$URL" | sed 's/|/\\|/g')
+                SAFE_ERROR=$(echo "$ERROR" | sed 's/|/\\|/g' | cut -c1-80)
+
+                echo "::notice file=${CONTENT_FILE}::Known broken link (issue #${ISSUE_NUM}): ${URL}"
+                echo "| \`${CONTENT_FILE}\` | ${SAFE_URL} | ${SAFE_ERROR} | [#${ISSUE_NUM}](https://github.com/${{ github.repository }}/issues/${ISSUE_NUM}) |" >> $GITHUB_STEP_SUMMARY
+              done
+
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "_These broken links match open \`area:links\` issues and were downgraded to warnings so CI passes. Fix them via the linked issues._" >> $GITHUB_STEP_SUMMARY
+            fi
+
             # Report warnings (don't fail CI, but useful context)
-            WARNING_ARRAY_LEN=$(jq '.warnings | length' link-check-results.json 2>/dev/null || echo 0)
+            WARNING_ARRAY_LEN=$(jq '[.warnings[]? | select(.knownIssue | not)] | length' link-check-results.json 2>/dev/null || echo 0)
             if [[ "$WARNING_ARRAY_LEN" -gt 0 ]]; then
               echo "" >> $GITHUB_STEP_SUMMARY
               echo "<details>" >> $GITHUB_STEP_SUMMARY
@@ -308,7 +357,7 @@ jobs:
               echo "| Source File | URL | Issue |" >> $GITHUB_STEP_SUMMARY
               echo "|------------|-----|-------|" >> $GITHUB_STEP_SUMMARY
 
-              jq -c '.warnings[]?' link-check-results.json 2>/dev/null | head -20 | while read -r entry; do
+              jq -c '.warnings[]? | select(.knownIssue | not)' link-check-results.json 2>/dev/null | head -20 | while read -r entry; do
                 URL=$(echo "$entry" | jq -r '.url // "unknown"')
                 ERROR=$(echo "$entry" | jq -r '.error // "Unknown"')
                 FILE=$(echo "$entry" | jq -r '.file // "unknown"')
@@ -340,6 +389,67 @@ jobs:
           else
             echo "⚠️ **Link check could not complete** — no results file generated" >> $GITHUB_STEP_SUMMARY
           fi
+
+      - name: Post PR comment
+        # Sticky comment mirroring the step summary so results are visible
+        # on the PR page. Only created when problems are found; a passing
+        # run updates an existing comment to the success state.
+        # Fork PRs get a read-only GITHUB_TOKEN, so skip commenting there —
+        # the step summary and annotations remain the fallback.
+        if: >-
+          always() &&
+          steps.detect.outputs.has-changes == 'true' &&
+          steps.mapping.outputs.public-files != '' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          FILE_COUNT: ${{ steps.mapping.outputs.file-count }}
+          TOTAL_COUNT: ${{ steps.link-check.outputs.total-count }}
+          ERROR_COUNT: ${{ steps.link-check.outputs.error-count }}
+          WARNING_COUNT: ${{ steps.link-check.outputs.warning-count }}
+          SUCCESS_RATE: ${{ steps.link-check.outputs.success-rate }}
+          CHECK_RESULT: ${{ steps.link-check.outputs.check-result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
+            const { loadResults, upsertLinkCheckComment } =
+              await import('${{ github.workspace }}/.github/scripts/link-check-comment.js');
+            const results = loadResults('${{ github.workspace }}/link-check-results.json');
+            await upsertLinkCheckComment(github, context, {
+              ...results,
+              status: process.env.CHECK_RESULT || results.status || 'error',
+              filesChecked: process.env.FILE_COUNT,
+              totalLinks: process.env.TOTAL_COUNT || results.totalLinks,
+              errorCount: process.env.ERROR_COUNT || results.errorCount,
+              warningCount: process.env.WARNING_COUNT || results.warningCount,
+              successRate: process.env.SUCCESS_RATE || results.successRate,
+              runUrl: process.env.RUN_URL,
+              prNumber: context.issue.number,
+            });
+
+      - name: Refresh stale comment when nothing was checked
+        # When a later commit removes the offending file, the mapping step
+        # finds no public files and the comment step above is skipped —
+        # refresh an existing failure comment instead of leaving it stale.
+        # updateOnly means: never create a comment on PRs that were never
+        # link-checked.
+        if: >-
+          always() &&
+          steps.detect.outputs.has-changes == 'true' &&
+          steps.mapping.outcome == 'success' &&
+          steps.mapping.outputs.public-files == '' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const { upsertLinkCheckComment } =
+              await import('${{ github.workspace }}/.github/scripts/link-check-comment.js');
+            await upsertLinkCheckComment(github, context, {
+              status: 'skipped',
+              updateOnly: true,
+            });
 
       - name: Upload detailed results
         if: always() && steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''

@@ -172,6 +172,42 @@ This approach:
 - Simplifies updates and maintenance
 - Reduces local storage requirements
 
+**Syntax:**
+
+```
+gh:<path-to-plugin-file>
+```
+
+The path after `gh:` is appended to the configured `--plugin-repo`.
+
+> [!Note]
+> #### The gh: prefix isn't GitHub-specific
+>
+> Despite the name, `gh:` doesn't require GitHub or a Git repository. `--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files--for example, an internal static file host or object storage endpoint. `gh:` just tells {{% product-name %}} to fetch the plugin remotely from that URL instead of reading it from the local `--plugin-dir`.
+
+By default, `gh:`-prefixed plugins resolve against the official [`influxdata/influxdb3_plugins`](https://github.com/influxdata/influxdb3_plugins) repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
+For example, `gh:examples/wal_plugin/wal_plugin.py` resolves to:
+
+```
+https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py
+```
+
+**How `gh:` plugin resolution works:**
+
+1. {{% product-name %}} detects the `gh:` prefix in the plugin path.
+2. It strips the prefix and appends the remaining path to the configured plugin repository URL.
+3. An HTTP `GET` request fetches the plugin source code.
+4. If the fetch succeeds (HTTP 2xx), {{% product-name %}} validates the plugin and creates the trigger.
+5. If the fetch fails, the command returns an error with the HTTP status code and URL--for example:
+
+   ```
+   error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
+   ```
+
+{{% product-name %}} fetches the plugin at trigger creation time (to validate it), and again each time the trigger starts--for example, on server startup or when you re-enable a disabled trigger.
+Unlike local plugins, GitHub plugins aren't automatically reloaded when the source changes--disable and re-enable the trigger to fetch updates.
+Only single-file plugins are supported through the `gh:` prefix; multi-file plugin directories must be uploaded locally (see [Upload plugins from local machine](#upload-plugins-from-local-machine)).
+
 ##### Option 3: Use a custom plugin repository
 
 For organizations that maintain their own plugin repositories or need to use private/internal plugins,
@@ -205,7 +241,7 @@ influxdb3 create trigger \
 - **Development and staging**: Test plugins from development branches before production deployment
 - **Compliance requirements**: Meet data governance policies requiring internal hosting
 
-The `--plugin-repo` option accepts any HTTP/HTTPS URL that serves raw plugin files.
+The `--plugin-repo` option accepts any HTTP/HTTPS URL that serves raw plugin files. You can also set it with the `INFLUXDB3_PLUGIN_REPO` environment variable.
 See the [plugin-repo configuration option](/influxdb3/version/reference/config-options/#plugin-repo) for more details.
 
 Plugins have various functions such as: 

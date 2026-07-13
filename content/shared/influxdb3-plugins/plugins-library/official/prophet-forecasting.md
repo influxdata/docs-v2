@@ -95,7 +95,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
   - `numpy` (for numerical operations)
   - `requests` (for HTTP requests)
   - `prophet` (for time series forecasting)
-- **Notification Sender Plugin** *(optional)*: Required if using the `senders` parameter. See the [influxdata/notifier plugin](../notifier/README.md).
+- **Notification Sender Plugin** *(optional)*: Required if using the `senders` parameter. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 
 ### Installation steps
 
@@ -116,7 +116,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
    influxdb3 install package requests
    influxdb3 install package prophet
    ```
-3. *(Optional)* For notifications, install the [influxdata/notifier plugin](../notifier/README.md) and create an HTTP trigger for it.
+3. *(Optional)* For notifications, install the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/) and create an HTTP trigger for it.
 
 ## Trigger setup
 
