@@ -19,6 +19,11 @@ related:
 InfluxData provisions and operates the underlying infrastructure, so you can
 write and query time series data without running or scaling servers yourself.
 
+This guide walks through the basic steps of getting started with
+{{% product-name %}}, including the following:
+
+{{< children type="ordered-list" >}}
+
 > [!Important]
 > #### InfluxDB 3 Cloud is in early access
 >
@@ -59,3 +64,5 @@ definitions for a table are immutable.
 
 Tags should hold unique identifying information like `sensor_id`, `building_id`,
 or `trace_id`. All other data should be stored as fields.
+
+{{< page-nav next="/influxdb3/cloud/get-started/setup/" nextText="Set up InfluxDB" >}}
