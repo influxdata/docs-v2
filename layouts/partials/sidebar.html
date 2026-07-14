@@ -8,54 +8,49 @@
 {{ $productData := index $.Site.Data.products $productKey }}
 
 <!-- Menu Key -->
-{{ .Scratch.Set "menuKey" "menu"}}
-{{ if eq $product "platform" }}
-  {{ .Scratch.Set "menuKey" "platform" }}
-{{ else if eq $product "resources" }}
-  {{ .Scratch.Set "menuKey" "resources" }}
-{{ else if in $currentVersion "serverless" }}
-  {{ .Scratch.Set "menuKey" "influxdb3_cloud_serverless" }}
-{{ else if in $currentVersion "dedicated" }}
-  {{ .Scratch.Set "menuKey" "influxdb3_cloud_dedicated" }}
-{{ else if eq $currentVersion "clustered" }}
-  {{ .Scratch.Set "menuKey" "influxdb3_clustered" }}
-{{ else }}
-  {{ .Scratch.Set "menuKey" (print $product "_" $currentVersion) }}
-{{ end }}
-
-{{ $menuKey := .Scratch.Get "menuKey" }}
+{{- $menuKey := "menu" -}}
+{{- if eq $product "platform" -}}
+  {{- $menuKey = "platform" -}}
+{{- else if eq $product "resources" -}}
+  {{- $menuKey = "resources" -}}
+{{- else if in $currentVersion "serverless" -}}
+  {{- $menuKey = "influxdb3_cloud_serverless" -}}
+{{- else if in $currentVersion "dedicated" -}}
+  {{- $menuKey = "influxdb3_cloud_dedicated" -}}
+{{- else if eq $currentVersion "clustered" -}}
+  {{- $menuKey = "influxdb3_clustered" -}}
+{{- else -}}
+  {{- $menuKey = print $product "_" $currentVersion -}}
+{{- end -}}
 
 <!-- Search placeholder -->
-{{ .Scratch.Set "searchPlaceholder" "Search"}}
-
 {{ $fluxBlacklist := slice "cloud-serverless" "cloud-dedicated" "clustered" "v3" "pro" }}
 {{ $influxdbProductKey := print "influxdb_" (replaceRE "-" "_" $currentVersion) }}
 
-{{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-3]` $currentVersion nil)) 0) }}
-  {{ .Scratch.Set "searchPlaceholder" "Search the docs" }}
-{{ else if (eq $currentVersion nil) }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
-{{ else if (eq $product "telegraf") }}
-  {{ if eq $currentVersion "v1" }}
-    {{ .Scratch.Set "searchPlaceholder" "Search Telegraf" }}
-  {{ else if eq $currentVersion "enterprise" }}
-    {{ .Scratch.Set "searchPlaceholder" "Search Telegraf Enterprise" }}
-  {{ else }}
-    {{ .Scratch.Set "searchPlaceholder" "Search Telegraf Controller" }}
-  {{ end }}
-{{ else if eq $product "influxdb" }}
-  {{ if eq $currentVersion "v3" }}
-    {{ .Scratch.Set "searchPlaceholder"  "Search InfluxDB OSS v3" }}
-  {{ else if not (in $fluxBlacklist $currentVersion) }}
-    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
-  {{ else }}
-    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $influxdbProductKey).name) }}
-  {{ end }}
-{{ else }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
-{{ end }}
-
-{{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}
+{{- $searchPlaceholder := "Search" -}}
+{{- if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-3]` $currentVersion nil)) 0) -}}
+  {{- $searchPlaceholder = "Search the docs" -}}
+{{- else if (eq $currentVersion nil) -}}
+  {{- $searchPlaceholder = print "Search " (index .Site.Data.products $product).name -}}
+{{- else if (eq $product "telegraf") -}}
+  {{- if eq $currentVersion "v1" -}}
+    {{- $searchPlaceholder = "Search Telegraf" -}}
+  {{- else if eq $currentVersion "enterprise" -}}
+    {{- $searchPlaceholder = "Search Telegraf Enterprise" -}}
+  {{- else -}}
+    {{- $searchPlaceholder = "Search Telegraf Controller" -}}
+  {{- end -}}
+{{- else if eq $product "influxdb" -}}
+  {{- if eq $currentVersion "v3" -}}
+    {{- $searchPlaceholder = "Search InfluxDB OSS v3" -}}
+  {{- else if not (in $fluxBlacklist $currentVersion) -}}
+    {{- $searchPlaceholder = print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux" -}}
+  {{- else -}}
+    {{- $searchPlaceholder = print "Search " (index .Site.Data.products $influxdbProductKey).name -}}
+  {{- end -}}
+{{- else -}}
+  {{- $searchPlaceholder = print "Search " (index .Site.Data.products $product).name -}}
+{{- end -}}
 
 <aside class="sidebar">
   {{ partial "sidebar/sidebar-toggle.html" (dict "state" "Close") }}
@@ -83,12 +78,12 @@
   {{ $platformMenu := .Site.Menus.platform }}
 
   <!-- Product Main Navigation -->
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu "siteData" .Site.Data) }}
+  {{ partialCached "sidebar/nested-menu" (dict "menu" $mainMenu "siteData" .Site.Data) $menuKey }}
 
   <!-- Product Reference Navigation -->
   {{ if gt (len $refMenu) 0 }}
     <h4 class="reference">Reference</h4>
-    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu "siteData" .Site.Data) }}
+    {{ partialCached "sidebar/nested-menu" (dict "menu" $refMenu "siteData" .Site.Data) (print $menuKey "_ref") }}
   {{ end }}
 
   <!-- Flux links for InfluxDB docs -->
@@ -112,17 +107,31 @@
   {{ $platformWhitelist := (slice "telegraf_v1" "chronograf_v1" "kapacitor_v1" "enterprise_influxdb_v1" "influxdb_v1") }}
   {{ if (in $platformWhitelist $menuKey) }}
     <h4 class="platform">InfluxData Platform</h4>
-    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $platformMenu "siteData" .Site.Data) }}
-  {{ end }}
-
-  <!-- Additional resources for all docs -->
-  {{ $resourcesProductWhitelist := slice "platform" "influxdb" "enterprise_influxdb" "telegraf" "chronograf" "kapacitor" "flux" }}
-  {{ $resourcesVersionWhitelist := `(?:v\d\.(?:\d{1,2}|x))|cloud$` }}
-  {{ if and (in $resourcesProductWhitelist $product) (gt (len (findRE $resourcesVersionWhitelist $currentVersion)) 0) }}
-    <h4 class="resources">Additional resources</h4>
-    <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
-    <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>
+    {{ partialCached "sidebar/nested-menu" (dict "menu" $platformMenu "siteData" .Site.Data) "platform" }}
   {{ end }}
 
   </ul>
+  <script>
+  (function(){
+    var p = window.location.pathname;
+    var items = document.querySelectorAll('#nav-tree [data-nav-url]');
+    var active = null, bestLen = 0;
+    items.forEach(function(el){
+      var u = el.getAttribute('data-nav-url') || '';
+      if (u === p) { active = el; bestLen = u.length; return; }
+      if (u.length > 1 && p.startsWith(u) && u.length > bestLen) { bestLen = u.length; active = el; }
+    });
+    if (!active) return;
+    active.classList.add('active');
+    var node = active.parentElement;
+    while (node && node.id !== 'nav-tree') {
+      if (node.tagName === 'UL' && node.classList.contains('children')) {
+        node.classList.add('open');
+        var t = node.previousElementSibling;
+        if (t && t.classList.contains('children-toggle')) t.classList.add('open');
+      }
+      node = node.parentElement;
+    }
+  })();
+  </script>
 </aside>

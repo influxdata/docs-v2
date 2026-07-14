@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, anomaly-detection, sta
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mad_check, MAD-based anomaly detection plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/mad-check.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/mad-check.md -->

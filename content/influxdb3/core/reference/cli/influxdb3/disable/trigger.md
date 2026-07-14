@@ -8,6 +8,7 @@ menu:
     name: influxdb3 disable trigger
 weight: 400
 source: /shared/influxdb3-cli/disable/trigger.md
+canonical: self
 ---
 
 <!--

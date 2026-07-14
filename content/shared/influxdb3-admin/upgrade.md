@@ -19,7 +19,7 @@ Before upgrading your {{% product-name %}} instance, review the [release notes](
 Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
 {{% /show-in %}}
 
-> [!Warning]
+> [!Important]
 > #### Upgrading to InfluxDB 3.10 is a one-way migration
 >
 > The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
@@ -150,12 +150,10 @@ Start-Service influxdb3
 Upgrade {{% product-name %}} instances to newer versions using rolling upgrades to minimize downtime.
 When upgrading multi-node clusters, you need to understand catalog version constraints and the recommended upgrade order for different node modes.
 
-- [Upgrade a single {{% product-name %}} instance](#upgrade-a-single--product-name--instance)
-- [Upgrade a multi-node cluster](#upgrade-a-multi-node-cluster)
-  - [Before you upgrade](#before-you-upgrade)
-  - [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
-  - [Upgrade constraints](#upgrade-constraints)
-  - [Troubleshooting](#troubleshooting)
+- [Catalog version compatibility](#catalog-version-compatibility)
+- [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
+- [Rolling upgrade constraints](#rolling-upgrade-constraints)
+- [Troubleshooting cluster upgrades](#troubleshooting-cluster-upgrades)
 
 ### Catalog version compatibility
 

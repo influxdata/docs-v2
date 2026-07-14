@@ -9,6 +9,7 @@ menu:
     name: influxdb3 show databases
 weight: 400
 source: /shared/influxdb3-cli/show/databases.md
+canonical: self
 ---
 
 <!--

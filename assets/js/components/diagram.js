@@ -1,15 +1,20 @@
-// Memoize the mermaid module import
-let mermaidPromise = null;
+import { diagramRendererModuleUrl } from '@params';
+
+// Memoize the renderer module import.
+let rendererPromise = null;
 
 export default function Diagram({ component }) {
-  // Import mermaid.js module (memoized)
-  if (!mermaidPromise) {
-    mermaidPromise = import('mermaid');
+  if (!rendererPromise) {
+    if (!diagramRendererModuleUrl) {
+      console.error('Diagram renderer module URL is not configured.');
+      return;
+    }
+    rendererPromise = import(diagramRendererModuleUrl);
   }
-  mermaidPromise
-    .then(({ default: mermaid }) => {
+  rendererPromise
+    .then(({ default: renderer }) => {
       // Configure mermaid with InfluxData theming
-      mermaid.initialize({
+      renderer.initialize({
         startOnLoad: false, // We'll manually call run()
         theme: document.body.classList.contains('dark-theme')
           ? 'dark'
@@ -29,16 +34,16 @@ export default function Diagram({ component }) {
 
       // Process the specific diagram component
       try {
-        mermaid.run({ nodes: [component] });
+        renderer.run({ nodes: [component] });
       } catch (error) {
-        console.error('Mermaid diagram rendering error:', error);
+        console.error('Diagram rendering error:', error);
       }
 
-      // Store reference to mermaid for theme switching
-      if (!window.mermaidInstances) {
-        window.mermaidInstances = new Map();
+      // Store reference to the renderer for theme switching.
+      if (!window.diagramRendererInstances) {
+        window.diagramRendererInstances = new Map();
       }
-      window.mermaidInstances.set(component, mermaid);
+      window.diagramRendererInstances.set(component, renderer);
     })
     .catch((error) => {
       console.error('Failed to load Mermaid library:', error);
@@ -54,12 +59,12 @@ export default function Diagram({ component }) {
         window.isDarkTheme = document.body.classList.contains('dark-theme');
 
         // Reload this specific diagram with new theme
-        if (window.mermaidInstances?.has(component)) {
-          const mermaid = window.mermaidInstances.get(component);
-          mermaid.initialize({
+        if (window.diagramRendererInstances?.has(component)) {
+          const renderer = window.diagramRendererInstances.get(component);
+          renderer.initialize({
             theme: window.isDarkTheme ? 'dark' : 'default',
           });
-          mermaid.run({ nodes: [component] });
+          renderer.run({ nodes: [component] });
         }
       }
     });
@@ -71,8 +76,8 @@ export default function Diagram({ component }) {
   // Return cleanup function to be called when component is destroyed
   return () => {
     observer.disconnect();
-    if (window.mermaidInstances?.has(component)) {
-      window.mermaidInstances.delete(component);
+    if (window.diagramRendererInstances?.has(component)) {
+      window.diagramRendererInstances.delete(component);
     }
   };
 }

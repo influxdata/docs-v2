@@ -14,6 +14,23 @@ The plugin documentation files in this directory are **generated from source REA
 2. Run `yarn sync-plugins` from the docs-v2 root to port changes
 3. Commit changes in both repositories
 
+## Cross-Plugin Links
+
+Upstream READMEs link to other plugins with a GitHub-relative path, for
+example `[influxdata/notifier plugin](../notifier/README.md)`. That path is
+valid on GitHub but doesn't resolve on the built docs site (Hugo doesn't
+publish `README.md` files). `port_to_docs.js`'s `convertRelativeLinks()`
+rewrites these to the sibling plugin's docs-v2 page —
+`/influxdb3/version/plugins/library/official/notifier/` — converting the
+upstream folder's underscore_case to the docs-v2 hyphen-case slug. This
+keeps readers on the docs site instead of bouncing to GitHub.
+
+If you see a broken `../<plugin>/README.md`-style link in one of these
+files, the sync script didn't run after the upstream link was added — don't
+hand-fix only the generated file; re-run `yarn sync-plugins`, and if the
+link still isn't rewritten, check `convertRelativeLinks()` in
+`helper-scripts/influxdb3-plugins/port_to_docs.js` for a pattern gap.
+
 ## Documentation
 
 See [helper-scripts/influxdb3-plugins/README.md](/helper-scripts/influxdb3-plugins/README.md) for the complete sync workflow documentation.

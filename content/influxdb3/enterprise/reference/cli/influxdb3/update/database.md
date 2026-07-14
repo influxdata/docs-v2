@@ -11,6 +11,7 @@ related:
   - /influxdb3/enterprise/api/database/#operation/update_database, Update database API
   - /influxdb3/enterprise/reference/internals/data-retention/
 source: /shared/influxdb3-cli/update/database/_index.md
+canonical: self
 ---
 
 <!-- 

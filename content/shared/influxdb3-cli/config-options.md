@@ -1127,7 +1127,11 @@ The following are common component names you can use for targeted filtering:
 | `influxdb3_wal`                       | Write-ahead log operations                               |
 | `influxdb3_catalog`                   | Catalog and schema operations                            |
 | `influxdb3_cache`                     | Caching operations                                       |
-{{% show-in "enterprise" %}}`influxdb3_enterprise`                  | Enterprise-specific features                             |
+
+{{% show-in "enterprise" %}}
+| Component              | Description                  |
+| :---------------------- | :---------------------------- |
+| `influxdb3_enterprise` | Enterprise-specific features |
 {{% /show-in %}}
 
 > [!Note]
@@ -1554,25 +1558,23 @@ The default is dynamically determined.
 
 {{% show-in "enterprise" %}}
 
-<!--- [compaction-row-limit](#compaction-row-limit) - NOT YET RELEASED in v3.5.0 -->
-
+- [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
 - [compaction-gen2-duration](#compaction-gen2-duration)
 - [compaction-multipliers](#compaction-multipliers)
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [compaction-check-interval](#compaction-check-interval)
+- [compacted-data-load-concurrency-limit](#compacted-data-load-concurrency-limit)
   {{% /show-in %}}
 - [gen1-duration](#gen1-duration)
 
 {{% show-in "enterprise" %}}
 
-<!---
 #### compaction-row-limit
 
-NOTE: This option is not yet released in v3.5.0. Uncomment when available in a future release.
-
 Specifies the soft limit for the number of rows per file that the compactor
-writes. The compactor may write more rows than this limit.
+writes.
+The compactor may write more rows than this limit.
 
 **Default:** `1000000`
 
@@ -1580,8 +1582,7 @@ writes. The compactor may write more rows than this limit.
 | :----------------------- | :------------------------------------------ |
 | `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
 
----
--->
+***
 
 #### compaction-max-num-files-per-plan
 
@@ -1646,6 +1647,31 @@ Specifies how often the compactor checks for new compaction work to perform.
 | influxdb3 serve option        | Environment variable                             |
 | :---------------------------- | :----------------------------------------------- |
 | `--compaction-check-interval` | `INFLUXDB3_ENTERPRISE_COMPACTION_CHECK_INTERVAL` |
+
+***
+
+#### compacted-data-load-concurrency-limit
+
+Specifies the maximum number of concurrent object store fetches while a node
+loads compacted data (compaction detail and generation detail files), both at
+startup and when a consumer picks up new compaction summaries.
+
+The default bounds the transient memory used by in-flight downloads and is
+sized so the load saturates neither a 10 GbE network interface nor the shared
+object store connection pool (see
+[object-store-connection-limit](#object-store-connection-limit)).
+Increase the limit for faster startup when the compaction index is large and
+the host has network headroom; decrease it if the object store throttles the
+load or memory is tight during startup.
+
+This option isn't supported in the TOML configuration file; use the command
+option or environment variable.
+
+**Default:** `20`
+
+| influxdb3 serve option                    | Environment variable                                         |
+| :---------------------------------------- | :----------------------------------------------------------- |
+| `--compacted-data-load-concurrency-limit` | `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` |
 
 ***
 
@@ -2217,7 +2243,8 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 | influxdb3 serve option | Environment variable             |
 | :--------------------- | :------------------------------- |
 | `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES` |
-| {{% /show-in %}}       |                                  |
+
+{{% /show-in %}}
 
 #### max-concurrent-queries
 
