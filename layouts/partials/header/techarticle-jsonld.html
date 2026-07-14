@@ -26,19 +26,7 @@
       "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
       "inLanguage" "en"
   -}}
-<<<<<<< HEAD
-  {{- /* Use Description when set; only fall back to Summary otherwise.
-         `default` would eagerly evaluate .Summary even when .Description is
-         present, and .Summary can error on pages whose auto-summary truncates
-         mid-shortcode (leaving a malformed shortcode token). */ -}}
-  {{- $description := .Description -}}
-  {{- if not $description -}}
-    {{- $description = .Summary -}}
-  {{- end -}}
-  {{- with $description -}}
-=======
   {{- with or .Description .Summary -}}
->>>>>>> origin/master
     {{- $article = merge $article (dict "description" (. | plainify | strings.TrimSpace)) -}}
   {{- end -}}
   {{- with partial "product/landing.html" . -}}
