@@ -184,6 +184,13 @@ Local checks resolve relative links to the local filesystem. CI checks resolve t
 
 Install locally: `brew install vale` (recommended) or use the Docker fallback via `.ci/vale/vale.sh`.
 
+If neither a local Vale binary nor a running Docker daemon is available
+(for example, in sandboxed agent sessions), `.ci/vale/vale.sh` skips the
+check with a warning and exits 0 — don't use `git commit --no-verify`.
+CI (`pr-vale-check.yml`) remains the authoritative gate: it installs the
+pinned Vale binary, runs with `VALE_STRICT=1` so the check can never skip
+silently, and blocks merge on errors.
+
 ```bash
 # Lint specific files
 .ci/vale/vale.sh content/influxdb3/core/**/*.md

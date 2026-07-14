@@ -8,6 +8,7 @@ menu:
     name: influxdb3 create table
 weight: 400
 source: /shared/influxdb3-cli/create/table.md
+canonical: self
 ---
 
 <!--

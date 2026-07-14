@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, forecasting, prophet, 
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/prophet_forecasting, Prophet forecasting plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/prophet-forecasting.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/prophet-forecasting.md -->

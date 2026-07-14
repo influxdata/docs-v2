@@ -1,60 +1,51 @@
 #!/bin/bash
 # PreToolUse hook: block Bash commands that escape the current worktree.
 #
-# Catches absolute paths (and `cd <abspath>`) that point at the main clone
-# instead of the active worktree. Exits 0 in the primary clone or when the
-# command stays inside the worktree.
+# Catches absolute path tokens (and `cd <abspath>`) that point at a DIFFERENT
+# git worktree -- the main clone or a sibling worktree -- instead of the
+# active one. Boundaries come from `git worktree list`, so any worktree layout
+# works. Exits 0 in the main clone or when the command stays inside the
+# current worktree.
 #
-# Exit codes:
-#   0 = allow
-#   2 = block (path targets the main clone)
+# Output protocol (https://code.claude.com/docs/en/hooks):
+#   exit 0, no output -> allow
+#   exit 2 + stderr   -> block; stderr is shown to Claude
 
 set -euo pipefail
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=lib/worktree-paths.sh
+source "$SCRIPT_DIR/lib/worktree-paths.sh"
+
 INPUT=$(cat)
 
-GIT_DIR=$(git rev-parse --git-dir 2>/dev/null) || exit 0
-GIT_COMMON_DIR=$(git rev-parse --git-common-dir 2>/dev/null) || exit 0
-GIT_DIR=$(cd "$GIT_DIR" && pwd)
-GIT_COMMON_DIR=$(cd "$GIT_COMMON_DIR" && pwd)
+wt_in_linked_worktree || exit 0
+CURRENT=$(wt_current_root)
 
-# Not a worktree — nothing to enforce
-if [[ "$GIT_DIR" == "$GIT_COMMON_DIR" ]]; then
-  exit 0
-fi
-
-MAIN_REPO=$(cd "$GIT_COMMON_DIR/.." && pwd)
-WORKTREE_ROOT=$(git rev-parse --show-toplevel)
-
-CMD=$(echo "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null) || exit 0
 [[ -z "$CMD" ]] && exit 0
 
-# Extract every whitespace-separated token that looks like an absolute path.
-# We compare each against MAIN_REPO/WORKTREE_ROOT instead of regexing the whole
-# command — fewer false positives, easier to report which token tripped.
+# Pull every separator-delimited token that looks like an absolute path, then
+# test each against the worktree boundaries. Comparing tokens (vs regexing the
+# whole command) keeps false positives down and reports which token tripped.
 TOKENS=$(echo "$CMD" | grep -oE '/[^[:space:];|&<>"'\'']+' || true)
 
 while IFS= read -r TOKEN; do
   [[ -z "$TOKEN" ]] && continue
-  # Strip trailing punctuation that's not part of a path
+  # Strip trailing punctuation that isn't part of a path.
   TOKEN=${TOKEN%[,.:;]}
 
-  # Token must be exactly MAIN_REPO or start with MAIN_REPO/, AND must NOT be
-  # under WORKTREE_ROOT (which is itself a subpath of MAIN_REPO).
-  if [[ "$TOKEN" == "$MAIN_REPO" || "$TOKEN" == "$MAIN_REPO"/* ]]; then
-    if [[ "$TOKEN" != "$WORKTREE_ROOT" && "$TOKEN" != "$WORKTREE_ROOT"/* ]]; then
-      cat <<MSG
-Bash command references the main clone, not the current worktree.
+  if wt_path_escapes "$TOKEN"; then
+    cat >&2 <<MSG
+Bash command references a different git worktree, not the current one.
 
-  Command:        $CMD
-  Offending path: $TOKEN
-  Main clone:     $MAIN_REPO
-  Worktree:       $WORKTREE_ROOT
+  Command:          $CMD
+  Offending path:   $TOKEN
+  Current worktree: $CURRENT
 
-Use paths under the worktree, or relative paths from cwd.
+Use paths under the current worktree, or relative paths from cwd.
 MSG
-      exit 2
-    fi
+    exit 2
   fi
 done <<< "$TOKENS"
 

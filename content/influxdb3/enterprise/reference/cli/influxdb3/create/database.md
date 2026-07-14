@@ -12,6 +12,7 @@ related:
   - /influxdb3/enterprise/api/database/#operation/PostConfigureDatabase, Create database API
   - /influxdb3/enterprise/reference/internals/data-retention/
 source: /shared/influxdb3-cli/create/database.md
+canonical: self
 ---
 
 <!-- 

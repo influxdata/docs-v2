@@ -143,7 +143,7 @@ Set the metric timestamp from a tag:
 [[processors.converter]]
   [processors.converter.tags]
     timestamp = ["time"]
-    timestamp_format = "unix
+    timestamp_format = "unix"
 ```
 
 ```diff

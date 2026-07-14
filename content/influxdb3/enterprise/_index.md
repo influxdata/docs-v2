@@ -10,6 +10,7 @@ menu:
     name: InfluxDB 3 Enterprise
 weight: 1
 source: /shared/influxdb3/_index.md
+canonical: self
 cascade:
   product: influxdb3_enterprise
   version: enterprise

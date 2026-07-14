@@ -1,0 +1,102 @@
+name: 'Build Documentation Site'
+description: >
+  Canonical build definition for docs-v2. Builds the Rust markdown converter,
+  API documentation, and Hugo site. Use in every job that builds the site so
+  PR and production steps stay in parity by construction rather than by
+  discipline. Mirrors the CircleCI build job steps (see .circleci/config.yml).
+
+inputs:
+  build-rust:
+    description: >
+      Install Rust toolchain and build the markdown converter.
+      Disabled by default to avoid slow uncached builds.
+      Enable for full production parity; add an actions/cache step for
+      ~/.cargo, ~/.rustup, and scripts/rust-markdown-converter/target
+      keyed on rust-toolchain.toml + Cargo.lock before calling this action.
+    default: 'false'
+  build-api-docs:
+    description: 'Build API documentation before Hugo'
+    default: 'true'
+  hugo-environment:
+    description: 'Hugo environment flag (production, pr-preview, development, …)'
+    default: 'production'
+  hugo-destination:
+    description: 'Hugo output directory'
+    default: 'public'
+  hugo-base-url:
+    description: 'Hugo --baseURL override (empty = use config default)'
+    default: ''
+  hugo-minify:
+    description: 'Pass --minify to Hugo'
+    default: 'false'
+  hugo-quiet:
+    description: 'Pass --quiet to Hugo'
+    default: 'false'
+  hugo-gc:
+    description: 'Pass --gc to Hugo (remove unused cache files)'
+    default: 'false'
+  hugo-log-level:
+    description: 'Hugo --logLevel value (debug, info, warn, error)'
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    # ------------------------------------------------------------------ Rust --
+    # Mirrors the CircleCI "Install Rust toolchain" step. Reads the pinned
+    # channel from scripts/rust-markdown-converter/rust-toolchain.toml.
+    # If build-rust is false, both Rust steps are skipped and Hugo falls back
+    # to the pure-JS markdown converter.
+    - name: Install Rust toolchain
+      if: inputs.build-rust == 'true'
+      shell: bash
+      run: |
+        if [ ! -x "$HOME/.cargo/bin/rustup" ]; then
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- -y --profile minimal --default-toolchain none
+        fi
+        echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+        RUST_CHANNEL=$(grep '^channel' scripts/rust-markdown-converter/rust-toolchain.toml \
+          | sed 's/.*= *"\([^"]*\)".*/\1/')
+        "$HOME/.cargo/bin/rustup" toolchain install \
+          --profile minimal --no-self-update "$RUST_CHANNEL"
+        "$HOME/.cargo/bin/rustup" default "$RUST_CHANNEL"
+
+    - name: Build Rust markdown converter
+      if: inputs.build-rust == 'true'
+      shell: bash
+      run: node scripts/build-rust-converter.js
+
+    # ------------------------------------------------------------ API docs --
+    # Mirrors the CircleCI "Build API documentation" step. Skipped when
+    # build-api-docs is false (e.g., render-artifact checks that don't test
+    # API pages).
+    - name: Build API documentation
+      if: inputs.build-api-docs == 'true'
+      shell: bash
+      run: yarn build:api-docs
+
+    # --------------------------------------------------------------- Hugo --
+    # Mirrors the CircleCI "Hugo Build" step. All flag inputs are optional;
+    # omitted flags fall back to Hugo/config defaults.
+    - name: Build Hugo site
+      shell: bash
+      run: |
+        HUGO_ARGS="--environment ${{ inputs.hugo-environment }}"
+        HUGO_ARGS="$HUGO_ARGS --destination ${{ inputs.hugo-destination }}"
+        if [ -n "${{ inputs.hugo-base-url }}" ]; then
+          HUGO_ARGS="$HUGO_ARGS --baseURL ${{ inputs.hugo-base-url }}"
+        fi
+        if [ "${{ inputs.hugo-minify }}" = "true" ]; then
+          HUGO_ARGS="$HUGO_ARGS --minify"
+        fi
+        if [ "${{ inputs.hugo-quiet }}" = "true" ]; then
+          HUGO_ARGS="$HUGO_ARGS --quiet"
+        fi
+        if [ "${{ inputs.hugo-gc }}" = "true" ]; then
+          HUGO_ARGS="$HUGO_ARGS --gc"
+        fi
+        if [ -n "${{ inputs.hugo-log-level }}" ]; then
+          HUGO_ARGS="$HUGO_ARGS --logLevel ${{ inputs.hugo-log-level }}"
+        fi
+        npx hugo $HUGO_ARGS

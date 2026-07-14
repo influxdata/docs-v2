@@ -9,6 +9,7 @@ influxdb3/enterprise/tags: [install]
 related:
   - /influxdb3/enterprise/admin/upgrade/
 source: /shared/influxdb3/install.md
+canonical: self
 alt_links:
   v1: /influxdb/v1/introduction/install/
 ---

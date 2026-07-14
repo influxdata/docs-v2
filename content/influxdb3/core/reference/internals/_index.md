@@ -8,6 +8,7 @@ menu:
     parent: Reference
 weight: 107
 source: /shared/influxdb3-internals-reference/_index.md
+canonical: self
 ---
 
 <!--

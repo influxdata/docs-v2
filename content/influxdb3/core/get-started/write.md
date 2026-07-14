@@ -14,6 +14,7 @@ related:
   - /influxdb3/core/write-data/
   - /influxdb3/core/reference/line-protocol/
 source: /shared/influxdb3-get-started/write.md
+canonical: self
 ---
 
 <!-- 

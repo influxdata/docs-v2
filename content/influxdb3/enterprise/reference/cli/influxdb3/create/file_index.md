@@ -9,6 +9,7 @@ menu:
     name: influxdb3 create file_index
 weight: 400
 source: /shared/influxdb3-cli/create/file_index.md
+canonical: self
 ---
 
 <!--

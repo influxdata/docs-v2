@@ -3,7 +3,7 @@ title: Manage users
 seotitle: Manage users and permissions in {{< product-name >}}
 description: >
   Manage users and access to resources in your {{< product-name >}} instance.
-  Use the console for self-service user management or contact support for
+  Use the Admin UI for self-service user management or contact support for
   advanced operations.
 menu:
   influxdb3_cloud:
@@ -28,7 +28,7 @@ user attributes, resource types, and environment context.
 
 ## Available user groups
 
-In {{% product-name %}}, users have "management" responsibilities, such as creating and
+In {{% product-name %}}, users have management responsibilities, such as creating and
 deleting [databases](/influxdb3/cloud/admin/databases/) and provisioning
 [database tokens](/influxdb3/cloud/admin/tokens/) for reading and writing data.
 
@@ -36,19 +36,18 @@ A user can belong to the following groups, each with predefined privileges:
 
 - **Admin**: Read and write permissions on all resources.
 - **Member**: Read permission on certain resources and create permission for
-  database tokens; members can't delete or create databases or management tokens.
+  database tokens; members can't delete or create databases or admin tokens.
 - **Auditor**: Read permission on all resources; auditors can't modify resources.
 
 > [!Note]
-> #### Existing users are Admin by default
+> #### Users are Admin by default
 >
-> With the release of user groups for {{% product-name %}}, all existing users
-> in your account are initially assigned to the Admin group, retaining full
-> access to resources in your instance.
+> All users in your account are initially assigned to the Admin group,
+> retaining full access to resources in your instance.
 
 ## User management methods
 
-Use the console for user management tasks (available to Admin users only):
+Admin users can use the Admin UI to perform the following user management tasks:
 
 - **View users and invitations** - View existing users, invite status, invite ID, and invitation date
 - **Invite new users** - Send invitations with role assignment (Admin, Member, Auditor)

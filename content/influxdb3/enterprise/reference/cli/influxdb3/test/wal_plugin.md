@@ -8,6 +8,7 @@ menu:
     name: influxdb3 test wal_plugin
 weight: 400
 source: /shared/influxdb3-cli/test/wal_plugin.md
+canonical: self
 ---
 
 <!--

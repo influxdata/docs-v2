@@ -116,7 +116,7 @@ pre-commit:
         - 'content/influxdb3/clustered/*.md'
         - 'content/shared/*.md'
       run: '.ci/vale/vale.sh
-        --config=content/influxdb3/cloud-serverless/.vale.ini
+        --config=content/influxdb3/clustered/.vale.ini
         --minAlertLevel=error {staged_files}'
     core-lint:
       tags: lint,v3

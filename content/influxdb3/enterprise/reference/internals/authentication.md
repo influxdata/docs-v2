@@ -11,6 +11,7 @@ weight: 107
 related:
   - /influxdb3/enterprise/admin/tokens/
 source: /shared/influxdb3-internals-reference/authentication.md
+canonical: self
 ---
 
 <!-- The content for this page is at

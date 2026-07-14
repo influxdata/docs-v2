@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
 
       - name: Detect changed files
         id: detect
@@ -70,13 +70,18 @@ jobs:
         if: steps.detect.outputs.has-files == 'true'
         run: |
           VALE_VERSION=$(sed -n 's/^VALE_VERSION="\(.*\)"/\1/p' .ci/vale/vale.sh)
-          curl -sfL "https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz" \
+          # The Vale org was renamed errata-ai -> vale-cli
+          curl -sfL "https://github.com/vale-cli/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz" \
             | sudo tar xz -C /usr/local/bin vale
           vale --version
 
       - name: Run Vale
         if: steps.detect.outputs.has-files == 'true'
         id: vale
+        env:
+          # Never allow vale.sh to skip silently in CI — this workflow is the
+          # authoritative style gate.
+          VALE_STRICT: '1'
         run: |
           chmod +x .github/scripts/vale-check.sh .ci/vale/vale.sh
 
@@ -142,7 +147,7 @@ jobs:
 
       - name: Post PR comment
         if: always() && steps.detect.outputs.has-files == 'true'
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const fs = require('fs');
@@ -157,7 +162,6 @@ jobs:
 
             const errors = results.errors || 0;
             const warnings = results.warnings || 0;
-            const suggestions = results.suggestions || 0;
             const checkResult = '${{ steps.vale.outputs.check-result }}';
 
             // Build comment body
@@ -166,7 +170,6 @@ jobs:
             body += '|--------|-------|\n';
             body += `| Errors | ${errors} |\n`;
             body += `| Warnings | ${warnings} |\n`;
-            body += `| Suggestions | ${suggestions} |\n\n`;
 
             // List errors (blocking)
             if (errors > 0) {
@@ -250,7 +253,6 @@ jobs:
         run: |
           ERRORS="${{ steps.vale.outputs.error-count }}"
           WARNINGS="${{ steps.vale.outputs.warning-count }}"
-          SUGGESTIONS="${{ steps.vale.outputs.suggestion-count }}"
           RESULT="${{ steps.vale.outputs.check-result }}"
 
           echo "## Vale Style Check Results" >> $GITHUB_STEP_SUMMARY
@@ -259,7 +261,6 @@ jobs:
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Errors | ${ERRORS:-0} |" >> $GITHUB_STEP_SUMMARY
           echo "| Warnings | ${WARNINGS:-0} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Suggestions | ${SUGGESTIONS:-0} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
           if [[ "$RESULT" == "failed" ]]; then
@@ -272,7 +273,7 @@ jobs:
 
       - name: Upload results
         if: always() && steps.detect.outputs.has-files == 'true'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: vale-results
           path: |

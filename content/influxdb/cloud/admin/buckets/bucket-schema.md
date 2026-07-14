@@ -132,7 +132,7 @@ For example, the following request defines the _explicit_ bucket measurement sch
 
 {{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud/api/buckets//-bucketID-/schema/measurements" >}}
 
-```js
+```json
 {
 	"name": "airSensors",
 	"columns": [
@@ -262,7 +262,7 @@ You can't modify or delete columns in bucket schemas.
 
     {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb/cloud/api/bucket-schemas/" >}}
 
-    ```js
+    ```json
     {
       "columns": [
               {"name": "time", "type": "timestamp"},
