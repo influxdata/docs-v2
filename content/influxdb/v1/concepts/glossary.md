@@ -165,10 +165,14 @@ See [Data Exploration](/influxdb/v1/query_language/explore-data/), [Schema Explo
 
 ## replication factor  
 
-The attribute of the retention policy that determines how many copies of data to concurrently store (or retain) in the cluster. Replicating copies ensures that data is available when a data node (or more) is unavailable.
+The attribute of the retention policy that determines how many copies of data to concurrently store (or retain) in a cluster. Replicating copies ensures that data is available when a data node (or more) is unavailable.
 
-For three nodes or less, the default replication factor equals the number of data nodes.
-For more than three nodes, the default replication factor is 2. To change the default replication factor, specify the replication factor `n` in the retention policy.
+Replication requires multiple data nodes, which are available only in
+[InfluxDB Enterprise](/enterprise_influxdb/v1/) clusters. InfluxDB OSS runs as
+a single node, so the replication factor has no effect--there is only ever one
+copy of your data. For default replication factor behavior in a cluster, see
+the InfluxDB Enterprise [`CREATE RETENTION POLICY`
+reference](/enterprise_influxdb/v1/query_language/manage-database/#replication).
 
 Related entries: [duration](/influxdb/v1/concepts/glossary/#duration), [node](/influxdb/v1/concepts/glossary/#node),
 [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp)
