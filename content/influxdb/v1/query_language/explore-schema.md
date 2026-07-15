@@ -1,4 +1,4 @@
----
+﻿---
 title: Explore your schema using InfluxQL
 description: Useful query syntax for exploring schema in InfluxQL.
 menu:
@@ -107,7 +107,7 @@ database in tabular format.
 The database has one retention policy called `autogen`.
 The `autogen` retention policy has an infinite [duration](/influxdb/v1/concepts/glossary/#duration),
 a seven-day [shard group duration](/influxdb/v1/concepts/glossary/#shard-group),
-a [replication factor](/influxdb/v1/concepts/glossary/#replication-factor)
+a [replication factor](/influxdb/v1/concepts/glossary/#replication-factor-rf)
 of one, and it is the `DEFAULT` retention policy for the database.
 
 #### Run a `SHOW RETENTION POLICIES` query without the `ON` clause

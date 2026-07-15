@@ -1,4 +1,4 @@
-
+﻿
 [A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [J](#j) | [K](#k) | [L](#l) | [M](#m) | [N](#n) | [O](#o) | [P](#p) | [Q](#q) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | <span style="opacity:.35;font-weight:500">X</span> | <span style="opacity:.35;font-weight:500">Y</span> | <span style="opacity:.35;font-weight:500">Z</span>
 
 ## A
@@ -238,7 +238,7 @@ For high availability in InfluxDB, a cluster must have at least two data nodes. 
 
 Data node sizes will depend on your needs. The Amazon EC2 m4.large or m4.xlarge are good starting points.
 
-Related entries: [data service](#data-service), [replication factor](#replication-factor)
+Related entries: [data service](#data-service), [replication factor](#replication-factor-rf)
 -->
 
 ### data service
@@ -287,7 +287,7 @@ Related entries: [continuous query](#continuous-query-cq), [retention policy](#r
 
 InfluxDB stores the date-time format for each data point in a timestamp with nanosecond-precision Unix time.
 Specifying a timestamp is options.
-If a timestamp isn't specified for a data point, InfluxDB uses the server’s local nanosecond timestamp in UTC.
+If a timestamp isn't specified for a data point, InfluxDB uses the serverâ€™s local nanosecond timestamp in UTC.
 
 ### downsample
 
@@ -534,7 +534,7 @@ Open source tracing used in distributed systems to monitor and troubleshoot tran
 
 ### JSON
 
-JavaScript Object Notation (JSON) is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types.
+JavaScript Object Notation (JSON) is an open-standard file format that uses human-readable text to transmit data objects consisting of attributeâ€“value pairs and array data types.
 
 ## K
 
@@ -761,7 +761,7 @@ Rows are uniquely identified by their timestamp and tag set.
 
 The precision configuration setting determines the timestamp precision retained for input data points.
 All incoming timestamps are truncated to the specified precision.
-Valid precisions are `ns`, `us` or `µs`, `ms`, and `s`.
+Valid precisions are `ns`, `us` or `Âµs`, `ms`, and `s`.
 
 In Telegraf, truncated timestamps are padded with zeros to create a nanosecond timestamp.
 Telegraf output plugins emit timestamps in nanoseconds.
@@ -916,7 +916,7 @@ For example, assume that an InfluxDB bucket has one measurement.
 The single measurement has two tag keys: `email` and `status`.
 If the data contains three different `email` values, and each email address is associated with two
 different `status` values, the series cardinality for the measurement is `6`
-(3 × 2 = 6):
+(3 Ã— 2 = 6):
 
 | email                 | status |
 | :-------------------- | :----- |
@@ -930,7 +930,7 @@ different `status` values, the series cardinality for the measurement is `6`
 In some cases, this calculation may overestimate series cardinality
 because of the presence of _dependent tags_--tags scoped by another tag.
 Dependent tags do not increase series cardinality.
-Adding the tag `firstname` to the preceding example would not increase the series cardinality to `18` (3 × 2 × 3 = 18).
+Adding the tag `firstname` to the preceding example would not increase the series cardinality to `18` (3 Ã— 2 Ã— 3 = 18).
 The series cardinality would remain unchanged at `6`, as `firstname` is already scoped by the `email` tag:
 
 | email                | status | firstname |
@@ -1252,7 +1252,7 @@ per second by the number of values stored per point.
 For example, if the points have four fields each, and a batch of 5000 points is
 written 10 times per second, the values per second rate is:
 
-**4 field values per point** × **5000 points per batch** × **10 batches per second** = **200,000 values per second**  
+**4 field values per point** Ã— **5000 points per batch** Ã— **10 batches per second** = **200,000 values per second**  
 
 Related entries: [batch](#batch), [field](#field), [point](#point)
 

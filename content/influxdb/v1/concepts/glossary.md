@@ -1,4 +1,4 @@
----
+﻿---
 title: InfluxDB glossary
 description: Terms related to InfluxDB OSS.
 menu:
@@ -180,7 +180,7 @@ Describes how long InfluxDB keeps data (duration), how many copies of the data t
 When you create a database, InfluxDB creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
 For more information, see [Retention policy management](/influxdb/v1/query_language/manage-database/#retention-policy-management).
 
-Related entries: [duration](/influxdb/v1/concepts/glossary/#duration), [measurement](/influxdb/v1/concepts/glossary/#measurement), [replication factor](/influxdb/v1/concepts/glossary/#replication-factor), [series](/influxdb/v1/concepts/glossary/#series), [shard duration](/influxdb/v1/concepts/glossary/#shard-duration), [tag set](/influxdb/v1/concepts/glossary/#tag-set)
+Related entries: [duration](/influxdb/v1/concepts/glossary/#duration), [measurement](/influxdb/v1/concepts/glossary/#measurement), [replication factor](/influxdb/v1/concepts/glossary/#replication-factor-rf), [series](/influxdb/v1/concepts/glossary/#series), [shard duration](/influxdb/v1/concepts/glossary/#shard-duration), [tag set](/influxdb/v1/concepts/glossary/#tag-set)
 
 ## schema
 

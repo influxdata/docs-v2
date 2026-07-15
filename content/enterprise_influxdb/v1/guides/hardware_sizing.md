@@ -1,4 +1,4 @@
----
+﻿---
 title: Hardware sizing guidelines
 Description: >
   Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise v1.
@@ -31,7 +31,7 @@ InfluxDB Enterprise supports the following:
 - more than 10,000,000 [series cardinality](/influxdb/v1/concepts/glossary/#series-cardinality)
 
 InfluxDB Enterprise distributes multiple copies of your data across a cluster,
-providing high-availability and redundancy, so an unavailable node doesn’t significantly impact the cluster.
+providing high-availability and redundancy, so an unavailable node doesnâ€™t significantly impact the cluster.
 Please [contact us](https://www.influxdata.com/contact-sales/) for assistance tuning your system.
 
 If you want a single node instance of InfluxDB that's fully open source, requires fewer writes, queries, and unique series than listed above, and do **not require** redundancy, we recommend InfluxDB OSS.
@@ -60,7 +60,7 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 
 ### Meta nodes
 
-> Set up clusters with an odd number of meta nodes─an even number may cause issues in certain configurations.
+> Set up clusters with an odd number of meta nodesâ”€an even number may cause issues in certain configurations.
 
 A cluster must have a **minimum of three** independent meta nodes for data redundancy and availability. A cluster with `2n + 1` meta nodes can tolerate the loss of `n` meta nodes.
 
@@ -72,7 +72,7 @@ Meta nodes do not need very much computing power. Regardless of the cluster load
 
 ### Data nodes
 
-A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
+A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1/concepts/glossary/#replication-factor-rf) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
 
 >**Note:** For optimal data distribution within the cluster, use an even number of data nodes.
 
@@ -340,4 +340,4 @@ Non-string values require approximately three bytes. String values require varia
 
 ### Separate `wal` and `data` directories
 
-When running InfluxDB in a production environment, store the `wal` directory and the `data` directory on separate storage devices. This optimization significantly reduces disk contention under heavy write load──an important consideration if the write load is highly variable. If the write load does not vary by more than 15%, the optimization is probably not necessary.
+When running InfluxDB in a production environment, store the `wal` directory and the `data` directory on separate storage devices. This optimization significantly reduces disk contention under heavy write loadâ”€â”€an important consideration if the write load is highly variable. If the write load does not vary by more than 15%, the optimization is probably not necessary.

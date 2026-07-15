@@ -1,4 +1,4 @@
----
+﻿---
 title: Glossary
 description: Terms related to InfluxDB Enterprise.
 aliases:
@@ -52,7 +52,7 @@ query capacity within the cluster.
 Data node sizes will depend on your needs.
 The Amazon EC2 m4.large or m4.xlarge are good starting points.
 
-Related entries: [data service](#data-service), [replication factor](#replication-factor)
+Related entries: [data service](#data-service), [replication factor](#replication-factor-rf)
 
 ## data service
 
@@ -245,7 +245,7 @@ Describes how long InfluxDB keeps data (duration), how many copies of the data t
 When you create a database, InfluxDB creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
 For more information, see [Retention policy management](/enterprise_influxdb/v1/query_language/manage-database/#retention-policy-management).
 
-Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
+Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor-rf), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
 
 <!--
 ## role
