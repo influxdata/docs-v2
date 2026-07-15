@@ -32,7 +32,7 @@ Access the {{% product-name %}} Admin UI at
 If you don't have login credentials,
 [contact InfluxData support](https://support.influxdata.com).
 
-<!-- TODO: Add an InfluxDB 3 Cloud console Users page screenshot. -->
+<!-- TODO: Add an InfluxDB 3 Cloud Admin UI Users page screenshot. -->
 
 The **Users** page displays your account information and a table of existing users and invitations. Use it to manage access to your InfluxDB account:
 
