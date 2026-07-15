@@ -9,16 +9,16 @@ menu:
     parent: Manage tables
 weight: 203
 list_code_example: |
-  ```sh
+  ```sh{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
   # CLI
   influxdb3 delete table \
-    --database <DATABASE_NAME> \
-    --token <AUTH_TOKEN> \
-    <TABLE_NAME>
+    --database DATABASE_NAME \
+    --token AUTH_TOKEN \
+    TABLE_NAME
 
   # HTTP API
-  curl -X DELETE "https://{{< influxdb/host >}}/api/v3/configure/table?db=<DATABASE_NAME>&table=<TABLE_NAME>" \
-    --header "Authorization: Bearer <AUTH_TOKEN>"
+  curl -X DELETE "https://{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME" \
+    --header "Authorization: Bearer AUTH_TOKEN"
   ```
 related:
   - /influxdb3/cloud/reference/cli/influxdb3/delete/table/

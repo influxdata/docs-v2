@@ -19,7 +19,7 @@ Manage users and access to resources in your {{% product-name %}} instance.
 By assigning users to different groups based on the level of access they need,
 you can minimize unnecessary access and reduce the risk of inadvertent
 actions.
-User groups associate access privileges with user attributes--an important part of the
+User groups associate access privileges with user attributes—an important part of the
 Attribute-Based Access Control (ABAC) security model which grants access based on
 user attributes, resource types, and environment context.
 
