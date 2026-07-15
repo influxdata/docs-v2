@@ -30,5 +30,6 @@ without provisioning or operating your own infrastructure.
 > customers as we continue to expand availability.
 >
 > Interested in trying InfluxDB 3 Cloud?
-> Learn more and request access on the
-> [InfluxDB 3 Cloud product page](https://www.influxdata.com/products/influxdb3-cloud/).
+> See the
+> [InfluxDB 3 Cloud product page](https://www.influxdata.com/products/influxdb3-cloud/)
+> to request access.
