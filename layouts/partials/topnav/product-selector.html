@@ -22,6 +22,9 @@ Identify products by their product path. Dictionary schema:
 {{ $influxdbCloud := dict "influxdb/cloud" (slice $.Site.Data.products.influxdb_cloud.name "cloud") }}
 {{ $influxdb3Core := dict "influxdb3/core" (slice $.Site.Data.products.influxdb3_core.name "core") }}
 {{ $influxdb3Enterprise := dict "influxdb3/enterprise" (slice $.Site.Data.products.influxdb3_enterprise.name "enterprise") }}
+{{/* alt_link key is "cloud3", not "cloud": the "cloud" key already belongs to
+     influxdb/cloud (TSM) above. Both products use the "cloud" version slug, so
+     this product needs a distinct alt_link key to avoid colliding with it. */}}
 {{ $influxdb3Cloud := dict "influxdb3/cloud" (slice $.Site.Data.products.influxdb3_cloud.name "cloud3") }}
 {{ $influxdb3Explorer := dict "influxdb3/explorer" (slice $.Site.Data.products.influxdb3_explorer.name "explorer") }}
 {{ $influxdb3CloudServerless := dict "influxdb3/cloud-serverless" (slice $.Site.Data.products.influxdb3_cloud_serverless.name "cloud-serverless") }}
