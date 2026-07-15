@@ -63,10 +63,11 @@ To request more information about {{% product-name %}},
 [contact InfluxData support](https://support.influxdata.com).
 
 <!--
-Deep links from other pages point to anchors on the not-yet-published Cloud
-reference/API pages. Those paths redirect here; the hidden anchors below let the
-link checker resolve the original `#fragment` against this page. Remove an anchor
-when its target page is published for Cloud.
+Links from shared content point to not-yet-published Cloud reference/API pages.
+The `aliases` in the frontmatter redirect those paths here, and the hidden
+anchors below let the link checker resolve the original `#fragment` against this
+page. When a target page is published for Cloud, remove its alias and any
+anchors that belonged to it. Tracked in influxdata/docs-v2#7391.
 -->
 <div style="display:none" aria-hidden="true">
   <span id="at-time-zone"></span>

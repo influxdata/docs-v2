@@ -21,13 +21,17 @@ instance instead of running a local server.
 
 ## Connect and authenticate
 
-The CLI connects to `http://127.0.0.1:8181` by default, so always specify your
-instance host and token when working with {{% product-name %}}:
+The CLI connects to `http://127.0.0.1:8181` by default. Before you run commands,
+set your instance host and authenticate:
 
-- **Host**: Set the `INFLUXDB3_HOST_URL` environment variable (or pass `--host`)
+- **Host**: Set the `INFLUXDB3_HOST_URL` environment variable, or pass `--host`,
   to your instance host URL.
-- **Token**: Set the `INFLUXDB3_AUTH_TOKEN` environment variable (or pass
-  `--token`) to your admin or database token.
+- **Authentication**:
+  - For interactive use, log in with the OAuth device-code flow:
+    `influxdb3 auth login --oauth`. Don't set `INFLUXDB3_AUTH_TOKEN` for
+    interactive use.
+  - For applications and automated clients, use a database token: set the
+    `INFLUXDB3_AUTH_TOKEN` environment variable, or pass `--token`.
 
 For setup steps, see
 [Set up {{% product-name %}}](/influxdb3/cloud/get-started/setup/#configure-the-influxdb3-cli).
