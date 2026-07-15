@@ -14,11 +14,10 @@ related:
   - /influxdb3/cloud/get-started/setup/
 ---
 
-The `influxdb3` CLI interacts with your {{% product-name %}} instance from the
-command line.
-Because {{% product-name %}} is fully managed, you don't use the CLI to run a
-server--instead, you point it at your hosted instance and authenticate with a
-token.
+The `influxdb3` CLI writes and queries data and administers your
+{{% product-name %}} instance from the command line.
+Because {{% product-name %}} is fully managed, the CLI connects to your hosted
+instance instead of running a local server.
 
 ## Connect and authenticate
 
