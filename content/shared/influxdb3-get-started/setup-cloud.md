@@ -174,8 +174,13 @@ Replace {{% code-placeholder-key %}}`get-started`{{% /code-placeholder-key %}}
 with the name of the database to grant the token access to.
 
 The command returns the token string.
-Store the token string in a safe place.
-**This is the only time the token string is available in plain text.**
+
+> [!Important]
+> #### Store your token securely
+>
+> InfluxDB displays the token string only when you create it.
+> Store your token securely—you cannot retrieve it from the database later.
+
 Applications can authenticate with the token by setting the
 `INFLUXDB3_AUTH_TOKEN` environment variable or passing the `--token` option.
 
