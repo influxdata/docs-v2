@@ -4,8 +4,7 @@ description: >
   InfluxDB 3 Cloud is the fully managed, cloud-hosted version of InfluxDB 3
   Enterprise. Built on InfluxDB 3, it delivers high write and query performance
   with a diskless architecture that scales horizontally without the operational
-  overhead of managing your own infrastructure. InfluxDB 3 Cloud is the
-  recommended destination for InfluxDB Cloud Dedicated customers.
+  overhead of managing your own infrastructure.
 menu:
   influxdb3_cloud:
     name: InfluxDB 3 Cloud
