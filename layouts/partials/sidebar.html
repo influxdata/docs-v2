@@ -1,7 +1,7 @@
 {{ $currentPage := . }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{/* Support deployments (such as CI tools) with subdirectory baseURL */}}
-{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
 {{ $product := index $productPathData (add $pathOffset 0) }}
 {{ $currentVersion := index $productPathData (add $pathOffset 1) }}
 {{ $productKey := print $product "_" $currentVersion }}
