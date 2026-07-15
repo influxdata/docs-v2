@@ -1439,6 +1439,21 @@ See <a href="/influxdb3/version/admin/databases/create/#influxql-dbrp-naming-con
 <p><strong>If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless</strong>,
 <em>database</em> and <em>bucket</em> are synonymous.</p>
 </div>
+<h2 id="retention-periods">Retention periods</h2>
+<p>A database <strong>retention period</strong> is the maximum age of data stored in the database.
+The age of data is determined by the timestamp associated with each point.
+When a point&rsquo;s timestamp is beyond the retention period (relative to now), the
+point is marked for deletion and is removed from the database the next time the
+retention enforcement service runs.</p>
+<p>By default, data does not expire. When you <a href="/influxdb3/version/admin/databases/create/">create a database</a>,
+you can optionally set a retention period.
+The minimum practical retention period is 1 hour (<code>1h</code>).</p>
+<p>Database retention periods can be <a href="/influxdb3/version/reference/cli/influxdb3/update/database/">updated after creation</a>.
+For tables within a database, you can <a href="/influxdb3/version/admin/tables/create/#retention-period">set table-specific retention periods</a>
+that override the database retention period.</p>
+<p>For complete details about retention periods, including duration formats, precedence
+rules, and deletion behavior, see
+<a href="/influxdb3/version/reference/internals/data-retention/">Data retention in InfluxDB 3 Cloud</a>.</p>
 <h2 id="database-table-and-column-limits">Database, table, and column limits</h2>
 <p>InfluxDB 3 Cloud places the following limits on databases, tables, and columns:</p>
 <h3 id="database-limit">Database limit</h3>

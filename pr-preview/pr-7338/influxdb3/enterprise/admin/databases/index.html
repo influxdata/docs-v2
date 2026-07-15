@@ -46,10 +46,10 @@
 
 
 
-<title>List databases | &lt;nil&gt; Documentation</title>
+<title>Manage databases in InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to list databases in InfluxDB 3 Enterprise.">
+    <meta name="description" content="An InfluxDB 3 Enterprise database is a named location where time series data is stored. Each database can contain multiple tables.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -115,10 +115,10 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/list/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2026-04-20T11:26:19-05:00","description":"Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to list databases in {{\u003c product-name \u003e}}.","headline":"List databases","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/list/","name":"List databases"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/#software"},"articleSection":"Admin","dateModified":"2025-10-10T15:00:52-05:00","description":"An {{\u003c product-name \u003e}} database is a named location where time series data is stored. Each database can contain multiple tables.","headline":"Manage databases","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/","name":"Manage databases"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -126,7 +126,7 @@
 
 
 
-<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/list/index.md">
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/index.md">
 
 
     
@@ -189,7 +189,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-20 11:26:19 -0500 -0500">
+<meta name="last-modified" content="2025-10-10 15:00:52 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -400,7 +400,7 @@
   
   
   
-  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/admin/buckets/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -413,7 +413,7 @@
   
   
   
-  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/admin/buckets/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -4685,7 +4685,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>List databases</h1>
+      <h1>Manage databases</h1>
       
 
 
@@ -4697,15 +4697,16 @@
         <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="0"
-  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+  data-child-count="3"
+  data-estimated-tokens="1500"
+  data-section-download-url="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/-download.zip"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
 >
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy page for AI - Access documentation in different formats"
+    aria-label="Copy section for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -4715,7 +4716,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy page for AI
+      Copy section for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -4799,52 +4800,66 @@
 
 
   
-  <p>Use the <a href="/influxdb3/version/reference/cli/influxdb3/show/databases/"><code>influxdb3 show databases</code> command</a>,
-the <a href="/influxdb3/version/api/v3/"><code>/api/v3/configure/database</code></a> HTTP API endpoint, or <a href="/influxdb3/explorer/">InfluxDB 3 Explorer</a>
-to list databases in InfluxDB 3 Enterprise.</p>
-<ul>
-<li><a href="#list-databases-using-the-influxdb3-cli">List databases using the influxdb3 CLI</a></li>
-<li><a href="#list-databases-using-the-http-api">List databases using the HTTP API</a></li>
-<li><a href="#list-databases-using-influxdb-3-explorer">List databases using InfluxDB 3 Explorer</a></li>
-</ul>
-<h2 id="list-databases-using-the-influxdb3-cli">List databases using the influxdb3 CLI</h2>
-<p>Provide the following:</p>
-<ul>
-<li><em>(Optional)</em> <a href="#output-formats">Output format</a> with the <code>--format</code> option</li>
-<li><em>(Optional)</em> <a href="#list-deleted-databases">Show deleted databases</a> with the
-<code>--show-deleted</code> option</li>
-<li>InfluxDB 3 Enterprise <a href="/influxdb3/enterprise/admin/tokens/admin">admin token</a>
-with the <code>-t</code>, <code>--token</code> option</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 show databases</span></span></code></pre></div><h3 id="output-formats">Output formats</h3>
-<p>The <code>influxdb3 show databases</code> command supports output formats:</p>
-<ul>
-<li><code>pretty</code> <em>(default)</em></li>
-<li><code>json</code></li>
-<li><code>jsonl</code></li>
-<li><code>csv</code></li>
-<li><code>parquet</code> <em>(must <a href="#output-to-a-parquet-file">output to a file</a>)</em></li>
-</ul>
-<p>Use the <code>--format</code> flag to specify the output format:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 show databases --format json</span></span></code></pre></div><h4 id="example-output">Example output</h4>
+  <p>An InfluxDB 3 Enterprise database is a named location where time series data is
+stored. Each database can contain multiple tables.</p>
+
+<div class="block note">
+  
+  
+  <p><strong>If coming from InfluxDB v1</strong>, the concepts of databases and retention policies
+have been combined into a single concept&ndash;database. Retention policies are no
+longer part of the InfluxDB data model.
+However, InfluxDB 3 Enterprise does
+support InfluxQL, which requires databases and retention policies.
+See <a href="/influxdb3/version/admin/databases/create/#influxql-dbrp-naming-convention">InfluxQL DBRP naming convention</a>.</p>
+<p><strong>If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless</strong>,
+<em>database</em> and <em>bucket</em> are synonymous.</p>
+</div>
+<h2 id="retention-periods">Retention periods</h2>
+<p>A database <strong>retention period</strong> is the maximum age of data stored in the database.
+The age of data is determined by the timestamp associated with each point.
+When a point&rsquo;s timestamp is beyond the retention period (relative to now), the
+point is marked for deletion and is removed from the database the next time the
+retention enforcement service runs.</p>
+<p>By default, data does not expire. When you <a href="/influxdb3/version/admin/databases/create/">create a database</a>,
+you can optionally set a retention period.
+The minimum practical retention period is 1 hour (<code>1h</code>).</p>
+<p>Database retention periods can be <a href="/influxdb3/version/reference/cli/influxdb3/update/database/">updated after creation</a>.
+For tables within a database, you can <a href="/influxdb3/version/admin/tables/create/#retention-period">set table-specific retention periods</a>
+that override the database retention period.</p>
+<p>For complete details about retention periods, including duration formats, precedence
+rules, and deletion behavior, see
+<a href="/influxdb3/version/reference/internals/data-retention/">Data retention in InfluxDB 3 Enterprise</a>.</p>
+<h2 id="database-table-and-column-limits">Database, table, and column limits</h2>
+<p>InfluxDB 3 Enterprise places the following limits on databases, tables, and columns:</p>
+<h3 id="database-limit">Database limit</h3>
+<p><strong>Maximum number of databases</strong>: 100</p>
+<h3 id="table-limit">Table limit</h3>
+<p><strong>Maximum number of tables across all databases</strong>: 10000</p>
+<p>InfluxDB 3 Enterprise limits the number of tables you can have across <em>all</em>
+databases to 10000 by default
+.
+You can configure the table limit using the
+<a href="/influxdb3/enterprise/reference/config-options/#num-table-limit"><code>--num-table-limit</code> configuration option</a>.</p>
+<p>InfluxDB doesn&rsquo;t limit how many tables you can have in an individual database,
+as long as the total across all databases is below the limit.</p>
+<p>Having more tables affects your InfluxDB 3 Enterprise installation in the
+following ways:</p>
 <div class="expand-wrapper">
   
 
 
 
-<div class="expand" id="view-example-pretty-formatted-output">
-  <a class="expand-link" href="#view-example-pretty-formatted-output"><span class="cf-icon Link"></span></a>
+<div class="expand" id="may-improve-query-performance-view-more-info">
+  <a class="expand-link" href="#may-improve-query-performance-view-more-info"><span class="cf-icon Link"></span></a>
   <p class="expand-label">
-      <span class="expand-toggle"></span><span>View example pretty-formatted output</span>
+      <span class="expand-toggle"></span><span><strong>May improve query performance</strong> <em style='opacity:.5;font-weight:normal;'>View more info</em></span>
   </p>
   <div class="expand-content" style="display: none;" >
-      <div class="custom-timestamps"><pre tabindex="0"><code>+---------------+
-| iox::database |
-+---------------+
-| home          |
-| home_actions  |
-| noaa          |
-+---------------+</code></pre></div>
+      <p>Schemas with many tables that contain
+<a href="/influxdb3/version/write-data/best-practices/schema-design/#design-for-performance">focused sets of tags and fields</a>
+can make it easier for the query engine to identify what Parquet files contain
+the queried data, resulting in better query performance.</p>
 
   </div>
 </div>
@@ -4852,200 +4867,178 @@ with the <code>-t</code>, <code>--token</code> option</li>
 
 
 
-<div class="expand" id="view-example-json-formatted-output">
-  <a class="expand-link" href="#view-example-json-formatted-output"><span class="cf-icon Link"></span></a>
+<div class="expand" id="more-puts-into-object-storage-view-more-info">
+  <a class="expand-link" href="#more-puts-into-object-storage-view-more-info"><span class="cf-icon Link"></span></a>
   <p class="expand-label">
-      <span class="expand-toggle"></span><span>View example JSON-formatted output</span>
+      <span class="expand-toggle"></span><span><strong>More PUTs into object storage</strong> <em style='opacity:.5;font-weight:normal;'>View more info</em></span>
   </p>
   <div class="expand-content" style="display: none;" >
-      <div class="custom-timestamps"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[{</span><span class="nt">&#34;iox::database&#34;</span><span class="p">:</span><span class="s2">&#34;home&#34;</span><span class="p">},{</span><span class="nt">&#34;iox::database&#34;</span><span class="p">:</span><span class="s2">&#34;home_actions&#34;</span><span class="p">},{</span><span class="nt">&#34;iox::database&#34;</span><span class="p">:</span><span class="s2">&#34;noaa&#34;</span><span class="p">}]</span></span></span></code></pre></div></div>
+      <p>When using cloud-based object storage as your data backend, the more tables you
+have, the more <code>PUT</code> requests there are into your object store as InfluxDB
+persists data to Parquet files. Each <code>PUT</code> request incurs a monetary cost and
+increases the operating cost of InfluxDB 3 Enterprise.</p>
 
+  </div>
+</div>
+
+<div class="expand" id="more-work-for-the-compactor-view-more-info">
+  <a class="expand-link" href="#more-work-for-the-compactor-view-more-info"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span><strong>More work for the compactor</strong> <em style='opacity:.5;font-weight:normal;'>View more info</em></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>To optimize storage over time, InfluxDB 3 Enterprise has a compactor that
+routinely compacts Parquet files.
+With more tables and Parquet files to compact, the compactor may need to be scaled
+to keep up with demand, adding to the operating cost of InfluxDB 3 Enterprise.</p>
   </div>
 </div>
 
 
 
-
-<div class="expand" id="view-example-json-line-formatted-output">
-  <a class="expand-link" href="#view-example-json-line-formatted-output"><span class="cf-icon Link"></span></a>
-  <p class="expand-label">
-      <span class="expand-toggle"></span><span>View example JSON-line-formatted output</span>
-  </p>
-  <div class="expand-content" style="display: none;" >
-      <div class="custom-timestamps"><pre tabindex="0"><code class="language-jsonl" data-lang="jsonl">{&#34;iox::database&#34;:&#34;home&#34;}
-{&#34;iox::database&#34;:&#34;home_actions&#34;}
-{&#34;iox::database&#34;:&#34;noaa&#34;}</code></pre></div>
-
-  </div>
 </div>
 
-
-
-
-<div class="expand" id="view-example-csv-formatted-output">
-  <a class="expand-link" href="#view-example-csv-formatted-output"><span class="cf-icon Link"></span></a>
-  <p class="expand-label">
-      <span class="expand-toggle"></span><span>View example CSV-formatted output</span>
-  </p>
-  <div class="expand-content" style="display: none;" >
-      <div class="custom-timestamps"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csv" data-lang="csv"><span class="line"><span class="cl"><span class="s">iox::database</span><span class="p">
-</span></span></span><span class="line"><span class="cl"><span class="s">home</span><span class="p">
-</span></span></span><span class="line"><span class="cl"><span class="s">home_actions</span><span class="p">
-</span></span></span><span class="line"><span class="cl"><span class="s">noaa</span></span></span></code></pre></div></div>
-
-  </div>
-</div>
-
-
-</div>
-
-<h4 id="output-to-a-parquet-file">Output to a Parquet file</h4>
-<p><a href="https://parquet.apache.org/">Parquet</a> is a binary format.
-Use the <code>--output</code> option to specify the file where you want to save the Parquet data.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 show databases <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --format parquet <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --output databases.parquet</span></span></code></pre></div><p>Alternatively, use the <code>influxdb3 query</code> command to query system tables:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 query <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --database _internal <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --format parquet <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --output databases.parquet <span class="se">\
-</span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;SELECT * FROM system.databases&#34;</span></span></span></code></pre></div><h3 id="list-deleted-databases">List deleted databases</h3>
-<p>To list deleted databases, include the <code>--show-deleted</code> option with your
-<code>influxdb3 show databases</code> command:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 show databases --show-deleted</span></span></code></pre></div><h2 id="list-databases-using-the-http-api">List databases using the HTTP API</h2>
-<p>To list databases using the HTTP API, send a <code>GET</code> request to the <code>/api/v3/configure/database</code> endpoint.</p>
-<pre class="api-endpoint"><span class="api get">GET</span> localhost:8181/api/v3/configure/database?format=pretty</pre>
-<p>Include the <code>format</code> query parameter and specify one of the following formats:</p>
-<ul>
-<li><code>pretty</code></li>
-<li><code>json</code></li>
-<li><code>jsonl</code></li>
-<li><code>csv</code></li>
-<li><code>parquet</code></li>
-</ul>
-
-<div class="tabs-wrapper">
+<h3 id="column-limit">Column limit</h3>
+<p><strong>Maximum number of columns per table</strong>: 500</p>
+<p>Each row must include a time column, with the remaining columns representing
+tags and fields.
+As a result, by default,
+a table can
+have one time column and up to 499
+<em>combined</em> field and tag columns.
+If you attempt to write to a table and exceed the column limit, the write
+request fails and InfluxDB returns an error.</p>
+<p>You can configure the maximum number of columns per
+table using the <a href="/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit"><code>num-total-columns-per-table-limit</code> configuration option</a>.</p>
+<p>Higher numbers of columns has the following side-effects:</p>
+<div class="expand-wrapper">
   
 
 
 
+<div class="expand" id="may-adversely-affect-system-performance">
+  <a class="expand-link" href="#may-adversely-affect-system-performance"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>May adversely affect system performance</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>InfluxData identified 500 columns as the safe limit
+for maintaining system performance and stability.
+Exceeding this threshold can result in
+<a href="/influxdb3/version/write-data/best-practices/schema-design/#avoid-wide-schemas">wide schemas</a>,
+which can negatively impact performance and resource use,
+depending on your queries, the shape of your schema, and data types in the schema.</p>
 
-<div class="tabs">
-  <p><a href="#">Pretty output</a>
-<a href="#">JSON output</a>
-<a href="#">Parquet output</a></p>
+  </div>
+</div>
+
 
 </div>
 
 
-<section class="tab-content">
-  <p>Include the following in your request:</p>
-<ul>
-<li>
-<p><strong>Headers</strong>:</p>
-<ul>
-<li><code>Authorization: Bearer</code> with your <a href="/influxdb3/enterprise/admin/tokens/">token</a></li>
-</ul>
-</li>
-<li>
-<p><strong>Query Parameters</strong>:</p>
-<ul>
-<li><code>format=pretty</code></li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;localhost:8181/api/v3/configure/database?format=pretty&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>The response body contains a table of database names:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">+---------------------+
-</span></span><span class="line"><span class="cl">| iox::database       |
-</span></span><span class="line"><span class="cl">+---------------------+
-</span></span><span class="line"><span class="cl">| _internal           |
-</span></span><span class="line"><span class="cl">| home                |
-</span></span><span class="line"><span class="cl">| home_actions        |
-</span></span><span class="line"><span class="cl">| noaa                |
-</span></span><span class="line"><span class="cl">+---------------------+</span></span></code></pre></div>
-</section>
 
 
 
-<section class="tab-content">
-  <p>Include the following in your request:</p>
-<ul>
-<li>
-<p><strong>Headers</strong>:</p>
-<ul>
-<li><code>Authorization: Bearer</code> with your <a href="/influxdb3/enterprise/admin/tokens/">token</a></li>
-</ul>
-</li>
-<li>
-<p><strong>Query Parameters</strong>:</p>
-<ul>
-<li><code>format=json</code></li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;localhost:8181/api/v3/configure/database?format=json&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>The response body contains a JSON array of database objects whose keys are <code>iox::database</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;iox::database&#34;</span><span class="p">:</span> <span class="s2">&#34;home&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;iox::database&#34;</span><span class="p">:</span> <span class="s2">&#34;home_actions&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;iox::database&#34;</span><span class="p">:</span> <span class="s2">&#34;noaa&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span></span></span></code></pre></div>
-</section>
 
 
 
-<section class="tab-content">
-  <p>Include the following in your request:</p>
-<ul>
-<li>
-<p><strong>Headers</strong>:</p>
-<ul>
-<li><code>Authorization: Bearer</code> with your <a href="/influxdb3/enterprise/admin/tokens/">token</a></li>
-</ul>
-</li>
-<li>
-<p><strong>Query Parameters</strong>:</p>
-<ul>
-<li><code>format=parquet</code></li>
-</ul>
-</li>
-<li>
-<p>An output destination for the Parquet file</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;localhost:8181/api/v3/configure/database?format=parquet&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  -o databases.parquet <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>For Parquet responses, you must provide an output destination because the format is binary.</p>
-<p>The response contains the databases list.</p>
 
-</section>
+	
 
 
-</div>
 
-<p>A successful request returns HTTP status <code>200</code>.</p>
-<h2 id="list-databases-using-influxdb-3-explorer">List databases using InfluxDB 3 Explorer</h2>
-<p>You can also view all databases using the <a href="/influxdb3/explorer/">InfluxDB 3 Explorer</a> web interface:</p>
-<ol>
-<li>If you haven&rsquo;t already, see how to <a href="/influxdb3/explorer/get-started/">get started with Explorer and connect to your InfluxDB 3 Enterprise server</a>.</li>
-<li>In Explorer, click <strong>Databases</strong> in the left navigation.</li>
-<li>The Databases page displays a list of all databases with the following information:
-<ul>
-<li>Database name</li>
-<li>Retention period (if configured)</li>
-<li>Number of tables in the database</li>
-<li>Creation date</li>
-</ul>
-</li>
-</ol>
-<p>For more information, see <a href="/influxdb3/explorer/manage-databases/">Manage databases with InfluxDB 3 Explorer</a>.</p>
+
+
+	<div class="children-links">
+		
+			
+			
+			
+			 <h2 id="create-a-database"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/create/" target="">Create a database</a></h2>
+			
+			<p>Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to create a new database in InfluxDB 3 Enterprise.</p>
+			
+			
+				<!--pytest.mark.skip-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># influxdb3 CLI</span>
+</span></span><span class="line"><span class="cl">influxdb3 create database <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --retention-period 30d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># HTTP API</span>
+</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;http://localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer AUTH_TOKEN&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;db&#34;: &#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;retention_period&#34;: &#34;30d&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div>
+			
+
+			
+
+			
+				<p class="read-more"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/create/" target="">Read more <span class="icon-chevron-right"></span></a></p>
+			
+			
+				<hr />
+			
+	
+			
+			
+			
+			 <h2 id="list-databases"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/list/" target="">List databases</a></h2>
+			
+			<p>Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to list databases in InfluxDB 3 Enterprise.</p>
+			
+			
+				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># influxdb3 CLI</span>
+</span></span><span class="line"><span class="cl">influxdb3 show databases
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># HTTP API</span>
+</span></span><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;http://localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div>
+			
+
+			
+
+			
+				<p class="read-more"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/list/" target="">Read more <span class="icon-chevron-right"></span></a></p>
+			
+			
+				<hr />
+			
+	
+			
+			
+			
+			 <h2 id="delete-a-database"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/delete/" target="">Delete a database</a></h2>
+			
+			<p>Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to delete a database from InfluxDB 3 Enterprise.</p>
+			
+			
+				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># influxdb3 CLI</span>
+</span></span><span class="line"><span class="cl">influxdb3 delete database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># HTTP API</span>
+</span></span><span class="line"><span class="cl">curl --request DELETE <span class="s2">&#34;http://localhost:8181/api/v3/configure/database?db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div>
+			
+
+			
+
+			
+				<p class="read-more"><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/delete/" target="">Read more <span class="icon-chevron-right"></span></a></p>
+			
+			
+				<hr />
+			
+	
+	</div>
+
+
+
 
 
 
@@ -5064,7 +5057,19 @@ Use the <code>--output</code> option to specify the file where you want to save 
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/reference/cli/influxdb3/show/databases/">influxdb3 show databases</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/write-data/best-practices/schema-design/">InfluxDB schema design recommendations</a></li>
+          
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/reference/cli/influxdb3/">influxdb3 CLI</a></li>
           
         
       
@@ -5077,7 +5082,19 @@ Use the <code>--output</code> option to specify the file where you want to save 
           
           
           
-          <li><a href="/influxdb3/enterprise/api/database/#operation/GetConfigureDatabase" target="">List databases API</a></li>
+          <li><a href="/influxdb3/enterprise/api/v3/#tag/Database" target="">Database API reference</a></li>
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/reference/internals/data-retention/">Data retention in InfluxDB 3 Enterprise</a></li>
+          
         
       
     
@@ -5177,8 +5194,8 @@ Use the <code>--output</code> option to specify the file where you want to save 
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb3-admin/databases/list.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/list/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb3-admin/databases/_index.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/databases/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     
   </div>
 </div>
@@ -5624,18 +5641,6 @@ Use the <code>--output</code> option to specify the file where you want to save 
 </div>
 
       
-        
-
-
-
-
-<div class="modal-content" id="influxdb-gs-date-select">
-  <h3>Select a new date</h3>
-  <p><em>Select a date in your bucket's retention period.</em></p>
-  <div id="custom-date-selector"></div>
-  <a class="btn" id="submit-custom-date" onclick="">Update</a>
-</div>
-      
       
       
     </div>
@@ -5881,12 +5886,6 @@ pull command&ndash;for example:</p>
   <div class="footer-widgets">
   
   
-<div data-component="custom-time-trigger" class="custom-time-trigger widget blue" data-tooltip="Select custom date for sample data">
-  <a role="button" class="custom-time-trigger__button" data-action="open">
-    <span class="cf-icon Clock_New"></span>
-  </a>
-</div>
-
   
   <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
   <a class="ask-ai-open" >

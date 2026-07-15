@@ -1437,16 +1437,30 @@ However, you can manually create tables to define a custom schema or apply custo
 <p><a href="#create-a-table-using-the-http-api">Create a table using the HTTP API</a></p>
 </li>
 <li>
+<p><a href="#retention-period">Retention period</a></p>
+</li>
+<li>
 <p><a href="#table-naming-restrictions">Table naming restrictions</a></p>
 </li>
 </ul>
 <h2 id="create-a-table-using-the-influxdb3-cli">Create a table using the influxdb3 CLI</h2>
 <p>Use the <code>influxdb3 create table</code> command and provide the following:</p>
 <ul>
-<li><em>Required</em>: The name of the database to create the table in</li>
-<li><em>Required</em>: The name of the table to create (see <a href="#table-naming-restrictions">Table naming restrictions</a>)</li>
-<li><em>Required</em>: Tag columns to include in the table (must have at least one tag column)</li>
-<li><em>Optional</em>: Field columns and their data types to include in the table</li>
+<li>
+<p><em>Required</em>: The name of the database to create the table in</p>
+</li>
+<li>
+<p><em>Required</em>: The name of the table to create (see <a href="#table-naming-restrictions">Table naming restrictions</a>)</p>
+</li>
+<li>
+<p><em>Required</em>: Tag columns to include in the table (must have at least one tag column)</p>
+</li>
+<li>
+<p><em>Optional</em>: Field columns and their data types to include in the table</p>
+</li>
+<li>
+<p><em>Optional</em>: <a href="#retention-period">Retention period</a>. If omitted, uses database retention period.</p>
+</li>
 </ul>
 
 <div class="block note">
@@ -1478,6 +1492,20 @@ Columns that appear earlier are typically faster to filter and access during que
 </span></span></span><span class="line"><span class="cl">  --fields temp:float64,hum:float64,co:int64 <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a table with a 7-day retention period</span>
+</span></span><span class="line"><span class="cl">influxdb3 create table <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --tags room,sensor_id <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --fields temp:float64,hum:float64 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --retention-period 7d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a table with database default retention (omit --retention-period)</span>
+</span></span><span class="line"><span class="cl">influxdb3 create table <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --tags room,sensor_id <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><p>Replace the following:</p>
 <ul>
 <li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: the name of the database to create the table in</li>
@@ -1497,10 +1525,21 @@ Columns that appear earlier are typically faster to filter and access during que
 </li>
 <li><strong>Request body</strong>: JSON object with table configuration
 <ul>
-<li><code>db</code> <em>(string, required)</em>: Database name</li>
-<li><code>table</code> <em>(string, required)</em>: Table name</li>
-<li><code>tags</code> <em>(array, required)</em>: Tag column names</li>
-<li><code>fields</code> <em>(array, required)</em>: Field definitions with name and type. Provide an empty array if no fields are defined.</li>
+<li>
+<p><code>db</code> <em>(string, required)</em>: Database name</p>
+</li>
+<li>
+<p><code>table</code> <em>(string, required)</em>: Table name</p>
+</li>
+<li>
+<p><code>tags</code> <em>(array, required)</em>: Tag column names</p>
+</li>
+<li>
+<p><code>fields</code> <em>(array, required)</em>: Field definitions with name and type. Provide an empty array if no fields are defined.</p>
+</li>
+<li>
+<p><code>retention_period</code> <em>(string, optional)</em>: <a href="#retention-period">Retention period</a>. If omitted, uses database retention period.</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -1528,12 +1567,81 @@ Columns that appear earlier are typically faster to filter and access during que
 </span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;name&#34;: &#34;hum&#34;, &#34;type&#34;: &#34;float64&#34;},
 </span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;name&#34;: &#34;co&#34;, &#34;type&#34;: &#34;int64&#34;}
 </span></span></span><span class="line"><span class="cl"><span class="s1">    ]
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a table with a 7-day retention period</span>
+</span></span><span class="line"><span class="cl">curl -X POST <span class="s2">&#34;cluster-id.a.influxdb.io/api/v3/configure/table&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;db&#34;: &#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;table&#34;: &#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;tags&#34;: [&#34;room&#34;, &#34;sensor_id&#34;],
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;fields&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;name&#34;: &#34;temp&#34;, &#34;type&#34;: &#34;float64&#34;},
+</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;name&#34;: &#34;hum&#34;, &#34;type&#34;: &#34;float64&#34;}
+</span></span></span><span class="line"><span class="cl"><span class="s1">    ],
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;retention_period&#34;: &#34;7d&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a table with database default retention (omit retention_period)</span>
+</span></span><span class="line"><span class="cl">curl -X POST <span class="s2">&#34;cluster-id.a.influxdb.io/api/v3/configure/table&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;db&#34;: &#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;table&#34;: &#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;tags&#34;: [&#34;room&#34;, &#34;sensor_id&#34;],
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;fields&#34;: []
 </span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div><p>Replace the following:</p>
 <ul>
 <li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: the name of the database to create the table in</li>
 <li><span class="code-placeholder-key"><code>TABLE_NAME</code></span>: the name of the table to create</li>
 <li><span class="code-placeholder-key"><code>AUTH_TOKEN</code></span>: your <a href="/influxdb3/cloud/admin/tokens/">admin token</a></li>
 </ul>
+<h2 id="retention-period">Retention period</h2>
+<p>By default, tables use the database retention period. When creating a table, set a table-specific <em>retention period</em> to automatically delete expired data and optimize storage for that table.</p>
+<p>A table retention period overrides the database retention period for that specific table.
+This allows you to maintain different retention policies for different types of data within the same database.</p>
+<h3 id="retention-period-syntax">Retention period syntax</h3>
+<p>The retention period value is a time duration value made up of a numeric value
+plus a duration unit.
+For example, <code>7d</code> means 7 days.
+The retention period value cannot be negative or contain whitespace.</p>
+<h4 id="valid-durations-units-include">Valid durations units include</h4>
+<ul>
+<li><strong>m</strong>: minute</li>
+<li><strong>h</strong>: hour</li>
+<li><strong>d</strong>: day</li>
+<li><strong>w</strong>: week</li>
+<li><strong>mo</strong>: month</li>
+<li><strong>y</strong>: year</li>
+</ul>
+
+<div class="block warning">
+  
+  
+  <h4 id="retention-period-constraints">Retention period constraints</h4>
+<ul>
+<li><strong>Minimum for data retention</strong>: The practical minimum retention period is 1 hour (<code>1h</code>).</li>
+<li><strong>Zero-duration periods</strong>: Setting a retention period to <code>0&lt;unit&gt;</code> (for example,
+<code>0d</code> or <code>0h</code>) is allowed but marks all data for immediate deletion at query time.
+<em>This differs from InfluxDB 1.x and 2.x where <code>0d</code> meant infinite retention.</em></li>
+<li><strong>Infinite retention</strong>: Use <code>none</code> to set an infinite retention period.</li>
+</ul>
+</div>
+<h3 id="retention-period-precedence">Retention period precedence</h3>
+<p>When both a database and a table have retention periods defined, the <strong>table retention
+period takes precedence</strong> for that specific table.</p>
+<p><strong>Example scenarios:</strong></p>
+<ul>
+<li><strong>Short-term data in long-term database</strong>: Store high-volume sensor data with 7-day
+retention in a database with 90-day retention</li>
+<li><strong>Long-term data in short-term database</strong>: Store audit logs with 1-year retention in
+a database with 30-day retention</li>
+<li><strong>Mixed retention requirements</strong>: Maintain both real-time metrics (7 days) and
+aggregated metrics (1 year) in the same database</li>
+</ul>
+<p>For complete details about retention period precedence and behavior, see
+<a href="/influxdb3/version/reference/internals/data-retention/#retention-period-precedence">Data retention in InfluxDB 3 Cloud</a>.</p>
 <h2 id="table-naming-restrictions">Table naming restrictions</h2>
 <p>Table names in InfluxDB 3 Cloud must adhere to the following naming restrictions:</p>
 <ul>
