@@ -8,7 +8,7 @@ However, you can manually create tables to define a custom schema or apply custo
 
 - [Create a table using the influxdb3 CLI](#create-a-table-using-the-influxdb3-cli)
 - [Create a table using the HTTP API](#create-a-table-using-the-http-api)
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 - [Retention period](#retention-period)
 {{% /show-in %}}
 {{% show-in "core" %}}
@@ -24,7 +24,7 @@ Use the `influxdb3 create table` command and provide the following:
 - _Required_: The name of the table to create (see [Table naming restrictions](#table-naming-restrictions))
 - _Required_: Tag columns to include in the table (must have at least one tag column)
 - _Optional_: Field columns and their data types to include in the table
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 - _Optional_: [Retention period](#retention-period). If omitted, uses database retention period.
 {{% /show-in %}}
 
@@ -57,7 +57,7 @@ influxdb3 create table \
   TABLE_NAME
 ```
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 # Create a table with a 7-day retention period
 influxdb3 create table \
@@ -99,7 +99,7 @@ Include the following in your request:
   - `table` _(string, required)_: Table name
   - `tags` _(array, required)_: Tag column names
   - `fields` _(array, required)_: Field definitions with name and type. Provide an empty array if no fields are defined.
-  {{% show-in "enterprise" %}}
+  {{% show-in "enterprise,cloud" %}}
   - `retention_period` _(string, optional)_: [Retention period](#retention-period). If omitted, uses database retention period.
   {{% /show-in %}}
 
@@ -131,7 +131,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
   }'
 ```
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 # Create a table with a 7-day retention period
 curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
@@ -167,7 +167,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table to create
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ## Retention period
 
 By default, tables use the database retention period. When creating a table, set a table-specific _retention period_ to automatically delete expired data and optimize storage for that table.

@@ -24,6 +24,7 @@ aliases:
   - /influxdb3/cloud/reference/cli/influxdb3/delete/table/
   - /influxdb3/cloud/reference/cli/influxdb3/query/
   - /influxdb3/cloud/reference/cli/influxdb3/show/databases/
+  - /influxdb3/cloud/reference/cli/influxdb3/update/database/
   - /influxdb3/cloud/reference/cli/influxdb3/write/
   - /influxdb3/cloud/reference/client-libraries/v3/
   - /influxdb3/cloud/reference/glossary/
@@ -104,6 +105,7 @@ anchors that belonged to it. Tracked in influxdata/docs-v2#7391.
   <span id="operation/PostConfigureTable"></span>
   <span id="operation/update_database"></span>
   <span id="options"></span>
+  <span id="retention-period-precedence"></span>
   <span id="show-field-keys"></span>
   <span id="show-field-values"></span>
   <span id="show-measurements"></span>
