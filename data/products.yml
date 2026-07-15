@@ -100,7 +100,7 @@ influxdb3_cloud:
   list_order: 1
   latest: cloud
   link: 'https://www.influxdata.com/contact-sales/'
-  placeholder_host: cluster-id.a.influxdb.io
+  placeholder_host: instance-id.enterprise.influxdb.io
   version_label: Cloud
   distributed_architecture: true
   limits:
