@@ -274,7 +274,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         run: |
-          PREVIEW_URL="https://influxdata.github.io/docs-v2/pr-preview/pr-${PR_NUMBER}/"
+          PREVIEW_URL="https://test2.docs.influxdata.com/pr-preview/pr-${PR_NUMBER}/"
           TIMEOUT=600  # 10 minutes
           INTERVAL=15
           ELAPSED=0
@@ -308,7 +308,7 @@ jobs:
             const fs = require('fs');
             const checkRunId = Number(process.env.CHECK_RUN_ID);
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
-            const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
+            const previewBase = `https://test2.docs.influxdata.com/pr-preview/pr-${prNumber}`;
 
             let urls = [];
             try { urls = JSON.parse(process.env.PREVIEW_URLS); } catch {}
@@ -347,7 +347,7 @@ jobs:
           script: |
             const checkRunId = Number(process.env.CHECK_RUN_ID);
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
-            const previewUrl = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}/`;
+            const previewUrl = `https://test2.docs.influxdata.com/pr-preview/pr-${prNumber}/`;
 
             await github.rest.checks.update({
               owner: context.repo.owner,
