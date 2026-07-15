@@ -118,7 +118,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7338/docs-v2/pr-preview/pr-7338/influxdb3/enterprise/admin/tables/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-06-25T02:12:58-04:00","description":"Tables in {{\u003c product-name \u003e}} are synonymous with measurements and contain time series data. Each table has a defined schema with tag and field columns.","headline":"Manage tables","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/tables/","name":"Manage tables"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"articleSection":"Admin","dateModified":"2026-07-15T18:00:41-05:00","description":"Tables in {{\u003c product-name \u003e}} are synonymous with measurements and contain time series data. Each table has a defined schema with tag and field columns.","headline":"Manage tables","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7338/influxdb3/cloud/admin/tables/","name":"Manage tables"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -189,7 +189,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-06-25 02:12:58 -0400 -0400">
+<meta name="last-modified" content="2026-07-15 18:00:41 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -247,6 +247,7 @@
     
       <div class="selector-dropdowns">
         
+
 
 
 
@@ -1513,13 +1514,13 @@ before writing data.</p>
 			
 				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># CLI</span>
 </span></span><span class="line"><span class="cl">influxdb3 delete table <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --database &lt;DATABASE_NAME&gt; <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token &lt;AUTH_TOKEN&gt; <span class="se">\
-</span></span></span><span class="line"><span class="cl">  &lt;TABLE_NAME&gt;
+</span></span></span><span class="line"><span class="cl">  --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># HTTP API</span>
-</span></span><span class="line"><span class="cl">curl -X DELETE <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/configure/table?db=&lt;DATABASE_NAME&gt;&amp;table=&lt;TABLE_NAME&gt;&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer &lt;AUTH_TOKEN&gt;&#34;</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">curl -X DELETE <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/configure/table?db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&amp;table=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TABLE_NAME' class='code-placeholder' data-code-var='TABLE_NAME' data-code-var-value='TABLE_NAME' data-code-var-escaped="TABLE_NAME">TABLE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div>
 			
 
 			
@@ -2377,6 +2378,7 @@ pull command&ndash;for example:</p>
 </div>
 </div>
 
+  
   
   
 
