@@ -1455,7 +1455,7 @@ Once a database is deleted, data stored in that database cannot be recovered.</p
 <p>Enter <code>yes</code> to confirm that you want to delete the database.</p>
 <h2 id="delete-a-database-using-the-http-api">Delete a database using the HTTP API</h2>
 <p>To delete a database using the HTTP API, send a <code>DELETE</code> request to the <code>/api/v3/configure/database</code> endpoint:</p>
-<pre class="api-endpoint"><span class="api delete">DELETE</span> cluster-id.a.influxdb.io/api/v3/configure/database</pre>
+<pre class="api-endpoint"><span class="api delete">DELETE</span> instance-id.enterprise.influxdb.io/api/v3/configure/database</pre>
 <p>Include the following in your request:</p>
 <ul>
 <li><strong>Query parameters</strong>:
@@ -1469,7 +1469,7 @@ Once a database is deleted, data stored in that database cannot be recovered.</p
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request DELETE <span class="s2">&#34;cluster-id.a.influxdb.io/api/v3/configure/database?db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request DELETE <span class="s2">&#34;instance-id.enterprise.influxdb.io/api/v3/configure/database?db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>Replace the following:</p>
 <ul>
 <li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: the name of the database to delete</li>

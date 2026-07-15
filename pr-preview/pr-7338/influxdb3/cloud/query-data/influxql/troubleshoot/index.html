@@ -1470,7 +1470,7 @@ to query:</p>
 <li>
 <p>If using the <a href="/influxdb3/version/api/query-data/#operation/GetV1ExecuteQuery">InfluxDB v1 query API</a>,
 Include the <code>db</code> query parameter in your request:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --get https://cluster-id.a.influxdb.io/query <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --get https://instance-id.enterprise.influxdb.io/query <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;q=SHOW MEASUREMENTS&#34;</span></span></span></code></pre></div></li>

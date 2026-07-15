@@ -1730,7 +1730,7 @@ You can pass parameters in the query string or inside a JSON object.</p>
 <p>Use the <code>format</code> parameter to specify the response format: <code>pretty</code>, <code>jsonl</code>, <code>parquet</code>, <code>csv</code>, and <code>json</code>. Default is <code>json</code>.</p>
 <h5 id="example-query-passing-url-encoded-parameters">Example: Query passing URL-encoded parameters</h5>
 <p>The following example sends an HTTP <code>GET</code> request with a URL-encoded SQL query:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/query_sql&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/query_sql&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s1">&#39;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;q=select * from cpu limit 5&#34;</span></span></span></code></pre></div><p>Replace the following placeholders with your values:</p>
@@ -1741,7 +1741,7 @@ with permission to query the specified database</li>
 </ul>
 <h5 id="example-query-passing-json-parameters">Example: Query passing JSON parameters</h5>
 <p>The following example sends an HTTP <code>POST</code> request with parameters in a JSON payload:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://cluster-id.a.influxdb.io/api/v3/query_sql <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://instance-id.enterprise.influxdb.io/api/v3/query_sql <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{&#34;db&#34;: &#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;, &#34;q&#34;: &#34;select * from cpu limit 5&#34;}&#39;</span></span></span></code></pre></div><p>Replace the following placeholders with your values:</p>
 <ul>
 <li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: the name of the database to query</li>
@@ -1771,7 +1771,7 @@ We recommend installing the required packages in a Python virtual environment fo
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">client</span> <span class="o">=</span> <span class="n">InfluxDBClient3</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="n">token</span><span class="o">=</span><span class="s1">&#39;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">host</span><span class="o">=</span><span class="s1">&#39;http://cluster-id.a.influxdb.io&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">host</span><span class="o">=</span><span class="s1">&#39;http://instance-id.enterprise.influxdb.io&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></div><p>Replace the following placeholders with your values:</p>
 <ul>
@@ -1788,7 +1788,7 @@ To authorize the query, the example retrieves the <a href="/influxdb3/cloud/admi
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">client</span> <span class="o">=</span> <span class="n">InfluxDBClient3</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;INFLUXDB3_AUTH_TOKEN&#39;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="n">host</span><span class="o">=</span><span class="s1">&#39;http://cluster-id.a.influxdb.io&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">host</span><span class="o">=</span><span class="s1">&#39;http://instance-id.enterprise.influxdb.io&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;servers&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">

@@ -1455,7 +1455,7 @@ and retrieve data in JSON format.</p>
 			<p>Use SQL or InfluxQL and the InfluxDB v3 HTTP query API to query data in InfluxDB 3 Cloud.</p>
 			
 			
-				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --get https://cluster-id.a.influxdb.io/api/v3/query_sql <span class="se">\
+				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --get https://instance-id.enterprise.influxdb.io/api/v3/query_sql <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Token DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;db=DATABASE_NAME&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;q=SELECT * FROM home&#34;</span></span></span></code></pre></div>
@@ -1500,7 +1500,7 @@ and retrieve data in JSON format.</p>
 			<p>Use the InfluxDB v1 HTTP query API to query data in InfluxDB 3 Cloud with InfluxQL.</p>
 			
 			
-				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --get https://cluster-id.a.influxdb.io/query <span class="se">\
+				<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --get https://instance-id.enterprise.influxdb.io/query <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Token DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;db=DATABASE_NAME&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;q=SELECT * FROM home&#34;</span></span></span></code></pre></div>

@@ -1476,26 +1476,26 @@ To avoid any ambiguity, you can specify the precision of timestamps in your data
 
 
 <section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Auto precision (default) - timestamp magnitude determines precision</span>
-</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;cpu,host=server1 usage=50.0 1708976567&#34;</span></span></span></code></pre></div><p>The timestamp <code>1708976567</code> is automatically detected as seconds.</p>
 </section>
 
 
 <section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Explicit nanosecond precision</span>
-</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=nanosecond&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=nanosecond&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;cpu,host=server1 usage=50.0 1708976567000000000&#34;</span></span></span></code></pre></div></section>
 
 
 <section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Millisecond precision</span>
-</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=millisecond&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=millisecond&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;cpu,host=server1 usage=50.0 1708976567000&#34;</span></span></span></code></pre></div></section>
 
 
 <section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Second precision</span>
-</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=second&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=second&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;cpu,host=server1 usage=50.0 1708976567&#34;</span></span></span></code></pre></div></section>
 
@@ -1518,7 +1518,7 @@ To avoid any ambiguity, you can specify the precision of timestamps in your data
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;cpu,host=server2 usage=60.0 1708976568&#34;</span> <span class="p">|</span> gzip &gt; batch2.gz
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Concatenate and send in a single request</span>
-</span></span><span class="line"><span class="cl">cat batch1.gz batch2.gz <span class="p">|</span> curl <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">cat batch1.gz batch2.gz <span class="p">|</span> curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Encoding: gzip&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-binary @-</span></span></code></pre></div><h2 id="request-body">Request body</h2>
@@ -1530,7 +1530,7 @@ To avoid any ambiguity, you can specify the precision of timestamps in your data
 <p><em>The following example uses <a href="https://curl.se/">cURL</a> to send a write request using
 the <a href="/influxdb3/cloud/reference/sample-data/#get-started-home-sensor-data">Get started home sensor sample data</a>, but you can use any HTTP client.</em></p>
 <div class="custom-timestamps">
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v <span class="s2">&#34;http://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=second&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&amp;precision=second&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
 </span></span></span><span class="line"><span class="cl"><span class="s2">home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
 </span></span></span><span class="line"><span class="cl"><span class="s2">home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1735549200
@@ -1636,7 +1636,7 @@ home,room=Sunroom temp=&#34;hi&#34; 1735549200</code></pre><h3 id="accept-partia
 <li><strong>Debug and troubleshooting</strong>: Correlate client requests with specific server instances in distributed systems</li>
 </ul>
 <h4 id="example-response">Example response</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v <span class="s2">&#34;https://cluster-id.a.influxdb.io/api/v3/write_lp?db=sensors&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/write_lp?db=sensors&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;cpu,host=server1 usage=50.0&#34;</span></span></span></code></pre></div><p>The response headers contain the <code>cluster-uuid</code>:</p>
 <pre tabindex="0"><code>&lt; HTTP/1.1 204 No Content
