@@ -56,7 +56,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.10.0
+  latest_patch: 3.10.3
   placeholder_host: localhost:8181
   limits:
     database: 100
