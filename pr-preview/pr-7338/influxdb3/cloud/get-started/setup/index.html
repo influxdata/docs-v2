@@ -1444,21 +1444,20 @@ To get started, get your instance host from InfluxData, configure the
 <h2 id="get-your-instance">Get your instance</h2>
 <p>During early access, InfluxData provisions InfluxDB 3 Cloud instances for
 you. You can&rsquo;t sign up for the service yourself.
-To request early access, see
-<a href="https://www.influxdata.com/products/influxdb3-cloud/">InfluxDB 3 Cloud</a>.</p>
+To request early access, see the
+<a href="https://www.influxdata.com/products/influxdb3-cloud/">InfluxDB 3 Cloud product page</a>.</p>
 <p>After your instance is provisioned, InfluxData provides your instance
-<strong>host URL</strong>&ndash;the endpoint you connect to.
-You authenticate as a user with your InfluxData account in the following
-steps&ndash;there&rsquo;s no token to copy or store for interactive use.</p>
+<strong>host URL</strong>, which is the endpoint you connect to.
+You authenticate with your InfluxData account in the following steps.
+You don&rsquo;t copy or store a token for interactive use.</p>
 <h2 id="configure-the-influxdb3-cli">Configure the influxdb3 CLI</h2>
 <p>The <a href="/influxdb3/cloud/reference/cli/influxdb3/"><code>influxdb3</code> CLI</a> lets you
 administer your instance and write and query data from the command line.
-Because InfluxDB 3 Cloud is fully managed, there&rsquo;s nothing to install or run
-for InfluxDB 3 Cloud itself&ndash;you point the <code>influxdb3</code> CLI at your hosted
+Because InfluxDB 3 Cloud is fully managed, you don&rsquo;t install or run
+anything for the service itself. You point the <code>influxdb3</code> CLI at your hosted
 instance and log in with your InfluxData account.</p>
 <h3 id="connect-to-your-instance">Connect to your instance</h3>
-<p>The <code>influxdb3</code> CLI connects to <code>http://127.0.0.1:8181</code> by default, so set the
-<code>INFLUXDB3_HOST_URL</code> environment variable to your instance host URL:</p>
+<p>Set the <code>INFLUXDB3_HOST_URL</code> environment variable for the <code>influxdb3</code> CLI to connect to your instance host URL:</p>
 
 <div class="tabs-wrapper">
   
@@ -1495,15 +1494,15 @@ instance and log in with your InfluxData account.</p>
 <h3 id="log-in-to-your-instance">Log in to your instance</h3>
 <p><span id="set-your-token-for-authorization"></span></p>
 <p>Log in to your instance with the OAuth device-code flow.
-InfluxDB 3 Cloud uses your InfluxData account for authentication, so you
-don&rsquo;t manage static tokens for interactive use.</p>
+InfluxDB 3 Cloud authenticates you with your InfluxData account, so you
+don&rsquo;t need a token to use the CLI interactively.</p>
 <p>Run the following command and follow the printed instructions:</p>
 <!--pytest.mark.skip-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 auth login --oauth</span></span></code></pre></div><p>The command prints a URL and a one-time user code.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 auth login --oauth</span></span></code></pre></div><p>The output is a URL and a one-time user code.
 Open the URL in a browser, enter the code, and approve the request.
 After you approve, the CLI saves your credentials to
-<code>~/.influxdb3/credentials.json</code> and uses them automatically for subsequent
-commands&ndash;you don&rsquo;t need to pass a token.</p>
+<code>~/.influxdb3/credentials.json</code> and uses them automatically for later
+commands, so you don&rsquo;t need to pass a token.</p>
 
 <div class="block note">
   
@@ -1512,7 +1511,7 @@ commands&ndash;you don&rsquo;t need to pass a token.</p>
 If it&rsquo;s set, the <code>influxdb3</code> CLI uses that token instead of your logged-in
 session. Run <code>influxdb3 auth login --oauth</code> again when your session expires.</p>
 </div>
-<p>Verify that you&rsquo;re authenticated by listing your databases:</p>
+<p>List your databases to verify that you&rsquo;re authenticated:</p>
 <!--pytest.mark.skip-->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 show databases</span></span></code></pre></div><p>A successful response confirms that your host URL and login are configured
 correctly.</p>
@@ -1527,7 +1526,7 @@ getting started tutorial.
 <ul>
 <li>The database name</li>
 <li><em>Optional:</em> a database
-<a href="/influxdb3/cloud/admin/databases/">retention period</a>
+<a href="/influxdb3/cloud/admin/databases/#retention-periods">retention period</a>
 as a duration value. If no retention period is specified, the default is
 infinite.</li>
 </ul>
@@ -1552,7 +1551,7 @@ the database retention period as a duration</li>
 <p>Logging in authenticates you for interactive use with the <code>influxdb3</code> CLI.
 For applications and automated clients, create a <strong>database token</strong> scoped to
 only the databases and permissions it needs.
-Creating tokens requires admin privileges&ndash;if your user doesn&rsquo;t have admin
+Creating tokens requires admin privileges. If your user doesn&rsquo;t have admin
 access, ask an administrator to create a token for you.</p>
 <p>Use the
 <a href="/influxdb3/cloud/reference/cli/influxdb3/"><code>influxdb3 create token</code> command</a>
@@ -1569,10 +1568,16 @@ your database.</p>
 </span></span></span><span class="line"><span class="cl">  --permission <span class="s2">&#34;db:<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit get-started' class='code-placeholder' data-code-var='get-started' data-code-var-value='get-started' data-code-var-escaped="get-started">get-started<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>:read,write&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --name <span class="s2">&#34;Read/write token for <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit get-started' class='code-placeholder' data-code-var='get-started' data-code-var-value='get-started' data-code-var-escaped="get-started">get-started<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> database&#34;</span></span></span></code></pre></div><p>Replace <span class="code-placeholder-key"><code>get-started</code></span>
 with the name of the database to grant the token access to.</p>
-<p>The command returns the token string.
-Store the token string in a safe place.
-<strong>This is the only time the token string is available in plain text.</strong>
-Applications can authenticate with the token by setting the
+<p>The command returns the token string.</p>
+
+<div class="block important">
+  
+  
+  <h4 id="store-your-token-securely">Store your token securely</h4>
+<p>InfluxDB displays the token string only when you create it.
+Store your token securely—you cannot retrieve it from the database later.</p>
+</div>
+<p>Applications can authenticate with the token by setting the
 <code>INFLUXDB3_AUTH_TOKEN</code> environment variable or passing the <code>--token</code> option.</p>
 
 <div class="block note">
