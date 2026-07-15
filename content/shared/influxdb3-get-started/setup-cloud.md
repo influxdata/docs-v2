@@ -119,7 +119,7 @@ Provide the following:
 
 - The database name
 - _Optional:_ a database
-  [retention period](/influxdb3/cloud/reference/internals/data-retention/)
+  [retention period](/influxdb3/cloud/admin/databases/#retention-periods)
   as a duration value. If no retention period is specified, the default is
   infinite.
 

@@ -48,8 +48,8 @@ For setup steps, see
 
 <!-- TODO: Publish the full influxdb3 CLI reference for InfluxDB 3 Cloud. -->
 
-Because {{% product-name %}} runs the same InfluxDB 3 engine as
-InfluxDB 3 Enterprise, the `influxdb3` CLI behaves the same (except for
-server-management commands such as `serve`, which InfluxData manages for you).
+{{% product-name %}} runs the same InfluxDB 3 engine as InfluxDB 3 Enterprise,
+so the `influxdb3` CLI works the same way. Server-management commands like
+`serve` don't apply, because InfluxData runs the server for you.
 For full command syntax, see the
 [InfluxDB 3 Enterprise `influxdb3` CLI reference](/influxdb3/enterprise/reference/cli/influxdb3/).
