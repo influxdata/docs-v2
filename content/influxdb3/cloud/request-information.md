@@ -99,6 +99,7 @@ anchors that belonged to it. Tracked in influxdata/docs-v2#7391.
   <span id="operation/DeleteConfigureTable"></span>
   <span id="operation/GetConfigureDatabase"></span>
   <span id="operation/GetExecuteQuerySQL"></span>
+  <span id="operation/GetV1ExecuteQuery"></span>
   <span id="operation/PostConfigureDatabase"></span>
   <span id="operation/PostConfigureTable"></span>
   <span id="operation/update_database"></span>
