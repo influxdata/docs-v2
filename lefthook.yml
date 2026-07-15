@@ -1,6 +1,14 @@
 #   Refer for explanation to following link:
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
+# Glob semantics (default gobwas matcher, verified empirically on lefthook
+# 1.13.6 — the published docs are misleading here, so test before trusting):
+#   - A single `*` SPANS path separators. `content/influxdb3/cloud/*.md`
+#     matches both `cloud/x.md` and `cloud/admin/x.md`, so `dir/*.md` covers a
+#     whole subtree at any depth. Prefer this to scope a lint to a subtree.
+#   - `**` requires an intermediate segment. `dir/**/*.md` matches nested files
+#     but NOT direct children, and `content/**/*.md` misses `content/*.md`.
+#
 
 pre-commit:
   parallel: true
@@ -33,6 +41,18 @@ pre-commit:
       glob: "content/**/*.md"
       run: .ci/scripts/check-source-paths.sh {staged_files}
       fail_text: "source: values must start with /shared/ (see DOCS-CONTRIBUTING.md § Shared Content)"
+    check-v3-cli-version:
+      tags: lint,v3
+      # lefthook's default gobwas glob: a single * spans path separators, so
+      # these patterns match each subtree at any depth (verified on lefthook
+      # 1.13.6). The script filters to bundled-CLI paths.
+      glob:
+        - "content/influxdb3/core/*.md"
+        - "content/influxdb3/enterprise/*.md"
+        - "content/influxdb3/cloud/*.md"
+        - "content/shared/*.md"
+      run: .ci/scripts/check-v3-cli-version.sh {staged_files}
+      fail_text: "latest-patch cli=true renders the v2 influx CLI version — wrong for the bundled influxdb3 CLI (Core/Enterprise/Cloud). Use {{< latest-patch >}} without cli=true."
     check-render-hook-whitespace:
       tags: lint
       glob: "layouts/_default/_markup/render-*.html"
@@ -130,6 +150,14 @@ pre-commit:
       tags: lint,v3
       glob:
         - 'content/influxdb3/enterprise/*.md'
+        - 'content/shared/*.md'
+      run: '.ci/vale/vale.sh
+        --config=.vale.ini
+        --minAlertLevel=error {staged_files}'
+    influxdb3-cloud-lint:
+      tags: lint,v3
+      glob:
+        - 'content/influxdb3/cloud/*.md'
         - 'content/shared/*.md'
       run: '.ci/vale/vale.sh
         --config=.vale.ini

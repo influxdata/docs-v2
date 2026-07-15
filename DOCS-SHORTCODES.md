@@ -133,8 +133,6 @@ Use the `{{< latest-patch cli=true >}}` shortcode to add the latest version of t
 
 ```md
 {{< latest-patch cli=true >}}
-
-{{< latest-cli version="2.1" >}}
 ```
 
 ## API Documentation
