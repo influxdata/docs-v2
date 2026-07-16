@@ -19,6 +19,63 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.10.4 {date="2026-07-14"}
+
+### Core
+
+Maintenance release: v3.10.4 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Skip loading the compacted data file index**: The new `--compacted-data-skip-file-index` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` environment variable, default `false`) loads compacted data without materializing the file index, letting nodes start when the index has grown too large to fit in host memory. Queries remain correct, but will run slower in exchange for a lower memory footprint.
+
+#### Bug fixes
+
+- **Skipped gen1 files in recompaction plans**: Gen1 files pulled into a recompaction plan that was skipped for exceeding the file limit are now carried into later plans' leftover lists. Previously, when the recompaction loop produced multiple plans for one table in a single cycle, those files were dropped from the final persisted compaction detail; the files remained in object storage, but no query path would serve them.
+- Other bug fixes and performance improvements
+
+## v3.9.10 {date="2026-07-14"}
+
+### Core
+
+Maintenance release: v3.9.10 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Skipped gen1 files in recompaction plans**: Gen1 files pulled into a recompaction plan that was skipped for exceeding the file limit are now carried into later plans' leftover lists. Previously, when the recompaction loop produced multiple plans for one table in a single cycle, those files were dropped from the final persisted compaction detail; the files remained in object storage, but no query path would serve them.
+- Other bug fixes and performance improvements
+
+## v3.9.9 {date="2026-07-08"}
+
+### Core
+
+#### Bug fixes
+
+- **Object store errors at startup**: When the catalog checkpoint existence check fails at startup, the underlying object store error is now logged and included in the reported error. Previously, the process exited with an opaque status code and no indication of the cause.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Skip loading the compacted data file index**: The new `--compacted-data-skip-file-index` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` environment variable, default `false`) loads compacted data without materializing the file index, letting nodes start when the index has grown too large to fit in host memory. Queries remain correct, but will run slower in exchange for a lower memory footprint.
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
 ## v3.10.3 {date="2026-07-07"}
 
 ### Core
