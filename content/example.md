@@ -1637,3 +1637,26 @@ green and red tints.
            memory: 2Gi
 ```
 
+## influxdb/host and influxdb/host-url shortcodes
+
+Use `influxdb/host` to render the host placeholder only, and `influxdb/host-url`
+to render the full base URL (`scheme://host`) for the current product. The
+scheme comes from the product `scheme` value in `data/products.yml`, so
+self-managed products with a localhost host render `http://` and managed
+products render `https://`.
+
+Host only:
+
+{{< influxdb/host >}}
+
+Host URL (scheme + host):
+
+{{< influxdb/host-url >}}
+
+In a code block:
+
+```sh
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=DATABASE_NAME" \
+  --header "Authorization: Bearer DATABASE_TOKEN"
+```
+
