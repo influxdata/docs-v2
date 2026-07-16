@@ -118,6 +118,7 @@ retrieve information about columns in the sample `system_swap` table schema:
 _Note: when you send a query in JSON, you must escape single quotes
 that surround field names._
 
+{{% hide-in "cloud" %}}
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -127,6 +128,18 @@ curl "http://localhost:8181/api/v3/query_sql" \
     "format": "jsonl"
   }'
 ```
+{{% /hide-in %}}
+{{% show-in "cloud" %}}
+```bash
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "mydb",
+    "q": "SELECT * FROM information_schema.columns WHERE table_schema = '"'iox'"' AND table_name = '"'system_swap'"'",
+    "format": "jsonl"
+  }'
+```
+{{% /show-in %}}
 
 The output is similar to the following:
 
@@ -145,6 +158,7 @@ The output is similar to the following:
 
 To view recently executed queries, query the `queries` system table:
 
+{{% hide-in "cloud" %}}
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -154,6 +168,18 @@ curl "http://localhost:8181/api/v3/query_sql" \
     "format": "jsonl"
   }'
 ```
+{{% /hide-in %}}
+{{% show-in "cloud" %}}
+```bash
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "mydb",
+    "q": "SELECT * FROM system.queries LIMIT 2",
+    "format": "jsonl"
+  }'
+```
+{{% /show-in %}}
 
 The output is similar to the following:
 

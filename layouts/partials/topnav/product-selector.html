@@ -22,6 +22,10 @@ Identify products by their product path. Dictionary schema:
 {{ $influxdbCloud := dict "influxdb/cloud" (slice $.Site.Data.products.influxdb_cloud.name "cloud") }}
 {{ $influxdb3Core := dict "influxdb3/core" (slice $.Site.Data.products.influxdb3_core.name "core") }}
 {{ $influxdb3Enterprise := dict "influxdb3/enterprise" (slice $.Site.Data.products.influxdb3_enterprise.name "enterprise") }}
+{{/* alt_link key is "cloud3", not "cloud": the "cloud" key already belongs to
+     influxdb/cloud (TSM) above. Both products use the "cloud" version slug, so
+     this product needs a distinct alt_link key to avoid colliding with it. */}}
+{{ $influxdb3Cloud := dict "influxdb3/cloud" (slice $.Site.Data.products.influxdb3_cloud.name "cloud3") }}
 {{ $influxdb3Explorer := dict "influxdb3/explorer" (slice $.Site.Data.products.influxdb3_explorer.name "explorer") }}
 {{ $influxdb3CloudServerless := dict "influxdb3/cloud-serverless" (slice $.Site.Data.products.influxdb3_cloud_serverless.name "cloud-serverless") }}
 {{ $influxdb3CloudDedicated := dict "influxdb3/cloud-dedicated" (slice $.Site.Data.products.influxdb3_cloud_dedicated.name "cloud-dedicated") }}
@@ -35,7 +39,7 @@ Identify products by their product path. Dictionary schema:
 {{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 {{ $influxdbCloud1 := dict "influxcloud/v1" (slice $.Site.Data.products.influxdb_cloud1.name "v1") }}
 
-{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $telegrafEnterprise $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb $influxdbCloud1 }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3Cloud $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $telegrafEnterprise $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb $influxdbCloud1 }}
 
 {{ define "productLink" }}
   {{ $specialLink := "" }}
@@ -68,6 +72,7 @@ Identify products by their product path. Dictionary schema:
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/clustered") $templateDefaults) }}</li>
       </ul>
       <ul class="item-list products" data-category="Fully-Managed">
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud" "state" "New") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud-serverless") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/cloud-dedicated") $templateDefaults) }}</li>
       </ul>
@@ -108,4 +113,3 @@ Identify products by their product path. Dictionary schema:
     </div>
   </div>
 </div>
-

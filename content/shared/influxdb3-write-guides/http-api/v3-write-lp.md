@@ -158,8 +158,10 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1735588800"
 - [Partial writes](#partial-writes)
   - [Accept partial writes](#accept-partial-writes)
   - [Do not accept partial writes](#do-not-accept-partial-writes)
+{{% hide-in "cloud" %}}
 - [Write responses](#write-responses)
   - [Use no\_sync for immediate write responses](#use-no_sync-for-immediate-write-responses)
+{{% /hide-in %}}
 
 > \[!Note]
 >
@@ -230,6 +232,7 @@ With `accept_partial=false`, InfluxDB:
 *For more information about the ingest path and data flow, see
 [Data durability](/influxdb3/version/reference/internals/durability/).*
 
+{{% hide-in "cloud" %}}
 ## Write responses
 
 By default, {{% product-name %}} acknowledges writes after flushing the WAL file
@@ -261,6 +264,7 @@ persistence:
 curl "http://localhost:8181/api/v3/write_lp?db=sensors&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
 ```
+{{% /hide-in %}}
 
 ## Response headers
 
@@ -286,11 +290,20 @@ The `cluster-uuid` header enables you to:
 
 #### Example response
 
+{{% hide-in "cloud" %}}
 ```bash
 curl -v "http://localhost:8181/api/v3/write_lp?db=sensors" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0"
 ```
+{{% /hide-in %}}
+{{% show-in "cloud" %}}
+```bash
+curl -v "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0"
+```
+{{% /show-in %}}
 
 The response headers contain the `cluster-uuid`:
 
