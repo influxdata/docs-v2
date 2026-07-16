@@ -304,7 +304,7 @@ Use the `format` parameter to specify the response format: `pretty`, `jsonl`, `p
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
 ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
-curl -G "http://{{< influxdb/host >}}/api/v3/query_sql" \
+curl -G "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --header 'Authorization: Bearer AUTH_TOKEN' \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=select * from cpu limit 5"
@@ -320,7 +320,7 @@ Replace the following placeholders with your values:
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
-curl http://{{< influxdb/host >}}/api/v3/query_sql \
+curl {{< influxdb/host-url >}}/api/v3/query_sql \
   --data '{"db": "DATABASE_NAME", "q": "select * from cpu limit 5"}'
 ```
 
@@ -351,7 +351,7 @@ from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
     token='AUTH_TOKEN',
-    host='http://{{< influxdb/host >}}',
+    host='{{< influxdb/host-url >}}',
     database='DATABASE_NAME'
 )
 ```
@@ -372,7 +372,7 @@ import os
 
 client = InfluxDBClient3(
     token=os.environ.get('INFLUXDB3_AUTH_TOKEN'),
-    host='http://{{< influxdb/host >}}',
+    host='{{< influxdb/host-url >}}',
     database='servers'
 )
 

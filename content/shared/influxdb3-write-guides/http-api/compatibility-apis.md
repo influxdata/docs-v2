@@ -57,7 +57,7 @@ Authorization: Token DATABASE_TOKEN
 Use `Bearer` to authenticate a v2 write request:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl -i "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+curl -i "{{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
     --header "Authorization: Bearer DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
@@ -66,7 +66,7 @@ curl -i "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
 Use `Token` to authenticate a v2 write request:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl -i "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+curl -i "{{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
     --header "Authorization: Token DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
@@ -146,7 +146,7 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 The following example shows how to use cURL with the `Basic` authentication scheme:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
+curl -i "{{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s" \
   --user "any:DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary 'home,room=kitchen temp=72 1641024000'
@@ -160,7 +160,7 @@ When authenticating requests, {{< product-name >}} checks that the `p` (_passwor
 ###### Syntax
 
 ```sh
-https://{{< influxdb/host >}}/write/?u=any&p=DATABASE_TOKEN
+{{< influxdb/host-url >}}/write/?u=any&p=DATABASE_TOKEN
 ```
 
 ###### Example
@@ -168,7 +168,7 @@ https://{{< influxdb/host >}}/write/?u=any&p=DATABASE_TOKEN
 The following example shows how to use cURL with query string authentication:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s&p=DATABASE_TOKEN" \
+curl -i "{{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s&p=DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
@@ -198,7 +198,7 @@ Authorization: Token DATABASE_TOKEN
 Use `Bearer` to authenticate a v1 write request:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
+curl -i "{{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s" \
     --header "Authorization: Bearer DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
@@ -207,7 +207,7 @@ curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
 Use `Token` to authenticate a v1 write request:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
+curl -i "{{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s" \
     --header "Authorization: Token DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
@@ -284,7 +284,7 @@ const client = new Influx.InfluxDB({
 
 Create a v1 API client using the [influxdb-python](/influxdb/v1/tools/api_client_libraries/#python) Python client library:
 
-```py { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb import InfluxDBClient
 
 # Instantiate a client for writing to {{% product-name %}} v1 API
@@ -328,7 +328,7 @@ To configure the v1.x output plugin for writing to {{< product-name >}}, add the
 
 ```toml { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 [[outputs.influxdb]]
-  urls = ["https://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   database = "DATABASE_NAME"
   skip_database_creation = true
   retention_policy = ""

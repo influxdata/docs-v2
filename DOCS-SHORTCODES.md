@@ -1230,6 +1230,24 @@ The InfluxDB host placeholder that gets replaced by custom domains differs betwe
 {{< influxdb/host "serverless" >}}
 ```
 
+#### Automatically populate InfluxDB host URL with scheme
+
+Use the `influxdb/host-url` shortcode to render the full base URL
+(`scheme://host`) for the current product.
+It combines the product `scheme` and `placeholder_host` values from
+`data/products.yml`, so shared content doesn't hardcode a URL scheme.
+Self-managed products with a localhost host (Core, Enterprise, OSS) render
+`http://`; managed products (Cloud Serverless, Cloud Dedicated, Clustered,
+Cloud) render `https://`.
+
+Use `influxdb/host-url` instead of hardcoding a scheme in front of the
+`influxdb/host` shortcode--for example, use `{{< influxdb/host-url >}}` instead
+of `http://{{< influxdb/host >}}`.
+
+```md
+{{< influxdb/host-url >}}
+```
+
 ***
 
 **For working examples**: Test all shortcodes in [content/example.md](content/example.md)

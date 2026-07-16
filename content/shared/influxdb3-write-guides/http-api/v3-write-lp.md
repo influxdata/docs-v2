@@ -45,7 +45,7 @@ The following examples show how to write data with different timestamp precision
 
 ```bash
 # Auto precision (default) - timestamp magnitude determines precision
-curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
+curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567"
 ```
@@ -56,7 +56,7 @@ The timestamp `1708976567` is automatically detected as seconds.
 
 ```bash
 # Explicit nanosecond precision
-curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=nanosecond" \
+curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=nanosecond" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567000000000"
 ```
@@ -66,7 +66,7 @@ curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=nanoseco
 
 ```bash
 # Millisecond precision
-curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=millisecond" \
+curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=millisecond" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567000"
 ```
@@ -76,7 +76,7 @@ curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=millisec
 
 ```bash
 # Second precision
-curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=second" \
+curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=second" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567"
 ```
@@ -106,7 +106,7 @@ echo "cpu,host=server1 usage=50.0 1708976567" | gzip > batch1.gz
 echo "cpu,host=server2 usage=60.0 1708976568" | gzip > batch2.gz
 
 # Concatenate and send in a single request
-cat batch1.gz batch2.gz | curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
+cat batch1.gz batch2.gz | curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Encoding: gzip" \
   --data-binary @-
@@ -124,7 +124,7 @@ the {{< influxdb3/home-sample-link >}}, but you can use any HTTP client.*
 {{% influxdb/custom-timestamps %}}
 
 ```bash
-curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=second" \
+curl -v "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=second" \
   --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1735549200
