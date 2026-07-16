@@ -47,21 +47,21 @@ Set the `INFLUXDB3_HOST_URL` environment variable for the `influxdb3` CLI to con
 {{% tab-content %}}
 
 ```sh
-export INFLUXDB3_HOST_URL=https://{{< influxdb/host >}}
+export INFLUXDB3_HOST_URL={{< influxdb/host-url >}}
 ```
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
 ```powershell
-$env:INFLUXDB3_HOST_URL = "https://{{< influxdb/host >}}"
+$env:INFLUXDB3_HOST_URL = "{{< influxdb/host-url >}}"
 ```
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
 ```sh
-set INFLUXDB3_HOST_URL=https://{{< influxdb/host >}} 
+set INFLUXDB3_HOST_URL={{< influxdb/host-url >}} 
 # Make sure to include a space character at the end of this command.
 ```
 

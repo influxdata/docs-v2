@@ -18,7 +18,7 @@ list_code_example: |
     TABLE_NAME
 
   # HTTP API
-  curl --request POST "https://{{< influxdb/host >}}/api/v3/configure/table" \
+  curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer AUTH_TOKEN" \
     --data '{
