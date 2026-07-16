@@ -17,7 +17,7 @@ list_code_example: |
     TABLE_NAME
 
   # HTTP API
-  curl -X DELETE "https://{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME" \
+  curl -X DELETE "{{< influxdb/host-url >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME" \
     --header "Authorization: Bearer AUTH_TOKEN"
   ```
 related:

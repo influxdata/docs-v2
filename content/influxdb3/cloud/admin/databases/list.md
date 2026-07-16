@@ -12,7 +12,7 @@ list_code_example: |
   influxdb3 show databases
 
   # HTTP API
-  curl --request GET "https://{{< influxdb/host >}}/api/v3/configure/database" \
+  curl --request GET "{{< influxdb/host-url >}}/api/v3/configure/database" \
     --header "Authorization: Bearer AUTH_TOKEN"
   ```
 related:

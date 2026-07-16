@@ -299,7 +299,7 @@ curl -v "http://localhost:8181/api/v3/write_lp?db=sensors" \
 {{% /hide-in %}}
 {{% show-in "cloud" %}}
 ```bash
-curl -v "https://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
+curl -v "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0"
 ```

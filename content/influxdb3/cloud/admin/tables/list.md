@@ -17,7 +17,7 @@ list_code_example: |
     "SHOW TABLES"
 
   # HTTP API
-  curl --get "https://{{< influxdb/host >}}/api/v3/query_sql" \
+  curl --get "{{< influxdb/host-url >}}/api/v3/query_sql" \
     --header "Authorization: Bearer AUTH_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SHOW TABLES"
