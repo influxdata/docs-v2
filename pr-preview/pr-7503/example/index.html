@@ -184,7 +184,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-07-16 10:48:26 &#43;0000 UTC">
+<meta name="last-modified" content="2026-07-16 10:55:46 &#43;0000 UTC">
     
 <script type="text/javascript">
 (function() {
@@ -3856,6 +3856,18 @@ https://localhost:8086
 <p>In a code block:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s2">&#34;https://localhost:8086/api/v3/query_sql?db=DATABASE_NAME&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer DATABASE_TOKEN&#34;</span></span></span></code></pre></div>
+<div class="block note">
+  
+  
+  <p>This page has no <code>product</code> frontmatter, so the shortcodes above fall back to
+their defaults: <code>localhost:8086</code> for the host and <code>https</code> for the scheme.
+The resulting <code>https://localhost:8086</code> is a nonsensical combination that only
+appears here because there is no product context to resolve.
+On real product pages, <code>influxdb/host-url</code> renders the product-correct scheme
+and host&ndash;for example, <code>http://localhost:8181</code> for Core and Enterprise or
+<code>https://cluster-host.com</code> for Clustered.</p>
+</div>
+
 
 
     
