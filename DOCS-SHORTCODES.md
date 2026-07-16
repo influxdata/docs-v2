@@ -1248,6 +1248,31 @@ of `http://{{< influxdb/host >}}`.
 {{< influxdb/host-url >}}
 ```
 
+##### Choose between influxdb/host and influxdb/host-url
+
+`influxdb/host` renders the host only (no scheme).
+`influxdb/host-url` renders `scheme://host`.
+Choosing the wrong one produces broken examples, so match the shortcode to the
+context.
+
+Use `influxdb/host-url` where the value is a full base URL:
+
+- A `curl` request URL, for example `curl "{{< influxdb/host-url >}}/api/v3/query_sql"`.
+- An `api-endpoint` `endpoint=` value.
+- An environment variable or code assignment that expects a full URL, for
+  example `INFLUXDB3_HOST_URL={{< influxdb/host-url >}}`.
+
+Use `influxdb/host` (bare host) where the field expects a hostname, not a URL,
+and the scheme is set separately. Converting these to a full URL breaks the
+example:
+
+- A client `host` field paired with a separate scheme, for example node-influx
+  (`host:` with `protocol:` and `port:`) or influxdb-python (`host=` with
+  `ssl=True`).
+- `InfluxDBClient3(host="{{< influxdb/host >}}")`, where the client adds the
+  scheme.
+- Server or CLI configuration that expects a hostname.
+
 ***
 
 **For working examples**: Test all shortcodes in [content/example.md](content/example.md)

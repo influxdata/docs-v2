@@ -1660,6 +1660,10 @@ curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=DATABASE_NAME" \
   --header "Authorization: Bearer DATABASE_TOKEN"
 ```
 
+In an API endpoint:
+
+{{< api-endpoint endpoint="{{< influxdb/host-url >}}/query" method="get" >}}
+
 > [!Note]
 > This page has no `product` frontmatter, so the shortcodes above fall back to
 > their defaults: `localhost:8086` for the host and `https` for the scheme.
@@ -1668,4 +1672,3 @@ curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=DATABASE_NAME" \
 > On real product pages, `influxdb/host-url` renders the product-correct scheme
 > and host--for example, `http://localhost:8181` for Core and Enterprise or
 > `https://cluster-host.com` for Clustered.
-

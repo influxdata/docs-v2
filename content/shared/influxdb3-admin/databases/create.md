@@ -53,7 +53,7 @@ Replace the following:
 
 To create a database using the HTTP API, send a `POST` request to the `/api/v3/configure/database` endpoint:
 
-{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/database" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host-url >}}/api/v3/configure/database" %}}
 
 Include the following in your request:
 
@@ -75,7 +75,7 @@ Include the following in your request:
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Create a database with a 30-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -84,7 +84,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
   }'
 
 # Create a database with a 90-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -93,7 +93,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
   }'
 
 # Create a database with infinite retention (default)
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{

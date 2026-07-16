@@ -113,7 +113,7 @@ influxdb3 show databases --show-deleted
 
 To list databases using the HTTP API, send a `GET` request to the `/api/v3/configure/database` endpoint.
 
-{{% api-endpoint method="GET" endpoint="{{< influxdb/host >}}/api/v3/configure/database?format=pretty" %}}
+{{% api-endpoint method="GET" endpoint="{{< influxdb/host-url >}}/api/v3/configure/database?format=pretty" %}}
 
 Include the `format` query parameter and specify one of the following formats:
 
@@ -139,7 +139,7 @@ Include the following in your request:
   - `format=pretty`
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=pretty" \
+curl --request GET "{{< influxdb/host-url >}}/api/v3/configure/database?format=pretty" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -168,7 +168,7 @@ Include the following in your request:
   - `format=json`
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=json" \
+curl --request GET "{{< influxdb/host-url >}}/api/v3/configure/database?format=json" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -200,7 +200,7 @@ Include the following in your request:
 - An output destination for the Parquet file
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
+curl "{{< influxdb/host-url >}}/api/v3/configure/database?format=parquet" \
   -o databases.parquet \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
