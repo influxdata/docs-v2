@@ -343,7 +343,8 @@ Instead of configuring connections through the UI, you can pre-define connection
    >   `--add-host=host.docker.internal:host-gateway` with `docker run`, or
    >   `extra_hosts: ["host.docker.internal:host-gateway"]` with Docker Compose.
    >
-   > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/).
+   > For Docker Desktop details, see the [Docker Desktop networking documentation](https://docs.docker.com/desktop/features/networking/).
+   > For Linux Docker Engine details, see the [Docker daemon documentation](https://docs.docker.com/reference/cli/dockerd/#configure-host-gateway-ip).
 
 2. **Mount the configuration directory:**
 
