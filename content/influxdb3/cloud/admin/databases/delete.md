@@ -13,7 +13,7 @@ list_code_example: |
   influxdb3 delete database DATABASE_NAME
 
   # HTTP API
-  curl --request DELETE "https://{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME" \
+  curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME" \
     --header "Authorization: Bearer AUTH_TOKEN"
   ```
 related:

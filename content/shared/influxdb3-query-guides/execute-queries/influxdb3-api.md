@@ -131,7 +131,7 @@ curl "http://localhost:8181/api/v3/query_sql" \
 {{% /hide-in %}}
 {{% show-in "cloud" %}}
 ```bash
-curl "https://{{< influxdb/host >}}/api/v3/query_sql" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
     "db": "mydb",
@@ -171,7 +171,7 @@ curl "http://localhost:8181/api/v3/query_sql" \
 {{% /hide-in %}}
 {{% show-in "cloud" %}}
 ```bash
-curl "https://{{< influxdb/host >}}/api/v3/query_sql" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
     "db": "mydb",

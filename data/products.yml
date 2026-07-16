@@ -101,6 +101,7 @@ influxdb3_cloud:
   latest: cloud
   link: 'https://www.influxdata.com/contact-sales/'
   placeholder_host: instance-id.enterprise.influxdb.io
+  scheme: https
   version_label: Cloud
   distributed_architecture: true
   limits:
