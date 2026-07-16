@@ -50,7 +50,7 @@ influxdb3 query \
 
 To list tables using the HTTP API, send a `GET` request to the `/api/v3/query_sql` endpoint with a `SHOW TABLES` query:
 
-{{% api-endpoint method="GET" endpoint="{{< influxdb/host >}}/api/v3/query_sql" %}}
+{{% api-endpoint method="GET" endpoint="{{< influxdb/host-url >}}/api/v3/query_sql" %}}
 
 Include the following in your request:
 
@@ -62,7 +62,7 @@ Include the following in your request:
   - `Authorization: Bearer` with your authentication token
 
 ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
-curl --get "{{< influxdb/host >}}/api/v3/query_sql" \
+curl --get "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SHOW TABLES" \
@@ -100,7 +100,7 @@ Replace the following:
 To get the response in CSV format, set the `format` parameter to `csv`:
 
 ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
-curl --get "{{< influxdb/host >}}/api/v3/query_sql" \
+curl --get "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SHOW TABLES" \

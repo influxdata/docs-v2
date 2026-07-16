@@ -35,7 +35,7 @@ Include the following parameters:
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -44,7 +44,7 @@ curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+c
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash
-curl http://{{< influxdb/host >}}/api/v3/query_sql \
+curl {{< influxdb/host-url >}}/api/v3/query_sql \
   --header "Authorization: Bearer AUTH_TOKEN" 
   --json '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
@@ -73,7 +73,7 @@ tables (`"table_schema":"iox"`), system tables, and information schema tables
 for a database:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -183,7 +183,7 @@ Include the following parameters:
 The following example sends an HTTP `GET` request with a URL-encoded InfluxQL query:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5" \
+curl "{{< influxdb/host-url >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -192,7 +192,7 @@ curl "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+f
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash
-curl http://{{< influxdb/host >}}/api/v3/query_influxql \
+curl {{< influxdb/host-url >}}/api/v3/query_influxql \
   --header "Authorization: Bearer AUTH_TOKEN" \ 
   --json '{"db": "server", "q": "select * from cpu limit 5"}'
 ```

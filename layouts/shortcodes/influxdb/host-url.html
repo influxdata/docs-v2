@@ -1,0 +1,18 @@
+{{- /*
+  Render the full base URL (scheme://host) for the current InfluxDB product.
+
+  Combines the product `scheme` and `placeholder_host` values from
+  data/products.yml so shared content doesn't hardcode a URL scheme. Core,
+  Enterprise, and other self-managed products that default to a localhost host
+  render `http://`; managed products (Cloud Serverless, Cloud Dedicated,
+  Clustered, Cloud) render `https://`.
+
+  Usage:
+    {{< influxdb/host-url >}}
+
+  Pair with the `influxdb/host` shortcode, which renders the host only.
+*/ -}}
+{{- $productData := partial "product/get-data.html" . -}}
+{{- $scheme := $productData.scheme | default "https" -}}
+{{- $host := $productData.placeholder_host | default "localhost:8086" -}}
+{{- printf "%s://%s" $scheme $host -}}
