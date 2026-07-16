@@ -27,6 +27,7 @@ const PAGES = {
     '/influxdb3/cloud-dedicated/reference/sample-data/',
   influxdb3_clustered: '/influxdb3/clustered/reference/sample-data/',
 };
+const EXAMPLE_PAGE = '/example/';
 
 // Visit with cleared URL storage so the customizer renders default placeholders.
 function visitClean(path) {
@@ -72,5 +73,12 @@ describe('influxdb/host-url shortcode', function () {
           .and('not.contain', `http://${placeholder_host}`);
       });
     });
+  });
+
+  it('renders host-url when nested in api-endpoint', function () {
+    visitClean(EXAMPLE_PAGE);
+    cy.get('pre.api-endpoint')
+      .should('contain.text', 'https://localhost:8086/query')
+      .and('not.contain.text', '{{< influxdb/host-url >}}');
   });
 });
