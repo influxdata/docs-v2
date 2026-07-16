@@ -57,7 +57,8 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
        >   `--add-host=host.docker.internal:host-gateway` with `docker run`, or
        >   `extra_hosts: ["host.docker.internal:host-gateway"]` with Docker Compose.
        >
-       > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/).
+       > For Docker Desktop details, see the [Docker Desktop networking documentation](https://docs.docker.com/desktop/features/networking/).
+       > For Linux Docker Engine details, see the [Docker daemon documentation](https://docs.docker.com/reference/cli/dockerd/#configure-host-gateway-ip).
 
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
       We recommend using an InfluxDB 3 _admin_ token.
