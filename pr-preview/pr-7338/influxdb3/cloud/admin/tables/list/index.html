@@ -1456,7 +1456,7 @@ This guide shows how to retrieve a list of all tables (measurements) in a databa
 </span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;SHOW MEASUREMENTS&#34;</span></span></span></code></pre></div><h2 id="list-tables-using-the-http-api">List tables using the HTTP API</h2>
 <p>To list tables using the HTTP API, send a <code>GET</code> request to the <code>/api/v3/query_sql</code> endpoint with a <code>SHOW TABLES</code> query:</p>
-<pre class="api-endpoint"><span class="api get">GET</span> instance-id.enterprise.influxdb.io/api/v3/query_sql</pre>
+<pre class="api-endpoint"><span class="api get">GET</span> https://instance-id.enterprise.influxdb.io/api/v3/query_sql</pre>
 <p>Include the following in your request:</p>
 <ul>
 <li><strong>Query parameters</strong>:
@@ -1472,7 +1472,7 @@ This guide shows how to retrieve a list of all tables (measurements) in a databa
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --get <span class="s2">&#34;instance-id.enterprise.influxdb.io/api/v3/query_sql&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --get <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/query_sql&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;q=SHOW TABLES&#34;</span> <span class="se">\
@@ -1499,7 +1499,7 @@ This guide shows how to retrieve a list of all tables (measurements) in a databa
 </span></span><span class="line"><span class="cl">  <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="get-response-in-csv-format">Get response in CSV format</h3>
 <p>To get the response in CSV format, set the <code>format</code> parameter to <code>csv</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --get <span class="s2">&#34;instance-id.enterprise.influxdb.io/api/v3/query_sql&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --get <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/query_sql&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;db=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;q=SHOW TABLES&#34;</span> <span class="se">\

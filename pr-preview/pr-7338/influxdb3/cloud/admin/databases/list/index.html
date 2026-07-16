@@ -1538,7 +1538,7 @@ Use the <code>--output</code> option to specify the file where you want to save 
 <code>influxdb3 show databases</code> command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 show databases --show-deleted</span></span></code></pre></div><h2 id="list-databases-using-the-http-api">List databases using the HTTP API</h2>
 <p>To list databases using the HTTP API, send a <code>GET</code> request to the <code>/api/v3/configure/database</code> endpoint.</p>
-<pre class="api-endpoint"><span class="api get">GET</span> instance-id.enterprise.influxdb.io/api/v3/configure/database?format=pretty</pre>
+<pre class="api-endpoint"><span class="api get">GET</span> https://instance-id.enterprise.influxdb.io/api/v3/configure/database?format=pretty</pre>
 <p>Include the <code>format</code> query parameter and specify one of the following formats:</p>
 <ul>
 <li><code>pretty</code></li>
@@ -1578,7 +1578,7 @@ Use the <code>--output</code> option to specify the file where you want to save 
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;instance-id.enterprise.influxdb.io/api/v3/configure/database?format=pretty&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/configure/database?format=pretty&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>The response body contains a table of database names:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">+---------------------+
 </span></span><span class="line"><span class="cl">| iox::database       |
@@ -1608,7 +1608,7 @@ Use the <code>--output</code> option to specify the file where you want to save 
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;instance-id.enterprise.influxdb.io/api/v3/configure/database?format=json&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --request GET <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/configure/database?format=json&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>The response body contains a JSON array of database objects whose keys are <code>iox::database</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
@@ -1644,7 +1644,7 @@ Use the <code>--output</code> option to specify the file where you want to save 
 <p>An output destination for the Parquet file</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;instance-id.enterprise.influxdb.io/api/v3/configure/database?format=parquet&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/configure/database?format=parquet&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  -o databases.parquet <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div><p>For Parquet responses, you must provide an output destination because the format is binary.</p>
 <p>The response contains the databases list.</p>

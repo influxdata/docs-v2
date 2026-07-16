@@ -1467,10 +1467,10 @@ JSONL (<code>jsonl</code>) is preferred because it streams results back to the c
 </ul>
 <h3 id="example-query-passing-url-encoded-parameters">Example: Query passing URL-encoded parameters</h3>
 <p>The following example sends an HTTP <code>GET</code> request with a URL-encoded SQL query:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/query_sql?db=servers&amp;q=select+*+from+cpu+limit+5&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/query_sql?db=servers&amp;q=select+*+from+cpu+limit+5&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer AUTH_TOKEN&#34;</span></span></span></code></pre></div><h3 id="example-query-passing-json-parameters">Example: Query passing JSON parameters</h3>
 <p>The following example sends an HTTP <code>POST</code> request with parameters in a JSON payload:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://instance-id.enterprise.influxdb.io/api/v3/query_sql <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://instance-id.enterprise.influxdb.io/api/v3/query_sql <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer AUTH_TOKEN&#34;</span> 
 </span></span><span class="line"><span class="cl">  --json <span class="s1">&#39;{&#34;db&#34;: &#34;server&#34;, &#34;q&#34;: &#34;select * from cpu limit 5&#34;}&#39;</span></span></span></code></pre></div><h3 id="query-system-information">Query system information</h3>
 <p>Use the HTTP API <code>/api/v3/query_sql</code> endpoint to retrieve system information
@@ -1492,7 +1492,7 @@ and write system metrics to an InfluxDB 3 database.</p>
 to retrieve all user-created
 tables (<code>&quot;table_schema&quot;:&quot;iox&quot;</code>), system tables, and information schema tables
 for a database:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/query_sql?db=mydb&amp;format=jsonl&amp;q=show%20tables&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/query_sql?db=mydb&amp;format=jsonl&amp;q=show%20tables&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer AUTH_TOKEN&#34;</span></span></span></code></pre></div><p>The response body contains the following JSONL:</p>
 <pre tabindex="0"><code class="language-jsonl" data-lang="jsonl">{&#34;table_catalog&#34;:&#34;public&#34;,&#34;table_schema&#34;:&#34;iox&#34;,&#34;table_name&#34;:&#34;system_cpu&#34;,&#34;table_type&#34;:&#34;BASE TABLE&#34;}
 {&#34;table_catalog&#34;:&#34;public&#34;,&#34;table_schema&#34;:&#34;iox&#34;,&#34;table_name&#34;:&#34;system_cpu_cores&#34;,&#34;table_type&#34;:&#34;BASE TABLE&#34;}
@@ -1567,10 +1567,10 @@ JSONL (<code>jsonl</code>) is preferred because it streams results back to the c
 </ul>
 <h3 id="example-query-passing-url-encoded-parameters-1">Example: Query passing URL-encoded parameters</h3>
 <p>The following example sends an HTTP <code>GET</code> request with a URL-encoded InfluxQL query:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;http://instance-id.enterprise.influxdb.io/api/v3/query_influxql?db=servers&amp;q=select+*+from+cpu+limit+5&#34;</span> <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;https://instance-id.enterprise.influxdb.io/api/v3/query_influxql?db=servers&amp;q=select+*+from+cpu+limit+5&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer AUTH_TOKEN&#34;</span></span></span></code></pre></div><h3 id="example-query-passing-json-parameters-1">Example: Query passing JSON parameters</h3>
 <p>The following example sends an HTTP <code>POST</code> request with parameters in a JSON payload:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://instance-id.enterprise.influxdb.io/api/v3/query_influxql <span class="se">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://instance-id.enterprise.influxdb.io/api/v3/query_influxql <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer AUTH_TOKEN&#34;</span> <span class="se">\ </span>
 </span></span><span class="line"><span class="cl">  --json <span class="s1">&#39;{&#34;db&#34;: &#34;server&#34;, &#34;q&#34;: &#34;select * from cpu limit 5&#34;}&#39;</span></span></span></code></pre></div>
 

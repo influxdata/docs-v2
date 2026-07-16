@@ -4425,7 +4425,7 @@ create a new database with the desired retention period and migrate your data.</
 </ul>
 <h2 id="create-a-database-using-the-http-api">Create a database using the HTTP API</h2>
 <p>To create a database using the HTTP API, send a <code>POST</code> request to the <code>/api/v3/configure/database</code> endpoint:</p>
-<pre class="api-endpoint"><span class="api post">POST</span> localhost:8181/api/v3/configure/database</pre>
+<pre class="api-endpoint"><span class="api post">POST</span> http://localhost:8181/api/v3/configure/database</pre>
 <p>Include the following in your request:</p>
 <ul>
 <li>
@@ -4453,7 +4453,7 @@ and cannot be changed afterward. If you need to change a retention period, you m
 create a new database with the desired retention period and migrate your data.</p>
 </div>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a database with a 30-day retention period</span>
-</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;http://localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
@@ -4462,7 +4462,7 @@ create a new database with the desired retention period and migrate your data.</
 </span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Create a database with a 90-day retention period</span>
-</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;http://localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
@@ -4471,7 +4471,7 @@ create a new database with the desired retention period and migrate your data.</
 </span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Create a database with infinite retention (default)</span>
-</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl">curl --request POST <span class="s2">&#34;http://localhost:8181/api/v3/configure/database&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
