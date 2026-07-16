@@ -19,9 +19,12 @@ const STORAGE_KEY = 'influxdata_docs_urls';
 // Product key -> a real page that renders the host-url shortcode.
 const PAGES = {
   influxdb3_core: '/influxdb3/core/write-data/http-api/v3-write-lp/',
-  influxdb3_enterprise: '/influxdb3/enterprise/write-data/http-api/v3-write-lp/',
-  influxdb3_cloud_serverless: '/influxdb3/cloud-serverless/reference/sample-data/',
-  influxdb3_cloud_dedicated: '/influxdb3/cloud-dedicated/reference/sample-data/',
+  influxdb3_enterprise:
+    '/influxdb3/enterprise/write-data/http-api/v3-write-lp/',
+  influxdb3_cloud_serverless:
+    '/influxdb3/cloud-serverless/reference/sample-data/',
+  influxdb3_cloud_dedicated:
+    '/influxdb3/cloud-dedicated/reference/sample-data/',
   influxdb3_clustered: '/influxdb3/clustered/reference/sample-data/',
 };
 
