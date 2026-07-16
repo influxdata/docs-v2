@@ -329,15 +329,19 @@ Instead of configuring connections through the UI, you can pre-define connection
    > [!Note]
    > #### When to use `host.docker.internal`
    >
-   > If your InfluxDB 3 instance is running in Docker (not the same container as Explorer)
-   > or locally, use `host.docker.internal` as your server host to allow the Explorer container
-   > to connect to the InfluxDB container on the host--for example:
+   > If your InfluxDB 3 instance is running on the Docker host, either natively
+   > or in a separate container with port `8181` published, use
+   > `host.docker.internal` as the server host--for example:
    >
    > ```txt
    > "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181"
    > ```
    >
    > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
+   > - Docker Desktop provides `host.docker.internal` automatically.
+   >   On Linux Docker Engine, map the hostname when you start Explorer:
+   >   `--add-host=host.docker.internal:host-gateway` with `docker run`, or
+   >   `extra_hosts: ["host.docker.internal:host-gateway"]` with Docker Compose.
    >
    > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/).
 
@@ -353,6 +357,7 @@ Instead of configuring connections through the UI, you can pre-define connection
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
+     --add-host=host.docker.internal:host-gateway \
      --publish 127.0.0.1:8888:8080 \
      --volume $(pwd)/config:/app-root/config:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
@@ -367,6 +372,8 @@ Instead of configuring connections through the UI, you can pre-define connection
      explorer:
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
+       extra_hosts:
+         - "host.docker.internal:host-gateway"
        ports:
          - "127.0.0.1:8888:8080"
        volumes:
@@ -653,6 +660,7 @@ EOF
 # Run Explorer with all features
 docker run --detach \
   --name influxdb3-explorer \
+  --add-host=host.docker.internal:host-gateway \
   --pull always \
   --publish 127.0.0.1:8888:8443 \
   --volume $(pwd)/db:/db:rw \
@@ -676,6 +684,8 @@ services:
     container_name: influxdb3-explorer
     pull_policy: always
     command: ["--mode=admin"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "127.0.0.1:8888:8443"
     volumes:
