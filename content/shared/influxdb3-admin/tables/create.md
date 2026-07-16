@@ -87,7 +87,7 @@ Replace the following:
 
 To create a table using the HTTP API, send a `POST` request to the `/api/v3/configure/table` endpoint:
 
-{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/table" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host-url >}}/api/v3/configure/table" %}}
 
 Include the following in your request:
 
@@ -105,7 +105,7 @@ Include the following in your request:
 
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 # Create a table with tag columns
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -116,7 +116,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
   }'
 
 # Create a table with tag and field columns
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -134,7 +134,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
 {{% show-in "enterprise" %}}
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 # Create a table with a 7-day retention period
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -149,7 +149,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
   }'
 
 # Create a table with database default retention (omit retention_period)
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{

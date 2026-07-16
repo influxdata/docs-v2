@@ -34,7 +34,7 @@ Enter `yes` to confirm that you want to delete the database.
 
 To delete a database using the HTTP API, send a `DELETE` request to the `/api/v3/configure/database` endpoint:
 
-{{% api-endpoint method="DELETE" endpoint="{{< influxdb/host >}}/api/v3/configure/database" %}}
+{{% api-endpoint method="DELETE" endpoint="{{< influxdb/host-url >}}/api/v3/configure/database" %}}
 
 Include the following in your request:
 
@@ -44,7 +44,7 @@ Include the following in your request:
   - `Authorization: Bearer` with your {{% token-link "admin" %}}
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl --request DELETE "{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME" \
+curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -120,7 +120,7 @@ But removes:
 To delete only data using the HTTP API, include the `data_only=true` query parameter:
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl --request DELETE "{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true" \
+curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -134,7 +134,7 @@ Replace the following:
 To also remove table schemas, add the `remove_tables=true` parameter:
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl --request DELETE "{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true&remove_tables=true" \
+curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true&remove_tables=true" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 {{% /show-in %}}
