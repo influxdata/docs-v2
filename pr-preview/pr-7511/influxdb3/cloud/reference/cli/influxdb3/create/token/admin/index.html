@@ -49,7 +49,7 @@
 <title>influxdb3 create token --admin | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="The influxdb3 create token --admin subcommand creates an operator token or named admin token with full administrative privileges for server actions.">
+    <meta name="description" content="The influxdb3 create token --admin subcommand creates a named token with full administrative privileges for server actions.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -114,7 +114,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7511/docs-v2/pr-preview/pr-7511/influxdb3/cloud/reference/cli/influxdb3/create/token/admin/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/#software"},"articleSection":"Reference","dateModified":"2026-07-16T09:11:27-05:00","description":"The `influxdb3 create token --admin` subcommand creates an operator token or named admin token with full administrative privileges for server actions.","headline":"influxdb3 create token \\--admin","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/reference/cli/influxdb3/create/token/admin/","name":"influxdb3 create token \\--admin"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/#software"},"articleSection":"Reference","dateModified":"2026-07-16T10:40:31-05:00","description":"The `influxdb3 create token --admin` subcommand creates a named token with full administrative privileges for server actions.","headline":"influxdb3 create token \\--admin","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/reference/cli/influxdb3/create/token/admin/","name":"influxdb3 create token \\--admin"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -185,7 +185,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-07-16 09:11:27 -0500 -0500">
+<meta name="last-modified" content="2026-07-16 10:40:31 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -1649,8 +1649,15 @@
 
 
 
+  <p>Create a named administrator token.</p>
+
+<div class="block note">
   
-  <p>Create an operator token or named admin token.</p>
+  
+  <h4 id="operator-tokens-in-influxdb-3-cloud">Operator tokens in InfluxDB 3 Cloud</h4>
+<p>InfluxData manages the operator token for your InfluxDB 3 Cloud instance.
+The operator token never expires and cannot be edited or deleted.</p>
+</div>
 <h2 id="usage">Usage</h2>
 <pre tabindex="0"><code>influxdb3 create token --admin [OPTIONS]</code></pre><h2 class="no-shorthand" id="options">Options</h2>
 <table>
@@ -1662,16 +1669,12 @@
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><code>--regenerate</code></td>
-          <td style="text-align: left">Regenerates the operator token. Requires <code>--token</code> and the current operator token</td>
-      </tr>
-      <tr>
           <td style="text-align: left"><code>--name</code></td>
           <td style="text-align: left">Name of the token</td>
       </tr>
       <tr>
           <td style="text-align: left"><code>--expiry</code></td>
-          <td style="text-align: left">Expires in <code>duration</code>&ndash;for example, 10d for 10 days 1y for 1 year</td>
+          <td style="text-align: left">Expires in <code>duration</code>&ndash;for example, 10d for 10 days or 1y for 1 year</td>
       </tr>
       <tr>
           <td style="text-align: left"><code>--host</code></td>
@@ -1679,23 +1682,15 @@
       </tr>
       <tr>
           <td style="text-align: left"><code>--token</code></td>
-          <td style="text-align: left">An existing admin token for the InfluxDB 3 server</td>
+          <td style="text-align: left">An existing administrator token for the InfluxDB 3 server</td>
       </tr>
       <tr>
           <td style="text-align: left"><code>--tls-ca</code></td>
-          <td style="text-align: left">An optional arg to use a custom ca for useful for testing with self signed certs</td>
+          <td style="text-align: left">An optional arg to use a custom CA for useful for testing with self-signed certs</td>
       </tr>
       <tr>
           <td style="text-align: left"><code>--format</code></td>
           <td style="text-align: left">Output format for token [possible values: <code>json</code>, <code>text</code>]</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--offline</code></td>
-          <td style="text-align: left">Generate token without connecting to server (for automation)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--output-file</code></td>
-          <td style="text-align: left">File path to save the token (required with <code>--offline</code>)</td>
       </tr>
       <tr>
           <td style="text-align: left"><code>-h</code>, <code>--help</code></td>
@@ -1709,37 +1704,29 @@
 </table>
 <h2 id="examples">Examples</h2>
 <ul>
-<li><a href="#create-an-operator-token">Create an operator token</a></li>
-<li><a href="#use-the-operator-token-to-create-a-named-admin-token">Use the operator token to create a named admin token</a></li>
+<li><a href="#create-a-named-administrator-token">Create a named administrator token</a></li>
 <li><a href="#use-the-token-to-create-a-database">Use the token to create a database</a></li>
-<li><a href="#generate-an-offline-admin-token">Generate an offline admin token</a></li>
 </ul>
-<h3 id="create-an-operator-token">Create an operator token</h3>
-<p>The operator token is a special token that has full administrative privileges on the InfluxDB server and doesn&rsquo;t expire.
-The first admin token you create becomes the operator token for the instance.
-You can create an operator token using the <code>--admin</code> flag without any additional options.</p>
-<!--pytest.mark.skip-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 create token --admin</span></span></code></pre></div><p>The output is the raw token string you can use to authenticate future CLI commands and API requests.
-For CLI commands, use the <code>--token</code> option or the <code>INFLUXDB3_AUTH_TOKEN</code> environment variable to pass the token string.</p>
-<h3 id="use-the-operator-token-to-create-a-named-admin-token">Use the operator token to create a named admin token</h3>
+<h3 id="create-a-named-administrator-token">Create a named administrator token</h3>
+<p>Use an existing administrator token to create a named administrator token.</p>
 <!--pytest.mark.skip-->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 create token <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --admin <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit OPERATOR_TOKEN' class='code-placeholder' data-code-var='OPERATOR_TOKEN' data-code-var-value='OPERATOR_TOKEN' data-code-var-escaped="OPERATOR_TOKEN">OPERATOR_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit ADMIN_TOKEN' class='code-placeholder' data-code-var='ADMIN_TOKEN' data-code-var-value='ADMIN_TOKEN' data-code-var-escaped="ADMIN_TOKEN">ADMIN_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --name <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TOKEN_NAME' class='code-placeholder' data-code-var='TOKEN_NAME' data-code-var-value='TOKEN_NAME' data-code-var-escaped="TOKEN_NAME">TOKEN_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --expiry DURATION </span></span></code></pre></div><p>Replace the following:</p>
+</span></span></span><span class="line"><span class="cl">  --expiry <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DURATION' class='code-placeholder' data-code-var='DURATION' data-code-var-value='DURATION' data-code-var-escaped="DURATION">DURATION<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><p>Replace the following:</p>
 <ul>
-<li><span class="code-placeholder-key"><code>OPERATOR_TOKEN</code></span>: Your operator token for the server</li>
-<li><span class="code-placeholder-key"><code>TOKEN_NAME</code></span>: Name for your new admin token</li>
+<li><span class="code-placeholder-key"><code>ADMIN_TOKEN</code></span>: Your InfluxDB administrator token</li>
+<li><span class="code-placeholder-key"><code>TOKEN_NAME</code></span>: Name for your new administrator token</li>
 <li><span class="code-placeholder-key"><code>DURATION</code></span>: Duration for the token to remain valid, in <a href="https://docs.rs/humantime/latest/humantime/fn.parse_duration.html">humantime</a> format (for example, <code>10d</code> for 10 days or <code>1y</code> for 1 year).</li>
 </ul>
 <h3 id="use-the-token-to-create-a-database">Use the token to create a database</h3>
 <!--pytest.mark.skip-->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 create database <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token ADMIN_TOKEN <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit ADMIN_TOKEN' class='code-placeholder' data-code-var='ADMIN_TOKEN' data-code-var-value='ADMIN_TOKEN' data-code-var-escaped="ADMIN_TOKEN">ADMIN_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><p>Replace the following:</p>
 <ul>
-<li><span class="code-placeholder-key"><code>ADMIN_TOKEN</code></span>: Your InfluxDB admin token</li>
+<li><span class="code-placeholder-key"><code>ADMIN_TOKEN</code></span>: Your InfluxDB administrator token</li>
 <li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: Name for your new database</li>
 </ul>
 
@@ -1750,50 +1737,6 @@ For CLI commands, use the <code>--token</code> option or the <code>INFLUXDB3_AUT
 <p>Set the token as an environment variable to simplify repeated CLI commands:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUXDB3_AUTH_TOKEN</span><span class="o">=</span>ADMIN_TOKEN</span></span></code></pre></div>
 </div>
-<h3 id="generate-an-offline-admin-token">Generate an offline admin token</h3>
-<p>Generate an offline admin token file to use if no tokens exist when the server
-starts. Once started, you can interact with the server using the provided token.
-Offline admin tokens are designed to help with automated deployments.</p>
-<p>Include the following options:</p>
-<ul>
-<li><code>--offline</code> <em>(<span class="req  ">Required</span>)</em></li>
-<li><code>--output-file</code> <em>(<span class="req  ">Required</span>)</em></li>
-<li><code>--name</code> <em>(default is <code>_admin</code>)</em></li>
-<li><code>--expiry</code> <em>(Optional)</em></li>
-</ul>
-<!-- pytest.mark.skip -->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 create token --admin <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --name <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TOKEN_NAME' class='code-placeholder' data-code-var='TOKEN_NAME' data-code-var-value='TOKEN_NAME' data-code-var-escaped="TOKEN_NAME">TOKEN_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --expiry <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DURATION' class='code-placeholder' data-code-var='DURATION' data-code-var-value='DURATION' data-code-var-escaped="DURATION">DURATION<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --offline <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --output-file <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit path/to/admin-token.json' class='code-placeholder' data-code-var='path/to/admin-token.json' data-code-var-value='path/to/admin-token.json' data-code-var-escaped="path/to/admin-token.json">path/to/admin-token.json<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><p>Replace the following:</p>
-<ul>
-<li><span class="code-placeholder-key"><code>TOKEN_NAME</code></span>: Name for your offline admin token</li>
-<li><span class="code-placeholder-key"><code>DURATION</code></span>: Duration for the token to remain valid, in <a href="https://docs.rs/humantime/latest/humantime/fn.parse_duration.html">humantime</a> format (for example, <code>10d</code> for 10 days or <code>1y</code> for 1 year).</li>
-<li><span class="code-placeholder-key"><code>path/to/admin-token.json</code></span>: File path to use for the generated token file</li>
-</ul>
-<div class="expand-wrapper">
-  
-
-
-
-<div class="expand" id="view-example-offline-admin-token-file">
-  <a class="expand-link" href="#view-example-offline-admin-token-file"><span class="cf-icon Link"></span></a>
-  <p class="expand-label">
-      <span class="expand-toggle"></span><span>View example offline admin token file</span>
-  </p>
-  <div class="expand-content" style="display: none;" >
-      <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;apiv3_0XXXX-xxxXxXxxxXX_OxxxX...&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;example-admin-token&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;expiry_millis&#34;</span><span class="p">:</span> <span class="mi">1756400061529</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-  </div>
-</div>
-
-
-</div>
-
 
 
 
@@ -1834,8 +1777,6 @@ Offline admin tokens are designed to help with automated deployments.</p>
 
 
   
-  
-    
   
 
 
@@ -1882,7 +1823,7 @@ Offline admin tokens are designed to help with automated deployments.</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb3-cli/create/token/admin.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/cloud/reference/cli/influxdb3/create/token/admin.md" class="btn edit" target="_blank">Edit this page</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7511/influxdb3/cloud/reference/cli/influxdb3/create/token/admin/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     
   </div>
