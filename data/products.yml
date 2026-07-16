@@ -14,6 +14,7 @@ influxdb3_core:
   latest: core
   latest_patch: 3.10.3
   placeholder_host: localhost:8181
+  scheme: http
   limits:
     database: 5
     table: 2000
@@ -58,6 +59,7 @@ influxdb3_enterprise:
   latest: enterprise
   latest_patch: 3.10.3
   placeholder_host: localhost:8181
+  scheme: http
   limits:
     database: 100
     table: 10000
@@ -99,6 +101,7 @@ influxdb3_explorer:
   latest: explorer
   latest_patch: 1.9.0
   placeholder_host: localhost:8080
+  scheme: http
   ai_sample_questions:
     - How do I install and run Explorer?
     - How do I query data using Explorer?
@@ -123,6 +126,7 @@ influxdb3_cloud_serverless:
   list_order: 2
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  scheme: https
   version_label: Cloud Serverless
   distributed_architecture: true
   detector_config:
@@ -163,6 +167,7 @@ influxdb3_cloud_dedicated:
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
   latest_cli: 2.12.1
   placeholder_host: cluster-id.a.influxdb.io
+  scheme: https
   version_label: Cloud Dedicated
   distributed_architecture: true
   detector_config:
@@ -198,6 +203,7 @@ influxdb3_clustered:
   latest: clustered
   link: 'https://www.influxdata.com/contact-sales-influxdb-clustered/'
   placeholder_host: cluster-host.com
+  scheme: https
   version_label: Clustered
   distributed_architecture: true
   detector_config:
@@ -245,6 +251,7 @@ influxdb:
   menu_category: self-managed
   list_order: 1
   placeholder_host: localhost:8086
+  scheme: http
   versions:
     - v2
     - v1
@@ -299,6 +306,7 @@ influxdb_cloud:
   list_order: 1
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  scheme: https
   version_label: Cloud
   detector_config:
     query_languages:
@@ -474,6 +482,7 @@ influxdb_cloud1:
   list_order: 6
   latest: v1
   placeholder_host: cloud.influxdata.com
+  scheme: https
   detector_config:
     query_languages:
       InfluxQL:

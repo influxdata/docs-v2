@@ -48,7 +48,7 @@ of the following:
   Include the `db` query parameter in your request:
 
   ```sh { placeholders="DATABASE_(NAME|TOKEN)" }
-  curl --get https://{{< influxdb/host >}}/query \
+  curl --get {{< influxdb/host-url >}}/query \
     --header "Authorization: Bearer DATABASE_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SHOW MEASUREMENTS"

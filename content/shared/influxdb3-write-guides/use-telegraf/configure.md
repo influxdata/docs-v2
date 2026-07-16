@@ -52,7 +52,7 @@ in the `telegraf.conf`.
 
 ```toml { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 [[outputs.influxdb_v2]]
-  urls = ["http://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
@@ -74,7 +74,7 @@ An array of URL strings.
 To write to {{% product-name %}}, include your {{% product-name %}} URL:
 
 ```toml
-["http://{{< influxdb/host >}}"]
+["{{< influxdb/host-url >}}"]
 ```
 
 #### token
@@ -92,7 +92,7 @@ Your {{% product-name %}} authorization token.
 > 
 > ```toml
 > [[outputs.influxdb_v2]]
->   urls = ["http://{{< influxdb/host >}}"]
+>   urls = ["{{< influxdb/host-url >}}"]
 >   token = "${INFLUX_TOKEN}"
 >   # ...
 > ```
