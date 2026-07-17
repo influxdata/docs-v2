@@ -118,6 +118,7 @@
   exclude:
     - /influxdb3/core/
     - /influxdb3/explorer/
+    - /influxdb3/cloud/
     - /influxdb3/cloud-dedicated/
     - /influxdb3/cloud-serverless/
     - /influxdb3/clustered/
