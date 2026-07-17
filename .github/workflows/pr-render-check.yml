@@ -78,8 +78,7 @@ jobs:
           # non-JSON error responses (e.g. a 503 body) broke `jq` and
           # failed the whole job during API hiccups.
           CHANGED=$(git diff --name-only \
-            "${{ github.event.pull_request.base.sha }}" \
-            "${{ github.event.pull_request.head.sha }}")
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
 
           echo "Changed files:"
           echo "$CHANGED"
