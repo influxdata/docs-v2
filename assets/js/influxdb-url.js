@@ -591,7 +591,7 @@ export function InfluxDBUrl() {
     const validDomain = new RegExp(
       '([a-z0-9-._~%]+' +
         '|[[a-f0-9:.]+]' +
-        '|[v[a-f0-9][a-z0-9-._~%!$&\'()*+,;=:]+])' +
+        "|[v[a-f0-9][a-z0-9-._~%!$&'()*+,;=:]+])" +
         '(:[0-9]+)?'
     );
 
