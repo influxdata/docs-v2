@@ -529,6 +529,56 @@ export function InfluxDBUrl() {
   //////////////////////////////// Custom URLs /////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
 
+  // Track the last custom URL reported to analytics so that the blur and
+  // submit handlers don't double-count the same value.
+  let lastTrackedCustomUrlKey = null;
+
+  // Send a Google Analytics event when a user applies a custom InfluxDB URL.
+  // This lets us measure whether the custom URL feature is actually used.
+  // To respect user privacy, the raw URL is never transmitted — only the
+  // product context and a coarse categorization of the host.
+  function trackCustomUrlUsage(context, customUrl) {
+    if (typeof window.gtag === 'undefined' || !customUrl) {
+      return;
+    }
+
+    // Avoid double-counting when both the blur and submit handlers fire for
+    // the same value.
+    const trackingKey = `${context}|${customUrl}`;
+    if (trackingKey === lastTrackedCustomUrlKey) {
+      return;
+    }
+    lastTrackedCustomUrlKey = trackingKey;
+
+    // Categorize the host without sending the user's actual URL, which may
+    // contain private or internal hostnames.
+    let hostType = 'remote';
+    try {
+      // Product-specific URLs (dedicated/clustered) omit the protocol, so
+      // add one to allow parsing with the URL constructor.
+      const parsed = new URL(
+        /^https?:\/\//.test(customUrl) ? customUrl : `https://${customUrl}`
+      );
+      const host = parsed.hostname;
+      if (
+        host === 'localhost' ||
+        host === '127.0.0.1' ||
+        host === '::1' ||
+        host === '[::1]'
+      ) {
+        hostType = 'localhost';
+      }
+    } catch {
+      hostType = 'unknown';
+    }
+
+    window.gtag('event', 'custom_influxdb_url', {
+      product: context,
+      host_type: hostType,
+      page_path: window.location.pathname,
+    });
+  }
+
   // Validate custom URLs
   function validateUrl(url) {
     /** Match 3 possible types of hosts:
@@ -539,10 +589,10 @@ export function InfluxDBUrl() {
      */
     /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
     const validDomain = new RegExp(
-      `([a-z0-9\-._~%]+` +
-        `|\[[a-f0-9:.]+\]` +
-        `|\[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\])` +
-        `(:[0-9]+)?`
+      '([a-z0-9-._~%]+' +
+        '|[[a-f0-9:.]+]' +
+        '|[v[a-f0-9][a-z0-9-._~%!$&\'()*+,;=:]+])' +
+        '(:[0-9]+)?'
     );
 
     if (!IS_UNIQUE_URL_PRODUCT) {
@@ -609,6 +659,7 @@ export function InfluxDBUrl() {
         storeCustomUrl(custUrl);
         storeUrl(PRODUCT_CONTEXT, custUrl, getUrls()[PRODUCT_CONTEXT]);
         updateUrls(getPrevUrls(), getUrls());
+        trackCustomUrlUsage(PRODUCT_CONTEXT, custUrl);
       } else {
         showValidationMessage(urlValidation);
       }
@@ -634,6 +685,7 @@ export function InfluxDBUrl() {
         storeProductUrl(product, productUrl);
         storeUrl(product, productUrl, getUrls()[product]);
         updateUrls(getPrevUrls(), getUrls());
+        trackCustomUrlUsage(product, productUrl);
       } else {
         showValidationMessage(urlValidation);
       }
