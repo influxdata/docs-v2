@@ -204,6 +204,105 @@ This is useful when testing with self-signed certificates.
 
 Environment variable: `INFLUXDB_META_DATA_INSECURE_TLS`
 
+#### https-ignore-sanity-checks {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Loads a certificate even when it fails the checks for whether it can be used at
+all, such as a server certificate not permitting server authentication.
+The failed checks are logged instead.
+A missing or unparseable server certificate is still an error.
+Applies to both the HTTP API and data/raft listeners.
+
+Environment variable: `INFLUXDB_META_HTTPS_IGNORE_SANITY_CHECKS`
+
+#### https-client-certificate {metadata="v1.13.0+"}
+
+Default is `""`.
+
+The certificate this meta node presents when it dials a peer, such as another
+meta node or a data node (mutual TLS).
+Leaving it unset presents [`https-certificate`](#https-certificate) and
+[`https-private-key`](#https-private-key) to peers instead.
+This is the opposite direction from [`https-client-ca`](#https-client-ca), which
+verifies the peers that dial this node.
+
+Environment variable: `INFLUXDB_META_HTTPS_CLIENT_CERTIFICATE`
+
+#### https-client-private-key {metadata="v1.13.0+"}
+
+Default is `""`.
+
+Use a separate private key location for the
+[`https-client-certificate`](#https-client-certificate).
+
+Environment variable: `INFLUXDB_META_HTTPS_CLIENT_PRIVATE_KEY`
+
+#### https-client-auth-type {metadata="v1.13.0+"}
+
+Default is unset (`NoClientCert`).
+
+Enables mutual TLS (mTLS) by requiring and/or verifying a certificate from peers
+that connect to this meta node's HTTP API and data/raft listeners.
+Set to one of the following:
+
+- `NoClientCert`
+- `RequestClientCert`
+- `RequireAnyClientCert`
+- `VerifyClientCertIfGiven`
+- `RequireAndVerifyClientCert`
+
+Leaving it unset disables client-certificate authentication (`NoClientCert`).
+
+Environment variable: `INFLUXDB_META_HTTPS_CLIENT_AUTH_TYPE`
+
+#### https-client-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+The CA pool used to verify certificates presented by peers connecting to this
+meta node's listeners (mTLS).
+Changes to this pool take effect on configuration reload (`SIGHUP`) and don't
+require a restart.
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+https-client-ca = { paths = ["/etc/ssl/cluster-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_META_HTTPS_CLIENT_CA_PATHS`
+- `INFLUXDB_META_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
+
+#### https-root-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+The CA pool used to verify the server certificates of the peers this meta node
+dials, such as other meta nodes and data nodes (mTLS).
+Leaving it unset uses the host's system roots.
+Changes to this pool take effect on configuration reload (`SIGHUP`) and don't
+require a restart.
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+https-root-ca = { paths = ["/etc/ssl/cluster-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_META_HTTPS_ROOT_CA_PATHS`
+- `INFLUXDB_META_HTTPS_ROOT_CA_INCLUDE_SYSTEM`
+
 #### gossip-frequency
 
 Default is `"5s"`.

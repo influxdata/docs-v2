@@ -17,6 +17,7 @@ Enabling HTTPS over TLS encrypts the communication between clients and the Influ
 When configured with a signed certificate, HTTPS over TLS can also verify the authenticity of the InfluxDB Enterprise server to connecting clients.
 
 This pages outlines how to set up HTTPS with InfluxDB Enterprise using either a signed or self-signed certificate.
+It also describes how to enable [mutual TLS (mTLS)](#enable-mutual-tls-mtls) so that both ends of each connection authenticate each other.
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB Enterprise over a network.
@@ -55,7 +56,7 @@ Regardless of your certificate's type, InfluxDB Enterprise supports certificates
 a private key file (`.key`) and a signed certificate file (`.crt`) file pair, as well as certificates
 that combine the private key file and the signed certificate file into a single bundled file (`.pem`).
 
-In general, each node node should have its own certificate, whether signed or unsigned.
+In general, each node should have its own certificate, whether signed or unsigned.
 
 ## Set up HTTPS in an InfluxDB Enterprise cluster
 
@@ -251,6 +252,219 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
     ```
 
     That's it! You've successfully set up HTTPS with InfluxDB Enterprise.
+
+## Enable mutual TLS (mTLS) {metadata="v1.13.0+"}
+
+With standard HTTPS, only the server presents a certificate and the client verifies it.
+**Mutual TLS (mTLS)** additionally requires the _client_ to present a certificate that the _server_ verifies, so both ends of every connection authenticate each other.
+
+In an InfluxDB Enterprise cluster, you can require mTLS on:
+
+- **Inter-node connections**: meta-to-meta, meta-to-data, and data-to-data traffic.
+- **HTTP API connections**: clients such as the [`influx` CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/), `influxd-ctl`, and Telegraf connecting to the data node or meta node API.
+
+{{% note %}}
+mTLS options require **InfluxDB Enterprise v1.13.0+** and build on the HTTPS
+configuration described above.
+Complete [Set up HTTPS](#set-up-https-in-an-influxdb-enterprise-cluster) before
+enabling mTLS.
+
+Creating the certificates, private keys, and CA files needed for mTLS is outside
+the scope of this guide.
+The following steps assume you already have a CA certificate (for example,
+`/etc/ssl/cluster-ca.crt`) that signed each node's certificate, plus the server
+certificate and key installed on each node.
+{{% /note %}}
+
+### How mTLS settings map to connections
+
+Each node acts as both a **server** (accepting connections) and a **client**
+(dialing other nodes), so configure mTLS from both perspectives.
+
+| Role              | Purpose                                                        | Settings                                          |
+| :---------------- | :------------------------------------------------------------ | :------------------------------------------------ |
+| Server (listener) | Require and verify certificates from connecting clients       | `*-client-auth-type`, `*-client-ca`               |
+| Client (dialer)   | Present a certificate to the servers this node dials          | `*-client-certificate`, `*-client-private-key`    |
+| Client (dialer)   | Verify the server certificates of the servers this node dials | `*-root-ca` (`meta-root-ca` for meta connections) |
+
+{{% note %}}
+If you don't set a separate client certificate (`*-client-certificate`), the node
+presents its server certificate (`https-certificate`) when dialing peers.
+Set a separate client certificate only if you use distinct certificates for the
+client and server roles.
+{{% /note %}}
+
+Set `*-client-auth-type` to one of the following:
+
+| Value                        | Behavior                                                             |
+| :--------------------------- | :------------------------------------------------------------------ |
+| `NoClientCert`               | Don't request a client certificate (mTLS disabled).                 |
+| `RequestClientCert`          | Request a certificate, but don't require or verify it.              |
+| `RequireAnyClientCert`       | Require a certificate, but don't verify it against a CA.            |
+| `VerifyClientCertIfGiven`    | Verify the certificate against the CA only if one is presented.     |
+| `RequireAndVerifyClientCert` | Require and verify a certificate against the CA (enforced mTLS).    |
+
+The CA settings (`*-client-ca` and `*-root-ca`) are inline tables:
+
+- `paths`: list of PEM files whose certificates are trusted
+- `include-system` _(optional)_: if `true`, also trust the host's system CA pool (default is `false`)
+
+### Configure mTLS on meta nodes
+
+In the `[meta]` section of each meta node configuration file (`influxdb-meta.conf`),
+add the following to the [HTTPS settings you already configured](#set-up-https-in-an-influxdb-enterprise-cluster):
+
+```toml
+[meta]
+
+  [...]
+
+  # Require and verify a certificate from peers that connect to this meta node
+  # (applies to both the HTTP API and raft/data listeners).
+  https-client-auth-type = "RequireAndVerifyClientCert"
+
+  # CA used to verify certificates presented by connecting peers.
+  https-client-ca = { paths = ["/etc/ssl/cluster-ca.crt"] }
+
+  # CA used to verify the server certificates of the peers this meta node dials
+  # (other meta nodes and data nodes).
+  https-root-ca = { paths = ["/etc/ssl/cluster-ca.crt"] }
+
+  # Optional: present a separate client certificate when dialing peers.
+  # If unset, the meta node presents `https-certificate` and `https-private-key`.
+  # https-client-certificate = "/etc/ssl/influxdb-meta-client.crt"
+  # https-client-private-key = "/etc/ssl/influxdb-meta-client.key"
+```
+
+{{% note %}}
+When you verify peer server certificates with `https-root-ca`, you no longer need
+`https-insecure-tls` or `data-insecure-tls` to skip verification.
+Remove those settings (or leave them `false`) to keep server verification enabled.
+{{% /note %}}
+
+### Configure mTLS on data nodes
+
+In the data node configuration file (`influxdb.conf`), configure mTLS for each
+type of connection.
+
+#### Inter-data-node connections `[cluster]`
+
+```toml
+[cluster]
+
+  [...]
+
+  # Require and verify a certificate from peer data nodes that connect to this
+  # node's cluster listener.
+  https-client-auth-type = "RequireAndVerifyClientCert"
+
+  # CA used to verify certificates presented by connecting peer data nodes.
+  https-client-ca = { paths = ["/etc/ssl/cluster-ca.crt"] }
+
+  # CA used to verify the server certificates of peer data nodes this node dials.
+  https-root-ca = { paths = ["/etc/ssl/cluster-ca.crt"] }
+
+  # Optional: present a separate client certificate when dialing peers.
+  # If unset, the data node presents `https-certificate` and `https-private-key`.
+  # https-client-certificate = "/etc/ssl/influxdb-data-client.crt"
+  # https-client-private-key = "/etc/ssl/influxdb-data-client.key"
+```
+
+#### Data-node-to-meta-node connections `[meta]`
+
+```toml
+[meta]
+
+  [...]
+
+  meta-tls-enabled = true
+
+  # Client certificate this data node presents to meta nodes (mTLS).
+  # If unset, no client certificate is presented.
+  meta-client-certificate = "/etc/ssl/influxdb-data.crt"
+  meta-client-private-key  = "/etc/ssl/influxdb-data.key"
+
+  # CA used to verify the server certificates of the meta nodes this data node dials.
+  meta-root-ca = { paths = ["/etc/ssl/cluster-ca.crt"] }
+```
+
+#### HTTP API connections `[http]`
+
+To require client certificates from clients that connect to the data node HTTP API
+(for example, the `influx` CLI and Telegraf), configure the `[http]` section:
+
+```toml
+[http]
+
+  [...]
+
+  # Require and verify a client certificate for HTTP API connections.
+  https-client-auth-type = "RequireAndVerifyClientCert"
+
+  # CA used to verify client certificates.
+  https-client-ca = { paths = ["/etc/ssl/client-ca.crt"] }
+```
+
+{{% warn %}}
+Requiring client certificates on the HTTP API (`[http] https-client-auth-type`)
+means **every** HTTP API client must present a valid certificate.
+Before enabling this setting, ensure all clients&mdash;including the `influx` CLI,
+Telegraf, and your applications&mdash;are configured to present a client certificate.
+{{% /warn %}}
+
+### Apply the configuration
+
+If you're enabling HTTPS and mTLS at the same time, restart each node as described
+in [Set up HTTPS](#set-up-https-in-an-influxdb-enterprise-cluster):
+
+```sh
+sudo systemctl restart influxdb-meta
+sudo systemctl restart influxdb
+```
+
+If HTTPS is already enabled and you're only adding or changing mTLS settings
+(client authentication type, CA pools, or certificates), you can apply the
+changes without a restart by reloading each process with `SIGHUP`:
+
+```sh
+sudo systemctl reload influxdb-meta
+sudo systemctl reload influxdb
+```
+
+{{% note %}}
+Enabling or disabling HTTPS (`https-enabled`) always requires a restart.
+Only certificate, CA pool, and client-authentication changes can be applied with
+`SIGHUP`.
+{{% /note %}}
+
+### Verify mTLS
+
+After you require client certificates on the meta node listeners, `influxd-ctl`
+must present a client certificate to connect:
+
+```sh
+influxd-ctl -bind-tls \
+  -cert /etc/ssl/influxd-ctl-client.crt \
+  -key /etc/ssl/influxd-ctl-client.key \
+  -ca-cert /etc/ssl/cluster-ca.crt \
+  show
+```
+
+- `-cert` and `-key`: the client certificate and private key `influxd-ctl` presents
+  (use `-client-cert` and `-client-key` to present a separate client identity).
+- `-ca-cert`: the CA used to verify the meta node's server certificate.
+
+If you require client certificates on the data node HTTP API, connect with the
+`influx` CLI by passing the client certificate and key:
+
+```sh
+influx -ssl -host <domain_name>.com \
+  -cert /etc/ssl/influx-client.crt \
+  -key /etc/ssl/influx-client.key
+```
+
+You can also set the `INFLUX_CERT` and `INFLUX_KEY` environment variables instead
+of the `-cert` and `-key` flags.
 
 ## Connect Telegraf to a secured InfluxDB Enterprise instance
 

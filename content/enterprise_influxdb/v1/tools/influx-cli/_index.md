@@ -30,6 +30,11 @@ influx [flags]
 | `-username`       | Username to connect to the server                                                                     |
 | `-ssl`            | Use https for requests                                                                                |
 | `-unsafessl`      | Set this when connecting to the cluster using https                                                   |
+| `-cert`           | Path to the client certificate file (PEM) presented for mutual TLS (mTLS). Also settable via `INFLUX_CERT`. _v1.13.0+_ |
+| `-key`            | Path to the client private key file (PEM) for mutual TLS (mTLS). Also settable via `INFLUX_KEY`. _v1.13.0+_ |
+| `-root-ca`        | Path to the CA bundle (PEM) used to verify the server certificate. Also settable via `INFLUX_ROOT_CA`. _v1.13.0+_ |
+| `-insecure-certificate` | Ignore file permission checks when loading the client certificate and key. Also settable via `INFLUX_INSECURE_CERTIFICATE`. _v1.13.0+_ |
+| `-ignore-cert-sanity-checks` | Load the client certificate even if it fails client-authentication sanity checks. Also settable via `INFLUX_IGNORE_CERT_SANITY_CHECKS`. _v1.13.0+_ |
 | `-execute`        | Execute command and quit                                                                              |
 | `-format`         | Specify the format of the server responses: json, csv, or column                                      |
 | `-precision`      | Specify the format of the timestamp: rfc3339, h, m, s, ms, u or ns                                    |
