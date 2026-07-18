@@ -21,9 +21,11 @@
 
 ## v3.10.4 {date="2026-07-14"}
 
+<!-- Uncomment once Core v3.10.4 is released
 ### Core
 
 Maintenance release: v3.10.4 Core includes only build and dependency updates—no user-facing changes.
+-->
 
 ### Enterprise
 
