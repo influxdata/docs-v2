@@ -61,6 +61,14 @@ influxd-ctl -bind-tls [-k] <command>
 influxd-ctl -bind-tls remove-meta enterprise-meta-02:8091
 ```
 
+{{% note %}}
+If the cluster requires mutual TLS (mTLS), also pass a client certificate and key
+with `-cert` and `-key` (and `-ca-cert` to verify the meta node's certificate).
+For more information, see the
+[`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)
+and [Enable mutual TLS (mTLS)](/enterprise_influxdb/v1/administration/configure/security/enable_tls/#enable-mutual-tls-mtls). _v1.13.0+_
+{{% /note %}}
+
 #### `curl -k`
 
 `curl` natively supports TLS/SSL connections, but if using a self-signed certificate,
