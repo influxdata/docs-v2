@@ -196,6 +196,72 @@ Set to `true` to allow the data node to accept self-signed certificates if [`htt
 
 Environment variable: `INFLUXDB_META_META_INSECURE_TLS`
 
+#### meta-client-certificate {metadata="v1.13.0+"}
+
+Default is `""`.
+
+The client certificate this data node presents to meta nodes when dialing them,
+enabling mutual TLS (mTLS).
+The certificate should be a PEM-encoded bundle of the certificate and key.
+If it is just the certificate, specify a key in
+[`meta-client-private-key`](#meta-client-private-key).
+
+Environment variable: `INFLUXDB_META_META_CLIENT_CERTIFICATE`
+
+#### meta-client-private-key {metadata="v1.13.0+"}
+
+Default is `""`.
+
+Use a separate private key location for the meta client certificate.
+
+Environment variable: `INFLUXDB_META_META_CLIENT_PRIVATE_KEY`
+
+#### meta-insecure-certificate {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Relaxes the local file-permission checks on
+[`meta-client-certificate`](#meta-client-certificate) and
+[`meta-client-private-key`](#meta-client-private-key) when `true`.
+
+Environment variable: `INFLUXDB_META_META_INSECURE_CERTIFICATE`
+
+#### meta-ignore-cert-sanity-checks {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Loads [`meta-client-certificate`](#meta-client-certificate) even when it fails
+the checks for whether a client can use it, such as the certificate not
+permitting client authentication.
+The failed checks are logged instead.
+A missing or unparseable certificate is still an error.
+
+Environment variable: `INFLUXDB_META_META_IGNORE_CERT_SANITY_CHECKS`
+
+#### meta-root-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+The CA pool used to verify the server certificates of the meta nodes this data
+node dials (mTLS).
+Leaving it unset uses the host's system roots.
+Changes to this pool take effect on configuration reload (`SIGHUP`) and don't
+require a restart.
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+meta-root-ca = { paths = ["/etc/ssl/cluster-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_META_META_ROOT_CA_PATHS`
+- `INFLUXDB_META_META_ROOT_CA_INCLUDE_SYSTEM`
+
 #### meta-auth-enabled
 
 Default is `false`.
@@ -660,6 +726,103 @@ Default is `false`.
 Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
+
+#### https-ignore-sanity-checks {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Loads a certificate even when it fails the checks for whether it can be used at
+all, such as a server certificate not permitting server authentication.
+The failed checks are logged instead.
+A missing or unparseable server certificate is still an error.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_IGNORE_SANITY_CHECKS`
+
+#### https-client-certificate {metadata="v1.13.0+"}
+
+Default is `""`.
+
+The certificate this data node presents when it dials a peer data node (mutual
+TLS).
+Leaving it unset presents `https-certificate` and `https-private-key` to peers
+instead.
+This is the opposite direction from `https-client-ca`, which verifies the peers
+that dial this node.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_CLIENT_CERTIFICATE`
+
+#### https-client-private-key {metadata="v1.13.0+"}
+
+Default is `""`.
+
+Use a separate private key location for the `https-client-certificate`.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_CLIENT_PRIVATE_KEY`
+
+#### https-client-auth-type {metadata="v1.13.0+"}
+
+Default is unset (`NoClientCert`).
+
+Enables mutual TLS (mTLS) by requiring and/or verifying a certificate from peer
+data nodes that connect to this node's cluster listener.
+Set to one of the following:
+
+- `NoClientCert`
+- `RequestClientCert`
+- `RequireAnyClientCert`
+- `VerifyClientCertIfGiven`
+- `RequireAndVerifyClientCert`
+
+Leaving it unset disables client-certificate authentication (`NoClientCert`).
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_CLIENT_AUTH_TYPE`
+
+#### https-client-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+The CA pool used to verify certificates presented by peers connecting to this
+node's cluster listener (mTLS).
+Changes to this pool take effect on configuration reload (`SIGHUP`) and don't
+require a restart.
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+https-client-ca = { paths = ["/etc/ssl/cluster-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_CLUSTER_HTTPS_CLIENT_CA_PATHS`
+- `INFLUXDB_CLUSTER_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
+
+#### https-root-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+The CA pool used to verify the server certificates of peer data nodes that this
+node dials (mTLS).
+Leaving it unset uses the host's system roots.
+Changes to this pool take effect on configuration reload (`SIGHUP`) and don't
+require a restart.
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+https-root-ca = { paths = ["/etc/ssl/cluster-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_CLUSTER_HTTPS_ROOT_CA_PATHS`
+- `INFLUXDB_CLUSTER_HTTPS_ROOT_CA_INCLUDE_SYSTEM`
 
 #### cluster-tracing
 
@@ -1218,6 +1381,56 @@ Skips file permission checking for `https-certificate` and `https-private-key` w
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
+#### https-ignore-sanity-checks {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Loads `https-certificate` even when it fails the checks for whether a server can
+use it, such as the certificate not permitting server authentication.
+The failed checks are logged instead.
+A missing or unparseable certificate is still an error.
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_IGNORE_SANITY_CHECKS`
+
+#### https-client-auth-type {metadata="v1.13.0+"}
+
+Default is unset (`NoClientCert`).
+
+The type of client certificate authentication (mutual TLS) to require for
+connections to the HTTP API.
+Set to one of the following:
+
+- `NoClientCert`
+- `RequestClientCert`
+- `RequireAnyClientCert`
+- `VerifyClientCertIfGiven`
+- `RequireAndVerifyClientCert`
+
+Leaving it unset disables client authentication (`NoClientCert`).
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_CLIENT_AUTH_TYPE`
+
+#### https-client-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+CA certificates used to verify client certificates during client authentication
+(mTLS).
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+https-client-ca = { paths = ["/etc/ssl/client-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_HTTP_HTTPS_CLIENT_CA_PATHS`
+- `INFLUXDB_HTTP_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
+
 #### shared-secret
 
 Default is `""`.
@@ -1381,6 +1594,65 @@ The path to the PEM-encoded CA certs file.
 If the set to the empty string (`""`), the default system certs will used.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_CA_CERTS`
+
+#### root-ca {metadata="v1.13.0+"}
+
+Default is unset.
+
+Additional CA certificates used to verify subscription endpoint server
+certificates, combined with [`ca-certs`](#ca-certs).
+
+Specify the CA pool as an inline table with the following keys:
+
+- `paths`: list of PEM files to trust
+- `include-system`: if `true`, also trust the host's system CA pool
+
+```toml
+root-ca = { paths = ["/etc/ssl/subscriber-ca.pem"], include-system = false }
+```
+
+Environment variables:
+
+- `INFLUXDB_SUBSCRIBER_ROOT_CA_PATHS`
+- `INFLUXDB_SUBSCRIBER_ROOT_CA_INCLUDE_SYSTEM`
+
+#### certificate {metadata="v1.13.0+"}
+
+Default is `""`.
+
+The client certificate the subscriber presents to HTTPS endpoints for mutual TLS
+(mTLS).
+Empty means no client certificate is presented.
+
+Environment variable: `INFLUXDB_SUBSCRIBER_CERTIFICATE`
+
+#### private-key {metadata="v1.13.0+"}
+
+Default is `""`.
+
+The private key for the subscriber client [`certificate`](#certificate).
+
+Environment variable: `INFLUXDB_SUBSCRIBER_PRIVATE_KEY`
+
+#### insecure-certificate {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Allows insecure file permissions on [`certificate`](#certificate) and
+[`private-key`](#private-key) when `true`.
+
+Environment variable: `INFLUXDB_SUBSCRIBER_INSECURE_CERTIFICATE`
+
+#### ignore-cert-sanity-checks {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Loads [`certificate`](#certificate) even when it fails the checks for whether a
+server can use it, such as the certificate not permitting server authentication.
+The failed checks are logged instead.
+A missing or unparseable certificate is still an error.
+
+Environment variable: `INFLUXDB_SUBSCRIBER_IGNORE_CERT_SANITY_CHECKS`
 
 #### write-concurrency
 
@@ -1564,8 +1836,38 @@ For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_in
 # retention-policy = ""
 # consistency-level = "one"
 # tls-enabled = false
-# certificate= "/etc/ssl/influxdb.pem"
+# certificate = "/etc/ssl/influxdb.pem"
+
+# TLS private key when TLS is enabled.
+# If blank, defaults to assuming the key is in the certificate.
+# private-key = ""                                                 # v1.13.0+
+
+# Allow insecure file permissions on certificate and private-key.
+# insecure-certificate = false                                     # v1.13.0+
+
+# Load the certificate even when it fails the checks for whether a server can
+# use it, such as the certificate not permitting server authentication.
+# The failed checks are logged instead.
+# A missing or unparseable certificate is still an error.
+# ignore-cert-sanity-checks = false                                # v1.13.0+
+
+# The type of client certificate authentication (mutual TLS) to require. One of
+# NoClientCert, RequestClientCert, RequireAnyClientCert,
+# VerifyClientCertIfGiven, or RequireAndVerifyClientCert. Unset disables client
+# authentication.
+# client-auth-type = "RequireAndVerifyClientCert"                  # v1.13.0+
+
+# CA certificates used to verify client certificates during client
+# authentication. "paths" lists PEM files to trust; "include-system" also
+# trusts the host's system CA pool.
+# client-ca = { paths = ["/etc/ssl/client-ca.pem"], include-system = false } # v1.13.0+
 ```
+
+{{% note %}}
+The OpenTSDB TLS mutual-authentication options (`private-key`,
+`insecure-certificate`, `ignore-cert-sanity-checks`, `client-auth-type`, and
+`client-ca`) were added in **v1.13.0**.
+{{% /note %}}
 
 #### log-point-errors
 

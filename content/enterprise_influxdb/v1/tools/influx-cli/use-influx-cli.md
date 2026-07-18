@@ -87,6 +87,10 @@ Arguments specify connection, write, import, and output options for the CLI sess
 `-h`, `-help`
 List `influx` arguments
 
+`-cert 'path'` _(v1.13.0+)_
+Path to the client certificate file (PEM) presented for mutual TLS (mTLS).
+Alternatively, set the certificate with the `INFLUX_CERT` environment variable.
+
 `-compressed`
 Set to true if the import file is compressed.
 Use with `-import`.
@@ -109,9 +113,21 @@ See [-format](#specify-the-format-of-the-server-responses-with--format).
 The host to which `influx` connects.
 By default, InfluxDB runs on localhost.
 
+`-ignore-cert-sanity-checks` _(v1.13.0+)_
+Load the client certificate even if it fails client-authentication sanity checks.
+Alternatively, set this with the `INFLUX_IGNORE_CERT_SANITY_CHECKS` environment variable.
+
 `-import`
 Import new data or [exported data](/enterprise_influxdb/v1/administration/backup-and-restore/#exporting-data) from a file.
 See [-import](#import-data-from-a-file).
+
+`-insecure-certificate` _(v1.13.0+)_
+Ignore file permission checks when loading the client certificate and key.
+Alternatively, set this with the `INFLUX_INSECURE_CERTIFICATE` environment variable.
+
+`-key 'path'` _(v1.13.0+)_
+Path to the client private key file (PEM) for mutual TLS (mTLS).
+Alternatively, set the key with the `INFLUX_KEY` environment variable.
 
 `-password 'password'`
 The password `influx` uses to connect to the server.
@@ -140,6 +156,10 @@ Precision defaults to nanoseconds.
 
 `-pretty`
 Turns on pretty print for the `json` format.
+
+`-root-ca 'path'` _(v1.13.0+)_
+Path to the CA bundle (PEM) used to verify the server certificate.
+Alternatively, set the CA bundle with the `INFLUX_ROOT_CA` environment variable.
 
 `-ssl`
 Use HTTPS for requests.
