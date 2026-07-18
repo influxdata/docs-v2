@@ -11,8 +11,8 @@ The mechanism for providing your token depends on the client you use to interact
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influxdb3 CLI](#influxdb3-cli-auth)
-[HTTP API](#http-api-auth)
+[influxdb3 CLI](#)
+[HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 

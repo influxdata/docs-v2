@@ -34,8 +34,8 @@ instance is the operator token.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[CLI](#use-the-influxdb3-cli)
-[HTTP API](#use-the-http-api)
+[CLI](#)
+[HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 Use the `influxdb3 create token --admin` command without a token name:
@@ -63,8 +63,8 @@ The output contains the token string in plain text.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[CLI](#use-the-influxdb3-cli)
-[HTTP API](#use-the-http-api)
+[CLI](#)
+[HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 Use the `influxdb3 create token --admin` command with a token name:

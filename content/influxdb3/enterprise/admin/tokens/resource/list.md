@@ -64,8 +64,8 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-in-query)
-[HTTP API](#http-api-filter-in-query)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -108,8 +108,8 @@ the `influxdb3 show tokens` command or the HTTP API response.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#format-using-the-cli)
-[HTTP API](#format-using-the-api)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -148,8 +148,8 @@ using cURL's `--output` option.
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
-[CLI](#cli-output-to-parquet)
-[HTTP API](#http-api-output-to-parquet)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -187,8 +187,8 @@ Use `grep` to filter for resource (non-admin) tokens:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-output-using-grep)
-[HTTP API](#list-tokens-using-the-api)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -219,8 +219,8 @@ Use `jq` to filter for system tokens and display their permissions:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#filter-output-using-the-cli)
-[HTTP API](#filter-output-using-the-api)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
