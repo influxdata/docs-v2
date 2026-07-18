@@ -261,7 +261,7 @@ v1 client libraries send data in [line protocol](/influxdb3/version/reference/sy
 {{% tab-content %}}
 <!-- Start NodeJS -->
 
-Create a v1 API client using the [node-influx](/influxdb/v1/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
+Create a v1 API client using the [node-influx](/influxdb/v1/tools/api_client_libraries/#javascript) JavaScript client library:
 
 ```js { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 const Influx = require('influx')
