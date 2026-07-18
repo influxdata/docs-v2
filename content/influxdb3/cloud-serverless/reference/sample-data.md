@@ -256,7 +256,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/cloud-serverless/admin/tokens/)
+  an [API token](/influxdb3/cloud-serverless/admin/tokens/)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -403,7 +403,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/cloud-serverless/admin/tokens/#database-tokens)
+  an [API token](/influxdb3/cloud-serverless/admin/tokens/)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
