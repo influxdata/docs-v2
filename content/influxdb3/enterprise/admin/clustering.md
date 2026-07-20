@@ -82,6 +82,18 @@ Available modes:
 
 ## Allocate threads by node type
 
+> [!Important]
+> #### Using the performance upgrade preview?
+>
+> The thread allocation guidance in this section applies to the default
+> (Parquet-backed) storage engine.
+> If your nodes run with `--use-pacha-tree`, ingest and compaction work runs
+> on the IO thread pool instead of the DataFusion thread pool, and thread
+> counts are validated differently.
+> Follow the
+> [performance upgrade preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+> instead.
+
 ### Critical concept: Thread pools
 
 Every node has two thread pools that must be properly configured:
@@ -596,7 +608,7 @@ GROUP BY event_type;
 - Increasing query times due to file fragmentation
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
-The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
+The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview configuration reference](/influxdb3/enterprise/performance-preview/configure/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
