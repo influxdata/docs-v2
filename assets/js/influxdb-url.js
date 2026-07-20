@@ -711,6 +711,9 @@ export function InfluxDBUrl() {
     } else {
       removeCustomUrl();
       hideValidationMessage();
+      // Reset the dedup key so a later re-apply of the same value is counted
+      // as a distinct use rather than suppressed.
+      lastTrackedCustomUrlKey = null;
       $(
         `input[name="influxdb-${PRODUCT_CONTEXT}-url"][value="` +
           DEFAULT_STORAGE_URLS[PRODUCT_CONTEXT] +
@@ -737,6 +740,9 @@ export function InfluxDBUrl() {
     } else {
       removeProductUrl(product);
       hideValidationMessage();
+      // Reset the dedup key so a later re-apply of the same value is counted
+      // as a distinct use rather than suppressed.
+      lastTrackedCustomUrlKey = null;
     }
   }
 

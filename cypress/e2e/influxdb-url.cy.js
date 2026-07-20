@@ -13,6 +13,8 @@
 
 const STORAGE_KEY = 'influxdata_docs_urls';
 const TEST_PAGE = '/influxdb3/core/plugins/';
+// A product with a protocol-less, product-specific URL field (applyProductUrl).
+const DEDICATED_PAGE = '/influxdb3/cloud-dedicated/get-started/setup/';
 const EXPECTED_PRODUCT_KEYS = [
   'oss',
   'cloud',
@@ -234,6 +236,56 @@ describe('InfluxDB URL - selector analytics', function () {
         .getCalls()
         .filter((c) => c.args[1] === 'custom_influxdb_url');
       expect(calls.length).to.equal(0);
+    });
+  });
+
+  it('counts a re-applied custom URL again after the field is cleared', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    // Apply a value, clear the field (restores the default), then re-apply the
+    // same value — the second use must be counted, not swallowed by dedup.
+    cy.get('#custom-url-field').clear().type('http://localhost:9999').blur();
+    cy.get('#custom-url-field').clear().blur();
+    cy.get('#custom-url-field').clear().type('http://localhost:9999').blur();
+
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'custom_influxdb_url');
+      expect(calls.length).to.equal(2);
+    });
+  });
+
+  it('tracks the product-specific URL path (dedicated) with redaction', function () {
+    cy.visit(DEDICATED_PAGE);
+    stubGtag();
+    // Dedicated/clustered use a product-specific field, not #custom-url-field.
+    cy.get('.url-trigger').first().click();
+    cy.get('#influxdb-url-list').should('be.visible');
+
+    // Protocol-less host — exercises applyProductUrl + categorizeHost parsing.
+    cy.get('#dedicated-url-field').clear().type('mycluster.example.com').blur();
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'custom_influxdb_url',
+      Cypress.sinon.match({ product: 'dedicated', host_type: 'remote' })
+    );
+
+    // The user's cluster host must never appear in the event payload.
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'custom_influxdb_url');
+      expect(calls.length).to.be.greaterThan(0);
+      calls.forEach((c) => {
+        expect(JSON.stringify(c.args[2])).to.not.contain(
+          'mycluster.example.com'
+        );
+      });
     });
   });
 });
