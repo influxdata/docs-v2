@@ -386,6 +386,7 @@ export function InfluxDBUrl() {
   // Open the InfluxDB URL selector modal
   $('.url-trigger').click(function (e) {
     e.preventDefault();
+    trackUrlSelectorOpen();
     toggleModal('#influxdb-url-list');
   });
 
@@ -491,6 +492,15 @@ export function InfluxDBUrl() {
     updateUrls(getPrevUrls(), getUrls());
   });
 
+  // Track selecting a built-in (preset) URL for analytics. Scoped to radio
+  // options and excludes the custom radio, which is tracked separately when
+  // the custom value is applied.
+  $('input[type="radio"][name^="influxdb-"][name$="-url"]')
+    .not('#custom')
+    .on('change', function () {
+      trackPresetUrlSelection(PRODUCT_CONTEXT, $(this).val());
+    });
+
   // Populate the product-specific URL fields on page load
   UNIQUE_URL_PRODUCTS.forEach(function (productEl) {
     let productUrlCookie = getInfluxDBUrl(productEl);
@@ -526,19 +536,73 @@ export function InfluxDBUrl() {
   showPreference();
 
   //////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////// Custom URLs /////////////////////////////////
+  ///////////////////////// URL selector analytics /////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
 
   // Track the last custom URL reported to analytics so that the blur and
   // submit handlers don't double-count the same value.
   let lastTrackedCustomUrlKey = null;
 
-  // Send a Google Analytics event when a user applies a custom InfluxDB URL.
-  // This lets us measure whether the custom URL feature is actually used.
-  // To respect user privacy, the raw URL is never transmitted — only the
-  // product context and a coarse categorization of the host.
+  // Categorize a host as localhost, remote, or unknown without transmitting
+  // the raw URL, which (for custom URLs) may contain private or internal
+  // hostnames.
+  function categorizeHost(url) {
+    try {
+      // Product-specific URLs (dedicated/clustered) omit the protocol, so
+      // add one to allow parsing with the URL constructor.
+      const parsed = new URL(/^https?:\/\//.test(url) ? url : `https://${url}`);
+      const host = parsed.hostname;
+      if (
+        host === 'localhost' ||
+        host === '127.0.0.1' ||
+        host === '::1' ||
+        host === '[::1]'
+      ) {
+        return 'localhost';
+      }
+      return 'remote';
+    } catch {
+      return 'unknown';
+    }
+  }
+
+  // Send a Google Analytics event for a URL selector interaction. Every event
+  // includes the current page path and is a no-op when gtag is unavailable.
+  function emitUrlSelectorEvent(eventName, params) {
+    if (typeof window.gtag === 'undefined') {
+      return;
+    }
+    window.gtag('event', eventName, {
+      page_path: window.location.pathname,
+      ...params,
+    });
+  }
+
+  // Track opening the URL selector modal (top-of-funnel usage signal).
+  function trackUrlSelectorOpen() {
+    emitUrlSelectorEvent('url_selector_open', { product: PRODUCT_CONTEXT });
+  }
+
+  // Track selecting a built-in (preset) URL from the selector. Preset values
+  // come from our own documented endpoints, so the selected host is safe to
+  // report and lets us compare preset vs. custom usage and popular presets.
+  function trackPresetUrlSelection(product, url) {
+    if (!url) {
+      return;
+    }
+    emitUrlSelectorEvent('url_selector_preset', {
+      product,
+      host_type: categorizeHost(url),
+      selected_url: url,
+    });
+  }
+
+  // Track applying a custom InfluxDB URL. This lets us measure whether the
+  // custom URL feature is actually used. To respect user privacy, the raw URL
+  // is never transmitted — only the product context and a coarse host
+  // categorization.
   function trackCustomUrlUsage(context, customUrl) {
-    if (typeof window.gtag === 'undefined' || !customUrl) {
+    if (!customUrl) {
       return;
     }
 
@@ -550,34 +614,15 @@ export function InfluxDBUrl() {
     }
     lastTrackedCustomUrlKey = trackingKey;
 
-    // Categorize the host without sending the user's actual URL, which may
-    // contain private or internal hostnames.
-    let hostType = 'remote';
-    try {
-      // Product-specific URLs (dedicated/clustered) omit the protocol, so
-      // add one to allow parsing with the URL constructor.
-      const parsed = new URL(
-        /^https?:\/\//.test(customUrl) ? customUrl : `https://${customUrl}`
-      );
-      const host = parsed.hostname;
-      if (
-        host === 'localhost' ||
-        host === '127.0.0.1' ||
-        host === '::1' ||
-        host === '[::1]'
-      ) {
-        hostType = 'localhost';
-      }
-    } catch {
-      hostType = 'unknown';
-    }
-
-    window.gtag('event', 'custom_influxdb_url', {
+    emitUrlSelectorEvent('custom_influxdb_url', {
       product: context,
-      host_type: hostType,
-      page_path: window.location.pathname,
+      host_type: categorizeHost(customUrl),
     });
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////// Custom URLs /////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
   // Validate custom URLs
   function validateUrl(url) {
