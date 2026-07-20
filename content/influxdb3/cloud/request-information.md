@@ -15,7 +15,6 @@ aliases:
   - /influxdb3/cloud/api/v3/
   - /influxdb3/cloud/guides/api-compatibility/v1/
   - /influxdb3/cloud/guides/api-compatibility/v2/
-  - /influxdb3/cloud/install/
   - /influxdb3/cloud/write-data/use-telegraf/
   - /influxdb3/cloud/write-data/use-telegraf/csv/
   - /influxdb3/cloud/reference/cli/influxdb3/create/database/

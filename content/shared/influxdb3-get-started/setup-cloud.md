@@ -53,8 +53,8 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 > For {{% product-name %}}, you only need the CLI, so you can skip the prompts
 > to start a server.
 
-For other installation methods, including Windows binaries and Docker images,
-see [Install InfluxDB 3](/influxdb3/core/install/).
+For Windows binaries and other CLI installation options,
+see [Install the influxdb3 CLI for InfluxDB 3 Cloud](/influxdb3/cloud/install/).
 
 ### Connect to your instance
 
