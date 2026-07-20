@@ -9,6 +9,7 @@ To get started, get your instance host from InfluxData, configure the
 
 - [Get your instance](#get-your-instance)
 - [Configure the influxdb3 CLI](#configure-the-influxdb3-cli)
+  - [Install the influxdb3 CLI](#install-the-influxdb3-cli)
   - [Connect to your instance](#connect-to-your-instance)
   - [Log in to your instance](#log-in-to-your-instance)
 - [Create a database](#create-a-database)
@@ -33,6 +34,27 @@ administer your instance and write and query data from the command line.
 Because {{% product-name %}} is fully managed, you don't install or run
 anything for the service itself. You point the `influxdb3` CLI at your hosted
 instance and log in with your InfluxData account.
+
+### Install the influxdb3 CLI
+
+The `influxdb3` CLI is included in the InfluxDB 3 binary.
+To install it on **Linux** or **macOS**, download and run the quick installer
+script:
+
+<!--pytest.mark.skip-->
+
+```bash
+curl -O https://www.influxdata.com/d/install_influxdb3.sh \
+&& sh install_influxdb3.sh
+```
+
+> [!Note]
+> The installer also sets up a local InfluxDB 3 server.
+> For {{% product-name %}}, you only need the CLI, so you can skip the prompts
+> to start a server.
+
+For other installation methods, including Windows binaries and Docker images,
+see [Install InfluxDB 3](/influxdb3/core/install/).
 
 ### Connect to your instance
 
