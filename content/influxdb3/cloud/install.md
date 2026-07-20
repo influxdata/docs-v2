@@ -1,8 +1,8 @@
 ---
 title: Install the influxdb3 CLI for InfluxDB 3 Cloud
 description: >
-  Install the InfluxDB 3 Enterprise CLI to write data to and query InfluxDB 3
-  Cloud.
+  Install the `influxdb3` CLI to administer, write data to, and query
+  InfluxDB 3 Cloud.
 menu:
   influxdb3_cloud:
     name: Install the influxdb3 CLI
@@ -10,14 +10,15 @@ weight: 2
 influxdb3/cloud/tags: [install]
 related:
   - /influxdb3/cloud/get-started/setup/
+  - /influxdb3/cloud/reference/cli/influxdb3/
 canonical: self
 ---
 
 InfluxDB 3 Cloud is fully managed, so you don't install or run an InfluxDB server.
-To write data to and query your Cloud instance, install the `influxdb3` CLI.
+To administer your {{% product-name %}} instance and write and query data, install the `influxdb3` CLI.
 
-The CLI is included with InfluxDB 3 Enterprise.
-Install the Enterprise build using one of the following methods.
+The `influxdb3` CLI is distributed in the InfluxDB 3 Enterprise binary.
+Install the Enterprise binary using one of the following methods.
 
 - [Quick install for Linux and macOS](#quick-install-for-linux-and-macos)
 - [Download the CLI binary](#download-the-cli-binary)
@@ -92,5 +93,5 @@ reload your shell configuration--for example:
 source ~/.zshrc
 ```
 
-To connect the CLI to your Cloud instance, continue to
+To connect the CLI to your {{% product-name %}} instance, continue to
 [set up InfluxDB 3 Cloud](/influxdb3/cloud/get-started/setup/).

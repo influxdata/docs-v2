@@ -37,7 +37,8 @@ instance and log in with your InfluxData account.
 
 ### Install the influxdb3 CLI
 
-The `influxdb3` CLI is included in the InfluxDB 3 binary.
+The `influxdb3` CLI is distributed in the InfluxDB 3 Enterprise binary.
+For {{% product-name %}}, you install the Enterprise binary to get the CLI—you don't run the server.
 To install it on **Linux** or **macOS**, download and run the quick installer
 script:
 
