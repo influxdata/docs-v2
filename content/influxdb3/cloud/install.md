@@ -61,9 +61,6 @@ The archive includes the `influxdb3` CLI.
   •
   [sha256](https://dl.influxdata.com/influxdb/releases/influxdb3-enterprise-{{< latest-patch product="influxdb3_enterprise" >}}_darwin_arm64.tar.gz.sha256)
 
-> [!Note]
-> macOS Intel builds are coming soon.
-
 {{% /expand %}}
 {{% expand "Windows binaries" %}}
 
