@@ -12,7 +12,7 @@ os_support: "freebsd, linux, macos, solaris, windows"
 
 # Riemann Output Plugin
 
-This plugin writes metric to the [Riemann](http://riemann.io) serice via TCP or UDP.
+This plugin writes metric to the [Riemann](http://riemann.io) service via TCP or UDP.
 
 **Introduced in:** Telegraf v1.3.0
 **Tags:** datastore

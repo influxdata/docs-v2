@@ -26,7 +26,7 @@ discrete time series such as procstat, cgroup, kubernetes etc. or to downsample
 metrics collected at a higher frequency.
 
 > [!NOTE]
-> All emited metrics do have fields with `_final` appended to the field-name
+> All emitted metrics do have fields with `_final` appended to the field-name
 > by default.
 
 **Introduced in:** Telegraf v1.11.0
