@@ -83,7 +83,7 @@
     {{ end }}
 
     <li class="nav-item" data-nav-url="{{ $specUrl | relURL }}">
-      <a href="#" class="children-toggle"></a>
+      <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ $specLabel }} nested items"></a>
       <a href="{{ $specUrl | relURL }}">{{ $specLabel }}</a>
       <ul class="children">
         {{/* Separate conceptual and non-conceptual articles */}}
