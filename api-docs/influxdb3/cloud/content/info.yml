@@ -1,0 +1,4 @@
+x-influxdata-short-title: InfluxDB 3 API
+x-influxdata-version-matrix:
+  v3: Native API for InfluxDB 3.x (current)
+x-influxdata-short-description: The InfluxDB 3 HTTP API provides a programmatic interface for writing, querying, and managing data in a fully managed InfluxDB 3 Cloud instance.
