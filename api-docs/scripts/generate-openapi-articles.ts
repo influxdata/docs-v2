@@ -1127,6 +1127,17 @@ const productConfigs: ProductConfigMap = {
     menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
+  influxdb3_cloud: {
+    specFile: path.join(
+      API_DOCS_ROOT,
+      'influxdb3/cloud/influxdb3-cloud-openapi.yaml'
+    ),
+    pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud'),
+    description: 'InfluxDB 3 Cloud',
+    menuKey: 'influxdb3_cloud',
+    menuParentName: 'Reference',
+    useTagBasedGeneration: true,
+  },
   // Cloud Dedicated and Clustered use multiple specs:
   // - Management API: database, token, and cluster management (runs on management console)
   // - v2 Data API: write, query, and compatibility endpoints (runs on cluster host)

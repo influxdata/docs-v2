@@ -1,0 +1,1271 @@
+openapi: 3.0.3
+info:
+  title: InfluxDB 3 Cloud API Service
+  description: |-
+    The InfluxDB HTTP API for InfluxDB 3 Cloud provides a programmatic
+    interface for writing, querying, and managing data in your fully
+    managed InfluxDB 3 Cloud instance.
+
+    This reference covers the endpoints that back the `influxdb3` CLI:
+
+    - Write data to databases
+    - Query data using SQL or InfluxQL
+    - Create, list, and delete databases and tables
+    - Create and delete authentication tokens
+
+    Because InfluxData manages the server for you, server-management and
+    node-level endpoints are not part of this API.
+
+    [Download the OpenAPI specification](/openapi/influxdb3-cloud-openapi.yaml)
+  version: v3.10.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
+servers:
+  - url: https://{baseurl}
+    description: InfluxDB 3 Cloud API URL
+    variables:
+      baseurl:
+        default: cluster-host.a.influxdb.io
+        description: Your InfluxDB 3 Cloud instance host
+security:
+  - BearerAuthentication: []
+  - TokenAuthentication: []
+  - BasicAuthentication: []
+  - QuerystringAuthentication: []
+tags:
+  - name: Database
+    description: Manage databases
+  - name: Query data
+    description: Query data using SQL or InfluxQL
+    x-related:
+      - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+        href: /influxdb/version/query-data/execute-queries/influxdb-v1-api/
+  - name: Server information
+    description: Retrieve server metrics, status, and version information
+  - name: Table
+    description: Manage table schemas and data
+  - name: Token
+    description: Manage tokens for authentication and authorization
+  - name: Write data
+    description: |
+      Write data to InfluxDB 3 using line protocol format.
+
+      #### Timestamp precision across write APIs
+
+      InfluxDB 3 provides multiple write endpoints for compatibility with different InfluxDB versions.
+      The following table compares timestamp precision support across v1, v2, and v3 write APIs:
+
+      | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
+      |-----------|---------------|----------------------|-------------------------|
+      | **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
+      | **Seconds** | ✅ `s` | ✅ `s` | ✅ `second` |
+      | **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `millisecond` |
+      | **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `microsecond` |
+      | **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `nanosecond` |
+      | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
+      All timestamps are stored internally as nanoseconds.
+paths:
+  /api/v3/write_lp:
+    post:
+      operationId: PostWriteLP
+      parameters:
+        - name: db
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: precision
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: accept_partial
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: no_sync
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '204':
+          description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Access denied.
+        '413':
+          description: Request entity too large.
+        '422':
+          description: Unprocessable entity.
+      summary: Write line protocol
+      description: |
+        Writes line protocol to the specified database.
+
+        This is the native InfluxDB 3 Enterprise write endpoint that provides enhanced control
+        over write behavior with advanced parameters for high-performance and fault-tolerant operations.
+
+        Use this endpoint to send data in [line protocol](/influxdb/version/reference/syntax/line-protocol/) format
+        to InfluxDB. Use query parameters to specify options for writing data.
+
+        #### Features
+
+        - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
+        - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
+          times but sacrificing durability guarantees
+        - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
+
+        #### Column families (performance upgrade preview)
+
+        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
+        (`--use-pacha-tree` flag), you can assign fields to column families using the `::` delimiter
+        in field names. The portion before `::` is the family name; everything after is the field name.
+
+        ```txt
+        metrics,host=sA cpu::usage_user=55.2,cpu::usage_sys=12.1,mem::free=2048i 1000000000
+        ```
+
+        Fields in the same family are stored together on disk. For wide tables, this reduces I/O
+        by letting queries read only the families they need. Fields written without `::` are assigned
+        to auto-generated families.
+
+        For more information, see [Column families](/influxdb/version/performance-preview/#column-families).
+
+        #### Auto precision detection
+
+        When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
+        the timestamp precision based on the magnitude of the timestamp value:
+
+        - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
+        - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
+        - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
+        - Larger timestamps → Nanosecond precision (no conversion needed)
+
+        #### Related
+
+        - [Use the InfluxDB v3 write_lp API to write data](/influxdb/version/write-data/http-api/v3-write-lp/)
+        - [Performance upgrade preview](/influxdb/version/performance-preview/)
+      requestBody:
+        $ref: '#/components/requestBodies/lineProtocolRequestBody'
+      tags:
+        - Write data
+      x-codeSamples:
+        - label: cURL - Basic write
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2 1638360000000000000"
+        - label: cURL - Write with millisecond precision
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ms" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2 1638360000000"
+        - label: cURL - Asynchronous write with partial acceptance
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&accept_partial=true&no_sync=true&precision=auto" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2
+            memory,host=server01 used=4096"
+        - label: cURL - Multiple measurements with tags
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ns" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
+            memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
+            disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
+  /api/v3/query_sql:
+    get:
+      operationId: GetExecuteQuerySQL
+      parameters:
+        - $ref: '#/components/parameters/db'
+        - $ref: '#/components/parameters/querySqlParam'
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/AcceptQueryHeader'
+        - $ref: '#/components/parameters/ContentType'
+        - name: params
+          in: query
+          required: false
+          schema:
+            type: string
+            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
+          description: JSON-encoded query parameters for parameterized queries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
+      responses:
+        '200':
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+              example:
+                results:
+                  - series:
+                      - name: mytable
+                        columns:
+                          - time
+                          - value
+                        values:
+                          - - '2024-02-02T12:00:00Z'
+                            - 42
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Access denied.
+        '404':
+          description: Database not found.
+        '405':
+          description: Method not allowed.
+        '422':
+          description: Unprocessable entity.
+      summary: Execute SQL query
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        `/api/v3/query_sql_telemetry` endpoint after executing
+        a query to retrieve detailed execution statistics.
+      tags:
+        - Query data
+    post:
+      operationId: PostExecuteQuerySQL
+      parameters:
+        - $ref: '#/components/parameters/AcceptQueryHeader'
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        $ref: '#/components/requestBodies/queryRequestBody'
+      responses:
+        '200':
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Access denied.
+        '404':
+          description: Database not found.
+        '405':
+          description: Method not allowed.
+        '422':
+          description: Unprocessable entity.
+      summary: Execute SQL query
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        `/api/v3/query_sql_telemetry` endpoint after executing
+        a query to retrieve detailed execution statistics.
+      tags:
+        - Query data
+  /api/v3/query_influxql:
+    get:
+      operationId: GetExecuteInfluxQLQuery
+      parameters:
+        - $ref: '#/components/parameters/dbQueryParam'
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/AcceptQueryHeader'
+        - name: params
+          in: query
+          required: false
+          schema:
+            type: string
+            description: JSON-encoded query parameters. Use this to pass bind parameters to parameterized queries.
+          description: JSON-encoded query parameters for parameterized queries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: QueryRequest
+      responses:
+        '200':
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Access denied.
+        '404':
+          description: Database not found.
+        '405':
+          description: Method not allowed.
+        '422':
+          description: Unprocessable entity.
+      summary: Execute InfluxQL query
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
+      tags:
+        - Query data
+    post:
+      operationId: PostExecuteQueryInfluxQL
+      parameters:
+        - $ref: '#/components/parameters/AcceptQueryHeader'
+        - $ref: '#/components/parameters/ContentType'
+      requestBody:
+        $ref: '#/components/requestBodies/queryRequestBody'
+      responses:
+        '200':
+          description: Success. The response body contains query results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+            text/csv:
+              schema:
+                type: string
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+            application/jsonl:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Access denied.
+        '404':
+          description: Database not found.
+        '405':
+          description: Method not allowed.
+        '422':
+          description: Unprocessable entity.
+      summary: Execute InfluxQL query
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
+      tags:
+        - Query data
+  /api/v3/configure/database:
+    get:
+      operationId: GetConfigureDatabase
+      responses:
+        '200':
+          description: Success. The response body contains the list of databases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShowDatabasesResponse'
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Database not found.
+      summary: List databases
+      description: Retrieves a list of databases.
+      parameters:
+        - $ref: '#/components/parameters/formatRequired'
+        - name: show_deleted
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Include soft-deleted databases in the response.
+            By default, only active databases are returned.
+      tags:
+        - Database
+    post:
+      operationId: PostConfigureDatabase
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatabaseRequest'
+      responses:
+        '200':
+          description: Success. Database created.
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Database already exists.
+      summary: Create a database
+      description: Creates a new database in the system.
+      tags:
+        - Database
+    delete:
+      operationId: DeleteConfigureDatabase
+      parameters:
+        - $ref: '#/components/parameters/db'
+        - name: data_only
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Delete only data while preserving the database schema and all associated resources
+            (tokens, triggers, last value caches, distinct value caches, processing engine configurations).
+            When `false` (default), the entire database is deleted.
+        - name: remove_tables
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Used with `data_only=true` to remove table resources (caches) while preserving
+            database-level resources (tokens, triggers, processing engine configurations).
+            Has no effect when `data_only=false`.
+        - name: hard_delete_at
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: |-
+            Schedule the database for hard deletion at the specified time.
+            If not provided, the database will be soft deleted.
+            Use ISO 8601 date-time format (for example, "2025-12-31T23:59:59Z").
+
+            #### Deleting a database cannot be undone
+
+            Deleting a database is a destructive action.
+            Once a database is deleted, data stored in that database cannot be recovered.
+
+
+            Also accepts special string values:
+            - `now` — hard delete immediately
+            - `never` — soft delete only (default behavior)
+            - `default` — use the system default hard deletion time
+      responses:
+        '200':
+          description: Success. Database deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Database not found.
+      summary: Delete a database
+      description: |
+        Soft deletes a database.
+        The database is scheduled for deletion and unavailable for querying.
+        Use the `hard_delete_at` parameter to schedule a hard deletion.
+        Use the `data_only` parameter to delete data while preserving the database schema and resources.
+      tags:
+        - Database
+  /api/v3/configure/table:
+    post:
+      operationId: PostConfigureTable
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTableRequest'
+      responses:
+        '200':
+          description: Success. The table has been created.
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Database not found.
+      summary: Create a table
+      description: Creates a new table within a database.
+      tags:
+        - Table
+    delete:
+      operationId: DeleteConfigureTable
+      parameters:
+        - $ref: '#/components/parameters/db'
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: data_only
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Delete only data while preserving the table schema and all associated resources
+            (last value caches, distinct value caches).
+            When `false` (default), the entire table is deleted.
+        - name: hard_delete_at
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: |-
+            Schedule the table for hard deletion at the specified time.
+            If not provided, the table will be soft deleted.
+            Use ISO 8601 format (for example, "2025-12-31T23:59:59Z").
+
+
+            Also accepts special string values:
+            - `now` — hard delete immediately
+            - `never` — soft delete only (default behavior)
+            - `default` — use the system default hard deletion time
+      responses:
+        '200':
+          description: Success (no content). The table has been deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Table not found.
+      summary: Delete a table
+      description: |
+        Soft deletes a table.
+        The table is scheduled for deletion and unavailable for querying.
+        Use the `hard_delete_at` parameter to schedule a hard deletion.
+        Use the `data_only` parameter to delete data while preserving the table schema and resources.
+
+        #### Deleting a table cannot be undone
+
+        Deleting a table is a destructive action.
+        Once a table is deleted, data stored in that table cannot be recovered.
+      tags:
+        - Table
+  /api/v3/configure/token/named_admin:
+    post:
+      operationId: PostCreateNamedAdminToken
+      responses:
+        '201':
+          description: |
+            Success. The named admin token has been created.
+            The response body contains the token string and metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminTokenObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: A token with this name already exists.
+      summary: Create named admin token
+      description: |
+        Creates a named admin token.
+        A named admin token is a special type of admin token with a custom name for identification and management.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token_name:
+                  type: string
+                  description: The name for the admin token.
+                expiry_secs:
+                  type: integer
+                  description: Optional expiration time in seconds. If not provided, the token does not expire.
+                  nullable: true
+              required:
+                - token_name
+      tags:
+        - Token
+  /api/v3/enterprise/configure/token:
+    post:
+      operationId: PostCreateResourceToken
+      summary: Create a resource token
+      description: |
+        Creates a resource (fine-grained permissions) token.
+        A resource token is a token that has access to specific resources in the system.
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      responses:
+        '201':
+          description: |
+            Success. The resource token has been created.
+            The response body contains the token string and metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceTokenObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+        - Token
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokenWithPermissionsRequest'
+  /api/v3/configure/token:
+    delete:
+      operationId: DeleteToken
+      parameters:
+        - name: token_name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The name of the token to delete.
+      responses:
+        '200':
+          description: Success. The token has been deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Token not found.
+      summary: Delete token
+      description: |
+        Deletes a token.
+      tags:
+        - Token
+  /health:
+    get:
+      operationId: GetHealth
+      responses:
+        '200':
+          description: Service is running. Returns `OK`.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
+        '401':
+          description: Unauthorized. Authentication is required.
+        '500':
+          description: Service is unavailable.
+      summary: Health check
+      description: |
+        Checks the status of the service.
+
+        Returns `OK` if the service is running. This endpoint does not return version information.
+        Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
+
+        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+      tags:
+        - Server information
+  /ping:
+    get:
+      operationId: GetPing
+      responses:
+        '200':
+          description: Success. The response body contains server information.
+          headers:
+            x-influxdb-version:
+              description: The InfluxDB version number (for example, `3.8.0`).
+              schema:
+                type: string
+                example: 3.8.0
+            x-influxdb-build:
+              description: The InfluxDB build type (`Core` or `Enterprise`).
+              schema:
+                type: string
+                example: Enterprise
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: The InfluxDB version number.
+                    example: 3.8.0
+                  revision:
+                    type: string
+                    description: The git revision hash for the build.
+                    example: 83b589b883
+                  process_id:
+                    type: string
+                    description: A unique identifier for the server process.
+                    example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
+        '401':
+          description: Unauthorized. Authentication is required.
+        '404':
+          description: |
+            Not Found. Returned for HEAD requests.
+            Use a GET request to retrieve version information.
+      summary: Ping the server
+      description: |
+        Returns version information for the server.
+
+        **Important**: Use a GET request. HEAD requests return `404 Not Found`.
+
+        The response includes version information in both headers and the JSON body:
+
+        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Body**: JSON object with `version`, `revision`, and `process_id`
+
+        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+      tags:
+        - Server information
+components:
+  headers:
+    ClusterUUID:
+      description: |
+        The catalog UUID of the InfluxDB instance.
+        This header is included in all HTTP API responses and enables you to:
+        - Identify which cluster instance handled the request
+        - Monitor deployments across multiple InfluxDB instances
+        - Debug and troubleshoot distributed systems
+      schema:
+        type: string
+        format: uuid
+      example: 01234567-89ab-cdef-0123-456789abcdef
+  responses:
+    Unauthorized:
+      description: Unauthorized access.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+  schemas:
+    ErrorMessage:
+      type: object
+      properties:
+        error:
+          type: string
+        data:
+          type: object
+          nullable: true
+    Format:
+      type: string
+      enum:
+        - json
+        - csv
+        - parquet
+        - json_lines
+        - jsonl
+        - pretty
+      description: |-
+        The format of data in the response body.
+        `json_lines` is the canonical name; `jsonl` is accepted as an alias.
+    QueryResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+      example:
+        results:
+          - series:
+              - name: mytable
+                columns:
+                  - time
+                  - value
+                values:
+                  - - '2024-02-02T12:00:00Z'
+                    - 42
+    QueryRequestObject:
+      type: object
+      properties:
+        db:
+          description: |
+            The name of the database to query.
+            Required if the query (`q`) doesn't specify the database.
+          type: string
+        q:
+          description: The query to execute.
+          type: string
+        format:
+          description: The format of the query results.
+          type: string
+          enum:
+            - json
+            - csv
+            - parquet
+            - json_lines
+            - jsonl
+            - pretty
+        params:
+          description: |
+            Additional parameters for the query.
+            Use this field to pass query parameters.
+          type: object
+          additionalProperties: true
+      required:
+        - db
+        - q
+      example:
+        db: mydb
+        q: SELECT * FROM mytable
+        format: json
+        params: {}
+    ShowDatabasesResponse:
+      type: object
+      properties:
+        databases:
+          type: array
+          items:
+            type: string
+    CreateDatabaseRequest:
+      type: object
+      properties:
+        db:
+          type: string
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$|^[a-zA-Z0-9]$
+          description: |-
+            The database name. Database names cannot contain underscores (_).
+            Names must start and end with alphanumeric characters and can contain hyphens (-) in the middle.
+        retention_period:
+          type: string
+          description: |-
+            The retention period for the database. Specifies how long data should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: 7d
+      required:
+        - db
+    CreateTableRequest:
+      type: object
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                  - utf8
+                  - int64
+                  - uint64
+                  - float64
+                  - bool
+            required:
+              - name
+              - type
+        retention_period:
+          type: string
+          description: |-
+            The retention period for the table. Specifies how long data in this table should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: 30d
+      required:
+        - db
+        - table
+        - tags
+        - fields
+    AdminTokenObject:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        token:
+          type: string
+        hash:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        expiry:
+          format: date-time
+      example:
+        id: 0
+        name: _admin
+        token: apiv3_00xx0Xx0xx00XX0x0
+        hash: 00xx0Xx0xx00XX0x0
+        created_at: '2025-04-18T14:02:45.331Z'
+        expiry: null
+    ResourceTokenObject:
+      type: object
+      properties:
+        token_name:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: object
+            properties:
+              resource_type:
+                type: string
+                enum:
+                  - system
+                  - db
+              actions:
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - read
+                    - write
+              resource_names:
+                type: array
+                items:
+                  type: string
+                description: List of resource names. Use "*" for all resources.
+        expiry_secs:
+          type: integer
+          description: The expiration time in seconds.
+      example:
+        token_name: All system information
+        permissions:
+          - resource_type: system
+            actions:
+              - read
+            resource_names:
+              - '*'
+        expiry_secs: 300000
+    CreateTokenWithPermissionsRequest:
+      type: object
+      properties:
+        token_name:
+          type: string
+          description: The name for the resource token.
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionDetailsApi'
+          description: List of permissions to grant to the token.
+        expiry_secs:
+          type: integer
+          description: Optional expiration time in seconds.
+          nullable: true
+      required:
+        - token_name
+        - permissions
+    PermissionDetailsApi:
+      type: object
+      properties:
+        resource_type:
+          type: string
+          enum:
+            - system
+            - db
+          description: The type of resource.
+        resource_names:
+          type: array
+          items:
+            type: string
+          description: List of resource names. Use "*" for all resources.
+        actions:
+          type: array
+          items:
+            type: string
+            enum:
+              - read
+              - write
+          description: List of actions to grant.
+      required:
+        - resource_type
+        - resource_names
+        - actions
+  requestBodies:
+    lineProtocolRequestBody:
+      required: true
+      content:
+        text/plain:
+          schema:
+            type: string
+          examples:
+            line:
+              summary: Example line protocol
+              value: measurement,tag=value field=1 1234567890
+            multiline:
+              summary: Example line protocol with UTF-8 characters
+              value: |
+                measurement,tag=value field=1 1234567890
+                measurement,tag=value field=2 1234567900
+                measurement,tag=value field=3 1234568000
+    queryRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryRequestObject'
+  parameters:
+    db:
+      name: db
+      in: query
+      required: true
+      schema:
+        type: string
+      description: |
+        The name of the database.
+    querySqlParam:
+      name: q
+      in: query
+      required: true
+      schema:
+        type: string
+        format: SQL
+      description: |
+        The query to execute.
+    format:
+      name: format
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Format'
+    AcceptQueryHeader:
+      name: Accept
+      in: header
+      schema:
+        type: string
+        default: application/json
+        enum:
+          - application/json
+          - application/jsonl
+          - application/vnd.apache.parquet
+          - text/csv
+      required: false
+      description: |
+        The content type that the client can understand.
+    ContentType:
+      name: Content-Type
+      description: |
+        The format of the data in the request body.
+      in: header
+      schema:
+        type: string
+        enum:
+          - application/json
+      required: false
+    dbQueryParam:
+      name: db
+      in: query
+      required: false
+      schema:
+        type: string
+      description: |
+        The name of the database.
+
+        If you provide a query that specifies the database, you can omit the 'db' parameter from your request.
+    formatRequired:
+      name: format
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/Format'
+  securitySchemes:
+    BearerAuthentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+
+        Use the OAuth Bearer authentication
+        scheme to provide an authorization token to InfluxDB 3.
+
+        Bearer authentication works with all endpoints.
+
+        In your API requests, send an `Authorization` header.
+        For the header value, provide the word `Bearer` followed by a space and a database token.
+
+        ### Syntax
+
+        ```http
+        Authorization: Bearer AUTH_TOKEN
+        ```
+
+        ### Example
+
+        ```bash
+        curl http://localhost:8181/api/v3/query_influxql \
+          --header "Authorization: Bearer AUTH_TOKEN"
+        ```
+    TokenAuthentication:
+      description: |-
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+
+        In your API requests, send an `Authorization` header.
+        For the header value, provide the word `Token` followed by a space and a database token.
+        The word `Token` is case-sensitive.
+
+        ### Syntax
+
+        ```http
+        Authorization: Token AUTH_TOKEN
+        ```
+
+        ### Example
+
+        ```sh
+        ########################################################
+        # Use the Token authentication scheme with /api/v2/write
+        # to write data.
+        ########################################################
+
+        curl --request post "http://localhost:8181/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+          --header "Authorization: Token AUTH_TOKEN" \
+          --data-binary 'home,room=kitchen temp=72 1463683075'
+        ```
+      in: header
+      name: Authorization
+      type: apiKey
+    BasicAuthentication:
+      type: http
+      scheme: basic
+      description: |-
+        Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
+
+        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1ExecuteQuery) endpoints in InfluxDB 3.
+
+        When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an authorized token
+        and ignores the `username` part of the decoded credential.
+
+        ### Syntax
+
+        ```http
+        Authorization: Basic <base64-encoded [USERNAME]:AUTH_TOKEN>
+        ```
+
+        ### Example
+
+        ```bash
+        curl "http://localhost:8181/write?db=DATABASE_NAME&precision=s" \
+          --user "":"AUTH_TOKEN" \
+          --header "Content-type: text/plain; charset=utf-8" \
+          --data-binary 'home,room=kitchen temp=72 1641024000'
+        ```
+
+        Replace the following:
+
+        - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
+        - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
+    QuerystringAuthentication:
+      type: apiKey
+      in: query
+      name: u=&p=
+      description: |-
+        Use InfluxDB 1.x API parameters to provide credentials through the query string for v1 API requests.
+
+        Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1ExecuteQuery) endpoints.
+
+        When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
+        and ignores the `u` (_username_) query parameter.
+
+        ### Syntax
+
+        ```http
+        https://localhost:8181/query/?[u=any]&p=AUTH_TOKEN
+        https://localhost:8181/write/?[u=any]&p=AUTH_TOKEN
+        ```
+
+        ### Examples
+
+        ```bash
+        curl "http://localhost:8181/write?db=DATABASE_NAME&precision=s&p=AUTH_TOKEN" \
+          --header "Content-type: text/plain; charset=utf-8" \
+          --data-binary 'home,room=kitchen temp=72 1641024000'
+        ```
+
+        Replace the following:
+
+        - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
+        - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
+
+        ```bash
+        #######################################
+        # Use an InfluxDB 1.x compatible username and password
+        # to query the InfluxDB v1 HTTP API
+        #######################################
+        # Use authentication query parameters:
+        #   ?p=AUTH_TOKEN
+        #######################################
+
+        curl --get "http://localhost:8181/query" \
+          --data-urlencode "p=AUTH_TOKEN" \
+          --data-urlencode "db=DATABASE_NAME" \
+          --data-urlencode "q=SELECT * FROM MEASUREMENT"
+        ```
+
+        Replace the following:
+
+        - **`DATABASE_NAME`**: the database to query
+        - **`AUTH_TOKEN`**: a database token with sufficient permissions to the database

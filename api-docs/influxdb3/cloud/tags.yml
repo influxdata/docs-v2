@@ -1,0 +1,100 @@
+tags:
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Cloud API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+  Quick start:
+    x-traitTag: true
+    description: |
+      Authenticate, write, and query with the API:
+
+      1. Check the status of your InfluxDB 3 Cloud instance.
+
+         ```bash
+         curl "https://cluster-host.a.influxdb.io/health" \
+            --header "Authorization: Bearer AUTH_TOKEN"
+         ```
+
+      2. Write data to a database.
+
+         ```bash
+         curl "https://cluster-host.a.influxdb.io/api/v3/write_lp?db=sensors&precision=auto" \
+           --header "Authorization: Bearer AUTH_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0
+          home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      3. Query data from a database.
+
+         ```bash
+         curl -G "https://cluster-host.a.influxdb.io/api/v3/query_sql" \
+           --header "Authorization: Bearer AUTH_TOKEN" \
+           --data-urlencode "db=sensors" \
+           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
+           --data-urlencode "format=jsonl"
+         ```
+
+         Output:
+
+         ```jsonl
+         {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
+         ```
+
+      For more information, see the [Get started](/influxdb3/cloud/get-started/) guide.
+  Write data:
+    description: |
+      Write data to InfluxDB 3 Cloud using line protocol format.
+    externalDocs:
+      description: Write data using HTTP APIs
+      url: /influxdb3/cloud/write-data/http-api/
+    x-related:
+      - title: Write data using HTTP APIs
+        href: /influxdb3/cloud/write-data/http-api/
+  Query data:
+    description: |
+      Query data stored in InfluxDB 3 Cloud using SQL or InfluxQL.
+    externalDocs:
+      description: Query data
+      url: /influxdb3/cloud/query-data/
+    x-related:
+      - title: Query data
+        href: /influxdb3/cloud/query-data/
+  Database:
+    description: |
+      Create, list, and delete databases in InfluxDB 3 Cloud.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/cloud/admin/databases/
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/cloud/admin/databases/
+  Table:
+    description: |
+      Manage table schemas in an InfluxDB 3 Cloud database.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/cloud/admin/tables/
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/cloud/admin/tables/
+  Token:
+    rename: Auth token
+    description: |
+      Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Cloud resources.
+    externalDocs:
+      description: Manage tokens
+      url: /influxdb3/cloud/admin/tokens/
+    x-related:
+      - title: Manage tokens
+        href: /influxdb3/cloud/admin/tokens/
+  Server information:
+    description: |
+      Retrieve health status and version information for your InfluxDB 3 Cloud instance.
