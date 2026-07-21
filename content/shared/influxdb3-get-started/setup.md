@@ -69,7 +69,7 @@ Using auto-generated node id: mylaptop-node. For production deployments, explici
 > as shown in the [Start InfluxDB](#start-influxdb) section below.
 
 **Configuration precedence**: Environment variables override auto-generated defaults.
-For example, if you set `INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node`, the system
+For example, if you set `INFLUXDB3_NODE_ID=my-node`, the system
 uses `my-node` instead of generating `{hostname}-node`.
 
 ## Start InfluxDB
@@ -244,7 +244,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
+      - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
     volumes:
       - type: bind
         # Path to store data on your host system
@@ -441,7 +441,7 @@ InfluxDB 3 Enterprise licenses:
 >
 > To generate the trial or home license in Docker, bypass the email prompt.
 > The first time you start a new instance, provide your email address with the
-> `--license-email` option or the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
+> `--license-email` option or the `INFLUXDB3_LICENSE_EMAIL` environment variable.
 >
 > _Currently, if you use Docker and enter your email address in the prompt, a bug may
 > prevent the container from generating the license ._

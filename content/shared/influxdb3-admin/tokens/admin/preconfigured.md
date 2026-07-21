@@ -190,7 +190,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --admin-token-file=/run/secrets/admin-token
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com
+      - INFLUXDB3_LICENSE_EMAIL=your-email@example.com
     secrets:
       - admin-token
     volumes:
