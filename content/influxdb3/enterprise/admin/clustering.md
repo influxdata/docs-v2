@@ -106,7 +106,7 @@ influxdb3 \
   serve \
   --num-cores=32 \
   --datafusion-num-threads=20 \
-  --exec-mem-pool-bytes=60% \
+  --exec-mem-pool-size=60% \
   --mode=ingest \
   --node-id=ingester-01
 ```
@@ -161,8 +161,8 @@ influxdb3 \
   serve \
   --num-cores=64 \
   --datafusion-num-threads=60 \
-  --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size=8GB \
+  --exec-mem-pool-size=90% \
+  --file-cache-size=8GB \
   --mode=query \
   --node-id=query-01 \
   --cluster-id=prod-cluster
@@ -183,8 +183,8 @@ influxdb3 \
   serve \
   --num-cores=32 \
   --datafusion-num-threads=26 \
-  --exec-mem-pool-bytes=80% \
-  --parquet-mem-cache-size=4GB \
+  --exec-mem-pool-size=80% \
+  --file-cache-size=4GB \
   --mode=query \
   --node-id=query-02
 ```
@@ -309,7 +309,7 @@ influxdb3 \
   serve \
   --num-cores=48 \
   --datafusion-num-threads=36 \
-  --exec-mem-pool-bytes=75% \
+  --exec-mem-pool-size=75% \
   --mode=ingest,query \
   --node-id=hybrid-01
 ```
@@ -629,14 +629,14 @@ top -H -p $(pgrep influxdb3)
 free -h
 
 # Solution: Increase memory pool
---exec-mem-pool-bytes=90%
+--exec-mem-pool-size=90%
 ```
 
 **Problem**: Poor cache hit rates
 
 ```bash
 # Solution: Increase Parquet cache
---parquet-mem-cache-size=10GB
+--file-cache-size=10GB
 ```
 
 ### Compactor node issues
@@ -746,7 +746,7 @@ influxdb3 serve --config ingester.toml
 
 ```bash
 # Set environment variables for node type
-export INFLUXDB3_ENTERPRISE_MODE=ingest
+export INFLUXDB3_MODE=ingest
 export INFLUXDB3_NUM_IO_THREADS=20
 export INFLUXDB3_DATAFUSION_NUM_THREADS=76
 

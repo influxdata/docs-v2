@@ -140,7 +140,7 @@ option and license configuration:
 docker run -d \
   --name influxdb3-enterprise \
   -p 8181:8181 \
-  -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS \
+  -e INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS \
   -v DATA_VOLUME:/var/lib/influxdb3/data \
   -v PLUGIN_VOLUME:/var/lib/influxdb3/plugins \
   influxdb:3-enterprise \
@@ -162,7 +162,7 @@ Replace the following:
 > [!Important]
 > #### License activation in Docker
 >
-> You must provide `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` as an environment
+> You must provide `INFLUXDB3_LICENSE_EMAIL` as an environment
 > variable because the interactive license prompt doesn't work in containers.
 > After starting the container, check your email and click the verification link.
 
@@ -182,7 +182,7 @@ services:
     ports:
       - 8181:8181
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=${EMAIL_ADDRESS}
+      - INFLUXDB3_LICENSE_EMAIL=${EMAIL_ADDRESS}
     command:
       - influxdb3
       - serve

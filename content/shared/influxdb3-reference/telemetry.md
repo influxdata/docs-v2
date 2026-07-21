@@ -62,14 +62,14 @@ Telemetry data is transmitted once per hour.
 ## Disable telemetry
 
 To "opt-out" of collecting and sending {{% product-name %}} telemetry data,
-include the `--disable-telemetry-upload` flag or set the `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` environment variable
+include the `--disable-telemetry-upload` flag or set the `INFLUXDB3_DISABLE_TELEMETRY_UPLOAD` environment variable
 when starting {{% product-name %}}.
 
 **Default:** `false`
 
 | influxdb3 flag | Environment variable | 
 | :------------- | :------------------- | 
-| `--disable-telemetry-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
+| `--disable-telemetry-upload` | `INFLUXDB3_DISABLE_TELEMETRY_UPLOAD` |
 
 #### Command line flag
 ```sh
@@ -78,7 +78,7 @@ influxdb3 serve --disable-telemetry-upload
 
 #### Environment variable
 ```sh
-export INFLUXDB3_TELEMETRY_DISABLE_UPLOAD=true
+export INFLUXDB3_DISABLE_TELEMETRY_UPLOAD=true
 ```
 
 When telemetry is disabled, no usage data is collected or transmitted.

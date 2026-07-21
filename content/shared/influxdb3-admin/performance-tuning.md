@@ -116,20 +116,20 @@ influxdb3 --num-io-threads=4 serve \
 >
 > If you have multiple concurrent writers (for example, Telegraf agents), the default of 2 IO threads can bottleneck write performance.
 
-### Memory pool (--exec-mem-pool-bytes)
+### Memory pool (--exec-mem-pool-size)
 
 Controls memory for query execution.
-Default: {{% show-in "core" %}}70%{{% /show-in %}}{{% show-in "enterprise" %}}20%{{% /show-in %}} of RAM.
+Default: 20% of RAM.
 
 {{% show-in "core" %}}
 ```bash
 # Increase for query-heavy workloads
-influxdb3 --exec-mem-pool-bytes=90% serve \
+influxdb3 --exec-mem-pool-size=90% serve \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 
 # Decrease if experiencing memory pressure
-influxdb3 --exec-mem-pool-bytes=60% serve \
+influxdb3 --exec-mem-pool-size=60% serve \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -138,18 +138,18 @@ influxdb3 --exec-mem-pool-bytes=60% serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Increase for query-heavy workloads
-influxdb3 --exec-mem-pool-bytes=90% serve \
+influxdb3 --exec-mem-pool-size=90% serve \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 
 # Decrease if experiencing memory pressure
-influxdb3 --exec-mem-pool-bytes=60% serve \
+influxdb3 --exec-mem-pool-size=60% serve \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
 {{% /show-in %}}
 
-### Parquet cache (--parquet-mem-cache-size)
+### Data file cache (--file-cache-size)
 
 Caches frequently accessed data files in memory.
 
@@ -157,7 +157,7 @@ Caches frequently accessed data files in memory.
 ```bash
 # Enable caching for better query performance
 influxdb3 serve \
-  --parquet-mem-cache-size=4096 \
+  --file-cache-size=4gb \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -166,7 +166,7 @@ influxdb3 serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Enable caching for better query performance
-influxdb3 --parquet-mem-cache-size=4GB serve \
+influxdb3 --file-cache-size=4GB serve \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -211,15 +211,15 @@ influxdb3 --wal-flush-interval=100ms serve \
 
 **Solutions:**
 1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-io-threads-datafusion-num-threads)
-2. {{% /show-in %}}Increase [execution memory pool](#memory-pool-exec-mem-pool-bytes) (to 90%)
-3. Enable [Parquet caching](#parquet-cache-parquet-mem-cache-size)
+2. {{% /show-in %}}Increase [execution memory pool](#memory-pool-exec-mem-pool-size) (to 90%)
+3. Enable [data file caching](#data-file-cache-file-cache-size)
 
 ### Memory pressure
 
 **Symptoms:** OOM errors, swapping, high memory usage
 
 **Solutions:**
-1. Reduce [execution memory pool](#memory-pool-exec-mem-pool-bytes) (to 60%)
+1. Reduce [execution memory pool](#memory-pool-exec-mem-pool-size) (to 60%)
 2. Lower snapshot threshold (`--force-snapshot-mem-threshold=70%`)
 
 ### CPU bottlenecks
@@ -243,7 +243,7 @@ influxdb3 --wal-flush-interval=100ms serve \
 ```bash
 # 32-core system, high ingest rate
 influxdb3 --num-io-threads=12 \
-  --exec-mem-pool-bytes=80% \
+  --exec-mem-pool-size=80% \
   --wal-flush-interval=100ms \
   serve \
   --node-id=node0 \
@@ -257,7 +257,7 @@ influxdb3 --num-io-threads=12 \
 # 32-core system, high ingest rate
 influxdb3 --num-io-threads=12 serve \
   --datafusion-num-threads=20 \
-  --exec-mem-pool-bytes=80% \
+  --exec-mem-pool-size=80% \
   --wal-flush-interval=100ms \
   --node-id=node0 \
   --cluster-id=cluster0 \
@@ -272,8 +272,8 @@ influxdb3 --num-io-threads=12 serve \
 ```bash
 # 32-core system, analytical queries
 influxdb3 --num-io-threads=4 serve \
-  --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size=2048 \
+  --exec-mem-pool-size=90% \
+  --file-cache-size=2gb \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -285,8 +285,8 @@ influxdb3 --num-io-threads=4 serve \
 # 32-core system, analytical queries
 influxdb3 --num-io-threads=4 serve \
   --datafusion-num-threads=28 \
-  --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size=2GB \
+  --exec-mem-pool-size=90% \
+  --file-cache-size=2GB \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -300,8 +300,8 @@ influxdb3 --num-io-threads=4 serve \
 ```bash
 # 32-core system, balanced operations
 influxdb3 --num-io-threads=8 serve \
-  --exec-mem-pool-bytes=70% \
-  --parquet-mem-cache-size=1024 \
+  --exec-mem-pool-size=70% \
+  --file-cache-size=1gb \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -313,8 +313,8 @@ influxdb3 --num-io-threads=8 serve \
 # 32-core system, balanced operations
 influxdb3 --num-io-threads=8 serve \
   --datafusion-num-threads=24 \
-  --exec-mem-pool-bytes=70% \
-  --parquet-mem-cache-size=1GB \
+  --exec-mem-pool-size=70% \
+  --file-cache-size=1GB \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -345,8 +345,8 @@ DataFusion threads = N - IO threads
 ```bash
 # Balanced configuration
 influxdb3 --num-io-threads=2 serve \
-  --exec-mem-pool-bytes=10GB \
-  --parquet-mem-cache-size=500 \
+  --exec-mem-pool-size=10GB \
+  --file-cache-size=500mb \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -357,8 +357,8 @@ influxdb3 --num-io-threads=2 serve \
 ```bash
 # Balanced configuration
 influxdb3 --num-io-threads=2 \
-  --exec-mem-pool-bytes=10GB \
-  --parquet-mem-cache-size=500MB \
+  --exec-mem-pool-size=10GB \
+  --file-cache-size=500MB \
   serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
@@ -373,8 +373,8 @@ influxdb3 --num-io-threads=2 \
 ```bash
 # Write-optimized configuration
 influxdb3 --num-io-threads=6 serve \
-  --exec-mem-pool-bytes=45GB \
-  --parquet-mem-cache-size=2048 \
+  --exec-mem-pool-size=45GB \
+  --file-cache-size=2gb \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -386,8 +386,8 @@ influxdb3 --num-io-threads=6 serve \
 # Write-optimized configuration
 influxdb3 --num-io-threads=6 serve \
   --datafusion-num-threads=10 \
-  --exec-mem-pool-bytes=45GB \
-  --parquet-mem-cache-size=2GB \
+  --exec-mem-pool-size=45GB \
+  --file-cache-size=2GB \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -401,8 +401,8 @@ influxdb3 --num-io-threads=6 serve \
 ```bash
 # Query-optimized configuration
 influxdb3 --num-io-threads=8 serve \
-  --exec-mem-pool-bytes=200GB \
-  --parquet-mem-cache-size=10240 \
+  --exec-mem-pool-size=200GB \
+  --file-cache-size=10gb \
   --object-store-connection-limit=200 \
   --node-id=node0 \
   --object-store=file \
@@ -415,8 +415,8 @@ influxdb3 --num-io-threads=8 serve \
 # Query-optimized configuration
 influxdb3 --num-io-threads=8 serve \
   --datafusion-num-threads=56 \
-  --exec-mem-pool-bytes=200GB \
-  --parquet-mem-cache-size=10GB \
+  --exec-mem-pool-size=200GB \
+  --file-cache-size=10GB \
   --object-store-connection-limit=200 \
   --node-id=node0 \
   --cluster-id=cluster0 \
@@ -459,8 +459,8 @@ influxdb3 --num-io-threads=4 serve \
   --mode=query \
   --num-cores=64 \
   --datafusion-num-threads=60 \
-  --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size=4GB \
+  --exec-mem-pool-size=90% \
+  --file-cache-size=4GB \
   --node-id=query0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -495,11 +495,11 @@ influxdb3 --num-io-threads=2 serve \
 Configure the query execution memory pool:
 
 ```bash
-# Absolute value in bytes
---exec-mem-pool-bytes=8589934592  # 8GB
+# Absolute value with a unit suffix
+--exec-mem-pool-size=8gb
 
 # Percentage of available RAM
---exec-mem-pool-bytes=80%  # 80% of system RAM
+--exec-mem-pool-size=80%  # 80% of system RAM
 ```
 
 **Guidelines:**
@@ -507,13 +507,13 @@ Configure the query execution memory pool:
 - **Query-heavy**: 80-90% (maximize query memory)
 - **Mixed**: 70% (balanced approach)
 
-### Parquet cache configuration
+### Data file cache configuration
 
-Cache frequently accessed Parquet files:
+Cache frequently accessed data files:
 
 ```bash
 # Set cache size
---parquet-mem-cache-size=2147483648  # 2GB
+--file-cache-size=2gb
 
 # Configure cache behavior
 --parquet-mem-cache-prune-interval=1m \
@@ -530,7 +530,7 @@ Control memory pressure from write buffers:
 
 # Configure WAL rotation
 --wal-flush-interval=10s \
---wal-snapshot-size=100
+--wal-files-per-snapshot=100
 ```
 
 ## Advanced tuning options
@@ -694,12 +694,12 @@ iostat -x 1
 - Query timeouts
 
 **Solutions:**
-{{% show-in "core" %}}1. Increase execution memory pool: `--exec-mem-pool-bytes=90%`
-2. Enable Parquet caching: `--parquet-mem-cache-size=4GB`
+{{% show-in "core" %}}1. Increase execution memory pool: `--exec-mem-pool-size=90%`
+2. Enable data file caching: `--file-cache-size=4GB`
 3. Optimize query patterns (smaller time ranges, fewer fields){{% /show-in %}}
 {{% show-in "enterprise" %}}1. Increase DataFusion threads: `--datafusion-num-threads=30`
-2. Increase execution memory pool: `--exec-mem-pool-bytes=90%`
-3. Enable Parquet caching: `--parquet-mem-cache-size=4GB`
+2. Increase execution memory pool: `--exec-mem-pool-size=90%`
+3. Enable data file caching: `--file-cache-size=4GB`
 4. Optimize query patterns (smaller time ranges, fewer fields){{% /show-in %}}
 
 ### Memory pressure
@@ -710,7 +710,7 @@ iostat -x 1
 - System swapping
 
 **Solutions:**
-1. Reduce execution memory pool: `--exec-mem-pool-bytes=60%`
+1. Reduce execution memory pool: `--exec-mem-pool-size=60%`
 2. Lower snapshot threshold: `--force-snapshot-mem-threshold=70%`
 3. Decrease cache sizes
 4. Add more RAM or reduce workload

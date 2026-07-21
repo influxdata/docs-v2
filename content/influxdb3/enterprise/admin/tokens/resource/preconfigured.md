@@ -234,7 +234,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --permission-tokens-file=/run/secrets/permission-tokens
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com
+      - INFLUXDB3_LICENSE_EMAIL=your-email@example.com
     secrets:
       - permission-tokens
     volumes:
