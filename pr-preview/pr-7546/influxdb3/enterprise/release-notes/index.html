@@ -4877,7 +4877,7 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <h3 id="core">Core</h3>
 <h4 id="bug-fixes">Bug fixes</h4>
 <ul>
-<li><strong>Oversized buffer chunk persistence</strong>: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path, so all but one were silently overwritten—losing those rows and leaving snapshot metadata that fails reads with <code>Invalid Parquet file. Corrupt footer</code>.</li>
+<li><strong>Oversized buffer chunk persistence</strong>: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path.</li>
 </ul>
 <h3 id="enterprise">Enterprise</h3>
 <p>All Core updates are included in Enterprise.</p>
@@ -4885,7 +4885,7 @@ The Enterprise sections below only list updates exclusive to Enterprise.</p>
 <h3 id="core-1">Core</h3>
 <h4 id="bug-fixes-1">Bug fixes</h4>
 <ul>
-<li><strong>Oversized buffer chunk persistence</strong>: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path, so all but one were silently overwritten—losing those rows and leaving snapshot metadata that fails reads with <code>Invalid Parquet file. Corrupt footer</code>.</li>
+<li><strong>Oversized buffer chunk persistence</strong>: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path.</li>
 </ul>
 <h3 id="enterprise-1">Enterprise</h3>
 <p>All Core updates are included in Enterprise.
