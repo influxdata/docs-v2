@@ -1,8 +1,22 @@
-## Summary
+<!--
+Write plainly and clearly.
+Use short sentences and active voice, and avoid jargon.
+A reviewer should understand the change without opening the diff.
+-->
 
 Closes #
 
-<!-- Brief description: What changed and why? -->
+## What changed
+
+## Why
+
+## Impact
+
+<!-- Impact to customers or repo consumers -->
+
+## Verification
+
+<!-- How you verified the change, for example: local build passes (npx hugo --quiet), tested links, previewed pages -->
 
 ## Checklist
 
