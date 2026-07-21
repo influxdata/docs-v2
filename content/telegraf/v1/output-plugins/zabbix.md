@@ -186,7 +186,7 @@ measurement,host=hostname valueA=0,valueB=1
 
 It will generate this Zabbix metrics:
 
-```jsonl
+```json
 {"host": "hostname", "key": "telegraf.measurement.valueA", "value": "0"}
 {"host": "hostname", "key": "telegraf.measurement.valueB", "value": "1"}
 ```
@@ -200,7 +200,7 @@ measurement,host=hostname,tagA=keyA,tagB=keyB valueA=0,valueB=1
 
 Zabbix generated metrics:
 
-```jsonl
+```json
 {"host": "hostname", "key": "telegraf.measurement.valueA[keyA,keyB]", "value": "0"}
 {"host": "hostname", "key": "telegraf.measurement.valueB[keyA,keyB]", "value": "1"}
 ```
@@ -362,7 +362,7 @@ taginclude = ["host", "container_name"]
 ```
 
 Allowing only the tags "host" and "container_name" to be used to generate the
-key (and loosing the information provided in the others tags).
+key (and losing the information provided in the others tags).
 
 ## Examples of metrics converted to traps
 
