@@ -20,6 +20,7 @@ related:
 
 > [!Important]
 > #### The upgraded storage engine is the default for new clusters
+>
 > New {{% product-name %}} clusters default to the upgraded storage
 > engine--no flag is required.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
@@ -44,6 +45,7 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > There is no backward compatibility for preview option names:
 > old `--pt-*` flags cause a startup error, and legacy `INFLUXDB3_PT_*` and
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variables are ignored.
+>
 > The server logs a warning at startup for each `INFLUXDB3_PT_*` or
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variable that is still set.
 >
@@ -60,9 +62,10 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > [Migrate from pt- option names](#migrate-from-pt-option-names).
 
 > [!Note]
-> On clusters running the upgraded storage engine, the IO and DataFusion
-> runtimes each default to the
-> licensed core count.
+> #### Runtime defaults and thread counts
+>
+> On InfluxDB 3 Enterprise 3.11+ clusters running the upgraded storage engine, the IO and DataFusion
+> runtimes each default to the licensed core count.
 > Thread counts set above the licensed core count are capped with a startup
 > warning.
 
