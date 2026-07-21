@@ -80,7 +80,7 @@ The following input would be stored in Clarify with the values shown below:
 temperature,host=demo.clarifylocal,sensor=TC0P value=49 1682670910000000000
 ```
 
-```text
+```json
 "signal" {
   "id": "temperature.value.TC0P"
   "name": "temperature.value"

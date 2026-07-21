@@ -1,6 +1,7 @@
 ---
 title: Capture workload data
 seotitle: Capture anonymized workload data with InfluxDB 3 Enterprise load capture
+introduced: v3.10.0
 description: >
   Use load capture to record an anonymized profile of write and query traffic
   on an {{% product-name %}} query node, inspect it, and share it with
@@ -12,6 +13,8 @@ menu:
     name: Capture workload data
 related:
   - /influxdb3/enterprise/api/load-capture/
+  - /influxdb3/enterprise/admin/tokens/admin/
+  - /influxdb3/enterprise/performance-preview/
   - /influxdb3/enterprise/admin/performance-tuning/
   - /influxdb3/enterprise/reference/config-options/#mode
   - /influxdb3/enterprise/admin/clustering/
@@ -29,15 +32,19 @@ You can preview, download, and inspect a capture locally, then share it with
 InfluxData support through your support channel.
 
 > [!Important]
-> #### Load capture requires a query-mode node
+> #### Load capture requires the performance preview and a query-mode node
 >
-> Load capture initializes only on a node started with `--mode query`.
-> A node running `--mode all` returns `404 loadcap not available`, even though
-> it includes query mode.
+> Load capture requires the
+> [performance upgrade preview](/influxdb3/enterprise/performance-preview/),
+> which uses the storage engine upgrade.
+> Enable the preview with `--use-pacha-tree` and send `loadcap` requests to a
+> node with an explicit `--mode` setting that includes `query`---for example,
+> `--mode query` or `--mode ingest --mode query --mode compact`.
+>
+> A node using the default `--mode all` configuration returns
+> `404 loadcap not available`, even though it includes query mode.
 > Load capture is also unavailable on ingest-, compact-, or process-only nodes
 > and on InfluxDB 3 Core.
->
-> Send all `loadcap` requests to a node running `--mode query`.
 > For more information about node modes, see
 > [Configure specialized cluster nodes](/influxdb3/enterprise/admin/clustering/)
 > and the [`--mode` option](/influxdb3/enterprise/reference/config-options/#mode).
@@ -71,15 +78,15 @@ Constraints:
 
 ## Before you begin
 
-- Identify a node in your cluster running `--mode query`.
-- Set up authentication for the query node.
-  The examples below use an admin token.
+- Identify a node in your cluster running query mode.
+- Load capture requires an
+  [admin token](/influxdb3/enterprise/admin/tokens/admin/).
 
 Set connection environment variables to target the query node:
 
 ```bash
 export INFLUXDB3_HOST_URL="https://query-node.example.com:8181"
-export INFLUXDB3_AUTH_TOKEN="YOUR_TOKEN"
+export INFLUXDB3_AUTH_TOKEN="YOUR_ADMIN_TOKEN"
 ```
 
 ## Capture a workload profile

@@ -67,7 +67,7 @@
               dir="auto"
               placeholder='{{ $searchPlaceholder }}'>
     </div>
-    <a id="contents-toggle-btn" href="#">
+    <a id="contents-toggle-btn" href="#" role="button" aria-label="Toggle navigation menu">
       <span class="toggle-hamburger"></span>
     </a>
   </div>
@@ -100,7 +100,9 @@
   <!-- Feature Board link for supported products -->
   {{ $featureBoardWhitelist := slice "influxdb3_core" "influxdb3_enterprise" }}
   {{ if in $featureBoardWhitelist (print $product "_" $currentVersion) }}
-    {{ partial "sidebar/feature-board.html" (dict "product" $product "version" $currentVersion "productName" $productData.name) }}
+    <li class="feature-board-item">
+      {{ partial "sidebar/feature-board.html" (dict "product" $product "version" $currentVersion "productName" $productData.name) }}
+    </li>
   {{ end }}
 
   <!-- Platform menu for 1.x docs -->
