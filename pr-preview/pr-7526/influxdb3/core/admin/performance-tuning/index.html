@@ -50,7 +50,7 @@
 
 
     <meta name="description" content="Optimize InfluxDB 3 Core performance by tuning thread allocation, memory settings, and other configuration options for your specific workload.">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
     
@@ -147,10 +147,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7526/light-theme.f5f23dc90b32da4272a5dc9d0796c541402a2dd1688d8d3ea4a2cc5d20501797.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7526/light-theme.e8238926a9ec8518a37f957ec8d0115eba8fae10913820baf811739d739115b5.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7526/dark-theme.afb005ed1fa303d77ab1c59f988b8ba1bc69427ed63eb7e0102e927792800207.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7526/dark-theme.955a9fbaec7f12a85fe60d29c81bc5041988ca7ffe2c585e022aab2793143820.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7526/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -612,13 +612,13 @@
       </div>
       <div class="buttons">
         <div class="search-btn" data-component="search-button">
-          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+          <button id="search-btn" data-action="toggle" aria-label="Search the docs"><span class="cf-icon Search_New"></span></button>
         </div>
-        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <button class="url-trigger" aria-label="Customize InfluxDB URLs in code samples"><span class="cf-icon CogSolid_New"></span></button>
         <span data-component="theme-switch">
-          <button class="theme-switch theme-switch-light">
+          <button class="theme-switch theme-switch-light" aria-label="Switch to light theme">
             <span class="cf-icon Lightmode_New"></span></button>
-          <button class="theme-switch theme-switch-dark">
+          <button class="theme-switch theme-switch-dark" aria-label="Switch to dark theme">
             <span class="cf-icon Darkmode_New"></span></button>
         </span>
       </div>
@@ -654,7 +654,7 @@
               dir="auto"
               placeholder='Search the docs'>
     </div>
-    <a id="contents-toggle-btn" href="#">
+    <a id="contents-toggle-btn" href="#" role="button" aria-label="Toggle navigation menu">
       <span class="toggle-hamburger"></span>
     </a>
   </div>
@@ -706,7 +706,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/get-started/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Get started nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/get-started/'>Get started</a>
         
           <ul class="children">
@@ -788,7 +788,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Write data nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/'>Write data</a>
         
           <ul class="children">
@@ -816,7 +816,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/http-api/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Use the HTTP API nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/http-api/'>Use the HTTP API</a>
         
           <ul class="children">
@@ -862,7 +862,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/use-telegraf/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Use Telegraf nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/use-telegraf/'>Use Telegraf</a>
         
           <ul class="children">
@@ -932,7 +932,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/best-practices/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Best practices nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/write-data/best-practices/'>Best practices</a>
         
           <ul class="children">
@@ -996,7 +996,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Processing engine and Python plugins nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/'>Processing engine and Python plugins</a>
         
           <ul class="children">
@@ -1024,7 +1024,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/library/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Plugin library nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/library/'>Plugin library</a>
         
           <ul class="children">
@@ -1040,7 +1040,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/library/examples/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Example plugins nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/library/examples/'>Example plugins</a>
         
           <ul class="children">
@@ -1074,7 +1074,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/library/official/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Official plugins nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/plugins/library/official/'>Official plugins</a>
         
           <ul class="children">
@@ -1240,7 +1240,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Query data nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/'>Query data</a>
         
           <ul class="children">
@@ -1256,7 +1256,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/execute-queries/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Execute queries nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/execute-queries/'>Execute queries</a>
         
           <ul class="children">
@@ -1314,7 +1314,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/sql/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Query with SQL nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/sql/'>Query with SQL</a>
         
           <ul class="children">
@@ -1420,7 +1420,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/influxql/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Query with InfluxQL nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/query-data/influxql/'>Query with InfluxQL</a>
         
           <ul class="children">
@@ -1508,7 +1508,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/visualize-data/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Visualize data nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/visualize-data/'>Visualize data</a>
         
           <ul class="children">
@@ -1566,7 +1566,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Administer InfluxDB nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/'>Administer InfluxDB</a>
         
           <ul class="children">
@@ -1594,7 +1594,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/databases/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Manage databases nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/databases/'>Manage databases</a>
         
           <ul class="children">
@@ -1652,7 +1652,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/tables/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Manage tables nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/tables/'>Manage tables</a>
         
           <ul class="children">
@@ -1710,7 +1710,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/tokens/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Manage tokens nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/tokens/'>Manage tokens</a>
         
           <ul class="children">
@@ -1726,7 +1726,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/tokens/admin/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Admin tokens nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/tokens/admin/'>Admin tokens</a>
         
           <ul class="children">
@@ -1802,7 +1802,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/last-value-cache/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Manage the Last Value Cache nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/last-value-cache/'>Manage the Last Value Cache</a>
         
           <ul class="children">
@@ -1872,7 +1872,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/distinct-value-cache/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Manage the Distinct Value Cache nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/admin/distinct-value-cache/'>Manage the Distinct Value Cache</a>
         
           <ul class="children">
@@ -1942,7 +1942,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/object-storage/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Configure object storage nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/object-storage/'>Configure object storage</a>
         
           <ul class="children">
@@ -2066,7 +2066,7 @@
     <li class="nav-category" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Reference nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/'>Reference</a>
         
           <ul class="children">
@@ -2094,7 +2094,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle CLIs nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/'>CLIs</a>
         
           <ul class="children">
@@ -2110,7 +2110,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/'>influxdb3</a>
         
           <ul class="children">
@@ -2126,7 +2126,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/create/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 create nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/create/'>influxdb3 create</a>
         
           <ul class="children">
@@ -2190,7 +2190,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/create/token/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 create token nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/create/token/'>influxdb3 create token</a>
         
           <ul class="children">
@@ -2242,7 +2242,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/debug/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 debug nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/debug/'>influxdb3 debug</a>
         
           <ul class="children">
@@ -2276,7 +2276,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/delete/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 delete nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/delete/'>influxdb3 delete</a>
         
           <ul class="children">
@@ -2370,7 +2370,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/disable/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 disable nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/disable/'>influxdb3 disable</a>
         
           <ul class="children">
@@ -2404,7 +2404,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/enable/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 enable nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/enable/'>influxdb3 enable</a>
         
           <ul class="children">
@@ -2438,7 +2438,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/install/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 install nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/install/'>influxdb3 install</a>
         
           <ul class="children">
@@ -2496,7 +2496,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/show/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 show nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/show/'>influxdb3 show</a>
         
           <ul class="children">
@@ -2536,7 +2536,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/show/system/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 show system nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/show/system/'>influxdb3 show system</a>
         
           <ul class="children">
@@ -2624,7 +2624,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/test/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 test nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/test/'>influxdb3 test</a>
         
           <ul class="children">
@@ -2670,7 +2670,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/update/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle influxdb3 update nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/cli/influxdb3/update/'>influxdb3 update</a>
         
           <ul class="children">
@@ -2764,7 +2764,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/sql/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle SQL reference nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/sql/'>SQL reference</a>
         
           <ul class="children">
@@ -2924,7 +2924,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/sql/operators/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Operators nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/sql/operators/'>Operators</a>
         
           <ul class="children">
@@ -3006,7 +3006,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/sql/functions/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Functions nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/sql/functions/'>Functions</a>
         
           <ul class="children">
@@ -3226,7 +3226,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/influxql/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle InfluxQL reference nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/influxql/'>InfluxQL reference</a>
         
           <ul class="children">
@@ -3338,7 +3338,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/influxql/functions/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle InfluxQL functions nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/influxql/functions/'>InfluxQL functions</a>
         
           <ul class="children">
@@ -3498,7 +3498,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/api/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle InfluxDB HTTP API nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/api/'>InfluxDB HTTP API</a>
         
           <ul class="children">
@@ -3532,7 +3532,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Client libraries nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/'>Client libraries</a>
         
           <ul class="children">
@@ -3548,7 +3548,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/flight/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Arrow Flight clients nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/flight/'>Arrow Flight clients</a>
         
           <ul class="children">
@@ -3630,7 +3630,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle v3 client libraries nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/'>v3 client libraries</a>
         
           <ul class="children">
@@ -3646,7 +3646,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/csharp/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle C# .NET nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/csharp/'>C# .NET</a>
         
           <ul class="children">
@@ -3680,7 +3680,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/go/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Go nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/go/'>Go</a>
         
           <ul class="children">
@@ -3714,7 +3714,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/java/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Java nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/java/'>Java</a>
         
           <ul class="children">
@@ -3748,7 +3748,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/javascript/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle JavaScript nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/javascript/'>JavaScript</a>
         
           <ul class="children">
@@ -3782,7 +3782,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/python/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Python nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/python/'>Python</a>
         
           <ul class="children">
@@ -3816,7 +3816,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/rust/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Rust nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v3/rust/'>Rust</a>
         
           <ul class="children">
@@ -3856,7 +3856,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v2/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle v2 client libraries nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v2/'>v2 client libraries</a>
         
           <ul class="children">
@@ -3932,7 +3932,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v2/javascript/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle JavaScript nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v2/javascript/'>JavaScript</a>
         
           <ul class="children">
@@ -3960,7 +3960,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v2/javascript/nodejs/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Node.js nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/client-libraries/v2/javascript/nodejs/'>Node.js</a>
         
           <ul class="children">
@@ -4120,7 +4120,7 @@
     <li class="nav-item" data-nav-url="/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/internals/">
       
         
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle Core internals nested items"></a>
         <a href='/docs-v2/pr-preview/pr-7526/influxdb3/core/reference/internals/'>Core internals</a>
         
           <ul class="children">
@@ -4253,13 +4253,15 @@
   
   
   
-    <a class="feature-board-badge"  href="/influxdb3/core/feature-board/">
+    <li class="feature-board-item">
+      <a class="feature-board-badge"  href="/influxdb3/core/feature-board/">
   <h5>Feature Board</h5>
   <p>
     View and give feedback on upcoming and launched InfluxDB 3 Core features
   </p>
 </a>
 
+    </li>
   
 
   
@@ -4296,7 +4298,7 @@
     <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
       class="cf-icon SidebarOpen"></span></a></div>
     <div class="article">
-  <article class="article--content">
+  <article class="article--content" role="main">
     <div class="title">
       <h1>Performance tuning</h1>
       
@@ -4948,7 +4950,7 @@ They remain in object storage but are no longer needed for startup.</p>
 <hr/>
 <div class="feedback block">
   <div class="support">
-    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <h2 id="bug-reports-and-feedback">Support and feedback</h2>
     <p>
       Thank you for being part of our community!
       We welcome and encourage your feedback and bug reports for InfluxDB 3 Core and this documentation.
@@ -5439,7 +5441,7 @@ They remain in object storage but are no longer needed for startup.</p>
 
   <div class="fullscreen-code highlight">
   <div id="fullscreen-code-placeholder"></div>
-  <a class="fullscreen-close"><span class="icon-x"></span></a>
+  <a class="fullscreen-close" role="button" aria-label="Exit fullscreen code view"><span class="icon-x"></span></a>
 </div>
 
 
@@ -5665,7 +5667,7 @@ pull command&ndash;for example:</p>
   
   
   <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
-  <a class="ask-ai-open" >
+  <a class="ask-ai-open" role="button" tabindex="0">
     <div class="icon-influx-logo"></div>
     Ask AI
   </a>
