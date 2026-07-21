@@ -73,15 +73,49 @@ influxdb3 --num-io-threads=4 serve \
 <!--pytest.mark.skip-->
 
 ```sh
-{{% show-in "enterprise" %}}export INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=example@email.com
-export INFLUXDB3_ENTERPRISE_CLUSTER_ID=cluster0
-{{% /show-in %}}export INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node
+{{% show-in "enterprise" %}}export INFLUXDB3_LICENSE_EMAIL=example@email.com
+export INFLUXDB3_CLUSTER_ID=cluster0
+{{% /show-in %}}export INFLUXDB3_NODE_ID=my-node
 export INFLUXDB3_OBJECT_STORE=file
-export INFLUXDB3_DB_DIR=~/.influxdb3
+export INFLUXDB3_DATA_DIR=~/.influxdb3
 export INFLUXDB3_LOG_FILTER=info
 
 influxdb3 serve
 ```
+
+### Deprecated environment variable names
+
+Several environment variables were renamed so that each variable matches its
+command option.
+{{% show-in "enterprise" %}}In addition, Enterprise-specific variables dropped
+the `ENTERPRISE_` segment--for example, `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`
+is now `INFLUXDB3_LICENSE_EMAIL`.{{% /show-in %}}
+Legacy names remain supported as deprecated aliases; the server logs a
+deprecation warning at startup when it detects one.
+If both the new and the legacy name are set, the new name takes precedence.
+Option tables on this page list deprecated aliases where they exist.
+
+### Size option values
+
+Options that accept a size value use the following format:
+
+- A bare number is a size in **bytes**--for example, `10485760`.
+- Unit suffixes `b`, `kb`, `mb`, `gb`, and `tb` (case-insensitive) are
+  accepted--for example, `10mb` or `8GB`.
+- Where noted, a percentage of total available memory is accepted--for
+  example, `20%`.
+
+> \[!Important]
+> #### Bare numbers rejected during megabyte-to-byte transition
+>
+> [`--exec-mem-pool-size`](#exec-mem-pool-size),
+> [`--file-cache-size`](#file-cache-size), and
+> [`--force-snapshot-mem-threshold`](#force-snapshot-mem-threshold)
+> previously interpreted a bare number as megabytes.
+> In this release, these options **reject bare numbers**; a bare number will
+> mean bytes in a future release.
+> Specify an explicit unit suffix (for example, `100mb`) or a percentage
+> (for example, `20%`).
 
 ## Global configuration options
 
@@ -168,9 +202,9 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 Specifies the cluster identifier that prefixes the object store path for the Enterprise Catalog.
 This value must be different than the [`--node-id`](#node-id) value.
 
-| influxdb3 serve option | Environment variable              |
-| :--------------------- | :-------------------------------- |
-| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--cluster-id`         | `INFLUXDB3_CLUSTER_ID` (preferred)<br>`INFLUXDB3_ENTERPRISE_CLUSTER_ID` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -181,9 +215,9 @@ This value must be different than the [`--node-id`](#node-id) value.
 For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
 Required when using the `file` [object store](#object-store).
 
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
-| `--data-dir`           | `INFLUXDB3_DB_DIR`   |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--data-dir`           | `INFLUXDB3_DATA_DIR` (preferred)<br>`INFLUXDB3_DB_DIR` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -232,9 +266,9 @@ influxdb3 --num-io-threads=4 serve --mode=query --datafusion-num-threads=28
 influxdb3 --num-io-threads=6 serve --mode=all --datafusion-num-threads=26
 ```
 
-| influxdb3 serve option | Environment variable        |
-| :--------------------- | :-------------------------- |
-| `--mode`               | `INFLUXDB3_ENTERPRISE_MODE` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--mode`               | `INFLUXDB3_MODE` (preferred)<br>`INFLUXDB3_ENTERPRISE_MODE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -246,9 +280,9 @@ Specifies the node identifier used as a prefix in all object store file paths.
 This should be unique for any hosts sharing the same object store
 configuration--for example, the same bucket.
 
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--node-id`            | `INFLUXDB3_NODE_ID` (preferred)<br>`INFLUXDB3_NODE_IDENTIFIER_PREFIX` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -308,9 +342,9 @@ Enables the storage engine upgrade (performance upgrade preview).
 
 **Default:** `false`
 
-| influxdb3 serve option | Environment variable           |
-| :--------------------- | :----------------------------- |
-| `--use-pacha-tree`     | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE`     |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--use-pacha-tree`     | `INFLUXDB3_USE_PACHA_TREE` (preferred)<br>`INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -326,9 +360,9 @@ Specifies the email address to associate with your {{< product-name >}} license
 and automatically responds to the interactive email prompt when the server starts.
 This option is mutually exclusive with [license-file](#license-file).
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--license-email`      | `INFLUXDB3_LICENSE_EMAIL` (preferred)<br>`INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -338,9 +372,9 @@ Specifies the path to a license file for {{< product-name >}}. When provided, th
 file's contents are used instead of requesting a new license.
 This option is mutually exclusive with [license-email](#license-email).
 
-| influxdb3 serve option | Environment variable                |
-| :--------------------- | :---------------------------------- |
-| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--license-file`       | `INFLUXDB3_LICENSE_FILE` (preferred)<br>`INFLUXDB3_ENTERPRISE_LICENSE_FILE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -353,9 +387,9 @@ interactive license prompt. Provide one of the following license types:
 - `trial`
 - `commercial`
 
-| influxdb3 serve option | Environment variable                |
-| :--------------------- | :---------------------------------- |
-| `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--license-type`       | `INFLUXDB3_LICENSE_TYPE` (preferred)<br>`INFLUXDB3_ENTERPRISE_LICENSE_TYPE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -419,9 +453,9 @@ Default is `tls-1.2`.
 Disables authentication for all server actions (CLI commands and API requests).
 The server processes all requests without requiring tokens or authentication.
 
-| influxdb3 serve option | Environment variable           |
-| :--------------------- | :----------------------------- |
-| `--without-auth`       | `INFLUXDB3_START_WITHOUT_AUTH` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--without-auth`       | `INFLUXDB3_WITHOUT_AUTH` (preferred)<br>`INFLUXDB3_START_WITHOUT_AUTH` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1046,7 +1080,7 @@ signed by a private CA.
 - [log-filter](#log-filter)
 - [log-destination](#log-destination)
 - [log-format](#log-format)
-- [query-log-size](#query-log-size)
+- [query-log-max-entries](#query-log-max-entries)
 
 #### log-filter
 
@@ -1179,16 +1213,21 @@ This option supports the following values:
 
 ***
 
-#### query-log-size
+#### query-log-max-entries
 
-Defines the size of the query log. Up to this many queries remain in the
-log before older queries are evicted to make room for new ones.
+Defines the maximum number of entries in the query log. Up to this many
+queries remain in the log before older queries are evicted to make room for
+new ones.
 
 **Default:** `1000`
 
-| influxdb3 serve option | Environment variable       |
-| :--------------------- | :------------------------- |
-| `--query-log-size`     | `INFLUXDB3_QUERY_LOG_SIZE` |
+> \[!Note]
+> `--query-log-max-entries` was previously named `--query-log-size`.
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option    | Environment variables |
+| :------------------------ | :-------------------- |
+| `--query-log-max-entries`<br>`--query-log-size` (deprecated alias) | `INFLUXDB3_QUERY_LOG_MAX_ENTRIES` (preferred)<br>`INFLUXDB3_QUERY_LOG_SIZE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1367,6 +1406,8 @@ Provides custom configuration to DataFusion as a comma-separated list of
 #### max-http-request-size
 
 Specifies the maximum size of HTTP requests.
+A bare number is a size in bytes; unit suffixes (`b`, `kb`, `mb`, `gb`, `tb`)
+are also accepted--for example, `10mb`.
 
 **Default:** `10485760`
 
@@ -1390,33 +1431,40 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 ### Memory
 
-- [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+- [exec-mem-pool-size](#exec-mem-pool-size)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
-#### exec-mem-pool-bytes
+#### exec-mem-pool-size
 
 Specifies the size of the memory pool used for query processing and data operations.
 This memory pool is used when {{% product-name %}} processes queries and performs
 internal data management tasks.
-Can be given as absolute value in bytes or as a percentage of the total available memory--for
-example: `8000000000` or `10%`.
+Provide a value with a unit suffix or as a percentage of the total available
+memory--for example: `8gb` or `10%`.
+Bare numbers are rejected during the
+[megabyte-to-byte transition](#size-option-values).
 
-{{% show-in "core" %}}**Default:** `8589934592`{{% /show-in %}}
-{{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
+**Default:** `20%`
 
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
+> \[!Note]
+> `--exec-mem-pool-size` was previously named `--exec-mem-pool-bytes`.
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--exec-mem-pool-size`<br>`--exec-mem-pool-bytes` (deprecated alias) | `INFLUXDB3_EXEC_MEM_POOL_SIZE` (preferred)<br>`INFLUXDB3_EXEC_MEM_POOL_BYTES` (deprecated; supported for backward compatibility) |
 
 ***
 
 #### force-snapshot-mem-threshold
 
 Specifies the threshold for the internal memory buffer. Supports either a
-percentage (portion of available memory) or absolute value in MB--for example: `70%` or `1000`.
+percentage (portion of available memory) or a value with a unit suffix--for
+example: `70%` or `1000mb`.
+Bare numbers are rejected during the
+[megabyte-to-byte transition](#size-option-values).
 
-{{% show-in "core" %}}**Default:** `70%`{{% /show-in %}}
-{{% show-in "enterprise" %}}**Default:** `50%`{{% /show-in %}}
+**Default:** `50%`
 
 | influxdb3 serve option           | Environment variable                     |
 | :------------------------------- | :--------------------------------------- |
@@ -1428,8 +1476,8 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 - [checkpoint-interval](#checkpoint-interval)
 - [wal-flush-interval](#wal-flush-interval)
-- [wal-snapshot-size](#wal-snapshot-size)
-- [wal-max-write-buffer-size](#wal-max-write-buffer-size)
+- [wal-files-per-snapshot](#wal-files-per-snapshot)
+- [wal-max-buffered-writes](#wal-max-buffered-writes)
 - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
 - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
@@ -1488,29 +1536,38 @@ Use `s` for seconds or `ms` for milliseconds. For local disks, `100 ms` is recom
 
 ***
 
-#### wal-snapshot-size
+#### wal-files-per-snapshot
 
 Defines the number of WAL files to attempt to remove in a snapshot. This,
 multiplied by the interval, determines how often snapshots are taken.
 
 **Default:** `600`
 
-| influxdb3 serve option | Environment variable          |
-| :--------------------- | :---------------------------- |
-| `--wal-snapshot-size`  | `INFLUXDB3_WAL_SNAPSHOT_SIZE` |
+> \[!Note]
+> `--wal-files-per-snapshot` was previously named `--wal-snapshot-size`.
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option    | Environment variables |
+| :------------------------ | :-------------------- |
+| `--wal-files-per-snapshot`<br>`--wal-snapshot-size` (deprecated alias) | `INFLUXDB3_WAL_FILES_PER_SNAPSHOT` (preferred)<br>`INFLUXDB3_WAL_SNAPSHOT_SIZE` (deprecated; supported for backward compatibility) |
 
 ***
 
-#### wal-max-write-buffer-size
+#### wal-max-buffered-writes
 
 Specifies the maximum number of write requests that can be buffered before a
 flush must be executed and succeed.
 
 **Default:** `100000`
 
-| influxdb3 serve option        | Environment variable                  |
-| :---------------------------- | :------------------------------------ |
-| `--wal-max-write-buffer-size` | `INFLUXDB3_WAL_MAX_WRITE_BUFFER_SIZE` |
+> \[!Note]
+> `--wal-max-buffered-writes` was previously named
+> `--wal-max-write-buffer-size`.
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option    | Environment variables |
+| :------------------------ | :-------------------- |
+| `--wal-max-buffered-writes`<br>`--wal-max-write-buffer-size` (deprecated alias) | `INFLUXDB3_WAL_MAX_BUFFERED_WRITES` (preferred)<br>`INFLUXDB3_WAL_MAX_WRITE_BUFFER_SIZE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1522,9 +1579,9 @@ they are deleted when the number of snapshotted WAL files exceeds this number.
 
 **Default:** `300`
 
-| influxdb3 serve option            | Environment variable              |
-| :-------------------------------- | :-------------------------------- |
-| `--snapshotted-wal-files-to-keep` | `INFLUXDB3_NUM_WAL_FILES_TO_KEEP` |
+| influxdb3 serve option            | Environment variables |
+| :-------------------------------- | :-------------------- |
+| `--snapshotted-wal-files-to-keep` | `INFLUXDB3_SNAPSHOTTED_WAL_FILES_TO_KEEP` (preferred)<br>`INFLUXDB3_NUM_WAL_FILES_TO_KEEP` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1581,7 +1638,7 @@ The compactor may write more rows than this limit.
 
 | influxdb3 serve option   | Environment variable                        |
 | :----------------------- | :------------------------------------------ |
-| `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
+| `--compaction-row-limit` | `INFLUXDB3_COMPACTION_ROW_LIMIT` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1593,7 +1650,7 @@ Sets the maximum number of files included in any compaction plan.
 
 | influxdb3 serve option                | Environment variable                                     |
 | :------------------------------------ | :------------------------------------------------------- |
-| `--compaction-max-num-files-per-plan` | `INFLUXDB3_ENTERPRISE_COMPACTION_MAX_NUM_FILES_PER_PLAN` |
+| `--compaction-max-num-files-per-plan` | `INFLUXDB3_COMPACTION_MAX_NUM_FILES_PER_PLAN` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTION_MAX_NUM_FILES_PER_PLAN` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1607,7 +1664,7 @@ greater than the gen1 duration.
 
 | influxdb3 serve option       | Environment variable                            |
 | :--------------------------- | :---------------------------------------------- |
-| `--compaction-gen2-duration` | `INFLUXDB3_ENTERPRISE_COMPACTION_GEN2_DURATION` |
+| `--compaction-gen2-duration` | `INFLUXDB3_COMPACTION_GEN2_DURATION` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTION_GEN2_DURATION` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1622,7 +1679,7 @@ compaction levels. The first element specifies the duration of the first level
 
 | influxdb3 serve option     | Environment variable                          |
 | :------------------------- | :-------------------------------------------- |
-| `--compaction-multipliers` | `INFLUXDB3_ENTERPRISE_COMPACTION_MULTIPLIERS` |
+| `--compaction-multipliers` | `INFLUXDB3_COMPACTION_MULTIPLIERS` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTION_MULTIPLIERS` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1635,7 +1692,7 @@ to delete files marked as needing deletion during that compaction run.
 
 | influxdb3 serve option      | Environment variable                           |
 | :-------------------------- | :--------------------------------------------- |
-| `--compaction-cleanup-wait` | `INFLUXDB3_ENTERPRISE_COMPACTION_CLEANUP_WAIT` |
+| `--compaction-cleanup-wait` | `INFLUXDB3_COMPACTION_CLEANUP_WAIT` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTION_CLEANUP_WAIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1647,7 +1704,7 @@ Specifies how often the compactor checks for new compaction work to perform.
 
 | influxdb3 serve option        | Environment variable                             |
 | :---------------------------- | :----------------------------------------------- |
-| `--compaction-check-interval` | `INFLUXDB3_ENTERPRISE_COMPACTION_CHECK_INTERVAL` |
+| `--compaction-check-interval` | `INFLUXDB3_COMPACTION_CHECK_INTERVAL` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTION_CHECK_INTERVAL` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1672,7 +1729,7 @@ option or environment variable.
 
 | influxdb3 serve option                    | Environment variable                                         |
 | :---------------------------------------- | :----------------------------------------------------------- |
-| `--compacted-data-load-concurrency-limit` | `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` |
+| `--compacted-data-load-concurrency-limit` | `INFLUXDB3_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1696,7 +1753,7 @@ option or environment variable.
 
 | influxdb3 serve option             | Environment variable                                   |
 | :--------------------------------- | :----------------------------------------------------- |
-| `--compacted-data-skip-file-index` | `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` |
+| `--compacted-data-skip-file-index` | `INFLUXDB3_COMPACTED_DATA_SKIP_FILE_INDEX` (preferred)<br>`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1721,11 +1778,11 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
 ### Caching
 
 - [preemptive-cache-age](#preemptive-cache-age)
-- [parquet-mem-cache-size](#parquet-mem-cache-size)
+- [file-cache-size](#file-cache-size)
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
-- [parquet-mem-cache-query-path-duration](#parquet-mem-cache-query-path-duration)
-- [disable-parquet-mem-cache](#disable-parquet-mem-cache)
+- [file-cache-recency](#file-cache-recency)
+- [disable-data-file-cache](#disable-data-file-cache)
 - [table-index-cache-max-entries](#table-index-cache-max-entries)
 - [table-index-cache-concurrency-limit](#table-index-cache-concurrency-limit)
   {{% show-in "enterprise" %}}
@@ -1749,23 +1806,32 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 
 ***
 
-#### parquet-mem-cache-size
+#### file-cache-size
 
-Specifies the size of the in-memory Parquet cache. Accepts values in megabytes (as an integer) or as a percentage of total available memory (for example, `20%`, `4096`).
+Specifies the size of the in-memory data file cache.
+Provide a value with a unit suffix or as a percentage of total available
+memory--for example, `4gb` or `20%`.
+Bare numbers are rejected during the
+[megabyte-to-byte transition](#size-option-values).
+
+This is a total budget.
+{{% show-in "enterprise" %}}
+With the Parquet engine, the budget is used entirely by the in-memory Parquet
+cache.
+During a Parquet-to-PachaTree migration with hybrid query enabled, the budget
+is split 50/50 between the hybrid-query Parquet cache and the PachaTree file
+cache; otherwise, the single active cache receives the full budget.
+{{% /show-in %}}
 
 **Default:** `20%`
 
 > \[!Note]
->
-> #### Breaking change in v3.0.0
->
-> In v3.0.0, `--parquet-mem-cache-size-mb` was replaced with `--parquet-mem-cache-size`.
-> The new option accepts both megabytes (integer) and percentage values.
-> The default changed from `1000` MB to `20%` of total available memory.
+> `--file-cache-size` was previously named `--parquet-mem-cache-size`.
+> The legacy option and environment variable names are deprecated aliases.
 
-| influxdb3 serve option     | Environment variable               |
-| :------------------------- | :--------------------------------- |
-| `--parquet-mem-cache-size` | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--file-cache-size`<br>`--parquet-mem-cache-size` (deprecated alias) | `INFLUXDB3_FILE_CACHE_SIZE` (preferred)<br>`INFLUXDB3_PARQUET_MEM_CACHE_SIZE` (deprecated; supported for backward compatibility) |
 
 #### parquet-mem-cache-prune-percentage
 
@@ -1792,39 +1858,55 @@ Sets the interval to check if the in-memory Parquet cache needs to be pruned.
 
 ***
 
-#### parquet-mem-cache-query-path-duration
+#### file-cache-recency
 
 {{% show-in "enterprise" %}}
 A [duration](/influxdb3/enterprise/reference/glossary/#duration) that specifies
 {{% /show-in %}}{{% show-in "core" %}}
 Specifies
 {{% /show-in %}}
-the time window for caching recent Parquet files in memory. Default is `5h`.
+the time window for caching recent data files in memory.
+
+{{% show-in "core" %}}**Default:** `5h`{{% /show-in %}}
+{{% show-in "enterprise" %}}**Default:** `3d`{{% /show-in %}}
 
 Only files containing data with a timestamp between `now` and `now - duration`
-are cached when accessed during queries--for example, with the default `5h` setting:
+are cached when accessed during queries--for example, with a `5h` setting:
 
 - Current time: `2024-06-10 15:00:00`
 - Cache window: Last 5 hours (`2024-06-10 10:00:00` to now)
 
 If a query requests data from `2024-06-09` (old) and `2024-06-10 14:00` (recent):
 
-- **Cached**: Parquet files with data from `2024-06-10 14:00` (within 5-hour window)
-- **Not cached**: Parquet files with data from `2024-06-09` (outside 5-hour window)
+- **Cached**: data files with data from `2024-06-10 14:00` (within 5-hour window)
+- **Not cached**: data files with data from `2024-06-09` (outside 5-hour window)
 
-| influxdb3 serve option                    | Environment variable                              |
-| :---------------------------------------- | :------------------------------------------------ |
-| `--parquet-mem-cache-query-path-duration` | `INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` |
+> \[!Note]
+> `--file-cache-recency` was previously named
+> `--parquet-mem-cache-query-path-duration`.
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--file-cache-recency`<br>`--parquet-mem-cache-query-path-duration` (deprecated alias) | `INFLUXDB3_FILE_CACHE_RECENCY` (preferred)<br>`INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` (deprecated; supported for backward compatibility) |
 
 ***
 
-#### disable-parquet-mem-cache
+#### disable-data-file-cache
 
-Disables the in-memory Parquet cache. By default, the cache is enabled.
+Disables the in-memory data file cache. By default, the cache is enabled.
+{{% show-in "enterprise" %}}
+This disables data file caching in both the Parquet and PachaTree engines.
+{{% /show-in %}}
 
-| influxdb3 serve option        | Environment variable                  |
-| :---------------------------- | :------------------------------------ |
-| `--disable-parquet-mem-cache` | `INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` |
+> \[!Note]
+> `--disable-data-file-cache` was previously named
+> `--disable-parquet-mem-cache`.
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--disable-data-file-cache`<br>`--disable-parquet-mem-cache` (deprecated alias) | `INFLUXDB3_DISABLE_DATA_FILE_CACHE` (preferred)<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1861,7 +1943,7 @@ If disabled, the cache is still populated with data from the write-ahead log (WA
 
 | influxdb3 serve option                    | Environment variable                                         |
 | :---------------------------------------- | :----------------------------------------------------------- |
-| `--last-value-cache-disable-from-history` | `INFLUXDB3_ENTERPRISE_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` |
+| `--last-value-cache-disable-from-history` | `INFLUXDB3_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` (preferred)<br>`INFLUXDB3_ENTERPRISE_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` (deprecated; supported for backward compatibility) |
 
 {{% /show-in %}}
 
@@ -1887,7 +1969,7 @@ If disabled, the cache is still populated with data from the write-ahead log (WA
 
 | influxdb3 serve option                        | Environment variable                                             |
 | :-------------------------------------------- | :--------------------------------------------------------------- |
-| `--distinct-value-cache-disable-from-history` | `INFLUXDB3_ENTERPRISE_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` |
+| `--distinct-value-cache-disable-from-history` | `INFLUXDB3_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` (preferred)<br>`INFLUXDB3_ENTERPRISE_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` (deprecated; supported for backward compatibility) |
 
 {{% /show-in %}}
 
@@ -2159,7 +2241,7 @@ Blocks plugin installation from any other source.
 
 - [replication-interval](#replication-interval)
 - [catalog-sync-interval](#catalog-sync-interval)
-- [wait-for-running-ingestor](#wait-for-running-ingestor)
+- [wait-for-running-ingester](#wait-for-running-ingester)
 - [conn-info](#conn-info)
 
 #### replication-interval
@@ -2170,7 +2252,7 @@ Specifies the interval at which data replication occurs between cluster nodes.
 
 | influxdb3 serve option   | Environment variable                        |
 | :----------------------- | :------------------------------------------ |
-| `--replication-interval` | `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` |
+| `--replication-interval` | `INFLUXDB3_REPLICATION_INTERVAL` (preferred)<br>`INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -2182,19 +2264,24 @@ Defines how often the catalog synchronizes across cluster nodes.
 
 | influxdb3 serve option    | Environment variable                         |
 | :------------------------ | :------------------------------------------- |
-| `--catalog-sync-interval` | `INFLUXDB3_ENTERPRISE_CATALOG_SYNC_INTERVAL` |
+| `--catalog-sync-interval` | `INFLUXDB3_CATALOG_SYNC_INTERVAL` (preferred)<br>`INFLUXDB3_ENTERPRISE_CATALOG_SYNC_INTERVAL` (deprecated; supported for backward compatibility) |
 
 ***
 
-#### wait-for-running-ingestor
+#### wait-for-running-ingester
 
-Specifies how long to wait for a running ingestor during startup.
+Specifies how long to wait for a running ingester during startup.
 
 **Default:** `10s`
 
-| influxdb3 serve option        | Environment variable                             |
-| :---------------------------- | :----------------------------------------------- |
-| `--wait-for-running-ingestor` | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` |
+> \[!Note]
+> `--wait-for-running-ingester` was previously named
+> `--wait-for-running-ingestor` (misspelled).
+> The legacy option and environment variable names are deprecated aliases.
+
+| influxdb3 serve option        | Environment variables |
+| :---------------------------- | :-------------------- |
+| `--wait-for-running-ingester`<br>`--wait-for-running-ingestor` (deprecated alias) | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` (preferred)<br>`INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -2205,13 +2292,9 @@ the ingester over the internode gRPC port (not the HTTP port).
 Required for Processing Engine plugin writes from non-ingester nodes, and used
 together with the `--internode-bind-addr` option.
 
-<!-- TODO: Confirm the environment variable name and default value.
-This flag is recognized by the server but is not listed in
-`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
-
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
-| `--conn-info`          |                      |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--conn-info`          | `INFLUXDB3_CONN_INFO` (preferred)<br>`INFLUXDB3_ENTERPRISE_CONN_INFO` (deprecated; supported for backward compatibility) |
 
 {{% /show-in %}}
 
@@ -2267,7 +2350,7 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 | influxdb3 serve option | Environment variable             |
 | :--------------------- | :------------------------------- |
-| `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES` |
+| `--num-cores`          | `INFLUXDB3_NUM_CORES` (preferred)<br>`INFLUXDB3_ENTERPRISE_NUM_CORES` (deprecated; supported for backward compatibility) |
 
 {{% /show-in %}}
 
@@ -2332,7 +2415,7 @@ Default is {{% influxdb3/limit "database" %}}.
 
 | influxdb3 serve option | Environment variable                      |
 | :--------------------- | :---------------------------------------- |
-| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
+| `--num-database-limit` | `INFLUXDB3_NUM_DATABASE_LIMIT` (preferred)<br>`INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -2343,7 +2426,7 @@ Default is {{% influxdb3/limit "table" %}}.
 
 | influxdb3 serve option | Environment variable                   |
 | :--------------------- | :------------------------------------- |
-| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
+| `--num-table-limit`    | `INFLUXDB3_NUM_TABLE_LIMIT` (preferred)<br>`INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -2354,7 +2437,7 @@ Default is {{% influxdb3/limit "column" %}}.
 
 | influxdb3 serve option                | Environment variable                                     |
 | :------------------------------------ | :------------------------------------------------------- |
-| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
+| `--num-total-columns-per-table-limit` | `INFLUXDB3_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` (preferred)<br>`INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` (deprecated; supported for backward compatibility) |
 
 {{% /show-in %}}
 
@@ -2427,9 +2510,9 @@ Disables the upload of telemetry data to InfluxData.
 
 **Default:** `false`
 
-| influxdb3 serve option       | Environment variable                 |
-| :--------------------------- | :----------------------------------- |
-| `--disable-telemetry-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
+| influxdb3 serve option       | Environment variables |
+| :--------------------------- | :-------------------- |
+| `--disable-telemetry-upload` | `INFLUXDB3_DISABLE_TELEMETRY_UPLOAD` (preferred)<br>`INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -2452,9 +2535,9 @@ Specifies the endpoint for telemetry data uploads.
 
 Specifies the file path for the TCP listener configuration.
 
-| influxdb3 serve option     | Environment variable               |
-| :------------------------- | :--------------------------------- |
-| `--tcp-listener-file-path` | `INFLUXDB3_TCP_LISTINER_FILE_PATH` |
+| influxdb3 serve option     | Environment variables |
+| :------------------------- | :-------------------- |
+| `--tcp-listener-file-path` | `INFLUXDB3_TCP_LISTENER_FILE_PATH` (preferred)<br>`INFLUXDB3_TCP_LISTINER_FILE_PATH` (deprecated misspelling; supported for backward compatibility) |
 
 ***
 
