@@ -12,11 +12,11 @@ Closes #
 
 ## Impact
 
-<!-- Impact to customers or repo consumers -->
+(to customers or repo consumers)
 
 ## Verification
 
-<!-- How you verified the change, for example: local build passes (npx hugo --quiet), tested links, previewed pages -->
+(layout changes must include e2e tests: `yarn test:e2e`)
 
 ## Preview pages
 
