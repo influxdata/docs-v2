@@ -208,7 +208,7 @@ SELECT * FROM system.upgrade_parquet;
 
 Use this table to track individual file conversions during the migration.
 The status updates on a polling interval (default 5 seconds, configurable with
-`--pt-upgrade-poll-interval`).
+`--upgrade-poll-interval`).
 
 ## Query telemetry
 
@@ -271,7 +271,7 @@ Track these key metrics for query performance:
 
 | Metric | Good | Warning | Action |
 |:-------|:-----|:--------|:-------|
-| Cache hit rate | >80% | <60% | Increase `--pt-file-cache-size` or `--pt-file-cache-recency` |
+| Cache hit rate | >80% | <60% | Increase `--file-cache-size` or `--file-cache-recency` |
 | Rows read vs returned ratio | <100:1 | >1000:1 | Add more selective predicates |
 
 ### Ingest performance metrics
@@ -280,8 +280,8 @@ Monitor these metrics for write performance:
 
 | Metric | Healthy | Warning | Action |
 |:-------|:--------|:--------|:-------|
-| WAL file count | <50 | >100 | Increase `--pt-wal-flush-concurrency` |
-| Gen0 file count | <100 | >200 | Increase `--pt-compactor-input-size-budget` |
+| WAL file count | <50 | >100 | Increase `--wal-flush-concurrency` |
+| Gen0 file count | <100 | >200 | Increase `--compactor-input-size-budget` |
 
 ### Monitor with SQL
 
@@ -330,17 +330,17 @@ FROM system.pt_ingest_wal;
 
 1. Increase flush concurrency:
    ```bash
-   --pt-wal-flush-concurrency 8
+   --wal-flush-concurrency 8
    ```
 
 2. Increase WAL flush interval to create larger, fewer files:
    ```bash
-   --pt-wal-flush-interval 5s
+   --wal-flush-interval 5s
    ```
 
 3. Increase the WAL buffer size so each flush produces a larger file:
    ```bash
-   --pt-wal-max-buffer-size 30MB
+   --wal-buffer-size 30MB
    ```
 
 4. Check object storage performance and connectivity.
@@ -359,17 +359,17 @@ FROM system.pt_ingest_wal;
 
 1. Increase cache size:
    ```bash
-   --pt-file-cache-size 16GB
+   --file-cache-size 16GB
    ```
 
 2. Extend cache recency window:
    ```bash
-   --pt-file-cache-recency 24h
+   --file-cache-recency 24h
    ```
 
 3. Extend eviction timeout:
    ```bash
-   --pt-file-cache-evict-after 48h
+   --file-cache-evict-after 48h
    ```
 
 ### Slow compaction
@@ -386,12 +386,12 @@ FROM system.pt_ingest_wal;
 
 1. Increase the compaction input size budget:
    ```bash
-   --pt-compactor-input-size-budget 12GB
+   --compactor-input-size-budget 12GB
    ```
 
 2. Reduce snapshot size to create smaller, more frequent Gen0 files:
    ```bash
-   --pt-snapshot-size 125MB
+   --snapshot-size 125MB
    ```
 
 3. For distributed deployments, add a dedicated compactor node:
@@ -419,15 +419,15 @@ For a full list of replication options, see
 
 1. Increase replication concurrency:
    ```bash
-   --pt-wal-replica-steady-concurrency 8
+   --wal-replica-steady-concurrency 8
    ```
 
 2. Reduce the replication polling interval:
    ```bash
-   --pt-wal-replication-interval 100ms
+   --replication-interval 100ms
    ```
 
 3. Increase replica queue size:
    ```bash
-   --pt-wal-replica-queue-size 200
+   --wal-replica-queue-length 200
    ```

@@ -31,7 +31,7 @@ applies the request the next time it rewrites the affected run sets.
 
 By default, deletes don't apply for up to **24 hours** after you submit the
 request.
-This delay is tunable with the `--pt-row-delete-min-age` server flag.
+This delay is tunable with the `--row-delete-min-age` server flag.
 
 > [!Note]
 > Because deletes are applied during compaction, rows remain queryable until the
