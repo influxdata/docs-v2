@@ -90,6 +90,8 @@ influxdb3 serve ...
 ```
 
 > [!Note]
+> #### Upgrading the storage engine
+>
 > The `--use-pacha-tree` flag and the `INFLUXDB3_USE_PACHA_TREE` and
 > `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` environment variables are deprecated.
 > They are still accepted and start the same migration, but the server logs a
