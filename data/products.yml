@@ -12,8 +12,9 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.10.0
+  latest_patch: 3.10.3
   placeholder_host: localhost:8181
+  scheme: http
   limits:
     database: 5
     table: 2000
@@ -56,8 +57,9 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.10.0
+  latest_patch: 3.10.4
   placeholder_host: localhost:8181
+  scheme: http
   limits:
     database: 100
     table: 10000
@@ -87,6 +89,35 @@ influxdb3_enterprise:
     operating_system: "Linux, macOS, Windows, Docker"
     application_category: "DatabaseApplication"
 
+influxdb3_cloud:
+  name: InfluxDB 3 Cloud
+  altname: InfluxDB 3 Cloud
+  namespace: influxdb3
+  content_path: influxdb3/cloud
+  label_group: v3-distributed
+  menu_category: managed
+  versions: [cloud]
+  list_order: 1
+  latest: cloud
+  link: 'https://www.influxdata.com/contact-sales/'
+  placeholder_host: instance-id.enterprise.influxdb.io
+  scheme: https
+  version_label: Cloud
+  distributed_architecture: true
+  limits:
+    database: 100
+    table: 10000
+    column: 500
+  ai_sample_questions:
+    - What's my InfluxDB version?
+    - How do I get started with InfluxDB 3 Cloud?
+    - How do I query data with InfluxDB 3 Cloud?
+  ai_input_placeholder: 'Specify your version and product ("InfluxDB 3 Cloud", "InfluxDB 3 Enterprise", "Core") for better results'
+  ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
+
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
   altname: Explorer
@@ -99,6 +130,7 @@ influxdb3_explorer:
   latest: explorer
   latest_patch: 1.9.0
   placeholder_host: localhost:8080
+  scheme: http
   ai_sample_questions:
     - How do I install and run Explorer?
     - How do I query data using Explorer?
@@ -123,6 +155,7 @@ influxdb3_cloud_serverless:
   list_order: 2
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  scheme: https
   version_label: Cloud Serverless
   distributed_architecture: true
   detector_config:
@@ -163,6 +196,7 @@ influxdb3_cloud_dedicated:
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
   latest_cli: 2.12.1
   placeholder_host: cluster-id.a.influxdb.io
+  scheme: https
   version_label: Cloud Dedicated
   distributed_architecture: true
   detector_config:
@@ -198,6 +232,7 @@ influxdb3_clustered:
   latest: clustered
   link: 'https://www.influxdata.com/contact-sales-influxdb-clustered/'
   placeholder_host: cluster-host.com
+  scheme: https
   version_label: Clustered
   distributed_architecture: true
   detector_config:
@@ -245,6 +280,7 @@ influxdb:
   menu_category: self-managed
   list_order: 1
   placeholder_host: localhost:8086
+  scheme: http
   versions:
     - v2
     - v1
@@ -299,6 +335,7 @@ influxdb_cloud:
   list_order: 1
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  scheme: https
   version_label: Cloud
   detector_config:
     query_languages:
@@ -338,7 +375,7 @@ telegraf:
   versions: [v1]
   latest: v1.39
   latest_patches:
-    v1: 1.39.1
+    v1: 1.39.2
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -474,6 +511,7 @@ influxdb_cloud1:
   list_order: 6
   latest: v1
   placeholder_host: cloud.influxdata.com
+  scheme: https
   detector_config:
     query_languages:
       InfluxQL:

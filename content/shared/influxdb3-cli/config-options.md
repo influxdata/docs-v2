@@ -1565,6 +1565,7 @@ The default is dynamically determined.
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [compaction-check-interval](#compaction-check-interval)
 - [compacted-data-load-concurrency-limit](#compacted-data-load-concurrency-limit)
+- [compacted-data-skip-file-index](#compacted-data-skip-file-index)
   {{% /show-in %}}
 - [gen1-duration](#gen1-duration)
 
@@ -1672,6 +1673,30 @@ option or environment variable.
 | influxdb3 serve option                    | Environment variable                                         |
 | :---------------------------------------- | :----------------------------------------------------------- |
 | `--compacted-data-load-concurrency-limit` | `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` |
+
+***
+
+#### compacted-data-skip-file-index
+
+Loads compacted data without building the in-memory file index.
+
+Use this option when the file index has grown too large to fit in host memory
+and the node can't start. Without the index, queries can't prune to a subset of
+files and instead scan all files in the matching time range, so queries are
+correct but slower. Pruning generations by time range is unaffected.
+
+The setting applies to the node as a whole: a node started with this option also
+skips index merges for newly compacted generations, and continues to persist
+full indexes to the object store for other nodes to use.
+
+This option isn't supported in the TOML configuration file; use the command
+option or environment variable.
+
+**Default:** `false`
+
+| influxdb3 serve option             | Environment variable                                   |
+| :--------------------------------- | :----------------------------------------------------- |
+| `--compacted-data-skip-file-index` | `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` |
 
 ***
 

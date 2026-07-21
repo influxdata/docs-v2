@@ -1,6 +1,6 @@
 
 Use the [`influxdb3 delete database` command](/influxdb3/version/reference/cli/influxdb3/delete/database/),
-the [HTTP API](/influxdb3/version/api/v3/), or [InfluxDB 3 Explorer](/influxdb3/explorer/) to delete a database from {{< product-name >}}.
+the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}} to delete a database from {{< product-name >}}.
 
 > [!Caution]
 > #### Deleting a database cannot be undone
@@ -10,7 +10,7 @@ the [HTTP API](/influxdb3/version/api/v3/), or [InfluxDB 3 Explorer](/influxdb3/
 
 - [Delete a database using the influxdb3 CLI](#delete-a-database-using-the-influxdb3-cli)
 - [Delete a database using the HTTP API](#delete-a-database-using-the-http-api)
-- [Delete a database using InfluxDB 3 Explorer](#delete-a-database-using-influxdb-3-explorer)
+{{% hide-in "cloud" %}}- [Delete a database using InfluxDB 3 Explorer](#delete-a-database-using-influxdb-3-explorer){{% /hide-in %}}
 {{% show-in "enterprise" %}}- [Delete data only (preserve schema and resources)](#delete-data-only-preserve-schema-and-resources){{% /show-in %}}
 
 ## Delete a database using the influxdb3 CLI
@@ -34,7 +34,7 @@ Enter `yes` to confirm that you want to delete the database.
 
 To delete a database using the HTTP API, send a `DELETE` request to the `/api/v3/configure/database` endpoint:
 
-{{% api-endpoint method="DELETE" endpoint="{{< influxdb/host >}}/api/v3/configure/database" %}}
+{{% api-endpoint method="DELETE" endpoint="{{< influxdb/host-url >}}/api/v3/configure/database" %}}
 
 Include the following in your request:
 
@@ -44,7 +44,7 @@ Include the following in your request:
   - `Authorization: Bearer` with your {{% token-link "admin" %}}
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl --request DELETE "{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME" \
+curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -57,6 +57,7 @@ Replace the following:
 
 A successful deletion returns HTTP status `200` with no content body.
 
+{{% hide-in "cloud" %}}
 ## Delete a database using InfluxDB 3 Explorer
 
 You can also delete databases using the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface:
@@ -72,6 +73,7 @@ You can also delete databases using the [InfluxDB 3 Explorer](/influxdb3/explore
 > This action cannot be undone. All data in the database will be permanently deleted.
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
+{{% /hide-in %}}
 
 {{% show-in "enterprise" %}}
 ## Delete data only (preserve schema and resources)
@@ -120,7 +122,7 @@ But removes:
 To delete only data using the HTTP API, include the `data_only=true` query parameter:
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl --request DELETE "{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true" \
+curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -134,7 +136,7 @@ Replace the following:
 To also remove table schemas, add the `remove_tables=true` parameter:
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl --request DELETE "{{< influxdb/host >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true&remove_tables=true" \
+curl --request DELETE "{{< influxdb/host-url >}}/api/v3/configure/database?db=DATABASE_NAME&data_only=true&remove_tables=true" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 {{% /show-in %}}
