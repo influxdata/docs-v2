@@ -247,7 +247,7 @@ docker pull influxdb:enterprise
 docker run -d \
   --name CONTAINER_NAME \
   -p 8181:8181 \
-  -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com \
+  -e INFLUXDB3_LICENSE_EMAIL=your-email@example.com \
   -v ~/.influxdb3/data:/var/lib/influxdb3/data \
   influxdb:enterprise \
   influxdb3 serve \

@@ -40,7 +40,7 @@ As written data moves through {{% product-name %}}, it follows a structured path
 - **Process**: Every ten minutes (default), data is persisted to Parquet files in object storage.
 - **Impact**: Provides durable, long-term storage.
 - **Tradeoff**: More frequent persistence reduces reliance on the WAL but increases I/O costs.
-- **Memory usage**: The persistence process uses memory from the configured memory pool ([`exec-mem-pool-bytes`](/influxdb3/version/reference/config-options/#exec-mem-pool-bytes)) when converting data to Parquet format. For write-heavy workloads, ensure adequate memory is allocated.
+- **Memory usage**: The persistence process uses memory from the configured memory pool ([`exec-mem-pool-size`](/influxdb3/version/reference/config-options/#exec-mem-pool-size)) when converting data to Parquet format. For write-heavy workloads, ensure adequate memory is allocated.
 - **Details**: Every ten minutes (default), {{% product-name %}} persists the oldest data from the queryable buffer to the object store in Parquet format, and keeps the remaining data (the most recent 5 minutes) in memory.
 
 ### In-memory cache
