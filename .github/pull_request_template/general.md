@@ -12,11 +12,11 @@ Closes #
 
 ## Impact
 
-(to customers or repo consumers)
+<!-- to customers or repo consumers -->
 
 ## Verification
 
-(layout changes must include e2e tests: `yarn test:e2e`)
+<!-- layout changes must include e2e tests: yarn test:e2e -->
 
 ## Preview pages
 
