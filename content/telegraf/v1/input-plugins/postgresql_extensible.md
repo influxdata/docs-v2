@@ -126,7 +126,7 @@ using the postgresql extensions [pg_stat_statements](http://www.postgresql.org/d
 * telegraf.conf postgresql_extensible queries (assuming that you have configured
  correctly your connection)
 
-```text
+```toml
 [[inputs.postgresql_extensible.query]]
   sqlquery="SELECT * FROM pg_stat_database"
   version=901
@@ -143,8 +143,9 @@ using the postgresql extensions [pg_stat_statements](http://www.postgresql.org/d
   withdbname=false
   tagvalue="db,username,state"
 [[inputs.postgresql_extensible.query]]
-  sqlquery="select setting as max_connections from pg_settings where \
-  name='max_connections'"
+  sqlquery="""\
+  select setting as max_connections from pg_settings where \
+  name='max_connections'"""
   version=801
   withdbname=false
   tagvalue=""
@@ -154,15 +155,17 @@ using the postgresql extensions [pg_stat_statements](http://www.postgresql.org/d
   withdbname=false
   tagvalue=""
 [[inputs.postgresql_extensible.query]]
-  sqlquery="select setting as shared_buffers from pg_settings where \
-  name='shared_buffers'"
+  sqlquery="""\
+  select setting as shared_buffers from pg_settings where \
+  name='shared_buffers'"""
   version=801
   withdbname=false
   tagvalue=""
 [[inputs.postgresql_extensible.query]]
-  sqlquery="SELECT db, count( distinct blocking_pid ) AS num_blocking_sessions,\
+  sqlquery="""\
+  SELECT db, count( distinct blocking_pid ) AS num_blocking_sessions,\
   count( distinct blocked_pid) AS num_blocked_sessions FROM \
-  public.blocking_procs group by db"
+  public.blocking_procs group by db"""
   version=901
   withdbname=false
   tagvalue="db"
