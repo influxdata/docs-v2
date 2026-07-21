@@ -39,6 +39,8 @@ that balances resource usage and throughput.
 > There is no backward compatibility for preview option names:
 > old `--pt-*` flags cause a startup error, and legacy `INFLUXDB3_PT_*` and
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variables are ignored.
+> The server logs a warning at startup for each `INFLUXDB3_PT_*` or
+> `INFLUXDB3_ENTERPRISE_PT_*` environment variable that is still set.
 >
 > The following preview options were folded into engine-agnostic options
 > shared with the Parquet-based engine:
