@@ -294,9 +294,9 @@ Specifies the node identifier used as a prefix in all object store file paths.
 Takes the name of an environment variable as an argument and uses the value of that environment variable as the node identifier.
 This option cannot be used with the `--node-id` option.
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--node-id-from-env`   | `INFLUXDB3_NODE_IDENTIFIER_FROM_ENV` |
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--node-id-from-env`   | `INFLUXDB3_NODE_ID_FROM_ENV` (preferred)<br>`INFLUXDB3_NODE_IDENTIFIER_FROM_ENV` (deprecated; supported for backward compatibility) |
 
 ##### Example using --node-id-from-env
 
