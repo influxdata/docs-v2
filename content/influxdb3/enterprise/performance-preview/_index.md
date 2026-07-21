@@ -78,12 +78,15 @@ influxdb3 serve \
 You can also enable the preview with an environment variable:
 
 ```bash
-export INFLUXDB3_ENTERPRISE_USE_PACHA_TREE=true
+export INFLUXDB3_USE_PACHA_TREE=true
 influxdb3 serve ...
 ```
 
-The `--use-pacha-tree` flag exposes additional configuration options prefixed
-with `--pt-`.
+> [!Note]
+> The legacy `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` environment variable name
+> is a deprecated alias; the server logs a deprecation warning at startup.
+
+The `--use-pacha-tree` flag exposes additional configuration options.
 See [Configure the preview](/influxdb3/enterprise/performance-preview/configure/)
 for tuning options, or
 [Monitor the preview](/influxdb3/enterprise/performance-preview/monitor/)
@@ -204,8 +207,8 @@ SELECT * FROM system.upgrade_parquet
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| `--pt-disable-hybrid-query` | Disable hybrid query mode. Queries return only data from the upgraded storage layer, even during migration. | `false` |
-| `--pt-upgrade-poll-interval` | Polling interval for upgrade status monitoring. | `5s` |
+| `--disable-hybrid-query` | Disable hybrid query mode. Queries return only data from the upgraded storage layer, even during migration. | `false` |
+| `--upgrade-poll-interval` | Polling interval for upgrade status monitoring. | `5s` |
 
 ## Downgrade to Parquet
 
