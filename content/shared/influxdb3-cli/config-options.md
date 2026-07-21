@@ -95,6 +95,99 @@ deprecation warning at startup when it detects one.
 If both the new and the legacy name are set, the new name takes precedence.
 Option tables on this page list deprecated aliases where they exist.
 
+Use the following tables to migrate a deployment configuration--for example,
+Helm values or a systemd environment file--in one pass.
+
+#### Renamed options (legacy names aliased)
+
+The following `influxdb3 serve` options and their environment variables were
+renamed.
+Legacy names remain supported as deprecated aliases.
+
+| Legacy name | New name |
+| :---------- | :------- |
+| `--disable-parquet-mem-cache`<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` | `--disable-data-file-cache`<br>`INFLUXDB3_DISABLE_DATA_FILE_CACHE` |
+| `--exec-mem-pool-bytes`<br>`INFLUXDB3_EXEC_MEM_POOL_BYTES` | `--exec-mem-pool-size`<br>`INFLUXDB3_EXEC_MEM_POOL_SIZE` |
+| `--parquet-mem-cache-query-path-duration`<br>`INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` | `--file-cache-recency`<br>`INFLUXDB3_FILE_CACHE_RECENCY` |
+| `--parquet-mem-cache-size`<br>`INFLUXDB3_PARQUET_MEM_CACHE_SIZE` | `--file-cache-size`<br>`INFLUXDB3_FILE_CACHE_SIZE` |
+| `--query-log-size`<br>`INFLUXDB3_QUERY_LOG_SIZE` | `--query-log-max-entries`<br>`INFLUXDB3_QUERY_LOG_MAX_ENTRIES` |
+| `--wal-max-write-buffer-size`<br>`INFLUXDB3_WAL_MAX_WRITE_BUFFER_SIZE` | `--wal-max-buffered-writes`<br>`INFLUXDB3_WAL_MAX_BUFFERED_WRITES` |
+| `--wal-snapshot-size`<br>`INFLUXDB3_WAL_SNAPSHOT_SIZE` | `--wal-files-per-snapshot`<br>`INFLUXDB3_WAL_FILES_PER_SNAPSHOT` |
+{{% show-in "enterprise" %}}| `--wait-for-running-ingestor`<br>`INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR` | `--wait-for-running-ingester`<br>`INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` |{{% /show-in %}}
+
+#### Renamed environment variables (legacy names aliased)
+
+The following environment variables were renamed to match their command
+options; the option names are unchanged.
+Legacy names remain supported as deprecated aliases.
+
+| Legacy name | New name |
+| :---------- | :------- |
+| `INFLUXDB3_DB_DIR` | `INFLUXDB3_DATA_DIR` |
+| `INFLUXDB3_NODE_IDENTIFIER_FROM_ENV` | `INFLUXDB3_NODE_ID_FROM_ENV` |
+| `INFLUXDB3_NODE_IDENTIFIER_PREFIX` | `INFLUXDB3_NODE_ID` |
+| `INFLUXDB3_NUM_WAL_FILES_TO_KEEP` | `INFLUXDB3_SNAPSHOTTED_WAL_FILES_TO_KEEP` |
+| `INFLUXDB3_START_WITHOUT_AUTH` | `INFLUXDB3_WITHOUT_AUTH` |
+| `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` | `INFLUXDB3_DISABLE_TELEMETRY_UPLOAD` |
+
+{{% show-in "enterprise" %}}
+
+#### Renamed Enterprise environment variables (legacy names aliased)
+
+Enterprise-specific environment variables dropped the `ENTERPRISE_` segment.
+Legacy names remain supported as deprecated aliases.
+
+| Legacy name | New name |
+| :---------- | :------- |
+| `INFLUXDB3_ENTERPRISE_API_UPLOAD_CHECK_INTERVAL` | `INFLUXDB3_API_UPLOAD_CHECK_INTERVAL` |
+| `INFLUXDB3_ENTERPRISE_API_UPLOAD_CONCURRENT_STATUS_READS` | `INFLUXDB3_API_UPLOAD_CONCURRENT_STATUS_READS` |
+| `INFLUXDB3_ENTERPRISE_CATALOG_SYNC_INTERVAL` | `INFLUXDB3_CATALOG_SYNC_INTERVAL` |
+| `INFLUXDB3_ENTERPRISE_CLUSTER_ID` | `INFLUXDB3_CLUSTER_ID` |
+| `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` | `INFLUXDB3_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` |
+| `INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` | `INFLUXDB3_COMPACTED_DATA_SKIP_FILE_INDEX` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_CHECK_INTERVAL` | `INFLUXDB3_COMPACTION_CHECK_INTERVAL` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_CLEANUP_WAIT` | `INFLUXDB3_COMPACTION_CLEANUP_WAIT` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_GEN2_DURATION` | `INFLUXDB3_COMPACTION_GEN2_DURATION` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_MAX_NUM_FILES_PER_PLAN` | `INFLUXDB3_COMPACTION_MAX_NUM_FILES_PER_PLAN` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_MULTIPLIERS` | `INFLUXDB3_COMPACTION_MULTIPLIERS` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` | `INFLUXDB3_COMPACTION_ROW_LIMIT` |
+| `INFLUXDB3_ENTERPRISE_COMPACTION_SNAPSHOTS_LIMIT` | `INFLUXDB3_COMPACTION_SNAPSHOTS_LIMIT` |
+| `INFLUXDB3_ENTERPRISE_CONN_INFO` | `INFLUXDB3_CONN_INFO` |
+| `INFLUXDB3_ENTERPRISE_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` | `INFLUXDB3_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` |
+| `INFLUXDB3_ENTERPRISE_INTERNODE_BIND_ADDR` | `INFLUXDB3_INTERNODE_BIND_ADDR` |
+| `INFLUXDB3_ENTERPRISE_INTERNODE_JWT_PRIMARY` | `INFLUXDB3_INTERNODE_JWT_PRIMARY` |
+| `INFLUXDB3_ENTERPRISE_INTERNODE_JWT_SECONDARY` | `INFLUXDB3_INTERNODE_JWT_SECONDARY` |
+| `INFLUXDB3_ENTERPRISE_INTERNODE_TLS_CA` | `INFLUXDB3_INTERNODE_TLS_CA` |
+| `INFLUXDB3_ENTERPRISE_INTERNODE_TLS_CERT` | `INFLUXDB3_INTERNODE_TLS_CERT` |
+| `INFLUXDB3_ENTERPRISE_INTERNODE_TLS_KEY` | `INFLUXDB3_INTERNODE_TLS_KEY` |
+| `INFLUXDB3_ENTERPRISE_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` | `INFLUXDB3_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` |
+| `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` | `INFLUXDB3_LICENSE_EMAIL` |
+| `INFLUXDB3_ENTERPRISE_LICENSE_FILE` | `INFLUXDB3_LICENSE_FILE` |
+| `INFLUXDB3_ENTERPRISE_LICENSE_TYPE` | `INFLUXDB3_LICENSE_TYPE` |
+| `INFLUXDB3_ENTERPRISE_MODE` | `INFLUXDB3_MODE` |
+| `INFLUXDB3_ENTERPRISE_NUM_CORES` | `INFLUXDB3_NUM_CORES` |
+| `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` | `INFLUXDB3_NUM_DATABASE_LIMIT` |
+| `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` | `INFLUXDB3_NUM_TABLE_LIMIT` |
+| `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` | `INFLUXDB3_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
+| `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` | `INFLUXDB3_REPLICATION_INTERVAL` |
+| `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` | `INFLUXDB3_USE_PACHA_TREE` |
+| `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_COMPACTOR` | `INFLUXDB3_WAIT_FOR_RUNNING_COMPACTOR` |
+| `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTER` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` |
+| `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR` |
+| `INFLUXDB3_TCP_LISTINER_FILE_PATH` | `INFLUXDB3_TCP_LISTENER_FILE_PATH` |
+
+#### Removed performance-preview option names (no aliases)
+
+Performance upgrade preview (`--use-pacha-tree`) options dropped the `pt-`
+prefix without backward compatibility: old `--pt-*` flags cause a startup
+error, and legacy `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*`
+environment variables are ignored (the server logs a warning at startup for
+each one that is still set).
+For the complete old-to-new name table, see
+[Migrate from `--pt-*` option names](/influxdb3/enterprise/performance-preview/configure/#migrate-from-pt--option-names).
+
+{{% /show-in %}}
+
 ### Size option values
 
 Options that accept a size value use the following format:
