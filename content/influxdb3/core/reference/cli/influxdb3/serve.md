@@ -84,9 +84,9 @@ influxdb3 serve [OPTIONS]
 |                  | `--datafusion-use-cached-parquet-loader`             | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-use-cached-parquet-loader)_             |
 |                  | `--delete-grace-period`                              | _See [configuration options](/influxdb3/core/reference/config-options/#delete-grace-period)_                              |
 |                  | `--disable-authz`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#disable-authz)_                                    |
-|                  | `--disable-parquet-mem-cache`                        | _See [configuration options](/influxdb3/core/reference/config-options/#disable-parquet-mem-cache)_                        |
+|                  | `--disable-data-file-cache`                        | _See [configuration options](/influxdb3/core/reference/config-options/#disable-data-file-cache)_                        |
 |                  | `--distinct-cache-eviction-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#distinct-cache-eviction-interval)_                 |
-|                  | `--exec-mem-pool-bytes`                              | _See [configuration options](/influxdb3/core/reference/config-options/#exec-mem-pool-bytes)_                              |
+|                  | `--exec-mem-pool-size`                              | _See [configuration options](/influxdb3/core/reference/config-options/#exec-mem-pool-size)_                              |
 |                  | `--force-snapshot-mem-threshold`                     | _See [configuration options](/influxdb3/core/reference/config-options/#force-snapshot-mem-threshold)_                     |
 |                  | `--gen1-duration`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#gen1-duration)_                                    |
 |                  | `--gen1-lookback-duration`                           | _See [configuration options](/influxdb3/core/reference/config-options/#gen1-lookback-duration)_                           |
@@ -110,19 +110,19 @@ influxdb3 serve [OPTIONS]
 |                  | `--package-manager`                                  | _See [configuration options](/influxdb3/core/reference/config-options/#package-manager)_                                  |
 |                  | `--parquet-mem-cache-prune-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-interval)_                 |
 |                  | `--parquet-mem-cache-prune-percentage`               | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-percentage)_               |
-|                  | `--parquet-mem-cache-query-path-duration`            | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-query-path-duration)_            |
-|                  | `--parquet-mem-cache-size`                           | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-size)_                           |
+|                  | `--file-cache-recency`            | _See [configuration options](/influxdb3/core/reference/config-options/#file-cache-recency)_            |
+|                  | `--file-cache-size`                           | _See [configuration options](/influxdb3/core/reference/config-options/#file-cache-size)_                           |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#plugin-dir)_                                       |
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/core/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--query-file-limit`                                 | _See [configuration options](/influxdb3/core/reference/config-options/#query-file-limit)_                                 |
-|                  | `--query-log-size`                                   | _See [configuration options](/influxdb3/core/reference/config-options/#query-log-size)_                                   |
+|                  | `--query-log-max-entries`                                   | _See [configuration options](/influxdb3/core/reference/config-options/#query-log-max-entries)_                                   |
 |                  | `--restrict-plugin-triggers-to` | _See [configuration options](/influxdb3/core/reference/config-options/#restrict-plugin-triggers-to)_ |
 |                  | `--retention-check-interval`                         | _See [configuration options](/influxdb3/core/reference/config-options/#retention-check-interval)_                         |
 |                  | `--snapshotted-wal-files-to-keep`                    | _See [configuration options](/influxdb3/core/reference/config-options/#snapshotted-wal-files-to-keep)_                    |
 |                  | `--table-index-cache-concurrency-limit`              | _See [configuration options](/influxdb3/core/reference/config-options/#table-index-cache-concurrency-limit)_              |
 |                  | `--table-index-cache-max-entries`                    | _See [configuration options](/influxdb3/core/reference/config-options/#table-index-cache-max-entries)_                    |
 |                  | `--tcp-listener-file-path`                           | _See [configuration options](/influxdb3/core/reference/config-options/#tcp-listener-file-path)_                           |
-|                  | `--telemetry-disable-upload`                         | _See [configuration options](/influxdb3/core/reference/config-options/#disable-telemetry-upload)_                         |
+|                  | `--disable-telemetry-upload`                         | _See [configuration options](/influxdb3/core/reference/config-options/#disable-telemetry-upload)_                         |
 |                  | `--telemetry-endpoint`                               | _See [configuration options](/influxdb3/core/reference/config-options/#telemetry-endpoint)_                               |
 |                  | `--tls-cert`                                         | _See [configuration options](/influxdb3/core/reference/config-options/#tls-cert)_                                         |
 |                  | `--tls-key`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#tls-key)_                                          |
@@ -137,10 +137,10 @@ influxdb3 serve [OPTIONS]
 |                  | `--traces-jaeger-tags`                               | _See [configuration options](/influxdb3/core/reference/config-options/#traces-jaeger-tags)_                               |
 |                  | `--virtual-env-location`                             | _See [configuration options](/influxdb3/core/reference/config-options/#virtual-env-location)_                             |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/core/reference/config-options/#wal-flush-interval)_                               |
-|                  | `--wal-max-write-buffer-size`                        | _See [configuration options](/influxdb3/core/reference/config-options/#wal-max-write-buffer-size)_                        |
+|                  | `--wal-max-buffered-writes`                        | _See [configuration options](/influxdb3/core/reference/config-options/#wal-max-buffered-writes)_                        |
 |                  | `--wal-replay-concurrency-limit`                     | _See [configuration options](/influxdb3/core/reference/config-options/#wal-replay-concurrency-limit)_                     |
 |                  | `--wal-replay-fail-on-error`                         | _See [configuration options](/influxdb3/core/reference/config-options/#wal-replay-fail-on-error)_                         |
-|                  | `--wal-snapshot-size`                                | _See [configuration options](/influxdb3/core/reference/config-options/#wal-snapshot-size)_                                |
+|                  | `--wal-files-per-snapshot`                                | _See [configuration options](/influxdb3/core/reference/config-options/#wal-files-per-snapshot)_                                |
 |                  | `--without-auth`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#without-auth)_                                     |
 
 ### Option environment variables
@@ -175,7 +175,7 @@ influxdb3
 influxdb3 --object-store memory
 
 # Use environment variables to override defaults
-INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+INFLUXDB3_NODE_ID=my-node influxdb3
 ```
 
 > [!Important]

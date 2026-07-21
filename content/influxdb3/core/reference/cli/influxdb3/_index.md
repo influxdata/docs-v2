@@ -91,7 +91,7 @@ influxdb3
 influxdb3 --object-store memory
 
 # Use environment variables to override defaults
-INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+INFLUXDB3_NODE_ID=my-node influxdb3
 ```
 
 ### Run the InfluxDB 3 server
