@@ -50,6 +50,9 @@ that balances resource usage and throughput.
 > - `--pt-file-cache-size` → [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size)
 > - `--pt-file-cache-recency` → [`--file-cache-recency`](/influxdb3/enterprise/reference/config-options/#file-cache-recency)
 > - `--pt-disable-data-file-cache` → [`--disable-data-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-data-file-cache)
+>
+> For the complete old-to-new name table, see
+> [Migrate from pt- option names](#migrate-from-pt-option-names).
 
 > [!Important]
 > Set `--num-io-threads` to the number of cores on the machine when using the
@@ -65,6 +68,7 @@ that balances resource usage and throughput.
 - [L1-L4 level tuning](#l1-l4-level-tuning)
 - [Example configurations](#example-configurations)
 - [Downgrade options](#downgrade-options)
+- [Migrate from pt- option names](#migrate-from-pt-option-names)
 
 ## General
 
@@ -496,3 +500,62 @@ For the downgrade procedure, see
 | `--dry-run` | Preview mode--list files that would be deleted without making changes. |
 | `--yes` | Skip the confirmation prompt. |
 | `--ignore-running` | Proceed even if nodes appear to be running. **Warning:** may cause data inconsistency if nodes are actively writing. |
+
+## Migrate from pt- option names {#migrate-from-pt-option-names}
+
+Use the following table to update startup scripts, Helm values, or systemd
+environment files that use the removed `--pt-*` option names.
+There are no aliases: old `--pt-*` flags cause a startup error, and legacy
+`INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*` environment variables are
+ignored (the server logs a warning at startup for each one that is still set).
+
+Environment variable names follow the option names--for example,
+`INFLUXDB3_PT_SNAPSHOT_SIZE` becomes `INFLUXDB3_SNAPSHOT_SIZE`.
+Any `--pt-*` option not listed below drops the `pt-` prefix without any
+other change to its name.
+
+| Old name | New name |
+|:---------|:---------|
+| `--pt-compactor-cleanup-cooldown` | `--compactor-cleanup-cooldown` |
+| `--pt-compactor-input-size-budget` | `--compactor-input-size-budget` |
+| `--pt-disable-data-file-cache` | [`--disable-data-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-data-file-cache) (shared with the Parquet-based engine) |
+| `--pt-disable-hybrid-query` | `--disable-hybrid-query` |
+| `--pt-enable-auto-dvc` | `--enable-auto-dvc` |
+| `--pt-enable-retention` | `--enable-retention` |
+| `--pt-engine-path-prefix` | `--engine-path-prefix` |
+| `--pt-file-cache-evict-after` | `--file-cache-evict-after` |
+| `--pt-file-cache-recency` | [`--file-cache-recency`](/influxdb3/enterprise/reference/config-options/#file-cache-recency) (shared with the Parquet-based engine) |
+| `--pt-file-cache-size` | [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) (shared with the Parquet-based engine) |
+| `--pt-final-compaction-age` | `--final-compaction-age` |
+| `--pt-gen0-max-bytes-per-file` | `--gen0-max-file-size` |
+| `--pt-gen0-max-rows-per-file` | `--gen0-max-rows-per-file` |
+| `--pt-l1-promotion-count` | `--l1-promotion-count` |
+| `--pt-l1-tail-target-bytes` | `--l1-tail-target-size` |
+| `--pt-l1-target-file-bytes` | `--l1-target-file-size` |
+| `--pt-l2-promotion-count` | `--l2-promotion-count` |
+| `--pt-l2-tail-target-bytes` | `--l2-tail-target-size` |
+| `--pt-l2-target-file-bytes` | `--l2-target-file-size` |
+| `--pt-l3-promotion-count` | `--l3-promotion-count` |
+| `--pt-l3-tail-target-bytes` | `--l3-tail-target-size` |
+| `--pt-l3-target-file-bytes` | `--l3-target-file-size` |
+| `--pt-l4-tail-target-bytes` | `--l4-tail-target-size` |
+| `--pt-l4-target-file-bytes` | `--l4-target-file-size` |
+| `--pt-max-columns` | `--max-total-columns` |
+| `--pt-max-concurrent-snapshots` | `--max-concurrent-snapshots` |
+| `--pt-merge-threshold-size` | `--merge-threshold-size` |
+| `--pt-replica-gen0-load-concurrency` | `--replica-gen0-load-concurrency` |
+| `--pt-replica-max-buffer-size` | `--replica-max-buffer-size` |
+| `--pt-row-delete-min-age` | `--row-delete-min-age` |
+| `--pt-shard-count` | `--shard-count` |
+| `--pt-snapshot-duration` | `--snapshot-duration` |
+| `--pt-snapshot-size` | `--snapshot-size` |
+| `--pt-upgrade-poll-interval` | `--upgrade-poll-interval` |
+| `--pt-wal-flush-concurrency` | `--wal-flush-concurrency` |
+| `--pt-wal-flush-interval` | [`--wal-flush-interval`](/influxdb3/enterprise/reference/config-options/#wal-flush-interval) (shared with the Parquet-based engine) |
+| `--pt-wal-max-buffer-size` | `--wal-buffer-size` |
+| `--pt-wal-replica-queue-size` | `--wal-replica-queue-length` |
+| `--pt-wal-replica-recovery-concurrency` | `--wal-replica-recovery-concurrency` |
+| `--pt-wal-replica-recovery-tail-skip-limit` | `--wal-replica-recovery-tail-skip-limit` |
+| `--pt-wal-replica-steady-concurrency` | `--wal-replica-steady-concurrency` |
+| `--pt-wal-replication-interval` | [`--replication-interval`](/influxdb3/enterprise/reference/config-options/#replication-interval) (shared with the Parquet-based engine) |
+| `--pt-wal-snapshots-to-keep` | `--wal-snapshots-to-keep` |
