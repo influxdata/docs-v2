@@ -84,6 +84,18 @@ export INFLUXDB3_AUTH_TOKEN="YOUR_TOKEN"
 
 ## Capture a workload profile
 
+A capture records only the traffic that arrives while the capture is running.
+Queries executed before the capture starts and requests sent after the capture
+duration expires are not included in the profile.
+Start the capture first, and then run your workload.
+
+Complete the following steps in order:
+
+1. [Start a capture](#start-a-capture)
+2. [Send traffic during the capture window](#send-traffic-during-the-capture-window)
+3. [Wait for the capture to complete](#wait-for-the-capture-to-complete)
+4. [Preview the capture](#preview-the-capture)
+
 ### Start a capture
 
 Start a capture and specify the type and duration:
@@ -106,11 +118,23 @@ Store the profile ID to reference the capture in later commands:
 export PROFILE_ID="550e8400-e29b-41d4-a716-446655440000"
 ```
 
-To capture `write` or `both` data, send write requests to an ingest node in the
-cluster while the capture runs.
+The capture is now running for the requested duration.
 
-### List profiles
+### Send traffic during the capture window
 
+With the capture running, generate the workload you want to record:
+
+- For a `query` or `both` capture, send SQL, InfluxQL, or Flight SQL queries to
+  the query node.
+  Only queries that the query node executes while the capture is running are
+  recorded---queries that completed before the capture started do not appear in
+  the profile.
+- For a `write` or `both` capture, send write requests to an ingest node in the
+  same cluster so the query node observes replicated WAL data.
+
+### Wait for the capture to complete
+
+The capture stops automatically when the requested duration expires.
 List capture profiles and their status:
 
 ```bash
@@ -119,8 +143,9 @@ influxdb3 loadcap list
 
 A profile reports `running`, `complete`, or `aborted` status, along with its
 type, requested duration, and creation time.
+Wait for the profile to report `complete` before you preview or download it.
 
-### Preview a capture
+### Preview the capture
 
 Preview a profile without downloading it:
 
