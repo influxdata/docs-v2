@@ -19,6 +19,35 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.10.5 {date="2026-07-20"}
+
+### Core
+
+#### Bug fixes
+
+- **Oversized buffer chunk persistence**: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path, so all but one were silently overwritten—losing those rows and leaving snapshot metadata that fails reads with `Invalid Parquet file. Corrupt footer`.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+
+## v3.9.11 {date="2026-07-20"}
+
+### Core
+
+#### Bug fixes
+
+- **Oversized buffer chunk persistence**: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path, so all but one were silently overwritten—losing those rows and leaving snapshot metadata that fails reads with `Invalid Parquet file. Corrupt footer`.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
 ## v3.10.4 {date="2026-07-14"}
 
 <!-- Uncomment once Core v3.10.4 is released
