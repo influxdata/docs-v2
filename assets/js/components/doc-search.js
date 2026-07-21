@@ -128,6 +128,13 @@ export default function DocSearch({ component }) {
       },
     });
 
+    // DocSearch clones the search input to create its autocomplete hint
+    // element, duplicating the accesskey attribute. Remove the attribute from
+    // the clone so the accesskey stays unique on the page.
+    document.querySelectorAll('.ds-hint[accesskey]').forEach((hint) => {
+      hint.removeAttribute('accesskey');
+    });
+
     // Mark DocSearch as initialized
     window.InfluxDocs.search.initialized = true;
 
