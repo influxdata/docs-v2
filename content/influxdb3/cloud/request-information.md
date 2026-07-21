@@ -15,12 +15,10 @@ aliases:
   - /influxdb3/cloud/api/v3/
   - /influxdb3/cloud/guides/api-compatibility/v1/
   - /influxdb3/cloud/guides/api-compatibility/v2/
-  - /influxdb3/cloud/install/
   - /influxdb3/cloud/write-data/use-telegraf/
   - /influxdb3/cloud/write-data/use-telegraf/csv/
   - /influxdb3/cloud/reference/cli/influxdb3/update/database/
   - /influxdb3/cloud/reference/client-libraries/v3/
-  - /influxdb3/cloud/reference/glossary/
   - /influxdb3/cloud/reference/influxql/
   - /influxdb3/cloud/reference/influxql/feature-support/
   - /influxdb3/cloud/reference/influxql/functions/
@@ -67,13 +65,10 @@ anchors that belonged to it. Tracked in influxdata/docs-v2#7391.
   <span id="at-time-zone"></span>
   <span id="avoid-wide-schemas"></span>
   <span id="boolean"></span>
-  <span id="database"></span>
   <span id="date_bin"></span>
   <span id="date_bin_gapfill"></span>
   <span id="default-time-range"></span>
   <span id="design-for-performance"></span>
-  <span id="field"></span>
-  <span id="field-key"></span>
   <span id="float"></span>
   <span id="from-clause"></span>
   <span id="get-started-home-sensor-data"></span>
@@ -104,16 +99,12 @@ anchors that belonged to it. Tracked in influxdata/docs-v2#7391.
   <span id="show-measurements"></span>
   <span id="sort-tags-by-query-priority"></span>
   <span id="string"></span>
-  <span id="table"></span>
-  <span id="tag"></span>
-  <span id="tag-key"></span>
   <span id="tag/Database"></span>
   <span id="tag/Table"></span>
   <span id="tag/Token"></span>
   <span id="time"></span>
   <span id="time-ranges"></span>
   <span id="time-syntax"></span>
-  <span id="timestamp"></span>
   <span id="to_timestamp"></span>
   <span id="to_timestamp_micros"></span>
   <span id="to_timestamp_millis"></span>
@@ -121,7 +112,6 @@ anchors that belonged to it. Tracked in influxdata/docs-v2#7391.
   <span id="to_timestamp_seconds"></span>
   <span id="to_unixtime"></span>
   <span id="uinteger"></span>
-  <span id="unix-timestamp"></span>
   <span id="write-home-sensor-data-to-influxdb"></span>
   <span id="write-the-home-sensor-data-to-influxdb"></span>
 </div>
