@@ -71,9 +71,14 @@ jobs:
           # Only run Cypress when files under layouts/, assets/, or
           # the render-regression spec itself have changed. Content-only
           # PRs rely on the site-wide grep job above for coverage.
-          CHANGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
-            | jq -r '.[].filename')
+          #
+          # Diff the PR's base..head SHAs from the event payload. The
+          # checkout above uses fetch-depth: 0, so both are present
+          # locally. This replaces an authenticated GitHub API call whose
+          # non-JSON error responses (e.g. a 503 body) broke `jq` and
+          # failed the whole job during API hiccups.
+          CHANGED=$(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
 
           echo "Changed files:"
           echo "$CHANGED"
