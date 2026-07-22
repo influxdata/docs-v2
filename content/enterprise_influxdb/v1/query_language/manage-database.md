@@ -276,7 +276,7 @@ duration is `INF`.
 - The `REPLICATION` clause determines how many independent copies of each point
   are stored in the cluster.
 
-- By default, the replication factor `n` usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor `n` is 3.
+- By default, the replication factor `n` usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor `n` is 2.
 
 - To ensure data is immediately available for queries, set the replication factor `n` to less than or equal to the number of data nodes in the cluster.
 

@@ -35,7 +35,7 @@ Include the following parameters:
 The following example sends an HTTP `GET` request with a URL-encoded SQL query:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=servers&q=select+*+from+cpu+limit+5" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -44,7 +44,7 @@ curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=servers&q=select+*+from+c
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash
-curl http://{{< influxdb/host >}}/api/v3/query_sql \
+curl {{< influxdb/host-url >}}/api/v3/query_sql \
   --header "Authorization: Bearer AUTH_TOKEN" 
   --json '{"db": "server", "q": "select * from cpu limit 5"}'
 ```
@@ -73,7 +73,7 @@ tables (`"table_schema":"iox"`), system tables, and information schema tables
 for a database:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -118,6 +118,7 @@ retrieve information about columns in the sample `system_swap` table schema:
 _Note: when you send a query in JSON, you must escape single quotes
 that surround field names._
 
+{{% hide-in "cloud" %}}
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -127,6 +128,18 @@ curl "http://localhost:8181/api/v3/query_sql" \
     "format": "jsonl"
   }'
 ```
+{{% /hide-in %}}
+{{% show-in "cloud" %}}
+```bash
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "mydb",
+    "q": "SELECT * FROM information_schema.columns WHERE table_schema = '"'iox'"' AND table_name = '"'system_swap'"'",
+    "format": "jsonl"
+  }'
+```
+{{% /show-in %}}
 
 The output is similar to the following:
 
@@ -145,6 +158,7 @@ The output is similar to the following:
 
 To view recently executed queries, query the `queries` system table:
 
+{{% hide-in "cloud" %}}
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -154,6 +168,18 @@ curl "http://localhost:8181/api/v3/query_sql" \
     "format": "jsonl"
   }'
 ```
+{{% /hide-in %}}
+{{% show-in "cloud" %}}
+```bash
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "mydb",
+    "q": "SELECT * FROM system.queries LIMIT 2",
+    "format": "jsonl"
+  }'
+```
+{{% /show-in %}}
 
 The output is similar to the following:
 
@@ -183,7 +209,7 @@ Include the following parameters:
 The following example sends an HTTP `GET` request with a URL-encoded InfluxQL query:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5" \
+curl "{{< influxdb/host-url >}}/api/v3/query_influxql?db=servers&q=select+*+from+cpu+limit+5" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -192,7 +218,7 @@ curl "http://{{< influxdb/host >}}/api/v3/query_influxql?db=servers&q=select+*+f
 The following example sends an HTTP `POST` request with parameters in a JSON payload:
 
 ```bash
-curl http://{{< influxdb/host >}}/api/v3/query_influxql \
+curl {{< influxdb/host-url >}}/api/v3/query_influxql \
   --header "Authorization: Bearer AUTH_TOKEN" \ 
   --json '{"db": "server", "q": "select * from cpu limit 5"}'
 ```

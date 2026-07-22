@@ -8,7 +8,14 @@
   box-shadow: 1px 2px 6px $article-shadow;
   background: rgba($article-text, .03);
 
-  h4 {color: $article-heading;}
+  /* Support-and-feedback heading is an h2 for a valid heading outline,
+     but keeps the h4 visual style it always had */
+  h2 {
+    color: $article-heading;
+    font-size: 1.35rem;
+    font-style: italic;
+    margin: -1.25rem 0 .5rem;
+  }
 }
 
 .support {

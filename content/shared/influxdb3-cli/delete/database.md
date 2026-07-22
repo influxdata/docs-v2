@@ -22,7 +22,7 @@ influxdb3 delete database [OPTIONS] <DATABASE_NAME>
 --database-name: internal variable, use positional <DATABASE_NAME>
 -->
 
-{{% hide-in "enterprise" %}}
+{{% hide-in "enterprise,cloud" %}}
 | Option |                   | Description                                                                              |
 | :----- | :---------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
@@ -34,7 +34,7 @@ influxdb3 delete database [OPTIONS] <DATABASE_NAME>
 |        | `--help-all`      | Print detailed help information                                                          |
 {{% /hide-in %}}
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 | Option |                   | Description                                                                              |
 | :----- | :---------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
@@ -62,7 +62,7 @@ You can use the following environment variables to set command options:
 
 - [Delete a database](#delete-a-database)
 - [Delete a database while specifying the token inline](#delete-a-database-while-specifying-the-token-inline)
-{{% show-in "enterprise" %}}- [Delete database data only (preserve schema and resources)](#delete-database-data-only-preserve-schema-and-resources)
+{{% show-in "enterprise,cloud" %}}- [Delete database data only (preserve schema and resources)](#delete-database-data-only-preserve-schema-and-resources)
 - [Delete database data and tables (preserve database resources)](#delete-database-data-and-tables-preserve-database-resources){{% /show-in %}}
 - [Hard delete a database immediately](#hard-delete-a-database-immediately)
 - [Hard delete a database at a specific time](#hard-delete-a-database-at-a-specific-time)
@@ -90,7 +90,7 @@ influxdb3 delete database DATABASE_NAME
 influxdb3 delete database --token AUTH_TOKEN DATABASE_NAME
 ```
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ### Delete database data only (preserve schema and resources)
 
 Delete all data from a database while preserving:
