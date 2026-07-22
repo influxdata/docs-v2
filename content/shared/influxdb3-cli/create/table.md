@@ -28,7 +28,7 @@ influxdb3 create table [OPTIONS] \
 --table-name: internal variable, use positional <TABLE_NAME>
 -->
 
-{{% hide-in "enterprise" %}}
+{{% hide-in "enterprise,cloud" %}}
 | Option |                   | Description                                                                              |
 | :----- | :---------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
@@ -43,7 +43,7 @@ influxdb3 create table [OPTIONS] \
 {{% /hide-in %}}
 
 <!-- Using the show-in shortcode for only the retention-period option breaks the formatting in Core -->
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 | Option |                      | Description                                                                                                                                      |
 | :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
@@ -112,7 +112,7 @@ influxdb3 create table \
   TABLE_NAME
 ```
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ### Create a table with a retention period
 
 <!--pytest.mark.skip-->

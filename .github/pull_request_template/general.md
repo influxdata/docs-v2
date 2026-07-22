@@ -1,18 +1,22 @@
-## What changed
+<!--
+Write plainly and clearly.
+Use short sentences and active voice, and avoid jargon.
+A reviewer should understand the change without opening the diff.
+-->
 
--
+Closes #
+
+## What changed
 
 ## Why
 
--
-
 ## Impact
 
--
+<!-- to customers or repo consumers -->
 
-## Validation
+## Verification
 
--
+<!-- layout changes must include e2e tests: yarn test:e2e -->
 
 ## Preview pages
 
