@@ -636,7 +636,8 @@ paths:
         Creates a resource (fine-grained permissions) token.
         A resource token is a token that has access to specific resources in the system.
 
-        This endpoint is only available in InfluxDB 3 Cloud.
+        Resource tokens are available in InfluxDB 3 Enterprise and InfluxDB 3 Cloud.
+        They are not available in InfluxDB 3 Core.
       responses:
         '201':
           description: |
