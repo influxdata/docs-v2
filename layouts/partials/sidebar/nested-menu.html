@@ -13,14 +13,14 @@
     <li class="nav-{{ $navClass }}" data-nav-url="{{ .URL }}"{{ if .Params.state }} state="{{ .Params.state }}"{{ end }}>
       {{ if $isApiParent }}
         {{/* API Reference: render custom API nav children instead of standard menu children */}}
-        <a href="#" class="children-toggle"></a>
+        <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ .Name }} nested items"></a>
         <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
         <ul class="children">
           {{ partial "sidebar/api-menu-items" (dict "url" .URL "siteData" $siteData) }}
         </ul>
       {{ else }}
         {{/* Standard menu rendering */}}
-        {{ if .HasChildren }}<a href="#" class="children-toggle"></a>{{ end }}
+        {{ if .HasChildren }}<a href="#" class="children-toggle" role="button" aria-label="Toggle {{ .Name }} nested items"></a>{{ end }}
         <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
         {{ if .HasChildren }}
           <ul class="children">

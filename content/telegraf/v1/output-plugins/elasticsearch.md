@@ -217,7 +217,7 @@ compatibility mode users need to set the `override_main_response_version` to
 
 On existing clusters run:
 
-```text
+```json
 PUT /_cluster/settings
 {
   "persistent" : {
@@ -228,7 +228,7 @@ PUT /_cluster/settings
 
 And on new clusters set the option to true under advanced options:
 
-```text
+```json
 POST https://es.us-east-1.amazonaws.com/2021-01-01/opensearch/upgradeDomain
 {
   "DomainName": "domain-name",

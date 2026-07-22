@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "axios": "^1.16.0",
+    "axios": "^1.18.0",
     "glob": "^13.0.6",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
