@@ -115,7 +115,7 @@ paths:
       description: |
         Writes line protocol to the specified database.
 
-        This is the native InfluxDB 3 Enterprise write endpoint that provides enhanced control
+        This is the native InfluxDB 3 Cloud write endpoint that provides enhanced control
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
         Use this endpoint to send data in [line protocol](/influxdb/version/reference/syntax/line-protocol/) format
@@ -128,11 +128,11 @@ paths:
           times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
 
-        #### Column families (performance upgrade preview)
+        #### Column families
 
-        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
-        (`--use-pacha-tree` flag), you can assign fields to column families using the `::` delimiter
-        in field names. The portion before `::` is the family name; everything after is the field name.
+        InfluxDB 3 Cloud stores data using PachaTree. Assign fields to column
+        families using the `::` delimiter in field names. The portion before
+        `::` is the family name; everything after is the field name.
 
         ```txt
         metrics,host=sA cpu::usage_user=55.2,cpu::usage_sys=12.1,mem::free=2048i 1000000000
@@ -142,7 +142,6 @@ paths:
         by letting queries read only the families they need. Fields written without `::` are assigned
         to auto-generated families.
 
-        For more information, see [Column families](/influxdb/version/performance-preview/#column-families).
 
         #### Auto precision detection
 
@@ -157,7 +156,6 @@ paths:
         #### Related
 
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb/version/write-data/http-api/v3-write-lp/)
-        - [Performance upgrade preview](/influxdb/version/performance-preview/)
       requestBody:
         $ref: '#/components/requestBodies/lineProtocolRequestBody'
       tags:
@@ -258,12 +256,6 @@ paths:
       summary: Execute SQL query
       description: |
         Executes an SQL query to retrieve data from the specified database.
-
-        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
-        `.pt` files (hybrid query mode). Use the
-        `/api/v3/query_sql_telemetry` endpoint after executing
-        a query to retrieve detailed execution statistics.
       tags:
         - Query data
     post:
@@ -304,12 +296,6 @@ paths:
       summary: Execute SQL query
       description: |
         Executes an SQL query to retrieve data from the specified database.
-
-        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
-        `.pt` files (hybrid query mode). Use the
-        `/api/v3/query_sql_telemetry` endpoint after executing
-        a query to retrieve detailed execution statistics.
       tags:
         - Query data
   /api/v3/query_influxql:
@@ -373,10 +359,6 @@ paths:
       summary: Execute InfluxQL query
       description: |
         Executes an InfluxQL query to retrieve data from the specified database.
-
-        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
-        `.pt` files (hybrid query mode).
       tags:
         - Query data
     post:
@@ -417,10 +399,6 @@ paths:
       summary: Execute InfluxQL query
       description: |
         Executes an InfluxQL query to retrieve data from the specified database.
-
-        With the [performance upgrade preview](/influxdb/version/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
-        `.pt` files (hybrid query mode).
       tags:
         - Query data
   /api/v3/configure/database:
@@ -658,7 +636,7 @@ paths:
         Creates a resource (fine-grained permissions) token.
         A resource token is a token that has access to specific resources in the system.
 
-        This endpoint is only available in InfluxDB 3 Enterprise.
+        This endpoint is only available in InfluxDB 3 Cloud.
       responses:
         '201':
           description: |
@@ -723,7 +701,7 @@ paths:
         Returns `OK` if the service is running. This endpoint does not return version information.
         Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
 
-        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Cloud.
       tags:
         - Server information
   /ping:
@@ -777,7 +755,7 @@ paths:
         - **Headers**: `x-influxdb-version` and `x-influxdb-build`
         - **Body**: JSON object with `version`, `revision`, and `process_id`
 
-        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Cloud.
       tags:
         - Server information
 components:
@@ -1216,7 +1194,7 @@ components:
 
         Replace the following:
 
-        - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
+        - **`DATABASE_NAME`**: your InfluxDB 3 Cloud database
         - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
     QuerystringAuthentication:
       type: apiKey
@@ -1247,7 +1225,7 @@ components:
 
         Replace the following:
 
-        - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
+        - **`DATABASE_NAME`**: your InfluxDB 3 Cloud database
         - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
 
         ```bash
