@@ -2,9 +2,6 @@
 
 
 
-
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -49,10 +46,10 @@
 
 
 
-<title>InfluxDB HTTP API | &lt;nil&gt; Documentation</title>
+<title>Line protocol reference | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.">
+    <meta name="description" content="InfluxDB 3 Cloud uses line protocol to write data points. It is a text-based format that provides the table, tag set, field set, and timestamp of a data point.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -110,13 +107,18 @@
 
 
 
+  
+  
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7552/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7552/docs-v2/pr-preview/pr-7552/influxdb3/clustered/reference/syntax/line-protocol/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/#software"},"articleSection":"Api","dateModified":"0001-01-01T00:00:00Z","description":"Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.","headline":"InfluxDB HTTP API","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/","name":"InfluxDB HTTP API"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/#software"},"articleSection":"Reference","dateModified":"2026-07-22T11:37:02-05:00","description":"InfluxDB 3 Cloud uses line protocol to write data points. It is a text-based format that provides the table, tag set, field set, and timestamp of a data point.","headline":"Line protocol reference","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/reference/syntax/line-protocol/","name":"Line protocol reference"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -124,7 +126,7 @@
 
 
 
-<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/index.md">
+<link rel="alternate" type="text/markdown" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/reference/syntax/line-protocol/index.md">
 
 
     
@@ -187,7 +189,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="0001-01-01 00:00:00 &#43;0000 UTC">
+<meta name="last-modified" content="2026-07-22 11:37:02 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -301,7 +303,7 @@
   
   
   
-  <a href='/influxdb3/core/api/' >InfluxDB 3 Core <span class="state">New</span></a>
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
 </li>
         <li>
   
@@ -317,7 +319,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/api/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -333,7 +335,7 @@
   
   
   
-  <a href='/influxdb3/clustered/api/' >InfluxDB Clustered</a>
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Fully-Managed">
@@ -367,7 +369,7 @@
   
   
   
-  <a href='/influxdb3/cloud-serverless/api/' >InfluxDB Cloud Serverless</a>
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
 </li>
         <li>
   
@@ -383,7 +385,7 @@
   
   
   
-  <a href='/influxdb3/cloud-dedicated/api/' >InfluxDB Cloud Dedicated</a>
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Tools">
@@ -422,7 +424,7 @@
   
   
   
-  <a href='/influxdb/v2/api/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -438,7 +440,7 @@
   
   
   
-  <a href='/influxdb/cloud/api/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -475,7 +477,7 @@
   
   
   
-  <a href='/influxdb/v1/api/' >InfluxDB OSS v1</a>
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
 </li>
         <li>
   
@@ -491,7 +493,7 @@
   
   
   
-  <a href='/enterprise_influxdb/v1/api/' >InfluxDB Enterprise</a>
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
 </li>
         <li>
   
@@ -1656,28 +1658,33 @@
   </script>
 </aside>
 
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content" role="main">
+    <div class="title">
+      <h1>Line protocol reference</h1>
+      
 
-  <div class="content-wrapper api-content">
-    <div class="api-main">
-      <article class="article article--content api-reference" role="main">
-        <header class="article--header">
-          <h1 class="article--title">InfluxDB HTTP API</h1>
-        </header>
 
-        <div class="api-header-actions">
-          <div
+
+
+
+      
+      <div class="page-actions">
+        <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="9"
-  data-estimated-tokens="4500"
-  data-section-download-url="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/-download.zip"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
 >
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -1687,7 +1694,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -1707,150 +1714,14 @@
     
   </div>
 </div>
-          <a href="/openapi/influxdb3-cloud-openapi.yml" class="btn api-spec-download" download
-    aria-label="Download InfluxDB 3 Cloud API spec">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-      <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
-      <path d="M1 14h14v2H1v-2z"/>
-    </svg>
-    Download InfluxDB 3 Cloud API Spec
-  </a>
-        </div>
-
-        
-        <section class="api-section-content"><p>Use the InfluxDB 3 Cloud HTTP API to write data, query data, and manage databases, tables, and tokens.</p>
-</section>
-        
-
         
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-    
-  
-
-
-
-
-
-
-
-  
-    
-    
-      
-      
         
-      
-      
-        
-      
+      </div>
+    </div>
     
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
-
-  
-    
-    
-      
-      
-        
-      
-      
-        
-      
-    
-  
 
 
 
@@ -1864,260 +1735,442 @@
 
 
 
-  
-  
+    
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
 
 
 
-<div class="children-links">
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
+
+
+
+
+
     
-    
-    
+
+
+
+
     
     
 
-    <h3 id="quick-start"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/quick-start/">Quick start</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-      
-      
-        
-    
-    
-    
-    <p>Authenticate, write, and query with the API:</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
 
-    <h3 id="authentication"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/authentication/">Authentication</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-      
-      
-        
-    
-    
-    
-    <p>Use one of the following schemes to authenticate to the InfluxDB 3 Cloud API:</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
 
-    <h3 id="auth-token"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/auth-token/">Auth token</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-    
-    
-    
-    <p>Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Cloud resources.</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
-
-    <h3 id="database"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/database/">Database</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-    
-    
-    
-    <p>Create, list, and delete databases in InfluxDB 3 Cloud.</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
-
-    <h3 id="query-data"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/query-data/">Query data</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-    
-    
-    
-    <p>Query data stored in InfluxDB 3 Cloud using SQL or InfluxQL.</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
-
-    <h3 id="server-information"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/server-information/">Server information</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-    
-    
-    
-    <p>Retrieve health status and version information for your InfluxDB 3 Cloud instance.</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
-
-    <h3 id="table"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/table/">Table</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-    
-    
-    
-    <p>Manage table schemas in an InfluxDB 3 Cloud database.</p>
-    
-    
-  
-    
-    
-    
-    
-    
-    
-
-    <h3 id="write-data"><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/write-data/">Write data</a></h3>
-    
-    
-    
-    
-    
-      
-      
-        
-        
-      
-    
-    
-    
-    
-    <p>Write data to InfluxDB 3 Cloud using line protocol format.</p>
-    
-    
-  
 
   
+  <!--  -->
+<p>InfluxDB 3 Cloud uses line protocol to write data points.
+It is a text-based format that provides the table, tag set, field set, and
+timestamp of a data point.</p>
+<ul>
+<li><a href="#elements-of-line-protocol">Elements of line protocol</a></li>
+<li><a href="#data-types-and-format">Data types and format</a></li>
+<li><a href="#quotes">Quotes</a></li>
+<li><a href="#special-characters">Special characters</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#naming-restrictions">Naming restrictions</a></li>
+<li><a href="#duplicate-points">Duplicate points</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// Syntax
+</span></span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">table</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="nx">tag_key</span><span class="o">&gt;=&lt;</span><span class="nx">tag_value</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="nx">tag_key</span><span class="o">&gt;=&lt;</span><span class="nx">tag_value</span><span class="o">&gt;</span><span class="p">]]</span> <span class="o">&lt;</span><span class="nx">field_key</span><span class="o">&gt;=&lt;</span><span class="nx">field_value</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="nx">field_key</span><span class="o">&gt;=&lt;</span><span class="nx">field_value</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="nx">timestamp</span><span class="o">&gt;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Example
+</span></span></span><span class="line"><span class="cl"><span class="nx">myTable</span><span class="p">,</span><span class="nx">tag1</span><span class="o">=</span><span class="nx">value1</span><span class="p">,</span><span class="nx">tag2</span><span class="o">=</span><span class="nx">value2</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="s2">&#34;fieldValue&#34;</span> <span class="mi">1556813561098000000</span></span></span></code></pre></div><p>Lines separated by the newline character <code>\n</code> represent a single point
+in InfluxDB. Line protocol is whitespace-sensitive.</p>
+
+<div class="block note">
   
+  
+  <p>Line protocol does not support the newline character <code>\n</code> in tag or field values.</p>
 </div>
+<h2 id="elements-of-line-protocol">Elements of line protocol</h2>
+<div id="line-protocol-anatomy" class="hide-commas hide-whitespace v3">
+  <p>
+    <span class="el measurement">myTable</span><span class="comma">,</span><span class="el tagset">tag1=val1,tag2=val2</span><span class="whitespace" data-whitespace="1st"> </span>
+    <span class="el fieldset">field1="v1",field2=1i</span><span class="whitespace" data-whitespace="2nd"> </span><span class="el timestamp">0000000000000000000</span>
+  </p>
+</div>
+<h3 id="table">Table</h3>
+<p>(<span class="req  ">Required</span>)
+The table name.
+InfluxDB accepts one table per point.
+<em>Table names are case-sensitive and subject to <a href="#naming-restrictions">naming restrictions</a>.</em></p>
+<p><em><strong>Data type:</strong> <a href="#string">String</a></em></p>
 
+<div class="block note">
+  
+  
+  <p>If familiar with previous InfluxDB versions, &ldquo;<strong>table</strong>&rdquo; is synonymous with
+&ldquo;<strong>measurement</strong>.&rdquo;</p>
+</div>
+<h3 id="tag-set">Tag set</h3>
+<p>(<em><strong>Optional</strong></em>)
+All tag key-value pairs for the point.
+Key-value relationships are denoted with the <code>=</code> operand.
+Multiple tag key-value pairs are comma-delimited.
+<em>Tag keys and tag values are case-sensitive.
+Tag keys are subject to <a href="#naming-restrictions">naming restrictions</a>.
+Tag values cannot be empty; instead, omit the tag from the tag set.</em></p>
+<p><em><strong>Key data type:</strong> <a href="#string">String</a></em><br>
+<em><strong>Value data type:</strong> <a href="#string">String</a></em></p>
+<h3 id="field-set">Field set</h3>
+<p>(<span class="req  ">Required</span>)
+All field key-value pairs for the point.
+Points must have at least one field.
+<em>Field keys and string values are case-sensitive.
+Field keys are subject to <a href="#naming-restrictions">naming restrictions</a>.</em></p>
+<p><em><strong>Key data type:</strong> <a href="#string">String</a></em><br>
+<em><strong>Value data type:</strong> <a href="#float">Float</a> | <a href="#integer">Integer</a> | <a href="#uinteger">UInteger</a> | <a href="#string">String</a> | <a href="#boolean">Boolean</a></em></p>
+
+<div class="block note">
+  
+  
+  <p><em>Always double quote string field values. More on quotes <a href="#quotes">below</a>.</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tableName <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;field string value&#34;</span> <span class="m">1556813561098000000</span></span></span></code></pre></div>
+</div>
+<h3 id="timestamp">Timestamp</h3>
+<p>(<em><strong>Optional</strong></em>)
+The <a href="/influxdb3/version/reference/glossary/#unix-timestamp">Unix timestamp</a> for the data point.
+InfluxDB accepts one timestamp per point.
+If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.</p>
+<p><em><strong>Data type:</strong> <a href="#unix-timestamp">Unix timestamp</a></em></p>
+
+<div class="block note">
+  
+  
+  <h4 id="important-notes-about-timestamps">Important notes about timestamps</h4>
+<ul>
+<li>To ensure a data point includes the time a metric is observed (not received by InfluxDB),
+include the timestamp.</li>
+<li>If your timestamps are not in nanoseconds, specify the precision of your timestamps
+when writing the data to InfluxDB 3 Cloud.</li>
+</ul>
+</div>
+<h3 id="whitespace">Whitespace</h3>
+<p>Whitespace in line protocol determines how InfluxDB interprets the data point.
+The <strong>first unescaped space</strong> delimits the table and the tag set from the field set.
+The <strong>second unescaped space</strong> delimits the field set from the timestamp.</p>
+<div id="line-protocol-anatomy" class="hide-elements hide-commas  v3">
+  <p>
+    <span class="el measurement">myTable</span><span class="comma">,</span><span class="el tagset">tag1=val1,tag2=val2</span><span class="whitespace" data-whitespace="1st"> </span>
+    <span class="el fieldset">field1="v1",field2=1i</span><span class="whitespace" data-whitespace="2nd"> </span><span class="el timestamp">0000000000000000000</span>
+  </p>
+</div>
+<h2 id="data-types-and-format">Data types and format</h2>
+<h3 id="float">Float</h3>
+<p>IEEE-754 64-bit floating-point numbers.
+Default numerical type.
+<em>InfluxDB supports scientific notation in float field values.</em></p>
+<h5 id="float-field-value-examples">Float field value examples</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=-</span><span class="mf">1.234456</span><span class="nx">e</span><span class="o">+</span><span class="mi">78</span></span></span></code></pre></div><h3 id="integer">Integer</h3>
+<p>Signed 64-bit integers.
+Trailing <code>i</code> on the number specifies an integer.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Minimum integer</th>
+          <th>Maximum integer</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>-9223372036854775808i</code></td>
+          <td><code>9223372036854775807i</code></td>
+      </tr>
+  </tbody>
+</table>
+<h5 id="integer-field-value-examples">Integer field value examples</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="mi">1</span><span class="nx">i</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="mi">12485903</span><span class="nx">i</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=-</span><span class="mi">12485903</span><span class="nx">i</span></span></span></code></pre></div><h3 id="uinteger">UInteger</h3>
+<p>Unsigned 64-bit integers.
+Trailing <code>u</code> on the number specifies an unsigned integer.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Minimum uinteger</th>
+          <th>Maximum uinteger</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>0u</code></td>
+          <td><code>18446744073709551615u</code></td>
+      </tr>
+  </tbody>
+</table>
+<h5 id="uinteger-field-value-examples">UInteger field value examples</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="mi">1</span><span class="nx">u</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="mi">12485903</span><span class="nx">u</span></span></span></code></pre></div><h3 id="string">String</h3>
+<p>Plain text string.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Element</th>
+          <th style="text-align: left">Maximum length</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Table name, tag key, tag value, field key</td>
+          <td style="text-align: left">64KB</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field value</td>
+          <td style="text-align: left">1MB</td>
+      </tr>
+  </tbody>
+</table>
+<h5 id="string-example">String example</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># String table name, field key, and field value</span>
+</span></span><span class="line"><span class="cl">myTable <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;this is a string&#34;</span></span></span></code></pre></div><h3 id="boolean">Boolean</h3>
+<p>Stores <code>true</code> or <code>false</code> values.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Boolean value</th>
+          <th style="text-align: left">Accepted syntax</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">True</td>
+          <td style="text-align: left"><code>t</code>, <code>T</code>, <code>true</code>, <code>True</code>, <code>TRUE</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">False</td>
+          <td style="text-align: left"><code>f</code>, <code>F</code>, <code>false</code>, <code>False</code>, <code>FALSE</code></td>
+      </tr>
+  </tbody>
+</table>
+<h5 id="boolean-field-value-examples">Boolean field value examples</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="nx">t</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="nx">f</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="nx">TRUE</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTable</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="nx">FALSE</span></span></span></code></pre></div>
+<div class="block note">
+  
+  
+  <p>Do not quote boolean field values.
+Quoted field values are interpreted as strings.</p>
+</div>
+<h3 id="unix-timestamp">Unix timestamp</h3>
+<p>Unix timestamp in a <a href="/influxdb3/version/reference/glossary/#unix-timestamp">specified precision</a>.
+Default precision is nanoseconds (<code>ns</code>).</p>
+<table>
+  <thead>
+      <tr>
+          <th>Minimum timestamp</th>
+          <th>Maximum timestamp</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>-9223372036854775806</code></td>
+          <td><code>9223372036854775806</code></td>
+      </tr>
+  </tbody>
+</table>
+<h5 id="unix-timestamp-example">Unix timestamp example</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">myTableName</span> <span class="nx">fieldKey</span><span class="o">=</span><span class="s2">&#34;fieldValue&#34;</span> <span class="mi">1556813561098000000</span></span></span></code></pre></div><h2 id="quotes">Quotes</h2>
+<p>Line protocol supports single and double quotes as described in the following table:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Element</th>
+          <th style="text-align: center">Double quotes</th>
+          <th style="text-align: center">Single quotes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Table</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tag key</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tag value</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field key</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field value</td>
+          <td style="text-align: center"><strong>Strings only</strong></td>
+          <td style="text-align: center">Never</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Timestamp</td>
+          <td style="text-align: center">Never</td>
+          <td style="text-align: center">Never</td>
+      </tr>
+  </tbody>
+</table>
+<p><sup class="required">*</sup> <em>Line protocol accepts double and single quotes in
+table names, tag keys, tag values, and field keys, but interprets them as
+part of the name, key, or value.</em></p>
+<h2 id="special-characters">Special Characters</h2>
+<p>Line protocol supports special characters in <a href="#string">string elements</a>.
+In the following contexts, it requires escaping certain characters with a backslash (<code>\</code>):</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Element</th>
+          <th style="text-align: left">Escape characters</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Table</td>
+          <td style="text-align: left">Comma, Space</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tag key</td>
+          <td style="text-align: left">Comma, Equals Sign, Space</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tag value</td>
+          <td style="text-align: left">Comma, Equals Sign, Space</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field key</td>
+          <td style="text-align: left">Comma, Equals Sign, Space</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field value</td>
+          <td style="text-align: left">Double quote, Backslash</td>
+      </tr>
+  </tbody>
+</table>
+<p>You do not need to escape other special characters.</p>
+<h5 id="examples-of-special-characters-in-line-protocol">Examples of special characters in line protocol</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Table name with spaces</span>
+</span></span><span class="line"><span class="cl">my<span class="se">\ </span>Table <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;string value&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Double quotes in a string field value</span>
+</span></span><span class="line"><span class="cl">myTable <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;\&#34;string\&#34; within a string&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Tag keys and values with spaces</span>
+</span></span><span class="line"><span class="cl">myTable,tag<span class="se">\ </span><span class="nv">Key1</span><span class="o">=</span>tag<span class="se">\ </span>Value1,tag<span class="se">\ </span><span class="nv">Key2</span><span class="o">=</span>tag<span class="se">\ </span>Value2 <span class="nv">fieldKey</span><span class="o">=</span><span class="m">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Emojis</span>
+</span></span><span class="line"><span class="cl">myTable,tagKey<span class="o">=</span>🍭 <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;Launch 🚀&#34;</span> <span class="m">1556813561098000000</span></span></span></code></pre></div><h3 id="escaping-backslashes">Escaping backslashes</h3>
+<p>Line protocol supports both literal backslashes and backslashes as an escape character.
+With two contiguous backslashes, the first is interpreted as an escape character.
+For example:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Backslashes</th>
+          <th style="text-align: left">Interpreted as</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>\</code></td>
+          <td style="text-align: left"><code>\</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>\\</code></td>
+          <td style="text-align: left"><code>\</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>\\\</code></td>
+          <td style="text-align: left"><code>\\</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>\\\\</code></td>
+          <td style="text-align: left"><code>\\</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>\\\\\</code></td>
+          <td style="text-align: left"><code>\\\</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>\\\\\\</code></td>
+          <td style="text-align: left"><code>\\\</code></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="comments">Comments</h2>
+<p>Line protocol interprets <code>#</code> at the beginning of a line as a comment character
+and ignores all subsequent characters until the next newline <code>\n</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># This is a comment</span>
+</span></span><span class="line"><span class="cl">myTable <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;string value&#34;</span> <span class="m">1556813561098000000</span></span></span></code></pre></div><h2 id="naming-restrictions">Naming restrictions</h2>
+<p>Table names, tag keys, and field keys are alphanumeric and must begin with a
+letter or a number. They can contain dashes (<code>-</code>) and underscores (<code>_</code>).</p>
+<h2 id="duplicate-points">Duplicate points</h2>
+<p>A point is uniquely identified by the table name, tag set, and timestamp.
+If you submit line protocol with the same table, tag set, and timestamp,
+but with a different field set, the field set becomes the union of the old
+field set and the new field set, where any conflicts favor the new field set.</p>
+
+
+
+    
+
+    
+    
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
         
-
         
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-7552/influxdb3/cloud/write-data/">Write data to InfluxDB 3 Cloud</a></li>
+          
+        
+      
+    
+    </ul>
+  </div>
+
+
+    
+
+
+
+
+
+    
 
 
   
@@ -2143,6 +2196,8 @@
 
 
   
+  
+    
   
 
 
@@ -2189,21 +2244,18 @@
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/cloud/api/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/api/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/v3-line-protocol.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7552/influxdb3/cloud/reference/syntax/line-protocol/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     
   </div>
 </div>
 
 
 
-      </article>
-    </div>
+  </article>
+</div>
 
-    <aside class="api-toc" data-component="api-toc">
-      <h4 class="api-toc-header">ON THIS PAGE</h4>
-      <nav class="api-toc-nav"></nav>
-    </aside>
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
   </div>
 </div>
 
@@ -2900,6 +2952,4 @@ pull command&ndash;for example:</p>
 </script>
 
 </html>
-
-
 
