@@ -118,6 +118,7 @@
   exclude:
     - /influxdb3/core/
     - /influxdb3/explorer/
+    - /influxdb3/cloud/
     - /influxdb3/cloud-dedicated/
     - /influxdb3/cloud-serverless/
     - /influxdb3/clustered/
@@ -219,3 +220,36 @@
     ```sh
     docker pull influxdb:2
     ```
+
+# DRAFT — InfluxDB 3 Cloud release announcement.
+# Stub to edit before release. Kept commented so it does not render until ready.
+# Before uncommenting to go live, confirm:
+#   - Final title, slug, and message copy
+#   - scope/exclude paths (where the banner should appear)
+#   - The announcement blog URL (replace the placeholder below)
+#   - Any launch date or availability wording
+# - id: influxdb3-cloud-ga
+#   level: note
+#   scope:
+#     - /influxdb3/
+#   exclude:
+#     - /influxdb3/cloud/
+#   title: 'InfluxDB 3 Cloud is now available'
+#   slug: |
+#     InfluxDB 3 Cloud is a fully managed, single-tenant InfluxDB 3 service
+#     that InfluxData operates for you.
+#
+#     <a class="btn" href="/influxdb3/cloud/">Explore InfluxDB 3 Cloud</a>
+#   message: |
+#     **InfluxDB 3 Cloud** brings InfluxDB 3 to a fully managed, single-tenant
+#     service. InfluxData runs the cluster; you write, query, and administer
+#     your data.
+#
+#     **Highlights:**
+#
+#     - Fully managed and single-tenant
+#     - SQL and InfluxQL support
+#     - Native v3 write and query APIs
+#
+#     For more information, see the
+#     [InfluxDB 3 Cloud documentation](/influxdb3/cloud/).

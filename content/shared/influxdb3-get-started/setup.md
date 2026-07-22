@@ -585,7 +585,7 @@ influxdb3 show databases --token YOUR_AUTH_TOKEN
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
 ```bash { placeholders="YOUR_AUTH_TOKEN" }
-curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
+curl "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 

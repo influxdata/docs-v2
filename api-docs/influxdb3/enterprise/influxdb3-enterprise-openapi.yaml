@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:59e0d108505b9909361470ccdd95015b6ea1bffcf2c5a9892e7217eabff5b994
+  x-source-hash: sha256:b2f4a4da437fb5797a2908f6ed642a7ef9d2f59e75e2383341e2929f8ff404e1
   x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -322,6 +322,14 @@ tags:
       Bulk import endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a
       compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin
       (operator) token.
+  - name: Load capture
+    description: |
+      Capture a timed, anonymized profile of write requests, query requests, or both on a query-capable node.
+
+      Load capture endpoints require an admin token. Only one capture can run at a time on a node.
+    x-related:
+      - title: Capture workload data
+        href: /influxdb3/enterprise/admin/load-capture/
   - name: Data deletion
     description: |
       Manage row-delete requests.
@@ -956,11 +964,11 @@ paths:
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
                   disabled: false
-                  trigger_settings:
-                    run_async: false
-                    error_behavior: log
+                trigger_settings:
+                  run_async: false
+                  error_behavior: log
               github_plugin:
-                summary: Trigger using a plugin fetched from GitHub
+                summary: Trigger using a remotely fetched plugin
                 description: |
                   Trigger that uses a plugin referenced with the `gh:` prefix.
                   InfluxDB fetches the plugin from the default `influxdata/influxdb3_plugins`
@@ -2392,6 +2400,78 @@ paths:
       tags:
         - Export data (beta)
         - Enterprise
+  /api/v3/loadcap/profiles:
+    get:
+      operationId: GetLoadcapProfiles
+      summary: List load capture profiles
+      description: >
+        Returns load capture profiles stored by a query-capable Enterprise node that has the performance upgrade preview
+        enabled and an explicit `--mode` setting that includes `query`.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LoadCaptureProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/start:
+    post:
+      operationId: PostLoadcapStart
+      summary: Start a load capture
+      description: >
+        Starts a timed capture of write requests, query requests, or both on a query-capable Enterprise node that has
+        the performance upgrade preview enabled and an explicit `--mode` setting that includes `query`.
+
+
+        Only one capture can run at a time on a node. This endpoint requires an admin token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoadCaptureStartRequest"
+      responses:
+        "200":
+          description: Load capture started.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCaptureStartResponse"
+        "400":
+          description: Invalid capture type or duration.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            `--mode` setting that includes `query`.
+        "409":
+          description: A load capture is already running on this node.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
   /api/v3/plugin_test/schedule:
     post:
       operationId: PostTestSchedulingPlugin
@@ -4380,24 +4460,9 @@ components:
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
 
-            #### Reference a plugin from GitHub
-
-            Prefix the path with `gh:` to fetch the plugin from a GitHub repository instead of the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
-            The path after `gh:` is appended to the configured `--plugin-repo`. This does not require GitHub or a Git repository--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
-
-            By default, InfluxDB fetches `gh:`-prefixed plugins from `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
-            To use a different repository, set the `--plugin-repo` server option or the `INFLUXDB3_PLUGIN_REPO` environment variable to a raw content URL base path--for example, `https://raw.githubusercontent.com/myorg/my-plugins/main/`.
-
-            InfluxDB fetches the plugin when the trigger is created (to validate it) and again each time the trigger starts--for example, on server startup or when re-enabled.
-            Unlike local plugins, `gh:`-prefixed plugins aren't automatically reloaded when the source changes. Disable and re-enable the trigger to fetch updates.
-
-            Only single-file plugins are supported with the `gh:` prefix. Multi-file plugin directories must be uploaded locally.
-
-            If the fetch fails, the API returns an error with the HTTP status code and URL--for example:
-
-            ```
-            error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
-            ```
+            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
+            For defaults, fetch behavior, and limitations, see [Use example plugins](/influxdb3/enterprise/plugins/#use-example-plugins).
         node_spec:
           $ref: "#/components/schemas/ApiNodeSpec"
         trigger_name:
@@ -4776,6 +4841,78 @@ components:
         - db
         - table
       description: Request schema for updating table configuration.
+    LoadCaptureStartRequest:
+      type: object
+      description: Request body for starting a timed load capture.
+      properties:
+        type:
+          type: string
+          description: The request types to capture.
+          enum:
+            - write
+            - query
+            - both
+        duration:
+          type: string
+          description: Capture duration using seconds, minutes, or hours. The maximum duration is one hour.
+          example: 5m
+      required:
+        - type
+        - duration
+    LoadCaptureStartResponse:
+      type: object
+      description: Response returned after a load capture starts.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the new load capture profile.
+      required:
+        - profile_id
+    LoadCaptureProfile:
+      type: object
+      description: Metadata for a load capture profile.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the load capture profile.
+        created_at:
+          type: string
+          format: date-time
+          description: Time when the capture started.
+        capture_type:
+          type: string
+          enum:
+            - write
+            - query
+            - both
+          description: The request types captured by the profile.
+        duration:
+          type: string
+          description: Requested capture duration.
+        node_id:
+          type: string
+          description: Identifier of the node that owns the profile.
+        status:
+          type: string
+          enum:
+            - running
+            - complete
+            - aborted
+          description: Current capture status.
+        wal_dropped:
+          type: integer
+          minimum: 0
+          description: Number of write-ahead log files that could not be captured.
+        query_dropped:
+          type: integer
+          minimum: 0
+          description: Number of queries that could not be captured.
+        unparseable_queries:
+          type: integer
+          minimum: 0
+          description: Number of queries replaced because they could not be parsed safely.
     LicenseResponse:
       type: object
       properties:

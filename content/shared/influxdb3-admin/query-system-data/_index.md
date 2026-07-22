@@ -50,7 +50,7 @@ tables (`"table_schema":"iox"`), system tables, and information schema tables
 for a database:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
 ```
 
 The response body contains the following JSONL:

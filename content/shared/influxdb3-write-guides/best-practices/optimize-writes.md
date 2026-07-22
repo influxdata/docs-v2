@@ -116,7 +116,7 @@ In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set th
 
 ```toml
 [[outputs.influxdb_v2]]
-  urls = ["https://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   # ...
   content_encoding = "gzip"
 ```
@@ -147,7 +147,7 @@ mem,host=host2 used_percent=26.81522361 1641027600
 mem,host=host1 used_percent=22.52984738 1641031200
 mem,host=host2 used_percent=27.18294630 1641034800" | gzip > system.gzip \
 
-curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&bucket=DATABASE_NAME" \
+curl --request POST "{{< influxdb/host-url >}}/api/v2/write?org=ignored&bucket=DATABASE_NAME" \
   --header "Authorization: Token AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Content-Encoding: gzip" \
@@ -226,7 +226,7 @@ remove data elements (before processor and aggregator plugins run).
         # Remove the specified tags from points.
         tagexclude = ["host"]
       [[outputs.influxdb_v2]]
-        urls = ["http://{{< influxdb/host >}}"]
+        urls = ["{{< influxdb/host-url >}}"]
         token = "AUTH_TOKEN"
         organization = ""
         bucket = "DATABASE_NAME"
@@ -288,7 +288,7 @@ The following example converts the `temp`, `hum`, and `co` fields to fit the
 
 <!--before-test
 ```sh
-curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+curl -s "{{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
   --header "Authorization: Token AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -331,7 +331,7 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
         integer = ["co"]
     [[outputs.influxdb_v2]]
       ## InfluxDB v2 API credentials and the database to write to.
-      urls = ["https://{{< influxdb/host >}}"]
+      urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
       organization = ""
       bucket = "DATABASE_NAME"
@@ -427,7 +427,7 @@ table, tag set, and timestamp), and then merges points in each series:
     # Writes metrics as line protocol to the InfluxDB v2 API
     [[outputs.influxdb_v2]]
       ## InfluxDB v2 API credentials and the database to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
+      urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
       organization = ""
       bucket = "DATABASE_NAME"
@@ -524,7 +524,7 @@ field values, and then write the data to InfluxDB:
     # Writes metrics as line protocol to the InfluxDB v2 API
     [[outputs.influxdb_v2]]
       ## InfluxDB v2 API credentials and the database to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
+      urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
       organization = ""
       bucket = "DATABASE_NAME"
@@ -756,7 +756,7 @@ The Go `multiplier.go` sample code does the following:
     # Writes metrics as line protocol to the InfluxDB v2 API
     [[outputs.influxdb_v2]]
       ## InfluxDB v2 API credentials and the database to write data to.
-      urls = ["https://{{< influxdb/host >}}"]
+      urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
       organization = ""
       bucket = "DATABASE_NAME"

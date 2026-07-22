@@ -1,0 +1,18 @@
+# Changelog
+
+## [0.17.0] - 2026-01-08
+
+### Features
+- New feature.
+
+### Bug Fixes
+- A fix.
+
+### CI
+- Pipeline tweak.
+- Another CI item.
+
+## [0.16.0] - 2025-09-15
+
+### CI
+- Old CI note.

@@ -40,7 +40,7 @@
     "eslint-plugin-jsdoc": "^50.6.17",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^15.14.0",
-    "hugo-extended": "0.157.0",
+    "hugo-extended": "0.156.0",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
     "postcss": ">=8.5.10",
@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "axios": "^1.16.0",
+    "axios": "^1.18.0",
     "glob": "^13.0.6",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",

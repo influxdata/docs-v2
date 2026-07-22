@@ -1,11 +1,11 @@
 
 Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/),
-the [HTTP API](/influxdb3/version/api/v3/), or [InfluxDB 3 Explorer](/influxdb3/explorer/)
+the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}
 to create a database in {{< product-name >}}.
 
 - [Create a database using the influxdb3 CLI](#create-a-database-using-the-influxdb3-cli)
 - [Create a database using the HTTP API](#create-a-database-using-the-http-api)
-- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer)
+{{% hide-in "cloud" %}}- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer){{% /hide-in %}}
 - [Retention period](#retention-period)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
@@ -53,7 +53,7 @@ Replace the following:
 
 To create a database using the HTTP API, send a `POST` request to the `/api/v3/configure/database` endpoint:
 
-{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/database" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host-url >}}/api/v3/configure/database" %}}
 
 Include the following in your request:
 
@@ -75,7 +75,7 @@ Include the following in your request:
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Create a database with a 30-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -84,7 +84,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
   }'
 
 # Create a database with a 90-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -93,7 +93,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
   }'
 
 # Create a database with infinite retention (default)
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -109,6 +109,7 @@ Replace the following:
 
 A successful request returns HTTP status `200` with the database configuration.
 
+{{% hide-in "cloud" %}}
 ## Create a database using InfluxDB 3 Explorer
 
 > [!Caution]
@@ -133,6 +134,7 @@ Use the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface to create a da
 5. Click **Create Database**.
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
+{{% /hide-in %}}
 
 - [Retention period](#retention-period)
 - [Database naming restrictions](#database-naming-restrictions)
