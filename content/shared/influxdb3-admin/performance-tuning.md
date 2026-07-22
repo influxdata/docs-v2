@@ -81,6 +81,19 @@ Use the following to tune performance in _all-in-one_ deployments:
 > [!Note]
 > {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can configure both thread pools explicitly by setting the `--num-io-threads` and `--datafusion-num-threads` options.
 
+{{% show-in "enterprise" %}}
+> [!Important]
+> #### Thread defaults on PachaTree clusters
+>
+> The 2-IO-thread default and the manual thread-allocation guidance in this
+> section apply to Parquet-engine clusters (clusters that started on 3.10 or
+> earlier that have not run the storage engine upgrade).
+> On PachaTree clusters (the default for new clusters), the IO and DataFusion
+> runtimes each default to the licensed core count, and thread counts set
+> above the licensed core count are capped with a startup warning.
+> An at-home license always runs 1 IO thread and 1 DataFusion thread.
+{{% /show-in %}}
+
 {{% show-in "core" %}}
 ```bash
 # Write-heavy: More IO threads

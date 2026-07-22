@@ -17,19 +17,23 @@ related:
   - /influxdb3/enterprise/reference/config-options/
 ---
 
-> [!Warning]
-> #### Performance preview beta
-> The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a beta. These features are subject to breaking changes
-> and **should not be used for production workloads**.
+> [!Important]
+> #### PachaTree is the default storage engine for new clusters
+> PachaTree is the default storage engine for new {{% product-name %}}
+> clusters--no flag is required.
+> Clusters that started on 3.10 or earlier keep the Parquet engine until you
+> run the storage engine upgrade by restarting the cluster with
+> [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
-This page provides a complete reference for all configuration options available
-with the performance upgrade preview.
-All performance upgrade preview options require the `--use-pacha-tree` flag.
+This page provides a complete reference for the PachaTree storage engine
+configuration options.
 
-If an option is omitted, the preview either derives a value from the existing
+If an option is omitted, the server either derives a value from the existing
 `influxdb3 serve` configuration or falls back to an engine-specific default
 that balances resource usage and throughput.
+
+Most of the options on this page are tuning options that do not appear in the
+default `influxdb3 serve --help` output; use `--help-all` to list them.
 
 > [!Important]
 > #### The `pt-` option prefix was removed
@@ -49,14 +53,16 @@ that balances resource usage and throughput.
 > - `--pt-wal-replication-interval` → [`--replication-interval`](/influxdb3/enterprise/reference/config-options/#replication-interval)
 > - `--pt-file-cache-size` → [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size)
 > - `--pt-file-cache-recency` → [`--file-cache-recency`](/influxdb3/enterprise/reference/config-options/#file-cache-recency)
-> - `--pt-disable-data-file-cache` → [`--disable-data-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-data-file-cache)
+> - `--pt-disable-data-file-cache` → [`--disable-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-file-cache)
 >
 > For the complete old-to-new name table, see
 > [Migrate from pt- option names](#migrate-from-pt-option-names).
 
-> [!Important]
-> Set `--num-io-threads` to the number of cores on the machine when using the
-> performance upgrade preview.
+> [!Note]
+> On PachaTree clusters, the IO and DataFusion runtimes each default to the
+> licensed core count.
+> Thread counts set above the licensed core count are capped with a startup
+> warning.
 
 - [General](#general)
 - [WAL](#wal)
@@ -74,12 +80,14 @@ that balances resource usage and throughput.
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| `--use-pacha-tree` | Enable the performance upgrade preview. Required for any other preview option to have effect. | Disabled |
+| [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) | Migrate the cluster's existing Parquet data to the PachaTree storage engine. New clusters default to PachaTree and do not need this flag. | `false` |
 | `--engine-path-prefix` | Optional path prefix for all engine data (WAL and compaction generations). Max 32 characters. Must start and end with alphanumeric; inner characters allow `[a-zA-Z0-9._-]`. Shorter paths improve partitioning in object stores. | No prefix |
 | `--max-total-columns` | Maximum total columns across the entire instance (distinct from the per-table [`--num-total-columns-per-table-limit`](/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit)). Must be at least 2. | `10,000,000` (10M) |
 | `--enable-retention` | Enable retention enforcement. | `true` |
-| `--disable-hybrid-query` | Disable hybrid query mode. When the preview is enabled with existing Parquet data, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
+| `--disable-hybrid-query` | Disable hybrid query mode. During and after a Parquet-to-PachaTree migration, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
 | `--enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. | Disabled |
+| `--auto-dvc-max-cardinality` | Maximum cardinality for auto-created distinct value caches. Requires `--enable-auto-dvc`. | `100000` |
+| `--auto-dvc-refresh-interval` | Background refresh interval for auto-created distinct value caches; minimum `1s`. Requires `--enable-auto-dvc`. | `10m` |
 | `--upgrade-poll-interval` | Polling interval for Parquet-to-PachaTree upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet). | `5s` |
 
 ### Engine path prefix
@@ -89,20 +97,18 @@ Use a short prefix to improve partitioning in object stores:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --engine-path-prefix mydata
 ```
 
 ### Hybrid query mode
 
-When you enable the preview on an instance with existing Parquet data,
-hybrid query mode merges results across both Parquet and `.pt` files.
+During and after a Parquet-to-PachaTree migration, hybrid query mode merges
+results across both Parquet and `.pt` files.
 Disable hybrid mode to query only `.pt` data:
 
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --disable-hybrid-query
 ```
 
@@ -126,7 +132,6 @@ memory usage:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --wal-buffer-size 30MB
 ```
 
@@ -138,7 +143,6 @@ parallel:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --wal-flush-interval 2s \
   --wal-flush-concurrency 8
 ```
@@ -162,7 +166,6 @@ Control when snapshot rotation triggers:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --snapshot-size 500MB \
   --snapshot-duration 15s
 ```
@@ -175,7 +178,6 @@ Lower values result in more frequent merges:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --merge-threshold-size 125MB
 ```
 
@@ -195,7 +197,6 @@ Control the size of Gen0 files for query and compaction performance:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --gen0-max-rows-per-file 5000000 \
   --gen0-max-file-size 50MB
 ```
@@ -207,7 +208,7 @@ Configure data file caching for query performance.
 | Option | Description | Default |
 |:-------|:------------|:--------|
 | [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) | Total data file cache budget, shared with the Parquet-based engine. During a Parquet-to-PachaTree migration with hybrid query enabled, the budget is split 50/50 between the two engine caches; otherwise, the active engine receives the full budget. Provide a unit suffix or percentage (bare numbers are rejected). Set to `0b` on dedicated ingest nodes. | `20%` |
-| [`--disable-data-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-data-file-cache) | Disable data file caching in both engines. Set to `true` on dedicated ingest nodes. | `false` |
+| [`--disable-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-file-cache) | Disable data file caching in both engines. Set to `true` on dedicated ingest nodes. | `false` |
 | [`--file-cache-recency`](/influxdb3/enterprise/reference/config-options/#file-cache-recency) | Only cache files newer than this age. Pre-caching on all-in-one and query nodes is based on this value. Shared with the Parquet-based engine. | `3d` |
 | `--file-cache-evict-after` | Evict cached files that have not been read within this duration. | `24h` |
 
@@ -215,7 +216,7 @@ Configure data file caching for query performance.
 > #### Dedicated ingest nodes
 > On dedicated ingest nodes (`--mode ingest`), disable the data file cache to avoid
 > wasting memory on data that ingest nodes never query.
-> Set `--file-cache-size 0b` or use `--disable-data-file-cache`.
+> Set `--file-cache-size 0b` or use `--disable-file-cache`.
 > These options must be explicitly set—they are not applied automatically when
 > `--mode ingest` is used.
 > See [Disable caching on ingest nodes](#disable-caching-on-ingest-nodes) for an example.
@@ -227,7 +228,6 @@ Set the maximum size for the data file cache:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --file-cache-size 8GB
 ```
 
@@ -238,7 +238,6 @@ Only cache files containing data within a recent time window:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --file-cache-recency 24h
 ```
 
@@ -249,9 +248,8 @@ For dedicated ingest nodes, disable the data file cache to save memory:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --mode ingest \
-  --disable-data-file-cache
+  --disable-file-cache
 ```
 
 ## Replication (query nodes)
@@ -275,7 +273,6 @@ Control parallelism during query node recovery or catchup:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --mode query \
   --wal-replica-recovery-concurrency 16
 ```
@@ -287,7 +284,6 @@ Configure ongoing replication performance:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --mode query \
   --wal-replica-steady-concurrency 4 \
   --wal-replica-queue-length 200
@@ -300,7 +296,6 @@ Control the maximum buffer size for replicated data on query nodes:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --mode query \
   --replica-max-buffer-size 8GB
 ```
@@ -315,7 +310,7 @@ through four compaction levels (L1 through L4).
 |:-------|:------------|:--------|
 | `--shard-count` | Target number of shards per compaction window. | `1` |
 | `--compactor-input-size-budget` | Maximum total input bytes across all active compaction jobs. Acts as an admission control budget for the compactor scheduler. | 50% of system memory at startup |
-| `--final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `72h` |
+| `--final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `4h` (time-disjoint layout); `72h` (legacy layout) |
 | `--compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
 
 > [!Note]
@@ -336,7 +331,6 @@ Control total memory allocated to active compaction jobs:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --compactor-input-size-budget 8GB
 ```
 
@@ -347,7 +341,6 @@ Control when windows receive their final compaction into L4:
 ```bash
 influxdb3 serve \
   # ...
-  --use-pacha-tree \
   --final-compaction-age 48h
 ```
 
@@ -405,7 +398,6 @@ influxdb3 serve \
   --cluster-id dev-cluster \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --use-pacha-tree \
   --num-io-threads 2 \
   --file-cache-size 512MB \
   --wal-buffer-size 5MB \
@@ -422,7 +414,6 @@ influxdb3 serve \
   --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
-  --use-pacha-tree \
   --num-io-threads 8 \
   --file-cache-size 8GB \
   --wal-buffer-size 30MB \
@@ -440,14 +431,13 @@ influxdb3 serve \
   --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
-  --use-pacha-tree \
   --mode ingest \
   --num-io-threads 16 \
   --wal-buffer-size 50MB \
   --wal-flush-interval 2s \
   --wal-flush-concurrency 8 \
   --snapshot-size 1GB \
-  --disable-data-file-cache
+  --disable-file-cache
 ```
 
 ### Query-optimized node
@@ -460,7 +450,6 @@ influxdb3 serve \
   --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
-  --use-pacha-tree \
   --mode query \
   --num-io-threads 16 \
   --file-cache-size 16GB \
@@ -478,7 +467,6 @@ influxdb3 serve \
   --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
-  --use-pacha-tree \
   --mode compact \
   --num-io-threads 8 \
   --compactor-input-size-budget 12GB
@@ -518,7 +506,7 @@ other change to its name.
 |:---------|:---------|
 | `--pt-compactor-cleanup-cooldown` | `--compactor-cleanup-cooldown` |
 | `--pt-compactor-input-size-budget` | `--compactor-input-size-budget` |
-| `--pt-disable-data-file-cache` | [`--disable-data-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-data-file-cache) (shared with the Parquet-based engine) |
+| `--pt-disable-data-file-cache` | [`--disable-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-file-cache) (shared with the Parquet-based engine) |
 | `--pt-disable-hybrid-query` | `--disable-hybrid-query` |
 | `--pt-enable-auto-dvc` | `--enable-auto-dvc` |
 | `--pt-enable-retention` | `--enable-retention` |
