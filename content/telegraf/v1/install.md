@@ -456,7 +456,7 @@ In PowerShell _as an administrator_, do the following:
    and extract its contents to `C:\Program Files\InfluxData\telegraf\`:
 
    ```powershell
-   wget `
+   iwr `
    https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
    -UseBasicParsing `
    -OutFile telegraf-{{% latest-patch %}}_windows_amd64.zip
