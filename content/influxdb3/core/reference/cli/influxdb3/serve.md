@@ -70,7 +70,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--azure-storage-account`                            | _See [configuration options](/influxdb3/core/reference/config-options/#azure-storage-account)_                            |
 |                  | `--bucket`                                           | _See [configuration options](/influxdb3/core/reference/config-options/#bucket)_                                           |
 |                  | `--data-dir`                                         | _See [configuration options](/influxdb3/core/reference/config-options/#data-dir)_                                         |
-|                  | `--datafusion-config`                                | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-config)_                                |
+|                  | <span id="datafusion-config"></span>`--datafusion-config`                                | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-config)_                                |
 |                  | `--datafusion-max-parquet-fanout`                    | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-max-parquet-fanout)_                    |
 |                  | `--datafusion-num-threads`                           | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-num-threads)_                           |
 |                  | `--datafusion-runtime-disable-lifo-slot`             | Development-only Tokio runtime configuration                                                                               |
@@ -84,7 +84,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--datafusion-use-cached-parquet-loader`             | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-use-cached-parquet-loader)_             |
 |                  | `--delete-grace-period`                              | _See [configuration options](/influxdb3/core/reference/config-options/#delete-grace-period)_                              |
 |                  | `--disable-authz`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#disable-authz)_                                    |
-|                  | `--disable-data-file-cache`                        | _See [configuration options](/influxdb3/core/reference/config-options/#disable-data-file-cache)_                        |
+|                  | `--disable-file-cache`                        | _See [configuration options](/influxdb3/core/reference/config-options/#disable-file-cache)_                        |
 |                  | `--distinct-cache-eviction-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#distinct-cache-eviction-interval)_                 |
 |                  | `--exec-mem-pool-size`                              | _See [configuration options](/influxdb3/core/reference/config-options/#exec-mem-pool-size)_                              |
 |                  | `--force-snapshot-mem-threshold`                     | _See [configuration options](/influxdb3/core/reference/config-options/#force-snapshot-mem-threshold)_                     |
@@ -94,18 +94,18 @@ influxdb3 serve [OPTIONS]
 |                  | `--hard-delete-default-duration`                     | _See [configuration options](/influxdb3/core/reference/config-options/#hard-delete-default-duration)_                     |
 | `-h`             | `--help`                                             | Print help information                                                                                                    |
 |                  | `--help-all`                                         | Print detailed help information                                                                                           |
-|                  | `--http-bind`                                        | _See [configuration options](/influxdb3/core/reference/config-options/#http-bind)_                                        |
+|                  | <span id="http-bind"></span>`--http-bind`                                        | _See [configuration options](/influxdb3/core/reference/config-options/#http-bind)_                                        |
 |                  | `--last-cache-eviction-interval`                     | _See [configuration options](/influxdb3/core/reference/config-options/#last-cache-eviction-interval)_                     |
 |                  | `--log-destination`                                  | _See [configuration options](/influxdb3/core/reference/config-options/#log-destination)_                                  |
 |                  | `--log-filter`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#log-filter)_                                       |
 |                  | `--log-format`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#log-format)_                                       |
 |                  | `--max-concurrent-queries` | _See [configuration options](/influxdb3/core/reference/config-options/#max-concurrent-queries)_ |
-|                  | `--max-http-request-size`                            | _See [configuration options](/influxdb3/core/reference/config-options/#max-http-request-size)_                            |
+|                  | <span id="max-http-request-size"></span>`--max-http-request-size`                            | _See [configuration options](/influxdb3/core/reference/config-options/#max-http-request-size)_                            |
 |                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-cache-endpoint)_                      |
-|                  | `--object-store-connection-limit`                    | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-connection-limit)_                    |
+|                  | <span id="object-store-connection-limit"></span>`--object-store-connection-limit`                    | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-connection-limit)_                    |
 |                  | `--object-store-http2-max-frame-size`                | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-http2-max-frame-size)_                |
-|                  | `--object-store-http2-only`                          | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-http2-only)_                          |
-|                  | `--object-store-max-retries`                         | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-max-retries)_                         |
+|                  | <span id="object-store-http2-only"></span>`--object-store-http2-only`                          | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-http2-only)_                          |
+|                  | <span id="object-store-max-retries"></span>`--object-store-max-retries`                         | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-max-retries)_                         |
 |                  | `--object-store-retry-timeout`                       | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-retry-timeout)_                       |
 |                  | `--package-manager`                                  | _See [configuration options](/influxdb3/core/reference/config-options/#package-manager)_                                  |
 |                  | `--parquet-mem-cache-prune-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#parquet-mem-cache-prune-interval)_                 |
