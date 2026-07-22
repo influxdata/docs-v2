@@ -1,0 +1,224 @@
+name: Release Version Check
+
+# Two things on release-related PRs:
+#
+#   1. Reminder (non-blocking): when a product's release-notes page advances past
+#      the version in data/products.yml, remind the author to bump it. That
+#      number feeds the {{< latest-patch >}} shortcode, which builds every
+#      dl.influxdata.com download URL and the versions in install/code examples,
+#      so a missed bump silently points the docs at the previous release.
+#      Every product is checked and reported (Telegraf included — it normally
+#      reports success because its internal automation keeps the value in sync).
+#
+#   2. Release-readiness gate (blocking, only on a real version bump): verify the
+#      new version's download artifacts are actually published at
+#      dl.influxdata.com before the docs merge. Automates a currently-manual
+#      check. Override with the `release:artifacts-pending` label when docs are
+#      intentionally staged ahead of the binaries.
+#
+# General download-link health for every product is handled separately by the
+# pr-link-check.yml change that checks download/install pages on any
+# data/products.yml change.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+    paths:
+      - 'content/**/release-notes.md'
+      - 'content/**/release-notes/**'
+      - 'content/shared/v3-core-enterprise-release-notes/**'
+      - 'data/products.yml'
+      - '.ci/scripts/check-release-notes-version.js'
+      - '.github/workflows/pr-release-check.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  version-reminder:
+    name: Release version reminder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      # Detect changed files with git diff, not the GitHub Files API — the API is
+      # flaky and the repo is moving off it (see pr-remark-check.yml / test.yml).
+      - name: Detect changed files
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git diff --name-only --diff-filter=d "$BASE_SHA"..."$HEAD_SHA" \
+            > changed.txt
+          echo "Changed files:"
+          cat changed.txt
+
+      - name: Run release version check
+        run: |
+          mapfile -t FILES < changed.txt
+          node .ci/scripts/check-release-notes-version.js "${FILES[@]}" \
+            | tee report.md
+
+      # Sticky comment: update the existing marker comment instead of stacking
+      # new ones. Skipped on fork PRs (read-only token) — the step summary and
+      # ::warning annotations remain the fallback there.
+      - name: Post or update PR comment
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('report.md', 'utf8');
+            const marker = '## Release version check';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(
+              (c) => c.user.type === 'Bot' && c.body.includes(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+  artifact-readiness:
+    name: Release artifact readiness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          fetch-depth: 0
+
+      # Only a real version bump (a changed latest_patch / latest_patches line in
+      # data/products.yml) makes this gate meaningful.
+      - name: Detect version bump
+        id: bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          ADDED=$(git diff "$BASE_SHA"..."$HEAD_SHA" -- data/products.yml \
+            | grep -E '^\+[[:space:]]*(latest_patch|v[0-9]+):' || true)
+          if [[ -n "$ADDED" ]]; then
+            echo "Version bump detected:"
+            echo "$ADDED"
+            echo "bumped=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No version bump in data/products.yml — skipping artifact gate."
+            echo "bumped=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check for override label
+        id: override
+        if: steps.bump.outputs.bumped == 'true'
+        env:
+          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+        run: |
+          if echo "$LABELS" | grep -q 'release:artifacts-pending'; then
+            echo "override=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "override=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node.js
+        if: steps.bump.outputs.bumped == 'true'
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        if: steps.bump.outputs.bumped == 'true'
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      - name: Build Hugo site
+        if: steps.bump.outputs.bumped == 'true'
+        run: npx hugo --minify
+
+      - name: Install lychee
+        if: steps.bump.outputs.bumped == 'true'
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --version
+          fail: false
+
+      - name: Download link-checker binary
+        if: steps.bump.outputs.bumped == 'true'
+        run: |
+          curl -L -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -o link-checker-info.json \
+            "https://api.github.com/repos/influxdata/docs-v2/releases/tags/link-checker-v1.5.0"
+          DOWNLOAD_URL=$(jq -r \
+            '.assets[] | select(.name | test("link-checker.*linux")) | .url' \
+            link-checker-info.json)
+          curl -L -H "Accept: application/octet-stream" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -o link-checker "$DOWNLOAD_URL"
+          chmod +x link-checker
+
+      # Check the rendered install/download pages so the actual (version-built)
+      # dl.influxdata.com URLs are exercised. A 404 here means the new version's
+      # artifacts are not published yet.
+      - name: Verify download artifacts are published
+        if: steps.bump.outputs.bumped == 'true'
+        id: verify
+        run: |
+          set +e
+          PAGES=$(./link-checker map --existing-only \
+            content/shared/influxdb3/install.md \
+            content/telegraf/v1/install.md 2>/dev/null)
+          echo "$PAGES" | xargs -r ./link-checker check \
+            --config .ci/link-checker/production.lycherc.toml \
+            --format json --output artifact-check.json
+          ERRORS=$(jq -r '.summary.error_count // 0' artifact-check.json 2>/dev/null || echo 0)
+          echo "error-count=$ERRORS" >> "$GITHUB_OUTPUT"
+          {
+            echo "## Release artifact readiness"
+            echo ""
+            if [[ "$ERRORS" -gt 0 ]]; then
+              echo "❌ $ERRORS download link(s) did not resolve — the new version's"
+              echo "artifacts may not be published yet. Do not merge until they are,"
+              echo "or add the \`release:artifacts-pending\` label to override."
+            else
+              echo "✅ Download artifacts for the bumped version resolve."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Gate on missing artifacts
+        if: steps.bump.outputs.bumped == 'true' && steps.verify.outputs.error-count != '0' && steps.override.outputs.override != 'true'
+        run: |
+          echo "::error::Release artifacts for the bumped version are not all published (dl.influxdata.com returned errors). Merge is blocked. Add the 'release:artifacts-pending' label to override."
+          exit 1

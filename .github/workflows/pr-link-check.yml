@@ -41,6 +41,26 @@ jobs:
           # Filter for content markdown files
           CHANGED_FILES=$(grep '^content/.*\.md$' all_changed_files.txt || true)
 
+          # When data/products.yml changes, the rendered download/install pages
+          # change their dl.influxdata.com URLs (built from {{< latest-patch >}})
+          # even though no content/*.md file changed — so they'd otherwise be
+          # skipped. Add them here so a bad or stale download URL is still caught.
+          # The map step runs with --existing-only, so any path that doesn't
+          # exist is silently ignored.
+          if grep -qx 'data/products.yml' all_changed_files.txt; then
+            DOWNLOAD_PAGES="content/influxdb3/core/install.md
+          content/influxdb3/enterprise/install/_index.md
+          content/influxdb3/explorer/install.md
+          content/telegraf/v1/install.md
+          content/influxdb/v2/install/_index.md
+          content/influxdb/v1/introduction/install.md
+          content/chronograf/v1/introduction/installation.md
+          content/enterprise_influxdb/v1/introduction/installation/single-server.md"
+            echo "🔽 data/products.yml changed — adding download/install pages to the link check"
+            CHANGED_FILES=$(printf '%s\n%s\n' "$CHANGED_FILES" "$DOWNLOAD_PAGES" \
+              | sed 's/^[[:space:]]*//' | grep -v '^$' | sort -u)
+          fi
+
           echo "📁 All changed files:"
           cat all_changed_files.txt
           echo ""
