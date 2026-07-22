@@ -106,7 +106,7 @@ Legacy names remain supported as deprecated aliases.
 
 | Legacy name | New name |
 | :---------- | :------- |
-| `--disable-parquet-mem-cache`<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` | `--disable-data-file-cache`<br>`INFLUXDB3_DISABLE_DATA_FILE_CACHE` |
+| `--disable-parquet-mem-cache`<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` | `--disable-file-cache`<br>`INFLUXDB3_DISABLE_FILE_CACHE` |
 | `--exec-mem-pool-bytes`<br>`INFLUXDB3_EXEC_MEM_POOL_BYTES` | `--exec-mem-pool-size`<br>`INFLUXDB3_EXEC_MEM_POOL_SIZE` |
 | `--parquet-mem-cache-query-path-duration`<br>`INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` | `--file-cache-recency`<br>`INFLUXDB3_FILE_CACHE_RECENCY` |
 | `--parquet-mem-cache-size`<br>`INFLUXDB3_PARQUET_MEM_CACHE_SIZE` | `--file-cache-size`<br>`INFLUXDB3_FILE_CACHE_SIZE` |
@@ -128,6 +128,7 @@ Legacy names remain supported as deprecated aliases.
 | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` | `INFLUXDB3_NODE_ID` |
 | `INFLUXDB3_NUM_WAL_FILES_TO_KEEP` | `INFLUXDB3_SNAPSHOTTED_WAL_FILES_TO_KEEP` |
 | `INFLUXDB3_START_WITHOUT_AUTH` | `INFLUXDB3_WITHOUT_AUTH` |
+| `INFLUXDB3_TCP_LISTINER_FILE_PATH` | `INFLUXDB3_TCP_LISTENER_FILE_PATH` |
 | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` | `INFLUXDB3_DISABLE_TELEMETRY_UPLOAD` |
 
 {{% show-in "enterprise" %}}
@@ -174,17 +175,16 @@ Legacy names remain supported as deprecated aliases.
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_COMPACTOR` | `INFLUXDB3_WAIT_FOR_RUNNING_COMPACTOR` |
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTER` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` |
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR` |
-| `INFLUXDB3_TCP_LISTINER_FILE_PATH` | `INFLUXDB3_TCP_LISTENER_FILE_PATH` |
 
 #### Removed performance-preview option names (no aliases)
 
-Performance upgrade preview (`--use-pacha-tree`) options dropped the `pt-`
+PachaTree storage engine options dropped the `pt-`
 prefix without backward compatibility: old `--pt-*` flags cause a startup
 error, and legacy `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*`
 environment variables are ignored (the server logs a warning at startup for
 each one that is still set).
 For the complete old-to-new name table, see
-[Migrate from `--pt-*` option names](/influxdb3/enterprise/performance-preview/configure/#migrate-from-pt--option-names).
+[Migrate from `--pt-*` option names](/influxdb3/enterprise/performance-preview/configure/#migrate-from-pt-option-names).
 
 {{% /show-in %}}
 
@@ -222,7 +222,9 @@ Sets the number of threads allocated to the IO runtime thread pool. IO threads h
 > `--num-io-threads` is a **global option** that must be specified before the `serve` command.
 
 {{% show-in "enterprise" %}}
-**Default:** `2`
+**Default:** `2` on Parquet-engine clusters; the licensed core count on
+PachaTree clusters (the default for new clusters).
+Values above the licensed core count are capped with a startup warning.
 {{% /show-in %}}
 
 ```bash
@@ -241,6 +243,27 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 ***
 
 ## Server configuration options
+
+{{% show-in "enterprise" %}}
+
+> \[!Note]
+> #### Storage engines and option visibility
+>
+> PachaTree is the default storage engine for new {{% product-name %}}
+> clusters.
+> Clusters that started on 3.10 or earlier keep the Parquet engine until you
+> run the storage engine upgrade by restarting the cluster with
+> [`--upgrade-pacha-tree`](#upgrade-pacha-tree).
+>
+> The default `influxdb3 serve --help` output shows a single unified
+> storage-engine section.
+> Parquet-specific tuning options (for example, `compaction-*`, `gen1-*`,
+> `wal-files-per-snapshot`, and the `num-*` limits) no longer appear in the
+> default help output but remain functional for clusters that have not run
+> the storage engine upgrade.
+> Use `influxdb3 serve --help-all` to list every option.
+
+{{% /show-in %}}
 
 - [General](#general)
   {{% show-in "enterprise" %}}- [Licensing](#licensing){{% /show-in %}}
@@ -285,7 +308,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
   {{% show-in "enterprise" %}}
-- [use-pacha-tree](#use-pacha-tree)
+- [upgrade-pacha-tree](#upgrade-pacha-tree)
   {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
@@ -425,19 +448,32 @@ This option supports the following values:
 
 {{% show-in "enterprise" %}}
 
-#### use-pacha-tree <span class="badge experimental">Experimental</span> {#use-pacha-tree}
+#### upgrade-pacha-tree {#upgrade-pacha-tree}
 
-Enables the storage engine upgrade (performance upgrade preview).
+<span id="use-pacha-tree"></span>
 
-> [!Caution]
-> The storage engine upgrade is an experimental, opt-in preview not for production use.
-> It might not be compatible with other features and configuration options.
+Migrates the cluster's existing Parquet data to the PachaTree storage engine.
+
+PachaTree is the default storage engine for new clusters.
+Clusters that started on 3.10 or earlier keep the Parquet engine until you run
+the storage engine upgrade by restarting the cluster with
+`--upgrade-pacha-tree`.
+New clusters do not need this flag.
+For the upgrade procedure, see
+[Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet).
 
 **Default:** `false`
 
-| influxdb3 serve option | Environment variables |
-| :--------------------- | :-------------------- |
-| `--use-pacha-tree`     | `INFLUXDB3_USE_PACHA_TREE` (preferred)<br>`INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` (deprecated; supported for backward compatibility) |
+> \[!Note]
+> `--use-pacha-tree` (environment variable `INFLUXDB3_USE_PACHA_TREE`; legacy
+> `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE`) is deprecated.
+> It is still accepted and keeps its previous behavior--on an existing Parquet
+> cluster it starts the same migration as `--upgrade-pacha-tree`--but the
+> server logs a deprecation warning at startup.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--upgrade-pacha-tree` | `INFLUXDB3_UPGRADE_PACHA_TREE` |
 
 ***
 
@@ -1575,6 +1611,17 @@ Bare numbers are rejected during the
 - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
 - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
 
+{{% show-in "enterprise" %}}
+
+> \[!Note]
+> `wal-files-per-snapshot`, `wal-max-buffered-writes`, and
+> `snapshotted-wal-files-to-keep` apply to the Parquet engine only
+> (clusters that started on 3.10 or earlier that have not run the
+> [storage engine upgrade](#upgrade-pacha-tree)).
+> `wal-flush-interval` applies to both engines.
+
+{{% /show-in %}}
+
 #### checkpoint-interval {#checkpoint-interval metadata="v3.8.2+"}
 
 Sets the interval for consolidating
@@ -1707,6 +1754,13 @@ The default is dynamically determined.
 ### Compaction
 
 {{% show-in "enterprise" %}}
+
+> \[!Note]
+> The `compaction-*` and `gen1-*` options apply to the Parquet engine only
+> (clusters that started on 3.10 or earlier that have not run the
+> [storage engine upgrade](#upgrade-pacha-tree)).
+> For PachaTree compaction options, see the
+> [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/).
 
 - [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -1875,7 +1929,7 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
 - [file-cache-recency](#file-cache-recency)
-- [disable-data-file-cache](#disable-data-file-cache)
+- [disable-file-cache](#disable-file-cache)
 - [table-index-cache-max-entries](#table-index-cache-max-entries)
 - [table-index-cache-concurrency-limit](#table-index-cache-concurrency-limit)
   {{% show-in "enterprise" %}}
@@ -1985,7 +2039,9 @@ If a query requests data from `2024-06-09` (old) and `2024-06-10 14:00` (recent)
 
 ***
 
-#### disable-data-file-cache
+#### disable-file-cache {#disable-file-cache}
+
+<span id="disable-data-file-cache"></span>
 
 Disables the in-memory data file cache. By default, the cache is enabled.
 {{% show-in "enterprise" %}}
@@ -1993,13 +2049,13 @@ This disables data file caching in both the Parquet and PachaTree engines.
 {{% /show-in %}}
 
 > \[!Note]
-> `--disable-data-file-cache` was previously named
-> `--disable-parquet-mem-cache`.
-> The legacy option and environment variable names are deprecated aliases.
+> `--disable-file-cache` was previously named `--disable-parquet-mem-cache`.
+> The legacy option and environment variable names (including
+> `disable-data-file-cache`) are deprecated aliases.
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
-| `--disable-data-file-cache`<br>`--disable-parquet-mem-cache` (deprecated alias) | `INFLUXDB3_DISABLE_DATA_FILE_CACHE` (preferred)<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE` (deprecated; supported for backward compatibility) |
+| `--disable-file-cache`<br>`--disable-parquet-mem-cache` (deprecated alias)<br>`--disable-data-file-cache` (deprecated alias) | `INFLUXDB3_DISABLE_FILE_CACHE` (preferred)<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE`, `INFLUXDB3_DISABLE_DATA_FILE_CACHE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -2435,7 +2491,20 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 > This is particularly important for specialized
 > workloads like [ingest mode](#mode) where you may need more IO threads than the default allocation.
 
-**Constraints:**
+> \[!Note]
+> #### Thread defaults on PachaTree clusters
+>
+> The default thread assignment logic above applies to Parquet-engine
+> clusters.
+> On PachaTree clusters (the default for new clusters), the IO and DataFusion
+> runtimes each default to the licensed core count, and the node consumes the
+> licensed core count regardless of thread configuration.
+> Thread counts set above the licensed core count are capped with a startup
+> warning instead of rejected, and the combined IO + DataFusion total is not
+> checked against `num-cores`.
+> An at-home license always runs 1 IO thread and 1 DataFusion thread.
+
+**Constraints (Parquet-engine clusters):**
 
 - Must be at least 2
 - Cannot exceed the number of cores available on the system
@@ -2482,14 +2551,16 @@ DataFusion threads handle:
 {{% show-in "enterprise" %}}
 **Default:**
 
-- If not specified and `--num-cores` is not set: All available cores minus IO threads
-- If not specified and `--num-cores` is set: Automatically determined based on core count (see [`--num-cores`](#num-cores))
+- PachaTree clusters (the default for new clusters): the licensed core count
+- Parquet-engine clusters, if `--num-cores` is not set: all available cores minus IO threads
+- Parquet-engine clusters, if `--num-cores` is set: automatically determined based on core count (see [`--num-cores`](#num-cores))
 
 > \[!Note]
 > DataFusion threads are used for both query processing and snapshot operations.
 > Even ingest-only nodes use DataFusion threads during WAL snapshot creation.
 
-**Constraints:** When used with `--num-cores`, the sum of `--num-io-threads` and `--datafusion-num-threads` cannot exceed the `num-cores` value
+**Constraints:** On Parquet-engine clusters, when used with `--num-cores`, the sum of `--num-io-threads` and `--datafusion-num-threads` cannot exceed the `num-cores` value.
+On PachaTree clusters, values above the licensed core count are capped with a startup warning.
 {{% /show-in %}}
 
 | influxdb3 serve option     | Environment variable               |
@@ -2500,6 +2571,20 @@ DataFusion threads handle:
 > [`--num-io-threads`](#num-io-threads) is a [global configuration option](#global-configuration-options).
 
 ## {{% show-in "enterprise" %}}
+
+> \[!Note]
+> #### Parquet-engine limits
+>
+> `num-database-limit`, `num-table-limit`, and
+> `num-total-columns-per-table-limit` apply to the Parquet engine only
+> (clusters that started on 3.10 or earlier that have not run the
+> [storage engine upgrade](#upgrade-pacha-tree)).
+> On PachaTree clusters, explicitly setting these options logs a startup
+> warning and has no effect.
+> `--max-total-columns` (documented in the
+> [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/))
+> is the PachaTree counterpart of `--num-total-columns-per-table-limit`;
+> the database and table limits have no PachaTree equivalent.
 
 #### num-database-limit
 

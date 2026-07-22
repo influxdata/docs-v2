@@ -16,15 +16,17 @@ related:
   - /influxdb3/enterprise/admin/query-system-data/
 ---
 
-> [!Warning]
-> #### Performance preview beta
-> The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a beta. These features are subject to breaking changes
-> and **should not be used for production workloads**.
+> [!Important]
+> #### PachaTree is the default storage engine for new clusters
+> PachaTree, the storage engine described on these pages, is the default
+> storage engine for new {{% product-name %}} clusters.
+> Clusters that started on 3.10 or earlier keep the Parquet engine until you
+> run the storage engine upgrade by restarting the cluster with
+> [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
 {{% product-name %}} provides system tables and a query telemetry endpoint to
 monitor file status, query execution, and overall performance when using the
-performance upgrade preview.
+PachaTree storage engine.
 
 ## System tables
 
@@ -398,8 +400,7 @@ FROM system.pt_ingest_wal;
    ```bash
    influxdb3 serve \
      # ...
-     --use-pacha-tree \
-     --mode compact
+        --mode compact
    ```
 
 ### Query node lag

@@ -3,11 +3,13 @@
 How you back up and restore that data depends on your storage engine:
 
 {{% show-in "enterprise" %}}
-- **Enterprise with the storage engine upgrade enabled** (the server is started
-  with the `--use-pacha-tree` storage engine configuration flag): use the
+- **Enterprise on the PachaTree storage engine** (the default for new
+  clusters, or after running the storage engine upgrade with
+  `--upgrade-pacha-tree`): use the
   built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
-  This is the recommended path when the storage engine upgrade is enabled.
-- **Enterprise on the default Parquet engine**: use the
+  This is the recommended path on PachaTree.
+- **Enterprise on the Parquet engine** (clusters that started on 3.10 or
+  earlier that have not run the storage engine upgrade): use the
   [manual object-storage procedure](#manual-backup-process) to copy object storage
   files in a specific order.
 {{% /show-in %}}
@@ -68,11 +70,13 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 {{% show-in "enterprise" %}}
 ## Back up and restore with the influxdb3 CLI
 
-When the [storage engine upgrade](/influxdb3/version/reference/config-options/)
-is enabled, {{% product-name %}} provides built-in `influxdb3` backup and restore
+On the PachaTree storage engine, {{% product-name %}} provides built-in
+`influxdb3` backup and restore
 commands. Before you use them, ensure the following:
 
-- The server is started with the `--use-pacha-tree` storage engine configuration flag.
+- The cluster uses the PachaTree storage engine (the default for new
+  clusters; older clusters must first run the
+  [storage engine upgrade](/influxdb3/version/reference/config-options/#upgrade-pacha-tree)).
 - You run the commands against any node that acts as the **compactor**, including `mode=all`.
 - You authenticate with an **admin token** or as an **admin user**.
 
@@ -167,8 +171,9 @@ cluster ID and node ID** as the original deployment, then restart the node(s).
 ## Manual backup process
 
 Use this manual object-storage procedure to back up {{% product-name %}}
-{{% show-in "enterprise" %}}running on the default Parquet engine—when the
-storage engine upgrade (`--use-pacha-tree`) is _not_ enabled{{% /show-in %}}.
+{{% show-in "enterprise" %}}running on the Parquet engine—clusters
+that started on 3.10 or earlier that have not run the storage engine upgrade
+(`--upgrade-pacha-tree`){{% /show-in %}}.
 It copies object storage files in a specific order to ensure consistency.
 
 > [!Important]
@@ -393,8 +398,9 @@ Replace the following:
 ## Manual restore process
 
 Use this manual object-storage procedure to restore {{% product-name %}}
-{{% show-in "enterprise" %}}running on the default Parquet engine—when the
-storage engine upgrade (`--use-pacha-tree`) is _not_ enabled{{% /show-in %}}.
+{{% show-in "enterprise" %}}running on the Parquet engine—clusters
+that started on 3.10 or earlier that have not run the storage engine upgrade
+(`--upgrade-pacha-tree`){{% /show-in %}}.
 
 > [!Warning]
 > Restoring overwrites existing data. Always verify you have correct backups before proceeding.
