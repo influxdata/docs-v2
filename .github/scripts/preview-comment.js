@@ -23,26 +23,25 @@ function sanitizeForCodeBlock(text, maxLength = 1000) {
  * Generate preview comment body
  * @param {Object} options - Comment options
  * @param {string} options.status - Status: 'success' | 'pending' | 'failed' | 'skipped'
- * @param {string} [options.previewUrl] - Preview URL (for success)
- * @param {string[]} [options.pages] - Array of page URLs (for success)
+ * @param {string} [options.previewUrl] - Preview base URL (for success)
+ * @param {string[]} [options.pages] - Array of changed page URLs (for success; deep links only — the full site deploys regardless)
  * @param {string} [options.buildTime] - Build duration string (for success)
  * @param {string} [options.errorMessage] - Error message (for failed)
  * @param {string} [options.skipReason] - Skip reason (for skipped)
- * @param {boolean} [options.needsInput] - Boolean (for pending)
  * @returns {string} - Markdown comment body
  */
 export function generatePreviewComment(options) {
   const {
-    status,           // 'success' | 'pending' | 'failed' | 'skipped'
-    previewUrl,       // Preview URL (for success)
-    pages,            // Array of page URLs (for success)
-    buildTime,        // Build duration string (for success)
-    errorMessage,     // Error message (for failed)
-    skipReason,       // Skip reason (for skipped)
-    needsInput,       // Boolean (for pending)
+    status, // 'success' | 'pending' | 'failed' | 'skipped'
+    previewUrl, // Preview base URL (for success)
+    pages, // Array of changed page URLs (for success)
+    buildTime, // Build duration string (for success)
+    errorMessage, // Error message (for failed)
+    skipReason, // Skip reason (for skipped)
   } = options;
 
-  const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
+  const timestamp =
+    new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
 
   // Agent persona header for clear identification
   let body = `${COMMENT_MARKER}\n## 📦 PR Preview — Preview Bot\n\n`;
@@ -51,20 +50,21 @@ export function generatePreviewComment(options) {
     case 'success':
       body += `| Status | Details |\n`;
       body += `|--------|----------|\n`;
-      body += `| **Result** | ✅ DEPLOYED |\n`;
+      body += `| **Result** | ✅ DEPLOYED (full site) |\n`;
       body += `| **Preview** | [View preview](${previewUrl}) |\n`;
-      body += `| **Pages** | ${pages.length} page(s) deployed |\n`;
       if (buildTime) {
         body += `| **Build time** | ${buildTime} |\n`;
       }
       body += `| **Last updated** | ${timestamp} |\n\n`;
 
-      if (pages.length > 0) {
-        body += `<details>\n<summary>Pages included in this preview</summary>\n\n`;
+      if (pages && pages.length > 0) {
+        body += `<details>\n<summary>Changed pages (${pages.length})</summary>\n\n`;
         const displayPages = pages.slice(0, 20);
-        displayPages.forEach(page => {
-          const safePage = page.replace(/`/g, '\\`');
-          body += `- \`${safePage}\`\n`;
+        displayPages.forEach((page) => {
+          const trimmedBase = previewUrl.replace(/\/$/, '');
+          const trimmedPage = page.replace(/^\//, '');
+          const safeLabel = page.replace(/`/g, '\\`');
+          body += `- [\`${safeLabel}\`](${trimmedBase}/${trimmedPage})\n`;
         });
         if (pages.length > 20) {
           body += `- ... and ${pages.length - 20} more\n`;
@@ -75,23 +75,11 @@ export function generatePreviewComment(options) {
       break;
 
     case 'pending':
-      if (needsInput) {
-        body += `| Status | Details |\n`;
-        body += `|--------|----------|\n`;
-        body += `| **Result** | ⏳ NEEDS INPUT |\n`;
-        body += `| **Checked** | ${timestamp} |\n\n`;
-        body += `### Preview pages needed\n\n`;
-        body += `This PR changes layout/asset files but doesn't specify which pages to preview.\n\n`;
-        body += `**To generate a preview**, add documentation URLs to your PR description, for example:\n`;
-        body += `\`\`\`\nPlease review:\n- https://docs.influxdata.com/influxdb3/core/get-started/\n- /telegraf/v1/plugins/\n\`\`\`\n\n`;
-        body += `Then re-run the workflow or push a new commit.`;
-      } else {
-        body += `| Status | Details |\n`;
-        body += `|--------|----------|\n`;
-        body += `| **Result** | ⏳ BUILDING |\n`;
-        body += `| **Started** | ${timestamp} |\n\n`;
-        body += `Preview is building...`;
-      }
+      body += `| Status | Details |\n`;
+      body += `|--------|----------|\n`;
+      body += `| **Result** | ⏳ BUILDING |\n`;
+      body += `| **Started** | ${timestamp} |\n\n`;
+      body += `Preview is building...`;
       break;
 
     case 'failed':
@@ -106,7 +94,9 @@ export function generatePreviewComment(options) {
 
     case 'skipped':
       // Skip reasons are controlled strings from the workflow, plain text sanitization is sufficient
-      const safeSkipReason = (skipReason || 'No previewable changes detected.').substring(0, 200);
+      const safeSkipReason = (
+        skipReason || 'No previewable changes detected.'
+      ).substring(0, 200);
       body += `| Status | Details |\n`;
       body += `|--------|----------|\n`;
       body += `| **Result** | ⏭️ SKIPPED |\n`;
@@ -131,7 +121,7 @@ export async function findExistingComment(github, context) {
     issue_number: context.issue.number,
   });
 
-  return comments.find(comment => comment.body.includes(COMMENT_MARKER));
+  return comments.find((comment) => comment.body.includes(COMMENT_MARKER));
 }
 
 /**
