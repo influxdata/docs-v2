@@ -7474,6 +7474,7 @@ function InfluxDBUrl() {
   setRadioButtons(getUrls());
   (0, import_jquery6.default)(".url-trigger").click(function(e) {
     e.preventDefault();
+    trackUrlSelectorOpen();
     toggleModal("#influxdb-url-list");
   });
   function setRadioButtons() {
@@ -7554,6 +7555,9 @@ function InfluxDBUrl() {
     storeUrl("clustered", newUrl, getUrls().clustered);
     updateUrls(getPrevUrls(), getUrls());
   });
+  (0, import_jquery6.default)('input[type="radio"][name^="influxdb-"][name$="-url"]').not("#custom").on("change", function() {
+    trackPresetUrlSelection(context, (0, import_jquery6.default)(this).val());
+  });
   UNIQUE_URL_PRODUCTS.forEach(function(productEl) {
     let productUrlCookie = getInfluxDBUrl(productEl);
     (0, import_jquery6.default)(`input#${productEl}-url-field`).val(productUrlCookie);
@@ -7577,9 +7581,58 @@ function InfluxDBUrl() {
     togglePrefBtns(prefTab);
   }
   showPreference();
+  let lastTrackedCustomUrlKey = null;
+  function categorizeHost(url) {
+    try {
+      const parsed = new URL(/^https?:\/\//.test(url) ? url : `https://${url}`);
+      const host2 = parsed.hostname;
+      if (host2 === "localhost" || host2 === "127.0.0.1" || host2 === "::1" || host2 === "[::1]") {
+        return "localhost";
+      }
+      return "remote";
+    } catch {
+      return "unknown";
+    }
+  }
+  function emitUrlSelectorEvent(eventName, params) {
+    if (typeof window.gtag === "undefined") {
+      return;
+    }
+    window.gtag("event", eventName, {
+      page_path: window.location.pathname,
+      ...params
+    });
+  }
+  function trackUrlSelectorOpen() {
+    emitUrlSelectorEvent("url_selector_open", { product: context });
+  }
+  function trackPresetUrlSelection(product2, url) {
+    if (!url) {
+      return;
+    }
+    emitUrlSelectorEvent("url_selector_preset", {
+      product: product2,
+      host_type: categorizeHost(url),
+      selected_url: url
+    });
+  }
+  function trackCustomUrlUsage(context2, customUrl) {
+    if (!customUrl) {
+      return;
+    }
+    const trackingKey = `${context2}|${customUrl}`;
+    if (trackingKey === lastTrackedCustomUrlKey) {
+      return;
+    }
+    lastTrackedCustomUrlKey = trackingKey;
+    emitUrlSelectorEvent("custom_influxdb_url", {
+      product: context2,
+      host_type: categorizeHost(customUrl)
+    });
+  }
   function validateUrl(url) {
     const validDomain = new RegExp(
-      `([a-z0-9-._~%]+|[[a-f0-9:.]+]|[v[a-f0-9][a-z0-9-._~%!$&'()*+,;=:]+])(:[0-9]+)?`
+      "([a-z0-9-._~%]+|[[a-f0-9:.]+]|[v[a-f0-9][a-z0-9-._~%!$&'()*+,;=:]+])(:[0-9]+)?"
     );
     if (!IS_UNIQUE_URL_PRODUCT) {
       const validProtocol = /^http(s?)/;
@@ -7630,12 +7683,14 @@ function InfluxDBUrl() {
         storeCustomUrl(custUrl);
         storeUrl(context, custUrl, getUrls()[context]);
         updateUrls(getPrevUrls(), getUrls());
+        trackCustomUrlUsage(context, custUrl);
       } else {
         showValidationMessage(urlValidation);
       }
     } else {
       removeCustomUrl();
       hideValidationMessage();
+      lastTrackedCustomUrlKey = null;
       (0, import_jquery6.default)(
         `input[name="influxdb-${context}-url"][value="` + DEFAULT_STORAGE_URLS[context] + '"]'
       ).trigger("click");
@@ -7650,12 +7705,14 @@ function InfluxDBUrl() {
         storeProductUrl(product2, productUrl);
         storeUrl(product2, productUrl, getUrls()[product2]);
         updateUrls(getPrevUrls(), getUrls());
+        trackCustomUrlUsage(product2, productUrl);
       } else {
         showValidationMessage(urlValidation);
       }
     } else {
       removeProductUrl(product2);
       hideValidationMessage();
+      lastTrackedCustomUrlKey = null;
     }
   }
   (0, import_jquery6.default)("input#custom-url-field").focus(function() {
