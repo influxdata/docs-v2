@@ -20,15 +20,22 @@
 {{/* Derive data lookup path from the API section URL.
      Split "/influxdb3/core/api/" into segments and index into site.Data.
      Single-spec: /influxdb3/core/api/ → article_data.influxdb3.core.api
-     Multi-spec:  /influxdb3/cloud-dedicated/api/ → article_data.influxdb3.cloud-dedicated */}}
+     Multi-spec:  /influxdb3/cloud-dedicated/api/ → article_data.influxdb3.cloud-dedicated
+
+     When deployed under a subdirectory baseURL (e.g., PR previews at
+     /pr-preview/pr-N/…), .URL is site-root-relative and so includes that
+     prefix. Skip the extra leading segments computed from the baseURL path
+     depth, matching api/section-children.html. */}}
 {{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" $apiUrl) }}
 {{ $segments := split $urlPath "/" }}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
+{{ $productSegments := sub (len $segments) $pathOffset }}
 
 {{ $dataNode := dict }}
-{{ if ge (len $segments) 3 }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
-  {{ $seg2 := index $segments 2 }}
+{{ if ge $productSegments 3 }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg2 := index $segments (add $pathOffset 2) }}
   {{ with index $siteData.article_data $seg0 $seg1 $seg2 }}
     {{ $dataNode = . }}
   {{ end }}
@@ -50,9 +57,9 @@
 
 {{/* If no sub-sections found under the 3-segment node, try 2-segment lookup
      (product family + product, e.g. influxdb3/cloud-dedicated). */}}
-{{ if and (eq (len $subSections) 0) (ge (len $segments) 2) }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
+{{ if and (eq (len $subSections) 0) (ge $productSegments 2) }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
   {{ $dataNode2 := dict }}
   {{ with index $siteData.article_data $seg0 $seg1 }}
     {{ $dataNode2 = . }}
@@ -86,29 +93,7 @@
       <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ $specLabel }} nested items"></a>
       <a href="{{ $specUrl | relURL }}">{{ $specLabel }}</a>
       <ul class="children">
-        {{/* Separate conceptual and non-conceptual articles */}}
-        {{ $conceptualArticles := slice }}
-        {{ $operationArticles := slice }}
-        {{ range $specArticles }}
-          {{ if and (reflect.IsMap .) (isset . "fields") }}
-            {{ $fields := index . "fields" }}
-            {{ if reflect.IsMap $fields }}
-              {{ $isConceptual := false }}
-              {{ if isset $fields "isConceptual" }}
-                {{ $isConceptual = index $fields "isConceptual" }}
-              {{ end }}
-              {{ if $isConceptual }}
-                {{ $conceptualArticles = $conceptualArticles | append . }}
-              {{ else }}
-                {{ $operationArticles = $operationArticles | append . }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-
-        {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-        {{ $operationArticles = sort $operationArticles "fields.weight" }}
-        {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+        {{ $sortedArticles := partial "api/sorted-tag-articles.html" $specArticles }}
 
         {{ range $sortedArticles }}
           {{ $articlePath := index . "path" }}
@@ -140,33 +125,7 @@
   {{ end }}
 
   {{ if gt (len $articles) 0 }}
-    {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
-    {{ $conceptualArticles := slice }}
-    {{ $operationArticles := slice }}
-
-    {{ range $articles }}
-      {{ if and (reflect.IsMap .) (isset . "fields") }}
-        {{ $fields := index . "fields" }}
-        {{ if reflect.IsMap $fields }}
-          {{ $isConceptual := false }}
-          {{ if isset $fields "isConceptual" }}
-            {{ $isConceptual = index $fields "isConceptual" }}
-          {{ end }}
-          {{ if $isConceptual }}
-            {{ $conceptualArticles = $conceptualArticles | append . }}
-          {{ else }}
-            {{ $operationArticles = $operationArticles | append . }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-
-    {{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
-    {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-    {{ $operationArticles = sort $operationArticles "fields.weight" }}
-
-    {{/* Combine: conceptual first, then operations */}}
-    {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+    {{ $sortedArticles := partial "api/sorted-tag-articles.html" $articles }}
 
     {{/* Render each tag as a nav item */}}
     {{ range $sortedArticles }}
