@@ -1058,6 +1058,8 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+        "409":
+          description: Conflict. The table is already deleted.
       summary: Delete a table
       description: |
         Soft deletes a table.
@@ -1069,6 +1071,16 @@ paths:
 
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
+
+        #### Soft-deleted tables keep a renamed, visible entry until hard deletion
+
+        A soft delete renames the table to `<table_name>-<deleted_at_timestamp>` instead of removing it.
+        Until the table is hard deleted, this renamed entry still appears in `SHOW TABLES` output and in
+        `information_schema.tables` queries. Filter out names that end in a deleted-at timestamp to account for
+        these renamed entries when listing or counting tables.
+
+        Deleting an already-deleted table returns `409 Conflict`. There's no API to remove the renamed entry
+        directly; only a scheduled or immediate (`hard_delete_at=now`) hard deletion removes it.
       tags:
         - Table
     post:

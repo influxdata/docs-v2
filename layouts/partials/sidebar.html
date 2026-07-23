@@ -1,7 +1,7 @@
 {{ $currentPage := . }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{/* Support deployments (such as CI tools) with subdirectory baseURL */}}
-{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
 {{ $product := index $productPathData (add $pathOffset 0) }}
 {{ $currentVersion := index $productPathData (add $pathOffset 1) }}
 {{ $productKey := print $product "_" $currentVersion }}
@@ -78,12 +78,12 @@
   {{ $platformMenu := .Site.Menus.platform }}
 
   <!-- Product Main Navigation -->
-  {{ partialCached "sidebar/nested-menu" (dict "menu" $mainMenu "siteData" .Site.Data) $menuKey }}
+  {{ partial "sidebar/nested-menu" (dict "menu" $mainMenu "siteData" .Site.Data) }}
 
   <!-- Product Reference Navigation -->
   {{ if gt (len $refMenu) 0 }}
     <h4 class="reference">Reference</h4>
-    {{ partialCached "sidebar/nested-menu" (dict "menu" $refMenu "siteData" .Site.Data) (print $menuKey "_ref") }}
+    {{ partial "sidebar/nested-menu" (dict "menu" $refMenu "siteData" .Site.Data) }}
   {{ end }}
 
   <!-- Flux links for InfluxDB docs -->
