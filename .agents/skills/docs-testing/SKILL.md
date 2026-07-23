@@ -62,7 +62,7 @@ Code block execution tests are **disabled** in pre-push hooks. Run them manually
 | -------------------------------- | ---------------------------------------------- | -------------------------- |
 | `pr-vale-check.yml`              | Vale on changed markdown + shared content      | Errors only                |
 | `pr-link-check.yml`              | Links in changed pages (also download/install pages when `data/products.yml` changes) | Warnings only |
-| `pr-release-check.yml`           | Reminds to bump `data/products.yml` when release notes advance; gates release PRs on published download artifacts | Reminder: no. Artifact gate: yes, on version-bump PRs (override label `release:artifacts-pending`) |
+| `pr-release-check.yml`           | Reminds to bump `data/products.yml` when release notes advance; on a version bump, reminds to confirm download artifacts are published | No (reminders only) |
 | `test.yml` (lint-codeblocks job) | Parse/compile check on changed content         | JSON/YAML/TOML errors only |
 | `pr-render-check.yml`            | Whitespace-escaped code blocks, Cypress render | Yes (render artifacts)     |
 | `pr-remark-check.yml`            | Remark lint on repo docs                       | No                         |

@@ -50,6 +50,11 @@ const RELEASE_NOTES = [
     product: 'influxdb3_core',
     selector: 'latest_patch',
     notesFile: V3_SHARED_NOTES,
+    // Core and Enterprise share one file but can diverge: a release may ship
+    // Enterprise-only with its `### Core` section commented out pending the Core
+    // build. `edition` makes the lookup use the newest version that has a live
+    // (non-commented) section for this edition, not just the top heading.
+    edition: 'core',
     triggerPaths: [
       V3_SHARED_NOTES,
       'content/influxdb3/core/release-notes/_index.md',
@@ -59,6 +64,7 @@ const RELEASE_NOTES = [
     product: 'influxdb3_enterprise',
     selector: 'latest_patch',
     notesFile: V3_SHARED_NOTES,
+    edition: 'enterprise',
     triggerPaths: [
       V3_SHARED_NOTES,
       'content/influxdb3/enterprise/release-notes/_index.md',
@@ -87,12 +93,14 @@ const RELEASE_NOTES = [
   {
     product: 'kapacitor',
     selector: ['latest_patches', 'v1'],
-    notesFile: 'content/kapacitor/v1/reference/about_the_project/release-notes.md',
+    notesFile:
+      'content/kapacitor/v1/reference/about_the_project/release-notes.md',
   },
   {
     product: 'enterprise_influxdb',
     selector: ['latest_patches', 'v1'],
-    notesFile: 'content/enterprise_influxdb/v1/about-the-project/release-notes.md',
+    notesFile:
+      'content/enterprise_influxdb/v1/about-the-project/release-notes.md',
   },
   {
     product: 'influxdb',
@@ -120,11 +128,48 @@ function selectorLabel(selector) {
   return Array.isArray(selector) ? selector.join('.') : selector;
 }
 
-/** Parse the topmost documented version from a release-notes file. */
-function documentedVersion(notesFile) {
+/**
+ * Parse the newest documented version per edition from shared-file content.
+ * The v3 shared file interleaves `### Core` / `### Enterprise` subsections under
+ * each `## vX.Y.Z` heading, and an edition's subsection may be commented out
+ * (`<!-- Uncomment once Core vX is released ... -->`) while the other ships.
+ * HTML comments are stripped first so a commented-out section does not count.
+ * Returns `{ core, enterprise }` (each a version string or null).
+ * Exported for testing.
+ */
+export function parseEditionVersions(text) {
+  const headingRe = /^##\s+v?(\d+\.\d+\.\d+[^\s{]*)/gm;
+  const matches = [...text.matchAll(headingRe)];
+  const result = { core: null, enterprise: null };
+  for (let i = 0; i < matches.length; i++) {
+    const start = matches[i].index;
+    const end = i + 1 < matches.length ? matches[i + 1].index : text.length;
+    const version = matches[i][1];
+    // Drop HTML comments so a commented-out `### Core` block doesn't count.
+    const body = text.slice(start, end).replace(/<!--[\s\S]*?-->/g, '');
+    if (result.core === null && /^###\s+Core\b/m.test(body))
+      result.core = version;
+    if (result.enterprise === null && /^###\s+Enterprise\b/m.test(body)) {
+      result.enterprise = version;
+    }
+    if (result.core && result.enterprise) break;
+  }
+  return result;
+}
+
+/**
+ * Documented version for a notes file. For an edition-scoped entry against the
+ * v3 shared file, return the newest version with a live section for that edition;
+ * otherwise return the topmost `## vX.Y.Z` heading.
+ */
+function documentedVersion(notesFile, edition) {
   const abs = join(REPO_ROOT, notesFile);
   if (!existsSync(abs)) return null;
-  const match = readFileSync(abs, 'utf8').match(HEADING_RE);
+  const text = readFileSync(abs, 'utf8');
+  if (edition && notesFile === V3_SHARED_NOTES) {
+    return parseEditionVersions(text)[edition] ?? null;
+  }
+  const match = text.match(HEADING_RE);
   return match ? match[1] : null;
 }
 
@@ -155,7 +200,8 @@ function compareVersions(a, b) {
  * so tests can run without touching disk; it defaults to reading the notes file.
  * @param {object} products  Parsed data/products.yml.
  * @param {Set<string>|null} changed  Changed paths, or null to check everything.
- * @param {(notesFile: string) => string|null} lookup  Documented-version reader.
+ * @param {(notesFile: string, edition?: string) => string|null} lookup
+ *   Documented-version reader (edition-aware for the shared v3 file).
  */
 export function evaluate(products, changed, lookup = documentedVersion) {
   const results = [];
@@ -174,20 +220,29 @@ export function evaluate(products, changed, lookup = documentedVersion) {
       notesFile: entry.notesFile,
     };
     const current = product ? readSelector(product, entry.selector) : undefined;
-    const documented = lookup(entry.notesFile);
+    const documented = lookup(entry.notesFile, entry.edition);
 
     if (current == null) {
-      results.push({ ...base, status: 'info', message: `no ${sel} field in products.yml` });
+      results.push({
+        ...base,
+        status: 'info',
+        message: `no ${sel} field in products.yml`,
+      });
       continue;
     }
     if (documented == null) {
-      results.push({ ...base, status: 'info', message: `no version heading in ${entry.notesFile}` });
+      results.push({
+        ...base,
+        status: 'info',
+        message: `no version heading in ${entry.notesFile}`,
+      });
       continue;
     }
 
     const cmp = compareVersions(documented, current);
     if (cmp === 0) results.push({ ...base, status: 'ok', documented, current });
-    else if (cmp > 0) results.push({ ...base, status: 'drift', documented, current });
+    else if (cmp > 0)
+      results.push({ ...base, status: 'drift', documented, current });
     // products.yml ahead of the notes — unusual, informational only.
     else results.push({ ...base, status: 'ahead', documented, current });
   }
@@ -213,17 +268,25 @@ function buildReport(results) {
   const lines = ['## Release version check', ''];
 
   if (results.length === 0) {
-    lines.push('No release-notes pages with a tracked version changed in this PR.');
+    lines.push(
+      'No release-notes pages with a tracked version changed in this PR.'
+    );
   } else {
     lines.push('| Product | Release notes | data/products.yml | Status |');
     lines.push('| --- | --- | --- | --- |');
     for (const r of results) {
       if (r.status === 'ok') {
-        lines.push(`| \`${r.label}\` | ${r.documented} | ${r.current} | ✅ in sync |`);
+        lines.push(
+          `| \`${r.label}\` | ${r.documented} | ${r.current} | ✅ in sync |`
+        );
       } else if (r.status === 'drift') {
-        lines.push(`| \`${r.label}\` | ${r.documented} | ${r.current} | ⚠️ **bump needed** |`);
+        lines.push(
+          `| \`${r.label}\` | ${r.documented} | ${r.current} | ⚠️ **bump needed** |`
+        );
       } else if (r.status === 'ahead') {
-        lines.push(`| \`${r.label}\` | ${r.documented} | ${r.current} | ℹ️ products.yml ahead |`);
+        lines.push(
+          `| \`${r.label}\` | ${r.documented} | ${r.current} | ℹ️ products.yml ahead |`
+        );
       } else {
         lines.push(`| \`${r.label}\` | — | — | ℹ️ ${r.message} |`);
       }
@@ -278,4 +341,5 @@ function main() {
 }
 
 // Only run main() when invoked directly, so the test file can import evaluate().
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) main();
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1])
+  main();

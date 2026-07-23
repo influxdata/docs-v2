@@ -47,7 +47,13 @@ jobs:
           # skipped. Add them here so a bad or stale download URL is still caught.
           # The map step runs with --existing-only, so any path that doesn't
           # exist is silently ignored.
-          if grep -qx 'data/products.yml' all_changed_files.txt; then
+          #
+          # Detect the change with git diff over the full PR range, not the
+          # Files API list above (which is unpaginated and caps at 30 files, so
+          # data/products.yml could be missed on a large PR).
+          if git diff --name-only \
+               "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}" \
+               | grep -qx 'data/products.yml'; then
             DOWNLOAD_PAGES="content/influxdb3/core/install.md
           content/influxdb3/enterprise/install/_index.md
           content/influxdb3/explorer/install.md
