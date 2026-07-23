@@ -190,25 +190,15 @@ For the complete old-to-new name table, see
 
 ### Size option values
 
-Options that accept a size value use the following format:
+Options that accept a size value require an explicit unit:
 
-- A bare number is a size in **bytes**--for example, `10485760`.
-- Unit suffixes `b`, `kb`, `mb`, `gb`, and `tb` (case-insensitive) are
-  accepted--for example, `10mb` or `8GB`.
+- Append a unit suffix `b`, `kb`, `mb`, `gb`, or `tb`
+  (case-insensitive)--for example, `10mb` or `8GB`.
 - Where noted, a percentage of total available memory is accepted--for
   example, `20%`.
-
-> \[!Important]
-> #### Bare numbers rejected during megabyte-to-byte transition
->
-> [`--exec-mem-pool-size`](#exec-mem-pool-size),
-> [`--file-cache-size`](#file-cache-size), and
-> [`--force-snapshot-mem-threshold`](#force-snapshot-mem-threshold)
-> previously interpreted a bare number as megabytes.
-> In this release, these options **reject bare numbers**; a bare number will
-> mean bytes in a future release.
-> Specify an explicit unit suffix (for example, `100mb`) or a percentage
-> (for example, `20%`).
+- **Bare numbers are rejected.** Historically, a bare number meant megabytes
+  for some options and bytes for others, so sizes always carry an explicit
+  unit.
 
 ## Global configuration options
 
@@ -1534,10 +1524,9 @@ Provides custom configuration to DataFusion as a comma-separated list of
 #### max-http-request-size
 
 Specifies the maximum size of HTTP requests.
-A bare number is a size in bytes; unit suffixes (`b`, `kb`, `mb`, `gb`, `tb`)
-are also accepted--for example, `10mb`.
+Requires a [unit suffix](#size-option-values)--for example, `10mb`.
 
-**Default:** `10485760`
+**Default:** `10mb`
 
 | influxdb3 serve option    | Environment variable              |
 | :------------------------ | :-------------------------------- |
@@ -1567,10 +1556,8 @@ Defines the address on which InfluxDB serves HTTP API requests.
 Specifies the size of the memory pool used for query processing and data operations.
 This memory pool is used when {{% product-name %}} processes queries and performs
 internal data management tasks.
-Provide a value with a unit suffix or as a percentage of the total available
-memory--for example: `8gb` or `10%`.
-Bare numbers are rejected during the
-[megabyte-to-byte transition](#size-option-values).
+Provide a value with a [unit suffix](#size-option-values) or as a percentage
+of the total available memory--for example: `8gb` or `10%`.
 
 **Default:** `20%`
 
@@ -1587,10 +1574,8 @@ Bare numbers are rejected during the
 #### force-snapshot-mem-threshold
 
 Specifies the threshold for the internal memory buffer. Supports either a
-percentage (portion of available memory) or a value with a unit suffix--for
-example: `70%` or `1000mb`.
-Bare numbers are rejected during the
-[megabyte-to-byte transition](#size-option-values).
+percentage (portion of available memory) or a value with a
+[unit suffix](#size-option-values)--for example: `70%` or `1000mb`.
 
 **Default:** `50%`
 
@@ -1955,10 +1940,8 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 #### file-cache-size
 
 Specifies the size of the in-memory data file cache.
-Provide a value with a unit suffix or as a percentage of total available
-memory--for example, `4gb` or `20%`.
-Bare numbers are rejected during the
-[megabyte-to-byte transition](#size-option-values).
+Provide a value with a [unit suffix](#size-option-values) or as a percentage
+of total available memory--for example, `4gb` or `20%`.
 
 This is a total budget.
 {{% show-in "enterprise" %}}
