@@ -351,6 +351,15 @@ IO threads = min(W + 2, N * 0.4)
 DataFusion threads = N - IO threads
 ```
 
+{{% show-in "enterprise" %}}
+> [!Important]
+> This formula applies to the default (Parquet-backed) storage engine, where
+> DataFusion threads handle queries, snapshots, and compaction. It doesn't
+> apply to the [performance upgrade preview](/influxdb3/enterprise/performance-preview/configure/),
+> which runs ingest and compaction on the IO runtime and requires setting
+> both thread options explicitly.
+{{% /show-in %}}
+
 ### Example configurations by system size
 
 #### Small system (4 cores, 16&nbsp;GB RAM)

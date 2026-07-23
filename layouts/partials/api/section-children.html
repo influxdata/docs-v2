@@ -13,11 +13,11 @@
      Supports both 3-segment (/influxdb3/core/api/) and 4-segment
      (/influxdb3/cloud-dedicated/api/data-api/) URLs.
      When deployed under a subdirectory baseURL (e.g., PR previews at
-     /docs-v2/pr-preview/pr-N/…), apply prPreviewPathOffset to skip
-     the extra leading segments. */}}
+     /pr-preview/pr-N/…), skip the extra leading segments computed
+     from the baseURL path depth. */}}
 {{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
 {{ $segments := split $urlPath "/" }}
-{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
 {{ $productSegments := sub (len $segments) $pathOffset }}
 
 {{/* Get article data.

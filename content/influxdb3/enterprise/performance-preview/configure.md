@@ -64,6 +64,14 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > licensed core count.
 > Thread counts set above the licensed core count are capped with a startup
 > warning.
+> The [thread allocation guidance](/influxdb3/enterprise/admin/performance-tuning/#thread-allocation-details)
+> for the Parquet engine doesn't apply to the upgraded storage engine, which
+> runs ingest and compaction on the IO runtime instead of the DataFusion
+> runtime. When setting thread counts explicitly, allocate more threads to IO:
+>
+> - **Ingest nodes**: weight heavily toward IO threads.
+> - **Compactor nodes**: use a more balanced split (for example, 60% IO,
+>   40% DataFusion).
 
 - [General](#general)
 - [WAL](#wal)
@@ -400,6 +408,7 @@ influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --num-io-threads 2 \
+  --datafusion-num-threads 2 \
   --file-cache-size 512MB \
   --wal-buffer-size 5MB \
   --snapshot-size 100MB
@@ -415,14 +424,15 @@ influxdb3 serve \
   --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
-  --num-io-threads 8 \
+  --num-io-threads 5 \
+  --datafusion-num-threads 3 \
   --file-cache-size 8GB \
   --wal-buffer-size 30MB \
   --snapshot-size 500MB \
   --wal-flush-concurrency 4
 ```
 
-### High-throughput ingest node
+### High-throughput ingest node (16 cores)
 
 ```bash
 influxdb3 serve \
@@ -433,7 +443,8 @@ influxdb3 serve \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --mode ingest \
-  --num-io-threads 16 \
+  --num-io-threads 12 \
+  --datafusion-num-threads 4 \
   --wal-buffer-size 50MB \
   --wal-flush-interval 2s \
   --wal-flush-concurrency 8 \
@@ -441,7 +452,7 @@ influxdb3 serve \
   --disable-file-cache
 ```
 
-### Query-optimized node
+### Query-optimized node (16 cores)
 
 ```bash
 influxdb3 serve \
@@ -452,13 +463,14 @@ influxdb3 serve \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --mode query \
-  --num-io-threads 16 \
+  --num-io-threads 6 \
+  --datafusion-num-threads 10 \
   --file-cache-size 16GB \
   --file-cache-recency 24h \
   --replica-max-buffer-size 8GB
 ```
 
-### Dedicated compactor
+### Dedicated compactor (8 cores)
 
 ```bash
 influxdb3 serve \
@@ -469,7 +481,8 @@ influxdb3 serve \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --mode compact \
-  --num-io-threads 8 \
+  --num-io-threads 5 \
+  --datafusion-num-threads 3 \
   --compactor-input-size-budget 12GB
 ```
 
