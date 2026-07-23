@@ -273,8 +273,8 @@ influxdb3 serve \
 <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
 <!-- pytest.mark.skip -->
 ```bash { placeholders="EMAIL_ADDRESS|LICENSE_TYPE" }
-INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
-INFLUXDB3_LICENSE_TYPE=LICENSE_TYPE
+export INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
+export INFLUXDB3_LICENSE_TYPE=LICENSE_TYPE
 
 influxdb3 serve \
 --cluster-id CLUSTER_ID \
@@ -378,7 +378,7 @@ influxdb3 serve \
 <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
 <!-- pytest.mark.skip -->
 ```bash { placeholders="/path/to/license-file.jwt" }
-INFLUXDB3_LICENSE_FILE=/path/to/license-file.jwt
+export INFLUXDB3_LICENSE_FILE=/path/to/license-file.jwt
 
 influxdb3 serve \
 --cluster-id cluster01 \

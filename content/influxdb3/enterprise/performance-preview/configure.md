@@ -273,7 +273,7 @@ Configure replication behavior for query nodes in distributed deployments.
 | `--wal-replica-queue-length` | Length of the queue between WAL file fetching and replica buffer merging (previously `--pt-wal-replica-queue-size`). | `100` |
 | `--wal-replica-recovery-tail-skip-limit` | Number of consecutive missing WAL files before stopping replica recovery. | `128` |
 | `--replica-gen0-load-concurrency` | Limit on the number of Gen0 files loaded concurrently when the replica starts. | `16` |
-| `--replica-max-buffer-size` | Maximum replica buffer size (bytes or %). Used by query nodes to store WAL files replicated from ingest nodes. | 50% of available memory, capped at 16GB |
+| `--replica-max-buffer-size` | Maximum replica buffer size. A bare number is bytes; unit suffixes and percentages are also accepted. Used by query nodes to store WAL files replicated from ingest nodes. | 50% of available memory, capped at 16GB |
 
 ### Recovery concurrency
 
