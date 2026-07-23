@@ -138,12 +138,14 @@ Default: 20% of RAM.
 {{% show-in "core" %}}
 ```bash
 # Increase for query-heavy workloads
-influxdb3 --exec-mem-pool-size=90% serve \
+influxdb3 serve \
+  --exec-mem-pool-size=90% \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 
 # Decrease if experiencing memory pressure
-influxdb3 --exec-mem-pool-size=60% serve \
+influxdb3 serve \
+  --exec-mem-pool-size=60% \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -152,12 +154,14 @@ influxdb3 --exec-mem-pool-size=60% serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Increase for query-heavy workloads
-influxdb3 --exec-mem-pool-size=90% serve \
+influxdb3 serve \
+  --exec-mem-pool-size=90% \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 
 # Decrease if experiencing memory pressure
-influxdb3 --exec-mem-pool-size=60% serve \
+influxdb3 serve \
+  --exec-mem-pool-size=60% \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -180,7 +184,8 @@ influxdb3 serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Enable caching for better query performance
-influxdb3 --file-cache-size=4GB serve \
+influxdb3 serve \
+  --file-cache-size=4GB \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -193,7 +198,8 @@ Controls write latency vs throughput. Default: 1s.
 {{% show-in "core" %}}
 ```bash
 # Reduce latency for real-time data
-influxdb3 --wal-flush-interval=100ms serve \
+influxdb3 serve \
+  --wal-flush-interval=100ms \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -202,7 +208,8 @@ influxdb3 --wal-flush-interval=100ms serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Reduce latency for real-time data
-influxdb3 --wal-flush-interval=100ms serve \
+influxdb3 serve \
+  --wal-flush-interval=100ms \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -256,10 +263,9 @@ influxdb3 --wal-flush-interval=100ms serve \
 {{% show-in "core" %}}
 ```bash
 # 32-core system, high ingest rate
-influxdb3 --num-io-threads=12 \
+influxdb3 --num-io-threads=12 serve \
   --exec-mem-pool-size=80% \
   --wal-flush-interval=100ms \
-  serve \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -379,10 +385,9 @@ influxdb3 --num-io-threads=2 serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Balanced configuration
-influxdb3 --num-io-threads=2 \
+influxdb3 --num-io-threads=2 serve \
   --exec-mem-pool-size=10GB \
   --file-cache-size=500MB \
-  serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \

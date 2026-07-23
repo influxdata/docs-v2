@@ -2431,7 +2431,7 @@ Specifies how long to wait for a running ingester during startup.
 
 | influxdb3 serve option        | Environment variables |
 | :---------------------------- | :-------------------- |
-| `--wait-for-running-ingester`<br>`--wait-for-running-ingestor` (deprecated alias) | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` (preferred)<br>`INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` (deprecated; supported for backward compatibility) |
+| `--wait-for-running-ingester`<br>`--wait-for-running-ingestor` (deprecated alias) | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` (preferred)<br>`INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR`, `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTER`, `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` (deprecated; supported for backward compatibility) |
 
 ***
 
