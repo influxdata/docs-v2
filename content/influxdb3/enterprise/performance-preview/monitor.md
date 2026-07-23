@@ -1,15 +1,16 @@
 ---
-title: Monitor the performance upgrade preview
-seotitle: Monitor the performance upgrade preview in InfluxDB 3 Enterprise
+title: Monitor the upgraded storage engine
+seotitle: Monitor the upgraded storage engine in InfluxDB 3 Enterprise
 description: >
   Use system tables and query telemetry to monitor file status, query execution,
-  and overall performance when using InfluxDB 3 Enterprise performance upgrades.
+  and overall performance when using the upgraded InfluxDB 3 Enterprise storage
+  engine.
 menu:
   influxdb3_enterprise:
     name: Monitor
-    parent: Performance upgrade preview
+    parent: Storage engine upgrade
 weight: 203
-influxdb3/enterprise/tags: [storage, monitoring, beta, preview, system tables]
+influxdb3/enterprise/tags: [storage, monitoring, system tables]
 related:
   - /influxdb3/enterprise/performance-preview/
   - /influxdb3/enterprise/performance-preview/configure/
