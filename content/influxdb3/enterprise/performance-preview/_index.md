@@ -18,9 +18,9 @@ related:
 ---
 
 > [!Important]
-> #### PachaTree is the default storage engine for new clusters
-> PachaTree, the storage engine described on these pages, is the default
-> storage engine for new {{% product-name %}} clusters--no flag is required.
+> #### The upgraded storage engine is the default for new clusters
+> The upgraded storage engine described on these pages is the default for
+> new {{% product-name %}} clusters--no flag is required.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
 > run the storage engine upgrade by restarting the cluster with
 > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
@@ -65,7 +65,8 @@ Key improvements include:
 
 ## Run the storage engine upgrade {#enable-the-preview}
 
-New clusters use PachaTree by default and do not need any flag.
+New clusters use the upgraded storage engine by default and do not need any
+flag.
 
 For clusters that started on 3.10 or earlier (Parquet engine), run the
 storage engine upgrade by including the `--upgrade-pacha-tree` flag in your
@@ -220,8 +221,8 @@ SELECT * FROM system.upgrade_parquet
 
 If you need to revert an upgraded cluster back to standard Parquet
 storage, use the `influxdb3 downgrade-to-parquet` command.
-This command updates the catalog and deletes all PachaTree-specific files from
-object storage.
+This command updates the catalog and deletes all files specific to the
+upgraded storage engine from object storage.
 
 > [!Note]
 > #### Downgrade impacts
@@ -306,7 +307,7 @@ influxdb3 export data -d mydb -t cpu -w 2026-01-15,2026-01-16 -o ./export_output
 
 ## Who should upgrade existing clusters {#who-should-try-the-preview}
 
-New clusters use PachaTree by default.
+New clusters use the upgraded storage engine by default.
 If your cluster started on 3.10 or earlier and still runs the Parquet engine,
 the storage engine upgrade especially benefits workloads with:
 

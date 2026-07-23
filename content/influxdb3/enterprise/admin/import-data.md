@@ -15,7 +15,7 @@ related:
 ---
 
 Bulk import is an {{% product-name %}} feature that requires the
-[PachaTree storage engine](/influxdb3/enterprise/performance-preview/)--the
+[upgraded storage engine](/influxdb3/enterprise/performance-preview/)--the
 default for new clusters.
 On clusters that started on 3.10 or earlier, first run the
 [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree)

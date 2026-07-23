@@ -3,11 +3,11 @@
 How you back up and restore that data depends on your storage engine:
 
 {{% show-in "enterprise" %}}
-- **Enterprise on the PachaTree storage engine** (the default for new
+- **Enterprise on the upgraded storage engine** (the default for new
   clusters, or after running the storage engine upgrade with
   `--upgrade-pacha-tree`): use the
   built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
-  This is the recommended path on PachaTree.
+  This is the recommended path on the upgraded engine.
 - **Enterprise on the Parquet engine** (clusters that started on 3.10 or
   earlier that have not run the storage engine upgrade): use the
   [manual object-storage procedure](#manual-backup-process) to copy object storage
@@ -70,11 +70,11 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 {{% show-in "enterprise" %}}
 ## Back up and restore with the influxdb3 CLI
 
-On the PachaTree storage engine, {{% product-name %}} provides built-in
+On the upgraded storage engine, {{% product-name %}} provides built-in
 `influxdb3` backup and restore
 commands. Before you use them, ensure the following:
 
-- The cluster uses the PachaTree storage engine (the default for new
+- The cluster uses the upgraded storage engine (the default for new
   clusters; older clusters must first run the
   [storage engine upgrade](/influxdb3/version/reference/config-options/#upgrade-pacha-tree)).
 - You run the commands against any node that acts as the **compactor**, including `mode=all`.
