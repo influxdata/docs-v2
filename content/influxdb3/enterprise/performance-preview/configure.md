@@ -1,15 +1,16 @@
 ---
-title: Configure the performance upgrade preview
-seotitle: Performance upgrade preview configuration reference for InfluxDB 3 Enterprise
+title: Configure the upgraded storage engine
+seotitle: Upgraded storage engine configuration reference for InfluxDB 3 Enterprise
 description: >
-  Complete reference for all configuration options available with the InfluxDB 3 Enterprise
-  performance upgrades, including WAL, snapshot, compaction, caching, and replication settings.
+  Complete reference for all configuration options available with the upgraded
+  InfluxDB 3 Enterprise storage engine, including WAL, snapshot, compaction,
+  caching, and replication settings.
 menu:
   influxdb3_enterprise:
     name: Configuration reference
-    parent: Performance upgrade preview
+    parent: Storage engine upgrade
 weight: 202
-influxdb3/enterprise/tags: [storage, configuration, beta, preview, reference]
+influxdb3/enterprise/tags: [storage, configuration, reference]
 related:
   - /influxdb3/enterprise/performance-preview/
   - /influxdb3/enterprise/performance-preview/monitor/
