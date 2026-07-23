@@ -99,7 +99,7 @@ procedure before removal is the only protection against losing the tail.
 If the node genuinely cannot be restarted (for example, its data is
 unrecoverable or the hardware is gone) and you accept the possible loss of
 un-snapshotted writes, use the
-[`--force-finalize` option](/influxdb3/enterprise/reference/cli/influxdb3/remove/node/#force-removal-of-a-wedged-node-data-loss-unsafe)
+[`--force-finalize` option](/influxdb3/enterprise/reference/cli/influxdb3/remove/node/#force-removal-of-a-node-that-did-not-shut-down-cleanly)
 to force the removal:
 
 <!--pytest.mark.skip-->
@@ -109,9 +109,11 @@ influxdb3 remove node --node-id NODE_ID --force-finalize
 ```
 
 > [!Warning]
-> `--force-finalize` is **DATA-LOSS-UNSAFE**: it removes the node using
+> `--force-finalize` **can lose data**: it removes the node using
 > whatever snapshot exists in object storage and permanently deletes any
 > acknowledged writes not covered by that snapshot.
+> If the node had finished snapshotting and only failed to report a clean
+> stop, nothing is lost.
 > Always attempt the [recovery procedure](#recover-the-node) first.
 
 ## Verify node status
