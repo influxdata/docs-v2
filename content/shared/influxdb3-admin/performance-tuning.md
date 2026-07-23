@@ -83,12 +83,13 @@ Use the following to tune performance in _all-in-one_ deployments:
 
 {{% show-in "enterprise" %}}
 > [!Important]
-> #### Thread defaults on PachaTree clusters
+> #### Thread defaults on the upgraded storage engine
 >
 > The 2-IO-thread default and the manual thread-allocation guidance in this
 > section apply to Parquet-engine clusters (clusters that started on 3.10 or
 > earlier that have not run the storage engine upgrade).
-> On PachaTree clusters (the default for new clusters), the IO and DataFusion
+> On clusters running the upgraded storage engine (the default for new
+> clusters), the IO and DataFusion
 > runtimes each default to the licensed core count, and thread counts set
 > above the licensed core count are capped with a startup warning.
 > An at-home license always runs 1 IO thread and 1 DataFusion thread.

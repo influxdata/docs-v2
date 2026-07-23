@@ -18,14 +18,14 @@ related:
 ---
 
 > [!Important]
-> #### PachaTree is the default storage engine for new clusters
-> PachaTree is the default storage engine for new {{% product-name %}}
-> clusters--no flag is required.
+> #### The upgraded storage engine is the default for new clusters
+> New {{% product-name %}} clusters default to the upgraded storage
+> engine--no flag is required.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
 > run the storage engine upgrade by restarting the cluster with
 > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
-This page provides a complete reference for the PachaTree storage engine
+This page provides a complete reference for the upgraded storage engine
 configuration options.
 
 If an option is omitted, the server either derives a value from the existing
@@ -59,7 +59,8 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > [Migrate from pt- option names](#migrate-from-pt-option-names).
 
 > [!Note]
-> On PachaTree clusters, the IO and DataFusion runtimes each default to the
+> On clusters running the upgraded storage engine, the IO and DataFusion
+> runtimes each default to the
 > licensed core count.
 > Thread counts set above the licensed core count are capped with a startup
 > warning.
@@ -80,15 +81,15 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) | Migrate the cluster's existing Parquet data to the PachaTree storage engine. New clusters default to PachaTree and do not need this flag. | `false` |
+| [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) | Migrate the cluster's existing Parquet data to the upgraded storage engine. New clusters default to the upgraded engine and do not need this flag. | `false` |
 | `--engine-path-prefix` | Optional path prefix for all engine data (WAL and compaction generations). Max 32 characters. Must start and end with alphanumeric; inner characters allow `[a-zA-Z0-9._-]`. Shorter paths improve partitioning in object stores. | No prefix |
 | `--max-total-columns` | Maximum total columns across the entire instance (distinct from the per-table [`--num-total-columns-per-table-limit`](/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit)). Must be at least 2. | `10,000,000` (10M) |
 | `--enable-retention` | Enable retention enforcement. | `true` |
-| `--disable-hybrid-query` | Disable hybrid query mode. During and after a Parquet-to-PachaTree migration, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
+| `--disable-hybrid-query` | Disable hybrid query mode. During and after the storage engine upgrade, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
 | `--enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. | Disabled |
 | `--auto-dvc-max-cardinality` | Maximum cardinality for auto-created distinct value caches. Requires `--enable-auto-dvc`. | `100000` |
 | `--auto-dvc-refresh-interval` | Background refresh interval for auto-created distinct value caches; minimum `1s`. Requires `--enable-auto-dvc`. | `10m` |
-| `--upgrade-poll-interval` | Polling interval for Parquet-to-PachaTree upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet). | `5s` |
+| `--upgrade-poll-interval` | Polling interval for storage engine upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet). | `5s` |
 
 ### Engine path prefix
 
@@ -102,7 +103,7 @@ influxdb3 serve \
 
 ### Hybrid query mode
 
-During and after a Parquet-to-PachaTree migration, hybrid query mode merges
+During and after the storage engine upgrade, hybrid query mode merges
 results across both Parquet and `.pt` files.
 Disable hybrid mode to query only `.pt` data:
 
@@ -207,7 +208,7 @@ Configure data file caching for query performance.
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) | Total data file cache budget, shared with the Parquet-based engine. During a Parquet-to-PachaTree migration with hybrid query enabled, the budget is split 50/50 between the two engine caches; otherwise, the active engine receives the full budget. Provide a unit suffix or percentage (bare numbers are rejected). Set to `0b` on dedicated ingest nodes. | `20%` |
+| [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) | Total data file cache budget, shared with the Parquet-based engine. During the storage engine upgrade with hybrid query enabled, the budget is split 50/50 between the two engine caches; otherwise, the active engine receives the full budget. Provide a unit suffix or percentage (bare numbers are rejected). Set to `0b` on dedicated ingest nodes. | `20%` |
 | [`--disable-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-file-cache) | Disable data file caching in both engines. Set to `true` on dedicated ingest nodes. | `false` |
 | [`--file-cache-recency`](/influxdb3/enterprise/reference/config-options/#file-cache-recency) | Only cache files newer than this age. Pre-caching on all-in-one and query nodes is based on this value. Shared with the Parquet-based engine. | `3d` |
 | `--file-cache-evict-after` | Evict cached files that have not been read within this duration. | `24h` |

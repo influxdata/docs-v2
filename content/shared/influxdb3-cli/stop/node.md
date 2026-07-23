@@ -6,7 +6,8 @@ When you run this command against a **live** node:
 1. The node is marked as `stopping` in the catalog.
 2. The node completes its stop cascade--including draining its
    write-ahead log (WAL) tail (the Parquet engine flushes the WAL; the
-   PachaTree engine snapshots it)--and then confirms the stop.
+   upgraded storage engine, the default for new clusters, snapshots
+   it)--and then confirms the stop.
 3. The node reads as `stopped` in the catalog, and its licensed cores are
    freed for other nodes.
 
@@ -30,7 +31,7 @@ Use `--no-wait` to return as soon as the stop request is accepted.
 
 > [!Note]
 > Sending the server process a bare `SIGTERM` (without calling `stop node`)
-> does not force a PachaTree WAL snapshot.
+> does not force a WAL snapshot on the upgraded storage engine.
 > Always use `stop node` to stop a cluster node gracefully.
 
 ## Usage
@@ -71,7 +72,7 @@ The node lifecycle is two-phase: `stop node` marks the node `stopping`, but
 the node only reads as `stopped` after its own stop cascade completes and it
 confirms the stop.
 That cascade is what drains the node's WAL tail (Parquet: WAL flush;
-PachaTree: WAL snapshot).
+upgraded engine: WAL snapshot).
 
 - By default, the command polls the node state (from `system.nodes`) until it
   reaches `stopped`, up to `--timeout` (default `5m`).

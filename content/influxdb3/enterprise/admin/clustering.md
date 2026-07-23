@@ -596,7 +596,7 @@ GROUP BY event_type;
 - Increasing query times due to file fragmentation
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
-The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
+The upgraded storage engine (the default for new clusters) does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
 
 ## Troubleshoot node configurations
 

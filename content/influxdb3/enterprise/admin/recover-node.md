@@ -21,7 +21,8 @@ Use this procedure to recover a node that stopped **ungracefully**--for
 example, the process crashed, was killed (`kill -9`), or its container was
 force-stopped--or that is wedged in the `stopping` state.
 
-This procedure applies to both storage engines (Parquet and PachaTree).
+This procedure applies to both the Parquet engine and the upgraded storage
+engine (the default for new clusters).
 
 ## Why ungraceful stops put writes at risk
 
@@ -29,8 +30,8 @@ A node buffers recently acknowledged writes in its write-ahead log (WAL) and
 only periodically captures them in a snapshot.
 A graceful [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
 against the **live** node drains this WAL tail before the node reads as
-`stopped`--the Parquet engine flushes the WAL and the PachaTree engine
-snapshots it.
+`stopped`--the Parquet engine flushes the WAL and the upgraded storage
+engine snapshots it.
 
 A node that dies without a graceful stop skips that drain:
 
@@ -39,13 +40,15 @@ A node that dies without a graceful stop skips that drain:
   purges its object-store file paths, permanently deleting any acknowledged
   writes not covered by its last snapshot.
 - Sending the process a bare `SIGTERM` (without calling `stop node`) does not
-  force a PachaTree WAL snapshot, so a plain process shutdown can also leave
+  force a WAL snapshot on the upgraded storage engine, so a plain process
+  shutdown can also leave
   a WAL tail behind.
 
-On PachaTree clusters, `remove node` refuses (HTTP 409) to remove a `stopped`
+On clusters that have fully adopted the upgraded storage engine,
+`remove node` refuses (HTTP 409) to remove a `stopped`
 node that still has an un-snapshotted WAL tail unless you pass
 `--force-finalize`.
-Parquet clusters and clusters mid-migration (`ParquetAndPachaTree`) do
+Parquet clusters and clusters still mid-upgrade do
 **not** have this safeguard--on those clusters, completing this recovery
 procedure before removal is the only protection against losing the tail.
 
@@ -67,7 +70,8 @@ procedure before removal is the only protection against losing the tail.
    ```
 
 2. **Stop the node gracefully** and wait for it to reach `stopped`.
-   This drains the WAL tail (Parquet: WAL flush; PachaTree: WAL snapshot):
+   This drains the WAL tail (Parquet: WAL flush; upgraded engine: WAL
+   snapshot):
 
    <!--pytest.mark.skip-->
 

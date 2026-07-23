@@ -17,16 +17,16 @@ related:
 ---
 
 > [!Important]
-> #### PachaTree is the default storage engine for new clusters
-> PachaTree, the storage engine described on these pages, is the default
-> storage engine for new {{% product-name %}} clusters.
+> #### The upgraded storage engine is the default for new clusters
+> The upgraded storage engine described on these pages is the default for
+> new {{% product-name %}} clusters.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
 > run the storage engine upgrade by restarting the cluster with
 > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
 {{% product-name %}} provides system tables and a query telemetry endpoint to
 monitor file status, query execution, and overall performance when using the
-PachaTree storage engine.
+upgraded storage engine.
 
 ## System tables
 
@@ -112,8 +112,8 @@ ORDER BY generation;
 
 ### Compaction tables
 
-The following system tables expose the state of the pacha-tree compaction
-subsystem.
+The following system tables expose the state of the upgraded storage engine's
+compaction subsystem.
 
 #### system.pt_compaction_active_jobs
 
