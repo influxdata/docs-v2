@@ -1,0 +1,39 @@
+{{/*
+  Sorted API Tag Articles
+
+  Sorts generated API tag articles (from data/article_data) for display:
+  partitions into conceptual (traitTag) and operation articles, sorts each
+  group by fields.weight, and returns conceptual articles first.
+
+  Skips malformed entries that are not maps with a "fields" map.
+
+  Parameter: slice of article maps, each with a "fields" map containing
+  optional "isConceptual" and "weight".
+  Returns: sorted slice.
+
+  Used by sidebar/api-menu-items.html and api/section-children.html.
+*/}}
+{{ $conceptualArticles := slice }}
+{{ $operationArticles := slice }}
+
+{{ range . }}
+  {{ if and (reflect.IsMap .) (isset . "fields") }}
+    {{ $fields := index . "fields" }}
+    {{ if reflect.IsMap $fields }}
+      {{ $isConceptual := false }}
+      {{ if isset $fields "isConceptual" }}
+        {{ $isConceptual = index $fields "isConceptual" }}
+      {{ end }}
+      {{ if $isConceptual }}
+        {{ $conceptualArticles = $conceptualArticles | append . }}
+      {{ else }}
+        {{ $operationArticles = $operationArticles | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+{{ $operationArticles = sort $operationArticles "fields.weight" }}
+
+{{ return ($conceptualArticles | append $operationArticles) }}
