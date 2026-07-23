@@ -29,7 +29,7 @@ influxdb3 remove node [OPTIONS] --node-id <NODE_ID>
 | :----- | :----------------- | :--------------------------------------------------------------------------------------- |
 |        | `--node-id`        | *({{< req >}})* The node ID to remove                                                    |
 |        | `--no-confirm`     | Skip the confirmation prompt                                                             |
-|        | `--force-finalize` | **DATA-LOSS-UNSAFE**: force removal of a node that did not shut down cleanly (see [Force removal](#force-removal-of-a-wedged-node-data-loss-unsafe)) |
+|        | `--force-finalize` | Force removal of a node that did not shut down cleanly--**this can lose data** (see [Force removal](#force-removal-of-a-node-that-did-not-shut-down-cleanly)) |
 | `-H`   | `--host`           | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 |        | `--token`          | Authentication token                                                                     |
 |        | `--tls-ca`         | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
@@ -88,7 +88,7 @@ and then remove it.
 > [`stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/) before
 > removal is the only protection against losing an un-drained WAL tail.
 
-## Force removal of a wedged node (DATA-LOSS-UNSAFE)
+## Force removal of a node that did not shut down cleanly
 
 If `remove node` fails without `--force-finalize`, the node never finished
 stopping--its process is gone and never confirmed a clean stop.

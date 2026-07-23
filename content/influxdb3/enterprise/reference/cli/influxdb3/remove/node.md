@@ -2,8 +2,8 @@
 title: influxdb3 remove node
 description: >
   The `influxdb3 remove node` command permanently removes a stopped node from an
-  InfluxDB 3 Enterprise cluster. The `--force-finalize` option is a
-  data-loss-unsafe escape hatch for nodes that cannot complete a graceful stop.
+  InfluxDB 3 Enterprise cluster. The `--force-finalize` option force-removes
+  a node that did not shut down cleanly and can lose data.
 menu:
   influxdb3_enterprise:
     parent: influxdb3 remove
