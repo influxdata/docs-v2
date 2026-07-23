@@ -93,22 +93,7 @@
       <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ $specLabel }} nested items"></a>
       <a href="{{ $specUrl | relURL }}">{{ $specLabel }}</a>
       <ul class="children">
-        {{/* Separate conceptual and non-conceptual articles */}}
-        {{ $conceptualArticles := slice }}
-        {{ $operationArticles := slice }}
-        {{ range $specArticles }}
-          {{ $fields := index . "fields" }}
-          {{ $isConceptual := index $fields "isConceptual" }}
-          {{ if $isConceptual }}
-            {{ $conceptualArticles = $conceptualArticles | append . }}
-          {{ else }}
-            {{ $operationArticles = $operationArticles | append . }}
-          {{ end }}
-        {{ end }}
-
-        {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-        {{ $operationArticles = sort $operationArticles "fields.weight" }}
-        {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+        {{ $sortedArticles := partial "api/sorted-tag-articles.html" $specArticles }}
 
         {{ range $sortedArticles }}
           {{ $articlePath := index . "path" }}
@@ -140,26 +125,7 @@
   {{ end }}
 
   {{ if gt (len $articles) 0 }}
-    {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
-    {{ $conceptualArticles := slice }}
-    {{ $operationArticles := slice }}
-
-    {{ range $articles }}
-      {{ $fields := index . "fields" }}
-      {{ $isConceptual := index $fields "isConceptual" }}
-      {{ if $isConceptual }}
-        {{ $conceptualArticles = $conceptualArticles | append . }}
-      {{ else }}
-        {{ $operationArticles = $operationArticles | append . }}
-      {{ end }}
-    {{ end }}
-
-    {{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
-    {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-    {{ $operationArticles = sort $operationArticles "fields.weight" }}
-
-    {{/* Combine: conceptual first, then operations */}}
-    {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+    {{ $sortedArticles := partial "api/sorted-tag-articles.html" $articles }}
 
     {{/* Render each tag as a nav item */}}
     {{ range $sortedArticles }}

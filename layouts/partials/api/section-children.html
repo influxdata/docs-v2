@@ -43,33 +43,7 @@
   {{ end }}
 {{ end }}
 
-{{/* Separate conceptual (traitTag) and non-conceptual articles */}}
-{{ $conceptualArticles := slice }}
-{{ $operationArticles := slice }}
-
-{{ range $articles }}
-  {{ if and (reflect.IsMap .) (isset . "fields") }}
-    {{ $fields := index . "fields" }}
-    {{ if reflect.IsMap $fields }}
-      {{ $isConceptual := false }}
-      {{ if isset $fields "isConceptual" }}
-        {{ $isConceptual = index $fields "isConceptual" }}
-      {{ end }}
-      {{ if $isConceptual }}
-        {{ $conceptualArticles = $conceptualArticles | append . }}
-      {{ else }}
-        {{ $operationArticles = $operationArticles | append . }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-
-{{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
-{{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-{{ $operationArticles = sort $operationArticles "fields.weight" }}
-
-{{/* Combine: conceptual first, then operations */}}
-{{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+{{ $sortedArticles := partial "api/sorted-tag-articles.html" $articles }}
 
 {{/* Also include static API pages (HTML files) not in article data */}}
 {{/* These are compatibility API pages like v1-compatibility, v2, management */}}
