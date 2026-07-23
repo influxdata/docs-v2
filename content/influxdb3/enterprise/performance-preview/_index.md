@@ -1,15 +1,16 @@
 ---
-title: Performance upgrade preview
-seotitle: Performance upgrade preview for InfluxDB 3 Enterprise
+title: Storage engine upgrade
+seotitle: Storage engine upgrade for InfluxDB 3 Enterprise
 description: >
-  Preview performance upgrades in InfluxDB 3 Enterprise with improved
-  single-series query performance, consistent resource usage, wide-and-sparse
-  table support, column families, and bulk data export.
+  Learn about the upgraded InfluxDB 3 Enterprise storage engine--the default
+  for new clusters--with improved single-series query performance, consistent
+  resource usage, wide-and-sparse table support, column families, and bulk
+  data export.
 menu:
   influxdb3_enterprise:
-    name: Performance upgrade preview
+    name: Storage engine upgrade
 weight: 12
-influxdb3/enterprise/tags: [storage, performance, beta, preview]
+influxdb3/enterprise/tags: [storage, performance]
 related:
   - /influxdb3/enterprise/get-started/setup/
   - /influxdb3/enterprise/performance-preview/configure/
