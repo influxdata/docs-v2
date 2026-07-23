@@ -90,19 +90,12 @@
         {{ $conceptualArticles := slice }}
         {{ $operationArticles := slice }}
         {{ range $specArticles }}
-          {{ if and (reflect.IsMap .) (isset . "fields") }}
-            {{ $fields := index . "fields" }}
-            {{ if reflect.IsMap $fields }}
-              {{ $isConceptual := false }}
-              {{ if isset $fields "isConceptual" }}
-                {{ $isConceptual = index $fields "isConceptual" }}
-              {{ end }}
-              {{ if $isConceptual }}
-                {{ $conceptualArticles = $conceptualArticles | append . }}
-              {{ else }}
-                {{ $operationArticles = $operationArticles | append . }}
-              {{ end }}
-            {{ end }}
+          {{ $fields := index . "fields" }}
+          {{ $isConceptual := index $fields "isConceptual" }}
+          {{ if $isConceptual }}
+            {{ $conceptualArticles = $conceptualArticles | append . }}
+          {{ else }}
+            {{ $operationArticles = $operationArticles | append . }}
           {{ end }}
         {{ end }}
 
@@ -145,19 +138,12 @@
     {{ $operationArticles := slice }}
 
     {{ range $articles }}
-      {{ if and (reflect.IsMap .) (isset . "fields") }}
-        {{ $fields := index . "fields" }}
-        {{ if reflect.IsMap $fields }}
-          {{ $isConceptual := false }}
-          {{ if isset $fields "isConceptual" }}
-            {{ $isConceptual = index $fields "isConceptual" }}
-          {{ end }}
-          {{ if $isConceptual }}
-            {{ $conceptualArticles = $conceptualArticles | append . }}
-          {{ else }}
-            {{ $operationArticles = $operationArticles | append . }}
-          {{ end }}
-        {{ end }}
+      {{ $fields := index . "fields" }}
+      {{ $isConceptual := index $fields "isConceptual" }}
+      {{ if $isConceptual }}
+        {{ $conceptualArticles = $conceptualArticles | append . }}
+      {{ else }}
+        {{ $operationArticles = $operationArticles | append . }}
       {{ end }}
     {{ end }}
 
