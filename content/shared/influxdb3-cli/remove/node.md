@@ -61,9 +61,10 @@ Any acknowledged writes that were **not** covered by the node's final
 snapshot are deleted with them--that is why the node must complete a graceful
 stop first.
 
-### Removal is refused if un-snapshotted WAL remains (PachaTree)
+### Removal is refused if un-snapshotted WAL remains (upgraded engine)
 
-On clusters using the PachaTree storage engine, removing a `stopped` node
+On clusters that have fully adopted the upgraded storage engine (the default
+for new clusters), removing a `stopped` node
 that still has an un-snapshotted WAL tail is **refused** (HTTP 409):
 
 ```text
@@ -79,9 +80,11 @@ node with the same `--node-id`, stop it gracefully so it snapshots the tail,
 and then remove it.
 
 > [!Note]
-> This safeguard applies only to clusters whose storage mode is PachaTree.
-> Parquet clusters and clusters that are mid-migration
-> (`ParquetAndPachaTree`) are **not** guarded--on those clusters, a graceful
+> This safeguard applies only to clusters that have fully adopted the
+> upgraded storage engine (new clusters, or after the storage engine upgrade
+> completes).
+> Parquet clusters and clusters still mid-upgrade are **not**
+> guarded--on those clusters, a graceful
 > [`stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/) before
 > removal is the only protection against losing an un-drained WAL tail.
 

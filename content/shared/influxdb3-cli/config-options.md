@@ -176,9 +176,9 @@ Legacy names remain supported as deprecated aliases.
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTER` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` |
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR` |
 
-#### Removed performance-preview option names (no aliases)
+#### Removed pt- option names (no aliases)
 
-PachaTree storage engine options dropped the `pt-`
+Options for the upgraded storage engine (PachaTree) dropped the `pt-`
 prefix without backward compatibility: old `--pt-*` flags cause a startup
 error, and legacy `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*`
 environment variables are ignored (the server logs a warning at startup for
@@ -223,7 +223,7 @@ Sets the number of threads allocated to the IO runtime thread pool. IO threads h
 
 {{% show-in "enterprise" %}}
 **Default:** `2` on Parquet-engine clusters; the licensed core count on
-PachaTree clusters (the default for new clusters).
+clusters running the upgraded storage engine (the default for new clusters).
 Values above the licensed core count are capped with a startup warning.
 {{% /show-in %}}
 
@@ -249,8 +249,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 > \[!Note]
 > #### Storage engines and option visibility
 >
-> PachaTree is the default storage engine for new {{% product-name %}}
-> clusters.
+> New {{% product-name %}} clusters default to the upgraded storage engine.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
 > run the storage engine upgrade by restarting the cluster with
 > [`--upgrade-pacha-tree`](#upgrade-pacha-tree).
@@ -452,9 +451,9 @@ This option supports the following values:
 
 <span id="use-pacha-tree"></span>
 
-Migrates the cluster's existing Parquet data to the PachaTree storage engine.
+Migrates the cluster's existing Parquet data to the upgraded storage engine.
 
-PachaTree is the default storage engine for new clusters.
+New clusters default to the upgraded storage engine.
 Clusters that started on 3.10 or earlier keep the Parquet engine until you run
 the storage engine upgrade by restarting the cluster with
 `--upgrade-pacha-tree`.
@@ -1759,7 +1758,7 @@ The default is dynamically determined.
 > The `compaction-*` and `gen1-*` options apply to the Parquet engine only
 > (clusters that started on 3.10 or earlier that have not run the
 > [storage engine upgrade](#upgrade-pacha-tree)).
-> For PachaTree compaction options, see the
+> For the upgraded storage engine's compaction options, see the
 > [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/).
 
 - [compaction-row-limit](#compaction-row-limit)
@@ -1965,9 +1964,10 @@ This is a total budget.
 {{% show-in "enterprise" %}}
 With the Parquet engine, the budget is used entirely by the in-memory Parquet
 cache.
-During a Parquet-to-PachaTree migration with hybrid query enabled, the budget
-is split 50/50 between the hybrid-query Parquet cache and the PachaTree file
-cache; otherwise, the single active cache receives the full budget.
+During the storage engine upgrade with hybrid query enabled, the budget
+is split 50/50 between the hybrid-query Parquet cache and the upgraded
+engine's file cache; otherwise, the single active cache receives the full
+budget.
 {{% /show-in %}}
 
 **Default:** `20%`
@@ -2045,7 +2045,8 @@ If a query requests data from `2024-06-09` (old) and `2024-06-10 14:00` (recent)
 
 Disables the in-memory data file cache. By default, the cache is enabled.
 {{% show-in "enterprise" %}}
-This disables data file caching in both the Parquet and PachaTree engines.
+This disables data file caching in both the Parquet and upgraded storage
+engines.
 {{% /show-in %}}
 
 > \[!Note]
@@ -2492,11 +2493,12 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 > workloads like [ingest mode](#mode) where you may need more IO threads than the default allocation.
 
 > \[!Note]
-> #### Thread defaults on PachaTree clusters
+> #### Thread defaults on the upgraded storage engine
 >
 > The default thread assignment logic above applies to Parquet-engine
 > clusters.
-> On PachaTree clusters (the default for new clusters), the IO and DataFusion
+> On clusters running the upgraded storage engine (the default for new
+> clusters), the IO and DataFusion
 > runtimes each default to the licensed core count, and the node consumes the
 > licensed core count regardless of thread configuration.
 > Thread counts set above the licensed core count are capped with a startup
@@ -2551,7 +2553,7 @@ DataFusion threads handle:
 {{% show-in "enterprise" %}}
 **Default:**
 
-- PachaTree clusters (the default for new clusters): the licensed core count
+- Clusters running the upgraded storage engine (the default for new clusters): the licensed core count
 - Parquet-engine clusters, if `--num-cores` is not set: all available cores minus IO threads
 - Parquet-engine clusters, if `--num-cores` is set: automatically determined based on core count (see [`--num-cores`](#num-cores))
 
@@ -2560,7 +2562,7 @@ DataFusion threads handle:
 > Even ingest-only nodes use DataFusion threads during WAL snapshot creation.
 
 **Constraints:** On Parquet-engine clusters, when used with `--num-cores`, the sum of `--num-io-threads` and `--datafusion-num-threads` cannot exceed the `num-cores` value.
-On PachaTree clusters, values above the licensed core count are capped with a startup warning.
+On clusters running the upgraded storage engine, values above the licensed core count are capped with a startup warning.
 {{% /show-in %}}
 
 | influxdb3 serve option     | Environment variable               |
@@ -2579,12 +2581,14 @@ On PachaTree clusters, values above the licensed core count are capped with a st
 > `num-total-columns-per-table-limit` apply to the Parquet engine only
 > (clusters that started on 3.10 or earlier that have not run the
 > [storage engine upgrade](#upgrade-pacha-tree)).
-> On PachaTree clusters, explicitly setting these options logs a startup
+> On clusters running the upgraded storage engine, explicitly setting these
+> options logs a startup
 > warning and has no effect.
 > `--max-total-columns` (documented in the
 > [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/))
-> is the PachaTree counterpart of `--num-total-columns-per-table-limit`;
-> the database and table limits have no PachaTree equivalent.
+> is the upgraded storage engine's counterpart of
+> `--num-total-columns-per-table-limit`;
+> the database and table limits have no equivalent on the upgraded engine.
 
 #### num-database-limit
 

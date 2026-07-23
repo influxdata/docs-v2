@@ -82,8 +82,6 @@ Available modes:
 > [!Warning]
 > #### Don't use all mode in a multi-node cluster
 >
-> #### Don't use all mode in a multi-node cluster
->
 > Use `all` mode for **single-node** Enterprise deployments only.
 > Some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
 > In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
@@ -611,7 +609,7 @@ GROUP BY event_type;
 - Increasing query times due to file fragmentation
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
-The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview configuration reference](/influxdb3/enterprise/performance-preview/configure/) for tuning guidance.
+The upgraded storage engine (the default for new clusters) does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
