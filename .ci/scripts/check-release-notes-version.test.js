@@ -4,10 +4,14 @@
  * Run: node .ci/scripts/check-release-notes-version.test.js
  *
  * These exercise the pure comparison/mapping logic in evaluate() with a fake
- * products object and an injected version lookup, so they don't touch disk.
+ * products object and an injected version lookup, plus parseEditionVersions()
+ * with fixture text, so they don't touch disk.
  */
 import assert from 'node:assert';
-import { evaluate } from './check-release-notes-version.js';
+import {
+  evaluate,
+  parseEditionVersions,
+} from './check-release-notes-version.js';
 
 let pass = 0;
 let fail = 0;
@@ -30,11 +34,21 @@ const products = {
 };
 
 const V3 = 'content/shared/v3-core-enterprise-release-notes/_index.md';
-const lookup = (map) => (f) => (f in map ? map[f] : null);
+
+// Injected lookup: a `notesFile#edition` key wins over a bare `notesFile` key,
+// mirroring the edition-aware default reader.
+const lookup = (map) => (f, ed) => {
+  const keyed = ed ? `${f}#${ed}` : null;
+  if (keyed && keyed in map) return map[keyed];
+  return f in map ? map[f] : null;
+};
 
 test('in sync → ok', () => {
   const r = evaluate(products, new Set([V3]), lookup({ [V3]: '3.10.3' }));
-  assert.strictEqual(r.find((x) => x.product === 'influxdb3_core').status, 'ok');
+  assert.strictEqual(
+    r.find((x) => x.product === 'influxdb3_core').status,
+    'ok'
+  );
 });
 
 test('notes newer than products.yml → drift (scalar field)', () => {
@@ -50,6 +64,23 @@ test('shared v3 file maps to both core and enterprise', () => {
   const drifted = r.filter((x) => x.status === 'drift').map((x) => x.product);
   assert.ok(drifted.includes('influxdb3_core'));
   assert.ok(drifted.includes('influxdb3_enterprise'));
+});
+
+test('per-edition: Enterprise-only newer release does not flag Core', () => {
+  // Enterprise documents 3.10.4, Core still at 3.10.3 (Core section pending).
+  const r = evaluate(
+    products,
+    new Set([V3]),
+    lookup({ [`${V3}#core`]: '3.10.3', [`${V3}#enterprise`]: '3.10.4' })
+  );
+  assert.strictEqual(
+    r.find((x) => x.product === 'influxdb3_core').status,
+    'ok'
+  );
+  assert.strictEqual(
+    r.find((x) => x.product === 'influxdb3_enterprise').status,
+    'drift'
+  );
 });
 
 test('map-shaped product (telegraf v1) drift', () => {
@@ -77,12 +108,60 @@ test('out-of-scope product is not included', () => {
 
 test('products.yml ahead of notes → ahead status', () => {
   const r = evaluate(products, new Set([V3]), lookup({ [V3]: '3.10.2' }));
-  assert.strictEqual(r.find((x) => x.product === 'influxdb3_core').status, 'ahead');
+  assert.strictEqual(
+    r.find((x) => x.product === 'influxdb3_core').status,
+    'ahead'
+  );
 });
 
 test('null changed set checks everything', () => {
   const r = evaluate(products, null, lookup({ [V3]: '3.10.3' }));
   assert.ok(r.length > 1);
+});
+
+test('parseEditionVersions: commented-out Core section is ignored', () => {
+  const fixture = [
+    '## v3.10.4 {date="2026-07-14"}',
+    '',
+    '<!-- Uncomment once Core v3.10.4 is released',
+    '### Core',
+    '#### Bug fixes',
+    '- core thing',
+    '-->',
+    '',
+    '### Enterprise',
+    '#### Features',
+    '- enterprise thing',
+    '',
+    '## v3.10.3 {date="2026-07-07"}',
+    '',
+    '### Core',
+    '#### Bug fixes',
+    '- core thing',
+    '',
+    '### Enterprise',
+    '- enterprise thing',
+    '',
+  ].join('\n');
+  const v = parseEditionVersions(fixture);
+  assert.strictEqual(v.enterprise, '3.10.4'); // live at the top
+  assert.strictEqual(v.core, '3.10.3'); // top Core is commented → next live one
+});
+
+test('parseEditionVersions: both live at top', () => {
+  const fixture = [
+    '## v3.10.5 {date="2026-07-20"}',
+    '',
+    '### Core',
+    '- a',
+    '',
+    '### Enterprise',
+    '- b',
+    '',
+  ].join('\n');
+  const v = parseEditionVersions(fixture);
+  assert.strictEqual(v.core, '3.10.5');
+  assert.strictEqual(v.enterprise, '3.10.5');
 });
 
 console.log(`\n${pass} passed, ${fail} failed`);

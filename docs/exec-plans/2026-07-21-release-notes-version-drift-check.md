@@ -31,9 +31,10 @@ a longer effort to remove the drift at its source (see Roadmap).
   Non-blocking; prints a per-product status table, a drift reminder, and a badge
   reminder.
 - `.github/workflows/pr-release-check.yml` — job A posts the reminder as a sticky
-  PR comment; job B is a release-readiness gate that, only on a real version bump,
-  verifies the new version's download artifacts resolve and blocks merge if they
-  don't (override label `release:artifacts-pending`).
+  PR comment; job B, on a real version bump (detected by
+  `.ci/scripts/detect-version-bump.js` comparing parsed `latest_patch` values),
+  posts a non-blocking reminder to confirm the new version's download artifacts
+  are published. Neither job blocks merge.
 - `.github/workflows/pr-link-check.yml` — now also checks the download/install
   pages when `data/products.yml` changes, closing the gap where a version-only PR
   never re-checked those URLs.
@@ -41,22 +42,31 @@ a longer effort to remove the drift at its source (see Roadmap).
 
 ## Decisions
 
-- **Reminder is non-blocking; the artifact gate blocks only on real version-bump
-  PRs.** A drift reminder shouldn't fail unrelated edits. Missing binaries *should*
-  stop a release PR from publishing ahead of the artifacts — automating a
-  previously manual check — but with the `release:artifacts-pending` override for
-  intentional staging.
+- **Both checks are non-blocking reminders.** A drift reminder shouldn't fail
+  unrelated edits, and the artifact reminder just surfaces a version bump so the
+  author confirms the binaries are published — neither blocks merge. The rendered
+  download URLs are verified (non-blocking) by `pr-link-check.yml`, which checks
+  the install/download pages on any `data/products.yml` change. An earlier draft
+  had a blocking artifact gate; review flagged it as fail-open and over-broad
+  (it checked unrelated products and all links, not just artifacts), so it was
+  reduced to a reminder.
 - **Telegraf is checked and reported, not skipped.** Its internal automation keeps
   `products.yml` in sync, so it normally reports success; that green result
   confirms the automation ran, and a mismatch would surface a regression in it.
 - **General download-link health lives in `pr-link-check.yml`, not the new
   workflow.** Widening that existing check helps every product on any
   `products.yml` change and avoids duplicating the Hugo build + link-checker. The
-  new workflow keeps only the release-specific artifact gate.
+  new workflow keeps only the release-specific reminders.
 - **Explicit release-notes→product mapping in the script**, validated against
   `products.yml` at runtime, rather than inferring paths. The locations are stable
   and few; an explicit table is clearer and fails safe (unknown field → info note,
-  not a crash). The shared v3 file maps to both Core and Enterprise.
+  not a crash).
+- **Core and Enterprise are compared per edition, not by the shared file's top
+  heading.** The v3 shared file interleaves `### Core` / `### Enterprise`
+  subsections and can comment out an edition's section pending its build (e.g. an
+  Enterprise-only `v3.10.4` with `### Core` commented out). `parseEditionVersions`
+  strips HTML comments and takes the newest _live_ section per edition, so Core is
+  never flagged to bump to a version it hasn't shipped.
 - **Change detection uses `git diff`, not the GitHub Files API.** The API is flaky
   and the repo is already moving off it (mirrors `pr-remark-check.yml` / `test.yml`).
 - **No new badge shortcode.** The version badge already exists as frontmatter

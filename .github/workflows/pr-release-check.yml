@@ -1,28 +1,26 @@
 name: Release Version Check
 
-# Two things on release-related PRs:
+# Two non-blocking reminders on release-related PRs:
 #
-#   1. Reminder (non-blocking): when a product's release-notes page advances past
-#      the version in data/products.yml, remind the author to bump it. That
-#      number feeds the {{< latest-patch >}} shortcode, which builds every
+#   1. version-reminder — when a product's release-notes page advances past the
+#      version in data/products.yml, remind the author to bump it. That number
+#      feeds the {{< latest-patch >}} shortcode, which builds every
 #      dl.influxdata.com download URL and the versions in install/code examples,
 #      so a missed bump silently points the docs at the previous release.
 #      Every product is checked and reported (Telegraf included — it normally
 #      reports success because its internal automation keeps the value in sync).
 #
-#   2. Release-readiness gate (blocking, only on a real version bump): verify the
-#      new version's download artifacts are actually published at
-#      dl.influxdata.com before the docs merge. Automates a currently-manual
-#      check. Override with the `release:artifacts-pending` label when docs are
-#      intentionally staged ahead of the binaries.
+#   2. release-readiness — when a PR actually bumps a latest_patch/latest_patches
+#      value, remind the author to confirm the new version's download artifacts
+#      are published before the docs go live. This is a reminder, not a gate; the
+#      rendered download/install URLs are verified (non-blocking) by
+#      pr-link-check.yml, which checks those pages on any data/products.yml change.
 #
-# General download-link health for every product is handled separately by the
-# pr-link-check.yml change that checks download/install pages on any
-# data/products.yml change.
+# Neither job blocks merge.
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
+    types: [opened, synchronize, reopened]
     paths:
       - 'content/**/release-notes.md'
       - 'content/**/release-notes/**'
@@ -110,8 +108,8 @@ jobs:
               });
             }
 
-  artifact-readiness:
-    name: Release artifact readiness
+  release-readiness:
+    name: Release artifact reminder
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -119,106 +117,50 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Only a real version bump (a changed latest_patch / latest_patches line in
-      # data/products.yml) makes this gate meaningful.
-      - name: Detect version bump
-        id: bump
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          ADDED=$(git diff "$BASE_SHA"..."$HEAD_SHA" -- data/products.yml \
-            | grep -E '^\+[[:space:]]*(latest_patch|v[0-9]+):' || true)
-          if [[ -n "$ADDED" ]]; then
-            echo "Version bump detected:"
-            echo "$ADDED"
-            echo "bumped=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "No version bump in data/products.yml — skipping artifact gate."
-            echo "bumped=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Check for override label
-        id: override
-        if: steps.bump.outputs.bumped == 'true'
-        env:
-          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
-        run: |
-          if echo "$LABELS" | grep -q 'release:artifacts-pending'; then
-            echo "override=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "override=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Setup Node.js
-        if: steps.bump.outputs.bumped == 'true'
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version-file: .nvmrc
           cache: 'yarn'
 
       - name: Install dependencies
-        if: steps.bump.outputs.bumped == 'true'
         env:
           CYPRESS_INSTALL_BINARY: 0
         run: yarn install --frozen-lockfile
 
-      - name: Build Hugo site
-        if: steps.bump.outputs.bumped == 'true'
-        run: npx hugo --minify
-
-      - name: Install lychee
-        if: steps.bump.outputs.bumped == 'true'
-        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
-        with:
-          args: --version
-          fail: false
-
-      - name: Download link-checker binary
-        if: steps.bump.outputs.bumped == 'true'
+      # Precise bump detection: compare the PARSED latest_patch / latest_patches
+      # values between base and head. Only a real version change counts — unlike a
+      # naive line grep, this ignores unrelated `v1:`/`v2:` keys under oss_repo,
+      # content_path, label_group, latest_cli, etc.
+      - name: Detect version bump
+        id: bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          curl -L -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -o link-checker-info.json \
-            "https://api.github.com/repos/influxdata/docs-v2/releases/tags/link-checker-v1.5.0"
-          DOWNLOAD_URL=$(jq -r \
-            '.assets[] | select(.name | test("link-checker.*linux")) | .url' \
-            link-checker-info.json)
-          curl -L -H "Accept: application/octet-stream" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -o link-checker "$DOWNLOAD_URL"
-          chmod +x link-checker
+          git show "$BASE_SHA:data/products.yml" > /tmp/products-old.yml \
+            2>/dev/null || echo '{}' > /tmp/products-old.yml
+          node .ci/scripts/detect-version-bump.js \
+            /tmp/products-old.yml data/products.yml | tee bump.md
+          if grep -q '^BUMPED=true' bump.md; then
+            echo "bumped=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "bumped=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      # Check the rendered install/download pages so the actual (version-built)
-      # dl.influxdata.com URLs are exercised. A 404 here means the new version's
-      # artifacts are not published yet.
-      - name: Verify download artifacts are published
-        if: steps.bump.outputs.bumped == 'true'
-        id: verify
+      - name: Report (non-blocking)
+        if: always()
         run: |
-          set +e
-          PAGES=$(./link-checker map --existing-only \
-            content/shared/influxdb3/install.md \
-            content/telegraf/v1/install.md 2>/dev/null)
-          echo "$PAGES" | xargs -r ./link-checker check \
-            --config .ci/link-checker/production.lycherc.toml \
-            --format json --output artifact-check.json
-          ERRORS=$(jq -r '.summary.error_count // 0' artifact-check.json 2>/dev/null || echo 0)
-          echo "error-count=$ERRORS" >> "$GITHUB_OUTPUT"
           {
-            echo "## Release artifact readiness"
+            echo "## Release artifact reminder"
             echo ""
-            if [[ "$ERRORS" -gt 0 ]]; then
-              echo "❌ $ERRORS download link(s) did not resolve — the new version's"
-              echo "artifacts may not be published yet. Do not merge until they are,"
-              echo "or add the \`release:artifacts-pending\` label to override."
+            if [[ "${{ steps.bump.outputs.bumped }}" == "true" ]]; then
+              grep '^- ' bump.md || true
+              echo ""
+              echo "Before this merges/publishes, confirm the download artifacts for"
+              echo "the new version(s) are live at \`dl.influxdata.com\`. The rendered"
+              echo "download/install URLs are checked (non-blocking) by the link-check"
+              echo "workflow when \`data/products.yml\` changes."
             else
-              echo "✅ Download artifacts for the bumped version resolve."
+              echo "No \`latest_patch\`/\`latest_patches\` change detected — nothing to remind."
             fi
           } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Gate on missing artifacts
-        if: steps.bump.outputs.bumped == 'true' && steps.verify.outputs.error-count != '0' && steps.override.outputs.override != 'true'
-        run: |
-          echo "::error::Release artifacts for the bumped version are not all published (dl.influxdata.com returned errors). Merge is blocked. Add the 'release:artifacts-pending' label to override."
-          exit 1
