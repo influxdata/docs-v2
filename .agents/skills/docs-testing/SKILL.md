@@ -70,7 +70,7 @@ Code block execution tests are **disabled** in pre-push hooks. Run them manually
 | `pr-feedback-links.yml`          | Rendered feedback link validation              | Warnings only              |
 | `pr-lockfile-lint.yml`           | yarn.lock integrity                            | Yes                        |
 | `auto-label.yml`                 | Applies product labels                         | No                         |
-| `pr-preview.yml`                 | Deploys preview pages listed in PR body        | No                         |
+| `pr-preview.yml`                 | Deploys a full-site preview to staging S3      | No                         |
 
 Code block **execution** is NOT a PR check. It runs on demand via `workflow_dispatch`.
 
