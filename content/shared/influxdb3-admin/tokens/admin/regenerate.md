@@ -21,8 +21,8 @@ To regenerate the operator token, use the [`influxdb3 serve create token` comman
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[CLI](#cli-regenerate)
-[HTTP API](#http-api-regenerate)
+[CLI](#)
+[HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!---------------------------------BEGIN CLI----------------------------------->
