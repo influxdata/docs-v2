@@ -2484,6 +2484,130 @@ paths:
         - Enterprise
       x-enterprise-only: true
       x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfile
+      summary: Retrieve load capture profile details
+      description: >
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile.
+        The response is the same as the profile preview.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profile details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCapturePreview"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+    delete:
+      operationId: DeleteLoadcapProfile
+      summary: Delete a load capture profile
+      description: >
+        Deletes a load capture profile and its stored artifacts from object storage.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: The profile was deleted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/preview:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfilePreview
+      summary: Preview a load capture profile
+      description: >
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile without
+        downloading the archive. For `query`-only captures, `catalog_summary` is null.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profile preview.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCapturePreview"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/download:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfileDownload
+      summary: Download a load capture profile
+      description: >
+        Downloads the load capture profile as a gzipped tar archive containing the anonymized capture
+        artifacts---`catalog.json` and `.pt` write-ahead log files for `write` and `both` captures, and
+        `queries.json.zst` for `query` and `both` captures.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: >-
+            The profile archive. The response `Content-Type` is `application/gzip` and `Content-Disposition` provides
+            the `{profile_id}.tar.gz` filename.
+          content:
+            application/gzip:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
   /api/v3/plugin_test/schedule:
     post:
       operationId: PostTestSchedulingPlugin
@@ -3982,6 +4106,14 @@ paths:
         - Write data
 components:
   parameters:
+    LoadCaptureProfileId:
+      name: profile_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the load capture profile.
     AcceptQueryHeader:
       name: Accept
       in: header
@@ -4893,7 +5025,7 @@ components:
           type: string
           format: date-time
           description: Time when the capture started.
-        capture_type:
+        type:
           type: string
           enum:
             - write
@@ -4904,7 +5036,7 @@ components:
           type: string
           description: Requested capture duration.
         node_id:
-          type: string
+          type: integer
           description: Identifier of the node that owns the profile.
         status:
           type: string
@@ -4925,6 +5057,38 @@ components:
           type: integer
           minimum: 0
           description: Number of queries replaced because they could not be parsed safely.
+    LoadCapturePreview:
+      type: object
+      description: >-
+        Contents summary for a load capture profile, including an anonymized catalog summary. Returned by the profile
+        details and preview endpoints.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the load capture profile.
+        file_count:
+          type: integer
+          minimum: 0
+          description: Total number of files in the profile archive.
+        total_size_bytes:
+          type: integer
+          minimum: 0
+          description: Total size of the profile archive contents, in bytes.
+        wal_file_count:
+          type: integer
+          minimum: 0
+          description: Number of anonymized write-ahead log (`.pt`) files in the profile.
+        query_count:
+          type: integer
+          minimum: 0
+          description: Number of captured queries in the profile.
+        catalog_summary:
+          type: object
+          nullable: true
+          description: >-
+            Anonymized catalog snapshot taken when the capture started, including databases, tables, columns, and
+            node metadata. Null for `query`-only captures.
     LicenseResponse:
       type: object
       properties:
