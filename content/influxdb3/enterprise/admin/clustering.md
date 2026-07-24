@@ -17,11 +17,12 @@ related:
 influxdb3/enterprise/tags: [clustering, performance, tuning, ingest, threads]
 prepend: |
   > [!Note]
-  > #### Using the performance upgrade preview?
+  > #### Running the upgraded storage engine?
   >
-  > Thread allocation on this page applies to the default (Parquet-backed)
-  > storage engine. If your nodes run with `--use-pacha-tree`, use the
-  > [performance upgrade preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+  > Thread allocation on this page applies to the Parquet storage engine.
+  > If your cluster runs the upgraded storage engine (the default for new
+  > clusters), use the
+  > [configuration reference](/influxdb3/enterprise/performance-preview/configure/)
   > instead.
 ---
 
@@ -91,10 +92,10 @@ Available modes:
 ## Allocate threads by node type
 
 > [!Important]
-> With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-> (`--use-pacha-tree`), ingest and compaction run on the IO thread pool
-> instead of the DataFusion thread pool. Follow the
-> [preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+> On the [upgraded storage engine](/influxdb3/enterprise/performance-preview/)
+> (the default for new clusters), ingest and compaction run on the IO thread
+> pool instead of the DataFusion thread pool. Follow the
+> [configuration reference](/influxdb3/enterprise/performance-preview/configure/)
 > instead of the guidance in this section.
 
 ### Critical concept: Thread pools
@@ -121,7 +122,7 @@ influxdb3 \
   serve \
   --num-cores=32 \
   --datafusion-num-threads=20 \
-  --exec-mem-pool-bytes=60% \
+  --exec-mem-pool-size=60% \
   --mode=ingest \
   --node-id=ingester-01
 ```
@@ -176,8 +177,8 @@ influxdb3 \
   serve \
   --num-cores=64 \
   --datafusion-num-threads=60 \
-  --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size=8GB \
+  --exec-mem-pool-size=90% \
+  --file-cache-size=8GB \
   --mode=query \
   --node-id=query-01 \
   --cluster-id=prod-cluster
@@ -198,8 +199,8 @@ influxdb3 \
   serve \
   --num-cores=32 \
   --datafusion-num-threads=26 \
-  --exec-mem-pool-bytes=80% \
-  --parquet-mem-cache-size=4GB \
+  --exec-mem-pool-size=80% \
+  --file-cache-size=4GB \
   --mode=query \
   --node-id=query-02
 ```
@@ -324,7 +325,7 @@ influxdb3 \
   serve \
   --num-cores=48 \
   --datafusion-num-threads=36 \
-  --exec-mem-pool-bytes=75% \
+  --exec-mem-pool-size=75% \
   --mode=ingest,query \
   --node-id=hybrid-01
 ```
@@ -611,7 +612,7 @@ GROUP BY event_type;
 - Increasing query times due to file fragmentation
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
-The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview configuration reference](/influxdb3/enterprise/performance-preview/configure/) for tuning guidance.
+The upgraded storage engine (the default for new clusters) does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
@@ -644,14 +645,14 @@ top -H -p $(pgrep influxdb3)
 free -h
 
 # Solution: Increase memory pool
---exec-mem-pool-bytes=90%
+--exec-mem-pool-size=90%
 ```
 
 **Problem**: Poor cache hit rates
 
 ```bash
 # Solution: Increase Parquet cache
---parquet-mem-cache-size=10GB
+--file-cache-size=10GB
 ```
 
 ### Compactor node issues
@@ -761,7 +762,7 @@ influxdb3 serve --config ingester.toml
 
 ```bash
 # Set environment variables for node type
-export INFLUXDB3_ENTERPRISE_MODE=ingest
+export INFLUXDB3_MODE=ingest
 export INFLUXDB3_NUM_IO_THREADS=20
 export INFLUXDB3_DATAFUSION_NUM_THREADS=76
 

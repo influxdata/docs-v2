@@ -1,30 +1,33 @@
 ---
-title: Monitor the performance upgrade preview
-seotitle: Monitor the performance upgrade preview in InfluxDB 3 Enterprise
+title: Monitor the upgraded storage engine
+seotitle: Monitor the upgraded storage engine in InfluxDB 3 Enterprise
 description: >
   Use system tables and query telemetry to monitor file status, query execution,
-  and overall performance when using InfluxDB 3 Enterprise performance upgrades.
+  and overall performance when using the upgraded InfluxDB 3 Enterprise storage
+  engine.
 menu:
   influxdb3_enterprise:
     name: Monitor
-    parent: Performance upgrade preview
+    parent: Storage engine upgrade
 weight: 203
-influxdb3/enterprise/tags: [storage, monitoring, beta, preview, system tables]
+influxdb3/enterprise/tags: [storage, monitoring, system tables]
 related:
   - /influxdb3/enterprise/performance-preview/
   - /influxdb3/enterprise/performance-preview/configure/
   - /influxdb3/enterprise/admin/query-system-data/
 ---
 
-> [!Warning]
-> #### Performance preview beta
-> The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a beta. These features are subject to breaking changes
-> and **should not be used for production workloads**.
+> [!Important]
+> #### The upgraded storage engine is the default for new clusters
+> The upgraded storage engine described on these pages is the default for
+> new {{% product-name %}} clusters.
+> Clusters that started on 3.10 or earlier keep the Parquet engine until you
+> run the storage engine upgrade by restarting the cluster with
+> [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
 {{% product-name %}} provides system tables and a query telemetry endpoint to
 monitor file status, query execution, and overall performance when using the
-performance upgrade preview.
+upgraded storage engine.
 
 ## System tables
 
@@ -110,8 +113,8 @@ ORDER BY generation;
 
 ### Compaction tables
 
-The following system tables expose the state of the pacha-tree compaction
-subsystem.
+The following system tables expose the state of the upgraded storage engine's
+compaction subsystem.
 
 #### system.pt_compaction_active_jobs
 
@@ -208,7 +211,7 @@ SELECT * FROM system.upgrade_parquet;
 
 Use this table to track individual file conversions during the migration.
 The status updates on a polling interval (default 5 seconds, configurable with
-`--pt-upgrade-poll-interval`).
+`--upgrade-poll-interval`).
 
 ## Query telemetry
 
@@ -271,7 +274,7 @@ Track these key metrics for query performance:
 
 | Metric | Good | Warning | Action |
 |:-------|:-----|:--------|:-------|
-| Cache hit rate | >80% | <60% | Increase `--pt-file-cache-size` or `--pt-file-cache-recency` |
+| Cache hit rate | >80% | <60% | Increase `--file-cache-size` or `--file-cache-recency` |
 | Rows read vs returned ratio | <100:1 | >1000:1 | Add more selective predicates |
 
 ### Ingest performance metrics
@@ -280,8 +283,8 @@ Monitor these metrics for write performance:
 
 | Metric | Healthy | Warning | Action |
 |:-------|:--------|:--------|:-------|
-| WAL file count | <50 | >100 | Increase `--pt-wal-flush-concurrency` |
-| Gen0 file count | <100 | >200 | Increase `--pt-compactor-input-size-budget` |
+| WAL file count | <50 | >100 | Increase `--wal-flush-concurrency` |
+| Gen0 file count | <100 | >200 | Increase `--compactor-input-size-budget` |
 
 ### Monitor with SQL
 
@@ -330,17 +333,17 @@ FROM system.pt_ingest_wal;
 
 1. Increase flush concurrency:
    ```bash
-   --pt-wal-flush-concurrency 8
+   --wal-flush-concurrency 8
    ```
 
 2. Increase WAL flush interval to create larger, fewer files:
    ```bash
-   --pt-wal-flush-interval 5s
+   --wal-flush-interval 5s
    ```
 
 3. Increase the WAL buffer size so each flush produces a larger file:
    ```bash
-   --pt-wal-max-buffer-size 30MB
+   --wal-buffer-size 30MB
    ```
 
 4. Check object storage performance and connectivity.
@@ -359,17 +362,17 @@ FROM system.pt_ingest_wal;
 
 1. Increase cache size:
    ```bash
-   --pt-file-cache-size 16GB
+   --file-cache-size 16GB
    ```
 
 2. Extend cache recency window:
    ```bash
-   --pt-file-cache-recency 24h
+   --file-cache-recency 24h
    ```
 
 3. Extend eviction timeout:
    ```bash
-   --pt-file-cache-evict-after 48h
+   --file-cache-evict-after 48h
    ```
 
 ### Slow compaction
@@ -386,20 +389,19 @@ FROM system.pt_ingest_wal;
 
 1. Increase the compaction input size budget:
    ```bash
-   --pt-compactor-input-size-budget 12GB
+   --compactor-input-size-budget 12GB
    ```
 
 2. Reduce snapshot size to create smaller, more frequent Gen0 files:
    ```bash
-   --pt-snapshot-size 125MB
+   --snapshot-size 125MB
    ```
 
 3. For distributed deployments, add a dedicated compactor node:
    ```bash
    influxdb3 serve \
      # ...
-     --use-pacha-tree \
-     --mode compact
+        --mode compact
    ```
 
 ### Query node lag
@@ -419,15 +421,15 @@ For a full list of replication options, see
 
 1. Increase replication concurrency:
    ```bash
-   --pt-wal-replica-steady-concurrency 8
+   --wal-replica-steady-concurrency 8
    ```
 
 2. Reduce the replication polling interval:
    ```bash
-   --pt-wal-replication-interval 100ms
+   --replication-interval 100ms
    ```
 
 3. Increase replica queue size:
    ```bash
-   --pt-wal-replica-queue-size 200
+   --wal-replica-queue-length 200
    ```

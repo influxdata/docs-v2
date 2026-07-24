@@ -16,8 +16,9 @@ related:
 Use `influxdb3 loadcap delete` to delete a workload capture profile.
 
 > [!Note]
-> Load capture requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/), which uses the storage engine upgrade.
-> Enable the preview with `--use-pacha-tree` and send requests to a node with an explicit `--mode` setting that includes `query`, for example, `--mode query` or `--mode ingest --mode query --mode compact`.
+> Load capture requires the [upgraded storage engine](/influxdb3/enterprise/performance-preview/)--the default for new clusters.
+> On clusters that started on 3.10 or earlier, first run the [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) (`--upgrade-pacha-tree`).
+> Send requests to a node with an explicit `--mode` setting that includes `query`, for example, `--mode query` or `--mode ingest --mode query --mode compact`.
 > Load capture isn't available on a node that uses the default `--mode all` configuration.
 
 ## Usage

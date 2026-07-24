@@ -16,8 +16,11 @@ related:
 ---
 
 Row-level deletion is an {{% product-name %}} feature that requires the
-[storage engine upgrade](/influxdb3/enterprise/reference/config-options/)
-(`--use-pacha-tree`).
+[upgraded storage engine](/influxdb3/enterprise/performance-preview/)--the
+default for new clusters.
+On clusters that started on 3.10 or earlier, first run the
+[storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree)
+(`--upgrade-pacha-tree`).
 Use it to delete rows from a database by time range and an optional tag
 predicate.
 
@@ -31,7 +34,7 @@ applies the request the next time it rewrites the affected run sets.
 
 By default, deletes don't apply for up to **24 hours** after you submit the
 request.
-This delay is tunable with the `--pt-row-delete-min-age` server flag.
+This delay is tunable with the `--row-delete-min-age` server flag.
 
 > [!Note]
 > Because deletes are applied during compaction, rows remain queryable until the

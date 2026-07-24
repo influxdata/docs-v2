@@ -1,15 +1,16 @@
 ---
-title: Performance upgrade preview
-seotitle: Performance upgrade preview for InfluxDB 3 Enterprise
+title: Storage engine upgrade
+seotitle: Storage engine upgrade for InfluxDB 3 Enterprise
 description: >
-  Preview performance upgrades in InfluxDB 3 Enterprise with improved
-  single-series query performance, consistent resource usage, wide-and-sparse
-  table support, column families, and bulk data export.
+  Learn about the upgraded InfluxDB 3 Enterprise storage engine--the default
+  for new clusters--with improved single-series query performance, consistent
+  resource usage, wide-and-sparse table support, column families, and bulk
+  data export.
 menu:
   influxdb3_enterprise:
-    name: Performance upgrade preview
+    name: Storage engine upgrade
 weight: 12
-influxdb3/enterprise/tags: [storage, performance, beta, preview]
+influxdb3/enterprise/tags: [storage, performance]
 related:
   - /influxdb3/enterprise/get-started/setup/
   - /influxdb3/enterprise/performance-preview/configure/
@@ -17,19 +18,21 @@ related:
   - /influxdb3/enterprise/admin/performance-tuning/
 ---
 
-> [!Warning]
-> #### Performance preview beta
-> The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a beta. These features are subject to breaking changes
-> and **should not be used for production workloads**.
+> [!Important]
+> #### The upgraded storage engine is the default for new clusters
+> The upgraded storage engine described on these pages is the default for
+> new {{% product-name %}} clusters--no flag is required.
+> Clusters that started on 3.10 or earlier keep the Parquet engine until you
+> run the storage engine upgrade by restarting the cluster with
+> [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 >
-> To share feedback on this preview, see [Support and feedback options](#bug-reports-and-feedback).
+> To share feedback, see [Support and feedback options](#bug-reports-and-feedback).
 > Your feedback on stability
 > and performance at scale helps shape the future of InfluxDB 3.
 
-## What is the performance upgrade preview?
+## What is the storage engine upgrade?
 
-{{% product-name %}} includes a preview of major upgrades to the
+{{% product-name %}} includes major upgrades to the
 storage layer that improve how data is written, stored, compressed, compacted,
 and queried.
 These upgrades touch every layer of the storage path—from a new on-disk file
@@ -61,45 +64,53 @@ Key improvements include:
 - **Automatic Parquet upgrade**: Seamlessly migrate existing data with
   hybrid query mode during the transition.
 
-## Enable the preview
+## Run the storage engine upgrade {#enable-the-preview}
 
-Include the `--use-pacha-tree` flag in your
+New clusters use the upgraded storage engine by default and do not need any
+flag.
+
+For clusters that started on 3.10 or earlier (Parquet engine), run the
+storage engine upgrade by including the `--upgrade-pacha-tree` flag in your
 [`influxdb3 serve` startup command](/influxdb3/enterprise/get-started/setup/):
 
-```bash { callout="--use-pacha-tree" }
+```bash { callout="--upgrade-pacha-tree" }
 influxdb3 serve \
   --node-id host01 \
   --cluster-id cluster01 \
   --object-store file \
   --data-dir ~/.influxdb3 \
-  --use-pacha-tree
+  --upgrade-pacha-tree
 ```
 
-You can also enable the preview with an environment variable:
+You can also trigger the upgrade with an environment variable:
 
 ```bash
-export INFLUXDB3_ENTERPRISE_USE_PACHA_TREE=true
+export INFLUXDB3_UPGRADE_PACHA_TREE=true
 influxdb3 serve ...
 ```
 
-The `--use-pacha-tree` flag exposes additional configuration options prefixed
-with `--pt-`.
-See [Configure the preview](/influxdb3/enterprise/performance-preview/configure/)
+> [!Note]
+> The `--use-pacha-tree` flag and the `INFLUXDB3_USE_PACHA_TREE` and
+> `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` environment variables are deprecated.
+> They are still accepted and start the same migration, but the server logs a
+> deprecation warning at startup.
+
+See [Configure the storage engine](/influxdb3/enterprise/performance-preview/configure/)
 for tuning options, or
-[Monitor the preview](/influxdb3/enterprise/performance-preview/monitor/)
+[Monitor the storage engine](/influxdb3/enterprise/performance-preview/monitor/)
 for system tables and telemetry.
 
 > [!Warning]
 > #### Existing clusters with Parquet data
 >
-> On clusters with existing Parquet data, enabling `--use-pacha-tree`
+> On clusters with existing Parquet data, running the storage engine upgrade
 > **automatically converts Parquet files to `.pt` format** on startup, which
 > consumes additional CPU and memory while the migration runs.
 > Queries continue to work normally during this period.
 > See [Upgrade from Parquet](#upgrade-from-parquet) for details.
 >
-> For the beta, we recommend enabling the preview with a fresh cluster in a
-> staging or test environment first.
+> Before upgrading a production cluster, we recommend testing the storage
+> engine upgrade in a staging or test environment first.
 
 ## What's changed
 
@@ -175,7 +186,7 @@ self-healing for transient issues.
 Existing clusters with Parquet data can upgrade with zero manual migration.
 The upgrade is fully automatic and occurs on initial startup.
 
-When you restart a cluster with `--use-pacha-tree`, the system:
+When you restart a cluster with `--upgrade-pacha-tree`, the system:
 
 1. Detects existing Parquet data and enters hybrid mode.
 2. Clears the legacy WAL on ingest nodes and streams Parquet files through a
@@ -204,15 +215,15 @@ SELECT * FROM system.upgrade_parquet
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| `--pt-disable-hybrid-query` | Disable hybrid query mode. Queries return only data from the upgraded storage layer, even during migration. | `false` |
-| `--pt-upgrade-poll-interval` | Polling interval for upgrade status monitoring. | `5s` |
+| `--disable-hybrid-query` | Disable hybrid query mode. Queries return only data from the upgraded storage layer, even during migration. | `false` |
+| `--upgrade-poll-interval` | Polling interval for upgrade status monitoring. | `5s` |
 
 ## Downgrade to Parquet
 
-If you need to revert from the performance preview back to standard Parquet
+If you need to revert an upgraded cluster back to standard Parquet
 storage, use the `influxdb3 downgrade-to-parquet` command.
-This command updates the catalog and deletes all PachaTree-specific files from
-object storage.
+This command updates the catalog and deletes all files specific to the
+upgraded storage engine from object storage.
 
 > [!Note]
 > #### Downgrade impacts
@@ -220,7 +231,8 @@ object storage.
 > The downgrade deletes all `.pt` files, including data written
 > after the upgrade.
 > **Only data that existed before the upgrade (original Parquet files) is preserved.**
-> You can re-enable the preview later by restarting with `--use-pacha-tree`.
+> You can run the storage engine upgrade again later by restarting with
+> `--upgrade-pacha-tree`.
 
 ### Before you downgrade
 
@@ -258,8 +270,8 @@ influxdb3 downgrade-to-parquet \
   --data-dir ~/.influxdb3
 ```
 
-After the downgrade completes, restart nodes without the `--use-pacha-tree` flag
-to resume standard Parquet storage mode.
+After the downgrade completes, restart nodes without the `--upgrade-pacha-tree`
+flag to resume standard Parquet storage mode.
 
 For all available options, see
 [Downgrade options](/influxdb3/enterprise/performance-preview/configure/#downgrade-options).
@@ -294,10 +306,11 @@ To export specific time windows only:
 influxdb3 export data -d mydb -t cpu -w 2026-01-15,2026-01-16 -o ./export_output
 ```
 
-## Who should try the preview
+## Who should upgrade existing clusters {#who-should-try-the-preview}
 
-Consider enabling the preview in your staging or development environment if
-you have workloads with:
+New clusters use the upgraded storage engine by default.
+If your cluster started on 3.10 or earlier and still runs the Parquet engine,
+the storage engine upgrade especially benefits workloads with:
 
 - High cardinality or wide tables
 - Frequent backfill across time ranges
@@ -308,17 +321,17 @@ you have workloads with:
 > [!Important]
 > #### Important: New file format
 >
-> These upgrades use a new columnar file format (`.pt` files).
-> When you enable the preview, new data is written in the new format.
+> The storage engine uses a new columnar file format (`.pt` files).
+> After you upgrade, new data is written in the new format.
 > Hybrid query mode (enabled by default) allows querying across both legacy
 > Parquet data and new `.pt` data seamlessly.
 >
-> For the beta, we recommend starting with a fresh setup for
-> testing and evaluation rather than converting existing data.
+> Before upgrading a production cluster, we recommend testing the storage
+> engine upgrade in a staging or test environment first.
 
 ## Bug reports and feedback
 
-To share feedback on the performance upgrade preview:
+To share feedback on the storage engine:
 
 - Contact [InfluxData support](https://support.influxdata.com)
 - Reach out to your InfluxData account team

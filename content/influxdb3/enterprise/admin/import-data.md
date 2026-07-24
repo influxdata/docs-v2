@@ -15,8 +15,11 @@ related:
 ---
 
 Bulk import is an {{% product-name %}} feature that requires the
-[storage engine upgrade](/influxdb3/enterprise/reference/config-options/)
-(`--use-pacha-tree`).
+[upgraded storage engine](/influxdb3/enterprise/performance-preview/)--the
+default for new clusters.
+On clusters that started on 3.10 or earlier, first run the
+[storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree)
+(`--upgrade-pacha-tree`).
 Use it to load your existing Parquet files into a database and table.
 {{% product-name %}} writes the imported data to your object
 storage.
