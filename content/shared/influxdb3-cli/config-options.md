@@ -178,7 +178,7 @@ Legacy names remain supported as deprecated aliases.
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTER` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTER` |
 | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` | `INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR` |
 
-#### Removed pt- option names (no aliases)
+#### Removed pt- option names (no aliases) {#removed-pt-option-names-no-aliases metadata="v3.11+"}
 
 Options for the upgraded storage engine dropped the `pt-`
 prefix without backward compatibility: old `--pt-*` flags cause a startup
