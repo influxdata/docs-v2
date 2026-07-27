@@ -43,6 +43,14 @@ As written data moves through {{% product-name %}}, it follows a structured path
 - **Memory usage**: The persistence process uses memory from the configured memory pool ([`exec-mem-pool-bytes`](/influxdb3/version/reference/config-options/#exec-mem-pool-bytes)) when converting data to Parquet format. For write-heavy workloads, ensure adequate memory is allocated.
 - **Details**: Every ten minutes (default), {{% product-name %}} persists the oldest data from the queryable buffer to the object store in Parquet format, and keeps the remaining data (the most recent 5 minutes) in memory.
 
+### WAL tail
+
+The _WAL tail_ is the most recent data in the WAL that {{% product-name %}} has
+not yet persisted to Parquet.
+Because {{% product-name %}} flushes the WAL to object storage every second, the
+WAL tail is durable, but it remains in the WAL until the next Parquet
+persistence captures it.
+
 ### In-memory cache
 
 - **Process**: Recently persisted Parquet files are cached in memory.
