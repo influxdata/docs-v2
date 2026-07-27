@@ -253,11 +253,11 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 > Use `influxdb3 serve --help-all` to list every option.
 >
 > If you explicitly set an option (on the command line or through an
-> environment variable) that applies only to the inactive storage engine,
+> environment variable) that has no effect on the active storage engine,
 > the server logs one aggregated startup warning naming the ignored options.
-> After the storage engine upgrade completes, options that applied only
-> during the upgrade additionally warn that they are now ignored and can be
-> removed from the configuration.
+> After the storage engine upgrade completes, this includes long-standing
+> Parquet options that no longer apply--use the warnings as a checklist for
+> cleaning up your configuration.
 
 {{% /show-in %}}
 
