@@ -201,9 +201,10 @@ precedence.
 
 After the upgrade completes, Parquet engine options remaining in your
 configuration--including options you may have relied on long before the
-upgrade--log a startup warning indicating they no longer have any effect
-and can be removed. Use the startup log as a checklist for cleaning up
-your configuration.
+upgrade--no longer have any effect. On the next server start following
+completion of the upgrade, each one logs a warning indicating it can be
+removed. Use the startup log as a checklist for cleaning up your
+configuration.
 
 ### Monitor upgrade progress
 
