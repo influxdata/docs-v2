@@ -2,8 +2,8 @@
 title: Storage engine upgrade
 seotitle: Storage engine upgrade for InfluxDB 3 Enterprise
 description: >
-  Learn about the upgraded InfluxDB 3 Enterprise storage engine--the default
-  for new clusters--with improved single-series query performance, consistent
+  Learn about the upgraded InfluxDB 3 Enterprise storage engine—the default
+  for new clusters—with improved single-series query performance, consistent
   resource usage, wide-and-sparse table support, column families, and bulk
   data export.
 menu:
@@ -21,7 +21,7 @@ related:
 > [!Important]
 > #### The upgraded storage engine is the default for new clusters
 > The upgraded storage engine described on these pages is the default for
-> new {{% product-name %}} clusters--no flag is required.
+> new {{% product-name %}} clusters—no flag is required.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
 > run the storage engine upgrade by restarting the cluster with
 > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
@@ -111,8 +111,8 @@ for system tables and telemetry.
 > Queries continue to work normally during this period.
 > See [Upgrade from Parquet](#upgrade-from-parquet) for details.
 >
-> Before upgrading a production cluster, we recommend testing the storage
-> engine upgrade in a staging or test environment first.
+> Before you upgrade a production cluster, test the storage engine upgrade in a
+> staging or test environment first.
 
 ## What's changed
 
@@ -335,8 +335,8 @@ the storage engine upgrade especially benefits workloads with:
 > Hybrid query mode (enabled by default) allows querying across both legacy
 > Parquet data and new `.pt` data seamlessly.
 >
-> Before upgrading a production cluster, we recommend testing the storage
-> engine upgrade in a staging or test environment first.
+> Before you upgrade a production cluster, test the storage engine upgrade in a
+> staging or test environment first.
 
 ## Bug reports and feedback
 

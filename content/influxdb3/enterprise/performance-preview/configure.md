@@ -22,7 +22,7 @@ related:
 > #### The upgraded storage engine is the default for new clusters
 >
 > New {{% product-name %}} clusters default to the upgraded storage
-> engine--no flag is required.
+> engine—no flag is required.
 > Clusters that started on 3.10 or earlier keep the Parquet engine until you
 > run the storage engine upgrade by restarting the cluster with
 > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
@@ -40,7 +40,7 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > [!Important]
 > #### The `pt-` option prefix was removed
 >
-> Preview options no longer use the `pt-` prefix--for example,
+> Preview options no longer use the `pt-` prefix—for example,
 > `--pt-snapshot-size` is now `--snapshot-size`.
 > There is no backward compatibility for preview option names:
 > old `--pt-*` flags cause a startup error, and legacy `INFLUXDB3_PT_*` and
@@ -502,7 +502,7 @@ There are no aliases: old `--pt-*` flags cause a startup error, and legacy
 `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*` environment variables are
 ignored (the server logs a warning at startup for each one that is still set).
 
-Environment variable names follow the option names--for example,
+Environment variable names follow the option names—for example,
 `INFLUXDB3_PT_SNAPSHOT_SIZE` becomes `INFLUXDB3_SNAPSHOT_SIZE`.
 Any `--pt-*` option not listed below drops the `pt-` prefix without any
 other change to its name.

@@ -8,7 +8,7 @@ catalog entry and the node's object-store file paths are purged.
 >
 > A node must be `stopped` before it can be removed.
 > Use [`influxdb3 stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/)
-> against the live node and wait for it to reach `stopped`--the graceful stop
+> against the live node and wait for it to reach `stopped`—the graceful stop
 > is what drains the node's write-ahead log (WAL) tail.
 > A node stuck in `stopping` (for example, because the process was killed
 > mid-stop or was already dead) cannot be removed normally.
@@ -58,14 +58,14 @@ When you remove a node:
 Removal permanently deletes the node's object-store file paths, including its
 WAL files.
 Any acknowledged writes that were **not** covered by the node's final
-snapshot are deleted with them--that is why the node must complete a graceful
-stop first.
+snapshot are deleted with them.
+That is why the node must complete a graceful stop first.
 
-### Removal is refused if un-snapshotted WAL remains (upgraded engine)
+### Removal is refused if unsnapshotted WAL remains (upgraded engine)
 
 On clusters that have fully adopted the upgraded storage engine (the default
 for new clusters), removing a `stopped` node
-that still has an un-snapshotted WAL tail is **refused** (HTTP 409):
+that still has an unsnapshotted WAL tail is **refused** (HTTP 409):
 
 ```text
 node 'NODE_ID' has unsnapshotted WAL (wal file N, snapshotted through M);
@@ -83,15 +83,16 @@ and then remove it.
 > This safeguard applies only to clusters that have fully adopted the
 > upgraded storage engine (new clusters, or after the storage engine upgrade
 > completes).
-> Parquet clusters and clusters still mid-upgrade are **not**
-> guarded--on those clusters, a graceful
+> Parquet clusters and clusters still mid-upgrade are **not** guarded.
+> On those clusters, a graceful
 > [`stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/) before
-> removal is the only protection against losing an un-drained WAL tail.
+> removal is the only protection against losing the WAL tail.
 
 ## Force removal of a node that did not shut down cleanly
 
 If `remove node` fails without `--force-finalize`, the node never finished
-stopping--its process is gone and never confirmed a clean stop.
+stopping.
+Its process is gone and never confirmed a clean stop.
 `--force-finalize` removes it anyway.
 
 **This can lose data**: recently acknowledged writes the node had not yet
@@ -100,8 +101,8 @@ If the node had finished snapshotting and only failed to report a clean stop,
 nothing is lost.
 
 Prefer the safe path first: restart the node with the same `--node-id`, let
-it shut down cleanly, and remove it again--see
-[Recover a crashed node](/influxdb3/version/admin/recover-node/).
+it shut down cleanly, and remove it again.
+See [Recover a crashed node](/influxdb3/version/admin/recover-node/).
 Use `--force-finalize` only when the node cannot be brought back and you
 accept the possible loss.
 
@@ -146,7 +147,7 @@ influxdb3 remove node --node-id NODE_ID --no-confirm
 
 Only use `--force-finalize` after attempting
 [crash recovery](/influxdb3/version/admin/recover-node/), when the node
-cannot be brought back and you accept the possible loss of un-snapshotted
+cannot be brought back and you accept the possible loss of unsnapshotted
 writes:
 
 <!--pytest.mark.skip-->
