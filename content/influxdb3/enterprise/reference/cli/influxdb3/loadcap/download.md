@@ -13,7 +13,7 @@ related:
   - /influxdb3/enterprise/admin/load-capture/
 prepend: |
   > [!Note]
-  > This feature requires the [upgraded storage engine](/influxdb3/enterprise/performance-preview/)—the default for new clusters.
+  > This feature requires the [upgraded storage engine](/influxdb3/enterprise/performance-preview/)—the default for new clusters on InfluxDB 3 Enterprise 3.11+.
   > On clusters that started on 3.10 or earlier, first run the [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) (`--upgrade-pacha-tree`).
 ---
 
