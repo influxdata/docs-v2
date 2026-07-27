@@ -20,7 +20,7 @@ influxdb3 delete table [OPTIONS] --database <DATABASE_NAME> <TABLE_NAME>
 --table-name: internal variable, use positional <TABLE_NAME>
 -->
 
-{{% hide-in "enterprise" %}}
+{{% hide-in "enterprise,cloud" %}}
 | Option |                   | Description                                                                              |
 | :----- | :---------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
@@ -33,7 +33,7 @@ influxdb3 delete table [OPTIONS] --database <DATABASE_NAME> <TABLE_NAME>
 |        | `--help-all`      | Print detailed help information                                                          |
 {{% /hide-in %}}
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 | Option |                   | Description                                                                              |
 | :----- | :---------------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
@@ -80,7 +80,7 @@ influxdb3 delete table \
   TABLE_NAME
 ```
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ### Delete table data only (preserve schema and resources)
 
 Delete all data from a table while preserving:

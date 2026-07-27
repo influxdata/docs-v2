@@ -17,12 +17,12 @@ influxdb3 create token <SUBCOMMAND>
 | :----- | :----------- | :------------------------------ |
 | [`--admin`](/influxdb3/version/reference/cli/influxdb3/create/token/admin/) | Create an operator or named admin token for the {{< product-name >}} server. |
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 Additional {{% product-name %}} command:
 
 | Command | Description                                                                 |
 | :----- | :----------------------------------------------------------------------------- |
-| [`--permission`](/influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/) | Create a resource token with fine-grained access permissions. |
+| [`--permission`](/influxdb3/version/reference/cli/influxdb3/create/token/permission/) | Create a resource token with fine-grained access permissions. |
 {{% /show-in %}}
 
 ## Options

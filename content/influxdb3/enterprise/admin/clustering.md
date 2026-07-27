@@ -15,6 +15,14 @@ related:
   - /influxdb3/enterprise/reference/config-options/
   - /influxdb3/enterprise/admin/query-system-data/
 influxdb3/enterprise/tags: [clustering, performance, tuning, ingest, threads]
+prepend: |
+  > [!Note]
+  > #### Using the performance upgrade preview?
+  >
+  > Thread allocation on this page applies to the default (Parquet-backed)
+  > storage engine. If your nodes run with `--use-pacha-tree`, use the
+  > [performance upgrade preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+  > instead.
 ---
 
 Optimize performance for specific workloads in your {{% product-name %}} cluster
@@ -81,6 +89,13 @@ Available modes:
 > In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
 
 ## Allocate threads by node type
+
+> [!Important]
+> With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+> (`--use-pacha-tree`), ingest and compaction run on the IO thread pool
+> instead of the DataFusion thread pool. Follow the
+> [preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+> instead of the guidance in this section.
 
 ### Critical concept: Thread pools
 
@@ -596,7 +611,7 @@ GROUP BY event_type;
 - Increasing query times due to file fragmentation
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
-The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
+The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview configuration reference](/influxdb3/enterprise/performance-preview/configure/) for tuning guidance.
 
 ## Troubleshoot node configurations
 

@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Setup docs environment
         env:
@@ -61,7 +61,7 @@ jobs:
       github.event.pull_request.draft == false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
 
@@ -71,9 +71,14 @@ jobs:
           # Only run Cypress when files under layouts/, assets/, or
           # the render-regression spec itself have changed. Content-only
           # PRs rely on the site-wide grep job above for coverage.
-          CHANGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
-            | jq -r '.[].filename')
+          #
+          # Diff the PR's base..head SHAs from the event payload. The
+          # checkout above uses fetch-depth: 0, so both are present
+          # locally. This replaces an authenticated GitHub API call whose
+          # non-JSON error responses (e.g. a 503 body) broke `jq` and
+          # failed the whole job during API hiccups.
+          CHANGED=$(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
 
           echo "Changed files:"
           echo "$CHANGED"

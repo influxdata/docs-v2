@@ -241,9 +241,11 @@ For schema correctness, validate against [validator.schema.org](https://validato
 
 ## PR Preview Pages
 
-Add page URLs to the PR description to deploy a hosted preview automatically.
+Every pull request that touches `content/`, `layouts/`, `assets/`, `data/`, `api-docs/`, or `openapi/` gets a hosted preview of the *entire site*, deployed to `https://test2.docs.influxdata.com/pr-preview/pr-<N>/`. Use it when a reviewer would need a local Hugo build to verify a visual or structural change — no PR description setup required.
 
-The preview workflow (`.github/workflows/pr-preview.yml`) deploys only those pages to GitHub Pages. Use it when a reviewer would need a local Hugo build to verify a visual or structural change.
+The preview builds with `--environment production`, so it matches what production will serve.
+
+**Optional:** add page URLs to the PR description to get direct deep links in the sticky preview comment, instead of a reviewer navigating the site manually.
 
 **URL formats the extractor recognizes:**
 
@@ -251,7 +253,7 @@ The preview workflow (`.github/workflows/pr-preview.yml`) deploys only those pag
 - `http://localhost:1313/<path>`
 - Bare paths starting with a product namespace (`/influxdb3/...`, `/telegraf/...`)
 
-URLs inside fenced code blocks are ignored. List preview URLs as bare paths or markdown links.
+URLs inside fenced code blocks are ignored. List URLs as bare paths or markdown links.
 
 **Convention:** pair each URL with an "Expected" column describing what the reviewer should verify.
 
@@ -259,7 +261,7 @@ Related files:
 
 - `.github/workflows/pr-preview.yml` — the workflow
 - `.github/scripts/parse-pr-urls.js` — URL extractor
-- `.github/scripts/detect-preview-pages.js` — decides whether preview deploys
+- `.github/scripts/detect-preview-pages.js` — generates the comment's deep links (deployment itself is unconditional)
 
 ## Related Files
 

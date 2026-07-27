@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
 
@@ -40,6 +40,32 @@ jobs:
 
           # Filter for content markdown files
           CHANGED_FILES=$(grep '^content/.*\.md$' all_changed_files.txt || true)
+
+          # When data/products.yml changes, the rendered download/install pages
+          # change their dl.influxdata.com URLs (built from {{< latest-patch >}})
+          # even though no content/*.md file changed — so they'd otherwise be
+          # skipped. Add them here so a bad or stale download URL is still caught.
+          # The map step runs with --existing-only, so any path that doesn't
+          # exist is silently ignored.
+          #
+          # Detect the change with git diff over the full PR range, not the
+          # Files API list above (which is unpaginated and caps at 30 files, so
+          # data/products.yml could be missed on a large PR).
+          if git diff --name-only \
+               "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}" \
+               | grep -qx 'data/products.yml'; then
+            DOWNLOAD_PAGES="content/influxdb3/core/install.md
+          content/influxdb3/enterprise/install/_index.md
+          content/influxdb3/explorer/install.md
+          content/telegraf/v1/install.md
+          content/influxdb/v2/install/_index.md
+          content/influxdb/v1/introduction/install.md
+          content/chronograf/v1/introduction/installation.md
+          content/enterprise_influxdb/v1/introduction/installation/single-server.md"
+            echo "🔽 data/products.yml changed — adding download/install pages to the link check"
+            CHANGED_FILES=$(printf '%s\n%s\n' "$CHANGED_FILES" "$DOWNLOAD_PAGES" \
+              | sed 's/^[[:space:]]*//' | grep -v '^$' | sort -u)
+          fi
 
           echo "📁 All changed files:"
           cat all_changed_files.txt
@@ -88,7 +114,7 @@ jobs:
 
       - name: Setup Node.js
         if: steps.detect.outputs.has-changes == 'true'
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
         with:
           node-version-file: .nvmrc
           cache: 'yarn'

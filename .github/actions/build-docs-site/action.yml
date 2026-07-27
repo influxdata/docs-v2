@@ -18,7 +18,7 @@ inputs:
     description: 'Build API documentation before Hugo'
     default: 'true'
   hugo-environment:
-    description: 'Hugo environment flag (production, pr-preview, development, …)'
+    description: 'Hugo environment flag (production, staging, development, …)'
     default: 'production'
   hugo-destination:
     description: 'Hugo output directory'

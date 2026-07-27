@@ -13,6 +13,8 @@
 
 const STORAGE_KEY = 'influxdata_docs_urls';
 const TEST_PAGE = '/influxdb3/core/plugins/';
+// A product with a protocol-less, product-specific URL field (applyProductUrl).
+const DEDICATED_PAGE = '/influxdb3/cloud-dedicated/get-started/setup/';
 const EXPECTED_PRODUCT_KEYS = [
   'oss',
   'cloud',
@@ -49,7 +51,9 @@ describe('InfluxDB URL - localStorage', function () {
 
     // No code block in the article should contain "undefined" as a bare host
     cy.get('.article--content pre:not(.preserve)').each(($el) => {
-      cy.wrap($el).invoke('text').should('not.match', /undefined\/api\//);
+      cy.wrap($el)
+        .invoke('text')
+        .should('not.match', /undefined\/api\//);
     });
   });
 
@@ -74,6 +78,213 @@ describe('InfluxDB URL - localStorage', function () {
         expect(stored[key], `"${key}" should be a non-empty string`).to.be.a(
           'string'
         ).and.not.be.empty;
+      });
+    });
+  });
+});
+
+/**
+ * URL selector analytics (GA4 events)
+ *
+ * Verifies that URL selector interactions fire Google Analytics events so we
+ * can measure whether the feature is used (related to
+ * https://github.com/influxdata/docs-v2/issues/7504):
+ *
+ * - `url_selector_open`   — the selector modal is opened (.url-trigger)
+ * - `url_selector_preset` — a built-in URL is selected
+ * - `custom_influxdb_url` — a custom URL is entered and applied
+ */
+describe('InfluxDB URL - selector analytics', function () {
+  // Stub window.gtag AFTER page load so GA4's own gtag.js doesn't overwrite
+  // it (matches the pattern used in llm-format-selector.cy.js).
+  function stubGtag() {
+    cy.window().then((win) => {
+      win.gtag = cy.stub().as('gtag');
+    });
+  }
+
+  function openCustomUrlModal() {
+    cy.get('.url-trigger').first().click();
+    cy.get('#influxdb-url-list').should('be.visible');
+  }
+
+  it('fires url_selector_open when the selector modal is opened', function () {
+    cy.visit(TEST_PAGE);
+    // Stub before clicking so the trigger's event is captured.
+    stubGtag();
+
+    cy.get('.url-trigger').first().click();
+    cy.get('#influxdb-url-list').should('be.visible');
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'url_selector_open',
+      Cypress.sinon.match({ product: 'core' })
+    );
+  });
+
+  it('fires url_selector_preset when a built-in URL is selected', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    // Select a built-in (preset) radio option — not the custom radio.
+    cy.get('input[type="radio"][name="influxdb-core-url"]')
+      .not('#custom')
+      .first()
+      .check({ force: true });
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'url_selector_preset',
+      Cypress.sinon.match({ product: 'core' })
+    );
+
+    // Preset URLs are public documented endpoints, so the selected value is
+    // reported to help compare preset vs. custom usage.
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'url_selector_preset');
+      expect(calls.length).to.be.greaterThan(0);
+      expect(calls[0].args[2].selected_url).to.be.a('string').and.not.be.empty;
+    });
+  });
+
+  it('does not fire url_selector_preset when a custom URL is applied', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    cy.get('#custom-url-field').clear().type('http://localhost:9999').blur();
+
+    // The custom path fires its own event, not a preset event.
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'custom_influxdb_url',
+      Cypress.sinon.match({ product: 'core' })
+    );
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'url_selector_preset');
+      expect(calls.length).to.equal(0);
+    });
+  });
+
+  it('fires a custom_influxdb_url event when a valid custom URL is applied', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    cy.get('#custom-url-field').clear().type('http://localhost:9999').blur();
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'custom_influxdb_url',
+      Cypress.sinon.match({ product: 'core', host_type: 'localhost' })
+    );
+  });
+
+  it('categorizes remote hosts and never sends the raw URL', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    cy.get('#custom-url-field')
+      .clear()
+      .type('https://influxdb.example.com:8181')
+      .blur();
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'custom_influxdb_url',
+      Cypress.sinon.match({ product: 'core', host_type: 'remote' })
+    );
+
+    // The user's actual URL must never appear in the event payload.
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'custom_influxdb_url');
+      expect(calls.length).to.be.greaterThan(0);
+      calls.forEach((c) => {
+        expect(JSON.stringify(c.args[2])).to.not.contain(
+          'influxdb.example.com'
+        );
+      });
+    });
+  });
+
+  it('does not fire the event for an invalid custom URL', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    cy.get('#custom-url-field').clear().type('ftp://not-valid').blur();
+
+    // Validation error confirms the invalid value was processed.
+    cy.get('#custom-url').should('have.class', 'error');
+
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'custom_influxdb_url');
+      expect(calls.length).to.equal(0);
+    });
+  });
+
+  it('counts a re-applied custom URL again after the field is cleared', function () {
+    cy.visit(TEST_PAGE);
+    stubGtag();
+    openCustomUrlModal();
+
+    // Apply a value, clear the field (restores the default), then re-apply the
+    // same value — the second use must be counted, not swallowed by dedup.
+    cy.get('#custom-url-field').clear().type('http://localhost:9999').blur();
+    cy.get('#custom-url-field').clear().blur();
+    cy.get('#custom-url-field').clear().type('http://localhost:9999').blur();
+
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'custom_influxdb_url');
+      expect(calls.length).to.equal(2);
+    });
+  });
+
+  it('tracks the product-specific URL path (dedicated) with redaction', function () {
+    cy.visit(DEDICATED_PAGE);
+    stubGtag();
+    // Dedicated/clustered use a product-specific field, not #custom-url-field.
+    cy.get('.url-trigger').first().click();
+    cy.get('#influxdb-url-list').should('be.visible');
+
+    // Protocol-less host — exercises applyProductUrl + categorizeHost parsing.
+    cy.get('#dedicated-url-field').clear().type('mycluster.example.com').blur();
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'custom_influxdb_url',
+      Cypress.sinon.match({ product: 'dedicated', host_type: 'remote' })
+    );
+
+    // The user's cluster host must never appear in the event payload.
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'custom_influxdb_url');
+      expect(calls.length).to.be.greaterThan(0);
+      calls.forEach((c) => {
+        expect(JSON.stringify(c.args[2])).to.not.contain(
+          'mycluster.example.com'
+        );
       });
     });
   });

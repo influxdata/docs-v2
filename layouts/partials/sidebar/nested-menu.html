@@ -1,14 +1,30 @@
 {{ $menu := .menu }}
 {{ $siteData := .siteData }}
+{{/* Number of leading path segments contributed by a subdirectory baseURL
+     (e.g. PR previews at https://.../pr-preview/pr-N/). Hugo menu entries'
+     .URL is site-root-relative, so it includes this prefix. Strip it before
+     doing product-family prefix matching or deriving API data lookup paths,
+     matching the same pattern used in api/section-children.html. */}}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
 
 {{ define "recursiveMenu" }}
   {{ $menuContext := .menu }}
   {{ $siteData := .siteData }}
+  {{ $pathOffset := .pathOffset }}
   {{ $depth := add .depth 1 }}
   {{ $navClass := cond (gt $depth 1) "item" "category" }}
   {{ range $menuContext }}
+    {{/* Strip the baseURL subpath from the menu URL before checking
+         product-family prefixes, so PR previews (and any other
+         subdirectory-baseURL deploy) match the same as production. */}}
+    {{ $relURL := .URL }}
+    {{ if gt $pathOffset 0 }}
+      {{ $urlSegments := split (strings.TrimPrefix "/" .URL) "/" }}
+      {{ $relURL = print "/" (delimit (after $pathOffset $urlSegments) "/") }}
+    {{ end }}
+
     {{/* Check if this is the InfluxDB HTTP API menu item for InfluxDB 3 products */}}
-    {{ $isApiParent := and (or (eq .Name "InfluxDB HTTP API") (eq .Name "InfluxDB Management API")) (or (hasPrefix .URL "/influxdb3/") (hasPrefix .URL "/influxdb/") (hasPrefix .URL "/enterprise_influxdb/")) }}
+    {{ $isApiParent := and (or (eq .Name "InfluxDB HTTP API") (eq .Name "InfluxDB Management API")) (or (hasPrefix $relURL "/influxdb3/") (hasPrefix $relURL "/influxdb/") (hasPrefix $relURL "/enterprise_influxdb/")) }}
 
     <li class="nav-{{ $navClass }}" data-nav-url="{{ .URL }}"{{ if .Params.state }} state="{{ .Params.state }}"{{ end }}>
       {{ if $isApiParent }}
@@ -16,6 +32,9 @@
         <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ .Name }} nested items"></a>
         <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
         <ul class="children">
+          {{/* Pass the original (baseURL-prefixed) URL: api-menu-items.html
+               builds hrefs by concatenating onto it directly, and separately
+               strips the baseURL offset itself for its data lookup. */}}
           {{ partial "sidebar/api-menu-items" (dict "url" .URL "siteData" $siteData) }}
         </ul>
       {{ else }}
@@ -24,7 +43,7 @@
         <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
         {{ if .HasChildren }}
           <ul class="children">
-          {{ template "recursiveMenu" (dict "menu" .Children "siteData" $siteData "depth" $depth) }}
+          {{ template "recursiveMenu" (dict "menu" .Children "siteData" $siteData "pathOffset" $pathOffset "depth" $depth) }}
           </ul>
         {{ end }}
       {{ end }}
@@ -32,4 +51,4 @@
   {{ end }}
 {{ end }}
 
-{{ template "recursiveMenu" (dict "menu" .menu "siteData" $siteData "depth" 0) }}
+{{ template "recursiveMenu" (dict "menu" .menu "siteData" $siteData "pathOffset" $pathOffset "depth" 0) }}

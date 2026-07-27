@@ -1,0 +1,166 @@
+name: Release Version Check
+
+# Two non-blocking reminders on release-related PRs:
+#
+#   1. version-reminder — when a product's release-notes page advances past the
+#      version in data/products.yml, remind the author to bump it. That number
+#      feeds the {{< latest-patch >}} shortcode, which builds every
+#      dl.influxdata.com download URL and the versions in install/code examples,
+#      so a missed bump silently points the docs at the previous release.
+#      Every product is checked and reported (Telegraf included — it normally
+#      reports success because its internal automation keeps the value in sync).
+#
+#   2. release-readiness — when a PR actually bumps a latest_patch/latest_patches
+#      value, remind the author to confirm the new version's download artifacts
+#      are published before the docs go live. This is a reminder, not a gate; the
+#      rendered download/install URLs are verified (non-blocking) by
+#      pr-link-check.yml, which checks those pages on any data/products.yml change.
+#
+# Neither job blocks merge.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'content/**/release-notes.md'
+      - 'content/**/release-notes/**'
+      - 'content/shared/v3-core-enterprise-release-notes/**'
+      - 'data/products.yml'
+      - '.ci/scripts/check-release-notes-version.js'
+      - '.github/workflows/pr-release-check.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  version-reminder:
+    name: Release version reminder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      # Detect changed files with git diff, not the GitHub Files API — the API is
+      # flaky and the repo is moving off it (see pr-remark-check.yml / test.yml).
+      - name: Detect changed files
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git diff --name-only --diff-filter=d "$BASE_SHA"..."$HEAD_SHA" \
+            > changed.txt
+          echo "Changed files:"
+          cat changed.txt
+
+      - name: Run release version check
+        run: |
+          mapfile -t FILES < changed.txt
+          node .ci/scripts/check-release-notes-version.js "${FILES[@]}" \
+            | tee report.md
+
+      # Sticky comment: update the existing marker comment instead of stacking
+      # new ones. Skipped on fork PRs (read-only token) — the step summary and
+      # ::warning annotations remain the fallback there.
+      - name: Post or update PR comment
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('report.md', 'utf8');
+            const marker = '## Release version check';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(
+              (c) => c.user.type === 'Bot' && c.body.includes(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+  release-readiness:
+    name: Release artifact reminder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      # Precise bump detection: compare the PARSED latest_patch / latest_patches
+      # values between base and head. Only a real version change counts — unlike a
+      # naive line grep, this ignores unrelated `v1:`/`v2:` keys under oss_repo,
+      # content_path, label_group, latest_cli, etc.
+      - name: Detect version bump
+        id: bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git show "$BASE_SHA:data/products.yml" > /tmp/products-old.yml \
+            2>/dev/null || echo '{}' > /tmp/products-old.yml
+          node .ci/scripts/detect-version-bump.js \
+            /tmp/products-old.yml data/products.yml | tee bump.md
+          if grep -q '^BUMPED=true' bump.md; then
+            echo "bumped=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "bumped=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Report (non-blocking)
+        if: always()
+        run: |
+          {
+            echo "## Release artifact reminder"
+            echo ""
+            if [[ "${{ steps.bump.outputs.bumped }}" == "true" ]]; then
+              grep '^- ' bump.md || true
+              echo ""
+              echo "Before this merges/publishes, confirm the download artifacts for"
+              echo "the new version(s) are live at \`dl.influxdata.com\`. The rendered"
+              echo "download/install URLs are checked (non-blocking) by the link-check"
+              echo "workflow when \`data/products.yml\` changes."
+            else
+              echo "No \`latest_patch\`/\`latest_patches\` change detected — nothing to remind."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

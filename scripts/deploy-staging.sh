@@ -148,12 +148,16 @@ deploy_to_s3() {
     fi
 
     info "Deploying to S3 bucket: $STAGING_BUCKET"
+    # -ignore excludes the pr-preview/ prefix from this root deploy's remote
+    # diff, so a manual staging deploy can never delete PR Preview objects
+    # (previews are deployed separately, under s3://$STAGING_BUCKET/pr-preview/pr-<N>/).
     s3deploy -source=public/ \
         -bucket="$STAGING_BUCKET" \
         -region="$AWS_REGION" \
         -distribution-id="${STAGING_CF_DISTRIBUTION_ID}" \
-        -key=$AWS_ACCESS_KEY_ID \
-        -secret=$AWS_SECRET_KEY \
+        -key="$AWS_ACCESS_KEY_ID" \
+        -secret="$AWS_SECRET_KEY" \
+        -ignore='^pr-preview/' \
         -force \
         -v
     success "Deployment to S3 complete"
