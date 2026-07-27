@@ -199,6 +199,11 @@ storage layers.
 If there is a conflict (same series key and timestamp), the upgraded data takes
 precedence.
 
+After the upgrade completes, Parquet options that applied only during the
+upgrade log a startup warning that they are now ignored and can be removed
+from the configuration--use the startup log as a checklist for cleaning up
+your configuration.
+
 ### Monitor upgrade progress
 
 Use system tables to track upgrade status:
