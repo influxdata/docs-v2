@@ -256,8 +256,9 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 > environment variable) that has no effect on the active storage engine,
 > the server logs one aggregated startup warning naming the ignored options.
 > After the storage engine upgrade completes, this includes long-standing
-> Parquet options that no longer apply--use the warnings as a checklist for
-> cleaning up your configuration.
+> Parquet options that no longer apply. The warnings appear on the next
+> server start following completion of the upgrade--use them as a checklist
+> for cleaning up your configuration.
 
 {{% /show-in %}}
 
