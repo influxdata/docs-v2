@@ -61,11 +61,11 @@ Any acknowledged writes that were **not** covered by the node's final
 snapshot are deleted with them.
 That is why the node must complete a graceful stop first.
 
-### Removal is refused if unsnapshotted WAL remains (upgraded engine)
+### Removal is refused if unsnapshotted WAL remains (upgraded engine) {#removal-is-refused-if-unsnapshotted-wal-remains-upgraded-engine metadata="v3.11+"}
 
 On clusters that have fully adopted the upgraded storage engine (the default
-for new clusters), removing a `stopped` node
-that still has an unsnapshotted WAL tail is **refused** (HTTP 409):
+for new clusters), {{% product-name %}} **refuses** (HTTP 409) to remove a
+`stopped` node that still has an unsnapshotted WAL tail:
 
 ```text
 node 'NODE_ID' has unsnapshotted WAL (wal file N, snapshotted through M);
@@ -88,7 +88,7 @@ and then remove it.
 > [`stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/) before
 > removal is the only protection against losing the WAL tail.
 
-## Force removal of a node that did not shut down cleanly
+## Force removal of a node that did not shut down cleanly {#force-removal-of-a-node-that-did-not-shut-down-cleanly metadata="v3.11+"}
 
 If `remove node` fails without `--force-finalize`, the node never finished
 stopping—its process is gone and never confirmed a clean stop.
