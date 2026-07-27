@@ -19,9 +19,10 @@ prepend: |
   > [!Note]
   > #### Using the performance upgrade preview?
   >
-  > Thread allocation on this page applies to the default (Parquet-backed)
-  > storage engine. If your nodes run with `--use-pacha-tree`, use the
-  > [performance upgrade preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+  > Thread allocation on this page applies to the Parquet storage engine.
+  > If your cluster runs the upgraded storage engine (the default for new
+  > clusters in InfluxDB 3 Enterprise 3.11+), use the
+  > [configuration reference](/influxdb3/enterprise/performance-preview/configure/)
   > instead.
 ---
 

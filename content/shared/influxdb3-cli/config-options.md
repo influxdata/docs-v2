@@ -88,15 +88,15 @@ influxdb3 serve
 Several environment variables were renamed so that each variable matches its
 command option.
 {{% show-in "enterprise" %}}In addition, Enterprise-specific variables dropped
-the `ENTERPRISE_` segment--for example, `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`
+the `ENTERPRISE_` segment—for example, `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`
 is now `INFLUXDB3_LICENSE_EMAIL`.{{% /show-in %}}
 Legacy names remain supported as deprecated aliases; the server logs a
 deprecation warning at startup when it detects one.
 If both the new and the legacy name are set, the new name takes precedence.
 Option tables on this page list deprecated aliases where they exist.
 
-Use the following tables to migrate a deployment configuration--for example,
-Helm values or a systemd environment file--in one pass.
+Use the following tables to migrate a deployment configuration—for example,
+Helm values or a systemd environment file—in one pass.
 
 #### Renamed options (legacy names aliased)
 
@@ -180,7 +180,7 @@ Legacy names remain supported as deprecated aliases.
 
 #### Removed pt- option names (no aliases)
 
-Options for the upgraded storage engine (PachaTree) dropped the `pt-`
+Options for the upgraded storage engine dropped the `pt-`
 prefix without backward compatibility: old `--pt-*` flags cause a startup
 error, and legacy `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*`
 environment variables are ignored (the server logs a warning at startup for
@@ -475,8 +475,8 @@ For the upgrade procedure, see
 > \[!Note]
 > `--use-pacha-tree` (environment variable `INFLUXDB3_USE_PACHA_TREE`; legacy
 > `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE`) is deprecated.
-> It is still accepted and keeps its previous behavior--on an existing Parquet
-> cluster it starts the same migration as `--upgrade-pacha-tree`--but the
+> It is still accepted and keeps its previous behavior—on an existing Parquet
+> cluster it starts the same migration as `--upgrade-pacha-tree`—but the
 > server logs a deprecation warning at startup.
 
 | influxdb3 serve option | Environment variable |
@@ -1543,7 +1543,7 @@ Provides custom configuration to DataFusion as a comma-separated list of
 #### max-http-request-size
 
 Specifies the maximum size of HTTP requests.
-Prefer a [unit suffix](#size-option-values)--for example, `10mb`.
+Prefer a [unit suffix](#size-option-values)—for example, `10mb`.
 A bare number is accepted as bytes (its pre-3.11 meaning) with a startup
 warning.
 
@@ -1578,7 +1578,7 @@ Specifies the size of the memory pool used for query processing and data operati
 This memory pool is used when {{% product-name %}} processes queries and performs
 internal data management tasks.
 Provide a value with a [unit suffix](#size-option-values) or as a percentage
-of the total available memory--for example: `8gb` or `10%`.
+of the total available memory—for example: `8gb` or `10%`.
 
 **Default:** `20%`
 
@@ -1600,7 +1600,7 @@ of the total available memory--for example: `8gb` or `10%`.
 
 Specifies the threshold for the internal memory buffer. Supports either a
 percentage (portion of available memory) or a value with a
-[unit suffix](#size-option-values)--for example: `70%` or `1000mb`.
+[unit suffix](#size-option-values)—for example: `70%` or `1000mb`.
 
 **Default:** `50%`
 
@@ -1973,7 +1973,7 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 
 Specifies the size of the in-memory data file cache.
 Provide a value with a [unit suffix](#size-option-values) or as a percentage
-of total available memory--for example, `4gb` or `20%`.
+of total available memory—for example, `4gb` or `20%`.
 
 This is a total budget.
 {{% show-in "enterprise" %}}
@@ -2035,7 +2035,7 @@ the time window for caching recent data files in memory.
 {{% show-in "enterprise" %}}**Default:** `3d`{{% /show-in %}}
 
 Only files containing data with a timestamp between `now` and `now - duration`
-are cached when accessed during queries--for example, with a `5h` setting:
+are cached when accessed during queries—for example, with a `5h` setting:
 
 - Current time: `2024-06-10 15:00:00`
 - Cache window: Last 5 hours (`2024-06-10 10:00:00` to now)

@@ -17,21 +17,26 @@ related:
 influxdb3/enterprise/tags: [clustering, nodes, recovery, wal]
 ---
 
-Use this procedure to recover a node that stopped **ungracefully**--for
+Use this procedure to recover a node that stopped **ungracefully** — for
 example, the process crashed, was killed (`kill -9`), or its container was
-force-stopped--or that is wedged in the `stopping` state.
+force-stopped.
+It also applies to a node wedged in the `stopping` state.
 
-This procedure applies to both the Parquet engine and the upgraded storage
-engine (the default for new clusters).
+> [!Note]
+> This procedure applies to both the Parquet engine and the upgraded storage
+> engine (the default for new clusters in {{< product-name >}} 3.11+).
 
 ## Why ungraceful stops put writes at risk
 
-A node buffers recently acknowledged writes in its write-ahead log (WAL) and
-only periodically captures them in a snapshot.
-A graceful [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
-against the **live** node drains this WAL tail before the node reads as
-`stopped`--the Parquet engine flushes the WAL and the upgraded storage
-engine snapshots it.
+A node stores recently acknowledged writes in its write-ahead log (WAL) until it
+captures them in a snapshot.
+These buffered writes—the ones a snapshot has not yet captured—are the node's
+_WAL tail_.
+Run the [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
+command against a running node to save the WAL tail before the node reports a
+`stopped` state.
+The Parquet engine flushes the WAL, and the upgraded storage engine captures a
+snapshot.
 
 A node that dies without a graceful stop skips that drain:
 
@@ -40,24 +45,22 @@ A node that dies without a graceful stop skips that drain:
   purges its object-store file paths, permanently deleting any acknowledged
   writes not covered by its last snapshot.
 - Sending the process a bare `SIGTERM` (without calling `stop node`) does not
-  force a WAL snapshot on the upgraded storage engine, so a plain process
-  shutdown can also leave
-  a WAL tail behind.
+  force a WAL snapshot on the upgraded storage engine.
+  A plain process shutdown can also leave a WAL tail behind.
 
 On clusters that have fully adopted the upgraded storage engine,
 `remove node` refuses (HTTP 409) to remove a `stopped`
-node that still has an un-snapshotted WAL tail unless you pass
-`--force-finalize`.
-Parquet clusters and clusters still mid-upgrade do
-**not** have this safeguard--on those clusters, completing this recovery
-procedure before removal is the only protection against losing the tail.
+node that still has a WAL tail unless you pass `--force-finalize`.
+Parquet clusters and clusters still mid-upgrade do **not** have this safeguard.
+On those clusters, completing this recovery procedure before removal is the only
+protection against losing the tail.
 
 ## Recover the node
 
 1. **Restart a server process with the same `--node-id`** (environment
    variable: `INFLUXDB3_NODE_ID`) and the same object store configuration.
-   This is functionally the same as restarting the original node: on startup,
-   WAL recovery finds and replays the un-drained WAL files, so the
+   This is functionally the same as restarting the original node.
+   On startup, WAL recovery replays the WAL files that were not drained, so the
    acknowledged writes are safe again.
 
    <!--pytest.mark.skip-->
@@ -91,14 +94,14 @@ procedure before removal is the only protection against losing the tail.
    influxdb3 remove node --node-id NODE_ID
    ```
 
-   If you are recovering the node to keep using it, skip this step--after a
-   graceful stop, you can start it again at any time.
+   If you are recovering the node to keep using it, skip this step.
+   After a graceful stop, you can start it again at any time.
 
 ## If the node cannot be brought back
 
-If the node genuinely cannot be restarted (for example, its data is
+If the node cannot be restarted (for example, its data is
 unrecoverable or the hardware is gone) and you accept the possible loss of
-un-snapshotted writes, use the
+writes not yet captured in a snapshot, use the
 [`--force-finalize` option](/influxdb3/enterprise/reference/cli/influxdb3/remove/node/#force-removal-of-a-node-that-did-not-shut-down-cleanly)
 to force the removal:
 
