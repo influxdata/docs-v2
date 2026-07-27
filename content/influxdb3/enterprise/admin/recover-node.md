@@ -59,8 +59,7 @@ protection against losing the tail.
 
 1. **Restart a server process with the same `--node-id`** (environment
    variable: `INFLUXDB3_NODE_ID`) and the same object store configuration.
-   This is functionally the same as restarting the original node.
-   On startup, WAL recovery replays the WAL files that were not drained, so the
+   This is functionally the same as restarting the original node: on startup, WAL recovery replays the WAL files that were not drained, so the
    acknowledged writes are safe again.
 
    <!--pytest.mark.skip-->
