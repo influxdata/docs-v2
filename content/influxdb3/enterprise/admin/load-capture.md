@@ -12,6 +12,10 @@ menu:
 related:
   - /influxdb3/enterprise/admin/tokens/admin/
   - /influxdb3/enterprise/api/
+prepend: |
+  > [!Note]
+  > This feature requires the [upgraded storage engine](/influxdb3/enterprise/performance-preview/)—the default for new clusters.
+  > On clusters that started on 3.10 or earlier, first run the [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) (`--upgrade-pacha-tree`).
 ---
 
 Use load capture to record a short, anonymized profile of requests handled by a query-capable InfluxDB 3 Enterprise node.
@@ -22,8 +26,6 @@ The profile preserves workload characteristics that can help you analyze or repr
 > Anonymization does not remove all operational characteristics from a profile.
 
 > [!Note]
-> Load capture requires the [upgraded storage engine](/influxdb3/enterprise/performance-preview/)--the default for new clusters.
-> On clusters that started on 3.10 or earlier, first run the [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) (`--upgrade-pacha-tree`).
 > Send requests to a node with an explicit `--mode` setting that includes `query`, for example, `--mode query` or `--mode ingest --mode query --mode compact`.
 > Load capture isn't available on a node that uses the default `--mode all` configuration.
 
