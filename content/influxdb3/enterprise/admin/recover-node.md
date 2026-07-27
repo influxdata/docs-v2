@@ -45,8 +45,8 @@ A node that dies without a graceful stop skips that drain:
   purges its object-store file paths, permanently deleting any acknowledged
   writes not covered by its last snapshot.
 - Sending the process a bare `SIGTERM` (without calling `stop node`) does not
-  force a WAL snapshot on the upgraded storage engine.
-  A plain process shutdown can also leave a WAL tail behind.
+  force a WAL snapshot on the upgraded storage engine, so a plain process
+  shutdown can also leave a WAL tail behind.
 
 On clusters that have fully adopted the upgraded storage engine,
 `remove node` refuses (HTTP 409) to remove a `stopped`
@@ -85,16 +85,15 @@ protection against losing the tail.
    confirm the stop.
 
 3. **Remove the node** if you intend to permanently remove it from the
-   cluster:
+   cluster.
+   If you are recovering the node to keep using it, skip this step—after a
+   graceful stop, you can start it again at any time.
 
    <!--pytest.mark.skip-->
 
    ```bash { placeholders="NODE_ID" }
    influxdb3 remove node --node-id NODE_ID
    ```
-
-   If you are recovering the node to keep using it, skip this step.
-   After a graceful stop, you can start it again at any time.
 
 ## If the node cannot be brought back
 
