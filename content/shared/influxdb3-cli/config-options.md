@@ -180,7 +180,7 @@ Legacy names remain supported as deprecated aliases.
 
 #### Removed pt- option names (no aliases) {#removed-pt-option-names-no-aliases metadata="v3.11+"}
 
-Options for the upgraded storage engine dropped the `pt-`
+In {{< product-name >}} 3.11+, options for the upgraded storage engine dropped the `pt-`
 prefix without backward compatibility: old `--pt-*` flags cause a startup
 error, and legacy `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*`
 environment variables are ignored (the server logs a warning at startup for
