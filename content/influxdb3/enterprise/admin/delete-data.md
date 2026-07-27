@@ -17,7 +17,7 @@ related:
 
 Row-level deletion is an {{% product-name %}} feature that requires the
 [upgraded storage engine](/influxdb3/enterprise/performance-preview/)—the
-default for new clusters.
+default for new clusters on {{% product-name %}} 3.11+.
 On clusters that started on 3.10 or earlier, first run the
 [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree)
 (`--upgrade-pacha-tree`).
