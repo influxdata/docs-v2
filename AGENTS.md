@@ -68,6 +68,8 @@ See [README.md](README.md) and the
 - For InfluxDB 3, shared directories contain the prose; product directories are
   usually thin stubs with `source:` references.
 - Product names and versions come from `data/products.yml`.
+  Templates under `layouts/` read that data; they never hardcode a product name
+  or version segment in template logic.
 - Commit format is `type(scope): description`.
 - Network-restricted environments may fail on Cypress downloads, Docker builds,
   or Alpine package installs.
