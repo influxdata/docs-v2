@@ -1,13 +1,17 @@
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 | default "" }}
-{{ $version := index $productPathData 1 | default "" }}
+{{ $ctx := partial "product/get-context.html" . }}
+{{ $product := $ctx.product }}
+{{ $version := $ctx.version }}
 {{ $fluxPath := print "/flux/v0/" }}
 {{ $isFluxLatest := cond (in .RelPermalink $fluxPath) true false }}
-{{ $isResources :=  cond (eq $product "resources") true false}}
+{{/*
+  The search tag stays path-derived. It is the key Algolia already indexed
+  every record under, so it must keep matching the crawled URL rather than
+  follow a products.yml field.
+*/}}
 {{ $searchTag := print $product "-" $version }}
 
 {{ if not .IsHome }}
-  {{ if or (eq $version (replaceRE `\.[0-9x]+$` "" (index $.Site.Data.products $product).latest)) (eq $product "platform") (in (slice "cloud" "core" "enterprise" "cloud-serverless" "cloud-dedicated" "clustered" "explorer" "controller") $version ) }}
+  {{ if partial "product/is-latest.html" . }}
     <meta name="docsearch:latest" content="true">
   {{ end }}
   {{ if and (ne $product "platform") (ne $product "resources") (ne $version "") }}
