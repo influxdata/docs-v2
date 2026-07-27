@@ -91,8 +91,7 @@ and then remove it.
 ## Force removal of a node that did not shut down cleanly
 
 If `remove node` fails without `--force-finalize`, the node never finished
-stopping.
-Its process is gone and never confirmed a clean stop.
+stopping—its process is gone and never confirmed a clean stop.
 `--force-finalize` removes it anyway.
 
 **This can lose data**: recently acknowledged writes the node had not yet
