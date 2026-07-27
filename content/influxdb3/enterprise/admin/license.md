@@ -137,10 +137,12 @@ address using one of the following methods:
 - **TOML config (DEB/RPM-only):** Set the [`license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option in the [`/etc/influxdb3/influxdb3-enterprise.conf` file](/influxdb3/enterprise/install/#toml-configuration-linux) for a DEB or RPM install
 
 > [!Note]
-> The legacy `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`,
-> `INFLUXDB3_ENTERPRISE_LICENSE_FILE`, and `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`
-> environment variable names are deprecated aliases; the server accepts them
-> but logs a deprecation warning at startup.
+> #### Deprecated Enterprise license environment variables
+>
+> In {{< product-name >}} 3.11+, use `INFLUXDB3_LICENSE_EMAIL`,
+> `INFLUXDB3_LICENSE_FILE`, and `INFLUXDB3_LICENSE_TYPE`.
+> The legacy `INFLUXDB3_ENTERPRISE_*` names remain supported as deprecated
+> aliases, but the server logs a deprecation warning at startup.
 
 If the server finds a valid license file in your object store, it ignores the
 license email option.

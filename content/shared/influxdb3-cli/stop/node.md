@@ -4,10 +4,11 @@ node in your {{< product-name >}} cluster.
 When you run this command against a **live** node:
 
 1. The node is marked as `stopping` in the catalog.
-2. The node completes its stop cascade--including draining its
-   write-ahead log (WAL) tail (the Parquet engine flushes the WAL; the
-   upgraded storage engine, the default for new clusters, snapshots
-   it)--and then confirms the stop.
+2. The node completes its stop cascade, then confirms the stop.
+   The cascade drains the node's WAL tail—the writes buffered in the
+   write-ahead log (WAL) since the last snapshot.
+   The Parquet engine flushes the WAL, and the upgraded storage engine
+   (the default for new clusters) snapshots it.
 3. The node reads as `stopped` in the catalog, and its licensed cores are
    freed for other nodes.
 
@@ -17,7 +18,7 @@ status if the node does not reach `stopped` in time.
 Use `--no-wait` to return as soon as the stop request is accepted.
 
 > [!Important]
-> #### Run this command against the live node--do not kill it first
+> #### Run this command against the live node—do not kill it first
 >
 > `stop node` is how a node drains its WAL tail.
 > If you kill the process first (for example, with `kill -9` or by
@@ -48,7 +49,7 @@ influxdb3 stop node [OPTIONS] --node-id <NODE_ID>
 | :----- | :------------- | :--------------------------------------------------------------------------------------- |
 |        | `--node-id`    | *({{< req >}})* The node ID to stop                                                      |
 |        | `--no-confirm` | Skip the confirmation prompt (`--force` is a deprecated alias)                           |
-|        | `--timeout`    | How long to wait for the node to reach `stopped` before giving up--for example: `30s`, `5m`, `1h` (default is `5m`) |
+|        | `--timeout`    | How long to wait for the node to reach `stopped` before giving up—for example: `30s`, `5m`, `1h` (default is `5m`) |
 |        | `--no-wait`    | Return as soon as the stop request is accepted instead of waiting for `stopped`          |
 | `-H`   | `--host`       | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 |        | `--token`      | Authentication token                                                                     |
@@ -78,7 +79,7 @@ upgraded engine: WAL snapshot).
   reaches `stopped`, up to `--timeout` (default `5m`).
 - If the node does not reach `stopped` within the timeout, the command prints
   the last observed state and exits with a non-zero status.
-  The node may be wedged in `stopping`--for example, if the process died
+  The node may be wedged in `stopping`—for example, if the process died
   mid-cascade.
   To recover, follow
   [Recover a crashed node](/influxdb3/version/admin/recover-node/).
@@ -89,8 +90,8 @@ upgraded engine: WAL snapshot).
 - The command requires authentication if the server has auth enabled.
 
 Running `stop node` against a node whose process is **already dead** cannot
-drain anything: the catalog still moves the node toward `stopped`, but any
-un-drained WAL tail remains at risk until the node is restarted.
+drain anything: the catalog still moves the node toward `stopped`, but the
+WAL tail remains at risk until the node is restarted.
 See [Recover a crashed node](/influxdb3/version/admin/recover-node/).
 
 ## Examples
