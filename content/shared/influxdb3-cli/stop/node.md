@@ -8,7 +8,7 @@ When you run this command against a **live** node:
    The cascade drains the node's WAL tail—the writes buffered in the
    write-ahead log (WAL) since the last snapshot.
    The Parquet engine flushes the WAL, and the upgraded storage engine
-   (the default for new clusters) snapshots it.
+   (the default for new clusters in {{< product-name >}} 3.11+) snapshots it.
 3. The node reads as `stopped` in the catalog, and its licensed cores are
    freed for other nodes.
 
