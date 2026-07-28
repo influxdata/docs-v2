@@ -4,6 +4,76 @@
  */
 const debug = false; // Set to true for debugging output
 
+// Use object-based lookups instead of conditionals for version and product
+// names. These can be replaced with data from productData in the future.
+
+// Products that expose more than one numbered version in the URL path
+const multiVersion = ['influxdb'];
+
+// Version display name mappings, keyed by the version path segment
+const versionDisplayNames = {
+  cloud: 'Cloud',
+  core: 'Core',
+  enterprise: 'Enterprise',
+  'cloud-serverless': 'Cloud Serverless',
+  'cloud-dedicated': 'Cloud Dedicated',
+  clustered: 'Clustered',
+  explorer: 'Explorer',
+  controller: 'Controller',
+};
+
+// Version display names for a specific product, keyed by "product/version".
+// Use for version segments that appear under more than one product--for
+// example, /influxdb/cloud/ is the TSM-backed v2 Cloud, while
+// /influxdb3/cloud/ is InfluxDB 3 Cloud.
+const productVersionDisplayNames = {
+  'influxdb/cloud': 'Cloud (TSM)',
+};
+
+// Product display name mappings
+const productDisplayNames = {
+  influxdb: 'InfluxDB',
+  influxdb3: 'InfluxDB 3',
+  explorer: 'InfluxDB 3 Explorer',
+  enterprise_influxdb: 'InfluxDB Enterprise',
+  flux: 'Flux',
+  telegraf: 'Telegraf',
+  controller: 'Telegraf Controller',
+  chronograf: 'Chronograf',
+  kapacitor: 'Kapacitor',
+  platform: 'InfluxData Platform',
+  resources: 'Additional Resources',
+};
+
+/**
+ * Format the version segment of a docs URL for display in search results.
+ * Product-specific names win over version-only names.
+ *
+ * @param {string|null|undefined} version - version path segment
+ * @param {string|null|undefined} productKey - product path segment
+ * @returns {string} display name, or '' when the version isn't displayable
+ */
+export function formatVersion(version, productKey) {
+  if (version == null) {
+    return '';
+  }
+  return (
+    productVersionDisplayNames[`${productKey}/${version}`] ??
+    versionDisplayNames[version] ??
+    (multiVersion.includes(productKey) ? version : '')
+  );
+}
+
+/**
+ * Format the product segment of a docs URL for display in search results.
+ *
+ * @param {string|null|undefined} productKey - product path segment
+ * @returns {string} display name, or the raw segment when unmapped
+ */
+export function formatProduct(productKey) {
+  return productDisplayNames[productKey] || productKey;
+}
+
 export default function DocSearch({ component }) {
   // Store configuration from component data attributes
   const config = {
@@ -43,38 +113,6 @@ export default function DocSearch({ component }) {
     if (debug) {
       console.log('Initializing DocSearch...');
     }
-    const multiVersion = ['influxdb'];
-
-    // Use object-based lookups instead of conditionals for version and product
-    // names. These can be replaced with data from productData in the future.
-
-    // Version display name mappings
-    const versionDisplayNames = {
-      cloud: 'Cloud (TSM)',
-      core: 'Core',
-      enterprise: 'Enterprise',
-      'cloud-serverless': 'Cloud Serverless',
-      'cloud-dedicated': 'Cloud Dedicated',
-      clustered: 'Clustered',
-      explorer: 'Explorer',
-      controller: 'Controller',
-    };
-
-    // Product display name mappings
-    const productDisplayNames = {
-      influxdb: 'InfluxDB',
-      influxdb3: 'InfluxDB 3',
-      explorer: 'InfluxDB 3 Explorer',
-      enterprise_influxdb: 'InfluxDB Enterprise',
-      flux: 'Flux',
-      telegraf: 'Telegraf',
-      controller: 'Telegraf Controller',
-      chronograf: 'Chronograf',
-      kapacitor: 'Kapacitor',
-      platform: 'InfluxData Platform',
-      resources: 'Additional Resources',
-    };
-
     // Initialize DocSearch with configuration
     window.docsearch({
       apiKey: config.apiKey,
@@ -83,25 +121,12 @@ export default function DocSearch({ component }) {
       inputSelector: config.inputSelector,
       debug: config.debug,
       transformData: function (hits) {
-        // Format version using object lookup instead of if-else chain
-        function fmtVersion(version, productKey) {
-          if (version == null) {
-            return '';
-          } else if (versionDisplayNames[version]) {
-            return versionDisplayNames[version];
-          } else if (multiVersion.includes(productKey)) {
-            return version;
-          } else {
-            return '';
-          }
-        }
-
         hits.map((hit) => {
           const pathData = new URL(hit.url).pathname
             .split('/')
             .filter((n) => n);
-          const product = productDisplayNames[pathData[0]] || pathData[0];
-          const version = fmtVersion(pathData[1], pathData[0]);
+          const product = formatProduct(pathData[0]);
+          const version = formatVersion(pathData[1], pathData[0]);
 
           hit.product = product;
           hit.version = version;
@@ -126,6 +151,13 @@ export default function DocSearch({ component }) {
             '<div class="search-no-results"><p>Not finding what you\'re looking for?</p> <a href="https://support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a></div>',
         },
       },
+    });
+
+    // DocSearch clones the search input to create its autocomplete hint
+    // element, duplicating the accesskey attribute. Remove the attribute from
+    // the clone so the accesskey stays unique on the page.
+    document.querySelectorAll('.ds-hint[accesskey]').forEach((hint) => {
+      hint.removeAttribute('accesskey');
     });
 
     // Mark DocSearch as initialized

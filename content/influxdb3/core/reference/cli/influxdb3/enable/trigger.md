@@ -8,6 +8,7 @@ menu:
     name: influxdb3 enable trigger
 weight: 400
 source: /shared/influxdb3-cli/enable/trigger.md
+canonical: self
 ---
 
 <!--

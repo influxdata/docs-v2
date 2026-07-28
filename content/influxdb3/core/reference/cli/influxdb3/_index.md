@@ -25,6 +25,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | Command                                                     | Description                         |
 | :---------------------------------------------------------- | :---------------------------------- |
 | [create](/influxdb3/core/reference/cli/influxdb3/create/)   | Create resources                    |
+| [debug](/influxdb3/core/reference/cli/influxdb3/debug/)     | Diagnostic tools                    |
 | [delete](/influxdb3/core/reference/cli/influxdb3/delete/)   | Delete resources                    |
 | [disable](/influxdb3/core/reference/cli/influxdb3/disable/) | Disable resources                   |
 | [enable](/influxdb3/core/reference/cli/influxdb3/enable/)   | Enable resources                    |

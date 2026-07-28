@@ -89,6 +89,16 @@ function convertRelativeLinks(content, pluginName) {
   const rootUrl =
     'https://github.com/influxdata/influxdb3_plugins/blob/master/';
 
+  // Convert cross-plugin README links to the sibling plugin's docs-v2 page.
+  // e.g. [influxdata/notifier plugin](../notifier/README.md) ->
+  //      [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/)
+  // Upstream plugin folders use underscore_case; docs-v2 slugs use hyphens.
+  content = content.replace(
+    /\[([^\]]+)\]\(\.\.\/([a-z0-9_]+)\/README\.md\)/g,
+    (match, linkText, pluginDir) =>
+      `[${linkText}](/influxdb3/version/plugins/library/official/${pluginDir.replace(/_/g, '-')}/)`
+  );
+
   // Convert relative README links (../../README.md, ../README.md, etc.)
   content = content.replace(
     /\[([^\]]+)\]\((\.\.\/)+README\.md\)/g,

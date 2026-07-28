@@ -172,6 +172,42 @@ This approach:
 - Simplifies updates and maintenance
 - Reduces local storage requirements
 
+**Syntax:**
+
+```
+gh:<path-to-plugin-file>
+```
+
+The path after `gh:` is appended to the configured `--plugin-repo`.
+
+> [!Note]
+> #### The gh: prefix isn't GitHub-specific
+>
+> Despite the name, `gh:` doesn't require GitHub or a Git repository. `--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files--for example, an internal static file host or object storage endpoint. `gh:` just tells {{% product-name %}} to fetch the plugin remotely from that URL instead of reading it from the local `--plugin-dir`.
+
+By default, `gh:`-prefixed plugins resolve against the official [`influxdata/influxdb3_plugins`](https://github.com/influxdata/influxdb3_plugins) repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
+For example, `gh:examples/wal_plugin/wal_plugin.py` resolves to:
+
+```
+https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py
+```
+
+**How `gh:` plugin resolution works:**
+
+1. {{% product-name %}} detects the `gh:` prefix in the plugin path.
+2. It strips the prefix and appends the remaining path to the configured plugin repository URL.
+3. An HTTP `GET` request fetches the plugin source code.
+4. If the fetch succeeds (HTTP 2xx), {{% product-name %}} validates the plugin and creates the trigger.
+5. If the fetch fails, the command returns an error with the HTTP status code and URL--for example:
+
+   ```
+   error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
+   ```
+
+{{% product-name %}} fetches the plugin at trigger creation time (to validate it), and again each time the trigger starts--for example, on server startup or when you re-enable a disabled trigger.
+Unlike local plugins, GitHub plugins aren't automatically reloaded when the source changes--disable and re-enable the trigger to fetch updates.
+Only single-file plugins are supported through the `gh:` prefix; multi-file plugin directories must be uploaded locally (see [Upload plugins from local machine](#upload-plugins-from-local-machine)).
+
 ##### Option 3: Use a custom plugin repository
 
 For organizations that maintain their own plugin repositories or need to use private/internal plugins,
@@ -205,7 +241,7 @@ influxdb3 create trigger \
 - **Development and staging**: Test plugins from development branches before production deployment
 - **Compliance requirements**: Meet data governance policies requiring internal hosting
 
-The `--plugin-repo` option accepts any HTTP/HTTPS URL that serves raw plugin files.
+The `--plugin-repo` option accepts any HTTP/HTTPS URL that serves raw plugin files. You can also set it with the `INFLUXDB3_PLUGIN_REPO` environment variable.
 See the [plugin-repo configuration option](/influxdb3/version/reference/config-options/#plugin-repo) for more details.
 
 Plugins have various functions such as: 
@@ -408,7 +444,7 @@ For more information, see the [`influxdb3 create trigger` CLI reference](/influx
 
 To upload a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host-url >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
 
 Include the following in your request:
 
@@ -420,7 +456,7 @@ Include the following in your request:
 
 ```bash{placeholders="AUTH_TOKEN"}
 # Upload a single-file plugin
-curl -X PUT "{{< influxdb/host >}}/api/v3/plugins/files?path=plugin.py" \
+curl -X PUT "{{< influxdb/host-url >}}/api/v3/plugins/files?path=plugin.py" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/octet-stream" \
   --data-binary "@/local/path/to/plugin.py"
@@ -470,7 +506,7 @@ For complete reference, see [`influxdb3 update trigger`](/influxdb3/version/refe
 
 To update a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host-url >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
 
 Include the following in your request:
 
@@ -482,7 +518,7 @@ Include the following in your request:
 
 ```bash{placeholders="AUTH_TOKEN"}
 # Update a plugin file
-curl -X PUT "{{< influxdb/host >}}/api/v3/plugins/files?path=plugin.py" \
+curl -X PUT "{{< influxdb/host-url >}}/api/v3/plugins/files?path=plugin.py" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/octet-stream" \
   --data-binary "@/path/to/updated/plugin.py"
@@ -598,7 +634,7 @@ For complete reference, see [`influxdb3 create trigger`](/influxdb3/version/refe
 
 To create a trigger using the HTTP API, send a `POST` request to the `/api/v3/configure/processing_engine_trigger` endpoint:
 
-{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureProcessingEngineTrigger" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureProcessingEngineTrigger" %}}
 
 Include the following in your request:
 
@@ -618,7 +654,7 @@ Include the following in your request:
 
 ```bash {placeholders="DATABASE_NAME|PLUGIN_FILE|TRIGGER_NAME|TRIGGER_SPEC|AUTH_TOKEN"}
 # Create a basic trigger
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -678,7 +714,7 @@ influxdb3 create trigger \
 
 ```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Trigger on writes to a specific table
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -694,7 +730,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
   }'
 
 # Trigger on writes to all tables
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -798,7 +834,7 @@ influxdb3 create trigger \
 
 ```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Run every 5 minutes
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -815,7 +851,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
 
 # Run on a cron schedule (8am daily)
 # Supports extended cron format with seconds
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -864,7 +900,7 @@ influxdb3 create trigger \
 
 ```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Create an endpoint at /api/v3/engine/webhook
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -933,7 +969,7 @@ influxdb3 create trigger \
 {{% code-tab-content %}}
 
 ```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -1001,7 +1037,7 @@ influxdb3 create trigger \
 
 ```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Allow multiple trigger instances to run simultaneously
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -1065,7 +1101,7 @@ influxdb3 create trigger \
 
 ```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Automatically retry on error
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -1081,7 +1117,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
   }'
 
 # Disable the trigger on error
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigger" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -1143,7 +1179,7 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 
 ```bash {placeholders="AUTH_TOKEN"}
 # Use the HTTP API to install Python packages
-curl -X POST "{{< influxdb/host >}}/api/v3/configure/plugin_environment/install_packages" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/plugin_environment/install_packages" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{

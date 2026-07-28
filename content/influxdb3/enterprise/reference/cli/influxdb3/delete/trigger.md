@@ -8,6 +8,7 @@ menu:
     name: influxdb3 delete trigger
 weight: 400
 source: /shared/influxdb3-cli/delete/trigger.md
+canonical: self
 ---
 
 <!--

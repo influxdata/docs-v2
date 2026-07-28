@@ -179,7 +179,7 @@ influxdb3 serve \
 {{% /expand %}}
 {{% expand "Docker with a mounted file system object store" %}}
 
-To run the [Docker image](/influxdb3/version/install/#docker-image) and persist
+To run the [Docker image](/influxdb3/version/install/#pull-the-docker-image) and persist
 data to the local file system, mount a volume for the object store--for example,
 provide the following options with your `docker run` command:
 
@@ -585,7 +585,7 @@ influxdb3 show databases --token YOUR_AUTH_TOKEN
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
 ```bash { placeholders="YOUR_AUTH_TOKEN" }
-curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
+curl "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 

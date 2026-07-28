@@ -1,0 +1,54 @@
+{{/*
+  Build a `source` -> canonical URL map ONCE for the whole site.
+
+  header/canonical.html calls this via `partialCached` (no variant key), so it
+  runs a single time per build and is reused for every page. This replaces a
+  per-page scan of all `.Site.Pages` (which made canonical resolution O(N^2)
+  across the site and grew quadratically with page count).
+
+  Semantics must match the original per-page loop in header/canonical.html
+  exactly: among all pages that share a `source`, iterate in
+  `sort .Site.Pages "Section" "desc"` order and let the LAST page whose path
+  contains a product-priority segment win (last-write-wins). Iterating the same
+  globally-sorted list once and grouping by source preserves that ordering, so
+  the selected page is identical to the original logic.
+
+  Product priority order (a page must match one of these segments to be eligible
+  as a canonical target):
+
+  1. enterprise
+  2. core
+  3. cloud-dedicated
+  4. clustered
+  5. cloud-serverless
+  6. v2
+  7. cloud
+
+  Sources with no priority-matching page are absent from the map; the caller
+  keeps each page's own permalink as the canonical URL.
+
+  Returns: map[string]string of source -> absolute canonical URL.
+*/}}
+{{ $baseURL := replaceRE `\/$` "" .Site.BaseURL }}
+{{ $productPriority := slice
+  "/enterprise/"
+  "/core/"
+  "/cloud-dedicated/"
+  "/clustered/"
+  "/cloud-serverless/"
+  "/v2/"
+  "/cloud/"
+}}
+{{ $scratch := newScratch }}
+{{ range (sort .Site.Pages "Section" "desc") }}
+  {{ $source := .Params.source }}
+  {{ if $source }}
+    {{ $pagePath := .RelPermalink }}
+    {{ range $productPriority }}
+      {{ if in $pagePath . }}
+        {{ $scratch.SetInMap "map" $source (print $baseURL $pagePath) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $scratch.Get "map" }}

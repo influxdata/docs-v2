@@ -52,7 +52,7 @@ In your request, send an `Authorization` header with your current operator token
 --for example:
 
 ```bash { placeholders="OPERATOR_TOKEN" }
-curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin/regenerate" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/token/admin/regenerate" \
   --header "Authorization: Bearer OPERATOR_TOKEN" \
   --header "Accept: application/json"
 ```

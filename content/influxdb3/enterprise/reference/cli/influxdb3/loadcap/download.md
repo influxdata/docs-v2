@@ -1,0 +1,42 @@
+---
+title: influxdb3 loadcap download
+introduced: v3.10.0
+description: >
+  The `influxdb3 loadcap download` command downloads an InfluxDB 3 Enterprise
+  workload capture profile as a tar.gz archive.
+menu:
+  influxdb3_enterprise:
+    parent: influxdb3 loadcap
+    name: download
+weight: 305
+related:
+  - /influxdb3/enterprise/admin/load-capture/
+---
+
+Use `influxdb3 loadcap download` to download a workload capture profile.
+If you omit `--output`, the command writes `<PROFILE_ID>.tar.gz` to the current directory.
+
+> [!Note]
+> Load capture requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/), which uses the storage engine upgrade.
+> Enable the preview with `--use-pacha-tree` and send requests to a node with an explicit `--mode` setting that includes `query`, for example, `--mode query` or `--mode ingest --mode query --mode compact`.
+> Load capture isn't available on a node that uses the default `--mode all` configuration.
+
+## Usage
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 loadcap download --profile-id <PROFILE_ID> [OPTIONS]
+```
+
+## Options
+
+| Option | | Description | Default | Environment variable |
+| :----- | :-- | :---------- | :------ | :------------------- |
+| | `--profile-id <PROFILE_ID>` | Capture profile identifier | | |
+| `-o` | `--output <OUTPUT>` | Output archive path | `<PROFILE_ID>.tar.gz` | |
+| `-H` | `--host <HOST_URL>` | InfluxDB 3 Enterprise server URL | `http://127.0.0.1:8181` | `INFLUXDB3_HOST_URL` |
+| | `--token <AUTH_TOKEN>` | Authentication token | | `INFLUXDB3_AUTH_TOKEN` |
+| | `--tls-ca <CA_CERT>` | Path to a custom TLS certificate authority | | `INFLUXDB3_TLS_CA` |
+| | `--tls-no-verify` | Disable TLS certificate verification | | `INFLUXDB3_TLS_NO_VERIFY` |
+| `-h` | `--help` | Print help information | | |

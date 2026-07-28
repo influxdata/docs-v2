@@ -27,6 +27,10 @@ Project uses TypeScript with ES2020 target:
 - Build: `yarn build:ts`
 - Watch: `yarn build:ts:watch`
 
+`assets/jsconfig.json` is static editor configuration maintained by hand;
+Hugo's jsconfig generation is disabled (`noJSConfigInAssets: true`), so no
+tool should rewrite it.
+
 ### Component Pattern
 
 1. Add `data-component` attribute to HTML element:

@@ -32,8 +32,28 @@ If an option is omitted, the preview either derives a value from the existing
 that balances resource usage and throughput.
 
 > [!Important]
-> Set `--num-io-threads` to the number of cores on the machine when using the
-> performance upgrade preview.
+> #### Set both thread options explicitly
+>
+> With `--use-pacha-tree`, set both `--num-io-threads` and
+> `--datafusion-num-threads` explicitly, and make sure their sum does not
+> exceed the number of cores available to the process (or `--num-cores`,
+> if set).
+>
+> - If you set only one of these options, the server derives the other
+>   automatically and the combined thread count can exceed the core count.
+>   The server then fails to start with the error
+>   `Cannot specify higher total thread count than --num-cores`.
+> - If you leave both unset, the server skips this validation and allocates
+>   more threads than available cores, which can degrade performance.
+>
+> The [thread allocation guidance](/influxdb3/enterprise/admin/performance-tuning/#thread-allocation-details)
+> for the default storage engine doesn't apply to the performance upgrade
+> preview. The preview runs ingest and compaction on the IO runtime instead
+> of the DataFusion runtime, so allocate more threads to IO:
+>
+> - **Ingest nodes**: weight heavily toward IO threads.
+> - **Compactor nodes**: use a more balanced split (for example, 60% IO,
+>   40% DataFusion).
 
 - [General](#general)
 - [WAL](#wal)
@@ -382,6 +402,7 @@ influxdb3 serve \
   --data-dir ~/.influxdb3 \
   --use-pacha-tree \
   --num-io-threads 2 \
+  --datafusion-num-threads 2 \
   --pt-file-cache-size 512MB \
   --pt-wal-max-buffer-size 5MB \
   --pt-snapshot-size 100MB
@@ -398,14 +419,15 @@ influxdb3 serve \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
-  --num-io-threads 8 \
+  --num-io-threads 5 \
+  --datafusion-num-threads 3 \
   --pt-file-cache-size 8GB \
   --pt-wal-max-buffer-size 30MB \
   --pt-snapshot-size 500MB \
   --pt-wal-flush-concurrency 4
 ```
 
-### High-throughput ingest node
+### High-throughput ingest node (16 cores)
 
 ```bash
 influxdb3 serve \
@@ -417,7 +439,8 @@ influxdb3 serve \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
   --mode ingest \
-  --num-io-threads 16 \
+  --num-io-threads 12 \
+  --datafusion-num-threads 4 \
   --pt-wal-max-buffer-size 50MB \
   --pt-wal-flush-interval 2s \
   --pt-wal-flush-concurrency 8 \
@@ -425,7 +448,7 @@ influxdb3 serve \
   --pt-disable-data-file-cache
 ```
 
-### Query-optimized node
+### Query-optimized node (16 cores)
 
 ```bash
 influxdb3 serve \
@@ -437,13 +460,14 @@ influxdb3 serve \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
   --mode query \
-  --num-io-threads 16 \
+  --num-io-threads 6 \
+  --datafusion-num-threads 10 \
   --pt-file-cache-size 16GB \
   --pt-file-cache-recency 24h \
   --pt-replica-max-buffer-size 8GB
 ```
 
-### Dedicated compactor
+### Dedicated compactor (8 cores)
 
 ```bash
 influxdb3 serve \
@@ -455,7 +479,8 @@ influxdb3 serve \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
   --mode compact \
-  --num-io-threads 8 \
+  --num-io-threads 5 \
+  --datafusion-num-threads 3 \
   --pt-compactor-input-size-budget 12GB
 ```
 

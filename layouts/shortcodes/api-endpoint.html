@@ -1,11 +1,13 @@
 {{- $productData := partial "product/get-data.html" . -}}
 {{- $hostOverride := .Get "influxdb_host" | default "" -}}
 {{- $placeholderHost := cond (gt (len $hostOverride) 0) $hostOverride ($productData.placeholder_host | default "localhost:8086") -}}
+{{- $scheme := $productData.scheme | default "https" -}}
+{{- $hostUrl := printf "%s://%s" $scheme $placeholderHost -}}
 {{- $endpoint := .Get "endpoint" -}}
 {{- $method := .Get "method" | upper -}}
 {{- $methodStyle := .Get "method" | lower -}}
 {{- $apiRef := .Get "api-ref" | default "" -}}
-{{- $renderedEndpoint := $endpoint | replaceRE `\{\{[<%] influxdb/host .*[>%]\}\}` $placeholderHost -}}
+{{- $renderedEndpoint := $endpoint | replaceRE `\{\{[<%] influxdb/host-url .*[>%]\}\}` $hostUrl | replaceRE `\{\{[<%] influxdb/host .*[>%]\}\}` $placeholderHost -}}
 <pre class="api-endpoint">
   {{- if ne $apiRef "" -}}
   <a href="{{ $apiRef }}" target="_blank"><span class="api {{ $methodStyle }}">{{ $method }}</span> {{ $renderedEndpoint }}</a>

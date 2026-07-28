@@ -32,10 +32,7 @@
 
 1. [#351](https://github.com/InfluxCommunity/influxdb3-java/pull/351): Enterprise/Core structured errors handling.
 
-### CI
-
-1. [#313](https://github.com/InfluxCommunity/influxdb3-java/pull/313): Clarify JDK 25+ requirements.
-1. [#340](https://github.com/InfluxCommunity/influxdb3-java/pull/340): Turn off deploy workflow for Nighly builds.
+- CI updates
 
 ## v1.7.0 {date="2025-11-21"}
 
@@ -60,9 +57,7 @@
 
 1. [#289](https://github.com/InfluxCommunity/influxdb3-java/pull/289) Add the possibility to disable gRPC compression via the `disableGRPCCompression` parameter in the `ClientConfig`.
 
-### CI
-
-1. [#283](https://github.com/InfluxCommunity/influxdb3-java/pull/283) Fix pipeline not downloading the correct java images.
+- CI updates
 
 ## v1.4.0 {date="2025-09-15"}
 
@@ -80,9 +75,7 @@
       1. `influx.writeTimeout` - a positive integer.  The time unit is in seconds.
       2. `influx.queryTimeout` - a positive integer.  The time unit is in seconds.
 
-### CI
-
-1. [#266](https://github.com/InfluxCommunity/influxdb3-java/pull/266) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v1.3.0 {date="2025-08-13"}
 

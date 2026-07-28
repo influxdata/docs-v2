@@ -13,7 +13,6 @@ const latestVersions = {
 };
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
-const docsDomain = 'https://docs.influxdata.com';
 
 exports.handler = (event, context, callback) => {
   function temporaryRedirect(condition, newUri) {
@@ -103,6 +102,24 @@ exports.handler = (event, context, callback) => {
 
   // If file has a valid extension, return the request unchanged
   if (validExtensions[parsedPath.ext]) {
+    return callback(null, request);
+  }
+
+  ///////////////////////////// PR preview bypass //////////////////////////////
+  // Full-site PR previews live under /pr-preview/pr-<N>/ on the staging
+  // distribution. The product/version/archive redirects below use unanchored
+  // patterns (e.g. /influxdb/v1.x/ -> archive) that would hijack preview
+  // subpaths, so skip them all for preview requests — but keep the same
+  // trailing-slash and index.html handling every other path gets below, so
+  // previews behave like production. Use a relative Location (no host) for
+  // the trailing-slash redirect so it stays on whichever host served the
+  // request.
+  if (request.uri.startsWith('/pr-preview/')) {
+    permanentRedirect(!request.uri.endsWith('/'), `${request.uri}/`);
+
+    if (parsedPath.ext === '' || /\.(?:x$|[0-9]{1,})/.test(parsedPath.ext)) {
+      request.uri = path.join(parsedPath.dir, parsedPath.base, indexPath);
+    }
     return callback(null, request);
   }
 
@@ -642,8 +659,25 @@ exports.handler = (event, context, callback) => {
 
   /////////////////////// END PRODUCT-SPECIFIC REDIRECTS ///////////////////////
 
+  // The viewer Host header only reaches an origin-request trigger if the
+  // distribution forwards it; otherwise Host is the S3 origin domain, not
+  // the domain the visitor actually requested. Prefer Host when it looks
+  // like a docs domain; otherwise fall back to a relative Location, which
+  // the browser resolves against whatever host served the request.
+  const viewerHost =
+    request.headers.host &&
+    request.headers.host[0] &&
+    request.headers.host[0].value;
+  const redirectBase =
+    viewerHost && viewerHost.endsWith('docs.influxdata.com')
+      ? `https://${viewerHost}`
+      : '';
+
   // Redirect to the a trailing slash
-  permanentRedirect(!request.uri.endsWith('/'), `${docsDomain}${request.uri}/`);
+  permanentRedirect(
+    !request.uri.endsWith('/'),
+    `${redirectBase}${request.uri}/`
+  );
 
   // Use index.html if the path doesn't have an extension
   // or if the version number is parsed as an extension.

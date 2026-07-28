@@ -5,9 +5,10 @@
  * release notes pages.
  */
 export default function ReleaseToc({ component }) {
-  // Get all h2 elements that are not checkpoint-releases
+  // Get all h2 elements that are not checkpoint-releases and not part of
+  // the support-and-feedback block appended after the article content
   const releases = Array.from(document.querySelectorAll('h2')).filter(
-    (el) => !el.id.match(/checkpoint-releases/)
+    (el) => !el.id.match(/checkpoint-releases/) && !el.closest('.feedback')
   );
 
   // Extract data about each release from the array of releases

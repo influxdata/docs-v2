@@ -10,6 +10,7 @@ influxdb3/enterprise/tags: [plugins, processing engine, python, monitoring, syst
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/system_metrics, System metrics plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/system-metrics.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/system-metrics.md -->

@@ -52,7 +52,7 @@ The following examples use `curl` to show to authenticate to the HTTP API.
 
 ```bash { placeholders="AUTH_TOKEN" }
 # Add your token to the HTTP Authorization header
-curl "http://{{< influxdb/host >}}/api/v3/query_sql" \
+curl "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM 'DATABASE_NAME' WHERE time > now() - INTERVAL '10 minutes'"

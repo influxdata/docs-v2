@@ -12,6 +12,7 @@ related:
 - /influxdb3/enterprise/reference/cli/influxdb3/test/wal_plugin/ 
 - /influxdb3/enterprise/reference/cli/influxdb3/create/trigger/
 source: /shared/influxdb3-plugins/_index.md
+canonical: self
 ---
 
 <!-- 

@@ -8,6 +8,7 @@ menu:
     name: influxdb3 create distinct_cache
 weight: 400
 source: /shared/influxdb3-cli/create/distinct_cache.md
+canonical: self
 ---
 
 <!-- 

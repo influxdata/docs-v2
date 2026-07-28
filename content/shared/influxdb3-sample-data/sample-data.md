@@ -94,7 +94,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 {{% influxdb/custom-timestamps %}}
 ```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  {{< influxdb/host-url >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -133,7 +133,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1735588800"
 {{% influxdb/custom-timestamps %}}
 ```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -174,7 +174,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% influxdb/custom-timestamps %}}
 ```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
@@ -292,7 +292,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  {{< influxdb/host-url >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -313,7 +313,7 @@ home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monox
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -336,7 +336,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary '
@@ -420,7 +420,7 @@ influxdb3 write \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  {{< influxdb/host-url >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -432,7 +432,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -444,7 +444,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
@@ -516,7 +516,7 @@ influxdb3 write \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  {{< influxdb/host-url >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -528,7 +528,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -540,7 +540,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
@@ -618,7 +618,7 @@ influxdb3 write \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  {{< influxdb/host-url >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -630,7 +630,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -642,7 +642,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
@@ -708,7 +708,7 @@ influxdb3 write \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  {{< influxdb/host-url >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -720,7 +720,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -732,7 +732,7 @@ curl --request POST \
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"

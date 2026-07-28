@@ -8,6 +8,7 @@ Apache Superset
 Arrow
 AuthToken
 CLI|\/cli\/
+[Cc]onfigs?
 CSV
 Data Explorer
 Dedup
@@ -44,6 +45,7 @@ Splunk
 System.Data.Odbc
 [Ss]uperset
 TBs?
+Telegraf
 \bUI\b
 URL
 (?i)\w*-?\w*url\w*-\w*

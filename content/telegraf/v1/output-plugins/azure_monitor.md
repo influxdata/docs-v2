@@ -13,7 +13,7 @@ os_support: "freebsd, linux, macos, solaris, windows"
 # Azure Monitor Output Plugin
 
 This plugin writes metrics to [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor) which has
-a metric resolution of one minute. To accomodate for this in Telegraf, the
+a metric resolution of one minute. To accommodate for this in Telegraf, the
 plugin will automatically aggregate metrics into one minute buckets and send
 them to the service on every flush interval.
 
@@ -80,7 +80,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## Documentation can be found here:
   ##   https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-store-custom-rest-api?tabs=rest#timestamp
   ## However, the returned (400) error message might document more strict or
-  ## relaxed settings. By default, only past metrics witin the limit are sent.
+  ## relaxed settings. By default, only past metrics within the limit are sent.
   # timestamp_limit_past = "30m"
   # timestamp_limit_future = "-1m"
 ```
@@ -210,7 +210,7 @@ enough time for aggregation to happen by not sending aggregations too early.
 
 > [!IMPORTANT]
 > When adapting the limit you need to take the limits permitted by the service
-> as well as latency when sending metrics into account. Furthermore, you sould
+> as well as latency when sending metrics into account. Furthermore, you should
 > not send metrics too early as in this case aggregation might not happen and
 > values are misleading.
 

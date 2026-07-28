@@ -16,6 +16,8 @@
   {{ else }}
     {{ $scratch.Set "siteTitle" "Additional resources | InfluxData Documentation" }}
   {{ end }}
+{{ else if and (eq $product "influxdb3") (eq $currentVersion "cloud")}}
+  {{ $scratch.Set "siteTitle" "InfluxDB 3 Cloud Documentation" }}
 {{ else if eq $currentVersion "cloud"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud (TSM) Documentation" }}
 {{ else if eq $currentVersion "core"}}

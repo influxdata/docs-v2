@@ -23,7 +23,7 @@ Specifically, it uses the following:
 # Send data to {{% product-name %}}
 [[outputs.influxdb_v2]]
   ## The {{% product-name %}} URL
-  urls = ["http://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   ## {{% product-name %}} authorization token
   token = "${INFLUX_TOKEN}"
   ## For {{% product-name %}}, set organization to an empty string

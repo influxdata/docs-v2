@@ -274,16 +274,22 @@ duration is `INF`.
 
 ##### `REPLICATION`
 
-- The `REPLICATION` clause determines how many independent copies of each point
-are stored in the [cluster](/influxdb/v1/high_availability/clusters/).
+The `REPLICATION` clause determines how many independent copies of each point
+are stored in a cluster.
 
-- By default, the replication factor `n` usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor `n` is 3.
-
-- To ensure data is immediately available for queries, set the replication factor `n` to less than or equal to the number of data nodes in the cluster.
-
-> **Important:** If you have four or more data nodes, verify that the database replication factor is correct.
-
-- Replication factors do not serve a purpose with single node instances.
+> [!Note]
+> #### Replication factor has no effect in InfluxDB OSS
+>
+> Replication requires multiple data nodes, which are available only in
+> [InfluxDB Enterprise](/enterprise_influxdb/v1/) clusters.
+> InfluxDB OSS {{< current-version >}} runs as a single node and
+> [does not support clustering](/influxdb/v1/high_availability/), so the
+> replication factor serves no purpose—there is only ever one copy of your data.
+> Set `REPLICATION` to `1` or omit the clause.
+>
+> For replication factor guidance in a cluster, see the InfluxDB Enterprise
+> [`CREATE RETENTION POLICY`
+> reference](/enterprise_influxdb/v1/query_language/manage-database/#replication).
 
 ##### `SHARD DURATION`
 
@@ -369,8 +375,9 @@ The `ALTER RETENTION POLICY` query takes the following form, where you must decl
 ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [FUTURE LIMIT <duration>] [PAST LIMIT <duration>] [DEFAULT]
 ```
 
-{{% warn %}} Replication factors do not serve a purpose with single node instances.
-{{% /warn %}}
+> [!Note]
+> In InfluxDB OSS, the `REPLICATION` clause has no effect.
+> See [`REPLICATION`](#replication).
 
 For information about the `FUTURE LIMIT` and `PAST LIMIT` clauses, see
 [CREATE RETENTION POLICY](#create-retention-policies-with-create-retention-policy).

@@ -125,7 +125,7 @@ influxdb3 create database \
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Create a database with a 30-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -134,7 +134,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
   }'
 
 # Create a database with infinite retention
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -143,7 +143,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
   }'
 
 # Create a database with a 90-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -213,7 +213,7 @@ influxdb3 create table \
 
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 # Create a table with a 7-day retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/table" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -224,7 +224,7 @@ curl --request POST "{{< influxdb/host >}}/api/v3/configure/table" \
   }'
 
 # Create a table with field definitions and retention period
-curl --request POST "{{< influxdb/host >}}/api/v3/configure/table" \
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/table" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -281,7 +281,7 @@ influxdb3 update database \
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
 # Update a database retention period to 60 days
-curl --request PATCH "{{< influxdb/host >}}/api/v3/configure/database/DATABASE_NAME" \
+curl --request PATCH "{{< influxdb/host-url >}}/api/v3/configure/database/DATABASE_NAME" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -289,7 +289,7 @@ curl --request PATCH "{{< influxdb/host >}}/api/v3/configure/database/DATABASE_N
   }'
 
 # Clear a database retention period (set to infinite)
-curl --request PATCH "{{< influxdb/host >}}/api/v3/configure/database/DATABASE_NAME" \
+curl --request PATCH "{{< influxdb/host-url >}}/api/v3/configure/database/DATABASE_NAME" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{
@@ -297,7 +297,7 @@ curl --request PATCH "{{< influxdb/host >}}/api/v3/configure/database/DATABASE_N
   }'
 
 # Update a database retention period to 90 days
-curl --request PATCH "{{< influxdb/host >}}/api/v3/configure/database/DATABASE_NAME" \
+curl --request PATCH "{{< influxdb/host-url >}}/api/v3/configure/database/DATABASE_NAME" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --data '{

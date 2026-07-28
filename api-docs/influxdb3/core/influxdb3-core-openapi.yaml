@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:59e0d108505b9909361470ccdd95015b6ea1bffcf2c5a9892e7217eabff5b994
+  x-source-hash: sha256:b2f4a4da437fb5797a2908f6ed642a7ef9d2f59e75e2383341e2929f8ff404e1
   x-influxdata-download-url: /openapi/influxdb3-core-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -795,7 +795,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every:
                 summary: Schedule trigger using interval
                 description: |
@@ -809,7 +809,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_seconds:
                 summary: Schedule trigger using seconds interval
                 description: |
@@ -822,7 +822,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_minutes:
                 summary: Schedule trigger using minutes interval
                 description: |
@@ -835,7 +835,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               all_tables:
                 summary: All tables trigger example
                 description: |
@@ -846,9 +846,23 @@ paths:
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
                   disabled: false
-                  trigger_settings:
-                    run_async: false
-                    error_behavior: Log
+                trigger_settings:
+                  run_async: false
+                  error_behavior: log
+              github_plugin:
+                summary: Trigger using a remotely fetched plugin
+                description: |
+                  Trigger that uses a plugin referenced with the `gh:` prefix.
+                  InfluxDB fetches the plugin from the default `influxdata/influxdb3_plugins`
+                  repository (or the repository configured with `--plugin-repo`)
+                  instead of the local `--plugin-dir`.
+                value:
+                  db: mydb
+                  plugin_filename: gh:examples/wal_plugin/wal_plugin.py
+                  trigger_name: my_trigger
+                  trigger_specification: all_tables
+                  disabled: false
+                  trigger_settings: {}
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -861,7 +875,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               api_request:
                 summary: On-demand request trigger example
                 description: |
@@ -874,7 +888,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -887,7 +901,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_monthly:
                 summary: Cron trigger for monthly execution
                 description: |
@@ -900,7 +914,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
       responses:
         "200":
           description: Success. Processing engine trigger created.
@@ -1044,6 +1058,8 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+        "409":
+          description: Conflict. The table is already deleted.
       summary: Delete a table
       description: |
         Soft deletes a table.
@@ -1055,6 +1071,16 @@ paths:
 
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
+
+        #### Soft-deleted tables keep a renamed, visible entry until hard deletion
+
+        A soft delete renames the table to `<table_name>-<deleted_at_timestamp>` instead of removing it.
+        Until the table is hard deleted, this renamed entry still appears in `SHOW TABLES` output and in
+        `information_schema.tables` queries. Filter out names that end in a deleted-at timestamp to account for
+        these renamed entries when listing or counting tables.
+
+        Deleting an already-deleted table returns `409 Conflict`. There's no API to remove the renamed entry
+        directly; only a scheduled or immediate (`hard_delete_at=now`) hard deletion removes it.
       tags:
         - Table
     post:
@@ -2762,9 +2788,13 @@ components:
           description: |
             The path and filename of the plugin to execute--for example,
             `schedule.py` or `endpoints/report.py`.
-            The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+            The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
+
+            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
+            For defaults, fetch behavior, and limitations, see [Use example plugins](/influxdb3/core/plugins/#use-example-plugins).
         trigger_name:
           type: string
         trigger_settings:
@@ -2891,15 +2921,15 @@ components:
         error_behavior:
           type: string
           enum:
-            - Log
-            - Retry
-            - Disable
+            - log
+            - retry
+            - disable
           description: |
             Specifies how to handle errors that occur during trigger execution:
-            - `Log`: Log the error and continue (default)
-            - `Retry`: Retry the trigger execution
-            - `Disable`: Disable the trigger after an error
-          default: Log
+            - `log`: Log the error and continue (default)
+            - `retry`: Retry the trigger execution
+            - `disable`: Disable the trigger after an error
+          default: log
       required:
         - run_async
         - error_behavior

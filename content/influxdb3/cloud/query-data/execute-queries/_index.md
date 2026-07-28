@@ -1,0 +1,20 @@
+---
+title: Execute queries
+description: >
+  Use tools and libraries to query data from {{< product-name >}}.
+weight: 101
+menu:
+  influxdb3_cloud:
+    name: Execute queries
+    parent: Query data
+influxdb3/cloud/tags: [query, sql, influxql]
+aliases:
+  - /influxdb3/cloud/query-data/tools/
+  - /influxdb3/cloud/query-data/sql/execute-queries/
+  - /influxdb3/cloud/query-data/influxql/execute-queries/
+source: /shared/influxdb3-query-guides/execute-queries/_index.md
+---
+
+<!--
+The content for this page is at content/shared/influxdb3-query-guides/execute-queries/_index.md
+-->

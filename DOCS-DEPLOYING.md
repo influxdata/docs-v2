@@ -223,31 +223,93 @@ See [DOCS-TESTING.md](DOCS-TESTING.md) for comprehensive testing documentation.
 
 ### PR Preview
 
-Generates previews for docs-v2 pull requests for manual validation in GitHub using the PR Preview Action.
+Deploys a full build of docs-v2 pull requests to the staging bucket
+(<https://test2.docs.influxdata.com>) for manual validation, under
+`pr-preview/pr-{number}/`.
+
+The preview builds with `--environment production`, the same Hugo
+environment production uses, so it faithfully represents what production
+will serve: fingerprinted/SRI JavaScript, minification, real GA4/GTM/Marketo
+tracking, and the same `__tests__`/`test_only` content exclusions. This
+matters for validating site-wide changes (analytics, layout, JS) against a
+close approximation of production, not a different build configuration.
+
+CI checks that need `__tests__` fixtures or `test_only` content (Cypress,
+render checks) build their own copy of the site in their own job with the
+testing/development environment -- they never consume this deployed preview,
+so excluding those fixtures from the preview build doesn't affect them.
 
 #### Workflow Files
 
-| File                                           | Purpose                               |
-| ---------------------------------------------- | ------------------------------------- |
-| `.github/scripts/parse-pr-urls.js`             | Extract docs URLs from PR description |
-| `.github/scripts/detect-preview-pages.js`      | Determine which pages to preview      |
-| `.github/scripts/prepare-preview-files.js`     | Stage files for selective deployment  |
-| `.github/scripts/preview-comment.js`           | Manage sticky PR comments             |
-| `.github/workflows/pr-preview.yml`             | Main preview workflow                 |
-| `.github/workflows/cleanup-stale-previews.yml` | Weekly orphan cleanup                 |
-| `.github/PREVIEW_SETUP.md`                     | Setup documentation                   |
+| File                                            | Purpose                                       |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `.github/scripts/parse-pr-urls.js`              | Extract docs URLs from PR description         |
+| `.github/scripts/detect-preview-pages.js`       | Generate deep links for the sticky PR comment |
+| `.github/scripts/preview-comment.js`            | Manage sticky PR comments                     |
+| `.github/workflows/pr-preview.yml`              | Main preview workflow                         |
+| `.github/workflows/cleanup-stale-previews.yml`  | Weekly orphan cleanup                         |
 
 #### Key Design Decisions
 
-1. **Selective deployment** - Only changed pages deployed (not full 529MB site)
-2. **Reuse existing infrastructure** - Uses `content-utils.js` for change detection
-3. **GitHub Pages** - Deploys to `gh-pages` branch under `pr-preview/pr-{number}/`
-4. **Security hardening** - XSS protection, path traversal prevention, input validation
-5. **50-page limit** - Prevents storage bloat on large PRs
+1. **Full-site deployment** - Every push deploys the complete built site, not
+   a hand-picked subset. Previously, previews deployed only pages selected by
+   a change-detection script; that pruning step was the root cause of a
+   recurring bug class (missing pages, broken shared-content links, blank
+   pages when a page's dependencies weren't copied). Deploying the full
+   build removes that failure mode structurally.
+2. **Production-parity build** - `hugo-environment: production` (not a
+   dedicated `pr-preview` environment), so the preview matches what ships.
+3. **S3 prefix, not GitHub Pages** - Deploys to the existing staging bucket
+   under `pr-preview/pr-{number}/`, not the `gh-pages` branch. A full build is
+   too large to deploy to `gh-pages` repeatedly -- the branch retains every
+   push's payload in git history forever, since cleanup only removes the
+   working tree, not history. S3 prefixes are deleted for real.
+4. **Isolated from manual staging deploys** - Manual staging deploys
+   (`scripts/deploy-staging.sh`) go to the bucket root and pass
+   `-ignore='^pr-preview/'` so they can never delete a live preview. PR
+   preview deploys are scoped to their own `pr-preview/pr-{number}/` prefix
+   (both by the `-path` flag and by IAM policy), so they can never touch the
+   bucket root or another PR's preview.
+5. **Security hardening** - XSS protection, path traversal prevention, input
+   validation in the PR-description URL parser.
+6. **Comment deep links, not a deploy gate** - `detect-preview-pages.js` still
+   maps changed content files and PR-description URLs to a page list, but
+   that list only becomes clickable links in the sticky comment. It no
+   longer decides what gets deployed -- the whole site deploys regardless,
+   so there's no "needs author input" state for layout-only changes.
 
-#### Related links
+#### AWS Setup (one-time, by an AWS admin)
 
-- **Deploy PR Preview action:** <https://github.com/rossjrw/pr-preview-action>
+The preview and cleanup workflows authenticate via GitHub OIDC (no long-lived
+AWS keys in Actions). This requires, before the workflow can run:
+
+1. A GitHub OIDC provider trusted by the AWS account (if not already
+   present for this org).
+2. An IAM role assumable by this repo's `pull_request` and `refs/heads/master`
+   workflows, scoped to the `pr-preview/*` object prefix in the staging
+   bucket (`s3:GetObject`/`PutObject`/`DeleteObject`, `s3:ListBucket`
+   conditioned on that prefix, `s3:GetBucketLocation`, and
+   `cloudfront:CreateInvalidation` on the staging distribution only).
+3. Repo secrets/variables: `AWS_PR_PREVIEW_ROLE_ARN`, `STAGING_BUCKET`,
+   `STAGING_CF_DISTRIBUTION_ID`, `AWS_REGION`.
+4. The updated `deploy/edge.js` (see its top-of-file comments) deployed to
+   the **staging** distribution's Lambda@Edge association -- this fixes two
+   bugs that would otherwise break previews: a trailing-slash redirect
+   hardcoded to `docs.influxdata.com`, and unanchored archive/version
+   redirects that would hijack `/pr-preview/pr-{number}/...` subpaths.
+5. Optionally, an S3 lifecycle rule on the `pr-preview/` prefix (e.g. expire
+   after 60 days) as a backstop if the close/cleanup workflows ever fail to
+   remove a preview.
+
+#### Known parity gaps
+
+A few things production generates that the preview build still skips, same
+as before this change: AI discovery artifacts, `llms-full.txt`, and the Rust
+markdown converter (`build-rust: false` by default). The preview's HTML also
+advertises Markdown-twin alternates that 404, since `.md` twin generation
+isn't run for previews. These don't affect the fidelity that matters most
+(rendered HTML, JS, analytics), but are worth knowing about when comparing a
+preview pixel-for-pixel against production.
 
 ## Troubleshooting
 

@@ -73,6 +73,9 @@ function parseCliArgs() {
       'source-path': { type: 'string' },
       'source-root': { type: 'string' },
       'docs-root': { type: 'string', default: process.cwd() },
+      // Comma-separated heading labels to collapse to a bullet (for example
+      // `CI,Dependencies`). Defaults to DEFAULT_EXCLUDE_HEADINGS when omitted.
+      'exclude-headings': { type: 'string' },
     },
   });
 
@@ -92,7 +95,7 @@ function parseCliArgs() {
   return values;
 }
 
-function syncOne(client, sourcePath, docsRoot) {
+function syncOne(client, sourcePath, docsRoot, excludeHeadings) {
   const changelogPath = join(sourcePath, client.sourceFile);
   if (!existsSync(changelogPath)) {
     return {
@@ -103,11 +106,15 @@ function syncOne(client, sourcePath, docsRoot) {
   }
 
   const raw = readFileSync(changelogPath, 'utf8');
-  const { page, latestVersion, latestReleaseDate } = transformChangelog(raw, {
-    displayName: client.displayName,
-    language: client.language,
-    repo: client.repo,
-  });
+  const { page, latestVersion, latestReleaseDate } = transformChangelog(
+    raw,
+    {
+      displayName: client.displayName,
+      language: client.language,
+      repo: client.repo,
+    },
+    excludeHeadings ? { excludeHeadings } : undefined
+  );
 
   if (latestVersion === null) {
     return {
@@ -196,11 +203,9 @@ function formatSummary(results) {
           : sanitizeTableCell(r.reason ?? '');
     return `| \`${r.client}\` | ${r.status} | ${detail} |`;
   });
-  return [
-    '| Client | Status | Detail |',
-    '| --- | --- | --- |',
-    ...rows,
-  ].join('\n');
+  return ['| Client | Status | Detail |', '| --- | --- | --- |', ...rows].join(
+    '\n'
+  );
 }
 
 function emitAnnotations(results) {
@@ -242,6 +247,13 @@ function main() {
   const args = parseCliArgs();
   const results = [];
 
+  const excludeHeadings = args['exclude-headings']
+    ? args['exclude-headings']
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : undefined;
+
   const targets = args.all
     ? CLIENTS.map((c) => ({
         client: c,
@@ -251,7 +263,9 @@ function main() {
 
   for (const { client, sourcePath } of targets) {
     try {
-      results.push(syncOne(client, sourcePath, args['docs-root']));
+      results.push(
+        syncOne(client, sourcePath, args['docs-root'], excludeHeadings)
+      );
     } catch (err) {
       results.push({
         client: client.slug,

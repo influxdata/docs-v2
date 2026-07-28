@@ -30,7 +30,9 @@ configurations, monitoring agents, and organizing plugins.
 - **Operating Systems**: Linux, macOS, Windows
 - **Architecture**: x64 (Intel/AMD) or ARM64 (Apple Silicon/ARM)
 - **Database**: SQLite (default), PostgreSQL, or PostgreSQL-compatible
-- **Ports**: 8888 (web interface), 8000 (heartbeat service)
+- **Ports**: 8888 (web interface and API), 8000 (heartbeat service).
+  Optionally, serve the web interface on a separate
+  [`ui-port`](/telegraf/controller/reference/config-options/#ui-port).
 
 
 ## Review the EULA
@@ -373,6 +375,7 @@ Use the following command line options to configure {{% product-name %}}.
 | Command Flag                | Environment Variable       | Description                                  | Default              |
 | :-------------------------- | :------------------------- | :------------------------------------------- | :------------------- |
 | `--port`                    | `APP_PORT`                 | Web interface and API port                   | `8888`               |
+| `--ui-port`                 | `UI_PORT`                  | Optional separate web interface port         | Served on API port   |
 | `--heartbeat-port`          | `HEARTBEAT_PORT`           | Agent heartbeat service port                 | `8000`               |
 | `--database`                | `DATABASE_URL`             | Database connection string                   | Auto-detected SQLite |
 | `--logs-dir`                | `LOGS_DIR`                 | Absolute path for agent logs                 | System temp dir      |
@@ -387,6 +390,14 @@ Use the following command line options to configure {{% product-name %}}.
 
 _For a full list of options, see the
 [{{% product-name %}} configuration options reference](/telegraf/controller/reference/config-options/)._
+
+> [!Note]
+> #### Enabling HTTPS also requires agent-side trust
+>
+> Setting `--ssl-cert`/`--ssl-key` enables HTTPS on the server, but agents must
+> also trust the certificate to fetch configurations and send heartbeats. For the
+> full server and agent setup, see
+> [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
 
 #### Examples
 
@@ -632,4 +643,6 @@ comparison.
 ## Access {{% product-name %}}
 
 Once started, access the {{% product-name %}} web interface at
-<http://localhost:8888> _(or using your custom port)_.
+<http://localhost:8888> _(or using your custom port)_. If you set
+[`ui-port`](/telegraf/controller/reference/config-options/#ui-port) to serve the
+web interface on a separate port, use that port instead.

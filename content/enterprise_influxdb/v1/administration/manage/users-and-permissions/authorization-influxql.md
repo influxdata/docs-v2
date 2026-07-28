@@ -10,8 +10,6 @@ related:
   - /enterprise_influxdb/v1/administration/manage/security/authorization-api.md
   - /chronograf/v1/administration/managing-influxdb-users/
   - /enterprise_influxdb/v1/administration/manage/security/fine-grained-authorization/
-aliases:
-  - /enterprise_influxdb/v1/administration/manage/security/authentication_and_authorization-api/
 ---
 
 {{% enterprise-warning-authn-b4-authz %}}

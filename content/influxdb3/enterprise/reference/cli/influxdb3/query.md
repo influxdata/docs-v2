@@ -8,6 +8,7 @@ menu:
     name: influxdb3 query
 weight: 300
 source: /shared/influxdb3-cli/query.md
+canonical: self
 ---
 
 <!--

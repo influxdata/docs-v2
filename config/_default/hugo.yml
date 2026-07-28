@@ -86,13 +86,11 @@ outputs:
 
 # Asset processing configuration for development
 build:
-  # Ensure Hugo correctly processes JavaScript modules
-  jsConfig:
-    nodeEnv: "development"
-# Development asset processing
   writeStats: false
   useResourceCacheWhen: "fallback"
-  noJSConfigInAssets: false
+  # Keep Hugo from regenerating assets/jsconfig.json (editor-only config,
+  # maintained by hand). See influxdata/docs-v2#7470.
+  noJSConfigInAssets: true
 
 # Asset processing configuration
 assetDir: "assets"

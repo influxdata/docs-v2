@@ -11,6 +11,7 @@ related:
   - /influxdb3/enterprise/reference/cli/influxdb3/show/nodes/
   - /influxdb3/enterprise/reference/cli/influxdb3/serve/
 source: /shared/influxdb3-cli/stop/node.md
+canonical: self
 ---
 
 <!--

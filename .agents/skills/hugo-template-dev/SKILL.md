@@ -87,13 +87,19 @@ If output is empty, no errors were detected.
 
 ## Preparing template changes for PR review
 
-The repo's preview workflow (`.github/workflows/pr-preview.yml`) deploys only
-the pages listed in the PR description to a stable GitHub Pages preview URL —
-a targeted hosted preview that replaces "check out my branch and run
-`npx hugo server`" for reviewers.
+The repo's preview workflow (`.github/workflows/pr-preview.yml`) deploys the
+whole built site to a stable staging URL
+(`https://test2.docs.influxdata.com/pr-preview/pr-<N>/`) on every push — a
+hosted preview that replaces "check out my branch and run `npx hugo server`"
+for reviewers. It builds with `--environment production`, so it reflects
+production behavior (minification, fingerprinted/SRI JS, real analytics).
+Subdirectory-baseURL product detection is handled by
+`layouts/partials/base-path-offset.html`, not a per-environment config.
 
-**When you change `layouts/`, `assets/`, or `data/`, list every page the
-reviewer should verify in the PR body.** The URL extractor
+**When you change `layouts/`, `assets/`, or `data/`, list the pages the
+reviewer should focus on in the PR body** — this doesn't affect what deploys
+(the whole site always does), but it adds deep links to the sticky preview
+comment so reviewers don't have to navigate manually. The URL extractor
 (`.github/scripts/parse-pr-urls.js`) matches:
 
 - Production URLs (`https://docs.influxdata.com/<path>`)

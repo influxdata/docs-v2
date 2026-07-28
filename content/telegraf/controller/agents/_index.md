@@ -24,5 +24,7 @@ Controller can distinguish one agent from another.
   also automatically delete agents that haven't reported in a specified amount
   of time.
 - You can assign a reporting rule from the agent list or an agent details page.
+- Sort the agent list by **Agent Details**, **Status**, or **Last Reported** by
+  clicking a column header. Click the header again to reverse the sort order.
 
 {{< children hlevel="h2" >}}

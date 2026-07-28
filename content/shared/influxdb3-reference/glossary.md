@@ -458,9 +458,32 @@ Related entries:
 [output plugin](#output-plugin),
 [processor plugin](#processor-plugin)
 
+{{% show-in "core,enterprise,cloud" %}}
+### influxdb3 CLI
+
+The command line interface for InfluxDB 3.
+Use the `influxdb3` CLI to administer your instance--for example, to create and
+manage databases, tables, and tokens--and to write and query data.
+{{% /show-in %}}
+{{% show-in "cloud" %}}
+The `influxdb3` CLI is distributed in the InfluxDB 3 Enterprise binary
+(the _Enterprise CLI_).
+To use it with {{% product-name %}},
+[install the CLI](/influxdb3/cloud/install/) and connect it to your
+[instance](#instance)--you don't run a server.
+{{% /show-in %}}
+
 ### instance
 
+{{% show-in "cloud" %}}
+Your provisioned, fully managed {{% product-name %}} service—the endpoint
+that your host URL points to and that the `influxdb3` CLI and client
+libraries connect to. InfluxData operates the underlying servers; you
+interact with your instance, not with individual nodes or servers.
+{{% /show-in %}}
+{{% hide-in "cloud" %}}
 An entity comprising data on a server (or virtual server in cloud computing).
+{{% /hide-in %}}
 
 ### integer
 

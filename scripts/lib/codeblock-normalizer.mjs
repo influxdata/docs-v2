@@ -3,7 +3,7 @@ import * as yaml from './codeblock-validators/yaml.mjs';
 import * as toml from './codeblock-validators/toml.mjs';
 import * as bash from './codeblock-validators/bash.mjs';
 import * as python from './codeblock-validators/python.mjs';
-import * as js from './codeblock-validators/javascript.mjs';
+import * as javascript from './codeblock-validators/javascript.mjs';
 
 const VALIDATORS = {
   json: (c) => json.validate(c),
@@ -12,8 +12,17 @@ const VALIDATORS = {
   toml: (c) => toml.validate(c),
   bash: (c) => bash.validate(c),
   python: (c) => python.validate(c),
-  javascript: (c) => js.validate(c),
+  js: (c) => javascript.validate(c),
+  javascript: (c) => javascript.validate(c),
 };
+
+// Flux: |> pipe is unambiguous; from(bucket:) is a strong secondary signal.
+const FLUX_RE = /\|>|\bfrom\s*\(\s*bucket\s*:/;
+
+// TICKscript: |Node( or @Node( chain operator at line start (the | is TICKscript's
+// method-chain operator, not JS bitwise OR); batch()/stream() builders; dbrp keyword.
+const TICKSCRIPT_RE = /^\s*[|@][a-zA-Z]\w*\s*\(/m;
+const TICKSCRIPT_KWORD_RE = /\b(?:batch|stream)\s*\(\s*\)|\bdbrp\b/;
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -37,6 +46,7 @@ function quotedSub(code, token) {
 const PLACEHOLDER_SUB = {
   bash: identifierSub,
   python: identifierSub,
+  js: identifierSub,
   javascript: identifierSub,
   json: quotedSub,
   jsonl: quotedSub,
@@ -57,6 +67,7 @@ const SHORTCODE_RE = /\{\{[%<][\s\S]*?[%>]\}\}/g;
 const SHORTCODE_REPLACEMENT = {
   bash: ': SHORTCODE',
   python: '__SHORTCODE__',
+  js: '__SHORTCODE__',
   javascript: '__SHORTCODE__',
   // Use an unquoted literal (0) for strict-parse languages so the replacement
   // is valid both as a bare value and inside an existing quoted string.
@@ -77,6 +88,24 @@ function stripShortcodes(code, lang) {
   return { code: code.replace(SHORTCODE_RE, replacement), applied: true };
 }
 
+// Match angle-bracket placeholders used in docs command examples:
+// <database-name>, <token>, </path/to/file>, etc. These are valid documentation
+// conventions but fail bash syntax checking because bash interprets < and > as
+// I/O redirects. Strip the angle brackets to leave a bare word the shell can
+// parse: `cmd --flag <value>` → `cmd --flag value`.
+// Does NOT match <<heredoc, <(process substitution), or spaced `< file >` redirects.
+const ANGLE_BRACKET_PLACEHOLDER_RE = /<\/?[a-zA-Z][a-zA-Z0-9_./-]*>/g;
+
+function stripAngleBracketPlaceholders(code, lang) {
+  if (lang !== 'bash') return { code, applied: false };
+  ANGLE_BRACKET_PLACEHOLDER_RE.lastIndex = 0;
+  if (!ANGLE_BRACKET_PLACEHOLDER_RE.test(code)) return { code, applied: false };
+  ANGLE_BRACKET_PLACEHOLDER_RE.lastIndex = 0;
+  // Remove angle brackets; keep the inner text as a bare word or path.
+  const result = code.replace(ANGLE_BRACKET_PLACEHOLDER_RE, (match) => match.slice(1, -1));
+  return { code: result, applied: true };
+}
+
 // Match standalone "elide" markers used in docs to indicate omitted
 // content: a line containing only whitespace + `...` (3+ dots) or
 // `[...]`. These are pervasive in Telegraf/InfluxDB TOML examples and
@@ -90,6 +119,7 @@ const ELIDE_COMMENT_PREFIX = {
   toml: '#',
   bash: '#',
   python: '#',
+  js: '//',
   javascript: '//',
   // JSON/JSONL don't allow comments; can't safely substitute, so
   // ellipsis markers in JSON fences must be removed at the source.
@@ -133,6 +163,14 @@ function stripElideMarkers(code, lang) {
  * @returns {Promise<{ok: boolean, errors: Array, notice?: string, skipped?: boolean}>}
  */
 export async function validateWithNormalization(block) {
+  // Detect known non-JS DSLs that are conventionally tagged js/javascript in these docs.
+  // Skip them explicitly so real JavaScript blocks still get validated.
+  if (block.lang === 'js' || block.lang === 'javascript') {
+    if (FLUX_RE.test(block.value)) return { ok: true, errors: [], skipped: true, skipReason: 'flux' };
+    if (TICKSCRIPT_RE.test(block.value) || TICKSCRIPT_KWORD_RE.test(block.value))
+      return { ok: true, errors: [], skipped: true, skipReason: 'tickscript' };
+  }
+
   const run = VALIDATORS[block.lang];
   if (!run) return { ok: true, errors: [], skipped: true };
 
@@ -146,6 +184,12 @@ export async function validateWithNormalization(block) {
   if (subbed.applied) {
     candidate = subbed.code;
     rules.push('placeholder substitution');
+  }
+
+  const angleBracketed = stripAngleBracketPlaceholders(candidate, block.lang);
+  if (angleBracketed.applied) {
+    candidate = angleBracketed.code;
+    rules.push('angle-bracket placeholder strip');
   }
 
   const stripped = stripShortcodes(candidate, block.lang);

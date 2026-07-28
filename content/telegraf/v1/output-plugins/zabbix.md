@@ -362,7 +362,7 @@ taginclude = ["host", "container_name"]
 ```
 
 Allowing only the tags "host" and "container_name" to be used to generate the
-key (and loosing the information provided in the others tags).
+key (and losing the information provided in the others tags).
 
 ## Examples of metrics converted to traps
 

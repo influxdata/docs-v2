@@ -48,7 +48,7 @@ influxdb3 query \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT name, permissions FROM system.tokens WHERE permissions = '*:*:*'" \
   --data-urlencode "format=csv" \
@@ -79,7 +79,7 @@ influxdb3 query \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-"http://{{< influxdb/host >}}/api/v3/query_sql" \
+"{{< influxdb/host-url >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
 --data-urlencode "q=SELECT name, permissions FROM system.tokens WHERE created_at > '2025-01-01 00:00:00'" \
 --header "Accept: application/json" \
@@ -119,7 +119,7 @@ influxdb3 show tokens \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=csv" \
@@ -158,7 +158,7 @@ influxdb3 show tokens \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN|(/PATH/TO/FILE.parquet)" }
 curl -G \
-"http://{{< influxdb/host >}}/api/v3/query_sql" \
+"{{< influxdb/host-url >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
 --data-urlencode "q=SELECT * FROM system.tokens" \
 --data-urlencode "format=parquet" \
@@ -195,7 +195,7 @@ grep _admin
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=pretty" \
@@ -224,7 +224,7 @@ jq '.[] | {name: .name, permissions: .permissions}'
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT name, created_at FROM system.tokens WHERE permissions = '*:*:*' AND created_at > '2025-01-01 00:00:00'" \
   --data-urlencode "format=json" \

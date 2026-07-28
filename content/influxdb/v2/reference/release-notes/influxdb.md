@@ -739,7 +739,7 @@ This release includes the following new features:
 - Support for latest [Flux](#flux) and [Telegraf](#telegraf) releases
 - Updates to the [InfluxQL](#influxql)
 - [Token](#tokens) updates
-- [Flux location support](#flux-location-support)
+- [Flux location support](#flux)
 
 #### Notebooks, annotations, and visualization updates
 

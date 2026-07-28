@@ -101,8 +101,9 @@ async function main(files) {
     try {
       md = readFileSync(file, 'utf8');
     } catch (err) {
+      // Log to console only — emitting ::warning for missing source files
+      // would annotate non-existent paths in the PR diff view.
       process.stdout.write(`  - canonical source not readable: ${err.message}\n`);
-      gh('warning', file, 1, `canonical source not readable: ${err.message}`);
       process.stdout.write(`::endgroup::\n`);
       continue;
     }
@@ -121,8 +122,9 @@ async function main(files) {
       lintedBlockCount++;
       if (res.skipped) {
         lintedBlockCount--; // skipped blocks aren't "linted"
+        const reason = res.skipReason ?? 'out of scope';
         process.stdout.write(
-          `  - line ${block.startLine}  ${block.rawLang ?? '(no lang)'}  skipped (out of scope)\n`,
+          `  - line ${block.startLine}  ${block.rawLang ?? '(no lang)'}  skipped (${reason})\n`,
         );
         continue;
       }
@@ -137,14 +139,21 @@ async function main(files) {
           process.stdout.write(`  ✓ line ${block.startLine}  ${block.lang}  passed\n`);
         }
       } else {
-        const severity = BLOCKING_LANGS.has(block.lang) ? 'error' : 'warning';
+        const blocking = BLOCKING_LANGS.has(block.lang);
         for (const e of res.errors) {
           const absLine = mapCodeLineToFileLine(block, e.line ?? 1);
           process.stdout.write(`  ✗ line ${absLine}  ${block.lang}  failed: ${e.message}\n`);
-          gh(severity, file, absLine, `${block.lang}: ${e.message}${attribution}`);
           const row = { file, line: absLine, lang: block.lang, message: e.message };
-          if (severity === 'error') errorRows.push(row);
-          else warningRows.push(row);
+          if (blocking) {
+            // Blocking: emit a visible ::error annotation and fail the job.
+            gh('error', file, absLine, `${block.lang}: ${e.message}${attribution}`);
+            errorRows.push(row);
+          } else {
+            // Non-blocking: log to console only. Emitting ::warning annotations
+            // creates noise in the PR diff view and may mislead authors into
+            // thinking they should rewrite the example as inline code.
+            warningRows.push(row);
+          }
         }
       }
     }

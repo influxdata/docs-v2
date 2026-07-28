@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, wal, data-write]
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/examples/wal-plugin, WAL plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/examples/wal-plugin.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/examples/wal-plugin.md -->

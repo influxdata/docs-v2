@@ -133,8 +133,6 @@ Use the `{{< latest-patch cli=true >}}` shortcode to add the latest version of t
 
 ```md
 {{< latest-patch cli=true >}}
-
-{{< latest-cli version="2.1" >}}
 ```
 
 ## API Documentation
@@ -1229,6 +1227,49 @@ The InfluxDB host placeholder that gets replaced by custom domains differs betwe
 
 {{< influxdb/host "serverless" >}}
 ```
+
+#### Automatically populate InfluxDB host URL with scheme
+
+Use the `influxdb/host-url` shortcode to render the full base URL
+(`scheme://host`) for the current product.
+It combines the product `scheme` and `placeholder_host` values from
+`data/products.yml`, so shared content doesn't hardcode a URL scheme.
+Self-managed products with a localhost host (Core, Enterprise, OSS) render
+`http://`; managed products (Cloud Serverless, Cloud Dedicated, Clustered,
+Cloud) render `https://`.
+
+Use `influxdb/host-url` instead of hardcoding a scheme in front of the
+`influxdb/host` shortcode--for example, use `{{< influxdb/host-url >}}` instead
+of `http://{{< influxdb/host >}}`.
+
+```md
+{{< influxdb/host-url >}}
+```
+
+##### Choose between influxdb/host and influxdb/host-url
+
+`influxdb/host` renders the host only (no scheme).
+`influxdb/host-url` renders `scheme://host`.
+Choosing the wrong one produces broken examples, so match the shortcode to the
+context.
+
+Use `influxdb/host-url` where the value is a full base URL:
+
+- A `curl` request URL, for example `curl "{{< influxdb/host-url >}}/api/v3/query_sql"`.
+- An `api-endpoint` `endpoint=` value.
+- An environment variable or code assignment that expects a full URL, for
+  example `INFLUXDB3_HOST_URL={{< influxdb/host-url >}}`.
+
+Use `influxdb/host` (bare host) where the field expects a hostname, not a URL,
+and the scheme is set separately. Converting these to a full URL breaks the
+example:
+
+- A client `host` field paired with a separate scheme, for example node-influx
+  (`host:` with `protocol:` and `port:`) or influxdb-python (`host=` with
+  `ssl=True`).
+- `InfluxDBClient3(host="{{< influxdb/host >}}")`, where the client adds the
+  scheme.
+- Server or CLI configuration that expects a hostname.
 
 ***
 

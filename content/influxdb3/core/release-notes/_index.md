@@ -10,6 +10,7 @@ weight: 210
 related:
   - /influxdb3/core/get-started/
 source: /shared/v3-core-enterprise-release-notes/_index.md
+canonical: self
 ---
 
 <!--

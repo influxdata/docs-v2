@@ -46,7 +46,7 @@ destinations for long-term storage or SIEM integration.
 
 ## Enable audit logging
 
-Set `AUDIT_LOGGING_ENABLED` to `true` before starting {{% product-name %}}.
+Set `AUDIT_ENABLED` to `true` before starting {{% product-name %}}.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -57,12 +57,12 @@ Set `AUDIT_LOGGING_ENABLED` to `true` before starting {{% product-name %}}.
 {{% /tabs %}}
 {{% tab-content %}}
 
-Add `AUDIT_LOGGING_ENABLED=true` to your systemd unit file (typically
+Add `AUDIT_ENABLED=true` to your systemd unit file (typically
 `/etc/systemd/system/telegraf-controller.service`):
 
 ```ini
 [Service]
-Environment=AUDIT_LOGGING_ENABLED=true
+Environment=AUDIT_ENABLED=true
 ```
 
 Reload systemd and restart the service:
@@ -78,7 +78,7 @@ sudo systemctl restart telegraf-controller
 Set the variable, or pass `--audit-enabled` on the command line:
 
 ```bash
-export AUDIT_LOGGING_ENABLED=true
+export AUDIT_ENABLED=true
 telegraf_controller --no-interactive
 ```
 
@@ -92,7 +92,7 @@ telegraf_controller --audit-enabled --no-interactive
 Set the variable in PowerShell, or pass `--audit-enabled` on the command line:
 
 ```powershell
-$env:AUDIT_LOGGING_ENABLED="true"
+$env:AUDIT_ENABLED="true"
 ./telegraf_controller.exe --no-interactive
 ```
 
@@ -106,11 +106,11 @@ $env:AUDIT_LOGGING_ENABLED="true"
      influxdata/telegraf-controller Docker image is published.
      Restore this tab (and its button above) when the image ships.
 
-Pass `AUDIT_LOGGING_ENABLED=true` when starting the container:
+Pass `AUDIT_ENABLED=true` when starting the container:
 
 ```bash
 docker run \
-  -e AUDIT_LOGGING_ENABLED=true \
+  -e AUDIT_ENABLED=true \
   influxdata/telegraf-controller
 ```
 
@@ -225,7 +225,7 @@ term.
 
 ## Disable audit logging
 
-To turn audit logging off, remove `AUDIT_LOGGING_ENABLED` (or set it to a value
+To turn audit logging off, remove `AUDIT_ENABLED` (or set it to a value
 other than `true`) and restart {{% product-name %}}.
 The startup-only policy applies in both directions: audit logging cannot be
 disabled from the UI.

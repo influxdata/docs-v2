@@ -1,10 +1,10 @@
 
 Use the [`influxdb3 show databases` command](/influxdb3/version/reference/cli/influxdb3/show/databases/),
-the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint, or [InfluxDB 3 Explorer](/influxdb3/explorer/) to list databases in {{< product-name >}}.
+the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint{{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}} to list databases in {{< product-name >}}.
 
 - [List databases using the influxdb3 CLI](#list-databases-using-the-influxdb3-cli)
 - [List databases using the HTTP API](#list-databases-using-the-http-api)
-- [List databases using InfluxDB 3 Explorer](#list-databases-using-influxdb-3-explorer)
+{{% hide-in "cloud" %}}- [List databases using InfluxDB 3 Explorer](#list-databases-using-influxdb-3-explorer){{% /hide-in %}}
 
 ## List databases using the influxdb3 CLI
 
@@ -113,7 +113,7 @@ influxdb3 show databases --show-deleted
 
 To list databases using the HTTP API, send a `GET` request to the `/api/v3/configure/database` endpoint.
 
-{{% api-endpoint method="GET" endpoint="{{< influxdb/host >}}/api/v3/configure/database?format=pretty" %}}
+{{% api-endpoint method="GET" endpoint="{{< influxdb/host-url >}}/api/v3/configure/database?format=pretty" %}}
 
 Include the `format` query parameter and specify one of the following formats:
 
@@ -139,7 +139,7 @@ Include the following in your request:
   - `format=pretty`
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=pretty" \
+curl --request GET "{{< influxdb/host-url >}}/api/v3/configure/database?format=pretty" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -168,7 +168,7 @@ Include the following in your request:
   - `format=json`
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=json" \
+curl --request GET "{{< influxdb/host-url >}}/api/v3/configure/database?format=json" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -200,7 +200,7 @@ Include the following in your request:
 - An output destination for the Parquet file
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
+curl "{{< influxdb/host-url >}}/api/v3/configure/database?format=parquet" \
   -o databases.parquet \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
@@ -213,6 +213,7 @@ The response contains the databases list.
 
 A successful request returns HTTP status `200`.
 
+{{% hide-in "cloud" %}}
 ## List databases using InfluxDB 3 Explorer
 
 You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface:
@@ -226,3 +227,4 @@ You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explo
    - Creation date
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
+{{% /hide-in %}}

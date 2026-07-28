@@ -10,15 +10,22 @@ influxdb3 show <SUBCOMMAND>
 
 ## Subcommands
 
-| Subcommand                                                              | Description                                                         |                             |                  |
-| :---------------------------------------------------------------------- | :------------------------------------------------------------------ | --------------------------- | ---------------- |
-| [databases](/influxdb3/version/reference/cli/influxdb3/show/databases/) | List database                                                       |                             |                  |
-| {{% show-in "enterprise" %}}                                            | [license](/influxdb3/version/reference/cli/influxdb3/show/license/) | Display license information | {{% /show-in %}} |
-| {{% show-in "enterprise" %}}                                            | [nodes](/influxdb3/version/reference/cli/influxdb3/show/nodes/)     | Display node information    | {{% /show-in %}} |
-| [plugins](/influxdb3/version/reference/cli/influxdb3/show/plugins/)     | List loaded plugins                                                 |                             |                  |
-| [system](/influxdb3/version/reference/cli/influxdb3/show/system/)       | Display system table data                                           |                             |                  |
-| [tokens](/influxdb3/version/reference/cli/influxdb3/show/tokens/)       | List authentication tokens                                          |                             |                  |
-| help                                                                    | Print command help or the help of a subcommand                      |                             |                  |
+| Subcommand                                                              | Description                                     |
+| :----------------------------------------------------------------------| :----------------------------------------------- |
+| [databases](/influxdb3/version/reference/cli/influxdb3/show/databases/) | List database                                   |
+| [plugins](/influxdb3/version/reference/cli/influxdb3/show/plugins/)     | List loaded plugins                             |
+| [system](/influxdb3/version/reference/cli/influxdb3/show/system/)       | Display system table data                       |
+| [tokens](/influxdb3/version/reference/cli/influxdb3/show/tokens/)       | List authentication tokens                      |
+| help                                                                    | Print command help or the help of a subcommand  |
+
+{{% show-in "enterprise" %}}
+Additional {{% product-name %}} subcommands:
+
+| Subcommand                                                           | Description                  |
+| :--------------------------------------------------------------------| :----------------------------- |
+| [license](/influxdb3/version/reference/cli/influxdb3/show/license/) | Display license information  |
+| [nodes](/influxdb3/version/reference/cli/influxdb3/show/nodes/)     | Display node information     |
+{{% /show-in %}}
 
 ## Options
 

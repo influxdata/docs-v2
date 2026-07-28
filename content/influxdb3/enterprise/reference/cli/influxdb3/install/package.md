@@ -12,6 +12,7 @@ related:
   - /influxdb3/enterprise/process/
   - /influxdb3/enterprise/plugins/
 source: /shared/influxdb3-cli/install/package.md
+canonical: self
 ---
 
 <!-- 

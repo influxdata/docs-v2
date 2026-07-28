@@ -40,7 +40,10 @@ This skill covers the complete Vale linting workflow for InfluxData documentatio
 The wrapper script `.ci/vale/vale.sh` runs Vale using:
 
 1. **Local binary** (preferred) — if `vale` is installed and version >= 3.x
-2. **Docker fallback** — `jdkato/vale:v${VALE_VERSION}` (pinned version)
+2. **Docker fallback** — `jdkato/vale:v${VALE_VERSION}` (pinned version),
+   only if the Docker daemon is running
+3. **Graceful skip** — if neither is available, the wrapper prints a warning
+   and exits 0 so other pre-commit hooks still run
 
 ```bash
 # The wrapper handles binary vs Docker automatically
@@ -49,6 +52,16 @@ The wrapper script `.ci/vale/vale.sh` runs Vale using:
 # In CI, the pr-vale-check.yml workflow installs the Vale binary
 # directly (reads version from vale.sh), so Docker is not needed.
 ```
+
+**Sandboxed agent sessions (no Docker daemon, GitHub release downloads
+blocked):** Vale can't run locally, so the wrapper skips it (exit 0) with a
+warning. Do NOT use `git commit --no-verify` — that bypasses all hooks, not
+just Vale. Let the commit proceed normally; the `pr-vale-check.yml` workflow
+is the authoritative gate and blocks merge on errors. It sets `VALE_STRICT=1`,
+which makes the wrapper fail instead of skip if Vale is ever unavailable in
+CI. To run Vale in a sandbox anyway, ask an environment admin to allowlist
+the Vale release host (`github.com/vale-cli/vale`) in the environment's
+network policy.
 
 **Critical limitation:** Only files inside the repository are accessible when using Docker fallback. Files in `/tmp` or other external paths will silently fail.
 

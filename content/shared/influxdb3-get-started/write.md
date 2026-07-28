@@ -192,7 +192,7 @@ In the code samples, replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the [database](/influxdb3/version/admin/databases/) to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission
+  your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission
   to write to the specified database{{% /show-in %}}
 
 ### Write data from a file
@@ -212,7 +212,7 @@ influxdb3 write \
 
 Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/version/admin/databases/) to write to.
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to write to the specified database{{% /show-in %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission to write to the specified database{{% /show-in %}}
 
 ## Other tools for writing data
 
@@ -239,6 +239,15 @@ For more information, see [Write data to {{% product-name %}}](/influxdb3/versio
 {{% /show-in %}}
 
 {{% show-in "core" %}}
+{{% page-nav
+  prev="/influxdb3/version/get-started/setup/"
+  prevText="Set up InfluxDB"
+  next="/influxdb3/version/get-started/query/"
+  nextText="Query data"
+%}}
+{{% /show-in %}}
+
+{{% show-in "cloud" %}}
 {{% page-nav
   prev="/influxdb3/version/get-started/setup/"
   prevText="Set up InfluxDB"

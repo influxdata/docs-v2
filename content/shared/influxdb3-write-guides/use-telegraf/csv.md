@@ -81,7 +81,7 @@ in your `telegraf.conf`.
   csv_reset_mode = "none"
 
 [[outputs.influxdb_v2]]
-  urls = ["http://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
@@ -107,7 +107,7 @@ Replace the following:
   > 
   > ```toml
   > [[outputs.influxdb_v2]]
-  >   urls = ["http://{{< influxdb/host >}}"]
+  >   urls = ["{{< influxdb/host-url >}}"]
   >   token = "${INFLUX_TOKEN}"
   >   # ...
   > ```

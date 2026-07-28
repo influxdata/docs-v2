@@ -40,9 +40,7 @@
    - Added QueryOptions.timeout and WriteOptions.timeout.
    - Users can pass timeout directly to the query and write functions.
 
-### CI
-
-1. [#626](https://github.com/InfluxCommunity/influxdb3-js/pull/626) Fix pipelines not downloading the correct node images.
+- CI updates
 
 ### Docs
 
@@ -50,9 +48,7 @@
 
 ## v1.4.0 {date="2025-09-15"}
 
-### CI
-
-1. [#607](https://github.com/InfluxCommunity/influxdb3-js/pull/607) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v1.3.0 {date="2025-08-12"}
 

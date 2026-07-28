@@ -29,7 +29,7 @@ write metrics collected by Telegraf to {{< product-name >}}.
 # ...
 
 [[outputs.influxdb_v2]]
-  urls = ["http://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"

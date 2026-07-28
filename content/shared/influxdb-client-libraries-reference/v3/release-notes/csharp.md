@@ -21,10 +21,7 @@
 
 1. [#220](https://github.com/InfluxCommunity/influxdb3-csharp/pull/220): Add InfluxDB 3 Core/Enterprise structured errors handling.
 
-### CI
-
-1. [#213](https://github.com/InfluxCommunity/influxdb3-csharp/pull/213): Turn off deploy workflow for Nighly builds.
-1. [#219](https://github.com/InfluxCommunity/influxdb3-csharp/pull/219): Add support for .NET 10.0.
+- CI updates
 
 ## v1.6.0 {date="2026-01-08"}
 
@@ -44,9 +41,7 @@
 1. [#175](https://github.com/InfluxCommunity/influxdb3-csharp/pull/175): Add QueryTimeout and WriteTimeout to ClientConfig.
 1. [#179](https://github.com/InfluxCommunity/influxdb3-csharp/pull/179): Allows create ClientConfig from ClientConfig(string connectionString) and ClientConfig(IDictionary env)
 
-### CI
-
-1. [#181](https://github.com/InfluxCommunity/influxdb3-csharp/pull/181): Fix CI executors parameters.
+- CI updates
 
 ## v1.4.0 {date="2025-09-15"}
 
@@ -54,9 +49,7 @@
 
 1. [#174](https://github.com/InfluxCommunity/influxdb3-csharp/pull/174): Support passing HttpClient to InfluxDBClient.
 
-### CI
-
-1. [#170](https://github.com/InfluxCommunity/influxdb3-csharp/pull/170) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v1.3.0 {date="2025-08-12"}
 

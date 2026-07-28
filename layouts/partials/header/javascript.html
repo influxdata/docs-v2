@@ -1,9 +1,3 @@
-<!-- $productPathData here is buggy - it might not return the current page path due to the context in which .RelPermalink is called -->
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
-<!-- Get site data -->
-<!-- Load cloudUrls array -->
 {{ $cloudUrls := slice }}
 {{- range .Site.Data.influxdb_urls.cloud.providers }}
   {{- range .regions }}
@@ -13,7 +7,6 @@
 {{ $products := .Site.Data.products }}
 {{ $influxdb_urls := .Site.Data.influxdb_urls }}
 
-<!-- Build main.js -->
 {{ $isDevelopment := false }}
 {{ $isTesting := false }}
 
@@ -31,28 +24,47 @@
 {{ end }}
 
 {{ $isDevelopmentOrTesting := or $isDevelopment $isTesting }}
+{{ $diagramRendererModuleURL := "" }}
+
+{{ with resources.Get "js/diagram-renderer.js" }}
+  {{ $diagramRendererOpts := dict
+    "minify" hugo.IsProduction
+    "sourceMap" (cond $isDevelopmentOrTesting "inline" "")
+    "format" "esm"
+    "bundle" true
+    "targetPath" "js/diagram-renderer.js"
+  }}
+  {{ with . | js.Build $diagramRendererOpts }}
+    {{ if hugo.IsProduction }}
+      {{ with . | fingerprint }}
+        {{ $diagramRendererModuleURL = .RelPermalink }}
+      {{ end }}
+    {{ else }}
+      {{ $diagramRendererModuleURL = .RelPermalink }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 {{ with resources.Get "js/main.js" }}
   {{ $opts := dict
     "minify" hugo.IsProduction
     "sourceMap" (cond $isDevelopmentOrTesting "inline" "")
-    "format" (cond $isDevelopmentOrTesting "esm" "iife")
-    "bundle" true 
+    "format" "esm"
+    "bundle" true
     "targetPath" "js/main.js"
-    "params" (dict 
-      "product" $product 
-      "currentVersion" $currentVersion 
-      "isServer" hugo.IsServer 
-      "products" $products 
-      "influxdb_urls" $influxdb_urls 
+    "params" (dict
+      "isServer" hugo.IsServer
+      "products" $products
+      "influxdb_urls" $influxdb_urls
       "cloudUrls" $cloudUrls
       "isDevelopment" $isDevelopmentOrTesting
+      "diagramRendererModuleUrl" $diagramRendererModuleURL
     )
   }}
   {{ with . | js.Build $opts }}
     {{ if hugo.IsProduction }}
       {{ with . | fingerprint }}
-        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+        <script type="module" src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
       {{ end }}
     {{ else }}
       <script type="module" src="{{ .RelPermalink }}"></script>

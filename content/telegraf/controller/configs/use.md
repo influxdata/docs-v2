@@ -40,6 +40,11 @@ telegraf \
 Telegraf retrieves and validates the configuration from {{% product-name %}}
 and then starts the `telegraf` process using the loaded configuration.
 
+> [!Note]
+> If {{% product-name %}} serves over HTTPS, use an `https://` configuration URL
+> and make sure the agent trusts the certificate. For details, see
+> [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+
 ### Retrieve a configuration with authorization enabled
 
 If {{% product-name %}} is configured to require authentication on the **Configs**

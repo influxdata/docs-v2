@@ -322,7 +322,7 @@ input:
       specifications](https://docs.aws.amazon.com/firehose/latest/dev/httpdeliveryrequestresponse.html).
 
       > [!IMPORTANT]
-      > Using this plugin can incure costs, see the _Metric Streams example_ in
+      > Using this plugin can incur costs, see the _Metric Streams example_ in
       > [CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing).
     introduced: v1.24.0
     os_support: [freebsd, linux, macos, solaris, windows]
@@ -836,7 +836,7 @@ input:
       `http://<host>:9000/api/system/metrics/multiple`) and `namespace` (e.g.
       `http://<host>:9000/api/system/metrics/namespace/{namespace}`).
 
-      Multiple endpoint can be queried and mixing `multiple` and serveral
+      Multiple endpoint can be queried and mixing `multiple` and several
       `namespace` end points is possible. Check
       `http://<host>:9000/api/api-browser` for the full list of available
       endpoints.
@@ -3059,7 +3059,7 @@ output:
     description: |
       This plugin writes metrics to [Azure
       Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor) which has
-      a metric resolution of one minute. To accomodate for this in Telegraf,
+      a metric resolution of one minute. To accommodate for this in Telegraf,
       the plugin will automatically aggregate metrics into one minute buckets
       and send them to the service on every flush interval.
 
@@ -3396,7 +3396,7 @@ output:
       contextual information from Point Tags to the API. Besides from this, the
       plugin currently does not send any additional associated Point Tags.
 
-      > [!IMPOTANT]
+      > [!IMPORTANT]
       > If the point value being sent cannot be converted to a `float64`, the
       > metric is skipped.
     introduced: v0.2.0
@@ -3605,7 +3605,7 @@ output:
   - name: Riemann
     id: riemann
     description: |
-      This plugin writes metric to the [Riemann](http://riemann.io) serice via
+      This plugin writes metric to the [Riemann](http://riemann.io) service via
       TCP or UDP.
     introduced: v1.3.0
     os_support: [freebsd, linux, macos, solaris, windows]
@@ -3805,7 +3805,7 @@ aggregator:
       downsample metrics collected at a higher frequency.
 
       > [!NOTE]
-      > All emited metrics do have fields with `_final` appended to the
+      > All emitted metrics do have fields with `_final` appended to the
       > field-name by default.
     introduced: v1.11.0
     os_support: [freebsd, linux, macos, solaris, windows]
@@ -3844,7 +3844,7 @@ aggregator:
     id: minmax
     description: |
       This plugin aggregates the minimum and maximum values of each field it
-      sees, emitting the aggrate every `period` seconds with field names
+      sees, emitting the aggregate every `period` seconds with field names
       suffixed by `_min` and `_max` respectively.
     introduced: v1.1.0
     os_support: [freebsd, linux, macos, solaris, windows]
@@ -3870,7 +3870,7 @@ aggregator:
 
       > [!NOTE]
       > The execution environment is sandboxed, and it is not possible to access
-      > the local filesystem or perfoming network operations. This is by design
+      > the local filesystem or performing network operations. This is by design
       > of the Starlark language as a configuration language.
 
       The Starlark script used by this plugin needs to be composed of the three
@@ -3901,7 +3901,7 @@ aggregator:
       > The fields to be counted must be configured using the `fields` setting,
       > otherwise no field will be counted and no metric is emitted.
 
-      This plugin is useful to e.g. count the occurrances of HTTP status codes
+      This plugin is useful to e.g. count the occurrences of HTTP status codes
       or other categorical values in the defined `period`.
 
       > [!IMPORTANT]
