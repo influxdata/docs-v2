@@ -96,7 +96,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--distinct-cache-eviction-interval`                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#distinct-cache-eviction-interval)_                 |
 |                  | `--distinct-value-cache-disable-from-history`        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#distinct-value-cache-disable-from-history)_        |
 |                  | `--exec-mem-pool-size`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#exec-mem-pool-size)_                              |
-|                  | `--force-snapshot-mem-threshold`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#force-snapshot-mem-threshold)_                     |
+|                  | `--force-snapshot-mem-size`                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#force-snapshot-mem-size)_                     |
 |                  | `--gen1-duration`                                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#gen1-duration)_                                    |
 |                  | `--gen1-lookback-duration`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#gen1-lookback-duration)_                           |
 |                  | `--google-service-account`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#google-service-account)_                           |

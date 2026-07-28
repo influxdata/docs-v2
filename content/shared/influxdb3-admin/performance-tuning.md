@@ -241,7 +241,7 @@ influxdb3 serve \
 
 **Solutions:**
 1. Reduce [execution memory pool](#memory-pool-exec-mem-pool-size) (to 60%)
-2. Lower snapshot threshold (`--force-snapshot-mem-threshold=70%`)
+2. Lower snapshot threshold (`--force-snapshot-mem-size=70%`)
 
 ### CPU bottlenecks
 
@@ -466,7 +466,7 @@ influxdb3 --num-io-threads=24 serve \
   --mode=ingest \
   --num-cores=96 \
   --datafusion-num-threads=72 \
-  --force-snapshot-mem-threshold=90% \
+  --force-snapshot-mem-size=90% \
   --node-id=ingester0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -554,7 +554,7 @@ Control memory pressure from write buffers:
 
 ```bash
 # Force snapshot when memory usage exceeds threshold
---force-snapshot-mem-threshold=80%
+--force-snapshot-mem-size=80%
 
 # Configure WAL rotation
 --wal-flush-interval=10s \
@@ -739,7 +739,7 @@ iostat -x 1
 
 **Solutions:**
 1. Reduce execution memory pool: `--exec-mem-pool-size=60%`
-2. Lower snapshot threshold: `--force-snapshot-mem-threshold=70%`
+2. Lower snapshot threshold: `--force-snapshot-mem-size=70%`
 3. Decrease cache sizes
 4. Add more RAM or reduce workload
 
