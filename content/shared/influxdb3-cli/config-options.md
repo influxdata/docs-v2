@@ -190,15 +190,18 @@ For the complete old-to-new name table, see
 
 ### Size option values
 
-Options that accept a size value require an explicit unit:
+Most options that accept a size value interpret a bare number as bytes.
+To set a size explicitly, use one of the following:
 
 - Append a unit suffix `b`, `kb`, `mb`, `gb`, or `tb`
-  (case-insensitive)--for example, `10mb` or `8GB`.
-- Where noted, a percentage of total available memory is accepted--for
+  (case-insensitive)—for example, `10mb` or `8GB`.
+- Where noted, specify a percentage of total available memory—for
   example, `20%`.
-- **Bare numbers are rejected.** Historically, a bare number meant megabytes
-  for some options and bytes for others, so sizes always carry an explicit
-  unit.
+
+The following options previously interpreted a bare number as megabytes and now
+reject bare numbers to avoid a silent change in meaning.
+For these options, specify a unit suffix or a percentage:
+`--exec-mem-pool-size`, `--file-cache-size`, and `--force-snapshot-mem-threshold`.
 
 ## Global configuration options
 
