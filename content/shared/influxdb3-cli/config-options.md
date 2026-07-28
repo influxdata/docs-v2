@@ -102,12 +102,14 @@ Helm values or a systemd environment file--in one pass.
 
 The following `influxdb3 serve` options and their environment variables were
 renamed.
-Legacy names remain supported as deprecated aliases.
+Legacy names are still accepted; the server logs a deprecation warning at
+startup, and values in the old format are honored.
 
 | Legacy name | New name |
 | :---------- | :------- |
 | `--disable-parquet-mem-cache`<br>`INFLUXDB3_DISABLE_PARQUET_MEM_CACHE`<br>`--disable-data-file-cache`<br>`INFLUXDB3_DISABLE_DATA_FILE_CACHE` | `--disable-file-cache`<br>`INFLUXDB3_DISABLE_FILE_CACHE` |
 | `--exec-mem-pool-bytes`<br>`INFLUXDB3_EXEC_MEM_POOL_BYTES` | `--exec-mem-pool-size`<br>`INFLUXDB3_EXEC_MEM_POOL_SIZE` |
+| `--force-snapshot-mem-threshold`<br>`INFLUXDB3_FORCE_SNAPSHOT_MEM_THRESHOLD` | `--force-snapshot-mem-size`<br>`INFLUXDB3_FORCE_SNAPSHOT_MEM_SIZE` |
 | `--parquet-mem-cache-query-path-duration`<br>`INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` | `--file-cache-recency`<br>`INFLUXDB3_FILE_CACHE_RECENCY` |
 | `--parquet-mem-cache-size`<br>`INFLUXDB3_PARQUET_MEM_CACHE_SIZE` | `--file-cache-size`<br>`INFLUXDB3_FILE_CACHE_SIZE` |
 | `--query-log-size`<br>`INFLUXDB3_QUERY_LOG_SIZE` | `--query-log-max-entries`<br>`INFLUXDB3_QUERY_LOG_MAX_ENTRIES` |
@@ -190,18 +192,24 @@ For the complete old-to-new name table, see
 
 ### Size option values
 
-Most options that accept a size value interpret a bare number as bytes.
-To set a size explicitly, use one of the following:
+Options that accept a size value require an explicit unit:
 
 - Append a unit suffix `b`, `kb`, `mb`, `gb`, or `tb`
   (case-insensitive)—for example, `10mb` or `8GB`.
 - Where noted, specify a percentage of total available memory—for
   example, `20%`.
 
-The following options previously interpreted a bare number as megabytes and now
-reject bare numbers to avoid a silent change in meaning.
-For these options, specify a unit suffix or a percentage:
-`--exec-mem-pool-size`, `--file-cache-size`, and `--force-snapshot-mem-threshold`.
+Bare numbers are rejected to avoid a silent change in meaning—historically,
+a bare number meant megabytes for some options and bytes for others.
+
+For compatibility with pre-3.11 configurations:
+
+- The deprecated `--parquet-mem-cache-size`, `--exec-mem-pool-bytes`, and
+  `--force-snapshot-mem-threshold` options (and their environment variables)
+  accept their pre-3.11 value format—a bare number means megabytes—with a
+  startup deprecation warning.
+- `--max-http-request-size` (name unchanged) accepts a bare number as bytes,
+  its pre-3.11 meaning, with a startup warning.
 
 ## Global configuration options
 
@@ -1535,7 +1543,9 @@ Provides custom configuration to DataFusion as a comma-separated list of
 #### max-http-request-size
 
 Specifies the maximum size of HTTP requests.
-Requires a [unit suffix](#size-option-values)--for example, `10mb`.
+Prefer a [unit suffix](#size-option-values)--for example, `10mb`.
+A bare number is accepted as bytes (its pre-3.11 meaning) with a startup
+warning.
 
 **Default:** `10mb`
 
@@ -1560,7 +1570,7 @@ Defines the address on which InfluxDB serves HTTP API requests.
 ### Memory
 
 - [exec-mem-pool-size](#exec-mem-pool-size)
-- [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
+- [force-snapshot-mem-size](#force-snapshot-mem-size)
 
 #### exec-mem-pool-size
 
@@ -1574,15 +1584,19 @@ of the total available memory--for example: `8gb` or `10%`.
 
 > \[!Note]
 > `--exec-mem-pool-size` was previously named `--exec-mem-pool-bytes`.
-> The legacy option and environment variable names are deprecated aliases.
+> The legacy option and environment variable names are still
+> accepted--including the pre-3.11 bare-number format, meaning
+> megabytes--with a startup deprecation warning.
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
-| `--exec-mem-pool-size`<br>`--exec-mem-pool-bytes` (deprecated alias) | `INFLUXDB3_EXEC_MEM_POOL_SIZE` (preferred)<br>`INFLUXDB3_EXEC_MEM_POOL_BYTES` (deprecated; supported for backward compatibility) |
+| `--exec-mem-pool-size`<br>`--exec-mem-pool-bytes` (deprecated) | `INFLUXDB3_EXEC_MEM_POOL_SIZE` (preferred)<br>`INFLUXDB3_EXEC_MEM_POOL_BYTES` (deprecated; supported for backward compatibility) |
 
 ***
 
-#### force-snapshot-mem-threshold
+#### force-snapshot-mem-size {#force-snapshot-mem-size}
+
+<span id="force-snapshot-mem-threshold"></span>
 
 Specifies the threshold for the internal memory buffer. Supports either a
 percentage (portion of available memory) or a value with a
@@ -1590,9 +1604,16 @@ percentage (portion of available memory) or a value with a
 
 **Default:** `50%`
 
-| influxdb3 serve option           | Environment variable                     |
-| :------------------------------- | :--------------------------------------- |
-| `--force-snapshot-mem-threshold` | `INFLUXDB3_FORCE_SNAPSHOT_MEM_THRESHOLD` |
+> \[!Note]
+> `--force-snapshot-mem-size` was previously named
+> `--force-snapshot-mem-threshold`.
+> The legacy option and environment variable names are still
+> accepted--including the pre-3.11 bare-number format, meaning
+> megabytes--with a startup deprecation warning.
+
+| influxdb3 serve option | Environment variables |
+| :--------------------- | :-------------------- |
+| `--force-snapshot-mem-size`<br>`--force-snapshot-mem-threshold` (deprecated) | `INFLUXDB3_FORCE_SNAPSHOT_MEM_SIZE` (preferred)<br>`INFLUXDB3_FORCE_SNAPSHOT_MEM_THRESHOLD` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1968,11 +1989,13 @@ budget.
 
 > \[!Note]
 > `--file-cache-size` was previously named `--parquet-mem-cache-size`.
-> The legacy option and environment variable names are deprecated aliases.
+> The legacy option and environment variable names are still
+> accepted--including the pre-3.11 bare-number format, meaning
+> megabytes--with a startup deprecation warning.
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
-| `--file-cache-size`<br>`--parquet-mem-cache-size` (deprecated alias) | `INFLUXDB3_FILE_CACHE_SIZE` (preferred)<br>`INFLUXDB3_PARQUET_MEM_CACHE_SIZE` (deprecated; supported for backward compatibility) |
+| `--file-cache-size`<br>`--parquet-mem-cache-size` (deprecated) | `INFLUXDB3_FILE_CACHE_SIZE` (preferred)<br>`INFLUXDB3_PARQUET_MEM_CACHE_SIZE` (deprecated; supported for backward compatibility) |
 
 #### parquet-mem-cache-prune-percentage
 
@@ -2665,9 +2688,13 @@ Specifies the grace period before permanently deleting data.
 
 #### hard-delete-default-duration
 
-Sets the default duration for hard deletion of data.
-
-**Default:** `90d`
+> \[!Warning]
+> #### Deprecated: has no effect
+>
+> `--hard-delete-default-duration` has never had an effect in any release;
+> the server always uses the built-in default hard-delete duration.
+> The option is still accepted so existing configurations start, but the
+> server logs a startup warning--remove it from your configuration.
 
 | influxdb3 serve option           | Environment variable                     |
 | :------------------------------- | :--------------------------------------- |
