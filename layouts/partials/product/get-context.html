@@ -1,0 +1,53 @@
+{{- /*
+  Resolve a page's product without inferring it from the URL.
+
+  Every product section declares its product through cascade in its
+  section _index.md, so the products.yml key is stated, not guessed.
+  Templates that inferred the key from the first path segment got it wrong
+  under /influxdb3/, where the segment is `influxdb3` but the keys are
+  `influxdb3_core`, `influxdb3_cloud`, and so on.
+
+  Hub pages (/influxdb3/), /platform/, and /resources/ declare no product.
+  They get an empty key and empty data, which callers already handle.
+
+  Path segments are still returned. Search tags and some path-scoped UI
+  rules key off the URL itself rather than off the product.
+
+  Prefers .File.Dir over .RelPermalink so a subpath-mounted baseURL
+  (/pr-preview/pr-N/) does not leak into the segments.
+
+  Returns a dict:
+    key     - products.yml key ("influxdb3_cloud"), or ""
+    data    - the products.yml entry, or an empty dict
+    product - first path segment ("influxdb3")
+    version - second path segment ("cloud")
+
+  Usage:
+    {{ $ctx := partial "product/get-context.html" . }}
+    {{ $ctx.data.latest }}
+*/ -}}
+{{- $productPath := .RelPermalink -}}
+{{- with .File -}}
+  {{- $productPath = .Dir -}}
+{{- end -}}
+{{- $pathData := findRE "[^/]+.*?" $productPath -}}
+{{- $product := index $pathData 0 | default "" -}}
+{{- $version := index $pathData 1 | default "" -}}
+{{- $key := .Params.product | default "" -}}
+{{- if not $key -}}
+  {{- /*
+    Product hub pages (/telegraf/, /chronograf/, /influxdb/) sit above the
+    versioned sections that carry the cascade, so they declare no product.
+    Fall back to the first path segment when it names a product.
+  */ -}}
+  {{- with index $.Site.Data.products $product -}}
+    {{- $key = $product -}}
+  {{- end -}}
+{{- end -}}
+{{- $data := dict -}}
+{{- with $key -}}
+  {{- with index $.Site.Data.products . -}}
+    {{- $data = . -}}
+  {{- end -}}
+{{- end -}}
+{{- return dict "key" $key "data" $data "product" $product "version" $version -}}

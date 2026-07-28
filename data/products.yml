@@ -11,6 +11,7 @@ influxdb3_core:
   menu_category: self-managed
   versions: [core]
   list_order: 2
+  search_includes_resources: false
   latest: core
   latest_patch: 3.10.5
   placeholder_host: localhost:8181
@@ -56,6 +57,7 @@ influxdb3_enterprise:
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
+  search_includes_resources: false
   latest: enterprise
   latest_patch: 3.10.5
   placeholder_host: localhost:8181
@@ -127,6 +129,7 @@ influxdb3_explorer:
   label_group: explorer
   menu_category: tools
   list_order: 1
+  search_includes_resources: false
   latest: explorer
   latest_patch: 1.9.0
   placeholder_host: localhost:8080
@@ -153,6 +156,7 @@ influxdb3_cloud_serverless:
   menu_category: managed
   versions: [cloud-serverless]
   list_order: 2
+  search_includes_resources: false
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
   scheme: https
@@ -192,6 +196,7 @@ influxdb3_cloud_dedicated:
   menu_category: managed
   versions: [cloud-dedicated]
   list_order: 3
+  search_includes_resources: false
   latest: cloud-dedicated
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
   latest_cli: 2.12.1
@@ -229,6 +234,7 @@ influxdb3_clustered:
   menu_category: self-managed
   versions: [clustered]
   list_order: 3
+  search_includes_resources: false
   latest: clustered
   link: 'https://www.influxdata.com/contact-sales-influxdb-clustered/'
   placeholder_host: cluster-host.com
@@ -284,6 +290,7 @@ influxdb:
   versions:
     - v2
     - v1
+  supports_flux: true
   latest: v2.9
   latest_patches:
     v2: 2.9.1
@@ -333,6 +340,7 @@ influxdb_cloud:
   menu_category: managed
   versions: [cloud]
   list_order: 1
+  supports_flux: true
   latest: cloud
   placeholder_host: cloud2.influxdata.com
   scheme: https
@@ -396,7 +404,7 @@ telegraf_controller:
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 1.0
+  latest: controller
   latest_patch: 1.0.1
   schema:
     operating_system: "Docker"
@@ -410,7 +418,7 @@ telegraf_enterprise:
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 1.0
+  latest: enterprise
   latest_patch: 1.0.1
   schema:
     operating_system: "Linux, macOS, Windows, Docker"
@@ -428,6 +436,7 @@ chronograf:
   menu_category: other
   list_order: 7
   versions: [v1]
+  has_support_contract: false
   latest: v1.11
   latest_patches:
     v1: 1.11.4
@@ -455,6 +464,7 @@ kapacitor:
   menu_category: other
   list_order: 7
   versions: [v1]
+  has_support_contract: false
   latest: v1.8
   latest_patches:
     v1: 1.8.6
@@ -478,6 +488,7 @@ enterprise_influxdb:
   menu_category: self-managed
   list_order: 5
   versions: [v1]
+  supports_flux: true
   latest: v1.12
   latest_patches:
     v1: 1.12.4
