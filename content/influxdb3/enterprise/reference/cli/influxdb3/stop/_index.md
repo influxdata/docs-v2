@@ -2,8 +2,7 @@
 title: influxdb3 stop
 description: >
   The `influxdb3 stop` command gracefully stops nodes in your InfluxDB 3
-  Enterprise cluster: a stopping node drains its write-ahead log (WAL) before
-  it reads as stopped.
+  Enterprise cluster.
 menu:
   influxdb3_enterprise:
     parent: influxdb3
