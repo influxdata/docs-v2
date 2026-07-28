@@ -492,12 +492,16 @@ export function InfluxDBUrl() {
     updateUrls(getPrevUrls(), getUrls());
   });
 
-  // Track selecting a built-in (preset) URL for analytics. Scoped to radio
-  // options and excludes the custom radio, which is tracked separately when
-  // the custom value is applied.
+  // Track selecting a built-in (preset) URL for analytics. Bound to `click`
+  // rather than `change`: setRadioButtons() checks the stored (or default)
+  // preset on page load, so `change` never fires when the user selects the
+  // preset that is already checked. Products that offer a single preset
+  // (Core, Enterprise, OSS) are always in that state, which would leave preset
+  // usage unrecorded. Excludes the custom radio, which is tracked separately
+  // when the custom value is applied.
   $('input[type="radio"][name^="influxdb-"][name$="-url"]')
     .not('#custom')
-    .on('change', function () {
+    .on('click', function () {
       trackPresetUrlSelection(PRODUCT_CONTEXT, $(this).val());
     });
 

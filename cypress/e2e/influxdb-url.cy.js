@@ -129,11 +129,22 @@ describe('InfluxDB URL - selector analytics', function () {
     stubGtag();
     openCustomUrlModal();
 
-    // Select a built-in (preset) radio option — not the custom radio.
+    // Regression for https://github.com/influxdata/docs-v2/issues/7577.
+    // The stored (or default) preset is already checked when the modal opens,
+    // so selecting it fires `click` but not `change`. Assert the precondition
+    // explicitly — a `change`-bound handler records nothing here.
     cy.get('input[type="radio"][name="influxdb-core-url"]')
       .not('#custom')
       .first()
-      .check({ force: true });
+      .should('be.checked');
+
+    // Select a built-in (preset) radio option — not the custom radio.
+    // Use click(), not check(): Cypress skips check() on an already-checked
+    // input and fires no events at all.
+    cy.get('input[type="radio"][name="influxdb-core-url"]')
+      .not('#custom')
+      .first()
+      .click({ force: true });
 
     cy.get('@gtag').should(
       'have.been.calledWith',
