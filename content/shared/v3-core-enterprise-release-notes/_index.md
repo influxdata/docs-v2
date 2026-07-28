@@ -6,8 +6,17 @@
 > binaries are unable to read the new catalog, and fail to start on the same
 > cluster data.
 >
-> Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
+> Before upgrading, back up your current catalog. The paths depend on the version
+> you're upgrading from:
+>
+> - **3.4.0 or later**: `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot`
+> - **Before 3.4.0**: `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`
+>
 > Restoring these objects is the only way to roll back to 3.9.x.
+>
+> On a cluster running 3.4.0 or later, `{prefix}/catalogs/` and
+> `{prefix}/_catalog_checkpoint` may still be present as leftovers from an earlier
+> catalog format. They aren't current and aren't a valid rollback source.
 >
 > {{% show-in "enterprise" %}}If you have enabled the storage engine upgrade (`--use-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
 
@@ -237,7 +246,7 @@ All Core updates are included in Enterprise.
 
 #### Features
 
-- **Catalog format upgrade (catalog v2 → v3)**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. **Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.**
+- **Catalog format upgrade (catalog v2 → v3)**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. **Back up your current catalog before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.** If you're upgrading from 3.4.0 or later, back up `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot`. If you're upgrading from a version before 3.4.0, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
 
 - **`influxdb3 debug catalog` command**: Inspect catalog state offline directly from object storage — no running server required. Subcommands: `list`, `snapshot`, `sequence`. Available in both Core and Enterprise.
 
@@ -265,7 +274,7 @@ All Core updates are included in Enterprise.
 
 #### Breaking changes
 
-- **Catalog format upgrade (catalog v2 → v3) is one-way**: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading.
+- **Catalog format upgrade (catalog v2 → v3) is one-way**: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up your current catalog before upgrading: `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot` if you're upgrading from 3.4.0 or later, or `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` if you're upgrading from an earlier version.
 
 - **`influxdb3 write` output changed**: The write command now prints a throughput report on success instead of printing `success`. Scripts that parse the previous output should use `--quiet` (`-q`) to suppress all output.
 
