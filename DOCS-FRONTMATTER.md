@@ -251,7 +251,6 @@ cascade:
 > is included in the page's Markdown twin (`index.md`) and in per-product
 > `llms-full.txt` corpora.
 > See [LLM Markdown generation](DOCS-DEPLOYING.md#llm-markdown-generation).
-> Callout styling isn't preserved in those outputs -- only the text content is.
 
 ### Cascade
 
