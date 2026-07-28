@@ -15,6 +15,8 @@ const STORAGE_KEY = 'influxdata_docs_urls';
 const TEST_PAGE = '/influxdb3/core/plugins/';
 // A product with a protocol-less, product-specific URL field (applyProductUrl).
 const DEDICATED_PAGE = '/influxdb3/cloud-dedicated/get-started/setup/';
+// A product whose selector renders multiple presets grouped into regions.
+const CLOUD_TEST_PAGE = '/influxdb/cloud/get-started/';
 const EXPECTED_PRODUCT_KEYS = [
   'oss',
   'cloud',
@@ -154,13 +156,51 @@ describe('InfluxDB URL - selector analytics', function () {
     );
 
     // Preset URLs are public documented endpoints, so the selected value is
-    // reported to help compare preset vs. custom usage.
+    // reported to help compare preset vs. custom usage. One click reports
+    // exactly one event — `click` must not be counted alongside `change`.
     cy.get('@gtag').then((stub) => {
       const calls = stub
         .getCalls()
         .filter((c) => c.args[1] === 'url_selector_preset');
-      expect(calls.length).to.be.greaterThan(0);
+      expect(calls.length).to.equal(1);
       expect(calls[0].args[2].selected_url).to.be.a('string').and.not.be.empty;
+    });
+  });
+
+  it('reports one url_selector_preset when the selection changes', function () {
+    // Cloud renders several presets, so selecting a different one changes the
+    // checked state and fires both `click` and `change`. Verify that reports a
+    // single event — the click binding must not be counted twice.
+    cy.visit(CLOUD_TEST_PAGE, {
+      onBeforeLoad(win) {
+        // Suppress the v3 wayfinding modal, which otherwise covers the page
+        // and blocks the URL selector trigger.
+        win.localStorage.setItem(
+          'influxdata_docs_preferences',
+          JSON.stringify({ influxdb_url: 'cloud', v3_wayfinding_show: false })
+        );
+      },
+    });
+    stubGtag();
+    openCustomUrlModal();
+
+    cy.get('#cloud-urls input[type="radio"][name="influxdb-cloud-url"]')
+      .not('#custom')
+      .not(':checked')
+      .first()
+      .click({ force: true });
+
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'url_selector_preset',
+      Cypress.sinon.match({ product: 'cloud' })
+    );
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'url_selector_preset');
+      expect(calls.length).to.equal(1);
     });
   });
 
