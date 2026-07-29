@@ -492,16 +492,34 @@ export function InfluxDBUrl() {
     updateUrls(getPrevUrls(), getUrls());
   });
 
-  // Track selecting a built-in (preset) URL for analytics. Bound to `click`
-  // rather than `change`: setRadioButtons() checks the stored (or default)
-  // preset on page load, so `change` never fires when the user selects the
-  // preset that is already checked. Products that offer a single preset
-  // (Core, Enterprise, OSS) are always in that state, which would leave preset
-  // usage unrecorded. Excludes the custom radio, which is tracked separately
-  // when the custom value is applied.
+  // Track selecting a built-in (preset) URL for analytics. Selecting a preset
+  // reliably delivers only one of `click` or `change`, and which one depends
+  // on how the selection was made:
+  //
+  // - `change` alone is unreliable. setRadioButtons() checks the stored (or
+  //   default) preset on page load, so selecting the preset that is already
+  //   checked never changes the state. Products with a single preset (Core,
+  //   Enterprise, OSS) are always in that state.
+  // - `click` alone is unreliable. Clicking a region heading forwards a click
+  //   to its first cluster with jQuery .trigger(), which suppresses jQuery's
+  //   own click handlers for the activation it performs, so only `change`
+  //   reaches this handler.
+  //
+  // Bind both and drop the duplicate when one selection fires both. Excludes
+  // the custom radio, which is tracked when the custom value is applied.
+  let presetSelectionReported = false;
   $('input[type="radio"][name^="influxdb-"][name$="-url"]')
     .not('#custom')
-    .on('click', function () {
+    .on('click change', function () {
+      if (presetSelectionReported) {
+        return;
+      }
+      // A single selection fires its events within one task, so clearing the
+      // flag asynchronously keeps later selections reportable.
+      presetSelectionReported = true;
+      setTimeout(function () {
+        presetSelectionReported = false;
+      }, 0);
       trackPresetUrlSelection(PRODUCT_CONTEXT, $(this).val());
     });
 
