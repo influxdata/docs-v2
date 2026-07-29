@@ -61,3 +61,32 @@ storage engine (the default for new clusters in 3.11+).{{% /show-in %}}
 - **Process**: Recently persisted Parquet files are cached in memory.
 - **Impact**: Reduces query latency by minimizing object storage access.
 - **Details**: {{% product-name %}} puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
+
+## Upgraded storage engine compaction {#upgraded-storage-engine-compaction metadata="v3.11+"}
+
+{{% show-in "enterprise" %}}
+The upgraded storage engine (the default for new clusters in 3.11+)
+compacts data differently from the Parquet engine described above.
+
+Incoming writes are buffered in the WAL, flushed to snapshots, and merged
+into Gen0 files.
+From there, {{% product-name %}} uses **time-disjoint two-level
+compaction** by default: all leading-edge ingest funnels through a
+hot-tail L1 run set, and several
+concurrent L1 compaction jobs can run against the leading edge (or any
+heavily written range) at once.
+L1 run sets are allowed to transiently overlap in their assigned time
+range under load—this is a healthy, query-safe state—and the compactor
+reconciles back to a disjoint L1 as high-priority background work.
+Under low load, nothing overlaps and behavior matches the legacy layout.
+
+Clusters that started on 3.10 or earlier and have not yet upgraded keep the
+legacy four-level (L1 through L4) compaction layout, where compaction
+serializes on a single hot tail and concurrent leading-edge writes must
+wait.
+Newly created window/shards use the time-disjoint layout; existing
+checkpoints keep their recorded layout until explicitly upgraded.
+
+For per-level and per-engine tuning options, see
+[Storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/).
+{{% /show-in %}}
