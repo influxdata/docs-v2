@@ -264,26 +264,26 @@ tools.
 influxdb3 export databases
 
 # Step 2: List tables in a database
-influxdb3 export tables -d mydb
+influxdb3 export tables --database mydb
 
 # Step 3: List compacted 24-hour windows for a table
-influxdb3 export windows -d mydb -t cpu
+influxdb3 export windows --database mydb --table cpu
 
 # Step 4: Export data as Parquet files
 influxdb3 export data \
-  -d mydb \
-  -t cpu \
-  -o ./export_output
+  --database mydb \
+  --table cpu \
+  --output-dir ./export_output
 ```
 
 To export specific time windows only:
 
 ```bash
 influxdb3 export data \
-  -d mydb \
-  -t cpu \
-  -w 2026-01-15,2026-01-16 \
-  -o ./export_output
+  --database mydb \
+  --table cpu \
+  --window 2026-01-15,2026-01-16 \
+  --output-dir ./export_output
 ```
 
 ## Who should upgrade existing clusters
