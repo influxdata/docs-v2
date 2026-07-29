@@ -11,6 +11,7 @@ You can query the system tables for information about your running server, datab
     - [Recently executed queries](#recently-executed-queries)
     - [Query plugin files](#query-plugin-files)
     - [Query trigger logs](#query-trigger-logs)
+    - [Query storage engine tables](#query-storage-engine-tables)
 
 ### Use the HTTP query API 
 
@@ -313,8 +314,8 @@ with `--upgrade-poll-interval`).
 execution statistics for analyzing query performance:
 
 ```bash
-curl -X GET "http://localhost:8181/api/v3/query_sql_telemetry" \
-  -H "Authorization: Bearer AUTH_TOKEN"
+curl --request GET "http://localhost:8181/api/v3/query_sql_telemetry" \
+  --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
 Replace `AUTH_TOKEN` with your authentication token.
