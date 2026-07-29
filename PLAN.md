@@ -342,8 +342,8 @@ the compaction-model detail replaced by a link to Task 2's new section
 
   Key improvements include:
 
-  - **Single-series queries**: Optimized for highly selective time-series
-    queries.
+  - **Faster single-series queries**: Optimized for highly selective
+    time-series queries.
   - **Resource usage**: Bounded CPU and memory during persistence and
     compaction, using a fixed memory budget instead of unbounded growth
     during heavy ingestion or compaction.
