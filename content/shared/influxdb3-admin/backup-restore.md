@@ -200,11 +200,18 @@ A restore is **asynchronous** and runs **in place on the live cluster**--no
 restart required. **Only one restore can run at a time across the cluster**;
 concurrent restore attempts return `409`.
 
-Restore is a **point-in-time rollback**, not an additive merge: it rolls the
-cluster back to the state captured in the backup. Data written after the
-backup becomes unreferenced. Rolling back also truncates the WAL down to the
+Restore is a **point-in-time rollback**, not an additive merge: it restores
+the catalog, copies the backup's files, and writes a new checkpoint above the
+existing checkpoint sequence. Rolling back also truncates the WAL down to the
 backup's watermark, so a subsequent node restart doesn't replay and resurrect
 the rolled-back writes.
+
+Restore doesn't delete anything from object storage. Compaction and other
+files written after the backup become **orphaned objects**--unreferenced by
+the restored catalog, but left in place for garbage collection rather than
+deleted outright. A restore also discards any persisted compactor delete
+queue newer than the restored checkpoint, so stale cleanup work can't delete
+files the restored state still references.
 
 > [!Warning]
 > #### Row deletes may persist across restores
