@@ -1258,6 +1258,13 @@ Points in the WAL are queryable and persist through a system reboot.
 On process start, all points in the WAL must be flushed before the system
 accepts new writes.
 
+### WAL tail
+
+The most recent points in the [WAL](#wal-write-ahead-log) that have not yet
+been durably persisted beyond the WAL.
+For details, see
+[Data durability](/influxdb3/version/reference/internals/durability/#wal-tail).
+
 ### windowing
 
 Grouping data based on specified time intervals.
