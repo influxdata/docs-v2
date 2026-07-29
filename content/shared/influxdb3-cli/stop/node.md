@@ -5,9 +5,7 @@ When you run this command against a **live** node:
 
 1. The node is marked as `stopping` in the catalog.
 2. The node completes its stop cascade, then confirms the stop.
-   The cascade drains the node's
-   [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail)—the
-   writes buffered in the write-ahead log (WAL) since the last snapshot.
+   The cascade drains the node's [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail)—the writes buffered in the write-ahead log (WAL) since the last snapshot.
 3. The node reads as `stopped` in the catalog, and its licensed cores are
    freed for other nodes.
 
