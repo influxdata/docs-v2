@@ -153,8 +153,9 @@ Constraints).
 
   Incoming writes are buffered in the WAL, flushed to snapshots, and merged
   into Gen0 files.
-  From there, 3.11 uses **time-disjoint two-level compaction** by default:
-  all leading-edge ingest funnels through a hot-tail L1 run set, and several
+  From there, {{% product-name %}} uses **time-disjoint two-level
+  compaction** by default: all leading-edge ingest funnels through a
+  hot-tail L1 run set, and several
   concurrent L1 compaction jobs can run against the leading edge (or any
   heavily-written range) at once.
   L1 run sets are allowed to transiently overlap in their assigned time
