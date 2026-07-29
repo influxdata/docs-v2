@@ -49,10 +49,7 @@ Before tuning performance, establish baseline metrics to identify bottlenecks:
 
 {{% show-in "enterprise" %}}
 On clusters running the upgraded storage engine (the default for new
-clusters in 3.11+).
-For background on how these metrics relate to the storage engine's
-internals, see
-[Storage engine](/influxdb3/enterprise/reference/internals/storage-engine/):
+clusters in 3.11+), use these thresholds:
 
 | Metric | Good | Warning | Action |
 |:-------|:-----|:--------|:-------|
@@ -60,6 +57,10 @@ internals, see
 | Rows read vs returned ratio | <100:1 | >1000:1 | Add more selective predicates |
 | WAL file count | <50 | >100 | Increase `--wal-flush-concurrency` |
 | Gen0 file count | <100 | >200 | Increase `--compactor-input-size-budget` |
+
+For background on how these metrics relate to the storage engine's
+internals, see
+[Storage engine](/influxdb3/enterprise/reference/internals/storage-engine/).
 {{% /show-in %}}
 
 ### Establish baselines
