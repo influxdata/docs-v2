@@ -273,6 +273,10 @@ influxdb3 serve \
 > Increase `--num-io-threads` to 8-16+ for ingest nodes.{{% show-in "enterprise" %}} For dedicated ingest nodes with `--mode=ingest`, see [Configure ingest nodes](/influxdb3/version/admin/clustering/#configure-ingest-nodes).{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
+The following issues are specific to the
+[upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+(the default for new clusters in 3.11+).
+
 ### High WAL file count (upgraded storage engine)
 
 **Symptoms:** `system.pt_ingest_wal` shows many accumulated files
