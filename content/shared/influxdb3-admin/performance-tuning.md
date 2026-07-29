@@ -49,7 +49,10 @@ Before tuning performance, establish baseline metrics to identify bottlenecks:
 
 {{% show-in "enterprise" %}}
 On clusters running the upgraded storage engine (the default for new
-clusters in 3.11+):
+clusters in 3.11+).
+For background on how these metrics relate to the storage engine's
+internals, see
+[Storage engine](/influxdb3/enterprise/reference/internals/storage-engine/):
 
 | Metric | Good | Warning | Action |
 |:-------|:-----|:--------|:-------|

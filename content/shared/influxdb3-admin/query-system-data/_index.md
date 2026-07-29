@@ -11,7 +11,7 @@ You can query the system tables for information about your running server, datab
     - [Recently executed queries](#recently-executed-queries)
     - [Query plugin files](#query-plugin-files)
     - [Query trigger logs](#query-trigger-logs)
-    - [Query storage engine tables](#query-storage-engine-tables)
+    {{% show-in "enterprise" %}}- [Query storage engine tables](#query-storage-engine-tables){{% /show-in %}}
 
 ### Use the HTTP query API 
 
@@ -237,9 +237,9 @@ influxdb3 query \
    LIMIT 50"
 ```
 
+{{% show-in "enterprise" %}}
 #### Query storage engine tables {#query-storage-engine-tables}
 
-{{% show-in "enterprise" %}}
 The upgraded storage engine (the default for new clusters in 3.11+)
 exposes internal state through system tables.
 
