@@ -30,8 +30,7 @@ It also applies to a node wedged in the `stopping` state.
 
 A node stores recently acknowledged writes in its write-ahead log (WAL) until it
 captures them in a snapshot.
-These buffered writes are the node's
-[_WAL tail_](/influxdb3/enterprise/reference/internals/durability/#wal-tail).
+These buffered writes are the node's [_WAL tail_](/influxdb3/enterprise/reference/internals/durability/#wal-tail).
 Run the [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
 command against a running node to save the WAL tail before the node reports a
 `stopped` state.
