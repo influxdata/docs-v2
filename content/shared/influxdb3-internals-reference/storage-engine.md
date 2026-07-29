@@ -180,9 +180,7 @@ storage layers.
 If there is a conflict (same series key and timestamp), the upgraded data
 takes precedence.
 
-After the upgrade completes, Parquet engine options remaining in your
-configuration—including options you may have relied on long before the
-upgrade—no longer have any effect.
+After the upgrade completes, Parquet engine options remaining in your configuration—including options you may have relied on long before the upgrade—no longer have any effect.
 On the next server start following completion of the upgrade, each one
 logs a warning indicating it can be removed.
 Use the startup log as a checklist for cleaning up your configuration.
