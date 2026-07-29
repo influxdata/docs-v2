@@ -240,8 +240,9 @@ influxdb3 query \
 {{% show-in "enterprise" %}}
 #### Query storage engine tables {#query-storage-engine-tables}
 
-The upgraded storage engine (the default for new clusters in 3.11+)
-exposes internal state through system tables.
+The [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+(the default for new clusters in 3.11+) exposes internal state through
+system tables.
 
 **`system.pt_ingest_wal`** — WAL files and their shards:
 
