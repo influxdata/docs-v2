@@ -206,12 +206,24 @@ existing checkpoint sequence. Rolling back also truncates the WAL down to the
 backup's watermark, so a subsequent node restart doesn't replay and resurrect
 the rolled-back writes.
 
-Restore doesn't delete anything from object storage. Compaction and other
-files written after the backup become **orphaned objects**--unreferenced by
-the restored catalog, but left in place for garbage collection rather than
-deleted outright. A restore also discards any persisted compactor delete
-queue newer than the restored checkpoint, so stale cleanup work can't delete
-files the restored state still references.
+Restore is **not a full pre-clean** of post-backup object storage output.
+It removes newer transient and pre-compaction artifacts--PachaTree
+snapshots, `gen0` files, PachaTree WAL files, and newer compactor
+checkpoints. But already-**compacted** post-backup files (compactor run-set
+files and their indexes) stay in object storage, unreferenced by the
+restored catalog, pending later garbage collection rather than immediate
+deletion. A restore also discards any persisted compactor delete queue newer
+than the restored checkpoint, so stale cleanup work can't delete files the
+restored state still references.
+
+> [!Note]
+> #### Scripting a restore
+>
+> `influxdb3 create restore` and `influxdb3 status restore` print
+> human-readable text only--neither supports `--format json`. To script a
+> restore, call the HTTP API directly: `POST /api/v3/enterprise/restore`
+> returns `202` with a JSON body containing `restore_id`, which you poll with
+> `GET /api/v3/enterprise/restore/{id}`.
 
 > [!Warning]
 > #### Row deletes may persist across restores
