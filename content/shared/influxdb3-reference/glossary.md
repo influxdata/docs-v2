@@ -501,6 +501,12 @@ database optimized for time series data built in Rust on top of
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
 IOx replaces the [TSM (Time Structured Merge tree)](#tsm-time-structured-merge-tree) storage engine.
 
+Related entries:
+[WAL tail](#wal-tail)
+
+For {{% product-name %}}-specific detail, see
+[Storage engine](/influxdb3/version/reference/internals/storage-engine/).
+
 ## J
 
 ### JWT
