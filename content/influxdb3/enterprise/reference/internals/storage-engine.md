@@ -3,8 +3,8 @@ title: Storage engine
 seotitle: InfluxDB 3 Enterprise storage engine
 description: >
   Learn about the InfluxDB 3 Enterprise storage engine, including the
-  upgraded storage engine (the default for new clusters), its version
-  history, and how to upgrade or downgrade an existing cluster.
+  upgraded storage engine (the default for new clusters) and how to
+  upgrade or downgrade an existing cluster.
 menu:
   influxdb3_enterprise:
     name: Storage engine

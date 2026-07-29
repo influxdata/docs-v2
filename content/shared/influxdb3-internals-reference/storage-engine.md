@@ -4,7 +4,7 @@
 storage engine—see [Data durability](/influxdb3/core/reference/internals/durability/)
 for how data flows from write to Parquet persistence.
 InfluxDB 3 Enterprise also offers an upgraded storage engine as an
-alternative; Core does not include it.
+alternative; {{% product-name %}} does not include it.
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
@@ -297,9 +297,4 @@ engine, the storage engine upgrade especially benefits workloads with:
 - Query-heavy access patterns requiring low latency
 - Sparse schemas with dynamic column creation
 - Resource constraints where bounded memory and CPU usage matter
-
-## Support and feedback
-
-- Contact [InfluxData support](https://support.influxdata.com)
-- Reach out to your InfluxData account team
 {{% /show-in %}}

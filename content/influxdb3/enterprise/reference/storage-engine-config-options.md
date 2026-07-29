@@ -17,6 +17,7 @@ related:
   - /influxdb3/enterprise/reference/internals/storage-engine/
   - /influxdb3/enterprise/admin/query-system-data/
   - /influxdb3/enterprise/reference/config-options/
+  - /influxdb3/enterprise/admin/performance-tuning/
 ---
 
 For background on the upgraded storage engine, see
@@ -35,16 +36,16 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > [!Important]
 > #### The `pt-` option prefix was removed
 >
-> Preview options no longer use the `pt-` prefix—for example,
+> Upgraded storage engine options no longer use the `pt-` prefix—for example,
 > `--pt-snapshot-size` is now `--snapshot-size`.
-> There is no backward compatibility for preview option names:
+> There is no backward compatibility for the old option names:
 > old `--pt-*` flags cause a startup error, and legacy `INFLUXDB3_PT_*` and
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variables are ignored.
 >
 > The server logs a warning at startup for each `INFLUXDB3_PT_*` or
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variable that is still set.
 >
-> The following preview options were folded into engine-agnostic options
+> The following options were folded into engine-agnostic options
 > shared with the Parquet-based engine:
 >
 > - `--pt-wal-flush-interval` → [`--wal-flush-interval`](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)
@@ -350,6 +351,13 @@ For what these levels mean and how the time-disjoint compaction model uses
 them, see
 [Upgraded storage engine compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction).
 
+These per-level options apply within whichever compaction layout a cluster
+is running.
+Clusters using time-disjoint two-level compaction and clusters still on the
+legacy four-level layout both use the same L1-L4 tunables—the layouts
+organize the levels differently, but the options below configure each level
+the same way in either case.
+
 | Level | Role | Default tail target | Default file size | Promotion trigger |
 |:------|:-----|:--------------------|:------------------|:------------------|
 | **L1** | Ingest landing zone | 600MB | 25MB | 3 run sets |
@@ -475,7 +483,7 @@ influxdb3 serve \
 ## Downgrade options
 
 The `influxdb3 downgrade-to-parquet` command reverts a cluster from the
-performance preview back to standard Parquet storage.
+upgraded storage engine back to standard Parquet storage.
 For the downgrade procedure, see
 [Downgrade to Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#downgrade-to-parquet).
 
