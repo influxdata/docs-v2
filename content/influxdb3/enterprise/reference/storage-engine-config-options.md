@@ -547,4 +547,3 @@ other change to its name.
 | `--pt-wal-replica-steady-concurrency` | `--wal-replica-steady-concurrency` |
 | `--pt-wal-replication-interval` | [`--replication-interval`](/influxdb3/enterprise/reference/config-options/#replication-interval) (shared with the Parquet-based engine) |
 | `--pt-wal-snapshots-to-keep` | `--wal-snapshots-to-keep` |
-</content>
