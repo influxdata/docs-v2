@@ -572,13 +572,20 @@ the compaction-model detail replaced by a link to Task 2's new section
   influxdb3 export windows -d mydb -t cpu
 
   # Step 4: Export data as Parquet files
-  influxdb3 export data -d mydb -t cpu -o ./export_output
+  influxdb3 export data \
+    -d mydb \
+    -t cpu \
+    -o ./export_output
   ```
 
   To export specific time windows only:
 
   ```bash
-  influxdb3 export data -d mydb -t cpu -w 2026-01-15,2026-01-16 -o ./export_output
+  influxdb3 export data \
+    -d mydb \
+    -t cpu \
+    -w 2026-01-15,2026-01-16 \
+    -o ./export_output
   ```
 
   ## Who should upgrade existing clusters
