@@ -47,6 +47,18 @@ Before tuning performance, establish baseline metrics to identify bottlenecks:
    - Monitor object store latency for cloud deployments
    - Check disk IO wait times with `iostat`
 
+{{% show-in "enterprise" %}}
+On clusters running the upgraded storage engine (the default for new
+clusters in 3.11+):
+
+| Metric | Good | Warning | Action |
+|:-------|:-----|:--------|:-------|
+| Cache hit rate | >80% | <60% | Increase `--file-cache-size` or `--file-cache-recency` |
+| Rows read vs returned ratio | <100:1 | >1000:1 | Add more selective predicates |
+| WAL file count | <50 | >100 | Increase `--wal-flush-concurrency` |
+| Gen0 file count | <100 | >200 | Increase `--compactor-input-size-budget` |
+{{% /show-in %}}
+
 ### Establish baselines
 
 ```bash
@@ -255,6 +267,71 @@ influxdb3 serve \
 > #### "My ingesters are only using 2 cores"
 > 
 > Increase `--num-io-threads` to 8-16+ for ingest nodes.{{% show-in "enterprise" %}} For dedicated ingest nodes with `--mode=ingest`, see [Configure ingest nodes](/influxdb3/version/admin/clustering/#configure-ingest-nodes).{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+### High WAL file count (upgraded storage engine)
+
+**Symptoms:** `system.pt_ingest_wal` shows many accumulated files.
+
+**Possible causes:** Merge operations falling behind write rate,
+insufficient flush concurrency, object storage latency.
+
+**Solutions:**
+
+1. Increase flush concurrency: `--wal-flush-concurrency 8`
+2. Increase WAL flush interval to create larger, fewer files:
+   `--wal-flush-interval 5s`
+3. Increase the WAL buffer size so each flush produces a larger file:
+   `--wal-buffer-size 30MB`
+4. Check object storage performance and connectivity.
+
+### High cache miss rate (upgraded storage engine)
+
+**Symptoms:** `cache_stats` from the query telemetry endpoint shows >40%
+miss rate.
+
+**Possible causes:** Cache size too small for working set, cache recency
+window too narrow, random access patterns across time ranges.
+
+**Solutions:**
+
+1. Increase cache size: `--file-cache-size 16GB`
+2. Extend cache recency window: `--file-cache-recency 24h`
+3. Extend eviction timeout: `--file-cache-evict-after 48h`
+
+### Slow compaction (upgraded storage engine)
+
+**Symptoms:** Gen0 file count continues to grow.
+
+**Possible causes:** Compaction budget too low for write volume, high
+write rate overwhelming compaction, snapshot size too large creating
+oversized Gen0 files.
+
+**Solutions:**
+
+1. Increase the compaction input size budget:
+   `--compactor-input-size-budget 12GB`
+2. Reduce snapshot size to create smaller, more frequent Gen0 files:
+   `--snapshot-size 125MB`
+3. For distributed deployments, add a dedicated compactor node
+   (`--mode compact`).
+
+### Query node lag (upgraded storage engine)
+
+**Symptoms:** Query nodes return stale data.
+
+**Possible causes:** Replication falling behind, network latency to
+object storage, insufficient replica concurrency.
+
+**Solutions:**
+
+1. Increase replication concurrency: `--wal-replica-steady-concurrency 8`
+2. Reduce the replication polling interval: `--replication-interval 100ms`
+3. Increase replica queue length: `--wal-replica-queue-length 200`
+
+For a full list of replication options, see
+[Storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/#replication-query-nodes).
+{{% /show-in %}}
 
 ## Configuration examples by workload
 
