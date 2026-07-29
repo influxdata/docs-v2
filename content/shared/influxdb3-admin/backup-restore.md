@@ -88,7 +88,6 @@ commands. Before you use them, ensure the following:
 >   backup endpoints return `404`.
 > - Backup and restore run on a node running **compaction**. Query-only nodes return
 >   `503` and ingest-only nodes return `404`.
-> - {{% product-name %}} 3.10 supports **full backups only**.
 
 The backup and restore subcommands map to the
 `/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
@@ -100,12 +99,14 @@ API endpoints. For complete command syntax and flags, see the
 Use `influxdb3 create backup` to create a full backup:
 
 ```bash
-influxdb3 create backup
+influxdb3 create backup --name base
 ```
 
+If you omit `--name`, {{% product-name %}} generates one from a UTC timestamp.
+
 > [!Note]
-> - `create backup` **refuses to overwrite an existing backup name** and returns
->   an error instead.
+> - `create backup` **refuses to overwrite an existing backup name** unless
+>   you pass `--force`.
 > - **A backup only includes data already persisted to object storage**--your
 >   most recent writes may still be buffered and not yet captured. See
 >   [What a backup includes](#what-a-backup-includes).
@@ -123,6 +124,46 @@ write behavior, which acknowledges writes only after WAL persistence completes.
 For the full ingest and persistence path, see
 [InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
 
+### Create an incremental backup
+
+An incremental backup captures only the data that changed since its parent
+backup, which saves time and storage space compared to a full backup. Each
+incremental backup names the backup it chains from with `--parent`.
+
+`create backup` returns as soon as the backup starts, not when it finishes.
+Check that a backup's status is `complete` before creating a child
+incremental backup that names it as `--parent`:
+
+```bash
+# Full backup first
+influxdb3 create backup --name base
+
+# Wait for it to complete before using it as a parent
+influxdb3 status backup --name base
+
+# Then create an incremental, naming its parent
+influxdb3 create backup --name inc-1 --incremental --parent base
+
+# Wait for inc-1 to complete before chaining the next incremental off it
+influxdb3 status backup --name inc-1
+influxdb3 create backup --name inc-2 --incremental --parent inc-1
+```
+
+Restoring an incremental backup walks the parent chain back to the full
+backup and produces a complete restore--you don't need to restore each link
+in the chain separately.
+
+Deleting an incremental backup also deletes every incremental backup that
+depends on it:
+
+```bash
+influxdb3 delete backup --name inc-1 --incremental
+```
+
+> [!Caution]
+> Deleting an incremental backup with `--incremental` deletes it and all of
+> its child incremental backups. This can remove multiple backups at once.
+
 ### Inspect and manage backups
 
 | Command | Description |
@@ -137,6 +178,17 @@ For the full ingest and persistence path, see
 Use `influxdb3 create restore` to start a restore, and the related commands to
 monitor or cancel it:
 
+```bash
+influxdb3 create restore --backup base
+```
+
+To restore from an incremental backup, pass its name--the restore walks the
+chain of parent backups automatically:
+
+```bash
+influxdb3 create restore --backup inc-2
+```
+
 | Command | Description |
 | ------- | ----------- |
 | `influxdb3 create restore`  | Start a restore from a backup |
@@ -144,21 +196,21 @@ monitor or cancel it:
 | `influxdb3 show restores`   | List restores |
 | `influxdb3 cancel restore`  | Cancel an in-progress restore |
 
-A restore is **asynchronous** and **append-only**: data written after the backup
-was taken becomes unreferenced rather than deleted. **Only one restore can run at
-a time across the cluster**; concurrent restore attempts return `409`.
+A restore is **asynchronous** and runs **in place on the live cluster**--no
+restart required. **Only one restore can run at a time across the cluster**;
+concurrent restore attempts return `409`.
+
+Restore is a **point-in-time rollback**, not an additive merge: it rolls the
+cluster back to the state captured in the backup. Data written after the
+backup becomes unreferenced. Rolling back also truncates the WAL down to the
+backup's watermark, so a subsequent node restart doesn't replay and resurrect
+the rolled-back writes.
 
 > [!Warning]
-> #### Restart nodes after a restore
+> #### Row deletes may persist across restores
 >
-> After a restore completes, **restart the affected node(s)**. The live
-> in-memory view is not updated until the node restarts.
-
-> [!Warning]
-> #### Known beta issue: row deletes may persist across restores
->
-> Backup (beta) doesn't currently pick up row-delete state files in object
-> storage, so row deletes may persist across a restore.
+> Backup doesn't currently pick up row-delete state files in object storage,
+> so row deletes may persist across a restore.
 
 ### Disaster recovery
 
