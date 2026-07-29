@@ -501,11 +501,13 @@ database optimized for time series data built in Rust on top of
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
 IOx replaces the [TSM (Time Structured Merge tree)](#tsm-time-structured-merge-tree) storage engine.
 
+{{% show-in "core,enterprise" %}}
 Related entries:
 [WAL tail](#wal-tail)
 
 For {{% product-name %}}-specific detail, see
 [Storage engine](/influxdb3/version/reference/internals/storage-engine/).
+{{% /show-in %}}
 
 ## J
 
@@ -1264,12 +1266,14 @@ Points in the WAL are queryable and persist through a system reboot.
 On process start, all points in the WAL must be flushed before the system
 accepts new writes.
 
+{{% show-in "core,enterprise" %}}
 ### WAL tail
 
 The most recent points in the [WAL](#wal-write-ahead-log) that have not yet
 been durably persisted beyond the WAL.
 For details, see
 [Data durability](/influxdb3/version/reference/internals/durability/#wal-tail).
+{{% /show-in %}}
 
 ### windowing
 

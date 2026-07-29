@@ -62,9 +62,9 @@ storage engine (the default for new clusters in 3.11+).{{% /show-in %}}
 - **Impact**: Reduces query latency by minimizing object storage access.
 - **Details**: {{% product-name %}} puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
 
+{{% show-in "enterprise" %}}
 ## Upgraded storage engine compaction {#upgraded-storage-engine-compaction metadata="v3.11+"}
 
-{{% show-in "enterprise" %}}
 The upgraded storage engine (the default for new clusters in 3.11+)
 compacts data differently from the Parquet engine described above.
 

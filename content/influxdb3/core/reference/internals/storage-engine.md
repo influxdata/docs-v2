@@ -15,7 +15,7 @@ source: /shared/influxdb3-internals-reference/storage-engine.md
 canonical: self
 related:
   - /influxdb3/core/reference/internals/durability/
-  - /influxdb3/enterprise/reference/internals/storage-engine/
+  - /influxdb3/enterprise/reference/internals/storage-engine/, Enterprise storage engine
 ---
 
 <!--
