@@ -434,7 +434,7 @@ DataFusion threads = N - IO threads
 > [!Important]
 > This formula applies to the Parquet storage engine, where
 > DataFusion threads handle queries, snapshots, and compaction. It doesn't
-> apply to the [upgraded storage engine](/influxdb3/enterprise/performance-preview/configure/),
+> apply to the [upgraded storage engine](/influxdb3/enterprise/reference/storage-engine-config-options/),
 > which runs ingest and compaction on the IO runtime and requires setting
 > both thread options explicitly.
 {{% /show-in %}}
