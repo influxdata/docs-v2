@@ -88,7 +88,7 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 | `--enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. | Disabled |
 | `--auto-dvc-max-cardinality` | Maximum cardinality for auto-created distinct value caches. Requires `--enable-auto-dvc`. | `100000` |
 | `--auto-dvc-refresh-interval` | Background refresh interval for auto-created distinct value caches; minimum `1s`. Requires `--enable-auto-dvc`. | `10m` |
-| `--upgrade-poll-interval` | Polling interval for storage engine upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet). | `5s` |
+| `--upgrade-poll-interval` | Polling interval for storage engine upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet). | `5s` |
 
 ### Engine path prefix
 
@@ -477,7 +477,7 @@ influxdb3 serve \
 The `influxdb3 downgrade-to-parquet` command reverts a cluster from the
 performance preview back to standard Parquet storage.
 For the downgrade procedure, see
-[Downgrade to Parquet](/influxdb3/enterprise/performance-preview/#downgrade-to-parquet).
+[Downgrade to Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#downgrade-to-parquet).
 
 | Option | Description |
 |:-------|:------------|
