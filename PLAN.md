@@ -342,19 +342,19 @@ the compaction-model detail replaced by a link to Task 2's new section
 
   Key improvements include:
 
-  - **Faster single-series queries**: Improved response times for highly
-    selective time-series queries.
-  - **Consistent resource usage**: Bounded CPU and memory during persistence
-    and compaction, eliminating spikes during heavy ingestion or compaction
-    bursts.
+  - **Single-series queries**: Optimized for highly selective time-series
+    queries.
+  - **Resource usage**: Bounded CPU and memory during persistence and
+    compaction, using a fixed memory budget instead of unbounded growth
+    during heavy ingestion or compaction.
   - **Wide-and-sparse table support**: Schemas with up to millions of columns
-    and dynamic schema evolution without expensive rewrites.
-  - **Column families**: Group related fields for efficient compression and
-    I/O, so queries only read the data they need.
+    and dynamic schema evolution without full-table rewrites.
+  - **Column families**: Group related fields together on disk, so queries
+    only read the data they need.
   - **Bulk data export**: Export compacted data as Parquet files for use with
     external tools.
-  - **Automatic Parquet upgrade**: Seamlessly migrate existing data with
-    hybrid query mode during the transition.
+  - **Automatic Parquet upgrade**: Existing data migrates automatically;
+    hybrid query mode covers reads during the transition.
 
   ## Run the storage engine upgrade
 
