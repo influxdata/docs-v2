@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_controller:
     name: Audit logs
-weight: 11
+weight: 12
 cascade:
   metadata: [Telegraf Enterprise]
   related:
@@ -58,10 +58,18 @@ platform-specific data directory:
 | macOS    | `~/Library/Logs/telegraf-controller/`                                                    |
 | Windows  | `%LOCALAPPDATA%\telegraf-controller\Log`                                                 |
 
-Files are named `audit-YYYY-MM.log`--one per calendar month.
+Files are named `audit-YYYY-MM.log`, one per calendar month.
 Each file is a SQLite database that enforces immutability through a database
 trigger: attempts to delete rows are rolled back.
 {{% product-name %}} keeps up to 48 months of audit files available for query.
+
+In a [high-availability (HA) cluster](/telegraf/controller/high-availability/),
+audit logging is **per node**, not shared.
+Each node writes its own audit files and, when queried, returns only its own
+events.
+To review activity across the cluster, forward each node's events to a shared
+destination and aggregate them there.
+See [Audit logs in a cluster](/telegraf/controller/high-availability/#audit-logs-in-a-cluster).
 
 ## Tamper detection
 
@@ -69,6 +77,13 @@ Each entry includes a SHA-256 hash that incorporates the entry's contents
 and the hash of the previous entry, forming a chain.
 Sequence numbers are contiguous within and across monthly files.
 Any modification, deletion, or out-of-order insertion breaks the chain.
+
+In a high-availability cluster, each node maintains its own hash chain and
+sequence numbers, so events from different nodes merged into a single stream do
+not form one valid chain.
+Verify integrity per node: separate aggregated events by their originating node,
+then check each node's chain on its own.
+See [Audit logs in a cluster](/telegraf/controller/high-availability/#audit-logs-in-a-cluster).
 
 ## License and permissions
 
