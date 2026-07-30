@@ -1,31 +1,27 @@
 ---
-title: Configure the upgraded storage engine
-seotitle: Upgraded storage engine configuration reference for InfluxDB 3 Enterprise
+title: Storage engine configuration reference
+seotitle: Storage engine configuration reference for InfluxDB 3 Enterprise
 description: >
-  Complete reference for all configuration options available with the upgraded
-  InfluxDB 3 Enterprise storage engine, including WAL, snapshot, compaction,
-  caching, and replication settings.
+  Complete reference for all configuration options available with the
+  upgraded InfluxDB 3 Enterprise storage engine, including WAL, snapshot,
+  compaction, caching, and replication settings.
 menu:
   influxdb3_enterprise:
-    name: Configuration reference
-    parent: Storage engine upgrade
-weight: 202
+    name: Storage engine configuration
+    parent: Reference
+weight: 102
 influxdb3/enterprise/tags: [storage, configuration, reference]
+aliases:
+  - /influxdb3/enterprise/performance-preview/configure/
 related:
-  - /influxdb3/enterprise/performance-preview/
-  - /influxdb3/enterprise/performance-preview/monitor/
-  - /influxdb3/enterprise/admin/performance-tuning/
+  - /influxdb3/enterprise/reference/internals/storage-engine/
+  - /influxdb3/enterprise/admin/query-system-data/
   - /influxdb3/enterprise/reference/config-options/
+  - /influxdb3/enterprise/admin/performance-tuning/
 ---
 
-> [!Important]
-> #### The upgraded storage engine is the default for new clusters
->
-> New {{% product-name %}} clusters default to the upgraded storage
-> engine—no flag is required.
-> Clusters that started on 3.10 or earlier keep the Parquet engine until you
-> run the storage engine upgrade by restarting the cluster with
-> [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
+For background on the upgraded storage engine, see
+[Storage engine](/influxdb3/enterprise/reference/internals/storage-engine/).
 
 This page provides a complete reference for the upgraded storage engine
 configuration options.
@@ -40,16 +36,16 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 > [!Important]
 > #### The `pt-` option prefix was removed
 >
-> Preview options no longer use the `pt-` prefix—for example,
+> Upgraded storage engine options no longer use the `pt-` prefix—for example,
 > `--pt-snapshot-size` is now `--snapshot-size`.
-> There is no backward compatibility for preview option names:
+> There is no backward compatibility for the old option names:
 > old `--pt-*` flags cause a startup error, and legacy `INFLUXDB3_PT_*` and
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variables are ignored.
 >
 > The server logs a warning at startup for each `INFLUXDB3_PT_*` or
 > `INFLUXDB3_ENTERPRISE_PT_*` environment variable that is still set.
 >
-> The following preview options were folded into engine-agnostic options
+> The following options were folded into engine-agnostic options
 > shared with the Parquet-based engine:
 >
 > - `--pt-wal-flush-interval` → [`--wal-flush-interval`](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)
@@ -93,7 +89,7 @@ default `influxdb3 serve --help` output; use `--help-all` to list them.
 | `--enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. | Disabled |
 | `--auto-dvc-max-cardinality` | Maximum cardinality for auto-created distinct value caches. Requires `--enable-auto-dvc`. | `100000` |
 | `--auto-dvc-refresh-interval` | Background refresh interval for auto-created distinct value caches; minimum `1s`. Requires `--enable-auto-dvc`. | `10m` |
-| `--upgrade-poll-interval` | Polling interval for storage engine upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet). | `5s` |
+| `--upgrade-poll-interval` | Polling interval for storage engine upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet). | `5s` |
 
 ### Engine path prefix
 
@@ -349,11 +345,18 @@ influxdb3 serve \
   --final-compaction-age 48h
 ```
 
-## L1-L4 level tuning
+## L1-L2 level tuning
 
-These options control per-level compaction parameters.
-Data enters L1 from snapshot batch compaction and promotes through levels
-based on run set count triggers.
+For what these levels mean and how the time-disjoint compaction model uses
+them, see
+[Upgraded storage engine compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction).
+
+These per-level options apply within whichever compaction layout a cluster
+is running.
+Clusters using time-disjoint two-level compaction and clusters still on the
+legacy four-level layout both use the same L1-L4 tunables—the layouts
+organize the levels differently, but the options below configure each level
+the same way in either case.
 
 | Level | Role | Default tail target | Default file size | Promotion trigger |
 |:------|:-----|:--------------------|:------------------|:------------------|
@@ -480,9 +483,9 @@ influxdb3 serve \
 ## Downgrade options
 
 The `influxdb3 downgrade-to-parquet` command reverts a cluster from the
-performance preview back to standard Parquet storage.
+upgraded storage engine back to standard Parquet storage.
 For the downgrade procedure, see
-[Downgrade to Parquet](/influxdb3/enterprise/performance-preview/#downgrade-to-parquet).
+[Downgrade to Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#downgrade-to-parquet).
 
 | Option | Description |
 |:-------|:------------|
