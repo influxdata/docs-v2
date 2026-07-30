@@ -345,7 +345,7 @@ influxdb3 serve \
   --final-compaction-age 48h
 ```
 
-## L1-L4 level tuning
+## L1-L2 level tuning
 
 For what these levels mean and how the time-disjoint compaction model uses
 them, see

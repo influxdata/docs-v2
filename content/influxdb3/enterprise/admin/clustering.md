@@ -89,7 +89,7 @@ Available modes:
 
 > [!Important]
 > With the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
-> (the default for new clusters in 3.11+), ingest and compaction run on the
+> (the default for new clusters starting on 3.11+), ingest and compaction run on the
 > IO thread pool instead of the DataFusion thread pool. Follow the
 > [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/)
 > instead of the guidance in this section.
@@ -609,7 +609,7 @@ GROUP BY event_type;
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
 
-The upgraded storage engine (the default for new clusters) does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/) for tuning guidance.
+The upgraded storage engine does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
