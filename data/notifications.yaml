@@ -91,59 +91,6 @@
 
     For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
 
-- id: influxdb3-10-core-release
-  level: note
-  scope:
-    - /influxdb3/core/
-  title: 'InfluxDB 3.10 is now available'
-  slug: |
-    InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
-    configurable query-concurrency limit, and processing engine improvements.
-  message: |
-    **Key updates in InfluxDB 3 Core 3.10:**
-
-    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
-    - **`--max-concurrent-queries`**: limit concurrent queries (adjustable at runtime).
-    - **`GET /ready` endpoint** for readiness probes.
-    - **Processing engine**: cross-database queries and trigger lockdown flags.
-
-    For more information, see the
-    [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/).
-
-- id: influxdb3-10-enterprise-release
-  level: note
-  scope:
-    - /influxdb3/
-    - /influxdb3/enterprise/
-  exclude:
-    - /influxdb3/core/
-    - /influxdb3/explorer/
-    - /influxdb3/cloud/
-    - /influxdb3/cloud-dedicated/
-    - /influxdb3/cloud-serverless/
-    - /influxdb3/clustered/
-  title: 'InfluxDB 3.10 is now available'
-  slug: |
-    InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
-    deletions, and user management, with an automatic catalog format upgrade
-    and performance preview improvements.
-  message: |
-    **Key updates in InfluxDB 3 Enterprise 3.10:**
-
-    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
-    - **Automated backup and restore** (beta)
-    - **Row-level deletions**
-    - **User management** (authentication and RBAC) — preview
-    - **Performance preview improvements**
-
-    Backup and restore, row-level deletions, and the performance preview require
-    the Enterprise storage engine upgrade (opt-in beta). _Beta and preview
-    features are subject to breaking changes and aren't recommended for
-    production use._
-
-    For more information, see the
-    [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
-
 - id: influxdb3-11-core-release
   level: note
   scope:
