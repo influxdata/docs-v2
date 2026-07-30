@@ -1,25 +1,3 @@
-> [!Important]
-> #### Upgrading to InfluxDB 3.10 is a one-way migration
->
-> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
-> catalog format from v2 to v3. After migration, 3.9.x and older
-> binaries are unable to read the new catalog, and fail to start on the same
-> cluster data.
->
-> Before upgrading, back up your current catalog. The paths depend on the version
-> you're upgrading from:
->
-> - **3.4.0 or later**: `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot`
-> - **Before 3.4.0**: `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`
->
-> Restoring these objects is the only way to roll back to 3.9.x.
->
-> On a cluster running 3.4.0 or later, `{prefix}/catalogs/` and
-> `{prefix}/_catalog_checkpoint` may still be present as leftovers from an earlier
-> catalog format. They aren't current and aren't a valid rollback source.
->
-> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
-
 > \[!Note]
 >
 > #### InfluxDB 3 Core and Enterprise relationship
@@ -575,6 +553,28 @@ Additional Enterprise-specific updates:
 All Core updates are included in Enterprise.
 
 ## v3.10.0 {date="2026-06-17"}
+
+> [!Important]
+> #### Upgrading to InfluxDB 3.10 is a one-way migration
+>
+> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
+> catalog format from v2 to v3. After migration, 3.9.x and older
+> binaries are unable to read the new catalog, and fail to start on the same
+> cluster data.
+>
+> Before upgrading, back up your current catalog. The paths depend on the version
+> you're upgrading from:
+>
+> - **3.4.0 or later**: `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot`
+> - **Before 3.4.0**: `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`
+>
+> Restoring these objects is the only way to roll back to 3.9.x.
+>
+> On a cluster running 3.4.0 or later, `{prefix}/catalogs/` and
+> `{prefix}/_catalog_checkpoint` may still be present as leftovers from an earlier
+> catalog format. They aren't current and aren't a valid rollback source.
+>
+> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
 
 ### Core
 
