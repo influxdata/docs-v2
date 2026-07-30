@@ -43,8 +43,46 @@ As written data moves through {{% product-name %}}, it follows a structured path
 - **Memory usage**: The persistence process uses memory from the configured memory pool ([`exec-mem-pool-size`](/influxdb3/version/reference/config-options/#exec-mem-pool-size)) when converting data to Parquet format. For write-heavy workloads, ensure adequate memory is allocated.
 - **Details**: Every ten minutes (default), {{% product-name %}} persists the oldest data from the queryable buffer to the object store in Parquet format, and keeps the remaining data (the most recent 5 minutes) in memory.
 
+### WAL tail
+
+The _WAL tail_ is the most recent data in the WAL that {{% product-name %}}
+has not yet durably persisted beyond the WAL.
+{{% show-in "core" %}}Because {{% product-name %}} flushes the WAL to object
+storage every second, the WAL tail is durable, but it remains in the WAL
+until the next Parquet persistence captures it.{{% /show-in %}}
+{{% show-in "enterprise" %}}Because {{% product-name %}} flushes the WAL to
+object storage every second, the WAL tail is durable, but it remains in the
+WAL until the next persistence step captures it: the next Parquet
+persistence on the Parquet engine, or the next snapshot on the upgraded
+storage engine (the default for new clusters in 3.11+).{{% /show-in %}}
+
 ### In-memory cache
 
 - **Process**: Recently persisted Parquet files are cached in memory.
 - **Impact**: Reduces query latency by minimizing object storage access.
 - **Details**: {{% product-name %}} puts Parquet files into an in-memory cache so that queries against the most recently persisted data don't have to go to object storage.
+
+{{% show-in "enterprise" %}}
+## Upgraded storage engine compaction {#upgraded-storage-engine-compaction metadata="v3.11+"}
+
+The upgraded storage engine (the default for new clusters in 3.11+)
+compacts data differently from the Parquet engine described above.
+
+Incoming writes are buffered in the WAL, flushed to snapshots, and merged
+into Gen0 files.
+From there, {{% product-name %}} uses **time-disjoint two-level compaction** by default: all leading-edge ingest funnels through a hot-tail L1 run set, and several concurrent L1 compaction jobs can run against the leading edge (or any heavily written range) at once.
+L1 run sets are allowed to transiently overlap in their assigned time
+range under load—this is a healthy, query-safe state—and the compactor
+reconciles back to a disjoint L1 as high-priority background work.
+Under low load, nothing overlaps and behavior matches the legacy layout.
+
+Clusters that started on 3.10 or earlier and have not yet upgraded keep the
+legacy four-level (L1 through L4) compaction layout, where compaction
+serializes on a single hot tail and concurrent leading-edge writes must
+wait.
+Newly created window/shards use the time-disjoint layout; existing
+checkpoints keep their recorded layout until explicitly upgraded.
+
+For per-level and per-engine tuning options, see
+[Storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/).
+{{% /show-in %}}
