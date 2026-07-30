@@ -135,6 +135,9 @@ telegraf_controller --no-interactive
 - [Logging](#logging)
   - [rust-log](#rust-log)
   - [logs-dir](#logs-dir)
+- [High availability](#high-availability)
+  - [ha-enabled](#ha-enabled)
+  - [ha-poll-interval-ms](#ha-poll-interval-ms)
 - [Audit logging](#audit-logging)
   - [audit-enabled](#audit-enabled)
   - [audit-log-retention](#audit-log-retention)
@@ -1077,6 +1080,49 @@ Absolute path for heartbeat agent logs.
 | Command flag | Environment variable |
 | :----------- | :------------------- |
 | `--logs-dir` | `LOGS_DIR`           |
+
+---
+
+### High availability
+
+High availability is a [Telegraf Enterprise](/telegraf/enterprise/) feature that
+lets you run multiple {{% product-name %}} nodes against a shared PostgreSQL
+database, with one node elected leader. These options are read at startup only.
+High availability requires PostgreSQL; setting `HA_ENABLED=true` with a SQLite
+[`database`](#database) stops startup with an error. For a full walkthrough, see
+[Deploy a highly available cluster](/telegraf/controller/high-availability/deploy/).
+
+- [ha-enabled](#ha-enabled)
+- [ha-poll-interval-ms](#ha-poll-interval-ms)
+
+#### ha-enabled
+
+Enable high-availability mode. When `true`, the node coordinates with other
+nodes through a PostgreSQL advisory lock so that one node leads and the others
+stand by. Requires a PostgreSQL [`database`](#database) and a Telegraf
+Enterprise license. When unset, the node runs standalone and marks itself leader
+at startup.
+
+**Default:** `false`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `HA_ENABLED`         |
+
+---
+
+#### ha-poll-interval-ms
+
+Interval, in milliseconds, at which each node reloads shared settings, API
+tokens, and license state from the database. This value is the upper bound on
+how long a change made on one node takes to apply across the cluster. Applies
+only when [`ha-enabled`](#ha-enabled) is `true`.
+
+**Default:** `5000`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `HA_POLL_INTERVAL_MS` |
 
 ---
 
