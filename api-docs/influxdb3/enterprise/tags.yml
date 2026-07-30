@@ -1,7 +1,7 @@
 tags:
   Compatibility endpoints:
     drop: true
-  Export data (beta):
+  Export data:
     description: >
       Export data from InfluxDB 3 Enterprise databases.
       List databases, tables, export windows, and retrieve
