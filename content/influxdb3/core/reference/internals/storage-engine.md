@@ -2,7 +2,7 @@
 title: Storage engine
 seotitle: InfluxDB 3 Core storage engine
 description: >
-  Learn about the InfluxDB 3 Core storage engine (Parquet) and how it
+  Learn about the InfluxDB 3 Core storage engine and how it
   differs from the optional upgraded storage engine available in
   InfluxDB 3 Enterprise.
 menu:
