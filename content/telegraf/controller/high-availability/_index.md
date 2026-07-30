@@ -86,9 +86,11 @@ following:
   runs only while the license is valid, expiring, or within its grace period.
   See [How licensing affects high availability](#how-licensing-affects-high-availability).
 - **PostgreSQL.** High availability depends on a PostgreSQL advisory lock and
-  shared state. SQLite is single-writer and cannot coordinate multiple nodes. If
-  you set `HA_ENABLED=true` with a SQLite database, {{% product-name %}} exits at
-  startup with an error.
+  shared state. You can use self-managed PostgreSQL or a PostgreSQL-compatible
+  database, such as a managed PostgreSQL service, as long as it supports
+  session-level advisory locks. SQLite is single-writer and cannot coordinate
+  multiple nodes; if you set `HA_ENABLED=true` with a SQLite database,
+  {{% product-name %}} exits at startup with an error.
 - **A direct PostgreSQL connection.** A leader holds its advisory lock on a
   single database session for as long as it leads. A connection pooler in
   transaction-pooling mode, such as PgBouncer, breaks this because it does not

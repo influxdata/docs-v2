@@ -36,7 +36,8 @@ endpoints, and tuning PostgreSQL for quick failover.
 - A valid [Telegraf Enterprise license](/telegraf/enterprise/). You apply the
   license once; every node reads it from the shared database. See
   [Apply a license](/telegraf/controller/telegraf-enterprise/apply-license/).
-- A PostgreSQL database that every node can reach over the network. High
+- A PostgreSQL database that every node can reach over the network. You can use
+  self-managed PostgreSQL or a PostgreSQL-compatible managed service. High
   availability does not support SQLite. See
   [Requirements and constraints](/telegraf/controller/high-availability/#requirements-and-constraints).
 - Two or more hosts to run the {{% product-name %}} binary.
