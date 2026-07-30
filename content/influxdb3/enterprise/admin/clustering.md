@@ -17,12 +17,10 @@ related:
 influxdb3/enterprise/tags: [clustering, performance, tuning, ingest, threads]
 prepend: |
   > [!Note]
-  > #### Using the performance upgrade preview?
-  >
   > Thread allocation on this page applies to the Parquet storage engine.
   > If your cluster runs the upgraded storage engine (the default for new
-  > clusters in InfluxDB 3 Enterprise 3.11+), use the
-  > [configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+  > clusters in InfluxDB 3 Enterprise 3.11+), see the
+  > [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/)
   > instead.
 ---
 
@@ -90,10 +88,10 @@ Available modes:
 ## Allocate threads by node type
 
 > [!Important]
-> With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-> (`--use-pacha-tree`), ingest and compaction run on the IO thread pool
-> instead of the DataFusion thread pool. Follow the
-> [preview configuration reference](/influxdb3/enterprise/performance-preview/configure/)
+> With the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+> (the default for new clusters starting on 3.11+), ingest and compaction run on the
+> IO thread pool instead of the DataFusion thread pool. Follow the
+> [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/)
 > instead of the guidance in this section.
 
 ### Critical concept: Thread pools
@@ -611,7 +609,7 @@ GROUP BY event_type;
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
 
-The upgraded storage engine (the default for new clusters) does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/) for tuning guidance.
+The upgraded storage engine does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/) for tuning guidance.
 
 ## Troubleshoot node configurations
 

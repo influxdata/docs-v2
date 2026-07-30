@@ -186,7 +186,7 @@ error, and legacy `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*`
 environment variables are ignored (the server logs a warning at startup for
 each one that is still set).
 For the complete old-to-new name table, see
-[Migrate from `--pt-*` option names](/influxdb3/enterprise/performance-preview/configure/#migrate-from-pt-option-names).
+[Migrate from `--pt-*` option names](/influxdb3/enterprise/reference/storage-engine-config-options/#migrate-from-pt-option-names).
 
 {{% /show-in %}}
 
@@ -468,7 +468,7 @@ the storage engine upgrade by restarting the cluster with
 `--upgrade-pacha-tree`.
 New clusters do not need this flag.
 For the upgrade procedure, see
-[Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet).
+[Upgrade from Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet).
 
 **Default:** `false`
 
@@ -1776,7 +1776,7 @@ The default is dynamically determined.
 > (clusters that started on 3.10 or earlier that have not run the
 > [storage engine upgrade](#upgrade-pacha-tree)).
 > For the upgraded storage engine's compaction options, see the
-> [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/).
+> [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/).
 
 - [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
@@ -2602,7 +2602,7 @@ On clusters running the upgraded storage engine, values above the licensed core 
 > options logs a startup
 > warning and has no effect.
 > `--max-total-columns` (documented in the
-> [storage engine configuration reference](/influxdb3/enterprise/performance-preview/configure/))
+> [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/))
 > is the upgraded storage engine's counterpart of
 > `--num-total-columns-per-table-limit`;
 > the database and table limits have no equivalent on the upgraded engine.
