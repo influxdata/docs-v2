@@ -53,7 +53,7 @@ metrics from different sources and writes them to specified destinations.
 ## Configure Telegraf to write to InfluxDB
 
 To send data to {{< product-name >}}, enable and configure the
-[`influxdb_v2` output plugin](/influxdb3/version/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin)
+[`influxdb_v3` output plugin](/influxdb3/version/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v3-output-plugin)
 in your `telegraf.conf`.
 
 ```toml { placeholders="AUTH_TOKEN|DATABASE_NAME" }
@@ -80,12 +80,10 @@ in your `telegraf.conf`.
   csv_skip_errors = false
   csv_reset_mode = "none"
 
-[[outputs.influxdb_v2]]
+[[outputs.influxdb_v3]]
   urls = ["{{< influxdb/host-url >}}"]
   token = "AUTH_TOKEN"
-  organization = ""
-  bucket = "DATABASE_NAME"
-  content_encoding = "gzip"
+  database = "DATABASE_NAME"
 ```
 
 Replace the following:
@@ -106,7 +104,7 @@ Replace the following:
   > interpolation. For example:
   > 
   > ```toml
-  > [[outputs.influxdb_v2]]
+  > [[outputs.influxdb_v3]]
   >   urls = ["{{< influxdb/host-url >}}"]
   >   token = "${INFLUX_TOKEN}"
   >   # ...
@@ -119,7 +117,6 @@ CSV data to {{% product-name %}}.
 #### Other Telegraf configuration options
 
 The preceding examples describe Telegraf configurations necessary for writing to
-{{% product-name %}}. The `influxdb_v2` output plugin provides several other
+{{% product-name %}}. The `influxdb_v3` output plugin provides several other
 configuration options. For more information, see the
-[`influxdb_v2` plugin options](/telegraf/v1/output-plugins/influxdb_v2/)
-on GitHub.
+[`influxdb_v3` plugin options](/telegraf/v1/output-plugins/influxdb_v3/).
