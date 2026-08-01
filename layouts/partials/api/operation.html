@@ -33,6 +33,8 @@
       <span class="api-method api-method--{{ $method }}">{{ upper $method }}</span>
       <code class="api-path">{{ $path }}</code>
       {{ with $operation.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
+      {{ if eq (index $opDef "x-lifecycle") "not-operational" }}<span class="api-lifecycle-badge api-lifecycle-badge--not-operational">Not operational</span>{{ end }}
+      {{ if $opDef.deprecated }}<span class="api-lifecycle-badge api-lifecycle-badge--deprecated">Deprecated</span>{{ end }}
     </div>
     <h3 class="api-operation-summary">{{ $operation.summary }}</h3>
   </div>

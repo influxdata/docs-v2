@@ -110,6 +110,24 @@ $status-server-error: #9b2aff;
   &--v3 { background: #10b981; color: white; }
 }
 
+// Lifecycle badges (not-operational, deprecated) — operation detail header
+// and all-endpoints list cards
+.api-operation-endpoint .api-lifecycle-badge,
+.api-operation-card .api-lifecycle-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+
+  &--not-operational { background: #f59e0b; color: white; }
+  &--deprecated { background: #6b7280; color: white; }
+}
+
 .api-path {
   font-family: $code;
   font-size: 0.95rem;
