@@ -271,6 +271,13 @@ Additional Enterprise-specific updates:
   `oauth`, or `none` (the default). `--without-user-auth` is deprecated and
   hidden, but still takes precedence when explicitly set.
 
+- **Query group CLI commands (not yet operational)**: `influxdb3 create
+  query_group`, `influxdb3 show query_groups`, `influxdb3 update
+  query_group`, and `influxdb3 delete query_group` store query group
+  definitions in the catalog, but the server doesn't yet use those
+  definitions to affect query routing, data placement, or replication.
+  Creating a query group currently has no effect on query node behavior.
+
 #### Bug fixes
 
 - **Bulk import data loss window (checkpoint v13)**: Import watermarks are now
