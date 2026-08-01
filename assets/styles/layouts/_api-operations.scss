@@ -124,7 +124,7 @@ $status-server-error: #9b2aff;
   margin-left: 0.5rem;
   vertical-align: middle;
 
-  &--not-operational { background: #f59e0b; color: white; }
+  &--not-operational { background: #f59e0b; color: #1a1a1a; }
   &--deprecated { background: #6b7280; color: white; }
 }
 
