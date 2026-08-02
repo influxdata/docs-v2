@@ -1,0 +1,176 @@
+name: Auto-label issues
+
+# Product labels for issues.
+#
+# auto-label.yml covers pull requests, where labels come from changed files.
+# Issues have no changed files, so labels are derived from the documentation
+# URLs the issue references (see .github/scripts/label-issue.js).
+#
+# Runs on new and edited issues. The workflow_dispatch backfill mode applies
+# the same derivation to issues already open, and defaults to a dry run.
+
+on:
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: 'Label open issues instead of a single issue'
+        required: false
+        default: false
+        type: boolean
+      issue_number:
+        description: 'Issue to label (ignored when backfill is true)'
+        required: false
+        type: number
+      dry_run:
+        description: 'Report labels without applying them'
+        required: false
+        default: true
+        type: boolean
+      limit:
+        description: 'Maximum issues to process in backfill mode'
+        required: false
+        default: '100'
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: auto-label-issues-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  auto-label-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            content
+            data/products.yml
+            scripts/lib/content-utils.js
+            .github/scripts/workflow-utils.js
+            .github/scripts/parse-pr-urls.js
+            .github/scripts/label-issue.js
+            package.json
+            .nvmrc
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install js-yaml
+        run: npm install --no-save --ignore-scripts --no-package-lock --legacy-peer-deps js-yaml
+
+      - name: Apply product labels
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          BACKFILL: ${{ inputs.backfill }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          LIMIT: ${{ inputs.limit }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+        with:
+          script: |
+            const { getProductLabelMap } = await import(
+              `${process.cwd()}/.github/scripts/workflow-utils.js`
+            );
+            const { getIssueProductLabels } = await import(
+              `${process.cwd()}/.github/scripts/label-issue.js`
+            );
+
+            const backfill = process.env.BACKFILL === 'true';
+            // Event-triggered runs always apply labels; only an explicit
+            // workflow_dispatch can ask for a dry run.
+            const dryRun =
+              context.eventName === 'workflow_dispatch' &&
+              process.env.DRY_RUN !== 'false';
+
+            const pathToLabel = await getProductLabelMap();
+            core.info(
+              `Loaded ${pathToLabel.size} path-to-label mappings from products.yml`
+            );
+
+            // --- Build the work list ---
+            let issues;
+
+            if (backfill) {
+              const limit = Number(process.env.LIMIT) || 100;
+              const all = await github.paginate(
+                github.rest.issues.listForRepo,
+                {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'open',
+                  per_page: 100,
+                }
+              );
+              // listForRepo returns pull requests too — they are labeled by
+              // auto-label.yml from their changed files.
+              issues = all.filter(i => !i.pull_request).slice(0, limit);
+              core.info(`Backfill: ${issues.length} open issue(s) to process`);
+            } else {
+              const number =
+                context.payload.issue?.number ||
+                Number(process.env.ISSUE_NUMBER);
+
+              if (!number) {
+                core.setFailed('No issue number available');
+                return;
+              }
+
+              const { data } = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+              });
+              issues = [data];
+            }
+
+            // --- Derive and apply ---
+            const summary = [];
+
+            for (const issue of issues) {
+              const derived = getIssueProductLabels(issue, pathToLabel);
+              if (derived.length === 0) continue;
+
+              const existing = new Set(issue.labels.map(l => l.name || l));
+              const newLabels = derived.filter(l => !existing.has(l));
+              if (newLabels.length === 0) continue;
+
+              summary.push(`#${issue.number}: ${newLabels.join(', ')}`);
+
+              if (dryRun) continue;
+
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: newLabels,
+                });
+              } catch (error) {
+                // One unlabelable issue must not abandon the rest of a backfill.
+                core.warning(
+                  `Could not label #${issue.number}: ${error.message}`
+                );
+              }
+            }
+
+            // --- Report ---
+            const verb = dryRun ? 'Would label' : 'Labeled';
+            core.info(`${verb} ${summary.length} issue(s)`);
+
+            await core.summary
+              .addHeading('Issue auto-labeling', 3)
+              .addRaw(
+                `${verb} **${summary.length}** of ${issues.length} issue(s) processed.`
+              )
+              .addList(summary)
+              .write();

@@ -8,9 +8,13 @@ triage agents, and human contributors.
 - **Product labels** (`product:*`): Derived from
   [data/products.yml](../data/products.yml) — each product's `label_group`
   field determines the label name, `content_path` determines which files
-  trigger it. Applied by the [auto-label workflow](workflows/auto-label.yml).
+  trigger it. On pull requests, applied by the
+  [auto-label workflow](workflows/auto-label.yml) from changed files.
   Multi-product PRs get all matching labels. Shared content changes get
   `product:shared` plus labels for all products that reference the shared file.
+  On issues, applied by the
+  [auto-label-issues workflow](workflows/auto-label-issues.yml) from the
+  documentation URLs the issue references.
 
 - **Source, waiting, workflow, and review labels**: Defined in
   [data/labels.yml](../data/labels.yml) — names, colors, and descriptions.
@@ -81,6 +85,8 @@ label:skip-review is:pr
 
 ## Auto-labeling Behavior
 
+### Pull requests
+
 The [auto-label workflow](workflows/auto-label.yml) runs on
 `pull_request: [opened, synchronize]` and:
 
@@ -89,6 +95,27 @@ The [auto-label workflow](workflows/auto-label.yml) runs on
 - Expands shared content changes to affected product labels
 - Adds labels idempotently (skips labels already present)
 - Skips draft and fork PRs
+
+### Issues
+
+The [auto-label-issues workflow](workflows/auto-label-issues.yml) runs on
+`issues: [opened, edited]`. Issues have no changed files, so it derives
+product labels from the documentation URLs the issue references — the
+`Relevant URLs` section of the bug report template, the `Broken URL` and
+`Source page(s)` fields of the broken link template, or any docs URL in the
+title or body.
+
+Derivation is deterministic (see
+[`.github/scripts/label-issue.js`](scripts/label-issue.js)): it reuses
+`extractDocsUrls` from the PR preview path, which strips code blocks and
+validates paths against the namespaces in `products.yml`. An issue that names
+no docs URL gets no product label rather than a guessed one. Issues about the
+repository itself (CI, tooling, site UI) generally carry no docs URL and need
+an `area:*` label applied by a human or triage agent.
+
+To label issues that were opened before this workflow existed, run it from the
+Actions tab with `backfill: true`. It defaults to `dry_run: true`, which
+reports the labels it would apply in the job summary without writing them.
 
 ## References
 
