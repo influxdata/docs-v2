@@ -335,11 +335,10 @@ add the following to the [HTTPS settings you already configured](#set-up-https-i
   # https-client-private-key = "/etc/ssl/influxdb-meta-client.key"
 ```
 
-{{% note %}}
-When you verify peer server certificates with `https-root-ca`, you no longer need
-`https-insecure-tls` or `data-insecure-tls` to skip verification.
-Remove those settings (or leave them `false`) to keep server verification enabled.
-{{% /note %}}
+> [!Note]
+> When you verify peer server certificates with `https-root-ca`, you no longer need
+> `https-insecure-tls` or `data-insecure-tls` to skip verification.
+> Remove those settings (or leave them `false`) to keep server verification enabled.
 
 ### Configure mTLS on data nodes
 
