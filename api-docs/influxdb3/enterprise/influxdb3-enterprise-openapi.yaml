@@ -145,6 +145,11 @@ tags:
     description: |
       Export compacted data as Parquet files for use with external tools.
 
+      > **Requires the upgraded storage engine**: Export endpoints require the
+      > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+      > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+      > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
+
       Data must be compacted before it can be exported.
       Uncompacted data is not available for export at this time.
 
@@ -158,7 +163,7 @@ tags:
       You can also use the [`influxdb3 export`](/influxdb3/enterprise/performance-preview/#export-to-parquet) CLI
       commands, which call these endpoints.
     x-related:
-      - title: Performance upgrade preview
+      - title: Storage engine upgrade
         href: /influxdb3/enterprise/performance-preview/
       - title: Export to Parquet
         href: /influxdb3/enterprise/performance-preview/#export-to-parquet
@@ -2279,7 +2284,8 @@ paths:
         Creates a resource (fine-grained permissions) token.
         A resource token is a token that has access to specific resources in the system.
 
-        This endpoint is only available in InfluxDB 3 Enterprise.
+        Resource tokens are available in InfluxDB 3 Enterprise and InfluxDB 3 Cloud.
+        They are not available in InfluxDB 3 Core.
       responses:
         "201":
           description: |
@@ -2595,6 +2601,11 @@ paths:
       summary: List databases available for export
       description: |
         Returns a list of databases that have compacted data available for Parquet export.
+
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
         - Export data
         - Enterprise
@@ -2618,6 +2629,11 @@ paths:
       summary: List tables available for export
       description: |
         Returns a list of tables in a database that have compacted data available for Parquet export.
+
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
         - Export data
         - Enterprise
@@ -2656,6 +2672,11 @@ paths:
       summary: Export window data as Parquet
       description: |
         Downloads compacted data for the specified windows as a tar archive containing Parquet files.
+
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
         - Export data
         - Enterprise
@@ -2686,6 +2707,11 @@ paths:
       description: |
         Returns a list of compacted 24-hour UTC windows for a table.
         Each window represents a time range of compacted data that can be exported as Parquet.
+
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
         - Export data
         - Enterprise

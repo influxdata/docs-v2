@@ -167,10 +167,22 @@ describe('InfluxDB URL - selector analytics', function () {
     });
   });
 
-  it('reports one url_selector_preset when the selection changes', function () {
-    // Cloud renders several presets, so selecting a different one changes the
-    // checked state and fires both `click` and `change`. Verify that reports a
-    // single event — the click binding must not be counted twice.
+  function expectOnePresetEvent(product) {
+    cy.get('@gtag').should(
+      'have.been.calledWith',
+      'event',
+      'url_selector_preset',
+      Cypress.sinon.match({ product })
+    );
+    cy.get('@gtag').then((stub) => {
+      const calls = stub
+        .getCalls()
+        .filter((c) => c.args[1] === 'url_selector_preset');
+      expect(calls.length).to.equal(1);
+    });
+  }
+
+  function visitCloudPage() {
     cy.visit(CLOUD_TEST_PAGE, {
       onBeforeLoad(win) {
         // Suppress the v3 wayfinding modal, which otherwise covers the page
@@ -181,6 +193,13 @@ describe('InfluxDB URL - selector analytics', function () {
         );
       },
     });
+  }
+
+  it('reports one url_selector_preset when the selection changes', function () {
+    // Cloud renders several presets, so selecting a different one changes the
+    // checked state and fires both `click` and `change`. Verify that reports a
+    // single event and is not counted twice.
+    visitCloudPage();
     stubGtag();
     openCustomUrlModal();
 
@@ -190,18 +209,27 @@ describe('InfluxDB URL - selector analytics', function () {
       .first()
       .click({ force: true });
 
-    cy.get('@gtag').should(
-      'have.been.calledWith',
-      'event',
-      'url_selector_preset',
-      Cypress.sinon.match({ product: 'cloud' })
-    );
-    cy.get('@gtag').then((stub) => {
-      const calls = stub
-        .getCalls()
-        .filter((c) => c.args[1] === 'url_selector_preset');
-      expect(calls.length).to.equal(1);
-    });
+    expectOnePresetEvent('cloud');
+  });
+
+  it('reports url_selector_preset when a region heading is selected', function () {
+    // Clicking a region heading forwards the click to its first cluster with
+    // jQuery .trigger(), which suppresses jQuery's own click handlers. Only
+    // `change` reaches the tracker on this path, so a click-only binding
+    // records nothing.
+    visitCloudPage();
+    stubGtag();
+    openCustomUrlModal();
+
+    // The cascade only runs when the region is not already selected.
+    cy.get('#cloud-urls .fake-radio')
+      .first()
+      .should('not.have.class', 'checked');
+
+    cy.get('#cloud-urls p.region').first().click({ force: true });
+
+    cy.get('#cloud-urls .fake-radio').first().should('have.class', 'checked');
+    expectOnePresetEvent('cloud');
   });
 
   it('does not fire url_selector_preset when a custom URL is applied', function () {

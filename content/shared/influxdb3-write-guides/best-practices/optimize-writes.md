@@ -111,8 +111,11 @@ Benchmarks have shown up to a 5x speed improvement when data is compressed.
 
 ### Enable gzip compression in Telegraf
 
-In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set the
-`content_encoding` option to `gzip`:
+The [`influxdb_v3` output plugin](/telegraf/v1/output-plugins/influxdb_v3/)
+compresses write request bodies with gzip by default.
+
+If you use the `influxdb_v2` output plugin, set the `content_encoding` option
+to `gzip` in your `telegraf.conf`:
 
 ```toml
 [[outputs.influxdb_v2]]
@@ -198,7 +201,7 @@ your own code and external applications.
 The following examples show how to [configure the Telegraf agent](/telegraf/v1/configuration)
 and [plugins](/telegraf/v1/plugins/) to optimize writes.
 The examples use the [File input plugin](/telegraf/v1/plugins/#input-file) to
-read data from a file and use the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#input-influxdb)
+read data from a file and use the [InfluxDB v3 output plugin](/telegraf/v1/plugins/#output-influxdb_v3)
 to write data to a database, but you can use any input and output plugin.
 
 ### Prerequisites
@@ -225,11 +228,10 @@ remove data elements (before processor and aggregator plugins run).
         fieldpass = ["usage_system", "usage_idle"]
         # Remove the specified tags from points.
         tagexclude = ["host"]
-      [[outputs.influxdb_v2]]
+      [[outputs.influxdb_v3]]
         urls = ["{{< influxdb/host-url >}}"]
         token = "AUTH_TOKEN"
-        organization = ""
-        bucket = "DATABASE_NAME"
+        database = "DATABASE_NAME"
     EOF
     ```
 
@@ -329,12 +331,11 @@ curl -s "{{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s
         ## A data type and a list of fields to convert to the data type.
         float = ["temp", "hum"]
         integer = ["co"]
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write to.
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write to.
       urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
+      database = "DATABASE_NAME"
     EOF
     ```
 
@@ -424,13 +425,12 @@ table, tag set, and timestamp), and then merges points in each series:
       grace = "$grace_duration"
       ## If true, drops the original metric.
       drop_original = true
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write data to.
+    # Writes metrics as line protocol to InfluxDB
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write data to.
       urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
+      database = "DATABASE_NAME"
     EOF
     ```
 
@@ -521,13 +521,12 @@ field values, and then write the data to InfluxDB:
     [[processors.dedup]]
       ## Drops duplicates within the specified duration
       dedup_interval = "$dedup_duration"
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write data to.
+    # Writes metrics as line protocol to InfluxDB
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write data to.
       urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
+      database = "DATABASE_NAME"
     EOF
     ```
 
@@ -753,13 +752,12 @@ The Go `multiplier.go` sample code does the following:
     [[processors.execd]]
       ## A list that contains the executable command and arguments to run as a daemon.
       command = ["go", "run", "multiplier.go"]
-    # Writes metrics as line protocol to the InfluxDB v2 API
-    [[outputs.influxdb_v2]]
-      ## InfluxDB v2 API credentials and the database to write data to.
+    # Writes metrics as line protocol to InfluxDB
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write data to.
       urls = ["{{< influxdb/host-url >}}"]
       token = "AUTH_TOKEN"
-      organization = ""
-      bucket = "DATABASE_NAME"
+      database = "DATABASE_NAME"
     EOF
     ```
 

@@ -159,6 +159,61 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set Rust markdown converter version
+        run: |
+          VERSION=$(node -p "require('./scripts/rust-markdown-converter/package.json').version")
+          echo "RUST_MARKDOWN_CONVERTER_VERSION=v$VERSION" >> "$GITHUB_ENV"
+
+      - name: Download pinned Rust markdown converter
+        id: rust-converter
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ASSET_DIR=scripts/rust-markdown-converter
+          RELEASE=rust-markdown-converter-${RUST_MARKDOWN_CONVERTER_VERSION}
+          BINARY=rust-markdown-converter-linux-x86_64-gnu.node
+          LOADER=rust-markdown-converter-loader.js
+
+          if ! gh release view "$RELEASE" --repo "$GITHUB_REPOSITORY" >/dev/null; then
+            echo "Pinned converter release $RELEASE is unavailable; using the build cache."
+            echo 'prebuilt=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          gh release download "$RELEASE" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern "$BINARY" \
+            --pattern "$LOADER" \
+            --pattern checksums.txt \
+            --dir "$ASSET_DIR" \
+            --clobber
+          (
+            cd "$ASSET_DIR"
+            grep "  $BINARY$" checksums.txt | sha256sum --check --status
+            grep "  $LOADER$" checksums.txt | sha256sum --check --status
+            mv "$BINARY" index.linux-x64-gnu.node
+            mv "$LOADER" index.js
+            rm checksums.txt
+          )
+          echo 'RUST_MARKDOWN_CONVERTER_PREBUILT=true' >> "$GITHUB_ENV"
+          echo 'prebuilt=true' >> "$GITHUB_OUTPUT"
+
+      - name: Cache Rust markdown converter build
+        if: steps.rust-converter.outputs.prebuilt != 'true'
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            scripts/rust-markdown-converter/target
+          key: >-
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/Cargo.lock') }}
+          restore-keys: |
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+
       - name: Setup docs environment
         uses: ./.github/actions/setup-docs-env
 
