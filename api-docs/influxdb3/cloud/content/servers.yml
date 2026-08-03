@@ -1,0 +1,6 @@
+- url: https://{baseurl}
+  description: InfluxDB 3 Cloud API URL
+  variables:
+    baseurl:
+      default: cluster-host.a.influxdb.io
+      description: Your InfluxDB 3 Cloud instance host
