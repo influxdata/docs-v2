@@ -49,17 +49,24 @@ influxd-ctl [global-flags] <command> [command-flags] [arguments]
 
 ## Global flags {#influxd-ctl-global-flags}
 
-| Flag         | Description                                                              |
-| :----------- | :----------------------------------------------------------------------- |
-| `-auth-type` | Authentication type to use (`none` _default_, `basic`, `jwt`)            |
-| `-bind`      | Meta node HTTP bind address _(default is `localhost:8091`)_              |
-| `-bind-tls`  | Use TLS                                                                  |
-| `-config`    | Configuration file path                                                  |
-| `-k`         | Skip certificate verification _(ignored without `-bind-tls`)_            |
-| `-pwd`       | Password for basic authentication _(ignored without `-auth-type basic`)_ |
-| `-secret`    | JWT shared secret _(ignored without `-auth-type jwt`)_                   |
-| `-timeout`   | Override the default timeout of 10s for operations _(for example, `30s`, `1m`)_. _v1.12.3+_ |
-| `-user`      | Username _(ignored without `-auth-type basic` or `jwt`)_                 |
+| Flag                         | Description                                                                                                           |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| `-auth-type`                 | Authentication type to use (`none` _default_, `basic`, `jwt`)                                                        |
+| `-bind`                      | Meta node HTTP bind address _(default is `localhost:8091`)_                                                          |
+| `-bind-tls`                  | Use TLS                                                                                                              |
+| `-ca-cert`                   | CA certificate used to verify the meta node's server certificate _(ignored without `-bind-tls`)_. _v1.13.0+_        |
+| `-cert`                      | Client certificate for mutual TLS (mTLS), used unless `-client-cert` is given _(ignored without `-bind-tls`)_. _v1.13.0+_ |
+| `-client-cert`               | Client certificate for mutual TLS (mTLS), overriding `-cert` _(ignored without `-bind-tls`)_. _v1.13.0+_           |
+| `-client-key`                | Client private key for `-client-cert` _(ignored without `-bind-tls`)_. _v1.13.0+_                                   |
+| `-config`                    | Configuration file path                                                                                             |
+| `-ignore-cert-sanity-checks` | Present the client certificate even if it fails the checks for whether a client can use it. _v1.13.0+_             |
+| `-insecure-certificate`      | Skip file-permission checks on the certificate and private key. _v1.13.0+_                                          |
+| `-k`                         | Skip certificate verification _(ignored without `-bind-tls`)_                                                       |
+| `-key`                       | Client private key for `-cert` _(ignored without `-bind-tls`)_. _v1.13.0+_                                          |
+| `-pwd`                       | Password for basic authentication _(ignored without `-auth-type basic`)_                                            |
+| `-secret`                    | JWT shared secret _(ignored without `-auth-type jwt`)_                                                              |
+| `-timeout`                   | Override the default timeout of 10s for operations _(for example, `30s`, `1m`)_. _v1.12.3+_                         |
+| `-user`                      | Username _(ignored without `-auth-type basic` or `jwt`)_                                                            |
 
 ## Examples
 
@@ -67,6 +74,7 @@ influxd-ctl [global-flags] <command> [command-flags] [arguments]
 - [Authenticate with JWT](#authenticate-with-jwt)
 - [Authenticate with basic authentication](#authenticate-with-basic-authentication)
 - [Override the default timeout](#override-the-default-timeout)
+- [Connect with mutual TLS (mTLS)](#connect-with-mutual-tls-mtls)
 
 ### Bind to a remote meta node
 
@@ -91,6 +99,35 @@ influxd-ctl -auth-type basic -user admin -pwd passw0rd
 ```sh
 influxd-ctl -timeout 30s show-shards
 ```
+
+### Connect with mutual TLS (mTLS) {metadata="v1.13.0+"}
+
+When the cluster's meta nodes require a client certificate
+([`https-client-auth-type`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#https-client-auth-type)),
+use `-cert` and `-key` to present a client certificate and private key, and use
+`-ca-cert` to verify the meta node's server certificate:
+
+```sh
+influxd-ctl -bind-tls \
+  -cert /etc/ssl/influxd-ctl-client.crt \
+  -key /etc/ssl/influxd-ctl-client.key \
+  -ca-cert /etc/ssl/cluster-ca.crt \
+  show
+```
+
+To present a dedicated client certificate that overrides `-cert`, use
+`-client-cert` and `-client-key`:
+
+```sh
+influxd-ctl -bind-tls \
+  -client-cert /etc/ssl/influxd-ctl-client.crt \
+  -client-key /etc/ssl/influxd-ctl-client.key \
+  -ca-cert /etc/ssl/cluster-ca.crt \
+  show
+```
+
+For more information about configuring mTLS in a cluster, see
+[Enable mutual TLS (mTLS)](/enterprise_influxdb/v1/administration/configure/security/enable_tls/#enable-mutual-tls-mtls).
 
 {{< expand-wrapper >}}
 {{% expand "Troubleshoot `influxd-ctl` authentication" %}}
