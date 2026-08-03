@@ -9,6 +9,7 @@
 {{ $chronografVersion := replaceRE "v" "" .Site.Data.products.chronograf.latest }}
 {{ $kapacitorVersion := replaceRE "v" "" .Site.Data.products.kapacitor.latest }}
 {{ $fluxVersion := cond (isset .Site.Data.products.flux "version_label") .Site.Data.products.flux.version_label (replaceRE "v" "" .Site.Data.products.flux.latest) }}
+{{ $homeURL := .Site.Home.RelPermalink }}
 
 <!--
   Show the page if:
@@ -43,7 +44,7 @@
     <div id="influxdb3" class="product-group">      
       <h2>InfluxDB 3</h2>
       <p>InfluxDB 3 is the current generation of InfluxDB and the recommended platform for new time series workloads—built for high-speed, high-cardinality data from the edge to the cloud.</p>
-      <p class="decision-cta">Not sure which product fits your use case? See <a class="alt-color" href="/influxdb3/which-influxdb-3/">Which InfluxDB 3 should I use?</a></p>
+      <p class="decision-cta">Not sure which product fits your use case? See <a class="alt-color" href="{{ $homeURL }}influxdb3/which-influxdb-3/">Which InfluxDB 3 should I use?</a></p>
       <div class="categories">
         <div class="category full">
           <div class="category-head">
@@ -52,32 +53,32 @@
           <div class="products">
             <div class="product">
               <div class="product-info">
-                <h3><a href="/influxdb3/core/">InfluxDB 3 Core <span class="version">{{ $influxdb3CoreVersion }}</span></a></h3>
+                <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/core" href="{{ $homeURL }}influxdb3/core/">InfluxDB 3 Core <span class="version">{{ $influxdb3CoreVersion }}</span></a></h3>
                 <p>The open source recent data engine optimized for time series and event data.</p>
               </div>
               <ul class="product-links">
-                <li><a href="/influxdb3/core/get-started/">Get started with InfluxDB 3 Core</a></li>
-                <li><a href="/influxdb3/core/">View documentation</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/core/get-started/">Get started with InfluxDB 3 Core</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/core/">View documentation</a></li>
               </ul>
             </div>
             <div class="product" >
               <div class="product-info">
-                <h3><a href="/influxdb3/enterprise/">InfluxDB 3 Enterprise <span class="version">{{ $influxdb3EnterpriseVersion }}</span></a></h3>
+                <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/enterprise" href="{{ $homeURL }}influxdb3/enterprise/">InfluxDB 3 Enterprise <span class="version">{{ $influxdb3EnterpriseVersion }}</span></a></h3>
                 <p>The scalable data engine built for recent and historical time series and event data.</p>
               </div>
               <ul class="product-links">
-                <li><a href="/influxdb3/enterprise/get-started/">Get started with InfluxDB 3 Enterprise</a></li>
-                <li><a href="/influxdb3/enterprise/">View documentation</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/enterprise/get-started/">Get started with InfluxDB 3 Enterprise</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/enterprise/">View documentation</a></li>
               </ul>
             </div>
             <div class="product">
               <div class="product-info">
-                <h3><a href="/influxdb3/clustered/">InfluxDB Clustered</a></h3>
+                <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/clustered" href="{{ $homeURL }}influxdb3/clustered/">InfluxDB Clustered</a></h3>
                 <p>The Kubernetes-enabled, highly-available InfluxDB 3 cluster built for high write and query workloads on your own infrastructure.</p>
               </div>
               <ul class="product-links">
-                <li><a href="/influxdb3/clustered/get-started/">Get started with InfluxDB Clustered</a></li>
-                <li><a href="/influxdb3/clustered/">View documentation</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/clustered/get-started/">Get started with InfluxDB Clustered</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/clustered/">View documentation</a></li>
               </ul>
             </div>
           </div>
@@ -89,22 +90,22 @@
           <div class="products">
             <div class="product">
               <div class="product-info">
-                <h3><a href="/influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
+                <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/cloud-serverless" href="{{ $homeURL }}influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
                 <p>The fully-managed, multi-tenant InfluxDB 3 service deployed in the cloud.</p>
               </div>
               <ul class="product-links">
-                <li><a href="/influxdb3/cloud-serverless/get-started/">Get started with Cloud Serverless</a></li>
-                <li><a href="/influxdb3/cloud-serverless/">View documentation</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/cloud-serverless/get-started/">Get started with Cloud Serverless</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/cloud-serverless/">View documentation</a></li>
               </ul>
             </div>
             <div class="product">
               <div class="product-info">
-                <h3><a href="/influxdb3/cloud-dedicated/">InfluxDB Cloud Dedicated</a></h3>
+                <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/cloud-dedicated" href="{{ $homeURL }}influxdb3/cloud-dedicated/">InfluxDB Cloud Dedicated</a></h3>
                 <p>The fully-managed InfluxDB 3 cluster dedicated to your workload and deployed in the cloud.</p>
               </div>
               <ul class="product-links">
-                <li><a href="/influxdb3/cloud-dedicated/get-started/">Get started with Cloud Dedicated</a></li>
-                <li><a href="/influxdb3/cloud-dedicated/">View documentation</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/cloud-dedicated/get-started/">Get started with Cloud Dedicated</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/cloud-dedicated/">View documentation</a></li>
               </ul>
             </div>
           </div>
@@ -116,12 +117,12 @@
           <div class="products">
             <div class="product">
               <div class="product-info">
-                <h3><a href="/influxdb3/explorer/">InfluxDB 3 Explorer <span class="version">{{ $influxdb3ExplorerVersion }}</span></a></h3>
+                <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/explorer" href="{{ $homeURL }}influxdb3/explorer/">InfluxDB 3 Explorer <span class="version">{{ $influxdb3ExplorerVersion }}</span></a></h3>
                 <p>A standalone UI designed for visualizing, querying, and managing data in InfluxDB 3 Core and Enterprise.</p>
               </div>
               <ul class="product-links">
-                <li><a href="/influxdb3/explorer/get-started/">Get started with Explorer</a></li>
-                <li><a href="/influxdb3/explorer/">View documentation</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/explorer/get-started/">Get started with Explorer</a></li>
+                <li><a href="{{ $homeURL }}influxdb3/explorer/">View documentation</a></li>
               </ul>
             </div>
           </div>
@@ -137,31 +138,31 @@
       <div class="products">
         <div class="product">
           <div class="product-info">
-            <h3><a href="/telegraf/v1/">Telegraf <span class="version">{{ $telegrafVersion }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="telegraf/v1" href="{{ $homeURL }}telegraf/v1/">Telegraf <span class="version">{{ $telegrafVersion }}</span></a></h3>
             <p>The open source data collection agent with support for a large catalog of data sources and targets.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/telegraf/v1/get-started/">Get started with Telegraf</a></li>
-            <li><a href="/telegraf/v1/plugins/">View Telegraf plugins</a></li>
+            <li><a href="{{ $homeURL }}telegraf/v1/get-started/">Get started with Telegraf</a></li>
+            <li><a href="{{ $homeURL }}telegraf/v1/plugins/">View Telegraf plugins</a></li>
           </ul>
         </div>
         <div class="product">
           <div class="product-info">
-            <h3 state="New"><a href="/telegraf/controller/">Telegraf Controller</a></h3>
+            <h3 state="New"><a data-product-link-scope="homepage" data-product-path="telegraf/controller" href="{{ $homeURL }}telegraf/controller/">Telegraf Controller</a></h3>
             <p>Centralized Telegraf configuration management and agent observability with an intuitive UI.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/telegraf/controller/install/">Download and Install</a></li>
-            <li><a href="/telegraf/controller/get-started/">Get started with Telegraf Controller</a></li>
+            <li><a href="{{ $homeURL }}telegraf/controller/install/">Download and Install</a></li>
+            <li><a href="{{ $homeURL }}telegraf/controller/get-started/">Get started with Telegraf Controller</a></li>
           </ul>
         </div>
         <div class="product">
           <div class="product-info">
-            <h3 state="New"><a href="/telegraf/enterprise/">Telegraf Enterprise</a></h3>
+            <h3 state="New"><a data-product-link-scope="homepage" data-product-path="telegraf/enterprise" href="{{ $homeURL }}telegraf/enterprise/">Telegraf Enterprise</a></h3>
             <p>Enterprise support for Telegraf and Telegraf Controller, plus higher limits and enterprise security features in Telegraf Controller.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/telegraf/enterprise/">Telegraf Enterprise overview</a></li>
+            <li><a href="{{ $homeURL }}telegraf/enterprise/">Telegraf Enterprise overview</a></li>
             <li><a href="https://www.influxdata.com/contact-sales/">Upgrade to Telegraf Enterprise</a></li>
           </ul>
         </div>
@@ -173,32 +174,32 @@
       <div class="products">
         <div class="product">
           <div class="product-info">
-            <h3><a href="/influxdb/v2/">InfluxDB OSS <span class="version">{{ $influxdbVersionV2 }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="influxdb/v2" href="{{ $homeURL }}influxdb/v2/">InfluxDB OSS <span class="version">{{ $influxdbVersionV2 }}</span></a></h3>
             <p>The open source time series platform with support for Flux and InfluxQL, scheduled tasks, dashboards, and more.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/influxdb/v2/get-started/">Get started with InfluxDB OSS {{ $influxdbVersionV2 }}</a></li>
-            <li><a href="/influxdb/v2/">View documentation</a></li>
+            <li><a href="{{ $homeURL }}influxdb/v2/get-started/">Get started with InfluxDB OSS {{ $influxdbVersionV2 }}</a></li>
+            <li><a href="{{ $homeURL }}influxdb/v2/">View documentation</a></li>
           </ul>
         </div>
         <div class="product">
           <div class="product-info">
-            <h3><a href="/influxdb/cloud/">InfluxDB Cloud <span class="version">TSM</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="influxdb/cloud" href="{{ $homeURL }}influxdb/cloud/">InfluxDB Cloud <span class="version">TSM</span></a></h3>
             <p>The fully-managed, multi-tenant InfluxDB v2 instance deployed in the cloud and powered by the <strong>TSM</strong> storage engine.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/influxdb/cloud/get-started/">Get started with InfluxDB Cloud</a></li>
-            <li><a href="/influxdb/cloud/">View documentation</a></li>
+            <li><a href="{{ $homeURL }}influxdb/cloud/get-started/">Get started with InfluxDB Cloud</a></li>
+            <li><a href="{{ $homeURL }}influxdb/cloud/">View documentation</a></li>
           </ul>
         </div>
         <div class="product">
           <div class="product-info">
-            <h3><a href="/flux/v0/">Flux <span class="version">{{ $fluxVersion }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="flux/v0" href="{{ $homeURL }}flux/v0/">Flux <span class="version">{{ $fluxVersion }}</span></a></h3>
             <p>The functional language specifically designed for querying and processing data.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/flux/v0/get-started/">Get started with Flux</a></li>
-            <li><a href="/flux/v0/stdlib/">View the Flux standard library</a></li>
+            <li><a href="{{ $homeURL }}flux/v0/get-started/">Get started with Flux</a></li>
+            <li><a href="{{ $homeURL }}flux/v0/stdlib/">View the Flux standard library</a></li>
           </ul>
         </div>
       </div>
@@ -209,22 +210,22 @@
       <div class="products">
         <div class="product">
           <div class="product-info">
-            <h3><a href="/influxdb/v1/">InfluxDB OSS <span class="version">{{ $influxdbVersionV1 }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="influxdb/v1" href="{{ $homeURL }}influxdb/v1/">InfluxDB OSS <span class="version">{{ $influxdbVersionV1 }}</span></a></h3>
             <p>The open source single-node InfluxDB v1 instance designed for high write and query workloads.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/influxdb/v1/introduction/get-started/">Get started with InfluxDB OSS {{ $influxdbVersionV1 }}</a></li>
-            <li><a href="/influxdb/v1/">View documentation</a></li>
+            <li><a href="{{ $homeURL }}influxdb/v1/introduction/get-started/">Get started with InfluxDB OSS {{ $influxdbVersionV1 }}</a></li>
+            <li><a href="{{ $homeURL }}influxdb/v1/">View documentation</a></li>
           </ul>
         </div>
         <div class="product">
           <div class="product-info">
-            <h3><a href="/enterprise_influxdb/v1/">InfluxDB Enterprise <span class="version">{{ $enterpriseVersion }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="enterprise_influxdb/v1" href="{{ $homeURL }}enterprise_influxdb/v1/">InfluxDB Enterprise <span class="version">{{ $enterpriseVersion }}</span></a></h3>
             <p>The highly available InfluxDB v1 cluster built for high write and query workloads.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/enterprise_influxdb/v1/introduction/getting-started/">Get started with InfluxDB Enterprise {{ $enterpriseVersion }}</a></li>
-            <li><a href="/enterprise_influxdb/v1/">View documentation</a></li>
+            <li><a href="{{ $homeURL }}enterprise_influxdb/v1/introduction/getting-started/">Get started with InfluxDB Enterprise {{ $enterpriseVersion }}</a></li>
+            <li><a href="{{ $homeURL }}enterprise_influxdb/v1/">View documentation</a></li>
           </ul>
         </div>
       </div>
@@ -235,22 +236,22 @@
       <div class="products">
         <div class="product">
           <div class="product-info">
-            <h3><a href="/chronograf/v1/">Chronograf <span class="version">{{ $chronografVersion }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="chronograf/v1" href="{{ $homeURL }}chronograf/v1/">Chronograf <span class="version">{{ $chronografVersion }}</span></a></h3>
             <p>The web UI that visualizes your InfluxDB time series data and easily creates alerting and automation rules.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/chronograf/v1/introduction/getting-started/">Get started with Chronograf {{ $chronografVersion }}</a></li>
-            <li><a href="/chronograf/v1/">View documentation</a></li>
+            <li><a href="{{ $homeURL }}chronograf/v1/introduction/getting-started/">Get started with Chronograf {{ $chronografVersion }}</a></li>
+            <li><a href="{{ $homeURL }}chronograf/v1/">View documentation</a></li>
           </ul>
         </div>
         <div class="product">
           <div class="product-info">
-            <h3><a href="/kapacitor/v1/">Kapacitor <span class="version">{{ $kapacitorVersion }}</span></a></h3>
+            <h3><a data-product-link-scope="homepage" data-product-path="kapacitor/v1" href="{{ $homeURL }}kapacitor/v1/">Kapacitor <span class="version">{{ $kapacitorVersion }}</span></a></h3>
             <p>The data processing framework for creating alerts, running ETL jobs, and detecting anomalies.</p>
           </div>
           <ul class="product-links">
-            <li><a href="/kapacitor/v1/introduction/getting-started/">Get started with Kapacitor {{ $kapacitorVersion }}</a></li>
-            <li><a href="/kapacitor/v1/">View documentation</a></li>
+            <li><a href="{{ $homeURL }}kapacitor/v1/introduction/getting-started/">Get started with Kapacitor {{ $kapacitorVersion }}</a></li>
+            <li><a href="{{ $homeURL }}kapacitor/v1/">View documentation</a></li>
           </ul>
         </div>
       </div>
