@@ -1,7 +1,7 @@
 ---
 title: Processing engine Python API reference
 description: |
-  Reference for the Python API available to InfluxDB 3 Processing Engine
+  Reference for the Python API available to InfluxDB 3 processing engine
   plugins—trigger entry points, the influxdb3_local shared API, LineBuilder,
   the in-memory cache, and plugin exceptions.
 menu:

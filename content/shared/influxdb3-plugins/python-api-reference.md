@@ -1,4 +1,4 @@
-The Processing Engine provides a Python API that plugins use at runtime.
+The InfluxDB 3 processing engine provides a Python API that plugins use at runtime.
 Nothing in this API is importable from a plugin—the runtime injects the objects instead.
 InfluxDB passes `influxdb3_local` (an `InfluxDB3Local` instance) as the first argument to every trigger entry point and installs `LineBuilder` into Python builtins before the plugin runs, so both single-file and multi-file plugins can use them without an import.
 
@@ -17,15 +17,16 @@ For usage patterns and examples, see [Extend plugins](/influxdb3/version/extend-
 ## Trigger entry points
 
 A plugin defines one entry point that matches the trigger type it is attached to.
+You define the function; InfluxDB calls it when the trigger fires.
 Multi-file plugins must define the entry point in the plugin directory's `__init__.py`.
 
-| Trigger type | Trigger specification | Entry point |
+| Trigger type | Trigger specification | Entry point function |
 | :----------- | :-------------------- | :---------- |
-| Data write (WAL) | `table:TABLE_NAME` or `all_tables` | [`process_writes`](#process_writes) |
-| Scheduled | `every:DURATION` or `cron:EXPRESSION` | [`process_scheduled_call`](#process_scheduled_call) |
-| HTTP request | `request:REQUEST_PATH` | [`process_request`](#process_request) |
+| Data write (WAL) | `table:TABLE_NAME` or `all_tables` | [`process_writes()`](#process_writes) |
+| Scheduled | `every:DURATION` or `cron:EXPRESSION` | [`process_scheduled_call()`](#process_scheduled_call) |
+| HTTP request | `request:REQUEST_PATH` | [`process_request()`](#process_request) |
 
-### `process_writes`
+### `process_writes()`
 
 ```python
 def process_writes(
@@ -41,7 +42,7 @@ InfluxDB calls the function with the rows that were just written to the database
 - `table_batches`: the written rows as a sequence of [`TableBatch`](#tablebatch) dictionaries.
 - `args`: trigger arguments as a string-to-string mapping.
 
-### `process_scheduled_call`
+### `process_scheduled_call()`
 
 ```python
 def process_scheduled_call(
@@ -57,7 +58,7 @@ Entry point for scheduled triggers.
   The engine builds the value with `datetime.fromtimestamp()`, so it is expressed in the server's local timezone and truncated to whole seconds.
 - `args`: trigger arguments as a string-to-string mapping.
 
-### `process_request`
+### `process_request()`
 
 ```python
 def process_request(
@@ -104,7 +105,7 @@ influxdb3_local.error(*args: object) -> None
 Each method converts its arguments to strings, joins them with spaces, and logs the result at the named level:
 
 - `info`: records the message in the system logs.
-- `warn`: forwards the message to the Processing Engine logs and test output.
+- `warn`: forwards the message to the processing engine logs and test output.
 - `error`: records the message in the system logs and the plugin return payload.
 
 Log messages are stored in the `system.processing_engine_logs` table, where you can [query them using SQL](/influxdb3/version/admin/query-system-data/#query-trigger-logs).
@@ -211,7 +212,7 @@ The server clears both caches on restart.
 Reading the `cache` property runs an expiry sweep, though the sweep only does work once per cleanup interval.
 Individual expired entries are dropped on read regardless.
 
-### `put`
+### `cache.put()`
 
 ```python
 influxdb3_local.cache.put(
@@ -229,7 +230,7 @@ Values in test caches (`influxdb3 test`) default to a 30-minute TTL when not pro
 
 Raises `ValueError` when `ttl` is negative, `NaN`, or too large to represent as a duration.
 
-### `get`
+### `cache.get()`
 
 ```python
 influxdb3_local.cache.get(
@@ -243,7 +244,7 @@ Fetches a value from the trigger-local or global cache.
 Expired entries are evicted on read.
 Returns the stored value, the provided default, or `None` when the key is absent.
 
-### `delete`
+### `cache.delete()`
 
 ```python
 influxdb3_local.cache.delete(
@@ -266,15 +267,12 @@ The `cache` property and the cache methods do not check for cancellation and kee
 
 ## LineBuilder
 
-```python
-LineBuilder(measurement: str)
-```
+`LineBuilder` constructs InfluxDB line protocol in plugins.
+It handles line protocol escaping and nanosecond timestamps, and plugins can use it without an import.
 
-Helper for constructing InfluxDB line protocol in plugins, with nanosecond timestamps and line protocol escaping.
-For format details, see the [line protocol reference](/influxdb3/version/reference/line-protocol/).
-
-The engine installs `LineBuilder` into Python builtins before a plugin runs, so it is available to single-file and multi-file plugins without an import.
-Tag and field methods return `self`, so calls chain:
+Construct a builder with `LineBuilder(measurement)`, then call the tag, field, and timestamp methods on the resulting instance.
+In this section, `line` is a `LineBuilder` instance.
+Tag and field methods return the same `LineBuilder` instance, so you can chain calls:
 
 ```python
 line = LineBuilder("weather")
@@ -294,15 +292,17 @@ Tag and field keys that are empty or contain spaces, commas, or equals signs rai
 | `string_field(key, value)` | A string field with quotes and backslashes escaped |
 | `bool_field(key, value)` | A boolean field, rendered as `t` or `f` |
 | `time_ns(timestamp_ns)` | The nanosecond timestamp for the line |
+| `build()` | Renders the line as line protocol |
 
-### `build`
+### `line.build()`
 
 ```python
 line.build() -> str
 ```
 
-Renders the accumulated measurement, tags, fields, and optional timestamp as a line protocol string.
-Raises `InvalidLineError` when called without any fields.
+When you call `build()` on a `LineBuilder` instance, it renders the accumulated measurement, tags, fields, and optional timestamp as a line protocol string.
+`build()` raises `InvalidLineError` when called without any fields.
+For format details, see the [line protocol reference](/influxdb3/version/reference/line-protocol/).
 
 ## TableBatch
 
