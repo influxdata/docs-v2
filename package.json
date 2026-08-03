@@ -20,13 +20,7 @@
     "basic-ftp": "5.3.1",
     "ws": "8.21.0",
     "yaml": "2.9.0",
-    "**/anymatch/picomatch": "2.3.2",
-    "**/readdirp/picomatch": "2.3.2",
-    "**/tinyglobby/picomatch": "4.0.4",
-    "**/glob/minimatch/brace-expansion": "5.0.6",
-    "**/@typescript-eslint/typescript-estree/minimatch/brace-expansion": "5.0.6",
-    "**/eslint-plugin-import/minimatch/brace-expansion": "1.1.13",
-    "**/eslint-plugin-jsx-a11y/minimatch/brace-expansion": "1.1.13"
+    "brace-expansion": "5.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -153,6 +147,5 @@
     "test": "test"
   },
   "keywords": [],
-  "author": "",
-  "optionalDependencies": {}
+  "author": ""
 }
