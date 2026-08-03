@@ -286,12 +286,11 @@ Each node acts as both a **server** (accepting connections) and a **client**
 | Client (dialer)   | Present a certificate to the servers this node dials          | `*-client-certificate`, `*-client-private-key`    |
 | Client (dialer)   | Verify the server certificates of the servers this node dials | `*-root-ca` (`meta-root-ca` for meta connections) |
 
-{{% note %}}
-If you don't set a separate client certificate (`*-client-certificate`), the node
-presents its server certificate (`https-certificate`) when dialing peers.
-Set a separate client certificate only if you use distinct certificates for the
-client and server roles.
-{{% /note %}}
+> [!Note]
+> If you don't set a separate client certificate (`*-client-certificate`), the node
+> presents its server certificate (`https-certificate`) when dialing peers.
+> Set a separate client certificate only if you use distinct certificates for the
+> client and server roles.
 
 Set `*-client-auth-type` to one of the following:
 
