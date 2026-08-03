@@ -427,11 +427,10 @@ sudo systemctl reload influxdb-meta
 sudo systemctl reload influxdb
 ```
 
-{{% note %}}
-Enabling or disabling HTTPS (`https-enabled`) always requires a restart.
-Only certificate, CA pool, and client-authentication changes can be applied with
-`SIGHUP`.
-{{% /note %}}
+> [!Note]
+> Enabling or disabling HTTPS (`https-enabled`) always requires a restart.
+> Only certificate, CA pool, and client-authentication changes can be applied with
+> `SIGHUP`.
 
 ### Verify mTLS
 
