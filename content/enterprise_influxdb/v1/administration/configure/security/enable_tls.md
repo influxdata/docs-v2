@@ -403,12 +403,11 @@ To require client certificates from clients that connect to the data node HTTP A
   https-client-ca = { paths = ["/etc/ssl/client-ca.crt"] }
 ```
 
-{{% warn %}}
-Requiring client certificates on the HTTP API (`[http] https-client-auth-type`)
-means **every** HTTP API client must present a valid certificate.
-Before enabling this setting, ensure all clients&mdash;including the `influx` CLI,
-Telegraf, and your applications&mdash;are configured to present a client certificate.
-{{% /warn %}}
+> [!Important]
+> Requiring client certificates on the HTTP API (`[http] https-client-auth-type`)
+> means **every** HTTP API client must present a valid certificate.
+> Before enabling this setting, ensure all clients&mdash;including the `influx` CLI,
+> Telegraf, and your applications&mdash;are configured to present a client certificate.
 
 ### Apply the configuration
 
