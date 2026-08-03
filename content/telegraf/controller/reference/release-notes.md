@@ -9,10 +9,41 @@ menu:
 weight: 101
 ---
 
-## v1.0.1 {date="2026-07-01"}
+## v1.0.2 {date="2026-08-04"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.0.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.0.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Features
+
+- Add plugin support to the Telegraf Builder UI:
+  - MQTT Consumer (`inputs.mqtt_consumer`)
+  - Multifile (`inputs.multifile`)
+  - MySQL (`inputs.mysql`)
+  - NATS Server Monitoring (`inputs.nats`)
+  - NATS Consumer (`inputs.nats_consumer`)
+  - Neoom Beaam (`inputs.neoom_beaam`)
+  - Neptune Apex (`inputs.neptune_apex`)
+  - Apache Zookeeper (`inputs.zookeeper`)
+
+### Bug fixes
+
+- Fix agent list filters, page reset when filters change, and a pagination
+  off-by-one error.
+- Fix filtering agents by the Undefined status and pagination when a filter
+  returns no results.
+- No longer require a reporting rule's auto-delete threshold to be longer than
+  its not-reporting threshold, and clarify the auto-delete field help text.
+- Store agent timestamps consistently between the heartbeat service and the
+  API, fixing unreliable not-reporting status checks, incorrect sorting and
+  filtering by last-reported time, and a time zone offset on PostgreSQL
+  servers not set to UTC.
+- Fix the elapsed time display when an agent's last report is momentarily in
+  the future.
+
+---
+
+## v1.0.1 {date="2026-07-01"}
 
 ### Features
 
