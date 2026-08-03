@@ -263,18 +263,17 @@ In an InfluxDB Enterprise cluster, you can require mTLS on:
 - **Inter-node connections**: meta-to-meta, meta-to-data, and data-to-data traffic.
 - **HTTP API connections**: clients such as the [`influx` CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/), `influxd-ctl`, and Telegraf connecting to the data node or meta node API.
 
-{{% note %}}
-mTLS options require **InfluxDB Enterprise v1.13.0+** and build on the HTTPS
-configuration described above.
-Complete [Set up HTTPS](#set-up-https-in-an-influxdb-enterprise-cluster) before
-enabling mTLS.
-
-Creating the certificates, private keys, and CA files needed for mTLS is outside
-the scope of this guide.
-The following steps assume you already have a CA certificate (for example,
-`/etc/ssl/cluster-ca.crt`) that signed each node's certificate, plus the server
-certificate and key installed on each node.
-{{% /note %}}
+> [!Note]
+> mTLS options require **InfluxDB Enterprise v1.13.0+** and build on the HTTPS
+> configuration described above.
+> Complete [Set up HTTPS](#set-up-https-in-an-influxdb-enterprise-cluster) before
+> enabling mTLS.
+> 
+> Creating the certificates, private keys, and CA files needed for mTLS is outside
+> the scope of this guide.
+> The following steps assume you already have a CA certificate (for example,
+> `/etc/ssl/cluster-ca.crt`) that signed each node's certificate, plus the server
+> certificate and key installed on each node.
 
 ### How mTLS settings map to connections
 
