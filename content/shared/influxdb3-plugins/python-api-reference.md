@@ -86,7 +86,7 @@ Entry point for HTTP request triggers.
   The object must define a `__flask_response__()` method that returns `True`, a `status_code` attribute, a `headers` mapping, and a `get_data()` method that returns `str`.
   A genuine `flask.Response` is rejected: it does not define `__flask_response__`, and its `get_data()` returns bytes.
 - **A tuple** of `(body, status, headers)` following Flask conventions.
-  `status` and `headers` are optional; when `status` is present, `headers` may be the second or third element.
+  `status` and `headers` are optional; `headers` may be the second element only when `status` is omitted.
 - **A bare string, dictionary, list, or iterator**, rendered with defaults:
   dictionaries and lists are JSON-encoded with `Content-Type: application/json`; strings and other iterables are concatenated with a `text/html` default content type.
 
@@ -102,13 +102,9 @@ influxdb3_local.warn(*args: object) -> None
 influxdb3_local.error(*args: object) -> None
 ```
 
-Each method converts its arguments to strings, joins them with spaces, and logs the result at the named level:
+Each method converts its arguments to strings, joins them with spaces, and logs the result at the named level (`INFO`, `WARN`, or `ERROR`).
 
-- `info`: records the message in the system logs.
-- `warn`: forwards the message to the processing engine logs and test output.
-- `error`: records the message in the system logs and the plugin return payload.
-
-Log messages are stored in the `system.processing_engine_logs` table, where you can [query them using SQL](/influxdb3/version/admin/query-system-data/#query-trigger-logs).
+All three levels are stored in the `system.processing_engine_logs` table, where you can [query them using SQL](/influxdb3/version/admin/query-system-data/#query-trigger-logs), and appear in `influxdb3 test` output.
 
 ## Query data
 
@@ -261,7 +257,7 @@ Returns `True` when the key existed in the selected cache.
 Once the current plugin run has been cancelled—the server is shutting down, or the trigger was disabled or deleted—the logging, write, and query methods raise `KeyboardInterrupt`.
 
 `KeyboardInterrupt` subclasses `BaseException` rather than `Exception`, so a plugin's `except Exception` handler does not swallow it, and a long-running loop unwinds instead of hanging the shutdown or the disable.
-The message reads `influxdb3 is shutting down` for every cancellation cause, including a plain trigger disable.
+The message reads `influxdb3 is shutting down; aborting plugin execution` for every cancellation cause, including a plain trigger disable.
 
 The `cache` property and the cache methods do not check for cancellation and keep working.
 
