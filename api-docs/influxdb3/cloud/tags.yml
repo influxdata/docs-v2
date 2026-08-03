@@ -98,3 +98,7 @@ tags:
   Server information:
     description: |
       Retrieve health status and version information for your InfluxDB 3 Cloud instance.
+
+      > **Note**: InfluxDB 3 Cloud doesn't support the `/health` endpoint
+      > available in InfluxDB 3 Core and Enterprise. Requests to `/health`
+      > return `404 Not Found`. Use `/ping` instead.

@@ -726,6 +726,11 @@ paths:
 
         **Important**: Use a GET request. HEAD requests return `404 Not Found`.
 
+        > **Note**: Unlike InfluxDB 3 Core and Enterprise, InfluxDB 3 Cloud
+        > doesn't support the `/health` endpoint. Requests to `/health`
+        > return `404 Not Found`. Use `/ping` to check instance reachability
+        > and retrieve version information.
+
         The response includes version information in both headers and the JSON body:
 
         - **Headers**: `x-influxdb-version` and `x-influxdb-build`
