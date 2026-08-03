@@ -172,6 +172,7 @@ jobs:
           ASSET_DIR=scripts/rust-markdown-converter
           RELEASE=rust-markdown-converter-${RUST_MARKDOWN_CONVERTER_VERSION}
           BINARY=rust-markdown-converter-linux-x86_64-gnu.node
+          LOADER=rust-markdown-converter-loader.js
 
           if ! gh release view "$RELEASE" --repo "$GITHUB_REPOSITORY" >/dev/null; then
             echo "Pinned converter release $RELEASE is unavailable; using the build cache."
@@ -182,13 +183,16 @@ jobs:
           gh release download "$RELEASE" \
             --repo "$GITHUB_REPOSITORY" \
             --pattern "$BINARY" \
+            --pattern "$LOADER" \
             --pattern checksums.txt \
             --dir "$ASSET_DIR" \
             --clobber
           (
             cd "$ASSET_DIR"
             grep "  $BINARY$" checksums.txt | sha256sum --check --status
+            grep "  $LOADER$" checksums.txt | sha256sum --check --status
             mv "$BINARY" index.linux-x64-gnu.node
+            mv "$LOADER" index.js
             rm checksums.txt
           )
           echo 'RUST_MARKDOWN_CONVERTER_PREBUILT=true' >> "$GITHUB_ENV"
