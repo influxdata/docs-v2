@@ -131,7 +131,8 @@ backup, which saves time and storage space compared to a full backup. Each
 incremental backup names the backup it chains from with `--parent`.
 
 `create backup` returns as soon as the backup starts, not when it finishes.
-Check that a backup's status is `complete` before creating a child
+`influxdb3 status backup` reports `in_progress`, `completed`, or `failed`.
+Check that a backup's status is `completed` before creating a child
 incremental backup that names it as `--parent`:
 
 ```bash
