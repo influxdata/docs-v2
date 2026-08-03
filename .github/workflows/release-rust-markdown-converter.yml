@@ -45,6 +45,19 @@ jobs:
             --profile minimal --no-self-update "$RUST_CHANNEL"
           "$HOME/.cargo/bin/rustup" default "$RUST_CHANNEL"
 
+      - name: Verify release version
+        run: |
+          EXPECTED_VERSION="v$(node -p 'require("./scripts/rust-markdown-converter/package.json").version')"
+          if [ "${{ github.event_name }}" = workflow_dispatch ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/rust-markdown-converter-}"
+          fi
+          if [ "$VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "Release version $VERSION does not match package version $EXPECTED_VERSION"
+            exit 1
+          fi
+
       - name: Build and test converter
         run: |
           node scripts/build-rust-converter.js

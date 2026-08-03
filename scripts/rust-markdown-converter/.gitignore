@@ -4,3 +4,4 @@ node_modules/
 .cargo/
 *.d.ts
 index.js
+.prebuilt-version

@@ -153,12 +153,16 @@ jobs:
       id-token: write # required for AWS OIDC
     env:
       PREVIEW_BASE_URL: https://test2.docs.influxdata.com/pr-preview/pr-${{ github.event.number }}/
-      RUST_MARKDOWN_CONVERTER_VERSION: v0.1.0
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
+
+      - name: Set Rust markdown converter version
+        run: |
+          VERSION=$(node -p "require('./scripts/rust-markdown-converter/package.json').version")
+          echo "RUST_MARKDOWN_CONVERTER_VERSION=v$VERSION" >> "$GITHUB_ENV"
 
       - name: Download pinned Rust markdown converter
         id: rust-converter
