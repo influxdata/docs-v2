@@ -17,7 +17,7 @@ tags:
       1. Check the status of your InfluxDB 3 Cloud instance.
 
          ```bash
-         curl "https://cluster-host.a.influxdb.io/health" \
+         curl "https://cluster-host.a.influxdb.io/ping" \
             --header "Authorization: Bearer AUTH_TOKEN"
          ```
 

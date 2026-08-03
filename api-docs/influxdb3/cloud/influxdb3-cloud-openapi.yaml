@@ -680,31 +680,6 @@ paths:
         Deletes a token.
       tags:
         - Token
-  /health:
-    get:
-      operationId: GetHealth
-      responses:
-        '200':
-          description: Service is running. Returns `OK`.
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: OK
-        '401':
-          description: Unauthorized. Authentication is required.
-        '500':
-          description: Service is unavailable.
-      summary: Health check
-      description: |
-        Checks the status of the service.
-
-        Returns `OK` if the service is running. This endpoint does not return version information.
-        Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
-
-        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Cloud.
-      tags:
-        - Server information
   /ping:
     get:
       operationId: GetPing
