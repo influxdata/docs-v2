@@ -73,8 +73,11 @@ function downloadPrebuilt() {
   const release = `rust-markdown-converter-${prebuiltVersion}`;
   const releaseUrl = `https://github.com/influxdata/docs-v2/releases/download/${release}`;
   const assetPath = path.join(pkgDir, target.asset);
+  const loaderAsset = 'rust-markdown-converter-loader.js';
+  const loaderAssetPath = path.join(pkgDir, loaderAsset);
   const checksumPath = path.join(pkgDir, 'checksums.txt');
   const outputPath = path.join(pkgDir, target.output);
+  const loaderOutputPath = path.join(pkgDir, 'index.js');
 
   try {
     execFileSync('curl', [
@@ -100,25 +103,52 @@ function downloadPrebuilt() {
       '--max-time',
       '30',
       '--output',
+      loaderAssetPath,
+      `${releaseUrl}/${loaderAsset}`,
+    ]);
+    execFileSync('curl', [
+      '--fail',
+      '--location',
+      '--silent',
+      '--show-error',
+      '--connect-timeout',
+      '5',
+      '--max-time',
+      '30',
+      '--output',
       checksumPath,
       `${releaseUrl}/checksums.txt`,
     ]);
 
-    const expectedChecksum = readFileSync(checksumPath, 'utf8')
-      .split('\n')
-      .find((line) => line.endsWith(`  ${target.asset}`))
-      ?.split(/\s+/)[0];
-    const actualChecksum = createHash('sha256')
-      .update(readFileSync(assetPath))
-      .digest('hex');
-    if (!expectedChecksum || actualChecksum !== expectedChecksum) {
-      throw new Error(`checksum verification failed for ${target.asset}`);
+    const checksums = new Map(
+      readFileSync(checksumPath, 'utf8')
+        .trim()
+        .split('\n')
+        .map((line) => {
+          const [checksum, asset] = line.split(/\s{2,}/);
+          return [asset, checksum];
+        })
+    );
+    for (const [asset, assetFile] of [
+      [target.asset, assetPath],
+      [loaderAsset, loaderAssetPath],
+    ]) {
+      const actualChecksum = createHash('sha256')
+        .update(readFileSync(assetFile))
+        .digest('hex');
+      if (checksums.get(asset) !== actualChecksum) {
+        throw new Error(`checksum verification failed for ${asset}`);
+      }
     }
 
     renameSync(assetPath, outputPath);
-    writeFileSync(prebuiltVersionPath, `${prebuiltVersion}\n`);
-    console.log(`✓ Downloaded Rust markdown converter ${prebuiltVersion}`);
-    return usePrebuilt();
+    renameSync(loaderAssetPath, loaderOutputPath);
+    if (usePrebuilt()) {
+      writeFileSync(prebuiltVersionPath, `${prebuiltVersion}\n`);
+      console.log(`✓ Downloaded Rust markdown converter ${prebuiltVersion}`);
+      return true;
+    }
+    return false;
   } catch (error) {
     console.warn(
       `⚠ Could not download Rust markdown converter ${prebuiltVersion}; rebuilding it: ${error.message}`
@@ -126,6 +156,7 @@ function downloadPrebuilt() {
     return false;
   } finally {
     rmSync(assetPath, { force: true });
+    rmSync(loaderAssetPath, { force: true });
     rmSync(checksumPath, { force: true });
   }
 }

@@ -24,9 +24,11 @@ jobs:
           - os: ubuntu-latest
             asset: rust-markdown-converter-linux-x86_64-gnu.node
             output: index.linux-x64-gnu.node
+            include-loader: true
           - os: macos-14
             asset: rust-markdown-converter-darwin-arm64.node
             output: index.darwin-arm64.node
+            include-loader: false
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -68,12 +70,23 @@ jobs:
           mkdir release-assets
           cp scripts/rust-markdown-converter/${{ matrix.output }} \
             release-assets/${{ matrix.asset }}
+          if [ "${{ matrix.include-loader }}" = "true" ]; then
+            cp scripts/rust-markdown-converter/index.js \
+              release-assets/rust-markdown-converter-loader.js
+          fi
 
       - name: Upload release asset
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: ${{ matrix.asset }}
           path: release-assets/${{ matrix.asset }}
+
+      - name: Upload generated module loader
+        if: matrix.include-loader
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: rust-markdown-converter-loader
+          path: release-assets/rust-markdown-converter-loader.js
 
   release:
     needs: build
@@ -89,7 +102,8 @@ jobs:
         run: |
           (
             cd release-assets
-            sha256sum rust-markdown-converter-*.node > checksums.txt
+            sha256sum rust-markdown-converter-*.node \
+              rust-markdown-converter-loader.js > checksums.txt
           )
 
       - name: Determine release version
@@ -113,4 +127,5 @@ jobs:
             --title "Rust Markdown Converter $VERSION" \
             --notes "Prebuilt Rust N-API modules for docs-v2 CI." \
             release-assets/rust-markdown-converter-*.node \
+            release-assets/rust-markdown-converter-loader.js \
             release-assets/checksums.txt
