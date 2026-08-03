@@ -5,24 +5,10 @@
  * on machines without Rust. CI builds it explicitly (see .circleci/config.yml).
  */
 import { execFileSync } from 'node:child_process';
-import { createRequire } from 'node:module';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 const pkgDir = path.resolve('scripts/rust-markdown-converter');
-const require = createRequire(import.meta.url);
-
-if (process.env.RUST_MARKDOWN_CONVERTER_PREBUILT === 'true') {
-  try {
-    require(pkgDir);
-    console.log('✓ Using prebuilt Rust markdown converter');
-    process.exit(0);
-  } catch (error) {
-    console.warn(
-      `⚠ Prebuilt Rust markdown converter could not load; rebuilding it: ${error.message}`
-    );
-  }
-}
 
 function has(cmd) {
   try {
