@@ -113,7 +113,7 @@
 <link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7523/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes/" />
 
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/#software"},"articleSection":"Administration","dateModified":"2026-07-17T21:07:30-05:00","description":"Replace meta and data nodes in an InfluxDB Enterprise v1 cluster.","headline":"Replace InfluxDB Enterprise v1 cluster meta nodes and data nodes","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes/","name":"Replace InfluxDB Enterprise v1 cluster meta nodes and data nodes"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","about":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/#software"},"articleSection":"Administration","dateModified":"2026-08-03T14:16:38-05:00","description":"Replace meta and data nodes in an InfluxDB Enterprise v1 cluster.","headline":"Replace InfluxDB Enterprise v1 cluster meta nodes and data nodes","inLanguage":"en","isPartOf":{"@id":"https://influxdata.github.io/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/#software"},"mainEntityOfPage":"https://influxdata.github.io/docs-v2/pr-preview/pr-7523/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes/","name":"Replace InfluxDB Enterprise v1 cluster meta nodes and data nodes"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@id":"https://www.influxdata.com/#organization","@type":"Organization","logo":"https://docs.influxdata.com/img/influx-logo-cubo-dark.png","name":"InfluxData","sameAs":["https://github.com/influxdata","https://hub.docker.com/u/influxdata","https://www.crunchbase.com/organization/influxdb","https://www.linkedin.com/company/influxdb","https://twitter.com/influxdb","https://www.youtube.com/@InfluxData","https://www.facebook.com/influxdb/"],"url":"https://www.influxdata.com"}</script>
     
@@ -184,7 +184,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-07-17 21:07:30 -0500 -0500">
+<meta name="last-modified" content="2026-08-03 14:16:38 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3743,15 +3743,15 @@ have options that facilitate the use of TLS.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
 </span></span><span class="line"><span class="cl">influxd-ctl -bind-tls remove-meta enterprise-meta-02:8091</span></span></code></pre></div>
-<div class="note block">
+<div class="block note">
+  
+  
   <p>If the cluster requires mutual TLS (mTLS), also pass a client certificate and key
 with <code>-cert</code> and <code>-key</code> (and <code>-ca-cert</code> to verify the meta node&rsquo;s certificate).
 For more information, see the
 <a href="/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags"><code>influxd-ctl</code> global flags</a>
 and <a href="/enterprise_influxdb/v1/administration/configure/security/enable_tls/#enable-mutual-tls-mtls">Enable mutual TLS (mTLS)</a>. <em>v1.13.0+</em></p>
-
 </div>
-
 <h4 id="curl--k"><code>curl -k</code></h4>
 <p><code>curl</code> natively supports TLS/SSL connections, but if using a self-signed certificate,
 pass the <code>-k</code>/<code>--insecure</code> flag to allow for &ldquo;insecure&rdquo; SSL connections.</p>
