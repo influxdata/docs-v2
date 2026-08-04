@@ -46,12 +46,8 @@ v2: # Path to v2 equivalent page
 alt_links: # Alternate pages in other products/versions for cross-product navigation
   cloud-dedicated: /influxdb3/cloud-dedicated/path/to/page/
   core: /influxdb3/core/path/to/page/
-prepend: # Prepend markdown content to an article (especially powerful with cascade)
-  block: # (Optional) Wrap content in a block style (note, warn, cloud)
-  content: # Content to prepend to article
-append: # Append markdown content to an article (especially powerful with cascade)
-  block: # (Optional) Wrap content in a block style (note, warn, cloud)
-  content: # Content to append to article
+prepend: # Markdown content to prepend to an article (especially powerful with cascade)
+append: # Markdown content to append to an article (especially powerful with cascade)
 metadata: [] # List of metadata messages to include under the page h1
 updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 source: # Specify a file to pull page content from (typically in /content/shared/)
@@ -212,13 +208,29 @@ Supported product keys for InfluxDB 3:
 ### Prepend and Append
 
 Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
-Each has the following fields:
+Assign a Markdown string to either field.
+The string is rendered as Markdown, so it can contain
+[callouts](DOCS-SHORTCODES.md#notes-and-warnings), headings, links, and other
+Markdown syntax.
 
 ```yaml
 append: |
   > [!Note]
   > #### This is example markdown content
   > This is just an example note block that gets appended to the article.
+```
+
+`prepend` also accepts a map with the following optional fields:
+
+- **title**: Heading text rendered as an `h2` above the prepended content
+- **content**: Markdown content to prepend to the article
+
+```yaml
+prepend:
+  title: Deprecation notice
+  content: |
+    > [!Warning]
+    > This feature is deprecated and will be removed in a future release.
 ```
 
 Use this frontmatter with [cascade](#cascade) to add the same content to
@@ -231,6 +243,14 @@ cascade:
     > #### This is example markdown content
     > This is just an example note block that gets appended to the article.
 ```
+
+> [!Note]
+> #### Prepended and appended content appears in Markdown twins
+>
+> `prepend` and `append` content renders inside the page article element, so it
+> is included in the page's Markdown twin (`index.md`) and in per-product
+> `llms-full.txt` corpora.
+> See [LLM Markdown generation](DOCS-DEPLOYING.md#llm-markdown-generation).
 
 ### Cascade
 

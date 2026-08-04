@@ -30,7 +30,7 @@ Before upgrading your {{% product-name %}} cluster, review the [release notes](/
 > Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
 > Restoring these objects is the only way to roll back to 3.9.x.
 >
-> {{% show-in "enterprise" %}}If you have enabled the storage engine upgrade (`--use-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
 
 ### Verify your current version
 
@@ -247,7 +247,7 @@ docker pull influxdb:enterprise
 docker run -d \
   --name CONTAINER_NAME \
   -p 8181:8181 \
-  -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com \
+  -e INFLUXDB3_LICENSE_EMAIL=your-email@example.com \
   -v ~/.influxdb3/data:/var/lib/influxdb3/data \
   influxdb:enterprise \
   influxdb3 serve \

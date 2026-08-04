@@ -65,6 +65,7 @@ const BUILD_DIR = '_build';
 const PRODUCT_DIRS = [
     'influxdb3/core',
     'influxdb3/enterprise',
+    'influxdb3/cloud',
     'influxdb3/cloud-dedicated',
     'influxdb3/cloud-serverless',
     'influxdb3/clustered',

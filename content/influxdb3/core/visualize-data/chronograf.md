@@ -77,7 +77,7 @@ chronograf
       http://{{< influxdb/host >}}
       ```
 
-    - **Connection Name:** Name to uniquely identify this connection configuration
+    - **Connection Name:** A name that uniquely identifies this connection configuration
     - **Database Token:** InfluxDB {{% token-link "database" %}}
       with read permissions on the database you want to query
     - **Telegraf Database Name:** InfluxDB [database](/influxdb3/core/admin/databases/)
