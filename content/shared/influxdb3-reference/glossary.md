@@ -786,6 +786,21 @@ An InfluxDB query returns time series data.
 
 See [Query data in InfluxDB](/influxdb3/version/query-data/).
 
+{{% show-in "enterprise" %}}
+### query group
+
+An operator-defined, ordered list of query nodes in an InfluxDB 3 Enterprise
+cluster.
+Each query group has a name and a replication factor.
+Query groups are intended to define how query nodes participate in
+distributed query processing, but aren't yet operational as of v3.11--the
+CLI commands store query group definitions in the catalog, but the server
+doesn't use them to affect query routing, data placement, or replication.
+
+The order of query nodes in a group is significant.
+When you create or update a group, provide node IDs in the intended order.
+{{% /show-in %}}
+
 ### query plan
 
 A sequence of steps (_nodes_) that the InfluxDB Querier devises and executes to calculate the result of the query in the least amount of time.

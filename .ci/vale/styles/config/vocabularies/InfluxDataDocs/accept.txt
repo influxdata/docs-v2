@@ -1,4 +1,5 @@
 (?i)AS \w+
+(?i)anonymiz\w*
 (InfluxQL|influxql)
 (tsm|TSM)
 (xpath|XPath)

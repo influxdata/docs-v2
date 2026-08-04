@@ -22,6 +22,10 @@ influxdb3 create <SUBCOMMAND>
 | [table](/influxdb3/version/reference/cli/influxdb3/create/table/)                   | Create a new table in a database                |
 | [token](/influxdb3/version/reference/cli/influxdb3/create/token/)                   | Create a new authentication token               |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/create/trigger/)               | Create a new trigger for the processing engine  |
+<!-- query_group is not yet operational in v3.11 (page in draft); restore this row when it ships
+| [query_group](/influxdb3/version/reference/cli/influxdb3/create/query_group/)       | Create a new distributed query group            |
+-->
+| query_group                                                                         | Create a new distributed query group (not yet operational) |
 | help                                                                                | Print command help or the help of a subcommand  |
 {{% /show-in %}}
 

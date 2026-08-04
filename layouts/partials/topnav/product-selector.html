@@ -63,7 +63,7 @@ Identify products by their product path. Dictionary schema:
   {{ $isCurrentProduct := in $.context.RelPermalink .productPath }}
   {{ $link := cond (ne $specialLink "") $specialLink (cond .useRootProductLink (print "/" .productPath "/") (cond (isset .altLinks $productAltLinkKey) (index .altLinks $productAltLinkKey) (cond $defaultAltProductPageExists $defaultAltProductPage.RelPermalink (print "/" .productPath "/")))) }}
   {{ $state := .state | default "" }}
-  <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ $productName }}{{ if ne $state ""}} <span class="state">{{ $state }}</span>{{ end }}</a>
+  <a data-product-link-scope="selector" data-product-path="{{ .productPath }}" href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ $productName }}{{ if ne $state ""}} <span class="state">{{ $state }}</span>{{ end }}</a>
 {{ end }}
 
 {{ $templateDefaults := dict "context" . "productInfo" $productInfo "altLinks" $altLinks "pageRoot" $pageRoot "useRootProductLink" $useRootProductLink }}
@@ -122,4 +122,3 @@ Identify products by their product path. Dictionary schema:
     </div>
   </div>
 </div>
-
