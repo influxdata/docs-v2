@@ -214,7 +214,7 @@ mkdir -p loadcap-inspect
 tar -xzf "$PROFILE_ID.tar.gz" -C loadcap-inspect
 ```
 
-Inspect the anonymized catalog:
+For a `write` or `both` capture, inspect the anonymized catalog:
 
 ```bash
 jq . loadcap-inspect/catalog.json
