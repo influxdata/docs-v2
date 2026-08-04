@@ -16,6 +16,8 @@ This guide walks you through the core workflow: creating a configuration,
 starting a Telegraf agent using the configuration, and verifying that the agent
 reports back to {{% product-name %}}.
 
+{{< youtube "g-d3QnG05aw" >}}
+
 1. [Create an API token](#create-an-api-token)
 2. [Create a Telegraf configuration](#create-a-telegraf-configuration)
 3. [Start a Telegraf agent](#start-a-telegraf-agent)
