@@ -23,7 +23,8 @@ related:
 Load capture records an anonymized profile of write requests, query requests,
 or both from a running {{% product-name %}} cluster.
 InfluxData uses the profile to reproduce your workload and troubleshoot write
-or query performance without receiving your raw data.
+or query performance while limiting exposure to the identifiers and values that
+load capture anonymizes.
 
 A capture anonymizes database names, table names, tag keys, tag values, field
 names, string and binary field values, and non-time query literals before
