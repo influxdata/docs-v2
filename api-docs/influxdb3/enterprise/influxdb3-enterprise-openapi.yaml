@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:b2f4a4da437fb5797a2908f6ed642a7ef9d2f59e75e2383341e2929f8ff404e1
+  x-source-hash: sha256:d0a62a892334fbe16b4a8d816a99bc02e5454f3232c270d33c8af09bab4360a5
   x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -234,6 +234,17 @@ tags:
     x-related:
       - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
         href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
+  - name: Query groups
+    description: >
+      Manage distributed query groups--named sets of query nodes that InfluxDB 3 Enterprise load-balances queries
+      across.
+
+
+      > **Not yet operational**: These endpoints work and store query group definitions in the catalog, but InfluxDB 3
+      Enterprise doesn't yet use those definitions to affect query routing, data placement, or replication.
+    x-related:
+      - title: Configure query groups
+        href: /influxdb3/enterprise/admin/query-groups/
   - name: Quick start
     description: >
       1. [Create an admin token](#section/Authentication) to authorize API requests.
@@ -1888,6 +1899,292 @@ paths:
           description: Node not found.
       tags:
         - Server information
+        - Enterprise
+  /api/v3/enterprise/configure/node/remove:
+    post:
+      operationId: PostEnterpriseConfigureNodeRemove
+      summary: Permanently remove a stopped node
+      description: >-
+        Permanently removes a node that has already been marked as stopped, deleting its data from object storage once
+        the compactor finishes reassigning its work.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 remove node](/influxdb3/enterprise/reference/cli/influxdb3/remove/node/)
+
+        - [influxdb3 stop node](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RemoveNodeRequest"
+      responses:
+        "200":
+          description: Success. The node has been removed.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Node not found.
+        "409":
+          description: The node is not in a state that allows removal (for example, still running).
+      tags:
+        - Server information
+        - Enterprise
+  /api/v3/enterprise/configure/query_groups:
+    post:
+      operationId: PostEnterpriseConfigureQueryGroups
+      summary: Create a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 create query_group](/influxdb3/enterprise/reference/cli/influxdb3/create/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "201":
+          description: Created. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query groups
+        - Enterprise
+    get:
+      operationId: GetEnterpriseConfigureQueryGroups
+      summary: List distributed query groups (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 show query_groups](/influxdb3/enterprise/reference/cli/influxdb3/show/query_groups/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query groups
+        - Enterprise
+  /api/v3/enterprise/configure/query_groups/{id}:
+    get:
+      operationId: GetEnterpriseConfigureQueryGroupsById
+      summary: Retrieve a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    put:
+      operationId: PutEnterpriseConfigureQueryGroupsById
+      summary: Replace a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 update query_group](/influxdb3/enterprise/reference/cli/influxdb3/update/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    patch:
+      operationId: PatchEnterpriseConfigureQueryGroupsById
+      summary: Update a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 update query_group](/influxdb3/enterprise/reference/cli/influxdb3/update/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    delete:
+      operationId: DeleteEnterpriseConfigureQueryGroupsById
+      summary: Delete a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 delete query_group](/influxdb3/enterprise/reference/cli/influxdb3/delete/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success. The query group has been deleted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
         - Enterprise
   /api/v3/enterprise/configure/table/retention_period:
     post:
@@ -4471,16 +4768,25 @@ components:
           type: string
         plugin_filename:
           type: string
-          description: |
+          description: >
             The path and filename of the plugin to execute--for example,
+
             `schedule.py` or `endpoints/report.py`.
+
             The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
+
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
 
-            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
-            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
-            For defaults, fetch behavior, and limitations, see [Use example plugins](/influxdb3/enterprise/plugins/#use-example-plugins).
+
+            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of
+            reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+
+            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw
+            plugin files.
+
+            For defaults, fetch behavior, and limitations, see [Use example
+            plugins](/influxdb3/enterprise/plugins/#use-example-plugins).
         node_spec:
           $ref: "#/components/schemas/ApiNodeSpec"
         trigger_name:
@@ -5053,6 +5359,24 @@ components:
         node_id:
           type: string
           description: The ID of the node to mark as stopped.
+      required:
+        - node_id
+      example:
+        node_id: node-1
+    RemoveNodeRequest:
+      type: object
+      description: Request body for permanently removing a stopped node from the cluster.
+      properties:
+        node_id:
+          type: string
+          description: The ID of the node to remove.
+        force_finalize:
+          type: boolean
+          description: >-
+            Force-finalize a node stuck in the `Stopping` state (for example, after a crash that never acknowledged the
+            stop). This can delete unsnapshotted WAL data for that node — only use it when the node's process is
+            confirmed gone and you accept the data-loss risk.
+          default: false
       required:
         - node_id
       example:
