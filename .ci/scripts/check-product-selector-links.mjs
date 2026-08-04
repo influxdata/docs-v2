@@ -36,10 +36,14 @@ for (const match of html.matchAll(/<a\b([^>]*)>/gi)) {
     attrs['data-product-path'] &&
     attrs['data-product-link-scope']
   ) {
-    const links =
-      attrs['data-product-link-scope'] === 'selector'
-        ? selectorLinks
-        : homeLinks;
+    const scope = attrs['data-product-link-scope'];
+    if (scope !== 'selector' && scope !== 'homepage') {
+      console.error(
+        `Unsupported data-product-link-scope ${JSON.stringify(scope)}.`
+      );
+      process.exit(1);
+    }
+    const links = scope === 'selector' ? selectorLinks : homeLinks;
     const productPath = attrs['data-product-path'];
     if (links.has(productPath)) {
       console.error(`Duplicate product link for ${productPath}.`);
