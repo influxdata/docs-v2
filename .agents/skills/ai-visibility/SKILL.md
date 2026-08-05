@@ -77,20 +77,21 @@ source file. Three gotchas that produce false findings if skipped:
   misses `<link rel=canonical ...>`. Match with quote-tolerant patterns
   (for example `<link[^>]*canonical[^>]*>`) or you will report present
   metadata as missing.
-- **Check preview AND production before calling something a bug.** Preview
-  builds produce artifacts that don't exist in production (wrong base URLs,
-  broken product-name resolution, missing generated files). A finding that
-  only reproduces in preview is a preview limitation, not a content bug.
+- **Check preview AND production before calling something a bug.** See
+  [PR Preview](../../../DOCS-DEPLOYING.md#pr-preview) for deployment behavior
+  and known parity gaps. Its advertised Markdown twins 404, so check twin
+  fidelity on production or staging. Other preview-only defects need
+  investigation; don't dismiss them as expected prefix behavior.
 
 For each page, capture:
 
-| Surface | What to check |
-| --- | --- |
-| `<head>` | `<title>`, meta description, `<link rel=canonical>`, `<link rel=alternate type=text/markdown>` |
-| JSON-LD | Which `@type` nodes exist, and whether `@id` references resolve (entity graph coherence) |
-| Headings | h2/h3 hierarchy, stable anchor ids, question-shaped phrasing |
-| Markdown twin | Exists? Served as `text/markdown`? Conversion quality (see Step 3, RAG) |
-| robots / noindex | Anything blocking AI crawlers from this path |
+| Surface          | What to check                                                                                  |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| `<head>`         | `<title>`, meta description, `<link rel=canonical>`, `<link rel=alternate type=text/markdown>` |
+| JSON-LD          | Which `@type` nodes exist, and whether `@id` references resolve (entity graph coherence)       |
+| Headings         | h2/h3 hierarchy, stable anchor ids, question-shaped phrasing                                   |
+| Markdown twin    | Exists? Served as `text/markdown`? Conversion quality (see Step 3, RAG)                        |
+| robots / noindex | Anything blocking AI crawlers from this path                                                   |
 
 ### Frontmatter and SEO signals
 
@@ -163,9 +164,9 @@ serves four consumers with different needs and different latencies:
 
 - Are examples self-contained and runnable — imports and auth visible, no
   "as in the previous example"? Instruction-tuning corpora favor
-  Q&A-shaped sections and copy-adaptable code.
+  Q\&A-shaped sections and copy-adaptable code.
 - Do placeholders follow a consistent, machine-recognizable convention
-  (UPPER_SNAKE tokens with replace-instructions)?
+  (UPPER\_SNAKE tokens with replace-instructions)?
 
 ### RAG / retrieval (weeks; the layer you can move now)
 
