@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Use configurations
     parent: Manage configurations
-weight: 104
+weight: 106
 ---
 
 Use Telegraf Controller to centralize management of your Telegraf configurations
