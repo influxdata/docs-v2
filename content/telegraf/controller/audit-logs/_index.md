@@ -36,6 +36,9 @@ and demonstrate compliance with internal or external policies.
 - **Agent lifecycle**: agent registration, status transitions (such as
   moving in and out of the **not reporting** state), and agent deletion
   (manual deletions and removals driven by reporting-rule retention).
+- **Configuration lifecycle**: configuration creation, updates, and deletion,
+  and [configuration version](/telegraf/controller/configs/versions/)
+  operations (rollbacks, change note updates, and version pruning).
 
 Each entry records:
 

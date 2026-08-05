@@ -31,6 +31,10 @@ plugins.
     Telegraf configuration TOML.
 5.  Click **Create Configuration**.
 
+When you create a configuration, {{% product-name %}} records it as the first
+version in the configuration's
+[version history](/telegraf/controller/configs/versions/).
+
 ### Use the Code Editor
 
 The {{% product-name %}} **Code Editor** is an in-browser TOML editor that lets
