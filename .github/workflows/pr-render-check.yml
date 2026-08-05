@@ -42,6 +42,7 @@ jobs:
         with:
           build-rust: 'false'
           build-api-docs: 'false'
+          hugo-base-url: 'https://test2.docs.influxdata.com/pr-preview/pr-link-check/'
           hugo-quiet: 'true'
 
       - name: Scan built HTML for render artifacts
@@ -49,6 +50,9 @@ jobs:
 
       - name: Assert no test fixtures shipped to production
         run: .ci/scripts/check-no-test-fixtures.sh public
+
+      - name: Check homepage product links match the product selector
+        run: node .ci/scripts/check-product-selector-links.mjs public/index.html
 
   cypress-render:
     name: Cypress render-regression spec

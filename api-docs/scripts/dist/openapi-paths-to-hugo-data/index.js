@@ -140,6 +140,14 @@ function extractOperationsByTag(openapi) {
                 if (operation['x-compatibility-version']) {
                     opMeta.compatVersion = operation['x-compatibility-version'];
                 }
+                // Extract non-standard lifecycle state if present
+                if (operation['x-lifecycle']) {
+                    opMeta.lifecycle = operation['x-lifecycle'];
+                }
+                // Extract standard deprecated flag if present
+                if (operation.deprecated) {
+                    opMeta.deprecated = true;
+                }
                 // Extract externalDocs if present
                 if (operation.externalDocs) {
                     opMeta.externalDocs = {
@@ -655,6 +663,8 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
                 summary: op.summary,
                 tags: op.tags,
                 ...(op.compatVersion && { compatVersion: op.compatVersion }),
+                ...(op.lifecycle && { lifecycle: op.lifecycle }),
+                ...(op.deprecated && { deprecated: op.deprecated }),
                 ...(op.externalDocs && { externalDocs: op.externalDocs }),
             })),
         },
@@ -773,6 +783,14 @@ function writeOpenapiTagArticleData(sourcePath, targetPath, openapi, opts) {
                         // Extract compatibility version if present
                         if (operation['x-compatibility-version']) {
                             opMeta.compatVersion = operation['x-compatibility-version'];
+                        }
+                        // Extract non-standard lifecycle state if present
+                        if (operation['x-lifecycle']) {
+                            opMeta.lifecycle = operation['x-lifecycle'];
+                        }
+                        // Extract standard deprecated flag if present
+                        if (operation.deprecated) {
+                            opMeta.deprecated = true;
                         }
                         // Extract externalDocs if present
                         if (operation.externalDocs) {

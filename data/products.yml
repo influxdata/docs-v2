@@ -12,7 +12,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.10.5
+  latest_patch: 3.11.0
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -57,7 +57,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.10.5
+  latest_patch: 3.11.0
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -396,7 +396,7 @@ telegraf_controller:
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
   latest: 1.0
-  latest_patch: 1.0.1
+  latest_patch: 1.0.2
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"

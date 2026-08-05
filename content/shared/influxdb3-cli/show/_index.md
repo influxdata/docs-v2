@@ -25,6 +25,10 @@ Additional {{% product-name %}} subcommands:
 | :--------------------------------------------------------------------| :----------------------------- |
 | [license](/influxdb3/version/reference/cli/influxdb3/show/license/) | Display license information  |
 | [nodes](/influxdb3/version/reference/cli/influxdb3/show/nodes/)     | Display node information     |
+<!-- query_groups is not yet operational in v3.11 (page in draft); restore this row when it ships
+| [query_groups](/influxdb3/version/reference/cli/influxdb3/show/query_groups/) | List distributed query groups |
+-->
+| query_groups | List distributed query groups (not yet operational) |
 {{% /show-in %}}
 
 ## Options
