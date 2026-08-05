@@ -17,6 +17,9 @@ The **Telegraf Builder** is a visual interface for managing and configuring
 Telegraf plugins in a configuration. The builder is available when creating or
 updating a configuration.
 
+To expand the builder to fill your browser window while you work, use
+[focus mode](/telegraf/controller/configs/ui/#focus-mode).
+
 > [!Important]
 > #### The Telegraf Builder is a beta feature
 >

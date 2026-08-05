@@ -20,6 +20,9 @@ Telegraf configuration TOML.
 The Code Editor is the default view when managing a configuration. If it is not
 displayed, click the **Code Editor** tab.
 
+To expand the editor to fill your browser window while you work, use
+[focus mode](/telegraf/controller/configs/ui/#focus-mode).
+
 > [!Important]
 > #### Switching from the Code Editor to the Telegraf Builder
 > 
