@@ -1,0 +1,62 @@
+name: Verify AI artifacts
+
+on:
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'data/**'
+      - 'layouts/**'
+      - 'config/**'
+      - 'api-docs/**'
+      - 'openapi/**'
+      - 'scripts/build-ai-artifacts.js'
+      - 'scripts/build-llm-markdown.js'
+      - 'scripts/build-llms-full-txt.js'
+      - 'scripts/check-jsonld-links.js'
+      - 'scripts/check-md-alternate-coherence.js'
+      - 'scripts/lib/**'
+      - 'scripts/rust-markdown-converter/**'
+      - '.github/actions/build-docs-site/**'
+      - '.github/actions/setup-docs-env/**'
+      - '.github/workflows/pr-ai-artifacts-check.yml'
+      - 'package.json'
+      - 'yarn.lock'
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build and verify AI artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup docs environment
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      - name: Build API docs and Hugo site
+        uses: ./.github/actions/build-docs-site
+        with:
+          hugo-base-url: 'https://docs.influxdata.com/'
+          hugo-gc: 'true'
+          hugo-quiet: 'true'
+
+      - name: Generate AI discovery artifacts and Markdown twins
+        run: |
+          yarn build:ai-artifacts --public-dir public
+          yarn build:md --public-dir public
+          yarn build:llms-full --public-dir public
+
+      - name: Verify Markdown artifacts
+        run: |
+          yarn check:md-coherence --public-dir public
+          PUBLIC_DIR=public yarn test:markdown-completeness
+
+      - name: Verify JSON-LD entity links
+        run: node scripts/check-jsonld-links.js --public-dir public
