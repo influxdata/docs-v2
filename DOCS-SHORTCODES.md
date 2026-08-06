@@ -616,6 +616,37 @@ The following case insensitive values are supported:
 - settings
 - feedback
 
+### Lucide icons
+
+Use the `lucide` shortcode to inject an icon from the
+[Lucide](https://lucide.dev/icons) library into paragraph text---for example,
+to reference a control in a product UI that uses Lucide icons. Both the Telegraf
+Controller and InfluxDB 3 Explorer UIs use Lucide icons. Any icon name listed at
+[lucide.dev/icons](https://lucide.dev/icons) works; the shortcode inlines the
+SVG, so only the icons you reference are included in the build.
+
+Because Hugo doesn't allow mixing positional and named parameters in a single
+shortcode call, use the positional form for a bare icon and the named form
+when you add a size:
+
+```md
+Click {{< lucide "circle-plus" >}} to add a plugin.
+
+Status {{< lucide icon="circle-check" size="large" >}} indicates success.
+```
+
+Parameters:
+
+- **icon** (or the first positional argument): the Lucide icon name in
+  kebab-case, exactly as listed at lucide.dev/icons.
+- **size**: `small` or `large`. Defaults to the surrounding text size (1em).
+  Named form only.
+
+Icons are decorative (hidden from screen readers with `aria-hidden`), so pair
+each icon with the text that names the control. Icons inherit the surrounding
+text color (including dark mode). An unknown icon name renders nothing and logs
+a build warning.
+
 ## Content Formatting
 
 ### Truncated content blocks
