@@ -26,14 +26,14 @@ Remove individual or multiple Telegraf agents from {{% product-name %}}.
 ## Delete a single agent
 
 1.  In **Agents**, find the agent you want to remove.
-2.  Click the **More button ({{% icon "tc-more" %}})** and select
-    **{{% icon "trash" %}} Delete Agent**.
+2.  Click the **More button ({{% lucide "ellipsis-vertical" %}})** and select
+    **{{% lucide "trash-2" %}} Delete Agent**.
 3.  Confirm the deletion.
 
 ## Delete multiple agents
 
 1.  In **Agents**, select the checkboxes for the agents you want to remove.
-2.  Select **{{% icon "trash" %}} Delete Agents**.
+2.  Select **{{% lucide "trash-2" %}} Delete Agents**.
 3.  Confirm the deletion.
 
 ## Automatically delete agents

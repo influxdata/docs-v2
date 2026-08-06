@@ -237,7 +237,7 @@ Group-to-role mappings translate values from the OIDC groups claim into
 
 1. On the **Settings** page, scroll to **OIDC Authentication >
    Group role mappings**.
-2. Click **Add mapping** and provide:
+2. Click **{{% lucide "plus" %}} Add Mapping** and provide:
    - **Provider ID**: a label that identifies the OIDC provider
      instance. Use the default `default` unless you run multiple
      providers.

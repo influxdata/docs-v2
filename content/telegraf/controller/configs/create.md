@@ -24,7 +24,7 @@ plugins.
 
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar. 
-2.  Click **{{% icon "plus" %}} Add Config**.
+2.  Click **{{% lucide "plus" %}} Add Config**.
 3.  Enter a configuration name and optional description.
 4.  Use the {{% product-name %}} [Code Editor](#use-the-code-editor) or
     [Telegraf Builder](#use-the-telegraf-builder) to provide or build the

@@ -49,7 +49,7 @@ in the builder grouped by plugin type.
 
 - **Search plugins**: Use the search bar in the Plugin Library pane to search
   for Telegraf plugins. Search by plugin name, identifier, or description.
-- **Add plugins to your configuration**: Click **{{% icon "plus" %}}** next to the
+- **Add plugins to your configuration**: Click **{{% lucide "plus" %}}** next to the
   plugin to add it to your configuration.
 
 ## Configuration pane
@@ -83,7 +83,7 @@ required and only need to be included in a configuration when set.
 
 1.  On the **Global Tags** card, enable the
     **{{% icon "toggle" %}} Include in config** toggle.
-2.  Click **{{% icon "plus" %}} Add Global Tag**.
+2.  Click **{{% lucide "plus" %}} Add Global Tag**.
 3.  Provide a key and a value for the global tag.
 4.  Repeat steps 2-3 for additional global tags.
 
@@ -132,5 +132,5 @@ For more information about using Telegraf plugin filters, see
 
 #### Remove a plugin from the configuration
 
-To remove a plugin from the configuration, click the **{{% icon "trash" %}}**
+To remove a plugin from the configuration, click the **{{% lucide "trash-2" %}}**
 icon on the plugin card.

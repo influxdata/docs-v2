@@ -57,19 +57,19 @@ The version history table includes the following for each version:
 - **Change Note**: the description provided when the version was saved.
 
 To view the full TOML content stored in a version, click the
-**More button ({{% icon "tc-more" %}})** in the version's row and select
-**{{% icon "eye" %}} View/Edit**.
+**More button ({{% lucide "ellipsis-vertical" %}})** in the version's row and select
+**{{% lucide "eye" %}} View/Edit**.
 
 ## Update a change note
 
-1.  In the version's row, click the **More button ({{% icon "tc-more" %}})**
-    and select **{{% icon "eye" %}} View/Edit**.
+1.  In the version's row, click the **More button ({{% lucide "ellipsis-vertical" %}})**
+    and select **{{% lucide "eye" %}} View/Edit**.
 2.  Update the change note and confirm your changes.
 
 ## Compare versions
 
 1.  In the version history table, select exactly two versions.
-2.  Click **Compare**.
+2.  Click **{{% lucide "git-compare" %}} Compare**.
 
 The **Compare Versions** dialog displays a diff of the TOML content of the two
 versions, using the lower-numbered version as the base.
@@ -83,8 +83,8 @@ A rollback does not rewrite history: {{% product-name %}} creates a new
 version containing the restored content, with a change note that records
 which version it was restored from.
 
-1.  In the version's row, click the **More button ({{% icon "tc-more" %}})**
-    and select **Rollback**.
+1.  In the version's row, click the **More button ({{% lucide "ellipsis-vertical" %}})**
+    and select **{{% lucide "rotate-ccw" %}} Rollback**.
 2.  Review the confirmation and click **Confirm & Rollback**.
 
 You can roll back to any version except the version marked **Current**.
@@ -107,14 +107,14 @@ up old versions you no longer need. Pruning is permanent.
 
 ### Prune a single version
 
-1.  In the version's row, click the **More button ({{% icon "tc-more" %}})**
-    and select **Prune**.
+1.  In the version's row, click the **More button ({{% lucide "ellipsis-vertical" %}})**
+    and select **{{% lucide "trash-2" %}} Prune**.
 2.  Review the confirmation and click **Confirm & Prune**.
 
 ### Prune selected versions
 
 1.  In the version history table, select the versions to prune.
-2.  Click **Prune**.
+2.  Click **{{% lucide "trash-2" %}} Prune**.
 3.  Review the confirmation and click **Confirm & Prune**.
 
 If your selection includes the current version, {{% product-name %}} keeps
@@ -124,7 +124,7 @@ the current version and prunes the other selected versions.
 
 With no versions selected:
 
-1.  Click **Prune**.
+1.  Click **{{% lucide "trash-2" %}} Prune**.
 2.  Select a pruning criterion:
     - **Before version**: prune all versions before the version you select.
     - **Before date & time**: prune all versions created before the date and
