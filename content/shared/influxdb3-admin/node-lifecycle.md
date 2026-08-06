@@ -221,6 +221,15 @@ The stop proceeds in two phases:
 3. The node acknowledges the stop, reads as `stopped`, and its licensed cores
    are freed for other nodes.
 
+<!-- VERIFY (live instance): Does reaching `stopped` actually free licensed
+     cores for reuse by other nodes? Support case 00123680 (3.4.1) reported
+     cores were NOT freed by stopping a node, and case 00129706 (April 2026,
+     "Incorrect core count when updating deployment") suggests core accounting
+     issues persisted. This claim currently mirrors the published `stop node`
+     CLI page; if testing shows cores are only freed on `remove node` (or not
+     at all), correct BOTH pages. -->
+
+
 By default, the command waits for the node to reach `stopped`
 (up to `--timeout`, default `5m`).
 Use `--no-wait` to return as soon as the cluster accepts the request.
@@ -246,12 +255,69 @@ Use `--no-wait` to return as soon as the cluster accepts the request.
 > [removing a node](#remove-a-node), because removal purges the node's WAL
 > files.
 
-### Repeat a stop request safely
+### Stop a node that isn't running
 
-Requesting a stop for a node that's already `stopping`, `stopped`, or
-`removing` succeeds without changing the node's state (HTTP `200 OK`).
-Controllers and automation can retry a stop without treating the repeat as a
-conflict.
+Stopping a node that has already stopped returns HTTP `400 Bad Request`:
+
+<!--pytest-codeblocks:expected-output-->
+
+```
+tried to stop a node (NODE_ID) that is already stopped
+```
+
+The error is safe to ignore—it reports that the node reached the state you
+asked for.
+Automation that stops nodes should treat this response as success rather than
+retrying.
+
+<!-- VERIFY (live instance): Two catalog ops exist with OPPOSITE responses for
+     a non-running node. `StopNodeOp` returns NodeAlreadyStopped -> HTTP 400
+     ("tried to stop a node (X) that is already stopped"); `RequestStopNodeOp`
+     returns IdempotentNoOp -> HTTP 200 so controllers can retry safely.
+     The 400 above is what real users hit (case 00129706 via CLI, case 00130867
+     via POST /api/v3/enterprise/configure/node/stop), so it is documented here.
+     Confirm on a current build: (a) which path `influxdb3 stop node` uses now,
+     and (b) the response when the target is `stopping` or `removing` rather
+     than `stopped`. If the CLI now returns 200, replace this section with the
+     idempotent-retry guidance. -->
+
+<!-- VERIFY (live instance): Scaling down via the stop API has returned an
+     EMPTY reply (curl exit 52) even when the stop succeeded -- suspected race
+     where the server tears down before flushing the 200 (EAR #6744).
+     If reproducible, document that an empty reply does not mean the stop
+     failed, and tell automation to confirm via `show nodes` instead of
+     retrying. -->
+
+
+### Stop a node whose process is already gone
+
+`--host` doesn't have to point at the node you're stopping.
+To stop a node whose process is dead, send the request to a **running** node in
+the same cluster:
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="NODE_ID|RUNNING_NODE|ADMIN_TOKEN" }
+influxdb3 stop node \
+  --node-id NODE_ID \
+  --host http://RUNNING_NODE:8181 \
+  --token ADMIN_TOKEN
+```
+
+<!-- VERIFY (live instance): Confirm `stop node --host <other running node>`
+     works for a node whose process is dead. Support drove exactly this in case
+     00130867 (dead compactor blocking restarts) and said they verified the
+     sequence on a test cluster, but it is not covered by the published CLI
+     page. Also confirm the resulting state: EAR #7030 reports the node
+     transitions to `stopping` and NEVER reaches `stopped`, because no live
+     process completes the handshake -- if so, say that explicitly here. -->
+
+This clears a stale `running` entry that would otherwise keep the cluster
+expecting a node that never comes back.
+Remember that a dead process can't drain its WAL tail, so treat the node as
+crashed and follow
+[Recover a crashed node](/influxdb3/version/admin/recover-node/) before you
+remove it.
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
@@ -283,6 +349,56 @@ paths.
 Repeating a remove request for a node that's already `removing` succeeds
 without changing state (HTTP `200 OK`).
 
+### Removal completes on the compactor's schedule
+
+`removing` isn't instantaneous, and you can't force it to finish.
+The compactor drives removal: it waits until its per-node compaction floor
+passes the node's recorded final snapshot sequence, and only then deletes the
+node's object-store prefixes and purges the catalog entry.
+Nothing is deleted before it's absorbed.
+
+A node can therefore sit in `removing` for hours if the compactor is backed up,
+under-resourced, or restarting—this is the removal working as designed, waiting
+on compaction.
+Removing several nodes at once multiplies the backlog it has to absorb.
+
+If nodes aren't clearing, check the compactor before the nodes:
+
+<!-- VERIFY (live instance): Confirm the DATABASE for
+     `system.pt_compaction_nodes`. Internal notes describe querying it from any
+     querier with a read token using `db=<any-db>`, NOT specifically `_internal`
+     as written below -- fix the `--database` value if `_internal` is wrong.
+     Also confirm the column names (node_id, node_prefix,
+     last_snapshot_sequence, last_compacted_wal_sequence_number) and that this
+     table is NOT compactor-only (unlike system.pt_compaction_active_jobs and
+     system.pt_compaction_deferred_snapshots, which return
+     "400 ... is only available on compactors" through the normal query path).
+     If these tables are internal/unstable, consider dropping this example and
+     describing the symptom qualitatively instead. -->
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="AUTH_TOKEN" }
+# Compare each node's compaction floor against its snapshots
+influxdb3 query \
+  --database _internal \
+  --token AUTH_TOKEN \
+  "SELECT node_id, node_prefix, last_snapshot_sequence, \
+   last_compacted_wal_sequence_number FROM system.pt_compaction_nodes"
+```
+
+Nodes disappear from `show nodes` as each removal completes.
+
+> [!Warning]
+> #### Removal keeps the cluster expecting the node until it completes
+>
+> While a node is `removing`, its node ID can't be reclaimed—`removing` is
+> terminal.
+> A replacement that reuses the ID (for example, a StatefulSet pod recreated
+> with the same ordinal name) starts but is refused registration.
+> Keep your replica count pinned below the removing ordinals until removal
+> finishes.
+
 ### When removal is refused
 
 {{% product-name %}} refuses removal (HTTP `409 Conflict`) in the following
@@ -294,9 +410,6 @@ cases:
 | Node runs in `compact` mode     | `node 'NODE_ID' has compact mode and cannot be removed`                  | Compactor nodes can't be removed—see [Remove a compactor node](#remove-a-compactor-node)             |
 | Node belongs to a query group   | `cannot remove node 'NODE_ID' because it is a member of query group ...` | Remove the node from the query group first                                                          |
 | Unsnapshotted WAL remains       | `node 'NODE_ID' has unsnapshotted WAL (wal file N, snapshotted through M)` | Restart the node, stop it gracefully, then remove it—see [Recover a crashed node](/influxdb3/version/admin/recover-node/) |
-
-Trying to stop a node that's already stopped returns HTTP `400 Bad Request`
-with `tried to stop a node (NODE_ID) that is already stopped`.
 
 > [!Note]
 > #### The unsnapshotted WAL safeguard requires the upgraded storage engine
@@ -622,8 +735,43 @@ matches.
 See [When removal is refused](#when-removal-is-refused) for each condition and
 its resolution.
 Prefer restarting and gracefully stopping the node over
-[`--force-finalize`](/influxdb3/version/reference/cli/influxdb3/remove/node/#force-removal-of-a-node-that-did-not-shut-down-cleanly),
-which can delete unsnapshotted writes.
+[`--force-finalize`](/influxdb3/version/reference/cli/influxdb3/remove/node/#force-removal-of-a-node-that-did-not-shut-down-cleanly).
+Forcing removal discards the unsnapshotted writes the safeguard was protecting,
+and it starts an object-store cleanup for a node that never recorded a final
+snapshot.
+Restart the node, stop it gracefully, and then remove it.
+
+<!-- VERIFY (live instance) + PRODUCT DECISION: EAR #7030 (open, seen on
+     3.11.0) reports `remove node --force-finalize` against a zombie node
+     causing a SELF-PERPETUATING compactor panic loop
+     ("duplicate catalog subscription name: pt_compactor_restore") that kills
+     the node-removal driver, so removal never completes -- escalating in one
+     case to an unresponsive /health and a suspected deadlock.
+     If this is still reproducible on the current release, this warning is too
+     mild: `--force-finalize` on a node that never shut down cleanly can wedge
+     the cluster, not just lose writes. Decide with engineering whether to
+     document the stronger caution (and the
+     `grep 'duplicate catalog subscription'` compactor-log diagnostic) or wait
+     for the fix. -->
+
+
+### A node stays in removing
+
+Removal waits on the compactor, so a healthy cluster with a compaction backlog
+clears `removing` nodes slowly rather than never.
+See [Removal completes on the compactor's schedule](#removal-completes-on-the-compactors-schedule)
+for how to measure the remaining gap.
+
+Check whether the compactor is making progress at all before assuming the
+removal is stuck:
+
+- Confirm the compactor node is `running` and isn't restarting or being
+  OOM-killed.
+- Watch the compaction floors in `system.pt_compaction_nodes` advance between
+  queries.
+
+Don't scale a replacement node into a removing node's ID while you wait—the
+registration is refused until removal finishes.
 
 ### Nodes multiply in the catalog after each restart
 
