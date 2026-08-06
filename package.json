@@ -41,6 +41,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^15.14.0",
     "hugo-extended": "0.156.0",
+    "lucide-static": "^1.28.0",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
     "postcss": ">=8.5.23",
