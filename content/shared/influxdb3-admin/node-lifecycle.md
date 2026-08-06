@@ -255,7 +255,9 @@ Use `--no-wait` to return as soon as the cluster accepts the request.
 > [!Important]
 > #### Run stop node against the live node—don't kill it first
 >
-> `stop node` is how a node drains its WAL tail and records a final snapshot.
+> `stop node` is how a node drains its
+> [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail) and
+> records a final snapshot.
 > If you kill the process first and run `stop node` afterward, the dead process
 > can't drain anything, and
 > [removing the node](/influxdb3/version/reference/cli/influxdb3/remove/node/)
@@ -332,8 +334,9 @@ influxdb3 stop node \
 
 This clears a stale `running` entry that would otherwise keep the cluster
 expecting a node that never comes back.
-Remember that a dead process can't drain its WAL tail, so treat the node as
-crashed and follow
+Remember that a dead process can't drain its
+[WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail), so
+treat the node as crashed and follow
 [Recover a crashed node](/influxdb3/version/admin/recover-node/) before you
 remove it.
 {{% /show-in %}}
@@ -437,7 +440,8 @@ cases:
 > (the default for new clusters in {{% product-name %}} 3.11+).
 > Clusters on the Parquet engine, or still mid-upgrade, aren't guarded—on those
 > clusters, a graceful stop before removal is your only protection against
-> losing the WAL tail.
+> losing the
+> [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail).
 
 ### Remove a compactor node
 
@@ -540,7 +544,8 @@ Use a StatefulSet so pod names are stable and ordinal-based, and derive
 {{% show-in "enterprise" %}}
 The official
 [{{% product-name %}} Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-enterprise)
-does this already—it runs a StatefulSet per node mode and sets
+does this already—it runs a StatefulSet per
+[node mode](/influxdb3/version/admin/clustering/#configure-node-modes) and sets
 `--node-id=$(POD_NAME)` from `metadata.name`.
 {{% /show-in %}}
 {{% show-in "core" %}}
@@ -585,8 +590,10 @@ Never put
 in a `preStop` hook—it turns every rollout into a permanent decommission.
 
 **Sequence rollouts across node modes yourself.**
-The Helm chart runs a separate StatefulSet per node mode, but the image tag is a
-single chart-wide value, so one `helm upgrade` rolls every mode at once.
+The Helm chart runs a separate StatefulSet per
+[node mode](/influxdb3/version/admin/clustering/#configure-node-modes), but the
+image tag is a single chart-wide value, so one `helm upgrade` rolls every mode
+at once.
 Kubernetes doesn't order rollouts across StatefulSets, so a plain upgrade
 doesn't follow the
 [recommended node upgrade order](/influxdb3/version/admin/upgrade/#recommended-node-upgrade-order).
@@ -609,8 +616,9 @@ ingester:
     maxUnavailable: 1
 ```
 
-Set it per node mode (`ingester`, `querier`, `compactor`, and
-`processingEngine`).
+Set it per
+[node mode](/influxdb3/version/admin/clustering/#configure-node-modes)
+(`ingester`, `querier`, `compactor`, and `processingEngine`).
 The chart creates a budget for a mode only when that mode runs more than one
 replica, so single-replica modes still drain without protection—make sure their
 termination grace period is long enough to finish the final flush.
@@ -638,7 +646,9 @@ influxdb3 show nodes
 influxdb3 remove node --node-id NODE_ID
 ```
 
-**Disabling a node mode leaves its nodes in the catalog.**
+**Disabling a
+[node mode](/influxdb3/version/admin/clustering/#configure-node-modes) leaves
+its nodes in the catalog.**
 Setting a mode's `enabled: false` (for example, `compactor.enabled=false`)
 deletes that StatefulSet, but the nodes it ran keep their catalog entries.
 Stop and remove them deliberately, in that order, the same way you would after
@@ -674,7 +684,9 @@ TimeoutStopSec=300
 **Roll one node at a time.**
 Use `serial: 1` in your playbook and confirm each node returns to `running`
 before proceeding.
-Group your inventory by node mode and order the plays to match the
+Group your inventory by
+[node mode](/influxdb3/version/admin/clustering/#configure-node-modes) and order
+the plays to match the
 [recommended node upgrade order](/influxdb3/version/admin/upgrade/#recommended-node-upgrade-order)—for
 a complete playbook, see the **Ansible** tab in
 [Perform a rolling upgrade](/influxdb3/version/admin/upgrade/#perform-a-rolling-upgrade).
