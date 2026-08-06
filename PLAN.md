@@ -225,3 +225,18 @@ to publish the stronger caution plus the log diagnostic, or hold until fixed.
 **Catalog sync interval default of 10 seconds** (page: "Verify node state").
 Carried over from the published `stop node` CLI page. Confirm against current
 config options and name the setting on the page if it is user-tunable.
+
+**Per-engine name for the drain step a graceful stop forces** (pages: shared
+`stop node` CLI "Behavior", `admin/recover-node.md` step 2). Both spots read
+`(Parquet: WAL flush; upgraded engine: WAL snapshot)` on master. Changed to
+`Parquet persistence` on this branch, on the reading that:
+
+- WAL flush is the constant `--wal-flush-interval` operation (default 1s), so
+  it is not something a graceful stop has to force.
+- Data durability says buffered writes stay in the WAL "until the next Parquet
+  persistence captures it" — that is the step that makes the tail durable.
+
+Confirm with engineering, and confirm `WAL snapshot` is the right name for the
+upgraded-engine side. If the original wording was right, revert both spots
+together — they must stay in sync. A `VERIFY (eng/product review)` comment sits
+at each location.
