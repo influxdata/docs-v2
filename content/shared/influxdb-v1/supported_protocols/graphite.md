@@ -4,7 +4,7 @@
 ## A Note On UDP/IP OS Buffer Sizes
 
 If you're using UDP input and running Linux or FreeBSD, please adjust your UDP buffer
-size limit, [see here for more details.](/product/version/supported_protocols/udp#a-note-on-udp-ip-os-buffer-sizes)
+size limit, [see here for more details.](/product/version/supported_protocols/udp/#a-note-on-udpip-os-buffer-sizes)
 
 ## Configuration
 

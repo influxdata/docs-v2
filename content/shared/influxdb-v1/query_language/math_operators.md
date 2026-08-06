@@ -253,7 +253,7 @@ See [Data Exploration](/product/version/query_language/explore-data/#subqueries)
 ### Inequalities
 
 Using any of `=`,`!=`,`<`,`>`,`<=`,`>=`,`<>` in the `SELECT` clause yields empty results for all types.
-See GitHub issue [3525](https://github.com/influxdb/influxdb/issues/3525).
+See GitHub issue [3525](https://github.com/influxdata/influxdb/issues/3525).
 
 ### Logical Operators
 
