@@ -264,5 +264,9 @@ unknown authority`, the agent does not trust the CA that signed the
 - The certificate is valid for the hostname the agent uses to connect.
 - In Docker, the mounted certificate file is readable by the container.
 
+If agents receive a `401` response with an `Invalid token` error instead of a
+certificate error, the problem is not the agent connection. See
+[Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+
 For more installation and startup issues, see
 [Troubleshoot {{% product-name %}} installation](/telegraf/controller/install/troubleshoot/).
