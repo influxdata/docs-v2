@@ -3,7 +3,7 @@ title: Find median values
 seotitle: Find median values in Flux
 list_title: Median
 description: >
-  Use the `median()` function to return a value representing the `0.5` quantile (50th percentile) or median of input data.
+  Use the `median()` function to return a value representing the `0.5` quantile or median of input data.
 weight: 10
 menu:
   enterprise_influxdb_v1:
