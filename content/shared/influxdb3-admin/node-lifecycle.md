@@ -480,6 +480,15 @@ influxdb3 show nodes
 influxdb3 remove node --node-id NODE_ID
 ```
 
+**Disabling a node mode leaves its nodes in the catalog.**
+Setting a mode's `enabled: false` (for example, `compactor.enabled=false`)
+deletes that StatefulSet, but the nodes it ran keep their catalog entries.
+Stop and remove them deliberately, in that order, the same way you would after
+scaling down.
+A [compactor node can't be removed](#remove-a-compactor-node) at all, so disable
+the compactor only when you're retiring the cluster or replacing it with a node
+that reuses the same node ID.
+
 **Uninstalling doesn't clean the catalog.**
 `helm uninstall` removes Kubernetes resources, but the catalog and object
 storage persist, and the nodes remain as catalog entries.

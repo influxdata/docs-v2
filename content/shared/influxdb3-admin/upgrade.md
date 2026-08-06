@@ -394,6 +394,17 @@ Replace the following:
 > object-store files.
 > See [Restart compared to removal](/influxdb3/version/admin/node-lifecycle/#restart-compared-to-removal).
 
+> [!Caution]
+> #### helm rollback doesn't undo a catalog migration
+>
+> `helm rollback` reverts the image tag, but it can't revert changes the newer
+> version already made to your cluster data.
+> After a node starts {{% product-name %}} 3.10 or later, the on-disk catalog is
+> migrated to v3 and older binaries fail to start against it—so rolling the
+> release back leaves pods crash-looping on a catalog they can't read.
+> Restoring the catalog objects you backed up is the only way back.
+> See [Upgrading to InfluxDB 3.10 is a one-way migration](#upgrading-to-influxdb-310-is-a-one-way-migration).
+
 {{% /tab-content %}}
 {{% tab-content %}}
 
