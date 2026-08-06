@@ -70,9 +70,18 @@ You can use the following environment variables to set command options:
 The node lifecycle is two-phase: `stop node` marks the node `stopping`, but
 the node only reads as `stopped` after its own stop cascade completes and it
 confirms the stop.
+<!-- VERIFY (eng/product review): Naming of the per-engine drain step.
+     This said "Parquet: WAL flush" until now, but WAL flush is a different
+     operation -- it writes the WAL buffer to WAL files every
+     --wal-flush-interval (default 1s) and runs constantly, so it isn't what a
+     graceful stop forces. Data durability says buffered writes stay in the WAL
+     "until the next Parquet persistence captures it", so Parquet persistence
+     is the step a stop must force on the Parquet engine. Confirm that reading,
+     and that "WAL snapshot" is right for the upgraded engine. Same
+     parenthetical appears in admin/recover-node.md step 2. -->
 That cascade is what drains the node's
 [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail)
-(Parquet: WAL flush; upgraded engine: WAL snapshot).
+(Parquet engine: Parquet persistence; upgraded engine: WAL snapshot).
 
 - By default, the command polls the node state (from `system.nodes`) until it
   reaches `stopped`, up to `--timeout` (default `5m`).

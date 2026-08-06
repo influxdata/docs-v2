@@ -85,10 +85,15 @@ For more information about the upgraded storage engine, see
      # ...same object store configuration as the original node
    ```
 
+<!-- VERIFY (eng/product review): Naming of the per-engine drain step.
+     See the matching comment in the shared `stop node` CLI page -- both spots
+     must stay in sync. "Parquet: WAL flush" was changed to "Parquet
+     persistence" here on the reading that WAL flush is the constant
+     --wal-flush-interval operation, not the step a graceful stop forces. -->
 2. **Stop the node gracefully** and wait for it to reach `stopped`.
    This drains the
    [WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
-   (Parquet: WAL flush; upgraded engine: WAL snapshot):
+   (Parquet engine: Parquet persistence; upgraded engine: WAL snapshot):
 
    <!--pytest.mark.skip-->
 
