@@ -257,26 +257,15 @@ This is **bold** text. This is *italic* text. This is ***bold and italic***.
 Inline icons from the [Lucide](https://lucide.dev/icons) library, rendered with
 the `lucide` shortcode.
 
-<div id="lucide-examples">
-
 Default: {{< lucide "circle-plus" >}}
 Settings: {{< lucide "settings" >}}
 Large: {{< lucide icon="circle-check" size="large" >}}
 Small: {{< lucide icon="circle-check" size="small" >}}
 
-</div>
-
-An unknown icon name renders nothing and logs a build warning:
-<span id="lucide-unknown">{{< lucide "not-a-real-icon-xyz" >}}</span>
-
 Inline usage inside a list item and bold text:
-
-<div id="lucide-inline">
 
 - To enter focus mode, click **{{< lucide "fullscreen" >}} Focus** in the
   upper right of the editing area.
-
-</div>
 
 ## h2 This is a header2
 
