@@ -17,7 +17,8 @@ Use `--no-wait` to return as soon as the stop request is accepted.
 > [!Important]
 > #### Run this command against the live node—do not kill it first
 >
-> `stop node` is how a node drains its WAL tail.
+> `stop node` is how a node drains its
+> [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail).
 > If you kill the process first (for example, with `kill -9` or by
 > force-stopping a container) and run `stop node` afterward, the dead process
 > cannot drain anything: recently acknowledged writes that were not yet
@@ -69,8 +70,9 @@ You can use the following environment variables to set command options:
 The node lifecycle is two-phase: `stop node` marks the node `stopping`, but
 the node only reads as `stopped` after its own stop cascade completes and it
 confirms the stop.
-That cascade is what drains the node's WAL tail (Parquet: WAL flush;
-upgraded engine: WAL snapshot).
+That cascade is what drains the node's
+[WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail)
+(Parquet: WAL flush; upgraded engine: WAL snapshot).
 
 - By default, the command polls the node state (from `system.nodes`) until it
   reaches `stopped`, up to `--timeout` (default `5m`).
@@ -88,7 +90,8 @@ upgraded engine: WAL snapshot).
 
 Running `stop node` against a node whose process is **already dead** cannot
 drain anything: the catalog still moves the node toward `stopped`, but the
-WAL tail remains at risk until the node is restarted.
+[WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail)
+remains at risk until the node is restarted.
 See [Recover a crashed node](/influxdb3/version/admin/recover-node/).
 
 ## Examples

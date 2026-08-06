@@ -33,8 +33,9 @@ A node stores recently acknowledged writes in its write-ahead log (WAL) until it
 captures them in a snapshot.
 These buffered writes are the node's [_WAL tail_](/influxdb3/enterprise/reference/internals/durability/#wal-tail).
 Run the [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
-command against a running node to save the WAL tail before the node reports a
-`stopped` state.
+command against a running node to save the
+[WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
+before the node reports a `stopped` state.
 
 A node that dies without a graceful stop skips that drain:
 
@@ -44,11 +45,15 @@ A node that dies without a graceful stop skips that drain:
   writes not covered by its last snapshot.
 - Sending the process a bare `SIGTERM` (without calling `stop node`) does not
   force a WAL snapshot on the upgraded storage engine, so a plain process
-  shutdown can also leave a WAL tail behind.
+  shutdown can also leave a
+  [WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
+  behind.
 
 On clusters that have fully adopted the upgraded storage engine,
 `remove node` refuses (HTTP 409) to remove a `stopped`
-node that still has a WAL tail unless you pass `--force-finalize`.
+node that still has a
+[WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
+unless you pass `--force-finalize`.
 Parquet clusters and clusters still mid-upgrade do **not** have this safeguard.
 On those clusters, completing this recovery procedure before removal is the only
 protection against losing the tail.
@@ -70,8 +75,9 @@ protection against losing the tail.
    ```
 
 2. **Stop the node gracefully** and wait for it to reach `stopped`.
-   This drains the WAL tail (Parquet: WAL flush; upgraded engine: WAL
-   snapshot):
+   This drains the
+   [WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
+   (Parquet: WAL flush; upgraded engine: WAL snapshot):
 
    <!--pytest.mark.skip-->
 
