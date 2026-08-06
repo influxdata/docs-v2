@@ -69,5 +69,4 @@ from(bucket: "db/rp")
 [RE2 Syntax Overview](https://github.com/google/re2/wiki/Syntax)
 
 ##### Go regex testers
-[Regex Tester - Golang](https://regex-golang.appspot.com/assets/html/index.html)  
 [Regex101](https://regex101.com/)
