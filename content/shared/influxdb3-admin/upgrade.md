@@ -541,7 +541,7 @@ Verify that your deployment assigns a stable
 [`--node-id`](/influxdb3/version/reference/config-options/#node-id)—a
 Kubernetes Deployment generates a new pod name on every rollout, so use a
 StatefulSet instead.
-See [Node lifecycle](/influxdb3/version/admin/node-lifecycle/#kubernetes-and-helm).
+See [Kubernetes and Helm](/influxdb3/version/admin/node-lifecycle/#kubernetes-and-helm).
 
 #### Version compatibility problems
 
