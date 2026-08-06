@@ -10,6 +10,7 @@ menu:
     name: Configure specialized cluster nodes
 weight: 100
 related:
+  - /influxdb3/enterprise/admin/node-lifecycle/
   - /influxdb3/enterprise/admin/performance-tuning/
   - /influxdb3/enterprise/reference/internals/runtime-architecture/
   - /influxdb3/enterprise/reference/config-options/
