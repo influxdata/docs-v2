@@ -442,6 +442,12 @@ cases:
 > clusters, a graceful stop before removal is your only protection against
 > losing the
 > [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail).
+>
+> Clusters that started on 3.10 or earlier keep the Parquet engine until you
+> restart them with `--upgrade-pacha-tree`.
+> If you started a storage engine upgrade, confirm it finished—query
+> `system.upgrade_parquet_node` and check that every node reports `completed`.
+> See [Query system data](/influxdb3/version/admin/query-system-data/#query-storage-engine-tables).
 
 ### Remove a compactor node
 
