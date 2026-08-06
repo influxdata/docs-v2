@@ -9,7 +9,8 @@ catalog entry and the node's object-store file paths are purged.
 > A node must be `stopped` before it can be removed.
 > Use [`influxdb3 stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/)
 > against the live node and wait for it to reach `stopped`—the graceful stop
-> is what drains the node's write-ahead log (WAL) tail.
+> is what drains the node's
+> [write-ahead log (WAL) tail](/influxdb3/version/reference/internals/durability/#wal-tail).
 > A node stuck in `stopping` (for example, because the process was killed
 > mid-stop or was already dead) cannot be removed normally.
 > To recover such a node safely, follow
@@ -65,7 +66,8 @@ That is why the node must complete a graceful stop first.
 
 On clusters that have fully adopted the upgraded storage engine (the default
 for new clusters), {{% product-name %}} **refuses** (HTTP 409) to remove a
-`stopped` node that still has an unsnapshotted WAL tail:
+`stopped` node that still has an unsnapshotted
+[WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail):
 
 ```text
 node 'NODE_ID' has unsnapshotted WAL (wal file N, snapshotted through M);
@@ -86,7 +88,8 @@ and then remove it.
 > Parquet clusters and clusters still mid-upgrade are **not** guarded.
 > On those clusters, a graceful
 > [`stop node`](/influxdb3/version/reference/cli/influxdb3/stop/node/) before
-> removal is the only protection against losing the WAL tail.
+> removal is the only protection against losing the
+> [WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail).
 
 ## Force removal of a node that did not shut down cleanly {#force-removal-of-a-node-that-did-not-shut-down-cleanly metadata="v3.11+"}
 
