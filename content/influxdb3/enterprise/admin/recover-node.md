@@ -58,6 +58,17 @@ Parquet clusters and clusters still mid-upgrade do **not** have this safeguard.
 On those clusters, completing this recovery procedure before removal is the only
 protection against losing the tail.
 
+To determine which engine your cluster runs, start with how it was created:
+new clusters on {{< product-name >}} 3.11+ default to the upgraded storage
+engine, and clusters that started on 3.10 or earlier keep the Parquet engine
+until you restart them with `--upgrade-pacha-tree`.
+If you started a storage engine upgrade, confirm it finished—query
+`system.upgrade_parquet_node` and check that every node reports `completed`.
+See [Query system data](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables).
+
+For more information about the upgraded storage engine, see
+[Storage engine](/influxdb3/enterprise/reference/internals/storage-engine/).
+
 ## Recover the node
 
 1. **Restart a server process with the same `--node-id`** (environment
