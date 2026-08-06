@@ -50,6 +50,14 @@ The catalog records one of the following states for each node:
 > The `stopping` and `removing` states apply to
 > [InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/node-lifecycle/) clusters,
 > where an operator can stop and remove individual nodes.
+
+<!-- VERIFY (live instance): Confirm a Core node never surfaces `stopping` or
+     `removing`. The four-state enum is shared catalog code (NodeMode::Core is
+     just another mode), so the restriction asserted here is about Core lacking
+     the stop/remove commands, not about the states being unreachable. If a
+     Core node can transit `stopping` (for example, via the HTTP endpoint even
+     without a CLI subcommand), soften this note. -->
+
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
@@ -169,6 +177,16 @@ During a graceful shutdown, the node does the following:
 2. Flushes the write-ahead log (WAL) buffer to object storage.
 3. Waits for an in-progress snapshot to finish.
 4. Marks itself `stopped` in the catalog.
+
+<!-- VERIFY (live instance): Confirm this four-step shutdown sequence and its
+     ORDER for Core. It was written from the Enterprise stop cascade plus the
+     durability docs, not from Core-specific source. In particular confirm
+     that (a) Core stops accepting writes before flushing rather than draining
+     in-flight writes first, and (b) Core marks itself `stopped` in the catalog
+     at all on SIGTERM -- if a Core node is left `running` after a clean
+     shutdown, say so instead. Test: send SIGTERM to a Core node, then query
+     system.nodes for its state. -->
+
 
 Because the final flush writes buffered data to the WAL in object storage,
 acknowledged writes survive the shutdown.
@@ -428,6 +446,16 @@ lease and can't be removed.
 To retire the host running your compactor, start a replacement compactor node
 that reuses the same node ID, as described in
 [Configure specialized cluster nodes](/influxdb3/version/admin/clustering/#from-single-node-to-specialized-cluster).
+
+<!-- VERIFY (live instance): Confirm the compactor replacement procedure end to
+     end -- stop the compactor, start a new process on different hardware with
+     the SAME --node-id and --mode compact, and confirm it takes over the
+     single-writer compaction lease cleanly. Support case 00130867 shows a dead
+     compactor's catalog record making OTHER nodes crash-loop on restart, so
+     the failure mode here is expensive and the happy path is worth proving.
+     Also determine whether the lease TTL (reported as 30s) forces a wait
+     between stopping the old compactor and starting the replacement. -->
+
 {{% /show-in %}}
 
 ## Re-register a node
@@ -452,6 +480,23 @@ node in the catalog:
 Because a node restarting with the same node ID reuses its existing instance
 ID, an ordinary restart always satisfies these rules—even if the node still
 reads as `running` after an ungraceful stop.
+
+<!-- VERIFY (live instance) -- HIGHEST PRIORITY, this claim carries the page:
+     Does a restarting process actually REUSE its existing instance_id?
+     `can_re_register` only accepts a `running`/`stopping` node when the
+     incoming instance_id MATCHES, and instance_id is described in the catalog
+     source as "a UUID generated when the node is first registered". If the
+     process mints a NEW UUID on each start and reads the old one from
+     somewhere (data dir? object store? catalog lookup by node ID?), that
+     lookup is what makes restart-after-crash work -- and if it does NOT reuse
+     it, then restarting a node still recorded as `running` would be REFUSED,
+     which would invalidate this paragraph, the "still reads as running after
+     it crashed" troubleshooting entry, AND the core promise that a rolling
+     restart is always safe.
+     Test: kill -9 a node (leaving it `running` in the catalog), restart it
+     with the same --node-id, and confirm it re-registers. Then check whether
+     instance_id in `show nodes` changed. -->
+
 
 {{% show-in "enterprise" %}}
 > [!Warning]
@@ -678,6 +723,18 @@ lifecycle-relevant columns:
 
 Other nodes observe a state change after their catalog sync interval
 (default 10 seconds), so allow for that delay when scripting checks.
+
+<!-- VERIFY (live instance): Two things in this section.
+     1. The catalog sync interval default of 10 seconds is carried over from
+        the published `stop node` CLI page -- confirm it against the current
+        config options, and name the setting here if it is user-tunable.
+     2. Confirm `system.nodes` is reachable via `--database _internal` and that
+        the columns node_id, mode, state, and updated_at exist under those
+        names. Real `show nodes` output also includes node_catalog_id,
+        instance_id, core_count, conn_info, and cli_params; if system.nodes
+        exposes the same set, consider selecting instance_id here too, since it
+        is what the re-registration rules turn on. Same check applies to the
+        Core copy of this query below. -->
 
 You can also query the `system.nodes` table in the `_internal` database:
 
