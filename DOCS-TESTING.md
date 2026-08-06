@@ -55,6 +55,7 @@ LEFTHOOK=0 git push
 - **Link checker** (`.github/workflows/pr-link-check.yml`) — checks changed pages
 - **Codeblock lint** (`.github/workflows/test.yml`) — parse/compile check; JSON/YAML/TOML failures block merge
 - **Render regression** (`.github/workflows/pr-render-check.yml`) — checks for whitespace-escaped code blocks
+- **AI artifacts** (`.github/workflows/pr-ai-artifacts-check.yml`) — builds and verifies Markdown twins and JSON-LD `@id` references
 - **Remark** (`.github/workflows/pr-remark-check.yml`) — runs on repo docs (DOCS-\*.md, .github/, .claude/)
 - **Render artifacts** — site-wide grep for forbidden HTML patterns
 
