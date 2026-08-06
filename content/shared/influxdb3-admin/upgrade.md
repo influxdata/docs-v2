@@ -202,6 +202,8 @@ Follow these steps to upgrade each node in your deployment:
 [systemctl](#)
 [Docker](#)
 [Docker Compose](#)
+[Helm](#)
+[Ansible](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -316,6 +318,147 @@ Replace the following:
 > The `influxdb:enterprise` tag always points to the latest InfluxDB 3 Enterprise release.
 > Update the `image:` field in your `compose.yaml` to `influxdb:enterprise` to pull the latest version, or specify a version tag directly (for example, `influxdb:{{< latest-patch >}}-enterprise`) to upgrade to a specific version.
 {{% /tab-content %}}
+{{% tab-content %}}
+
+The [{{% product-name %}} Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-enterprise)
+runs a separate StatefulSet for each node mode, but the image tag
+(`image.tag`) is a single chart-wide value.
+A plain `helm upgrade` therefore rolls _every_ node mode at once, and Kubernetes
+doesn't order rollouts across StatefulSets—so the upgrade doesn't follow the
+[recommended node upgrade order](#recommended-node-upgrade-order) on its own.
+
+To control the order, freeze the modes you aren't upgrading yet with the
+`updateStrategy.rollingUpdate.partition` field, then release them one mode at a
+time.
+Setting `partition` to a StatefulSet's replica count holds every pod in that
+StatefulSet at its current version.
+
+```bash { placeholders="RELEASE_NAME|NAMESPACE|VERSION" }
+# 1. Freeze the modes you upgrade later (partition >= replica count),
+#    then apply the new image tag. Only ingesters roll.
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE \
+  --reuse-values \
+  --set image.tag=VERSION-enterprise \
+  --set querier.updateStrategy.rollingUpdate.partition=99 \
+  --set compactor.updateStrategy.rollingUpdate.partition=99 \
+  --set processingEngine.updateStrategy.rollingUpdate.partition=99
+
+# 2. Wait for the ingester pods to roll and become ready
+kubectl rollout status --namespace NAMESPACE \
+  "$(kubectl get statefulset --namespace NAMESPACE \
+    --selector app.kubernetes.io/component=ingester --output name)"
+
+# 3. Release queriers, then compactor, then the processing engine
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set querier.updateStrategy.rollingUpdate.partition=0
+kubectl rollout status --namespace NAMESPACE \
+  "$(kubectl get statefulset --namespace NAMESPACE \
+    --selector app.kubernetes.io/component=querier --output name)"
+
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set compactor.updateStrategy.rollingUpdate.partition=0 \
+  --set processingEngine.updateStrategy.rollingUpdate.partition=0
+
+# 4. Verify every node re-registered and reports running
+influxdb3 show nodes
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`RELEASE_NAME`{{% /code-placeholder-key %}}: Your Helm release name
+- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}: The namespace of your release
+- {{% code-placeholder-key %}}`VERSION`{{% /code-placeholder-key %}}: The target version (for example, `{{< latest-patch >}}`)
+
+> [!Important]
+> #### Raise the termination grace period before upgrading
+>
+> The chart doesn't set `terminationGracePeriodSeconds`, so pods inherit the
+> Kubernetes default of 30 seconds.
+> If a node is still flushing its write-ahead log when Kubernetes sends
+> `SIGKILL`, it stops ungracefully and has to replay its WAL on restart.
+> Raise the grace period above your observed shutdown time before you roll a
+> cluster—see
+> [Deploy with an orchestrator](/influxdb3/version/admin/node-lifecycle/#kubernetes-and-helm).
+
+> [!Warning]
+> #### A rollout is a restart, not a removal
+>
+> Each pod keeps its StatefulSet-ordinal name, so every node re-registers under
+> its existing node ID.
+> Don't run
+> [`influxdb3 remove node`](/influxdb3/version/reference/cli/influxdb3/remove/node/)
+> as part of an upgrade—removal permanently deletes the node's catalog entry and
+> object-store files.
+> See [Restart compared to removal](/influxdb3/version/admin/node-lifecycle/#restart-compared-to-removal).
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Drive the upgrade one node at a time with `serial: 1`, and order your plays by
+node mode to match the
+[recommended node upgrade order](#recommended-node-upgrade-order).
+
+```yaml
+# Upgrade one host at a time, ingest nodes first.
+- hosts: influxdb3_ingest
+  serial: 1
+  vars:
+    # Pin the target version so every host lands on the same build.
+    influxdb3_version: "{{< latest-patch >}}"
+  tasks:
+    - name: Stop influxdb3 gracefully
+      ansible.builtin.systemd_service:
+        name: influxdb3
+        state: stopped
+
+    # Replace this task with the install method you use--for example, a
+    # package from your own repository or the downloaded release archive.
+    # See https://docs.influxdata.com/influxdb3/enterprise/install/
+    - name: Install influxdb3 {{ influxdb3_version }}
+      ansible.builtin.include_role:
+        name: influxdb3_install
+
+    - name: Start influxdb3
+      ansible.builtin.systemd_service:
+        name: influxdb3
+        state: started
+
+    - name: Wait for the node to report healthy
+      ansible.builtin.uri:
+        url: "http://{{ inventory_hostname }}:8181/health"
+        status_code: 200
+      register: health
+      until: health.status == 200
+      retries: 30
+      delay: 10
+
+# Repeat for influxdb3_query, then influxdb3_compact, then influxdb3_process.
+```
+
+Because `systemd` escalates to `SIGKILL` after `TimeoutStopSec`, confirm your
+unit file allows enough time for the final WAL flush before you roll a cluster:
+
+```ini
+[Service]
+KillSignal=SIGTERM
+TimeoutStopSec=300
+```
+
+> [!Important]
+> #### Restart in place—don't remove nodes
+>
+> Each host restarts with the same
+> [`--node-id`](/influxdb3/version/reference/config-options/#node-id), so it
+> re-registers as the same node.
+> Never add
+> [`influxdb3 remove node`](/influxdb3/version/reference/cli/influxdb3/remove/node/)
+> to an upgrade playbook—see
+> [Restart compared to removal](/influxdb3/version/admin/node-lifecycle/#restart-compared-to-removal).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 **Repeat these steps** for each remaining node in the recommended order.
@@ -361,6 +504,33 @@ If writes fail during a rolling upgrade, verify that you're not attempting to ad
 #### Upgrade order issues
 
 If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order), you may experience longer periods where catalog modifications are blocked.
+
+#### Nodes upgrade out of order in Helm deployments
+
+The {{% product-name %}} Helm chart uses a single chart-wide `image.tag`, so a
+plain `helm upgrade` rolls every node mode at once instead of following the
+[recommended node upgrade order](#recommended-node-upgrade-order).
+Use `updateStrategy.rollingUpdate.partition` to release one mode at a time, as
+shown in the **Helm** tab of
+[Perform a rolling upgrade](#perform-a-rolling-upgrade).
+
+#### Nodes don't return to running after a rollout
+
+A node that was killed before it finished flushing its write-ahead log stops
+ungracefully and replays its WAL on restart, which can extend startup.
+In Kubernetes, this usually means `terminationGracePeriodSeconds` (default 30)
+is shorter than the node's shutdown time; with `systemd`, it usually means
+`TimeoutStopSec` is too low.
+See [Deploy with an orchestrator](/influxdb3/version/admin/node-lifecycle/#deploy-with-an-orchestrator).
+
+#### Extra nodes appear in the catalog after an upgrade
+
+Each restart registered a new node ID instead of reclaiming the existing one.
+Verify that your deployment assigns a stable
+[`--node-id`](/influxdb3/version/reference/config-options/#node-id)—a
+Kubernetes Deployment generates a new pod name on every rollout, so use a
+StatefulSet instead.
+See [Node lifecycle](/influxdb3/version/admin/node-lifecycle/#kubernetes-and-helm).
 
 #### Version compatibility problems
 
