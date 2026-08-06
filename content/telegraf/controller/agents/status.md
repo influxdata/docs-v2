@@ -121,7 +121,7 @@ time-based expressions, see
 
 1.  In {{% product-name %}}, go to **Agents**.
 2.  Check the **Status** column for each agent.
-3.  To see more details, click the **More button ({{% icon "tc-more" %}})** and
-    select **View Details**.
+3.  To see more details, click the **More button ({{% lucide "ellipsis-vertical" %}})** and
+    select **{{% lucide "eye" %}} View Details**.
 4.  The details page shows the reported status, reporting rule assignment, and
     the time of the last heartbeat.

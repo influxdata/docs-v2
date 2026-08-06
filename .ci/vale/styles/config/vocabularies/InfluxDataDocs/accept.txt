@@ -84,6 +84,7 @@ keep-url
 lat
 (locf|LOCF)
 logicalplan
+[Ll]ucide
 noaa|NOAA
 npm|NPM
 oauth|OAuth

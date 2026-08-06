@@ -27,7 +27,7 @@ administrator.
 
 1.  Navigate to the **Users** page or the target user's detail page.
 2.  Choose the target **Administrator** from the list (if not already selected).
-3.  Select the **Make Owner** option. If on the user detail page, select the
+3.  Select the **{{% lucide "shield" %}} Make Owner** option. If on the user detail page, select the
     **Manage** tab to reveal the **Make Owner** option.
 4.  Confirm the username of the user you want to transfer ownership to and click
     **Transfer Ownership**.
