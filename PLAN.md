@@ -228,8 +228,9 @@ config options and name the setting on the page if it is user-tunable.
 
 **Per-engine name for the drain step a graceful stop forces** (pages: shared
 `stop node` CLI "Behavior", `admin/recover-node.md` step 2). Both spots read
-`(Parquet: WAL flush; upgraded engine: WAL snapshot)` on master. Changed to
-`Parquet persistence` on this branch, on the reading that:
+`(Parquet: WAL flush; upgraded engine: WAL snapshot)` on master. Rewritten on
+this branch as a full sentence naming each engine's step — the shorthand
+parenthetical was unclear to readers — on the reading that:
 
 - WAL flush is the constant `--wal-flush-interval` operation (default 1s), so
   it is not something a graceful stop has to force.

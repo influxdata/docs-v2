@@ -77,11 +77,13 @@ confirms the stop.
      graceful stop forces. Data durability says buffered writes stay in the WAL
      "until the next Parquet persistence captures it", so Parquet persistence
      is the step a stop must force on the Parquet engine. Confirm that reading,
-     and that "WAL snapshot" is right for the upgraded engine. Same
-     parenthetical appears in admin/recover-node.md step 2. -->
+     and that "WAL snapshot" is right for the upgraded engine. The same
+     distinction appears in admin/recover-node.md step 2. -->
 That cascade is what drains the node's
-[WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail)
-(Parquet engine: Parquet persistence; upgraded engine: WAL snapshot).
+[WAL tail](/influxdb3/version/reference/internals/durability/#wal-tail).
+How the node drains it depends on the storage engine:
+on the Parquet engine, the node persists the buffered writes to Parquet
+files; on the upgraded storage engine, it captures them in a WAL snapshot.
 
 - By default, the command polls the node state (from `system.nodes`) until it
   reaches `stopped`, up to `--timeout` (default `5m`).
