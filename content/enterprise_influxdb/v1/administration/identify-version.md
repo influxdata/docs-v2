@@ -6,7 +6,6 @@ menu:
     name: Identify version
     parent: Administration
 weight: 10
-source: /shared/identify-version.md
 related:
   - /enterprise_influxdb/v1/install-and-deploy/
 alt_links:
@@ -18,4 +17,8 @@ alt_links:
   clustered: /influxdb3/clustered/admin/identify-version/
   core: /influxdb3/core/admin/identify-version/
   enterprise: /influxdb3/enterprise/admin/identify-version/
+source: /shared/influxdb-v1/administration/identify-version.md
 ---
+
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v1/administration/identify-version.md -->
