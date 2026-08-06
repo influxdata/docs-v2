@@ -33,9 +33,8 @@ A node stores recently acknowledged writes in its write-ahead log (WAL) until it
 captures them in a snapshot.
 These buffered writes are the node's [_WAL tail_](/influxdb3/enterprise/reference/internals/durability/#wal-tail).
 Run the [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
-command against a running node to save the
-WAL tail
-before the node reports a `stopped` state.
+command against a running node to save the WAL tail before the node reports a
+`stopped` state.
 
 A node that dies without a graceful stop skips that drain:
 
@@ -85,17 +84,19 @@ For more information about the upgraded storage engine, see
      # ...same object store configuration as the original node
    ```
 
-<!-- VERIFY (eng/product review): Naming of the per-engine drain step.
-     See the matching comment in the shared `stop node` CLI page -- both spots
-     must stay in sync. "Parquet: WAL flush" was changed to persisting to
-     Parquet files here on the reading that WAL flush is the constant
-     --wal-flush-interval operation, not the step a graceful stop forces. -->
 2. **Stop the node gracefully** and wait for it to reach `stopped`.
    This drains the
    [WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail).
    How the node drains it depends on the storage engine:
    on the Parquet engine, the node persists the buffered writes to Parquet
    files; on the upgraded storage engine, it captures them in a WAL snapshot.
+
+   <!-- VERIFY (eng/product review): Naming of the per-engine drain step.
+        See the matching comment in the shared `stop node` CLI page -- both
+        spots must stay in sync. "Parquet: WAL flush" was changed to
+        persisting to Parquet files here on the reading that WAL flush is the
+        constant --wal-flush-interval operation, not the step a graceful stop
+        forces. -->
 
    <!--pytest.mark.skip-->
 
