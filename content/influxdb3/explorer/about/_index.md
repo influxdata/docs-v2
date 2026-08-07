@@ -9,12 +9,31 @@ weight: 10
 ---
 
 InfluxDB 3 Explorer is the user interface component of the InfluxDB 3 platform.
-It provides visual management of databases and tokens and an easy way to querying
-your time series data. Explorer is fully-featured for [InfluxDB 3 Core](/influxdb3/core/)
-and [Enterprise](/influxdb3/enterprise/).  In a future release it will also be able to 
-be used to query [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/),
-[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)
-and [InfluxDB Clustered](/influxdb3/clustered/).
+It provides visual management of databases and tokens and an easy way to query
+your time series data.
+
+## Product support
+
+Explorer is fully featured for [InfluxDB 3 Core](/influxdb3/core/) and
+[InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+You can use Explorer to query data in and administer these products.
+
+Explorer provides only _partial_ support for
+[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) and
+[InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/).
+You can connect Explorer to these products to query data, but you can't use
+Explorer to administer them.
+
+> [!Important]
+> #### Administer cloud products with the Admin UI
+>
+> If you use [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) or
+> [InfluxDB 3 Cloud](/influxdb3/cloud/), use the
+> [Admin UI](https://console.influxdata.com) at `console.influxdata.com`--not
+> Explorer--to manage databases, tables, tokens, and users.
+> For more information, see
+> [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
+> [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
 ## Third Party Software
 
