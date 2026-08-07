@@ -110,7 +110,7 @@ The following table compares tools that you can use to interact with
 | [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | <span style="opacity:.5;">InfluxDB user interface</span>                                            |            -             |            -             |            -             |
-| [InfluxDB 3 client libraries](#influxdb-3-client-libraries){{< req text="\* " color="magenta" >}} |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB 3 client libraries](#influxdb-client-libraries){{< req text="\* " color="magenta" >}}   |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB v2 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v2/)            |            -             | **{{< icon "check" >}}** |            -             |
 | [InfluxDB v1 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v1/)            |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [Telegraf](/telegraf/v1/){{< req text="\* " color="magenta" >}}                                     |            -             | **{{< icon "check" >}}** |            -             |

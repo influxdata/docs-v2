@@ -34,17 +34,12 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 > [!Important]
 > #### Cloud products: use the Admin UI
 >
-> {{% product-name %}} provides only partial support for
-> [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)--you can query data,
-> but you can't administer your cluster.
-> To manage databases, tables, tokens, and users, use the
-> [Admin UI](https://console.influxdata.com) at `console.influxdata.com`.
-> For more information, see
-> [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/).
->
-> If you use [InfluxDB 3 Cloud](/influxdb3/cloud/), use the Admin UI at
-> `console.influxdata.com` instead of Explorer.
-> For more information, see
+> To administer [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) or
+> [InfluxDB 3 Cloud](/influxdb3/cloud/), use the
+> [Admin UI](https://console.influxdata.com) at `console.influxdata.com`
+> instead of {{% product-name %}}.
+> For administrative tasks and the tools to use, see
+> [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
 > [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
 1.  Navigate to **Configure** > **Servers**.
