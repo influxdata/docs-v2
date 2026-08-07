@@ -97,13 +97,13 @@ curl -L https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}
 tar xvzf influxdb3-{{< product-key >}}.tar.gz
 
 # 3. Stop the service
-sudo systemctl stop influxdb3
+sudo systemctl stop influxdb3-{{< product-key >}}
 
 # 4. Install the new binary
 sudo cp influxdb3 /usr/local/bin/
 
 # 5. Start the service
-sudo systemctl start influxdb3
+sudo systemctl start influxdb3-{{< product-key >}}
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -207,14 +207,14 @@ Follow these steps to upgrade each node in your deployment:
 
 ```bash
 # 1. Stop the service
-sudo systemctl stop influxdb3
+sudo systemctl stop influxdb3-{{< product-key >}}
 
 # 2. Install the new version
 # Follow the installation instructions for your platform:
 # https://docs.influxdata.com/influxdb3/enterprise/install/
 
 # 3. Start the service
-sudo systemctl start influxdb3
+sudo systemctl start influxdb3-{{< product-key >}}
 
 # 4. Verify the version
 influxdb3 --version
