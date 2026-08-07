@@ -128,6 +128,18 @@ The following table compares tools that you can use to interact with
 > Avoid using the `influx` CLI with {{% product-name %}}. While it
 > may coincidentally work, it isn't supported.
 
+> [!Important]
+> #### Administer your cluster with the Admin UI
+>
+> To manage databases, tables, tokens, and users, use the {{% product-name %}}
+> [Admin UI](https://console.influxdata.com) at `console.influxdata.com` or the
+> [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/).
+>
+> [InfluxDB 3 Explorer](/influxdb3/explorer/) is the standalone UI for
+> [InfluxDB 3 Core](/influxdb3/core/) and
+> [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+> Don't use Explorer to administer {{% product-name %}}.
+
 ### `influxctl` CLI
 
 The
