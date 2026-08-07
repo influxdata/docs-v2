@@ -31,7 +31,7 @@ Explorer to administer them.
 > [InfluxDB 3 Cloud](/influxdb3/cloud/), use the
 > [Admin UI](https://console.influxdata.com) at `console.influxdata.com`
 > instead of Explorer to administer your cluster or instance.
-> For administrative tasks and the tools to use, see
+> For administrative tasks, see
 > [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
 > [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
