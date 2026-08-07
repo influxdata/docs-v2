@@ -38,7 +38,7 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 > [InfluxDB 3 Cloud](/influxdb3/cloud/), use the
 > [Admin UI](https://console.influxdata.com) at `console.influxdata.com`
 > instead of {{% product-name %}}.
-> For administrative tasks and the tools to use, see
+> For administrative tasks, see
 > [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
 > [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
