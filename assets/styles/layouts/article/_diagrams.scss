@@ -5,6 +5,16 @@
   transition: opacity .5s;
   font-family: $proxima;
 
+  svg {
+    // Mermaid pins an inline max-width to the diagram's natural pixel size,
+    // so diagrams render small in a wide article column. The svg carries a
+    // viewBox, so lifting the cap scales the whole diagram proportionally.
+    // The svg already carries width="100%", so it never exceeds the column;
+    // this ceiling just stops the scale-up from dwarfing body text.
+    // Avoid CSS min() here -- Sass evaluates it and fails on mixed units.
+    max-width: 680px !important;
+  }
+
   .arrowheadPath, .arrowMarkerPath { fill: $diagram-arrow !important; }
   .edgePath .path, .flowchart-link { stroke: $diagram-arrow !important; }
   .label, .nodeLabel { color: $article-text !important; }
@@ -14,7 +24,10 @@
   .edgeLabel {
     color: $article-text !important;
     background: $article-code-bg !important;
-    font-size: .85em;
+    // Mermaid nests .edgeLabel inside .edgeLabel, so an em value compounds
+    // (.85em rendered nested labels at 11.56px). Use rem so the size is
+    // root-relative and applies once, matching the 16px node labels.
+    font-size: 1rem;
     font-weight: $medium;
 
     p {
