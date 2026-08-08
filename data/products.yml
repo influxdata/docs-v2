@@ -392,6 +392,7 @@ telegraf_controller:
   name: Telegraf Controller
   altname: Controller
   namespace: telegraf
+  content_path: telegraf/controller
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
@@ -405,6 +406,7 @@ telegraf_enterprise:
   name: Telegraf Enterprise
   altname: Telegraf Enterprise
   namespace: telegraf
+  content_path: telegraf/enterprise
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]

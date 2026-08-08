@@ -20,6 +20,13 @@
 {{ else if and (eq $product "influxdb") (eq $version "cloud") }}
   {{/* /influxdb/cloud/* is Cloud (TSM), a separate product entry. */}}
   {{ $productKey = "influxdb_cloud" }}
+{{ else if and (eq $product "telegraf") (in (slice "controller" "enterprise") $version) }}
+  {{/*
+    Telegraf Controller and Telegraf Enterprise are licensed products with
+    their own entries. Without this, both fall back to the `telegraf` entry
+    and render its public issue-tracker button.
+  */}}
+  {{ $productKey = print "telegraf_" $version }}
 {{ end }}
 {{ $productData := dict }}
 {{ if $productKey }}
