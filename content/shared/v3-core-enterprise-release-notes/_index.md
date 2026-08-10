@@ -6,6 +6,33 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.11.1 {date="2026-08-06"}
+
+### Core
+
+#### Bug fixes
+
+- **Panic on oversized duration values**: Time arithmetic now saturates at the minimum or maximum representable timestamp instead of panicking when a duration is too large to represent. Previously, an oversized user-supplied duration produced a panic and could put the server into a startup panic loop.
+- **Duplicate admin token registration**: The catalog now rejects registering a token whose hashed value already exists. Previously, the server registered the duplicate under a new ID.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Remove migrated Parquet data after a storage engine upgrade**: The new `influxdb3 manage cleanup-parquet` command and `/api/v3/enterprise/upgrade/parquet_cleanup` API permanently delete the pre-upgrade Parquet data and compactor metadata from object storage after a [storage engine upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet) completes. Use `--dry-run` to report what a cleanup would delete, and how much space it would reclaim, without deleting anything; `--wait` to poll until the cleanup completes; and `--status-only` to check the status of the current or most recent cleanup. The cleanup runs on the compactor node, resumes automatically after a restart, and reports progress in the new `system.upgrade_parquet_cleanup` system table. After a cleanup deletes data, [downgrading to Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#downgrade-to-parquet) is no longer possible.
+
+#### Bug fixes
+
+- **Data missing from queries during a storage engine upgrade**: While a cluster migrates from Parquet to the upgraded storage engine, hybrid queries now serve the migrating node's own not-yet-compacted gen1 data, and data imported during the migration is queryable in all-in-one mode. Previously, on a single-node cluster, rows that the Parquet compactor had not yet folded into compacted data were missing from query results for the duration of the migration.
+- **Compactor crash loop after primary re-election**: The catalog's subscription registry now reclaims a subscription slot whose receiver was dropped and skips closed subscribers when broadcasting updates, and compactor teardown now completes before the next term re-subscribes. Previously, a compactor primary re-election within one process could panic on the stale slot and crash-loop the node, and a lingering stale slot could fail an unrelated catalog update.
+- **Compactor retention sweep stalls (upgraded storage engine)**: The retention sweep now checks each run set's key span in memory, and remembers negative results, instead of re-reading every run-set index from object storage on every scheduler tick. Previously, one table with a short retention period alongside a large historical dataset could freeze compaction dispatch, completion handling, and status reporting for hours while the sweep serially re-read every index.
+- **Query node boot loop with a large snapshot backlog (upgraded storage engine)**: At startup, a query node now fetches peer snapshot manifests concurrently, bounded by `--replica-gen0-load-concurrency` (default `16`), and walks at most 10,000 manifests per node. If the cap is reached, the server logs an error noting that data in the skipped older snapshots stays unqueryable until compaction covers it. Previously, the walk fetched the entire backlog serially with no bound, so a large backlog behind a stalled compactor could run for hours, exhaust memory, and restart the node from zero in a permanent boot loop.
+- **Incorrect query results from out-of-order series scans (upgraded storage engine)**: A window scan that advertises series-key ordering now always merge-sorts its inputs. Previously, files could be chained together out of order while the query plan claimed sorted output, and downstream sort-merge operations silently produced incorrect results.
+- Other bug fixes and performance improvements
+
 ## v3.11.0 {date="2026-07-30"}
 
 ### Core
