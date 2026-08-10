@@ -21,6 +21,7 @@ particular field.
 > [!IMPORTANT]
 > This plugins supports Elasticsearch 5.x and 6.x but is known to break on 7.x
 > or higher.
+> Node discovery is not supported with Elasticsearch 5.x.
 
 **Introduced in:** Telegraf v1.20.0
 **Tags:** datastore
@@ -52,9 +53,9 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## List all cluster nodes making it unnecessary to list all nodes in 'urls'
   # enable_sniffer = false
 
-  ## Interval for checking availability of cluster nodes; only used if sniffer
-  ## is enabled (0s will disable checks)
-  # health_check_interval = "10s"
+  ## Interval for discovering cluster nodes; only used if sniffer is enabled
+  ## (0s will disable discovery)
+  # health_check_interval = "15m"
 
   ## HTTP basic authentication credentials
   # username = "telegraf"
