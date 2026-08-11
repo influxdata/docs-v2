@@ -42,7 +42,7 @@ To learn how metrics move through the pipeline, see
 
 ## Key capabilities
 
-- **300+ plugins**: collect from and write to databases, message queues, cloud
+- **400+ plugins**: collect from and write to databases, message queues, cloud
   services, and IoT devices.
   Browse the [Plugin directory](/telegraf/v1/plugins/).
 - **Parsers and serializers**: read and write many
