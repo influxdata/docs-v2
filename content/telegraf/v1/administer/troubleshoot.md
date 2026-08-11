@@ -3,13 +3,12 @@ title: Troubleshoot Telegraf
 description: Resolve common issues with Telegraf.
 menu:
   telegraf_v1:
-
-    name: Troubleshoot
-    Parent: Configure plugins
-    weight: 79
+    name: Troubleshoot Telegraf
+    parent: Administer Telegraf
+    weight: 105
 aliases:
   - /telegraf/v1/administration/troubleshooting/
-  - /telegraf/v1/administration/troubleshooting/
+  - /telegraf/v1/configure_plugins/troubleshoot/
 ---
 
 ## Validate your Telegraf configuration with `--test`

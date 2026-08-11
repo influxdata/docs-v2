@@ -4,7 +4,7 @@ description: The `telegraf` command starts and runs all the processes necessary 
 menu:
   telegraf_v1_ref:
     name: Telegraf commands
-    weight: 25
+    weight: 3
 ---
 
 The `telegraf` command starts and runs all the processes necessary for Telegraf to function.

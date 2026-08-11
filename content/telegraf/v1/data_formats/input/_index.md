@@ -5,7 +5,7 @@ description: Telegraf supports parsing input data formats into Telegraf metrics.
 menu:
   telegraf_v1_ref:
     name: Input data formats
-    weight: 1
+    weight: 101
     parent: Data formats
 ---
 

@@ -5,8 +5,8 @@ description: |
 menu:
   telegraf_v1:
      name: Aggregator and processor plugins
-     weight: 50
-     parent: Configure plugins
+     weight: 103
+     parent: Use plugins
 related:
   - /telegraf/v1/aggregator-plugins/
   - /telegraf/v1/processor-plugins/

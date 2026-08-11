@@ -5,8 +5,8 @@ description: |
 menu:
   telegraf_v1:
      name: Output plugins
-     weight: 20
-     parent: Configure plugins
+     weight: 102
+     parent: Use plugins
 related:
   - /telegraf/v1/output-plugins/
   - /telegraf/v1/data_formats/output/
