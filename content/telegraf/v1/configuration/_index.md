@@ -203,6 +203,9 @@ If any file isn't a valid configuration, Telegraf returns an error.
 
 ## Set environment variables
 
+For expansion forms and examples, see
+[Environment variables](/telegraf/v1/configuration/environment-variables/).
+
 Use environment variables anywhere in the configuration file by enclosing them in `${}`.
 For strings, variables must be in quotes (for example, `"test_${STR_VAR}"`).
 For numbers and booleans, variables must be unquoted (for example, `${INT_VAR}`,
@@ -343,6 +346,9 @@ When Telegraf runs, the effective configuration is the following:
 ```
 
 ## Secret stores
+
+For details and examples, see
+[Secrets](/telegraf/v1/configuration/secrets/).
 
 Telegraf also supports secret stores for providing credentials or similar.
 Configure one or more secret store plugins and then reference the secret in
@@ -983,4 +989,4 @@ For details on supported syntax and matching rules, see the labels selectors spe
 ## Transport Layer Security (TLS)
 
 Many Telegraf plugins support TLS configuration for secure communication.
-Reference the detailed TLS documentation for configuration options and examples.
+For all standard TLS settings, see [TLS](/telegraf/v1/configuration/tls/).
