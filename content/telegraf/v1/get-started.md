@@ -4,7 +4,7 @@ description: Configure and start Telegraf
 menu:
   telegraf_v1:
     name: Get started
-    weight: 30
+    weight: 3
 aliases:
   - /telegraf/v1/introduction/getting-started/
   - /telegraf/v1/get_started/

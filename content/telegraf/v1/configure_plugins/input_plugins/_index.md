@@ -6,8 +6,8 @@ menu:
   telegraf_v1:
 
      name: Input plugins
-     weight: 10
-     parent: Configure plugins
+     weight: 101
+     parent: Use plugins
 related:
   - /telegraf/v1/input-plugins/
 ---

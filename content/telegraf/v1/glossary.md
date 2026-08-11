@@ -4,7 +4,7 @@ description: This section includes definitions of important terms for related to
 menu:
   telegraf_v1_ref:
     name: Glossary
-    weight: 79
+    weight: 7
 ---
 
 ## agent

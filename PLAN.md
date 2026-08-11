@@ -38,7 +38,7 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
 5. **Level-based page weights** per `DOCS-FRONTMATTER.md` and newer doc sets (Telegraf Controller, InfluxDB 3 Explorer):
    top level 1–99 (sequential from 1), second level 101–199, third level 201–299.
    `_index.md` files are weighted one level up from other `.md` files in the same directory.
-   Sink items follow the Explorer precedent: Documentation MCP server 206, Release notes 250.
+   The Documentation MCP server sinks to 206 following the Explorer precedent; Release notes leads the reference nav at weight 1.
 
 ## Content sources
 
@@ -90,24 +90,24 @@ Plugin-level source of truth is `plugins/*/README.md` in the Telegraf repo and i
 ### Reference nav (`telegraf_v1_ref`)
 
 ```
-1   Plugin directory (plugins.md) — frozen structure below it
+1   Release notes (release-notes.md)
+2   Plugin directory (plugins.md) — frozen structure below it
       input-plugins/, output-plugins/, processor-plugins/,
       aggregator-plugins/, secretstore-plugins/ (auto-generated; do not touch)
-2   Telegraf commands (commands/_index.md)
+3   Telegraf commands (commands/_index.md)
       101+ config, plugins, secrets, service, version subcommand pages
-3   Data formats (data_formats/_index.md)
+4   Data formats (data_formats/_index.md)
       101 Input data formats (data_formats/input/_index.md) + per-format pages (201+)
       102 Output data formats (data_formats/output/_index.md) + per-format pages (201+)
       103 Template patterns (data_formats/template-patterns.md, moved with alias)
-4   Agent status evaluation (agent-status-eval/_index.md, shared)
+5   Agent status evaluation (agent-status-eval/_index.md, shared)
       101 CEL variables (agent-status-eval/variables.md, shared)
       102 CEL functions and operators (agent-status-eval/functions.md, shared)
       103 CEL expression examples (agent-status-eval/examples.md, shared)
-5   Supported platforms (supported-platforms.md)
-6   Glossary (glossary.md)
-7   Contribute to Telegraf (contribute.md)
+6   Supported platforms (supported-platforms.md)
+7   Glossary (glossary.md)
+8   Contribute to Telegraf (contribute.md)
 206 Documentation MCP server (mcp-server.md)
-250 Release notes (release-notes.md)
 ```
 
 Weights inside the frozen plugin directories are generated; leave them untouched.

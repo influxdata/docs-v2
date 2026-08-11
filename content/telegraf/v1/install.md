@@ -4,7 +4,7 @@ description: Learn how to install, configure, and start Telegraf on your system.
 menu:
   telegraf_v1:
     name: Install
-    weight: 20
+    weight: 2
 aliases:
 - /telegraf/v1/introduction/installation/
 - /telegraf/v1/install/
