@@ -31,7 +31,7 @@ For the configuration file structure and loading behavior, see
 [Telegraf configuration file](/telegraf/v1/configuration/file/).
 
 - [Create a configuration with default input and output plugins](#create-a-configuration-with-default-input-and-output-plugins)
-- [Create a configuration with specific input and output plugins](#create-a-configuration-with-specific-input-and-output-plugins)
+- [Create a configuration file with specific input and output plugins](#create-a-configuration-file-with-specific-input-and-output-plugins)
 - [Windows PowerShell v5 encoding](#windows-powershell-v5-encoding)
 
 ### Create a configuration with default input and output plugins
@@ -607,7 +607,7 @@ Excluded metrics are passed downstream to the next processor.
 Filters can be configured per input, output, processor, or aggregator.
 
 - [Filters](#filters)
-- [Filtering examples](#filter-examples)
+- [Filtering examples](#filtering-examples)
 
 ### Filters
 
