@@ -46,6 +46,10 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
    Defaults use TOML-literal form (`"10s"`, `true`) or "Not set;" plus the unset behavior; inherited options link the agent setting's anchor.
    Give each repeated option name one canonical heading per page so anchors stay stable.
    Verify types and defaults against the Telegraf source, not memory.
+7. **Periods over semicolons and colons in prose.**
+   Use semicolons and colons sparingly.
+   A clause joined by a semicolon or colon should usually be its own sentence.
+   Colons that introduce lists, code blocks, or definition-list terms are fine.
    The Documentation MCP server sinks to 206 following the Explorer precedent; Release notes leads the reference nav at weight 1.
 
 ## Content sources
@@ -268,20 +272,20 @@ High-traffic inbound links to verify in each PR:
 
 All PRs branch from and target `docs/telegraf-revamp`.
 
-| #  | Branch                             | Scope                                                                                                         | Depends on |
-| -- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------- |
-| 0  | (base branch)                      | This plan                                                                                                     | —          |
-| 1  | `docs/telegraf-nav-skeleton`       | Section `_index` pages, menu labels, level-based weights, moves and aliases, landing page revamp              | 0          |
-| 2  | `docs/telegraf-concepts`           | `concepts/` content: metrics rewrite, data-pipeline page                                                      | 1          |
-| 3  | `docs/telegraf-config-core`        | `configuration/` conversion plus file, toml, agent, plugin-options pages                                      | 1          |
-| 4  | `docs/telegraf-config-filtering`   | filtering and labels-selectors pages                                                                          | 3          |
-| 5  | `docs/telegraf-config-secrets-tls` | environment-variables, secrets, TLS pages                                                                     | 3          |
-| 6  | `docs/telegraf-get-started`        | Get started rewrite, install refresh                                                                          | 1          |
-| 7  | `docs/telegraf-plugin-guides`      | Use-plugins guides plus parse-data and serialize-data                                                         | 2          |
-| 8  | `docs/telegraf-data-formats`       | Missing formats plus refresh pass                                                                             | 7          |
-| 9  | `docs/telegraf-examples`           | Examples section (may split per example)                                                                      | 3, 7       |
-| 10 | `docs/telegraf-administer`         | Service, monitor, manage-at-scale, troubleshoot                                                               | 1          |
-| 11 | `docs/telegraf-reference-cleanup`  | Commands, glossary, platforms, release cadence; slim `configuration/_index.md`; light `enterprise.md` refresh | 3, 4, 5    |
+| #  | Branch                             | Scope                                                                                                                                                                                              | Depends on |
+| -- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 0  | (base branch)                      | This plan                                                                                                                                                                                          | —          |
+| 1  | `docs/telegraf-nav-skeleton`       | Section `_index` pages, menu labels, level-based weights, moves and aliases, landing page revamp                                                                                                   | 0          |
+| 2  | `docs/telegraf-concepts`           | `concepts/` content: metrics rewrite, data-pipeline page                                                                                                                                           | 1          |
+| 3  | `docs/telegraf-config-core`        | `configuration/` conversion plus file, toml, agent, plugin-options pages                                                                                                                           | 1          |
+| 4  | `docs/telegraf-config-filtering`   | filtering and labels-selectors pages                                                                                                                                                               | 3          |
+| 5  | `docs/telegraf-config-secrets-tls` | environment-variables, secrets, TLS pages                                                                                                                                                          | 3          |
+| 6  | `docs/telegraf-get-started`        | Get started rewrite, install refresh                                                                                                                                                               | 1          |
+| 7  | `docs/telegraf-plugin-guides`      | Use-plugins guides plus parse-data and serialize-data                                                                                                                                              | 2          |
+| 8  | `docs/telegraf-data-formats`       | Missing formats plus refresh pass                                                                                                                                                                  | 7          |
+| 9  | `docs/telegraf-examples`           | Examples section (may split per example)                                                                                                                                                           | 3, 7       |
+| 10 | `docs/telegraf-administer`         | Service, monitor, manage-at-scale, troubleshoot                                                                                                                                                    | 1          |
+| 11 | `docs/telegraf-reference-cleanup`  | Commands, glossary, platforms, release cadence; slim `configuration/_index.md`; light `enterprise.md` refresh; sweep earlier parcels for semicolon and colon sentence joins and menu-level weights | 3, 4, 5    |
 
 \| 12 | `docs/telegraf-agent-status-shared` | Extract agent status content to `content/shared/telegraf/`, convert Controller pages to `source:` consumers, add v1 consuming pages | 1 |
 
