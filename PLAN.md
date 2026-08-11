@@ -118,7 +118,7 @@ Weights inside the frozen plugin directories are generated; leave them untouched
 
 - **Telegraf** (`_index.md`, revise): what Telegraf is (plugin-driven collection agent), the pipeline diagram (inputs → processors → aggregators → outputs), capability tour (300+ plugins, parsers and serializers, buffering, secret stores), a pointer to Telegraf Controller for managing agents at scale, and clear next-step links.
 - **Install** (`install.md`, refresh in place): keep the comprehensive single page.
-  Add the supported-platforms matrix reference, nightly builds, and custom builds (upstream `CUSTOMIZATION.md`, `NIGHTLIES.md`, `INSTALL_GUIDE.md`).
+  Add the supported-platforms matrix reference and nightly builds, and refresh the existing custom-compile section (upstream `CUSTOMIZATION.md`, `NIGHTLIES.md`, `INSTALL_GUIDE.md`).
   Windows service installation stays here; running and managing the service moves to Administer.
 - **Get started** (`get-started.md`, rewrite): assumes Telegraf is installed.
   Generate a config, enable cpu/mem input and file output, run, read the output, then swap in an InfluxDB output.
@@ -220,6 +220,18 @@ Initial set:
 - **Release notes** (`release-notes.md`, keep): add a short release-cadence and versioning intro and a nightly-builds pointer.
   Sources: upstream `RELEASES.md`, `NIGHTLIES.md`.
 - **Contribute** (`contribute.md`) and **Documentation MCP server** (`mcp-server.md`): unchanged.
+
+## Preservation requirements
+
+Existing frontmatter and assets that rewrites must carry forward:
+
+- **`cascade` block on `_index.md`**: `product: telegraf` and `version: v1` cascade to every v1 page; the landing page rewrite must keep it.
+- **Dual menu membership**: `_index.md` and `enterprise.md` also appear in the `telegraf_enterprise` menu; keep both menu entries (and the `state: new` badge on `enterprise.md`).
+- **Existing `aliases`**: `get-started.md`, `install.md`, `configuration.md`, `release-notes.md`, `configure_plugins/troubleshoot.md`, `plugins.md`, and `data_formats/output/msgpack.md` carry legacy redirects (`/administration/*`, `/introduction/*`, and others); carry every existing alias forward when a page is rewritten or moved, and append new aliases rather than replacing.
+- **Landing page education assets**: keep the intro video (`{{< youtube >}}`), the two InfluxDB University shortcodes (`influxdbu`), and the `/resources/videos/intro-to-telegraf/` related link in the revamped landing page.
+- **`related` frontmatter**: preserve existing related-link lists on rewritten pages (fix the stale `/telegraf/v1/get_started/` link on `_index.md` to `/telegraf/v1/get-started/`).
+- **Menu rename mechanics**: relabeling "Configure plugins" to "Use plugins" requires updating every child's `parent:` reference in the same PR; generated plugin pages parent to identifiers on frozen `_index.md` files and are unaffected.
+- **`__tests__/shortcodes.md`**: test-only infrastructure; leave untouched.
 
 ## Shared content with Telegraf Controller
 
