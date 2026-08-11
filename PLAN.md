@@ -16,6 +16,7 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
 - Let plugin documentation carry the weight for each plugin; centralize general configuration concepts.
 - Document the data flow from inputs to processors to aggregators to outputs.
 - Provide examples of using input formats (parsers) and output formats (serializers).
+- Inform Telegraf users that Telegraf Controller is available for managing agents at scale, without duplicating its documentation set.
 
 ## Constraints
 
@@ -80,7 +81,8 @@ Plugin-level source of truth is `plugins/*/README.md` in the Telegraf repo and i
 8   Administer Telegraf (administer/_index.md)
       101 Run Telegraf as a service (administer/run-as-service.md)
       102 Monitor Telegraf (administer/monitor.md)
-      103 Troubleshoot Telegraf (administer/troubleshoot.md)
+      103 Manage agents at scale (administer/manage-at-scale.md)
+      104 Troubleshoot Telegraf (administer/troubleshoot.md)
 10  Telegraf Enterprise (enterprise.md)
 ```
 
@@ -109,13 +111,16 @@ Weights inside the frozen plugin directories are generated; leave them untouched
 
 ### Top level
 
-- **Telegraf** (`_index.md`, revise): what Telegraf is (plugin-driven collection agent), the pipeline diagram (inputs → processors → aggregators → outputs), capability tour (300+ plugins, parsers and serializers, buffering, secret stores), and clear next-step links.
+- **Telegraf** (`_index.md`, revise): what Telegraf is (plugin-driven collection agent), the pipeline diagram (inputs → processors → aggregators → outputs), capability tour (300+ plugins, parsers and serializers, buffering, secret stores), a pointer to Telegraf Controller for managing agents at scale, and clear next-step links.
 - **Install** (`install.md`, refresh in place): keep the comprehensive single page.
   Add the supported-platforms matrix reference, nightly builds, and custom builds (upstream `CUSTOMIZATION.md`, `NIGHTLIES.md`, `INSTALL_GUIDE.md`).
   Windows service installation stays here; running and managing the service moves to Administer.
 - **Get started** (`get-started.md`, rewrite): assumes Telegraf is installed.
   Generate a config, enable cpu/mem input and file output, run, read the output, then swap in an InfluxDB output.
-  Ends with "where to go deeper." Draws on upstream `QUICK_START.md`.
+  Ends with "where to go deeper," including Telegraf Controller for multi-agent fleets.
+  Draws on upstream `QUICK_START.md`.
+- **Telegraf Enterprise** (`enterprise.md`, light refresh in PR 11): stays the licensing and support home; already introduces Telegraf Controller.
+  Cross-link the new manage-at-scale page and fix dash punctuation to house style.
 
 ### How Telegraf works (`concepts/`, new section)
 
@@ -181,6 +186,9 @@ Initial set:
   Sources: upstream `WINDOWS_SERVICE.md` plus service material currently in `install.md`.
 - **Monitor Telegraf** (`administer/monitor.md`, new): monitoring Telegraf itself with the `internal` input; log interpretation.
   Source: upstream `specs/tsd-011-internal-plugin-statistics.md`.
+- **Manage agents at scale** (`administer/manage-at-scale.md`, new): a short signpost page, not a duplicate of the Controller docs.
+  What Telegraf Controller provides (centralized configuration management, agent status and monitoring, labels), that it is part of Telegraf Enterprise, and a handoff to the [Telegraf Controller documentation](/telegraf/controller/).
+  Three or four paragraphs plus links; `enterprise.md` and this page cross-link each other via `related` frontmatter.
 - **Troubleshoot Telegraf** (`administer/troubleshoot.md`, moved from `configure_plugins/troubleshoot.md` with alias): `--test`/`--once`/debug workflow, file-output debugging, pprof profiling, AppArmor denials, common errors salvaged from upstream `FAQ.md`.
   Sources: upstream `PROFILING.md`, `APPARMOR.md`, `FAQ.md`.
   No separate FAQ page; useful FAQ answers fold in here.
@@ -220,20 +228,20 @@ High-traffic inbound links to verify in each PR:
 
 All PRs branch from and target `docs/telegraf-revamp`.
 
-| #  | Branch                             | Scope                                                                                            | Depends on |
-| -- | ---------------------------------- | ------------------------------------------------------------------------------------------------ | ---------- |
-| 0  | (base branch)                      | This plan                                                                                        | —          |
-| 1  | `docs/telegraf-nav-skeleton`       | Section `_index` pages, menu labels, level-based weights, moves and aliases, landing page revamp | 0          |
-| 2  | `docs/telegraf-concepts`           | `concepts/` content: metrics rewrite, data-pipeline page                                         | 1          |
-| 3  | `docs/telegraf-config-core`        | `configuration/` conversion plus file, toml, agent, plugin-options pages                         | 1          |
-| 4  | `docs/telegraf-config-filtering`   | filtering and labels-selectors pages                                                             | 3          |
-| 5  | `docs/telegraf-config-secrets-tls` | environment-variables, secrets, TLS pages                                                        | 3          |
-| 6  | `docs/telegraf-get-started`        | Get started rewrite, install refresh                                                             | 1          |
-| 7  | `docs/telegraf-plugin-guides`      | Use-plugins guides plus parse-data and serialize-data                                            | 2          |
-| 8  | `docs/telegraf-data-formats`       | Missing formats plus refresh pass                                                                | 7          |
-| 9  | `docs/telegraf-examples`           | Examples section (may split per example)                                                         | 3, 7       |
-| 10 | `docs/telegraf-administer`         | Service, monitor, troubleshoot                                                                   | 1          |
-| 11 | `docs/telegraf-reference-cleanup`  | Commands, glossary, platforms, release cadence; slim `configuration/_index.md`                   | 3, 4, 5    |
+| #  | Branch                             | Scope                                                                                                         | Depends on |
+| -- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------- |
+| 0  | (base branch)                      | This plan                                                                                                     | —          |
+| 1  | `docs/telegraf-nav-skeleton`       | Section `_index` pages, menu labels, level-based weights, moves and aliases, landing page revamp              | 0          |
+| 2  | `docs/telegraf-concepts`           | `concepts/` content: metrics rewrite, data-pipeline page                                                      | 1          |
+| 3  | `docs/telegraf-config-core`        | `configuration/` conversion plus file, toml, agent, plugin-options pages                                      | 1          |
+| 4  | `docs/telegraf-config-filtering`   | filtering and labels-selectors pages                                                                          | 3          |
+| 5  | `docs/telegraf-config-secrets-tls` | environment-variables, secrets, TLS pages                                                                     | 3          |
+| 6  | `docs/telegraf-get-started`        | Get started rewrite, install refresh                                                                          | 1          |
+| 7  | `docs/telegraf-plugin-guides`      | Use-plugins guides plus parse-data and serialize-data                                                         | 2          |
+| 8  | `docs/telegraf-data-formats`       | Missing formats plus refresh pass                                                                             | 7          |
+| 9  | `docs/telegraf-examples`           | Examples section (may split per example)                                                                      | 3, 7       |
+| 10 | `docs/telegraf-administer`         | Service, monitor, manage-at-scale, troubleshoot                                                               | 1          |
+| 11 | `docs/telegraf-reference-cleanup`  | Commands, glossary, platforms, release cadence; slim `configuration/_index.md`; light `enterprise.md` refresh | 3, 4, 5    |
 
 PRs 2, 3, 6, and 10 can proceed in parallel once the skeleton (PR 1) merges.
 
