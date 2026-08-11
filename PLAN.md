@@ -42,7 +42,7 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
 6. **Settings references use per-setting headings with Type and Default metadata.**
    Group settings under H2s by purpose; each setting is an H3 (stable anchor) with a short description followed by `**Type:**` and `**Default:**` metadata lines, matching the Telegraf Controller config-options precedent.
    The Type line ends with a markdown hard break (trailing double space) so Type and Default render as adjacent lines, not separate paragraphs.
-   Type vocabulary: string, boolean, integer, duration, size, table.
+   Type vocabulary: string, boolean, integer, duration, size, table, array of strings.
    Defaults use TOML-literal form (`"10s"`, `true`) or "Not set;" plus the unset behavior; inherited options link the agent setting's anchor.
    Give each repeated option name one canonical heading per page so anchors stay stable.
    Verify types and defaults against the Telegraf source, not memory.
