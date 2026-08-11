@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_v1:
     name: Telegraf Enterprise
-    weight: 90
+    weight: 10
     params:
       state: new
   telegraf_enterprise:
@@ -16,7 +16,7 @@ menu:
     parent: Telegraf
     params:
       state: new
-weight: 90
+weight: 10
 ---
 
 **Telegraf Enterprise** is the commercial package for organizations running

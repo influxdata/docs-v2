@@ -5,7 +5,7 @@ menu:
   telegraf_v1:
 
      name: Write an external plugin
-     weight: 50
+     weight: 202
      parent: External plugins
 ---
 Set up your plugin to use it with `execd`.

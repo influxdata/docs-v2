@@ -5,7 +5,7 @@ description: Telegraf serializes metrics into output data formats.
 menu:
   telegraf_v1_ref:
     name: Output data formats
-    weight: 1
+    weight: 102
     parent: Data formats
 related:
   - /telegraf/v1/configure_plugins/output_plugins/

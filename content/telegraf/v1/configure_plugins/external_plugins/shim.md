@@ -5,7 +5,7 @@ menu:
   telegraf_v1:
   
      name: Use the `execd` shim
-     weight: 50
+     weight: 201
      parent: External plugins
 ---
 

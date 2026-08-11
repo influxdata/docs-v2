@@ -5,7 +5,7 @@ menu:
   telegraf_v1:
 
     name: Using the HTTP plugin
-    weight: 30
+    weight: 202
     parent: Input plugins
 ---
 

@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_v1_ref:
     identifier: plugins_reference
-    weight: 10
+    weight: 2
 weight: 6
 aliases:
   - /telegraf/v1/plugins/aggregators/

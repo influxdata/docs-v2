@@ -5,8 +5,8 @@ description: |
 menu:
   telegraf_v1:
      name: External plugins
-     weight: 50
-     parent: Configure plugins
+     weight: 104
+     parent: Use plugins
 ---
 
 [External plugins](https://github.com/influxdata/telegraf/blob/master/EXTERNAL_PLUGINS.md) are external programs that are built outside
