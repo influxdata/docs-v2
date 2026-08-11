@@ -81,8 +81,9 @@ Plugin-level source of truth is `plugins/*/README.md` in the Telegraf repo and i
 8   Administer Telegraf (administer/_index.md)
       101 Run Telegraf as a service (administer/run-as-service.md)
       102 Monitor Telegraf (administer/monitor.md)
-      103 Manage agents at scale (administer/manage-at-scale.md)
-      104 Troubleshoot Telegraf (administer/troubleshoot.md)
+      103 Configure agent statuses (administer/agent-status.md, shared)
+      104 Manage agents at scale (administer/manage-at-scale.md)
+      105 Troubleshoot Telegraf (administer/troubleshoot.md)
 10  Telegraf Enterprise (enterprise.md)
 ```
 
@@ -98,9 +99,13 @@ Plugin-level source of truth is `plugins/*/README.md` in the Telegraf repo and i
       101 Input data formats (data_formats/input/_index.md) + per-format pages (201+)
       102 Output data formats (data_formats/output/_index.md) + per-format pages (201+)
       103 Template patterns (data_formats/template-patterns.md, moved with alias)
-4   Supported platforms (supported-platforms.md)
-5   Glossary (glossary.md)
-6   Contribute to Telegraf (contribute.md)
+4   Agent status evaluation (agent-status-eval/_index.md, shared)
+      101 CEL variables (agent-status-eval/variables.md, shared)
+      102 CEL functions and operators (agent-status-eval/functions.md, shared)
+      103 CEL expression examples (agent-status-eval/examples.md, shared)
+5   Supported platforms (supported-platforms.md)
+6   Glossary (glossary.md)
+7   Contribute to Telegraf (contribute.md)
 206 Documentation MCP server (mcp-server.md)
 250 Release notes (release-notes.md)
 ```
@@ -185,7 +190,10 @@ Initial set:
 - **Run Telegraf as a service** (`administer/run-as-service.md`, new): systemd and Windows service operation.
   Sources: upstream `WINDOWS_SERVICE.md` plus service material currently in `install.md`.
 - **Monitor Telegraf** (`administer/monitor.md`, new): monitoring Telegraf itself with the `internal` input; log interpretation.
+  Also covers monitoring with Telegraf Controller: agents running the [heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) report metrics, error counts, plugin statistics, and a self-evaluated status back to Controller.
   Source: upstream `specs/tsd-011-internal-plugin-statistics.md`.
+- **Configure agent statuses** (`administer/agent-status.md`, new, shared): how the heartbeat output plugin evaluates CEL expressions to produce a self-reported agent status; status values; configuration.
+  Consumes `/shared/telegraf/agent-status.md`; the Telegraf Controller page is canonical (see [Shared content with Telegraf Controller](#shared-content-with-telegraf-controller)).
 - **Manage agents at scale** (`administer/manage-at-scale.md`, new): a short signpost page, not a duplicate of the Controller docs.
   What Telegraf Controller provides (centralized configuration management, agent status and monitoring, labels), that it is part of Telegraf Enterprise, and a handoff to the [Telegraf Controller documentation](/telegraf/controller/).
   Three or four paragraphs plus links; `enterprise.md` and this page cross-link each other via `related` frontmatter.
@@ -204,12 +212,24 @@ Initial set:
   index pages link to the parse and serialize guides;
   fix the missing-table note referencing Issue #2360;
   move `template-patterns` under Data formats (alias from `configure_plugins/template-patterns/`).
+- **Agent status evaluation** (`agent-status-eval/`, new, shared): CEL reference for heartbeat status expressions: variables, functions and operators, and examples.
+  Four pages consuming `/shared/telegraf/agent-status-eval/*`; the Telegraf Controller pages are canonical.
 - **Supported platforms** (`supported-platforms.md`, new): OS support matrix.
   Source: upstream `SUPPORTED_PLATFORMS.md`.
 - **Glossary** (`glossary.md`, expand): add parser, serializer, secret store, selector, label, tracking metric, service input.
 - **Release notes** (`release-notes.md`, keep): add a short release-cadence and versioning intro and a nightly-builds pointer.
   Sources: upstream `RELEASES.md`, `NIGHTLIES.md`.
 - **Contribute** (`contribute.md`) and **Documentation MCP server** (`mcp-server.md`): unchanged.
+
+## Shared content with Telegraf Controller
+
+Agent status content is maintained once and rendered in both doc sets:
+
+- Extract the body of `content/telegraf/controller/agents/status.md` to `content/shared/telegraf/agent-status.md`, and the bodies of `content/telegraf/controller/reference/agent-status-eval/*.md` to `content/shared/telegraf/agent-status-eval/`.
+- Controller pages keep their URLs and frontmatter and consume the shared files via `source:`; they are the canonical versions.
+- Telegraf v1 consuming pages (`administer/agent-status.md` and the `agent-status-eval/` reference section) set `canonical:` to the corresponding `/telegraf/controller/` URL.
+- During extraction, rewrite Controller-specific `{{% product-name %}}` references to explicit "Telegraf Controller" text; on Telegraf v1 pages, `{{% product-name %}}` renders "Telegraf".
+  Keep the shared prose product-neutral.
 
 ## URL and alias strategy
 
@@ -243,7 +263,10 @@ All PRs branch from and target `docs/telegraf-revamp`.
 | 10 | `docs/telegraf-administer`         | Service, monitor, manage-at-scale, troubleshoot                                                               | 1          |
 | 11 | `docs/telegraf-reference-cleanup`  | Commands, glossary, platforms, release cadence; slim `configuration/_index.md`; light `enterprise.md` refresh | 3, 4, 5    |
 
+\| 12 | `docs/telegraf-agent-status-shared` | Extract agent status content to `content/shared/telegraf/`, convert Controller pages to `source:` consumers, add v1 consuming pages | 1 |
+
 PRs 2, 3, 6, and 10 can proceed in parallel once the skeleton (PR 1) merges.
+Coordinate PR 12 with the Telegraf Controller doc owners; it converts Controller pages to shared-content consumers.
 
 ## Known gaps and fixes captured above
 
