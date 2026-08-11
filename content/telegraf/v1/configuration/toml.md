@@ -87,7 +87,7 @@ In basic strings (double quotes), backslashes and double quotes must be
 escaped.
 For example, the following Windows path is invalid TOML:
 
-```toml
+```toml {lint="false"}
 path = "C:\Program Files\"  # invalid TOML
 ```
 
@@ -96,6 +96,9 @@ returns exactly what you type:
 
 ```toml
 path = "C:\\Program Files\\"
+```
+
+```toml
 path = 'C:\Program Files\'
 ```
 
