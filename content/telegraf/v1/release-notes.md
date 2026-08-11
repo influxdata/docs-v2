@@ -8,7 +8,7 @@ aliases:
 menu:
   telegraf_v1_ref:
     name: Release notes
-    weight: 60
+    weight: 1
 ---
 
 ## v1.39.3 {date="2026-08-10"}
