@@ -39,6 +39,8 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
    top level 1–99 (sequential from 1), second level 101–199, third level 201–299.
    `_index.md` files are weighted one level up from other `.md` files in the same directory.
    Set `weight` at the page level (top-level frontmatter), not on the menu entry; menu items inherit the page weight.
+   The Documentation MCP server sinks to 206 following the Explorer precedent.
+   Release notes leads the reference nav at weight 1.
 6. **Settings references use per-setting headings with Type and Default metadata.**
    Group settings under H2s by purpose; each setting is an H3 (stable anchor) with a short description followed by `**Type:**` and `**Default:**` metadata lines, matching the Telegraf Controller config-options precedent.
    The Type line ends with a markdown hard break (trailing double space) so Type and Default render as adjacent lines, not separate paragraphs.
@@ -50,7 +52,6 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
    Use semicolons and colons sparingly.
    A clause joined by a semicolon or colon should usually be its own sentence.
    Colons that introduce lists, code blocks, or definition-list terms are fine.
-   The Documentation MCP server sinks to 206 following the Explorer precedent; Release notes leads the reference nav at weight 1.
 
 ## Content sources
 
