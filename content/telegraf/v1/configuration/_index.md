@@ -1,14 +1,15 @@
 ---
-title: Configuration options
+title: Configure Telegraf
 description: >
-  Overview of the Telegraf configuration file, enabling plugins, and setting
+  Overview of the Telegraf configuration file: generating and loading
+  configuration, agent settings, plugin options, metric filtering, and
   environment variables.
 aliases:
   - /telegraf/v1/administration/configuration/
 menu:
-  telegraf_v1_ref:
-    name: Configuration options
-    weight: 40
+  telegraf_v1:
+    name: Configure Telegraf
+weight: 5
 ---
 
 Telegraf uses a configuration file to define what plugins to enable and what
@@ -17,14 +18,20 @@ Each Telegraf plugin has its own set of configuration options.
 Telegraf also provides global options for configuring specific Telegraf settings.
 
 > [!Note]
-> See [Get started](/telegraf/v1/get_started/) to quickly get up and running with Telegraf.
+> See [Get started](/telegraf/v1/get-started/) to quickly get up and running with Telegraf.
+
+The following pages cover each configuration topic in depth:
+
+{{< children >}}
 
 ## Generate a configuration file
 
 The `telegraf config` command lets you generate a configuration file using Telegraf's list of plugins.
+For the configuration file structure and loading behavior, see
+[Telegraf configuration file](/telegraf/v1/configuration/file/).
 
 - [Create a configuration with default input and output plugins](#create-a-configuration-with-default-input-and-output-plugins)
-- [Create a configuration with specific input and output plugins](#create-a-configuration-with-specific-input-and-output-plugins)
+- [Create a configuration file with specific input and output plugins](#create-a-configuration-file-with-specific-input-and-output-plugins)
 - [Windows PowerShell v5 encoding](#windows-powershell-v5-encoding)
 
 ### Create a configuration with default input and output plugins
@@ -406,6 +413,9 @@ Telegraf applies the global tags to all metrics gathered on this host.
 
 ## Agent configuration
 
+For agent settings grouped by what they control, see
+[Agent settings](/telegraf/v1/configuration/agent/).
+
 The `[agent]` section contains the following configuration options:
 
 - **interval**: Default data collection interval for all inputs.
@@ -485,6 +495,9 @@ The `[agent]` section contains the following configuration options:
 
 ## Input configuration
 
+For details and examples, see
+[Common plugin options](/telegraf/v1/configuration/plugin-options/#input-plugin-options).
+
 The following config parameters are available for all inputs:
 
 - **alias**: Name an instance of a plugin.
@@ -504,6 +517,9 @@ The following config parameters are available for all inputs:
 - **tags**: A map of tags to apply to a specific input's measurements.
 
 ## Output configuration
+
+For details and examples, see
+[Common plugin options](/telegraf/v1/configuration/plugin-options/#output-plugin-options).
 
 - **alias**: Name an instance of a plugin.
 - **flush_interval**: Maximum time between flushes. Use this setting to
@@ -541,6 +557,9 @@ For available serializers and configuration options, see
 
 ## Aggregator configuration
 
+For details and examples, see
+[Common plugin options](/telegraf/v1/configuration/plugin-options/#aggregator-plugin-options).
+
 The following config parameters are available for all aggregators:
 
 - **alias**: Name an instance of a plugin.
@@ -570,6 +589,9 @@ get data into Telegraf, see the following video:
 
 ## Processor configuration
 
+For details and examples, see
+[Common plugin options](/telegraf/v1/configuration/plugin-options/#processor-plugin-options).
+
 The following config parameters are available for all processors:
 
 - **alias**: Name an instance of a plugin.
@@ -585,7 +607,7 @@ Excluded metrics are passed downstream to the next processor.
 Filters can be configured per input, output, processor, or aggregator.
 
 - [Filters](#filters)
-- [Filtering examples](#filter-examples)
+- [Filtering examples](#filtering-examples)
 
 ### Filters
 

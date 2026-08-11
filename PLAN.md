@@ -38,6 +38,14 @@ Remove this file before merging `docs/telegraf-revamp` into `master`.
 5. **Level-based page weights** per `DOCS-FRONTMATTER.md` and newer doc sets (Telegraf Controller, InfluxDB 3 Explorer):
    top level 1–99 (sequential from 1), second level 101–199, third level 201–299.
    `_index.md` files are weighted one level up from other `.md` files in the same directory.
+   Set `weight` at the page level (top-level frontmatter), not on the menu entry; menu items inherit the page weight.
+6. **Settings references use per-setting headings with Type and Default metadata.**
+   Group settings under H2s by purpose; each setting is an H3 (stable anchor) with a short description followed by `**Type:**` and `**Default:**` metadata lines, matching the Telegraf Controller config-options precedent.
+   The Type line ends with a markdown hard break (trailing double space) so Type and Default render as adjacent lines, not separate paragraphs.
+   Type vocabulary: string, boolean, integer, duration, size, table.
+   Defaults use TOML-literal form (`"10s"`, `true`) or "Not set;" plus the unset behavior; inherited options link the agent setting's anchor.
+   Give each repeated option name one canonical heading per page so anchors stay stable.
+   Verify types and defaults against the Telegraf source, not memory.
    The Documentation MCP server sinks to 206 following the Explorer precedent; Release notes leads the reference nav at weight 1.
 
 ## Content sources
