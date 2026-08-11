@@ -604,6 +604,9 @@ Excluded metrics are passed downstream to the next processor.
 
 ## Metric filtering
 
+For details and worked examples, see
+[Filter metrics](/telegraf/v1/configuration/filtering/).
+
 Filters can be configured per input, output, processor, or aggregator.
 
 - [Filters](#filters)
@@ -928,6 +931,9 @@ To learn more about configuring the Telegraf agent, watch the following video:
 {{< youtube txUcAxMDBlQ >}}
 
 ## Plugin selection via labels and selectors
+
+For details and matching behavior, see
+[Labels and selectors](/telegraf/v1/configuration/labels-selectors/).
 
 You can control which plugin instances are enabled by adding labels to plugin
 configurations and passing one or more selectors on the command line.
