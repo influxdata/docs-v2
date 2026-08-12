@@ -1,26 +1,42 @@
 ---
 title: Install Telegraf
-description: Learn how to install, configure, and start Telegraf on your system.
+description: >
+  Install Telegraf on Linux, macOS, Windows, or FreeBSD, run it in Docker or
+  Kubernetes, build a custom binary, or preview nightly builds.
 menu:
   telegraf_v1:
-    name: Install
-    weight: 2
+    name: Install Telegraf
+weight: 2
 aliases:
 - /telegraf/v1/introduction/installation/
 - /telegraf/v1/install/
+related:
+  - /telegraf/v1/get-started/
+  - /telegraf/v1/configuration/file/
+  - /telegraf/v1/administer/
 ---
 
-Use this guide to install, start, and configure Telegraf on your system:
+Use this guide to install Telegraf on your system:
 
 - [Review requirements](#requirements)
 - [Download and install Telegraf](#download-and-install-telegraf)
 - [Deploy in Kubernetes with Helm](#deploy-telegraf-in-kubernetes-with-helm)
-- [Generate a configuration file](#generate-a-configuration-file)
+- [Verify the installation](#verify-the-installation)
 - [Custom compile Telegraf](#custom-compile-telegraf)
+- [Nightly builds](#nightly-builds)
+- [Next steps](#next-steps)
 
 ## Requirements
 
-Installation of the Telegraf package may require `root` or administrator privileges to complete successfully. <!--check instruction for each one to clarify-->
+Installation of the Telegraf package may require `root` or administrator privileges to complete successfully.
+
+### Supported operating systems
+
+Telegraf supports Linux, macOS, Microsoft Windows, and FreeBSD.
+For each operating system, Telegraf supports releases that are under the
+vendor's general support, not extended or paid support.
+Telegraf is written in Go and may also build and run on other
+[operating systems supported by Go](https://go.dev/doc/install/source#environment).
 
 ### Networking
 
@@ -30,8 +46,9 @@ Modify port mappings through the configuration file (`telegraf.conf`).
 
 For Linux distributions, this file is located at `/etc/telegraf` for default installations.
 
-For Windows distributions, the configuration file is located in the directory where you unzipped the Telegraf ZIP archive.
-The default location is `C:\InfluxData\telegraf`.
+For Windows distributions, the configuration file is located in the directory
+where you unzipped the Telegraf ZIP archive.
+The default location is `C:\Program Files\InfluxData\telegraf`.
 
 ### NTP
 
@@ -66,40 +83,36 @@ To use the SHA checksum to verify the downloaded file, do the following:
    the SHA256 checksum for the file.
 
 2. Compute the SHA checksum of the downloaded file and compare it to the
-   checksum you copied in the preceding step--for example, enter the following
-   command in your terminal.
+   checksum you copied in the preceding step.
+   For example, enter the following command in your terminal.
+
+In the following examples, replace
+{{% code-placeholder-key %}}`SHA256_CHECKSUM`{{% /code-placeholder-key %}} with
+the **SHA256** checksum value that you copied from the downloads page.
 
 ### Syntax
 
 <!--pytest.mark.skip-->
 
-```bash { placeholders="<SHA256_CHECKSUM>" }
+```bash { placeholders="SHA256_CHECKSUM" }
 # Use 2 spaces to separate the checksum from the filename
-echo "<SHA256_CHECKSUM>  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
+echo "SHA256_CHECKSUM  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`<SHA256_CHECKSUM>`{{% /code-placeholder-key %}}:
-  the **SHA256:** checksum value that you copied from the downloads page
 
 ### Example
 
 The following sample code uses `curl` to download Telegraf, and then
-uses `sha256` to compare it to the checksum:
+uses `sha256sum` to compare it to the checksum:
 
-```bash { placeholders="260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" }
+<!--pytest.mark.skip-->
+
+```bash { placeholders="SHA256_CHECKSUM" }
 curl -s --location -O \
 "https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz"
-echo "21e781cc2352713e4eabf0931e3eeea640a2014850a33ea04f86b4dc288d6add  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
+echo "SHA256_CHECKSUM  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`21e781cc2352713e4eabf0931e3eeea640a2014850a33ea04f86b4dc288d6add`{{% /code-placeholder-key %}}:
-  the **SHA256:** checksum value that you copied from the downloads page
 
 If the checksums match, the output is the following; otherwise, an error message.
 
@@ -140,11 +153,11 @@ _For security, InfluxData periodically rotates keys and publishes the new key pa
   [Ubuntu & Debian](#)
   [RedHat & CentOS](#)
   [SLES & openSUSE](#)
-  [FreeBSD/PC-BSD](#)
-  [Linux binaries (AMD)](#)
-  [Linux binaries (ARM)](#)
+  [FreeBSD](#)
+  [Linux binaries](#)
   [macOS](#)
   [Windows](#)
+  [Docker](#)
 {{% /tabs %}}
 <!---------- BEGIN Ubuntu & Debian ---------->
 {{% tab-content %}}
@@ -221,7 +234,9 @@ To learn how to manually install the RPM package from a file, see the [downloads
 
 To use the `yum` package manager to install the latest stable version of Telegraf, follow these steps:
 
-1. In your terminal, enter the following command to add the InfluxData repository to the `yum` configuration:
+1. In your terminal, enter the following command to add the InfluxData repository to the `yum` configuration.
+   The repository configuration references the InfluxData GPG key directly, so
+   `yum` verifies package signatures against it.
 
    <!--test:external:using-Dockerfile.test-oss.centos-->
    <!--pytest.mark.skip-->
@@ -233,7 +248,7 @@ To use the `yum` package manager to install the latest stable version of Telegra
    baseurl = https://repos.influxdata.com/stable/\$basearch/main
    enabled = 1
    gpgcheck = 1
-   gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata
+   gpgkey = https://repos.influxdata.com/influxdata-archive.key
    EOF
    ```
 
@@ -252,6 +267,10 @@ The `telegraf` configuration file is installed at `/etc/telegraf/telegraf.conf`.
 <!---------- BEGIN SLES & openSUSE ---------->
 {{% tab-content %}}
 The openSUSE Build Service provides RPM packages for SUSE Linux.
+
+> [!Note]
+> These packages are maintained in the community openSUSE Build Service Go
+> repository, not by InfluxData.
 
 To use the `zypper` package manager to install the latest stable version of Telegraf, follow these steps:
 
@@ -274,7 +293,7 @@ To use the `zypper` package manager to install the latest stable version of Tele
    ```
 
 {{% /tab-content %}}
-<!---------- BEGIN FreeBSD/PC-BSD ---------->
+<!---------- BEGIN FreeBSD ---------->
 {{% tab-content %}}
 Telegraf is part of the FreeBSD package system.
 
@@ -288,52 +307,55 @@ sudo pkg install telegraf
 
 The `telegraf` configuration file is installed at `/usr/local/etc/telegraf.conf`.
 Examples are installed at `/usr/local/etc/telegraf.conf.sample`.
-<!------------ END FreeBSD/PC-BSD ------------>
+<!------------ END FreeBSD ------------>
 {{% /tab-content %}}
 {{% tab-content %}}
-<!---------- BEGIN Linux binaries AMD ---------->
+<!---------- BEGIN Linux binaries ---------->
 
-Choose from the following options to install Telegraf binary files for Linux AMD:
+Download the Telegraf binary archive for your architecture and verify its
+checksum.
+For 32-bit builds and other architectures, see the
+[downloads page](https://www.influxdata.com/downloads/#telegraf).
 
-- To install on Linux AMD32, see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
-- [Download and install on Linux AMD64](#download-and-install-on-linux-amd64)
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[AMD64 (x86_64)](#)
+[ARM64 (AArch64)](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!---- BEGIN AMD64 ---->
+<!--pytest.mark.skip-->
 
-### Download and install on Linux AMD64
-
-```bash { placeholders="260bc3170dbd6cce67575c1215a0b89b8447945106e2943d74e617d06b750c03" }
+```bash { placeholders="SHA256_CHECKSUM" }
 curl -s --location -O \
 https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_amd64.tar.gz \
-&& echo "21e781cc2352713e4eabf0931e3eeea640a2014850a33ea04f86b4dc288d6add  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
+&& echo "SHA256_CHECKSUM  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
 
-Replace the following:
+<!---- END AMD64 ---->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!---- BEGIN ARM64 ---->
+<!--pytest.mark.skip-->
 
-- {{% code-placeholder-key %}}`21e781cc2352713e4eabf0931e3eeea640a2014850a33ea04f86b4dc288d6add`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
-
-<!---------- END Linux binaries AMD   ---------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!---------- BEGIN Linux binaries ARM ---------->
-Choose from the following options to install Telegraf binary files for Linux ARM:
-
-- To install on Linux ARMv7(32-bit), see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
-- [Download and install on Linux ARMv8 (64-bit)](#download-and-install-on-linux-armv8)
-
-### Download and install on Linux ARMv8
-
-```bash { placeholders="f0d8ccae539afa04b171d5268dbab21eef58bc51b5437689e347619e2097c824" }
+```bash { placeholders="SHA256_CHECKSUM" }
 curl -s --location -O \
 https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_linux_arm64.tar.gz \
-&& echo "7782bbcf50e67e73229fd0703c532d733e4fa259aa4b246debd012421f65c969  telegraf-{{% latest-patch %}}_linux_arm64.tar.gz" \
+&& echo "SHA256_CHECKSUM  telegraf-{{% latest-patch %}}_linux_arm64.tar.gz" \
 | sha256sum -c -
 ```
 
+<!---- END ARM64 ---->
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 Replace the following:
 
-- {{% code-placeholder-key %}}`7782bbcf50e67e73229fd0703c532d733e4fa259aa4b246debd012421f65c969`{{% /code-placeholder-key %}}: the SHA checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
+- {{% code-placeholder-key %}}`SHA256_CHECKSUM`{{% /code-placeholder-key %}}:
+   the SHA256 checksum from the [downloads page](https://www.influxdata.com/downloads/#telegraf)
 
-<!---------- END Linux binaries ARM   ---------->
+<!---------- END Linux binaries ---------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------- BEGIN MACOS ---------->
@@ -346,15 +368,12 @@ Choose from the following options to install Telegraf for macOS:
 
 Users of macOS 10.8 and higher can install Telegraf using the [Homebrew](http://brew.sh/) package manager.
 
-{{% note %}}
-
-The `telegraf` binary installed by Homebrew differs from the macOS `.dmg` builds available from the [downloads page](https://www.influxdata.com/downloads/).
-
-- `telegraf` (Homebrew) isn't a static binary.
-- `telegraf` (Homebrew) works with the Telegraf CPU plugin (due to Homebrew support for [Cgo](https://pkg.go.dev/cmd/cgo)).
-    The `.dmg` builds available on the [downloads page](https://www.influxdata.com/downloads/) don't support the CPU plugin.
-
-{{% /note %}}
+> [!Note]
+> The `telegraf` binary installed by Homebrew differs from the macOS `.dmg` builds available from the [downloads page](https://www.influxdata.com/downloads/).
+>
+> - `telegraf` (Homebrew) isn't a static binary.
+> - `telegraf` (Homebrew) works with the Telegraf CPU plugin (due to Homebrew support for [Cgo](https://pkg.go.dev/cmd/cgo)).
+>   The `.dmg` builds available on the [downloads page](https://www.influxdata.com/downloads/) don't support the CPU plugin.
 
 To install using Homebrew, do the following:
 
@@ -371,72 +390,11 @@ To install using Homebrew, do the following:
 
    - ARM-based (Apple Silicon) systems: `/opt/homebrew/etc/telegraf.conf`
    - Intel-based (x86_64) systems: `/usr/local/etc/telegraf.conf`
-3. Choose one of the following methods to start Telegraf and begin collecting and processing metrics:
 
-   - [Run Telegraf in your terminal](#run-telegraf-in-your-terminal)
-   - [Run Telegraf as a service](#run-telegraf-as-a-background-service)
-
-### Run Telegraf in your terminal
-
-To run `telegraf` in your terminal (in the foreground and not as a service), enter the following command:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[ARM (Apple Silicon)](#)
-[x86_64 (Intel)](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-<!---- BEGIN ARM ---->
-<!--pytest.mark.skip-->
-
-```zsh
-telegraf -config /opt/homebrew/etc/telegraf.conf
-```
-<!---- END ARM ---->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-<!---- BEGIN INTEL ---->
-<!--pytest.mark.skip-->
-
-```zsh
-telegraf -config /usr/local/etc/telegraf.conf
-```
-<!---- END INTEL ---->
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-### Run Telegraf as a background service
-
-In your terminal, enter the following command to add `telegraf` to your system's `LaunchAgents`:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[ARM (Apple Silicon)](#)
-[x86_64 (Intel)](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-<!---- BEGIN ARM ---->
-```zsh
-ln -sfv /opt/homebrew/opt/telegraf/*.plist ~/Library/LaunchAgents
-```
-<!---- END ARM ---->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-<!---- BEGIN INTEL ---->
-```zsh
-ln -sfv /usr/local/opt/telegraf/*.plist ~/Library/LaunchAgents
-```
-<!---- END INTEL ---->
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-The next time you login, launchd starts the `telegraf` service.
-
-To immediately start the `telegraf` service, enter the following command:
-
-```zsh
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
-```
+To start collecting metrics, see
+[Get started with Telegraf](/telegraf/v1/get-started/).
+To run Telegraf as a background service, see
+[Administer Telegraf](/telegraf/v1/administer/).
 <!---- END MACOS ---->
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
@@ -444,11 +402,10 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
 
 #### Download and run Telegraf as a Windows service
 
-{{% note %}}
-Installing a Windows service requires administrative permissions.
-To run PowerShell as an administrator,
-see [Launch PowerShell as administrator](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator).
-{{% /note %}}
+> [!Note]
+> Installing a Windows service requires administrative permissions.
+> To run PowerShell as an administrator,
+> see [Launch PowerShell as administrator](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator).
 
 In PowerShell _as an administrator_, do the following:
 
@@ -468,7 +425,8 @@ In PowerShell _as an administrator_, do the following:
 
    - Move the `telegraf.exe` and `telegraf.conf` files from
      `C:\Program Files\InfluxData\telegraf\telegraf-{{% latest-patch %}}`
-     to the parent directory `C:\Program Files\InfluxData\telegraf`--for example:
+     to the parent directory `C:\Program Files\InfluxData\telegraf`.
+     For example:
 
      ```powershell
      cd "C:\Program Files\InfluxData\telegraf";
@@ -478,12 +436,12 @@ In PowerShell _as an administrator_, do the following:
    - **Or**, create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/) for
    `C:\Program Files\InfluxData\telegraf` that points to the extracted directory.
 
-   {{% note %}}
-The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files are stored in
-`C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
-   {{% /note %}}
+   > [!Note]
+   > The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files are stored in
+   > `C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
 
-3. Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
+3. Optional: Enable a plugin to collect Windows-specific metrics.
+   For example, uncomment the [`inputs.win_services` plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
 
    ```toml
    ...
@@ -509,106 +467,88 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
    ```
 
    When run in test mode (using the `--test` flag), Telegraf runs once, collects metrics, outputs them to the console, and then exits. It doesn't run processors, aggregators, or output plugins.
+
 6. To start collecting data, run:
 
    ```powershell
    .\telegraf.exe --service start
    ```
 
+To manage the Telegraf Windows service and view its logs in the Windows
+Event Viewer, see [Administer Telegraf](/telegraf/v1/administer/) and
+[Troubleshoot Telegraf](/telegraf/v1/administer/troubleshoot/).
 
-### Logging and troubleshooting
+{{% /tab-content %}}
+<!---------- BEGIN Docker ---------->
+{{% tab-content %}}
 
-When Telegraf runs as a Windows service, Telegraf logs messages to Windows event logs.
-If the Telegraf service fails to start, view error logs by selecting **Event Viewer**→**Windows Logs**→**Application**.
+Use the official [`telegraf` Docker image](https://hub.docker.com/_/telegraf)
+to run Telegraf in a container.
+Debian-based and Alpine-based images are available.
 
-### Windows service commands
+1. Pull the image:
 
-The following commands are available:
+   <!--pytest.mark.skip-->
 
-| Command                            | Effect                        |
-|------------------------------------|-------------------------------|
-| `telegraf.exe --service install`   | Install telegraf as a service |
-| `telegraf.exe --service uninstall` | Remove the telegraf service   |
-| `telegraf.exe --service start`     | Start the telegraf service    |
-| `telegraf.exe --service stop`      | Stop the telegraf service     |
+   ```bash
+   docker pull telegraf
+   ```
 
-{{< /tab-content >}}
+2. Generate a configuration file, or use an existing one, and mount it into
+   the container:
+
+   <!--pytest.mark.skip-->
+
+   ```bash
+   docker run --rm \
+   --volume $PWD/telegraf.conf:/etc/telegraf/telegraf.conf:ro \
+   telegraf
+   ```
+
+> [!Note]
+> If your configuration uses
+> [secret stores](/telegraf/v1/configuration/secrets/), the container might
+> need a higher locked-memory limit.
+> Use the `--ulimit memlock=<bytes>` option with `docker run`.
+
+<!---------- END Docker ---------->
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 ## Deploy Telegraf in Kubernetes with Helm
 
 For Kubernetes deployments, InfluxData provides several Helm charts:
 
-- [telegraf](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf): Deploy Telegraf as a single instance
-- [telegraf-ds](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-ds): Deploy Telegraf as a DaemonSet to run on every node
-- [telegraf-operator](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-operator): Deploy the Telegraf Operator for managing Telegraf instances declaratively
+- [telegraf](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf):
+   Deploy Telegraf as a single instance
+- [telegraf-ds](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-ds):
+   Deploy Telegraf as a DaemonSet to run on every node
+- [telegraf-operator](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-operator):
+   Deploy the Telegraf Operator for managing Telegraf instances declaratively
 
-## Generate a configuration file
+## Verify the installation
 
-The `telegraf config` command lets you generate a configuration file from
-Telegraf's [plugin list](/telegraf/v1/commands/plugins/).
+To verify that Telegraf is installed and on your path, check the version:
 
-- [Create a configuration file with default input and output plugins](#create-a-configuration-file-with-default-input-and-output-plugins)
-- [Create a configuration with specific input and output plugins](#create-a-configuration-file-with-specific-input-and-output-plugins)
+<!--pytest.mark.skip-->
 
-### Create a configuration file with default input and output plugins
-
-To generate a configuration file with default input and output plugins enabled,
-enter the following command in your terminal:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Linux and macOS](#)
-[Windows](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 ```bash
-telegraf config > telegraf.conf
+telegraf version
 ```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+
+On Windows:
+
+<!--pytest.mark.skip-->
+
 ```powershell
-.\telegraf.exe config > telegraf.conf
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-### Create a configuration file with specific input and output plugins
-
-To generate a configuration file that contains settings for only specific plugins,
-use the `--input-filter` and `--output-filter` options to
-specify [input plugins](/telegraf/v1/configure_plugins/input_plugins/)
-and [output plugins](/telegraf/v1/configure_plugins/output_plugins/)--for example:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Linux and macOS](#)
-[Windows](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```bash { placeholders="cpu|http|influxdb_v2|file" }
-telegraf \
---input-filter cpu:http \
---output-filter influxdb_v2:file \
-config > telegraf.conf
+.\telegraf.exe version
 ```
 
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+The output is the installed version, for example:
 
-```powershell { placeholders="cpu|http|influxdb_v2|file" }
-.\telegraf.exe `
---input-filter cpu:http `
---output-filter influxdb_v2:file `
-config > telegraf.conf
+```text
+Telegraf v{{% latest-patch %}} (git: HEAD@xxxxxx)
 ```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1/administration/configuration/).
 
 ## Custom-compile Telegraf
 
@@ -621,12 +561,13 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 ### Prerequisites
 
 -  Follow the instructions to install [Go](https://go.dev/) for your system.
--  [Create your Telegraf configuration file](#generate-a-configuration-file) with the plugins you want to use.
+-  [Create your Telegraf configuration file](/telegraf/v1/configuration/file/#generate-a-configuration-file) with the plugins you want to use.
 
 ### Build the custom builder tool
 
 1. Clone the Telegraf repository and then change into the repository
-   directory--for example, enter the following command in your terminal:
+   directory.
+   For example, enter the following command in your terminal:
 
    <!--test:setup
    ```bash
@@ -710,8 +651,51 @@ mkdir -p /etc/telegraf/telegraf.d \
 --config http://url-to-remote-telegraf/telegraf.conf
 ```
 
-After a successful build, you can view your customized `telegraf` binary within the top level of your Telegraf repository.
+After a successful build, you can view your customized `telegraf` binary within
+the top level of your Telegraf repository.
 
 ### Update your custom binary
 
-To add or remove plugins from your customized Telegraf build, edit your configuration file, and then [run the custom builder](#run-the-custom-builder-to-create-a-telegraf-binary) to regenerate the Telegraf binary.
+To add or remove plugins from your customized Telegraf build, edit your
+configuration file, and then [run the custom builder](#run-the-custom-builder-to-create-a-telegraf-binary)
+to regenerate the Telegraf binary.
+
+## Nightly builds
+
+Nightly builds are generated from the Telegraf `master` branch at midnight UTC.
+Use them to preview unreleased features and fixes.
+Nightly builds are not stable releases; don't use them in production.
+
+Common artifacts:
+
+| Platform      | Download                                                                                                              |
+| :------------ | :--------------------------------------------------------------------------------------------------------------------- |
+| Debian/Ubuntu | [amd64.deb](https://dl.influxdata.com/telegraf/nightlies/telegraf_nightly_amd64.deb), [arm64.deb](https://dl.influxdata.com/telegraf/nightlies/telegraf_nightly_arm64.deb) |
+| RedHat/CentOS | [x86_64.rpm](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly.x86_64.rpm), [aarch64.rpm](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly.aarch64.rpm) |
+| Linux binary  | [linux_amd64.tar.gz](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly_linux_amd64.tar.gz), [linux_arm64.tar.gz](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly_linux_arm64.tar.gz) |
+| macOS binary  | [darwin_amd64.tar.gz](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly_darwin_amd64.tar.gz), [darwin_arm64.tar.gz](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly_darwin_arm64.tar.gz) |
+| Windows       | [windows_amd64.zip](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly_windows_amd64.zip), [windows_arm64.zip](https://dl.influxdata.com/telegraf/nightlies/telegraf-nightly_windows_arm64.zip) |
+
+For additional architectures, see the
+[full nightly build list](https://github.com/influxdata/telegraf/blob/master/docs/NIGHTLIES.md).
+
+Nightly Docker images are available on
+[quay.io](https://quay.io/repository/influxdb/telegraf-nightly?tab=tags):
+
+<!--pytest.mark.skip-->
+
+```bash
+# Debian-based image
+docker pull quay.io/influxdb/telegraf-nightly:latest
+# Alpine-based image
+docker pull quay.io/influxdb/telegraf-nightly:alpine
+```
+
+## Next steps
+
+- [Get started with Telegraf](/telegraf/v1/get-started/): generate a
+  configuration file and collect your first metrics.
+- [Configure Telegraf](/telegraf/v1/configuration/): learn the configuration
+  file structure, agent settings, and plugin options.
+- [Administer Telegraf](/telegraf/v1/administer/): run Telegraf as a service
+  and troubleshoot problems.
