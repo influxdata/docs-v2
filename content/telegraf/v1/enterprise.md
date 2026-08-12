@@ -17,6 +17,9 @@ menu:
     params:
       state: new
 weight: 10
+related:
+  - /telegraf/v1/administer/manage-at-scale/
+  - /telegraf/controller/
 ---
 
 **Telegraf Enterprise** is the commercial package for organizations running
