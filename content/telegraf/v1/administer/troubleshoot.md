@@ -38,9 +38,11 @@ Run a single collection and print the metrics to standard output:
 telegraf --config telegraf.conf --test
 ```
 
-Test mode doesn't run processors, aggregators, or outputs.
-Service inputs that wait for pushed data might not output metrics right
-away.
+Test mode runs inputs, processors, and aggregators, but not outputs, so
+nothing is written to your destinations.
+Service inputs that wait for pushed data might not output metrics before
+Telegraf exits.
+Use the `--test-wait <seconds>` flag to give them time to deliver.
 
 ## Run all plugins once with `--once`
 
