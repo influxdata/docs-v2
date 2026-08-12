@@ -200,8 +200,9 @@ Initial set:
 
 ### Administer Telegraf (`administer/`, new section)
 
-- **Run Telegraf as a service** (`administer/run-as-service.md`, new): systemd and Windows service operation.
-  Sources: upstream `WINDOWS_SERVICE.md` plus service material currently in `install.md`.
+- **Run Telegraf as a service** (`administer/run-as-service.md`, new): systemd, macOS launchd, and Windows service operation.
+  Must restore the material removed from `install.md` in PR 6: the Homebrew launchd background-service steps, the Windows service commands table (install, uninstall, start, stop), and Windows Event Viewer logging.
+  Sources: upstream `WINDOWS_SERVICE.md` plus the PR 6 install.md history.
 - **Monitor Telegraf** (`administer/monitor.md`, new): monitoring Telegraf itself with the `internal` input; log interpretation.
   Also covers monitoring with Telegraf Controller: agents running the [heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) report metrics, error counts, plugin statistics, and a self-evaluated status back to Controller.
   Source: upstream `specs/tsd-011-internal-plugin-statistics.md`.
