@@ -6,8 +6,8 @@ description:
 menu:
   telegraf_v1_ref:
     name: Binary
-    weight: 10
     parent: Input data formats
+weight: 10
 metadata: [Binary Parser Plugin]
 ---
 
@@ -31,10 +31,11 @@ Use the `binary` input data format with user-specified configurations to parse b
   ## Specify the endianness of the data.
   ## Available values are "be" (big-endian), "le" (little-endian) and "host",
   ## where "host" means the same endianness as the machine running Telegraf.
-  # endianess = "host"
+  # endianness = "host"
 
-  ## Interpret input as string containing hex-encoded data.
-  # hex_encoding = false
+  ## Encoding of the input data: "none" (raw bytes, default), "hex", or
+  ## "base64".
+  # binary_encoding = "none"
 
   ## Multiple parsing sections are allowed
   [[inputs.file.binary]]
@@ -121,11 +122,17 @@ machine share the same endianness.
 Alternatively, you can explicitly specify big-endian format (`"be"`) or
 little-endian format (`"le"`).
 
-#### `hex_encoding` (optional)
+#### `binary_encoding` (optional)
 
-If `true`, the input data is interpreted as a string containing hex-encoded
-data like `C0 C7 21 A9`. The value is _case insensitive_ and can handle spaces,
-however prefixes like `0x` or `x` are _not_ allowed.
+If this option is not specified or set to `none`, the input data contains
+the binary data as raw bytes. This is the default.
+
+If set to `hex`, the input data is interpreted as a string containing
+hex-encoded data like `C0 C7 21 A9`. The value is _case insensitive_ and
+can handle spaces and prefixes like `0x` or `x`.
+
+If set to `base64`, the input data is interpreted as a string containing
+padded base64 data like `RDLAAA==`.
 
 ### Non-byte aligned value extraction
 
@@ -294,7 +301,7 @@ you can use the following configuration:
 [[inputs.file]]
   files = ["messageA.bin", "messageB.bin", "messageC.bin"]
   data_format = "binary"
-  endianess = "le"
+  endianness = "le"
 
   [[inputs.file.binary]]
     metric_name = "messageA"

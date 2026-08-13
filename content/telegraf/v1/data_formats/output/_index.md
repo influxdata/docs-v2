@@ -5,9 +5,10 @@ description: Telegraf serializes metrics into output data formats.
 menu:
   telegraf_v1_ref:
     name: Output data formats
-    weight: 102
     parent: Data formats
+weight: 102
 related:
+  - /telegraf/v1/configure_plugins/output_plugins/serialize-data/
   - /telegraf/v1/configure_plugins/output_plugins/
   - /telegraf/v1/configuration/
 ---
@@ -15,6 +16,8 @@ related:
 Telegraf uses **serializers** to convert metrics into output data formats.
 Many [output plugins](/telegraf/v1/configure_plugins/output_plugins/) support the `data_format` option, which lets you choose
 how metrics are formatted before writing.
+For a task-focused guide with worked examples, see
+[Serialize outgoing data](/telegraf/v1/configure_plugins/output_plugins/serialize-data/).
 
 - [How output plugins use serializers](#how-output-plugins-use-serializers)
 - [Choosing an output approach](#choosing-an-output-approach)
