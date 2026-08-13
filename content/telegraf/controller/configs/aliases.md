@@ -67,7 +67,6 @@ Anywhere the {{% product-name %}} API accepts a configuration ID, you can use
 an alias instead. {{% product-name %}} also provides a short URL for
 retrieving configuration TOML by alias:
 
-```
 http://localhost:8888/c/my-config-alias
 ```
 
@@ -117,8 +116,8 @@ configuration, its aliases are deleted automatically.
 
 Alias operations require permissions on the **Configs** resource:
 
-- **Read**: view aliases.
-- **Write**: add, transfer, and delete aliases.
+- **Read**: view aliases
+- **Write**: add, transfer, and delete aliases
 
 For how permissions map to user roles and API tokens, see
 [Authentication and authorization](/telegraf/controller/reference/authentication-authorization/).
