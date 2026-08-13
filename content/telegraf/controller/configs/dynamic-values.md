@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Use dynamic values
     parent: Manage configurations
-weight: 105
+weight: 106
 ---
 
 Use dynamic values in your Telegraf configurations and reuse a single
