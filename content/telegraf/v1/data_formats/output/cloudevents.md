@@ -5,9 +5,9 @@ description: Use the `cloudevents` output data format (serializer) to format Tel
 menu:
   telegraf_v1_ref:
     name: CloudEvents
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-cloudevents
+weight: 10
 ---
 
 Use the `cloudevents` output data format (serializer) to format Telegraf metrics as [CloudEvents](https://cloudevents.io) in [JSON format](https://github.com/cloudevents/spec/blob/v1.0/json-format.md).
@@ -46,7 +46,20 @@ Versions v1.0 and v0.3 of the CloudEvents specification are supported, with v1.0
   ##   none     -- do not set event time
   ##   earliest -- use timestamp of the earliest metric
   ##   latest   -- use timestamp of the latest metric
-  # cloudevents_time = "earliest"
+  ##   creation -- use timestamp of event creation
+  ## For events containing only a single metric, earliest and latest are
+  ## equivalent.
+  # cloudevents_event_time = "latest"
+
+  ## Batch format of the output when running in batch mode.
+  ## If set to 'events' the output contains a list of events, each with a
+  ## single metric, according to the JSON Batch Format of the
+  ## specification. Use 'application/cloudevents-batch+json' for this
+  ## format.
+  ## When set to 'metrics', a single event is generated containing a list
+  ## of metrics as payload. Use 'application/cloudevents+json' for this
+  ## format.
+  # cloudevents_batch_format = "events"
 ```
 
 ### Configuration options
@@ -57,7 +70,8 @@ Versions v1.0 and v0.3 of the CloudEvents specification are supported, with v1.0
 | `cloudevents_source` | string | `"telegraf"` | Event source identifier |
 | `cloudevents_source_tag` | string | `""` | Tag to use as source (overrides `cloudevents_source`) |
 | `cloudevents_event_type` | string | auto | Event type (auto-detected based on single/batch) |
-| `cloudevents_time` | string | `"earliest"` | Event timestamp: `"none"`, `"earliest"`, or `"latest"` |
+| `cloudevents_event_time` | string | `"latest"` | Event timestamp: `"none"`, `"earliest"`, `"latest"`, or `"creation"` |
+| `cloudevents_batch_format` | string | `"events"` | Batch mode output: `"events"` (one event per metric) or `"metrics"` (one event containing all metrics) |
 
 ## Event types
 

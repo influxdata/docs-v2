@@ -6,8 +6,8 @@ description:
 menu:
   telegraf_v1_ref:
      name: OpenTSDB
-     weight: 10
      parent: Input data formats
+weight: 10
 metadata: []
 ---
 
