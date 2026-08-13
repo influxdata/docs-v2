@@ -82,10 +82,12 @@ Each aggregator collects matching metrics into a time window defined by its
 
 By default, processors run twice: once before aggregators and again on the
 metrics that aggregators emit.
+Only the aggregates take the second pass.
+Original metrics continue to the output buffer without running through
+processors again.
 Running processors again lets you transform aggregate metrics, but it can
 also produce unintended results. For example, a processor that scales values
-scales them a second time after aggregation
-(see [influxdata/telegraf#7993](https://github.com/influxdata/telegraf/issues/7993)).
+scales the aggregates a second time after aggregation.
 
 To control this behavior, use the following `[agent]` settings:
 
@@ -93,10 +95,14 @@ To control this behavior, use the following `[agent]` settings:
   aggregators.
 - `skip_processors_after_aggregators = true`: processors run only *before*
   aggregators.
+  The default is scheduled to change to `true` in Telegraf 1.40.
 
 Alternatively, use metric filtering on the processor so aggregate metrics
 bypass it, and make custom processor scripts idempotent so repeated
 processing has no side effects.
+
+For examples that combine processors and aggregators, see
+[Why processors run twice](/telegraf/v1/configure_plugins/aggregator_processor/#why-processors-run-twice).
 
 ## Write: output plugins
 

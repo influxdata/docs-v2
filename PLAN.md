@@ -180,12 +180,12 @@ Weights inside the frozen plugin directories are generated; leave them untouched
 - **Input plugins** (`input_plugins/_index.md`, rewrite the 19-line stub): collecting data: polling versus service inputs, `--test` and `--once` behavior with service inputs, choosing a plugin, pointing to the directory.
 - **Parse incoming data** (`input_plugins/parse-data.md`, new): choosing and configuring a parser via `data_format`; the three JSON strategies (json, json\_v2, xpath\_json); timestamps and timezones; worked CSV and JSON examples.
   Source: upstream `PARSING_DATA.md`.
-- **Use HTTP listeners** (`input_plugins/using_http.md`, keep; tidy the menu parent).
+- **Use the HTTP plugin with Citi Bike data** (`input_plugins/using_http.md`, tidied in PR 7): moves to the examples section in PR 9 as an HTTP-API scenario page (alias from the current URL), where its worked-example format fits.
 - **Output plugins** (`output_plugins/_index.md`, expand): writing data: batching and flush behavior, what happens on output failure (buffer, retry, partial writes, startup error behavior).
   Sources: upstream `CONFIGURATION.md`, `specs/tsd-008-partial-write-error-handling.md`.
 - **Serialize outgoing data** (`output_plugins/serialize-data.md`, new): choosing a serializer via `data_format`, worked examples (line protocol, JSON, Prometheus).
   Source: upstream `DATA_FORMATS_OUTPUT.md`.
-- **Processors and aggregators** (`aggregator_processor/_index.md`, refresh): task-focused: when to reach for which, common processor and aggregator recipes.
+- **Processors and aggregators** (`aggregator_processor/_index.md`, refresh): task-focused: when to reach for which, common processor and aggregator examples.
   Deep ordering material moves to `concepts/data-pipeline.md`.
 - **External plugins** (`external_plugins/`, keep all three pages; refresh against upstream `EXTERNAL_PLUGINS.md`).
 
@@ -194,9 +194,10 @@ Weights inside the frozen plugin directories are generated; leave them untouched
 One page per scenario; each page includes the full TOML, a walkthrough, and sample output.
 Initial set:
 
-- System monitoring to InfluxDB (cpu, mem, disk → influxdb\_v2/v3)
+- System monitoring to InfluxDB (cpu, mem, disk → influxdb\_v3)
 - Scrape Prometheus endpoints
 - Kafka consumer with JSON parsing
+- Collect JSON from an HTTP API (converted from `configure_plugins/input_plugins/using_http.md` with alias; retitle around the task)
 - Parse CSV files from a directory
 - Downsample with aggregators before writing
 - Route different metrics to different outputs with filtering
@@ -268,6 +269,7 @@ Agent status content is maintained once and rendered in both doc sets:
 | `/telegraf/v1/metrics/`                                                                                                                                       | `/telegraf/v1/concepts/metrics/`               | alias                                  |
 | `/telegraf/v1/configure_plugins/troubleshoot/`                                                                                                                | `/telegraf/v1/administer/troubleshoot/`        | alias                                  |
 | `/telegraf/v1/configure_plugins/template-patterns/`                                                                                                           | `/telegraf/v1/data_formats/template-patterns/` | alias                                  |
+| `/telegraf/v1/configure_plugins/input_plugins/using_http/`                                                                                                    | `/telegraf/v1/examples/` scenario page (PR 9)  | alias                                  |
 | `/telegraf/v1/plugins/`, `/telegraf/v1/install/`, `/telegraf/v1/get-started/`, `/telegraf/v1/data_formats/**`, `/telegraf/v1/commands/**`, plugin directories | unchanged                                      | —                                      |
 
 High-traffic inbound links to verify in each PR:
@@ -288,7 +290,7 @@ All PRs branch from and target `docs/telegraf-revamp`.
 | 6  | `docs/telegraf-get-started`        | Get started rewrite, install refresh                                                                                                                                                                                                                                                                                                             | 1          |
 | 7  | `docs/telegraf-plugin-guides`      | Use-plugins guides plus parse-data and serialize-data                                                                                                                                                                                                                                                                                            | 2          |
 | 8  | `docs/telegraf-data-formats`       | Missing formats plus refresh pass                                                                                                                                                                                                                                                                                                                | 7          |
-| 9  | `docs/telegraf-examples`           | Examples section (may split per example)                                                                                                                                                                                                                                                                                                         | 3, 7       |
+| 9  | `docs/telegraf-examples`           | Examples section (may split per example); move `using_http.md` into it with an alias                                                                                                                                                                                                                                                             | 3, 7       |
 | 10 | `docs/telegraf-administer`         | Service, monitor, manage-at-scale, troubleshoot                                                                                                                                                                                                                                                                                                  | 1          |
 | 11 | `docs/telegraf-reference-cleanup`  | Commands, glossary, platforms, release cadence; slim `configuration/_index.md`; light `enterprise.md` refresh; sweep earlier parcels for semicolon and colon sentence joins, menu-level weights, and `outputs.influxdb_v2` examples (known: `configuration/_index.md`, `file.md`, `environment-variables.md`, `secrets.md`, `plugin-options.md`) | 3, 4, 5    |
 
