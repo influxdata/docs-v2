@@ -5,8 +5,8 @@ description: Use the `collectd` input data format to parse collectd network bina
 menu:
   telegraf_v1_ref:
     name: collectd
-    weight: 10
     parent: Input data formats
+weight: 10
 metadata: [Collectd Parser Plugin]
 ---
 

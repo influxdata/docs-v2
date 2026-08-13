@@ -49,6 +49,11 @@ structure of your data:
   capable of the three.
   Despite the XML association of the name, it selects JSON values using
   XPath expressions.
+  We recommend `xpath_json` over `json_v2` for new
+  configurations, especially when working with arrays.
+
+For a side-by-side comparison, see
+[Choose a JSON parser](/telegraf/v1/data_formats/input/#choose-a-json-parser).
 
 ## Choose between tags and fields
 
