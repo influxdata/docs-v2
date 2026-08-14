@@ -116,6 +116,15 @@ Then 201-299 and so on.
 
 ***Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory.*
 
+Set `weight` at the page level (top-level frontmatter), not on the menu
+entry.
+Menu items inherit the page weight, and page-level weight also controls
+sorting outside menu contexts, such as `{{< children >}}` listings.
+Hugo sorts unweighted pages after weighted ones, so mixing menu-level and
+page-level weights within a section breaks list ordering.
+(Menu-level weight is still appropriate when a page appears in multiple
+menus at different positions.)
+
 ### Related Content
 
 Use the `related` frontmatter to include links to specific articles at the bottom of an article.
@@ -244,7 +253,8 @@ cascade:
     > This is just an example note block that gets appended to the article.
 ```
 
-> [!Note]
+> \[!Note]
+>
 > #### Prepended and appended content appears in Markdown twins
 >
 > `prepend` and `append` content renders inside the page article element, so it
