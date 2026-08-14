@@ -7,8 +7,8 @@ description: >
 menu:
   telegraf_v1:
     name: Data pipeline
-    weight: 102
     parent: How Telegraf works
+weight: 102
 related:
   - /telegraf/v1/concepts/metrics/
   - /telegraf/v1/configure_plugins/aggregator_processor/
@@ -131,8 +131,8 @@ The `[agent]` `buffer_strategy` setting controls buffer durability:
 - `disk`: each output persists its buffer to a write-ahead log in
   `buffer_directory`, and Telegraf removes entries as writes succeed.
   After a restart, Telegraf flushes existing log entries before new metrics.
-  Telegraf does not limit the disk space these files use; monitor the buffer
-  directory to keep it from filling the disk.
+  Telegraf does not limit the disk space these files use.
+  Monitor the buffer directory to keep it from filling the disk.
 
 For end-to-end delivery guarantees with queue-based inputs, see
 [tracking metrics](/telegraf/v1/concepts/metrics/#tracking-metrics).

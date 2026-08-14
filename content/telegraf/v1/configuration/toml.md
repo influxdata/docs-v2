@@ -29,8 +29,8 @@ first file Telegraf reads.
 
 Plugins use TOML arrays of tables, written with double brackets, such as
 `[[inputs.file]]`.
-Define an array-of-tables plugin as many times as you need; each definition
-runs as an independent plugin instance.
+Define an array-of-tables plugin as many times as you need.
+Each definition runs as an independent plugin instance.
 
 ```toml
 [agent]
@@ -126,8 +126,8 @@ Valid units are:
 
 ## Multiple files
 
-TOML itself has no concept of multiple files; combining files is a Telegraf
-convenience.
+TOML itself has no concept of multiple files.
+Combining files is a Telegraf convenience.
 Telegraf parses each file separately and merges all settings as if they were
 one file.
 See

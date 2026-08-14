@@ -90,8 +90,8 @@ Only do this with images you trust.
   metric per CPU core, block device, and interface, which keeps series
   counts low.
 - **`docker_label_include`** limits which container labels become tags.
-  Container labels are often high-cardinality; allowlist only the labels
-  you query by.
+  Container labels are often high-cardinality.
+  Allowlist only the labels you query by.
 - The plugin also produces `docker` and `docker_data` summary metrics for
   the engine itself, such as container counts and storage usage.
 

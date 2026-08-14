@@ -61,11 +61,10 @@ Use secret references in plugin options that support them:
   username = "@{local_secrets:company_server_http_metric_user}"
   password = "@{local_secrets:company_server_http_metric_pass}"
 
-[[outputs.influxdb_v2]]
-  urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
+[[outputs.influxdb_v3]]
+  urls = ["http://localhost:8181"]
   token = "@{cloud_secrets:influxdb_token}"
-  organization = "yourname@yourcompany.com"
-  bucket = "your_bucket"
+  database = "your_database"
 ```
 
 > [!Note]

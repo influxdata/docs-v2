@@ -27,7 +27,8 @@ For a task-focused guide with worked examples, see
 
 When you configure `data_format` in an output plugin, Telegraf uses a **serializer**
 to convert metrics into that format before writing.
-The output plugin controls *where* data goes; the serializer controls *how* it's formatted.
+The output plugin controls *where* data goes.
+The serializer controls *how* it's formatted.
 
 Some output plugins support `use_batch_format`, which changes how the serializer
 processes metrics.

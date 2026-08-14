@@ -4,7 +4,7 @@ description:
 menu:
   telegraf_v1_ref:
     name: Contribute to Telegraf
-    weight: 8
+weight: 8
 ---
 
 There are many ways to contribute to InfluxData open source products.

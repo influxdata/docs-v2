@@ -63,10 +63,9 @@ Define the variables:
 
 ```sh
 # /etc/default/telegraf
-INFLUX_HOST="http://localhost:8086"
+INFLUX_HOST="http://localhost:8181"
 INFLUX_TOKEN="replace_with_your_token"
-INFLUX_ORG="your_org"
-INFLUX_BUCKET="telegraf"
+INFLUX_DATABASE="telegraf"
 ```
 
 Reference them in the configuration file:
@@ -77,11 +76,10 @@ Reference them in the configuration file:
 
 [[inputs.mem]]
 
-[[outputs.influxdb_v2]]
+[[outputs.influxdb_v3]]
   urls = ["${INFLUX_HOST}"]
   token = "${INFLUX_TOKEN}"
-  organization = "${INFLUX_ORG}"
-  bucket = "${INFLUX_BUCKET}"
+  database = "${INFLUX_DATABASE}"
 ```
 
 After substitution, Telegraf parses the effective configuration:
@@ -92,9 +90,8 @@ After substitution, Telegraf parses the effective configuration:
 
 [[inputs.mem]]
 
-[[outputs.influxdb_v2]]
-  urls = ["http://localhost:8086"]
+[[outputs.influxdb_v3]]
+  urls = ["http://localhost:8181"]
   token = "replace_with_your_token"
-  organization = "your_org"
-  bucket = "telegraf"
+  database = "telegraf"
 ```

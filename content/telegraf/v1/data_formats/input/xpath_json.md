@@ -150,8 +150,8 @@ produces this tree:
     # tag_name_expansion = false
 ```
 
-A configuration can contain multiple `xpath` sections; each section runs
-against the document and produces its own metrics.
+A configuration can contain multiple `xpath` sections.
+Each section runs against the document and produces its own metrics.
 Consider using an XPath tester such as
 [Code Beautify's XPath Tester](https://codebeautify.org/Xpath-Tester) to
 develop and debug your queries.
@@ -163,8 +163,8 @@ develop and debug your queries.
 By default, all fields gathered through `field_selection` are strings.
 Set to `true` to keep the native JSON types (number, boolean, string)
 instead.
-Fields defined in `fields` and `fields_int` are unaffected; their types
-come from the query.
+Fields defined in `fields` and `fields_int` are unaffected.
+Their types come from the query.
 
 **Type:** boolean  
 **Default:** `false`
@@ -262,8 +262,8 @@ The conversion fails if the query result isn't convertible to an integer.
 
 Lists of fields to convert to hex or base64 strings when they contain byte
 arrays.
-Byte arrays don't occur in JSON input; these options apply to binary
-formats such as Protocol Buffers.
+Byte arrays don't occur in JSON input.
+These options apply to binary formats such as Protocol Buffers.
 
 **Type:** array of strings  
 **Default:** `[]`; byte arrays convert to strings
@@ -283,7 +283,8 @@ which are evaluated relative to each selected node.
 Batch-selected field values are strings unless
 [`xpath_native_types = true`](#xpath_native_types).
 Batch selection can be combined with explicit `fields` and `fields_int`
-definitions; explicit definitions take precedence on name collisions.
+definitions.
+Explicit definitions take precedence on name collisions.
 
 ### field_name_expansion
 
@@ -438,8 +439,8 @@ To drop the duplicate field, add
 - Run Telegraf with `--test --debug` and
   [`xpath_print_document = true`](#xpath_print_document) to inspect the
   parsed document.
-- Missing tags or fields usually mean a relative query doesn't match; check
-  that `metric_selection` selects array *elements* (`/sensors/*`), not the
+- Missing tags or fields usually mean a relative query doesn't match.
+  Check that `metric_selection` selects array *elements* (`/sensors/*`), not the
   array container.
 - Missing numeric fields with `could not serialize field ... is NaN` log
   messages mean `number()` received a non-numeric or empty value.

@@ -114,7 +114,8 @@ echo "SHA256_CHECKSUM  telegraf-{{% latest-patch %}}_linux_amd64.tar.gz" \
 | sha256sum -c -
 ```
 
-If the checksums match, the output is the following; otherwise, an error message.
+If the checksums match, the output is the following.
+Otherwise, the command prints an error message.
 
 ```
 telegraf-{{% latest-patch %}}_linux_amd64.tar.gz: OK
@@ -455,8 +456,9 @@ In PowerShell _as an administrator_, do the following:
    For the `--config` option, pass the absolute path of the `telegraf.conf` configuration file.
 
    ```powershell
-   .\telegraf.exe --service install `
-   --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
+   .\telegraf.exe `
+   --config "C:\Program Files\InfluxData\telegraf\telegraf.conf" `
+   service install
    ```
 
 5. To test that the installation works, enter the following command:
@@ -466,12 +468,12 @@ In PowerShell _as an administrator_, do the following:
    --config C:\"Program Files"\InfluxData\telegraf\telegraf.conf --test
    ```
 
-   When run in test mode (using the `--test` flag), Telegraf runs once, collects metrics, outputs them to the console, and then exits. It doesn't run processors, aggregators, or output plugins.
+   When run in test mode (using the `--test` flag), Telegraf runs once, collects metrics, outputs them to the console, and then exits. Test mode runs inputs, processors, and aggregators, but not outputs, so nothing is written to your destinations.
 
 6. To start collecting data, run:
 
    ```powershell
-   .\telegraf.exe --service start
+   .\telegraf.exe service start
    ```
 
 To manage the Telegraf Windows service and view its logs in the Windows
@@ -664,7 +666,8 @@ to regenerate the Telegraf binary.
 
 Nightly builds are generated from the Telegraf `master` branch at midnight UTC.
 Use them to preview unreleased features and fixes.
-Nightly builds are not stable releases; don't use them in production.
+Nightly builds are not stable releases.
+Don't use them in production.
 
 Common artifacts:
 

@@ -24,12 +24,12 @@ Telegraf Controller provides:
 
 - **Centralized configuration management**: store configurations in one
   place and serve them to agents over a URL.
-  Agents load them with the `--config` flag; see
-  [Load configuration from a URL](/telegraf/v1/configuration/file/#load-configuration-from-a-url).
+  Agents load them with the `--config` flag.
+  See [Load configuration from a URL](/telegraf/v1/configuration/file/#load-configuration-from-a-url).
 - **Agent status and monitoring**: agents running the
   [heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) report
-  health and a self-evaluated status back to Telegraf Controller; see
-  [Monitor Telegraf](/telegraf/v1/administer/monitor/).
+  health and a self-evaluated status back to Telegraf Controller.
+  See [Monitor Telegraf](/telegraf/v1/administer/monitor/).
 - **Labels and organization**: group and find agents and configurations
   across environments.
 
