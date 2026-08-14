@@ -134,7 +134,8 @@ Known headers and the corresponding values:
 ## Byte-array fields
 
 Protocol-buffer messages often encode data as byte arrays.
-By default, byte-array fields convert to strings; use
+By default, byte-array fields convert to strings.
+Use
 [`fields_bytes_as_hex` or `fields_bytes_as_base64`](/telegraf/v1/data_formats/input/xpath_json/#fields_bytes_as_hex-and-fields_bytes_as_base64)
 to encode them as hex or base64 strings instead.
 

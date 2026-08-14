@@ -6,7 +6,7 @@ description: >
 menu:
   telegraf_v1:
     name: Administer Telegraf
-    weight: 8
+weight: 8
 ---
 
 Run and manage Telegraf in production.

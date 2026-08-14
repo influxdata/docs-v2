@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_v1:
     name: Configuration examples
-    weight: 7
+weight: 7
 ---
 
 Use complete, working Telegraf configurations for common scenarios.

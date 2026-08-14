@@ -93,7 +93,8 @@ For where logs go and how to rotate them, see
 ## Profile Telegraf with pprof
 
 Telegraf serves Go's standard `net/http/pprof` runtime profiling data.
-Profiling is off by default; enable it with the `--pprof-addr` option:
+Profiling is off by default.
+Enable it with the `--pprof-addr` option:
 
 <!--pytest.mark.skip-->
 

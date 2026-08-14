@@ -180,8 +180,8 @@ Use this to avoid large write spikes when running many Telegraf instances.
 ### precision
 
 Rounds collected metric timestamps to the specified interval.
-Precision is *not* applied to service inputs; each service input sets its own
-timestamp precision.
+Precision is *not* applied to service inputs.
+Each service input sets its own timestamp precision.
 
 **Type:** duration  
 **Default:** `"0s"` (no rounding)
@@ -324,8 +324,8 @@ restore it on start.
 ### snmp_translator
 
 The method for translating SNMP objects: `gosmi` (built-in library) or
-`netsnmp` (deprecated; calls the external `snmptranslate` and `snmptable`
-programs).
+`netsnmp` (deprecated), which calls the external `snmptranslate` and
+`snmptable` programs.
 
 **Type:** string  
 **Default:** `"netsnmp"`

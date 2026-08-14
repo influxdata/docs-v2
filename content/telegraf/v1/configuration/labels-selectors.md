@@ -62,7 +62,8 @@ Each `--select` value is a semicolon-separated list of key-value pairs:
   `region=us-*`).
   Selector keys don't support wildcards.
 - Repeating the same key within a single `--select` value causes an error at
-  startup; using the same key in *different* `--select` flags is allowed.
+  startup.
+  Using the same key in *different* `--select` flags is allowed.
 
 <!--pytest.mark.skip-->
 
@@ -85,7 +86,8 @@ the plugin instance is enabled:
 | Without `--select` | No                | Enabled (default behavior)                                      |
 
 A selector matches when every key-value pair in it matches a label on the
-plugin; labels the selector doesn't mention are ignored.
+plugin.
+Labels the selector doesn't mention are ignored.
 
 | `--select` flags               | Plugin labels                | Result   |
 | :----------------------------- | :--------------------------- | :------- |

@@ -27,8 +27,8 @@ Filters fall into two categories:
 - **Modifiers** remove tags and fields from metrics that pass.
   If a modifier removes all of a metric's fields, the metric is dropped.
 
-The point at which filters apply depends on the plugin type; see
-[Where filtering happens](/telegraf/v1/concepts/data-pipeline/#where-filtering-happens).
+The point at which filters apply depends on the plugin type.
+See [Where filtering happens](/telegraf/v1/concepts/data-pipeline/#where-filtering-happens).
 
 Each filter parameter lists its data type.
 None of the filter parameters are set by default.
@@ -148,8 +148,8 @@ metric passes.
 Modifiers decide *which tags and fields* remain on metrics the plugin
 handles.
 Telegraf applies modifiers before a metric is passed to a processor,
-aggregator, or output plugin; on input plugins, modifiers apply after the
-input runs.
+aggregator, or output plugin.
+On input plugins, modifiers apply after the input runs.
 
 ### fieldinclude
 
@@ -190,8 +190,8 @@ the metric.
 - `pass` tests run before `drop` tests: Telegraf tests `namedrop` only on
   metrics that passed `namepass`, and `tagdrop` only on metrics that passed
   `tagpass`.
-- The stage at which filters apply depends on the plugin type; see
-  [Where filtering happens](/telegraf/v1/concepts/data-pipeline/#where-filtering-happens).
+- The stage at which filters apply depends on the plugin type.
+  See [Where filtering happens](/telegraf/v1/concepts/data-pipeline/#where-filtering-happens).
 
 To keep explicitly defined tags from being removed by `taginclude` or
 `tagexclude`, use the agent

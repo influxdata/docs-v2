@@ -41,8 +41,8 @@ You can also attach
 to control which metrics it handles.
 
 Each option lists its data type and default value.
-Duration values are TOML strings, such as `"10s"`; see
-[Durations](/telegraf/v1/configuration/toml/#durations).
+Duration values are TOML strings, such as `"10s"`.
+See [Durations](/telegraf/v1/configuration/toml/#durations).
 
 - [Options for all plugin types](#options-for-all-plugin-types)
   - [alias](#alias)
@@ -123,8 +123,8 @@ A suffix to attach to the measurement name.
 ### tags
 
 A map of tags to apply to the plugin's metrics.
-Supported on input and aggregator plugins; on aggregators, behavior varies by
-plugin.
+Supported on input and aggregator plugins.
+On aggregators, behavior varies by plugin.
 
 **Type:** table  
 **Default:** Not set
@@ -317,8 +317,8 @@ Override flush behavior for one output while others use the agent defaults:
   flush_jitter = "5s"
   metric_batch_size = 1000
 
-[[outputs.influxdb_v2]]
-  urls = ["http://localhost:8086"]
+[[outputs.influxdb_v3]]
+  urls = ["http://localhost:8181"]
 
 [[outputs.file]]
   files = ["stdout"]

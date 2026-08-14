@@ -50,6 +50,7 @@ Because MessagePack is a binary format, use
 [`xpath_print_document = true`](/telegraf/v1/data_formats/input/xpath_json/#xpath_print_document)
 with debug logging to inspect the parsed document and work out your
 queries.
-Fields containing byte arrays convert to strings by default; use
+Fields containing byte arrays convert to strings by default.
+Use
 [`fields_bytes_as_hex` or `fields_bytes_as_base64`](/telegraf/v1/data_formats/input/xpath_json/#fields_bytes_as_hex-and-fields_bytes_as_base64)
 to encode them instead.

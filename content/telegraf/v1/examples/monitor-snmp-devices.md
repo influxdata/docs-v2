@@ -78,7 +78,8 @@ Replace the following:
 
 - **`agents`** lists the devices to poll.
   One plugin instance polls every agent with the same credentials and
-  field definitions; metrics carry a `source` tag identifying the device.
+  field definitions.
+  Metrics carry a `source` tag identifying the device.
 - **`[[inputs.snmp.field]]`** entries read single (scalar) values.
   `sysUpTime` becomes an `uptime` field, and `sysName` becomes a tag on
   every metric from the device.
