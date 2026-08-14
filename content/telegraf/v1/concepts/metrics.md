@@ -7,8 +7,8 @@ description: >
 menu:
   telegraf_v1:
     name: Telegraf metrics
-    weight: 101
     parent: How Telegraf works
+weight: 101
 aliases:
   - /telegraf/v1/metrics/
 related:

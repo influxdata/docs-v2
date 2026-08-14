@@ -159,8 +159,8 @@ share one name and type, from anywhere in the document:
   character), the parser produces one metric per element.
 - If the path returns an **object**, it is ignored.
   Use an [object table](#gather-structures-with-object) instead.
-  `field` and `tag` don't preserve relationships between values; each
-  table is handled as separate data.
+  `field` and `tag` don't preserve relationships between values.
+  Each table is handled as separate data.
 
 Tag values are always strings.
 Field values can be any [line protocol type](#types).
@@ -192,7 +192,7 @@ For example, `device.status.temp` produces the key `temp`.
 
 The type to convert the field value to: `int`, `uint`, `float`, `string`,
 or `bool`.
-Not available on `tag` tables; tag values are always strings.
+Not available on `tag` tables because tag values are always strings.
 
 **Type:** string  
 **Default:** Not set; the JSON type is kept

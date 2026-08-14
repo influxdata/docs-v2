@@ -142,8 +142,9 @@ If you do need separate services, install each with unique names:
 By default, the Windows service doesn't restart on failure.
 To enable automatic restarts, install the service with the `--auto-restart`
 flag.
-The default restart delay is 5 minutes; change it with `--restart-delay`
-and a duration, such as `--restart-delay 3m`.
+The default restart delay is 5 minutes.
+Change it with `--restart-delay` and a duration, such as
+`--restart-delay 3m`.
 
 ### Windows service logging
 

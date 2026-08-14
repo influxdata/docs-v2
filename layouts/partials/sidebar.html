@@ -106,7 +106,7 @@
   {{ end }}
 
   <!-- Platform menu for 1.x docs -->
-  {{ $platformWhitelist := (slice "telegraf_v1" "chronograf_v1" "kapacitor_v1" "enterprise_influxdb_v1" "influxdb_v1") }}
+  {{ $platformWhitelist := (slice "chronograf_v1" "kapacitor_v1" "enterprise_influxdb_v1" "influxdb_v1") }}
   {{ if (in $platformWhitelist $menuKey) }}
     <h4 class="platform">InfluxData Platform</h4>
     {{ partialCached "sidebar/nested-menu" (dict "menu" $platformMenu "siteData" .Site.Data) "platform" }}

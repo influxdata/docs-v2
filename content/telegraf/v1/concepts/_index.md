@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_v1:
     name: How Telegraf works
-    weight: 4
+weight: 4
 related:
   - /telegraf/v1/plugins/
   - /telegraf/v1/configure_plugins/

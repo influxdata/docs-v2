@@ -22,7 +22,7 @@ The Telegraf configuration file is written in
 - **`[agent]`**: settings that control how Telegraf itself runs.
   See [Agent settings](/telegraf/v1/configuration/agent/).
 - **Plugin tables**: one table for each plugin instance you enable, such as
-  `[[inputs.cpu]]` or `[[outputs.influxdb_v2]]`.
+  `[[inputs.cpu]]` or `[[outputs.influxdb_v3]]`.
   See [Common plugin options](/telegraf/v1/configuration/plugin-options/).
 
 The following example shows the shape of a minimal configuration file:
@@ -38,8 +38,9 @@ The following example shows the shape of a minimal configuration file:
 [[inputs.cpu]]
   percpu = true
 
-[[outputs.influxdb_v2]]
-  urls = ["http://localhost:8086"]
+[[outputs.influxdb_v3]]
+  urls = ["http://localhost:8181"]
+  database = "your_database"
 ```
 
 To be valid, **a configuration must enable at least one input plugin and at
@@ -63,7 +64,7 @@ To generate a file that enables only specific plugins, use the
 names:
 
 ```sh
-telegraf config --input-filter cpu:mem:net:swap --output-filter influxdb_v2:kafka
+telegraf config --input-filter cpu:mem:net:swap --output-filter influxdb_v3:kafka
 ```
 
 For the full list of commands and flags, see
@@ -139,12 +140,13 @@ Telegraf controls remote configuration behavior with two flags:
 
 - `--config-url-retry-attempts`: the number of times to attempt to fetch a
   remote configuration during startup.
-  The default is 3; set to -1 for unlimited attempts.
+  The default is 3.
+  Set to -1 for unlimited attempts.
 - `--config-url-watch-interval`: how often to check the URL for an updated
   configuration.
   Disabled by default.
   At each interval, Telegraf sends an HTTP HEAD request and compares the
-  `Last-Modified` header; if the value changes, Telegraf reloads with the new
-  configuration.
+  `Last-Modified` header.
+  If the value changes, Telegraf reloads with the new configuration.
   If the check fails, Telegraf logs a warning and keeps running the existing
   configuration.
