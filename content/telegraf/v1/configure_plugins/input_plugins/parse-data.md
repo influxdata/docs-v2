@@ -303,7 +303,7 @@ file,node=node3 temp=17.9,humidity=56i,alarm=true 1678121543000000000
 ```
 
 For a complete walkthrough of the `json_v2` parser against a live API, see
-[Use the HTTP input plugin with Citi Bike data](/telegraf/v1/configure_plugins/input_plugins/using_http/).
+[Collect JSON data from an HTTP API](/telegraf/v1/examples/collect-json-http-api/).
 
 ### Parse JSON with XPath expressions
 
