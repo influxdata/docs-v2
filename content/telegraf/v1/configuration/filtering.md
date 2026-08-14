@@ -117,10 +117,19 @@ expression with a boolean result: `true` passes the metric, anything else
 discards it.
 CEL expressions are more general than the other selectors and support
 time-based filtering.
-For available functions and syntax, see the
-[CEL language definition](https://github.com/google/cel-spec/blob/master/doc/langdef.md)
-and the
-[CEL extension documentation](https://github.com/google/cel-go/tree/master/ext#readme).
+
+`metricpass` expressions have access to the following variables:
+
+- `name` (string): the measurement name
+- `tags` (map of strings): the metric's tags
+- `fields` (map): the metric's fields
+- `time` (timestamp): the metric's timestamp
+
+For the functions and operators available in Telegraf CEL expressions, see
+the
+[CEL functions and operators reference](/telegraf/v1/agent-status-eval/functions/).
+For complete language syntax, see the
+[CEL language definition](https://github.com/google/cel-spec/blob/master/doc/langdef.md).
 
 Expressions that compile but fail at runtime (for example, reading a field
 that doesn't exist) abort evaluation, log an error, and report `true`, so the
