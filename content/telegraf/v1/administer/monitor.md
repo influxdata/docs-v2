@@ -12,7 +12,7 @@ related:
   - /telegraf/v1/input-plugins/internal/
   - /telegraf/v1/configuration/agent/
   - /telegraf/v1/administer/manage-at-scale/
-  - /telegraf/controller/agents/status/
+  - /telegraf/v1/administer/agent-status/
 ---
 
 Monitor Telegraf itself to catch problems such as failing collections,
@@ -84,6 +84,5 @@ configuration.
 
 Telegraf Controller displays each agent's status and marks agents that stop
 reporting.
-To configure status evaluation and reporting rules, see
-[Set agent statuses](/telegraf/controller/agents/status/) in the Telegraf
-Controller documentation.
+To configure status evaluation, see
+[Configure agent statuses](/telegraf/v1/administer/agent-status/).
