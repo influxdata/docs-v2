@@ -81,25 +81,81 @@ otherwise the published reference documents a parameter the server rejects.
 
 ## Regeneration churn (pre-existing, unrelated to #655)
 
-`api-docs/getswagger.sh` calls `npx @redocly/cli` with **no pinned version**, and
-npx now resolves 2.46.0. Bundling the current sources with 2.46.0 rewrites the
-committed specs wholesale, independent of any source change:
+Regenerating today rewrites the committed specs wholesale with no source change:
 
 - `influxdb/v2/influxdb-oss-v2-openapi.yaml`: ~685 insertions / ~693 deletions
 - `influxdb/cloud/influxdb-cloud-v2-openapi.yaml`: ~779 lines changed
 
-The rewrite inlines shared `components.parameters` (`Accept`, `AcceptEncoding`,
-`V1Database`, `V1Query`, `AuthV1Username`, …), drops the
-`QuerystringAuthentication` security scheme entry, and resets `info`/`servers`/
-`tags` to the raw upstream values. No paths are added or removed. Redocly also
-logs `Deprecated plugin format detected: docs` for
-`api-docs/openapi/plugins/docs-plugin.cjs`, so the committed specs were bundled
-with a Redocly 1.x CLI.
+**This churn is expected catch-up, not a bug.** The committed specs are stale
+artifacts of the previous pipeline. Verified causes, in order of diff size:
 
-Before step 2, either pin `@redocly/cli` to the 1.x line that produced the
-committed specs, or migrate `docs-plugin.cjs` to the 2.x plugin format and
-re-baseline every product spec in a separate PR. Do not fold that churn into the
-`onConflict` change.
+### 1. `info` / `servers` / `tags` reset — by design
+
+`api-docs/openapi/plugins/docs-plugin.cjs` states in its header comment that the
+`set-info` and `set-servers` decorators were deliberately removed, because
+`post-process-specs.ts` now owns the overlays. So `getswagger.sh` output is
+*supposed* to carry raw upstream `info`/`servers`/`tags`; the overlays are
+reapplied into `api-docs/_build/`, which is gitignored.
+
+Confirmed: after `node api-docs/scripts/dist/post-process-specs.js`, the `info`
+block in `_build/` is identical to the committed spec. The committed file has
+overlays baked in only because it was last generated when post-processing wrote
+in place.
+
+`servers` still differs after post-processing — committed `[{url: /}]` vs
+`_build` `[{url: 'http://localhost:8086', description: 'Local InfluxDB
+instance'}]` — because `influxdb/v2/content/servers.yml` changed since the last
+regeneration. The `_build` value is the intended one.
+
+### 2. `components.parameters` inlining — upstream, not the bundler
+
+Current `contracts/ref/oss.yml` on `docs-release/influxdb-oss` declares only
+`After`, `Descending`, `Limit`, `Offset`, `SortBy`, `TraceSpan`. It does not
+declare `Accept`, `AcceptEncoding`, `Content-Type`, `AuthV1Username`,
+`AuthV1Password`, `V1Database`, `V1Query`, `V1RetentionPolicy`, or `V1Epoch` —
+and neither does the `influxdb-oss-v2.7.0` tag. Those components exist only in
+the stale committed snapshot; upstream now inlines the same parameters on the
+v1-compatibility operations.
+
+**No content is lost.** Comparing fully dereferenced parameter sets across all
+233 shared operations: 206 are identical, and the remaining 27 differ only in
+parameter ordering or in the `After`/`Offset` description string (see item 4).
+`GET /query` carries the same 10 parameters in both.
+
+### 3. `QuerystringAuthentication` — already an orphan, and its anchor is broken
+
+The scheme has **0 `$ref`s** in the committed spec and is absent from
+`security:`, so dropping it changes no operation. But
+`api-docs/influxdb/v2/tags.yml:9` links to
+`#section/Authentication/QuerystringAuthentication`, and that anchor is
+generated from `components.securitySchemes`. Since current upstream declares
+only `BasicAuthentication` and `TokenAuthentication`, the link is **already
+dead** in `_build/`. Same pattern in `influxdb/cloud/tags.yml:9`. Fix separately
+from #655: either drop the link or restore the scheme upstream.
+
+### 4. Upstream regression: `/influxdb/latest/` links in v2 reference
+
+Upstream changed the `After` and `Offset` descriptions from the
+`INFLUXDB_DOCS_URL` shortcode to a hardcoded
+`/influxdb/latest/api/#tag/Pagination`. The plugin's
+`replace-docs-url-shortcode` decorator only rewrites the shortcode, so the v2
+reference now links to `/influxdb/latest/` where it used to link to
+`/influxdb/v2/`. The source still uses the shortcode in 19 other places. Worth
+an upstream fix in `influxdata/openapi`.
+
+### Redocly version
+
+`getswagger.sh` calls `npx @redocly/cli` with no pinned version; npx currently
+resolves 2.46.0, and Redocly logs `Deprecated plugin format detected: docs` for
+`docs-plugin.cjs`. The version bump was **not** found to cause any of the
+substantive deltas above — those are all pipeline-refactor staleness or upstream
+source changes. Pin the version anyway for reproducible builds, and migrate the
+plugin to the 2.x format to clear the warning, but treat both as separate work.
+
+### Recommendation
+
+Re-baseline all product specs against the current pipeline in its own PR, then
+regenerate for #655 on top so the `onConflict` diff is one parameter.
 
 ## Also needs updating when the CLI flag ships
 
