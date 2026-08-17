@@ -3,7 +3,6 @@
   "oss_root": "content/influxdb/v1",
   "enterprise_root": "content/enterprise_influxdb/v1",
   "pairs": [
-    "concepts/glossary.md",
     "flux/flux-vs-influxql.md"
   ]
 }
