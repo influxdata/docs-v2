@@ -39,6 +39,16 @@ To configure status evaluation, add `"status"` to the `include` list in your
 heartbeat plugin configuration and define CEL expressions in the
 `[outputs.heartbeat.status]` section.
 
+> [!Important]
+> #### Log counters require logs or statistics
+>
+> Expressions that use the `log_errors` or `log_warnings` variables also
+> require `"logs"` or `"statistics"` in the `include` list.
+> Telegraf counts logged errors and warnings only when one of these values is
+> present.
+> With only `"status"`, both counters remain `0` and can report a healthy
+> status for an unhealthy agent.
+
 ### Example: Basic health check
 
 Report `ok` when metrics are flowing.

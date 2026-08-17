@@ -14,6 +14,13 @@ represent data collected by Telegraf since the last successful heartbeat message
 | `inputs`       | map  | Input plugin statistics. See [Input plugin statistics](#input-plugin-statistics-inputs).              |
 | `outputs`      | map  | Output plugin statistics. See [Output plugin statistics](#output-plugin-statistics-outputs).          |
 
+> [!Important]
+> The `log_errors` and `log_warnings` counters require `"logs"` or
+> `"statistics"` in the heartbeat plugin's `include` list.
+> Telegraf counts logged errors and warnings only when one of these values is
+> present.
+> With only `"status"`, both counters remain `0`.
+
 ## Agent statistics
 
 The `agent` variable is a map containing aggregate statistics for the entire
