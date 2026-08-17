@@ -4,11 +4,6 @@
   "enterprise_root": "content/enterprise_influxdb/v1",
   "pairs": [
     "concepts/glossary.md",
-    "flux/flux-vs-influxql.md",
-    "flux/get-started/syntax-basics.md",
-    "flux/get-started/transform-data.md",
-    "flux/guides/conditional-logic.md",
-    "flux/guides/join.md",
-    "flux/guides/mathematic-operations.md"
+    "flux/flux-vs-influxql.md"
   ]
 }
