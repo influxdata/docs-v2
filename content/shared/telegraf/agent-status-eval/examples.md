@@ -9,7 +9,7 @@ For the full list of available variables and functions, see:
 ## Basic health check
 
 **Scenario:** Report `ok` when Telegraf is actively processing metrics.
-Fall back to the default status (`ok`) when no expression matches.
+Fall back to the default status (`fail`) when no expression matches.
 This means the agent is healthy as long as metrics are flowing.
 
 **Expression:**
@@ -105,6 +105,13 @@ fail = "outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.95)"
 The `exists()` function iterates over all instances and returns `true` if any
 instance's `buffer_fullness` exceeds the threshold.
 At 95% fullness, the status is `fail`; at 80%, `warn`; otherwise `ok`.
+
+These expressions assume the agent configuration defines at least one
+`influxdb_v2` output.
+If it doesn't, the expression returns an evaluation error and Telegraf skips
+sending the heartbeat.
+To guard against this, use the `has()` function shown in
+[Plugin-specific checks](#plugin-specific-checks).
 
 ## Plugin-specific checks
 
