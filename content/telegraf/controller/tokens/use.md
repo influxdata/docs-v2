@@ -68,7 +68,7 @@ Use the `TELEGRAF_CONTROLLER_TOKEN` environment variable to define the `token`
 option in your heartbeat plugin configuration.
 Telegraf uses the environment variable value defined when starting Telegraf.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"

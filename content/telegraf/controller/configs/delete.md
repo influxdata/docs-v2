@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Delete configurations
     parent: Manage configurations
-weight: 107
+weight: 108
 ---
 
 Delete configurations you no longer use to keep {{% product-name %}} organized.

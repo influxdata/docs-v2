@@ -102,7 +102,7 @@ The **Plugin** tab in a plugin card lets you customize settings specific
 to that plugin.
 
 > [!Note]
-> You can use [dynamic values](/telegraf/controller/configs/dynamic-values/)
+> You can [substitute values](/telegraf/controller/configs/substitute-values/)
 > when defining plugin settings in the Telegraf Builder.
 
 #### Customize
