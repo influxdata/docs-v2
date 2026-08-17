@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Substitute values
     parent: Manage configurations
-weight: 105
+weight: 106
 aliases:
   - /telegraf/controller/configs/dynamic-values/
 ---

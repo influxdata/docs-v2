@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Use configurations
     parent: Manage configurations
-weight: 107
+weight: 108
 ---
 
 Use Telegraf Controller to centralize management of your Telegraf configurations
@@ -30,6 +30,15 @@ When starting a Telegraf agent, use a `--config` flag with the
 ```bash
 telegraf \
   --config "http://localhost:8888/api/configs/xxxxxx/toml"
+```
+
+If the configuration has an
+[alias](/telegraf/controller/configs/aliases/), you can use the shorter
+alias-based URL instead:
+
+```bash
+telegraf \
+  --config "http://localhost:8888/c/my-config-alias"
 ```
 
 > [!Note]

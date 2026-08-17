@@ -9,7 +9,7 @@ menu:
   telegraf_controller:
     name: Manage constants
     parent: Manage configurations
-weight: 106
+weight: 107
 related:
   - /telegraf/controller/configs/substitute-values/
   - /telegraf/controller/configs/use/

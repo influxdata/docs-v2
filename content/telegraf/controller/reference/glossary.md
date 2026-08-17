@@ -11,7 +11,7 @@ weight: 108
 related:
   - /telegraf/controller/reference/architecture/
   - /telegraf/controller/reference/agent-status-eval/
-  - /telegraf/controller/configs/dynamic-values/
+  - /telegraf/controller/configs/substitute-values/
   - /telegraf/v1/glossary/
 ---
 

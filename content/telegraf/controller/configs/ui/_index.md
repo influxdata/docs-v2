@@ -9,7 +9,7 @@ menu:
   telegraf_controller:
     name: Configuration UI tools
     parent: Manage configurations
-weight: 104
+weight: 105
 ---
 
 Use Telegraf configuration user interface tools in Telegraf Controller to
