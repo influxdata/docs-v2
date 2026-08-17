@@ -125,6 +125,12 @@
     });
     if (!active) return;
     active.classList.add('active');
+    var ownChildren = active.querySelector(':scope > ul.children');
+    if (ownChildren) {
+      ownChildren.classList.add('open');
+      var ownToggle = active.querySelector(':scope > .children-toggle');
+      if (ownToggle) ownToggle.classList.add('open');
+    }
     var node = active.parentElement;
     while (node && node.id !== 'nav-tree') {
       if (node.tagName === 'UL' && node.classList.contains('children')) {
