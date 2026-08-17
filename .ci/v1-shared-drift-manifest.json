@@ -11,21 +11,13 @@
     "flux/guides/calculate-percentages.md",
     "flux/guides/conditional-logic.md",
     "flux/guides/exists.md",
-    "flux/guides/first-last.md",
     "flux/guides/flux-in-dashboards.md",
-    "flux/guides/geo/_index.md",
-    "flux/guides/geo/filter-by-region.md",
-    "flux/guides/geo/group-geo-data.md",
     "flux/guides/histograms.md",
     "flux/guides/join.md",
     "flux/guides/manipulate-timestamps.md",
     "flux/guides/mathematic-operations.md",
     "flux/guides/monitor-states.md",
-    "flux/guides/percentile-quantile.md",
-    "flux/guides/query-fields.md",
     "flux/guides/scalar-values.md",
-    "flux/guides/sql.md",
-    "flux/guides/window-aggregate.md",
     "flux/installation.md"
   ]
 }
