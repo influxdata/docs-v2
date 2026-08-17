@@ -64,8 +64,13 @@ export function divergence(a, b) {
   return n - common + (m - common);
 }
 
-function readManifest() {
-  return JSON.parse(readFileSync(MANIFEST, 'utf8'));
+function readManifest(ref = null) {
+  if (ref === null) return JSON.parse(readFileSync(MANIFEST, 'utf8'));
+  const manifestAtRef = readAt(ref, MANIFEST);
+  if (manifestAtRef === null) {
+    throw new Error(`Unable to read ${MANIFEST} at git ref ${ref}`);
+  }
+  return JSON.parse(manifestAtRef);
 }
 
 function readAt(ref, file) {
@@ -92,8 +97,9 @@ function measure(ref, manifest) {
 }
 
 function main(argv) {
-  const manifest = readManifest();
   const baseIdx = argv.indexOf('--base');
+  const baseRef = baseIdx === -1 ? null : argv[baseIdx + 1];
+  const manifest = readManifest(baseRef);
   const head = measure(null, manifest);
 
   if (baseIdx === -1) {
@@ -107,7 +113,7 @@ function main(argv) {
     return 0;
   }
 
-  const base = measure(argv[baseIdx + 1], manifest);
+  const base = measure(baseRef, manifest);
   const worse = [];
   for (const [rel, n] of head) {
     const was = base.get(rel);
