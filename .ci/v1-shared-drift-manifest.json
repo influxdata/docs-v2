@@ -7,14 +7,8 @@
     "flux/flux-vs-influxql.md",
     "flux/get-started/syntax-basics.md",
     "flux/get-started/transform-data.md",
-    "flux/guides/calculate-percentages.md",
     "flux/guides/conditional-logic.md",
-    "flux/guides/exists.md",
-    "flux/guides/flux-in-dashboards.md",
-    "flux/guides/histograms.md",
     "flux/guides/join.md",
-    "flux/guides/mathematic-operations.md",
-    "flux/guides/monitor-states.md",
-    "flux/guides/scalar-values.md"
+    "flux/guides/mathematic-operations.md"
   ]
 }
