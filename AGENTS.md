@@ -88,6 +88,11 @@ See [README.md](README.md) and the
 ## Documentation style
 
 - Follow the Google Developer Documentation Style Guide.
+- Apply the style guide to issues, pull request descriptions, and status
+  comments, not only to content pages.
+- Write to inform, not to impress. State a finding directly instead of building
+  up to it. Do not use section headings, one-sentence paragraphs, or statistics
+  for dramatic emphasis.
 - Use semantic line feeds: one sentence per line.
 - Do not add `#` h1 headings in content; `title` frontmatter generates the h1.
 - Prefer active voice, present tense, and second person.
