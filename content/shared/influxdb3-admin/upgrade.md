@@ -335,13 +335,10 @@ count holds every pod in that StatefulSet at its current version.
 A partition lower than the replica count lets the pods at or above that ordinal
 update, so use a ceiling that your replica counts can't reach.
 
-<!-- VERIFY (chart): The identifiers below are written from the chart's
-     documented structure, not from a live release. Confirm against
-     influxdata/helm-charts: the values keys (querier, compactor,
+<!-- Verified against influxdata/helm-charts influxdb3-enterprise 0.9.0
+     (InfluxDB 3.10.5, commit 7a3289b): the values keys (querier, compactor,
      processingEngine) and the app.kubernetes.io/component label values
-     (ingester, querier) used to select each StatefulSet. Step 5 loops over
-     every StatefulSet in the namespace precisely to avoid depending on a
-     component label for the processing engine. -->
+     (ingester, querier) below are current. -->
 
 ```bash { placeholders="RELEASE_NAME|NAMESPACE|VERSION" }
 # 1. Freeze the modes you upgrade later, then apply the new image tag.
