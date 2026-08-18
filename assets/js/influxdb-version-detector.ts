@@ -12,7 +12,8 @@
  *     |
  *     ├─→ URL matches known cloud patterns?
  *     │   │
- *     │   ├─→ YES: Contains "influxdb.io" → **InfluxDB Cloud Dedicated** ✓
+ *     │   ├─→ YES: Contains ".enterprise.influxdb.io" → **InfluxDB 3 Cloud** ✓
+ *     │   ├─→ YES: Contains ".a.influxdb.io" → **InfluxDB Cloud Dedicated** ✓
  *     │   ├─→ YES: Contains "cloud2.influxdata.com" regions → **InfluxDB Cloud Serverless** ✓
  *     │   ├─→ YES: Contains "influxcloud.net" → **InfluxDB Cloud 1** ✓
  *     │   └─→ YES: Contains other cloud2 regions → **InfluxDB Cloud (TSM)** ✓
@@ -190,6 +191,7 @@ class InfluxDBVersionDetector {
   private static readonly HOST_EXAMPLES: Record<string, string> = {
     influxdb3_core: 'http://localhost:8181',
     influxdb3_enterprise: 'http://localhost:8181',
+    influxdb3_cloud: 'https://instance-id.enterprise.influxdb.io',
     influxdb3_cloud_serverless: 'https://cloud2.influxdata.com',
     influxdb3_cloud_dedicated: 'https://cluster-id.a.influxdb.io',
     influxdb3_clustered: 'https://cluster-host.com',
@@ -245,7 +247,7 @@ class InfluxDBVersionDetector {
     influxdbUrls: Record<string, unknown>;
   } {
     let products: Products = {};
-    let influxdbUrls: Record<string, unknown> = {};
+    let influxdbUrls: Record<string, unknown>;
 
     // Parse products data - Hugo always provides this data
     const productsData = this.container.getAttribute('data-products');
@@ -534,6 +536,7 @@ class InfluxDBVersionDetector {
       serverless: 'InfluxDB Cloud Serverless',
       core: 'InfluxDB 3 Core',
       enterprise: 'InfluxDB 3 Enterprise',
+      cloud3: 'InfluxDB 3 Cloud',
       dedicated: 'InfluxDB Cloud Dedicated',
       clustered: 'InfluxDB Clustered',
       custom: 'Custom URL',
@@ -541,6 +544,7 @@ class InfluxDBVersionDetector {
       // Raw product keys from products.yml (used in scoring)
       influxdb3_core: 'InfluxDB 3 Core',
       influxdb3_enterprise: 'InfluxDB 3 Enterprise',
+      influxdb3_cloud: 'InfluxDB 3 Cloud',
       influxdb3_cloud_serverless: 'InfluxDB Cloud Serverless',
       influxdb3_cloud_dedicated: 'InfluxDB Cloud Dedicated',
       influxdb3_clustered: 'InfluxDB Clustered',
@@ -559,6 +563,7 @@ class InfluxDBVersionDetector {
     const productMapping: Record<string, string> = {
       core: 'influxdb3_core',
       enterprise: 'influxdb3_enterprise',
+      cloud3: 'influxdb3_cloud',
       serverless: 'influxdb3_cloud_serverless',
       dedicated: 'influxdb3_cloud_dedicated',
       clustered: 'influxdb3_clustered',
@@ -733,12 +738,27 @@ class InfluxDBVersionDetector {
     }
 
     const urlLower = url.toLowerCase();
+    let hostname = urlLower;
+
+    try {
+      const urlWithScheme = urlLower.includes('://')
+        ? urlLower
+        : `https://${urlLower}`;
+      hostname = new URL(urlWithScheme).hostname;
+    } catch {
+      // Keep the original input for keyword-based detection below.
+    }
 
     // PRIORITY 1: Check for definitive cloud patterns first (per decision tree)
     // These should be checked before localhost patterns for accuracy
 
-    // InfluxDB Cloud Dedicated: Contains "influxdb.io"
-    if (urlLower.includes('influxdb.io')) {
+    // InfluxDB 3 Cloud: instance hostname ends in enterprise.influxdb.io
+    if (hostname.endsWith('.enterprise.influxdb.io')) {
+      return { likelyProduct: 'cloud3', confidence: 1.0 };
+    }
+
+    // InfluxDB Cloud Dedicated: cluster hostname ends in a.influxdb.io
+    if (hostname.endsWith('.a.influxdb.io')) {
       return { likelyProduct: 'dedicated', confidence: 1.0 };
     }
 
@@ -1527,7 +1547,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             'InfluxDB OSS 2.x',
             'InfluxDB OSS 1.x',
           ];
-          let freeLinks = '';
+          let freeLinks: string;
           if (this.pageContext === 'grafana') {
             freeLinks = freeProducts
               .map((product) => {
@@ -1560,10 +1580,11 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
         } else if (answer === 'paid') {
           const paidProducts = [
             'InfluxDB 3 Enterprise',
+            'InfluxDB 3 Cloud',
             'InfluxDB Cloud Dedicated',
             'InfluxDB Cloud Serverless',
           ];
-          let paidLinks = '';
+          let paidLinks: string;
           if (this.pageContext === 'grafana') {
             paidLinks = paidProducts
               .map((product) => {
@@ -1664,6 +1685,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const DOC_LINKS: Record<string, string> = {
       'InfluxDB 3 Core': '/influxdb3/core/',
       'InfluxDB 3 Enterprise': '/influxdb3/enterprise/',
+      'InfluxDB 3 Cloud': '/influxdb3/cloud/',
       'InfluxDB Cloud Dedicated': '/influxdb3/cloud-dedicated/',
       'InfluxDB Cloud Serverless': '/influxdb3/cloud-serverless/',
       'InfluxDB OSS 1.x': '/influxdb/v1/',
@@ -1684,6 +1706,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const AI_CONTEXTS: Record<string, string> = {
       'InfluxDB 3 Core': 'InfluxDB 3 Core',
       'InfluxDB 3 Enterprise': 'InfluxDB 3 Enterprise',
+      'InfluxDB 3 Cloud': 'InfluxDB 3 Cloud',
       'InfluxDB Cloud Dedicated': 'InfluxDB Cloud Dedicated',
       'InfluxDB Cloud Serverless': 'InfluxDB Cloud Serverless',
       'InfluxDB OSS 1.x': 'InfluxDB OSS v1',
@@ -1706,6 +1729,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const PRODUCT_KEY_MAP: Record<string, string> = {
       'InfluxDB 3 Core': 'influxdb3_core',
       'InfluxDB 3 Enterprise': 'influxdb3_enterprise',
+      'InfluxDB 3 Cloud': 'influxdb3_cloud',
       'InfluxDB Cloud Dedicated': 'influxdb3_cloud_dedicated',
       'InfluxDB Cloud Serverless': 'influxdb3_cloud_serverless',
       'InfluxDB OSS 1.x': 'influxdb',
@@ -1842,6 +1866,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const KEY_TO_FULL_NAME_MAP: Record<string, string> = {
       core: 'InfluxDB 3 Core',
       enterprise: 'InfluxDB 3 Enterprise',
+      cloud3: 'InfluxDB 3 Cloud',
       serverless: 'InfluxDB Cloud Serverless',
       dedicated: 'InfluxDB Cloud Dedicated',
       clustered: 'InfluxDB Clustered',
@@ -1860,6 +1885,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const PRODUCT_RELEASE_DATES: Record<string, Date> = {
       'InfluxDB 3 Core': new Date('2025-01-01'),
       'InfluxDB 3 Enterprise': new Date('2025-01-01'),
+      'InfluxDB 3 Cloud': new Date('2026-01-01'),
       'InfluxDB Cloud Serverless': new Date('2024-01-01'),
       'InfluxDB Cloud Dedicated': new Date('2024-01-01'),
       'InfluxDB Clustered': new Date('2024-01-01'),
@@ -1913,6 +1939,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB Enterprise'] = -1000;
       scores['InfluxDB Clustered'] = -1000;
     } else if (this.answers.hosted === 'self' || !this.answers.isCloud) {
+      scores['InfluxDB 3 Cloud'] = -1000;
       scores['InfluxDB Cloud Dedicated'] = -1000;
       scores['InfluxDB Cloud Serverless'] = -1000;
       scores['InfluxDB Cloud (TSM)'] = -1000;
@@ -1928,11 +1955,13 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB Cloud (TSM)'] += 10;
 
       scores['InfluxDB 3 Enterprise'] = -1000;
+      scores['InfluxDB 3 Cloud'] = -1000;
       scores['InfluxDB Enterprise'] = -1000;
       scores['InfluxDB Clustered'] = -1000;
       scores['InfluxDB Cloud Dedicated'] = -1000;
     } else if (this.answers.paid === 'paid') {
       scores['InfluxDB 3 Enterprise'] += 25;
+      scores['InfluxDB 3 Cloud'] += 20;
       scores['InfluxDB Enterprise'] += 20;
       scores['InfluxDB Clustered'] += 15;
       scores['InfluxDB Cloud Dedicated'] += 20;
@@ -1982,6 +2011,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     if (this.answers.language === 'sql') {
       scores['InfluxDB 3 Core'] += 40;
       scores['InfluxDB 3 Enterprise'] += 40;
+      scores['InfluxDB 3 Cloud'] += 30;
       scores['InfluxDB Cloud Dedicated'] += 30;
       scores['InfluxDB Cloud Serverless'] += 30;
       scores['InfluxDB Clustered'] += 30;
@@ -2001,6 +2031,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB OSS 1.x'] = -1000;
       scores['InfluxDB 3 Core'] = -1000;
       scores['InfluxDB 3 Enterprise'] = -1000;
+      scores['InfluxDB 3 Cloud'] = -1000;
       scores['InfluxDB Cloud Dedicated'] = -1000;
       scores['InfluxDB Clustered'] = -1000;
     } else if (this.answers.language === 'influxql') {
@@ -2012,6 +2043,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB Cloud (TSM)'] += 20;
       scores['InfluxDB 3 Core'] += 25;
       scores['InfluxDB 3 Enterprise'] += 25;
+      scores['InfluxDB 3 Cloud'] += 25;
       scores['InfluxDB Cloud Dedicated'] += 25;
       scores['InfluxDB Cloud Serverless'] += 25;
       scores['InfluxDB Clustered'] += 25;
@@ -2129,6 +2161,14 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>8086</td>
                 <td>No</td>
                 <td>InfluxQL, Flux</td>
+              </tr>
+              <tr>
+                <td class="product-name"><a href="/influxdb3/cloud/">InfluxDB 3 Cloud</a></td>
+                <td>Paid only</td>
+                <td>Cloud</td>
+                <td>N/A</td>
+                <td>No</td>
+                <td>SQL, InfluxQL</td>
               </tr>
               <tr>
                 <td class="product-name"><a href="/influxdb3/cloud-dedicated/">InfluxDB Cloud Dedicated</a></td>

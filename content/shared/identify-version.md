@@ -13,7 +13,8 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 
 | URL Pattern                                | Product                                       |
 | ------------------------------------------ | --------------------------------------------- |
-| `*.influxdb.io`                            | InfluxDB Cloud Dedicated                      |
+| `*.enterprise.influxdb.io`                 | InfluxDB 3 Cloud ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) |
+| `*.a.influxdb.io`                          | InfluxDB Cloud Dedicated                      |
 | `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
 | `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
 | `*.influxcloud.net`                        | [InfluxDB Cloud 1](/platform/#influxdb-cloud-1) (legacy) |
@@ -135,7 +136,7 @@ influxctl cluster list
 
 **InfluxDB Cloud Dedicated** can be identified by:
 
-**URL pattern**: `*.influxdb.io`
+**URL pattern**: `*.a.influxdb.io`
 
 - Example: `cluster-id.a.influxdb.io`
 
@@ -207,26 +208,21 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 
 ### InfluxDB 3 Cloud detection
 
-Check the version using the `influxdb3` command:
+**URL pattern**: `*.enterprise.influxdb.io`
+
+- Example: `instance-id.enterprise.influxdb.io`
+
+**Administration interface**: Manage instances through [console.influxdata.com](https://console.influxdata.com).
+
+**CLI**: InfluxDB 3 Cloud workflows use the `influxdb3` CLI rather than `influxctl`.
+The following command reports the installed CLI version:
 
 ```bash
 influxdb3 --version
 ```
 
-Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--for example:
-
-```bash
-curl -i http://localhost:8181/ping
-```
-
-The response includes version information in the **headers** and **body**:
-
-- **Headers**:
-  - `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
-  - `x-influxdb-build`: `Enterprise`
-- **JSON body**: Contains `version`, `revision`, and `process_id`
-
-**Account settings**: Check your InfluxDB 3 Cloud account dashboard for cluster and version details.
+InfluxDB 3 Cloud is in early access.
+[Request access](https://www.influxdata.com/products/influxdb3-cloud/).
 
 {{% /show-in %}}
 
@@ -365,7 +361,7 @@ The InfluxDB UI displays the version:
 
 For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/reference/faq/#administration-1)
 
-### InfluxDB Cloud (Serverless, Dedicated, TSM)
+### InfluxDB Cloud products
 
 For InfluxDB Cloud products, check the version information:
 
@@ -418,6 +414,7 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | ----------------------------- | --------- | ------------------------ | ------------------- | ------------ |
 | **InfluxDB 3 Core**           | Free      | Self-hosted              | SQL, InfluxQL       | 8181         |
 | **InfluxDB 3 Enterprise**     | Paid      | Self-hosted              | SQL, InfluxQL       | 8181         |
+| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) | Paid | Cloud | SQL, InfluxQL | N/A |
 | **InfluxDB Cloud Serverless** | Free/Paid | Cloud                    | SQL, InfluxQL, Flux | N/A          |
 | **InfluxDB Cloud Dedicated**  | Paid      | Cloud                    | SQL, InfluxQL       | N/A          |
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |

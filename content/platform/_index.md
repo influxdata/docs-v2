@@ -47,6 +47,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 |---------|------------------|---------|------------|-----------------|-------------|-----|
 | **[InfluxDB 3 Core](#influxdb-3)** | v3 (InfluxDB 3) | Open Source (MIT/Apache 2) | Self-managed (single-node) | SQL, InfluxQL | Unlimited | v3, v2, v1 |
 | **[InfluxDB 3 Enterprise](#influxdb-3)** | v3 (InfluxDB 3) | Commercial | Self-managed (cluster or single-node) | SQL, InfluxQL | Unlimited | v3, v2, v1 |
+| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) | v3 (InfluxDB 3) | Commercial | Managed cloud (single-tenant) | SQL, InfluxQL | Unlimited | v3, v2, v1 |
 | **[InfluxDB Clustered](#influxdb-3)** | v3 (InfluxDB 3) | Commercial | Self-managed (Kubernetes) | SQL, InfluxQL | Unlimited | v2, v1 |
 | **[InfluxDB Cloud Serverless](#influxdb-3)** | v3 (InfluxDB 3) | Free & Paid | Managed cloud (multi-tenant) | SQL, InfluxQL | Unlimited | v2, v1 |
 | **[InfluxDB Cloud Dedicated](#influxdb-3)** | v3 (InfluxDB 3) | Paid | Managed cloud (single-tenant) | SQL, InfluxQL | Unlimited | v2, v1 |
@@ -63,12 +64,13 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 **Product availability:**
 
+- **InfluxDB 3 Cloud**: Early access; [request access](https://www.influxdata.com/products/influxdb3-cloud/)
 - **InfluxDB Cloud (TSM)**: Legacy managed v2 product; new signups are directed to InfluxDB Cloud Serverless (v3)
 - **InfluxDB Cloud 1**: Legacy managed v1 product; new signups are no longer available; existing customers only
 
 **API compatibility:**
 
-- **v3 API**: Latest API in InfluxDB 3 Core and Enterprise (`/api/v3` endpoints) with database-based data model
+- **v3 API**: Latest API in InfluxDB 3 Core, Enterprise, and Cloud (`/api/v3` endpoints) with database-based data model
 - **v2 API**: Used in InfluxDB v2 with token authentication and bucket-based data model; InfluxDB 3 products support `/api/v2/write` compatibility endpoint
 - **v1 HTTP API**: Legacy API with `/write` and `/query` endpoints; InfluxDB 3 products provide v1 compatibility for easier migration from v1 products
 {{% /expand %}}
@@ -90,6 +92,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 ### Hosted
 
+- [InfluxDB 3 Cloud](/influxdb3/cloud/): fully managed, single-tenant InfluxDB 3 Enterprise service in [early access](https://www.influxdata.com/products/influxdb3-cloud/)
 - [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/): fully managed, multi-tenant InfluxDB 3 instance
 - [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/): fully managed, single-tenant InfluxDB 3 cluster
 
