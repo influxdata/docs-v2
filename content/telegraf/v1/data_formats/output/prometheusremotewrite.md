@@ -5,9 +5,9 @@ description: Use the `prometheusremotewrite` output data format (serializer) to 
 menu:
   telegraf_v1_ref:
     name: Prometheus Remote Write
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-prometheusremotewrite
+weight: 10
 ---
 
 Use the `prometheusremotewrite` output data format (serializer) to convert Telegraf metrics into the Prometheus protobuf exposition format for [remote write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) endpoints.

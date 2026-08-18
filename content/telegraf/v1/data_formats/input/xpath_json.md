@@ -1,629 +1,449 @@
 ---
 title: XPath JSON input data format
 list_title: XPath JSON
-description: 
-  Use the `xpath_json` input data format and XPath expressions to parse JSON into Telegraf metrics.
+description: >
+  Use the `xpath_json` input data format and XPath expressions to parse JSON
+  into Telegraf metrics. Includes the JSON-to-tree mapping, a complete option
+  reference, and verified examples.
 menu:
   telegraf_v1_ref:
-     name: XPath JSON
-     weight: 10
-     parent: Input data formats
-metadata: [XPath parser plugin]
+    name: XPath JSON
+    parent: Input data formats
+weight: 10
+related:
+  - /telegraf/v1/data_formats/input/json/
+  - /telegraf/v1/data_formats/input/json_v2/
+  - /telegraf/v1/configure_plugins/input_plugins/parse-data/
 ---
 
-Use the `xpath_json` input data format, provided by the [XPath parser plugin](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/xpath), with [XPath][xpath] expressions to parse JSON data into Telegraf metrics.
+Use the `xpath_json` input data format to parse JSON into Telegraf metrics
+using [XPath 1.0](https://www.w3.org/TR/xpath/) expressions.
+It is the most capable of the three JSON parsers and the recommended choice
+for nested documents and arrays.
+For a side-by-side comparison, see
+[Choose a JSON parser](/telegraf/v1/data_formats/input/#choose-a-json-parser).
 
-For information about supported XPath functions, see [the underlying XPath library][xpath lib].
+`xpath_json` is one of the formats provided by the Telegraf XPath parser.
+The same configuration options and query syntax also apply to the
+[XML](/telegraf/v1/data_formats/input/xml/),
+[MessagePack](/telegraf/v1/data_formats/input/xpath_msgpack/),
+[CBOR](/telegraf/v1/data_formats/input/xpath_cbor/), and
+[Protocol Buffers](/telegraf/v1/data_formats/input/xpath_protobuf/) input
+data formats.
+For supported XPath functions, see the
+[underlying XPath library](https://github.com/antchfx/xpath).
 
-**NOTE:** The type of fields are specified using [XPath functions][xpath
-lib]. The only exceptions are _integer_ fields that need to be specified in a
-`fields_int` section.
+- [How JSON maps to the query tree](#how-json-maps-to-the-query-tree)
+- [Configuration](#configuration)
+- [Parser options](#parser-options)
+- [Query options](#query-options)
+- [Field types](#field-types)
+- [Examples](#examples)
+- [Troubleshoot queries](#troubleshoot-queries)
 
-## Supported data formats
+## How JSON maps to the query tree
 
-| name                                    | `data_format` setting | comment |
-| --------------------------------------- | --------------------- | ------- |
-| [Extensible Markup Language (XML)][xml] | `"xml"`               |         |
-| [JSON][json]                            | `"xpath_json"`        |         |
-| [MessagePack][msgpack]                  | `"xpath_msgpack"`     |         |
-| [Protocol-buffers][protobuf]            | `"xpath_protobuf"`    | [see additional parameters](#protocol-buffers-additional-settings)|
+The parser converts the JSON document into an internal tree and runs your
+XPath queries against it.
+Writing correct queries requires knowing the mapping:
 
-### Protocol-buffers additional settings
+- The document root is `/`.
+- **Object keys** become named child nodes.
+  In the document below, `/gateway/name` selects `"Main Gateway"`.
+- **Array elements** become *unnamed* child nodes of the array's key node.
+  Select them with the `*` wildcard: `/sensors/*` selects each element of
+  the `sensors` array.
+- **Values** become the text content of their node.
 
-For using the protocol-buffer format you need to specify additional
-(_mandatory_) properties for the parser. Those options are described here.
+For example, the following document:
 
-#### `xpath_protobuf_file` (mandatory)
-
-Use this option to specify the name of the protocol-buffer definition file
-(`.proto`).
-
-#### `xpath_protobuf_type` (mandatory)
-
-This option contains the top-level message file to use for deserializing the
-data to be parsed. Usually, this is constructed from the `package` name in the
-protocol-buffer definition file and the `message` name as `<package
-name>.<message name>`.
-
-#### `xpath_protobuf_import_paths` (optional)
-
-In case you import other protocol-buffer definitions within your `.proto` file
-(i.e. you use the `import` statement) you can use this option to specify paths
-to search for the imported definition file(s). By default the imports are only
-searched in `.` which is the current-working-directory, i.e. usually the
-directory you are in when starting telegraf.
-
-Imagine you do have multiple protocol-buffer definitions (e.g. `A.proto`,
-`B.proto` and `C.proto`) in a directory (e.g. `/data/my_proto_files`) where your
-top-level file (e.g. `A.proto`) imports at least one other definition
-
-```protobuf
-syntax = "proto3";
-
-package foo;
-
-import "B.proto";
-
-message Measurement {
-    ...
+```json
+{
+    "gateway": {
+        "name": "Main Gateway",
+        "location": "building-a"
+    },
+    "timestamp": 1709572232,
+    "sensors": [
+        {"id": "sensor-1", "temp": 22.5, "humidity": 41, "active": true},
+        {"id": "sensor-2", "temp": 25.1, "humidity": 38, "active": false}
+    ]
 }
 ```
 
-You should use the following setting
+produces this tree:
 
-```toml
-[[inputs.file]]
-  files = ["example.dat"]
-
-  data_format = "xpath_protobuf"
-  xpath_protobuf_file = "A.proto"
-  xpath_protobuf_type = "foo.Measurement"
-  xpath_protobuf_import_paths = [".", "/data/my_proto_files"]
-
-  ...
+```text
+/
+├── gateway
+│   ├── name        ("Main Gateway")
+│   └── location    ("building-a")
+├── timestamp       (1709572232)
+└── sensors
+    ├── *           (id, temp, humidity, active)
+    └── *           (id, temp, humidity, active)
 ```
 
-#### `xpath_protobuf_skip_bytes` (optional)
-
-This option allows to skip a number of bytes before trying to parse
-the protocol-buffer message. This is useful in cases where the raw data
-has a header e.g. for the message length or in case of GRPC messages.
-
-This is a list of known headers and the corresponding values for
-`xpath_protobuf_skip_bytes`
-
-| name                                    | setting | comment |
-| --------------------------------------- | ------- | ------- |
-| [GRPC protocol][GRPC] | 5 | GRPC adds a 5-byte header for _Length-Prefixed-Messages_ |
-| [PowerDNS logging][PDNS] | 2 | Sent messages contain a 2-byte header containing the message length |
-
-[GRPC]: https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md
-[PDNS]: https://docs.powerdns.com/recursor/lua-config/protobuf.html
+> [!Important]
+> To produce one metric per array element, select the anonymous element
+> nodes, not the array key:
+> `metric_selection = "/sensors/*"`.
+> Selecting `/sensors` or `//sensors` matches the *container* node.
+> Relative queries like `id` then silently return nothing, resulting in
+> missing tags and fields.
 
 ## Configuration
 
 ```toml
 [[inputs.file]]
-  files = ["example.xml"]
+  files = ["example.json"]
+  data_format = "xpath_json"
 
-  ## Data format to consume.
-  ## Each data format has its own unique set of configuration options, read
-  ## more about them here:
-  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
-  data_format = "xml"
-
-  ## PROTOCOL-BUFFER definitions
-  ## Protocol-buffer definition file
-  # xpath_protobuf_file = "sparkplug_b.proto"
-  ## Name of the protocol-buffer message type to use in a fully qualified form.
-  # xpath_protobuf_type = "org.eclipse.tahu.protobuf.Payload"
-  ## List of paths to use when looking up imported protocol-buffer definition files.
-  # xpath_protobuf_import_paths = ["."]
-  ## Number of (header) bytes to ignore before parsing the message.
-  # xpath_protobuf_skip_bytes = 0
-
-  ## Print the internal XML document when in debug logging mode.
-  ## This is especially useful when using the parser with non-XML formats like protocol-buffers
-  ## to get an idea on the expression necessary to derive fields etc.
-  # xpath_print_document = false
-
-  ## Allow the results of one of the parsing sections to be empty.
-  ## Useful when not all selected files have the exact same structure.
-  # xpath_allow_empty_selection = false
-
-  ## Get native data-types for all data-format that contain type information.
-  ## Currently, protobuf, msgpack and JSON support native data-types
+  ## Keep native JSON types instead of converting everything to strings.
+  ## Applies to batch-selected fields (field_selection).
   # xpath_native_types = false
 
-  ## Multiple parsing sections are allowed
+  ## Allow a parsing section to match nothing without raising an error.
+  # xpath_allow_empty_selection = false
+
+  ## Print the internal document when debug logging is enabled.
+  # xpath_print_document = false
+
+  ## One or more parsing sections. Each section produces metrics.
   [[inputs.file.xpath]]
-    ## Optional: XPath-query to select a subset of nodes from the XML document.
-    # metric_selection = "/Bus/child::Sensor"
+    ## Select the nodes that become individual metrics.
+    ## If not set, one metric is produced from the document root.
+    # metric_selection = "/sensors/*"
 
-    ## Optional: XPath-query to set the metric (measurement) name.
-    # metric_name = "string('example')"
+    ## Override the measurement name.
+    # metric_name = "string('sensors')"
 
-    ## Optional: Query to extract metric timestamp.
-    ## If not specified the time of execution is used.
-    # timestamp = "/Gateway/Timestamp"
-    ## Optional: Format of the timestamp determined by the query above.
-    ## This can be any of "unix", "unix_ms", "unix_us", "unix_ns" or a valid Golang
-    ## time format. If not specified, a "unix" timestamp (in seconds) is expected.
-    # timestamp_format = "2006-01-02T15:04:05Z"
-    ## Optional: Timezone of the parsed time
-    ## This will locate the parsed time to the given timezone. Please note that
-    ## for times with timezone-offsets (e.g. RFC3339) the timestamp is unchanged.
-    ## This is ignored for all (unix) timestamp formats.
+    ## Timestamp query, value format, and timezone.
+    # timestamp = "/timestamp"
+    # timestamp_format = "unix"
     # timezone = "UTC"
 
-    ## Optional: List of fields to convert to hex-strings if they are
-    ## containing byte-arrays. This might be the case for e.g. protocol-buffer
-    ## messages encoding data as byte-arrays. Wildcard patterns are allowed.
-    ## By default, all byte-array-fields are converted to string.
-    # fields_bytes_as_hex = []
-
-    ## Tag definitions using the given XPath queries.
+    ## Explicit tag definitions.
     [inputs.file.xpath.tags]
-      name   = "substring-after(Sensor/@name, ' ')"
-      device = "string('the ultimate sensor')"
+      id = "id"
 
-    ## Integer field definitions using XPath queries.
+    ## Explicit integer field definitions.
     [inputs.file.xpath.fields_int]
-      consumers = "Variable/@consumers"
+      humidity = "humidity"
 
-    ## Non-integer field definitions using XPath queries.
-    ## The field type is defined using XPath expressions such as number(), boolean() or string(). If no conversion is performed the field will be of type string.
+    ## Explicit field definitions.
+    ## Set types with XPath functions: number(), boolean(), string().
     [inputs.file.xpath.fields]
-      temperature = "number(Variable/@temperature)"
-      power       = "number(Variable/@power)"
-      frequency   = "number(Variable/@frequency)"
-      ok          = "Mode != 'ok'"
-```
+      temp = "number(temp)"
+      active = "active = 'true'"
 
-In this configuration mode, you explicitly specify the field and tags you want
-to scrape from your data.
-
-A configuration can contain multiple _xpath_ subsections (for example, the file plugin
-to process the xml-string multiple times). Consult the [XPath syntax][xpath] and
-the [underlying library's functions][xpath lib] for details and help regarding
-XPath queries. Consider using an XPath tester such as [xpather.com][xpather] or
-[Code Beautify's XPath Tester][xpath tester] for help developing and debugging
-your query.
-
-## Configuration (batch)
-
-Alternatively to the configuration above, fields can also be specified in a
-batch way. So contrary to specify the fields in a section, you can define a
-`name` and a `value` selector used to determine the name and value of the fields
-in the metric.
-
-```toml
-[[inputs.file]]
-  files = ["example.xml"]
-
-  ## Data format to consume.
-  ## Each data format has its own unique set of configuration options, read
-  ## more about them here:
-  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
-  data_format = "xml"
-
-  ## PROTOCOL-BUFFER definitions
-  ## Protocol-buffer definition file
-  # xpath_protobuf_file = "sparkplug_b.proto"
-  ## Name of the protocol-buffer message type to use in a fully qualified form.
-  # xpath_protobuf_type = "org.eclipse.tahu.protobuf.Payload"
-  ## List of paths to use when looking up imported protocol-buffer definition files.
-  # xpath_protobuf_import_paths = ["."]
-
-  ## Print the internal XML document when in debug logging mode.
-  ## This is especially useful when using the parser with non-XML formats like protocol-buffers
-  ## to get an idea on the expression necessary to derive fields etc.
-  # xpath_print_document = false
-
-  ## Allow the results of one of the parsing sections to be empty.
-  ## Useful when not all selected files have the exact same structure.
-  # xpath_allow_empty_selection = false
-
-  ## Get native data-types for all data-format that contain type information.
-  ## Currently, protobuf, msgpack and JSON support native data-types
-  # xpath_native_types = false
-
-  ## Multiple parsing sections are allowed
-  [[inputs.file.xpath]]
-    ## Optional: XPath-query to select a subset of nodes from the XML document.
-    metric_selection = "/Bus/child::Sensor"
-
-    ## Optional: XPath-query to set the metric (measurement) name.
-    # metric_name = "string('example')"
-
-    ## Optional: Query to extract metric timestamp.
-    ## If not specified the time of execution is used.
-    # timestamp = "/Gateway/Timestamp"
-    ## Optional: Format of the timestamp determined by the query above.
-    ## This can be any of "unix", "unix_ms", "unix_us", "unix_ns" or a valid Golang
-    ## time format. If not specified, a "unix" timestamp (in seconds) is expected.
-    # timestamp_format = "2006-01-02T15:04:05Z"
-
-    ## Field specifications using a selector.
-    field_selection = "child::*"
-    ## Optional: Queries to specify field name and value.
-    ## These options are only to be used in combination with 'field_selection'!
-    ## By default the node name and node content is used if a field-selection
-    ## is specified.
-    # field_name  = "name()"
+    ## Batch field specification (alternative to explicit fields).
+    # field_selection = "*"
+    # field_name = "name()"
     # field_value = "."
-
-    ## Optional: Expand field names relative to the selected node
-    ## This allows to flatten out nodes with non-unique names in the subtree
     # field_name_expansion = false
 
-    ## Tag specifications using a selector.
-    ## tag_selection = "child::*"
-    ## Optional: Queries to specify tag name and value.
-    ## These options are only to be used in combination with 'tag_selection'!
-    ## By default the node name and node content is used if a tag-selection
-    ## is specified.
-    # tag_name  = "name()"
+    ## Batch tag specification (alternative to explicit tags).
+    # tag_selection = "child::*"
+    # tag_name = "name()"
     # tag_value = "."
-
-    ## Optional: Expand tag names relative to the selected node
-    ## This allows to flatten out nodes with non-unique names in the subtree
     # tag_name_expansion = false
-
-    ## Tag definitions using the given XPath queries.
-    [inputs.file.xpath.tags]
-      name   = "substring-after(Sensor/@name, ' ')"
-      device = "string('the ultimate sensor')"
-
 ```
 
-**Please note**: The resulting fields are _always_ of type string.
+A configuration can contain multiple `xpath` sections.
+Each section runs against the document and produces its own metrics.
+Consider using an XPath tester such as
+[Code Beautify's XPath Tester](https://codebeautify.org/Xpath-Tester) to
+develop and debug your queries.
 
-It is also possible to specify a mixture of the two alternative ways of
-specifying fields. In this case, _explicitly_ defined tags and fields take
-_precedence_ over the batch instances if both use the same tag or field name.
-### metric_selection (optional)
+## Parser options
 
-You can specify a [XPath][xpath] query to select a subset of nodes from the XML
-document, each used to generate a new metrics with the specified fields, tags
-etc.
+### xpath_native_types
 
-Relative queries in subsequent queries are relative to the
-`metric_selection`. To specify absolute paths, start the query with a
-slash (`/`).
+By default, all fields gathered through `field_selection` are strings.
+Set to `true` to keep the native JSON types (number, boolean, string)
+instead.
+Fields defined in `fields` and `fields_int` are unaffected.
+Their types come from the query.
 
-Specifying `metric_selection` is optional. If not specified, all relative queries
-are relative to the root node of the XML document.
+**Type:** boolean  
+**Default:** `false`
 
-### metric_name (optional)
+### xpath_allow_empty_selection
 
-By specifying `metric_name` you can override the metric/measurement name with
-the result of the given [XPath][xpath] query. If not specified, the default
-metric name is used.
+Allow the results of a parsing section to be empty instead of raising an
+error.
+Useful when not all input documents have the same structure.
 
-### timestamp, timestamp_format, timezone (optional)
+**Type:** boolean  
+**Default:** `false`
 
-By default, the current time is used for all created metrics. To set the
-time from values in the XML document you can specify a [XPath][xpath] query in
-`timestamp` and set the format in `timestamp_format`.
+### xpath_print_document
 
-The `timestamp_format` can be set to `unix`, `unix_ms`, `unix_us`, `unix_ns`, or
-an accepted [Go "reference time"][time const]. Consult the Go [time][time parse]
-package for details and additional examples on how to set the time format.  If
-`timestamp_format` is omitted `unix` format is assumed as result of the
-`timestamp` query.
+Print the internal document when debug logging is enabled
+(`telegraf --debug` or the `debug` agent setting).
+Useful for working out queries, especially for non-text formats such as
+MessagePack and Protocol Buffers.
+Note that the printed XML shows array elements as repeated named elements;
+in queries you address them as anonymous children (`key/*`).
 
-The `timezone` setting is used to locate the parsed time in the given
-timezone. This is helpful for cases where the time does not contain timezone
-information, e.g. `2023-03-09 14:04:40` and is not located in _UTC_, which is
-the default setting. It is also possible to set the `timezone` to `Local` which
-used the configured host timezone.
+**Type:** boolean  
+**Default:** `false`
 
-For time formats with timezone information, e.g. RFC3339, the resulting
-timestamp is unchanged. The `timezone` setting is ignored for all `unix`
-timestamp formats.
+## Query options
 
-### tags sub-section
+### metric_selection
 
-[XPath][xpath] queries in the `tag name = query` format to add tags to the
-metrics. The specified path can be absolute (starting with `/`) or
-relative. Relative paths use the currently selected node as reference.
+An XPath query that selects the nodes that become individual metrics.
+Every matched node produces one metric, and all relative queries in the
+section are evaluated relative to it.
+To specify an absolute path in a relative context, start the query with
+`/`.
 
-__NOTE:__ Results of tag-queries will always be converted to strings.
+If not set, one metric is produced from the document root.
 
-### fields_int sub-section
+**Type:** string  
+**Default:** Not set
 
-[XPath][xpath] queries in the `field name = query` format to add integer typed
-fields to the metrics. The specified path can be absolute (starting with `/`) or
-relative. Relative paths use the currently selected node as reference.
+### metric_name
 
-__NOTE:__ Results of field_int-queries will always be converted to
-__int64__. The conversion fails in case the query result is not convertible.
+An XPath query that sets the measurement name.
+To use a literal name, wrap it in the XPath `string()` function, for
+example `string('sensors')`.
+If not set, the input plugin's default name is used.
 
-### fields sub-section
+**Type:** string  
+**Default:** Not set
 
-[XPath][xpath] queries in the `field name = query` format to add non-integer
-fields to the metrics. The specified path can be absolute (starting with `/`) or
-relative. Relative paths use the currently selected node as reference.
+### timestamp, timestamp_format, and timezone
 
-The type of the field is specified in the [XPath][xpath] query using the type
-conversion functions of XPath such as `number()`, `boolean()` or `string()` If
-no conversion is performed in the query the field will be of type string.
+`timestamp` is an XPath query for the value that becomes the metric time.
+If not set, the time of parsing is used.
 
-__NOTE: Path conversion functions always succeed even if you convert a text
-to float.__
+`timestamp_format` describes the value: `unix`, `unix_ms`, `unix_us`,
+`unix_ns`, or a
+[Go reference time](https://pkg.go.dev/time#pkg-constants) layout.
+If not set, `unix` is assumed.
+For reference-time details, see
+[Parse timestamps](/telegraf/v1/configure_plugins/input_plugins/parse-data/#parse-timestamps).
 
-### field_selection, field_name, field_value (optional)
+`timezone` locates parsed times in a timezone when the value doesn't carry
+an offset, such as `2023-03-09 14:04:40`.
+Use a Unix TZ value, such as `America/New_York`, `Local` for the system
+timezone, or `UTC` (the default).
+It is ignored for `unix` formats and for values that already include an
+offset.
 
-You can specify a [XPath][xpath] query to select a set of nodes forming the
-fields of the metric. The specified path can be absolute (starting with `/`) or
-relative to the currently selected node. Each node selected by `field_selection`
-forms a new field within the metric.
+### tags
 
-The _name_ and the _value_ of each field can be specified using the optional
-`field_name` and `field_value` queries. The queries are relative to the selected
-field if not starting with `/`. If not specified the field's _name_ defaults to
-the node name and the field's _value_ defaults to the content of the selected
-field node.
+Explicit tag definitions in `name = query` format.
+Paths can be absolute (starting with `/`) or relative to the node selected
+by `metric_selection`.
+Tag values are always strings.
 
-__NOTE__: `field_name` and `field_value` queries are only evaluated if a
-`field_selection` is specified.
+### fields
 
-Specifying `field_selection` is optional. This is an alternative way to specify
-fields especially for documents where the node names are not known a priori or
-if there is a large number of fields to be specified. These options can also be
-combined with the field specifications above.
+Explicit field definitions in `name = query` format.
+The field type is set by the XPath expression:
 
-__NOTE: Path conversion functions always succeed even if you convert a text
-to float.__
+- `number(...)` produces a float.
+- Comparison expressions, such as `active = 'true'`, and `boolean(...)`
+  produce a boolean.
+- Everything else produces a string.
 
-### field_name_expansion (optional)
+### fields_int
 
-When _true_, field names selected with `field_selection` are expanded to a
-_path_ relative to the _selected node_. This is necessary if we select all
-leaf nodes as fields and those leaf nodes do not have unique names. That is in
-case you have duplicate names in the fields you select you should set this to
-`true`.
+Explicit integer field definitions in `name = query` format.
+XPath has no integer conversion function, so this section is the only way
+to produce integer fields.
+The conversion fails if the query result isn't convertible to an integer.
 
-### tag_selection, tag_name, tag_value (optional)
+### fields_bytes_as_hex and fields_bytes_as_base64
 
-You can specify a [XPath][xpath] query to select a set of nodes forming the tags
-of the metric. The specified path can be absolute (starting with `/`) or
-relative to the currently selected node. Each node selected by `tag_selection`
-forms a new tag within the metric.
+Lists of fields to convert to hex or base64 strings when they contain byte
+arrays.
+Byte arrays don't occur in JSON input.
+These options apply to binary formats such as Protocol Buffers.
 
-The _name_ and the _value_ of each tag can be specified using the optional
-`tag_name` and `tag_value` queries. The queries are relative to the selected tag
-if not starting with `/`. If not specified the tag's _name_ defaults to the node
-name and the tag's _value_ defaults to the content of the selected tag node.
-__NOTE__: `tag_name` and `tag_value` queries are only evaluated if a
-`tag_selection` is specified.
+**Type:** array of strings  
+**Default:** `[]`; byte arrays convert to strings
 
-Specifying `tag_selection` is optional. This is an alternative way to specify
-tags especially for documents where the node names are not known a priori or if
-there is a large number of tags to be specified. These options can also be
-combined with the tag specifications above.
+### field_selection, field_name, and field_value
 
-### tag_name_expansion (optional)
+`field_selection` is an XPath query that selects a *set* of nodes to
+become fields, one field per node.
+Use it when the field names aren't known in advance or there are too many
+to list.
 
-When _true_, tag names selected with `tag_selection` are expanded to a _path_
-relative to the _selected node_. This is necessary if we e.g. select all leaf
-nodes as tags and those leaf nodes do not have unique names. That is in case you
-have duplicate names in the tags you select you should set this to `true`.
+By default, each field is named after its node and takes the node content
+as its value.
+Override either with the optional `field_name` and `field_value` queries,
+which are evaluated relative to each selected node.
+
+Batch-selected field values are strings unless
+[`xpath_native_types = true`](#xpath_native_types).
+Batch selection can be combined with explicit `fields` and `fields_int`
+definitions.
+Explicit definitions take precedence on name collisions.
+
+### field_name_expansion
+
+Set to `true` to name batch-selected fields with their full path relative
+to the selected node.
+Use this when the selected nodes have duplicate names, for example when
+selecting all leaf nodes of a subtree.
+
+**Type:** boolean  
+**Default:** `false`
+
+### tag_selection, tag_name, tag_value, and tag_name_expansion
+
+Batch tag specification that works like
+[`field_selection`](#field_selection-field_name-and-field_value) and
+`field_name_expansion`, producing tags instead of fields.
+
+## Field types
+
+Which mechanism controls a field's type:
+
+| Definition | Type behavior |
+| --- | --- |
+| `fields` with `number(...)` | float |
+| `fields` with a comparison or `boolean(...)` | boolean |
+| `fields` without conversion | string |
+| `fields_int` | integer |
+| `field_selection` | string, or native JSON types with `xpath_native_types = true` |
+
+> [!Warning]
+> XPath conversion functions always succeed.
+> If `number()` receives a non-numeric string, it returns `NaN` instead of
+> an error, and Telegraf then drops the field because line protocol doesn't
+> support `NaN`.
+> If a field is missing from your output, check the Telegraf log for
+> `could not serialize field ... is NaN` messages and verify the query
+> path.
 
 ## Examples
 
-This `example.xml` file is used in the configuration examples below:
+The examples below parse the
+[sensor document above](#how-json-maps-to-the-query-tree).
 
-```xml
-<?xml version="1.0"?>
-<Gateway>
-  <Name>Main Gateway</Name>
-  <Timestamp>2020-08-01T15:04:03Z</Timestamp>
-  <Sequence>12</Sequence>
-  <Status>ok</Status>
-</Gateway>
+### One metric from selected values
 
-<Bus>
-  <Sensor name="Sensor Facility A">
-    <Variable temperature="20.0"/>
-    <Variable power="123.4"/>
-    <Variable frequency="49.78"/>
-    <Variable consumers="3"/>
-    <Mode>busy</Mode>
-  </Sensor>
-  <Sensor name="Sensor Facility B">
-    <Variable temperature="23.1"/>
-    <Variable power="14.3"/>
-    <Variable frequency="49.78"/>
-    <Variable consumers="1"/>
-    <Mode>standby</Mode>
-  </Sensor>
-  <Sensor name="Sensor Facility C">
-    <Variable temperature="19.7"/>
-    <Variable power="0.02"/>
-    <Variable frequency="49.78"/>
-    <Variable consumers="0"/>
-    <Mode>error</Mode>
-  </Sensor>
-</Bus>
-```
-
-### Basic Parsing
-
-This example shows the basic usage of the xml parser.
-
-Config:
+Without `metric_selection`, one metric is produced from the document root.
+XPath functions compute values across the document, including counting and
+filtering array elements with predicates:
 
 ```toml
 [[inputs.file]]
-  files = ["example.xml"]
-  data_format = "xml"
+  files = ["example.json"]
+  data_format = "xpath_json"
 
   [[inputs.file.xpath]]
+    metric_name = "string('gateway')"
+    timestamp = "/timestamp"
+    timestamp_format = "unix"
+
     [inputs.file.xpath.tags]
-      gateway = "substring-before(/Gateway/Name, ' ')"
+      name = "/gateway/name"
 
     [inputs.file.xpath.fields_int]
-      seqnr = "/Gateway/Sequence"
+      sensors = "count(/sensors/*)"
 
     [inputs.file.xpath.fields]
-      ok = "/Gateway/Status = 'ok'"
+      location = "string(/gateway/location)"
+      all_active = "count(/sensors/*[active='true']) = count(/sensors/*)"
 ```
 
 Output:
 
 ```text
-file,gateway=Main,host=Hugin seqnr=12i,ok=true 1598610830000000000
+gateway,name=Main\ Gateway all_active=false,location="building-a",sensors=2i 1709572232000000000
 ```
 
-In the _tags_ definition the XPath function `substring-before()` is used to only
-extract the sub-string before the space. To get the integer value of
-`/Gateway/Sequence` we have to use the _fields_int_ section as there is no XPath
-expression to convert node values to integers (only float).
+### One metric per array element
 
-The `ok` field is filled with a boolean by specifying a query comparing the
-query result of `/Gateway/Status` with the string _ok_. Use the type conversions
-available in the XPath syntax to specify field types.
-
-### Time and metric names
-
-This is an example for using time and name of the metric from the XML document
-itself.
-
-Config:
+Select the anonymous array element nodes with `/sensors/*`.
+All relative queries (`id`, `humidity`, `temp`, `active`) are evaluated
+against each element, while absolute queries (`/gateway/name`,
+`/timestamp`) still reach the rest of the document:
 
 ```toml
 [[inputs.file]]
-  files = ["example.xml"]
-  data_format = "xml"
+  files = ["example.json"]
+  data_format = "xpath_json"
 
   [[inputs.file.xpath]]
-    metric_name = "name(/Gateway/Status)"
-
-    timestamp = "/Gateway/Timestamp"
-    timestamp_format = "2006-01-02T15:04:05Z"
-
-    [inputs.file.xpath.tags]
-      gateway = "substring-before(/Gateway/Name, ' ')"
-
-    [inputs.file.xpath.fields]
-      ok = "/Gateway/Status = 'ok'"
-```
-
-Output:
-
-```text
-Status,gateway=Main,host=Hugin ok=true 1596294243000000000
-```
-
-Additionally to the basic parsing example, the metric name is defined as the
-name of the `/Gateway/Status` node and the timestamp is derived from the XML
-document instead of using the execution time.
-
-### Multi-node selection
-
-For XML documents containing metrics for e.g. multiple devices (like `Sensor`s
-in the _example.xml_), multiple metrics can be generated using node
-selection. This example shows how to generate a metric for each _Sensor_ in the
-example.
-
-Config:
-
-```toml
-[[inputs.file]]
-  files = ["example.xml"]
-  data_format = "xml"
-
-  [[inputs.file.xpath]]
-    metric_selection = "/Bus/child::Sensor"
-
-    metric_name = "string('sensors')"
-
-    timestamp = "/Gateway/Timestamp"
-    timestamp_format = "2006-01-02T15:04:05Z"
+    metric_selection = "/sensors/*"
+    metric_name = "string('sensor')"
+    timestamp = "/timestamp"
+    timestamp_format = "unix"
 
     [inputs.file.xpath.tags]
-      name = "substring-after(@name, ' ')"
+      id = "id"
+      gateway = "/gateway/name"
 
     [inputs.file.xpath.fields_int]
-      consumers = "Variable/@consumers"
+      humidity = "humidity"
 
     [inputs.file.xpath.fields]
-      temperature = "number(Variable/@temperature)"
-      power       = "number(Variable/@power)"
-      frequency   = "number(Variable/@frequency)"
-      ok          = "Mode != 'error'"
-
+      temp = "number(temp)"
+      active = "active = 'true'"
 ```
 
 Output:
 
 ```text
-sensors,host=Hugin,name=Facility\ A consumers=3i,frequency=49.78,ok=true,power=123.4,temperature=20 1596294243000000000
-sensors,host=Hugin,name=Facility\ B consumers=1i,frequency=49.78,ok=true,power=14.3,temperature=23.1 1596294243000000000
-sensors,host=Hugin,name=Facility\ C consumers=0i,frequency=49.78,ok=false,power=0.02,temperature=19.7 1596294243000000000
+sensor,gateway=Main\ Gateway,id=sensor-1 active=true,humidity=41i,temp=22.5 1709572232000000000
+sensor,gateway=Main\ Gateway,id=sensor-2 active=false,humidity=38i,temp=25.1 1709572232000000000
 ```
 
-Using the `metric_selection` option we select all `Sensor` nodes in the XML
-document. Please note that all field and tag definitions are relative to these
-selected nodes. An exception is the timestamp definition which is relative to
-the root node of the XML document.
+### Batch field selection with native types
 
-### Batch field processing with multi-node selection
-
-For XML documents containing metrics with a large number of fields or where the
-fields are not known before (e.g. an unknown set of `Variable` nodes in the
-_example.xml_), field selectors can be used. This example shows how to generate
-a metric for each _Sensor_ in the example with fields derived from the
-_Variable_ nodes.
-
-Config:
+When the fields aren't known in advance, select all child nodes of each
+array element as fields.
+With `xpath_native_types = true`, values keep their JSON types:
 
 ```toml
 [[inputs.file]]
-  files = ["example.xml"]
-  data_format = "xml"
+  files = ["example.json"]
+  data_format = "xpath_json"
+  xpath_native_types = true
 
   [[inputs.file.xpath]]
-    metric_selection = "/Bus/child::Sensor"
-    metric_name = "string('sensors')"
-
-    timestamp = "/Gateway/Timestamp"
-    timestamp_format = "2006-01-02T15:04:05Z"
-
-    field_selection = "child::Variable"
-    field_name = "name(@*[1])"
-    field_value = "number(@*[1])"
+    metric_selection = "/sensors/*"
+    metric_name = "string('sensor')"
+    timestamp = "/timestamp"
+    timestamp_format = "unix"
+    field_selection = "*"
 
     [inputs.file.xpath.tags]
-      name = "substring-after(@name, ' ')"
+      id = "id"
 ```
 
 Output:
 
 ```text
-sensors,host=Hugin,name=Facility\ A consumers=3,frequency=49.78,power=123.4,temperature=20 1596294243000000000
-sensors,host=Hugin,name=Facility\ B consumers=1,frequency=49.78,power=14.3,temperature=23.1 1596294243000000000
-sensors,host=Hugin,name=Facility\ C consumers=0,frequency=49.78,power=0.02,temperature=19.7 1596294243000000000
+sensor,id=sensor-1 active=true,humidity=41,id="sensor-1",temp=22.5 1709572232000000000
+sensor,id=sensor-2 active=false,humidity=38,id="sensor-2",temp=25.1 1709572232000000000
 ```
 
-Using the `metric_selection` option we select all `Sensor` nodes in the XML
-document. For each _Sensor_ we then use `field_selection` to select all child
-nodes of the sensor as _field-nodes_ Please note that the field selection is
-relative to the selected nodes.  For each selected _field-node_ we use
-`field_name` and `field_value` to determining the field's name and value,
-respectively. The `field_name` derives the name of the first attribute of the
-node, while `field_value` derives the value of the first attribute and converts
-the result to a number.
+Note that `id` appears as both a tag and a field because `field_selection`
+matched it too.
+To drop the duplicate field, add
+[metric filtering](/telegraf/v1/configuration/filtering/) with
+`fieldexclude = ["id"]` to the input plugin.
 
-[xpath lib]:    https://github.com/antchfx/xpath
-[json]:         https://www.json.org/
-[msgpack]:      https://msgpack.org/
-[protobuf]:     https://developers.google.com/protocol-buffers
-[xml]:          https://www.w3.org/XML/
-[xpath]:        https://www.w3.org/TR/xpath/
-[xpather]:      http://xpather.com/
-[xpath tester]: https://codebeautify.org/Xpath-Tester
-[time const]:   https://golang.org/pkg/time/#pkg-constants
-[time parse]:   https://golang.org/pkg/time/#Parse
+## Troubleshoot queries
+
+- Run Telegraf with `--test --debug` and
+  [`xpath_print_document = true`](#xpath_print_document) to inspect the
+  parsed document.
+- Missing tags or fields usually mean a relative query doesn't match.
+  Check that `metric_selection` selects array *elements* (`/sensors/*`), not the
+  array container.
+- Missing numeric fields with `could not serialize field ... is NaN` log
+  messages mean `number()` received a non-numeric or empty value.
+- If documents legitimately vary in structure, set
+  [`xpath_allow_empty_selection = true`](#xpath_allow_empty_selection) to
+  keep non-matching sections from raising errors.

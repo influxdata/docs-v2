@@ -5,12 +5,15 @@ description: |
     and from Telegraf metrics.
 menu:
   telegraf_v1_ref:
-    weight: 10
     name: Template patterns
+    parent: Data formats
+weight: 103
+aliases:
+  - /telegraf/v1/configure_plugins/template-patterns/
 ---
 
 Template patterns describe how a dot-delimited string should be mapped to
-and from Telegraf [metrics](/telegraf/v1/metrics/).
+and from Telegraf [metrics](/telegraf/v1/concepts/metrics/).
 
 A template has the form:
 
@@ -139,5 +142,3 @@ This results in the following Graphite to Telegraf metric transformation.
 cpu.usage.idle.eu-east 100
 => cpu_usage,region=eu-east,datacenter=1a idle=100
 ```
-
-[metrics]: /docs/METRICS.md

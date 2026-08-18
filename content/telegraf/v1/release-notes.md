@@ -8,8 +8,20 @@ aliases:
 menu:
   telegraf_v1_ref:
     name: Release notes
-    weight: 60
+weight: 1
 ---
+
+Telegraf uses [semantic versioning](https://semver.org/) and ships four
+minor releases a year, in March, June, September, and December.
+Between minor releases, bug-fix releases ship about every three weeks.
+Bug fixes go out in the next release, while new features wait for the next
+minor release.
+For upcoming release dates, see the
+[Telegraf release calendar](https://calendar.google.com/calendar/embed?src=c_03d981cefd8d6432894cb162da5c6186e393bc0f970ca6c371201aa05d30d763%40group.calendar.google.com)
+and the [GitHub milestones](https://github.com/influxdata/telegraf/milestones).
+
+To try upcoming features before release, use the
+[nightly builds](/telegraf/v1/install/#nightly-builds).
 
 ## v1.39.3 {date="2026-08-10"}
 

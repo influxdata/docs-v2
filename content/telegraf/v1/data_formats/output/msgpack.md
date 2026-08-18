@@ -5,9 +5,9 @@ description: Use the `msgpack` output data format (serializer) to convert Telegr
 menu:
   telegraf_v1_ref:
     name: MessagePack
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-msgpack
+weight: 10
 aliases:
   - /telegraf/v1/data_formats/output/messagepack/
 ---

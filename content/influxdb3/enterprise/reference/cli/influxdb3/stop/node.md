@@ -10,6 +10,7 @@ menu:
     name: influxdb3 stop node
 weight: 301
 related:
+  - /influxdb3/enterprise/admin/node-lifecycle/
   - /influxdb3/enterprise/reference/cli/influxdb3/remove/node/
   - /influxdb3/enterprise/admin/recover-node/
   - /influxdb3/enterprise/reference/cli/influxdb3/show/nodes/
