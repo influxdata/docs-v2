@@ -2,7 +2,5 @@
   "_comment": "Transitional worklist for InfluxDB v1 shared-content migration. Each entry is a page that still exists as two copies (OSS v1 and Enterprise v1) and is intended to become shared content. CI fails if a pull request increases the divergence between a pair. Remove an entry when its page moves to content/shared/influxdb-v1/. When this list is empty, delete this file and its workflow.",
   "oss_root": "content/influxdb/v1",
   "enterprise_root": "content/enterprise_influxdb/v1",
-  "pairs": [
-    "flux/flux-vs-influxql.md"
-  ]
+  "pairs": []
 }

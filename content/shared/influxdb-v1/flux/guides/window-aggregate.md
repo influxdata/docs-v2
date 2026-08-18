@@ -88,7 +88,7 @@ dataSet
 ```
 
 {{% note %}}
-The `every` parameter supports all [valid duration units](/flux/v0/language/types/#duration-types),
+The `every` parameter supports all [valid duration units](/flux/v0/spec/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
