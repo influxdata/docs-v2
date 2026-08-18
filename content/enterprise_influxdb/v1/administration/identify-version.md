@@ -17,8 +17,8 @@ alt_links:
   clustered: /influxdb3/clustered/admin/identify-version/
   core: /influxdb3/core/admin/identify-version/
   enterprise: /influxdb3/enterprise/admin/identify-version/
-source: /shared/influxdb-v1/administration/identify-version.md
+source: /shared/identify-version.md
 ---
 
 <!-- The content for this file is located at
-// SOURCE content/shared/influxdb-v1/administration/identify-version.md -->
+// SOURCE content/shared/identify-version.md -->

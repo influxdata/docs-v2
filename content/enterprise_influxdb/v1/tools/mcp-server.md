@@ -17,8 +17,8 @@ alt_links:
   cloud-serverless: /influxdb3/cloud-serverless/reference/mcp-server/
 aliases:
   - /enterprise_influxdb/v1/mcp/server/
-source: /shared/influxdb-v1/tools/mcp-server.md
+source: /shared/influxdb3-admin/mcp-server-docs-only.md
 ---
 
 <!-- The content for this file is located at
-// SOURCE content/shared/influxdb-v1/tools/mcp-server.md -->
+// SOURCE content/shared/influxdb3-admin/mcp-server-docs-only.md -->
