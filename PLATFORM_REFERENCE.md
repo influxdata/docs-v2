@@ -36,6 +36,8 @@ InfluxDB OSS v1:
 
 InfluxDB Enterprise v1:
 
+- Content path: `enterprise_influxdb`
+- Production docs URL: <https://docs.influxdata.com/enterprise_influxdb/>
 - Query languages: InfluxQL, Flux
 - Characteristics: Paid, Self-hosted, InfluxQL/Flux, Username/Password, Databases
 - Ping header hints: `x-influxdb-build=Enterprise`

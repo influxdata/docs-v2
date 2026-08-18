@@ -85,4 +85,20 @@ describe('Shortcodes on real content pages', function () {
         .should('match', /^--/);
     });
   });
+
+  describe('article/content.html — shared v1 /product/version/ placeholder resolution', function () {
+    it('resolves for InfluxDB OSS v1, whose content_path is map-shaped', function () {
+      cy.visit('/influxdb/v1/supported_protocols/graphite/');
+      cy.get('a[href*="supported_protocols/udp/"]')
+        .should('have.attr', 'href')
+        .and('match', /^\/influxdb\/v1\/supported_protocols\/udp\//);
+    });
+
+    it('resolves for InfluxDB Enterprise v1, whose content_path is string-shaped', function () {
+      cy.visit('/enterprise_influxdb/v1/supported_protocols/graphite/');
+      cy.get('a[href*="supported_protocols/udp/"]')
+        .should('have.attr', 'href')
+        .and('match', /^\/enterprise_influxdb\/v1\/supported_protocols\/udp\//);
+    });
+  });
 });
