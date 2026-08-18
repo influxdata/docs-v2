@@ -5,7 +5,7 @@ Identifying which InfluxDB product and version you're using is essential for acc
 
 ## Quick detection methods
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,influxdb3_cloud" %}}
 
 ### By URL pattern
 
@@ -145,7 +145,7 @@ influxctl cluster list
 
 {{% /show-in %}}
 
-{{% hide-in "v2,cloud,v1" %}}
+{{% hide-in "v2,influxdb_cloud,v1" %}}
 > [!Note]
 >
 > #### SQL version() function
@@ -182,7 +182,7 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 
 {{% /show-in %}}
 
-{{% show-in "cloud" %}}
+{{% show-in "influxdb_cloud" %}}
 
 ### InfluxDB Cloud (TSM) detection
 
@@ -200,6 +200,33 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 **Account settings**: Check your InfluxDB Cloud account dashboard for product details.
 
 **HTTP headers**: API responses include version information in response headers.
+
+{{% /show-in %}}
+
+{{% show-in "influxdb3_cloud" %}}
+
+### InfluxDB 3 Cloud detection
+
+Check the version using the `influxdb3` command:
+
+```bash
+influxdb3 --version
+```
+
+Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--for example:
+
+```bash
+curl -i http://localhost:8181/ping
+```
+
+The response includes version information in the **headers** and **body**:
+
+- **Headers**:
+  - `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
+  - `x-influxdb-build`: `Enterprise`
+- **JSON body**: Contains `version`, `revision`, and `process_id`
+
+**Account settings**: Check your InfluxDB 3 Cloud account dashboard for cluster and version details.
 
 {{% /show-in %}}
 
@@ -225,7 +252,7 @@ For Enterprise v1, the `x-influxdb-build` header will show `Enterprise`.
 
 {{% /show-in %}}
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,influxdb3_cloud" %}}
 
 ## Product-specific methods
 
@@ -381,7 +408,7 @@ Look for the `x-influxdb-version` header (for example, `1.11.7`).
 
 {{% /hide-in %}}
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,influxdb3_cloud" %}}
 
 ## Understanding InfluxDB products
 
