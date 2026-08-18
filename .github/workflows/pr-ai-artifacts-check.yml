@@ -75,6 +75,7 @@ jobs:
       - name: Build API docs and Hugo site
         uses: ./.github/actions/build-docs-site
         with:
+          build-rust: 'true'
           # Explicit even though it is the action default: API reference
           # pages are gitignored and generated from the OpenAPI specs, and
           # 234 of the ~4990 Markdown twins live under /api/. Setting this
