@@ -65,8 +65,8 @@ See [README.md](README.md) and the
 - Use `python`, not `py`, for code block language identifiers.
 - Shared content files under `content/shared/` have no frontmatter; consuming
   pages provide metadata through `source:`.
-- For InfluxDB 3, shared directories contain the prose; product directories are
-  usually thin stubs with `source:` references.
+- Shared directories contain prose; product directories are often
+   thin stubs with `source:` references to the shared content.
 - Product names and versions come from `data/products.yml`.
 - Commit format is `type(scope): description`. Beyond a trivial fix, the body
   uses the same sections as the pull request template: What changed, Why,
