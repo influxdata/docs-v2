@@ -64,10 +64,6 @@ export function divergence(a, b) {
   return n - common + (m - common);
 }
 
-function readManifest() {
-  return JSON.parse(readFileSync(MANIFEST, 'utf8'));
-}
-
 function readAt(ref, file) {
   if (ref === null) return existsSync(file) ? readFileSync(file, 'utf8') : null;
   try {
@@ -80,9 +76,15 @@ function readAt(ref, file) {
   }
 }
 
-function measure(ref, manifest) {
+/** Read the manifest as it stood at `ref` (null = working tree). */
+function readManifestAt(ref) {
+  const raw = readAt(ref, MANIFEST);
+  return raw === null ? null : JSON.parse(raw);
+}
+
+export function measure(ref, manifest, pairs) {
   const out = new Map();
-  for (const rel of manifest.pairs) {
+  for (const rel of pairs) {
     const oss = readAt(ref, path.posix.join(manifest.oss_root, rel));
     const ent = readAt(ref, path.posix.join(manifest.enterprise_root, rel));
     if (oss === null || ent === null) continue; // migrated or removed
@@ -92,11 +94,11 @@ function measure(ref, manifest) {
 }
 
 function main(argv) {
-  const manifest = readManifest();
+  const headManifest = readManifestAt(null);
   const baseIdx = argv.indexOf('--base');
-  const head = measure(null, manifest);
 
   if (baseIdx === -1) {
+    const head = measure(null, headManifest, headManifest.pairs);
     const total = [...head.values()].reduce((a, b) => a + b, 0);
     console.log(
       `InfluxDB v1 shared-content worklist: ${head.size} pairs, ${total} diverging lines`
@@ -107,7 +109,16 @@ function main(argv) {
     return 0;
   }
 
-  const base = measure(argv[baseIdx + 1], manifest);
+  // Union this ref's pairs with the base ref's, so removing an entry from
+  // the manifest cannot, by itself, take a pair out of comparison. A pair
+  // only drops out once its files are genuinely gone from disk (migrated to
+  // content/shared/ or deleted) -- see the null check in measure() below.
+  const baseRef = argv[baseIdx + 1];
+  const baseManifest = readManifestAt(baseRef) ?? headManifest;
+  const pairs = [...new Set([...headManifest.pairs, ...baseManifest.pairs])];
+
+  const head = measure(null, headManifest, pairs);
+  const base = measure(baseRef, headManifest, pairs);
   const worse = [];
   for (const [rel, n] of head) {
     const was = base.get(rel);
@@ -121,7 +132,7 @@ function main(argv) {
 
   for (const { rel, was, now } of worse) {
     console.log(
-      `::error file=${path.posix.join(manifest.oss_root, rel)}::` +
+      `::error file=${path.posix.join(headManifest.oss_root, rel)}::` +
         `${rel} diverged further between InfluxDB v1 OSS and v1 Enterprise ` +
         `(${was} -> ${now} lines). Apply the change to both copies, or migrate ` +
         `the page to content/shared/influxdb-v1/ and remove it from ${MANIFEST}.`

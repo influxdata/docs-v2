@@ -5,6 +5,7 @@ import {
   divergence,
   normalize,
   stripFrontMatter,
+  measure,
 } from './check-v1-shared-drift.js';
 
 test('stripFrontMatter removes a leading YAML block', () => {
@@ -72,6 +73,23 @@ test('manifest is valid and its pairs still exist as two copies', () => {
       `missing Enterprise copy: ${rel}`
     );
   }
+});
+
+test('measure() checks whatever pairs it is given, not manifest.pairs', () => {
+  // This is the mechanism that closes the manifest-edit bypass: main()
+  // unions the pairs tracked at the base ref with the pairs tracked at
+  // head, so a pair dropped from the manifest in the same PR that edited
+  // only one copy is still measured, instead of silently skipped.
+  const m = JSON.parse(
+    readFileSync('.ci/v1-shared-drift-manifest.json', 'utf8')
+  );
+  const rel = m.pairs[0];
+  const trimmedManifest = { ...m, pairs: [] }; // rel removed from manifest.pairs
+  const result = measure(null, trimmedManifest, [rel]);
+  assert.ok(
+    result.has(rel),
+    'measure() must check a pair passed explicitly even when manifest.pairs no longer lists it'
+  );
 });
 
 test('migrated pages are not listed in the manifest', () => {
