@@ -410,6 +410,35 @@ feat(telegraf): add new plugin documentation
 chore(ci): update Vale configuration
 ```
 
+#### Commit message body
+
+A one-line message is enough for a trivial fix.
+For anything larger, use the same sections as the
+[pull request template](.github/pull_request_template.md), so the commit and the
+pull request describe the change the same way:
+
+```
+type(scope): short description
+
+What changed:
+The change itself, in the order a reader meets it.
+
+Why:
+The reason the change was needed. Include evidence for any claim a reader would
+otherwise have to take on trust.
+
+Impact:
+What this changes for readers of the docs or consumers of the repo. Omit this
+section when the change has no external effect.
+
+Verification:
+The commands you ran and what they reported.
+```
+
+Write the body to inform, not to impress, as described under
+[Documentation style](AGENTS.md#documentation-style).
+State each finding directly rather than building up to it.
+
 ### Submit a pull request
 
 Push your changes up to your forked repository, then [create a new pull request](https://help.github.com/articles/creating-a-pull-request/).

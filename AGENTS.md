@@ -68,7 +68,9 @@ See [README.md](README.md) and the
 - For InfluxDB 3, shared directories contain the prose; product directories are
   usually thin stubs with `source:` references.
 - Product names and versions come from `data/products.yml`.
-- Commit format is `type(scope): description`.
+- Commit format is `type(scope): description`. Beyond a trivial fix, the body
+  uses the same sections as the pull request template: What changed, Why,
+  Impact, Verification. See `DOCS-CONTRIBUTING.md`.
 - Network-restricted environments may fail on Cypress downloads, Docker builds,
   or Alpine package installs.
 
@@ -88,8 +90,8 @@ See [README.md](README.md) and the
 ## Documentation style
 
 - Follow the Google Developer Documentation Style Guide.
-- Apply the style guide to issues, pull request descriptions, and status
-  comments, not only to content pages.
+- Apply the style guide to commit messages, issues, pull request descriptions,
+  and status comments, not only to content pages.
 - Write to inform, not to impress. State a finding directly instead of building
   up to it. Do not use section headings, one-sentence paragraphs, or statistics
   for dramatic emphasis.
