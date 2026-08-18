@@ -4,7 +4,7 @@ filter geo-temporal data and group by geographic location or track.
 
 {{% warn %}}
 The Geo package is experimental and subject to change at any time.
-By using it, you agree to the [risks of experimental functions](/flux/v0/stdlib/experimental/#experimental-functions-are-subject-to-change).
+By using it, you agree to the [risks of experimental functions](/flux/v0/stdlib/experimental/#experimental-packages-are-subject-to-change).
 {{% /warn %}}
 
 **To work with geo-temporal data:**
