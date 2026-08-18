@@ -20,7 +20,7 @@ data
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
-Calculated values are returned as [floats](/flux/v0/language/types/#numeric-types).
+Calculated values are returned as [floats](/flux/v0/spec/types/#numeric-types).
 
 
 {{< flex >}}
@@ -104,7 +104,7 @@ data
     |> aggregate.rate(every: 1m, unit: 1s, groupColumns: ["tag1", "tag2"])
 ```
 
-`aggregate.rate()` returns the average rate of change (as a [float](/flux/v0/language/types/#numeric-types))
+`aggregate.rate()` returns the average rate of change (as a [float](/flux/v0/spec/types/#numeric-types))
 per `unit` for time intervals defined by `every`.
 Negative values are replaced with _null_.
 

@@ -471,8 +471,7 @@ kapacitor:
 enterprise_influxdb:
   name: 'InfluxDB Enterprise v1'
   namespace: enterprise_influxdb
-  content_path:
-    v1: enterprise_influxdb/v1
+  content_path: enterprise_influxdb
   label_group: v1-enterprise
   menu_category: self-managed
   list_order: 5

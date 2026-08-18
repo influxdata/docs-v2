@@ -63,7 +63,7 @@ data
 
 ## Fill with a specified value
 To fill _null_ values with a specified value, use the `value` parameter to specify the fill value.
-_The fill value must match the [data type](/flux/v0/language/types/#basic-types)
+_The fill value must match the [data type](/flux/v0/spec/types/#basic-types)
 of the [column](/flux/v0/stdlib/universe/fill/#column)._
 
 ```js
