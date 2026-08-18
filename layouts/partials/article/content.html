@@ -1,10 +1,35 @@
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $version := index $productPathData 1 }}
+{{- /*
+  Render page content, resolving shared-content link placeholders.
 
+  Shared files under content/shared/ are consumed by multiple products, so
+  internal links are written as placeholders and resolved here against the
+  consuming page's own content path. The path comes from data/products.yml via
+  the product/version cascade -- it is never parsed out of the URL.
+
+  Two placeholder forms are supported:
+
+    /<product-root>/version/...  Legacy. Works only for editions that share a
+                                 product root (influxdb/v2 + influxdb/cloud,
+                                 influxdb3/core + influxdb3/enterprise).
+                                 Digit-insensitive on the root, so
+                                 /influxdb/version/ also resolves on
+                                 influxdb3/* pages.
+
+    /product/version/...         Neutral. Resolves for any product, including
+                                 editions with different product roots
+                                 (influxdb/v1 + enterprise_influxdb/v1).
+                                 Prefer this in new shared content.
+*/ -}}
 {{ if .Params.source }}
-  {{ $linkRegex := print (replaceRE `[0-9]` "" $product) "(?:[0-9])*" "/version" }}
-  {{ readFile .Params.source | replaceRE $linkRegex (print $product "/" $version) | .RenderString | safeHTML }}
+  {{ $contentPath := partial "product/content-path.html" . }}
+  {{ $root := index (split $contentPath "/") 0 }}
+  {{ $legacyRegex := print (replaceRE `[0-9]` "" $root) "(?:[0-9])*" "/version" }}
+  {{/* Note: replace takes INPUT first, replaceRE takes INPUT last. Call both
+       explicitly rather than piping, so the argument order stays obvious. */}}
+  {{ $raw := readFile .Params.source }}
+  {{ $raw = replace $raw "/product/version/" (print "/" $contentPath "/") }}
+  {{ $raw = replaceRE $legacyRegex $contentPath $raw }}
+  {{ $raw | .RenderString | safeHTML }}
 {{ else }}
   {{ .Content }}
 {{ end }}

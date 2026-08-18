@@ -24,11 +24,23 @@ through each of those steps.
 
 InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 
-- [InfluxDB 3 Core](/influxdb3/core/)
-- [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
-- [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/)  (Query Mode Only)
-- [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)  (Query Mode Only)
-  
+| Product | Support |
+| :------ | :------ |
+| [InfluxDB 3 Core](/influxdb3/core/) | Query and administer |
+| [InfluxDB 3 Enterprise](/influxdb3/enterprise/) | Query and administer |
+| [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) | Query only _(partial support)_ |
+| [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) | Query only _(partial support)_ |
+
+> [!Important]
+> #### Cloud products: use the Admin UI
+>
+> To administer [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) or
+> [InfluxDB 3 Cloud](/influxdb3/cloud/), use the
+> [Admin UI](https://console.influxdata.com) at `console.influxdata.com`
+> instead of {{% product-name %}}.
+> For administrative tasks, see
+> [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
+> [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
 1.  Navigate to **Configure** > **Servers**.
 2.  Click **+ Connect Your First Server**.

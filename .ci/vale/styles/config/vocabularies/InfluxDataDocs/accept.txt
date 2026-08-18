@@ -89,6 +89,7 @@ noaa|NOAA
 npm|NPM
 oauth|OAuth
 pandas
+quantiles?
 quoteChar
 retentionRules
 sourceBucket

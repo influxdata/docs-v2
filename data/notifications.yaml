@@ -97,12 +97,15 @@
     - /influxdb3/core/
   title: 'InfluxDB 3.11 is now available'
   slug: |
-    InfluxDB 3 Core 3.11 adds compaction and query performance improvements.
+    InfluxDB 3 Core 3.11 improves processing engine trigger reliability and
+    adds a configurable graceful shutdown.
   message: |
     **Key updates in InfluxDB 3 Core 3.11:**
 
-    - **Compaction and query performance improvements**.
-    - **Catalog migration**—back up your catalog before upgrading.
+    - **Processing engine trigger reliability improvements**—capped async
+      trigger concurrency, bounded retries for failed triggers, and WAL
+      triggers that skip empty flushes.
+    - **Configurable graceful shutdown** with the new `--shutdown-timeout` option.
 
     - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-11/)
     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)

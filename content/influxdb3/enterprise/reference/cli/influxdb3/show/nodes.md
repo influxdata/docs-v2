@@ -8,6 +8,7 @@ menu:
     name: influxdb3 show nodes
 weight: 301
 related:
+  - /influxdb3/enterprise/admin/node-lifecycle/
   - /influxdb3/enterprise/reference/cli/influxdb3/stop/node/
   - /influxdb3/enterprise/reference/cli/influxdb3/serve/
 source: /shared/influxdb3-cli/show/nodes.md

@@ -81,6 +81,9 @@ When authentication is required for the heartbeat endpoint, agents must include
 a valid token with each heartbeat request.
 If a heartbeat request is missing a token or includes an invalid token,
 {{% product-name %}} rejects the request and the agent's status is not updated.
+If heartbeats are rejected with `Invalid token` even though the same token
+works in the web interface and the API, see
+[Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
 
 ## With external API clients
 

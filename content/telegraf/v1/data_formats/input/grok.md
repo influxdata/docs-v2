@@ -5,8 +5,8 @@ description: Use the `grok` data format to parse line-delimited data using a reg
 menu:
   telegraf_v1_ref:
     name: Grok
-    weight: 10
     parent: Input data formats
+weight: 10
 ---
 
 Use the `grok` data format to parse line-delimited data using a regular expression-like

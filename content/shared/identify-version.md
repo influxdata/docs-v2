@@ -381,7 +381,7 @@ Look for the `x-influxdb-version` header (for example, `1.11.7`).
 
 {{% /hide-in %}}
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,enterprise-v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1" %}}
 
 ## Understanding InfluxDB products
 
