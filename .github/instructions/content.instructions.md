@@ -135,6 +135,15 @@ For comprehensive testing workflows, see
   table"), not at the product ("import data into InfluxDB"). The user owns their
   data in their own object storage; InfluxDB reads and writes it but doesn't take
   custody of it.
+- Phrase recommendations in first-person plural: "We recommend...", not
+  third-party attributions such as "The Telegraf project recommends...".
+  Docs speak with InfluxData's voice, even when a recommendation originates
+  in an upstream project's guidance.
+- Set `weight` at the page level (top-level frontmatter), not on the menu
+  entry. Menu items inherit the page weight, and page-level weight keeps
+  sorting consistent outside menu contexts, such as `children` shortcode
+  listings. (Hugo sorts unweighted pages after weighted ones, so mixing the
+  two placements within a section breaks list ordering.)
 
 ## Most Common Shortcodes
 

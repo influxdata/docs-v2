@@ -11,6 +11,7 @@ menu:
     name: Recover a crashed node
 weight: 121
 related:
+  - /influxdb3/enterprise/admin/node-lifecycle/
   - /influxdb3/enterprise/reference/cli/influxdb3/stop/node/
   - /influxdb3/enterprise/reference/cli/influxdb3/remove/node/
   - /influxdb3/enterprise/reference/cli/influxdb3/show/nodes/
@@ -43,14 +44,29 @@ A node that dies without a graceful stop skips that drain:
   writes not covered by its last snapshot.
 - Sending the process a bare `SIGTERM` (without calling `stop node`) does not
   force a WAL snapshot on the upgraded storage engine, so a plain process
-  shutdown can also leave a WAL tail behind.
+  shutdown can also leave a
+  [WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
+  behind.
 
 On clusters that have fully adopted the upgraded storage engine,
 `remove node` refuses (HTTP 409) to remove a `stopped`
-node that still has a WAL tail unless you pass `--force-finalize`.
+node that still has a
+[WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail)
+unless you pass `--force-finalize`.
 Parquet clusters and clusters still mid-upgrade do **not** have this safeguard.
 On those clusters, completing this recovery procedure before removal is the only
 protection against losing the tail.
+
+To determine which engine your cluster runs, start with how it was created:
+new clusters on {{< product-name >}} 3.11+ default to the upgraded storage
+engine, and clusters that started on 3.10 or earlier keep the Parquet engine
+until you restart them with `--upgrade-pacha-tree`.
+If you started a storage engine upgrade, confirm it finished—query
+`system.upgrade_parquet_node` and check that every node reports `completed`.
+See [Query system data](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables).
+
+For more information about the upgraded storage engine, see
+[Storage engine](/influxdb3/enterprise/reference/internals/storage-engine/).
 
 ## Recover the node
 
@@ -69,8 +85,18 @@ protection against losing the tail.
    ```
 
 2. **Stop the node gracefully** and wait for it to reach `stopped`.
-   This drains the WAL tail (Parquet: WAL flush; upgraded engine: WAL
-   snapshot):
+   This drains the
+   [WAL tail](/influxdb3/enterprise/reference/internals/durability/#wal-tail).
+   How the node drains it depends on the storage engine:
+   on the Parquet engine, the node persists the buffered writes to Parquet
+   files; on the upgraded storage engine, it captures them in a WAL snapshot.
+
+   <!-- VERIFY (eng/product review): Naming of the per-engine drain step.
+        See the matching comment in the shared `stop node` CLI page -- both
+        spots must stay in sync. "Parquet: WAL flush" was changed to
+        persisting to Parquet files here on the reading that WAL flush is the
+        constant --wal-flush-interval operation, not the step a graceful stop
+        forces. -->
 
    <!--pytest.mark.skip-->
 

@@ -7,7 +7,6 @@ description: >
 menu:
   telegraf_v1:
     name: Telegraf Enterprise
-    weight: 90
     params:
       state: new
   telegraf_enterprise:
@@ -16,7 +15,10 @@ menu:
     parent: Telegraf
     params:
       state: new
-weight: 90
+weight: 10
+related:
+  - /telegraf/v1/administer/manage-at-scale/
+  - /telegraf/controller/
 ---
 
 **Telegraf Enterprise** is the commercial package for organizations running
@@ -24,8 +26,8 @@ Telegraf in production. It provides an enterprise support contract from
 InfluxData covering Telegraf, plus higher limits and enterprise security
 features in [Telegraf Controller](/telegraf/controller/).
 
-For the full Telegraf Enterprise overview--what's included, the free-tier
-comparison, and how licensing works--see
+For the full Telegraf Enterprise overview, including what's included, the
+free-tier comparison, and how licensing works, see
 [Telegraf Enterprise](/telegraf/enterprise/).
 
 {{% telegraf/enterprise-upgrade %}}
@@ -45,8 +47,8 @@ For coverage and SLA details,
 
 ## What else is in the package
 
-Telegraf Enterprise also includes Telegraf Controller — the centralized
-application for managing Telegraf deployments at scale — with these
+Telegraf Enterprise also includes Telegraf Controller, the centralized
+application for managing Telegraf deployments at scale, with these
 license-gated enhancements:
 
 - **Higher configuration and agent limits** (defined per contract)

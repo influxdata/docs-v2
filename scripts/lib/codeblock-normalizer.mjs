@@ -163,6 +163,14 @@ function stripElideMarkers(code, lang) {
  * @returns {Promise<{ok: boolean, errors: Array, notice?: string, skipped?: boolean}>}
  */
 export async function validateWithNormalization(block) {
+  // Honor an explicit per-block opt-out for examples that are intentionally
+  // invalid (for example, docs demonstrating a syntax error). Authors set it
+  // as a fence attribute: ```toml {lint="false"}
+  // Skipped blocks are still reported in the output with their skip reason.
+  if (block.meta && /\blint="false"/.test(block.meta)) {
+    return { ok: true, errors: [], skipped: true, skipReason: 'lint="false"' };
+  }
+
   // Detect known non-JS DSLs that are conventionally tagged js/javascript in these docs.
   // Skip them explicitly so real JavaScript blocks still get validated.
   if (block.lang === 'js' || block.lang === 'javascript') {
