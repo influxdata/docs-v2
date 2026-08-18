@@ -108,6 +108,17 @@ influxdb3_cloud:
     database: 100
     table: 10000
     column: 500
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+    characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
+    detection:
+      url_contains: ['enterprise.influxdb.io']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I get started with InfluxDB 3 Cloud?
@@ -209,7 +220,7 @@ influxdb3_cloud_dedicated:
         optional_params: []
     characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
     detection:
-      url_contains: ['influxdb.io']
+      url_contains: ['a.influxdb.io']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I migrate from InfluxDB v1 to Cloud Dedicated?

@@ -111,6 +111,44 @@ describe('InfluxDB Version Detector Component', function () {
       cy.get('.result').should('contain', 'InfluxDB 3');
     });
 
+    it('should distinguish InfluxDB 3 Cloud from Cloud Dedicated URLs', function () {
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
+
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('https://instance-id.enterprise.influxdb.io');
+      cy.get('#q-url-input .submit-button').click();
+
+      cy.get('.result', { timeout: 10000 })
+        .scrollIntoView()
+        .should('be.visible')
+        .should('contain', 'InfluxDB 3 Cloud')
+        .should('not.contain', 'InfluxDB Cloud Dedicated');
+    });
+
+    it('should detect Cloud Dedicated URLs', function () {
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
+
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('https://cluster-id.a.influxdb.io');
+      cy.get('#q-url-input .submit-button').click();
+
+      cy.get('.result', { timeout: 10000 })
+        .scrollIntoView()
+        .should('be.visible')
+        .should('contain', 'InfluxDB Cloud Dedicated')
+        .should('not.contain', 'InfluxDB 3 Cloud');
+    });
+
     it('should handle cloud context keywords', function () {
       cy.get('#q-url-known .option-button')
         .contains('Yes, I know the URL')
