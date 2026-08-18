@@ -89,7 +89,7 @@ See [README.md](README.md) and the
 
 ## Documentation style
 
-- Follow the Google Developer Documentation Style Guide.
+- Follow the Google Developer Documentation Style Guide for all aspects of communication, including structure and voice.
 - Apply the style guide to commit messages, issues, pull request descriptions,
   and status comments, not only to content pages.
 - Write to inform, not to impress. State a finding directly instead of building
