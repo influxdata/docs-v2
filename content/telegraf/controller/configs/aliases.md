@@ -78,7 +78,7 @@ telegraf \
 ```
 
 Alias-based URLs support the same query parameters as ID-based configuration
-URLs for setting [dynamic values](/telegraf/controller/configs/dynamic-values/).
+URLs for [substituting values](/telegraf/controller/configs/substitute-values/).
 If {{% product-name %}} requires authentication on the **Configs** API,
 alias-based URLs require the same API token as ID-based URLs. For details,
 see [Use Telegraf configurations](/telegraf/controller/configs/use/).

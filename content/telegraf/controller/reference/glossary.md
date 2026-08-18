@@ -11,7 +11,7 @@ weight: 108
 related:
   - /telegraf/controller/reference/architecture/
   - /telegraf/controller/reference/agent-status-eval/
-  - /telegraf/controller/configs/dynamic-values/
+  - /telegraf/controller/configs/substitute-values/
   - /telegraf/v1/glossary/
 ---
 
@@ -22,7 +22,7 @@ rules, and the heartbeat protocol. Others describe Telegraf concepts that
 For deeper background on Telegraf agent internals, see the
 [Telegraf glossary](/telegraf/v1/glossary/).
 
-[A](#a) | <span style="opacity:.35;font-weight:500">B</span> | [C](#c) | <span style="opacity:.35;font-weight:500">D</span> | [E](#e) | [F](#f) | <span style="opacity:.35;font-weight:500">G</span> | [H](#h) | [I](#i) | <span style="opacity:.35;font-weight:500">J</span> | <span style="opacity:.35;font-weight:500">K</span> | [L](#l) | [M](#m) | <span style="opacity:.35;font-weight:500">N</span> | [O](#o) | [P](#p) | <span style="opacity:.35;font-weight:500">Q</span> | [R](#r) | [S](#s) | [T](#t) | <span style="opacity:.35;font-weight:500">U</span> | <span style="opacity:.35;font-weight:500">V</span> | <span style="opacity:.35;font-weight:500">W</span> | <span style="opacity:.35;font-weight:500">X</span> | <span style="opacity:.35;font-weight:500">Y</span> | <span style="opacity:.35;font-weight:500">Z</span>
+[A](#a) | <span style="opacity:.35;font-weight:500">B</span> | [C](#c) | <span style="opacity:.35;font-weight:500">D</span> | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | <span style="opacity:.35;font-weight:500">J</span> | <span style="opacity:.35;font-weight:500">K</span> | [L](#l) | [M](#m) | <span style="opacity:.35;font-weight:500">N</span> | [O](#o) | [P](#p) | <span style="opacity:.35;font-weight:500">Q</span> | [R](#r) | [S](#s) | [T](#t) | <span style="opacity:.35;font-weight:500">U</span> | [V](#v) | <span style="opacity:.35;font-weight:500">W</span> | <span style="opacity:.35;font-weight:500">X</span> | <span style="opacity:.35;font-weight:500">Y</span> | <span style="opacity:.35;font-weight:500">Z</span>
 
 ## A
 
@@ -109,6 +109,20 @@ configuration and applies globally to all output plugins. It should not be
 smaller than the [collection interval](#collection-interval).
 
 Related entries: [collection interval](#collection-interval), [output plugin](#output-plugin), Telegraf [flush interval](/telegraf/v1/glossary/#flush-interval)
+
+## G
+
+### global constant
+
+A named value defined once in {{% product-name %}} and referenced in
+configuration TOML as `::{constant_name}`. {{% product-name %}} substitutes
+the value server-side when serving the configuration. Constants are shared
+across configurations and cannot vary per agent; use
+[configuration parameters](#configuration-parameter) for per-agent values.
+For details, see
+[Manage global constants](/telegraf/controller/configs/constants/).
+
+Related entries: [configuration parameter](#configuration-parameter), [value substitution](#value-substitution)
 
 ## H
 
@@ -298,3 +312,18 @@ reassigned. For details, see
 [Authorization](/telegraf/controller/reference/authorization/).
 
 Related entries: [agent](#agent), [authorization](/telegraf/controller/reference/authorization/)
+
+## V
+
+### value substitution
+
+The mechanism for replacing references in configuration TOML with values
+outside the TOML text. {{% product-name %}} substitutes
+[configuration parameters](#configuration-parameter) and
+[global constants](#global-constant) server-side when serving a
+configuration; the Telegraf agent substitutes
+[environment variables](#environment-variable) and [secrets](#secret) in its
+own runtime. For details, see
+[Substitute values in configurations](/telegraf/controller/configs/substitute-values/).
+
+Related entries: [configuration parameter](#configuration-parameter), [environment variable](#environment-variable), [global constant](#global-constant), [secret](#secret)

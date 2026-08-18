@@ -60,7 +60,7 @@ heartbeat plugin configuration and define CEL expressions in the
 Report `ok` when metrics are flowing.
 If no metrics arrive, fall back to the `fail` status.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -77,7 +77,7 @@ If no metrics arrive, fall back to the `fail` status.
 
 Warn when errors are logged, fail when the error count is high.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -97,7 +97,7 @@ Warn when errors are logged, fail when the error count is high.
 
 Combine error count and buffer pressure signals.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"

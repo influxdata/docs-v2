@@ -58,10 +58,10 @@ The following heartbeat plugin configuration options are available:
 ### Example heartbeat output plugin
 
 The following is an example heartbeat output plugin configuration that uses
-an `agent_id` [configuration parameter](/telegraf/controller/configs/dynamic-values/#parameters)
+an `agent_id` [configuration parameter](/telegraf/controller/configs/substitute-values/#parameters)
 to specify the `instance_id`.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"

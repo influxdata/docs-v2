@@ -11,7 +11,7 @@ menu:
     parent: Manage configurations
 weight: 101
 related:
-  - /telegraf/controller/configs/dynamic-values/
+  - /telegraf/controller/configs/substitute-values/
 ---
 
 Create a configuration to define how Telegraf collects, processes, and writes
@@ -70,7 +70,7 @@ configuration with a [Telegraf heartbeat output plugin](/telegraf/v1/output-plug
 This plugin reports agent information back to the {{% product-name %}} heartbeat
 API and lets you monitor the health of your deployed Telegraf agents.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
 url = "http://localhost:8000/agents/heartbeat"
 instance_id = "&{agent_id}"
@@ -97,7 +97,7 @@ your Telegraf configurations.
 
 ## Next steps
 
-- Use [dynamic values](/telegraf/controller/configs/dynamic-values/)
+- [Substitute values](/telegraf/controller/configs/substitute-values/)
   to keep configurations portable across environments.
 - [Apply the configuration](/telegraf/controller/configs/use/) to your
   Telegraf agents.

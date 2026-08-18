@@ -281,7 +281,7 @@ telegraf_controller --disable-auth-endpoints=configs,heartbeat
 3.  Use the `INFLUX_TOKEN` environment variable to define the `token` option
     in your heartbeat output plugin configuration:
     
-    ```toml { .tc-dynamic-values }
+    ```toml { .tc-substitute-values }
     [[outputs.heartbeat]]
     # ...
     token = "${INFLUX_TOKEN}"

@@ -79,7 +79,7 @@ stdout and reports agent health back to {{% product-name %}}.
 {{% code-tab-content %}}
 <!----------------------------- BEGIN LINUX/MACOS ----------------------------->
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[inputs.exec]]
   commands = [
     ["echo", "Started with a config from Telegraf Controller"]
@@ -110,7 +110,7 @@ stdout and reports agent health back to {{% product-name %}}.
 {{% code-tab-content %}}
 <!------------------------------- BEGIN WINDOWS ------------------------------->
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[inputs.exec]]
   commands = [
     ["cmd", "/C", "echo Started with a config from Telegraf Controller"]
@@ -151,7 +151,7 @@ stdout and reports agent health back to {{% product-name %}}.
     - Uses the `TELEGRAF_CONTROLLER_TOKEN` (Telegraf 1.39+) or the `INFLUX_TOKEN`
       (Telegraf 1.38.x or earlier) environment variable to authorize with
       {{% product-name %}}.
-    - Uses the `agent_id` [parameter](/telegraf/controller/configs/dynamic-values/#parameters)
+    - Uses the `agent_id` [parameter](/telegraf/controller/configs/substitute-values/#parameters)
       to set the `instance_id` which uniquely identifies the Telegraf agent.
 
     > [!Important]
@@ -328,7 +328,7 @@ new message, confirming that the agent picked up the updated configuration.
 
 - [Create and manage configurations](/telegraf/controller/configs/) to define
   more advanced Telegraf pipelines.
-- [Use dynamic values](/telegraf/controller/configs/dynamic-values/) to keep
+- [Substitute values](/telegraf/controller/configs/substitute-values/) to keep
   configurations portable across environments.
 - [Set up reporting rules](/telegraf/controller/agents/reporting-rules/) to
   define when agents are considered not reporting.
