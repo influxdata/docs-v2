@@ -1,6 +1,4 @@
 
-# The Graphite Input
-
 ## A Note On UDP/IP OS Buffer Sizes
 
 If you're using UDP input and running Linux or FreeBSD, please adjust your UDP buffer

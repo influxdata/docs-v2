@@ -1,6 +1,4 @@
 
-# The UDP Input
-
 ## A note on UDP/IP OS buffer sizes
 
 Some operating systems (most notably, Linux) place very restrictive limits on the performance of UDP  protocols.
