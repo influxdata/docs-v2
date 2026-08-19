@@ -257,7 +257,7 @@ Replace the following in the sample script:
   your InfluxDB Cloud Serverless bucket
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
   an [API token](/influxdb3/cloud-serverless/admin/tokens/)
-  with _write_ permission to the database
+  with _write_ permission to the bucket
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
