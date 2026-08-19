@@ -6,7 +6,18 @@ Ephemeral: remove this file before merging to master
 (`block-ephemeral-docs.yml` enforces it).
 
 Already fixed on this branch: the converter path-filter gap, the CircleCI
-converter no-op, and the Flux stdlib frontmatter parity gap.
+converter no-op, the Flux stdlib frontmatter parity gap, and — as of the latest
+commit — items 1 and 3 below plus the workflow's cost comment.
+
+Remaining work, in order:
+
+1. Export `BASE_URL` from `build-docs-site` (item 2, step 1). The only real
+   defect left.
+2. Add a production break-glass deploy script.
+3. Make CircleCI master-only and drop its non-master artifact steps.
+
+Not planned: per-page JSON-LD resolution, the structural `@id` assertion, the
+fork-PR diff fix, and migrating the deploy off CircleCI.
 
 ## 1. JSON-LD `@id` resolves globally, not per page
 
