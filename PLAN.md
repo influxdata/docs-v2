@@ -124,6 +124,8 @@ parameter ordering or in the `After`/`Offset` description string (see item 4).
 
 ### 3. `QuerystringAuthentication` — already an orphan, and its anchor is broken
 
+Tracked in [#7667](https://github.com/influxdata/docs-v2/issues/7667).
+
 The scheme has **0 `$ref`s** in the committed spec and is absent from
 `security:`, so dropping it changes no operation. But
 `api-docs/influxdb/v2/tags.yml:9` links to
@@ -135,13 +137,17 @@ from #655: either drop the link or restore the scheme upstream.
 
 ### 4. Upstream regression: `/influxdb/latest/` links in v2 reference
 
-Upstream changed the `After` and `Offset` descriptions from the
-`INFLUXDB_DOCS_URL` shortcode to a hardcoded
-`/influxdb/latest/api/#tag/Pagination`. The plugin's
-`replace-docs-url-shortcode` decorator only rewrites the shortcode, so the v2
-reference now links to `/influxdb/latest/` where it used to link to
-`/influxdb/v2/`. The source still uses the shortcode in 19 other places. Worth
-an upstream fix in `influxdata/openapi`.
+Tracked in [#7666](https://github.com/influxdata/docs-v2/issues/7666).
+
+`src/common/parameters/{After,Offset}.yml` still author the link with the
+`INFLUXDB_DOCS_URL` shortcode, but since `influxdata/openapi#603` ("use /latest
+alias for OSS URL substitutions") the OSS contract generation expands it to
+`https://docs.influxdata.com/influxdb/latest`. Our `replace-docs-url-shortcode`
+decorator can only rewrite shortcodes that survive into the contract, so these
+two links stay pinned to `/latest` while the rest of the page is rewritten to
+`/influxdb/v2/`. 19 shortcodes do survive unexpanded, which is the
+inconsistency. The same substitution also emits two doubled-segment URLs from
+`src/oss/tags.yml:148-149` and leaves one malformed shortcode unsubstituted.
 
 ### Redocly version
 
@@ -156,6 +162,9 @@ plugin to the 2.x format to clear the warning, but treat both as separate work.
 
 Re-baseline all product specs against the current pipeline in its own PR, then
 regenerate for #655 on top so the `onConflict` diff is one parameter.
+Tracked in [#7668](https://github.com/influxdata/docs-v2/issues/7668), which
+also covers pinning `@redocly/cli` and migrating `docs-plugin.cjs` to the
+Redocly 2.x plugin format.
 
 ## Also needs updating when the CLI flag ships
 
