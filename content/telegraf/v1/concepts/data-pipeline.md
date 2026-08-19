@@ -19,7 +19,7 @@ Every metric that Telegraf handles follows the same path: input plugins
 collect it, processor and aggregator plugins transform it, and output plugins
 write it to one or more destinations.
 
-{{< diagram >}}
+{{< diagram natural-size center >}}
 graph TD
   Inputs[<strong>Input plugins</strong> \n <em>Collect and parse</em>]
   P1[<strong>Processor plugins</strong> \n <em>First pass</em>]
