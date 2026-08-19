@@ -1,9 +1,10 @@
 name: 'Build Documentation Site'
 description: >
   Canonical build definition for docs-v2. Builds the Rust markdown converter,
-  API documentation, and Hugo site. Use in every job that builds the site so
-  PR and production steps stay in parity by construction rather than by
-  discipline. Mirrors the CircleCI build job steps (see .circleci/config.yml).
+  API documentation, Flux stdlib frontmatter, and the Hugo site. Use in every
+  job that builds the site so PR and production steps stay in parity by
+  construction rather than by discipline. Mirrors the CircleCI build job steps
+  (see .circleci/config.yml).
 
 inputs:
   build-rust:
@@ -75,6 +76,31 @@ runs:
       if: inputs.build-api-docs == 'true'
       shell: bash
       run: yarn build:api-docs
+
+    # ---------------------------------------------------------------- Flux --
+    # Mirrors the CircleCI "Inject Flux stdlib frontmatter" step. The Flux
+    # stdlib pages are committed *without* this frontmatter, so every build
+    # has to add it: the script rewrites 466 pages under
+    # content/flux/v0/stdlib/ with the aliases, related, prepend, append, and
+    # exclude_from keys from data/flux_stdlib_frontmatter.yml. Skipping it
+    # renders those pages differently from production and drops every alias
+    # redirect Hugo would emit for them.
+    #
+    # Unconditional and ungated: it is local-only, idempotent (it no-ops when
+    # the frontmatter is already present), and takes under a second. An input
+    # to disable it would just be a way to reintroduce the drift.
+    #
+    # CircleCI's sibling step, "Update Flux/InfluxDB versions", is
+    # deliberately NOT mirrored here. That script needs a GITHUB_TOKEN with
+    # read access to the private influxdata/plutonium repo, and exposing such
+    # a token to pull_request-triggered runs is not worth the parity. It also
+    # rewrites the tracked data/flux_influxdb_versions.yml over the network on
+    # every run; builds that skip it use the committed file, which is the
+    # reproducible input. Better fixed by refreshing that file on a schedule
+    # and committing it, the way sync-plugins.yml does.
+    - name: Inject Flux stdlib frontmatter
+      shell: bash
+      run: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.cjs
 
     # --------------------------------------------------------------- Hugo --
     # Mirrors the CircleCI "Hugo Build" step. All flag inputs are optional;
