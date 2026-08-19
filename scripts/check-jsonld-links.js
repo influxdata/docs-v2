@@ -1,6 +1,16 @@
 #!/usr/bin/env node
 /**
  * Verify that JSON-LD @id references in built HTML resolve to JSON-LD nodes.
+ *
+ * Resolution is site-wide, not per page. Do not scope it per page: references
+ * are cross-page by construction. softwareapplication-jsonld.html emits a
+ * product's SoftwareApplication node once on the landing page, and
+ * techarticle-jsonld.html points every article's `about` and `isPartOf` at it
+ * by bare @id, so a per-page check would fail on every article.
+ *
+ * This catches a landing page that stops emitting its node while articles
+ * still reference it. It cannot catch an article referencing the wrong
+ * product's node — that needs a check against the page's own landing URL.
  */
 
 import { glob } from 'glob';

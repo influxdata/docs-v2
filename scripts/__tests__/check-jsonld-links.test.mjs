@@ -33,7 +33,9 @@ test('extracts quoted and unquoted JSON-LD script types', () => {
   );
 });
 
-test('accepts references to nodes defined on another HTML page', async () => {
+// Mirrors the real graph: a product's SoftwareApplication node is emitted once
+// on its landing page, and articles reference it by bare @id from other pages.
+test('resolves a product node referenced from a page that does not define it', async () => {
   const result = await checkJsonLdLinks(publicDir);
   assert.deepEqual(result.invalidJson, []);
   assert.deepEqual(result.missing, []);
