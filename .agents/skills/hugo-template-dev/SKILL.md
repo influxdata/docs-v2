@@ -330,6 +330,107 @@ layouts/
 - Group related partials in subdirectories
 - Include comments at the top describing purpose and required context
 
+## No Magic Values in Template Logic
+
+**Principle:** Templates operate on data and stay ignorant of the values in that data. A product name, version segment, or `data/products.yml` key must never appear as a string literal in template logic. Nobody should have to edit a template because a product was renamed or added.
+
+### Why this rule exists
+
+`header/coveo-meta-data.html` and `header/search-attributes.html` both answered the same question — does this page document the current version of its product? — and each answered it with its own hardcoded list of version segments. The lists drifted. `explorer` and `controller` made it into the Algolia list but not the Coveo list, so InfluxDB 3 Explorer and Telegraf Controller were indexed as current by one search system and as stale by the other. Neither list was wrong on its face. The duplication was.
+
+### What counts as a magic value
+
+| Pattern                                     | Example                                                         |
+| ------------------------------------------- | --------------------------------------------------------------- |
+| A list of product names or version segments | `{{ $alwaysLatest := slice "cloud" "core" "enterprise" }}`      |
+| A hardcoded comparison that branches        | `{{ if eq $product "platform" }}`                               |
+| An exclusion list                           | `{{ if not (in (slice "chronograf" "kapacitor") $product) }}`   |
+| A key inferred from the URL                 | `{{ findRE "[^/]+.*?" .RelPermalink }}` to build a products key |
+
+Find them with:
+
+```bash
+grep -rnE '(slice|in |eq |ne )[^}]*"(core|enterprise|cloud|clustered|explorer|controller|platform|resources|influxdb|telegraf|chronograf|kapacitor|flux)' layouts/ --exclude=AGENTS.md
+```
+
+Not every hit is a violation. String literals in class names, URLs, and display text are fine. The rule is about **branching on product identity**.
+
+### Fix 1: Move the fact into products.yml
+
+Name the field after the fact, not the product, and choose the `default` so only
+the exceptions need the field.
+
+**Before** (`layouts/partials/footer/search.html`):
+
+```go
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+{{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
+{{ $influxdbFluxSupport := slice "v1" "v2" "cloud" }}
+{{ $includeFlux := and (in $fluxSupported $product) (in $influxdbFluxSupport $version) }}
+{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered" "core" "enterprise" "explorer") $version) }}
+```
+
+**After:**
+
+```go
+{{ $ctx := partial "product/get-context.html" . }}
+{{/*
+  Both flags come from data/products.yml so adding a product never requires
+  editing this template.
+*/}}
+{{ $includeFlux := $ctx.data.supports_flux | default false }}
+{{ $includeResources := $ctx.data.search_includes_resources | default true }}
+```
+
+`data/products.yml`:
+
+```yaml
+influxdb:
+  supports_flux: true
+influxdb3_core:
+  search_includes_resources: false
+```
+
+### Fix 2: Resolve the product from the page, not the path
+
+`layouts/partials/product/get-data.html` and
+`layouts/partials/product/get-context.html` read the page's cascade `product`
+param. Every product section declares `product` and `version` by cascade in its
+section `_index.md`, so the key is stated rather than guessed.
+
+```go
+{{ $productData := partial "product/get-data.html" . }}
+{{ $ctx := partial "product/get-context.html" . }}
+{{ $ctx.key }}      {{/* "influxdb3_cloud_dedicated" */}}
+{{ $ctx.data }}     {{/* the products.yml entry */}}
+{{ $ctx.product }}  {{/* first path segment, for path-scoped rules */}}
+```
+
+Parsing `.RelPermalink` gets the key wrong under `/influxdb3/`, where the path
+segment is `influxdb3` but the keys are `influxdb3_core`, `influxdb3_cloud`, and
+so on. It also breaks under a subpath-mounted baseURL, where the PR preview's
+`/pr-preview/pr-N/` prefix becomes the "product."
+
+### Fix 3: Extract a shared decision into one partial
+
+When two templates need the same answer, give them one partial to call.
+`layouts/partials/product/is-latest.html` is the worked example: both search
+templates now call it, so they can't disagree about which pages are current.
+
+```go
+{{ $isLatest := partial "product/is-latest.html" . }}
+```
+
+### The one exception
+
+A value that must match an external system rather than a product fact stays as
+it is. The Algolia search tag in `header/search-attributes.html` is path-derived
+because Algolia indexed every record under the crawled URL, and changing the tag
+would orphan those records. Comment any such case in the template so the next
+reader doesn't "fix" it.
+
 ## Separation of Concerns: Templates vs TypeScript
 
 **Principle:** Hugo templates handle structure and data binding. TypeScript handles behavior and interactivity.
@@ -561,6 +662,8 @@ pre-commit:
 3. **Check error output first** before declaring success
 4. **Use `isset` and `index`** for safe data access
 5. **Hyphenated keys require `index` function** - dot notation fails
+6. **No product names in template logic** - put the fact in `data/products.yml`
+   and resolve the product with the `product/get-context.html` partial
 
 ## Related Resources
 

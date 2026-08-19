@@ -20,6 +20,50 @@ paths:
 - Shortcode implementation best practices
 - Complete TDD workflow for Hugo templates
 
+## No Magic Values in Template Logic
+
+Templates operate on data and stay ignorant of the values in that data.
+A product name, version segment, or `data/products.yml` key must never appear
+as a string literal in template logic.
+Nobody should have to edit a template because a product was renamed or added.
+
+Never write any of these in `layouts/**`:
+
+- A slice of product names or version segments used in a condition, such as a
+  list of the versions that count as current or the products that support Flux.
+- A single hardcoded product comparison that branches behavior, such as testing
+  whether the first path segment equals a specific product.
+- Deriving a `data/products.yml` key by matching the URL path when the page
+  already declares one.
+
+This file is generated into `layouts/AGENTS.md`, and Hugo parses every file
+under `layouts/` as a template, so it carries no Go template examples.
+For the annotated before and after, see the
+[hugo-template-dev skill](../../.agents/skills/hugo-template-dev/SKILL.md).
+
+Do this instead:
+
+1. Put the fact in `data/products.yml` as a per-product field — a boolean such
+   as `supports_flux`, `has_support_contract`, or `search_includes_resources` —
+   and read it with a `| default` that covers products that don't set it.
+2. Resolve the product with `partial "product/get-data.html"` or
+   `partial "product/get-context.html"`, which read the page's cascade `product`
+   param.
+   Every product section declares `product` and `version` by cascade in its
+   section `_index.md`, so the key is stated rather than guessed.
+3. When two templates need the same decision, extract it into one partial so
+   the two can't drift.
+   `layouts/partials/product/is-latest.html` is the worked example.
+
+The one exception is a value that must match an external system rather than a
+product fact.
+The Algolia search tag in `layouts/partials/header/search-attributes.html`
+stays path-derived because Algolia indexed every record under the crawled URL.
+Comment any such case in the template so the next reader doesn't "fix" it.
+
+For the before/after example and the incident behind this rule, see
+[hugo-template-dev skill](../../.agents/skills/hugo-template-dev/SKILL.md).
+
 ## Implementing Shortcodes
 
 When creating or modifying Hugo layouts and shortcodes:
