@@ -2,22 +2,24 @@ name: Verify AI artifacts
 
 # Pre-merge gate for the Markdown-twin and AI-discovery artifact set.
 #
-# Why this builds the site again instead of reusing another job:
+# Why a full build of its own, rather than steps added to pr-render-check:
+# that workflow runs unfiltered on every PR by design, a `paths:` filter
+# cannot be scoped to one job of a workflow, and a per-job diff guard would
+# report success on PRs where the check never ran. Cost is not the reason —
+# the extra work here is roughly 45s over pr-render-check's build.
 #
-#   - CircleCI's `build` job generates the same artifacts, but for PRs it
-#     runs `build:md --only-changed` and skips `build:llms-full` and
-#     `check:md-coherence` entirely (master-only). A partial .md set would
-#     false-positive those checks, so they can only run against a full
-#     build. This job is that full build. Do NOT "optimize" the
-#     `build:md` call below to `--only-changed` — it would silently
-#     reduce the checks below to near-noise.
-#   - `pr-render-check.yml` builds the site on every PR, but with
-#     `build-api-docs: false` and no API pages, and it runs unfiltered on
-#     every PR. Folding these steps in would pay the API-docs and
-#     Markdown-generation cost on PRs that touch none of the paths below.
+# CircleCI's build job produces the same artifacts, but on a PR branch it
+# runs `build:md --only-changed` and skips `build:llms-full` and
+# `check:md-coherence` (master-only), so it cannot gate them. These checks
+# need a complete public/: do NOT change `build:md` below to
+# `--only-changed`, which would reduce all three to near-noise.
 #
-# `hugo-base-url` is the production URL on purpose: the artifacts embed
-# absolute URLs, so this verifies the exact strings production emits.
+# `hugo-base-url` is production, which is weaker than it looks: these are
+# internal-consistency checks that pass under any base URL, and production
+# makes a hardcoded URL indistinguishable from a generated one. A sentinel
+# base URL would catch that, but only once Hugo and `build:md` take their
+# base URL from one input — scripts/lib/base-url.js currently resolves it
+# independently of --baseURL and defaults to production.
 
 on:
   pull_request:
