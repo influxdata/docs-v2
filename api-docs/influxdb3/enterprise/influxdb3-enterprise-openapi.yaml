@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:b2f4a4da437fb5797a2908f6ed642a7ef9d2f59e75e2383341e2929f8ff404e1
+  x-source-hash: sha256:d0a62a892334fbe16b4a8d816a99bc02e5454f3232c270d33c8af09bab4360a5
   x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -141,13 +141,14 @@ tags:
     x-related:
       - title: Use compatibility APIs to write data
         href: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
-  - name: Export data (beta)
+  - name: Export data
     description: |
       Export compacted data as Parquet files for use with external tools.
 
-      > **Beta**: Export endpoints require the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-      > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-      > and **should not be used for production workloads**.
+      > **Requires the upgraded storage engine**: Export endpoints require the
+      > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+      > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+      > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
       Data must be compacted before it can be exported.
       Uncompacted data is not available for export at this time.
@@ -162,7 +163,7 @@ tags:
       You can also use the [`influxdb3 export`](/influxdb3/enterprise/performance-preview/#export-to-parquet) CLI
       commands, which call these endpoints.
     x-related:
-      - title: Performance upgrade preview
+      - title: Storage engine upgrade
         href: /influxdb3/enterprise/performance-preview/
       - title: Export to Parquet
         href: /influxdb3/enterprise/performance-preview/#export-to-parquet
@@ -233,6 +234,17 @@ tags:
     x-related:
       - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
         href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
+  - name: Query groups
+    description: >
+      Manage distributed query groups--named sets of query nodes that InfluxDB 3 Enterprise load-balances queries
+      across.
+
+
+      > **Not yet operational**: These endpoints work and store query group definitions in the catalog, but InfluxDB 3
+      Enterprise doesn't yet use those definitions to affect query routing, data placement, or replication.
+    x-related:
+      - title: Configure query groups
+        href: /influxdb3/enterprise/admin/query-groups/
   - name: Quick start
     description: >
       1. [Create an admin token](#section/Authentication) to authorize API requests.
@@ -1259,6 +1271,8 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+        "409":
+          description: Conflict. The table is already deleted.
       summary: Delete a table
       description: |
         Soft deletes a table.
@@ -1270,6 +1284,16 @@ paths:
 
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
+
+        #### Soft-deleted tables keep a renamed, visible entry until hard deletion
+
+        A soft delete renames the table to `<table_name>-<deleted_at_timestamp>` instead of removing it.
+        Until the table is hard deleted, this renamed entry still appears in `SHOW TABLES` output and in
+        `information_schema.tables` queries. Filter out names that end in a deleted-at timestamp to account for
+        these renamed entries when listing or counting tables.
+
+        Deleting an already-deleted table returns `409 Conflict`. There's no API to remove the renamed entry
+        directly; only a scheduled or immediate (`hard_delete_at=now`) hard deletion removes it.
       tags:
         - Table
     post:
@@ -1876,6 +1900,292 @@ paths:
       tags:
         - Server information
         - Enterprise
+  /api/v3/enterprise/configure/node/remove:
+    post:
+      operationId: PostEnterpriseConfigureNodeRemove
+      summary: Permanently remove a stopped node
+      description: >-
+        Permanently removes a node that has already been marked as stopped, deleting its data from object storage once
+        the compactor finishes reassigning its work.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 remove node](/influxdb3/enterprise/reference/cli/influxdb3/remove/node/)
+
+        - [influxdb3 stop node](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RemoveNodeRequest"
+      responses:
+        "200":
+          description: Success. The node has been removed.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Node not found.
+        "409":
+          description: The node is not in a state that allows removal (for example, still running).
+      tags:
+        - Server information
+        - Enterprise
+  /api/v3/enterprise/configure/query_groups:
+    post:
+      operationId: PostEnterpriseConfigureQueryGroups
+      summary: Create a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 create query_group](/influxdb3/enterprise/reference/cli/influxdb3/create/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "201":
+          description: Created. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query groups
+        - Enterprise
+    get:
+      operationId: GetEnterpriseConfigureQueryGroups
+      summary: List distributed query groups (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 show query_groups](/influxdb3/enterprise/reference/cli/influxdb3/show/query_groups/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query groups
+        - Enterprise
+  /api/v3/enterprise/configure/query_groups/{id}:
+    get:
+      operationId: GetEnterpriseConfigureQueryGroupsById
+      summary: Retrieve a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    put:
+      operationId: PutEnterpriseConfigureQueryGroupsById
+      summary: Replace a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 update query_group](/influxdb3/enterprise/reference/cli/influxdb3/update/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    patch:
+      operationId: PatchEnterpriseConfigureQueryGroupsById
+      summary: Update a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 update query_group](/influxdb3/enterprise/reference/cli/influxdb3/update/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    delete:
+      operationId: DeleteEnterpriseConfigureQueryGroupsById
+      summary: Delete a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 delete query_group](/influxdb3/enterprise/reference/cli/influxdb3/delete/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success. The query group has been deleted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
   /api/v3/enterprise/configure/table/retention_period:
     post:
       operationId: PostEnterpriseConfigureTableRetentionPeriod
@@ -1974,7 +2284,8 @@ paths:
         Creates a resource (fine-grained permissions) token.
         A resource token is a token that has access to specific resources in the system.
 
-        This endpoint is only available in InfluxDB 3 Enterprise.
+        Resource tokens are available in InfluxDB 3 Enterprise and InfluxDB 3 Cloud.
+        They are not available in InfluxDB 3 Core.
       responses:
         "201":
           description: |
@@ -2287,15 +2598,16 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
       x-enterprise-only: true
-      summary: List databases available for export (beta)
+      summary: List databases available for export
       description: |
         Returns a list of databases that have compacted data available for Parquet export.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/export/tables:
     get:
@@ -2314,15 +2626,16 @@ paths:
         "404":
           description: Database not found.
       x-enterprise-only: true
-      summary: List tables available for export (beta)
+      summary: List tables available for export
       description: |
         Returns a list of tables in a database that have compacted data available for Parquet export.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/export/window_data:
     get:
@@ -2356,15 +2669,16 @@ paths:
         "404":
           description: Database, table, or window not found.
       x-enterprise-only: true
-      summary: Export window data as Parquet (beta)
+      summary: Export window data as Parquet
       description: |
         Downloads compacted data for the specified windows as a tar archive containing Parquet files.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/export/windows:
     get:
@@ -2389,16 +2703,17 @@ paths:
         "404":
           description: Database or table not found.
       x-enterprise-only: true
-      summary: List compacted windows for a table (beta)
+      summary: List compacted windows for a table
       description: |
         Returns a list of compacted 24-hour UTC windows for a table.
         Each window represents a time range of compacted data that can be exported as Parquet.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/loadcap/profiles:
     get:
@@ -2467,6 +2782,130 @@ paths:
             `--mode` setting that includes `query`.
         "409":
           description: A load capture is already running on this node.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfile
+      summary: Retrieve load capture profile details
+      description: >
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile.
+        The response is the same as the profile preview.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profile details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCapturePreview"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+    delete:
+      operationId: DeleteLoadcapProfile
+      summary: Delete a load capture profile
+      description: >
+        Deletes a load capture profile and its stored artifacts from object storage.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: The profile was deleted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/preview:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfilePreview
+      summary: Preview a load capture profile
+      description: >
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile without
+        downloading the archive. For `query`-only captures, `catalog_summary` is null.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profile preview.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCapturePreview"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/download:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfileDownload
+      summary: Download a load capture profile
+      description: >
+        Downloads the load capture profile as a gzipped tar archive containing the anonymized capture
+        artifacts---`catalog.json` and `.pt` write-ahead log files for `write` and `both` captures, and
+        `queries.json.zst` for `query` and `both` captures.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: >-
+            The profile archive. The response `Content-Type` is `application/gzip` and `Content-Disposition` provides
+            the `{profile_id}.tar.gz` filename.
+          content:
+            application/gzip:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
@@ -3970,6 +4409,14 @@ paths:
         - Write data
 components:
   parameters:
+    LoadCaptureProfileId:
+      name: profile_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the load capture profile.
     AcceptQueryHeader:
       name: Accept
       in: header
@@ -4453,16 +4900,25 @@ components:
           type: string
         plugin_filename:
           type: string
-          description: |
+          description: >
             The path and filename of the plugin to execute--for example,
+
             `schedule.py` or `endpoints/report.py`.
+
             The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
+
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
 
-            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
-            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
-            For defaults, fetch behavior, and limitations, see [Use example plugins](/influxdb3/enterprise/plugins/#use-example-plugins).
+
+            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of
+            reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+
+            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw
+            plugin files.
+
+            For defaults, fetch behavior, and limitations, see [Use example
+            plugins](/influxdb3/enterprise/plugins/#use-example-plugins).
         node_spec:
           $ref: "#/components/schemas/ApiNodeSpec"
         trigger_name:
@@ -4881,7 +5337,7 @@ components:
           type: string
           format: date-time
           description: Time when the capture started.
-        capture_type:
+        type:
           type: string
           enum:
             - write
@@ -4892,7 +5348,7 @@ components:
           type: string
           description: Requested capture duration.
         node_id:
-          type: string
+          type: integer
           description: Identifier of the node that owns the profile.
         status:
           type: string
@@ -4913,6 +5369,38 @@ components:
           type: integer
           minimum: 0
           description: Number of queries replaced because they could not be parsed safely.
+    LoadCapturePreview:
+      type: object
+      description: >-
+        Contents summary for a load capture profile, including an anonymized catalog summary. Returned by the profile
+        details and preview endpoints.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the load capture profile.
+        file_count:
+          type: integer
+          minimum: 0
+          description: Total number of files in the profile archive.
+        total_size_bytes:
+          type: integer
+          minimum: 0
+          description: Total size of the profile archive contents, in bytes.
+        wal_file_count:
+          type: integer
+          minimum: 0
+          description: Number of anonymized write-ahead log (`.pt`) files in the profile.
+        query_count:
+          type: integer
+          minimum: 0
+          description: Number of captured queries in the profile.
+        catalog_summary:
+          type: object
+          nullable: true
+          description: >-
+            Anonymized catalog snapshot taken when the capture started, including databases, tables, columns, and
+            node metadata. Null for `query`-only captures.
     LicenseResponse:
       type: object
       properties:
@@ -5035,6 +5523,24 @@ components:
         node_id:
           type: string
           description: The ID of the node to mark as stopped.
+      required:
+        - node_id
+      example:
+        node_id: node-1
+    RemoveNodeRequest:
+      type: object
+      description: Request body for permanently removing a stopped node from the cluster.
+      properties:
+        node_id:
+          type: string
+          description: The ID of the node to remove.
+        force_finalize:
+          type: boolean
+          description: >-
+            Force-finalize a node stuck in the `Stopping` state (for example, after a crash that never acknowledged the
+            stop). This can delete unsnapshotted WAL data for that node — only use it when the node's process is
+            confirmed gone and you accept the data-loss risk.
+          default: false
       required:
         - node_id
       example:

@@ -6,8 +6,8 @@ menu:
   enterprise_influxdb_v1:
     name: Write protocols
     weight: 80
+source: /shared/influxdb-v1/write_protocols/_index.md
 ---
 
-The InfluxDB line protocol is a text based format for writing points to InfluxDB databases.
-
-{{< children hlevel="h2" >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v1/write_protocols/_index.md -->

@@ -2,7 +2,17 @@
  * DocSearch component for InfluxData documentation
  * Handles asynchronous loading and initialization of Algolia DocSearch
  */
+import { products } from '../services/influxdata-products.js';
+import {
+  buildProductIndex,
+  formatProductLabel,
+} from '../utils/product-labels.js';
+
 const debug = false; // Set to true for debugging output
+
+// Result labels come from data/products.yml, which Hugo passes into the
+// bundle as a js.Build param. Build the lookup once per page load.
+const productIndex = buildProductIndex(products);
 
 export default function DocSearch({ component }) {
   // Store configuration from component data attributes
@@ -43,38 +53,6 @@ export default function DocSearch({ component }) {
     if (debug) {
       console.log('Initializing DocSearch...');
     }
-    const multiVersion = ['influxdb'];
-
-    // Use object-based lookups instead of conditionals for version and product
-    // names. These can be replaced with data from productData in the future.
-
-    // Version display name mappings
-    const versionDisplayNames = {
-      cloud: 'Cloud (TSM)',
-      core: 'Core',
-      enterprise: 'Enterprise',
-      'cloud-serverless': 'Cloud Serverless',
-      'cloud-dedicated': 'Cloud Dedicated',
-      clustered: 'Clustered',
-      explorer: 'Explorer',
-      controller: 'Controller',
-    };
-
-    // Product display name mappings
-    const productDisplayNames = {
-      influxdb: 'InfluxDB',
-      influxdb3: 'InfluxDB 3',
-      explorer: 'InfluxDB 3 Explorer',
-      enterprise_influxdb: 'InfluxDB Enterprise',
-      flux: 'Flux',
-      telegraf: 'Telegraf',
-      controller: 'Telegraf Controller',
-      chronograf: 'Chronograf',
-      kapacitor: 'Kapacitor',
-      platform: 'InfluxData Platform',
-      resources: 'Additional Resources',
-    };
-
     // Initialize DocSearch with configuration
     window.docsearch({
       apiKey: config.apiKey,
@@ -83,34 +61,17 @@ export default function DocSearch({ component }) {
       inputSelector: config.inputSelector,
       debug: config.debug,
       transformData: function (hits) {
-        // Format version using object lookup instead of if-else chain
-        function fmtVersion(version, productKey) {
-          if (version == null) {
-            return '';
-          } else if (versionDisplayNames[version]) {
-            return versionDisplayNames[version];
-          } else if (multiVersion.includes(productKey)) {
-            return version;
-          } else {
-            return '';
-          }
-        }
-
         hits.map((hit) => {
-          const pathData = new URL(hit.url).pathname
-            .split('/')
-            .filter((n) => n);
-          const product = productDisplayNames[pathData[0]] || pathData[0];
-          const version = fmtVersion(pathData[1], pathData[0]);
+          const label = formatProductLabel(
+            new URL(hit.url).pathname,
+            productIndex
+          );
+          const badge = ` <span class="search-product-version">${label}</span>`;
 
-          hit.product = product;
-          hit.version = version;
-          hit.hierarchy.lvl0 =
-            hit.hierarchy.lvl0 +
-            ` <span class="search-product-version">${product} ${version}</span>`;
+          hit.productLabel = label;
+          hit.hierarchy.lvl0 = hit.hierarchy.lvl0 + badge;
           hit._highlightResult.hierarchy.lvl0.value =
-            hit._highlightResult.hierarchy.lvl0.value +
-            ` <span class="search-product-version">${product} ${version}</span>`;
+            hit._highlightResult.hierarchy.lvl0.value + badge;
         });
         return hits;
       },

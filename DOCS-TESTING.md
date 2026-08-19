@@ -55,6 +55,7 @@ LEFTHOOK=0 git push
 - **Link checker** (`.github/workflows/pr-link-check.yml`) — checks changed pages
 - **Codeblock lint** (`.github/workflows/test.yml`) — parse/compile check; JSON/YAML/TOML failures block merge
 - **Render regression** (`.github/workflows/pr-render-check.yml`) — checks for whitespace-escaped code blocks
+- **AI artifacts** (`.github/workflows/pr-ai-artifacts-check.yml`) — builds and verifies Markdown twins and JSON-LD `@id` references
 - **Remark** (`.github/workflows/pr-remark-check.yml`) — runs on repo docs (DOCS-\*.md, .github/, .claude/)
 - **Render artifacts** — site-wide grep for forbidden HTML patterns
 
@@ -146,6 +147,19 @@ SQL, InfluxQL, Go, and other languages are not yet checked.
 
 - `{ placeholders="TOKEN_NAME|DURATION" }` fence attributes — tokens get language-safe substitutions before parsing
 - Hugo shortcodes inside fences — stripped with a safe replacement
+
+**Skipping a block**: For examples that are *intentionally* invalid (for
+example, demonstrating a syntax error), add the `lint="false"` fence
+attribute:
+
+````markdown
+```toml {lint="false"}
+path = "C:\Program Files\"  # invalid TOML
+```
+````
+
+Skipped blocks still appear in the linter output with the skip reason, so
+exemptions stay visible in review.
 
 ## Link Validation
 

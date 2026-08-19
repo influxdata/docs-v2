@@ -2,7 +2,7 @@
 title: Get started with InfluxDB 3 Core
 description: InfluxDB 3 Core is an open source time series database designed and optimized for real-time and recent data. Learn how to use and leverage InfluxDB 3 in use cases such as edge data collection, IoT data, and events.
 url: https://docs.influxdata.com/influxdb3/core/get-started/
-estimated_tokens: 1353
+estimated_tokens: 1357
 product: InfluxDB 3 Core
 version: core
 ---
@@ -25,10 +25,11 @@ including the following:
 4. [Process data in InfluxDB 3 Core](/influxdb3/core/get-started/process/)
 5. [Migrate from InfluxDB v1 or v2](/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/)
 
-#### Find support for InfluxDB 3 Core
-
-The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
-For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+> [!Tip]
+> #### Find support for InfluxDB 3 Core
+>
+> The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
+> For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
 
 ## Data model
 
