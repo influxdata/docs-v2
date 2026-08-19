@@ -1060,7 +1060,7 @@ Environment variable: `INFLUXDB_HTTP_FLUX_ENABLED`
 
 Default is `false`.
 
-Determines whether detailed logs for Flux queries are enabled. 
+Determines whether detailed logs for Flux queries are enabled.
 When set to `true`, InfluxDB logs detailed information about Flux queries, including:
 
 - `compiler_type`: Compiler used for processing the query (typically Flux).
@@ -1070,6 +1070,7 @@ When set to `true`, InfluxDB logs detailed information about Flux queries, inclu
 - `stat_total_duration`: Total duration to process the query.
 - `stat_compile_duration`: Duration to compile the query.
 - `stat_execute_duration`: Duration to execute the query.
+- `stat_max_allocated`: Maximum allocated memory for the query.
 - `stat_total_allocated`: Total allocated memory for the query.
 
 To enable Flux logging, both `flux-enabled` and `flux-log-enabled` must be set to `true`.
