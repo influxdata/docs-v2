@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import yaml from 'js-yaml';
+import { load } from 'js-yaml';
 
 import {
   buildProductIndex,
@@ -11,7 +11,7 @@ import {
 
 // Run against the real data/products.yml so these cases also guard the data
 // the browser bundle receives.
-const products = yaml.load(readFileSync('data/products.yml', 'utf8'));
+const products = load(readFileSync('data/products.yml', 'utf8'));
 const index = buildProductIndex(products);
 
 const label = (path) => formatProductLabel(path, index);
@@ -102,6 +102,19 @@ describe('buildProductIndex', () => {
       lengths,
       [...lengths].sort((a, b) => b - a)
     );
+  });
+
+  it('keeps the product name for an explicit unversioned path', () => {
+    const built = buildProductIndex({
+      controller: {
+        name: 'Controller',
+        content_path: { v1: 'tool/controller' },
+      },
+    });
+
+    assert.deepEqual(built, [
+      { segments: ['tool', 'controller'], name: 'Controller' },
+    ]);
   });
 
   it('tolerates missing or empty product data', () => {

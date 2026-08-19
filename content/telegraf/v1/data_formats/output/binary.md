@@ -5,9 +5,9 @@ description: Use the `binary` output data format (serializer) to serialize Teleg
 menu:
   telegraf_v1_ref:
     name: Binary
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-binary
+weight: 10
 ---
 
 Use the `binary` output data format (serializer) to serialize Telegraf metrics into binary protocols using user-specified configurations.

@@ -16,6 +16,10 @@ influxdb3 update <SUBCOMMAND>
 | [database](/influxdb3/version/reference/cli/influxdb3/update/database/) | Update a database      |
 | [table](/influxdb3/version/reference/cli/influxdb3/update/table/)     | Update a table         |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/update/trigger/)   | Update a trigger       |
+<!-- query_group is not yet operational in v3.11 (page in draft); restore this row when it ships
+| [query_group](/influxdb3/version/reference/cli/influxdb3/update/query_group/) | Update a distributed query group |
+-->
+| query_group | Update a distributed query group (not yet operational) |
 | help                                                               | Print command help or the help of a subcommand |
 {{% /show-in %}}
 

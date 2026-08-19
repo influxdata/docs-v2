@@ -491,6 +491,22 @@ That --> There
 {{< /diagram >}}
 ```
 
+The shortcode accepts optional parameters that adjust how the diagram renders:
+
+- `natural-size`: Render the diagram at Mermaid's natural size.
+  By default, diagrams scale up to fill the article column (up to 680px wide),
+  which can blow up narrow diagrams such as top-down flowcharts.
+- `center`: Center the diagram in the article column.
+  By default, diagrams are left-aligned.
+
+```md
+{{< diagram natural-size center >}}
+graph TD
+This --> That
+That --> There
+{{< /diagram >}}
+```
+
 ### File system diagrams
 
 Use the `{{< filesystem-diagram >}}` shortcode to create a styled file system diagram using a Markdown unordered list.

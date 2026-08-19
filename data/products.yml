@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.10.5
+  latest_patch: 3.11.1
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -59,7 +59,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.10.5
+  latest_patch: 3.11.1
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -110,6 +110,17 @@ influxdb3_cloud:
     database: 100
     table: 10000
     column: 500
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+    characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
+    detection:
+      url_contains: ['enterprise.influxdb.io']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I get started with InfluxDB 3 Cloud?
@@ -214,7 +225,7 @@ influxdb3_cloud_dedicated:
         optional_params: []
     characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
     detection:
-      url_contains: ['influxdb.io']
+      url_contains: ['a.influxdb.io']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I migrate from InfluxDB v1 to Cloud Dedicated?
@@ -383,7 +394,7 @@ telegraf:
   versions: [v1]
   latest: v1.39
   latest_patches:
-    v1: 1.39.2
+    v1: 1.39.3
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -400,12 +411,13 @@ telegraf_controller:
   name: Telegraf Controller
   altname: Controller
   namespace: telegraf
-  content_path: telegraf/controller
+  content_path:
+    v1: telegraf/controller
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: controller
-  latest_patch: 1.0.1
+  latest: 1.0
+  latest_patch: 1.0.2
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
@@ -414,7 +426,8 @@ telegraf_enterprise:
   name: Telegraf Enterprise
   altname: Telegraf Enterprise
   namespace: telegraf
-  content_path: telegraf/enterprise
+  content_path:
+    v1: telegraf/enterprise
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]

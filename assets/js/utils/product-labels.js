@@ -28,8 +28,10 @@ const NON_PRODUCT_LABELS = {
 /**
  * Build the content-path lookup used by formatProductLabel().
  *
- * Products that publish one content path per version (currently InfluxDB v1
- * and v2) get one entry per version, with the version appended to the name.
+ * Products that publish multiple content paths (currently InfluxDB v1 and v2)
+ * get one entry per version, with the version appended to the name. A
+ * single-entry map explicitly identifies an unversioned URL root and keeps the
+ * product name unchanged.
  *
  * @param {Record<string, object>} products - data/products.yml contents
  * @returns {ProductLabelEntry[]} entries, longest content path first
@@ -47,8 +49,13 @@ export function buildProductIndex(products) {
     if (typeof contentPath === 'string') {
       entries.push({ segments: contentPath.split('/'), name });
     } else {
-      for (const [version, path] of Object.entries(contentPath)) {
-        entries.push({ segments: path.split('/'), name: `${name} ${version}` });
+      const versionedPaths = Object.entries(contentPath);
+      const appendVersion = versionedPaths.length > 1;
+      for (const [version, path] of versionedPaths) {
+        entries.push({
+          segments: path.split('/'),
+          name: appendVersion ? `${name} ${version}` : name,
+        });
       }
     }
   }

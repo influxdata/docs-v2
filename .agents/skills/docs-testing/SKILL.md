@@ -9,19 +9,19 @@ description: Testing decision guide for agents working in docs-v2. Maps changed 
 
 Identify the changed file type and run the corresponding commands. Pre-commit hooks run automatically; "Run locally" items require manual invocation before or after committing.
 
-| Changed file                                                                             | Pre-commit (auto)                               | Run locally                                                                             | CI (auto on PR)                                    |
-| ---------------------------------------------------------------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| `content/**/*.md`                                                                        | Vale, markdown checks                           | `yarn lint-codeblocks <files>` · `link-checker map+check`                               | Vale, link-checker, codeblock lint                 |
-| `content/shared/**/*.md`                                                                 | Vale (via product globs)                        | Same as content. Also find consuming products: `grep -r "source:.*<filename>" content/` | Same                                               |
-| `layouts/**/*.html`                                                                      | render-hook whitespace (if render hook)         | `node cypress/support/run-e2e-specs.js --spec cypress/e2e/... --no-mapping`             | pr-render-check, Cypress (if layout/asset changed) |
-| `assets/js/*.ts`                                                                         | TypeScript build (auto-staged)                  | —                                                                                       | —                                                  |
-| `assets/**/*.{js,mjs,css,scss}` or `layouts/*.html` or `content/example.md`              | prettier, eslint                                | (pre-push auto) Cypress shortcode examples                                              | pr-render-check                                    |
-| `data/products.yml`                                                                      | build-agent-instructions, check-feedback-links  | —                                                                                       | pr-feedback-links                                  |
-| `api-docs/**/*.yml`                                                                      | —                                               | `yarn build:api-docs` then Cypress for affected pages                                   | —                                                  |
-| `*.sh`                                                                                   | shellcheck                                      | —                                                                                       | —                                                  |
-| `README.md`, `DOCS-*.md`, `AGENTS.md`, `CLAUDE.md`, `.github/**/*.md`, `.claude/**/*.md` | remark (auto-fixed), Vale (instructions config) | —                                                                                       | pr-remark-check                                    |
-| `lefthook.yml`, `.github/workflows/*.yml`                                                | —                                               | Manual review                                                                           | —                                                  |
-| `scripts/**` or `layouts/index.llmstxt.txt` or `scripts/lib/corpus-paths.js`             | —                                               | `yarn build:ts && npx hugo --quiet && yarn build:md && yarn check:md-coherence`         | —                                                  |
+| Changed file                                                                             | Pre-commit (auto)                               | Run locally                                                                                                | CI (auto on PR)                                    |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `content/**/*.md`                                                                        | Vale, markdown checks                           | `yarn lint-codeblocks <files>` · `link-checker map+check`                                                  | Vale, link-checker, codeblock lint                 |
+| `content/shared/**/*.md`                                                                 | Vale (via product globs)                        | Same as content. Also find consuming products: `grep -r "source:.*<filename>" content/`                    | Same                                               |
+| `layouts/**/*.html`                                                                      | render-hook whitespace (if render hook)         | `node cypress/support/run-e2e-specs.js --spec cypress/e2e/... --no-mapping`                                | pr-render-check, Cypress (if layout/asset changed) |
+| `assets/js/*.ts`                                                                         | TypeScript build (auto-staged)                  | —                                                                                                          | —                                                  |
+| `assets/**/*.{js,mjs,css,scss}` or `layouts/*.html` or `content/example.md`              | prettier, eslint                                | (pre-push auto) Cypress shortcode examples                                                                 | pr-render-check                                    |
+| `data/products.yml`                                                                      | build-agent-instructions, check-feedback-links  | —                                                                                                          | pr-feedback-links                                  |
+| `api-docs/**/*.yml`                                                                      | —                                               | `yarn build:api-docs` then Cypress for affected pages                                                      | —                                                  |
+| `*.sh`                                                                                   | shellcheck                                      | —                                                                                                          | —                                                  |
+| `README.md`, `DOCS-*.md`, `AGENTS.md`, `CLAUDE.md`, `.github/**/*.md`, `.claude/**/*.md` | remark (auto-fixed), Vale (instructions config) | —                                                                                                          | pr-remark-check                                    |
+| `lefthook.yml`, `.github/workflows/*.yml`                                                | —                                               | Manual review                                                                                              | —                                                  |
+| `scripts/**` or `layouts/index.llmstxt.txt` or `scripts/lib/corpus-paths.js`             | —                                               | `yarn build:ts && npx hugo --quiet && yarn build:md && yarn check:md-coherence && yarn check:jsonld-links` | pr-ai-artifacts-check                              |
 
 **Shared content rule:** A change to `content/shared/foo.md` affects every product that has `source: /shared/foo.md` in a stub. Run the lint commands against the shared file; the CI link-checker and Vale resolve stubs to products automatically.
 
@@ -58,19 +58,20 @@ Code block execution tests are **disabled** in pre-push hooks. Run them manually
 
 ### CI checks on every PR
 
-| Workflow                         | What it checks                                 | Blocks merge?              |
-| -------------------------------- | ---------------------------------------------- | -------------------------- |
-| `pr-vale-check.yml`              | Vale on changed markdown + shared content      | Errors only                |
-| `pr-link-check.yml`              | Links in changed pages (also download/install pages when `data/products.yml` changes) | Warnings only |
-| `pr-release-check.yml`           | Reminds to bump `data/products.yml` when release notes advance; on a version bump, reminds to confirm download artifacts are published | No (reminders only) |
-| `test.yml` (lint-codeblocks job) | Parse/compile check on changed content         | JSON/YAML/TOML errors only |
-| `pr-render-check.yml`            | Whitespace-escaped code blocks, Cypress render | Yes (render artifacts)     |
-| `pr-remark-check.yml`            | Remark lint on repo docs                       | No                         |
-| `block-ephemeral-docs.yml`       | Blocks PLAN.md and HANDOVER.md on master       | Yes                        |
-| `pr-feedback-links.yml`          | Rendered feedback link validation              | Warnings only              |
-| `pr-lockfile-lint.yml`           | yarn.lock integrity                            | Yes                        |
-| `auto-label.yml`                 | Applies product labels                         | No                         |
-| `pr-preview.yml`                 | Deploys a full-site preview to staging S3      | No                         |
+| Workflow                         | What it checks                                                                                                                         | Blocks merge?              |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `pr-vale-check.yml`              | Vale on changed markdown + shared content                                                                                              | Errors only                |
+| `pr-link-check.yml`              | Links in changed pages (also download/install pages when `data/products.yml` changes)                                                  | Warnings only              |
+| `pr-release-check.yml`           | Reminds to bump `data/products.yml` when release notes advance; on a version bump, reminds to confirm download artifacts are published | No (reminders only)        |
+| `test.yml` (lint-codeblocks job) | Parse/compile check on changed content                                                                                                 | JSON/YAML/TOML errors only |
+| `pr-render-check.yml`            | Whitespace-escaped code blocks, Cypress render                                                                                         | Yes (render artifacts)     |
+| `pr-remark-check.yml`            | Remark lint on repo docs                                                                                                               | No                         |
+| `pr-ai-artifacts-check.yml`      | Markdown twins, llms-full corpora, JSON-LD `@id` references (full site build)                                                          | Yes                        |
+| `block-ephemeral-docs.yml`       | Blocks PLAN.md and HANDOVER.md on master                                                                                               | Yes                        |
+| `pr-feedback-links.yml`          | Rendered feedback link validation                                                                                                      | Warnings only              |
+| `pr-lockfile-lint.yml`           | yarn.lock integrity                                                                                                                    | Yes                        |
+| `auto-label.yml`                 | Applies product labels                                                                                                                 | No                         |
+| `pr-preview.yml`                 | Deploys a full-site preview to staging S3                                                                                              | No                         |
 
 Code block **execution** is NOT a PR check. It runs on demand via `workflow_dispatch`.
 

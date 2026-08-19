@@ -28,8 +28,12 @@ The build splits into two phases:
   html2md + scraper) converts each page's `article.article--content` to Markdown
   and emits the base frontmatter. The build hard-fails if the Rust module isn't
   built (no silent JS fallback). Build it with
-  `node scripts/build-rust-converter.js` (runs automatically on `postinstall`
-  when `cargo` is present; CI builds it explicitly).
+  `node scripts/build-rust-converter.js`, which runs automatically during
+  `yarn install`. On supported platforms, setup downloads the native module
+  pinned to `scripts/rust-markdown-converter/package.json`, verifies its
+  checksum, and caches it locally. If the release is unavailable, the platform
+  is unsupported, or you're offline, setup falls back to a local Rust build
+  when `cargo` is available.
 - **Phase 2 — section bundles (JS).** `combineMarkdown` concatenates the
   already-generated per-page `.md` into `index.section.md` (parent + children),
   emitting section frontmatter (`type: section`, `pages`, `child_pages`).

@@ -5,9 +5,8 @@ menu:
     name: Supported protocols
     weight: 90
 
+source: /shared/influxdb-v1/supported_protocols/_index.md
 ---
 
-
-InfluxData supports the following protocols for interacting with InfluxDB:
-
-{{< children >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v1/supported_protocols/_index.md -->

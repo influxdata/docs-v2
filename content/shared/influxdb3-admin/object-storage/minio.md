@@ -369,8 +369,8 @@ influxdb3 serve \
 {{% tab-content %}}
 <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
 
-{{% show-in "enterprise" %}}- `INFLUXDB3_ENTERPRISE_CLUSTER_ID`: Your {{% product-name %}} cluster ID ({{% code-placeholder-key %}}`INFLUXDB_CLUSTER_ID`{{% /code-placeholder-key %}}){{% /show-in %}}
-- `INFLUXDB3_NODE_IDENTIFIER_PREFIX`: Your {{% product-name %}} node ID ({{% code-placeholder-key %}}`INFLUXDB_NODE_ID`{{% /code-placeholder-key %}})
+{{% show-in "enterprise" %}}- `INFLUXDB3_CLUSTER_ID`: Your {{% product-name %}} cluster ID ({{% code-placeholder-key %}}`INFLUXDB_CLUSTER_ID`{{% /code-placeholder-key %}}){{% /show-in %}}
+- `INFLUXDB3_NODE_ID`: Your {{% product-name %}} node ID ({{% code-placeholder-key %}}`INFLUXDB_NODE_ID`{{% /code-placeholder-key %}})
 - `INFLUXDB3_OBJECT_STORE`: `s3`
 - `INFLUXDB3_BUCKET`: `influxdb3`
 - `AWS_ENDPOINT`: Your MinIO URL ({{% code-placeholder-key %}}`http://localhost:9000`{{% /code-placeholder-key %}} if running locally)
@@ -382,8 +382,8 @@ influxdb3 serve \
 <!-- pytest.mark.skip -->
 
 ```bash { placeholders="INFLUXDB_(CLUSTER|NODE)_ID|http://localhost:9000|MINIO_(USERNAME|PASSWORD)" }
-{{< show-in "enterprise" >}}export INFLUXDB3_ENTERPRISE_CLUSTER_ID=INFLUXDB_CLUSTER_ID
-{{< /show-in >}}export INFLUXDB3_NODE_IDENTIFIER_PREFIX=INFLUXDB_NODE_ID
+{{< show-in "enterprise" >}}export INFLUXDB3_CLUSTER_ID=INFLUXDB_CLUSTER_ID
+{{< /show-in >}}export INFLUXDB3_NODE_ID=INFLUXDB_NODE_ID
 export INFLUXDB3_OBJECT_STORE=s3
 export INFLUXDB3_BUCKET=influxdb3
 export AWS_ENDPOINT=http://localhost:9000

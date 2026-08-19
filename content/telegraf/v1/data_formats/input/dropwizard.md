@@ -5,8 +5,8 @@ description: Use the `dropwizard` input data format to parse Dropwizard JSON rep
 menu:
   telegraf_v1_ref:
     name: Dropwizard
-    weight: 10
     parent: Input data formats
+weight: 10
 metadata: [Dropwizard parser plugin]
 ---
 
@@ -61,7 +61,7 @@ pattern][templates]. All field value types are supported, `string`, `number` and
   # dropwizard_tags_path = "tags"
 
   ## You may even use tag paths per tag
-  # [inputs.exec.dropwizard_tag_paths]
+  # [inputs.exec.dropwizard_tag_paths_map]
   #   tag1 = "tags.tag1"
   #   tag2 = "tags.tag2"
 ```
@@ -181,7 +181,7 @@ dropwizard_time_path = "time"
 dropwizard_time_format = "2006-01-02T15:04:05Z07:00"
 dropwizard_tags_path = "tags"
 ## tag paths per tag are supported too, eg.
-#[inputs.yourinput.dropwizard_tag_paths]
+#[inputs.yourinput.dropwizard_tag_paths_map]
 #  tag1 = "tags.tag1"
 #  tag2 = "tags.tag2"
 ```

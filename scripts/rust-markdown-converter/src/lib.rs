@@ -210,7 +210,11 @@ lazy_static! {
 /// Convert HTML blockquote callouts to GitHub-style
 fn convert_callouts(markdown: &str, html: &str) -> String {
     let document = Html::parse_document(html);
-    let mut result = markdown.to_string();
+    // Collapse runs of blank lines up front so a multi-block callout needle
+    // (blocks separated by exactly one blank line) matches the page markdown.
+    // postprocess_markdown applies the same collapse later; doing it here too
+    // is idempotent.
+    let mut result = EXCESSIVE_NEWLINES.replace_all(markdown, "\n\n").to_string();
 
     // Process both <blockquote> elements and <div class="block ..."> callouts
     let selectors = vec![
@@ -253,18 +257,31 @@ fn convert_callouts(markdown: &str, html: &str) -> String {
                     _ => "Note",
                 };
 
-                // Convert the callout content to markdown preserving structure
+                // Convert the callout content exactly the way the surrounding
+                // page was converted — html2md, then normalize_headings. The
+                // page markdown has already been normalized by the time this
+                // runs, so an un-normalized needle (closed-ATX `#### Text ####`
+                // for h3+, setext `Text\n----` for h1/h2) never matches and the
+                // alert label is silently dropped. House style for
+                // prepend/append callouts leads with an h4, so that was the
+                // common case.
                 let callout_html = element.html();
-                let callout_markdown = html2md::parse_html(&callout_html);
+                let callout_markdown = normalize_headings(&html2md::parse_html(&callout_html));
+                let needle = callout_markdown.trim();
 
-                if !callout_markdown.trim().is_empty() && callout_markdown.len() > 10 {
+                if needle.len() > 10 {
                     // Build GitHub-style callout
                     let mut callout_lines = vec![format!("> [!{}]", label)];
 
-                    // Process markdown line by line, preserving headings and structure
-                    for line in callout_markdown.lines() {
+                    // Process markdown line by line, preserving headings and
+                    // structure. Interior blank lines become a bare `>` so
+                    // multi-block callouts stay in one blockquote instead of
+                    // the trailing blocks escaping it.
+                    for line in needle.lines() {
                         let trimmed = line.trim();
-                        if !trimmed.is_empty() {
+                        if trimmed.is_empty() {
+                            callout_lines.push(">".to_string());
+                        } else {
                             // Preserve markdown headings (#### becomes > ####)
                             callout_lines.push(format!("> {}", trimmed));
                         }
@@ -278,25 +295,15 @@ fn convert_callouts(markdown: &str, html: &str) -> String {
                         }
                     }
 
-                    let callout = callout_lines.join("\n") + "\n";
+                    let callout = callout_lines.join("\n");
 
-                    // Try to find and replace in markdown
-                    // Extract the first line of content (likely a heading or distinctive text)
-                    let first_content_line = callout_markdown.lines()
-                        .map(|l| l.trim())
-                        .find(|l| !l.is_empty() && l.len() > 3)
-                        .unwrap_or("");
-
-                    if !first_content_line.is_empty() {
-                        // Try to find this content in the markdown
-                        if let Some(idx) = result.find(first_content_line) {
-                            // Find the end of this section (next heading or double newline)
-                            let after_start = &result[idx..];
-                            if let Some(section_end) = after_start.find("\n\n") {
-                                let end_idx = idx + section_end;
-                                result.replace_range(idx..end_idx, &callout);
-                            }
-                        }
+                    // Replace the whole converted block. Matching only the
+                    // first content line spliced the marker into the middle of
+                    // an already-normalized heading (`## > [!Note]`) and left
+                    // everything after the first blank line duplicated below
+                    // the blockquote.
+                    if let Some(idx) = result.find(needle) {
+                        result.replace_range(idx..idx + needle.len(), &callout);
                     }
                 }
             }
@@ -752,5 +759,105 @@ mod tests {
         assert!(!out.contains("canonical:"));
         assert!(!out.contains("date:"));
         assert!(!out.contains("lastmod:"));
+    }
+
+    // ------------------------------------------------------------------
+    // Callout conversion (div.block.<type> -> GitHub-style alerts)
+    // ------------------------------------------------------------------
+
+    /// Wrap callout markup in a minimal article, with trailing content so a
+    /// callout is never the last block on the page.
+    fn article(inner: &str) -> String {
+        format!(
+            r#"<html><head></head><body><article class="article--content">
+               <h1>Test page</h1>{inner}
+               <h2 id=next>Next section</h2><p>Trailing paragraph.</p>
+               </article></body></html>"#
+        )
+    }
+
+    fn body_of(html: &str) -> String {
+        let out = convert_to_markdown(
+            html.to_string(),
+            "/influxdb3/core/x/".to_string(),
+            "https://docs.influxdata.com".to_string(),
+        )
+        .unwrap()
+        .unwrap();
+        out.split("---").nth(2).unwrap().to_string()
+    }
+
+    #[test]
+    fn test_callout_paragraph_only_converts() {
+        let body = body_of(&article(
+            r#"<div class="note block"><p>Flux REPL supports running Flux scripts.</p></div>"#,
+        ));
+        assert!(body.contains("> [!Note]"), "label missing:\n{body}");
+        assert!(body.contains("> Flux REPL supports running Flux scripts."));
+    }
+
+    /// The house style for `prepend`/`append` callouts leads with an h4, which
+    /// html2md emits as closed-ATX (`#### Text ####`). The page markdown has
+    /// already been through normalize_headings, so an un-normalized lookup key
+    /// never matches and the alert label is silently dropped.
+    #[test]
+    fn test_callout_with_leading_heading_keeps_label() {
+        let body = body_of(&article(
+            r#"<div class="block important"><h4 id=x>Flux VS Code extension no longer available</h4><p>The extension is no longer maintained.</p></div>"#,
+        ));
+        assert!(body.contains("> [!Important]"), "label missing:\n{body}");
+        assert!(
+            body.contains("> #### Flux VS Code extension no longer available"),
+            "heading not inside the blockquote:\n{body}"
+        );
+        assert!(body.contains("> The extension is no longer maintained."));
+    }
+
+    #[test]
+    fn test_callout_content_not_duplicated() {
+        let body = body_of(&article(
+            r#"<div class="block important"><h4 id=x>Deprecation notice</h4><p>Body sentence here.</p></div>"#,
+        ));
+        assert_eq!(
+            body.matches("Deprecation notice").count(),
+            1,
+            "heading duplicated:\n{body}"
+        );
+        assert_eq!(
+            body.matches("Body sentence here.").count(),
+            1,
+            "body duplicated:\n{body}"
+        );
+    }
+
+    #[test]
+    fn test_callout_does_not_leak_closed_atx_hashes() {
+        let body = body_of(&article(
+            r#"<div class="note block"><p>Lead paragraph.</p><h4 id=x>Inner heading</h4></div>"#,
+        ));
+        assert!(body.contains("> [!Note]"), "label missing:\n{body}");
+        assert!(
+            !body.contains("Inner heading ####"),
+            "closed-ATX hashes leaked:\n{body}"
+        );
+    }
+
+    /// html2md emits setext for h2 (`Text\n----`). Matching on the bare text
+    /// line used to splice the alert marker into the middle of the already
+    /// normalized `## Text` heading, producing `## > [!Note]`.
+    #[test]
+    fn test_callout_with_leading_h2_not_corrupted() {
+        let body = body_of(&article(
+            r#"<div class="note block"><h2 id=x>Callout heading</h2><p>Body sentence.</p></div>"#,
+        ));
+        assert!(
+            !body.contains("## > [!"),
+            "alert marker spliced into a heading:\n{body}"
+        );
+        assert!(body.contains("> [!Note]"), "label missing:\n{body}");
+        assert!(
+            !body.contains("----------"),
+            "setext underline leaked:\n{body}"
+        );
     }
 }

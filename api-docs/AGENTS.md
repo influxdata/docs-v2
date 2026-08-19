@@ -28,11 +28,19 @@ Hugo shortcodes.
 
 | File                          | Purpose                                                  |
 | ----------------------------- | -------------------------------------------------------- |
-| `{product-name}-openapi.yaml` | Main API spec (fetched and bundled by `getswagger.sh`)   |
+| `{product-name}-openapi.yaml` | Main API spec (see spec source below)                    |
 | `tags.yml`                    | Tag names, descriptions, `x-traitTag`, `x-related` links |
 | `content/info.yml`            | Info overlay (title, description, version)               |
 | `content/servers.yml`         | Server URL overlay                                       |
 | `.config.yml`                 | Product config (API keys, spec paths, Hugo output dirs)  |
+
+Specs come from different sources. Most are fetched by `getswagger.sh`, but the
+InfluxDB 3 **Core** and **Enterprise** v3 specs come from the **docs-tooling**
+pipeline (not `influxdata/openapi`), and the InfluxDB 3 **Cloud** and **v1**
+specs are maintained directly in this repo. Know the source before editing — a
+fetched or generated spec is overwritten on the next fetch/port, so durable
+fixes to Core/Enterprise v3 belong in docs-tooling. See
+[Spec sources by product](./README.md#spec-sources-by-product).
 
 ### Writing tag content
 

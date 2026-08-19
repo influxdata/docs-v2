@@ -1,0 +1,143 @@
+name: Verify AI artifacts
+
+# Pre-merge gate for the Markdown-twin and AI-discovery artifact set.
+#
+# Kept separate from pr-render-check rather than folded in: that workflow is
+# unfiltered by design, a paths: filter cannot be scoped to one job, and a
+# per-job diff guard would report success on PRs where the check never ran.
+# Cost is not the reason — the extra work is about 45s.
+#
+# Do NOT change build:md below to --only-changed. The checks need a complete
+# public/; a partial .md set reduces all three to near-noise.
+#
+# hugo-base-url is production, which is weaker than it looks: these checks
+# pass under any base URL, so production only hides hardcoded URLs. A sentinel
+# would expose them — build-docs-site exports BASE_URL from this input, so
+# Hugo and build:md move together.
+
+on:
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'data/**'
+      - 'layouts/**'
+      - 'config/**'
+      - 'api-docs/**'
+      - 'openapi/**'
+      - 'scripts/build-ai-artifacts.js'
+      - 'scripts/build-llm-markdown.js'
+      - 'scripts/build-llms-full-txt.js'
+      - 'scripts/check-jsonld-links.js'
+      - 'scripts/check-md-alternate-coherence.js'
+      - 'scripts/__tests__/check-jsonld-links.test.mjs'
+      - 'scripts/__tests__/markdown-completeness.test.mjs'
+      - 'scripts/lib/**'
+      - 'scripts/rust-markdown-converter/**'
+      - '.github/actions/build-docs-site/**'
+      - '.github/actions/setup-docs-env/**'
+      - '.github/workflows/pr-ai-artifacts-check.yml'
+      - 'package.json'
+      - 'yarn.lock'
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A full site build per push adds up fast; supersede in-flight runs.
+concurrency:
+  group: pr-ai-artifacts-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Build and verify AI artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Needed for the base...head diff in the next step.
+          fetch-depth: 0
+
+      # Gates the source build below. Being in the path filter does not by
+      # itself test the converter source — build-rust-converter.js prefers the
+      # published release binary, so an edit without a version bump would be
+      # validated against the old one. Keep this conditional: compiling on
+      # every content PR buys a binary identical to the release.
+      - name: Detect Rust converter source changes
+        id: converter
+        run: |
+          if [ "${{ github.event_name }}" != 'pull_request' ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Manual run — building the converter from source."
+            exit 0
+          fi
+
+          CHANGED=$(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
+
+          if echo "$CHANGED" | grep -q '^scripts/rust-markdown-converter/'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Converter source changed — building it from source."
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "ℹ️  Converter source unchanged — using the published prebuilt."
+          fi
+
+      - name: Cache Rust markdown converter build
+        if: steps.converter.outputs.changed == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            scripts/rust-markdown-converter/target
+          key: >-
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/Cargo.lock') }}
+          restore-keys: |
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+
+      - name: Setup docs environment
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      # Unit-test the checker before spending five minutes building a site
+      # for it to scan.
+      - name: Unit-test the JSON-LD checker
+        run: yarn test:jsonld-links
+
+      - name: Build API docs and Hugo site
+        uses: ./.github/actions/build-docs-site
+        env:
+          # Both are needed to compile: build-rust installs the toolchain,
+          # this makes the script build instead of using the prebuilt.
+          RUST_MARKDOWN_CONVERTER_SOURCE: ${{ steps.converter.outputs.changed }}
+        with:
+          build-rust: ${{ steps.converter.outputs.changed }}
+          # Keep true. API pages are gitignored and generated from the specs;
+          # 234 of the ~4990 twins live under /api/, and no other pre-merge
+          # check covers them. Setting false drops them from every check below.
+          build-api-docs: 'true'
+          hugo-base-url: 'https://docs.influxdata.com/'
+          hugo-gc: 'true'
+          hugo-quiet: 'true'
+
+      - name: Generate AI discovery artifacts and Markdown twins
+        run: |
+          yarn build:ai-artifacts --public-dir public
+          yarn build:md --public-dir public
+          yarn build:llms-full --public-dir public
+
+      - name: Verify Markdown artifacts
+        run: |
+          yarn check:md-coherence --public-dir public
+          PUBLIC_DIR=public yarn test:markdown-completeness
+
+      - name: Verify JSON-LD entity links
+        run: yarn check:jsonld-links --public-dir public

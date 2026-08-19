@@ -5,8 +5,8 @@ description: Use the `logfmt` input data format to parse logfmt data into Telegr
 menu:
   telegraf_v1_ref:
     name: logfmt
-    weight: 10
     parent: Input data formats
+weight: 10
 ---
 
 Use the `logfmt` data format to parse [logfmt] data into Telegraf metrics.

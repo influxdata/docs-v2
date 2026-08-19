@@ -384,7 +384,12 @@ telegraf_controller \
 To verify the server certificate, provide a CA certificate with
 [`sslrootcert`](#sslrootcert), [`database-ca-cert`](#database-ca-cert), or
 `PGSSLROOTCERT`. If you request verification but do not provide a CA
-certificate, {{% product-name %}} falls back to the system trust store.
+certificate, {{% product-name %}} verifies against a bundled set of public
+root certificates (the Mozilla root store). Certificates issued by a private
+CA, including Amazon RDS, fail verification unless you provide the CA
+certificate. If database certificate verification fails, agent heartbeats are
+rejected; see
+[Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
 
 > [!Note]
 > #### Client certificate authentication is not supported

@@ -5,8 +5,8 @@ description: Use the `graphite` input data format to parse Graphite dot buckets 
 menu:
   telegraf_v1_ref:
     name: Graphite
-    weight: 10
     parent: Input data formats
+weight: 10
 ---
 
 Use the `graphite` input data format to parse graphite _dot_ buckets directly into
@@ -53,7 +53,7 @@ By default, the separator is left as `.`, but this can be changed using the
 
 ## Templates
 
-[Template patterns](/telegraf/v1/configure_plugins/template-patterns/) specify how a dot-delimited
-string should be mapped to and from [metrics](/telegraf/v1/metrics/).
+[Template patterns](/telegraf/v1/data_formats/template-patterns/) specify how a dot-delimited
+string should be mapped to and from [metrics](/telegraf/v1/concepts/metrics/).
 
 

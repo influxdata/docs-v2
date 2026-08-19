@@ -5,11 +5,11 @@ description: Use the `influx` line protocol input data format to parse InfluxDB 
 menu:
   telegraf_v1_ref:
     name: InfluxDB line protocol
-    weight: 10
     parent: Input data formats
+weight: 10
 ---
 
-Use the `influx` line protocol input data format to parse InfluxDB [line protocol](/influxdb3/cloud-serverless/reference/syntax/line-protocol/) data into Telegraf [metrics](/telegraf/v1/metrics/).
+Use the `influx` line protocol input data format to parse InfluxDB [line protocol](/influxdb3/core/reference/syntax/line-protocol/) data into Telegraf [metrics](/telegraf/v1/concepts/metrics/).
 
 ## Configuration
 
@@ -26,5 +26,11 @@ Use the `influx` line protocol input data format to parse InfluxDB [line protoco
   ## Influx line protocol parser
   ## 'internal' is the default. 'upstream' is a newer parser that is faster
   ## and more memory efficient.
-  ## influx_parser_type = "internal"
+  # influx_parser_type = "internal"
+
+  ## Influx line protocol timestamp precision
+  ## Time duration to specify the precision of the data's timestamp to parse.
+  ## The default assumes nanosecond (1ns) precision, but users can set to
+  ## second (1s), millisecond (1ms), or microsecond (1us) precision as well.
+  # influx_timestamp_precision = "1ns"
 ```

@@ -1,7 +1,8 @@
 ---
 title: influxdb3 stop
 description: >
-  The `influxdb3 stop` command marks nodes as stopped in the catalog for your InfluxDB 3 Enterprise cluster.
+  The `influxdb3 stop` command gracefully stops nodes in your InfluxDB 3
+  Enterprise cluster.
 menu:
   influxdb3_enterprise:
     parent: influxdb3

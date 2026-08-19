@@ -5,8 +5,8 @@ description: Use the `splunkmetric` metric output data format (serializer) to ou
 menu:
   telegraf_v1_ref:
     name: Splunk metric
-    weight: 10
     parent: Output data formats
+weight: 10
 ---
 
 Use the `splunkmetric` output data format (serializer) to output Telegraf metrics in a format that can be consumed by a Splunk metrics index.
@@ -37,6 +37,36 @@ In the above snippet, the following keys are dimensions:
 * cpu
 * dc
 * user
+
+## Using multimetric output
+
+Starting with Splunk Enterprise and Splunk Cloud 8.0, you can send multiple
+metric values in one payload.
+For example, you can send all of your CPU stats in one JSON struct:
+
+```json
+{
+  "time": 1572469920,
+  "event": "metric",
+  "host": "mono.local",
+  "fields": {
+    "class": "osx",
+    "cpu": "cpu0",
+    "metric_name:telegraf.cpu.usage_idle": 65.1,
+    "metric_name:telegraf.cpu.usage_system": 10.2,
+    "metric_name:telegraf.cpu.usage_user": 24.7
+  }
+}
+```
+
+To enable this mode, set the `splunkmetric_multimetric` option in the
+output plugin you use with the serializer.
+
+## Omitting the event tag
+
+By default, the serializer includes `"event": "metric"` in each payload.
+Set `splunkmetric_omit_event_tag = true` to omit it, for example when
+ingesting data with a configuration that doesn't expect the key.
 
 ## Using with the HTTP output
 
@@ -72,6 +102,10 @@ to manage the HEC authorization, here's a sample config for an HTTP output:
    data_format = "splunkmetric"
     ## Provides time, index, source overrides for the HEC
    splunkmetric_hec_routing = true
+   ## Send batches of metrics in a single payload (Splunk 8.0+)
+   # splunkmetric_multimetric = true
+   ## Omit the "event": "metric" key from the payload
+   # splunkmetric_omit_event_tag = false
 
    ## Additional HTTP headers
     [outputs.http.headers]
