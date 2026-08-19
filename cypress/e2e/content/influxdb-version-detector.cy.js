@@ -65,6 +65,32 @@ describe('InfluxDB Version Detector Component', function () {
       }).should('be.visible');
     });
 
+    it('uses the shared influxdb.io domain as a hosted-product clue', function () {
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .click();
+
+      cy.get('#url-input').clear().type('influxdb.io');
+      cy.get('#q-url-input .submit-button').click();
+
+      cy.get('#q-paid', { timeout: 5000 }).within(() => {
+        cy.contains('.option-button', 'Paid/Commercial License').click();
+      });
+      cy.get('#q-age').within(() => {
+        cy.contains('.option-button', "I'm not sure").click();
+      });
+      cy.get('#q-language').within(() => {
+        cy.contains('.option-button', 'SQL').click();
+      });
+
+      cy.get('.product-ranking .product-title')
+        .eq(0)
+        .should('contain', 'InfluxDB 3 Cloud');
+      cy.get('.product-ranking .product-title')
+        .eq(1)
+        .should('contain', 'InfluxDB Cloud Dedicated');
+    });
+
     it('should detect products from port 8086 URLs', function () {
       cy.get('#q-url-known .option-button')
         .contains('Yes, I know the URL')
