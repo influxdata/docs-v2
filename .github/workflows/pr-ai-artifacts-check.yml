@@ -63,6 +63,60 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Needed for the base...head diff in the next step.
+          fetch-depth: 0
+
+      # `scripts/rust-markdown-converter/**` is in this workflow's path
+      # filter, but being in the filter does not by itself test the source:
+      # `build-rust-converter.js` prefers the *published release* binary, and
+      # `setup-docs-env` already downloaded it during postinstall. A PR that
+      # edits the Rust source without bumping and publishing a release would
+      # trigger this job and still validate the old converter.
+      #
+      # Setting `build-rust: 'true'` alone does not fix that either — it
+      # installs the toolchain, then `build-rust-converter.js` short-circuits
+      # on the downloaded prebuilt and never reaches the cargo build. The
+      # env var below is what actually forces compilation.
+      #
+      # Do this only when the converter source changed. Unconditionally
+      # compiling would add a rustup install plus a cold cargo build to every
+      # content PR, for a binary identical to the release it just downloaded.
+      - name: Detect Rust converter source changes
+        id: converter
+        run: |
+          if [ "${{ github.event_name }}" != 'pull_request' ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Manual run — building the converter from source."
+            exit 0
+          fi
+
+          CHANGED=$(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
+
+          if echo "$CHANGED" | grep -q '^scripts/rust-markdown-converter/'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Converter source changed — building it from source."
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "ℹ️  Converter source unchanged — using the published prebuilt."
+          fi
+
+      - name: Cache Rust markdown converter build
+        if: steps.converter.outputs.changed == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            scripts/rust-markdown-converter/target
+          key: >-
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/Cargo.lock') }}
+          restore-keys: |
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
 
       - name: Setup docs environment
         env:
@@ -76,8 +130,13 @@ jobs:
 
       - name: Build API docs and Hugo site
         uses: ./.github/actions/build-docs-site
+        env:
+          # Makes build-rust-converter.js skip its prebuilt-download
+          # short-circuit so the cargo build below actually runs. Without
+          # this, `build-rust: 'true'` installs a toolchain it never uses.
+          RUST_MARKDOWN_CONVERTER_SOURCE: ${{ steps.converter.outputs.changed }}
         with:
-          build-rust: 'true'
+          build-rust: ${{ steps.converter.outputs.changed }}
           # Explicit even though it is the action default: API reference
           # pages are gitignored and generated from the OpenAPI specs, and
           # 234 of the ~4990 Markdown twins live under /api/. Setting this
