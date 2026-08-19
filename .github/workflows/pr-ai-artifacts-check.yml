@@ -17,9 +17,8 @@ name: Verify AI artifacts
 # `hugo-base-url` is production, which is weaker than it looks: these are
 # internal-consistency checks that pass under any base URL, and production
 # makes a hardcoded URL indistinguishable from a generated one. A sentinel
-# base URL would catch that, but only once Hugo and `build:md` take their
-# base URL from one input — scripts/lib/base-url.js currently resolves it
-# independently of --baseURL and defaults to production.
+# base URL would catch that; build-docs-site now exports BASE_URL from this
+# input, so Hugo and `build:md` would move together.
 
 on:
   pull_request:
