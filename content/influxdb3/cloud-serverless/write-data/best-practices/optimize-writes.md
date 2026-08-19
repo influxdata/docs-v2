@@ -175,24 +175,20 @@ Configure [metric filters](/telegraf/v1/configuration/#filters) to retain or rem
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
-
-```sh
-cat <<EOF >> ./telegraf.conf
-  [[inputs.cpu]]
-    # Remove the specified fields from points.
-    fieldpass = ["usage_system", "usage_idle"]
-    # Remove the specified tags from points.
-    tagexclude = ["host"]
-  [[outputs.influxdb_v2]]
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "API_TOKEN"
-    organization = ""
-    bucket = "BUCKET_NAME"
-EOF
-```
-
-   {{< /code-placeholders >}}
+    ```sh { placeholders="BUCKET_NAME|API_TOKEN" }
+    cat <<EOF >> ./telegraf.conf
+      [[inputs.cpu]]
+        # Remove the specified fields from points.
+        fieldpass = ["usage_system", "usage_idle"]
+        # Remove the specified tags from points.
+        tagexclude = ["host"]
+      [[outputs.influxdb_v2]]
+        urls = ["https://{{< influxdb/host >}}"]
+        token = "API_TOKEN"
+        organization = ""
+        bucket = "BUCKET_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -267,31 +263,27 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
-
-```sh
-cat <<EOF > ./telegraf.conf
-[[inputs.file]]
-  ## For each interval, parse data from files in the list.
-  files = ["home.lp"]
-  influx_timestamp_precision = "1s"
-  precision = "1s"
-  tagexclude = ["host"]
-[[processors.converter]]
-  [processors.converter.fields]
-    ## A data type and a list of fields to convert to the data type.
-    float = ["temp", "hum"]
-    integer = ["co"]
-[[outputs.influxdb_v2]]
-  ## InfluxDB v2 API credentials and the bucket to write to.
-  urls = ["https://{{< influxdb/host >}}"]
-  token = "API_TOKEN"
-  organization = ""
-  bucket = "BUCKET_NAME"
-EOF
-```
-
-    {{< /code-placeholders >}}
+    ```sh { placeholders="BUCKET_NAME|API_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    [[inputs.file]]
+      ## For each interval, parse data from files in the list.
+      files = ["home.lp"]
+      influx_timestamp_precision = "1s"
+      precision = "1s"
+      tagexclude = ["host"]
+    [[processors.converter]]
+      [processors.converter.fields]
+        ## A data type and a list of fields to convert to the data type.
+        float = ["temp", "hum"]
+        integer = ["co"]
+    [[outputs.influxdb_v2]]
+      ## InfluxDB v2 API credentials and the bucket to write to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -359,33 +351,29 @@ The following example creates sample data for two series (the combination of mea
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
-
-  ```bash
-  cat <<EOF > ./telegraf.conf
-  # Parse metrics from a file
-  [[inputs.file]]
-    ## A list of files to parse during each interval.
-    files = ["home.lp"]
-    ## The precision of timestamps in your data.
-    influx_timestamp_precision = "1s"
-    tagexclude = ["host"]
-  # Merge separate metrics that share a series key
-  [[aggregators.merge]]
-    grace = "$grace_duration"
-    ## If true, drops the original metric.
-    drop_original = true
-  # Writes metrics as line protocol to the InfluxDB v2 API
-  [[outputs.influxdb_v2]]
-    ## InfluxDB credentials and the bucket to write data to.
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "API_TOKEN"
-    organization = ""
-    bucket = "BUCKET_NAME"
-  EOF
-  ```
-
-    {{< /code-placeholders >}}
+    ```bash { placeholders="BUCKET_NAME|API_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Merge separate metrics that share a series key
+    [[aggregators.merge]]
+      grace = "$grace_duration"
+      ## If true, drops the original metric.
+      drop_original = true
+    # Writes metrics as line protocol to the InfluxDB v2 API
+    [[outputs.influxdb_v2]]
+      ## InfluxDB credentials and the bucket to write data to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -469,32 +457,28 @@ The following example shows how to use Telegraf to remove points that repeat fie
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
-
-  ```bash
-  cat <<EOF > ./telegraf.conf
-  # Parse metrics from a file
-  [[inputs.file]]
-    ## A list of files to parse during each interval.
-    files = ["home.lp"]
-    ## The precision of timestamps in your data.
-    influx_timestamp_precision = "1s"
-    tagexclude = ["host"]
-  # Filter metrics that repeat previous field values
-  [[processors.dedup]]
-    ## Drops duplicates within the specified duration
-    dedup_interval = "$dedup_duration"
-  # Writes metrics as line protocol to the InfluxDB v2 API
-  [[outputs.influxdb_v2]]
-    ## InfluxDB credentials and the bucket to write data to.
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "API_TOKEN"
-    organization = ""
-    bucket = "BUCKET_NAME"
-  EOF
-  ```
-
-    {{< /code-placeholders >}}
+    ```bash { placeholders="BUCKET_NAME|API_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Filter metrics that repeat previous field values
+    [[processors.dedup]]
+      ## Drops duplicates within the specified duration
+      dedup_interval = "$dedup_duration"
+    # Writes metrics as line protocol to the InfluxDB v2 API
+    [[outputs.influxdb_v2]]
+      ## InfluxDB credentials and the bucket to write data to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -700,32 +684,28 @@ The Go `multiplier.go` sample code does the following:
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "BUCKET_NAME|API_TOKEN" >}}
-
-  ```bash
-  cat <<EOF > ./telegraf.conf
-  # Parse metrics from a file
-  [[inputs.file]]
-    ## A list of files to parse during each interval.
-    files = ["home.lp"]
-    ## The precision of timestamps in your data.
-    influx_timestamp_precision = "1s"
-    tagexclude = ["host"]
-    # Filter metrics that repeat previous field values
-  [[processors.execd]]
-    ## A list that contains the executable command and arguments to run as a daemon.
-    command = ["go", "run", "multiplier.go"]
-    # Writes metrics as line protocol to the InfluxDB v2 API
-  [[outputs.influxdb_v2]]
-    ## InfluxDB credentials and the bucket to write data to.
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "API_TOKEN"
-    organization = ""
-    bucket = "BUCKET_NAME"
-  EOF
-  ```
-
-    {{< /code-placeholders >}}
+    ```bash { placeholders="BUCKET_NAME|API_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+      # Filter metrics that repeat previous field values
+    [[processors.execd]]
+      ## A list that contains the executable command and arguments to run as a daemon.
+      command = ["go", "run", "multiplier.go"]
+      # Writes metrics as line protocol to the InfluxDB v2 API
+    [[outputs.influxdb_v2]]
+      ## InfluxDB credentials and the bucket to write data to.
+      urls = ["https://{{< influxdb/host >}}"]
+      token = "API_TOKEN"
+      organization = ""
+      bucket = "BUCKET_NAME"
+    EOF
+    ```
 
     Replace the following:
 

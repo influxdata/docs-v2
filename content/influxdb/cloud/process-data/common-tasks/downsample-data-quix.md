@@ -166,8 +166,7 @@ Provide the following credentials for the producer:
 
 The producer queries for fresh data from InfluxDB at specific intervals. It writes the raw data to a Kafka topic called `influxv2-data`.
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" }
 from quixstreams import Application
 import influxdb_client
 # Create a Quix Application
@@ -211,7 +210,6 @@ with app.get_producer() as producer:
                 value=obj,
             ) 
 ```
-{{% /code-placeholders %}}
 
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/template-invluxdbv2-tsm-downsampling/blob/tutorial/InfluxDB%20V2%20Data%20Source/main.py).
@@ -233,8 +231,7 @@ Note: These will be your InfluxDB v2 credentials.
 
 This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back to InfluxDB.
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" }
 from quixstreams import Application, State
 from influxdb_client import InfluxDBClient, Point
 
@@ -285,7 +282,6 @@ if __name__ == "__main__":
     app.run(sdf)
 
 ```
-{{% /code-placeholders %}}
 
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/quix-samples/tree/develop/python/destinations/influxdb_2).

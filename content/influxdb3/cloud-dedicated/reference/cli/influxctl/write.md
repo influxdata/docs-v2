@@ -83,8 +83,6 @@ In the examples below, replace the following:
 
 ### Write line protocol to InfluxDB 3
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -93,7 +91,8 @@ In the examples below, replace the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
@@ -103,32 +102,33 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600000000000
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600000000000
 "
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   /path/to/metrics.lp
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./metrics.lp | influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 ### Write line protocol to InfluxDB 3 with non-default timestamp precision
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -137,7 +137,8 @@ cat ./metrics.lp | influxctl write \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
@@ -148,33 +149,34 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
 "
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --precision s \
   /path/to/metrics.lp
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./metrics.lp | influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --precision s \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ### Write line protocol to InfluxDB 3 with a custom batch size
-
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -184,7 +186,8 @@ cat ./metrics.lp | influxctl write \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
@@ -195,33 +198,34 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600000000000
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600000000000
 "
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --batch-size 5000 \
   /path/to/metrics.lp
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./metrics.lp | influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --batch-size 5000 \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ### Write line protocol to InfluxDB 3 with a custom client timeout
-
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -231,7 +235,8 @@ cat ./metrics.lp | influxctl write \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
@@ -242,29 +247,32 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
 "
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --timeout 20 \
   /path/to/metrics.lp
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./metrics.lp | influxctl write \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --timeout 20 \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 ### Write line protocol to InfluxDB 3 using credentials from the connection profile
 

@@ -26,7 +26,7 @@ kapacitor vars
 Some fields in the following output have been truncated for brevity.
 {{% /note %}}
 
-```json
+```text
 {
     "cluster_id": "4210702c-bd32-487d-9a08-f6d782cebb41",
     "cmdline": [

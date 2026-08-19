@@ -37,11 +37,9 @@ all permissions associated with the token.
 
 4.  Confirm that you want to revoke the token.
 
-{{% code-placeholders "TOKEN_ID" %}}
-```sh
+```sh { placeholders="TOKEN_ID" }
 influxctl token revoke TOKEN_ID
 ```
-{{% /code-placeholders %}}
 
 > [!Warning]
 > #### Revoking a token is immediate and cannot be undone

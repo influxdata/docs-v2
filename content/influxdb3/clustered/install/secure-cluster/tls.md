@@ -37,18 +37,14 @@ If using the [InfluxDB-defined ingress and the Nginx Ingress Controller](/influx
 add a valid TLS Certificate to the cluster as a secret.
 Provide the paths to the TLS certificate file and key file:
 
-{{% code-placeholders "TLS_(CERT|KEY)_PATH" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="TLS_(CERT|KEY)_PATH" }
 kubectl create secret tls ingress-tls \
   --namespace influxdb \
   --cert TLS_CERT_PATH \
   --key TLS_KEY_PATH
 ```
-
-{{% /code-placeholders %}}
 
 ---
 

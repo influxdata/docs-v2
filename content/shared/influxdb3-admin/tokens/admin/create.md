@@ -51,7 +51,7 @@ Use the following endpoint to create an operator token:
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/authentication/#operation/PostCreateAdminToken" %}}
 
 ```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/token/admin" \
 ```
 
 {{% /tab-content %}}
@@ -69,11 +69,9 @@ The output contains the token string in plain text.
 {{% tab-content %}}
 Use the `influxdb3 create token --admin` command with a token name:
 
-{{% code-placeholders "TOKEN_NAME|ADMIN_TOKEN" %}}
-```bash
+```bash { placeholders="TOKEN_NAME|ADMIN_TOKEN" }
 influxdb3 create token --admin --token ADMIN_TOKEN --name "TOKEN_NAME"
 ```
-{{% /code-placeholders %}}
 
 Replace the following with your values:
 
@@ -89,8 +87,8 @@ Use the following endpoint to create a named admin token:
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/authentication/#operation/PostCreateAdminToken" %}}
 
 ```bash
-curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
-  --header 'Authorization Bearer ADMIN_TOKEN' \
+curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/token/admin" \
+  --header 'Authorization: Bearer ADMIN_TOKEN' \
   --json '{
             "name": "TOKEN_NAME"
           }'

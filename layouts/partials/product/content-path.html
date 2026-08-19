@@ -1,0 +1,39 @@
+{{- /*
+  Resolve a product's content path (the URL root for its pages) from
+  data/products.yml, using the product and version set via cascade in each
+  product section's _index.md.
+
+  Handles both content_path shapes:
+    - map keyed by version    (influxdb: {v2: influxdb/v2, v1: influxdb/v1})
+    - string                  (telegraf: telegraf)
+  For the string shape, the version is appended when the product declares
+  versions and the path does not already end with the version.
+
+  Usage:
+    {{- $contentPath := partial "product/content-path.html" . -}}
+    {{- /* -> "influxdb/v1" or "enterprise_influxdb/v1" or "telegraf/v1" */ -}}
+
+  Context: Pass the page context (.), which provides .Page and .Site.
+*/ -}}
+{{- $product := .Page.Params.product -}}
+{{- $version := .Page.Params.version -}}
+{{- $contentPath := "" -}}
+{{- with $product -}}
+  {{- $productData := index $.Page.Site.Data.products . -}}
+  {{- if not $productData -}}
+    {{- errorf "No product data found for key '%s' on page: %s. Check data/products.yml." . $.Page.RelPermalink -}}
+  {{- end -}}
+  {{- $cp := $productData.content_path -}}
+  {{- if reflect.IsMap $cp -}}
+    {{- $contentPath = index $cp $version -}}
+    {{- if not $contentPath -}}
+      {{- errorf "No content_path for version '%s' of product '%s' on page: %s. Check data/products.yml." $version . $.Page.RelPermalink -}}
+    {{- end -}}
+  {{- else if $cp -}}
+    {{- $contentPath = $cp -}}
+    {{- if and $version $productData.versions (not (strings.HasSuffix $cp (print "/" $version))) -}}
+      {{- $contentPath = print $cp "/" $version -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $contentPath -}}

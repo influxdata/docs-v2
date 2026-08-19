@@ -15,6 +15,7 @@ related:
   - /influxdb3/core/api/database/#operation/PostConfigureDatabase, Create database API
   - /influxdb3/core/reference/glossary/#retention-period
 source: /shared/influxdb3-internals/data-retention.md
+canonical: self
 ---
 
 <!--

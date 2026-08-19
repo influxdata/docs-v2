@@ -49,6 +49,10 @@ interface Operation {
   externalDocs?: ExternalDocs;
   /** Compatibility version for migration context (v1 or v2) */
   'x-compatibility-version'?: string;
+  /** Non-standard lifecycle state not covered by `deprecated` (e.g. not-operational) */
+  'x-lifecycle'?: string;
+  /** Standard OpenAPI deprecation flag */
+  deprecated?: boolean;
   /** Related documentation links as plain URLs */
   'x-influxdatadocs-related'?: string[];
   /** Related documentation links with title and href */
@@ -246,6 +250,10 @@ interface OperationMeta {
   tags: string[];
   /** Compatibility version (v1 or v2) for migration context */
   compatVersion?: string;
+  /** Non-standard lifecycle state not covered by `deprecated` (e.g. not-operational) */
+  lifecycle?: string;
+  /** Standard OpenAPI deprecation flag */
+  deprecated?: boolean;
   /** External documentation link */
   externalDocs?: {
     description: string;
@@ -431,6 +439,16 @@ function extractOperationsByTag(
         // Extract compatibility version if present
         if (operation['x-compatibility-version']) {
           opMeta.compatVersion = operation['x-compatibility-version'];
+        }
+
+        // Extract non-standard lifecycle state if present
+        if (operation['x-lifecycle']) {
+          opMeta.lifecycle = operation['x-lifecycle'];
+        }
+
+        // Extract standard deprecated flag if present
+        if (operation.deprecated) {
+          opMeta.deprecated = true;
         }
 
         // Extract externalDocs if present
@@ -1070,6 +1088,8 @@ function createArticleDataForTag(
         summary: op.summary,
         tags: op.tags,
         ...(op.compatVersion && { compatVersion: op.compatVersion }),
+        ...(op.lifecycle && { lifecycle: op.lifecycle }),
+        ...(op.deprecated && { deprecated: op.deprecated }),
         ...(op.externalDocs && { externalDocs: op.externalDocs }),
       })),
     },
@@ -1214,6 +1234,16 @@ function writeOpenapiTagArticleData(
               // Extract compatibility version if present
               if (operation['x-compatibility-version']) {
                 opMeta.compatVersion = operation['x-compatibility-version'];
+              }
+
+              // Extract non-standard lifecycle state if present
+              if (operation['x-lifecycle']) {
+                opMeta.lifecycle = operation['x-lifecycle'];
+              }
+
+              // Extract standard deprecated flag if present
+              if (operation.deprecated) {
+                opMeta.deprecated = true;
               }
 
               // Extract externalDocs if present

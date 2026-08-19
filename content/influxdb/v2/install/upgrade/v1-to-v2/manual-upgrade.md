@@ -61,7 +61,7 @@ If you're using custom configuration settings in your InfluxDB 1.x instance, do 
 | cache-snapshot-write-cold-duration | [storage-cache-snapshot-write-cold-duration](/influxdb/v2/reference/config-options/#storage-cache-snapshot-write-cold-duration) |
 | compact-full-write-cold-duration   | [storage-compact-full-write-cold-duration](/influxdb/v2/reference/config-options/#storage-compact-full-write-cold-duration)     |
 | max-concurrent-compactions         | [storage-max-concurrent-compactions](/influxdb/v2/reference/config-options/#storage-max-concurrent-compactions)                 |
-| compact-throughput                 |                                                                                                                                   |
+| compact-throughput                 | (not exposed as a separate option; see `storage-compact-throughput` notes)                                                        |
 | compact-throughput-burst           | [storage-compact-throughput-burst](/influxdb/v2/reference/config-options/#storage-compact-throughput-burst)                     |
 | tsm-use-madv-willneed              | [storage-tsm-use-madv-willneed](/influxdb/v2/reference/config-options/#storage-tsm-use-madv-willneed)                           |
 | max-series-per-database            |                                                                                                                                   |

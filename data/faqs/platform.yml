@@ -1,0 +1,71 @@
+# FAQ data for /platform/faq/. Rendered as visible Q&As by the `faq`
+# shortcode and emitted as schema.org FAQPage JSON-LD by
+# layouts/partials/header/faq-jsonld.html (page sets faq_data: platform and
+# faq_canonical: true). Answers are front-loaded: lead with the direct answer,
+# then add detail.
+
+- question: "What is time series data?"
+  answer: |
+    Time series data is a sequence of data points, each associated with a
+    timestamp, that measure how something changes over time. Common examples
+    include server and application metrics, network telemetry, financial
+    prices, and sensor readings such as temperature, pressure, and voltage.
+    Time series workloads are write-heavy, append-mostly, and queried by time
+    range.
+
+- question: "What is InfluxDB used for?"
+  answer: |
+    InfluxDB is a purpose-built time series database for storing and querying
+    large volumes of timestamped data in real time. Common use cases include
+    infrastructure and application monitoring, network monitoring, IoT and
+    industrial sensor data, energy and battery (BESS) systems, and financial
+    market analytics. It is optimized for high-ingest workloads and fast
+    queries that power dashboards, alerting, and automation.
+
+- question: "What industries use InfluxDB?"
+  answer: |
+    InfluxDB is used across industrial IoT (IIoT) and manufacturing, energy
+    and battery energy storage systems (BESS), software observability and
+    DevOps monitoring, telecommunications and network operations, financial
+    services, and aerospace. These domains share a common need: ingest
+    high-frequency measurements from many sources and query them by time for
+    monitoring, analytics, and control.
+
+- question: "When should I use a time series database?"
+  answer: |
+    Use a time series database when your primary access pattern is "what
+    happened over this time range" and you ingest a continuous stream of
+    timestamped measurements. It is the right choice for metrics, events,
+    sensor data, and telemetry, where write throughput is high and queries
+    aggregate or downsample data by time. A general-purpose relational
+    database is a better fit for transactional, relationship-heavy data that
+    isn't primarily organized by time.
+
+- question: "What's the difference between a time series database and a relational database?"
+  answer: |
+    A time series database is optimized for timestamped data: it ingests
+    millions of points per second, indexes by time, and runs time-windowed
+    aggregations efficiently. A relational database is optimized for
+    transactional integrity and relationships across normalized tables. You
+    can store time series in a relational database, but a single time-range
+    query can scan millions of rows. InfluxDB stores and queries data by time
+    out of the box, optionally downsamples data after a set age, and uses a
+    query engine tuned for time-based access.
+
+- question: "Is InfluxDB open source?"
+  answer: |
+    Yes. InfluxDB 3 Core is open source under the permissive MIT or Apache 2.0
+    license and is free to download and run with no license key. InfluxDB 3
+    Enterprise is a commercial product built on the same engine; it offers a
+    30-day free trial and a free at-home license for non-commercial use.
+    The earlier InfluxDB 1 and InfluxDB 2 open source releases remain
+    available under open source licenses. For new projects, use InfluxDB 3.
+
+- question: "Which version of InfluxDB should I use?"
+  answer: |
+    For new projects, use InfluxDB 3. For new production workloads, use
+    InfluxDB 3 Enterprise; use InfluxDB 3 Core for free, open source,
+    single-node deployments. See
+    [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a full
+    decision guide across InfluxDB 3 products and for migrating from
+    InfluxDB 1 or InfluxDB 2.

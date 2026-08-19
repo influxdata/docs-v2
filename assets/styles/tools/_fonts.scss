@@ -17,21 +17,25 @@ body {
   font-family: "Proxima Nova";
   src: url("fonts/proxima-nova.otf") format("opentype");
   font-weight: 300;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Proxima Nova';
   src: url('fonts/proxima-nova-medium.otf') format('opentype');
   font-weight: 400;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Proxima Nova';
   src: url('fonts/proxima-nova-semibold.otf') format('opentype');
   font-weight: 500 600;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Proxima Nova';
   src: url('fonts/proxima-nova-bold.otf') format('opentype');
   font-weight: 700;
+  font-display: swap;
 }
 
 @import "tools/icon-fonts/icomoon-v2";

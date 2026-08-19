@@ -27,6 +27,8 @@ menu:
   influxdb_2_0:
     name: # Article name that only appears in the left nav
     parent: # Specifies a parent group and nests navigation items
+    params: # Optional Hugo menu parameters
+      state: # Status badge on the nav item ("alpha", "beta", or "new"; case-insensitive)
 weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
 product/v2.x/tags: # Tags specific to each version (replace product and .x" with the appropriate product and minor version )
@@ -44,12 +46,8 @@ v2: # Path to v2 equivalent page
 alt_links: # Alternate pages in other products/versions for cross-product navigation
   cloud-dedicated: /influxdb3/cloud-dedicated/path/to/page/
   core: /influxdb3/core/path/to/page/
-prepend: # Prepend markdown content to an article (especially powerful with cascade)
-  block: # (Optional) Wrap content in a block style (note, warn, cloud)
-  content: # Content to prepend to article
-append: # Append markdown content to an article (especially powerful with cascade)
-  block: # (Optional) Wrap content in a block style (note, warn, cloud)
-  content: # Content to append to article
+prepend: # Markdown content to prepend to an article (especially powerful with cascade)
+append: # Markdown content to append to an article (especially powerful with cascade)
 metadata: [] # List of metadata messages to include under the page h1
 updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 source: # Specify a file to pull page content from (typically in /content/shared/)
@@ -79,6 +77,35 @@ by the [`{{< children >}}` shortcode](#generate-a-list-of-children-articles).
 The `name` attribute under the `menu` frontmatter determines the text used in each page's link in the site navigation.
 It should be short and assume the context of its parent if it has one.
 
+#### `menu > params > state`
+
+The `state` parameter under `menu > params` adds a status badge next to the nav item in the left sidebar.
+Use this to mark a page (and its sidebar entry) as `alpha`, `beta`, or `new`.
+Values are case-insensitive. `Beta`, `BETA`, and `beta` all render the same badge.
+
+```yaml
+menu:
+  telegraf_controller:
+    name: Telegraf Builder
+    parent: Configuration UI tools
+    params:
+      state: beta
+```
+
+**Supported values and styling:**
+
+| Value   | Badge style                                                  |
+| :------ | :----------------------------------------------------------- |
+| `alpha` | Outlined pill, uppercase, muted text.                        |
+| `beta`  | Outlined pill, uppercase, muted text.                        |
+| `new`   | Filled pill with gradient background, uppercase, white text. |
+
+Any other string also renders as a badge, but with the default unstyled fallback (small italic text in the sidebar's muted color).
+
+> \[!Note]
+> Use `menu > params > state` for status annotations on sidebar entries instead of appending text like `(beta)` to `menu > name`.
+> The `state` parameter is rendered with dedicated sidebar styling that matches the rest of the site.
+
 ### Page Weights
 
 To ensure pages are sorted both by weight and their depth in the directory
@@ -87,7 +114,16 @@ All top level pages are weighted 1-99.
 The next level is 101-199.
 Then 201-299 and so on.
 
-_**Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory._
+***Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory.*
+
+Set `weight` at the page level (top-level frontmatter), not on the menu
+entry.
+Menu items inherit the page weight, and page-level weight also controls
+sorting outside menu contexts, such as `{{< children >}}` listings.
+Hugo sorts unweighted pages after weighted ones, so mixing menu-level and
+page-level weights within a section breaks list ordering.
+(Menu-level weight is still appropriate when a page appears in multiple
+menus at different positions.)
 
 ### Related Content
 
@@ -118,7 +154,7 @@ documentation using the latest version of the current product and the current pa
 
 Use the `canonical` frontmatter to override the auto-generated canonical URL.
 
-_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
+***Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links).*
 
 ```yaml
 canonical: /path/to/canonical/doc/
@@ -127,6 +163,23 @@ canonical: /path/to/canonical/doc/
 
 canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
 ```
+
+#### Force self-canonical with `canonical: self`
+
+When a page uses `source:` to share content with a higher-priority sibling
+product (for example, a Core page sharing content with Enterprise), the
+canonical partial routes the canonical to the sibling product by default.
+Use the literal value `self` to keep the page's own permalink as the
+canonical — appropriate for product-narrative pages (landings, install,
+quickstart) whose URL marks the product identity even when the body is
+shared.
+
+```yaml
+canonical: self
+```
+
+***Note:** The value is case-sensitive. `Self` or `SELF` is interpreted as
+a URL path and produces a broken canonical.*
 
 ### v2 Equivalent Documentation
 
@@ -137,7 +190,7 @@ add the following frontmatter to the 1.x page:
 v2: /influxdb/v2.0/get-started/
 ```
 
-### Alternative Links (alt_links)
+### Alternative Links (alt\_links)
 
 Use the `alt_links` frontmatter to specify equivalent pages in other InfluxDB products,
 for example, when a page exists at a different path in a different version or if
@@ -154,6 +207,7 @@ alt_links:
 ```
 
 Supported product keys for InfluxDB 3:
+
 - `core`
 - `enterprise`
 - `cloud-serverless`
@@ -163,13 +217,29 @@ Supported product keys for InfluxDB 3:
 ### Prepend and Append
 
 Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
-Each has the following fields:
+Assign a Markdown string to either field.
+The string is rendered as Markdown, so it can contain
+[callouts](DOCS-SHORTCODES.md#notes-and-warnings), headings, links, and other
+Markdown syntax.
 
 ```yaml
 append: |
   > [!Note]
   > #### This is example markdown content
   > This is just an example note block that gets appended to the article.
+```
+
+`prepend` also accepts a map with the following optional fields:
+
+- **title**: Heading text rendered as an `h2` above the prepended content
+- **content**: Markdown content to prepend to the article
+
+```yaml
+prepend:
+  title: Deprecation notice
+  content: |
+    > [!Warning]
+    > This feature is deprecated and will be removed in a future release.
 ```
 
 Use this frontmatter with [cascade](#cascade) to add the same content to
@@ -182,6 +252,15 @@ cascade:
     > #### This is example markdown content
     > This is just an example note block that gets appended to the article.
 ```
+
+> \[!Note]
+>
+> #### Prepended and appended content appears in Markdown twins
+>
+> `prepend` and `append` content renders inside the page article element, so it
+> is included in the page's Markdown twin (`index.md`) and in per-product
+> `llms-full.txt` corpora.
+> See [LLM Markdown generation](DOCS-DEPLOYING.md#llm-markdown-generation).
 
 ### Cascade
 
@@ -219,12 +298,14 @@ For more information, see [show-in](DOCS-SHORTCODES.md#show-in) and [hide-in](DO
 When creating links in shared content files, you can use the `version` keyword, which gets replaced during the build process with the appropriate product version.
 
 **Use this in shared content:**
+
 ```markdown
 [Configuration options](/influxdb3/version/reference/config-options/)
 [CLI serve command](/influxdb3/version/reference/cli/influxdb3/serve/)
 ```
 
 **Not this:**
+
 ```markdown
 [Configuration options](/influxdb3/{{% product-key %}}/reference/config-options/)
 [CLI serve command](/influxdb3/{{% product-key %}}/reference/cli/influxdb3/serve/)

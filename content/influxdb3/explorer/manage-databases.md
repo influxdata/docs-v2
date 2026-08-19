@@ -17,7 +17,7 @@ or InfluxDB 3 Enterprise cluster.
 
 > [!Important]
 > Using {{% product-name %}} to manage a database in InfluxDB 3 requires that
-> Explorer is running in [admin mode](/influxdb3/explorer/install/#run-in-query-or-admin-mode)
+> Explorer is running in [admin mode](/influxdb3/explorer/install/#choose-operational-mode)
 > and that the token used in the InfluxDB 3 server configuration is an
 > [admin token](/influxdb3/enterprise/admin/tokens/admin/).
 

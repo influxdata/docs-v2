@@ -52,18 +52,16 @@ and authorize with your InfluxDB cluster.
 
 1.  Create a file named `config.toml` with the following contents:
 
-    {{< code-placeholders "INFLUXDB_(HOST|PORT)|DIRECTORY_PATH" >}}
-```toml
-[[profile]]
-  name = "default"
-  product = "clustered"
-  host = "{{< influxdb/host >}}"
-  port = "INFLUXDB_PORT"
+    ```toml { placeholders="INFLUXDB_(HOST|PORT)|DIRECTORY_PATH" }
+    [[profile]]
+      name = "default"
+      product = "clustered"
+      host = "{{< influxdb/host >}}"
+      port = "INFLUXDB_PORT"
 
-  [profile.auth.token]
-    token_file = "/DIRECTORY_PATH/token.json"
-```
-    {{< /code-placeholders >}}
+      [profile.auth.token]
+        token_file = "/DIRECTORY_PATH/token.json"
+    ```
 
     In the example above, replace the following:
 
@@ -105,11 +103,9 @@ to create a new database named `testdb`. Include the following:
 - _(Optional)_ The path to your connection profile configuration file.
 - The database name--`testdb`.
 
-{{% code-placeholders "CONFIG_PATH" %}}
-```sh
+```sh { placeholders="CONFIG_PATH" }
 influxctl --config /CONFIG_PATH/config.toml database create testdb
 ```
-{{% /code-placeholders %}}
 
 ## Write test data to the new database
 
@@ -123,8 +119,7 @@ write the following test data to your `testdb` database. Provide the following:
 
 {{% influxdb/custom-timestamps %}}
 
-{{% code-placeholders "CONFIG_PATH" %}}
-```bash
+```bash { placeholders="CONFIG_PATH" }
 influxctl --config /CONFIG_PATH/config.toml write \
   --database testdb \
   "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000000000000
@@ -133,7 +128,6 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600000000000
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600000000000
 "
 ```
-{{% /code-placeholders %}}
 
 {{% /influxdb/custom-timestamps %}}
 
@@ -146,13 +140,11 @@ query the test data from your `testdb` database. Provide the following:
 - The database name--`testdb`.
 - The SQL query to execute.
 
-{{% code-placeholders "CONFIG_PATH" %}}
-```bash
+```bash { placeholders="CONFIG_PATH" }
 influxctl --config /CONFIG_PATH/config.toml query \
   --database testdb \
   "SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
 
 
 This should return results similar to:

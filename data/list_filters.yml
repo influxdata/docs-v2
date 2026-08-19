@@ -5,6 +5,7 @@ telegraf:
       - Output
       - Aggregator
       - Processor
+      - Secretstore
   - category: Plugin category
     values:
       - Annotation

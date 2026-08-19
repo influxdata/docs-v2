@@ -63,8 +63,7 @@ Use management tokens to automate authorization for the
     [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
     by assigning the `mgmt_token` setting to the token string from the preceding step.
 
-{{% code-placeholders "(ACCOUNT|CLUSTER|MANAGEMENT)_(ID|TOKEN)" %}}
-```toml
+```toml { placeholders="(ACCOUNT|CLUSTER|MANAGEMENT)_(ID|TOKEN)" }
 [[profile]]
   name = "default"
   product = "dedicated"
@@ -72,7 +71,6 @@ Use management tokens to automate authorization for the
   cluster_id = "CLUSTER_ID"
   mgmt_token = "MANAGEMENT_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -131,13 +131,9 @@ the ID of a specific user. Provide the following:
 - **Query parameters**
   - **username**: Username to retrieve information about
 
-{{% code-placeholders "KEYCLOAK_(HOST|REALM|USERNAME)" %}}
-
-```sh
+```sh { placeholders="KEYCLOAK_(HOST|REALM|USERNAME)" }
 curl https://KEYCLOAK_HOST/auth/admin/realms/KEYCLOAK_REALM/users?username=KEYCLOAK_USERNAME
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -155,20 +151,14 @@ Replace the following:
 Run the following command to retrieve a JSON object that contains the OpenID configuration
 of your Keycloak realm:
 
-{{% code-placeholders "KEYCLOAK_(HOST|REALM)" %}}
-
-```sh
+```sh { placeholders="KEYCLOAK_(HOST|REALM)" }
 curl https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/.well-known/openid-configuration
 ```
-
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example response body" %}}
 
-{{% code-placeholders "KEYCLOAK_(HOST|REALM)" %}}
-
-```json
+```json { placeholders="KEYCLOAK_(HOST|REALM)" }
 {
   "issuer": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM",
   "authorization_endpoint": "https://KEYCLOAK_HOST/auth/realms/KEYCLOAK_REALM/protocol/openid-connect/auth",
@@ -184,8 +174,6 @@ curl https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/.well-known/openid-configuratio
   "response_modes_supported": ["query"]
 }
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -251,13 +239,9 @@ In the downloaded CSV file, user OIDs are provided in the `id` column.
 Use the following command to retrieve a JSON object that contains the OpenID configuration
 of your Microsoft Entra tenant:
 
-{{% code-placeholders "AZURE_TENANT_ID" %}}
-
-```sh
+```sh { placeholders="AZURE_TENANT_ID" }
 curl https://login.microsoftonline.com/AZURE_TENANT_ID/v2.0/.well-known/openid-configuration
 ```
-
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`AZURE_TENANT_ID`{{% /code-placeholder-key %}}
 with your [Microsoft Entra tenant ID](#create-a-new-tenant-in-microsoft-entra-id).
@@ -265,9 +249,7 @@ with your [Microsoft Entra tenant ID](#create-a-new-tenant-in-microsoft-entra-id
 {{< expand-wrapper >}}
 {{% expand "View example response body" %}}
 
-{{% code-placeholders "AZURE_TENANT_ID" %}}
-
-```js
+```js { placeholders="AZURE_TENANT_ID" }
 {
     "issuer": "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/",
     "authorization_endpoint": "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/authorize",
@@ -294,8 +276,6 @@ with your [Microsoft Entra tenant ID](#create-a-new-tenant-in-microsoft-entra-id
     ]
 }
 ```
-
-{{% /code-placeholders %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -651,9 +631,7 @@ The following examples show how to configure `influxctl` for various identity pr
 
 <!------------------------------- BEGIN Keycloak ------------------------------>
 
-{{% code-placeholders "KEYCLOAK_(CLIENT_ID|PORT|REALM)" %}}
-
-```toml
+```toml { placeholders="KEYCLOAK_(CLIENT_ID|PORT|REALM)" }
 [[profile]]
     name = "default"
     product = "clustered"
@@ -666,8 +644,6 @@ The following examples show how to configure `influxctl` for various identity pr
         token_url = "https://KEYCLOAK_HOST/realms/KEYCLOAK_REALM/protocol/openid-connect/token"
 ```
 
-{{% /code-placeholders %}}
-
 <!-------------------------------- END Keycloak ------------------------------->
 
 {{% /code-tab-content %}}
@@ -675,9 +651,7 @@ The following examples show how to configure `influxctl` for various identity pr
 
 <!-------------------------------- BEGIN Auth0 -------------------------------->
 
-{{% code-placeholders "AUTH0_(CLIENT_)*(ID|SECRET|HOST)" %}}
-
-```toml
+```toml { placeholders="AUTH0_(CLIENT_)*(ID|SECRET|HOST)" }
 [[profile]]
     name = "default"
     product = "clustered"
@@ -691,8 +665,6 @@ The following examples show how to configure `influxctl` for various identity pr
         token_url = "https://AUTH0_HOST/oauth/token"
 ```
 
-{{% /code-placeholders %}}
-
 <!--------------------------------- END Auth0 --------------------------------->
 
 {{% /code-tab-content %}}
@@ -700,9 +672,7 @@ The following examples show how to configure `influxctl` for various identity pr
 
 <!--------------------------- BEGIN Microsoft Entra --------------------------->
 
-{{% code-placeholders "AZURE_(CLIENT|TENANT)_ID" %}}
-
-```toml
+```toml { placeholders="AZURE_(CLIENT|TENANT)_ID" }
 [[profile]]
     name = "default"
     product = "clustered"
@@ -715,8 +685,6 @@ The following examples show how to configure `influxctl` for various identity pr
         device_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/devicecode"
         token_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/token"
 ```
-
-{{% /code-placeholders %}}
 
 <!---------------------------- END Microsoft Entra ---------------------------->
 

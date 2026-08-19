@@ -8,6 +8,7 @@ menu:
     name: influxdb3 update trigger
 weight: 401
 source: /shared/influxdb3-cli/update/trigger.md
+canonical: self
 ---
 
 <!--

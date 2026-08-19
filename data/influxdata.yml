@@ -1,0 +1,35 @@
+# InfluxData organization identity.
+#
+# Consumed by layouts/partials/header/organization-jsonld.html to emit
+# schema.org Organization JSON-LD site-wide (every page). Organization is a
+# single global entity with a stable @id, so consumers dedupe it across pages.
+#
+# `sameAs` is strict: every URL must identify the InfluxData *organization*
+# entity (the company), not a product. It carries company-controlled profiles
+# and third-party org records (Crunchbase). Only `sameAs` is emitted into the
+# Organization JSON-LD.
+#
+# `references` holds related links we keep for editorial/audit but must NOT
+# emit as org `sameAs` because they identify a product, not the company. The
+# InfluxDB Wikipedia article is a product page; it would be a correct `sameAs`
+# for a SoftwareApplication (product) node, not for the Organization.
+#
+# Review both lists during the Phase 3 quarterly freshness audit (#7234).
+organization:
+  name: InfluxData
+  url: https://www.influxdata.com
+  id: https://www.influxdata.com/#organization
+  logo: https://docs.influxdata.com/img/influx-logo-cubo-dark.png
+  sameAs:
+    - https://github.com/influxdata
+    - https://hub.docker.com/u/influxdata
+    - https://www.crunchbase.com/organization/influxdb
+    - https://www.linkedin.com/company/influxdb
+    - https://twitter.com/influxdb
+    - https://www.youtube.com/@InfluxData
+    - https://www.facebook.com/influxdb/
+  references:
+    - kind: wikipedia
+      entity: product
+      label: InfluxDB product article (Wikipedia)
+      url: https://en.wikipedia.org/wiki/InfluxDB

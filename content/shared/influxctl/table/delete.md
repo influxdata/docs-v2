@@ -28,11 +28,9 @@ _Also see [`influxctl` global flags](/influxdb3/version/reference/cli/influxctl/
 
 <!-- pytest.mark.skip -->
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
-```bash
+```bash { placeholders="(DATABASE|TABLE)_NAME" }
 influxctl table delete DATABASE_NAME TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -16,6 +16,18 @@
  * See `.context/Screenshot 2025-11-13 at 11.39.13 AM.png` for reference.
  */
 
+import { getProductKeyFromPath } from '../utils/product-mappings.js';
+
+declare global {
+  interface Window {
+    gtag?: (
+      _command: 'event' | 'config' | 'set',
+      _targetId: string,
+      _config?: Record<string, unknown>
+    ) => void;
+  }
+}
+
 interface FormatSelectorConfig {
   pageType: 'leaf' | 'branch'; // Leaf = single page, Branch = section with children
   markdownUrl: string;
@@ -80,6 +92,27 @@ export default function FormatSelector(options: ComponentOptions) {
   if (!button || !dropdownMenu) {
     console.error('Format selector: Missing required elements');
     return;
+  }
+
+  const INTENT_EVENT_MAP: Record<string, string> = {
+    'open-chatgpt': 'open_chatgpt',
+    'open-claude': 'open_claude',
+    'connect-mcp-docs': 'connect_mcp',
+  };
+
+  function emitFormatEvent(
+    action: string,
+    extras: Record<string, unknown> = {}
+  ): void {
+    if (typeof window.gtag === 'undefined') return;
+    const pagePath = window.location.pathname;
+    window.gtag('event', 'ai_format_action', {
+      action,
+      page_type: config.pageType,
+      page_path: pagePath,
+      product: getProductKeyFromPath(pagePath) ?? null,
+      ...extras,
+    });
   }
 
   /**
@@ -211,6 +244,7 @@ export default function FormatSelector(options: ComponentOptions) {
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
       showNotification('Failed to copy to clipboard', 'error');
+      throw error;
     }
   }
 
@@ -247,9 +281,11 @@ export default function FormatSelector(options: ComponentOptions) {
     try {
       const markdown = await fetchMarkdownContent();
       await copyToClipboard(markdown);
+      emitFormatEvent('copy_page_md');
       closeDropdown();
     } catch (error) {
       console.error('Failed to copy page:', error);
+      emitFormatEvent('copy_failed', { action_target: 'copy_page_md' });
     }
   }
 
@@ -270,10 +306,12 @@ export default function FormatSelector(options: ComponentOptions) {
 
       const markdown = await response.text();
       await copyToClipboard(markdown);
+      emitFormatEvent('copy_section_md');
       showNotification('Section copied to clipboard', 'success');
       closeDropdown();
     } catch (error) {
       console.error('Failed to copy section:', error);
+      emitFormatEvent('copy_failed', { action_target: 'copy_section_md' });
       showNotification('Failed to copy section', 'error');
     }
   }
@@ -499,6 +537,10 @@ export default function FormatSelector(options: ComponentOptions) {
       `;
 
       optionEl.addEventListener('click', (e) => {
+        const intentEvent = INTENT_EVENT_MAP[option.dataAttribute];
+        if (intentEvent) {
+          emitFormatEvent(intentEvent);
+        }
         if (!option.href) {
           e.preventDefault();
           option.action();

@@ -62,9 +62,7 @@ databases and tokens.
 
 1.  **Copy and paste the sample configuration profile code** into your `config.toml`:
 
-{{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL|OAUTH_CLIENT_ID" %}}
-
-```toml
+```toml { placeholders="PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL|OAUTH_CLIENT_ID" }
 [[profile]]
   name = "default"
   product = "clustered"
@@ -77,8 +75,6 @@ databases and tokens.
   token_url = "OAUTH_TOKEN_URL"
   device_url = "OAUTH_DEVICE_URL"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following with your {{< product-name >}} credentials:
 
@@ -118,13 +114,9 @@ Provide the following:
 <!--Skip tests for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "get-started|1y" %}}
-
-```sh
+```sh { placeholders="get-started|1y" }
 influxctl database create --retention-period 1y get-started
 ```
-
-{{% /code-placeholders %}}
 
 ## Create a database token
 
@@ -142,16 +134,12 @@ Provide the following:
 <!--Skip database create and delete tests: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
 
-{{% code-placeholders "get-started" %}}
-
-```sh
+```sh { placeholders="get-started" }
 influxctl token create \
   --read-database get-started \
   --write-database get-started \
   "Read/write token for get-started database"
 ```
-
-{{% /code-placeholders %}}
 
 <!--actual test
 
@@ -202,13 +190,9 @@ Code samples in later sections assume you assigned the token string to an
 <!-- Using tabs-wrapper b/c code-tabs-wrapper breaks here. -->
 <!-- BEGIN MACOS/LINUX -->
 
-{{% code-placeholders "DATABASE_TOKEN" %}}
-
-```sh
+```sh { placeholders="DATABASE_TOKEN" }
 export INFLUX_TOKEN=DATABASE_TOKEN
 ```
-
-{{% /code-placeholders %}}
 
 <!-- END MACOS/LINUX -->
 
@@ -217,13 +201,9 @@ export INFLUX_TOKEN=DATABASE_TOKEN
 
 <!-- BEGIN POWERSHELL -->
 
-{{% code-placeholders "DATABASE_TOKEN" %}}
-
-```powershell
+```powershell { placeholders="DATABASE_TOKEN" }
 $env:INFLUX_TOKEN = "DATABASE_TOKEN"
 ```
-
-{{% /code-placeholders %}}
 
 <!-- END POWERSHELL -->
 
@@ -232,14 +212,10 @@ $env:INFLUX_TOKEN = "DATABASE_TOKEN"
 
 <!-- BEGIN CMD -->
 
-{{% code-placeholders "DATABASE_TOKEN" %}}
-
-```sh
+```sh { placeholders="DATABASE_TOKEN" }
 set INFLUX_TOKEN=DATABASE_TOKEN 
 # Make sure to include a space character at the end of this command.
 ```
-
-{{% /code-placeholders %}}
 
 <!-- END CMD -->
 

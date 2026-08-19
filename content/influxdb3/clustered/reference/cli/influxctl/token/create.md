@@ -91,17 +91,14 @@ In the examples below, replace the following:
 
 ### Create a token with read and write access to a database
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
   "Read/write token for DATABASE_NAME"
 ```
-{{% /code-placeholders %}}
 
 ### Create a token with read and write access to all databases
 
@@ -116,49 +113,38 @@ influxctl token create \
 
 ### Create a token with read-only access to a database
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   "Read-only token for DATABASE_NAME"
 ```
-{{% /code-placeholders %}}
 
 ### Create a token with read-only access to multiple databases
 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME|DATABASE2_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
   "Read-only token for DATABASE_NAME and DATABASE2_NAME"
 ```
-{{% /code-placeholders %}}
 
 ### Create a token with mixed permissions to multiple databases
 
-{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
-
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME|DATABASE2_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --read-database DATABASE2_NAME \
   --write-database DATABASE2_NAME \
   "Read-only on DATABASE_NAME, read/write on DATABASE2_NAME"
 ```
-{{% /code-placeholders %}}
 
 ### Create a token that expires in seven days
-
-{{% code-placeholders "DATABASE_NAME" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -169,7 +155,7 @@ influxctl token create \
 
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -182,7 +168,7 @@ influxctl token create \
 
 <!-- pytest.mark.skip -->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl token create \
   --read-database DATABASE_NAME \
   --write-database DATABASE_NAME \
@@ -192,5 +178,3 @@ influxctl token create \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}

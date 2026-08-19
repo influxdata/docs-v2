@@ -71,16 +71,12 @@ In the examples below, replace the following:
 The following example assumes the Telegraf configuration file that contains the
 secret store definition is at the [default location](/telegraf/v1/configuration/#configuration-file-locations).
 
-{{% code-placeholders "SECRET_(STORE_ID|KEY)" %}}
-```sh
+```sh { placeholders="SECRET_(STORE_ID|KEY)" }
 telegraf secrets get SECRET_STORE_ID SECRET_KEY
 ```
-{{% /code-placeholders %}}
 
 ### Retrieve a secret using a non-default configuration location
 
-{{% code-placeholders "CUSTOM_CONFIG_PATH|SECRET_(STORE_ID|KEY)" %}}
-```sh
+```sh { placeholders="CUSTOM_CONFIG_PATH|SECRET_(STORE_ID|KEY)" }
 telegraf --config CUSTOM_CONFIG_PATH secrets get SECRET_STORE_ID SECRET_KEY
 ```
-{{% /code-placeholders %}}

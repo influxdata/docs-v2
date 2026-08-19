@@ -46,6 +46,8 @@ test-results.xml
 tmp
 .tmp
 .test-cache
+.cache/
+/.cache
 
 # IDE files
 .vscode/*
@@ -68,13 +70,6 @@ tmp
 # External repos
 .ext/*
 
-# Lambda deployment artifacts
-deploy/llm-markdown/lambda-edge/markdown-generator/*.zip
-deploy/llm-markdown/lambda-edge/markdown-generator/package-lock.json
-deploy/llm-markdown/lambda-edge/markdown-generator/.package-tmp/
-deploy/llm-markdown/lambda-edge/markdown-generator/yarn.lock
-deploy/llm-markdown/lambda-edge/markdown-generator/config.json
-
 # JavaScript/TypeScript build artifacts
 *.tsbuildinfo
 *.d.ts
@@ -82,3 +77,9 @@ deploy/llm-markdown/lambda-edge/markdown-generator/config.json
 *.js.map
 .eslintcache
 .worktrees/
+
+# Planning docs (kept locally, not tracked)
+docs/plans/
+
+# Migration parity baseline snapshot (Task 1) — local only
+.parity-baseline/

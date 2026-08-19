@@ -21,6 +21,10 @@ influxdb3 delete <SUBCOMMAND>
 | [table](/influxdb3/version/reference/cli/influxdb3/delete/table/)                   | Delete a table from a database                 |
 | [token](/influxdb3/version/reference/cli/influxdb3/delete/token/)                   | Delete an authorization token from the server  |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/delete/trigger/)               | Delete a trigger for the processing engine     |
+<!-- query_group is not yet operational in v3.11 (page in draft); restore this row when it ships
+| [query_group](/influxdb3/version/reference/cli/influxdb3/delete/query_group/)       | Delete a distributed query group                |
+-->
+| query_group                                                                         | Delete a distributed query group (not yet operational) |
 | help                                                                                | Print command help or the help of a subcommand |
 {{% /show-in %}}
 

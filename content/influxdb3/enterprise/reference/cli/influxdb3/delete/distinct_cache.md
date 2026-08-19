@@ -8,6 +8,7 @@ menu:
     name: influxdb3 delete distinct_cache
 weight: 400
 source: /shared/influxdb3-cli/delete/distinct_cache.md
+canonical: self
 ---
 
 <!--

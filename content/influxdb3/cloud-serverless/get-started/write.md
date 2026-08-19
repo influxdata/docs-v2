@@ -432,9 +432,7 @@ Given that `API_TOKEN` is an
 InfluxDB creates a bucket named `get-started/autogen` and an
 `autogen` DBRP mapping, and then writes the data to the bucket.
 
-{{% code-placeholders "API_TOKEN " %}}
-
-```sh
+```sh { placeholders="API_TOKEN " }
 response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Token API_TOKEN" \
@@ -481,8 +479,6 @@ if [[ $errormsg ]]; then
   echo "$response"
 fi
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -534,9 +530,7 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB:
 
-{{% code-placeholders "API_TOKEN" %}}
-
-```sh
+```sh { placeholders="API_TOKEN" }
 response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Token DATABASE_TOKEN" \
@@ -583,8 +577,6 @@ if [[ $errormsg ]]; then
   echo "$errormsg"
 fi
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

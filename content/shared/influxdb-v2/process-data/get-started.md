@@ -47,13 +47,12 @@ Use the InfluxDB Cloud API to create tasks that reference and run [invokable scr
 When you create or update the task, pass task options as properties in the request body--for example:
 
 ```json
-  {
-   "name": "30-day-avg-temp",
-   "description": "IoT Center 30d environment average.",
-   "every": "1d",
-   "offset": "0m"
-   ...
-  }
+{
+  "name": "30-day-avg-temp",
+  "description": "IoT Center 30d environment average.",
+  "every": "1d",
+  "offset": "0m"
+}
 ```
 
 To learn more about creating tasks that run invokable scripts, see how to [create a task that references a script](/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script).
@@ -145,7 +144,7 @@ You can use tasks to schedule script runs with options and parameters.
 
 The following sample `POST /api/v2/scripts` request body defines a new invokable script with the Flux from the previous example:
 
-```json
+```text
 {
    "name": "aggregate-intervals",
    "description": "Group points into 5 minute windows and calculate the average of each
@@ -220,22 +219,30 @@ from(bucket: "example-bucket")
 
 ## Full example task with invokable script
 
-The following sample code shows a `POST /api/v2/scripts` request body that
-combines the components described in this guide:
+The following sample code combines the components described in this guide
+into a `POST /api/v2/scripts` request body.
+
+The Flux for the `script` field:
+
+```js
+from(bucket: "example-bucket")
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")
+    // Data processing
+    |> aggregateWindow(every: 5m, fn: mean)
+    // Data destination
+    |> to(bucket: "example-downsampled")
+```
+
+The full request body, with the script encoded as a JSON string
+(inner quotes escaped as `\"`, line breaks as `\n`):
 
 ```json
 {
-   "name": "aggregate-intervals-and-export",
-   "description": "Group points into 5 minute windows and calculate the average of each
-   window.",
-   "script": "from(bucket: "example-bucket")\
-                |> range(start: -task.every)\
-                |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")\
-                // Data processing\
-                |> aggregateWindow(every: 5m, fn: mean)\
-                // Data destination\
-                |> to(bucket: "example-downsampled")",
-    "language": "flux"
+  "name": "aggregate-intervals-and-export",
+  "description": "Group points into 5 minute windows and calculate the average of each window.",
+  "script": "from(bucket: \"example-bucket\")\n  |> range(start: -task.every)\n  |> filter(fn: (r) => r._measurement == \"mem\" and r.host == \"myHost\")\n  // Data processing\n  |> aggregateWindow(every: 5m, fn: mean)\n  // Data destination\n  |> to(bucket: \"example-downsampled\")",
+  "language": "flux"
 }
 ```
 

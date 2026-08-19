@@ -9,6 +9,7 @@ menu:
     name: influxdb3 show plugins
 weight: 350
 source: /shared/influxdb3-cli/show/plugins.md
+canonical: self
 ---
 
 <!--

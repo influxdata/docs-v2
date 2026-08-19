@@ -85,9 +85,8 @@ Provide the following:
 {{% tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "(DATABASE|AUTH)_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" %}}
 
-```sh
+```sh { placeholders="(DATABASE|AUTH)_(NAME|TOKEN)|(LINE_PROTOCOL_FILEPATH)" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -105,17 +104,14 @@ home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
 home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
 ```
 
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-
 1.  In your terminal, enter the following command to create the sample data file:
 
-    ```sh
+    ```sh { placeholders="AUTH_TOKEN|DATABASE_NAME" }
     echo 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
     home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
     home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
@@ -134,23 +130,19 @@ home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
 
 2.  Enter the following CLI command to write the data from the sample file:
 
-    ```sh
+    ```sh { placeholders="AUTH_TOKEN|DATABASE_NAME" }
     influxdb3 write \
       --database DATABASE_NAME \
       --token AUTH_TOKEN \
       --file ./home.lp
     ```
 
-{{% /code-placeholders %}}
-
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-
 1.  In your terminal, enter the following command to create the sample data file:
 
-    ```sh
+    ```sh { placeholders="AUTH_TOKEN|DATABASE_NAME" }
     echo 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
     home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
     home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
@@ -169,13 +161,11 @@ home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000'
 
 2.  Enter the following CLI command to write the data from the sample file:
 
-    ```sh
+    ```sh { placeholders="AUTH_TOKEN|DATABASE_NAME" }
     cat ./home.lp | influxdb3 write \
       --database DATABASE_NAME \
       --token AUTH_TOKEN
     ```
-
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

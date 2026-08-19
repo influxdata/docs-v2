@@ -458,9 +458,32 @@ Related entries:
 [output plugin](#output-plugin),
 [processor plugin](#processor-plugin)
 
+{{% show-in "core,enterprise,cloud" %}}
+### influxdb3 CLI
+
+The command line interface for InfluxDB 3.
+Use the `influxdb3` CLI to administer your instance--for example, to create and
+manage databases, tables, and tokens--and to write and query data.
+{{% /show-in %}}
+{{% show-in "cloud" %}}
+The `influxdb3` CLI is distributed in the InfluxDB 3 Enterprise binary
+(the _Enterprise CLI_).
+To use it with {{% product-name %}},
+[install the CLI](/influxdb3/cloud/install/) and connect it to your
+[instance](#instance)--you don't run a server.
+{{% /show-in %}}
+
 ### instance
 
+{{% show-in "cloud" %}}
+Your provisioned, fully managed {{% product-name %}} service—the endpoint
+that your host URL points to and that the `influxdb3` CLI and client
+libraries connect to. InfluxData operates the underlying servers; you
+interact with your instance, not with individual nodes or servers.
+{{% /show-in %}}
+{{% hide-in "cloud" %}}
 An entity comprising data on a server (or virtual server in cloud computing).
+{{% /hide-in %}}
 
 ### integer
 
@@ -477,6 +500,14 @@ database optimized for time series data built in Rust on top of
 [Apache Arrow](https://arrow.apache.org/) and
 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html).
 IOx replaces the [TSM (Time Structured Merge tree)](#tsm-time-structured-merge-tree) storage engine.
+
+{{% show-in "core,enterprise" %}}
+Related entries:
+[WAL tail](#wal-tail)
+
+For {{% product-name %}}-specific detail, see
+[Storage engine](/influxdb3/version/reference/internals/storage-engine/).
+{{% /show-in %}}
 
 ## J
 
@@ -754,6 +785,21 @@ A request for information.
 An InfluxDB query returns time series data.
 
 See [Query data in InfluxDB](/influxdb3/version/query-data/).
+
+{{% show-in "enterprise" %}}
+### query group
+
+An operator-defined, ordered list of query nodes in an InfluxDB 3 Enterprise
+cluster.
+Each query group has a name and a replication factor.
+Query groups are intended to define how query nodes participate in
+distributed query processing, but aren't yet operational as of v3.11--the
+CLI commands store query group definitions in the catalog, but the server
+doesn't use them to affect query routing, data placement, or replication.
+
+The order of query nodes in a group is significant.
+When you create or update a group, provide node IDs in the intended order.
+{{% /show-in %}}
 
 ### query plan
 
@@ -1234,6 +1280,15 @@ the storage engine.
 Points in the WAL are queryable and persist through a system reboot.
 On process start, all points in the WAL must be flushed before the system
 accepts new writes.
+
+{{% show-in "core,enterprise" %}}
+### WAL tail
+
+The most recent points in the [WAL](#wal-write-ahead-log) that have not yet
+been durably persisted beyond the WAL.
+For details, see
+[Data durability](/influxdb3/version/reference/internals/durability/#wal-tail).
+{{% /show-in %}}
 
 ### windowing
 

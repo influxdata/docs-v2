@@ -60,8 +60,6 @@ In the examples below, replace
 {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
 with the name of the database to query.
 
-{{% code-placeholders "DATABASE_NAME" %}}
-
 ### Query data using SQL
 
 {{< code-tabs-wrapper >}}
@@ -73,31 +71,34 @@ with the name of the database to query.
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --file ./query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 cat ./query.sql | influxdb3 query \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -112,34 +113,37 @@ cat ./query.sql | influxdb3 query \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --language influxql \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --language influxql \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --file ./query.influxql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 cat ./query.influxql | influxdb3 query \
   --language influxql \
   --database DATABASE_NAME \
   --token AUTH_TOKEN
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -154,34 +158,37 @@ cat ./query.influxql | influxdb3 query \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --format json \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --format json \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --file ./query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 cat ./query.sql | influxdb3 query \
   --format json \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -196,35 +203,36 @@ cat ./query.sql | influxdb3 query \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --output /path/to/results.txt \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   'SELECT * FROM home'
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxdb3 query \
   --output /path/to/results.txt \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --file ./query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME" }
 cat ./query.sql | influxdb3 query \
   --output /path/to/results.txt \
   --database DATABASE_NAME \
   --token AUTH_TOKEN
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}

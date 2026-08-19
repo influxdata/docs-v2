@@ -31,7 +31,7 @@ describe('Markdown Content Validation', () => {
 
     // Generate markdown for get-started section
     cy.exec(
-      'node scripts/html-to-markdown.js --path influxdb3/core/get-started',
+      'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/get-started',
       {
         failOnNonZeroExit: false,
         timeout: 60000,
@@ -47,7 +47,7 @@ describe('Markdown Content Validation', () => {
 
     // Generate markdown for enterprise index page
     cy.exec(
-      'node scripts/html-to-markdown.js --path influxdb3/enterprise --limit 1',
+      'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/enterprise --limit 1',
       {
         failOnNonZeroExit: false,
         timeout: 60000,
@@ -118,7 +118,7 @@ describe('Markdown Content Validation', () => {
         const frontmatter = frontmatterMatch[1];
 
         expect(frontmatter).to.include('product:');
-        expect(frontmatter).to.include('product_version:');
+        expect(frontmatter).to.include('version:');
       });
     });
 
@@ -236,8 +236,10 @@ describe('Markdown Content Validation', () => {
 
     it('should have proper markdown headings', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        // Should contain markdown headings (# or ##)
-        expect(response.body).to.match(/^# /m);
+        // The body h1 (page title) is intentionally omitted (title is in
+        // frontmatter; matches the API-reference twins), so assert section
+        // headings (h2-h6) instead.
+        expect(response.body).to.match(/^#{2,6} /m);
       });
     });
 
@@ -299,7 +301,7 @@ describe('Markdown Content Validation', () => {
     before(() => {
       // Generate markdown for pages with tabs
       cy.exec(
-        'node scripts/html-to-markdown.js --path influxdb3/enterprise/write-data/client-libraries --limit 1',
+        'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/enterprise/write-data/client-libraries --limit 1',
         {
           failOnNonZeroExit: false,
           timeout: 60000,
@@ -307,7 +309,7 @@ describe('Markdown Content Validation', () => {
       );
 
       cy.exec(
-        'node scripts/html-to-markdown.js --path influxdb3/core/query-data/execute-queries/influxdb3-cli --limit 1',
+        'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/core/query-data/execute-queries/influxdb3-cli --limit 1',
         {
           failOnNonZeroExit: false,
           timeout: 60000,
@@ -429,9 +431,7 @@ describe('Markdown Content Validation', () => {
         it('should have correct product metadata', () => {
           cy.request(`${product.url}index.md`).then((response) => {
             expect(response.body).to.include(`product: ${product.name}`);
-            expect(response.body).to.include(
-              `product_version: ${product.version}`
-            );
+            expect(response.body).to.include(`version: ${product.version}`);
           });
         });
 
@@ -490,7 +490,7 @@ describe('Markdown Content Validation', () => {
     before(() => {
       // Ensure markdown is generated for this specific page
       cy.exec(
-        'node scripts/html-to-markdown.js --path influxdb3/enterprise/get-started',
+        'node scripts/build-llm-markdown.js --public-dir public --path influxdb3/enterprise/get-started',
         {
           failOnNonZeroExit: false,
           timeout: 60000,

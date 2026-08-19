@@ -8,6 +8,7 @@ menu:
     name: influxdb3 delete database
 weight: 400
 source: /shared/influxdb3-cli/delete/database.md
+canonical: self
 ---
 
 <!--

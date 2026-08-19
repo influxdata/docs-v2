@@ -7,9 +7,9 @@ description: >
 menu:
   telegraf_v1_ref:
     name: Prometheus
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-prometheus
+weight: 10
 related:
   - /telegraf/v1/output-plugins/prometheus_client/
   - /telegraf/v1/data_formats/output/
@@ -39,6 +39,11 @@ input to properly round-trip metrics.
   # prometheus_sort_metrics = false
   # prometheus_string_as_label = false
   # prometheus_compact_encoding = false
+
+  ## Control how metric names and label names are sanitized.
+  ## "legacy" (default) keeps ASCII-only Prometheus name rules.
+  ## Set to "utf8" to allow UTF-8 metric and label names.
+  # prometheus_name_sanitization = "legacy"
 ```
 
 ### Serializer options
@@ -49,6 +54,7 @@ input to properly round-trip metrics.
 | `prometheus_sort_metrics` | boolean | `false` | Sort metric families and samples (useful for debugging) |
 | `prometheus_string_as_label` | boolean | `false` | Convert string fields to labels |
 | `prometheus_compact_encoding` | boolean | `false` | Omit HELP metadata to reduce payload size |
+| `prometheus_name_sanitization` | string | `"legacy"` | Name sanitization mode: `"legacy"` (ASCII-only Prometheus name rules) or `"utf8"` (allow UTF-8 metric and label names) |
 
 ### Metric type mappings
 

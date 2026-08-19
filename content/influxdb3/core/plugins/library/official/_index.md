@@ -8,6 +8,7 @@ menu:
 weight: 2
 influxdb3/core/tags: [plugins, processing engine, python, official]
 source: /shared/influxdb3-plugins/plugins-library/official/_index.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/_index.md -->

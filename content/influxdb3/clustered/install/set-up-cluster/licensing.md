@@ -61,8 +61,6 @@ and want to upgrade to a licensed release, do the following:
     > Upgrading past a checkpoint release without first upgrading to it may result in
     > corrupt or lost data.
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [AppInstance](#)
@@ -70,7 +68,7 @@ and want to upgrade to a licensed release, do the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```yml
+```yml { placeholders="PACKAGE_VERSION" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -83,7 +81,7 @@ spec:
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```yml
+```yml { placeholders="PACKAGE_VERSION" }
 # values.yaml
 
 image:
@@ -92,8 +90,6 @@ image:
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}} with
 the version number to upgrade to.

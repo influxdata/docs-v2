@@ -24,6 +24,11 @@ cascade:
 > To see which storage engine your organization is using,
 > find the **InfluxDB Cloud powered by** link in your
 > [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+
+> [!Tip]
+> Comparing InfluxDB 3 Cloud Serverless to other InfluxDB 3 products?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) —
+> Cloud Serverless has a different API surface than InfluxDB 3 Enterprise.
 > If your organization is using InfluxDB 3, you'll see
 > **InfluxDB Cloud Serverless** followed by the version number.
 

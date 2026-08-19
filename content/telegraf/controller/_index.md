@@ -7,6 +7,9 @@ description: >
 menu:
   telegraf_controller:
     name: Telegraf Controller
+  telegraf_enterprise:
+    name: Telegraf Controller
+    weight: 20
 weight: 1
 cascade:
   product: telegraf_controller

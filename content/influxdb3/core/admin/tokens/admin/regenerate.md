@@ -19,7 +19,7 @@ list_code_example: |
   #### HTTP API
   ```bash
   curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin/regenerate" \
-    --header 'Authorization Bearer OPERATOR_TOKEN' \
+    --header 'Authorization: Bearer OPERATOR_TOKEN' \
     --header 'Accept: application/json'
     --header 'Content-Type: application/json'
   ```

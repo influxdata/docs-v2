@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url={{ .Params.redirect_to }}">
+  <link rel="canonical" href="{{ .Params.redirect_to }}">
+  <title>Redirecting...</title>
+</head>
+<body>
+  <p>This page has moved. <a href="{{ .Params.redirect_to }}">Go to the new location.</a></p>
+  <script>window.location.replace("{{ .Params.redirect_to }}");</script>
+</body>
+</html>

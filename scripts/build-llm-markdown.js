@@ -19,7 +19,17 @@ import pLimit from 'p-limit';
 
 // Create require function for CommonJS modules
 const require = createRequire(import.meta.url);
-const { convertToMarkdown } = require('./lib/markdown-converter.cjs');
+let convertToMarkdown;
+try {
+  ({ convertToMarkdown } = require('./rust-markdown-converter'));
+} catch (err) {
+  console.error(
+    '✗ Rust markdown converter is not built.\n' +
+      '  Build it with: node scripts/build-rust-converter.js\n' +
+      `  (load error: ${err.message})`
+  );
+  process.exit(1);
+}
 
 // ============================================================================
 // CONFIGURATION
@@ -47,6 +57,15 @@ import {
   mapContentToPublic,
 } from './lib/content-utils.js';
 
+import {
+  loadOrgIdentity,
+  readSitemapOrigin,
+  readSitemapLastmods,
+  injectPageProvenance,
+} from './lib/provenance.js';
+
+import { detectBaseUrl } from './lib/base-url.js';
+
 // ============================================================================
 // PHASE 1: HTML → MARKDOWN CONVERSION
 // ============================================================================
@@ -58,12 +77,21 @@ import {
  * @param {Object} options - Build options
  * @param {boolean} options.onlyChanged - Only process files changed since base branch
  * @param {string} options.baseBranch - Base branch for comparison (default: 'origin/master')
+ * @param {string} options.pathFilter - Only process pages under this site-relative path (e.g. 'influxdb3/core/get-started')
+ * @param {number} options.limitCount - Process at most this many pages (after path filtering)
  */
 async function buildPageMarkdown(publicDir = 'public', options = {}) {
-  const { onlyChanged = false, baseBranch = 'origin/master' } = options;
+  const {
+    onlyChanged = false,
+    baseBranch = 'origin/master',
+    provenance = null,
+    pathFilter = null,
+    limitCount = null,
+  } = options;
 
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
   const startTime = Date.now();
+  const baseUrl = detectBaseUrl();
 
   // Find all HTML files
   let htmlFiles = await glob(`${publicDir}/**/index.html`, {
@@ -72,6 +100,25 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
 
   const totalFiles = htmlFiles.length;
   console.log(`Found ${totalFiles} HTML files\n`);
+
+  // Filter to a site-relative path subtree if requested (used by targeted
+  // generation, e.g. Cypress fixture setup for a single product path).
+  if (pathFilter) {
+    const normalized = pathFilter.replace(/^\/+|\/+$/g, '');
+    const prefix = `${publicDir.replace(/\/+$/, '')}/${normalized}`;
+    htmlFiles = htmlFiles.filter(
+      (f) => f === `${prefix}/index.html` || f.startsWith(`${prefix}/`)
+    );
+    console.log(
+      `🎯 Path filter '${normalized}': ${htmlFiles.length}/${totalFiles} files\n`
+    );
+  }
+
+  // Cap the number of pages processed if requested (applied after path filter).
+  if (limitCount != null && htmlFiles.length > limitCount) {
+    htmlFiles = htmlFiles.slice(0, limitCount);
+    console.log(`🔢 Limit: processing first ${limitCount} file(s)\n`);
+  }
 
   // Filter to only changed files if requested
   if (onlyChanged) {
@@ -130,8 +177,8 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
           .replace(new RegExp(`^${publicDir}`), '')
           .replace(/\/index\.html$/, '/');
 
-        // Convert to markdown (JSDOM + Turndown processing)
-        const markdown = await convertToMarkdown(html, urlPath);
+        // Convert to markdown (Rust html2md + scraper)
+        const markdown = await convertToMarkdown(html, urlPath, baseUrl);
 
         if (!markdown) {
           skipped++;
@@ -140,7 +187,14 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
 
         // Write .md file next to .html
         const mdPath = htmlPath.replace(/index\.html$/, 'index.md');
-        await fs.writeFile(mdPath, markdown, 'utf-8');
+        const output = provenance
+          ? injectPageProvenance(markdown, {
+              publisher: provenance.publisher,
+              canonical: `${provenance.origin}${urlPath}`,
+              lastmod: provenance.lastmods?.get(urlPath),
+            })
+          : markdown;
+        await fs.writeFile(mdPath, output, 'utf-8');
 
         converted++;
 
@@ -196,7 +250,8 @@ async function buildPageMarkdown(publicDir = 'public', options = {}) {
  * Fast string concatenation with minimal memory usage
  * @param {string} publicDir - Directory containing Hugo build output
  */
-async function buildSectionBundles(publicDir = 'public') {
+async function buildSectionBundles(publicDir = 'public', options = {}) {
+  const { provenance = null } = options;
   console.log('📦 Building section bundles...\n');
   const startTime = Date.now();
 
@@ -227,7 +282,12 @@ async function buildSectionBundles(publicDir = 'public') {
         );
 
         // Combine markdown files (string manipulation only)
-        const combined = combineMarkdown(parentMd, childMds, section.url);
+        const combined = combineMarkdown(
+          parentMd,
+          childMds,
+          section.url,
+          provenance
+        );
 
         // Write section bundle
         const sectionMdPath = section.mdPath.replace(
@@ -310,7 +370,7 @@ function extractTitleFromMd(mdPath) {
 /**
  * Combine parent and child markdown into section bundle
  */
-function combineMarkdown(parentMd, childMds, sectionUrl) {
+function combineMarkdown(parentMd, childMds, sectionUrl, provenance = null) {
   // Parse parent frontmatter + content
   const parent = parseMarkdown(parentMd);
 
@@ -355,6 +415,11 @@ function combineMarkdown(parentMd, childMds, sectionUrl) {
       title: c.title,
     })),
   };
+
+  if (provenance) {
+    frontmatterObj.publisher = provenance.publisher;
+    frontmatterObj.canonical = `${provenance.origin}${sectionUrl}`;
+  }
 
   // Serialize to YAML (handles special characters properly)
   const sectionFrontmatter =
@@ -409,6 +474,8 @@ function parseArgs() {
     publicDir: 'public',
     onlyChanged: false,
     baseBranch: 'origin/master',
+    pathFilter: null,
+    limitCount: null,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -420,6 +487,10 @@ function parseArgs() {
       options.onlyChanged = true;
     } else if (args[i] === '--base-branch' && args[i + 1]) {
       options.baseBranch = args[++i];
+    } else if (args[i] === '--path' && args[i + 1]) {
+      options.pathFilter = args[++i];
+    } else if (args[i] === '--limit' && args[i + 1]) {
+      options.limitCount = Number.parseInt(args[++i], 10);
     }
   }
 
@@ -458,14 +529,29 @@ async function main() {
 
   const overallStart = Date.now();
 
+  // Load org identity + production origin once for provenance stamping (#7290),
+  // plus a urlPath -> lastmod map from the sitemap for per-page date/lastmod.
+  const [org, origin, lastmods] = await Promise.all([
+    loadOrgIdentity(),
+    readSitemapOrigin(cliOptions.publicDir),
+    readSitemapLastmods(cliOptions.publicDir),
+  ]);
+  const provenance = { publisher: org.name, origin, lastmods };
+  console.log(`🏷️  Provenance: publisher=${org.name}, origin=${origin}\n`);
+
   // Phase 1: Generate individual page markdown
   const pageResults = await buildPageMarkdown(cliOptions.publicDir, {
     onlyChanged: cliOptions.onlyChanged,
     baseBranch: cliOptions.baseBranch,
+    pathFilter: cliOptions.pathFilter,
+    limitCount: cliOptions.limitCount,
+    provenance,
   });
 
   // Phase 2: Build section bundles
-  const sectionResults = await buildSectionBundles(cliOptions.publicDir);
+  const sectionResults = await buildSectionBundles(cliOptions.publicDir, {
+    provenance,
+  });
 
   // Summary
   const totalDuration = ((Date.now() - overallStart) / 1000).toFixed(1);
@@ -492,10 +578,13 @@ async function main() {
 }
 
 // Run if called directly
-main().catch((error) => {
-  console.error('Fatal error:', error);
-  process.exit(1);
-});
+const isMain = import.meta.url === `file://${process.argv[1]}`;
+if (isMain) {
+  main().catch((error) => {
+    console.error('Fatal error:', error);
+    process.exit(1);
+  });
+}
 
 // Export functions for testing
 export {

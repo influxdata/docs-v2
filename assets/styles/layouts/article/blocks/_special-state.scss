@@ -110,5 +110,40 @@
         }       
       }
     }
+    // Styles specific to the Telegraf Enterprise feature callout
+    &.telegraf-enterprise {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 1.5rem;
+
+      .telegraf-enterprise-text {
+        flex: 2;
+        min-width: 360px;
+        p { margin-bottom: 0; }
+      }
+      .telegraf-enterprise-cta {
+        flex: 1;
+        margin-top: -.25rem;
+        white-space: nowrap;
+        .cf-icon::before {
+          margin-right: .25rem;
+          font-size: 1.25rem;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .block.special-state .state-content.telegraf-enterprise {
+    flex-direction: column;
+    align-items: flex-start;
+    .telegraf-enterprise-text { min-width: unset; }
   }
 }

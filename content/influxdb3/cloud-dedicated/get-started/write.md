@@ -203,9 +203,8 @@ to write the [home sensor sample data](#home-sensor-data-line-protocol) to your
 - [Home sensor data line protocol](#home-sensor-data-line-protocol)
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "get-started" %}}
 
-```bash
+```bash { placeholders="get-started" }
 influxctl write \
   --database get-started \
   --token $INFLUX_TOKEN \
@@ -238,7 +237,6 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 ```
 
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 If successful, the output is the success message; otherwise, error details and
@@ -447,9 +445,7 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB v1 API to write line protocol
 to InfluxDB:
 
-{{% code-placeholders "DATABASE_TOKEN" %}}
-
-```bash
+```bash { placeholders="DATABASE_TOKEN" }
 response=$(curl --silent \
   "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -496,8 +492,6 @@ if [[ $response_body ]]; then
   echo "$response_body"
 fi
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -558,9 +552,7 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB:
 
-{{% code-placeholders "DATABASE_TOKEN"%}}
-
-```bash
+```bash { placeholders="DATABASE_TOKEN" }
 response=$(curl --silent --write-out "%{response_code}:-%{errormsg}" \
   "https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -607,8 +599,6 @@ if [[ $errormsg ]]; then
   echo "$errormsg"
 fi
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -487,9 +487,8 @@ async function preparePhase(draftPath, options, stdinContent = null) {
     const context = prepareContext(draft);
 
     // Extract links from draft
-    const { extractLinks, followLocalLinks, fetchExternalLinks } = await import(
-      '../../lib/content-scaffolding.js'
-    );
+    const { extractLinks, followLocalLinks, fetchExternalLinks } =
+      await import('../../lib/content-scaffolding.js');
 
     const links = extractLinks(draft.content);
 
@@ -1250,7 +1249,7 @@ async function executePhase(options) {
     log('  1. Review generated frontmatter and content');
     log('  2. Test locally: npx hugo server');
     log(
-      `  3. Test links: yarn test:links ${result.created[0].replace(/\/[^/]+$/, '/')}**/*.md`
+      `  3. Test links: link-checker map ${result.created[0].replace(/\/[^/]+$/, '/')}**/*.md | xargs link-checker check`
     );
     log('  4. Commit changes: git add content/ && git commit');
 

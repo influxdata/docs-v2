@@ -8,7 +8,12 @@ For a list of available plugins, see [Telegraf plugins](/telegraf/v1/plugins/).
 
 #### Requirements
 
-- **Telegraf 1.9.2 or greater**.
+- **Telegraf 1.38 or greater** to use the `influxdb_v3` output plugin.
+  Earlier versions of Telegraf (1.9.2 or greater) can use the
+  [`influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) or
+  [`influxdb`](/telegraf/v1/output-plugins/influxdb/) (v1) output plugins to
+  write to {{% product-name %}}
+  [compatibility APIs](/influxdb3/version/write-data/http-api/compatibility-apis/).
   _For information about installing Telegraf, see the
   [Telegraf Installation instructions](/telegraf/v1/install/)._
 
@@ -21,33 +26,28 @@ Each Telegraf configuration must **have at least one input plugin and one output
 Telegraf input plugins retrieve metrics from different sources.
 Telegraf output plugins write those metrics to a destination.
 
-Use the [`outputs.influxdb_v2`](/telegraf/v1/plugins/#output-influxdb_v2) plugin
-to connect to the InfluxDB v2 write API included in {{% product-name %}} and
-write metrics collected by Telegraf to {{< product-name >}}.
+Use the [`outputs.influxdb_v3`](/telegraf/v1/plugins/#output-influxdb_v3) plugin
+to connect to the {{% product-name %}} native write API and write metrics
+collected by Telegraf to {{< product-name >}}.
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-
-```toml
+```toml { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 # ...
 
-[[outputs.influxdb_v2]]
-  urls = ["http://{{< influxdb/host >}}"]
+[[outputs.influxdb_v3]]
+  urls = ["{{< influxdb/host-url >}}"]
   token = "AUTH_TOKEN"
-  organization = ""
-  bucket = "DATABASE_NAME"
+  database = "DATABASE_NAME"
 
 # ...
 ```
 
-{{% /code-placeholders %}}
-
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of the database to write data to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
   your {{< product-name >}} {{% token-link %}}.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  the name of the database to write data to
 
 _See how to [Configure Telegraf to write to {{% product-name %}}](/influxdb3/version/write-data/use-telegraf/configure/)._
 

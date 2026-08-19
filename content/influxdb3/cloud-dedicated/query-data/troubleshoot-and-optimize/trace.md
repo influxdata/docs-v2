@@ -67,11 +67,9 @@ import os
 ```
 -->
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" %}}
-
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" }
 from influxdb_client_3 import InfluxDBClient3
 import secrets
 
@@ -105,7 +103,6 @@ def use_flightcalloptions_trace_header():
 use_flightcalloptions_trace_header()
 ```
 
-{{% /code-placeholders %}}
 <!---- END PYTHON WITH FLIGHTCALLOPTIONS ---->
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -135,11 +132,9 @@ import os
 ```
 -->
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" %}}
-
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)|APP_REQUEST_ID" }
 import pyarrow.flight as flight
 
 class TracingClientMiddleWareFactory(flight.ClientMiddleware):
@@ -225,7 +220,6 @@ def use_middleware_trace_header():
 use_middleware_trace_header()
 ```
 
-{{% /code-placeholders %}}
 <!---- END PYTHON WITH  MIDDLEWARE ---->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

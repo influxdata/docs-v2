@@ -211,7 +211,7 @@ below.
        "ok":true,
        "result":[  
           {  
-             "update_id":XXXXXXXXX,
+             "update_id":987654321,
              "message":{  
                 "message_id":2,
                 "from":{  

@@ -48,11 +48,9 @@ _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/in
 
 ## Examples
 
-{{% code-placeholders "USER_ID" %}}
-```sh
+```sh { placeholders="USER_ID" }
 influxctl user delete USER_ID
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -13,7 +13,7 @@
 {{ $productKey := .Store.Get "productKey" }}
 {{ $productData := index $.Site.Data.products $productKey }}
 {{ $displayName := $productData.name }}
-{{ $productPathWhitelist := slice "telegraf/controller" }}
+{{ $productPathWhitelist := slice "" }}
 
 {{ if in $productPathWhitelist (print $product "/" $version )}}
 <div class="block special-state">

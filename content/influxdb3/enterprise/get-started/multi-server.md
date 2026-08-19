@@ -113,9 +113,8 @@ with your `influxdb3 serve` command:
 - `--aws-secret-access-key`: Your AWS secret access key  
   _(can also be defined using the `AWS_SECRET_ACCESS_KEY` environment variable)_
 
-{{% code-placeholders "AWS_(BUCKET_NAME|ACCESS_KEY_ID|SECRET_ACCESS_KEY)" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="AWS_(BUCKET_NAME|ACCESS_KEY_ID|SECRET_ACCESS_KEY)" }
 influxdb3 serve \
   # ...
   --object-store s3 \
@@ -123,7 +122,6 @@ influxdb3 serve \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
-{{% /code-placeholders %}}
 
 _For information about other S3-specific settings, see
 [Configuration options - AWS](/influxdb3/enterprise/reference/config-options/#aws)._
@@ -143,9 +141,8 @@ with your `influxdb3 serve` command:
 - `--azure-storage-access-key`: Your Azure Blob Storage access key  
   _(can also be defined using the `AZURE_STORAGE_ACCESS_KEY` environment variable)_
 
-{{% code-placeholders "AZURE_(CONTAINER_NAME|STORAGE_ACCOUNT|STORAGE_ACCESS_KEY)" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="AZURE_(CONTAINER_NAME|STORAGE_ACCOUNT|STORAGE_ACCESS_KEY)" }
 influxdb3 serve \
   # ...
   --object-store azure \
@@ -153,7 +150,6 @@ influxdb3 serve \
   --azure-storage-account AZURE_STORAGE_ACCOUNT \
   --azure-storage-access-key AZURE_STORAGE_ACCESS_KEY
 ```
-{{% /code-placeholders %}}
 
 <!--------------------------- END AZURE BLOB STORAGE -------------------------->
 {{% /tab-content %}}
@@ -168,16 +164,14 @@ with your `influxdb3 serve` command:
 - `--google-service-account`: The path to your Google credentials JSON file
   _(can also be defined using the `GOOGLE_SERVICE_ACCOUNT` environment variable)_
 
-{{% code-placeholders "GOOGLE_(BUCKET_NAME|SERVICE_ACCOUNT)" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="GOOGLE_(BUCKET_NAME|SERVICE_ACCOUNT)" }
 influxdb3 serve \
   # ...
   --object-store google \
   --bucket GOOGLE_BUCKET_NAME \
   --google-service-account GOOGLE_SERVICE_ACCOUNT
 ```
-{{% /code-placeholders %}}
 
 <!-------------------------- END GOOGLE CLOUD STORAGE ------------------------->
 {{% /tab-content %}}
@@ -506,8 +500,7 @@ changing any of the commands.
 > production, specifying the host ensures writes and queries are routed to the
 > correct instance.
 
-{{% code-placeholders "(http://localhost:8585)|AUTH_TOKEN|DATABASE_NAME|QUERY" %}}
-```bash
+```bash { placeholders="(http://localhost:8585)|AUTH_TOKEN|DATABASE_NAME|QUERY" }
 # Example querying a specific host
 # HTTP-bound Port: 8585
 influxdb3 query \
@@ -516,7 +509,6 @@ influxdb3 query \
   --database DATABASE_NAME \
   "QUERY" 
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 

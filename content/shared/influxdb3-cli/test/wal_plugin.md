@@ -23,7 +23,8 @@ influxdb3 test wal_plugin [OPTIONS] --database <DATABASE_NAME> <PLUGIN_NAME>
 |        | `--token`           | _({{< req >}})_ Authentication token                                                     |
 |        | `--lp`              | Line protocol to use as input                                                            |
 |        | `--file`            | Line protocol file to use as input                                                       |
-|        | `--input-arguments` | Map of string key-value pairs as to use as plugin input arguments                        |
+|        | `--input-arguments` | Comma-separated list of `key=value` pairs to pass as plugin input arguments               |
+|        | `--cache-name`      | Name of the cache to use in the test                                                      |
 |        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 |        | `--tls-no-verify`   | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`            | Print help information                                                                   |
@@ -39,6 +40,7 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_HOST_URL`      | `--host`     |
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
+| `INFLUXDB3_TLS_CA`        | `--tls-ca`   |
 | `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Examples
@@ -59,13 +61,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
-{{% code-placeholders "(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" %}}
-
 ### Test a WAL plugin
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -76,7 +76,7 @@ influxdb3 test wal_plugin \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --lp 'home,room=Kitchen temp=21.0,hum=35.9,co=0i' \
   --database DATABASE_NAME \
@@ -88,7 +88,7 @@ influxdb3 test wal_plugin \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --file PLUGIN_DIR/PLUGIN_NAME_test/input-file.lp`
   --database DATABASE_NAME \
@@ -100,12 +100,10 @@ influxdb3 test wal_plugin \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" }
 influxdb3 test wal_plugin \
   --input-arguments arg1=foo,arg2=baz \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   PLUGIN_DIR/PLUGIN_NAME.py
 ```
-
-{{% /code-placeholders %}}

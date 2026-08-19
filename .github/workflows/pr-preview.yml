@@ -12,7 +12,7 @@ on:
       - 'openapi/**'
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
 
 concurrency:
@@ -30,7 +30,7 @@ jobs:
       should-run: ${{ steps.check.outputs.should-run }}
     steps:
       - id: check
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -116,7 +116,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post fork notice comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const { data: comments } = await github.rest.issues.listComments({
@@ -134,37 +134,92 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: `${marker}\n## 📦 PR Preview — Preview Bot\n\n| Status | Details |\n|--------|----------|\n| **Result** | ⏭️ NOT AVAILABLE |\n| **Reason** | Fork PR (security restriction) |\n| **Checked** | ${timestamp} |\n\n### Local Preview\n\nPR previews are not available for pull requests from forks due to GitHub Actions security restrictions.\n\nTo preview your changes locally, run:\n\`\`\`bash\nnpx hugo server\n\`\`\`\n\nOnce merged, your changes will be visible on the production site.`
+                body: `${marker}\n## 📦 PR Preview — Preview Bot\n\n| Status | Details |\n|--------|----------|\n| **Result** | ⏭️ NOT AVAILABLE |\n| **Reason** | Fork PR (no write access to staging) |\n| **Checked** | ${timestamp} |\n\n### Local Preview\n\nPR previews are not available for pull requests from forks, since the deploy needs write access to the staging bucket.\n\nTo preview your changes locally, run:\n\`\`\`bash\nnpx hugo server\n\`\`\`\n\nOnce merged, your changes will be visible on the production site.`
               });
             }
 
   # Build and deploy preview
   preview:
     needs: check-draft
-    # Skip fork PRs - GITHUB_TOKEN doesn't have write access to push to gh-pages
+    # Skip fork PRs - forks can't assume the AWS OIDC role
     if: |
       needs.check-draft.outputs.should-run == 'true' &&
       github.event.action != 'closed' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write # required for AWS OIDC
+    env:
+      PREVIEW_BASE_URL: https://test2.docs.influxdata.com/pr-preview/pr-${{ github.event.number }}/
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-          cache: 'yarn'
+      - name: Set Rust markdown converter version
+        run: |
+          VERSION=$(node -p "require('./scripts/rust-markdown-converter/package.json').version")
+          echo "RUST_MARKDOWN_CONVERTER_VERSION=v$VERSION" >> "$GITHUB_ENV"
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Download pinned Rust markdown converter
+        id: rust-converter
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ASSET_DIR=scripts/rust-markdown-converter
+          RELEASE=rust-markdown-converter-${RUST_MARKDOWN_CONVERTER_VERSION}
+          BINARY=rust-markdown-converter-linux-x86_64-gnu.node
+          LOADER=rust-markdown-converter-loader.js
+
+          if ! gh release view "$RELEASE" --repo "$GITHUB_REPOSITORY" >/dev/null; then
+            echo "Pinned converter release $RELEASE is unavailable; using the build cache."
+            echo 'prebuilt=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          gh release download "$RELEASE" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern "$BINARY" \
+            --pattern "$LOADER" \
+            --pattern checksums.txt \
+            --dir "$ASSET_DIR" \
+            --clobber
+          (
+            cd "$ASSET_DIR"
+            grep "  $BINARY$" checksums.txt | sha256sum --check --status
+            grep "  $LOADER$" checksums.txt | sha256sum --check --status
+            mv "$BINARY" index.linux-x64-gnu.node
+            mv "$LOADER" index.js
+            rm checksums.txt
+          )
+          echo 'RUST_MARKDOWN_CONVERTER_PREBUILT=true' >> "$GITHUB_ENV"
+          echo 'prebuilt=true' >> "$GITHUB_OUTPUT"
+
+      - name: Cache Rust markdown converter build
+        if: steps.rust-converter.outputs.prebuilt != 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            scripts/rust-markdown-converter/target
+          key: >-
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/Cargo.lock') }}
+          restore-keys: |
+            rust-markdown-converter-${{ runner.os }}-${{ runner.arch }}-
+            ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
+
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs-env
 
       - name: Fetch current PR body
         id: fetch-pr-body
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const { data: pr } = await github.rest.pulls.get({
@@ -177,115 +232,98 @@ jobs:
             fs.writeFileSync(bodyFile, pr.body || '');
             core.exportVariable('PR_BODY_FILE', bodyFile);
 
-      - name: Detect preview pages
+      - name: Detect changed pages (for comment links)
         id: detect
+        continue-on-error: true # best-effort; never blocks the full-site deploy
         env:
           BASE_REF: origin/${{ github.base_ref }}
         run: node .github/scripts/detect-preview-pages.js
 
-      - name: Post pending comment (needs input)
-        if: steps.detect.outputs.needs-author-input == 'true'
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
-            await upsertPreviewComment(github, context, {
-              status: 'pending',
-              needsInput: true,
-              prNumber: context.issue.number
-            });
+      - name: Start build timer
+        id: timer-start
+        run: echo "ts=$(date +%s)" >> "$GITHUB_OUTPUT"
 
-      - name: Skip if no pages to deploy
-        if: steps.detect.outputs.pages-to-deploy == '[]'
-        run: |
-          echo "No pages to deploy - skipping preview"
-          echo "Reason: ${{ steps.detect.outputs.skip-reason || steps.detect.outputs.change-summary }}"
-
-      - name: Build API docs
+      - name: Build docs site
         # API reference pages under content/{product}/api/ are gitignored
         # and generated at build time from OpenAPI specs. Without this
         # step, Hugo builds a site with no API pages and preview URLs for
         # any /api/ route 404 (see #7123 for the symptom).
-        if: steps.detect.outputs.pages-to-deploy != '[]'
-        run: yarn build:api-docs
-
-      - name: Build Hugo site
-        if: steps.detect.outputs.pages-to-deploy != '[]'
-        id: build
-        env:
-          # Set baseURL for GitHub Pages preview subdirectory
-          PREVIEW_BASE_URL: https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/
-        run: |
-          START_TIME=$(date +%s)
-          # Use pr-preview environment for path offset config
-          npx hugo --minify --baseURL "$PREVIEW_BASE_URL" -e pr-preview
-          END_TIME=$(date +%s)
-          DURATION=$((END_TIME - START_TIME))
-          echo "build-time=${DURATION}s" >> $GITHUB_OUTPUT
-
-      - name: Prepare preview files
-        if: steps.detect.outputs.pages-to-deploy != '[]'
-        run: |
-          node .github/scripts/prepare-preview-files.js \
-            '${{ steps.detect.outputs.pages-to-deploy }}' \
-            public \
-            preview-staging
-
-      - name: Deploy preview
-        if: steps.detect.outputs.pages-to-deploy != '[]'
-        id: deploy-preview
-        continue-on-error: true
-        uses: rossjrw/pr-preview-action@v1.4.8
+        # Uses the canonical build-docs-site action for PR/prod parity.
+        # hugo-environment: production (not pr-preview) so the preview
+        # faithfully represents what production will serve: fingerprinted
+        # + SRI JS, minification, real GA/GTM, and the __tests__/test_only
+        # exclusions production applies. CI checks that need those fixtures
+        # (Cypress, render checks) build their own copy in their own job
+        # with the testing/development environment and never consume this
+        # deployed preview.
+        uses: ./.github/actions/build-docs-site
         with:
-          source-dir: ./preview-staging
-          preview-branch: gh-pages
-          umbrella-dir: pr-preview
-          action: deploy
+          hugo-environment: production
+          hugo-gc: 'true'
+          hugo-log-level: info
+          hugo-base-url: ${{ env.PREVIEW_BASE_URL }}
 
-      - name: Validate preview deployment
-        if: steps.detect.outputs.pages-to-deploy != '[]'
-        id: validate-deploy
+      - name: Record build time
+        id: build
         run: |
-          DEPLOY_OUTCOME="${{ steps.deploy-preview.outcome }}"
-          DEPLOY_URL="${{ steps.deploy-preview.outputs.deployment-url }}"
+          DURATION=$(( $(date +%s) - ${{ steps.timer-start.outputs.ts }} ))
+          echo "build-time=${DURATION}s" >> "$GITHUB_OUTPUT"
 
-          if [ -z "$DEPLOY_URL" ]; then
-            echo "Deployment step did not produce a preview URL. Failing preview job."
-            exit 1
-          fi
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: ${{ secrets.AWS_PR_PREVIEW_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
 
-          if [ "$DEPLOY_OUTCOME" != "success" ]; then
-            echo "Deployment reported outcome: $DEPLOY_OUTCOME"
-            echo "Preview URL exists; treating as transient post-deploy comment error."
-          fi
+      - name: Install s3deploy
+        env:
+          S3DEPLOY_VERSION: '2.11.0'
+          S3DEPLOY_VERSION_HASH: 'd3566a6a56735ea5710cf22c35f8f411164e6efc22ded98743a1d7a5a21c740e'
+        run: |
+          mkdir -p "$HOME/bin"
+          ./deploy/ci-install-s3deploy.sh
+          echo "$HOME/bin" >> "$GITHUB_PATH"
 
-          echo "status=ok" >> "$GITHUB_OUTPUT"
+      - name: Deploy full site to S3 preview prefix
+        run: |
+          s3deploy -source=public/ \
+            -bucket="${{ secrets.STAGING_BUCKET }}" \
+            -region="${{ vars.AWS_REGION }}" \
+            -path "pr-preview/pr-${{ github.event.number }}" \
+            -max-delete 50000 \
+            -v
+        # No -force: incremental sync compares against the prior deploy of
+        # this same prefix, so repeated pushes only upload the diff.
+        # No -distribution-id: invalidation is a separate explicit step
+        # below (avoids depending on s3deploy's path-normalization and the
+        # extra cloudfront:GetDistribution permission it would need).
+        # .s3deploy.yml route config gives production cache/gzip header
+        # parity on every deployed object.
+
+      - name: Invalidate CloudFront preview prefix
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.STAGING_CF_DISTRIBUTION_ID }}" \
+            --paths "/pr-preview/pr-${{ github.event.number }}/*"
+        # Mandatory, not just cache hygiene: the staging distribution's
+        # DefaultTTL is 30 days, and a 404 for a not-yet-deployed path can
+        # be cached for several minutes, so without this the first visit
+        # after each push can serve stale or missing content.
 
       - name: Post success comment
-        if: steps.detect.outputs.pages-to-deploy != '[]' && steps.validate-deploy.outputs.status == 'ok'
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
-            const pages = JSON.parse('${{ steps.detect.outputs.pages-to-deploy }}');
-            const previewUrl = `https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/`;
+            let pages = [];
+            try {
+              pages = JSON.parse('${{ steps.detect.outputs.changed-pages }}');
+            } catch {}
             await upsertPreviewComment(github, context, {
               status: 'success',
-              previewUrl,
+              previewUrl: process.env.PREVIEW_BASE_URL,
               pages,
               buildTime: '${{ steps.build.outputs.build-time }}',
-              prNumber: context.issue.number
-            });
-
-      - name: Post skipped comment
-        if: steps.detect.outputs.pages-to-deploy == '[]' && steps.detect.outputs.needs-author-input != 'true'
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
-            await upsertPreviewComment(github, context, {
-              status: 'skipped',
-              skipReason: '${{ steps.detect.outputs.change-summary }}',
               prNumber: context.issue.number
             });
 
@@ -293,35 +331,30 @@ jobs:
   cleanup:
     if: github.event.action == 'closed'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write # required for AWS OIDC
     steps:
-      - name: Checkout gh-pages
-        uses: actions/checkout@v6
-        with:
-          ref: gh-pages
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
-      - name: Remove preview directory
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: ${{ secrets.AWS_PR_PREVIEW_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Delete preview from S3
         run: |
-          PREVIEW_DIR="pr-preview/pr-${{ github.event.number }}"
-          if [ -d "$PREVIEW_DIR" ]; then
-            rm -rf "$PREVIEW_DIR"
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add -A
-            git commit -m "Clean up preview for PR #${{ github.event.number }}" || echo "Nothing to commit"
-            git push
-            echo "Cleaned up $PREVIEW_DIR"
-          else
-            echo "No preview directory found for PR #${{ github.event.number }}"
-          fi
-
-      - name: Checkout scripts for comment deletion
-        uses: actions/checkout@v6
-        with:
-          path: scripts-checkout
+          aws s3 rm "s3://${{ secrets.STAGING_BUCKET }}/pr-preview/pr-${{ github.event.number }}/" --recursive
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.STAGING_CF_DISTRIBUTION_ID }}" \
+            --paths "/pr-preview/pr-${{ github.event.number }}/*"
 
       - name: Delete preview comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
-            const { deletePreviewComment } = await import('${{ github.workspace }}/scripts-checkout/.github/scripts/preview-comment.js');
+            const { deletePreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
             await deletePreviewComment(github, context);

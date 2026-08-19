@@ -14,6 +14,7 @@ related:
   - /influxdb3/core/admin/mcp-server/
   - /influxdb3/core/reference/config-options/
 source: /shared/influxdb3-get-started/setup.md
+canonical: self
 ---
 
 <!--

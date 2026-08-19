@@ -33,13 +33,11 @@ to update a user. Provide the following:
 
 ##### Update the name of a user
 
-{{% code-placeholders "USER_ID|NEW_USERNAME" %}}
-```sh
+```sh { placeholders="USER_ID|NEW_USERNAME" }
 influx user update \
   --id USER_ID \
   --name NEW_USERNAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

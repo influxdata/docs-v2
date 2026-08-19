@@ -242,15 +242,13 @@ Use the [`influx config create` command](/influxdb/version/reference/cli/influx/
 to create an `influx` CLI config and set it as active:
 
 
-{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|CONFIG_NAME" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG|http://localhost:8086|CONFIG_NAME" }
 influx config create --config-name CONFIG_NAME \
   --host-url http://localhost:8086 \
   --org ORG \
   --token API_TOKEN \
   --active
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -278,15 +276,13 @@ using the `<username>:<password>` syntax.
 If no password is provided, the CLI prompts for a password after each
 command that requires authentication.
 
-{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|CONFIG_NAME|USERNAME|PASSWORD" %}}
-```sh
+```sh { placeholders="API_TOKEN|ORG|http://localhost:8086|CONFIG_NAME|USERNAME|PASSWORD" }
 influx config create \
   -n CONFIG_NAME \
   -u http://localhost:8086 \
   -p USERNAME:PASSWORD \
   -o ORG
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

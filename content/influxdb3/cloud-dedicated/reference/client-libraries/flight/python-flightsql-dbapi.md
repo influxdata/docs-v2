@@ -79,8 +79,7 @@ Initializes and returns a `FlightSQLClient` instance for interacting with the se
 The following example shows how to use Python with `flightsql-dbapi`
 and the _DB API 2_ interface to instantiate a Flight SQL client configured for an InfluxDB database.
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py   
+```py { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from flightsql import FlightSQLClient
 
 # Instantiate a FlightSQLClient configured for a database
@@ -89,7 +88,6 @@ client = FlightSQLClient(host='{{< influxdb/host >}}',
                         metadata={'database': 'DATABASE_NAME'},
                         features={'metadata-reflection': 'true'})
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

@@ -1,9 +1,0 @@
-{{- $versionArg := .Get "version" | default "" -}}
-{{- $version := cond (gt (len $versionArg) 0) $versionArg .Page.Params.version -}}
-{{- $latestVersion := replaceRE "v" "" (index .Site.Data.products.influxdb "latest") -}}
-{{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
-{{- if eq $version "cloud" -}}
-  {{- index $cliVersions $latestVersion -}}
-{{- else -}}
-  {{- index $cliVersions $version -}}
-{{- end -}}

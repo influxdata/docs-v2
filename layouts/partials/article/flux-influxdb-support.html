@@ -1,0 +1,21 @@
+{{ $inStdlib := and
+  (in .Page.RelPermalink "/flux/v0/stdlib/")
+  (ne .Page.RelPermalink "/flux/v0/stdlib/")
+  (ne .Page.RelPermalink "/flux/v0/stdlib/all-functions/") }}
+
+{{ if $inStdlib }}
+<button
+  type="button"
+  class="page-actions__button"
+  data-component="flux-influxdb-versions-trigger"
+  data-action="open"
+  aria-haspopup="dialog"
+  aria-controls="flux-influxdb-versions"
+  aria-label="View InfluxDB version support for this Flux item"
+>
+  <span class="page-actions__button-icon" aria-hidden="true">
+    <span class="cf-icon CuboSolid"></span>
+  </span>
+  <span class="page-actions__button-text">InfluxDB support</span>
+</button>
+{{ end }}

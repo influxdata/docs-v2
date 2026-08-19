@@ -69,8 +69,7 @@ To send data to {{< product-name >}}, enable the
 [`influxdb_v2` output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
 in the `telegraf.conf`.
 
-{{% code-placeholders "BUCKET_NAME" %}}
-```toml
+```toml { placeholders="BUCKET_NAME" }
 [[outputs.influxdb_v2]]
   urls = ["https://{{< influxdb/host >}}"]
   # INFLUX_TOKEN is an environment variable you created for your API WRITE token
@@ -78,7 +77,6 @@ in the `telegraf.conf`.
   organization = ""
   bucket = "BUCKET_NAME"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

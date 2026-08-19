@@ -15,6 +15,7 @@ import {
   writeFrontmatterFile,
   validatePath,
   ensureDirectory,
+  MATTER_OPTIONS,
 } from './file-operations.js';
 import { urlToFilePaths } from './url-parser.js';
 
@@ -297,7 +298,7 @@ export function findSiblingWeights(dirPath) {
       const filePath = join(dirPath, entry);
       try {
         const content = readFileSync(filePath, 'utf8');
-        const parsed = matter(content);
+        const parsed = matter(content, MATTER_OPTIONS);
 
         if (parsed.data && typeof parsed.data.weight === 'number') {
           weights.push(parsed.data.weight);
@@ -618,7 +619,7 @@ export function detectSharedContent(filePath) {
 
   try {
     const content = readFileSync(fullPath, 'utf8');
-    const parsed = matter(content);
+    const parsed = matter(content, MATTER_OPTIONS);
 
     if (parsed.data && parsed.data.source) {
       return parsed.data.source;
@@ -663,7 +664,7 @@ export function findSharedContentVariants(sourcePath) {
         } else if (entry.endsWith('.md')) {
           try {
             const content = readFileSync(fullPath, 'utf8');
-            const parsed = matter(content);
+            const parsed = matter(content, MATTER_OPTIONS);
 
             if (parsed.data && parsed.data.source === sourcePath) {
               // Convert to relative path from repo root
@@ -701,7 +702,7 @@ export function analyzeExistingPage(filePath) {
   }
 
   const content = readFileSync(fullPath, 'utf8');
-  const parsed = matter(content);
+  const parsed = matter(content, MATTER_OPTIONS);
 
   const analysis = {
     path: filePath,
@@ -821,7 +822,7 @@ export function followLocalLinks(links, basePath = REPO_ROOT) {
       // Check if file exists
       if (existsSync(filePath)) {
         const fileContent = readFileSync(filePath, 'utf8');
-        const parsed = matter(fileContent);
+        const parsed = matter(fileContent, MATTER_OPTIONS);
 
         results.push({
           url: link,

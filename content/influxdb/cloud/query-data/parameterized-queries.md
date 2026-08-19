@@ -29,9 +29,11 @@ parameter name and the value is the parameter value.
 For example:
 
 ```json
-"params": {
-  "ex1": "foo",
-  "ex2": "bar" 
+{
+  "params": {
+    "ex1": "foo",
+    "ex2": "bar"
+  }
 }
 ```
 

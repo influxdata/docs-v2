@@ -39,11 +39,10 @@ to create a Last Value Cache (LVC). Provide the following:
 
 {{% show-in "core" %}}
 <!----------------------------- BEGIN CORE EXAMPLE ---------------------------->
-{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|(KEY|VALUE)_COLUMNS|COUNT|TTL" }
 influxdb3 create last_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -54,17 +53,16 @@ influxdb3 create last_cache \
   --ttl TTL\
   LVC_NAME
 ```
-{{% /code-placeholders %}}
+
 <!------------------------------ END CORE EXAMPLE ----------------------------->
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 <!-------------------------- BEGIN ENTERPRISE EXAMPLE ------------------------->
-{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|NODE_LIST|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|NODE_LIST|(KEY|VALUE)_COLUMNS|COUNT|TTL" }
 influxdb3 create last_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -76,7 +74,7 @@ influxdb3 create last_cache \
   --ttl TTL\
   LVC_NAME
 ```
-{{% /code-placeholders %}}
+
 <!--------------------------- END ENTERPRISE EXAMPLE -------------------------->
 {{% /show-in %}}
 
@@ -86,9 +84,7 @@ To use the HTTP API to create a Last Value Cache, send a `POST` request to the `
 
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/last_cache" api-ref="/influxdb3/version/api/table/#operation/PostConfigureLastCache" %}}
 
-{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
-
-```bash
+```bash { placeholders="(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|(KEY|VALUE)_COLUMNS|COUNT|TTL" }
 curl -X POST "https://localhost:8181/api/v3/configure/last_cache" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
@@ -101,8 +97,6 @@ curl -X POST "https://localhost:8181/api/v3/configure/last_cache" \
     "ttl": TTL
   }'
  ```
-
- {{% /code-placeholders %}}
 
  ### Example
 

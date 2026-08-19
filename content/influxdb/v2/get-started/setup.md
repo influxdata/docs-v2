@@ -164,9 +164,8 @@ The `POST /api/v2/setup` API endpoint doesn't require authentication
 {{% /warn %}}
 
 In the request body, specify values for the initial username, password, organization, bucket, and an optional Operator token--for example:
-{{% code-placeholders "BUCKET_NAME|ORG_NAME|USERNAME|PASSWORD|TOKEN" %}}
 
-```sh
+```sh { placeholders="BUCKET_NAME|ORG_NAME|USERNAME|PASSWORD|TOKEN" }
 curl http://localhost:8090/api/v2/setup \
   --data '{
             "username": "USERNAME",
@@ -176,8 +175,6 @@ curl http://localhost:8090/api/v2/setup \
             "org": "ORG_NAME"
         }'
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -426,17 +423,13 @@ If you [set up InfluxDB](#set-up-influxdb) using the CLI, it creates a default
 Use the [`influx config create` command](/influxdb/v2/reference/cli/influx/config/create/)
 to manually create a new CLI connection configuration for the All Access token you created in the preceding step. Include the following flags:
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|http://localhost:8086|default|USERNAME|PASSWORD" %}}
-
-```sh
+```sh { placeholders="API_TOKEN|ORG_NAME|http://localhost:8086|default|USERNAME|PASSWORD" }
 influx config create \
   --config-name get-started \
   --host-url http://localhost:8086 \
   --org ORG_NAME \
   --token API_TOKEN
 ```
-
-{{% /code-placeholders%}}
 
 Replace the following:
 
@@ -461,16 +454,12 @@ Set the following environment variables in your command line session:
 - `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id).
 - `INFLUX_TOKEN`: InfluxDB API token.
 
-{{% code-placeholders "&lt;(ORG_NAME|ORG_ID|API_TOKEN)&gt;" %}}
-
-```sh
+```sh { placeholders="&lt;(ORG_NAME|ORG_ID|API_TOKEN)&gt;" }
 export INFLUX_HOST={{< influxdb/host >}}
 export INFLUX_ORG=<ORG_NAME>
 export INFLUX_ORG_ID=<ORG_ID>
 export INFLUX_TOKEN=<API_TOKEN>
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -522,16 +511,12 @@ All API examples in this tutorial use **cURL** from a command line.
 To provide all the necessary credentials to the example cURL commands, set
 the following environment variables in your command line session.
 
-{{% code-placeholders "&lt;(ORG_NAME|ORG_ID|API_TOKEN)&gt;" %}}
-
-```sh
+```sh { placeholders="&lt;(ORG_NAME|ORG_ID|API_TOKEN)&gt;" }
 export INFLUX_HOST=http://localhost:8086
 export INFLUX_ORG=<ORG_NAME>
 export INFLUX_ORG_ID=<ORG_ID>
 export INFLUX_TOKEN=<API_TOKEN>
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

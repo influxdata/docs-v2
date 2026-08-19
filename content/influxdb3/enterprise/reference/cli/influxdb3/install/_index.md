@@ -8,6 +8,7 @@ menu:
     name: influxdb3 install
 weight: 300
 source: /shared/influxdb3-cli/install/_index.md
+canonical: self
 ---
 
 <!-- 

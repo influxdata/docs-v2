@@ -37,11 +37,9 @@ to delete an organization. Provide the following:
 - The [ID of the organization](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
   to delete
 
-{{% code-placeholders "ORG_ID" %}}
-```sh
+```sh { placeholders="ORG_ID" }
 influx org delete -i ORG_ID
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}} with
 the ID of the organization to delete.

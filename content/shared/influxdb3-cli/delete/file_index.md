@@ -48,13 +48,11 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: 
   Table name
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME|AUTH_TOKEN" %}}
-
 ### Delete a file index from a database
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE)_NAME|AUTH_TOKEN" }
 influxdb3 delete file_index \
   --database DATABASE_NAME \
   --token AUTH_TOKEN
@@ -64,11 +62,9 @@ influxdb3 delete file_index \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE)_NAME|AUTH_TOKEN" }
 influxdb3 delete file_index \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME
 ```
-
-{{% /code-placeholders %}}

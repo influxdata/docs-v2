@@ -45,26 +45,22 @@ SHOW MEASUREMENTS
 To resolve this error, specify a database with your query request by doing one
 of the following:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-
 - Include an `ON` clause with the `SHOW` statement that specifies the database
   to query:
 
-  ```sql
+  ```sql { placeholders="DATABASE_(NAME|TOKEN)" }
   SHOW MEASUREMENTS ON DATABASE_NAME
   ```
 
 - If using the [InfluxDB v1 query API](/enterprise_influxdb/v1/api/query/),
   Include the `db` query parameter in your request:
 
-  ```sh
+  ```sh { placeholders="DATABASE_(NAME|TOKEN)" }
   curl --get https://{{< influxdb/host >}}/query \
     --header "Authorization: Bearer DATABASE_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SHOW MEASUREMENTS"
   ```
-
-{{% /code-placeholders %}}
 
 **Related:**
 [InfluxQL `SHOW` statements](/influxdb3/cloud-dedicated/reference/influxql/show/),

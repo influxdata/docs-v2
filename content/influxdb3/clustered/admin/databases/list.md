@@ -81,7 +81,7 @@ with your command to format the database list as JSON.
     "retention_period_ns": 86400000000000,
     "max_tables": 100,
     "max_columns_per_table": 200
-  },
+  }
 ]
 ```
 

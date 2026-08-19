@@ -76,12 +76,10 @@ sort button and column headers to sort the list.
 Use the [`influxctl table list` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/list/)
 to list all tables in a database in your {{< product-name omit=" Cluster" >}} cluster.
 
-{{% code-placeholders "DATABASE_NAME" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_NAME" }
 influxctl table list DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -97,11 +95,9 @@ The `influxctl table list` command supports the following output formats:
 
 Use the `--format` flag to specify the output format:
 
-{{% code-placeholders "DATABASE_NAME" %}}
-```sh
+```sh { placeholders="DATABASE_NAME" }
 influxctl table list --format json DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 <!------------------------------- END INFLUXCTL ------------------------------->
 {{% /tab-content %}}
@@ -136,11 +132,9 @@ Provide the following with your command:
   or the `--database` command flag.
 - **SQL query**: SQL query with the `SHOW TABLES` statement or InfluxQL query with the `SHOW MEASUREMENTS` statement.
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 ##### SQL
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
@@ -149,15 +143,13 @@ influxctl query \
 
 ##### InfluxQL
 <!-- pytest.mark.skip -->
-```bash
+```bash { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   "SHOW MEASUREMENTS"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

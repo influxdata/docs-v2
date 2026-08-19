@@ -7,6 +7,7 @@ menu:
 weight: 2
 influxdb3/core/tags: [install]
 source: /shared/influxdb3/install.md
+canonical: self
 alt_links:
   v1: /influxdb/v1/introduction/install/
 related:

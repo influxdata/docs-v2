@@ -23,6 +23,20 @@ describe('Docs home', function () {
     cy.get('h1').should('contain', 'InfluxData Documentation');
   });
 
+  it('signals InfluxDB 3 as the current generation', function () {
+    cy.get('#influxdb3')
+      .should('contain', 'current generation of InfluxDB')
+      .and('contain', 'recommended platform for new time series workloads');
+  });
+
+  it('links to the InfluxDB 3 decision page', function () {
+    cy.get('#influxdb3 .decision-cta a')
+      .should('have.attr', 'href', '/influxdb3/which-influxdb-3/')
+      .click();
+    cy.url().should('include', '/influxdb3/which-influxdb-3/');
+    cy.get('h1').should('contain', 'Which InfluxDB 3 should I use?');
+  });
+
   it('content has links to all products', function () {
     // Collect hrefs first to avoid stale DOM references after navigation.
     cy.get('.home-content h3 > a')

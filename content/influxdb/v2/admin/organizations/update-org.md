@@ -49,14 +49,12 @@ to update an organization. Provide the following:
 
 ##### Update the name of an organization
 
-{{% code-placeholders "ORG_ID|NEW_ORG_(NAME|DESCRIPTION)" %}}
-```sh
+```sh { placeholders="ORG_ID|NEW_ORG_(NAME|DESCRIPTION)" }
 influx org update \
   --org-id ORG_ID \
   --name NEW_ORG_NAME \
   --description NEW_ORG_DESCRIPTION \
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

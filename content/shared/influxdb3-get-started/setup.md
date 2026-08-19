@@ -69,7 +69,7 @@ Using auto-generated node id: mylaptop-node. For production deployments, explici
 > as shown in the [Start InfluxDB](#start-influxdb) section below.
 
 **Configuration precedence**: Environment variables override auto-generated defaults.
-For example, if you set `INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node`, the system
+For example, if you set `INFLUXDB3_NODE_ID=my-node`, the system
 uses `my-node` instead of generating `{hostname}-node`.
 
 ## Start InfluxDB
@@ -179,7 +179,7 @@ influxdb3 serve \
 {{% /expand %}}
 {{% expand "Docker with a mounted file system object store" %}}
 
-To run the [Docker image](/influxdb3/version/install/#docker-image) and persist
+To run the [Docker image](/influxdb3/version/install/#pull-the-docker-image) and persist
 data to the local file system, mount a volume for the object store--for example,
 provide the following options with your `docker run` command:
 
@@ -244,7 +244,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
+      - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
     volumes:
       - type: bind
         # Path to store data on your host system
@@ -441,7 +441,7 @@ InfluxDB 3 Enterprise licenses:
 >
 > To generate the trial or home license in Docker, bypass the email prompt.
 > The first time you start a new instance, provide your email address with the
-> `--license-email` option or the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
+> `--license-email` option or the `INFLUXDB3_LICENSE_EMAIL` environment variable.
 >
 > _Currently, if you use Docker and enter your email address in the prompt, a bug may
 > prevent the container from generating the license ._
@@ -585,7 +585,7 @@ influxdb3 show databases --token YOUR_AUTH_TOKEN
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
 ```bash { placeholders="YOUR_AUTH_TOKEN" }
-curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
+curl "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 

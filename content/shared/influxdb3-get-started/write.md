@@ -154,8 +154,7 @@ Include the following:
   environment variable is already set)_
 - Quoted line protocol data via standard input (stdin)
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -187,14 +186,13 @@ home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 ```
-{{% /code-placeholders %}}
 
 In the code samples, replace the following placeholders with your values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the [database](/influxdb3/version/admin/databases/) to write to
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
-  your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission
+  your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission
   to write to the specified database{{% /show-in %}}
 
 ### Write data from a file
@@ -203,8 +201,7 @@ To write line protocol you have saved to a file, pass the `--file` option--for e
 [sample line protocol](#home-sensor-data-line-protocol) to a file named `sensor_data`
 and then enter the following command:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -212,11 +209,10 @@ influxdb3 write \
   --accept-partial \
   --file path/to/sensor_data 
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/version/admin/databases/) to write to.
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to write to the specified database{{% /show-in %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise,cloud" %}} with permission to write to the specified database{{% /show-in %}}
 
 ## Other tools for writing data
 
@@ -243,6 +239,15 @@ For more information, see [Write data to {{% product-name %}}](/influxdb3/versio
 {{% /show-in %}}
 
 {{% show-in "core" %}}
+{{% page-nav
+  prev="/influxdb3/version/get-started/setup/"
+  prevText="Set up InfluxDB"
+  next="/influxdb3/version/get-started/query/"
+  nextText="Query data"
+%}}
+{{% /show-in %}}
+
+{{% show-in "cloud" %}}
 {{% page-nav
   prev="/influxdb3/version/get-started/setup/"
   prevText="Set up InfluxDB"

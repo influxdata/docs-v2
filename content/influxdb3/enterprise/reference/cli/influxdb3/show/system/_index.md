@@ -9,6 +9,7 @@ menu:
     name: influxdb3 show system
 weight: 400
 source: /shared/influxdb3-cli/show/system/_index.md
+canonical: self
 ---
 
 <!--

@@ -1,10 +1,23 @@
 <!-- Allow leading shortcode -->
 {{% product-name %}} persists all data and metadata to object storage.
-Back up your data by copying object storage files in a specific order to ensure consistency and reliability.
+How you back up and restore that data depends on your storage engine:
 
-> [!Warning]
-> Currently, {{% product-name %}} does not include built-in backup and restore tools.
-> Because copying files during periods of activity is a transient process, we highly recommended you follow the below procedures and copy order to minimize risk of creating inconsistent backups.
+{{% show-in "enterprise" %}}
+- **Enterprise on the upgraded storage engine** (the default for new
+  clusters, or after running the storage engine upgrade with
+  `--upgrade-pacha-tree`): use the
+  built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
+  This is the recommended path on the upgraded engine.
+- **Enterprise on the Parquet engine** (clusters that started on 3.10 or
+  earlier that have not run the storage engine upgrade): use the
+  [manual object-storage procedure](#manual-backup-process) to copy object storage
+  files in a specific order.
+{{% /show-in %}}
+{{% show-in "core" %}}
+{{% product-name %}} does not include built-in backup and restore commands.
+Back up and restore your data with the [manual object-storage procedure](#manual-backup-process),
+which copies object storage files in a specific order to ensure consistency.
+{{% /show-in %}}
 
 ## Supported object storage
 
@@ -54,7 +67,186 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | `<node_id>/c`                             | Generation detail and [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                                                                             |
 {{% /show-in %}}
 
-## Backup process
+{{% show-in "enterprise" %}}
+## Back up and restore with the influxdb3 CLI
+
+On the upgraded storage engine, {{% product-name %}} provides built-in
+`influxdb3` backup and restore
+commands. Before you use them, ensure the following:
+
+- The cluster uses the upgraded storage engine (the default for new
+  clusters; older clusters must first run the
+  [storage engine upgrade](/influxdb3/version/reference/config-options/#upgrade-pacha-tree)).
+- You run the commands against any node that acts as the **compactor**, including `mode=all`.
+- You authenticate with an **admin token** or as an **admin user**.
+
+> [!Note]
+> #### Availability and node-role requirements
+>
+> - The backup and restore commands and endpoints are available **only when the
+>   storage engine upgrade is enabled**. On the default Parquet engine, the
+>   backup endpoints return `404`.
+> - Backup and restore run on a node running **compaction**. Query-only nodes return
+>   `503` and ingest-only nodes return `404`.
+
+The backup and restore subcommands map to the
+`/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
+API endpoints. For complete command syntax and flags, see the
+[`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/).
+
+### Create a backup
+
+Use `influxdb3 create backup` to create a full backup:
+
+```bash
+influxdb3 create backup --name base
+```
+
+If you omit `--name`, {{% product-name %}} generates one from a UTC timestamp.
+
+> [!Note]
+> - `create backup` **refuses to overwrite an existing backup name** unless
+>   you pass `--force`.
+> - **A backup only includes data already persisted to object storage**--your
+>   most recent writes may still be buffered and not yet captured. See
+>   [What a backup includes](#what-a-backup-includes).
+
+#### What a backup includes
+
+A backup captures data already persisted to object storage. Writes still
+buffered in memory and not yet flushed to the
+[write-ahead log (WAL)](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence)
+aren't included.
+
+To minimize the window of unpersisted writes before a backup, use the default
+[`no_sync=false`](/influxdb3/version/write-data/http-api/v3-write-lp/#use-no_sync-for-immediate-write-responses)
+write behavior, which acknowledges writes only after WAL persistence completes.
+For the full ingest and persistence path, see
+[InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
+
+### Create an incremental backup
+
+An incremental backup captures only the data that changed since its parent
+backup, which saves time and storage space compared to a full backup. Each
+incremental backup names the backup it chains from with `--parent`.
+
+`create backup` returns as soon as the backup starts, not when it finishes.
+`influxdb3 status backup` reports `in_progress`, `completed`, or `failed`.
+Check that a backup's status is `completed` before creating a child
+incremental backup that names it as `--parent`:
+
+```bash
+# Full backup first
+influxdb3 create backup --name base
+
+# Wait for it to complete before using it as a parent
+influxdb3 status backup --name base
+
+# Then create an incremental, naming its parent
+influxdb3 create backup --name inc-1 --incremental --parent base
+
+# Wait for inc-1 to complete before chaining the next incremental off it
+influxdb3 status backup --name inc-1
+influxdb3 create backup --name inc-2 --incremental --parent inc-1
+```
+
+Restoring an incremental backup walks the parent chain back to the full
+backup and produces a complete restore--you don't need to restore each link
+in the chain separately.
+
+Deleting an incremental backup also deletes every incremental backup that
+depends on it:
+
+```bash
+influxdb3 delete backup --name inc-1 --incremental
+```
+
+> [!Caution]
+> Deleting an incremental backup with `--incremental` deletes it and all of
+> its child incremental backups. This can remove multiple backups at once.
+
+### Inspect and manage backups
+
+| Command | Description |
+| ------- | ----------- |
+| `influxdb3 status backup` | Show the status of a backup |
+| `influxdb3 show backups`  | List existing backups |
+| `influxdb3 delete backup` | Delete a backup |
+| `influxdb3 cancel backup` | Cancel an in-progress backup |
+
+### Restore from a backup
+
+Use `influxdb3 create restore` to start a restore, and the related commands to
+monitor or cancel it:
+
+```bash
+influxdb3 create restore --backup base
+```
+
+To restore from an incremental backup, pass its name--the restore walks the
+chain of parent backups automatically:
+
+```bash
+influxdb3 create restore --backup inc-2
+```
+
+| Command | Description |
+| ------- | ----------- |
+| `influxdb3 create restore`  | Start a restore from a backup |
+| `influxdb3 status restore`  | Show the status of a restore |
+| `influxdb3 show restores`   | List restores |
+| `influxdb3 cancel restore`  | Cancel an in-progress restore |
+
+A restore is **asynchronous** and runs **in place on the live cluster**--no
+restart required. **Only one restore can run at a time across the cluster**;
+concurrent restore attempts return `409`.
+
+Restore is a **point-in-time rollback**, not an additive merge: it restores
+the catalog, copies the backup's files, and writes a new checkpoint above the
+existing checkpoint sequence. Rolling back also truncates the WAL down to the
+backup's watermark, so a subsequent node restart doesn't replay and resurrect
+the rolled-back writes.
+
+Restore is **not a full pre-clean** of post-backup object storage output.
+It removes newer transient and pre-compaction artifacts--PachaTree
+snapshots, `gen0` files, PachaTree WAL files, and newer compactor
+checkpoints. But already-**compacted** post-backup files (compactor run-set
+files and their indexes) stay in object storage, unreferenced by the
+restored catalog, pending later garbage collection rather than immediate
+deletion. A restore also discards any persisted compactor delete queue newer
+than the restored checkpoint, so stale cleanup work can't delete files the
+restored state still references.
+
+> [!Note]
+> #### Scripting a restore
+>
+> `influxdb3 create restore` and `influxdb3 status restore` print
+> human-readable text only--neither supports `--format json`. To script a
+> restore, call the HTTP API directly: `POST /api/v3/enterprise/restore`
+> returns `202` with a JSON body containing `restore_id`, which you poll with
+> `GET /api/v3/enterprise/restore/{id}`.
+
+> [!Warning]
+> #### Row deletes may persist across restores
+>
+> Backup doesn't currently pick up row-delete state files in object storage,
+> so row deletes may persist across a restore.
+
+### Disaster recovery
+
+To recover into a new object store, copy the backup directory
+`{cluster_id}/backups/{name}/` into an empty object store that uses the **same
+cluster ID and node ID** as the original deployment, then restart the node(s).
+
+{{% /show-in %}}
+
+## Manual backup process
+
+Use this manual object-storage procedure to back up {{% product-name %}}
+{{% show-in "enterprise" %}}running on the Parquet engine—clusters
+that started on 3.10 or earlier that have not run the storage engine upgrade
+(`--upgrade-pacha-tree`){{% /show-in %}}.
+It copies object storage files in a specific order to ensure consistency.
 
 > [!Important]
 > Copy files in the recommended order to reduce risk of creating inconsistent backups. Perform backups during downtime or minimal load periods when possible.
@@ -275,7 +467,12 @@ Replace the following:
 {{< /tabs-wrapper >}}
 {{% /show-in %}}
 
-## Restore process
+## Manual restore process
+
+Use this manual object-storage procedure to restore {{% product-name %}}
+{{% show-in "enterprise" %}}running on the Parquet engine—clusters
+that started on 3.10 or earlier that have not run the storage engine upgrade
+(`--upgrade-pacha-tree`){{% /show-in %}}.
 
 > [!Warning]
 > Restoring overwrites existing data. Always verify you have correct backups before proceeding.
@@ -466,15 +663,44 @@ Replace the following:
 - {{% code-placeholder-key %}}`BACKUP_DATE`{{% /code-placeholder-key %}}: backup directory timestamp
 {{% /show-in %}}
 
-## Important considerations
-
-### Recovery expectations
+## Recovery expectations
 
 > [!Warning]
 > Recovery succeeds to a consistent point in time, which is the **latest snapshot included** in the backup. Data written after that snapshot may not be present if its WAL was deleted after the backup. Any Parquet files without a snapshot reference are ignored.
 
+## Object storage features and backup planning
+
+### Versioning
+
+If your object storage provider supports it, consider enabling short-term object versioning on the object store backing {{% product-name %}} — typically 1–2 days — to protect against errant writes or accidental deletions.
+With versioning enabled, the object store retains distinct versions of each updated object, which can be used to recover from these incidents.
+
+{{% product-name %}} writes mostly immutable Parquet files and rarely updates existing objects, so versioning helps most with recovering specific accidentally deleted files.
+If many files are affected at once, recovering them through individual version restores becomes impractical.
+
+Versioning costs grow with object update frequency.
+{{% product-name %}}'s compaction process generates new Parquet files over time, so each compaction pass adds to the retained version count in a versioned bucket.
+Use the shortest retention window that meets your recovery needs, and treat versioning as a short-window safety net rather than a long-term backup substitute.
+
+### Periodic backups
+
+Provider-side features like versioning, soft delete, and point-in-time recovery protect against many failure modes but do **not** replace backups.
+Periodic backups to a separate object store remain the only predictable, repeatable way to recover from:
+
+- Corruption or compromise of the primary object store.
+- Accidental or malicious deletion of data.
+- Bad data written into the primary store (a replica of bad data is not a valid recovery point).
+
+The [backup process](#manual-backup-process) above is provider-agnostic — you can use any provider-native tool to copy to a separate bucket, container, or account, as long as you preserve the documented directory structure and file ordering.
+Schedule copies during low-load periods or downtime windows when possible.
+
 {{% show-in "enterprise" %}}
-### License files
+> [!Note]
+> Restoring to a different bucket, container, or storage account requires a new license — see [Licensing and disaster recovery](#licensing-and-disaster-recovery) below for binding details and DR planning.
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+## Licensing and disaster recovery
 
 > [!Important]
 > License files are tied to the complete object store configuration and the cluster ID, not just the bucket or container name.
@@ -495,7 +721,7 @@ For disaster recovery planning:
 - **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData support](https://support.influxdata.com) to obtain a new license.
 {{% /show-in %}}
 
-### Docker considerations
+## Containerized deployments
 
 When running {{% product-name %}} in containers:
 - **Volume consistency**: Use the same volume mounts for backup and restore operations
@@ -503,14 +729,14 @@ When running {{% product-name %}} in containers:
 - **Backup access**: Mount a backup directory to copy files from containers to the host
 {{% show-in "enterprise" %}}- **Node coordination**: Stop and start all Enterprise nodes (querier, ingester, compactor) in the correct order{{% /show-in %}}
 
-### Table snapshot files
+## Excluded files
 
 Files in `<node_id>/table-snapshots/` are intentionally excluded from backup:
 - These files are periodically overwritten
 - They regenerate automatically on server restart
 - Including them doesn't harm but increases backup size unnecessarily
 
-### Timing recommendations
+## Backup timing
 
 - Perform backups during downtime or minimal load periods
 - Copying files while the database is active may create inconsistent backups

@@ -70,6 +70,12 @@ function getVisibleHeadings(maxLevel: number = 2): TocEntry[] {
       return;
     }
 
+    // Skip headings in the support-and-feedback block appended after the
+    // article content
+    if (heading.closest('.feedback')) {
+      return;
+    }
+
     // Skip hidden headings
     const rect = heading.getBoundingClientRect();
     if (rect.width === 0 && rect.height === 0) {

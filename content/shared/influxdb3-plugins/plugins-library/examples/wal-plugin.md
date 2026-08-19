@@ -174,14 +174,12 @@ Entry point for processing write batches. Called each time data is written to th
 
 Logs are stored in the `_internal` database in the `system.processing_engine_logs` table. To view logs:
 
-{{% code-placeholders "AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 query \
   --database _internal \
   --token AUTH_TOKEN \
   "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'wal_monitoring'"
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your {{% token-link "admin" %}}.
 
@@ -192,11 +190,10 @@ Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} wi
 #### Issue: No write reports appearing
 **Solution**: 
 1. Verify the trigger was created successfully:
-   {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-   ```bash
+
+   ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
    influxdb3 show summary --database DATABASE_NAME --token AUTH_TOKEN
    ```
-   {{% /code-placeholders %}}
    
    Replace the following:
    

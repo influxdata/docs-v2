@@ -32,14 +32,12 @@ and provide the following:
 
 {{< cli/influx-creds-note >}}
 
-{{% code-placeholders "(USER|ORG)_(NAME|PASSWORD)" %}}
-```sh
+```sh { placeholders="(USER|ORG)_(NAME|PASSWORD)" }
 influx user create \
   --org ORG_NAME \
   --name USER_NAME \
   --password USER_PASSWORD
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

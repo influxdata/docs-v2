@@ -1,0 +1,26 @@
+{{- /*
+  Returns the product landing page for the given page context: the topmost
+  section that carries the `product` cascade — i.e. the section whose own page
+  resolves to a product but whose parent does not. Returns "" when the page is
+  not under a product.
+
+  Content_path-independent: works whether the landing is a bare product root
+  (/influxdb3/core/) or a versioned section root (/telegraf/v1/, /influxdb/v2/),
+  because the `product`/`version` cascade is declared on the versioned _index.md
+  and the namespace hub (/influxdb3/, /telegraf/) carries no product.
+
+  Usage:
+    {{- $landing := partial "product/landing.html" . -}}
+*/ -}}
+{{- $landing := "" -}}
+{{- if partial "product/get-data.html" . -}}
+  {{- range .Ancestors | append . -}}
+    {{- if partial "product/get-data.html" . -}}
+      {{- $parent := .Parent -}}
+      {{- if or (not $parent) (not (partial "product/get-data.html" $parent)) -}}
+        {{- $landing = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $landing -}}

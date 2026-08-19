@@ -52,14 +52,12 @@ Provide the following with your request:
   - **rp**: Optional: the retention policy to query
   - **q**: URL-encoded InfluxQL query
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
 
 Replace the following configuration values:
 
@@ -86,26 +84,26 @@ Replace the following configuration values:
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Basic ignored:DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   --data-urlencode "u=ignored" \
   --data-urlencode "p=DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}
@@ -116,12 +114,10 @@ By default, the `/query` endpoint returns results in **JSON**, but it can also
 return results in **CSV**. To return results as CSV, include the `Accept` header
 with the `application/csv` or `text/csv` MIME type:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --header "Accept: application/csv" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}

@@ -111,12 +111,15 @@ Benchmarks have shown up to a 5x speed improvement when data is compressed.
 
 ### Enable gzip compression in Telegraf
 
-In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set the
-`content_encoding` option to `gzip`:
+The [`influxdb_v3` output plugin](/telegraf/v1/output-plugins/influxdb_v3/)
+compresses write request bodies with gzip by default.
+
+If you use the `influxdb_v2` output plugin, set the `content_encoding` option
+to `gzip` in your `telegraf.conf`:
 
 ```toml
 [[outputs.influxdb_v2]]
-  urls = ["https://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   # ...
   content_encoding = "gzip"
 ```
@@ -147,7 +150,7 @@ mem,host=host2 used_percent=26.81522361 1641027600
 mem,host=host1 used_percent=22.52984738 1641031200
 mem,host=host2 used_percent=27.18294630 1641034800" | gzip > system.gzip \
 
-curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&bucket=DATABASE_NAME" \
+curl --request POST "{{< influxdb/host-url >}}/api/v2/write?org=ignored&bucket=DATABASE_NAME" \
   --header "Authorization: Token AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Content-Encoding: gzip" \
@@ -198,7 +201,7 @@ your own code and external applications.
 The following examples show how to [configure the Telegraf agent](/telegraf/v1/configuration)
 and [plugins](/telegraf/v1/plugins/) to optimize writes.
 The examples use the [File input plugin](/telegraf/v1/plugins/#input-file) to
-read data from a file and use the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#input-influxdb)
+read data from a file and use the [InfluxDB v3 output plugin](/telegraf/v1/plugins/#output-influxdb_v3)
 to write data to a database, but you can use any input and output plugin.
 
 ### Prerequisites
@@ -218,24 +221,19 @@ remove data elements (before processor and aggregator plugins run).
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "DATABASE_NAME|AUTH_TOKEN" >}}
-
-```sh
-cat <<EOF >> ./telegraf.conf
-  [[inputs.cpu]]
-    # Remove the specified fields from points.
-    fieldpass = ["usage_system", "usage_idle"]
-    # Remove the specified tags from points.
-    tagexclude = ["host"]
-  [[outputs.influxdb_v2]]
-    urls = ["http://{{< influxdb/host >}}"]
-    token = "AUTH_TOKEN"
-    organization = ""
-    bucket = "DATABASE_NAME"
-EOF
-```
-
-   {{< /code-placeholders >}}
+    ```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+    cat <<EOF >> ./telegraf.conf
+      [[inputs.cpu]]
+        # Remove the specified fields from points.
+        fieldpass = ["usage_system", "usage_idle"]
+        # Remove the specified tags from points.
+        tagexclude = ["host"]
+      [[outputs.influxdb_v3]]
+        urls = ["{{< influxdb/host-url >}}"]
+        token = "AUTH_TOKEN"
+        database = "DATABASE_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -292,7 +290,7 @@ The following example converts the `temp`, `hum`, and `co` fields to fit the
 
 <!--before-test
 ```sh
-curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+curl -s "{{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
   --header "Authorization: Token AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -320,31 +318,26 @@ curl -s "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precisi
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "DATABASE_NAME|AUTH_TOKEN" >}}
-
-```sh
-cat <<EOF > ./telegraf.conf
-[[inputs.file]]
-  ## For each interval, parse data from files in the list.
-  files = ["home.lp"]
-  influx_timestamp_precision = "1s"
-  precision = "1s"
-  tagexclude = ["host"]
-[[processors.converter]]
-  [processors.converter.fields]
-    ## A data type and a list of fields to convert to the data type.
-    float = ["temp", "hum"]
-    integer = ["co"]
-[[outputs.influxdb_v2]]
-  ## InfluxDB v2 API credentials and the database to write to.
-  urls = ["https://{{< influxdb/host >}}"]
-  token = "AUTH_TOKEN"
-  organization = ""
-  bucket = "DATABASE_NAME"
-EOF
-```
-
-    {{< /code-placeholders >}}
+    ```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    [[inputs.file]]
+      ## For each interval, parse data from files in the list.
+      files = ["home.lp"]
+      influx_timestamp_precision = "1s"
+      precision = "1s"
+      tagexclude = ["host"]
+    [[processors.converter]]
+      [processors.converter.fields]
+        ## A data type and a list of fields to convert to the data type.
+        float = ["temp", "hum"]
+        integer = ["co"]
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write to.
+      urls = ["{{< influxdb/host-url >}}"]
+      token = "AUTH_TOKEN"
+      database = "DATABASE_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -417,33 +410,29 @@ table, tag set, and timestamp), and then merges points in each series:
       calculated variable from the preceding step.
 
     <!--pytest-codeblocks:cont-->
-    {{< code-placeholders "DATABASE_NAME|AUTH_TOKEN" >}}
 
-  ```bash
-  cat <<EOF > ./telegraf.conf
-  # Parse metrics from a file
-  [[inputs.file]]
-    ## A list of files to parse during each interval.
-    files = ["home.lp"]
-    ## The precision of timestamps in your data.
-    influx_timestamp_precision = "1s"
-    tagexclude = ["host"]
-  # Merge separate metrics that share a series key
-  [[aggregators.merge]]
-    grace = "$grace_duration"
-    ## If true, drops the original metric.
-    drop_original = true
-  # Writes metrics as line protocol to the InfluxDB v2 API
-  [[outputs.influxdb_v2]]
-    ## InfluxDB v2 API credentials and the database to write data to.
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "AUTH_TOKEN"
-    organization = ""
-    bucket = "DATABASE_NAME"
-  EOF
-  ```
-
-    {{< /code-placeholders >}}
+    ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Merge separate metrics that share a series key
+    [[aggregators.merge]]
+      grace = "$grace_duration"
+      ## If true, drops the original metric.
+      drop_original = true
+    # Writes metrics as line protocol to InfluxDB
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write data to.
+      urls = ["{{< influxdb/host-url >}}"]
+      token = "AUTH_TOKEN"
+      database = "DATABASE_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -519,31 +508,27 @@ field values, and then write the data to InfluxDB:
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "DATABASE_NAME|AUTH_TOKEN" >}}
-  ```bash
-  cat <<EOF > ./telegraf.conf
-  # Parse metrics from a file
-  [[inputs.file]]
-    ## A list of files to parse during each interval.
-    files = ["home.lp"]
-    ## The precision of timestamps in your data.
-    influx_timestamp_precision = "1s"
-    tagexclude = ["host"]
-  # Filter metrics that repeat previous field values
-  [[processors.dedup]]
-    ## Drops duplicates within the specified duration
-    dedup_interval = "$dedup_duration"
-  # Writes metrics as line protocol to the InfluxDB v2 API
-  [[outputs.influxdb_v2]]
-    ## InfluxDB v2 API credentials and the database to write data to.
-    urls = ["https://{{< influxdb/host >}}"]
-    token = "AUTH_TOKEN"
-    organization = ""
-    bucket = "DATABASE_NAME"
-  EOF
-  ```
-
-    {{< /code-placeholders >}}
+    ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Filter metrics that repeat previous field values
+    [[processors.dedup]]
+      ## Drops duplicates within the specified duration
+      dedup_interval = "$dedup_duration"
+    # Writes metrics as line protocol to InfluxDB
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write data to.
+      urls = ["{{< influxdb/host-url >}}"]
+      token = "AUTH_TOKEN"
+      database = "DATABASE_NAME"
+    EOF
+    ```
 
     Replace the following:
 
@@ -754,32 +739,27 @@ The Go `multiplier.go` sample code does the following:
 
     <!--pytest-codeblocks:cont-->
 
-    {{< code-placeholders "DATABASE_NAME|AUTH_TOKEN" >}}
-    
-```bash
-cat <<EOF > ./telegraf.conf
-# Parse metrics from a file
-[[inputs.file]]
-  ## A list of files to parse during each interval.
-  files = ["home.lp"]
-  ## The precision of timestamps in your data.
-  influx_timestamp_precision = "1s"
-  tagexclude = ["host"]
-# Filter metrics that repeat previous field values
-[[processors.execd]]
-  ## A list that contains the executable command and arguments to run as a daemon.
-  command = ["go", "run", "multiplier.go"]
-# Writes metrics as line protocol to the InfluxDB v2 API
-[[outputs.influxdb_v2]]
-  ## InfluxDB v2 API credentials and the database to write data to.
-  urls = ["https://{{< influxdb/host >}}"]
-  token = "AUTH_TOKEN"
-  organization = ""
-  bucket = "DATABASE_NAME"
-EOF
-```
-
-    {{< /code-placeholders >}}
+    ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+    cat <<EOF > ./telegraf.conf
+    # Parse metrics from a file
+    [[inputs.file]]
+      ## A list of files to parse during each interval.
+      files = ["home.lp"]
+      ## The precision of timestamps in your data.
+      influx_timestamp_precision = "1s"
+      tagexclude = ["host"]
+    # Filter metrics that repeat previous field values
+    [[processors.execd]]
+      ## A list that contains the executable command and arguments to run as a daemon.
+      command = ["go", "run", "multiplier.go"]
+    # Writes metrics as line protocol to InfluxDB
+    [[outputs.influxdb_v3]]
+      ## InfluxDB credentials and the database to write data to.
+      urls = ["{{< influxdb/host-url >}}"]
+      token = "AUTH_TOKEN"
+      database = "DATABASE_NAME"
+    EOF
+    ```
 
     Replace the following:
 

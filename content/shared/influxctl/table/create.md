@@ -60,11 +60,9 @@ In the following examples, replace:
 
 ### Create a table
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
-```sh
+```sh { placeholders="(DATABASE|TABLE)_NAME" }
 influxctl table create DATABASE_NAME TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 ### Create a table with a custom partition template
 
@@ -72,8 +70,7 @@ The following example creates a new table and applies a partition
 template that partitions by two tags (`room` and `sensor-type`) and by day using
 the time format `%Y-%m-%d`:
 
-{{% code-placeholders "(DATABASE|TABLE)_NAME" %}}
-```sh
+```sh { placeholders="(DATABASE|TABLE)_NAME" }
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
@@ -82,7 +79,6 @@ influxctl table create \
   DATABASE_NAME \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 _For more information about custom partitioning, see
 [Manage data partitioning](/influxdb3/version/admin/custom-partitions/)._

@@ -136,78 +136,65 @@ influx setup \
 
 {{% show-in "v2" %}}
 
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
   --user "USERNAME:PASSWORD_OR_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
-{{% /code-placeholders %}}
 
 {{% /show-in %}}
 
 {{% show-in "cloud,cloud-serverless" %}}
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST https://cloud2.influxdata.com/write?db=DATABASE_NAME \
   --user "exampleuser@influxdata.com:API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
-{{% /code-placeholders %}}
 
 {{% /show-in %}}
 
 ##### Write data using token authentication
 
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
   --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
-{{% /code-placeholders %}}
 
 ##### Write data to a non-default retention policy
 
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST "http://localhost:8086/write?db=DATABASE_NAME&rp=RETENTION_POLICY" \
   --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
-{{% /code-placeholders %}}
 
 ##### Write multiple lines of line protocol
 
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
   --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000
 measurement,host=host2 field1=14i,field2=12.7 1577836800000000000
 measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
 ```
-{{% /code-placeholders %}}
 
 ##### Write data with millisecond Unix timestamps
 
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST "http://localhost:8086/write?db=DATABASE_NAME&precision=ms" \
   --header "Authorization: Token API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000"
 ```
-{{% /code-placeholders %}}
 
 ##### Use curl to write data from a file
 
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
   --header "Authorization: Token API_TOKEN" \
   --data-binary @path/to/line-protocol.txt
 ```
-{{% /code-placeholders %}}
 
 {{% show-in "v2" %}}
 

@@ -17,7 +17,14 @@
   {{ partial "footer/widgets.html" . }}
 
   <!-- IOx wayfinding modal -->
-  {{ if in (slice "cloud" "cloud-serverless") $version }}
+  <!--
+    The modal is only for the TSM/Serverless split: InfluxDB Cloud (TSM) at
+    influxdb/cloud and InfluxDB Cloud Serverless at influxdb3/cloud-serverless.
+    Key on (product, version), not version alone: influxdb3/cloud shares the
+    "cloud" version slug with influxdb/cloud but must NOT show this modal.
+  -->
+  {{ if or (and (eq $product "influxdb") (eq $version "cloud"))
+           (and (eq $product "influxdb3") (eq $version "cloud-serverless")) }}
     {{ partial "footer/v3-wayfinding.html" . }}
   {{ end }}
 

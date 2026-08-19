@@ -80,15 +80,13 @@ cache distinct values from
 
 You can also set environment variables (such as `INFLUXDB3_AUTH_TOKEN`) instead of passing options inline.
 
-{{% code-placeholders "(DATABASE|TABLE|COLUMN|CACHE)_NAME" %}}
-
 ### Create a distinct cache for one column
 
 Track unique values from a single column. This setup is useful for testing or simple use cases.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|COLUMN|CACHE)_NAME" }
 influxdb3 create distinct_cache \
   --database DATABASE_NAME \
   --table TABLE_NAME \
@@ -102,7 +100,7 @@ Create a distinct value cache for multiple columns. The following example tracks
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|COLUMN|CACHE)_NAME" }
 influxdb3 create distinct_cache \
   --database my_test_db \
   --table my_sensor_table \
@@ -111,8 +109,6 @@ influxdb3 create distinct_cache \
   --max-age 30d \
   my_sensor_distinct_cache
 ```
-
-{{% /code-placeholders %}}
 
 ## Common pitfalls
 

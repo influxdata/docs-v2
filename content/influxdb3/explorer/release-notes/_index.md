@@ -16,6 +16,29 @@ To upgrade, pull the latest Docker image:
 docker pull influxdata/influxdb3-ui
 ```
 
+## v1.9.0 {date="2026-06-22"}
+
+#### Features
+
+- **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter in a side-by-side Flux and SQL panel.
+- **InfluxQL support**: Query data with InfluxQL in the Data Explorer and dashboards. Save and load queries as InfluxQL.
+- **InfluxQL visualizations**: Render line and bar charts from InfluxQL results with per-tag series grouping.
+- **SQL formatting**: Format SQL queries in the query editor for improved readability.
+- **Query error history**: Review a history of query errors in the query tool.
+- **New Live sample data simulators**: Generate continuous live sample data with new bird data and signal generator simulators, plus shape-based sample data generation.
+- **Search**: Search across databases, server configurations, and tokens.
+- **Plugin logs**: Filter plugin trigger logs in an improved log viewer.
+- **Run plugins on demand**: Run plugins on demand with a new **Run now** button.
+- **Improved Database selector**: Find databases faster with an autocomplete database selector across the application.
+- **Core upgrade path**: See upgrade guidance when you reach InfluxDB 3 Core limits.
+
+#### Bug fixes
+
+- **Charts**: Classify boolean columns as group dimensions and treat the legacy `_measurement` column as series metadata.
+- **Server switching**: Debounce server switching and prevent a race condition when switching active servers.
+- **AI provider**: Require a valid API key when switching AI providers, with a clearer error message when it's missing.
+- **Query tool**: Improve the query toolbar, layout, and responsive sizing of the input and result panels.
+
 ## v1.8.0 {date="2026-04-29"}
 
 #### Features

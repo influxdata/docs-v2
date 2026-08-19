@@ -96,15 +96,13 @@ By default, the `/query` endpoint returns results in **JSON** format.
 To return results in CSV format, include the `Accept` header
 with the `application/csv` or `text/csv` MIME type--for example:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --header "Accept: application/csv" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
 
 ## Tools for querying the v1 API
 
@@ -120,14 +118,12 @@ To test InfluxDB v1 API queries interactively from the command line, use common 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_NAME|API_TOKEN" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|API_TOKEN" }
 curl https://{{< influxdb/host >}}/query \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -138,26 +134,26 @@ Replace the following:
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   -user "":"API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```sh
+
+```sh { placeholders="DATABASE_(NAME|TOKEN)" }
 curl --get https://{{< influxdb/host >}}/query \
   --data-urlencode "u=ignored" \
   --data-urlencode "p=DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
-{{% /code-placeholders %}}
+
 {{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}

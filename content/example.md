@@ -1637,3 +1637,38 @@ green and red tints.
            memory: 2Gi
 ```
 
+## influxdb/host and influxdb/host-url shortcodes
+
+Use `influxdb/host` to render the host placeholder only, and `influxdb/host-url`
+to render the full base URL (`scheme://host`) for the current product. The
+scheme comes from the product `scheme` value in `data/products.yml`, so
+self-managed products with a localhost host render `http://` and managed
+products render `https://`.
+
+Host only:
+
+{{< influxdb/host >}}
+
+Host URL (scheme + host):
+
+{{< influxdb/host-url >}}
+
+In a code block:
+
+```sh
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=DATABASE_NAME" \
+  --header "Authorization: Bearer DATABASE_TOKEN"
+```
+
+In an API endpoint:
+
+{{< api-endpoint endpoint="{{< influxdb/host-url >}}/query" method="get" >}}
+
+> [!Note]
+> This page has no `product` frontmatter, so the shortcodes above fall back to
+> their defaults: `localhost:8086` for the host and `https` for the scheme.
+> The resulting `https://localhost:8086` is a nonsensical combination that only
+> appears here because there is no product context to resolve.
+> On real product pages, `influxdb/host-url` renders the product-correct scheme
+> and host--for example, `http://localhost:8181` for Core and Enterprise or
+> `https://cluster-host.com` for Clustered.

@@ -26,18 +26,18 @@
   background: $sidebar-search-bg;
   color: $article-text;
   border: 1px solid $nav-border;
-  border-radius: $radius;
+  border-radius: 2rem;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  box-shadow: 2px 2px 6px $sidebar-search-shadow;
+  box-shadow: 1px 1px 3px $sidebar-search-shadow;
 
   &:hover {
     border-color: $sidebar-search-highlight;
-    box-shadow: 1px 1px 10px rgba($sidebar-search-highlight, .5);
+    box-shadow: 1px 1px 6px rgba($sidebar-search-highlight, .5);
   }
 
   &:focus {

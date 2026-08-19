@@ -51,15 +51,13 @@ In your commands replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
   Authentication token
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
-
 ### Update a table retention period
 
 Updates a table retention period to 30 days.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" }
 influxdb3 update table --database DATABASE_NAME --token AUTH_TOKEN --retention-period 30d TABLE_NAME
 ```
 
@@ -69,8 +67,6 @@ Removes the retention period from a table by setting it to `none`.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" }
 influxdb3 update table --database DATABASE_NAME --retention-period none TABLE_NAME
 ```
-
-{{% /code-placeholders %}}

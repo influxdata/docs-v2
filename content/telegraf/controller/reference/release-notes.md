@@ -9,10 +9,119 @@ menu:
 weight: 101
 ---
 
-## v0.0.7-beta {date="2026-04-30"}
+## v1.0.2 {date="2026-08-04"}
 
-<!-- Link only be on the latest version, update and move with new versions. -->
-[Download Telegraf Controller v0.0.7-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+<!-- Update and move the link to the latest version. -->
+[Download Telegraf Controller v1.0.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Features
+
+- Add plugin support to the Telegraf Builder UI:
+  - MQTT Consumer (`inputs.mqtt_consumer`)
+  - Multifile (`inputs.multifile`)
+  - MySQL (`inputs.mysql`)
+  - NATS Server Monitoring (`inputs.nats`)
+  - NATS Consumer (`inputs.nats_consumer`)
+  - Neoom Beaam (`inputs.neoom_beaam`)
+  - Neptune Apex (`inputs.neptune_apex`)
+  - Apache Zookeeper (`inputs.zookeeper`)
+
+### Bug fixes
+
+- Fix agent list filters, page reset when filters change, and a pagination
+  off-by-one error.
+- Fix filtering agents by the Undefined status and pagination when a filter
+  returns no results.
+- No longer require a reporting rule's auto-delete threshold to be longer than
+  its not-reporting threshold, and clarify the auto-delete field help text.
+- Store agent timestamps consistently between the heartbeat service and the
+  API, fixing unreliable not-reporting status checks, incorrect sorting and
+  filtering by last-reported time, and a time zone offset on PostgreSQL
+  servers not set to UTC.
+- Fix the elapsed time display when an agent's last report is momentarily in
+  the future.
+
+---
+
+## v1.0.1 {date="2026-07-01"}
+
+### Features
+
+- Serve the web UI on a separate port from the API using the `UI_PORT` option,
+  for deployments that run the web UI behind a reverse proxy.
+- When serving the web UI on a separate port, configure the API URL and the
+  allowed CORS origins with the `PUBLIC_API_URL`, `PUBLIC_API_PORT`,
+  `PUBLIC_UI_URL`, and `PUBLIC_UI_PORT` options for reverse-proxy and
+  remapped-port deployments.
+- Sort the agent list by column (Agent Details, Status, Last Reported), backed
+  by `sortBy` and `sortOrder` query parameters on `GET /api/agents`.
+- Accept both `postgresql://` and `postgres://` connection string schemes and
+  tolerate quoted `DATABASE_URL` values.
+- Accept command-line flags in both `--flag value` and `--flag=value` forms and
+  validate port options at startup.
+
+### Bug fixes
+
+- Sync the agents quota counter with manual refresh and polling.
+- Fix an environment-variable example typo on the add-configuration page.
+
+---
+
+## v1.0.0 {date="2026-06-23"}
+
+> [!Important]
+> #### Telegraf Controller v1.0 (General Availability)
+>
+> This is the first general availability (GA) release of {{% product-name %}}.
+> It includes an updated
+> [{{% product-name %}} EULA](/telegraf/controller/reference/eula/) for
+> general availability. After upgrading to this release, **you are required to
+> accept the updated EULA** before {{% product-name %}} starts. For information
+> about different ways to accept the updated EULA, see
+> [Install {{% product-name %}}--Review the EULA](https://docs.influxdata.com/telegraf/controller/install/#review-the-eula).
+
+### Features
+
+- Telegraf Enterprise features
+  - Add enterprise license management with entitlement validation.
+  - Add LDAP authentication with configurable directory connection settings.
+  - Add OpenID Connect (OIDC) single sign-on with identity provider configuration.
+  - Add per-provider authentication settings for LDAP and OIDC.
+  - Add role mapping and automatic user provisioning from your identity provider.
+  - Add an identity provider info endpoint for client auth discovery.
+  - Enhance invite management with authentication provider support and an updated
+    invite user form.
+  - Add audit logging with configurable settings and retention.
+- Add auth configuration, license, and entitlements in the token permissions
+  grid when creating an API token.
+- Replace Swagger UI with the [Scalar](https://scalar.com/) API reference at
+  `/api/docs`.
+- Configure {{% product-name %}} public URLs to use in generated commands and
+  configurations.
+- Add the `TELEGRAF_CONTROLLER_TOKEN` environment variable as the preferred way
+  to set the {{% product-name %}} API token. `INFLUX_TOKEN` continues to work
+  for backward compatibility.
+- Track configuration links during heartbeat batch processing.
+
+### Security
+
+- Add TLS support for the heartbeat server.
+- Add SSL/TLS support for PostgreSQL connections.
+- Sign release artifacts during the release build.
+
+### Bug fixes
+
+- Eliminate input lag on the configuration add page name and description fields.
+- Fix a crash on the agent detail page caused by a numeric status value.
+- Replace the humantime formatter with a custom formatter for consistent time
+  formatting.
+- Limit the length of reporting rule descriptions.
+- Fix agent auto-deletion.
+- Fix login screen flickering and improve the authentication flow.
+
+---
+
+## v0.0.7-beta {date="2026-04-30"}
 
 > [!Warning]
 > #### Breaking change: Only allow endpoint authorization control on startup

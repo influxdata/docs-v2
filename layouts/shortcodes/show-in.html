@@ -1,6 +1,27 @@
-{{- $productVersion := .Page.Params.version -}}
+{{- /*
+  Show the enclosed content only on the listed products.
+
+  Each list entry is matched against three identifiers for the current page,
+  all taken from the product/version cascade:
+
+    <version>            e.g. core, enterprise, v2, cloud-dedicated
+    <product>            e.g. influxdb3_core, enterprise_influxdb, telegraf
+    <product>/<version>  e.g. enterprise_influxdb/v1, influxdb/v1
+
+  Use the composite form when a version alone is ambiguous. InfluxDB v1 OSS and
+  v1 Enterprise both cascade version "v1", so only <product>/<version>
+  distinguishes them -- call it with "enterprise_influxdb/v1".
+
+  A bare <product> matches every version of that product, so "influxdb" is true
+  for both v1 and v2 pages. Prefer the composite form unless you mean that.
+*/ -}}
+{{- $version := .Page.Params.version -}}
+{{- $product := .Page.Params.product -}}
+{{- $identifiers := slice $version $product (print $product "/" $version) -}}
 {{- $defaultShowInString := "v2,cloud,cloud-serverless,cloud-dedicated,clustered,core,enterprise" -}}
-{{- $showInString := .Get 0 |  default $defaultShowInString }}
-{{- $showInList := split $showInString "," -}}
-{{- $show := in $showInList $productVersion -}}
+{{- $showInString := .Get 0 | default $defaultShowInString -}}
+{{- $show := false -}}
+{{- range (split $showInString ",") -}}
+  {{- if in $identifiers (trim . " ") -}}{{- $show = true -}}{{- end -}}
+{{- end -}}
 {{ if $show }}{{ .Inner }}{{ end }}

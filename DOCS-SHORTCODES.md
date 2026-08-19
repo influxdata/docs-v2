@@ -133,8 +133,6 @@ Use the `{{< latest-patch cli=true >}}` shortcode to add the latest version of t
 
 ```md
 {{< latest-patch cli=true >}}
-
-{{< latest-cli version="2.1" >}}
 ```
 
 ## API Documentation
@@ -488,6 +486,22 @@ Use the `{{< diagram >}}` shortcode to dynamically build diagrams. The shortcode
 ```md
 {{< diagram >}}
 flowchart TB
+This --> That
+That --> There
+{{< /diagram >}}
+```
+
+The shortcode accepts optional parameters that adjust how the diagram renders:
+
+- `natural-size`: Render the diagram at Mermaid's natural size.
+  By default, diagrams scale up to fill the article column (up to 680px wide),
+  which can blow up narrow diagrams such as top-down flowcharts.
+- `center`: Center the diagram in the article column.
+  By default, diagrams are left-aligned.
+
+```md
+{{< diagram natural-size center >}}
+graph TD
 This --> That
 That --> There
 {{< /diagram >}}
@@ -1114,6 +1128,43 @@ Use the following shortcode parameters to customize the content of the InfluxDB 
 - **action**: Text of the button
 - **link**: URL the button links to
 
+### Telegraf Enterprise feature callout
+
+Use the `{{< telegraf/enterprise-feature >}}` shortcode on Telegraf Controller pages to display a callout that identifies an Enterprise-only feature and links to the Telegraf Enterprise product page.
+
+```md
+{{< telegraf/enterprise-feature "Audit logging" >}}
+```
+
+Pass a second argument to change the verb form when the feature name is plural or uses a different word form:
+
+```md
+{{< telegraf/enterprise-feature "Audit logs" "are" >}}
+```
+
+#### Arguments
+
+The shortcode accepts two positional arguments:
+
+| Position | Argument   | Default        | Description                                                                             |
+| -------- | ---------- | -------------- | --------------------------------------------------------------------------------------- |
+| 0        | `feature`  | "This feature" | Name of the Enterprise feature. Use the singular or plural form that fits the sentence. |
+| 1        | `wordForm` | "is"           | Verb form that follows the feature name—for example, `is` (singular) or `are` (plural). |
+
+The rendered callout reads: *"{feature} {wordForm} only available with Telegraf Enterprise..."* followed by a link and an **Upgrade to Enterprise** call-to-action button.
+
+### Telegraf Enterprise upgrade callout
+
+Use the `{{< telegraf/enterprise-upgrade >}}` shortcode on Telegraf Controller pages to display an "Upgrade to Telegraf Enterprise" call-to-action that links to the Telegraf Enterprise product page.
+
+```md
+{{< telegraf/enterprise-upgrade >}}
+```
+
+The shortcode takes no arguments. The rendered callout reads *"Upgrade to Telegraf Enterprise"*, a short summary of Enterprise benefits, and an **Upgrade to Enterprise** button.
+
+Use this on Telegraf Controller pages that describe free-tier scale limits or Enterprise-only capabilities to give readers a path to upgrade. For inline feature-gating callouts on individual Enterprise features, use [`{{< telegraf/enterprise-feature >}}`](#telegraf-enterprise-feature-callout) instead.
+
 ### Reference content
 
 The InfluxDB documentation is "task-based," meaning content primarily focuses on what a user is **doing**, not what they are **using**. However, there is a need to document tools and other things that don't necessarily fit in the task-based style. This is referred to as "reference content."
@@ -1192,6 +1243,49 @@ The InfluxDB host placeholder that gets replaced by custom domains differs betwe
 
 {{< influxdb/host "serverless" >}}
 ```
+
+#### Automatically populate InfluxDB host URL with scheme
+
+Use the `influxdb/host-url` shortcode to render the full base URL
+(`scheme://host`) for the current product.
+It combines the product `scheme` and `placeholder_host` values from
+`data/products.yml`, so shared content doesn't hardcode a URL scheme.
+Self-managed products with a localhost host (Core, Enterprise, OSS) render
+`http://`; managed products (Cloud Serverless, Cloud Dedicated, Clustered,
+Cloud) render `https://`.
+
+Use `influxdb/host-url` instead of hardcoding a scheme in front of the
+`influxdb/host` shortcode--for example, use `{{< influxdb/host-url >}}` instead
+of `http://{{< influxdb/host >}}`.
+
+```md
+{{< influxdb/host-url >}}
+```
+
+##### Choose between influxdb/host and influxdb/host-url
+
+`influxdb/host` renders the host only (no scheme).
+`influxdb/host-url` renders `scheme://host`.
+Choosing the wrong one produces broken examples, so match the shortcode to the
+context.
+
+Use `influxdb/host-url` where the value is a full base URL:
+
+- A `curl` request URL, for example `curl "{{< influxdb/host-url >}}/api/v3/query_sql"`.
+- An `api-endpoint` `endpoint=` value.
+- An environment variable or code assignment that expects a full URL, for
+  example `INFLUXDB3_HOST_URL={{< influxdb/host-url >}}`.
+
+Use `influxdb/host` (bare host) where the field expects a hostname, not a URL,
+and the scheme is set separately. Converting these to a full URL breaks the
+example:
+
+- A client `host` field paired with a separate scheme, for example node-influx
+  (`host:` with `protocol:` and `port:`) or influxdb-python (`host=` with
+  `ssl=True`).
+- `InfluxDBClient3(host="{{< influxdb/host >}}")`, where the client adds the
+  scheme.
+- Server or CLI configuration that expects a hostname.
 
 ***
 

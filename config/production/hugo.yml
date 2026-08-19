@@ -1,3 +1,15 @@
+# Test fixtures live under `__tests__/` and must never ship to production.
+# `render: never` omits the pages from the build entirely (genuine 404), while
+# leaving them rendered in the testing/development environments that Cypress and
+# local dev use. See #7241.
+cascade:
+  - _target:
+      # Matches the __tests__ section page itself and everything under it.
+      path: '{**/__tests__,**/__tests__/**}'
+    _build:
+      render: never
+      list: never
+      publishResources: false
 build:
   writeStats: false
   useResourceCacheWhen: "fallback"

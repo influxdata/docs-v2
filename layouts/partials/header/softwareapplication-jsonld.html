@@ -1,0 +1,44 @@
+{{- /*
+  Emits a schema.org SoftwareApplication JSON-LD <script> once per product, on
+  the product landing page. The landing page is resolved structurally via
+  product/landing.html (the topmost product-cascaded section), so this works for
+  both bare product roots (/influxdb3/core/) and versioned section roots
+  (/telegraf/v1/, /influxdb/v2/).
+
+  Reads optional metadata from data/products.yml `schema`: operating_system,
+  application_category (default "DatabaseApplication"), and offers. softwareVersion
+  resolves to the per-version patch (latest_patches[version]) or the scalar
+  latest_patch; it is omitted for rolling/SaaS products that have no fixed
+  version. Absent fields are omitted rather than emitted empty.
+*/ -}}
+{{- $product := partial "product/get-data.html" . -}}
+{{- $landing := partial "product/landing.html" . -}}
+{{- if and $product $landing (eq .RelPermalink $landing.RelPermalink) -}}
+  {{- $schema := $product.schema | default dict -}}
+  {{- $url := .Permalink -}}
+  {{- $sw := dict
+      "@context" "https://schema.org"
+      "@type" "SoftwareApplication"
+      "@id" (printf "%s#software" $url)
+      "name" $product.name
+      "applicationCategory" (index $schema "application_category" | default "DatabaseApplication")
+      "url" $url
+  -}}
+  {{- $version := "" -}}
+  {{- with $product.latest_patches -}}
+    {{- $version = index . $.Params.version -}}
+  {{- end -}}
+  {{- if not $version -}}
+    {{- $version = $product.latest_patch -}}
+  {{- end -}}
+  {{- with $version -}}
+    {{- $sw = merge $sw (dict "softwareVersion" .) -}}
+  {{- end -}}
+  {{- with index $schema "operating_system" -}}
+    {{- $sw = merge $sw (dict "operatingSystem" .) -}}
+  {{- end -}}
+  {{- with index $schema "offers" -}}
+    {{- $sw = merge $sw (dict "offers" (dict "@type" "Offer" "price" .price "priceCurrency" .price_currency)) -}}
+  {{- end -}}
+  <script type="application/ld+json">{{ $sw | jsonify | safeJS }}</script>
+{{- end -}}

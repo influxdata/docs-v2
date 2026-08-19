@@ -1,0 +1,15 @@
+<!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
+
+## v0.17.0 {date="2026-01-08"}
+
+### Features
+- New feature.
+
+### Bug Fixes
+- A fix.
+
+- CI updates
+
+## v0.16.0 {date="2025-09-15"}
+
+- CI updates

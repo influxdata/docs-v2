@@ -8,6 +8,7 @@ menu:
     name: influxdb3 show system table-list
 weight: 401
 source: /shared/influxdb3-cli/show/system/table-list.md
+canonical: self
 ---
 
 <!--

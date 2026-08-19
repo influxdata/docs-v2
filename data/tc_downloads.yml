@@ -1,24 +1,24 @@
-version: "0.0.7-beta"
+version: "1.0.2"
 platforms:
   - name: Linux
     builds:
       - arch: x64
         os: linux
-        sha256: "dcc17417cc4b2a1b151cac928fb01fc47d7a51e62c6a0aa4566274b505b4f065"
+        sha256: "7dd9785718a395fefaf7d4457dc853135785664785d78a7694a1351fe2562f5c"
       - arch: arm64
         os: linux
-        sha256: "cb94a414895b887c04d204ab2cecfdf92bc8b253381729490e0bd0e75aeb0993"
+        sha256: "eaa95888041f92f763f25e09a8426c809179d1c9406d201186d01516eacbeee9"
   - name: macOS
     builds:
       - arch: x64
         os: macos
-        sha256: "ccbc7d0fa4df741a9493e448eb79a9a20b5650b0fab4bdb45037ca52a8dffd52"
+        sha256: "bf91df01b877f3c06ac0dfa531d061166dfe654f28728283a50c845e225d7518"
       - arch: arm64
         os: macos
-        sha256: "c2bdfa79cd49b013cc3b365cda9a90ad6bc5b5ab5e63a520e24e0044640c35d3"
+        sha256: "5685fe0b5bb35626fd80c82400c17cea6088df5b0d9ecd7877c4e3ac7801c4e5"
   - name: Windows
     builds:
       - arch: x64
         os: win
         ext: .exe
-        sha256: "9cceef4f3101365bd1595daaf9d787e173052d7a749bf48cfe8c1b8aaffec11c"
+        sha256: "660106838e1452827c18ffe4c66726f61a12e2175b79b69095a12244f4cf51bf"

@@ -41,19 +41,15 @@ You can use the following environment variables to set command options:
 
 ### Delete a last value cache
 
-{{% code-placeholders "(DATABASE|TABLE|CACHE)_NAME|AUTH_TOKEN" %}}
-
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|CACHE)_NAME|AUTH_TOKEN" }
 influxdb3 delete last_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
   CACHE_NAME
 ```
-
-{{% /code-placeholders %}}
 
 In the example above, replace the following:
 

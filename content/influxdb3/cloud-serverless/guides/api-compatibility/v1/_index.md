@@ -89,8 +89,7 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 
 The following example shows how to use cURL with the `Basic` authentication scheme and a [token](/influxdb3/cloud-serverless/admin/tokens/):
 
-{{% code-placeholders "DATABASE_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
+```sh { placeholders="DATABASE_NAME|API_TOKEN|RETENTION_POLICY" }
 #######################################
 # Use Basic authentication with a database token
 # to query the InfluxDB v1 API
@@ -102,8 +101,6 @@ curl "https://{{< influxdb/host >}}/query" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -127,8 +124,7 @@ https://{{< influxdb/host >}}/write/?u=any&p=API_TOKEN
 
 The following example shows how to use cURL with query string authentication and a [token](/influxdb3/cloud-serverless/admin/tokens/).
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
+```sh { placeholders="BUCKET_NAME|API_TOKEN|RETENTION_POLICY" }
 #######################################
 # Use an InfluxDB 1.x compatible username and password
 # to query the InfluxDB v1 API
@@ -140,7 +136,6 @@ curl --get "https://{{< influxdb/host >}}/query" \
   --data-urlencode "rp=RETENTION_POLICY" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -165,8 +160,7 @@ Authorization: Token API_TOKEN
 
 Use `Token` to authenticate a write request:
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
-```sh
+```sh { placeholders="BUCKET_NAME|API_TOKEN|RETENTION_POLICY" }
 ########################################################
 # Use the Token authorization scheme with v1 /write
 # to write data.
@@ -179,11 +173,10 @@ curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&rp=RETENTION_POLIC
 ```
 
 <!-- after-test
-```sh
+```sh { placeholders="BUCKET_NAME|API_TOKEN|RETENTION_POLICY" }
 influx bucket delete -n DATABASE_NAME/RETENTION_POLICY_NAME
 ```
 -->
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -351,8 +344,7 @@ INFLUX_BUCKET_ID=$(influx bucket list -n DATABASE_NAME | grep 24h0m0s | cut -b 1
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API)_(NAME|TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API)_(NAME|TOKEN|ID)" }
 influx v1 dbrp create \
   --token API_TOKEN \
   --org ORG_ID \
@@ -365,14 +357,11 @@ influx v1 dbrp create \
 <!--pytest-codeblocks:cont-->
 
 <!-- after-test
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API)_(NAME|TOKEN|ID)" }
 test_dbrp=$(influx v1 dbrp list --db DATABASE_NAME --rp RETENTION_POLICY_NAME | grep DATABASE_NAME | cut -b 1-16)
 influx v1 dbrp delete --id $test_dbrp
 ```
 -->
-
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -405,8 +394,7 @@ Include the following:
   - **retention_policy:** the retention policy name to map to the bucket
   - Optional: **default:** `true` sets the database name's [default DBRP mapping](#default-dbrp).
 
-{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 curl --request POST https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json' \
@@ -418,7 +406,6 @@ curl --request POST https://{{< influxdb/host >}}/api/v2/dbrps \
         "retention_policy": "RETENTION_POLICY_NAME"
       }'
 ```
-{{% /code-placeholders %}}
 
 If successful, the response status code is `201: Created` and the response body contains the DBRP.
 
@@ -443,13 +430,13 @@ Use the [`influx v1 dbrp list` command](/influxdb3/cloud-serverless/reference/cl
 to list DBRP mappings.
 
 ##### View all DBRP mappings
-{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
-```sh
+
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 influx v1 dbrp list --token API_TOKEN --org ORG_ID \
 ```
 
 ##### Filter DBRP mappings by database
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 influx v1 dbrp list \
   --token API_TOKEN \
   --org ORG_ID \
@@ -459,20 +446,19 @@ influx v1 dbrp list \
 ##### Filter DBRP mappings by bucket ID
 
 <!-- before-test
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 INFLUX_BUCKET_ID=$(influx bucket list -n DATABASE_NAME | grep 24h | cut -b 1-16)
 ```
 -->
 
 <!--pytest-codeblocks:cont-->
 
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 influx v1 dbrp list \
   --token API_TOKEN \
   --org ORG_ID \
   --bucket-id BUCKET_ID
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -494,11 +480,9 @@ Include the following:
   - **rp:** a retention policy name _(to list DBRP mappings with a specific retention policy name)_
   - **id:** a DBRP mapping ID _(to list a specific DBRP mapping)_
 
-{{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
-
 ##### View all DBRP mappings
 
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 curl --request GET \
   https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
@@ -507,7 +491,7 @@ curl --request GET \
 
 ##### Filter DBRP mappings by database
 
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 curl --request GET \
   https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
@@ -517,14 +501,13 @@ curl --request GET \
 
 ##### Filter DBRP mappings by bucket ID
 
-```sh
+```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
 curl --request GET \
   https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID" \
   --data-urlencode  "bucketID=BUCKET_ID"
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{% /tabs-wrapper %}}
@@ -564,8 +547,7 @@ INFLUX_DBRP_ID="$dbrp_id"
 
 ##### Update the default retention policy
 
-{{% code-placeholders "(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" }
 influx v1 dbrp update \
   --token API_TOKEN \
   --org ORG_ID \
@@ -573,7 +555,6 @@ influx v1 dbrp update \
   --rp RETENTION_POLICY_NAME \
   --default
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -607,8 +588,7 @@ Include the following:
 
 ##### Update the default retention policy
 
-{{% code-placeholders "(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" }
 curl --request PATCH \
   https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
   --header "Authorization: Token API_TOKEN" \
@@ -618,7 +598,6 @@ curl --request PATCH \
       "default": true
     }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -664,14 +643,12 @@ INFLUX_DBRP_ID="$dbrp_id"
 
 <!--pytest-codeblocks:cont-->
 
-{{% code-placeholders "(DBRP|API)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(DBRP|API)_(TOKEN|ID)" }
 influx v1 dbrp delete \
   --token API_TOKEN \
   --org ORG_ID \
   --id DBRP_ID
 ```
-{{% /code-placeholders %}}
 
 The output is the DBRP.
 
@@ -695,14 +672,13 @@ Include the following:
 - **Query parameters:**
   - {{< req "\*" >}} **orgID:** [organization ID](/influxdb3/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
 
-{{% code-placeholders "(DBRP|API|ORG)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(DBRP|API|ORG)_(TOKEN|ID)" }
 curl --request DELETE \
   https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID"
 ```
-{{% /code-placeholders %}}
+
 {{% /tab-content %}}
 {{% /tabs-wrapper %}}
 

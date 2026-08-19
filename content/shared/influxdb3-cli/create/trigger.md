@@ -39,14 +39,41 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--disabled`        | Create the trigger in disabled state                                                                     |
 |        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` |
 |        | `--run-asynchronous` | Run the trigger asynchronously, allowing multiple triggers to run simultaneously (default is synchronous)                                                 |
-{{% show-in "enterprise" %}}|        | `--node-spec`       | Which node(s) the trigger should be configured on. Two value formats are supported: `all` (default) - applies to all nodes, or `nodes:<node-id>[,<node-id>..]` - applies only to specified comma-separated list of nodes |{{% /show-in %}}
 |        | `--tls-ca`          | Path to a custom TLS certificate authority (for self-signed or internal certificates)                    |
 |        | `--tls-no-verify`   | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`            | Print help information                                                                                   |
 |        | `--help-all`        | Print detailed help information                                                                          |
 
-If you want to use a plugin from the [Plugin Library](https://github.com/influxdata/influxdb3_plugins) repo, use the URL path with `gh:` specified as the prefix.
-For example, to use the [System Metrics](https://github.com/influxdata/influxdb3_plugins/blob/main/influxdata/system_metrics/system_metrics.py) plugin, the plugin filename is `gh:influxdata/system_metrics/system_metrics.py`.
+{{% show-in "enterprise" %}}
+Additional {{% product-name %}} option:
+
+| Option |               | Description                                                                                                                                                                 |
+| :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|        | `--node-spec` | Which node(s) the trigger should be configured on. Two value formats are supported: `all` (default) - applies to all nodes, or `nodes:<node-id>[,<node-id>..]` - applies only to specified comma-separated list of nodes |
+{{% /show-in %}}
+
+### Reference a plugin from GitHub
+
+To fetch a plugin remotely instead of downloading it locally, prefix the plugin path with `gh:`. The path after the prefix is appended to the configured `--plugin-repo`--for example:
+
+```
+gh:examples/wal_plugin/wal_plugin.py
+```
+
+Despite the name, `gh:` doesn't require GitHub or a Git repository--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw plugin files.
+
+By default, `gh:`-prefixed plugins resolve against the [`influxdata/influxdb3_plugins`](https://github.com/influxdata/influxdb3_plugins) repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`.
+For example, `gh:examples/wal_plugin/wal_plugin.py` resolves to `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal_plugin/wal_plugin.py`.
+
+To reference plugins from a different repository, set the `--plugin-repo` server option (or the `INFLUXDB3_PLUGIN_REPO` environment variable) to a raw content URL base path. For more information, see the [`plugin-repo` config option](/influxdb3/version/reference/config-options/#plugin-repo).
+
+InfluxDB fetches the plugin over HTTP when the trigger is created (to validate it), and again each time the trigger starts--for example, on server startup or when re-enabled. If the fetch fails, `influxdb3 create trigger` returns an error with the HTTP status code and URL:
+
+```
+error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
+```
+
+Unlike local plugins, `gh:`-prefixed plugins aren't automatically reloaded when the source changes--disable and re-enable the trigger to fetch updates. Only single-file plugins are supported with the `gh:` prefix; multi-file plugin directories must be uploaded locally with `--upload`.
 
 
 ### Option environment variables
@@ -303,3 +330,45 @@ influxdb3 create trigger \
   --error-behavior disable \
   TRIGGER_NAME
 ```
+
+{{% show-in "enterprise" %}}
+
+### Pin a trigger to specific nodes in a cluster
+
+In a multi-node {{% product-name %}} cluster, the default `--node-spec all` makes every node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured try to execute the trigger.
+For schedule triggers, this causes duplicate execution on every plugin-capable node.
+For request triggers, the route exists only on the node receiving the HTTP request, and other nodes return `404 not found` — there's no internal cross-node routing.
+
+To pin a trigger to specific node(s), pass `--node-spec nodes:<node-id>[,<node-id>...]`:
+
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
+# Pin a schedule trigger to a process-capable node
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --path schedule_rollup.py \
+  --trigger-spec "every:5s" \
+  --node-spec "nodes:NODE_ID" \
+  hourly_rollup
+
+# Pin a request trigger to a query-capable node (the node that serves HTTP)
+influxdb3 create trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --path request_top_n.py \
+  --trigger-spec "request:top_n" \
+  --node-spec "nodes:NODE_ID" \
+  top_n
+```
+
+The cluster validates the node IDs in `--node-spec` against current cluster membership at create time.
+A typo or unknown node ID is rejected with `HTTP 500: invalid node name (<id>)`.
+
+The cluster doesn't validate the trigger type against the pinned node's mode at create time.
+Pinning a schedule trigger to a `compact`-only node, or a request trigger to an `ingest`-only node, succeeds — but the trigger fails or returns `404` at execution time.
+Choose the pinned node by what the trigger needs at execution:
+
+- **Schedule trigger** — pin to a node with `process,query` mode if the plugin reads with `influxdb3_local.query()`; otherwise the call HTTP-hops to another query node.
+- **Request trigger** — pin to the node(s) you want to serve external HTTP traffic. The `/api/v3/engine/<trigger_name>` route only exists on pinned nodes; clients hitting any other node receive `404 not found`.
+
+{{% /show-in %}}

@@ -98,13 +98,9 @@ to revoke a database token and remove all permissions associated with the token.
 
 4.  Confirm that you want to revoke the token.
 
-{{% code-placeholders "TOKEN_ID" %}}
-
-```sh
+```sh { placeholders="TOKEN_ID" }
 influxctl token revoke TOKEN_ID
 ```
-
-{{% /code-placeholders %}}
 
 <!-------------------------------- END INFLUXCTL ------------------------------>
 {{% /tab-content %}}
@@ -141,17 +137,13 @@ but you can use any HTTP client._
 The following example shows how to use the Management API to revoke a database
 token and remove all permissions associated with the token:
 
-{{% code-placeholders "TOKEN_ID|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="TOKEN_ID|ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
  --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" \
  --request DELETE \
  --header "Accept: application/json" \
  --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

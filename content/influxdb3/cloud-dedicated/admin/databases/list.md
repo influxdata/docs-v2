@@ -99,16 +99,12 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
  The following example shows how to use the Management API to list databases in a cluster:
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-
-```sh
+```sh { placeholders="ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
    --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
    --header "Accept: application/json" \
    --header "Authorization: Bearer MANAGEMENT_TOKEN"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
@@ -184,7 +180,7 @@ A zero (`0`) retention period means data won't expire.
     "retention_period_ns": 86400000000000,
     "max_tables": 100,
     "max_columns_per_table": 200
-  },
+  }
 ]
 ```
 

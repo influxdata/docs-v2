@@ -10,6 +10,7 @@ influxdb3/enterprise/tags: [plugins, processing engine, python, transformation, 
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/basic_transformation, Basic transformation plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/basic-transformation.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/basic-transformation.md -->

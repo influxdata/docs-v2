@@ -24,11 +24,23 @@ through each of those steps.
 
 InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 
-- [InfluxDB 3 Core](/influxdb3/core/)
-- [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
-- [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/)  (Query Mode Only)
-- [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)  (Query Mode Only)
-  
+| Product | Support |
+| :------ | :------ |
+| [InfluxDB 3 Core](/influxdb3/core/) | Query and administer |
+| [InfluxDB 3 Enterprise](/influxdb3/enterprise/) | Query and administer |
+| [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) | Query only _(partial support)_ |
+| [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) | Query only _(partial support)_ |
+
+> [!Important]
+> #### Cloud products: use the Admin UI
+>
+> To administer [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) or
+> [InfluxDB 3 Cloud](/influxdb3/cloud/), use the
+> [Admin UI](https://console.influxdata.com) at `console.influxdata.com`
+> instead of {{% product-name %}}.
+> For administrative tasks, see
+> [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
+> [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
 1.  Navigate to **Configure** > **Servers**.
 2.  Click **+ Connect Your First Server**.
@@ -43,29 +55,38 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
        > [!Note]
        > #### When to use `host.docker.internal`
        >
-       > If your InfluxDB 3 instance is running in Docker (not the same container as Explorer),
-       > use `host.docker.internal` as your server host to allow the Explorer container to
-       > connect to the InfluxDB container on the host--for example:
+       > If your InfluxDB 3 instance is running on the Docker host, either natively
+       > or in a separate container with port `8181` published, use
+       > `host.docker.internal` as the server host--for example:
        >
        > ```txt
        > "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181"
        > ```
        >
        > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
-       > - If InfluxDB is running natively on your machine (not in Docker), use `localhost`.
+       > - Docker Desktop provides `host.docker.internal` automatically.
+       >   On Linux Docker Engine, map the hostname when you start Explorer:
+       >   `--add-host=host.docker.internal:host-gateway` with `docker run`, or
+       >   `extra_hosts: ["host.docker.internal:host-gateway"]` with Docker Compose.
        >
-       > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host).
+       > For Docker Desktop details, see the [Docker Desktop networking documentation](https://docs.docker.com/desktop/features/networking/).
+       > For Linux Docker Engine details, see the [Docker daemon documentation](https://docs.docker.com/reference/cli/dockerd/#configure-host-gateway-ip).
 
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
       We recommend using an InfluxDB 3 _admin_ token.
       
       > [!Important]
-      > #### Token permissions may limit Explorer functionality
+      > #### Token permissions determine Explorer's access
       >
       > The permissions associated with the provided token determine what
       > databases you can access using this server configuration. InfluxDB 3
       > tokens with limited permissions may not be able to use some Explorer
       > functionality.
+      >
+      > The token's permissions also define what anyone with access to this
+      > Explorer instance can do. Use a token scoped to what you need, and
+      > control who can reach Explorer. See
+      > [Network exposure and access control](/influxdb3/explorer/install/#network-exposure-and-access-control).
 
 4.  Click **Add Server**.
 

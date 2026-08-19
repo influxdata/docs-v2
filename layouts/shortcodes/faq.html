@@ -1,0 +1,14 @@
+{{- $key := .Page.Params.faq_data -}}
+{{- if not $key -}}
+  {{- errorf "faq shortcode requires faq_data frontmatter on the page (%s)" .Page.RelPermalink -}}
+{{- end -}}
+{{- $faqs := index .Site.Data.faqs $key -}}
+{{- if not $faqs -}}
+  {{- errorf "faq shortcode: no data file at data/faqs/%s.yml (page %s)" $key .Page.RelPermalink -}}
+{{- end -}}
+{{- range $faqs }}
+<h2 id="{{ .question | anchorize }}">{{ .question }}</h2>
+<div class="faq-answer">
+{{ $.Page.RenderString (dict "display" "block") .answer }}
+</div>
+{{- end }}

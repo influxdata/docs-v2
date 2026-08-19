@@ -62,7 +62,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
 
 ### Channel-specific configuration
 
-Notification channels require additional parameters based on the sender type (same as the [influxdata/notifier plugin](../notifier/README.md)).
+Notification channels require additional parameters based on the sender type (same as the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/)).
 
 ## Schema requirement
 
@@ -71,7 +71,7 @@ The plugin assumes that the table schema is already defined in the database, as 
 ## Software requirements
 
 - **InfluxDB v3 Core/Enterprise**: with the Processing Engine enabled.
-- **Notification Sender Plugin for {{% product-name %}}**: This plugin is required for sending notifications. See the [influxdata/notifier plugin](../notifier/README.md).
+- **Notification Sender Plugin for {{% product-name %}}**: This plugin is required for sending notifications. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 
 ## Installation steps
 
@@ -89,7 +89,7 @@ The plugin assumes that the table schema is already defined in the database, as 
    ```bash
    influxdb3 install package requests
    ```
-3. **Optional**: For notifications, install and configure the [influxdata/notifier plugin](../notifier/README.md)
+3. **Optional**: For notifications, install and configure the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/)
 
 ## Trigger setup
 

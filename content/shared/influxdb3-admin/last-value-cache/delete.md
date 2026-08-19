@@ -13,15 +13,13 @@ to delete a Last Value Cache (LVC). Provide the following:
   LVC you want to delete is associated with.
 - **Cache name**: The name of the LVC to delete.
 
-{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" }
 influxdb3 delete last_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --table TABLE_NAME \
   LVC_NAME
 ```
-{{% /code-placeholders %}}
 
 ## Use the HTTP API
 
@@ -29,12 +27,10 @@ To use the HTTP API to delete a Last Value Cache, send a `DELETE` request to the
 
 {{% api-endpoint method="DELETE" endpoint="/api/v3/configure/last_cache" api-ref="/influxdb3/core/api/table/#operation/DeleteConfigureLastCache" %}}
 
-{{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN" }
 curl -X DELETE "https://localhost:8181/api/v3/configure/last_cache?db=DATABASE_NAME&table=TABLE_NAME&name=LVC_NAME" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 ## Example
 

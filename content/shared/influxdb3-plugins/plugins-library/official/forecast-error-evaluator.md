@@ -94,7 +94,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
 ## Software Requirements
 
 - **{{% product-name %}}**: with the Processing Engine enabled.
-- **Notification Sender Plugin for {{% product-name %}}**: Required for sending notifications. See the [influxdata/notifier plugin](../notifier/README.md).
+- **Notification Sender Plugin for {{% product-name %}}**: Required for sending notifications. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 - **Python packages**:
  	- `pandas` (for data processing)
  	- `requests` (for HTTP notifications)
@@ -116,7 +116,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
    influxdb3 install package pandas
    influxdb3 install package requests
    ```
-3. Install the [influxdata/notifier plugin](../notifier/README.md) (required)
+3. Install the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/) (required)
 
 ## Trigger setup
 

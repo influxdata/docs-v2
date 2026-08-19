@@ -102,7 +102,7 @@ Provide the following in your request:
 ### Request body
 JSON object that contains a `params` object. In `params`, provide key-value pairs for parameters referenced in your script.
 The [create](#create-an-invokable-script) example references the parameter `params.mybucket`.
-```json
+```text
   "from(bucket: params.mybucket) \
    |> range(start: -7d) \
    |> limit(n:1)"
@@ -123,7 +123,7 @@ In `params`, add the parameter names as keys and define a value for each key.
 
 The following **invokable script** object references four parameters:
 
-```json
+```text
     {
       "name": "filter-and-group",
       "description": "Filters and groups points in a bucket. Expects parameters bucket, filterField, filterField2, and groupColumn.",

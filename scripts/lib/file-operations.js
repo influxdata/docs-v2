@@ -8,6 +8,18 @@ import { dirname, join, basename } from 'path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 
+// gray-matter 4.0.3 binds its default YAML engine to the removed
+// js-yaml 3 safeLoad/safeDump APIs. js-yaml 4 is safe by default, so point
+// the engine at load/dump to stay compatible with the pinned js-yaml version.
+export const MATTER_OPTIONS = {
+  engines: {
+    yaml: {
+      parse: (input) => yaml.load(input),
+      stringify: (input) => yaml.dump(input),
+    },
+  },
+};
+
 /**
  * Read a markdown file and parse frontmatter
  * @param {string} filePath - Path to the markdown file
@@ -19,7 +31,7 @@ export function readDraft(filePath) {
   }
 
   const raw = readFileSync(filePath, 'utf8');
-  const parsed = matter(raw);
+  const parsed = matter(raw, MATTER_OPTIONS);
 
   return {
     content: parsed.content,
@@ -44,7 +56,7 @@ export async function readDraftFromStdin() {
     process.stdin.on('end', () => {
       try {
         // Parse with gray-matter to extract frontmatter if present
-        const parsed = matter(data);
+        const parsed = matter(data, MATTER_OPTIONS);
         resolve({
           content: parsed.content,
           frontmatter: parsed.data || {},

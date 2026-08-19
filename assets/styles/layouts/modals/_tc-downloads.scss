@@ -39,7 +39,7 @@
   .mktoFormRow:has(.mktoEmailField),
   .mktoFormRow:has(.mktoCheckboxList),
   .mktoButtonRow {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
   .mktoFieldDescriptor,

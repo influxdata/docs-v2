@@ -1,7 +1,7 @@
 tags:
   Compatibility endpoints:
     drop: true
-  Export data (beta):
+  Export data:
     description: >
       Export data from InfluxDB 3 Enterprise databases.
       List databases, tables, export windows, and retrieve
@@ -9,6 +9,16 @@ tags:
     x-related:
       - title: Export data
         href: /influxdb3/enterprise/admin/export/
+  Load capture:
+    description: >
+      Capture an anonymized profile of write requests, query requests, or both on a
+      query-capable node.
+    externalDocs:
+      description: Capture workload data
+      url: /influxdb3/enterprise/admin/load-capture/
+    x-related:
+      - title: Capture workload data
+        href: /influxdb3/enterprise/admin/load-capture/
   Authentication:
     x-traitTag: true
     description: |

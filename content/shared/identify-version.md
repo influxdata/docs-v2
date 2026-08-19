@@ -5,7 +5,7 @@ Identifying which InfluxDB product and version you're using is essential for acc
 
 ## Quick detection methods
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,influxdb3_cloud" %}}
 
 ### By URL pattern
 
@@ -13,7 +13,8 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 
 | URL Pattern                                | Product                                       |
 | ------------------------------------------ | --------------------------------------------- |
-| `*.influxdb.io`                            | InfluxDB Cloud Dedicated                      |
+| `*.enterprise.influxdb.io`                 | InfluxDB 3 Cloud ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) |
+| `*.a.influxdb.io`                          | InfluxDB Cloud Dedicated                      |
 | `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
 | `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
 | `*.influxcloud.net`                        | [InfluxDB Cloud 1](/platform/#influxdb-cloud-1) (legacy) |
@@ -85,10 +86,11 @@ x-influxdb-version: {{% latest-patch %}}
 
 {{% show-in "enterprise" %}}
 > [!Note]
-> The `/ping` endpoint requires authentication by default in InfluxDB 3 Enterprise.
-> Use an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
+> The [`/ping` endpoint](/influxdb3/enterprise/api/server-information/#operation/GetPing) requires authentication by default in InfluxDB 3 Enterprise.
+> Include an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
 > [system token](/influxdb3/enterprise/admin/tokens/resource/create/#create-a-system-token)
-> with `system:ping:read` permission.
+> (with `system:ping:read` permission) using [`Bearer` authentication](/influxdb3/enterprise/api/authentication/#section/Authentication/BearerAuthentication)
+> in the `Authorization` header.
 {{% /show-in %}}
 
 {{% /show-in %}}
@@ -134,7 +136,7 @@ influxctl cluster list
 
 **InfluxDB Cloud Dedicated** can be identified by:
 
-**URL pattern**: `*.influxdb.io`
+**URL pattern**: `*.a.influxdb.io`
 
 - Example: `cluster-id.a.influxdb.io`
 
@@ -144,7 +146,7 @@ influxctl cluster list
 
 {{% /show-in %}}
 
-{{% hide-in "v2,cloud,v1" %}}
+{{% hide-in "v2,influxdb_cloud,v1" %}}
 > [!Note]
 >
 > #### SQL version() function
@@ -181,7 +183,7 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 
 {{% /show-in %}}
 
-{{% show-in "cloud" %}}
+{{% show-in "influxdb_cloud" %}}
 
 ### InfluxDB Cloud (TSM) detection
 
@@ -199,6 +201,28 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 **Account settings**: Check your InfluxDB Cloud account dashboard for product details.
 
 **HTTP headers**: API responses include version information in response headers.
+
+{{% /show-in %}}
+
+{{% show-in "influxdb3_cloud" %}}
+
+### InfluxDB 3 Cloud detection
+
+**URL pattern**: `*.enterprise.influxdb.io`
+
+- Example: `instance-id.enterprise.influxdb.io`
+
+**Administration interface**: Manage instances through [console.influxdata.com](https://console.influxdata.com).
+
+**CLI**: InfluxDB 3 Cloud workflows use the `influxdb3` CLI rather than `influxctl`.
+The following command reports the installed CLI version:
+
+```bash
+influxdb3 --version
+```
+
+InfluxDB 3 Cloud is in early access.
+[Request access](https://www.influxdata.com/products/influxdb3-cloud/).
 
 {{% /show-in %}}
 
@@ -224,7 +248,7 @@ For Enterprise v1, the `x-influxdb-build` header will show `Enterprise`.
 
 {{% /show-in %}}
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,influxdb3_cloud" %}}
 
 ## Product-specific methods
 
@@ -260,10 +284,11 @@ x-influxdb-version: 3.8.0
 ```
 
 > [!Note]
-> The `/ping` endpoint requires authentication by default in [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
-> Use an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
+> The [`/ping` endpoint](/influxdb3/enterprise/api/server-information/#operation/GetPing) requires authentication by default in [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+> Include an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
 > [system token](/influxdb3/enterprise/admin/tokens/resource/create/#create-a-system-token)
-> with `system:ping:read` permission.
+> (with `system:ping:read` permission) using [`Bearer` authentication](/influxdb3/enterprise/api/authentication/#section/Authentication/BearerAuthentication)
+> in the `Authorization` header.
 
 > [!Note]
 > #### SQL version() function
@@ -336,7 +361,7 @@ The InfluxDB UI displays the version:
 
 For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/reference/faq/#administration-1)
 
-### InfluxDB Cloud (Serverless, Dedicated, TSM)
+### InfluxDB Cloud products
 
 For InfluxDB Cloud products, check the version information:
 
@@ -379,7 +404,7 @@ Look for the `x-influxdb-version` header (for example, `1.11.7`).
 
 {{% /hide-in %}}
 
-{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,enterprise-v1" %}}
+{{% hide-in "core,enterprise,cloud-serverless,cloud-dedicated,clustered,v2,cloud,v1,influxdb3_cloud" %}}
 
 ## Understanding InfluxDB products
 
@@ -389,6 +414,7 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | ----------------------------- | --------- | ------------------------ | ------------------- | ------------ |
 | **InfluxDB 3 Core**           | Free      | Self-hosted              | SQL, InfluxQL       | 8181         |
 | **InfluxDB 3 Enterprise**     | Paid      | Self-hosted              | SQL, InfluxQL       | 8181         |
+| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) | Paid | Cloud | SQL, InfluxQL | N/A |
 | **InfluxDB Cloud Serverless** | Free/Paid | Cloud                    | SQL, InfluxQL, Flux | N/A          |
 | **InfluxDB Cloud Dedicated**  | Paid      | Cloud                    | SQL, InfluxQL       | N/A          |
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |

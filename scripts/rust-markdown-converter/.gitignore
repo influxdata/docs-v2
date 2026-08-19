@@ -2,6 +2,6 @@ target/
 node_modules/
 *.node
 .cargo/
-Cargo.lock
 *.d.ts
 index.js
+.prebuilt-version

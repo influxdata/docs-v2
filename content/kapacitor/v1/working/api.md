@@ -185,15 +185,15 @@ The task must be disabled and re-enabled for changes to take effect.
 
 The vars object has the form:
 
-```json
+```json { placeholders="VALUE|TYPE" }
 {
     "field_name" : {
-        "value": <VALUE>,
-        "type": <TYPE>
+        "value": VALUE,
+        "type": TYPE
     },
     "another_field" : {
-        "value": <VALUE>,
-        "type": <TYPE>
+        "value": VALUE,
+        "type": TYPE
     }
 }
 ```
@@ -517,14 +517,14 @@ GET /kapacitor/v1/tasks?fields=status&fields=executing&fields=error
             "id" : "TASK_ID",
             "status" : "enabled",
             "executing" : true,
-            "error" : "",
+            "error" : ""
         },
         {
             "link" : {"rel":"self", "href":"/kapacitor/v1/tasks/ANOTHER_TASK_ID"},
             "id" : "ANOTHER_TASK_ID",
             "status" : "disabled",
             "executing" : true,
-            "error" : "",
+            "error" : ""
         }
     ]
 }
@@ -580,7 +580,7 @@ GET /kapacitor/v1/tasks/TASK_ID/mycustom_endpoint
                 [
                     "2015-01-29T21:56:43.702900257Z",
                     42
-                ],
+                ]
             ]
         }
     ]
@@ -655,7 +655,7 @@ Response with template `id` and `link`.
     "dot" : "digraph TASK_ID { ... }",
     "error" : "",
     "created": "2006-01-02T15:04:05Z07:00",
-    "modified": "2006-01-02T15:04:05Z07:00",
+    "modified": "2006-01-02T15:04:05Z07:00"
 }
 ```
 
@@ -712,7 +712,7 @@ GET /kapacitor/v1/templates/TEMPLATE_ID
     "dot" : "digraph TASK_ID { ... }",
     "error" : "",
     "created": "2006-01-02T15:04:05Z07:00",
-    "modified": "2006-01-02T15:04:05Z07:00",
+    "modified": "2006-01-02T15:04:05Z07:00"
 }
 ```
 
@@ -1192,7 +1192,7 @@ The request returns once the replay is started and provides a replay ID and link
     "status" : "running",
     "progress" : 0,
     "error" : "",
-    "stats": {},
+    "stats": {}
 }
 ```
 
@@ -2788,7 +2788,7 @@ GET /kapacitor/v1/service-tests/slack
 ```json
 {
     "link": {"rel":"self", "href": "/kapacitor/v1/service-tests/slack"},
-    "name": "slack"
+    "name": "slack",
     "options": {
         "message": "test slack message",
         "channel": "#alerts",

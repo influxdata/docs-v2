@@ -67,8 +67,8 @@ The following command flags identify
 
 <!--Skip tests for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-```bash
+
+```bash { placeholders="ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
   --header "Authorization: Bearer MANAGEMENT_TOKEN" \
@@ -85,7 +85,6 @@ curl \
     ]
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 
@@ -156,8 +155,7 @@ influxctl table create \
 {{% tab-content %}}
 <!------------------------------- BEGIN cURL ---------------------------------->
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" %}}
-```bash
+```bash { placeholders="ACCOUNT_ID|CLUSTER_ID|MANAGEMENT_TOKEN" }
 curl \
   --location "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/example-db/tables" \
   --request POST \
@@ -172,7 +170,6 @@ curl \
     ]
   }'
 ```
-{{% /code-placeholders %}}
 
 Replace the following in your request:
 

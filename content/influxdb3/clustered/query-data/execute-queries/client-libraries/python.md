@@ -223,8 +223,7 @@ module to instantiate a client configured for an {{% product-name %}} database.
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="DATABASE_(NAME|TOKEN)" }
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -237,7 +236,6 @@ client = InfluxDBClient3(
     timeout=60  # Set default timeout to 60 seconds
 )
 ```
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
@@ -306,8 +304,8 @@ The following examples shows how to use SQL or InfluxQL to select all fields in 
 {{% code-tab-content %}}
 <!---- BEGIN SQL EXAMPLE --->
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```py
+
+```py { placeholders="DATABASE_(NAME|TOKEN)" }
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -346,14 +344,14 @@ print("\n#### Use PyArrow compute functions to aggregate data\n")
 print(table.group_by('hum').aggregate([]))
 print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
-{{% /code-placeholders %}}
+
 {{% /influxdb/custom-timestamps %}}
 <!---- END SQL EXAMPLE ---->
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---- BEGIN INFLUXQL EXAMPLE ---->
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```py
+
+```py { placeholders="DATABASE_(NAME|TOKEN)" }
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
@@ -392,7 +390,7 @@ print("\n#### Use PyArrow compute functions to aggregate data\n")
 print(table.group_by('hum').aggregate([]))
 print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
-{{% /code-placeholders %}}
+
 <!---- END INFLUXQL EXAMPLE ---->
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}

@@ -124,8 +124,7 @@ Replace the following configuration values in the sample code:
 
 #### Query using SQL
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```go
+```go { placeholders="DATABASE_(NAME|TOKEN)" }
 // query.go
 package main
 
@@ -195,7 +194,7 @@ func Query() error {
 }
 
 ```
-{{% /code-placeholders %}}
+
 {{% /influxdb/custom-timestamps %}}
 
 The sample code does the following:
@@ -218,8 +217,7 @@ The sample code does the following:
 
 #### Query using InfluxQL
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```go
+```go { placeholders="DATABASE_(NAME|TOKEN)" }
 // query.go
 
 package main
@@ -294,7 +292,7 @@ func InfluxQL() error {
     w.Flush()
 }
 ```
-{{% /code-placeholders %}}
+
 {{% /influxdb/custom-timestamps %}}
 
 The sample code does the following:

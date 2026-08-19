@@ -1,6 +1,8 @@
 The InfluxDB 3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
 integrates {{% product-name %}} write and query operations with Python scripts and applications.
 
+{{< client-latest-version >}}
+
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Client libraries can be used to construct line protocol data, transform data from other formats
 to line protocol, and batch write line protocol data to InfluxDB HTTP APIs.
@@ -124,24 +126,20 @@ When writing data in synchronous mode, the client immediately tries to write the
 The following example initializes a client for writing and querying data in an {{% product-name %}} database.
 Given that `write_client_options` isn't specified, the client uses the default [synchronous writing](#synchronous-writing) mode.
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                         database=f"DATABASE_NAME",
                         token=f"DATABASE_TOKEN")
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -152,16 +150,14 @@ Replace the following:
 
 To explicitly specify synchronous mode, create a client with `write_options=SYNCHRONOUS`--for example:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3, write_client_options, SYNCHRONOUS
 
 wco = write_client_options(write_options=SYNCHRONOUS)
@@ -172,8 +168,6 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                         write_client_options=wco,
                         flight_client_options=None)
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -206,16 +200,14 @@ Use `WriteOptions` and `write_client_options` to configure batch writing and res
 The following example shows how to use batch mode with defaults and
 specify callback functions for the response status (success, error, or retryable error).
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import(InfluxDBClient3,
                               write_client_options,
                               WriteOptions,
@@ -253,8 +245,6 @@ with InfluxDBClient3(host=f"{{< influxdb/host >}}",
       timestamp_column='time', tag_columns=["room"], write_precision='s')
 ```
 
-{{% /code-placeholders %}}
-
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/version/admin/databases/)
@@ -282,16 +272,15 @@ Writes a record or a list of records to InfluxDB.
 #### Example: write a line protocol string
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 point = "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000"
@@ -307,7 +296,7 @@ The following sample code executes an SQL query to retrieve the point:
 
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 # Execute an SQL query
 table = client.query(query='''SELECT room
                             FROM home
@@ -318,7 +307,6 @@ room = table[0][0]
 assert f"{room}" == 'Living Room', f"Expected {room} to be Living Room"
 ```
 
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 Replace the following:
@@ -335,16 +323,14 @@ point for a measurement and setting fields, tags, and the timestamp for the poin
 The following example shows how to create a `Point` object, and then write the
 data to InfluxDB.
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import Point, InfluxDBClient3
 
 point = Point("home").tag("room", "Kitchen").field("temp", 21.5).field("hum", .25)
@@ -358,7 +344,7 @@ client.write(point)
 
 The following sample code executes an InfluxQL query to retrieve the written data:
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 # Execute an InfluxQL query
 table = client.query(query='''SELECT DISTINCT(temp) as val
                               FROM home
@@ -368,8 +354,6 @@ table = client.query(query='''SELECT DISTINCT(temp) as val
 df = table.to_pandas()
 assert 21.5 in df['val'].values, f"Expected value in {df['val']}"
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -393,16 +377,15 @@ The following example shows how to define a `dict` that represents a point, and 
 data to InfluxDB.
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 # Using point dictionary structure
@@ -420,7 +403,6 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
 client.write(record=points, write_precision="s")
 ```
 
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 Replace the following:
@@ -468,16 +450,14 @@ Execution is synchronous.
 The following example shows how to specify customized write options for batching, retries, and response callbacks,
 and how to write data from CSV and JSON files to InfluxDB:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import(InfluxDBClient3, write_client_options,
                               WritePrecision, WriteOptions, InfluxDBError)
 
@@ -538,8 +518,6 @@ with InfluxDBClient3(host=f"{{< influxdb/host >}}",
                     tag_columns=["room"], write_precision='s')
 ```
 
-{{% /code-placeholders %}}
-
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/version/admin/databases/)
@@ -568,16 +546,14 @@ Returns all data in the query result as an Arrow table ([`pyarrow.Table`](https:
 
 #### Example: query using SQL
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -593,8 +569,6 @@ print(table.select(['room', 'temp']))
 print(table.group_by('hum').aggregate([]))
 ```
 
-{{% /code-placeholders %}}
-
 In the examples, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/version/admin/databases/)
@@ -604,16 +578,14 @@ In the examples, replace the following:
 
 #### Example: query using InfluxQL
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -626,20 +598,16 @@ table = client.query(query=query, language="influxql")
 print(table.select(['room', 'temp']))
 ```
 
-{{% /code-placeholders %}}
-
 ##### Example: read all data from the stream and return a pandas DataFrame
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -651,20 +619,16 @@ pd = client.query(query=query, mode="pandas")
 print(pd.to_markdown())
 ```
 
-{{% /code-placeholders %}}
-
 ##### Example: view the schema for all batches in the stream
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -678,20 +642,16 @@ table = client.query("""SELECT *
 print(table.schema)
 ```
 
-{{% /code-placeholders %}}
-
 ##### Example: retrieve the result schema and no data
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -702,22 +662,18 @@ schema = client.query(query=query, mode="schema")
 print(schema)
 ```
 
-{{% /code-placeholders %}}
-
 ##### Specify a timeout
 
 Pass `timeout=<number of seconds>` for [`FlightCallOptions`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightCallOptions.html#pyarrow.flight.FlightCallOptions) to use a custom timeout.
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -727,8 +683,6 @@ query = "SELECT * from home WHERE time >= now() - INTERVAL '90 days'"
 client.query(query=query, timeout=5)
 ```
 
-{{% /code-placeholders %}}
-
 ### InfluxDBClient3.close
 
 Sends all remaining records from the batch to InfluxDB,
@@ -736,16 +690,14 @@ and then closes the underlying write client and Flight client to release resourc
 
 #### Example: close a client
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
@@ -753,8 +705,6 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                          token=f"DATABASE_TOKEN")
 client.close()
 ```
-
-{{% /code-placeholders %}}
 
 ## Class Point
 
@@ -878,16 +828,14 @@ Returns a `dict` with the specified [FlightClient](https://arrow.apache.org/docs
 
 #### Example: specify the root certificate path
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-
 <!-- Import for tests and hide from users.
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 import os
 ```
 -->
 <!--pytest-codeblocks:cont-->
 
-```python
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 from influxdb_client_3 import InfluxDBClient3, flight_client_options
 import certifi
 
@@ -900,8 +848,6 @@ client = InfluxDBClient3(host=f"{{< influxdb/host >}}",
                          token=f"DATABASE_TOKEN",
     flight_client_options=flight_client_options(tls_root_certs=cert))
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following:
 

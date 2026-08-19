@@ -59,11 +59,9 @@ Provide the following flags:
 
 - `--token`: API token with permission to read authorizations
 
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+```sh { placeholders="API_TOKEN" }
 influx auth list --token API_TOKEN
 ```
-{{% /code-placeholders %}}
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
 See the [`influx auth list` documentation](/influxdb3/cloud-serverless/reference/cli/influx/auth/list)
@@ -91,11 +89,9 @@ Include the following in your request:
     (API token with the [`read: authorizations`](/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+```sh { placeholders="API_TOKEN" }
 {{% get-shared-text "api/cloud-serverless/auth/tokens-view.sh" %}}
 ```
-{{% /code-placeholders %}}
 
 ### View a single token
 
@@ -110,25 +106,21 @@ Include the following in your request:
     (API token with the [`read: authorizations`](/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 
-{{% code-placeholders "(API|AUTHORIZATION)_(TOKEN|ID)" %}}
-```sh
+```sh { placeholders="(API|AUTHORIZATION)_(TOKEN|ID)" }
 curl --request GET \
 	"https://us-west-2-1.aws.{{< influxdb/host >}}/api/v2/authorizations/AUTHORIZATION_ID" \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json'
 ```
-{{% /code-placeholders %}}
 
 ### Filter the token list
 
 InfluxDB returns authorizations from the same organization as the token used in the request.
 To filter tokens by user, include `userID` as a query parameter in your request.
 
-{{% code-placeholders "API_TOKEN" %}}
-```sh
+```sh { placeholders="API_TOKEN" }
 {{% get-shared-text "api/cloud-serverless/auth/tokens-view-filter.sh" %}}
 ```
-{{% /code-placeholders %}}
 
 See the [`/authorizations` endpoint documentation](/influxdb3/cloud-serverless/api/authorizations-api-tokens/))
 for more information about available parameters.

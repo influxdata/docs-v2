@@ -30,11 +30,10 @@ to create a Distinct Value Cache (DVC). Provide the following:
 
 {{% show-in "core" %}}
 <!----------------------------- BEGIN CORE EXAMPLE ---------------------------->
-{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|NODE_SPEC|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|NODE_SPEC|COLUMNS|MAX_(CARDINALITY|AGE)" }
 influxdb3 create distinct_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -44,17 +43,16 @@ influxdb3 create distinct_cache \
   --max-age MAX_AGE \
   DVC_NAME
 ```
-{{% /code-placeholders %}}
+
 <!------------------------------ END CORE EXAMPLE ----------------------------->
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 <!-------------------------- BEGIN ENTERPRISE EXAMPLE ------------------------->
-{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|NODE_LIST|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|NODE_LIST|COLUMNS|MAX_(CARDINALITY|AGE)" }
 influxdb3 create distinct_cache \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -65,7 +63,7 @@ influxdb3 create distinct_cache \
   --max-age MAX_AGE \
   DVC_NAME
 ```
-{{% /code-placeholders %}}
+
 <!--------------------------- END ENTERPRISE EXAMPLE -------------------------->
 {{% /show-in %}}
 
@@ -75,9 +73,7 @@ To use the HTTP API to create a Distinct Value Cache, send a `POST` request to t
 
 {{% api-endpoint method="POST" endpoint="/api/v3/configure/distinct_cache" api-ref="/influxdb3/version/api/table/#operation/PostConfigureDistinctCache" %}}
 
-{{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
-
-```bash
+```bash { placeholders="(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|COLUMNS|MAX_(CARDINALITY|AGE)" }
 curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
@@ -89,8 +85,6 @@ curl -X POST "https://localhost:8181/api/v3/configure/distinct_cache" \
     "max_age": MAX_AGE
   }'
 ```
-
-{{% /code-placeholders %}}
 
 ### Example
 

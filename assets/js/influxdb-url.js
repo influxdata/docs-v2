@@ -386,6 +386,7 @@ export function InfluxDBUrl() {
   // Open the InfluxDB URL selector modal
   $('.url-trigger').click(function (e) {
     e.preventDefault();
+    trackUrlSelectorOpen();
     toggleModal('#influxdb-url-list');
   });
 
@@ -491,6 +492,37 @@ export function InfluxDBUrl() {
     updateUrls(getPrevUrls(), getUrls());
   });
 
+  // Track selecting a built-in (preset) URL for analytics. Selecting a preset
+  // reliably delivers only one of `click` or `change`, and which one depends
+  // on how the selection was made:
+  //
+  // - `change` alone is unreliable. setRadioButtons() checks the stored (or
+  //   default) preset on page load, so selecting the preset that is already
+  //   checked never changes the state. Products with a single preset (Core,
+  //   Enterprise, OSS) are always in that state.
+  // - `click` alone is unreliable. Clicking a region heading forwards a click
+  //   to its first cluster with jQuery .trigger(), which suppresses jQuery's
+  //   own click handlers for the activation it performs, so only `change`
+  //   reaches this handler.
+  //
+  // Bind both and drop the duplicate when one selection fires both. Excludes
+  // the custom radio, which is tracked when the custom value is applied.
+  let presetSelectionReported = false;
+  $('input[type="radio"][name^="influxdb-"][name$="-url"]')
+    .not('#custom')
+    .on('click change', function () {
+      if (presetSelectionReported) {
+        return;
+      }
+      // A single selection fires its events within one task, so clearing the
+      // flag asynchronously keeps later selections reportable.
+      presetSelectionReported = true;
+      setTimeout(function () {
+        presetSelectionReported = false;
+      }, 0);
+      trackPresetUrlSelection(PRODUCT_CONTEXT, $(this).val());
+    });
+
   // Populate the product-specific URL fields on page load
   UNIQUE_URL_PRODUCTS.forEach(function (productEl) {
     let productUrlCookie = getInfluxDBUrl(productEl);
@@ -526,6 +558,91 @@ export function InfluxDBUrl() {
   showPreference();
 
   //////////////////////////////////////////////////////////////////////////////
+  ///////////////////////// URL selector analytics /////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+
+  // Track the last custom URL reported to analytics so that the blur and
+  // submit handlers don't double-count the same value.
+  let lastTrackedCustomUrlKey = null;
+
+  // Categorize a host as localhost, remote, or unknown without transmitting
+  // the raw URL, which (for custom URLs) may contain private or internal
+  // hostnames.
+  function categorizeHost(url) {
+    try {
+      // Product-specific URLs (dedicated/clustered) omit the protocol, so
+      // add one to allow parsing with the URL constructor.
+      const parsed = new URL(/^https?:\/\//.test(url) ? url : `https://${url}`);
+      const host = parsed.hostname;
+      if (
+        host === 'localhost' ||
+        host === '127.0.0.1' ||
+        host === '::1' ||
+        host === '[::1]'
+      ) {
+        return 'localhost';
+      }
+      return 'remote';
+    } catch {
+      return 'unknown';
+    }
+  }
+
+  // Send a Google Analytics event for a URL selector interaction. Every event
+  // includes the current page path and is a no-op when gtag is unavailable.
+  function emitUrlSelectorEvent(eventName, params) {
+    if (typeof window.gtag === 'undefined') {
+      return;
+    }
+    window.gtag('event', eventName, {
+      page_path: window.location.pathname,
+      ...params,
+    });
+  }
+
+  // Track opening the URL selector modal (top-of-funnel usage signal).
+  function trackUrlSelectorOpen() {
+    emitUrlSelectorEvent('url_selector_open', { product: PRODUCT_CONTEXT });
+  }
+
+  // Track selecting a built-in (preset) URL from the selector. Preset values
+  // come from our own documented endpoints, so the selected host is safe to
+  // report and lets us compare preset vs. custom usage and popular presets.
+  function trackPresetUrlSelection(product, url) {
+    if (!url) {
+      return;
+    }
+    emitUrlSelectorEvent('url_selector_preset', {
+      product,
+      host_type: categorizeHost(url),
+      selected_url: url,
+    });
+  }
+
+  // Track applying a custom InfluxDB URL. This lets us measure whether the
+  // custom URL feature is actually used. To respect user privacy, the raw URL
+  // is never transmitted — only the product context and a coarse host
+  // categorization.
+  function trackCustomUrlUsage(context, customUrl) {
+    if (!customUrl) {
+      return;
+    }
+
+    // Avoid double-counting when both the blur and submit handlers fire for
+    // the same value.
+    const trackingKey = `${context}|${customUrl}`;
+    if (trackingKey === lastTrackedCustomUrlKey) {
+      return;
+    }
+    lastTrackedCustomUrlKey = trackingKey;
+
+    emitUrlSelectorEvent('custom_influxdb_url', {
+      product: context,
+      host_type: categorizeHost(customUrl),
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////// Custom URLs /////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
 
@@ -539,10 +656,10 @@ export function InfluxDBUrl() {
      */
     /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
     const validDomain = new RegExp(
-      `([a-z0-9\-._~%]+` +
-        `|\[[a-f0-9:.]+\]` +
-        `|\[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\])` +
-        `(:[0-9]+)?`
+      '([a-z0-9-._~%]+' +
+        '|[[a-f0-9:.]+]' +
+        "|[v[a-f0-9][a-z0-9-._~%!$&'()*+,;=:]+])" +
+        '(:[0-9]+)?'
     );
 
     if (!IS_UNIQUE_URL_PRODUCT) {
@@ -609,12 +726,16 @@ export function InfluxDBUrl() {
         storeCustomUrl(custUrl);
         storeUrl(PRODUCT_CONTEXT, custUrl, getUrls()[PRODUCT_CONTEXT]);
         updateUrls(getPrevUrls(), getUrls());
+        trackCustomUrlUsage(PRODUCT_CONTEXT, custUrl);
       } else {
         showValidationMessage(urlValidation);
       }
     } else {
       removeCustomUrl();
       hideValidationMessage();
+      // Reset the dedup key so a later re-apply of the same value is counted
+      // as a distinct use rather than suppressed.
+      lastTrackedCustomUrlKey = null;
       $(
         `input[name="influxdb-${PRODUCT_CONTEXT}-url"][value="` +
           DEFAULT_STORAGE_URLS[PRODUCT_CONTEXT] +
@@ -634,12 +755,16 @@ export function InfluxDBUrl() {
         storeProductUrl(product, productUrl);
         storeUrl(product, productUrl, getUrls()[product]);
         updateUrls(getPrevUrls(), getUrls());
+        trackCustomUrlUsage(product, productUrl);
       } else {
         showValidationMessage(urlValidation);
       }
     } else {
       removeProductUrl(product);
       hideValidationMessage();
+      // Reset the dedup key so a later re-apply of the same value is counted
+      // as a distinct use rather than suppressed.
+      lastTrackedCustomUrlKey = null;
     }
   }
 

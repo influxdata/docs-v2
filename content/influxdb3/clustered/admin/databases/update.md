@@ -33,17 +33,13 @@ to update a database in your {{< product-name omit=" Clustered" >}} cluster.
     - _Optional_: Database [column limit](/influxdb3/clustered/admin/databases/#column-limit).
       Default is `250`.
 
-{{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
-
-```sh
+```sh { placeholders="DATABASE_NAME|30d|500|200" }
 influxctl database update \
   --retention-period 30d \
   --max-tables 500 \
   --max-columns 250 \
   DATABASE_NAME
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following in your command:
 

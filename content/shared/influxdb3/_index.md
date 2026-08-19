@@ -1,4 +1,9 @@
 <!-- Allow leading shortcode -->
+> [!Tip]
+> Comparing InfluxDB 3 products or planning a migration from InfluxDB 1 or 2?
+> See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a
+> full decision guide.
+
 {{% product-name %}} is a database built to collect, process, transform, and store event and time series data, and is ideal for use cases that require real-time ingest and fast query response times to build user interfaces, monitoring, and automation solutions.
 
 Common use cases include:

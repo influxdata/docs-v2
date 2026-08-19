@@ -8,6 +8,7 @@ menu:
     name: influxdb3 write
 weight: 300
 source: /shared/influxdb3-cli/write.md
+canonical: self
 ---
 
 <!--

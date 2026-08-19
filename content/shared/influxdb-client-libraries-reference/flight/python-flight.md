@@ -18,8 +18,8 @@ The following examples show how to use the `pyarrow.flight` and `pandas` Python 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!-- BEGIN SQL -->
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```python
+
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 # Using pyarrow>=12.0.0 FlightClient
 from pyarrow.flight import FlightClient, Ticket, FlightCallOptions 
 import json
@@ -55,13 +55,13 @@ arrow_table = reader.read_all()
 data_frame = arrow_table.to_pandas()
 print(data_frame.to_markdown())
 ```
-{{% /code-placeholders %}}
+
 <!-- END SQL -->
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!-- BEGIN INFLUXQL -->
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```python
+
+```python { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 # Using pyarrow>=12.0.0 FlightClient
 from pyarrow.flight import FlightClient, Ticket, FlightCallOptions 
 import json
@@ -93,7 +93,7 @@ arrow_table = reader.read_all()
 data_frame = arrow_table.to_pandas()
 print(data_frame.to_markdown())
 ```
-{{% /code-placeholders %}}
+
 <!-- END INFLUXQL -->
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

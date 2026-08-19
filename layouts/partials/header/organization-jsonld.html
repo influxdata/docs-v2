@@ -1,0 +1,36 @@
+{{- /*
+  Emits a schema.org Organization JSON-LD <script> for the InfluxData entity,
+  with sameAs links to authoritative identity records (knowledge-graph nodes and
+  official social profiles). This lets retrievers resolve InfluxData as a single
+  entity rather than a string deduplicated from prose.
+
+  Scope: emitted site-wide, on every page. Organization is a single global
+  entity with a stable @id, so retrievers and search engines dedupe it across
+  pages — repeating it is harmless. Emitting everywhere maximizes coverage on
+  the deep documentation pages where LLM retrievers most often land, not just
+  the homepage and product roots. This differs from the page-scoped nodes
+  (TechArticle/SoftwareApplication), which describe a specific page or product
+  and must NOT repeat.
+
+  Identity is read from data/influxdata.yml. Absent optional fields (@id, logo,
+  sameAs) are omitted rather than emitted empty.
+*/ -}}
+{{- $org := site.Data.influxdata.organization -}}
+{{- if $org -}}
+  {{- $node := dict
+      "@context" "https://schema.org"
+      "@type" "Organization"
+      "name" $org.name
+      "url" $org.url
+  -}}
+  {{- with $org.id -}}
+    {{- $node = merge $node (dict "@id" .) -}}
+  {{- end -}}
+  {{- with $org.logo -}}
+    {{- $node = merge $node (dict "logo" .) -}}
+  {{- end -}}
+  {{- with $org.sameAs -}}
+    {{- $node = merge $node (dict "sameAs" .) -}}
+  {{- end -}}
+  <script type="application/ld+json">{{ $node | jsonify | safeJS }}</script>
+{{- end -}}

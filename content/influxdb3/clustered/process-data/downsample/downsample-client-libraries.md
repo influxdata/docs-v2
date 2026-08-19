@@ -75,8 +75,7 @@ Provide the following credentials for each client:
   with read and write permissions on the databases you want to query and write to.
 - **database**: your [database](/influxdb3/clustered/admin/databases/) name
 
-{{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -96,7 +95,6 @@ influxdb_downsampled = InfluxDBClient3(
     org=''
 )
 ```
-{{% /code-placeholders %}}
 
 ## Query InfluxDB
 
@@ -290,8 +288,7 @@ influxdb_downsampled.write(
 <!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
 
-{{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -335,7 +332,6 @@ influxdb_downsampled.write(
     data_frame_tag_columns=['room']
 )
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 <!---------------------------------- END SQL ---------------------------------->
@@ -343,8 +339,7 @@ influxdb_downsampled.write(
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
 
-{{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
-```py
+```py { placeholders="((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" }
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
@@ -388,7 +383,6 @@ influxdb_downsampled.write(
     data_frame_tag_columns=['room']
 )
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 <!-------------------------------- END INFLUXQL ------------------------------->

@@ -105,8 +105,6 @@ In the examples below, replace the following:
 
 ### Query InfluxDB 3 with SQL
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -115,37 +113,39 @@ In the examples below, replace the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z'"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.sql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ### Query InfluxDB 3 with InfluxQL
-
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -155,40 +155,42 @@ cat ./query.sql | influxctl query \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z'"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   /path/to/query.influxql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.influxql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --language influxql \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ### Query InfluxDB 3 and return results in table format
-
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -198,33 +200,37 @@ cat ./query.influxql | influxctl query \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.sql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example table-formatted results" %}}
@@ -248,8 +254,6 @@ cat ./query.sql | influxctl query \
 
 ### Query InfluxDB 3 and return results in JSON format
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -258,36 +262,40 @@ cat ./query.sql | influxctl query \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --format json \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --format json \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.sql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --format json \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example JSON-formatted results" %}}
@@ -337,8 +345,6 @@ cat ./query.sql | influxctl query \
 
 ### Query InfluxDB 3 and return results with Unix nanosecond timestamps
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -347,36 +353,40 @@ cat ./query.sql | influxctl query \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --time-format unixnano \
   "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' LIMIT 5"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --time-format unixnano \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
 cat ./query.sql | influxctl query \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   --time-format unixnano \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example table-formatted results" %}}
@@ -504,8 +514,6 @@ The output is similar to the following:
 > {{< product-name omit=" Clustered" >}} cluster. System tables are not part of
 > InfluxDB's stable API and are subject to change.
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)|TABLE_NAME" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [string](#)
@@ -514,36 +522,40 @@ The output is similar to the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 {{% influxdb/custom-timestamps %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|TABLE_NAME" }
 influxctl query \
   --enable-system-tables \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   "SELECT * FROM system.tables WHERE table_name = 'TABLE_NAME'"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|TABLE_NAME" }
 influxctl query \
   --enable-system-tables \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   /path/to/query.sql
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)|TABLE_NAME" }
 cat ./query.sql | influxctl query \
   --enable-system-tables \
   --token DATABASE_TOKEN \
   --database DATABASE_NAME \
   - 
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{% expand "View command updates" %}}
 

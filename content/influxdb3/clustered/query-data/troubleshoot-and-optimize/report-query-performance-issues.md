@@ -205,8 +205,6 @@ In the examples below, replace the following:
 
 ##### EXPLAIN
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [SQL](#)
@@ -214,7 +212,7 @@ In the examples below, replace the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 influxctl \
   --config config.toml \
     query \
@@ -227,7 +225,7 @@ influxctl \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 curl --get "https://{{< influxdb/host >}}/query" \
   --output "./explain.csv" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -239,11 +237,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ##### EXPLAIN VERBOSE
-
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -252,7 +246,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 influxctl \
   --config config.toml \
     query \
@@ -265,7 +259,7 @@ influxctl \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 curl --get "https://{{< influxdb/host >}}/query" \
   --output "./explain-verbose.csv" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -277,11 +271,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% /code-placeholders %}}
-
 ##### EXPLAIN ANALYZE
-
-{{% code-placeholders "DATABASE_(NAME|TOKEN)|YOUR_QUERY" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -290,7 +280,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 influxctl \
   --config config.toml \
     query \
@@ -303,7 +293,7 @@ influxctl \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-```
+``` { placeholders="DATABASE_(NAME|TOKEN)|YOUR_QUERY" }
 curl --get "https://{{< influxdb/host >}}/query" \
   --output "./explain-analyze.csv" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
@@ -314,8 +304,6 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 ### Gather system information
 
@@ -357,22 +345,18 @@ In your queries, replace the following:
 
 #### Collect table information
 
-{{% code-placeholders "TABLE_NAME" %}}
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT *
 FROM system.tables
 WHERE table_name = 'TABLE_NAME';
 ```
-{{% /code-placeholders%}}
 
 #### Collect compaction information for the table
 
 Query the `system.compactor` table to collect compaction information--for example, run one of the following
 queries:
 
-{{% code-placeholders "TABLE_NAME|PARTITION_KEY" %}}
-
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_KEY" }
 SELECT * 
 FROM system.compactor 
 WHERE
@@ -380,11 +364,7 @@ WHERE
     AND partition_key = 'PARTITION_KEY';
 ```
 
-{{% /code-placeholders %}}
-
-{{% code-placeholders "TABLE_NAME|PARTITION_ID" %}}
-
-```sql
+```sql { placeholders="TABLE_NAME|PARTITION_ID" }
 SELECT * 
 FROM system.compactor 
 WHERE
@@ -392,15 +372,12 @@ WHERE
     AND partition_id = 'PARTITION_ID';
 ```
 
-{{% /code-placeholders %}}
-
 #### Collect partition information for multiple tables
 
 If the same queries are slow on more than 1 table, also run the following query to collect the size and
 number of partitions for all tables:
 
-{{% code-placeholders "TABLE_NAME" %}}
-```sql
+```sql { placeholders="TABLE_NAME" }
 SELECT table_name,
   COUNT(*) as partition_count,
   MAX(last_new_file_created_at) as last_new_file_created_at,
@@ -409,4 +386,3 @@ FROM system.partitions
 WHERE table_name IN ('foo', 'bar', 'baz')
 GROUP BY table_name;
 ```
-{{% /code-placeholders%}}

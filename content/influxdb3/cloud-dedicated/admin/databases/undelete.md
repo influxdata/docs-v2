@@ -61,11 +61,9 @@ You can sort on column headers or use the **Search** field to find a specific da
 
     - The name of the deleted database to restore
 
-{{% code-placeholders "DATABASE_NAME" %}}
-```sh
+```sh { placeholders="DATABASE_NAME" }
 influxctl database undelete DATABASE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 

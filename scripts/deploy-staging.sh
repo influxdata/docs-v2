@@ -97,6 +97,18 @@ build_hugo() {
     success "Hugo build complete"
 }
 
+# Generate AI discovery artifacts
+build_ai_artifacts() {
+    if [ "$SKIP_MARKDOWN" = "true" ]; then
+        warning "Skipping AI discovery artifacts (SKIP_MARKDOWN=true)"
+        return
+    fi
+
+    info "Generating AI discovery artifacts..."
+    yarn build:ai-artifacts
+    success "AI discovery artifact generation complete"
+}
+
 # Generate LLM-friendly Markdown
 build_markdown() {
     if [ "$SKIP_MARKDOWN" = "true" ]; then
@@ -109,6 +121,25 @@ build_markdown() {
     success "Markdown generation complete"
 }
 
+# Generate per-product llms-full.txt corpora
+build_llms_full() {
+    if [ "$SKIP_MARKDOWN" = "true" ]; then
+        warning "Skipping llms-full.txt generation (SKIP_MARKDOWN=true)"
+        return
+    fi
+
+    info "Generating per-product llms-full.txt corpora..."
+    yarn build:llms-full
+    success "llms-full.txt generation complete"
+}
+
+# Verify every emitted Markdown alternate link has a corresponding .md file
+check_md_coherence() {
+    info "Checking Markdown alternate link coherence..."
+    yarn check:md-coherence
+    success "Coherence check passed"
+}
+
 # Deploy to S3
 deploy_to_s3() {
     if [ "$SKIP_DEPLOY" = "true" ]; then
@@ -117,12 +148,16 @@ deploy_to_s3() {
     fi
 
     info "Deploying to S3 bucket: $STAGING_BUCKET"
+    # -ignore excludes the pr-preview/ prefix from this root deploy's remote
+    # diff, so a manual staging deploy can never delete PR Preview objects
+    # (previews are deployed separately, under s3://$STAGING_BUCKET/pr-preview/pr-<N>/).
     s3deploy -source=public/ \
         -bucket="$STAGING_BUCKET" \
         -region="$AWS_REGION" \
         -distribution-id="${STAGING_CF_DISTRIBUTION_ID}" \
-        -key=$AWS_ACCESS_KEY_ID \
-        -secret=$AWS_SECRET_KEY \
+        -key="$AWS_ACCESS_KEY_ID" \
+        -secret="$AWS_SECRET_KEY" \
+        -ignore='^pr-preview/' \
         -force \
         -v
     success "Deployment to S3 complete"
@@ -171,7 +206,10 @@ main() {
 
     echo ""
     build_hugo
+    build_ai_artifacts
     build_markdown
+    build_llms_full
+    check_md_coherence
 
     echo ""
     deploy_to_s3

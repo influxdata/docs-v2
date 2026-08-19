@@ -25,13 +25,18 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | Command                                                           | Description                         |
 | :---------------------------------------------------------------- | :---------------------------------- |
 | [create](/influxdb3/enterprise/reference/cli/influxdb3/create/)   | Create resources                    |
+| [debug](/influxdb3/enterprise/reference/cli/influxdb3/debug/)     | Diagnostic tools                    |
 | [delete](/influxdb3/enterprise/reference/cli/influxdb3/delete/)   | Delete resources                    |
 | [disable](/influxdb3/enterprise/reference/cli/influxdb3/disable/) | Disable resources                   |
 | [enable](/influxdb3/enterprise/reference/cli/influxdb3/enable/)   | Enable resources                    |
+| [import](/influxdb3/enterprise/reference/cli/influxdb3/import/)   | Manage bulk Parquet imports         |
+| [install](/influxdb3/enterprise/reference/cli/influxdb3/install/) | Install plugins                     |
+| [loadcap](/influxdb3/enterprise/reference/cli/influxdb3/loadcap/) | Capture and manage workload profiles |
 | [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
+| [remove](/influxdb3/enterprise/reference/cli/influxdb3/remove/)   | Remove stopped nodes                |
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
-| [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Mark nodes as stopped               |
+| [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Gracefully stop nodes               |
 | [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
 | [update](/influxdb3/enterprise/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
@@ -84,13 +89,11 @@ In the examples below, replace the following:
   a unique identifier for your {{< product-name >}} cluster.
   The value you use must be different from `--node-id` values in the cluster.
 
-{{% code-placeholders "my-host-01|my-cluster-01" %}}
-
 ### Quick-start influxdb3 server
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 # Zero-config startup
 influxdb3
 
@@ -98,14 +101,14 @@ influxdb3
 influxdb3 --object-store memory
 
 # Use environment variables to override defaults
-INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+INFLUXDB3_NODE_ID=my-node influxdb3
 ```
 
 ### Run the InfluxDB 3 server
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -117,7 +120,7 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 --num-io-threads=8 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -129,7 +132,7 @@ influxdb3 --num-io-threads=8 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 -h
 ```
 
@@ -137,7 +140,7 @@ influxdb3 -h
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 --help
 ```
 
@@ -145,7 +148,7 @@ influxdb3 --help
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
@@ -158,12 +161,10 @@ influxdb3 serve \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="my-host-01|my-cluster-01" }
 LOG_FILTER=debug influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01 \
   --cluster-id my-cluster-01
 ```
-
-{{% /code-placeholders %}}

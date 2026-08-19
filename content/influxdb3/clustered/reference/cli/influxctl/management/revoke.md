@@ -56,24 +56,20 @@ In the examples below, replace the following:
 - {{% code-placeholder-key %}}`TOKEN_ID*`{{% /code-placeholder-key %}}:
   Token ID to revoke access from.
 
-{{% code-placeholders "TOKEN_ID(_[1-2])?" %}}
-
 ### Revoke access from a management token
 
-```sh
+```sh { placeholders="TOKEN_ID(_[1-2])?" }
 influxctl management revoke TOKEN_ID
 ```
 
 ### Revoke access from multiple management tokens
 
-```sh
+```sh { placeholders="TOKEN_ID(_[1-2])?" }
 influxctl management revoke TOKEN_ID_1 TOKEN_ID_2
 ```
 
 ### Revoke access from a token and skip confirmation
 
-```sh
+```sh { placeholders="TOKEN_ID(_[1-2])?" }
 influxctl management revoke --force TOKEN_ID
 ```
-
-{{% /code-placeholder-key %}}

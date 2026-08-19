@@ -9,8 +9,6 @@ menu:
     name: influxctl
     parent: CLIs
 weight: 101
-aliases:
-  - /influxdb3/cloud-dedicated/reference/cli/
 influxdb3/cloud-dedicated/tags: [cli]
 ---
 
@@ -313,9 +311,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{< expand-wrapper >}}
 {{% expand "View sample `config.toml`" %}}
 
-{{% code-placeholders "(PROFILE|ACCOUNT|CLUSTER)_(NAME|ID)" %}}
-
-```toml
+```toml { placeholders="(PROFILE|ACCOUNT|CLUSTER)_(NAME|ID)" }
 ## influxctl - example configuration
 
 [[profile]]
@@ -363,8 +359,6 @@ If stored at a non-default location, include the `--config` flag with each
         # device_url = "https://indentityprovider/oauth2/v2/auth/device"
 
 ```
-
-{{% /code-placeholders %}}
 
 Replace the following values in the sample:
 

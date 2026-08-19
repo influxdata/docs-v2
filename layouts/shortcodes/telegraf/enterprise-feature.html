@@ -1,0 +1,16 @@
+{{ $feature := .Get 0 | default "This feature" }}
+{{ $wordForm := .Get 1 | default "is" }}
+<div class="block special-state">
+  <div class="state-content telegraf-enterprise">
+    <div class="telegraf-enterprise-text">
+      <h4 id="telegraf-enterprise-feature">Available with Telegraf Enterprise</h4>
+      <p>
+        {{ $feature }} {{ $wordForm }} only available with Telegraf Enterprise. If you are interested in learning more about Telegraf Enterprise, 
+        <a href="https://www.influxdata.com/products/telegraf-enterprise/">contact us</a>.
+      </p>
+    </div>
+    <div class="telegraf-enterprise-cta">
+      <a href="https://www.influxdata.com/products/telegraf-enterprise/" class="btn"><span class="cf-icon Shield"></span> Upgrade to Enterprise</a>
+    </div>
+  </div>
+</div>
