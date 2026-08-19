@@ -8,11 +8,8 @@ name: Verify AI artifacts
 # report success on PRs where the check never ran. Cost is not the reason —
 # the extra work here is roughly 45s over pr-render-check's build.
 #
-# CircleCI's build job produces the same artifacts, but on a PR branch it
-# runs `build:md --only-changed` and skips `build:llms-full` and
-# `check:md-coherence` (master-only), so it cannot gate them. These checks
-# need a complete public/: do NOT change `build:md` below to
-# `--only-changed`, which would reduce all three to near-noise.
+# The checks need a complete public/, so do NOT change `build:md` below to
+# `--only-changed`. A partial .md set reduces all three checks to near-noise.
 #
 # `hugo-base-url` is production, which is weaker than it looks: these are
 # internal-consistency checks that pass under any base URL, and production
