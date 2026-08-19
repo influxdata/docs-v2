@@ -15,9 +15,10 @@ alt_links:
   enterprise: /influxdb3/enterprise/admin/mcp-server/
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/mcp-server/
   cloud-serverless: /influxdb3/cloud-serverless/reference/mcp-server/
-source: /shared/influxdb3-admin/mcp-server-docs-only.md
 aliases:
   - /influxdb/v1/mcp/server/
+source: /shared/influxdb3-admin/mcp-server-docs-only.md
 ---
 
-<!-- //SOURCE content/shared/influxdb3-admin/mcp-server-docs-only.md -->
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb3-admin/mcp-server-docs-only.md -->

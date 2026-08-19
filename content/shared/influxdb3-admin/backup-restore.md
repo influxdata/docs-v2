@@ -3,11 +3,13 @@
 How you back up and restore that data depends on your storage engine:
 
 {{% show-in "enterprise" %}}
-- **Enterprise with the storage engine upgrade enabled** (the server is started
-  with the `--use-pacha-tree` storage engine configuration flag): use the
+- **Enterprise on the upgraded storage engine** (the default for new
+  clusters, or after running the storage engine upgrade with
+  `--upgrade-pacha-tree`): use the
   built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
-  This is the recommended path when the storage engine upgrade is enabled.
-- **Enterprise on the default Parquet engine**: use the
+  This is the recommended path on the upgraded engine.
+- **Enterprise on the Parquet engine** (clusters that started on 3.10 or
+  earlier that have not run the storage engine upgrade): use the
   [manual object-storage procedure](#manual-backup-process) to copy object storage
   files in a specific order.
 {{% /show-in %}}
@@ -68,11 +70,13 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 {{% show-in "enterprise" %}}
 ## Back up and restore with the influxdb3 CLI
 
-When the [storage engine upgrade](/influxdb3/version/reference/config-options/)
-is enabled, {{% product-name %}} provides built-in `influxdb3` backup and restore
+On the upgraded storage engine, {{% product-name %}} provides built-in
+`influxdb3` backup and restore
 commands. Before you use them, ensure the following:
 
-- The server is started with the `--use-pacha-tree` storage engine configuration flag.
+- The cluster uses the upgraded storage engine (the default for new
+  clusters; older clusters must first run the
+  [storage engine upgrade](/influxdb3/version/reference/config-options/#upgrade-pacha-tree)).
 - You run the commands against any node that acts as the **compactor**, including `mode=all`.
 - You authenticate with an **admin token** or as an **admin user**.
 
@@ -84,7 +88,6 @@ commands. Before you use them, ensure the following:
 >   backup endpoints return `404`.
 > - Backup and restore run on a node running **compaction**. Query-only nodes return
 >   `503` and ingest-only nodes return `404`.
-> - {{% product-name %}} 3.10 supports **full backups only**.
 
 The backup and restore subcommands map to the
 `/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
@@ -96,12 +99,14 @@ API endpoints. For complete command syntax and flags, see the
 Use `influxdb3 create backup` to create a full backup:
 
 ```bash
-influxdb3 create backup
+influxdb3 create backup --name base
 ```
 
+If you omit `--name`, {{% product-name %}} generates one from a UTC timestamp.
+
 > [!Note]
-> - `create backup` **refuses to overwrite an existing backup name** and returns
->   an error instead.
+> - `create backup` **refuses to overwrite an existing backup name** unless
+>   you pass `--force`.
 > - **A backup only includes data already persisted to object storage**--your
 >   most recent writes may still be buffered and not yet captured. See
 >   [What a backup includes](#what-a-backup-includes).
@@ -119,6 +124,47 @@ write behavior, which acknowledges writes only after WAL persistence completes.
 For the full ingest and persistence path, see
 [InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
 
+### Create an incremental backup
+
+An incremental backup captures only the data that changed since its parent
+backup, which saves time and storage space compared to a full backup. Each
+incremental backup names the backup it chains from with `--parent`.
+
+`create backup` returns as soon as the backup starts, not when it finishes.
+`influxdb3 status backup` reports `in_progress`, `completed`, or `failed`.
+Check that a backup's status is `completed` before creating a child
+incremental backup that names it as `--parent`:
+
+```bash
+# Full backup first
+influxdb3 create backup --name base
+
+# Wait for it to complete before using it as a parent
+influxdb3 status backup --name base
+
+# Then create an incremental, naming its parent
+influxdb3 create backup --name inc-1 --incremental --parent base
+
+# Wait for inc-1 to complete before chaining the next incremental off it
+influxdb3 status backup --name inc-1
+influxdb3 create backup --name inc-2 --incremental --parent inc-1
+```
+
+Restoring an incremental backup walks the parent chain back to the full
+backup and produces a complete restore--you don't need to restore each link
+in the chain separately.
+
+Deleting an incremental backup also deletes every incremental backup that
+depends on it:
+
+```bash
+influxdb3 delete backup --name inc-1 --incremental
+```
+
+> [!Caution]
+> Deleting an incremental backup with `--incremental` deletes it and all of
+> its child incremental backups. This can remove multiple backups at once.
+
 ### Inspect and manage backups
 
 | Command | Description |
@@ -133,6 +179,17 @@ For the full ingest and persistence path, see
 Use `influxdb3 create restore` to start a restore, and the related commands to
 monitor or cancel it:
 
+```bash
+influxdb3 create restore --backup base
+```
+
+To restore from an incremental backup, pass its name--the restore walks the
+chain of parent backups automatically:
+
+```bash
+influxdb3 create restore --backup inc-2
+```
+
 | Command | Description |
 | ------- | ----------- |
 | `influxdb3 create restore`  | Start a restore from a backup |
@@ -140,21 +197,40 @@ monitor or cancel it:
 | `influxdb3 show restores`   | List restores |
 | `influxdb3 cancel restore`  | Cancel an in-progress restore |
 
-A restore is **asynchronous** and **append-only**: data written after the backup
-was taken becomes unreferenced rather than deleted. **Only one restore can run at
-a time across the cluster**; concurrent restore attempts return `409`.
+A restore is **asynchronous** and runs **in place on the live cluster**--no
+restart required. **Only one restore can run at a time across the cluster**;
+concurrent restore attempts return `409`.
+
+Restore is a **point-in-time rollback**, not an additive merge: it restores
+the catalog, copies the backup's files, and writes a new checkpoint above the
+existing checkpoint sequence. Rolling back also truncates the WAL down to the
+backup's watermark, so a subsequent node restart doesn't replay and resurrect
+the rolled-back writes.
+
+Restore is **not a full pre-clean** of post-backup object storage output.
+It removes newer transient and pre-compaction artifacts--PachaTree
+snapshots, `gen0` files, PachaTree WAL files, and newer compactor
+checkpoints. But already-**compacted** post-backup files (compactor run-set
+files and their indexes) stay in object storage, unreferenced by the
+restored catalog, pending later garbage collection rather than immediate
+deletion. A restore also discards any persisted compactor delete queue newer
+than the restored checkpoint, so stale cleanup work can't delete files the
+restored state still references.
+
+> [!Note]
+> #### Scripting a restore
+>
+> `influxdb3 create restore` and `influxdb3 status restore` print
+> human-readable text only--neither supports `--format json`. To script a
+> restore, call the HTTP API directly: `POST /api/v3/enterprise/restore`
+> returns `202` with a JSON body containing `restore_id`, which you poll with
+> `GET /api/v3/enterprise/restore/{id}`.
 
 > [!Warning]
-> #### Restart nodes after a restore
+> #### Row deletes may persist across restores
 >
-> After a restore completes, **restart the affected node(s)**. The live
-> in-memory view is not updated until the node restarts.
-
-> [!Warning]
-> #### Known beta issue: row deletes may persist across restores
->
-> Backup (beta) doesn't currently pick up row-delete state files in object
-> storage, so row deletes may persist across a restore.
+> Backup doesn't currently pick up row-delete state files in object storage,
+> so row deletes may persist across a restore.
 
 ### Disaster recovery
 
@@ -167,8 +243,9 @@ cluster ID and node ID** as the original deployment, then restart the node(s).
 ## Manual backup process
 
 Use this manual object-storage procedure to back up {{% product-name %}}
-{{% show-in "enterprise" %}}running on the default Parquet engine—when the
-storage engine upgrade (`--use-pacha-tree`) is _not_ enabled{{% /show-in %}}.
+{{% show-in "enterprise" %}}running on the Parquet engine—clusters
+that started on 3.10 or earlier that have not run the storage engine upgrade
+(`--upgrade-pacha-tree`){{% /show-in %}}.
 It copies object storage files in a specific order to ensure consistency.
 
 > [!Important]
@@ -393,8 +470,9 @@ Replace the following:
 ## Manual restore process
 
 Use this manual object-storage procedure to restore {{% product-name %}}
-{{% show-in "enterprise" %}}running on the default Parquet engine—when the
-storage engine upgrade (`--use-pacha-tree`) is _not_ enabled{{% /show-in %}}.
+{{% show-in "enterprise" %}}running on the Parquet engine—clusters
+that started on 3.10 or earlier that have not run the storage engine upgrade
+(`--upgrade-pacha-tree`){{% /show-in %}}.
 
 > [!Warning]
 > Restoring overwrites existing data. Always verify you have correct backups before proceeding.

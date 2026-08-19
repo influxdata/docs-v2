@@ -5,8 +5,8 @@ description: Use the `avro` input data format to parse Avro binary or JSON data 
 menu:
   telegraf_v1_ref:
     name: Avro
-    weight: 10
     parent: Input data formats
+weight: 10
 metadata: [Avro Parser Plugin]
 ---
 
@@ -53,6 +53,10 @@ For more information about Avro schema and encodings, see the [specification](ht
   ## schema must be set
   avro_schema_registry = "http://localhost:8081"
 
+  ## Path to the schema registry certificate. Should be specified only if
+  ## required for connection to the schema registry.
+  # avro_schema_registry_cert = "/etc/telegraf/ca_cert.crt"
+
   ## Schema string; exactly one of schema registry and schema must be set
   #avro_schema = '''
   #        {
@@ -80,6 +84,11 @@ For more information about Avro schema and encodings, see the [specification](ht
   ## schema (as "<namespace>.<name>")
   # avro_measurement = "ratings"
 
+  ## Measurement field name; the measurement name will be taken
+  ## from this field. If not set, determine measurement name
+  ## from the 'avro_measurement' option
+  # avro_measurement_field = "field_name"
+
   ## Avro fields to be used as tags; optional.
   # avro_tags = ["CHANNEL", "CLUB_STATUS"]
 
@@ -99,6 +108,12 @@ For more information about Avro schema and encodings, see the [specification](ht
   ## is the empty string, so a=["a", "b"] becomes a0="a", a1="b".
   ## If this were set to "_", then it would be a_0="a", a_1="b".
   # avro_field_separator = "_"
+
+  ## Define handling of union types. Possible values are:
+  ##   flatten  -- add type suffix to field name (default)
+  ##   nullable -- do not modify field name but discard "null" field values
+  ##   any      -- do not modify field name and set field value to the received type
+  # avro_union_mode = "flatten"
 
   ## Default values for given tags: optional
   # tags = { "application": "hermes", "region": "central" }

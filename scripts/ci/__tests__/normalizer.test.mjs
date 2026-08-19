@@ -9,6 +9,19 @@ test('phase 1 passes valid block without normalization notice', async () => {
   assert.equal(res.notice, undefined);
 });
 
+test('lint="false" fence attribute skips validation with a visible reason', async () => {
+  const block = {
+    lang: 'toml',
+    value: 'path = "C:\\Program Files\\"  # intentionally invalid',
+    meta: '{lint="false"}',
+    placeholders: [],
+  };
+  const res = await validateWithNormalization(block);
+  assert.equal(res.ok, true);
+  assert.equal(res.skipped, true);
+  assert.equal(res.skipReason, 'lint="false"');
+});
+
 test('phase 1 fails are returned unchanged when no normalization is applicable', async () => {
   const block = { lang: 'json', value: '{"a": bad}', placeholders: [] };
   const res = await validateWithNormalization(block);

@@ -1,9 +1,10 @@
 name: 'Build Documentation Site'
 description: >
   Canonical build definition for docs-v2. Builds the Rust markdown converter,
-  API documentation, and Hugo site. Use in every job that builds the site so
-  PR and production steps stay in parity by construction rather than by
-  discipline. Mirrors the CircleCI build job steps (see .circleci/config.yml).
+  API documentation, Flux stdlib frontmatter, and the Hugo site. Use in every
+  job that builds the site so PR and production steps stay in parity by
+  construction rather than by discipline. Mirrors the CircleCI build job steps
+  (see .circleci/config.yml).
 
 inputs:
   build-rust:
@@ -42,6 +43,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    # ------------------------------------------------------------ base URL --
+    # Makes hugo-base-url the single input for both Hugo and `build:md`.
+    # Without this, scripts/lib/base-url.js ignores --baseURL and falls back to
+    # the production host, so changing hugo-base-url alone puts HTML and
+    # Markdown twins on different origins with nothing failing. Trailing slash
+    # stripped to match the format detectBaseUrl() returns.
+    - name: Align the Markdown base URL with Hugo
+      if: inputs.hugo-base-url != ''
+      shell: bash
+      env:
+        HUGO_BASE_URL: ${{ inputs.hugo-base-url }}
+      run: echo "BASE_URL=${HUGO_BASE_URL%/}" >> "$GITHUB_ENV"
+
     # ------------------------------------------------------------------ Rust --
     # Mirrors the CircleCI "Install Rust toolchain" step. Reads the pinned
     # channel from scripts/rust-markdown-converter/rust-toolchain.toml.
@@ -75,6 +89,19 @@ runs:
       if: inputs.build-api-docs == 'true'
       shell: bash
       run: yarn build:api-docs
+
+    # ---------------------------------------------------------------- Flux --
+    # Mirrors the CircleCI "Inject Flux stdlib frontmatter" step. Required on
+    # every build, not a refresh: the 466 stdlib pages are committed without
+    # this frontmatter, and skipping it drops 1244 alias redirects. Keep it
+    # unconditional — it is local-only, idempotent, and under a second.
+    #
+    # CircleCI's "Update Flux/InfluxDB versions" step is not mirrored: it needs
+    # a GITHUB_TOKEN for the private influxdata/plutonium repo. Builds without
+    # it use the committed data/flux_influxdb_versions.yml.
+    - name: Inject Flux stdlib frontmatter
+      shell: bash
+      run: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.cjs
 
     # --------------------------------------------------------------- Hugo --
     # Mirrors the CircleCI "Hugo Build" step. All flag inputs are optional;

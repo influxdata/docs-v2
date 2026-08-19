@@ -91,26 +91,26 @@
 
     For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
 
-- id: influxdb3-10-core-release
+- id: influxdb3-11-core-release
   level: note
   scope:
     - /influxdb3/core/
-  title: 'InfluxDB 3.10 is now available'
+  title: 'InfluxDB 3.11 is now available'
   slug: |
-    InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
-    configurable query-concurrency limit, and processing engine improvements.
+    InfluxDB 3 Core 3.11 improves processing engine trigger reliability and
+    adds a configurable graceful shutdown.
   message: |
-    **Key updates in InfluxDB 3 Core 3.10:**
+    **Key updates in InfluxDB 3 Core 3.11:**
 
-    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
-    - **`--max-concurrent-queries`**: limit concurrent queries (adjustable at runtime).
-    - **`GET /ready` endpoint** for readiness probes.
-    - **Processing engine**: cross-database queries and trigger lockdown flags.
+    - **Processing engine trigger reliability improvements**—capped async
+      trigger concurrency, bounded retries for failed triggers, and WAL
+      triggers that skip empty flushes.
+    - **Configurable graceful shutdown** with the new `--shutdown-timeout` option.
 
-    For more information, see the
-    [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/).
+    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-11/)
+    - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
 
-- id: influxdb3-10-enterprise-release
+- id: influxdb3-11-enterprise-release
   level: note
   scope:
     - /influxdb3/
@@ -122,27 +122,23 @@
     - /influxdb3/cloud-dedicated/
     - /influxdb3/cloud-serverless/
     - /influxdb3/clustered/
-  title: 'InfluxDB 3.10 is now available'
+  title: 'InfluxDB 3 Enterprise 3.11: A significant performance upgrade for complex time series workloads'
   slug: |
-    InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
-    deletions, and user management, with an automatic catalog format upgrade
-    and performance preview improvements.
+    Performance and flexibility for heavier, more complex workloads.
   message: |
-    **Key updates in InfluxDB 3 Enterprise 3.10:**
+    **Key updates in InfluxDB 3 Enterprise 3.11:**
 
-    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
-    - **Automated backup and restore** (beta)
-    - **Row-level deletions**
-    - **User management** (authentication and RBAC) — preview
-    - **Performance preview improvements**
+    - **Upgraded storage engine** reaches general availability. New
+      clusters default to Parquet; upgrade with `--upgrade-pacha-tree`.
+    - **In-place and incremental backup and restore**.
+    - **Integrated Explorer UI**—run with `--mode all,webui`.
+    - **Bulk import**: import from remote object store sources (for
+      example, S3) with configurable concurrency.
+    - **Compaction and query performance improvements**.
+    - **Catalog migration**—back up your catalog before upgrading.
 
-    Backup and restore, row-level deletions, and the performance preview require
-    the Enterprise storage engine upgrade (opt-in beta). _Beta and preview
-    features are subject to breaking changes and aren't recommended for
-    production use._
-
-    For more information, see the
-    [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
+    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-11/)
+    - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
 - id: telegraf-enterprise-ga
   level: note

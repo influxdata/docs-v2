@@ -1,0 +1,65 @@
+name: InfluxDB v1 Shared Content Drift
+
+# Transitional guard for the InfluxDB v1 shared-content migration.
+#
+# InfluxDB v1 OSS (content/influxdb/v1) and v1 Enterprise
+# (content/enterprise_influxdb/v1) still keep two copies of the pages listed in
+# .ci/v1-shared-drift-manifest.json. Those copies drifted silently for years
+# because nothing tied them together. Until each page moves to
+# content/shared/influxdb-v1/, this job keeps the two copies from drifting
+# further apart.
+#
+# The rule is a ratchet: a pair's divergence may hold steady or shrink, never
+# grow. It is not a sync requirement -- the listed pairs are already hundreds of
+# lines apart, so demanding they match would force an author fixing one typo to
+# reconcile all of it.
+#
+# Unlike pr-release-check.yml, this job BLOCKS. Its failure is always actionable
+# by the author: apply the edit to both copies, or migrate the page. The release
+# check is advisory because its remedy (publishing artifacts) can be outside the
+# author's control; this one never is.
+#
+# When the manifest's "pairs" list is empty, delete this workflow, the manifest,
+# and .ci/scripts/check-v1-shared-drift.js -- the duplication it guards is gone.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'content/influxdb/v1/**'
+      - 'content/enterprise_influxdb/v1/**'
+      - 'content/shared/influxdb-v1/**'
+      - '.ci/v1-shared-drift-manifest.json'
+      - '.ci/scripts/check-v1-shared-drift.js'
+      - '.github/workflows/pr-v1-shared-drift.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  drift-ratchet:
+    name: v1 pairs must not diverge further
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Need the merge base to compare divergence before and after.
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 20
+
+      - name: Verify the checker itself
+        run: node --test .ci/scripts/check-v1-shared-drift.test.js
+
+      - name: Compare divergence against the base branch
+        run: |
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          node .ci/scripts/check-v1-shared-drift.js --base "origin/${{ github.base_ref }}"
+
+      - name: Report remaining worklist
+        if: always()
+        run: node .ci/scripts/check-v1-shared-drift.js --report

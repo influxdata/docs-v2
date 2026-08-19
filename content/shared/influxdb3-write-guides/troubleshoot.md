@@ -87,7 +87,7 @@ For write-heavy workloads, insufficient memory allocation can cause performance 
 - Memory-related errors in server logs
 
 **Solutions:**
-- Increase the [`exec-mem-pool-bytes`](/influxdb3/version/reference/config-options/#exec-mem-pool-bytes)
+- Increase the [`exec-mem-pool-size`](/influxdb3/version/reference/config-options/#exec-mem-pool-size)
   configuration to allocate more memory for data operations.
   For write-heavy workloads, consider setting this to 30-40% of available memory.
 - Monitor memory usage during peak write periods to identify bottlenecks.
@@ -98,7 +98,7 @@ For write-heavy workloads, insufficient memory allocation can cause performance 
 
 ```bash { placeholders="PERCENTAGE" }
 influxdb3 serve \
-  --exec-mem-pool-bytes PERCENTAGE \
+  --exec-mem-pool-size PERCENTAGE \
   --gen1-duration 15m \
   # ... other options
 ```
