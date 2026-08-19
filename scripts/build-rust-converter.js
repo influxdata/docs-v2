@@ -161,13 +161,23 @@ function downloadPrebuilt() {
   }
 }
 
-if (process.env.RUST_MARKDOWN_CONVERTER_PREBUILT === 'true') {
+// Set RUST_MARKDOWN_CONVERTER_SOURCE=true to validate the checked-out Rust
+// source. Both shortcuts below resolve to a *published release* binary, so
+// without this the converter source in the working tree is never compiled
+// unless its version was bumped ahead of the last release. CI gates that
+// verify converter output set this when the source changed.
+const buildFromSource = process.env.RUST_MARKDOWN_CONVERTER_SOURCE === 'true';
+
+if (
+  !buildFromSource &&
+  process.env.RUST_MARKDOWN_CONVERTER_PREBUILT === 'true'
+) {
   if (usePrebuilt()) {
     process.exit(0);
   }
 }
 
-if (downloadPrebuilt()) {
+if (!buildFromSource && downloadPrebuilt()) {
   process.exit(0);
 }
 
@@ -181,6 +191,17 @@ function has(cmd) {
 }
 
 if (!has('cargo')) {
+  // Exiting 0 here would leave whatever binary a previous `yarn install`
+  // downloaded in place, so a caller that asked for a source build would
+  // silently validate the released converter instead. Fail loudly.
+  if (buildFromSource) {
+    console.error(
+      '✗ RUST_MARKDOWN_CONVERTER_SOURCE=true but cargo was not found.\n' +
+        '  Refusing to fall back to a prebuilt binary. Install Rust ' +
+        '(https://rustup.rs) first.'
+    );
+    process.exit(1);
+  }
   console.log(
     'ℹ Skipping Rust converter build: cargo not found. ' +
       'Install Rust (https://rustup.rs) to build it locally, or rely on CI.'
@@ -199,4 +220,7 @@ if (!existsSync(path.join(pkgDir, 'index.js'))) {
   console.error('✗ Rust build did not produce index.js');
   process.exit(1);
 }
+// The binary now comes from source, so drop the marker that claims it is the
+// published prebuilt — a later run must not short-circuit on a stale version.
+rmSync(prebuiltVersionPath, { force: true });
 console.log('✓ Rust markdown converter built');
