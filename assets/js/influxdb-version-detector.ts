@@ -753,12 +753,12 @@ class InfluxDBVersionDetector {
     // These should be checked before localhost patterns for accuracy
 
     // InfluxDB 3 Cloud: instance hostname ends in enterprise.influxdb.io
-    if (hostname.endsWith('.enterprise.influxdb.io')) {
+    if (this.isDomainOrSubdomain(hostname, 'enterprise.influxdb.io')) {
       return { likelyProduct: 'cloud3', confidence: 1.0 };
     }
 
     // InfluxDB Cloud Dedicated: cluster hostname ends in a.influxdb.io
-    if (hostname.endsWith('.a.influxdb.io')) {
+    if (this.isDomainOrSubdomain(hostname, 'a.influxdb.io')) {
       return { likelyProduct: 'dedicated', confidence: 1.0 };
     }
 
@@ -888,6 +888,10 @@ class InfluxDBVersionDetector {
     }
 
     return { likelyProduct: null, confidence: 0 };
+  }
+
+  private isDomainOrSubdomain(hostname: string, domain: string): boolean {
+    return hostname === domain || hostname.endsWith(`.${domain}`);
   }
 
   private render(): void {

@@ -130,6 +130,25 @@ describe('InfluxDB Version Detector Component', function () {
         .should('not.contain', 'InfluxDB Cloud Dedicated');
     });
 
+    it('should detect the InfluxDB 3 Cloud hostname suffix', function () {
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
+
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('enterprise.influxdb.io');
+      cy.get('#q-url-input .submit-button').click();
+
+      cy.get('.result', { timeout: 10000 })
+        .scrollIntoView()
+        .should('be.visible')
+        .should('contain', 'InfluxDB 3 Cloud')
+        .should('not.contain', 'InfluxDB Cloud Dedicated');
+    });
+
     it('should detect Cloud Dedicated URLs', function () {
       cy.get('#q-url-known .option-button')
         .contains('Yes, I know the URL')
@@ -147,6 +166,41 @@ describe('InfluxDB Version Detector Component', function () {
         .should('be.visible')
         .should('contain', 'InfluxDB Cloud Dedicated')
         .should('not.contain', 'InfluxDB 3 Cloud');
+    });
+
+    it('should detect the Cloud Dedicated hostname suffix', function () {
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
+
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('a.influxdb.io');
+      cy.get('#q-url-input .submit-button').click();
+
+      cy.get('.result', { timeout: 10000 })
+        .scrollIntoView()
+        .should('be.visible')
+        .should('contain', 'InfluxDB Cloud Dedicated')
+        .should('not.contain', 'InfluxDB 3 Cloud');
+    });
+
+    it('should not match a hostname without a domain boundary', function () {
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
+
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('notenterprise.influxdb.io');
+      cy.get('#q-url-input .submit-button').click();
+
+      cy.get('#q-paid', { timeout: 5000 }).should('be.visible');
+      cy.get('.result').should('not.contain', 'InfluxDB 3 Cloud');
     });
 
     it('should handle cloud context keywords', function () {
