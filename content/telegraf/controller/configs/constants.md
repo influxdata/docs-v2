@@ -25,6 +25,8 @@ common endpoint URL or organization name.
 
 For how constants compare to parameters, environment variables, and secrets,
 see [Substitute values in configurations](/telegraf/controller/configs/substitute-values/).
+When serving a [configuration group](/telegraf/controller/config-groups/),
+{{% product-name %}} substitutes constants across all member configurations.
 
 > [!Important]
 > #### Do not use constants for sensitive information

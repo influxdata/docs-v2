@@ -41,6 +41,10 @@ telegraf \
   --config "http://localhost:8888/c/my-config-alias"
 ```
 
+Agents can also retrieve multiple configurations bundled as a
+[configuration group](/telegraf/controller/config-groups/use/) with a
+single `--config` URL.
+
 > [!Note]
 > A single Telegraf agent can use multiple configurations.
 > Provide each with a distinct `--config` flag.

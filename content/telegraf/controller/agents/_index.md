@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_controller:
     name: Manage agents
-weight: 4
+weight: 5
 ---
 
 {{% product-name %}} tracks agents that send heartbeats through the Telegraf
