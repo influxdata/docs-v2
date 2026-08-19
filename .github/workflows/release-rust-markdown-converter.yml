@@ -61,6 +61,13 @@ jobs:
           fi
 
       - name: Build and test converter
+        # This job produces the artifact every other build consumes, so it
+        # must always compile. It works today only because the release being
+        # cut does not exist yet, making the script's download attempt fail
+        # through to cargo; RUST_MARKDOWN_CONVERTER_SOURCE makes that
+        # explicit and keeps a re-run from repackaging an existing release.
+        env:
+          RUST_MARKDOWN_CONVERTER_SOURCE: 'true'
         run: |
           node scripts/build-rust-converter.js
           node -e "require('./scripts/rust-markdown-converter')"
