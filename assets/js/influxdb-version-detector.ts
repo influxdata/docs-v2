@@ -1409,6 +1409,16 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
   private detectContext(urlInput: string): { likelyProduct?: string } {
     const input = urlInput.toLowerCase();
 
+    try {
+      const urlWithScheme = input.includes('://') ? input : `https://${input}`;
+      const hostname = new URL(urlWithScheme).hostname;
+      if (this.isDomainOrSubdomain(hostname, 'influxdb.io')) {
+        return { likelyProduct: 'cloud' };
+      }
+    } catch {
+      // Continue with keyword-based detection.
+    }
+
     // Check for cloud indicators
     if (input.includes('cloud') || input.includes('influxdata.com')) {
       return { likelyProduct: 'cloud' };
