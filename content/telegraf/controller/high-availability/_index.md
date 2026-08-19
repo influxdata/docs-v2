@@ -28,6 +28,7 @@ failover.
 {{< telegraf/enterprise-feature "High availability" >}}
 
 - [How high availability works](#how-high-availability-works)
+- [What high availability protects](#what-high-availability-protects)
 - [What runs on the leader](#what-runs-on-the-leader)
 - [Requirements and constraints](#requirements-and-constraints)
 - [How configuration changes propagate](#how-configuration-changes-propagate)
@@ -48,6 +49,26 @@ available.
   serves the web interface and API to whichever node the load balancer routes
   to, but does not run cluster-wide background work.
 
+{{< diagram center >}}
+flowchart TD
+  LB["<strong>Load Balancer</strong>"]
+  C1["<strong>Telegraf Controller</strong><br/>UI · API · Heartbeat"]
+  C2["<strong>Telegraf Controller</strong><br/>UI · API · Heartbeat"]
+  C3["<strong>Telegraf Controller</strong><br/>UI · API · Heartbeat"]
+  DB[("<strong>Shared database</strong>")]
+  LB --> C1
+  LB --> C2
+  LB -.-> C3
+  C1 --> DB
+  C2 --> DB
+  C3 -.-> DB
+{{< /diagram >}}
+
+Every node exposes the same web interface, API, and heartbeat endpoints
+behind a load balancer, and all nodes share one PostgreSQL or
+PostgreSQL-compatible database. The dashed node represents additional nodes
+you can add as needed.
+
 Each node re-evaluates leadership every few seconds. If the leader releases the
 lock during a graceful shutdown, or its database connection drops after a crash,
 a standby acquires the lock and becomes the new leader.
@@ -55,6 +76,27 @@ a standby acquires the lock and becomes the new leader.
 Coordination happens entirely through the shared database. Nodes do not
 communicate with each other directly, so no quorum, voting, or separate
 coordination service is required.
+
+## What high availability protects
+
+### Protected: web interface, API, and heartbeats
+
+Node redundancy covers the {{% product-name %}} services themselves: the web
+interface, the API, and heartbeat ingestion. Any node can serve any request,
+so a node failure does not interrupt management operations or agent
+reporting.
+
+### Not protected: the shared database
+
+The database is a required dependency of every node, and node redundancy
+does not extend to it. The database remains a single point of failure unless
+you make it highly available separately.
+
+How to make the database highly available depends on your database and
+provider. Managed PostgreSQL services typically offer replication and
+automatic failover options. Whatever you use must continue to meet the
+[requirements](#requirements-and-constraints), including session-level
+advisory locks and a direct connection from every node.
 
 ## What runs on the leader
 
