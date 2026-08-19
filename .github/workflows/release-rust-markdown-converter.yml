@@ -61,11 +61,9 @@ jobs:
           fi
 
       - name: Build and test converter
-        # This job produces the artifact every other build consumes, so it
-        # must always compile. It works today only because the release being
-        # cut does not exist yet, making the script's download attempt fail
-        # through to cargo; RUST_MARKDOWN_CONVERTER_SOURCE makes that
-        # explicit and keeps a re-run from repackaging an existing release.
+        # Must always compile — this job produces the binary every other build
+        # consumes. RUST_MARKDOWN_CONVERTER_SOURCE stops a re-run for an
+        # existing version from downloading and repackaging that release.
         env:
           RUST_MARKDOWN_CONVERTER_SOURCE: 'true'
         run: |

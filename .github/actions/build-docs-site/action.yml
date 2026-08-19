@@ -44,17 +44,11 @@ runs:
   using: 'composite'
   steps:
     # ------------------------------------------------------------ base URL --
-    # Hugo takes its base URL from --baseURL; `build:md` takes its own from
-    # scripts/lib/base-url.js, which reads BASE_URL/HUGO_ENV/DEPLOY_ENV and
-    # otherwise falls back to the production host. Those are two independent
-    # sources for one value: a caller that changes hugo-base-url alone gets
-    # HTML on one origin and Markdown twins on another, and nothing fails
-    # loudly. Exporting BASE_URL here makes hugo-base-url the single input.
-    #
-    # Trailing slashes are stripped so the exported value matches the
-    # convention detectBaseUrl() already returns (no trailing slash). When
-    # hugo-base-url is empty, BASE_URL stays unset and detectBaseUrl() keeps
-    # its existing behavior.
+    # Makes hugo-base-url the single input for both Hugo and `build:md`.
+    # Without this, scripts/lib/base-url.js ignores --baseURL and falls back to
+    # the production host, so changing hugo-base-url alone puts HTML and
+    # Markdown twins on different origins with nothing failing. Trailing slash
+    # stripped to match the format detectBaseUrl() returns.
     - name: Align the Markdown base URL with Hugo
       if: inputs.hugo-base-url != ''
       shell: bash
@@ -97,26 +91,14 @@ runs:
       run: yarn build:api-docs
 
     # ---------------------------------------------------------------- Flux --
-    # Mirrors the CircleCI "Inject Flux stdlib frontmatter" step. The Flux
-    # stdlib pages are committed *without* this frontmatter, so every build
-    # has to add it: the script rewrites 466 pages under
-    # content/flux/v0/stdlib/ with the aliases, related, prepend, append, and
-    # exclude_from keys from data/flux_stdlib_frontmatter.yml. Skipping it
-    # renders those pages differently from production and drops every alias
-    # redirect Hugo would emit for them.
+    # Mirrors the CircleCI "Inject Flux stdlib frontmatter" step. Required on
+    # every build, not a refresh: the 466 stdlib pages are committed without
+    # this frontmatter, and skipping it drops 1244 alias redirects. Keep it
+    # unconditional — it is local-only, idempotent, and under a second.
     #
-    # Unconditional and ungated: it is local-only, idempotent (it no-ops when
-    # the frontmatter is already present), and takes under a second. An input
-    # to disable it would just be a way to reintroduce the drift.
-    #
-    # CircleCI's sibling step, "Update Flux/InfluxDB versions", is
-    # deliberately NOT mirrored here. That script needs a GITHUB_TOKEN with
-    # read access to the private influxdata/plutonium repo, and exposing such
-    # a token to pull_request-triggered runs is not worth the parity. It also
-    # rewrites the tracked data/flux_influxdb_versions.yml over the network on
-    # every run; builds that skip it use the committed file, which is the
-    # reproducible input. Better fixed by refreshing that file on a schedule
-    # and committing it, the way sync-plugins.yml does.
+    # CircleCI's "Update Flux/InfluxDB versions" step is not mirrored: it needs
+    # a GITHUB_TOKEN for the private influxdata/plutonium repo. Builds without
+    # it use the committed data/flux_influxdb_versions.yml.
     - name: Inject Flux stdlib frontmatter
       shell: bash
       run: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.cjs

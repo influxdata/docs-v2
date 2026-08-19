@@ -2,20 +2,18 @@ name: Verify AI artifacts
 
 # Pre-merge gate for the Markdown-twin and AI-discovery artifact set.
 #
-# Why a full build of its own, rather than steps added to pr-render-check:
-# that workflow runs unfiltered on every PR by design, a `paths:` filter
-# cannot be scoped to one job of a workflow, and a per-job diff guard would
-# report success on PRs where the check never ran. Cost is not the reason —
-# the extra work here is roughly 45s over pr-render-check's build.
+# Kept separate from pr-render-check rather than folded in: that workflow is
+# unfiltered by design, a paths: filter cannot be scoped to one job, and a
+# per-job diff guard would report success on PRs where the check never ran.
+# Cost is not the reason — the extra work is about 45s.
 #
-# The checks need a complete public/, so do NOT change `build:md` below to
-# `--only-changed`. A partial .md set reduces all three checks to near-noise.
+# Do NOT change build:md below to --only-changed. The checks need a complete
+# public/; a partial .md set reduces all three to near-noise.
 #
-# `hugo-base-url` is production, which is weaker than it looks: these are
-# internal-consistency checks that pass under any base URL, and production
-# makes a hardcoded URL indistinguishable from a generated one. A sentinel
-# base URL would catch that; build-docs-site now exports BASE_URL from this
-# input, so Hugo and `build:md` would move together.
+# hugo-base-url is production, which is weaker than it looks: these checks
+# pass under any base URL, so production only hides hardcoded URLs. A sentinel
+# would expose them — build-docs-site exports BASE_URL from this input, so
+# Hugo and build:md move together.
 
 on:
   pull_request:
@@ -63,21 +61,11 @@ jobs:
           # Needed for the base...head diff in the next step.
           fetch-depth: 0
 
-      # `scripts/rust-markdown-converter/**` is in this workflow's path
-      # filter, but being in the filter does not by itself test the source:
-      # `build-rust-converter.js` prefers the *published release* binary, and
-      # `setup-docs-env` already downloaded it during postinstall. A PR that
-      # edits the Rust source without bumping and publishing a release would
-      # trigger this job and still validate the old converter.
-      #
-      # Setting `build-rust: 'true'` alone does not fix that either — it
-      # installs the toolchain, then `build-rust-converter.js` short-circuits
-      # on the downloaded prebuilt and never reaches the cargo build. The
-      # env var below is what actually forces compilation.
-      #
-      # Do this only when the converter source changed. Unconditionally
-      # compiling would add a rustup install plus a cold cargo build to every
-      # content PR, for a binary identical to the release it just downloaded.
+      # Gates the source build below. Being in the path filter does not by
+      # itself test the converter source — build-rust-converter.js prefers the
+      # published release binary, so an edit without a version bump would be
+      # validated against the old one. Keep this conditional: compiling on
+      # every content PR buys a binary identical to the release.
       - name: Detect Rust converter source changes
         id: converter
         run: |
@@ -127,19 +115,14 @@ jobs:
       - name: Build API docs and Hugo site
         uses: ./.github/actions/build-docs-site
         env:
-          # Makes build-rust-converter.js skip its prebuilt-download
-          # short-circuit so the cargo build below actually runs. Without
-          # this, `build-rust: 'true'` installs a toolchain it never uses.
+          # Both are needed to compile: build-rust installs the toolchain,
+          # this makes the script build instead of using the prebuilt.
           RUST_MARKDOWN_CONVERTER_SOURCE: ${{ steps.converter.outputs.changed }}
         with:
           build-rust: ${{ steps.converter.outputs.changed }}
-          # Explicit even though it is the action default: API reference
-          # pages are gitignored and generated from the OpenAPI specs, and
-          # 234 of the ~4990 Markdown twins live under /api/. Setting this
-          # to false silently drops those pages from every check below.
-          # pr-render-check.yml disables API docs, and pr-preview.yml
-          # builds them but verifies nothing, so this is the only
-          # pre-merge check that covers API-page twins and JSON-LD.
+          # Keep true. API pages are gitignored and generated from the specs;
+          # 234 of the ~4990 twins live under /api/, and no other pre-merge
+          # check covers them. Setting false drops them from every check below.
           build-api-docs: 'true'
           hugo-base-url: 'https://docs.influxdata.com/'
           hugo-gc: 'true'

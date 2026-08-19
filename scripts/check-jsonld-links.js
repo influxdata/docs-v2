@@ -2,27 +2,15 @@
 /**
  * Verify that JSON-LD @id references in built HTML resolve to JSON-LD nodes.
  *
- * References resolve against the node set of the whole site, not of the page
- * that makes them. That is deliberate, and matches how the templates emit
- * these graphs:
+ * Resolution is site-wide, not per page. Do not scope it per page: references
+ * are cross-page by construction. softwareapplication-jsonld.html emits a
+ * product's SoftwareApplication node once on the landing page, and
+ * techarticle-jsonld.html points every article's `about` and `isPartOf` at it
+ * by bare @id, so a per-page check would fail on every article.
  *
- *   - layouts/partials/header/softwareapplication-jsonld.html emits a
- *     product's SoftwareApplication node once, on the product landing page.
- *   - layouts/partials/header/techarticle-jsonld.html points every article's
- *     `about` and `isPartOf` at that node with a bare @id. Inside its
- *     `with partial "product/landing.html"` block, `.Permalink` is the landing
- *     page, so the reference is cross-page by construction. Re-declaring the
- *     entity inline instead would parse as a second, incomplete
- *     SoftwareApplication and fail validation.
- *
- * Scoping resolution per page would therefore fail on every article in the
- * site. What this check does catch is the failure that matters here: a landing
- * page that stops emitting its node while articles still reference it turns
- * every one of those references dangling.
- *
- * Consumers that parse a single document (Google, most RAG extractors) will
- * not resolve an off-page node. That is a known trade the templates made for
- * validity, not something for this checker to relitigate.
+ * This catches a landing page that stops emitting its node while articles
+ * still reference it. It cannot catch an article referencing the wrong
+ * product's node — that needs a check against the page's own landing URL.
  */
 
 import { glob } from 'glob';
