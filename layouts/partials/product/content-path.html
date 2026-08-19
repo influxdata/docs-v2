@@ -5,6 +5,8 @@
 
   Handles both content_path shapes:
     - map keyed by version    (influxdb: {v2: influxdb/v2, v1: influxdb/v1})
+      A single-entry map is also an explicit unversioned URL root, so its only
+      value applies when the page's route version differs from the release.
     - string                  (telegraf: telegraf)
   For the string shape, the version is appended when the product declares
   versions and the path does not already end with the version.
@@ -26,6 +28,11 @@
   {{- $cp := $productData.content_path -}}
   {{- if reflect.IsMap $cp -}}
     {{- $contentPath = index $cp $version -}}
+    {{- if and (not $contentPath) (eq (len $cp) 1) -}}
+      {{- range $cp -}}
+        {{- $contentPath = . -}}
+      {{- end -}}
+    {{- end -}}
     {{- if not $contentPath -}}
       {{- errorf "No content_path for version '%s' of product '%s' on page: %s. Check data/products.yml." $version . $.Page.RelPermalink -}}
     {{- end -}}

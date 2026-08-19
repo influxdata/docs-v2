@@ -2,77 +2,17 @@
  * DocSearch component for InfluxData documentation
  * Handles asynchronous loading and initialization of Algolia DocSearch
  */
+import { products } from '../services/influxdata-products.js';
+import {
+  buildProductIndex,
+  formatProductLabel,
+} from '../utils/product-labels.js';
+
 const debug = false; // Set to true for debugging output
 
-// Use object-based lookups instead of conditionals for version and product
-// names. These can be replaced with data from productData in the future.
-
-// Products that expose more than one numbered version in the URL path
-const multiVersion = ['influxdb'];
-
-// Version display name mappings, keyed by the version path segment
-const versionDisplayNames = {
-  cloud: 'Cloud',
-  core: 'Core',
-  enterprise: 'Enterprise',
-  'cloud-serverless': 'Cloud Serverless',
-  'cloud-dedicated': 'Cloud Dedicated',
-  clustered: 'Clustered',
-  explorer: 'Explorer',
-  controller: 'Controller',
-};
-
-// Version display names for a specific product, keyed by "product/version".
-// Use for version segments that appear under more than one product--for
-// example, /influxdb/cloud/ is the TSM-backed v2 Cloud, while
-// /influxdb3/cloud/ is InfluxDB 3 Cloud.
-const productVersionDisplayNames = {
-  'influxdb/cloud': 'Cloud (TSM)',
-};
-
-// Product display name mappings
-const productDisplayNames = {
-  influxdb: 'InfluxDB',
-  influxdb3: 'InfluxDB 3',
-  explorer: 'InfluxDB 3 Explorer',
-  enterprise_influxdb: 'InfluxDB Enterprise',
-  flux: 'Flux',
-  telegraf: 'Telegraf',
-  controller: 'Telegraf Controller',
-  chronograf: 'Chronograf',
-  kapacitor: 'Kapacitor',
-  platform: 'InfluxData Platform',
-  resources: 'Additional Resources',
-};
-
-/**
- * Format the version segment of a docs URL for display in search results.
- * Product-specific names win over version-only names.
- *
- * @param {string|null|undefined} version - version path segment
- * @param {string|null|undefined} productKey - product path segment
- * @returns {string} display name, or '' when the version isn't displayable
- */
-export function formatVersion(version, productKey) {
-  if (version == null) {
-    return '';
-  }
-  return (
-    productVersionDisplayNames[`${productKey}/${version}`] ??
-    versionDisplayNames[version] ??
-    (multiVersion.includes(productKey) ? version : '')
-  );
-}
-
-/**
- * Format the product segment of a docs URL for display in search results.
- *
- * @param {string|null|undefined} productKey - product path segment
- * @returns {string} display name, or the raw segment when unmapped
- */
-export function formatProduct(productKey) {
-  return productDisplayNames[productKey] || productKey;
-}
+// Result labels come from data/products.yml, which Hugo passes into the
+// bundle as a js.Build param. Build the lookup once per page load.
+const productIndex = buildProductIndex(products);
 
 export default function DocSearch({ component }) {
   // Store configuration from component data attributes
@@ -122,20 +62,16 @@ export default function DocSearch({ component }) {
       debug: config.debug,
       transformData: function (hits) {
         hits.map((hit) => {
-          const pathData = new URL(hit.url).pathname
-            .split('/')
-            .filter((n) => n);
-          const product = formatProduct(pathData[0]);
-          const version = formatVersion(pathData[1], pathData[0]);
+          const label = formatProductLabel(
+            new URL(hit.url).pathname,
+            productIndex
+          );
+          const badge = ` <span class="search-product-version">${label}</span>`;
 
-          hit.product = product;
-          hit.version = version;
-          hit.hierarchy.lvl0 =
-            hit.hierarchy.lvl0 +
-            ` <span class="search-product-version">${product} ${version}</span>`;
+          hit.productLabel = label;
+          hit.hierarchy.lvl0 = hit.hierarchy.lvl0 + badge;
           hit._highlightResult.hierarchy.lvl0.value =
-            hit._highlightResult.hierarchy.lvl0.value +
-            ` <span class="search-product-version">${product} ${version}</span>`;
+            hit._highlightResult.hierarchy.lvl0.value + badge;
         });
         return hits;
       },

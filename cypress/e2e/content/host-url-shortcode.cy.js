@@ -21,6 +21,8 @@ const PAGES = {
   influxdb3_core: '/influxdb3/core/write-data/http-api/v3-write-lp/',
   influxdb3_enterprise:
     '/influxdb3/enterprise/write-data/http-api/v3-write-lp/',
+  influxdb3_cloud:
+    '/influxdb3/cloud/query-data/execute-queries/influxdb-v1-api/',
   influxdb3_cloud_serverless:
     '/influxdb3/cloud-serverless/reference/sample-data/',
   influxdb3_cloud_dedicated:
@@ -55,9 +57,10 @@ describe('influxdb/host-url shortcode', function () {
     });
   });
 
-  it('renders https:// for managed products (Cloud Serverless, Dedicated, Clustered)', function () {
+  it('renders https:// for managed products', function () {
     cy.task('getData', 'products').then((products) => {
       [
+        'influxdb3_cloud',
         'influxdb3_cloud_serverless',
         'influxdb3_cloud_dedicated',
         'influxdb3_clustered',
@@ -80,5 +83,19 @@ describe('influxdb/host-url shortcode', function () {
     cy.get('pre.api-endpoint')
       .should('contain.text', 'https://localhost:8086/query')
       .and('not.contain.text', '{{< influxdb/host-url >}}');
+  });
+
+  it('renders the InfluxDB 3 Cloud host when nested in api-endpoint', function () {
+    cy.task('getData', 'products').then((products) => {
+      const product = products.influxdb3_cloud;
+      const expectedUrl = `${product.scheme}://${product.placeholder_host}`;
+
+      visitClean(PAGES.influxdb3_cloud);
+      cy.get('pre.api-endpoint')
+        .first()
+        .should('contain.text', `${expectedUrl}/query`)
+        .and('not.contain.text', '{{< influxdb/host-url >}}')
+        .and('not.contain.text', products.influxdb_cloud.placeholder_host);
+    });
   });
 });

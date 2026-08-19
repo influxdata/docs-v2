@@ -31,8 +31,8 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-query-tokens)
-[HTTP API](#http-api-query-tokens)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -63,8 +63,8 @@ curl -G \
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-in-query)
-[HTTP API](#http-api-filter-in-query)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -104,8 +104,8 @@ commands.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#format-using-the-cli)
-[HTTP API](#format-using-the-api)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -142,8 +142,8 @@ using cURL's `--output` option.
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
-[CLI](#cli-output-to-parquet)
-[HTTP API](#http-api-output-to-parquet)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -180,8 +180,8 @@ Use command-line tools such as `grep` or `jq` to filter the output of the
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-admin-using-grep)
-[HTTP API](#http-api-filter-admin-using-grep)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -209,8 +209,8 @@ grep _admin
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-output-using-jq)
-[HTTP API](#http-api-filter-output-using-jq)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
