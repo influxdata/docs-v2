@@ -165,7 +165,8 @@ automatically reload the configuration if the configuration has been updated.
 
 {{% product-name %}} provides a tool for building `telegraf` commands using
 parameters, environment variables, auto-update functionality, and Telegraf
-[label selectors](/telegraf/v1/configuration/#selectors-1). To use this tool:
+[label selectors](/telegraf/v1/configuration/labels-selectors/).
+To use this tool:
 
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar. 
