@@ -12,6 +12,7 @@ alt_links:
   v1: /influxdb/v1/administration/identify-version/
   v2: /influxdb/v2/admin/identify-version/
   cloud: /influxdb/cloud/admin/identify-version/
+  cloud3: /influxdb3/cloud/admin/identify-version/
   cloud-serverless: /influxdb3/cloud-serverless/admin/identify-version/
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/identify-version/
   clustered: /influxdb3/clustered/admin/identify-version/

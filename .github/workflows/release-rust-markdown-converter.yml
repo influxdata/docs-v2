@@ -61,6 +61,11 @@ jobs:
           fi
 
       - name: Build and test converter
+        # Must always compile — this job produces the binary every other build
+        # consumes. RUST_MARKDOWN_CONVERTER_SOURCE stops a re-run for an
+        # existing version from downloading and repackaging that release.
+        env:
+          RUST_MARKDOWN_CONVERTER_SOURCE: 'true'
         run: |
           node scripts/build-rust-converter.js
           node -e "require('./scripts/rust-markdown-converter')"

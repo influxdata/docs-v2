@@ -5,13 +5,25 @@
   transition: opacity .5s;
   font-family: $proxima;
 
-  svg {
-    // Mermaid pins an inline max-width to the diagram's natural pixel size,
-    // so diagrams render small in a wide article column. The svg carries a
-    // viewBox, so lifting the cap scales the whole diagram proportionally.
-    // The svg already carries width="100%", so it never exceeds the column;
-    // this ceiling just stops the scale-up from dwarfing body text.
-    // Avoid CSS min() here -- Sass evaluates it and fails on mixed units.
+  // Diagrams are left-aligned by default. Pass {{< diagram center >}} to
+  // center one in the article column. svg is inline by default, so it needs
+  // to be a block for auto margins to apply.
+  &.center svg {
+    display: block;
+    margin: 0 auto;
+  }
+
+  // Mermaid pins an inline max-width to the diagram's natural pixel size,
+  // so wide diagrams render small in a wide article column. The svg carries
+  // a viewBox, so lifting the cap scales the whole diagram proportionally.
+  // The svg already carries width="100%", so it never exceeds the column;
+  // this ceiling just stops the scale-up from dwarfing body text.
+  // Narrow diagrams (e.g. a top-down flowchart) scale up far past that
+  // intent -- 236px natural rendered at 680px is a 2.9x blow-up -- so
+  // {{< diagram natural-size >}} opts a diagram out and keeps Mermaid's
+  // natural size.
+  // Avoid CSS min() here -- Sass evaluates it and fails on mixed units.
+  &:not(.natural-size) svg {
     max-width: 680px !important;
   }
 

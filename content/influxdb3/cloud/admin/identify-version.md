@@ -1,24 +1,27 @@
 ---
-title: Identify InfluxDB Clustered version
-description: Learn how to identify your InfluxDB Clustered version using influxctl CLI and other methods.
+title: Identify InfluxDB 3 Cloud version
+description: Learn how to identify your InfluxDB 3 Cloud instance using command-line tools, HTTP endpoints, and other methods.
 menu:
-  influxdb3_clustered:
+  influxdb3_cloud:
     name: Identify version
-    parent: Administer InfluxDB Clustered
+    parent: Administer InfluxDB
 weight: 10
 source: /shared/identify-version.md
 related:
-  - /influxdb3/clustered/get-started/
-  - /influxdb3/clustered/admin/
-  - /influxdb3/clustered/reference/cli/influxctl/
+  - /influxdb3/cloud/get-started/
+  - /influxdb3/cloud/admin/
+  - /influxdb3/cloud/reference/cli/influxdb3/
 alt_links:
   v1: /influxdb/v1/administration/identify-version/
   v2: /influxdb/v2/admin/identify-version/
   cloud: /influxdb/cloud/admin/identify-version/
-  cloud3: /influxdb3/cloud/admin/identify-version/
   cloud-serverless: /influxdb3/cloud-serverless/admin/identify-version/
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/identify-version/
+  clustered: /influxdb3/clustered/admin/identify-version/
   core: /influxdb3/core/admin/identify-version/
   enterprise: /influxdb3/enterprise/admin/identify-version/
   enterprise_influxdb_v1: /enterprise_influxdb/v1/administration/identify-version/
 ---
+
+<!-- The content for this file is located at
+// SOURCE content/shared/identify-version.md -->
