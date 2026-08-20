@@ -562,7 +562,9 @@ The command returns a token string for authenticating CLI commands and API reque
 Now that an admin token exists, the server requires a token for all requests.
 If you started the server on `127.0.0.1` to protect the
 [bootstrap window](#start-influxdb), you can now restart it on the address you
-want to use--for example, `--http-bind 0.0.0.0:8181`.
+want to use--for example, `--http-bind IP_ADDRESS:8181` to listen on a specific
+interface, or omit `--http-bind` to listen on all interfaces (default is
+`--http-bind 0.0.0.0:8181`).
 
 ### Set your token for authorization
 
