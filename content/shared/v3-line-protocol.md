@@ -308,7 +308,7 @@ Overwrites are subject to timing conditions described below; they are not a reli
 >
 > To ensure the last write wins, leave enough time between writes of the same point for
 > the earlier write to be persisted and referenced in a snapshot — with default settings,
-> at least 30 minutes — and ensure the compactor is running.
+> we recommend at least 30 minutes — and ensure the compactor is running.
 > Writes of the same point with insufficient delay yield undefined behavior.
 >
 > In clusters with multiple ingest nodes, the ordering of overwrites of the same point
