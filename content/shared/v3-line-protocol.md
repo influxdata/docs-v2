@@ -286,6 +286,7 @@ A point is uniquely identified by the table name, tag set, and timestamp.
 If you submit line protocol with the same table, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
+Overwrites are subject to timing conditions described below; they are not a reliable way to maintain a last-value view unless those conditions are met.
 
 {{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
 > [!Warning]
@@ -294,7 +295,46 @@ field set and the new field set, where any conflicts favor the new field set.
 > Overwriting duplicate points (same table, tag set, and timestamp) is _not a reliable way to maintain a last-value view_.
 > When duplicate points are flushed together, write ordering is not guaranteed—a prior write may "win."
 > See [Anti-patterns to avoid](#anti-patterns-to-avoid) and [Recommended patterns](#recommended-patterns-for-last-value-tracking) below.
+{{% /show-in %}}
 
+{{% show-in "enterprise" %}}
+> [!Warning]
+> #### Overwrites need time between writes
+>
+> Overwriting a point (same table, tag set, and timestamp) resolves non-deterministically
+> if the overwrite arrives before the previous write of that point has been persisted and
+> referenced in a snapshot: queries may return either version, and either version may be
+> permanently stored.
+>
+> To ensure the last write wins, leave enough time between writes of the same point for
+> the earlier write to be persisted and referenced in a snapshot — with default settings,
+> at least 30 minutes — and ensure the compactor is running.
+> Writes of the same point with insufficient delay yield undefined behavior.
+>
+> In clusters with multiple ingest nodes, the ordering of overwrites of the same point
+> written through different nodes is not defined.
+> Route all writes of a given point through the same node, in addition to the overwrite delay above.
+>
+> For reliable last-value tracking, use the append-only patterns below instead of
+> overwrites.
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+> [!Warning]
+> #### Overwrites are not deterministic
+>
+> Overwriting a point (same table, tag set, and timestamp) is not reliable in
+> {{% product-name %}}, regardless of how far apart the writes are — concurrent or
+> spaced: queries may return either version, and either version may be permanently
+> stored.
+> {{% product-name %}} does not include the compaction process that establishes
+> a durable order between data files containing the same point.
+>
+> To maintain a last-value view, use the append-only patterns below instead of
+> overwrites.
+{{% /show-in %}}
+
+{{% show-in "core,enterprise,cloud-dedicated,clustered,cloud-serverless" %}}
 ### Recommended patterns for last-value tracking
 
 To reliably maintain a last-value view of your data, use one of these append-only patterns:
