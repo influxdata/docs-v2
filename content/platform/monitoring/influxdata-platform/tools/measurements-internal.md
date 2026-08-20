@@ -2,7 +2,7 @@
 title: InfluxDB _internal 1.x measurements and fields
 description: >
   Use and understand the InfluxDB _internal measurements statistics and field keys
-  that monitor InfluxDB and InfluxDB Enterprise servers.
+  that monitor InfluxDB v1.x and InfluxDB Enterprise v1 servers.
 aliases:
   - /platform/monitoring/tools/measurements-internal/
 menu:
@@ -12,8 +12,35 @@ menu:
     weight: 2
 ---
 
-By default, InfluxDB generates internal metrics and saves to the `_internal` database.
+The `_internal` database and the measurements on this page are specific to
+InfluxDB v1.x and InfluxDB Enterprise v1. If you're using a different InfluxDB
+edition, use the monitoring entrypoint for your edition instead:
+
+<!-- TODO(human): a second InfluxDB 3 edition belongs in this list, ranked
+between InfluxDB 3 Enterprise and InfluxDB Enterprise v1. Name withheld
+pending maintainer confirmation—do not guess or publish without sign-off. -->
+
+1. [InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/query-system-data/) — query system tables for server, query, and table statistics.
+1. [InfluxDB Enterprise v1](/enterprise_influxdb/v1/administration/monitor/) — monitor a v1 cluster with InfluxDB Cloud or OSS.
+1. [InfluxDB Cloud (TSM)](/influxdb/cloud/monitor-alert/) — monitor and alert on data in InfluxDB Cloud v1.
+
+Also see monitoring documentation for
+[InfluxDB 3 Core](/influxdb3/core/admin/query-system-data/),
+[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/),
+[InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/admin/),
+[InfluxDB Clustered](/influxdb3/clustered/admin/query-system-data/),
+and [InfluxDB 2.x](/influxdb/v2/monitor-alert/).
+
+By default, InfluxDB writes internal runtime and performance metrics to the
+`_internal` database. This requires no configuration—the `monitor` service and
+its `store-enabled` setting default to `true`.
 Use these metrics to monitor InfluxDB and InfluxDB Enterprise and to create alerts to notify you when problems arise.
+
+Query the `_internal` database directly with the InfluxDB UI or `influx` CLI,
+using `SHOW STATS` and `SHOW DIAGNOSTICS` or standard InfluxQL. You can also
+export these metrics to third-party monitoring tools such as Prometheus and
+Grafana—see [Store internal metrics in an external monitor](#store-internal-metrics-in-an-external-monitor)
+and [Visualize InfluxDB internal metrics](#visualize-influxdb-internal-metrics) below.
 
 ### Disable the `_internal` database in production
 InfluxData does **not** recommend using the `_internal` database in a production cluster.
@@ -40,6 +67,11 @@ to capture these metrics from the InfluxDB `/debug/vars` endpoint and store them
 in an external InfluxDB monitoring instance.
 For more information, see [Configure a Watcher of Watchers](/platform/monitoring/influxdata-platform/external-monitor-setup/).
 
+InfluxDB also exposes Go runtime metrics in Prometheus exposition format on the
+`/metrics` HTTP endpoint. Third-party tools that support Prometheus-format
+scraping, such as Prometheus and Grafana, can collect these metrics directly
+without going through Telegraf.
+
 {{% note %}}
 When using the "watcher of watcher (WoW)" configuration, InfluxDB
 metric field keys are prepended with `infuxdb_`, but are otherwise identical
@@ -52,6 +84,17 @@ or the [InfluxDB Enterprise Monitor dashboard](/platform/monitoring/influxdata-p
 to visualize InfluxDB `_internal` metrics.
 
 ## InfluxDB \_internal measurements and fields
+
+{{% note %}}
+`_internal` series only appear after the corresponding subsystem has run at
+least once, so a given instance may not report every field below. A small
+number of fields—`httpd.valuesWrittenOK`, `shard.indexType`,
+`write.pointsWrittenOK`, `write.subWriteDrop`, `write.valuesWrittenOK`, and the
+`hh_database` measurement—weren't observed in a recent test instance and are
+pending confirmation against the InfluxDB source. They remain documented below
+until that's confirmed.
+{{% /note %}}
+
 {{% truncate %}}
 - [ae](#ae-enterprise-only) (Enterprise only)
   - [bytesRx](#bytesrx)
@@ -65,6 +108,9 @@ to visualize InfluxDB `_internal` metrics.
   - [fieldDimensionsReq](#fielddimensionsreq)
   - [iteratorCostReq](#iteratorcostreq)
   - [removeShardReq](#removeshardreq)
+  - [storeReadFilterReq](#storereadfilterreq)
+  - [storeReadGroupReq](#storereadgroupreq)
+  - [storeReadWindowAggregateReq](#storereadwindowaggregatereq)
   - [writeShardFail](#writeshardfail)
   - [writeShardPointsReq](#writeshardpointsreq)
   - [writeShardReq](#writeshardreq)
@@ -75,6 +121,15 @@ to visualize InfluxDB `_internal` metrics.
   - [numMeasurements](#nummeasurements)
   - [numSeries](#numseries)
 - [hh](#hh-enterprise-only) (Enterprise only)
+  - [bytesRead](#bytesread)
+  - [bytesWritten](#byteswritten)
+  - [queueBytes](#queuebytes)
+  - [queueDepth](#queuedepth)
+  - [writeBlocked](#writeblocked)
+  - [writeDropped](#writedropped)
+  - [writeNodeReq](#writenodereq)
+  - [writeNodeReqFail](#writenodereqfail)
+  - [writeNodeReqPoints](#writenodereqpoints)
   - [writeShardReq](#writeshardreq)
   - [writeShardReqPoints](#writeshardreqpoints)
 - [hh_database](#hh-database-enterprise-only) (Enterprise only)
@@ -127,10 +182,16 @@ to visualize InfluxDB `_internal` metrics.
   - [writeReqActive](#writereqactive)
   - [writeReqBytes](#writereqbytes)
   - [writeReqDurationNs](#writereqdurationns)
+- [localStore](#localstore)
+  - [pointsWritten](#pointswritten)
+  - [seriesCreated](#seriescreated)
+  - [valuesWritten](#valueswritten)
 - [queryExecutor](#queryexecutor)
   - [queriesActive](#queriesactive)
   - [queriesExecuted](#queriesexecuted)
+  - [queriesFailed](#queriesfailed)
   - [queriesFinished](#queriesfinished)
+  - [queriesSlow](#queriesslow)
   - [queryDurationNs](#querydurationns)
   - [recoveredPanics](#recoveredpanics)
 - [rpc](#rpc-enterprise-only) (Enterprise only)
@@ -173,8 +234,10 @@ to visualize InfluxDB `_internal` metrics.
   - [writeReq](#writereq)
   - [writeReqErr](#writereqerr)
   - [writeReqOk](#writereqok)
+  - [writeValuesOk](#writevaluesok)
 - [subscriber](#subscriber)
   - [createFailures](#createfailures)
+  - [memUsage](#memusage)
   - [pointsWritten](#pointswritten)
   - [writeFailures](#writefailures)
 - [tsm1_cache](#tsm1-cache)
@@ -192,6 +255,12 @@ to visualize InfluxDB `_internal` metrics.
   - [cacheCompactionErr](#cachecompactionerr)
   - [cacheCompactions](#cachecompactions)
   - [cacheCompactionsActive](#cachecompactionsactive)
+  - [compactionPlannerFindGenerations](#compactionplannerfindgenerations)
+  - [compactionPlannerPlan](#compactionplannerplan)
+  - [compactionPlannerPlanLevel1](#compactionplannerplanlevel1)
+  - [compactionPlannerPlanLevel2](#compactionplannerplanlevel2)
+  - [compactionPlannerPlanLevel3](#compactionplannerplanlevel3)
+  - [compactionPlannerPlanOptimize](#compactionplannerplanoptimize)
   - [tsmFullCompactionDuration](#tsmfullcompactionduration)
   - [tsmFullCompactionErr](#tsmfullcompactionerr)
   - [tsmFullCompactionQueue](#tsmfullcompactionqueue)
@@ -222,7 +291,7 @@ to visualize InfluxDB `_internal` metrics.
   - [numFiles](#numfiles)
 - [tsm1_wal](#tsm1-wal)
   - [currentSegmentDiskBytes](#currentsegmentdiskbytes)
-  - [oldSegmentDiskBytes](#oldsegmentdiskbytes)
+  - [oldSegmentsDiskBytes](#oldsegmentsdiskbytes)
   - [writeErr](#writeerr)
   - [writeOk](#writeok)
 - [write](#write)
@@ -290,6 +359,15 @@ being handled by the data node
 The number of internal requests to delete a shard from this data node.
 Exclusively incremented by use of the `influxd-ctl remove shard` command.
 
+#### storeReadFilterReq
+The number of internal storage read filter requests from other data nodes in the cluster.
+
+#### storeReadGroupReq
+The number of internal storage read group requests from other data nodes in the cluster.
+
+#### storeReadWindowAggregateReq
+The number of internal storage read window aggregate requests from other data nodes in the cluster.
+
 #### writeShardFail
 The total number of internal write requests from a remote node that failed.
 It's the cousin of InfluxDB shard stat `writeReqErr`.
@@ -344,6 +422,40 @@ processors in InfluxDB Enterprise.
 The `hh` measurement has one additional tag:
 
 - `path` - The path to the durable hinted handoff queue on disk.
+
+#### bytesRead
+The size, in bytes, of points read from the hinted handoff queue and sent to its destination data node.
+
+{{% note %}}
+Resets to zero after crash or restart, even if the HH queue was non-empty.
+{{% /note %}}
+
+#### bytesWritten
+The total number of bytes written to the hinted handoff queue.
+Note that this statistic only tracks bytes written during the lifecycle of the current process.
+Upon restart or a crash, this statistic resets to zero, even if the hinted handoff queue was not empty.
+
+#### queueBytes
+The total number of bytes remaining in the hinted handoff queue.
+
+#### queueDepth
+The total number of segments in the hinted handoff queue. The HH queue is a sequence of 10MB "segment" files.
+
+#### writeBlocked
+The number of writes blocked because the number of concurrent HH requests exceeds the limit.
+
+#### writeDropped
+The number of writes dropped from the HH queue because the write appeared to be corrupted.
+
+#### writeNodeReq
+The total number of write requests that succeeded in writing a batch to the destination node.
+
+#### writeNodeReqFail
+The total number of write requests that failed in writing a batch of data from the
+hinted handoff queue to the destination node.
+
+#### writeNodeReqPoints
+The total number of points successfully written from the HH queue to the destination node.
 
 #### writeShardReq
 The number of initial write requests handled by the hinted handoff engine for a remote node.
@@ -605,6 +717,20 @@ The duration (wall time), in nanoseconds, of write requests served using the `/w
 
 ---
 
+### localStore
+The `localStore` measurement statistics are related to writes handled by the local storage engine.
+
+#### pointsWritten
+The total number of points written to the local store.
+
+#### seriesCreated
+The total number of series created in the local store.
+
+#### valuesWritten
+The total number of values (fields) written to the local store.
+
+---
+
 ### queryExecutor
 
 The `queryExecutor` statistics related to usage of the Query Executor of the InfluxDB engine.
@@ -612,11 +738,17 @@ The `queryExecutor` statistics related to usage of the Query Executor of the Inf
 #### queriesActive
 The number of active queries currently being handled.
 
-##### queriesExecuted
+#### queriesExecuted
 The number of queries executed (started).
+
+#### queriesFailed
+The number of queries that failed to execute due to errors.
 
 #### queriesFinished
 The number of queries that have finished executing.
+
+#### queriesSlow
+The number of queries that exceeded the configured slow-query threshold.
 
 #### queryDurationNs
 The duration (wall time), in nanoseconds, of every query executed.
@@ -770,6 +902,9 @@ The total number of write requests that failed due to errors.
 #### writeReqOk
 The total number of successful write requests.
 
+#### writeValuesOk
+The total number of values (fields) successfully written to the shard.
+
 ---
 
 ### subscriber
@@ -777,6 +912,9 @@ The `subscriber` measurement statistics are related to the usage of InfluxDB sub
 
 #### createFailures
 The number of subscriptions that failed to be created.
+
+#### memUsage
+The number of bytes of memory currently used by the subscriber's internal write buffers.
 
 #### pointsWritten  
 The total number of points that were successfully written to subscribers.
@@ -865,6 +1003,24 @@ The total number of cache compactions that have ever run.
 
 #### cacheCompactionsActive
 The number of cache compactions that are currently running.
+
+#### compactionPlannerFindGenerations
+The number of times the compaction planner scanned TSM files to find generations to compact.
+
+#### compactionPlannerPlan
+The number of times the compaction planner ran to generate a compaction plan.
+
+#### compactionPlannerPlanLevel1
+The number of times the compaction planner generated a level 1 compaction plan.
+
+#### compactionPlannerPlanLevel2
+The number of times the compaction planner generated a level 2 compaction plan.
+
+#### compactionPlannerPlanLevel3
+The number of times the compaction planner generated a level 3 compaction plan.
+
+#### compactionPlannerPlanOptimize
+The number of times the compaction planner generated an optimize compaction plan.
 
 #### tsmFullCompactionDuration
 The duration (wall time), in nanoseconds, spent in full compactions.
@@ -960,13 +1116,13 @@ The `tsm1_wal` measurement statistics are related to the usage of the TSM Write 
 #### currentSegmentDiskBytes
 The current size, in bytes, of the segment disk.
 
-#### oldSegmentDiskBytes
+#### oldSegmentsDiskBytes
 The size, in bytes, of the segment disk.
 
 #### writeErr
 The number of writes that failed due to errors.
 
-#### writeOK
+#### writeOk
 The number of writes that succeeded.
 
 ---
