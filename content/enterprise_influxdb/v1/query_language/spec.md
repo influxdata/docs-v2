@@ -857,7 +857,7 @@ SHOW DATABASES
 
 Displays node information, such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.
 
-For more information on using the `SHOW DIAGNOSTICS` command, see [Using the SHOW DIAGNOSTICS command for monitoring InfluxDB](/platform/monitoring/influxdata-platform/tools/show-diagnostics/).
+For more information on using the `SHOW DIAGNOSTICS` command, see [Using the SHOW DIAGNOSTICS command for monitoring InfluxDB](/enterprise_influxdb/v1/administration/monitor/show-diagnostics/).
 
 ```sql
 show_diagnostics_stmt = "SHOW DIAGNOSTICS"
@@ -1078,7 +1078,7 @@ but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` datab
 The `SHOW STATS` command does not list index memory usage -- 
 use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
 
-For more information on using the `SHOW STATS` command, see [Using the SHOW STATS command to monitor InfluxDB](/platform/monitoring/tools/show-stats/).
+For more information on using the `SHOW STATS` command, see [Using the SHOW STATS command to monitor InfluxDB](/enterprise_influxdb/v1/administration/monitor/show-stats/).
 
 ```
 show_stats_stmt = "SHOW STATS [ FOR '<component>' | 'indexes' ]"

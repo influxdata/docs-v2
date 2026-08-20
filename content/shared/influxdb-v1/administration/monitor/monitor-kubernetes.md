@@ -1,17 +1,5 @@
----
-title: Monitor Kubernetes using the InfluxData 1.x Platform
-description: Use the InfluxData 1.x TICK stack to monitor Kubernetes.
-menu:
-  platform:
-    name: Monitor Kubernetes
-    weight: 3
-    parent: Monitor containers
-    draft: false
----
 ## Monitor Kubernetes
 The TICK stack is an easy and performant way to monitor the services that make up a Kubernetes cluster, whether or not you're running InfluxDB in a Kubernetes cluster or somewhere else.
-
-Why use the InfluxData
 
 ### kube-influxdb Kubernetes monitoring project
 
@@ -29,4 +17,4 @@ The [Telegraf metrics collection agent](/telegraf/v1/introduction/getting-starte
 
 InfluxDB supports the Prometheus remote read and write API for clusters already using Prometheus for metrics collection, but need require a more flexible time series data store.
 
-[Read about the Prometheus remote read and write API support in InfluxDB](/influxdb/v1/supported_protocols/prometheus/)
+[Read about the Prometheus remote read and write API support in InfluxDB](/product/version/supported_protocols/prometheus/)
