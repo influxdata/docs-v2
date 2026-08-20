@@ -37,7 +37,7 @@ This returns information such as build information, uptime, hostname, server con
 For details on this command, see [`SHOW DIAGNOSTICS`](/influxdb/v1/query_language/spec#show-diagnostics) in the InfluxQL specification.
 
 ## Internal monitoring
-InfluxDB also writes statistical and diagnostic information to database named `_internal`, which records metrics on the internal runtime and service performance.
+InfluxDB also writes statistical and diagnostic information to a database named `_internal`, which records metrics on the internal runtime and service performance.
 The `_internal` database can be queried and manipulated like any other InfluxDB database.
 For a full reference of `_internal` measurements and field keys, see [InfluxDB `_internal` measurements and fields](/platform/monitoring/influxdata-platform/tools/measurements-internal/).
 
