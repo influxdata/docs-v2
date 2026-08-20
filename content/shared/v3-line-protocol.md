@@ -301,15 +301,12 @@ Overwrite behavior is product-specific; see the warning below before relying on 
 > [!Warning]
 > #### Overwrites need time between writes
 >
-> Overwriting a point (same table, tag set, and timestamp) resolves non-deterministically
-> if the overwrite arrives before the previous write of that point has been persisted and
-> referenced in a snapshot: queries may return either version, and either version may be
-> permanently stored.
->
-> To ensure the last write wins, leave enough time between writes of the same point for
-> the earlier write to be persisted and referenced in a snapshot — with default settings,
-> we recommend at least 30 minutes — and ensure the compactor is running.
-> Writes of the same point with insufficient delay yield undefined behavior.
+> To ensure the last write wins when overwriting a point (same table, tag set, and
+> timestamp), leave enough time between writes of the same point for the earlier write
+> to be persisted and referenced in a snapshot — with default settings, we recommend
+> at least 30 minutes (assumes a running compactor).
+> Writes of the same point with insufficient delay resolve non-deterministically:
+> queries may return either version, and either version may be permanently stored.
 >
 > In clusters with multiple ingest nodes, the ordering of overwrites of the same point
 > written through different nodes is not defined.
@@ -323,10 +320,9 @@ Overwrite behavior is product-specific; see the warning below before relying on 
 > [!Warning]
 > #### Overwrites are not deterministic
 >
-> Overwriting a point (same table, tag set, and timestamp) is not reliable in
-> {{% product-name %}}, regardless of how far apart the writes are — concurrent or
-> spaced: queries may return either version, and either version may be permanently
-> stored.
+> Overwriting a point is not reliable in {{% product-name %}}, regardless of the
+> delay between writes: queries may return either version, and either version may
+> be permanently stored.
 >
 > To maintain a last-value view, use the append-only patterns below instead of
 > overwrites.
