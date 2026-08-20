@@ -8,6 +8,7 @@ menu:
     name: Install Telegraf Controller
 weight: 2
 related:
+  - /telegraf/controller/install/upgrade/
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/eula/
 ---
