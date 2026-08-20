@@ -39,7 +39,6 @@ For details on this command, see [`SHOW DIAGNOSTICS`](/influxdb/v1/query_languag
 ## Internal monitoring
 InfluxDB also writes statistical and diagnostic information to database named `_internal`, which records metrics on the internal runtime and service performance.
 The `_internal` database can be queried and manipulated like any other InfluxDB database.
-Check out the [monitor service README](https://github.com/influxdata/influxdb/blob/1.8/monitor/README.md) and the [internal monitoring blog post](https://www.influxdata.com/blog/how-to-use-the-show-stats-command-and-the-_internal-database-to-monitor-influxdb/) for more detail.
 For a full reference of `_internal` measurements and field keys, see [InfluxDB `_internal` measurements and fields](/platform/monitoring/influxdata-platform/tools/measurements-internal/).
 
 ## Useful performance metrics commands
