@@ -286,7 +286,7 @@ A point is uniquely identified by the table name, tag set, and timestamp.
 If you submit line protocol with the same table, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
-Overwrites are subject to timing conditions described below; they are not a reliable way to maintain a last-value view unless those conditions are met.
+Overwrite behavior is product-specific; see the warning below before relying on overwrites to maintain a last-value view.
 
 {{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
 > [!Warning]
@@ -414,6 +414,7 @@ For example, **don't do this**:
 device_status,device_id=sensor01 status="active",temperature=72.5 1700000000000000000
 device_status,device_id=sensor01 status="active",temperature=73.1 1700000000000000000
 device_status,device_id=sensor01 status="inactive",temperature=73.1 1700000000000000000
+```
 
 #### Don't add a field while overwriting data (time, tags)
 
@@ -426,10 +427,11 @@ Points with the same time and tag set are still considered duplicates--for examp
 device_status,device_id=sensor01 status="active",temperature=72.5,version=1i 1700000000000000000
 device_status,device_id=sensor01 status="active",temperature=73.1,version=2i 1700000000000000000
 device_status,device_id=sensor01 status="inactive",temperature=73.1,version=3i 1700000000000000000
+```
 
-#### Don't rely on write delays to force ordering
+#### Don't rely on short write delays to force ordering
 
-Delays don't guarantee that duplicate points won't be flushed together.
+Short delays don't guarantee that duplicate points won't be flushed together.
 The flush interval depends on buffer size, ingestion rate, and system load.
 
 For example, **don't do this**:
@@ -439,6 +441,7 @@ For example, **don't do this**:
 device_status,device_id=sensor01 status="active" 1700000000000000000
 # Wait 10 seconds...
 device_status,device_id=sensor01 status="inactive" 1700000000000000000
+```
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated" %}}
