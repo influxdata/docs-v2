@@ -106,6 +106,11 @@ Provide the following:
 - Other object store parameters depending on the selected `object-store` type.
   For example, if you use `s3`, you must provide the bucket name and credentials.
 
+- _(Optional)_ `--http-bind`: The address and port for the HTTP API
+  _(default is `0.0.0.0:8181`, which listens on all network interfaces)_.
+  To accept only local connections while you
+  [set up authorization](#set-up-authorization), use `127.0.0.1:8181`.
+
 > [!Note]
 > #### Diskless architecture
 >
@@ -483,11 +488,27 @@ commands and HTTP API requests.
 {{% /show-in %}}
 
 
-> [!Tip]
-> ### Preconfigured admin tokens for automated deployments
+> [!Caution]
+> #### Secure the server before you create your first token
 >
-> For CI/CD pipelines or automated deployments, you can start {{% product-name %}} with a preconfigured admin token file instead of creating tokens manually after startup.
-> For more information, see [Use a preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/).
+> Until the first admin token exists, the `/api/v3/configure/token/admin`
+> endpoint accepts unauthenticated requests, and the server listens on all
+> network interfaces by default.
+> Anyone who can reach the port can create the operator token and take control
+> of the server.
+> Use one of the following methods to secure the server until you have created
+> your first admin token:
+>
+> - Start the server with a
+>   [preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/)
+>   (recommended for CI/CD pipelines and automated deployments)--the token
+>   exists at startup, so the endpoint never accepts unauthenticated requests.
+> - Start the server with [`--http-bind 127.0.0.1:8181`](#start-influxdb)
+>   (with Docker, publish the port as `127.0.0.1:8181:8181`) so it accepts
+>   only local connections, and then restart it with your intended bind
+>   address after you create the token.
+> - Use a firewall to block access to the server port until you create the
+>   token.
 
 ### Create an operator token
 
