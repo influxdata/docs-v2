@@ -327,8 +327,6 @@ Overwrites are subject to timing conditions described below; they are not a reli
 > {{% product-name %}}, regardless of how far apart the writes are — concurrent or
 > spaced: queries may return either version, and either version may be permanently
 > stored.
-> {{% product-name %}} does not include the compaction process that establishes
-> a durable order between data files containing the same point.
 >
 > To maintain a last-value view, use the append-only patterns below instead of
 > overwrites.
