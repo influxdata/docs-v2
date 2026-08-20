@@ -531,10 +531,15 @@ The command returns a token string for authenticating CLI commands and API reque
 
 ### Set your token for authorization
 
+{{% show-in "enterprise" %}}
 Use your operator token to authenticate server actions in {{% product-name %}},
-such as {{% show-in "enterprise" %}}creating additional tokens, {{% /show-in %}}
-performing administrative tasks{{% show-in "enterprise" %}},{{% /show-in %}}
-and writing and querying data.
+such as creating additional tokens, performing administrative tasks, and
+writing and querying data.
+{{% /show-in %}}
+{{% show-in "core" %}}
+Use your operator token to authenticate server actions in {{% product-name %}},
+such as performing administrative tasks and writing and querying data.
+{{% /show-in %}}
 
 #### Authorize CLI commands
 
