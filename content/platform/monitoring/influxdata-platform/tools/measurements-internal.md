@@ -83,12 +83,16 @@ to visualize InfluxDB `_internal` metrics.
 
 > [!Note]
 > `_internal` series only appear after the corresponding subsystem has run at
-> least once, so a given instance may not report every field below. A small
-> number of fields—`httpd.valuesWrittenOK`, `shard.indexType`,
-> `write.pointsWrittenOK`, `write.subWriteDrop`, `write.valuesWrittenOK`, and the
-> `hh_database` measurement—weren't observed in a recent test instance and are
-> pending confirmation against the InfluxDB source. They remain documented below
-> until that's confirmed.
+> least once, so a given instance may not report every field below.
+
+<!-- VERIFY (live instance): `httpd.valuesWrittenOK`, `write.pointsWrittenOK`,
+     `write.subWriteDrop`, and `write.valuesWrittenOK` are documented by the
+     Telegraf `influxdb` input plugin but were absent on two live InfluxDB
+     v1.12.4 instances (OSS and Enterprise) after fresh write and query
+     activity—they may be limited to older 1.x releases. The `hh_database`
+     measurement is still unconfirmed; reproducing it requires an active
+     hinted handoff failure between cluster nodes, which wasn't tested.
+     Tracked in https://github.com/influxdata/docs-v2/issues/7684 -->
 
 {{% truncate %}}
 - [ae](#ae-enterprise-only) (Enterprise only)
@@ -102,6 +106,7 @@ to visualize InfluxDB `_internal` metrics.
   - [expandSourcesReq](#expandsourcesreq)
   - [fieldDimensionsReq](#fielddimensionsreq)
   - [iteratorCostReq](#iteratorcostreq)
+  - [openConnections](#openconnections)
   - [removeShardReq](#removeshardreq)
   - [storeReadFilterReq](#storereadfilterreq)
   - [storeReadGroupReq](#storereadgroupreq)
@@ -163,7 +168,8 @@ to visualize InfluxDB `_internal` metrics.
   - [promReadReq](#promreadreq)
   - [promWriteReq](#promwritereq)
   - [fluxQueryReq](#fluxqueryreq)
-  - [fluxQueryDurationNs](#fluxqueryreqdurationns)
+  - [fluxQueryReqDurationNs](#fluxqueryreqdurationns)
+  - [fluxQueryRespBytes](#fluxqueryrespbytes)
   - [queryReq](#queryreq)
   - [queryReqDurationNs](#queryreqdurationns)
   - [queryRespBytes](#queryrespbytes)
@@ -184,9 +190,7 @@ to visualize InfluxDB `_internal` metrics.
 - [queryExecutor](#queryexecutor)
   - [queriesActive](#queriesactive)
   - [queriesExecuted](#queriesexecuted)
-  - [queriesFailed](#queriesfailed)
   - [queriesFinished](#queriesfinished)
-  - [queriesSlow](#queriesslow)
   - [queryDurationNs](#querydurationns)
   - [recoveredPanics](#recoveredpanics)
 - [rpc](#rpc-enterprise-only) (Enterprise only)
@@ -250,12 +254,6 @@ to visualize InfluxDB `_internal` metrics.
   - [cacheCompactionErr](#cachecompactionerr)
   - [cacheCompactions](#cachecompactions)
   - [cacheCompactionsActive](#cachecompactionsactive)
-  - [compactionPlannerFindGenerations](#compactionplannerfindgenerations)
-  - [compactionPlannerPlan](#compactionplannerplan)
-  - [compactionPlannerPlanLevel1](#compactionplannerplanlevel1)
-  - [compactionPlannerPlanLevel2](#compactionplannerplanlevel2)
-  - [compactionPlannerPlanLevel3](#compactionplannerplanlevel3)
-  - [compactionPlannerPlanOptimize](#compactionplannerplanoptimize)
   - [tsmFullCompactionDuration](#tsmfullcompactionduration)
   - [tsmFullCompactionErr](#tsmfullcompactionerr)
   - [tsmFullCompactionQueue](#tsmfullcompactionqueue)
@@ -292,13 +290,13 @@ to visualize InfluxDB `_internal` metrics.
 - [write](#write)
   - [pointReq](#pointreq)
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
-  - [pointReqLocal](#pointreqlocal-enterprise-only) (Enterprise only)
+  - [pointReqLocal](#pointreqlocal)
   - [pointReqRemote](#pointreqremote-enterprise-only) (Enterprise only)
-  - [pointsWrittenOK](#pointsWrittenOK)
+  - [pointsWrittenOK](#pointswrittenok-1)
   - [req](#req)
   - [subWriteDrop](#subwritedrop)
   - [subWriteOk](#subwriteok)
-  - [valuesWrittenOK](#valuesWrittenOK)
+  - [valuesWrittenOK](#valueswrittenok-1)
   - [writeDrop](#writedrop)
   - [writeError](#writeerror)
   - [writeOk](#writeok)
@@ -731,14 +729,8 @@ The number of active queries currently being handled.
 #### queriesExecuted
 The number of queries executed (started).
 
-#### queriesFailed
-The number of queries that failed to execute due to errors.
-
 #### queriesFinished
 The number of queries that have finished executing.
-
-#### queriesSlow
-The number of queries that exceeded the configured slow-query threshold.
 
 #### queryDurationNs
 The duration (wall time), in nanoseconds, of every query executed.
@@ -856,15 +848,13 @@ This statistic does not decrease when objects are freed.
 
 ### shard
 The `shard` measurement statistics are related to working with shards in InfluxDB OSS and InfluxDB Enterprise.
+Each series also carries an `indexType` tag (`inmem` or `tsi1`), along with `database`, `engine`, `id`, `path`, `retentionPolicy`, and `walPath` tags.
 
 #### diskBytes
 The size, in bytes, of the shard, including the size of the data directory and the WAL directory.
 
 #### fieldsCreate
 The number of fields created.
-
-#### indexType
-The type of index `inmem` or `tsi1`.
 
 #### seriesCreate
 Then number of series created.
@@ -994,24 +984,6 @@ The total number of cache compactions that have ever run.
 #### cacheCompactionsActive
 The number of cache compactions that are currently running.
 
-#### compactionPlannerFindGenerations
-The number of times the compaction planner scanned TSM files to find generations to compact.
-
-#### compactionPlannerPlan
-The number of times the compaction planner ran to generate a compaction plan.
-
-#### compactionPlannerPlanLevel1
-The number of times the compaction planner generated a level 1 compaction plan.
-
-#### compactionPlannerPlanLevel2
-The number of times the compaction planner generated a level 2 compaction plan.
-
-#### compactionPlannerPlanLevel3
-The number of times the compaction planner generated a level 3 compaction plan.
-
-#### compactionPlannerPlanOptimize
-The number of times the compaction planner generated an optimize compaction plan.
-
 #### tsmFullCompactionDuration
 The duration (wall time), in nanoseconds, spent in full compactions.
 
@@ -1131,7 +1103,7 @@ After these checks, this statistic should be incremented regardless of source
 The total number of points received for write by this node and then enqueued into
 hinted handoff for the destination node.
 
-#### pointReqLocal (Enterprise only)
+#### pointReqLocal
 The total number of point requests that have been attempted to be written into a
 shard on the same (local) node.
 
