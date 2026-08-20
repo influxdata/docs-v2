@@ -57,7 +57,7 @@ without going through Telegraf.
 > [!Note]
 > When using the "watcher of watcher (WoW)" configuration, InfluxDB
 > metric field keys are prepended with `infuxdb_`, but are otherwise identical
-> to those listed [below](#influxdb-internal-measurements-and-fields).
+> to those listed in [internal measurements and fields](#influxdb-internal-measurements-and-fields).
 
 ## Visualize InfluxDB internal metrics
 Use the [InfluxDB OSS Monitor dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/#monitor-influxdb-oss)
