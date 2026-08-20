@@ -11,11 +11,11 @@ timestamp of a data point.
 - [Naming restrictions](#naming-restrictions)
 - [Duplicate points](#duplicate-points)
 
-```js
-// Syntax
+```python
+# Syntax
 <table>[,<tag_key>=<tag_value>[,<tag_key>=<tag_value>]] <field_key>=<field_value>[,<field_key>=<field_value>] [<timestamp>]
 
-// Example
+# Example
 myTable,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 ```
 
