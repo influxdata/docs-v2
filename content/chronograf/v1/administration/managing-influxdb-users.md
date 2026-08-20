@@ -296,8 +296,8 @@ Permission to create, drop, and view [subscriptions](/influxdb/v1/concepts/gloss
 Permission to view cluster statistics and diagnostics.
 
 **Relevant InfluxQL queries**:
-[`SHOW DIAGNOSTICS`](/influxdb/v1/administration/server_monitoring/#show-diagnostics) and
-[`SHOW STATS`](/influxdb/v1/administration/server_monitoring/#show-stats)
+[`SHOW DIAGNOSTICS`](/influxdb/v1/administration/monitor/show-diagnostics/) and
+[`SHOW STATS`](/influxdb/v1/administration/monitor/show-stats/)
 
 **Pages in Chronograf that require this permission**: Data Explorer, Dashboards
 

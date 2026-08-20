@@ -1,15 +1,3 @@
----
-title: Configure a watcher of watchers system to monitor InfluxDB 1.x servers
-description: How to set up an external InfluxData 1.x TICK stack that monitors another Enterprise or OSS TICK stack.
-aliases:
-  - /platform/monitoring/external-monitor-setup/
-menu:
-  platform:
-    name: Configure a watcher of watchers
-    parent: monitor-platform
-    weight: 4
----
-
 The flexibility and portability of InfluxData's TICK stack make it easy to use in different
 monitoring solutions, including monitoring the TICK stack with another TICK stack.
 This guide walks through setting up an external TICK stack monitor to which important
@@ -70,7 +58,7 @@ a variety of metrics.
 #### Monitor InfluxDB performance metrics
 To monitor the internal performance of InfluxDB, enable the InfluxDB input plugin
 in the Telegraf configuration files used to run Telegraf **on InfluxDB instances**.
-The InfluxDB input plugin pulls [InfluxDB internal metrics](/platform/monitoring/influxdata-platform/tools/measurements-internal/)
+The InfluxDB input plugin pulls [InfluxDB internal metrics](/product/version/administration/monitor/measurements-internal/)
 from the local InfluxDB `/debug/vars` endpoint.
 
 ```toml
@@ -92,7 +80,7 @@ from the local InfluxDB `/debug/vars` endpoint.
 #### Monitor Kapacitor performance metrics
 To monitor the internal performance of Kapacitor, enable the Kapacitor input plugin
 in the Telegraf configuration files used to run Telegraf **on Kapacaitor instances**.
-The Kapacitor input plugin pulls [Kapactor internal metrics](/platform/monitoring/influxdata-platform/tools/kapacitor-measurements/)
+The Kapacitor input plugin pulls [Kapactor internal metrics](/product/version/administration/monitor/kapacitor-measurements/)
 from the local Kapacitor `/debug/vars` endpoint.
 
 ```toml

@@ -9,7 +9,7 @@ menu:
     parent: Monitor
 weight: 101
 related:
-  - /platform/monitoring/influxdata-platform/tools/measurements-internal
+  - /enterprise_influxdb/v1/administration/monitor/measurements-internal/
 aliases:
   - /enterprise_influxdb/v1/administration/monitor-enterprise/monitor-with-oss/
 ---
@@ -86,7 +86,7 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
 To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded metrics, set the destination bucket name to `enterprise_metrics` in your `telegraf.conf`.
       {{% /note %}}
 
-   5. Add the [Prometheus input plugin](https://github.com/influxdata/telegraf/blob/release-1.19/plugins/inputs/prometheus/README.md) to your `telegraf.conf`. Specify your your InfluxDB Enterprise URL(s) in the `urls` parameter. For example:
+   5. Add the [Prometheus input plugin](https://github.com/influxdata/telegraf/blob/release-1.19/plugins/inputs/prometheus/README.md) to your `telegraf.conf`. Specify your InfluxDB Enterprise URL(s) in the `urls` parameter. For example:
    
     {{< keep-url >}}
      ```toml
