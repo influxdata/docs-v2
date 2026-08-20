@@ -16,11 +16,8 @@ The `_internal` database and the measurements on this page are specific to
 InfluxDB v1.x and InfluxDB Enterprise v1. If you're using a different InfluxDB
 edition, use the monitoring entrypoint for your edition instead:
 
-<!-- TODO(human): a second InfluxDB 3 edition belongs in this list, ranked
-between InfluxDB 3 Enterprise and InfluxDB Enterprise v1. Name withheld
-pending maintainer confirmation—do not guess or publish without sign-off. -->
-
 1. [InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/query-system-data/) — query system tables for server, query, and table statistics.
+1. [InfluxDB 3 Cloud](/influxdb3/cloud/admin/) — monitor InfluxDB 3 Cloud with system tables.
 1. [InfluxDB Enterprise v1](/enterprise_influxdb/v1/administration/monitor/) — monitor a v1 cluster with InfluxDB Cloud or OSS.
 1. [InfluxDB Cloud (TSM)](/influxdb/cloud/monitor-alert/) — monitor and alert on data in InfluxDB Cloud v1.
 
@@ -72,11 +69,10 @@ InfluxDB also exposes Go runtime metrics in Prometheus exposition format on the
 scraping, such as Prometheus and Grafana, can collect these metrics directly
 without going through Telegraf.
 
-{{% note %}}
-When using the "watcher of watcher (WoW)" configuration, InfluxDB
-metric field keys are prepended with `infuxdb_`, but are otherwise identical
-to those listed [below](#influxdb-internal-measurements-and-fields).
-{{% /note %}}
+> [!Note]
+> When using the "watcher of watcher (WoW)" configuration, InfluxDB
+> metric field keys are prepended with `infuxdb_`, but are otherwise identical
+> to those listed [below](#influxdb-internal-measurements-and-fields).
 
 ## Visualize InfluxDB internal metrics
 Use the [InfluxDB OSS Monitor dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/#monitor-influxdb-oss)
@@ -85,15 +81,14 @@ to visualize InfluxDB `_internal` metrics.
 
 ## InfluxDB \_internal measurements and fields
 
-{{% note %}}
-`_internal` series only appear after the corresponding subsystem has run at
-least once, so a given instance may not report every field below. A small
-number of fields—`httpd.valuesWrittenOK`, `shard.indexType`,
-`write.pointsWrittenOK`, `write.subWriteDrop`, `write.valuesWrittenOK`, and the
-`hh_database` measurement—weren't observed in a recent test instance and are
-pending confirmation against the InfluxDB source. They remain documented below
-until that's confirmed.
-{{% /note %}}
+> [!Note]
+> `_internal` series only appear after the corresponding subsystem has run at
+> least once, so a given instance may not report every field below. A small
+> number of fields—`httpd.valuesWrittenOK`, `shard.indexType`,
+> `write.pointsWrittenOK`, `write.subWriteDrop`, `write.valuesWrittenOK`, and the
+> `hh_database` measurement—weren't observed in a recent test instance and are
+> pending confirmation against the InfluxDB source. They remain documented below
+> until that's confirmed.
 
 {{% truncate %}}
 - [ae](#ae-enterprise-only) (Enterprise only)
@@ -426,9 +421,8 @@ The `hh` measurement has one additional tag:
 #### bytesRead
 The size, in bytes, of points read from the hinted handoff queue and sent to its destination data node.
 
-{{% note %}}
-Resets to zero after crash or restart, even if the HH queue was non-empty.
-{{% /note %}}
+> [!Note]
+> Resets to zero after crash or restart, even if the HH queue was non-empty.
 
 #### bytesWritten
 The total number of bytes written to the hinted handoff queue.
@@ -496,9 +490,8 @@ Say at startup there were 1000 bytes still enqueued in HH from the previous run 
 Immediately after a restart, both `bytesRead` and `bytesWritten` are set to zero.
 Assuming HH is properly depleted, and no future writes require HH, then the stats will read 1000 bytes read and 0 bytes written.
 
-{{% note %}}
-Resets to zero after crash or restart, even if the HH queue was non-empty.
-{{% /note %}}
+> [!Note]
+> Resets to zero after crash or restart, even if the HH queue was non-empty.
 
 #### bytesWritten
 The total number of bytes written to the hinted handoff queue.
@@ -569,10 +562,9 @@ The `hh_processor` measurement has two additional tags:
 - `node` - The destination node for the recorded metrics.
 - `path` - The path to the durable hinted handoff queue on disk.
 
-{{% note %}}
-The `hh_processor` statistics against a host are only accurate for the lifecycle of the current process.
-If the process crashes or restarts, `bytesRead` and `bytesWritten` are reset to zero, even if the HH queue was non-empty.
-{{% /note %}}
+> [!Note]
+> The `hh_processor` statistics against a host are only accurate for the lifecycle of the current process.
+> If the process crashes or restarts, `bytesRead` and `bytesWritten` are reset to zero, even if the HH queue was non-empty.
 
 #### bytesRead
 The size, in bytes, of points read from the hinted handoff queue and sent to its destination data node.
@@ -590,10 +582,8 @@ Immediately after a restart, both `bytesRead` and `bytesWritten` are set to zero
 Assuming HH is properly depleted, and no future writes require HH, then the stats
 will read 1000 bytes read and 0 bytes written.
 
-{{% note %}}
-Resets to zero after crash or restart, even if the HH queue was non-empty.
-{{% /note %}}
-
+> [!Note]
+> Resets to zero after crash or restart, even if the HH queue was non-empty.
 
 #### bytesWritten
 The total number of bytes written to the hinted handoff queue.
