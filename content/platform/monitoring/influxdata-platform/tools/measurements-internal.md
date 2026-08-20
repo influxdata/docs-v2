@@ -92,7 +92,16 @@ to visualize InfluxDB `_internal` metrics.
      activity—they may be limited to older 1.x releases. The `hh_database`
      measurement is still unconfirmed; reproducing it requires an active
      hinted handoff failure between cluster nodes, which wasn't tested.
-     Tracked in https://github.com/influxdata/docs-v2/issues/7684 -->
+     Tracked in https://github.com/influxdata/docs-v2/issues/7684
+
+     Correction: an earlier version of this PR also removed
+     `queryExecutor.queriesFailed`, `queryExecutor.queriesSlow`, and
+     `tsm1_engine`'s six `compactionPlanner*` fields as "confirmed absent."
+     That test used a single write and query, not enough to trigger a TSM
+     compaction cycle or a failed-query code path. Re-verified against live
+     InfluxDB v1.13.0 (OSS) and v1.13.0rc5 (Enterprise) with a deliberately
+     failing query, and all 8 fields are present with real, non-zero values.
+     They've been restored below. -->
 
 {{% truncate %}}
 - [ae](#ae-enterprise-only) (Enterprise only)
@@ -190,7 +199,9 @@ to visualize InfluxDB `_internal` metrics.
 - [queryExecutor](#queryexecutor)
   - [queriesActive](#queriesactive)
   - [queriesExecuted](#queriesexecuted)
+  - [queriesFailed](#queriesfailed)
   - [queriesFinished](#queriesfinished)
+  - [queriesSlow](#queriesslow)
   - [queryDurationNs](#querydurationns)
   - [recoveredPanics](#recoveredpanics)
 - [rpc](#rpc-enterprise-only) (Enterprise only)
@@ -254,6 +265,12 @@ to visualize InfluxDB `_internal` metrics.
   - [cacheCompactionErr](#cachecompactionerr)
   - [cacheCompactions](#cachecompactions)
   - [cacheCompactionsActive](#cachecompactionsactive)
+  - [compactionPlannerFindGenerations](#compactionplannerfindgenerations)
+  - [compactionPlannerPlan](#compactionplannerplan)
+  - [compactionPlannerPlanLevel1](#compactionplannerplanlevel1)
+  - [compactionPlannerPlanLevel2](#compactionplannerplanlevel2)
+  - [compactionPlannerPlanLevel3](#compactionplannerplanlevel3)
+  - [compactionPlannerPlanOptimize](#compactionplannerplanoptimize)
   - [tsmFullCompactionDuration](#tsmfullcompactionduration)
   - [tsmFullCompactionErr](#tsmfullcompactionerr)
   - [tsmFullCompactionQueue](#tsmfullcompactionqueue)
@@ -729,8 +746,14 @@ The number of active queries currently being handled.
 #### queriesExecuted
 The number of queries executed (started).
 
+#### queriesFailed
+The number of queries that failed to execute due to errors.
+
 #### queriesFinished
 The number of queries that have finished executing.
+
+#### queriesSlow
+The number of queries that exceeded the configured slow-query threshold.
 
 #### queryDurationNs
 The duration (wall time), in nanoseconds, of every query executed.
@@ -983,6 +1006,24 @@ The total number of cache compactions that have ever run.
 
 #### cacheCompactionsActive
 The number of cache compactions that are currently running.
+
+#### compactionPlannerFindGenerations
+The number of times the compaction planner scanned TSM files to find generations to compact.
+
+#### compactionPlannerPlan
+The number of times the compaction planner ran to generate a compaction plan.
+
+#### compactionPlannerPlanLevel1
+The number of times the compaction planner generated a level 1 compaction plan.
+
+#### compactionPlannerPlanLevel2
+The number of times the compaction planner generated a level 2 compaction plan.
+
+#### compactionPlannerPlanLevel3
+The number of times the compaction planner generated a level 3 compaction plan.
+
+#### compactionPlannerPlanOptimize
+The number of times the compaction planner generated an optimize compaction plan.
 
 #### tsmFullCompactionDuration
 The duration (wall time), in nanoseconds, spent in full compactions.
