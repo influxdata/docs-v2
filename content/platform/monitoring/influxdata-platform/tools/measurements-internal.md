@@ -12,21 +12,6 @@ menu:
     weight: 2
 ---
 
-The `_internal` database and the measurements on this page are specific to
-InfluxDB v1.x and InfluxDB Enterprise v1. If you're using a different InfluxDB
-edition, use the monitoring entrypoint for your edition instead:
-
-1. [InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/query-system-data/) — query system tables for server, query, and table statistics.
-1. [InfluxDB 3 Cloud](/influxdb3/cloud/admin/) — monitor InfluxDB 3 Cloud with system tables.
-1. [InfluxDB Enterprise v1](/enterprise_influxdb/v1/administration/monitor/) — monitor a v1 cluster with InfluxDB Cloud or OSS.
-1. [InfluxDB Cloud (TSM)](/influxdb/cloud/monitor-alert/) — monitor and alert on data in InfluxDB Cloud v1.
-
-Also see monitoring documentation for
-[InfluxDB 3 Core](/influxdb3/core/admin/query-system-data/),
-[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/),
-[InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/admin/),
-[InfluxDB Clustered](/influxdb3/clustered/admin/query-system-data/),
-and [InfluxDB 2.x](/influxdb/v2/monitor-alert/).
 
 By default, InfluxDB writes internal runtime and performance metrics to the
 `_internal` database. This requires no configuration—the `monitor` service and
