@@ -67,6 +67,10 @@ Using auto-generated node id: mylaptop-node. For production deployments, explici
 > **For production deployments**, use explicit configuration values with the
 > [`influxdb3 serve` command](/influxdb3/version/reference/cli/influxdb3/serve/)
 > as shown in the [Start InfluxDB](#start-influxdb) section below.
+>
+> Quick-start mode listens on all network interfaces.
+> Before you start the server on a network that others can reach, see
+> [Create your admin token before you expose the server](#start-influxdb).
 
 **Configuration precedence**: Environment variables override auto-generated defaults.
 For example, if you set `INFLUXDB3_NODE_ID=my-node`, the system
@@ -108,8 +112,29 @@ Provide the following:
 
 - _(Optional)_ `--http-bind`: The address and port for the HTTP API
   _(default is `0.0.0.0:8181`, which listens on all network interfaces)_.
-  To accept only local connections while you
-  [set up authorization](#set-up-authorization), use `127.0.0.1:8181`.
+  To accept only local connections until you create your first admin token,
+  specify `127.0.0.1:8181`.
+
+> [!Caution]
+> #### Create your admin token before you expose the server
+>
+> Until the first admin token exists, the `/api/v3/configure/token/admin`
+> endpoint accepts unauthenticated requests, and the server listens on all
+> network interfaces by default.
+> Anyone who can reach the port during that window can claim the operator token
+> and then use the processing engine to run code on the host.
+>
+> Close the window using one of the following methods:
+>
+> - Start the server with `--http-bind 127.0.0.1:8181` (with Docker, publish
+>   the port as `127.0.0.1:8181:8181`),
+>   [create your admin token](#create-an-operator-token), and then restart the
+>   server on the address you intend to use.
+> - Block the server port with a firewall until you create the token.
+> - Start the server with a
+>   [preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/)
+>   so the endpoint never accepts unauthenticated requests.
+>   We recommend this method for automated and production deployments.
 
 > [!Note]
 > #### Diskless architecture
@@ -488,27 +513,11 @@ commands and HTTP API requests.
 {{% /show-in %}}
 
 
-> [!Caution]
-> #### Secure the server before you create your first token
+> [!Tip]
+> ### Preconfigured admin tokens for automated deployments
 >
-> Until the first admin token exists, the `/api/v3/configure/token/admin`
-> endpoint accepts unauthenticated requests, and the server listens on all
-> network interfaces by default.
-> Anyone who can reach the port can create the operator token and take control
-> of the server.
-> Use one of the following methods to secure the server until you have created
-> your first admin token:
->
-> - Start the server with a
->   [preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/)
->   (recommended for CI/CD pipelines and automated deployments)--the token
->   exists at startup, so the endpoint never accepts unauthenticated requests.
-> - Start the server with [`--http-bind 127.0.0.1:8181`](#start-influxdb)
->   (with Docker, publish the port as `127.0.0.1:8181:8181`) so it accepts
->   only local connections, and then restart it with your intended bind
->   address after you create the token.
-> - Use a firewall to block access to the server port until you create the
->   token.
+> For CI/CD pipelines or automated deployments, you can start {{% product-name %}} with a preconfigured admin token file instead of creating tokens manually after startup.
+> For more information, see [Use a preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/).
 
 ### Create an operator token
 
@@ -549,6 +558,11 @@ The command returns a token string for authenticating CLI commands and API reque
 > 
 > InfluxDB displays the token string only when you create it.
 > Store your token securely—you cannot retrieve it from the database later.
+
+Now that an admin token exists, the server requires a token for all requests.
+If you started the server on `127.0.0.1` to protect the
+[bootstrap window](#start-influxdb), you can now restart it on the address you
+want to use--for example, `--http-bind 0.0.0.0:8181`.
 
 ### Set your token for authorization
 
