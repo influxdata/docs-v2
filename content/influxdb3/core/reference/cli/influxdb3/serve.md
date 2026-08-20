@@ -113,6 +113,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--file-cache-recency`            | _See [configuration options](/influxdb3/core/reference/config-options/#file-cache-recency)_            |
 |                  | `--file-cache-size`                           | _See [configuration options](/influxdb3/core/reference/config-options/#file-cache-size)_                           |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#plugin-dir)_                                       |
+|                  | `--plugin-repo` | _See [configuration options](/influxdb3/core/reference/config-options/#plugin-repo)_ |
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/core/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--query-file-limit`                                 | _See [configuration options](/influxdb3/core/reference/config-options/#query-file-limit)_                                 |
 |                  | `--query-log-max-entries`                                   | _See [configuration options](/influxdb3/core/reference/config-options/#query-log-max-entries)_                                   |
