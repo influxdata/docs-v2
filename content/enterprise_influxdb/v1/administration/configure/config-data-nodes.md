@@ -537,7 +537,7 @@ to perform most RPC requests. In special circumstances, for example, when copyin
 a single-use TCP connection may be used.
 
 For information on InfluxDB `_internal` measurement statistics related to clusters, RPCs, and shards,
-see [Measurements for monitoring InfluxDB Enterprise (`_internal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
+see [Measurements for monitoring InfluxDB Enterprise (`_internal`)](/enterprise_influxdb/v1/administration/monitor/measurements-internal/#cluster-enterprise-only).
 
 #### dial-timeout
 

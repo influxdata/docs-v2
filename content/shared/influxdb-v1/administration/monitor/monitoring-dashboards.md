@@ -1,25 +1,7 @@
----
-title: Set up 1.x monitoring dashboards
-description: >
-  Set up dashboards to visualize and monitor the health and performance of your
-  InfluxData 1.x TICK stack.
-aliases:
-  - /platform/monitoring/monitoring-dashboards/
-  - /platform/monitoring/monitoring-dashboards/dashboard-oss-monitoring/ 
-  - /platform/monitoring/monitoring-dashboards/dashboard-enterprise-monitoring/
-  - /platform/monitoring/influxdata-platform/monitoring-dashboards/dashboard-enterprise-monitoring/
-  - /platform/monitoring/influxdata-platform/monitoring-dashboards/dashboard-oss-monitoring/
-menu:
-  platform:
-    name: Monitoring dashboards
-    weight: 3
-    parent: monitor-platform
----
-
-
 The following dashboards provide visualizations of performance metrics for
 InfluxDB open source (OSS), InfluxDB Enterprise, and Kapacitor.
 
+<!-- vale Google.Ordinal = NO -->
 ## Prebuilt dashboards
 Chronograf provides prebuilt monitoring dashboards that use data from specific
 Telegraf input plugins. To view prebuilt dashboards:
@@ -44,7 +26,7 @@ Use the InfluxDB OSS Monitor dashboard to monitor InfluxDB OSS in Chronograf.
 <a class="btn download" href="/downloads/influxdb-oss-monitor-dashboard.json" download target="\_blank">Download InfluxDB OSS Monitor dashboard</a>
 
 The InfluxDB OSS Monitor dashboard uses data from the `_internal` database
-_([not recommended for production](/platform/monitoring/influxdata-platform/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
+_([not recommended for production](/product/version/administration/monitor/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
 or collected by the [Telegraf `influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb).
 This dashboard contains the following cells:  
 
@@ -63,7 +45,7 @@ Use the InfluxDB Enterprise Monitor dashboard to monitor InfluxDB Enterprise in 
 <a class="btn download" href="/downloads/influxdb-enterprise-monitor-dashboard.json" download target="\_blank">Download InfluxDB Enterprise Monitor dashboard</a>
 
 The InfluxDB Enterprise Monitor dashboard uses data from the `_internal` database
-_([not recommended for production](/platform/monitoring/influxdata-platform/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
+_([not recommended for production](/product/version/administration/monitor/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
 or collected by the [Telegraf `influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb).
 This dashboard contains the following cells:
 
@@ -77,6 +59,8 @@ This dashboard contains the following cells:
 - Continuous Queries Executed Per Minute
 - Hinted HandOff Queue Size
 - Anti-Entropy Errors & Jobs
+
+<!-- vale Google.Ordinal = YES -->
 
 ### Monitor Kapacitor
 Use the Kapacitor Monitor dashboard to monitor Kapacitor in Chronograf.

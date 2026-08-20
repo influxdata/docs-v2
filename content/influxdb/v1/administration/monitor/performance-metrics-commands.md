@@ -1,47 +1,14 @@
 ---
-title: Monitor InfluxDB servers
-description: Troubleshoot and monitor InfluxDB OSS.
-aliases:
-    - /influxdb/v1/administration/statistics/
-    - /influxdb/v1/troubleshooting/statistics/
+title: Performance metrics commands
+description: >
+  Use CLI commands and the `/metrics` HTTP endpoint to find useful performance
+  metrics about your InfluxDB instance.
 menu:
   influxdb_v1:
-    name: Monitor InfluxDB
-    weight: 80
-    parent: Administration
+    name: Performance metrics commands
+    parent: Monitor InfluxDB
+weight: 89
 ---
-
-**On this page**
-
-* [SHOW STATS](#show-stats)
-* [SHOW DIAGNOSTICS](#show-diagnostics)
-* [Internal monitoring](#internal-monitoring)
-* [Useful performance metrics commands](#useful-performance-metrics-commands)
-* [InfluxDB `/metrics` HTTP endpoint](#influxdb-metrics-http-endpoint)
-
-
-InfluxDB can display statistical and diagnostic information about each node.
-This information can be very useful for troubleshooting and performance monitoring.
-
-## SHOW STATS
-
-To see node statistics, execute the command `SHOW STATS`.
-For details on this command, see [`SHOW STATS`](/influxdb/v1/query_language/spec#show-stats) in the InfluxQL specification.
-
-The statistics returned by `SHOW STATS` are stored in memory only, and are reset to zero when the node is restarted.
-
-## SHOW DIAGNOSTICS
-
-To see node diagnostic information, execute the command `SHOW DIAGNOSTICS`.
-This returns information such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.
-For details on this command, see [`SHOW DIAGNOSTICS`](/influxdb/v1/query_language/spec#show-diagnostics) in the InfluxQL specification.
-
-## Internal monitoring
-InfluxDB also writes statistical and diagnostic information to a database named `_internal`, which records metrics on the internal runtime and service performance.
-The `_internal` database can be queried and manipulated like any other InfluxDB database.
-For a full reference of `_internal` measurements and field keys, see [InfluxDB `_internal` measurements and fields](/platform/monitoring/influxdata-platform/tools/measurements-internal/).
-
-## Useful performance metrics commands
 
 Below are a collection of commands to find useful performance metrics about your InfluxDB instance.
 
@@ -62,14 +29,11 @@ Or, for systemd systems logging to journald:
 journalctl -u influxdb.service | awk '/POST/ { print $10 }' | sort | uniq -c
 ```
 
-### InfluxDB `/metrics` HTTP endpoint
-
-> ***Note:*** There are no outstanding PRs for improvements to the `/metrics` endpoint, but we’ll add them to the CHANGELOG as they occur.
+## InfluxDB `/metrics` HTTP endpoint
 
 The InfluxDB `/metrics` endpoint is configured to produce the default Go metrics in Prometheus metrics format.
 
-
-#### Example using InfluxDB `/metrics' endpoint
+### Example using InfluxDB `/metrics` endpoint
 
 Below is an example of the output generated using the `/metrics` endpoint. Note that HELP is available to explain the Go statistics.
 
