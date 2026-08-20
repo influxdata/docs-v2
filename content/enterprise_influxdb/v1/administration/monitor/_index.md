@@ -20,6 +20,7 @@ do one of the following:
 
 - [Log and trace InfluxDB Enterprise operations](/enterprise_influxdb/v1/administration/monitor/logs/)
 - [Use InfluxQL for diagnostics](/enterprise_influxdb/v1/administration/monitor/diagnostics/)
+- [InfluxDB `_internal` measurements and fields](/platform/monitoring/influxdata-platform/tools/measurements-internal/)
 
 {{% note %}}
 ### Monitor with InfluxDB Insights
