@@ -6,6 +6,50 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.11.2 {date="2026-08-20"}
+
+### Core
+
+#### Bug fixes
+
+- **Rows missing from queries during snapshot persistence**: Each persist job now drops only the buffer chunk whose Parquet file it published. Previously, the first job of a snapshot to finish evicted every sibling chunk, so whole time ranges vanished from query results until their persist job finished.
+- **Partial schema changes from a rejected line**: A line protocol line is now validated in full before the catalog is mutated, so a rejected line contributes nothing to it. Previously, with `accept_partial=true`, columns created earlier in the line were committed anyway, and a line rejected after its tags were processed merged them into the next valid line's series key.
+- **Unnecessary node shutdown after a retried WAL write**: Each WAL file now carries a nonce in its object metadata, so a node recognizes its own write and shuts down only for a file written by another node. Previously, a conditional PUT that was applied but returned a 500 was retried, and the node read the resulting 412 as a second process holding the same `--node-id` and shut down, though the file was durable and correct.
+- **Panic querying `system.parquet_files` for an unknown table**: Filtering on a `table_name` that is not a current table, or querying after its database is dropped, now returns zero rows. Previously, both panicked the request thread and returned a truncated HTTP 200.
+- **Duplicate rows from a concurrent snapshot handoff**: Buffer chunks and persisted Parquet files are now read under a single lock. Previously, a read landing between the two saw a new Parquet file alongside the buffer chunks it was written from and returned those rows twice. Served queries masked this through deduplication, but paths that read record batches directly, such as the Processing Engine, did not.
+- **Restarted downloads of large manifests and checkpoints at startup**: Snapshot manifest and checkpoint reads larger than 128 MiB are now fetched as 16 MiB ranged reads, so a slow or failed transfer retries one range. Previously, a single whole-object GET restarted a multi-gigabyte download from byte 0.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Retry storage engine upgrade**: The new `influxdb3 manage retry-upgrade-to-pacha-tree` command resets a [storage engine upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet), so it resumes the next time the compactor node starts with `--upgrade-pacha-tree`. Sources whose table, database, or objects are gone become skips, and anything still readable returns to the queue. Nothing is deleted, so the command is safe to run again.
+
+#### Bug fixes
+
+- **Compaction falls behind on a large snapshot backlog**: Snapshot compaction now caps outstanding plans relative to the compactor's core count, batches snapshots in ingest-time order, and fetches each plan's gen0 files once per worker. Previously, a deep backlog could accumulate thousands of outstanding plans, recompact the same time windows once per node, and delay the first plan by over 12 minutes.
+- **Compactor primacy livelock during a migration**: Primary lease reads and writes now bypass the process-wide object store concurrency limit. Previously, a migration's bulk import could starve lease renewal, so the holder repeatedly demoted at its 30-second lease TTL and reacquired, pinning the migration indefinitely while object storage itself was healthy.
+- **Multi-window migration imports make no progress**: The migration baseline now clips each staged file's contribution to its window's time range, and migration imports the newest windows first. Previously, a file crossing a window boundary caused publish validation to refuse each consolidation, so the scheduler replanned the same work forever.
+- **Migration fails on an unreadable source**: A source Parquet file confirmed missing, or whose table or database has been dropped, is now recorded as a skip instead of failing the whole upgrade, and `system.upgrade_parquet` reports it as `skipped_source_missing` or `skipped_table_dropped`. Only confirmed-missing sources are skipped, so a transient `NotFound` stays retryable and a grouped job still converts its readable companions.
+- **Compaction and migration fail on stale gen1 references**: `leftover_gen1_files` references are now reconciled against the deletions that ingesters record in their snapshots, so a reference is dropped when its Parquet file is deleted regardless of retention configuration. Previously, references were pruned only against the current retention cutoff, so they accumulated indefinitely on a table with no retention period, and a storage engine upgrade then failed enumerating them.
+- **`Internal error` querying a last value or distinct value cache**: A query node now registers caches that were created on another node during startup, regardless of the cache's node spec. Previously, a cache present in the catalog but missing from a node's in-memory provider failed every query against it with `last cache crate is invalid` until the node was restarted.
+- **Duplicate rows from a replica snapshot handoff**: Each buffer on a node now has its chunks and Parquet files read under a single lock, and each replica advances the gen1 chunk order offset by its own chunk count. Previously, a snapshot handoff landing between the two read passes returned those rows twice, and on clusters with more than three replicas the old offset let local chunks reuse an order a replica had taken.
+- **Slow compaction catch-up behind a lagging node**: The compactor now accumulates the rerun signal across every node in a cycle. Previously it kept only the last node's value, so a caught-up node could end the cycle after a single snapshot and leave a lagging node advancing one snapshot per check interval until restart.
+- **Catalog checkpoint persistence failures for large payloads**: Catalog checkpoint and month-rollover writes now fall back to a multipart upload for oversized payloads. Previously, both used a single PUT, so a checkpoint merging a month of snapshots could exceed object storage's 5 GiB single-PUT limit and fail, silently losing the boot-time fast path.
+- **Warning flood during startup snapshot restore**: `removed_files` entries whose target database or table is no longer present are now reported in one aggregated warning per restore. Previously, each miss logged its own warning, which buried real startup errors and slowed restore.
+- Other bug fixes and performance improvements
+
+#### Breaking changes
+
+- **`--l1-hot-tail-target-size` is functional again**: The option (default `250mb`) caps live L1 tail rewrites during snapshot compaction, and a larger tail is handed to L1 consolidation to seal. It was previously accepted and ignored.
+- **`--l1-consolidation-min-age` and `--row-delete-max-jobs-per-tick` are now ignored**: L1 consolidation has no age gate, and row-delete work shares the weighted delete slot. Both options are still accepted.
+- **`--l1-consolidation-target-size` is now the established-L1 size boundary**: Consolidation consumes run sets at or below it, and promotion requires at least two L1 run sets larger than it. `--l1-consolidation-min-run-sets` and `--compactor-max-source-run-sets-per-promotion` now apply only to the legacy layout.
+- **`--replica-snapshot-manifest-load-concurrency` applies to both storage engines**: It now bounds the boot-time snapshot manifest load on the Parquet engine as well as the upgraded engine. When unset, each engine derives its own default.
+- **Compactor status log fields changed**: The `service_memory_*` fields are gone, and `pending_input_mb` is renamed to `charged_input_mb`.
+
 ## v3.11.1 {date="2026-08-06"}
 
 ### Core
