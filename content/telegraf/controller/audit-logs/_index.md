@@ -39,6 +39,9 @@ and demonstrate compliance with internal or external policies.
 - **Configuration lifecycle**: configuration creation, updates, and deletion,
   and [configuration version](/telegraf/controller/configs/versions/)
   operations (rollbacks, change note updates, and version pruning).
+- **Configuration group lifecycle**:
+  [configuration group](/telegraf/controller/config-groups/) creation,
+  updates (including membership changes), and deletion.
 - **Constants**: [global constant](/telegraf/controller/configs/constants/)
   creation, value updates, and deletion.
 

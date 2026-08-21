@@ -31,10 +31,12 @@ An alias must:
 - contain only lowercase letters, digits, and hyphens.
 - begin and end with a letter or digit.
 
-Aliases are unique across your {{% product-name %}} instance; an alias points
-to exactly one configuration at a time. The names `bulk`, `duplicate`, and
-`many` are reserved, and strings shaped like configuration IDs (36-character
-UUIDs) are not allowed.
+Aliases are unique across your {{% product-name %}} instance, and the
+namespace is shared with
+[configuration group aliases](/telegraf/controller/config-groups/aliases/):
+an alias points to exactly one configuration or configuration group at a
+time. The names `bulk`, `duplicate`, and `many` are reserved, and strings
+shaped like configuration IDs (36-character UUIDs) are not allowed.
 
 ## View aliases
 
@@ -89,6 +91,8 @@ Transferring an alias reassigns it to a different configuration. Agents that
 use an alias-based configuration URL with `--config-url-watch-interval` load
 the newly targeted configuration on their next check, letting you roll out a
 different configuration to a fleet of agents without modifying the agents.
+Transfers can also move an alias between a configuration and a
+[configuration group](/telegraf/controller/config-groups/aliases/#repoint-agents-from-a-configuration-to-a-group).
 For details, see
 [Auto-update agents](/telegraf/controller/configs/use/#auto-update-agents).
 

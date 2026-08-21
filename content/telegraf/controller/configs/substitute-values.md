@@ -35,7 +35,10 @@ Each type is substituted in a different place:
 {{% product-name %}} substitutes parameters and constants server-side, so the
 TOML an agent receives already contains the resolved values. Environment
 variables and secrets pass through {{% product-name %}} unchanged and are
-resolved by the Telegraf agent itself.
+resolved by the Telegraf agent itself. Substitution works the same way when
+{{% product-name %}} serves a
+[configuration group](/telegraf/controller/config-groups/): references in
+every member configuration are resolved in one request.
 
 ## Parameters
 
@@ -113,6 +116,35 @@ above, Telegraf would load the following TOML configuration:
 [[outputs.heartbeat]]
   # Required parameter without a default value
   instance_id = "agent123"
+```
+
+### Provide array values
+
+To provide multiple values for one parameter, repeat the query parameter in
+the configuration URL. {{% product-name %}} joins repeated values with
+`", "`, so a parameter referenced inside a quoted TOML array element renders
+as multiple array elements.
+
+##### Configuration TOML with an array parameter
+
+```toml { .tc-substitute-values }
+[[inputs.http]]
+  urls = ["&{metric_urls}"]
+```
+
+##### Repeat the query parameter to provide multiple values
+
+<!--pytest.mark.skip-->
+```sh
+telegraf \
+  --config "http://localhost:8888/api/configs/xxxxxx/toml?metric_urls=http://host1/metrics&metric_urls=http://host2/metrics"
+```
+
+Telegraf would load the following TOML configuration:
+
+```toml
+[[inputs.http]]
+  urls = ["http://host1/metrics", "http://host2/metrics"]
 ```
 
 ## Constants

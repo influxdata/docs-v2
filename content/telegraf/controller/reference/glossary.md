@@ -65,7 +65,18 @@ each. {{% product-name %}} stores configurations centrally and delivers them
 to agents that request them. The terms _config_ and _configuration_ are used
 interchangeably in the {{% product-name %}} UI and API.
 
-Related entries: [configuration parameter](#configuration-parameter), [environment variable](#environment-variable), [plugin](#plugin), [secret](#secret), [TOML](#toml)
+Related entries: [configuration group](#configuration-group), [configuration parameter](#configuration-parameter), [environment variable](#environment-variable), [plugin](#plugin), [secret](#secret), [TOML](#toml)
+
+### configuration group
+
+An ordered set of Telegraf configurations that {{% product-name %}} serves
+as a single merged TOML document. Groups compose by reference: a
+configuration can belong to multiple groups, and changes to a configuration
+appear in every group that includes it. Agents retrieve a group the same
+way they retrieve an individual configuration. For details, see
+[Manage configuration groups](/telegraf/controller/config-groups/).
+
+Related entries: [configuration](#configuration), [value substitution](#value-substitution)
 
 ### configuration parameter
 
