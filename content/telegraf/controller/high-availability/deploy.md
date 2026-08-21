@@ -14,6 +14,7 @@ related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/telegraf-enterprise/apply-license/
   - /telegraf/controller/reference/architecture/
+  - /telegraf/controller/install/upgrade/
 ---
 
 Deploy multiple {{% product-name %}} nodes against a shared PostgreSQL database,

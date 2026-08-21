@@ -6,7 +6,7 @@ menu:
   telegraf_controller:
     name: Troubleshoot installation 
     parent: Install Telegraf Controller
-weight: 101
+weight: 102
 related:
   - /telegraf/controller/reference/config-options/
 ---
