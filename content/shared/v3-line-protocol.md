@@ -286,7 +286,8 @@ A point is uniquely identified by the table name, tag set, and timestamp.
 If you submit line protocol with the same table, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
-Overwrite behavior is product-specific; see the warning below before relying on overwrites to maintain a last-value view.
+Overwrite behavior is product-specific.
+Read the following warning before relying on overwrites to maintain a last-value view.
 
 {{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
 > [!Warning]
@@ -294,10 +295,10 @@ Overwrite behavior is product-specific; see the warning below before relying on 
 >
 > Overwriting duplicate points (same table, tag set, and timestamp) is _not a reliable way to maintain a last-value view_.
 > When duplicate points are flushed together, write ordering is not guaranteed—a prior write may "win."
-> See [Anti-patterns to avoid](#anti-patterns-to-avoid) and [Recommended patterns](#recommended-patterns-for-last-value-tracking) below.
+> See [Anti-patterns to avoid](#anti-patterns-to-avoid) and [Recommended patterns](#recommended-patterns-for-last-value-tracking).
 {{% /show-in %}}
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 > [!Warning]
 > #### Overwrites need time between writes
 >
@@ -310,10 +311,10 @@ Overwrite behavior is product-specific; see the warning below before relying on 
 >
 > In clusters with multiple ingest nodes, the ordering of overwrites of the same point
 > written through different nodes is not defined.
-> Route all writes of a given point through the same node, in addition to the overwrite delay above.
+> Route all writes of a given point through the same node, in addition to leaving at least 30 minutes between writes of the same point.
 >
-> For reliable last-value tracking, use the append-only patterns below instead of
-> overwrites.
+> For reliable last-value tracking, use the [append-only patterns](#recommended-patterns-for-last-value-tracking)
+> instead of overwrites.
 {{% /show-in %}}
 
 {{% show-in "core" %}}
@@ -324,11 +325,11 @@ Overwrite behavior is product-specific; see the warning below before relying on 
 > delay between writes: queries may return either version, and either version may
 > be permanently stored.
 >
-> To maintain a last-value view, use the append-only patterns below instead of
-> overwrites.
+> To maintain a last-value view, use the [append-only patterns](#recommended-patterns-for-last-value-tracking)
+> instead of overwrites.
 {{% /show-in %}}
 
-{{% show-in "core,enterprise,cloud-dedicated,clustered,cloud-serverless" %}}
+{{% show-in "core,enterprise,cloud,cloud-dedicated,clustered,cloud-serverless" %}}
 ### Recommended patterns for last-value tracking
 
 To reliably maintain a last-value view of your data, use one of these append-only patterns:
@@ -430,6 +431,14 @@ device_status,device_id=sensor01 status="inactive",temperature=73.1,version=3i 1
 Short delays don't guarantee that duplicate points won't be flushed together.
 The flush interval depends on buffer size, ingestion rate, and system load.
 
+{{% show-in "core" %}}
+In {{% product-name %}}, overwrite timing is never deterministic, regardless of delay length; use the append-only patterns instead.
+{{% /show-in %}}
+
+{{% show-in "enterprise,cloud" %}}
+For {{% product-name %}}, "short" means less than 30 minutes (the recommended delay, assuming a running compactor).
+{{% /show-in %}}
+
 For example, **don't do this**:
 
 ```text
@@ -438,6 +447,15 @@ device_status,device_id=sensor01 status="active" 1700000000000000000
 # Wait 10 seconds...
 device_status,device_id=sensor01 status="inactive" 1700000000000000000
 ```
+
+{{% show-in "core,enterprise,cloud" %}}
+Append-only patterns increase row count.
+See [Create a database](/product/version/admin/databases/create/) to configure shorter retention for last-value data.
+{{% /show-in %}}
+
+{{% show-in "core,enterprise" %}}
+For query and storage guidance, see [Performance tuning](/product/version/admin/performance-tuning/).
+{{% /show-in %}}
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated" %}}
