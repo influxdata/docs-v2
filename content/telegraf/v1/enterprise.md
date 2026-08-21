@@ -2,8 +2,8 @@
 title: Telegraf Enterprise
 description: >
   Telegraf Enterprise provides an enterprise support contract for Telegraf
-  from InfluxData, plus higher limits and enterprise security features
-  through Telegraf Controller.
+  from InfluxData, plus higher limits, high availability, and enterprise
+  security features through Telegraf Controller.
 menu:
   telegraf_v1:
     name: Telegraf Enterprise
@@ -23,8 +23,8 @@ related:
 
 **Telegraf Enterprise** is the commercial package for organizations running
 Telegraf in production. It provides an enterprise support contract from
-InfluxData covering Telegraf, plus higher limits and enterprise security
-features in [Telegraf Controller](/telegraf/controller/).
+InfluxData covering Telegraf, plus higher limits, high availability, and
+enterprise security features in [Telegraf Controller](/telegraf/controller/).
 
 For the full Telegraf Enterprise overview, including what's included, the
 free-tier comparison, and how licensing works, see
@@ -53,6 +53,8 @@ license-gated enhancements:
 
 - **Higher configuration and agent limits** (defined per contract)
 - **Audit logging** of administrative actions
+- **High availability** by running multiple Telegraf Controller nodes
+  against a shared database
 - **LDAP authentication** against your directory
 - **OIDC authentication** for SSO through Okta, Auth0, Microsoft Entra ID,
   and other providers

@@ -35,7 +35,8 @@ Telegraf Controller provides:
 
 Telegraf Controller has a free tier, and additional capabilities are
 available with [Telegraf Enterprise](/telegraf/v1/enterprise/), including
-higher limits, audit logging, and LDAP and OIDC authentication.
+higher limits, audit logging, high availability, and LDAP and OIDC
+authentication.
 
 To get started, see the
 [Telegraf Controller documentation](/telegraf/controller/).
