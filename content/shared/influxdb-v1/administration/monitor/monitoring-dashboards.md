@@ -27,7 +27,7 @@ Use the InfluxDB OSS Monitor dashboard to monitor InfluxDB OSS in Chronograf.
 
 The InfluxDB OSS Monitor dashboard uses data from the `_internal` database
 _([not recommended for production](/product/version/administration/monitor/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
-or collected by the [Telegraf `influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb).
+or collected by the [Telegraf `influxdb` input plugin](/telegraf/v1/input-plugins/influxdb/).
 This dashboard contains the following cells:  
 
 - Queries Executed Per Minute
@@ -46,7 +46,7 @@ Use the InfluxDB Enterprise Monitor dashboard to monitor InfluxDB Enterprise in 
 
 The InfluxDB Enterprise Monitor dashboard uses data from the `_internal` database
 _([not recommended for production](/product/version/administration/monitor/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
-or collected by the [Telegraf `influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb).
+or collected by the [Telegraf `influxdb` input plugin](/telegraf/v1/input-plugins/influxdb/).
 This dashboard contains the following cells:
 
 - Queries Executed Per Minute
@@ -68,10 +68,10 @@ Use the Kapacitor Monitor dashboard to monitor Kapacitor in Chronograf.
 <a class="btn download" href="/downloads/kapacitor-monitor-dashboard.json" download target="\_blank">Download Kapacitor Monitor dashboard</a>
 
 The Kapacitor Monitor dashboard requires the Telegraf
-[`mem`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mem),
-[`cpu`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/cpu),
-[`system`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system),
-and [`kapacitor`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/kapacitor)
+[`mem`](/telegraf/v1/input-plugins/mem/),
+[`cpu`](/telegraf/v1/input-plugins/cpu/),
+[`system`](/telegraf/v1/input-plugins/system/),
+and [`kapacitor`](/telegraf/v1/input-plugins/kapacitor/)
 input plugins and contains the following cells:
 
 - Kapacitor Host RAM Usage
