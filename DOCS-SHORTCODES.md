@@ -1182,7 +1182,7 @@ The shortcode accepts two positional arguments:
 | 0        | `feature`  | "This feature" | Name of the Enterprise feature. Use the singular or plural form that fits the sentence. |
 | 1        | `wordForm` | "is"           | Verb form that follows the feature name—for example, `is` (singular) or `are` (plural). |
 
-The rendered callout reads: *"{feature} {wordForm} only available with Telegraf Enterprise..."* followed by a link and an **Upgrade to Enterprise** call-to-action button.
+The rendered callout reads: *"{feature} {wordForm} available with Telegraf Enterprise..."* followed by a link and an **Upgrade to Enterprise** call-to-action button.
 
 ### Telegraf Enterprise upgrade callout
 
