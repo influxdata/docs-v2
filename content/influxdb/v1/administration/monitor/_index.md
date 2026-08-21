@@ -29,10 +29,10 @@ covers two different things:
 - [SHOW STATS](/influxdb/v1/administration/monitor/show-stats/)
 - [SHOW DIAGNOSTICS](/influxdb/v1/administration/monitor/show-diagnostics/)
 - [Performance metrics commands and the `/metrics` endpoint](/influxdb/v1/administration/monitor/performance-metrics-commands/)
-
-## Monitor other systems with InfluxDB
-
 - [Monitoring dashboards](/influxdb/v1/administration/monitor/monitoring-dashboards/)
 - [Internal vs. external monitoring](/influxdb/v1/administration/monitor/internal-vs-external/) and [watcher of watchers setup](/influxdb/v1/administration/monitor/external-monitor-setup/)
 - [Kapacitor measurements](/influxdb/v1/administration/monitor/kapacitor-measurements/)
+
+## Monitor other systems with InfluxDB
+
 - [Monitor Kubernetes](/influxdb/v1/administration/monitor/monitor-kubernetes/)

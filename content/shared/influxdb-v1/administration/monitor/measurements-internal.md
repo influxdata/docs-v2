@@ -57,7 +57,7 @@ without going through Telegraf.
 > [!Note]
 > When using the "watcher of watchers (WoW)" configuration, InfluxDB
 > metric field keys are prepended with `influxdb_`, but are otherwise identical
-> to those listed in [internal measurements and fields](#influxdb-internal-measurements-and-fields).
+> to those listed in [internal measurements and fields](#influxdb-_internal-measurements-and-fields).
 
 ## Visualize InfluxDB internal metrics
 Use the [InfluxDB OSS Monitor dashboard](/product/version/administration/monitor/monitoring-dashboards/#monitor-influxdb-oss)
@@ -155,15 +155,15 @@ to visualize InfluxDB `_internal` metrics.
 - [httpd](#httpd)
   - [authFail](#authfail)
   - [clientError](#clienterror)
+  - [fluxQueryReq](#fluxqueryreq)
+  - [fluxQueryReqDurationNs](#fluxqueryreqdurationns)
+  - [fluxQueryRespBytes](#fluxqueryrespbytes)
   - [pingReq](#pingreq)
   - [pointsWrittenDropped](#pointswrittendropped)
   - [pointsWrittenFail](#pointswrittenfail)
   - [pointsWrittenOK](#pointswrittenok)
   - [promReadReq](#promreadreq)
   - [promWriteReq](#promwritereq)
-  - [fluxQueryReq](#fluxqueryreq)
-  - [fluxQueryReqDurationNs](#fluxqueryreqdurationns)
-  - [fluxQueryRespBytes](#fluxqueryrespbytes)
   - [queryReq](#queryreq)
   - [queryReqDurationNs](#queryreqdurationns)
   - [queryRespBytes](#queryrespbytes)
@@ -173,6 +173,7 @@ to visualize InfluxDB `_internal` metrics.
   - [reqDurationNs](#reqdurationns)
   - [serverError](#servererror)
   - [statusReq](#statusreq)
+  - [valuesWrittenOK](#valueswrittenok)
   - [writeReq](#writereq)
   - [writeReqActive](#writereqactive)
   - [writeReqBytes](#writereqbytes)
@@ -346,9 +347,7 @@ The number of internal requests for iterator cost.
 
 #### openConnections
 
-Tracks the number of open connections
-being handled by the data node
-(including counting logical connections multiplexed onto a single yamux connection).
+Tracks the number of open connections being handled by the data node (including counting logical connections multiplexed onto a single yamux connection).
 
 #### removeShardReq
 The number of internal requests to delete a shard from this data node.
@@ -481,7 +480,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retry-concurrency-20) setting.
+[`retry-concurrency`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retry-concurrency) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later. This was not the intended behavior of this stat.
@@ -524,7 +523,7 @@ The total number of write requests that failed in writing a batch of data from t
 hinted handoff queue to the destination node.
 
 #### writeNodeReqPoints
-The total number of points successfully written from the HH queue to the destination node fr
+The total number of points successfully written from the HH queue to the destination node.
 
 #### writeShardReq
 The total number of every write batch request enqueued into the hinted handoff queue.
@@ -571,7 +570,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retry-concurrency-20) setting.
+[`retry-concurrency`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retry-concurrency) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later.
@@ -617,7 +616,7 @@ The total number of write requests that failed in writing a batch of data from t
 hinted handoff queue to the destination node.
 
 #### writeNodeReqPoints
-The total number of points successfully written from the HH queue to the destination node fr
+The total number of points successfully written from the HH queue to the destination node.
 
 #### writeShardReq
 The total number of every write batch request enqueued into the hinted handoff queue.
@@ -693,6 +692,7 @@ The number of status requests served using the HTTP `/status` endpoint.
 
 #### valuesWrittenOK
 The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
+
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
 

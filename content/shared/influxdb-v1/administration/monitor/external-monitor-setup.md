@@ -79,8 +79,8 @@ from the local InfluxDB `/debug/vars` endpoint.
 
 #### Monitor Kapacitor performance metrics
 To monitor the internal performance of Kapacitor, enable the Kapacitor input plugin
-in the Telegraf configuration files used to run Telegraf **on Kapacaitor instances**.
-The Kapacitor input plugin pulls [Kapactor internal metrics](/product/version/administration/monitor/kapacitor-measurements/)
+in the Telegraf configuration files used to run Telegraf **on Kapacitor instances**.
+The Kapacitor input plugin pulls [Kapacitor internal metrics](/product/version/administration/monitor/kapacitor-measurements/)
 from the local Kapacitor `/debug/vars` endpoint.
 
 ```toml
