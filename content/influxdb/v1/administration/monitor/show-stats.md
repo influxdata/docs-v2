@@ -9,6 +9,9 @@ weight: 83
 aliases:
   - /platform/monitoring/influxdata-platform/tools/show-stats/
   - /platform/monitoring/tools/show-stats/
+alt_links:
+  core: /influxdb3/core/admin/query-system-data/
+  enterprise: /influxdb3/enterprise/admin/query-system-data/
 source: /shared/influxdb-v1/administration/monitor/show-stats.md
 ---
 
