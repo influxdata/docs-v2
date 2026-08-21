@@ -34,10 +34,10 @@ covers two different things:
 - [Monitor with InfluxDB OSS](/enterprise_influxdb/v1/administration/monitor/monitor-with-oss/)
 - [Log and trace InfluxDB Enterprise operations](/enterprise_influxdb/v1/administration/monitor/logs/)
 - [Use InfluxQL for diagnostics](/enterprise_influxdb/v1/administration/monitor/diagnostics/)
-
-## Monitor other systems with InfluxDB
-
 - [Monitoring dashboards](/enterprise_influxdb/v1/administration/monitor/monitoring-dashboards/)
 - [Internal vs. external monitoring](/enterprise_influxdb/v1/administration/monitor/internal-vs-external/) and [watcher of watchers setup](/enterprise_influxdb/v1/administration/monitor/external-monitor-setup/)
 - [Kapacitor measurements](/enterprise_influxdb/v1/administration/monitor/kapacitor-measurements/)
+
+## Monitor other systems with InfluxDB
+
 - [Monitor Kubernetes](/enterprise_influxdb/v1/administration/monitor/monitor-kubernetes/)

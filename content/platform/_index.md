@@ -223,4 +223,4 @@ All InfluxDB 3 products provide **v1 compatibility APIs** and the **v2 write API
 - Collect metrics from other systems with [Telegraf](/telegraf/v1/examples/monitor-system-metrics/)
 - **InfluxDB 3 Core and Enterprise**: process and alert on incoming data with the [Python processing engine](/influxdb3/core/process-data/python/plugins/)
 - **InfluxDB OSS v2 and InfluxDB Cloud (TSM)**: [checks, notification rules, and endpoints](/influxdb/v2/monitor-alert/)
-- **InfluxDB v1.x (TICK stack)**: [monitoring dashboards, watcher of watchers, and Kapacitor measurements](/influxdb/v1/administration/monitor/)
+- **InfluxDB v1.x (TICK stack)**: [monitor Kubernetes with Telegraf](/influxdb/v1/administration/monitor/monitor-kubernetes/)
