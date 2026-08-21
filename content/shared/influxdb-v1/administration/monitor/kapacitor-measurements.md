@@ -1,17 +1,3 @@
----
-title: Kapacitor measurements and fields
-description: >
-  Understand internal Kapacitor measurements and fields and use them to monitor
-  Kapacitor servers.
-aliases:
-  - /platform/monitoring/tools/kapacitor-measurements/
-menu:
-  platform:
-    name: Kapacitor measurements
-    parent: Other monitoring tools
-    weight: 2
----
-
 Kapacitor exposes internal performance through the `/kacapitor/v1/debug/vars` endpoint.
 Use the Telegraf `kapacitor` plugins to capture these metrics and store them in InfluxDB.
 
@@ -29,7 +15,7 @@ Enable the Kapacitor input plugin in your Telegraf configuration file:
 ```
 
 ### Visualize Kapacitor metrics
-Use the [Kapacitor Monitor dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/#monitor-kapacitor)
+Use the [Kapacitor Monitor dashboard](/product/version/administration/monitor/monitoring-dashboards/#monitor-kapacitor)
 to visualize Kapacitor metrics.
 
 ## Kapacitor measurements & fields
@@ -240,7 +226,7 @@ The average execution time of TICKscripts in nanoseconds.
 The number of critical (`crit`) alerts triggered by TICKscripts.
 
 #### errors
-The number of errors caused caused by TICKscripts.
+The number of errors caused by TICKscripts.
 
 #### infos_triggered
 The number of info (`info`) alerts triggered by TICKscripts.

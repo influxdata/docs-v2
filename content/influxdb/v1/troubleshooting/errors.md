@@ -334,7 +334,7 @@ or for datasets with higher [series cardinality](/influxdb/v1/concepts/glossary/
 If you have lots of RAM you could set it to `0` to disable the cached memory
 limit and never get this error.
 You can also examine the `memBytes` field in the`cache` measurement in the
-[`_internal` database](/influxdb/v1/administration/server_monitoring/#internal-monitoring)
+[`_internal` database](/influxdb/v1/administration/monitor/measurements-internal/)
 to get a sense of how big the caches are in memory.
 
 **Resources:**

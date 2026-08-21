@@ -1,18 +1,3 @@
----
-title: InfluxDB _internal 1.x measurements and fields
-description: >
-  Use and understand the InfluxDB _internal measurements statistics and field keys
-  that monitor InfluxDB v1.x and InfluxDB Enterprise v1 servers.
-aliases:
-  - /platform/monitoring/tools/measurements-internal/
-menu:
-  platform:
-    name: InfluxDB _internal measurements
-    parent: Other monitoring tools
-    weight: 2
----
-
-
 By default, InfluxDB writes internal runtime and performance metrics to the
 `_internal` database. This requires no configuration—the `monitor` service and
 its `store-enabled` setting default to `true`.
@@ -30,7 +15,8 @@ It creates unnecessary overhead, particularly for busy clusters, that can overlo
 Metrics stored in the `_internal` database primarily measure workload performance
 and should only be tested in non-production environments.
 
-To disable the `_internal` database, set [`store-enabled`](/influxdb/v1/administration/config/#monitoring-settings-monitor)
+{{% show-in "influxdb/v1" %}}
+To disable the `_internal` database, set [`store-enabled`](/influxdb/v1/administration/config/#monitoring-settings)
 to `false` under the `[monitor]` section of your **InfluxDB configuration file**.
 
 ```toml
@@ -41,13 +27,27 @@ to `false` under the `[monitor]` section of your **InfluxDB configuration file**
   store-enabled = false
   #...
 ```
+{{% /show-in %}}
+{{% show-in "enterprise_influxdb/v1" %}}
+To disable the `_internal` database, set [`store-enabled`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#store-enabled)
+to `false` under the `[monitor]` section of your **InfluxDB configuration file**.
+
+```toml
+# ...
+[monitor]
+  # ...
+  # Whether to record statistics internally.
+  store-enabled = false
+  #...
+```
+{{% /show-in %}}
 
 ### Store internal metrics in an external monitor
 To monitor InfluxDB `_internal` metrics in a production cluster, use Telegraf
 and the [`influxdb` input plugin](/telegraf/v1/input-plugins/influxdb/)
 to capture these metrics from the InfluxDB `/debug/vars` endpoint and store them
 in an external InfluxDB monitoring instance.
-For more information, see [Configure a Watcher of Watchers](/platform/monitoring/influxdata-platform/external-monitor-setup/).
+For more information, see [Configure a Watcher of Watchers](/product/version/administration/monitor/external-monitor-setup/).
 
 InfluxDB also exposes Go runtime metrics in Prometheus exposition format on the
 `/metrics` HTTP endpoint. Third-party tools that support Prometheus-format
@@ -55,13 +55,13 @@ scraping, such as Prometheus and Grafana, can collect these metrics directly
 without going through Telegraf.
 
 > [!Note]
-> When using the "watcher of watcher (WoW)" configuration, InfluxDB
-> metric field keys are prepended with `infuxdb_`, but are otherwise identical
-> to those listed in [internal measurements and fields](#influxdb-internal-measurements-and-fields).
+> When using the "watcher of watchers (WoW)" configuration, InfluxDB
+> metric field keys are prepended with `influxdb_`, but are otherwise identical
+> to those listed in [internal measurements and fields](#influxdb-_internal-measurements-and-fields).
 
 ## Visualize InfluxDB internal metrics
-Use the [InfluxDB OSS Monitor dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/#monitor-influxdb-oss)
-or the [InfluxDB Enterprise Monitor dashboard](/platform/monitoring/influxdata-platform/monitoring-dashboards/#monitor-influxdb-enterprise)
+Use the [InfluxDB OSS Monitor dashboard](/product/version/administration/monitor/monitoring-dashboards/#monitor-influxdb-oss)
+or the [InfluxDB Enterprise Monitor dashboard](/product/version/administration/monitor/monitoring-dashboards/#monitor-influxdb-enterprise)
 to visualize InfluxDB `_internal` metrics.
 
 ## InfluxDB \_internal measurements and fields
@@ -155,15 +155,15 @@ to visualize InfluxDB `_internal` metrics.
 - [httpd](#httpd)
   - [authFail](#authfail)
   - [clientError](#clienterror)
+  - [fluxQueryReq](#fluxqueryreq)
+  - [fluxQueryReqDurationNs](#fluxqueryreqdurationns)
+  - [fluxQueryRespBytes](#fluxqueryrespbytes)
   - [pingReq](#pingreq)
   - [pointsWrittenDropped](#pointswrittendropped)
   - [pointsWrittenFail](#pointswrittenfail)
   - [pointsWrittenOK](#pointswrittenok)
   - [promReadReq](#promreadreq)
   - [promWriteReq](#promwritereq)
-  - [fluxQueryReq](#fluxqueryreq)
-  - [fluxQueryReqDurationNs](#fluxqueryreqdurationns)
-  - [fluxQueryRespBytes](#fluxqueryrespbytes)
   - [queryReq](#queryreq)
   - [queryReqDurationNs](#queryreqdurationns)
   - [queryRespBytes](#queryrespbytes)
@@ -173,6 +173,7 @@ to visualize InfluxDB `_internal` metrics.
   - [reqDurationNs](#reqdurationns)
   - [serverError](#servererror)
   - [statusReq](#statusreq)
+  - [valuesWrittenOK](#valueswrittenok)
   - [writeReq](#writereq)
   - [writeReqActive](#writereqactive)
   - [writeReqBytes](#writereqbytes)
@@ -346,9 +347,7 @@ The number of internal requests for iterator cost.
 
 #### openConnections
 
-Tracks the number of open connections
-being handled by the data node
-(including counting logical connections multiplexed onto a single yamux connection).
+Tracks the number of open connections being handled by the data node (including counting logical connections multiplexed onto a single yamux connection).
 
 #### removeShardReq
 The number of internal requests to delete a shard from this data node.
@@ -481,7 +480,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/v1/administration/configuration/#retry-concurrency-20) setting.
+[`retry-concurrency`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retry-concurrency) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later. This was not the intended behavior of this stat.
@@ -524,7 +523,7 @@ The total number of write requests that failed in writing a batch of data from t
 hinted handoff queue to the destination node.
 
 #### writeNodeReqPoints
-The total number of points successfully written from the HH queue to the destination node fr
+The total number of points successfully written from the HH queue to the destination node.
 
 #### writeShardReq
 The total number of every write batch request enqueued into the hinted handoff queue.
@@ -571,7 +570,7 @@ The size, in bytes, of points read from the hinted handoff queue and sent to its
 Note that if the data node process is restarted while there is data in the HH queue,
 `bytesRead` may settle to a number larger than `bytesWritten`.
 Hinted handoff writes occur in concurrent batches as determined by the
-[`retry-concurrency`](/enterprise_influxdb/v1/administration/configuration/#retry-concurrency-20) setting.
+[`retry-concurrency`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retry-concurrency) setting.
 If an individual write succeeds, the metric is incremented.
 If any write out of the whole batch fails, the entire batch is considered unsuccessful,
 and every part of the batch will be retried later.
@@ -617,7 +616,7 @@ The total number of write requests that failed in writing a batch of data from t
 hinted handoff queue to the destination node.
 
 #### writeNodeReqPoints
-The total number of points successfully written from the HH queue to the destination node fr
+The total number of points successfully written from the HH queue to the destination node.
 
 #### writeShardReq
 The total number of every write batch request enqueued into the hinted handoff queue.
@@ -692,7 +691,8 @@ The number of HTTP responses due to server errors.
 The number of status requests served using the HTTP `/status` endpoint.
 
 #### valuesWrittenOK
-The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
+The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
+
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
 
