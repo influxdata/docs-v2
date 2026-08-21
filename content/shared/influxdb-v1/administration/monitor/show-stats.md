@@ -13,8 +13,8 @@ These statistics are all reset to zero when the InfluxDB service starts.
 
 ### The `SHOW STATS [FOR <component>]` option
 
-If you are interested in monitoring a specific InfluxDB component, use the
-`SHOW STATS FOR <component>]` to limit the results of the `SHOW STATS` statement to a specified module.
+If you are interested in monitoring a specific InfluxDB component, use
+`SHOW STATS FOR <component>` to limit the results of the `SHOW STATS` statement to a specified module.
 The `SHOW STATS FOR <component>` statement displays detailed measurement statistics
 about a subsystem within a running `influxd` service.
 

@@ -55,8 +55,8 @@ scraping, such as Prometheus and Grafana, can collect these metrics directly
 without going through Telegraf.
 
 > [!Note]
-> When using the "watcher of watcher (WoW)" configuration, InfluxDB
-> metric field keys are prepended with `infuxdb_`, but are otherwise identical
+> When using the "watcher of watchers (WoW)" configuration, InfluxDB
+> metric field keys are prepended with `influxdb_`, but are otherwise identical
 > to those listed in [internal measurements and fields](#influxdb-internal-measurements-and-fields).
 
 ## Visualize InfluxDB internal metrics
