@@ -44,7 +44,7 @@ to `false` under the `[monitor]` section of your **InfluxDB configuration file**
 
 ### Store internal metrics in an external monitor
 To monitor InfluxDB `_internal` metrics in a production cluster, use Telegraf
-and the [`influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb)
+and the [`influxdb` input plugin](/telegraf/v1/input-plugins/influxdb/)
 to capture these metrics from the InfluxDB `/debug/vars` endpoint and store them
 in an external InfluxDB monitoring instance.
 For more information, see [Configure a Watcher of Watchers](/platform/monitoring/influxdata-platform/external-monitor-setup/).
