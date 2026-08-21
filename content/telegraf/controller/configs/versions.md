@@ -45,7 +45,7 @@ Versions are kept until you prune them; there is no automatic retention limit.
 2.  Click the name of the configuration.
 3.  Select the **Versions** tab.
 
-<!-- TODO: screenshot of the Versions tab in the configuration detail view showing the version history table with a Current badge. Save to /static/img/telegraf/controller-configs-versions.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-configs-versions.png" alt="Telegraf configuration version history in Telegraf Controller" />}} -->
+{{< img-hd src="/img/telegraf/controller-configs-versions.png" alt="Telegraf configuration version history in Telegraf Controller" />}}
 
 The version history table includes the following for each version:
 
@@ -74,7 +74,7 @@ To view the full TOML content stored in a version, click the
 The **Compare Versions** dialog displays a diff of the TOML content of the two
 versions, using the lower-numbered version as the base.
 
-<!-- TODO: screenshot of the Compare Versions dialog showing a diff between two versions. Save to /static/img/telegraf/controller-configs-compare-versions.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-configs-compare-versions.png" alt="Compare Telegraf configuration versions in Telegraf Controller" />}} -->
+{{< img-hd src="/img/telegraf/controller-configs-compare-versions.png" alt="Compare Telegraf configuration versions in Telegraf Controller" />}}
 
 ## Roll back to a previous version
 

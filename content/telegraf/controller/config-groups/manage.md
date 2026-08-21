@@ -72,7 +72,7 @@ read-only result of rendering all members in order, including the source
 comments that mark where each member configuration begins. Validation
 issues in the merged output are listed above the preview.
 
-<!-- TODO: screenshot of a configuration group detail page showing the ordered member list and the Merged TOML Preview panel. Save to /static/img/telegraf/controller-config-group-detail.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-config-group-detail.png" alt="Telegraf Controller configuration group detail page with merged TOML preview" />}} -->
+{{< img-hd src="/img/telegraf/controller-config-group-detail.png" alt="Telegraf Controller configuration group detail page with merged TOML preview" />}}
 
 ## Edit the group name and description
 
