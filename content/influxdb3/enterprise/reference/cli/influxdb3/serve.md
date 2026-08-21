@@ -130,7 +130,6 @@ influxdb3 serve [OPTIONS]
 |                  | `--oauth-issuer` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#oauth-issuer)_ |
 |                  | `--oauth-scopes` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#oauth-scopes)_ |
 |                  | `--object-store`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store)_                                     |
-|                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | <span id="object-store-connection-limit"></span>`--object-store-connection-limit`                    | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-connection-limit)_                    |
 |                  | `--object-store-http2-max-frame-size`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-http2-max-frame-size)_                |
 |                  | <span id="object-store-http2-only"></span>`--object-store-http2-only`                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#object-store-http2-only)_                          |

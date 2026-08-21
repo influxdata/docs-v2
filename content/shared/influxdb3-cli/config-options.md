@@ -997,7 +997,6 @@ to Azure Blob Storage.
 - [object-store-request-timeout](#object-store-request-timeout)
 - [object-store-max-retries](#object-store-max-retries)
 - [object-store-retry-timeout](#object-store-retry-timeout)
-- [object-store-cache-endpoint](#object-store-cache-endpoint)
 - [object-store-tls-allow-insecure](#object-store-tls-allow-insecure)
 - [object-store-tls-ca](#object-store-tls-ca)
 
@@ -1021,7 +1020,7 @@ this value.
 
 | influxdb3 serve option            | Environment variables            |
 | :-------------------------------- | :------------------------------ |
-| `--object-store-connection-limit` | `INFLUXDB3_OBJECT_STORE_CONNECTION_LIMIT`<br>`OBJECT_STORE_CONNECTION_LIMIT` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-connection-limit` | `INFLUXDB3_OBJECT_STORE_CONNECTION_LIMIT` (preferred)<br>`OBJECT_STORE_CONNECTION_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1031,7 +1030,7 @@ Forces HTTP/2 connections to network-based object stores.
 
 | influxdb3 serve option      | Environment variables      |
 | :-------------------------- | :------------------------ |
-| `--object-store-http2-only` | `INFLUXDB3_OBJECT_STORE_HTTP2_ONLY`<br>`OBJECT_STORE_HTTP2_ONLY` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-http2-only` | `INFLUXDB3_OBJECT_STORE_HTTP2_ONLY` (preferred)<br>`OBJECT_STORE_HTTP2_ONLY` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1041,7 +1040,7 @@ Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
 
 | influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--object-store-http2-max-frame-size` | `INFLUXDB3_OBJECT_STORE_HTTP2_MAX_FRAME_SIZE`<br>`OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-http2-max-frame-size` | `INFLUXDB3_OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` (preferred)<br>`OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1053,7 +1052,7 @@ Sets the HTTP request timeout for object store requests.
 
 | influxdb3 serve option           | Environment variables           |
 | :------------------------------- | :----------------------------- |
-| `--object-store-request-timeout` | `INFLUXDB3_OBJECT_STORE_REQUEST_TIMEOUT`<br>`OBJECT_STORE_REQUEST_TIMEOUT` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-request-timeout` | `INFLUXDB3_OBJECT_STORE_REQUEST_TIMEOUT` (preferred)<br>`OBJECT_STORE_REQUEST_TIMEOUT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1063,7 +1062,7 @@ Defines the maximum number of times to retry a request.
 
 | influxdb3 serve option       | Environment variables       |
 | :--------------------------- | :------------------------- |
-| `--object-store-max-retries` | `INFLUXDB3_OBJECT_STORE_MAX_RETRIES`<br>`OBJECT_STORE_MAX_RETRIES` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-max-retries` | `INFLUXDB3_OBJECT_STORE_MAX_RETRIES` (preferred)<br>`OBJECT_STORE_MAX_RETRIES` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1074,17 +1073,7 @@ further retries are be attempted.
 
 | influxdb3 serve option         | Environment variables         |
 | :----------------------------- | :--------------------------- |
-| `--object-store-retry-timeout` | `INFLUXDB3_OBJECT_STORE_RETRY_TIMEOUT`<br>`OBJECT_STORE_RETRY_TIMEOUT` ([pre-3.11 name](#name-changes-in-3-11)) |
-
-***
-
-#### object-store-cache-endpoint
-
-Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
-
-| influxdb3 serve option          | Environment variables          |
-| :------------------------------ | :---------------------------- |
-| `--object-store-cache-endpoint` | `INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT`<br>`OBJECT_STORE_CACHE_ENDPOINT` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-retry-timeout` | `INFLUXDB3_OBJECT_STORE_RETRY_TIMEOUT` (preferred)<br>`OBJECT_STORE_RETRY_TIMEOUT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1098,7 +1087,7 @@ This disables TLS certificate verification and should only be used for testing.
 
 | influxdb3 serve option              | Environment variables              |
 | :---------------------------------- | :-------------------------------- |
-| `--object-store-tls-allow-insecure` | `INFLUXDB3_OBJECT_STORE_TLS_ALLOW_INSECURE`<br>`OBJECT_STORE_TLS_ALLOW_INSECURE` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-tls-allow-insecure` | `INFLUXDB3_OBJECT_STORE_TLS_ALLOW_INSECURE` (preferred)<br>`OBJECT_STORE_TLS_ALLOW_INSECURE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1110,7 +1099,7 @@ signed by a private CA.
 
 | influxdb3 serve option  | Environment variables  |
 | :---------------------- | :-------------------- |
-| `--object-store-tls-ca` | `INFLUXDB3_OBJECT_STORE_TLS_CA`<br>`OBJECT_STORE_TLS_CA` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--object-store-tls-ca` | `INFLUXDB3_OBJECT_STORE_TLS_CA` (preferred)<br>`OBJECT_STORE_TLS_CA` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1215,7 +1204,7 @@ The following are common component names you can use for targeted filtering:
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-filter`         | `INFLUXDB3_LOG_FILTER`<br>`LOG_FILTER` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--log-filter`         | `INFLUXDB3_LOG_FILTER` (preferred)<br>`LOG_FILTER` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1232,7 +1221,7 @@ This option supports the following values:
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-destination`    | `INFLUXDB3_LOG_DESTINATION`<br>`LOG_DESTINATION` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--log-destination`    | `INFLUXDB3_LOG_DESTINATION` (preferred)<br>`LOG_DESTINATION` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1248,7 +1237,7 @@ This option supports the following values:
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-format`         | `INFLUXDB3_LOG_FORMAT`<br>`LOG_FORMAT` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--log-format`         | `INFLUXDB3_LOG_FORMAT` (preferred)<br>`LOG_FORMAT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1290,7 +1279,7 @@ Sets the type of tracing exporter.
 
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--traces-exporter`    | `INFLUXDB3_TRACES_EXPORTER`<br>`TRACES_EXPORTER` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-exporter`    | `INFLUXDB3_TRACES_EXPORTER` (preferred)<br>`TRACES_EXPORTER` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1302,7 +1291,7 @@ Specifies the Jaeger agent network hostname for tracing.
 
 | influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-exporter-jaeger-agent-host` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_HOST`<br>`TRACES_EXPORTER_JAEGER_AGENT_HOST` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-exporter-jaeger-agent-host` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_HOST` (preferred)<br>`TRACES_EXPORTER_JAEGER_AGENT_HOST` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1314,7 +1303,7 @@ Defines the Jaeger agent network port for tracing.
 
 | influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-exporter-jaeger-agent-port` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_PORT`<br>`TRACES_EXPORTER_JAEGER_AGENT_PORT` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-exporter-jaeger-agent-port` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_PORT` (preferred)<br>`TRACES_EXPORTER_JAEGER_AGENT_PORT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1326,7 +1315,7 @@ Sets the Jaeger service name for tracing.
 
 | influxdb3 serve option                  | Environment variables                  |
 | :-------------------------------------- | :------------------------------------ |
-| `--traces-exporter-jaeger-service-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_SERVICE_NAME`<br>`TRACES_EXPORTER_JAEGER_SERVICE_NAME` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-exporter-jaeger-service-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_SERVICE_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_SERVICE_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1338,7 +1327,7 @@ Specifies the header name used for passing trace context.
 
 | influxdb3 serve option                               | Environment variables                               |
 | :--------------------------------------------------- | :------------------------------------------------- |
-| `--traces-exporter-jaeger-trace-context-header-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME`<br>`TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-exporter-jaeger-trace-context-header-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1350,7 +1339,7 @@ Specifies the header name used for force sampling in tracing.
 
 | influxdb3 serve option       | Environment variables                |
 | :--------------------------- | :---------------------------------- |
-| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_DEBUG_NAME`<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1360,7 +1349,7 @@ Defines a set of `key=value` pairs to annotate tracing spans with.
 
 | influxdb3 serve option | Environment variables          |
 | :--------------------- | :---------------------------- |
-| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TAGS`<br>`TRACES_EXPORTER_JAEGER_TAGS` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1372,7 +1361,7 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 
 | influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-jaeger-max-msgs-per-second` | `INFLUXDB3_TRACES_JAEGER_MAX_MSGS_PER_SECOND`<br>`TRACES_JAEGER_MAX_MSGS_PER_SECOND` ([pre-3.11 name](#name-changes-in-3-11)) |
+| `--traces-jaeger-max-msgs-per-second` | `INFLUXDB3_TRACES_JAEGER_MAX_MSGS_PER_SECOND` (preferred)<br>`TRACES_JAEGER_MAX_MSGS_PER_SECOND` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1850,7 +1839,7 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
 - [file-cache-recency](#file-cache-recency) <small>(`--parquet-mem-cache-query-path-duration` before 3.11)</small>
-- [disable-file-cache](#disable-file-cache) <small>(`--disable-parquet-mem-cache` before 3.11)</small>
+- [disable-file-cache](#disable-file-cache) <small>(`--disable-parquet-mem-cache`, `--disable-data-file-cache` before 3.11)</small>
 - [table-index-cache-max-entries](#table-index-cache-max-entries)
 - [table-index-cache-concurrency-limit](#table-index-cache-concurrency-limit)
   {{% show-in "enterprise" %}}
@@ -2647,7 +2636,7 @@ Specifies the file path for the TCP listener configuration.
 
 | influxdb3 serve option     | Environment variables |
 | :------------------------- | :-------------------- |
-| `--tcp-listener-file-path` | `INFLUXDB3_TCP_LISTENER_FILE_PATH`<br>`INFLUXDB3_TCP_LISTINER_FILE_PATH` (deprecated misspelling; supported for backward compatibility) |
+| `--tcp-listener-file-path` | `INFLUXDB3_TCP_LISTENER_FILE_PATH`<br>`INFLUXDB3_TCP_LISTINER_FILE_PATH` ([misspelled pre-3.11 name](#name-changes-in-3-11)) |
 
 ***
 
@@ -2676,9 +2665,9 @@ if both the new and the legacy name are set, the new name takes precedence.
 > [!Warning]
 > #### New names don't work on releases earlier than 3.11.0
 >
-> A pre-3.11 server doesn't recognize the new names: it exits with an error
-> on an unknown command line option, but it **silently ignores** an unknown
-> environment variable.
+> A pre-3.11 server doesn't recognize names introduced by these 3.11
+> renames: it exits with an error on an unknown command line option, but it
+> **silently ignores** an unknown environment variable.
 > If you run a release earlier than 3.11.0, use the legacy names, and verify
 > in your startup logs that settings take effect.
 
