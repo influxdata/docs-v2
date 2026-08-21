@@ -11,6 +11,11 @@ weight: 81
 aliases:
   - /platform/monitoring/influxdata-platform/tools/measurements-internal/
   - /platform/monitoring/tools/measurements-internal/
+alt_links:
+  core: /influxdb3/core/admin/query-system-data/
+  enterprise: /influxdb3/enterprise/admin/query-system-data/
+  cloud-dedicated: /influxdb3/cloud-dedicated/admin/monitor-your-cluster/
+  v2: /influxdb/v2/reference/internals/metrics/
 source: /shared/influxdb-v1/administration/monitor/measurements-internal.md
 ---
 

@@ -6,6 +6,9 @@ menu:
     name: SHOW DIAGNOSTICS
     parent: Monitor
 weight: 105
+alt_links:
+  core: /influxdb3/core/admin/query-system-data/
+  enterprise: /influxdb3/enterprise/admin/query-system-data/
 source: /shared/influxdb-v1/administration/monitor/show-diagnostics.md
 ---
 
