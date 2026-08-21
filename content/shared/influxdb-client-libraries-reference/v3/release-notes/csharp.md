@@ -69,7 +69,7 @@
    persistence:
     - New write option (`WriteOptions.NoSync`) added: `true` value means faster write but without the confirmation that
       the data was persisted. Default value: `false`.
-    - **Supported by self-managed InfluxDB 3 Core and Enterprise servers only!**
+    - __Supported by self-managed InfluxDB 3 Core and Enterprise servers only!__
     - Also configurable via connection string query parameter (`writeNoSync`).
     - Also configurable via environment variable (`INFLUX_WRITE_NO_SYNC`).
     - Long precision string values added from v3 HTTP API: `"nanosecond"`, `"microsecond"`, `"millisecond"`,
@@ -84,7 +84,7 @@
    - New configuration items:
       - `SslRootsFilePath`
       - `DisableCertificateRevocationListCheck`
-   - **Disclaimer:** Using custom SSL root certificate configurations is recommended for development and testing
+   - __Disclaimer:__ Using custom SSL root certificate configurations is recommended for development and testing
      purposes
      only. For production deployments, ensure custom certificates are added to the operating system's trusted
      certificate store.
