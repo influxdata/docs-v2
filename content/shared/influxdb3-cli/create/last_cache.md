@@ -33,6 +33,14 @@ influxdb3 create last_cache [OPTIONS] \
 | `-h`   | `--help`          | Print help information                                                                                                                                                |
 |        | `--help-all`      | Print detailed help information                                                                                                                                       |
 
+{{% show-in "enterprise" %}}
+Additional {{% product-name %}} option:
+
+| Option |               | Description                                                                                                                                                                 |
+| :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-n`   | `--node-spec` | Which node(s) load historical data into the cache. Two value formats are supported: `all` (default) - all query- and processing-capable nodes load historical data, or `nodes:<node-id>[,<node-id>..]` - only the listed nodes load historical data, reducing the initial cache warm-up load at the cost of temporarily incomplete query results from excluded nodes |
+{{% /show-in %}}
+
 ### Option environment variables
 
 You can use the following environment variables as substitutes for CLI options:

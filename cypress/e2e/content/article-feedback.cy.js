@@ -57,11 +57,14 @@ const ossCases = [
 
 const licensedUrls = [
   '/influxdb3/enterprise/get-started/',
+  '/influxdb3/cloud/',
   '/influxdb3/clustered/',
   '/influxdb3/cloud-dedicated/',
   '/influxdb3/cloud-serverless/',
   '/influxdb/cloud/get-started/',
   '/enterprise_influxdb/v1/introduction/',
+  '/telegraf/controller/',
+  '/telegraf/enterprise/',
 ];
 
 describe('Article feedback buttons', () => {

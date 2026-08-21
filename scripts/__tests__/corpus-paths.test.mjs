@@ -6,6 +6,8 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { load } from 'js-yaml';
 import { getCorpusPaths } from '../lib/corpus-paths.js';
 
 test('returns empty array for empty products', () => {
@@ -107,8 +109,20 @@ test('handles multiple versions on a single flat content_path', () => {
   };
   const result = getCorpusPaths(products);
   assert.equal(result.length, 2);
-  assert.deepEqual(
-    result.map((r) => r.path).sort(),
-    ['bar/v1', 'bar/v2']
+  assert.deepEqual(result.map((r) => r.path).sort(), ['bar/v1', 'bar/v2']);
+});
+
+test('real Telegraf product paths match their unversioned URL roots', () => {
+  const products = load(readFileSync('data/products.yml', 'utf8'));
+  const corpora = getCorpusPaths(products);
+
+  const controller = corpora.find(
+    (entry) => entry.key === 'telegraf_controller'
   );
+  const enterprise = corpora.find(
+    (entry) => entry.key === 'telegraf_enterprise'
+  );
+
+  assert.equal(controller.path, 'telegraf/controller');
+  assert.equal(enterprise.path, 'telegraf/enterprise');
 });

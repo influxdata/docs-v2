@@ -144,6 +144,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--permission-tokens-file`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#permission-tokens-file)_                           |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir)_                                       |
 |                  | `--plugin-dir-only` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir-only)_ |
+|                  | `--plugin-repo` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-repo)_ |
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--query-file-limit`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-file-limit)_                                 |
 |                  | `--query-log-max-entries`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-log-max-entries)_                                   |
