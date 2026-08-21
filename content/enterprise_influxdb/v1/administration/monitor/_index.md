@@ -20,12 +20,13 @@ do one of the following:
 
 - [Log and trace InfluxDB Enterprise operations](/enterprise_influxdb/v1/administration/monitor/logs/)
 - [Use InfluxQL for diagnostics](/enterprise_influxdb/v1/administration/monitor/diagnostics/)
+- [InfluxDB `_internal` measurements and fields](/platform/monitoring/influxdata-platform/tools/measurements-internal/)
 
-{{% note %}}
 ### Monitor with InfluxDB Insights
-For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
 
-To apply for this service, please [contact InfluxData support](https://support.influxdata.com).
-{{% /note %}}
+> [!Note]
+> For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
+>
+> To apply for this service, please [contact InfluxData support](https://support.influxdata.com).
 
 {{< children >}}
