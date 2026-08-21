@@ -12,7 +12,7 @@ weight: 89
 
 Below are a collection of commands to find useful performance metrics about your InfluxDB instance.
 
-To find the number of points per second being written to the instance. Must have the `monitor` service enabled:
+To find the number of points per second being written to the instance, the `monitor` service must be enabled. Then run:
 ```bash
 $ influx -execute 'select derivative(pointReq, 1s) from "write" where time > now() - 5m' -database '_internal' -precision 'rfc3339'
 ```

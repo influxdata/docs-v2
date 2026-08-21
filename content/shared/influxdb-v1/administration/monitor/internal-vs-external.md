@@ -1,6 +1,6 @@
 One of the primary use cases for InfluxData's TICK stack is infrastructure monitoring,
 including using the TICK stack to monitor itself or another TICK stack.
-These are the two main approaches to Monitoring your TICK stack:
+These are the two main approaches to monitoring your TICK stack:
 
 - **[Internal monitoring](#internal-monitoring)** - A TICK stack that monitors itself.
 - **["Watcher of watchers" approach](#the-watcher-of-watchers-approach)** - A TICK stack monitored by another TICK stack.
@@ -68,7 +68,7 @@ to monitor and alert on each of these metrics.
 #### Hardware separation
 
 With a monitor running separate from your primary TICK stack, issues that occur in the primary stack will not affect the monitor.
-If your primary TICK stack goes down or has issues, your monitor will be able detect them and alert you.
+If your primary TICK stack goes down or has issues, your monitor will be able to detect them and alert you.
 
 ### Cons of external monitoring
 
