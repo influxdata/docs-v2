@@ -19,10 +19,16 @@ name: Render Regression Check
 #      Also runs canonical.cy.js, which verifies the four branches of
 #      layouts/partials/header/canonical.html (incl. shared-source
 #      priority routing) — SEO-critical and editable only via layouts/.
+#
+# check-artifacts is a required status check for the master merge
+# queue, so this workflow must keep the merge_group trigger — without
+# it the check never reports on queue commits and every queued PR is
+# evicted when the queue's check-response timeout expires.
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  merge_group:
 
 jobs:
   check-artifacts:
@@ -61,8 +67,9 @@ jobs:
     # Content-only PRs don't need this layer — the site-wide grep above
     # already catches any page-level impact they could have.
     if: |
-      contains(github.event.pull_request.labels.*.name, 'render-regression') ||
-      github.event.pull_request.draft == false
+      github.event_name == 'pull_request' &&
+      (contains(github.event.pull_request.labels.*.name, 'render-regression') ||
+       github.event.pull_request.draft == false)
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
