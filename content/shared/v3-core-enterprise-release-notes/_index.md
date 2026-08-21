@@ -121,6 +121,7 @@ Additional Enterprise-specific updates:
 
 #### Breaking changes
 
+
 - **Size options require an explicit unit**: Options that accept a size value
   (for example, `--exec-mem-pool-size` and `--file-cache-size`) now reject a
   bare number. Append a unit suffix (`b`, `kb`, `mb`, `gb`, `tb`) or, where
@@ -187,15 +188,13 @@ Additional Enterprise-specific updates:
   option has never affected hard-delete behavior in any release — the server
   always uses its built-in default duration. The option is still accepted so
   existing configurations keep starting, but the server now logs a startup
-  warning recommending you remove it. <!-- Internal engineering notes for
-  this release also claimed --object-store-cache-endpoint and four other
-  flags (--database-split-level, --table-split-level,
-  --max-compact-destination, --pt-enable-row-deletes) were removed and would
-  fail to parse. That's contradicted by the current config-options
-  reference: --object-store-cache-endpoint is still fully documented with no
-  deprecation notice. The other four aren't documented anywhere, so their
-  status can't be verified from docs — confirm with engineering before
-  adding any claim about them here. -->
+  warning recommending you remove it.
+
+- **`--object-store-cache-endpoint` removed**: This option was parsed but
+  consumed by dead code and never had an effect. The flag now fails to
+  parse at startup, and the `INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT` /
+  `OBJECT_STORE_CACHE_ENDPOINT` environment variables are ignored. Remove
+  it from your configuration.
 
 ### Enterprise
 
@@ -417,6 +416,12 @@ Additional Enterprise-specific updates:
   hard-failing, since existing manifests carry them across the storage engine
   upgrade. Only the per-table column limit has an upgraded-engine counterpart
   (`--max-total-columns`).
+
+- **Four inert Enterprise options removed**: `--database-split-level`,
+  `--table-split-level`, `--max-compact-destination`, and
+  `--pt-enable-row-deletes` were parsed but never read; they are removed.
+  The flags now fail to parse at startup and their environment variables
+  are ignored. Remove them from your configuration.
 
 ## v3.10.5 {date="2026-07-20"}
 

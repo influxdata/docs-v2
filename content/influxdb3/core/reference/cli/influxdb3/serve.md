@@ -101,7 +101,6 @@ influxdb3 serve [OPTIONS]
 |                  | `--log-format`                                       | _See [configuration options](/influxdb3/core/reference/config-options/#log-format)_                                       |
 |                  | `--max-concurrent-queries` | _See [configuration options](/influxdb3/core/reference/config-options/#max-concurrent-queries)_ |
 |                  | <span id="max-http-request-size"></span>`--max-http-request-size`                            | _See [configuration options](/influxdb3/core/reference/config-options/#max-http-request-size)_                            |
-|                  | `--object-store-cache-endpoint`                      | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-cache-endpoint)_                      |
 |                  | <span id="object-store-connection-limit"></span>`--object-store-connection-limit`                    | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-connection-limit)_                    |
 |                  | `--object-store-http2-max-frame-size`                | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-http2-max-frame-size)_                |
 |                  | <span id="object-store-http2-only"></span>`--object-store-http2-only`                          | _See [configuration options](/influxdb3/core/reference/config-options/#object-store-http2-only)_                          |
