@@ -416,8 +416,8 @@ telegraf_controller:
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 1.0
-  latest_patch: 1.0.2
+  latest: 1.1
+  latest_patch: 1.1.0
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
@@ -432,7 +432,7 @@ telegraf_enterprise:
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
   latest: enterprise
-  latest_patch: 1.0.1
+  latest_patch: 1.1.0
   schema:
     operating_system: "Linux, macOS, Windows, Docker"
     application_category: "BusinessApplication"
