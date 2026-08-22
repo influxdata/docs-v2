@@ -69,6 +69,7 @@ Anywhere the {{% product-name %}} API accepts a configuration ID, you can use
 an alias instead. {{% product-name %}} also provides a short URL for
 retrieving configuration TOML by alias:
 
+```text
 http://localhost:8888/c/my-config-alias
 ```
 
