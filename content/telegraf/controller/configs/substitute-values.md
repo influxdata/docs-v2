@@ -1,24 +1,44 @@
 ---
-title: Use dynamic values in configurations
-seotitle: Use dynamic values in Telegraf configurations with Telegraf Controller
+title: Substitute values in configurations
+seotitle: Substitute values in Telegraf configurations with Telegraf Controller
 description: >
-  Use parameters, environment variables, and secrets to dynamically set values
-  in your Telegraf configurations.
+  Use parameters, constants, environment variables, and secrets to substitute
+  values in your Telegraf configurations.
 menu:
   telegraf_controller:
-    name: Use dynamic values
+    name: Substitute values
     parent: Manage configurations
-weight: 103
+weight: 106
+aliases:
+  - /telegraf/controller/configs/dynamic-values/
 ---
 
-Use dynamic values in your Telegraf configurations and reuse a single
+Substitute values in your Telegraf configurations to reuse a single
 configuration for multiple distinct agents or across environments.
 
-Telegraf Controller supports the following dynamic value types:
+{{% product-name %}} supports the following value substitution types:
 
 - **Parameters** for values you want to set or override per agent.
+- **Constants** for values defined once and shared across configurations.
 - **Environment variables** for values provided by the running Telegraf agent.
 - **Secrets** for sensitive values stored in an external secret store.
+
+Each type is substituted in a different place:
+
+| Type | Syntax | Substituted by | When |
+| :--- | :----- | :------------- | :--- |
+| [Parameter](#parameters) | `&{param_name[:default]}` | {{% product-name %}} | When the configuration is requested |
+| [Constant](#constants) | `::{constant_name}` | {{% product-name %}} | When the configuration is requested |
+| [Environment variable](#environment-variables) | `${VAR_NAME[:-default]}` | Telegraf agent | When the agent starts or reloads |
+| [Secret](#secrets) | `@{store_id:secret_key}` | Telegraf agent | At runtime, through the secret store plugin |
+
+{{% product-name %}} substitutes parameters and constants server-side, so the
+TOML an agent receives already contains the resolved values. Environment
+variables and secrets pass through {{% product-name %}} unchanged and are
+resolved by the Telegraf agent itself. Substitution works the same way when
+{{% product-name %}} serves a
+[configuration group](/telegraf/controller/config-groups/): references in
+every member configuration are resolved in one request.
 
 ## Parameters
 
@@ -26,6 +46,10 @@ Use parameters for values that change between agents, deployments, or environmen
 Define the parameter where the configuration is easy to find, and then
 reference it in plugin settings. _Configuration parameters are a feature of
 {{% product-name %}} and are not part of the Telegraf project._
+
+{{% product-name %}} substitutes parameters server-side when the configuration
+is requested, using values provided as URL query parameters. The agent
+receives TOML with the parameter values already in place.
 
 > [!Important]
 > #### Do not use parameters for sensitive information
@@ -46,7 +70,7 @@ requesting the configuration from {{% product-name %}}.
 
 ### Use parameters in Telegraf configurations
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.influxdb_v2]]
   # Parameter with a default value
   urls = ["&{db_host:https://localhost:8181}"]
@@ -94,11 +118,85 @@ above, Telegraf would load the following TOML configuration:
   instance_id = "agent123"
 ```
 
-## Environment Variables
+### Provide array values
+
+To provide multiple values for one parameter, repeat the query parameter in
+the configuration URL. {{% product-name %}} joins repeated values with
+`", "`, so a parameter referenced inside a quoted TOML array element renders
+as multiple array elements.
+
+##### Configuration TOML with an array parameter
+
+```toml { .tc-substitute-values }
+[[inputs.http]]
+  urls = ["&{metric_urls}"]
+```
+
+##### Repeat the query parameter to provide multiple values
+
+<!--pytest.mark.skip-->
+```sh
+telegraf \
+  --config "http://localhost:8888/api/configs/xxxxxx/toml?metric_urls=http://host1/metrics&metric_urls=http://host2/metrics"
+```
+
+Telegraf would load the following TOML configuration:
+
+```toml
+[[inputs.http]]
+  urls = ["http://host1/metrics", "http://host2/metrics"]
+```
+
+## Constants
+
+Use constants for values that are shared across configurations and do not
+change per agent, for example, a common endpoint URL or organization name.
+Constants are defined once in {{% product-name %}} and referenced by name.
+_Constants are a feature of {{% product-name %}} and are not part of the
+Telegraf project._
+
+{{% product-name %}} substitutes constants server-side when the configuration
+is requested, using the globally defined value. The agent receives TOML with
+the constant values already in place.
+
+> [!Important]
+> #### Do not use constants for sensitive information
+>
+> Constant values are stored in plain text and inserted directly into served
+> configurations. Use environment variables or secrets to provide sensitive
+> information to agents.
+
+Use the following syntax:
+
+```
+::{constant_name}
+```
+
+Constants do not support default values. If a configuration references a
+constant that is not defined, {{% product-name %}} returns an error listing
+the undefined constants when the configuration is requested.
+
+### Use constants in Telegraf configurations
+
+```toml { .tc-substitute-values }
+[[outputs.influxdb_v2]]
+  # Constants shared across configurations
+  urls = ["::{influxdb_url}"]
+  bucket = "::{default_bucket}"
+```
+
+To define and manage constants, see
+[Manage global constants](/telegraf/controller/configs/constants/).
+
+## Environment variables
 
 Use environment variables for values that Telegraf reads from the agent
 environment at runtime.
 Provide a default to keep the configuration portable across environments.
+
+The Telegraf agent substitutes environment variables from its own runtime
+environment when it starts or reloads. {{% product-name %}} serves the
+configuration with environment variable references unchanged.
 
 Use the following syntax:
 
@@ -115,7 +213,7 @@ For more information about Telegraf environment variable syntax, see
 
 ### Use environment variables in Telegraf configurations
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[inputs.http]]
   urls = ["${API_ENDPOINT:-http://localhost:8080}/metrics"]
 
@@ -146,7 +244,11 @@ telegraf \
 Use secrets for credentials or tokens you do not want to store in plain text.
 Secrets require a secret store and its corresponding `secretstores` plugin.
 
-```toml { .tc-dynamic-values }
+The Telegraf agent resolves secrets at runtime through the configured secret
+store plugin. Secret values never pass through {{% product-name %}} and do not
+appear in the served configuration TOML.
+
+```toml { .tc-substitute-values }
 # Configure a secret store plugin
 [[secretstores.vault]]
   id = "my_vault"

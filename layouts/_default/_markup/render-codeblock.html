@@ -13,8 +13,11 @@
   {{- $code | safeHTML -}}
 {{- else -}}
   {{- $wrapped := string $result.Wrapped -}}
-  {{- if in $wrapped "tc-dynamic-values" -}}
-    {{- $wrapped = replace $wrapped "tc-dynamic-values" "tc-dynamic-values\" data-component=\"tc-dynamic-values" -}}
+  {{- if in $wrapped "tc-substitute-values" -}}
+    {{- $wrapped = replace $wrapped "tc-substitute-values" "tc-substitute-values\" data-component=\"tc-substitute-values" -}}
+  {{- else if in $wrapped "tc-dynamic-values" -}}
+    {{- /* Legacy class name; maps to the same component. */ -}}
+    {{- $wrapped = replace $wrapped "tc-dynamic-values" "tc-dynamic-values\" data-component=\"tc-substitute-values" -}}
   {{- end -}}
   {{- $wrapped | safeHTML -}}
 {{- end -}}

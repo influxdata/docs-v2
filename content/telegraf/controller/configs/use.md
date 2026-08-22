@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Use configurations
     parent: Manage configurations
-weight: 104
+weight: 108
 ---
 
 Use Telegraf Controller to centralize management of your Telegraf configurations
@@ -16,7 +16,7 @@ and keep your agents consistent across environments.
 Apply the configuration by pointing your agents to the configuration URL.
 
 - [Apply a configuration to an agent](#apply-a-configuration-to-an-agent)
-- [Set dynamic values](#set-dynamic-values)
+- [Set substitution values](#set-substitution-values)
   - [Set parameter values](#set-parameter-values)
   - [Set environment variables](#set-environment-variables)
 - [Auto-update agents](#auto-update-agents)
@@ -31,6 +31,19 @@ When starting a Telegraf agent, use a `--config` flag with the
 telegraf \
   --config "http://localhost:8888/api/configs/xxxxxx/toml"
 ```
+
+If the configuration has an
+[alias](/telegraf/controller/configs/aliases/), you can use the shorter
+alias-based URL instead:
+
+```bash
+telegraf \
+  --config "http://localhost:8888/c/my-config-alias"
+```
+
+Agents can also retrieve multiple configurations bundled as a
+[configuration group](/telegraf/controller/config-groups/use/) with a
+single `--config` URL.
 
 > [!Note]
 > A single Telegraf agent can use multiple configurations.
@@ -68,25 +81,29 @@ permissions on the **Configs** API.
 > use `INFLUX_TOKEN` instead. For details, see
 > [Use API tokens with Telegraf agents](/telegraf/controller/tokens/use/#with-telegraf-agents).
 
-## Set dynamic values
+## Set substitution values
 
 Telegraf and {{% product-name %}} let you
-[dynamically set values in your configuration files](/telegraf/controller/configs/dynamic-values/)
-using parameters, environment variables, and secrets.
+[substitute values in your configuration files](/telegraf/controller/configs/substitute-values/)
+using parameters, constants, environment variables, and secrets.
 
 - [Set parameter values](#set-parameter-values)
 - [Set environment variables](#set-environment-variables)
 
+[Constants](/telegraf/controller/configs/constants/) require no setup when
+using a configuration; {{% product-name %}} substitutes them automatically
+when serving the TOML.
+
 ### Set parameter values
 
-[Configuration parameters](/telegraf/controller/configs/dynamic-values/#parameters)
+[Configuration parameters](/telegraf/controller/configs/substitute-values/#parameters)
 use the `&{param_name[:default_value]}` syntax in TOML configurations. Use
 URL-encoded query parameters in your configuration URL to define parameter
 values—for example:
 
 ##### Configuration TOML with a parameter
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   instance_id = "&{agent_id}"
   # ...
@@ -105,14 +122,14 @@ telegraf \
 
 ### Set environment variables
 
-[Telegraf environment variables](/telegraf/controller/configs/dynamic-values/#environment-variables)
+[Telegraf environment variables](/telegraf/controller/configs/substitute-values/#environment-variables)
 use the `${VAR_NAME[:-default_value]}` syntax in TOML configurations. Set
 environment variable values in the Telegraf agent's environment before
 starting Telegraf—for example:
 
 ##### Configuration TOML with an environment variable
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[inputs.http]]
   urls = ["http://localhost:8080/metrics"]
 
@@ -148,7 +165,8 @@ automatically reload the configuration if the configuration has been updated.
 
 {{% product-name %}} provides a tool for building `telegraf` commands using
 parameters, environment variables, auto-update functionality, and Telegraf
-[label selectors](/telegraf/v1/configuration/#selectors-1). To use this tool:
+[label selectors](/telegraf/v1/configuration/labels-selectors/).
+To use this tool:
 
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar. 
@@ -162,7 +180,7 @@ parameters, environment variables, auto-update functionality, and Telegraf
     enable the **Use local configuration file** option.
     See more information [below](#download-a-configuration-to-your-local-filesystem).
 
-5.  Define dynamic values and select options for your command:
+5.  Define substitution values and select options for your command:
 
     - Set environment variable values
     - Set parameter values
@@ -187,7 +205,7 @@ With the **Use local configuration file** option enabled in the command builder,
 {{% product-name %}} lets you configure the directory path and file name to use
 for the configuration.
 
-1.  Define dynamic values and select options for your command:
+1.  Define substitution values and select options for your command:
 
     - Set file details
     - Set environment variable values

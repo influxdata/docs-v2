@@ -6,7 +6,7 @@ description: >
 menu:
   telegraf_controller:
     name: Manage labels
-weight: 5
+weight: 6
 cascade:
   draft: true
 ---

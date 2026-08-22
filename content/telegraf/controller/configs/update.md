@@ -18,22 +18,30 @@ options.
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar.
 2.  Click the name of the configuration you want to edit or click the
-    **More button ({{% icon "tc-more" %}})** and select
-    **{{% icon "eye" %}} View/Edit**.
+    **More button ({{% lucide "ellipsis-vertical" %}})** and select
+    **{{% lucide "eye" %}} View/Edit**.
 3.  Update global settings, labels, parameters, and plugin settings as needed.
 4.  Review the TOML preview and resolve any validation errors.
 5.  Click **Save**.
+
+When you save changes to a configuration's TOML content, {{% product-name %}}
+records a new configuration version. Optionally describe your changes when
+saving to make versions easier to identify in the version history. To view,
+compare, roll back, or prune versions, see
+[Manage configuration versions](/telegraf/controller/configs/versions/).
 
 ### Update configuration name and description
 
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar.
 2.  Click the name of the configuration you want to edit or click the
-    **More button ({{% icon "tc-more" %}})** and select
-    **{{% icon "eye" %}} View/Edit**.
+    **More button ({{% lucide "ellipsis-vertical" %}})** and select
+    **{{% lucide "eye" %}} View/Edit**.
 3.  Under **Configuration Information**, click the text under **Name** or
     **Description**. The name or description will load into a form field.
-4.  Provide a new name or description and click **{{% icon "check" %}}**.
+4.  Provide a new name or description and click **{{% lucide "check" %}}**.
+
+Name and description changes do not create a new configuration version.
 
 ## Auto-update agents
 

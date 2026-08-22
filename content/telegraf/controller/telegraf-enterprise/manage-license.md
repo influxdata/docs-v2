@@ -163,7 +163,9 @@ After removal:
 - **Scale limits revert to the free tier**: 20 configurations and 100
   reporting agents.
 - **Enterprise features are disabled**: audit logging, LDAP authentication,
-  and OIDC authentication stop accepting new requests.
+  and OIDC authentication stop accepting new requests. High-availability
+  leadership election also stops; see
+  [How licensing affects high availability](/telegraf/controller/high-availability/#how-licensing-affects-high-availability).
 - **Existing resources above the free-tier limit are preserved** but cannot
   grow. Create requests for configurations or agent registrations are
   rejected with `402 Payment Required` until usage drops below the free-tier
