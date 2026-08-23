@@ -586,6 +586,53 @@ increase in cache size may lead to an increase in heap usage.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
+#### series-id-set-cache-max-size
+
+Default is `0`.
+
+The upper bound, in number of entries, for adaptive growth of the
+`series-id-set-cache-size` cache. Set this together with
+`series-id-set-cache-target-hit-rate` to let the cache grow beyond its fixed
+size when the query hit rate falls below the target. A value of `0` disables
+adaptive sizing.
+
+`series-id-set-cache-max-size` and `series-id-set-cache-target-hit-rate` must
+both be set to enable adaptive sizing, or both left at `0` to disable it.
+Setting only one prevents InfluxDB from starting. When adaptive sizing is
+enabled, `series-id-set-cache-max-size` must be greater than
+`series-id-set-cache-size`.
+
+Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_MAX_SIZE`
+
+#### series-id-set-cache-target-hit-rate
+
+Default is `0.0`.
+
+The cache hit rate, as a fraction between `0.0` and `1.0` (exclusive), that
+adaptive sizing tries to reach for the `series-id-set-cache-size` cache.
+While the measured hit rate stays below this target and the cache is
+evicting entries, InfluxDB grows the cache capacity, up to
+`series-id-set-cache-max-size`. A value of `0.0` disables adaptive sizing.
+`1.0` isn't a valid value because that hit rate can never be reached.
+
+Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_TARGET_HIT_RATE`
+
+#### series-id-set-cache-shrink-conservatism
+
+Default is `2.5`.
+
+How reluctant the adaptive shrink policy is to release memory from the
+`series-id-set-cache-size` cache, expressed in standard deviations. Higher
+values make the cache hold onto capacity longer and resist rapid
+grow-and-shrink cycles. Lower values reclaim memory sooner after demand
+drops. InfluxDB only uses this setting when adaptive sizing is enabled.
+
+Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SHRINK_CONSERVATISM`
+
+To monitor the series ID set cache, run `SHOW STATS` and check the
+`tsi1_cache` measurement. It reports `hit`, `miss`, `eviction`,
+`shrink_eviction`, `size`, and `capacity` fields.
+
 -----
 
 ## Cluster settings

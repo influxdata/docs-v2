@@ -305,7 +305,7 @@ influxdb:
   latest: v2.9
   latest_patches:
     v2: 2.9.1
-    v1: 1.12.4
+    v1: 1.13.0
   latest_cli:
     v2: 2.8.0
   detector_config:
@@ -502,9 +502,9 @@ enterprise_influxdb:
   list_order: 5
   versions: [v1]
   supports_flux: true
-  latest: v1.12
+  latest: v1.13
   latest_patches:
-    v1: 1.12.4
+    v1: 1.13.0
   detector_config:
     query_languages:
       InfluxQL:
