@@ -28,9 +28,22 @@ jobs:
         with:
           node-version-file: .nvmrc
 
+      - name: Resolve OpenAPI source revision
+        id: source
+        run: |
+          SHA=$(git ls-remote --exit-code \
+            https://github.com/influxdata/openapi.git \
+            refs/heads/master | cut -f1)
+          test -n "$SHA"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
       - name: Sync InfluxDB OSS v2 API spec
         working-directory: api-docs
-        run: bash getswagger.sh v2
+        env:
+          OPENAPI_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          bash getswagger.sh v2 \
+            -b "https://raw.githubusercontent.com/influxdata/openapi/$OPENAPI_SHA"
 
       - name: Create or update pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8
@@ -39,12 +52,16 @@ jobs:
           commit-message: 'sync(api): update InfluxDB OSS v2 spec'
           title: 'sync(api): update InfluxDB OSS v2 spec'
           body: |
-            Automated weekly sync from
-            `influxdata/openapi/docs-release/influxdb-oss/contracts/ref/oss.yml`.
+            Automated weekly sync from `influxdata/openapi` revision
+            `${{ steps.source.outputs.sha }}`.
 
-            Before merging, confirm that the API changes are available in a
-            released InfluxDB OSS v2 version and inspect the rendered API
-            reference:
+            This PR proposes the current OpenAPI OSS contract.
+            Before merging, confirm that every API change is available in a
+            released InfluxDB OSS v2 version.
+            If only a subset has shipped, regenerate from the appropriate
+            OpenAPI tag or commit instead.
+
+            Inspect the rendered API reference:
 
             ```sh
             bash api-docs/generate-api-docs.sh
