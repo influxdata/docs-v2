@@ -8,6 +8,7 @@
     "js-yaml": "^4.3.0"
   },
   "devDependencies": {
+    "@redocly/cli": "2.47.0",
     "spectral": "^0.0.0"
   }
 }
