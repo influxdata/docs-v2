@@ -534,7 +534,7 @@ An increase in cache size may lead to an increase in heap usage.
 **Default**: `100`  
 **Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
-#### series-id-set-cache-max-size
+#### series-id-set-cache-max-size {metadata="v1.13.0+"}
 
 The upper bound, in number of entries, for adaptive growth of the
 [`series-id-set-cache-size`](#series-id-set-cache-size) cache. Set this together
@@ -547,12 +547,14 @@ disables adaptive sizing.
 > both be set to enable adaptive sizing, or both left at `0` to disable it.
 > Setting only one prevents InfluxDB from starting. When adaptive sizing is
 > enabled, `series-id-set-cache-max-size` must be greater than
-> `series-id-set-cache-size`.
+> `series-id-set-cache-size`, and `series-id-set-cache-size` must be greater
+> than `0`. A `series-id-set-cache-size` of `0` disables the cache entirely,
+> which takes precedence over adaptive sizing.
 
 **Default**: `0`  
 **Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_MAX_SIZE`
 
-#### series-id-set-cache-target-hit-rate
+#### series-id-set-cache-target-hit-rate {metadata="v1.13.0+"}
 
 The cache hit rate, as a fraction between `0.0` and `1.0` (exclusive), that
 adaptive sizing tries to reach for the
@@ -565,7 +567,7 @@ that hit rate can never be reached.
 **Default**: `0.0`  
 **Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_TARGET_HIT_RATE`
 
-#### series-id-set-cache-shrink-conservatism
+#### series-id-set-cache-shrink-conservatism {metadata="v1.13.0+"}
 
 How reluctant the adaptive shrink policy is to release memory from the
 [`series-id-set-cache-size`](#series-id-set-cache-size) cache, expressed in

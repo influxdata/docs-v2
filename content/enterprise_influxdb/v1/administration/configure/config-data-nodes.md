@@ -586,7 +586,7 @@ increase in cache size may lead to an increase in heap usage.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
-#### series-id-set-cache-max-size
+#### series-id-set-cache-max-size {metadata="v1.13.0+"}
 
 Default is `0`.
 
@@ -600,11 +600,13 @@ adaptive sizing.
 both be set to enable adaptive sizing, or both left at `0` to disable it.
 Setting only one prevents InfluxDB from starting. When adaptive sizing is
 enabled, `series-id-set-cache-max-size` must be greater than
-`series-id-set-cache-size`.
+`series-id-set-cache-size`, and `series-id-set-cache-size` must be greater
+than `0`. A `series-id-set-cache-size` of `0` disables the cache entirely,
+which takes precedence over adaptive sizing.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_MAX_SIZE`
 
-#### series-id-set-cache-target-hit-rate
+#### series-id-set-cache-target-hit-rate {metadata="v1.13.0+"}
 
 Default is `0.0`.
 
@@ -617,7 +619,7 @@ evicting entries, InfluxDB grows the cache capacity, up to
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_TARGET_HIT_RATE`
 
-#### series-id-set-cache-shrink-conservatism
+#### series-id-set-cache-shrink-conservatism {metadata="v1.13.0+"}
 
 Default is `2.5`.
 
