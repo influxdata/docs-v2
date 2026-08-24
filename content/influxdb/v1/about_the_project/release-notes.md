@@ -49,10 +49,11 @@ alt_links:
 - **`SHOW MEASUREMENTS`**: Support partial results when some shards are
   unavailable. ([#27443](https://github.com/influxdata/influxdb/pull/27443))
 - **Operational visibility**: Failed and slow queries, per-user query and
-  write byte statistics (opt-in), the remote host and user in query logs,
-  compaction planning statistics, continuous query diagnostics, and TSM
-  file-store merge metrics are now available through `SHOW STATS`,
-  `/debug/vars`, and `EXPLAIN ANALYZE`.
+  [write byte statistics](/influxdb/v1/administration/config/#user-write-bytes-enabled)
+  (opt-in), the remote host and user in query logs, compaction planning
+  statistics, continuous query diagnostics, and TSM file-store merge
+  metrics are now available through `SHOW STATS`, `/debug/vars`, and
+  `EXPLAIN ANALYZE`.
   ([#27536](https://github.com/influxdata/influxdb/pull/27536),
   [#27547](https://github.com/influxdata/influxdb/pull/27547),
   [#27188](https://github.com/influxdata/influxdb/pull/27188),
