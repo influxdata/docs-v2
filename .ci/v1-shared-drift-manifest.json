@@ -27,7 +27,6 @@
     "supported_protocols/prometheus.md",
     "tools/api_client_libraries.md",
     "tools/grafana.md",
-    "tools/influx-cli/use-influx-cli.md",
     "tools/influx_inspect.md",
     "troubleshooting/errors.md",
     "troubleshooting/frequently-asked-questions.md",
