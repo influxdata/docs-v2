@@ -31,10 +31,11 @@ jobs:
       - name: Resolve OpenAPI source revision
         id: source
         run: |
-          SHA=$(git ls-remote --exit-code \
+          REMOTE=$(git ls-remote --exit-code \
             https://github.com/influxdata/openapi.git \
-            refs/heads/master | cut -f1)
-          test -n "$SHA"
+            refs/heads/master)
+          SHA=${REMOTE%%[[:space:]]*}
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]]
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
 
       - name: Sync InfluxDB Cloud v2 API spec
