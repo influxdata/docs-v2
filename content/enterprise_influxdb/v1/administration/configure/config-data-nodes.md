@@ -1416,6 +1416,25 @@ Unauthenticated queries are attributed to `(anonymous)`.
 
 Environment variable: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
 
+#### user-write-bytes-enabled {metadata="v1.13.0+"}
+
+Default is `false`.
+
+Enables per-user write request byte tracking, the write-path counterpart to
+`user-query-bytes-enabled`.
+When enabled, InfluxDB records the request body bytes for each v1, v2, and
+Prometheus remote write, per user, in the `userwritebytes` measurement,
+available through `SHOW STATS FOR 'userwritebytes'`, the `_internal`
+database, and the `/debug/vars` endpoint.
+
+Unauthenticated writes are attributed to `(anonymous)`.
+
+Byte counts use each endpoint's existing units: `/write` counts
+decompressed (post-gzip) bytes, while the Prometheus remote write endpoint
+counts compressed wire bytes.
+
+Environment variable: `INFLUXDB_HTTP_USER_WRITE_BYTES_ENABLED`
+
 #### https-enabled
 
 Default is `false`.
