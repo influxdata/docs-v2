@@ -34,23 +34,13 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
@@ -74,6 +64,20 @@ const PRODUCT_DIRS = [
     'influxdb/v1',
     'enterprise_influxdb/v1',
 ];
+/**
+ * Product directories whose committed source spec is a raw upstream mirror
+ * (getswagger.sh applies no `docs-plugin.cjs` decorators for these — see
+ * the `docs/mirror` redocly config). Presentation transforms that used to
+ * run as bundle-time decorators are applied here instead, at build time,
+ * so the committed spec stays a clean diff against `influxdata/openapi`.
+ *
+ * Maps product dir -> the docs-v2 URL path segment for that product, used
+ * to rewrite `/influxdb/latest/...` doc links to the correct product path.
+ */
+const MIRROR_PRODUCT_PATHS = {
+    'influxdb/v2': 'v2',
+    'influxdb/cloud': 'cloud',
+};
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -160,6 +164,114 @@ function applyServersOverlay(spec, specDir, productAbsDir, label) {
     spec.servers = servers;
     log(`${label}: applied ${servers.length} server(s) from ${path.relative(productAbsDir, serversPath)}`);
     return true;
+}
+// ---------------------------------------------------------------------------
+// Mirror-product presentation transforms
+//
+// Ported from the retired `docs-plugin.cjs` bundle-time decorators
+// (delete-servers, remove-private-paths, strip-version-prefix,
+// strip-trailing-slash, replace-docs-url-shortcode). Applied only to
+// MIRROR_PRODUCT_PATHS entries, whose committed source is now a raw
+// upstream mirror.
+// ---------------------------------------------------------------------------
+/** Remove operation-level servers entries with an empty url. */
+function deleteEmptyServers(spec) {
+    for (const pathItem of Object.values(spec.paths ?? {})) {
+        for (const operation of Object.values(pathItem)) {
+            if (operation &&
+                typeof operation === 'object' &&
+                Array.isArray(operation.servers)) {
+                operation.servers = operation.servers.filter((server) => server.url);
+            }
+        }
+    }
+}
+/** Drop any top-level path whose key contains a "private" segment. */
+function removePrivatePaths(spec) {
+    const privatePath = /\/.*private/;
+    for (const apiPath of Object.keys(spec.paths ?? {})) {
+        if (privatePath.test(apiPath)) {
+            delete (spec.paths ?? {})[apiPath];
+        }
+    }
+}
+/**
+ * Move a fixed set of unversioned operations (health, ping, debug, legacy
+ * auth) out from under the `/api/v2` prefix.
+ */
+function stripVersionPrefix(spec) {
+    const nonversioned = [
+        '/debug',
+        '/health',
+        '/legacy/authorizations',
+        '/legacy/authorizations/{authID}',
+        '/legacy/authorizations/{authID}/password',
+        '/ping',
+        '/ready',
+    ];
+    const prefix = '/api/v2';
+    const paths = spec.paths ?? {};
+    for (const nv of nonversioned) {
+        const pathItem = paths[prefix + nv];
+        if (pathItem) {
+            delete paths[prefix + nv];
+            paths[nv] = pathItem;
+        }
+    }
+}
+/** Remove a single trailing slash from every path key. */
+function stripTrailingSlash(spec) {
+    const paths = spec.paths ?? {};
+    for (const p of Object.keys(paths)) {
+        if (p.length > 1 && p.endsWith('/')) {
+            const pathItem = paths[p];
+            delete paths[p];
+            paths[p.slice(0, -1)] = pathItem;
+        }
+    }
+}
+/**
+ * Walk every string value anywhere in a parsed spec (description text,
+ * externalDocs.url, etc.) and replace it with the result of `visit`.
+ */
+function rewriteStrings(node, visit) {
+    if (Array.isArray(node)) {
+        for (const item of node)
+            rewriteStrings(item, visit);
+        return;
+    }
+    if (node && typeof node === 'object') {
+        const obj = node;
+        for (const [key, value] of Object.entries(obj)) {
+            if (typeof value === 'string') {
+                obj[key] = visit(value);
+            }
+            else {
+                rewriteStrings(value, visit);
+            }
+        }
+    }
+}
+/**
+ * Rewrite doc links embedded anywhere in the spec (descriptions,
+ * externalDocs.url, ...) so they point at this product's docs-v2 path
+ * instead of the generic `latest` upstream uses.
+ */
+function rewriteDocLinks(spec, productPath) {
+    const productRoot = `/influxdb/${productPath}`;
+    rewriteStrings(spec, (text) => text
+        .replaceAll(/\{\{%\s*INFLUXDB_DOCS_URL\s*%\}\}/g, `${productRoot}`)
+        .replaceAll('https://docs.influxdata.com/influxdb/latest/', `${productRoot}/`)
+        .replaceAll('https://docs.influxdata.com/influxdb/', '/influxdb/')
+        .replaceAll('/influxdb/latest/', `${productRoot}/`));
+}
+/** Apply every mirror-product presentation transform, in decorator order. */
+function applyMirrorTransforms(spec, productPath) {
+    deleteEmptyServers(spec);
+    removePrivatePaths(spec);
+    stripVersionPrefix(spec);
+    stripTrailingSlash(spec);
+    rewriteDocLinks(spec, productPath);
 }
 // ---------------------------------------------------------------------------
 // Tag config
@@ -391,6 +503,11 @@ function processProduct(apiDocsRoot, productDir) {
             continue;
         }
         // Apply all transforms
+        const mirrorProductPath = MIRROR_PRODUCT_PATHS[productDir];
+        if (mirrorProductPath) {
+            applyMirrorTransforms(spec, mirrorProductPath);
+            log(`${label}: applied mirror presentation transforms`);
+        }
         applyInfoOverlay(spec, specDir, productAbsDir, label);
         applyServersOverlay(spec, specDir, productAbsDir, label);
         const tagConfigPath = path.join(specDir, 'tags.yml');
