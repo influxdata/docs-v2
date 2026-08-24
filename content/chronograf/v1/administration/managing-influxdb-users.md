@@ -332,7 +332,7 @@ To create a role, do the following:
 4. Give the role a name.
 5. Click **Create**.
 6. Assign users to the role in the `Users` section
-7. Add permissions to the role in the `Permissions` section.  You will see a list of databases and all permissions for that database. Select
+7. Add permissions to the role in the `Permissions` section. You will see a list of databases and all permissions for that database. Select
 the permissions you want for the role.
 8. Click **Apply Changes**. 
 
