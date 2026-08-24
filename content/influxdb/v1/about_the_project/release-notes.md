@@ -82,6 +82,12 @@ alt_links:
 Other updates include numerous compaction planning, locking, and stability
 improvements.
 
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/influxdb/v1/administration/upgrading/).
+
 ---
 
 ## v1.12.4 {date="2026-04-13"}
@@ -95,6 +101,12 @@ improvements.
   iterated. The fix restores the original locking behavior.
   [#27344](https://github.com/influxdata/influxdb/pull/27344),
   [#27343](https://github.com/influxdata/influxdb/issues/27343)
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/influxdb/v1/administration/upgrading/).
 
 ---
 

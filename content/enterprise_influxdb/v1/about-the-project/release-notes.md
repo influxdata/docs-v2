@@ -56,6 +56,12 @@ All OSS v1.13.0 updates, including the
 [adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1130)
 and the TSM file-store lock fix, apply to Enterprise v1.13.0 too.
 
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/enterprise_influxdb/v1/administration/upgrading/).
+
 ---
 
 <span id="v1.12.x"></span>
@@ -68,12 +74,24 @@ and the TSM file-store lock fix, apply to Enterprise v1.13.0 too.
   index that could crash InfluxDB during concurrent read and write operations.
   This was a regression introduced in v1.12.3. The fix restores the original locking behavior.
 
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/enterprise_influxdb/v1/administration/upgrading/).
+
 ---
 
 ## v1.12.3 {date="2026-03-31"}
 
 InfluxDB Enterprise 1.12.3 delivers substantial efficiency gains in CPU, memory,
 and I/O usage, particularly in high-cardinality and large-scale environments.
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/enterprise_influxdb/v1/administration/upgrading/).
 
 Highlights include:
 
