@@ -28,9 +28,22 @@ jobs:
         with:
           node-version-file: .nvmrc
 
+      - name: Resolve OpenAPI source revision
+        id: source
+        run: |
+          SHA=$(git ls-remote --exit-code \
+            https://github.com/influxdata/openapi.git \
+            refs/heads/master | cut -f1)
+          test -n "$SHA"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
       - name: Sync InfluxDB Cloud v2 API spec
         working-directory: api-docs
-        run: bash getswagger.sh cloud-v2
+        env:
+          OPENAPI_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          bash getswagger.sh cloud-v2 \
+            -b "https://raw.githubusercontent.com/influxdata/openapi/$OPENAPI_SHA"
 
       - name: Create or update pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8
@@ -39,8 +52,8 @@ jobs:
           commit-message: 'sync(api): update InfluxDB Cloud v2 spec'
           title: 'sync(api): update InfluxDB Cloud v2 spec'
           body: |
-            Automated weekly sync from
-            `influxdata/openapi/master/contracts/ref/cloud.yml`.
+            Automated weekly sync from `influxdata/openapi` revision
+            `${{ steps.source.outputs.sha }}`.
 
             Before merging, confirm that the API changes are available in
             InfluxDB Cloud and inspect the rendered API reference:
