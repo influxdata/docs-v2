@@ -56,9 +56,15 @@ jobs:
             Automated weekly sync from `influxdata/openapi` revision
             `${{ steps.source.outputs.sha }}`.
 
+            > [!WARNING]
+            > A merged OpenAPI change does not mean that InfluxDB OSS
+            > implements or has released the specified behavior.
+
             This PR proposes the current OpenAPI OSS contract.
             Before merging, confirm that every API change is available in a
             released InfluxDB OSS v2 version.
+            For behavioral changes, confirm that the corresponding server
+            implementation has merged to `main-2.x` and shipped.
             If only a subset has shipped, regenerate from the appropriate
             OpenAPI tag or commit instead.
 
