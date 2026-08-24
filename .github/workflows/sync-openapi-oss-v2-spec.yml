@@ -1,0 +1,99 @@
+name: Sync InfluxDB OSS v2 API spec
+
+on:
+  schedule:
+    # Run every Monday at 07:00 UTC.
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-openapi-oss-v2-spec
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout docs-v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install API docs dependencies
+        working-directory: api-docs
+        run: yarn install --frozen-lockfile
+
+      - name: Resolve OpenAPI source revision
+        id: source
+        run: |
+          REMOTE=$(git ls-remote --exit-code \
+            https://github.com/influxdata/openapi.git \
+            refs/heads/master)
+          SHA=${REMOTE%%[[:space:]]*}
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]]
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Sync InfluxDB OSS v2 API spec
+        working-directory: api-docs
+        env:
+          OPENAPI_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          bash getswagger.sh v2 \
+            -b "https://raw.githubusercontent.com/influxdata/openapi/$OPENAPI_SHA"
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8
+        with:
+          branch: sync/openapi-oss-v2-spec
+          commit-message: 'sync(api): update InfluxDB OSS v2 spec'
+          title: 'sync(api): update InfluxDB OSS v2 spec'
+          body: |
+            Automated weekly sync from `influxdata/openapi` revision
+            `${{ steps.source.outputs.sha }}`.
+
+            > [!WARNING]
+            > A merged OpenAPI change does not mean that InfluxDB OSS
+            > implements or has released the specified behavior.
+
+            This PR proposes the current OpenAPI OSS contract.
+            Before merging, confirm that every API change is available in a
+            released InfluxDB OSS v2 version.
+            For behavioral changes, confirm that the corresponding server
+            implementation has merged to `main-2.x` and shipped.
+            If only a subset has shipped, regenerate from the appropriate
+            OpenAPI tag or commit instead.
+
+            Inspect the rendered API reference:
+
+            ```sh
+            bash api-docs/generate-api-docs.sh
+            ```
+
+            ## Review coordination
+
+            Apply labels as appropriate:
+
+            - `waiting:engineering` when implementation needs confirmation
+            - `waiting:pr` when an implementation PR must merge first
+            - `release:pending` until the implementation ships
+            - `release:ready` when the docs are ready to merge
+
+            Link the relevant:
+
+            - `influxdata/openapi` PRs
+            - `influxdata/influxdb` implementation issues and PRs
+            - InfluxDB OSS release tag or release notes
+          labels: |
+            source:sync
+            product:v2

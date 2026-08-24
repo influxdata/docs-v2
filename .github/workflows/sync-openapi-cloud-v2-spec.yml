@@ -1,0 +1,82 @@
+name: Sync InfluxDB Cloud v2 API spec
+
+on:
+  schedule:
+    # Run every Monday at 06:30 UTC.
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-openapi-cloud-v2-spec
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout docs-v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install API docs dependencies
+        working-directory: api-docs
+        run: yarn install --frozen-lockfile
+
+      - name: Resolve OpenAPI source revision
+        id: source
+        run: |
+          REMOTE=$(git ls-remote --exit-code \
+            https://github.com/influxdata/openapi.git \
+            refs/heads/master)
+          SHA=${REMOTE%%[[:space:]]*}
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]]
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Sync InfluxDB Cloud v2 API spec
+        working-directory: api-docs
+        env:
+          OPENAPI_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          bash getswagger.sh cloud-v2 \
+            -b "https://raw.githubusercontent.com/influxdata/openapi/$OPENAPI_SHA"
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8
+        with:
+          branch: sync/openapi-cloud-v2-spec
+          commit-message: 'sync(api): update InfluxDB Cloud v2 spec'
+          title: 'sync(api): update InfluxDB Cloud v2 spec'
+          body: |
+            Automated weekly sync from `influxdata/openapi` revision
+            `${{ steps.source.outputs.sha }}`.
+
+            Before merging, confirm that the API changes are available in
+            InfluxDB Cloud and inspect the rendered API reference:
+
+            ```sh
+            bash api-docs/generate-api-docs.sh
+            ```
+
+            ## Review coordination
+
+            Apply `waiting:engineering` if deployment needs confirmation.
+            Apply `release:pending` until the changes are available, then
+            replace it with `release:ready`.
+
+            Link the relevant OpenAPI PRs and Cloud deployment, release, or
+            engineering tracking records in this PR.
+          labels: |
+            source:sync
+            product:v2-cloud
