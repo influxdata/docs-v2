@@ -46,8 +46,9 @@ alt_links:
   now accept a wider range of human-readable input formats, while remaining
   compatible with all previously accepted values.
   ([#27376](https://github.com/influxdata/influxdb/pull/27376))
-- **`SHOW MEASUREMENTS`**: Support partial results when some shards are
-  unavailable. ([#27443](https://github.com/influxdata/influxdb/pull/27443))
+- **[`SHOW MEASUREMENTS`](/influxdb/v1/query_language/explore-schema/#show-measurements)**:
+  Support partial results when some shards are unavailable.
+  ([#27443](https://github.com/influxdata/influxdb/pull/27443))
 - **Operational visibility**: Failed and slow queries, per-user query and
   [write byte statistics](/influxdb/v1/administration/config/#user-write-bytes-enabled)
   (opt-in), the remote host and user in query logs, compaction planning
