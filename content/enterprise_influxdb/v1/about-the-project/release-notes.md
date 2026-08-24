@@ -42,10 +42,13 @@ alt_links:
   [Enable mTLS](/enterprise_influxdb/v1/administration/configure/security/enable_tls/).
 - Add an `influx-meta cleanup-shards` command that removes shards with no
   owners and shard groups with no shards from a live cluster.
-- Add a `-timeout <duration>` flag to `influxd-ctl` that applies to any
-  command that uses the control client, including `add-data`.
+- Add a
+  [`-timeout <duration>`](/enterprise_influxdb/v1/tools/influxd-ctl/#override-the-default-timeout)
+  flag to `influxd-ctl` that applies to any command that uses the control
+  client, including `add-data`.
 - `influxd-ctl backup` now avoids data nodes with no shard data and prefers
-  the most recently written shard copy when selecting a source.
+  the most recently written shard copy when
+  [selecting a source](/enterprise_influxdb/v1/tools/influxd-ctl/backup/#node-selection).
 
 ### Bug Fixes
 
