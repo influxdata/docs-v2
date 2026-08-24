@@ -62,4 +62,15 @@ jobs:
             ```sh
             bash api-docs/generate-api-docs.sh
             ```
-          labels: sync
+
+            ## Review coordination
+
+            Apply `waiting:engineering` if deployment needs confirmation.
+            Apply `release:pending` until the changes are available, then
+            replace it with `release:ready`.
+
+            Link the relevant OpenAPI PRs and Cloud deployment, release, or
+            engineering tracking records in this PR.
+          labels: |
+            source:sync
+            product:v2-cloud
