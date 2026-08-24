@@ -255,6 +255,35 @@ spec are overwritten on the next fetch.
 Durable description fixes to a docs-tooling-generated spec (Core/Enterprise v3)
 belong in docs-tooling, not here — a local edit here is lost on the next port.
 
+### Reading the final spec for `influxdb/v2` and `influxdb/cloud`
+
+For every product except `influxdb/v2` and `influxdb/cloud`, the committed
+spec file is close to what publishes — `getswagger.sh` bundles it with
+`docs-plugin.cjs` decorators applied, so paths, servers, and doc links are
+already resolved.
+
+`influxdb/v2` and `influxdb/cloud` are the exception: their committed source
+is a raw mirror of `influxdata/openapi`, kept that way so a scheduled sync PR
+diffs cleanly against upstream (see `docs/mirror` in `docs-plugin.cjs`). It
+still has `/api/v2/health`-style paths and absolute
+`https://docs.influxdata.com/influxdb/latest/...` links — grepping it
+directly will not show you what's published.
+
+The transforms that used to run at fetch time (version-prefix stripping,
+private-path removal, trailing-slash stripping, doc-link rewriting) now run
+at build time in `post-process-specs.ts`, into the gitignored `_build/`. To
+see the resolved spec for either product without a full Hugo build:
+
+```sh
+cd api-docs
+bash getswagger.sh v2 -B          # -B: use the already-fetched file, skip refetch
+node scripts/dist/post-process-specs.js influxdb/v2
+cat _build/influxdb/v2/influxdb-oss-v2-openapi.yaml
+```
+
+Swap `v2` / `influxdb/v2` for `cloud-v2` / `influxdb/cloud` for the Cloud
+spec. Omit `-B` to also refetch from `influxdata/openapi`.
+
 ### InfluxDB Cloud version
 
 InfluxDB Cloud releases are frequent and not versioned, so the Cloud API spec isn't versioned.

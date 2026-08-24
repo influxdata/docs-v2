@@ -2,7 +2,7 @@ plugins:
   - '../../openapi/plugins/docs-plugin.cjs'
 extends:
   - recommended
-  - docs/all
+  - docs/mirror
 x-influxdata-product-name: InfluxDB v2 Cloud
 
 apis:
