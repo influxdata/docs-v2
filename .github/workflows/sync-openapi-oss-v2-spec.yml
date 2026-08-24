@@ -73,4 +73,21 @@ jobs:
             ```sh
             bash api-docs/generate-api-docs.sh
             ```
-          labels: sync
+
+            ## Review coordination
+
+            Apply labels as appropriate:
+
+            - `waiting:engineering` when implementation needs confirmation
+            - `waiting:pr` when an implementation PR must merge first
+            - `release:pending` until the implementation ships
+            - `release:ready` when the docs are ready to merge
+
+            Link the relevant:
+
+            - `influxdata/openapi` PRs
+            - `influxdata/influxdb` implementation issues and PRs
+            - InfluxDB OSS release tag or release notes
+          labels: |
+            source:sync
+            product:v2
