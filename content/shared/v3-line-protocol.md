@@ -11,11 +11,12 @@ timestamp of a data point.
 - [Naming restrictions](#naming-restrictions)
 - [Duplicate points](#duplicate-points)
 
-```python
+```text
 # Syntax
 <table>[,<tag_key>=<tag_value>[,<tag_key>=<tag_value>]] <field_key>=<field_value>[,<field_key>=<field_value>] [<timestamp>]
+```
 
-# Example
+```lp
 myTable,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 ```
 
@@ -69,7 +70,7 @@ _**Value data type:** [Float](#float) | [Integer](#integer) | [UInteger](#uinteg
 > [!Note]
 > _Always double quote string field values. More on quotes [below](#quotes)._
 > 
-> ```sh
+> ```lp
 > tableName fieldKey="field string value" 1556813561098000000
 > ```
 
@@ -108,7 +109,7 @@ _InfluxDB supports scientific notation in float field values._
 
 ##### Float field value examples
 
-```js
+```lp
 myTable fieldKey=1.0
 myTable fieldKey=1
 myTable fieldKey=-1.234456e+78
@@ -125,7 +126,7 @@ Trailing `i` on the number specifies an integer.
 
 ##### Integer field value examples
 
-```js
+```lp
 myTable fieldKey=1i
 myTable fieldKey=12485903i
 myTable fieldKey=-12485903i
@@ -142,7 +143,7 @@ Trailing `u` on the number specifies an unsigned integer.
 
 ##### UInteger field value examples
 
-```js
+```lp
 myTable fieldKey=1u
 myTable fieldKey=12485903u
 ```
@@ -158,7 +159,7 @@ Plain text string.
 
 ##### String example
 
-```sh
+```lp
 # String table name, field key, and field value
 myTable fieldKey="this is a string"
 ```
@@ -174,7 +175,7 @@ Stores `true` or `false` values.
 
 ##### Boolean field value examples
 
-```js
+```lp
 myTable fieldKey=true
 myTable fieldKey=false
 myTable fieldKey=t
@@ -198,7 +199,7 @@ Default precision is nanoseconds (`ns`).
 
 ##### Unix timestamp example
 
-```js
+```lp
 myTableName fieldKey="fieldValue" 1556813561098000000
 ```
 
@@ -236,7 +237,7 @@ You do not need to escape other special characters.
 
 ##### Examples of special characters in line protocol
 
-```sh
+```lp
 # Table name with spaces
 my\ Table fieldKey="string value"
 
@@ -270,7 +271,7 @@ For example:
 Line protocol interprets `#` at the beginning of a line as a comment character
 and ignores all subsequent characters until the next newline `\n`.
 
-```sh
+```lp
 # This is a comment
 myTable fieldKey="string value" 1556813561098000000
 ```
