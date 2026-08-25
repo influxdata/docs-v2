@@ -1,18 +1,6 @@
----
-title: Considerations for monitoring the 1.x TICK stack
-description: An explanation of internal and external monitoring strategies for your Enterprise or OSS TICK stack with the pros and cons of each.
-aliases:
-  - /platform/monitoring/internal-vs-external/
-menu:
-  platform:
-    name: Configurations for monitoring
-    parent: monitor-platform
-    weight: 3
----
-
 One of the primary use cases for InfluxData's TICK stack is infrastructure monitoring,
 including using the TICK stack to monitor itself or another TICK stack.
-These are the two main approaches to Monitoring your TICK stack:
+These are the two main approaches to monitoring your TICK stack:
 
 - **[Internal monitoring](#internal-monitoring)** - A TICK stack that monitors itself.
 - **["Watcher of watchers" approach](#the-watcher-of-watchers-approach)** - A TICK stack monitored by another TICK stack.
@@ -28,9 +16,9 @@ CPU usage, memory usage, disk usage, etc., and stores them in the `telegraf` dat
 InfluxDB also reports performance metrics about itself, such as continuous query statistics,
 internal goroutine statistics, write statistics, series cardinality, and others,
 and stores them in the `_internal` database.
-_For the recommendation about `_internal` databases, see [Disable the `_internal` database in production clusters](#disable-the-internal-database-in-production-clusters) below._
+_For the recommendation about `_internal` databases, see [Disable the `_internal` database in production clusters](#disable-the-_internal-database-in-production-clusters) below._
 
-[Monitoring dashboards](/platform/monitoring/influxdata-platform/monitoring-dashboards/) are available
+[Monitoring dashboards](/product/version/administration/monitor/monitoring-dashboards/) are available
 that visualize the default metrics provided in each of these databases.
 You can also [configure Kapacitor alerts](/kapacitor/v1/working/alerts/)
 to monitor and alert on each of these metrics.
@@ -66,11 +54,11 @@ on a separate server or cluster.
 
 ---
 
-_For information about setting up an external monitoring TICK stack, see [Setup an external monitor](/platform/monitoring/external-monitor-setup)._
+_For information about setting up an external monitoring TICK stack, see [Setup an external monitor](/product/version/administration/monitor/external-monitor-setup/)._
 
 ---
 
-[Monitoring dashboards](/platform/monitoring/influxdata-platform/monitoring-dashboards) are available
+[Monitoring dashboards](/product/version/administration/monitor/monitoring-dashboards/) are available
 that visualize the default metrics provided by the Telegraf agents.
 You can also [configure Kapacitor alerts](/kapacitor/v1/working/alerts/)
 to monitor and alert on each of these metrics.
@@ -80,7 +68,7 @@ to monitor and alert on each of these metrics.
 #### Hardware separation
 
 With a monitor running separate from your primary TICK stack, issues that occur in the primary stack will not affect the monitor.
-If your primary TICK stack goes down or has issues, your monitor will be able detect them and alert you.
+If your primary TICK stack goes down or has issues, your monitor will be able to detect them and alert you.
 
 ### Cons of external monitoring
 
@@ -97,8 +85,14 @@ It creates unnecessary overhead, particularly for busy clusters, that can overlo
 Metrics stored in the `_internal` database primarily measure workload performance,
 which should only be tested in non-production environments.
 
-To disable the `_internal` database, set [`store-enabled`](/influxdb/v1/administration/config/#monitoring-settings-monitor)
+{{% show-in "influxdb/v1" %}}
+To disable the `_internal` database, set [`store-enabled`](/influxdb/v1/administration/config/#monitoring-settings)
 to `false` under the `[monitor]` section of your `influxdb.conf`.
+{{% /show-in %}}
+{{% show-in "enterprise_influxdb/v1" %}}
+To disable the `_internal` database, set [`store-enabled`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#store-enabled)
+to `false` under the `[monitor]` section of your `influxdb.conf`.
+{{% /show-in %}}
 
 _**influxdb.conf**_
 ```toml
