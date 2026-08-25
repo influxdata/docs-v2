@@ -99,11 +99,11 @@ describe('Shortcode examples page', () => {
       .find('.lp-family-delimiter')
       .should('have.length', 4)
       .each(($delimiter) => expect($delimiter).to.have.text('::'));
+    cy.get('@lineProtocol').find('.na').contains('b::c').should('exist');
     cy.get('@lineProtocol')
-      .find('.na')
-      .contains('b::c')
+      .find('.s')
+      .contains('Unicode-value')
       .should('exist');
-    cy.get('@lineProtocol').find('.s').contains('Unicode-value').should('exist');
   });
 
   it('uses escaped plain text for malformed line protocol', () => {
