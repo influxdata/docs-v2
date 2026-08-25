@@ -140,7 +140,7 @@
     - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-11/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-- id: telegraf-enterprise-ga
+- id: telegraf-controller-1-1
   level: note
   scope:
     - /
@@ -153,19 +153,27 @@
     - /influxdb3/
     - /influxdb/
     - /flux/
-  title: Telegraf Enterprise is now generally available
+  title: Telegraf Controller 1.1 now available
   slug: |
-    **Telegraf Enterprise** is now generally available, along with
-    **Telegraf Controller v1.0**.
+    Telegraf Controller 1.1 adds high availability _(Telegraf Enterprise)_,
+    global constants, configuration groups, configuration aliases, and
+    configuration versioning.
   message: |
-    Telegraf Enterprise combines Telegraf Controller, a centralized management
-    console for Telegraf, with official support from InfluxData. Manage
-    configurations, monitor fleet health, and operate tens of thousands of
-    Telegraf agents from a single system.
+    Telegraf Controller 1.1 lets teams make fleet-wide configuration changes
+    with a single edit using
+    [global constants](/telegraf/controller/configs/constants/),
+    [configuration groups](/telegraf/controller/config-groups/), and
+    [configuration aliases](/telegraf/controller/configs/aliases/).
+    [Configuration versioning](/telegraf/controller/configs/versions/) makes
+    every change traceable, comparable, and reversible.
+    [High availability](/telegraf/controller/high-availability/), available with
+    Telegraf Enterprise, automatically fails over between Controller instances
+    so agents can continue pulling configurations and reporting health if an
+    instance goes down.
 
-    - [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-ga)
-    - [Documentation](/telegraf/enterprise/)
-    - [Download and install Telegraf Controller](/telegraf/controller/install/)
+    - [Read the announcement](https://influxdata.com/blog/telegraf-controller-1-1-influxdb/)
+    - [See the release notes](/telegraf/controller/reference/release-notes/#v110)
+    - [Download and install Telegraf Controller 1.1](/telegraf/controller/install/)
 
 - id: influxdb-v1-13-release
   level: note

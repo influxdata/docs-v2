@@ -1,13 +1,14 @@
 /**
- * Highlights Telegraf Controller dynamic values in code blocks.
+ * Highlights Telegraf Controller substituted values in code blocks.
  *
- * Wraps three pattern types in styled <span> elements:
+ * Wraps four pattern types in styled <span> elements:
  *   - Parameters:             &{name}  or  &{name:default}
  *   - Environment variables:  ${VAR_NAME}
  *   - Secrets:                @{store:secret_name}
+ *   - Constants:              ::{constant_name}
  *
- * Applied to code blocks with class="tc-dynamic-values" via
- * the data-component="tc-dynamic-values" attribute set by
+ * Applied to code blocks with class="tc-substitute-values" via
+ * the data-component="tc-substitute-values" attribute set by
  * the render-codeblock hook.
  */
 
@@ -15,13 +16,14 @@ const PATTERNS = [
   { regex: /&\{[^}]+\}/g, className: 'param' },
   { regex: /\$\{[^}]+\}/g, className: 'env' },
   { regex: /@\{[^:]+:[^}]+\}/g, className: 'secret' },
+  { regex: /::\{[^}]+\}/g, className: 'constant' },
 ];
 
 /**
  * Walk all text nodes inside the given element and wrap matches
- * in <span class="tc-dynamic-value {type}"> elements.
+ * in <span class="tc-substitute-value {type}"> elements.
  */
-function highlightDynamicValues(codeEl) {
+function highlightSubstitutedValues(codeEl) {
   const walker = document.createTreeWalker(codeEl, NodeFilter.SHOW_TEXT);
   const textNodes = [];
 
@@ -73,7 +75,7 @@ function highlightDynamicValues(codeEl) {
       }
 
       const span = document.createElement('span');
-      span.className = `tc-dynamic-value ${matchedPattern.className}`;
+      span.className = `tc-substitute-value ${matchedPattern.className}`;
       span.textContent = earliestMatch[0];
       fragment.appendChild(span);
 
@@ -84,9 +86,9 @@ function highlightDynamicValues(codeEl) {
   }
 }
 
-export default function TcDynamicValues({ component }) {
+export default function TcSubstituteValues({ component }) {
   const codeEl = component.querySelector('code');
   if (codeEl) {
-    highlightDynamicValues(codeEl);
+    highlightSubstitutedValues(codeEl);
   }
 }

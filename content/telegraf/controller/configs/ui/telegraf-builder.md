@@ -17,6 +17,9 @@ The **Telegraf Builder** is a visual interface for managing and configuring
 Telegraf plugins in a configuration. The builder is available when creating or
 updating a configuration.
 
+To expand the builder to fill your browser window while you work, use
+[focus mode](/telegraf/controller/configs/ui/#focus-mode).
+
 > [!Important]
 > #### The Telegraf Builder is a beta feature
 >
@@ -46,7 +49,7 @@ in the builder grouped by plugin type.
 
 - **Search plugins**: Use the search bar in the Plugin Library pane to search
   for Telegraf plugins. Search by plugin name, identifier, or description.
-- **Add plugins to your configuration**: Click **{{% icon "plus" %}}** next to the
+- **Add plugins to your configuration**: Click **{{% lucide "plus" %}}** next to the
   plugin to add it to your configuration.
 
 ## Configuration pane
@@ -80,7 +83,7 @@ required and only need to be included in a configuration when set.
 
 1.  On the **Global Tags** card, enable the
     **{{% icon "toggle" %}} Include in config** toggle.
-2.  Click **{{% icon "plus" %}} Add Global Tag**.
+2.  Click **{{% lucide "plus" %}} Add Global Tag**.
 3.  Provide a key and a value for the global tag.
 4.  Repeat steps 2-3 for additional global tags.
 
@@ -99,7 +102,7 @@ The **Plugin** tab in a plugin card lets you customize settings specific
 to that plugin.
 
 > [!Note]
-> You can use [dynamic values](/telegraf/controller/configs/dynamic-values/)
+> You can [substitute values](/telegraf/controller/configs/substitute-values/)
 > when defining plugin settings in the Telegraf Builder.
 
 #### Customize
@@ -129,5 +132,5 @@ For more information about using Telegraf plugin filters, see
 
 #### Remove a plugin from the configuration
 
-To remove a plugin from the configuration, click the **{{% icon "trash" %}}**
+To remove a plugin from the configuration, click the **{{% lucide "trash-2" %}}**
 icon on the plugin card.

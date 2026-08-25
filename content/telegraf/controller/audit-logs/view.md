@@ -17,6 +17,8 @@ related:
 
 Use the {{% product-name %}} API to query and read audit entries.
 
+{{< telegraf/enterprise-feature "Audit logging" >}}
+
 - [Prerequisites](#prerequisites)
 - [Query the audit log API](#query-the-audit-log-api)
 - [Response shape](#response-shape)

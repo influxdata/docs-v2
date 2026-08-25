@@ -66,7 +66,7 @@ See [README.md](README.md) and the
 - Shared content files under `content/shared/` have no frontmatter; consuming
   pages provide metadata through `source:`.
 - Shared directories contain prose; product directories are often
-   thin stubs with `source:` references to the shared content.
+  thin stubs with `source:` references to the shared content.
 - Product names and versions come from `data/products.yml`.
 - Commit format is `type(scope): description`. Beyond a trivial fix, the body
   uses the same sections as the pull request template: What changed, Why,

@@ -39,7 +39,7 @@ For more information about revoking a token, see
 ## Delete a token
 
 1.  Navigate to the **API Tokens** page or open the token's detail view.
-2.  Click **Delete** to initiate the deletion. If on the token detail
+2.  Click **{{% lucide "trash-2" %}} Delete** to initiate the deletion. If on the token detail
     page, select the **Manage** tab to reveal the **Delete** action.
 3.  In the confirmation dialog, confirm that you want to permanently delete the token.
 
@@ -52,7 +52,7 @@ that relies on the deleted token will no longer be able to authenticate with
 You can delete multiple tokens at once from the **API Tokens** page.
 
 1. On the **API Tokens** page, select the checkboxes next to each token you want to delete.
-2. Click the **Delete** option in the bulk actions bar.
+2. Click the **{{% lucide "trash-2" %}} Delete** option in the bulk actions bar.
 3. In the confirmation dialog, review the number of tokens to be deleted and confirm.
 
 All selected tokens are permanently removed and immediately invalidated.

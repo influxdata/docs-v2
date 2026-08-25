@@ -11,7 +11,7 @@ menu:
     parent: Manage configurations
 weight: 101
 related:
-  - /telegraf/controller/configs/dynamic-values/
+  - /telegraf/controller/configs/substitute-values/
 ---
 
 Create a configuration to define how Telegraf collects, processes, and writes
@@ -24,12 +24,16 @@ plugins.
 
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar. 
-2.  Click **{{% icon "plus" %}} Add Config**.
+2.  Click **{{% lucide "plus" %}} Add Config**.
 3.  Enter a configuration name and optional description.
 4.  Use the {{% product-name %}} [Code Editor](#use-the-code-editor) or
     [Telegraf Builder](#use-the-telegraf-builder) to provide or build the
     Telegraf configuration TOML.
 5.  Click **Create Configuration**.
+
+When you create a configuration, {{% product-name %}} records it as the first
+version in the configuration's
+[version history](/telegraf/controller/configs/versions/).
 
 ### Use the Code Editor
 
@@ -66,7 +70,7 @@ configuration with a [Telegraf heartbeat output plugin](/telegraf/v1/output-plug
 This plugin reports agent information back to the {{% product-name %}} heartbeat
 API and lets you monitor the health of your deployed Telegraf agents.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
 url = "http://localhost:8000/agents/heartbeat"
 instance_id = "&{agent_id}"
@@ -93,7 +97,7 @@ your Telegraf configurations.
 
 ## Next steps
 
-- Use [dynamic values](/telegraf/controller/configs/dynamic-values/)
+- [Substitute values](/telegraf/controller/configs/substitute-values/)
   to keep configurations portable across environments.
 - [Apply the configuration](/telegraf/controller/configs/use/) to your
   Telegraf agents.

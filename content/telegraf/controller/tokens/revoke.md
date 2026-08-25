@@ -35,7 +35,7 @@ For more information about deleting a token, see
 ## Revoke a token
 
 1.  Navigate to the **API Tokens** page, or open the token's detail view.
-2.  Click **Revoke**. If on the token detail page, select the **Manage** tab to
+2.  Click **{{% lucide "ban" %}} Revoke**. If on the token detail page, select the **Manage** tab to
     reveal the **Revoke** action.
 3.  Confirm the revocation in the dialog.
 
@@ -54,7 +54,7 @@ immediately rejected.
 To revoke multiple tokens at once:
 
 1. On the **API Tokens** page, select the tokens you want to revoke.
-2. Click **Revoke** in the bulk actions bar.
+2. Click **{{% lucide "ban" %}} Revoke** in the bulk actions bar.
 3. Confirm the revocation in the dialog.
 
 All selected tokens are immediately revoked and can no longer be used for

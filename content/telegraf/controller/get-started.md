@@ -31,7 +31,7 @@ API tokens authenticate Telegraf agents when they retrieve configurations and
 send heartbeats to {{% product-name %}}.
 
 1.  Navigate to the **API Tokens** page.
-2.  Click **+ Create API Token**.
+2.  Click **{{% lucide "plus" %}} Create API Token**.
 3.  Enter a description--for example, `Getting started agent token`.
 4.  Select a token **Expiration**.
 5.  Select the permissions to assign to the token. For convenience, you can
@@ -66,7 +66,7 @@ stdout and reports agent health back to {{% product-name %}}.
 
 1.  In the {{% product-name %}} user interface (UI), select **Configurations**
     in the navigation bar.
-2.  Click **{{% icon "plus" %}} Add Config**.
+2.  Click **{{% lucide "plus" %}} Add Config**.
 3.  Enter a name and description for the configuration--for example,
     "Getting Started."
 4.  In the **Code Editor**, enter the following TOML:
@@ -79,7 +79,7 @@ stdout and reports agent health back to {{% product-name %}}.
 {{% code-tab-content %}}
 <!----------------------------- BEGIN LINUX/MACOS ----------------------------->
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[inputs.exec]]
   commands = [
     ["echo", "Started with a config from Telegraf Controller"]
@@ -110,7 +110,7 @@ stdout and reports agent health back to {{% product-name %}}.
 {{% code-tab-content %}}
 <!------------------------------- BEGIN WINDOWS ------------------------------->
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[inputs.exec]]
   commands = [
     ["cmd", "/C", "echo Started with a config from Telegraf Controller"]
@@ -151,7 +151,7 @@ stdout and reports agent health back to {{% product-name %}}.
     - Uses the `TELEGRAF_CONTROLLER_TOKEN` (Telegraf 1.39+) or the `INFLUX_TOKEN`
       (Telegraf 1.38.x or earlier) environment variable to authorize with
       {{% product-name %}}.
-    - Uses the `agent_id` [parameter](/telegraf/controller/configs/dynamic-values/#parameters)
+    - Uses the `agent_id` [parameter](/telegraf/controller/configs/substitute-values/#parameters)
       to set the `instance_id` which uniquely identifies the Telegraf agent.
 
     > [!Important]
@@ -264,8 +264,8 @@ in {{% product-name %}}.
 
 1.  In {{% product-name %}}, select **Agents** in the navigation bar.
 2.  Confirm your agent appears in the list with an **Ok** status.
-3.  Click the **More button ({{% icon "tc-more" %}})** and select
-    **View Details** to see agent metadata, the loaded configuration, and
+3.  Click the **More button ({{% lucide "ellipsis-vertical" %}})** and select
+    **{{% lucide "eye" %}} View Details** to see agent metadata, the loaded configuration, and
     reporting history.
 
 ## Update the configuration
@@ -328,7 +328,7 @@ new message, confirming that the agent picked up the updated configuration.
 
 - [Create and manage configurations](/telegraf/controller/configs/) to define
   more advanced Telegraf pipelines.
-- [Use dynamic values](/telegraf/controller/configs/dynamic-values/) to keep
+- [Substitute values](/telegraf/controller/configs/substitute-values/) to keep
   configurations portable across environments.
 - [Set up reporting rules](/telegraf/controller/agents/reporting-rules/) to
   define when agents are considered not reporting.

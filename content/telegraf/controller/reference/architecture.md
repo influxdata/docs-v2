@@ -47,6 +47,19 @@ The dual-server architecture separates high-frequency heartbeat traffic from
 regular management operations, ensuring that the web interface remains
 responsive even under heavy agent load.
 
+### High availability
+
+The process model above describes a single node. With
+[Telegraf Enterprise](/telegraf/enterprise/), you can run multiple
+{{% product-name %}} nodes against a shared PostgreSQL database for continuous
+availability. The nodes coordinate through a PostgreSQL advisory lock: one node
+is elected **leader** and runs the background scheduler, while the others stand
+by and take over if the leader fails. Every node accepts agent heartbeats, so
+monitoring continues during a leadership change.
+
+For requirements, license behavior, and deployment steps, see
+[High availability](/telegraf/controller/high-availability/).
+
 ## Configuration
 
 {{% product-name %}} configuration is controlled through command options and
