@@ -252,6 +252,21 @@ This is **bold** text. This is *italic* text. This is ***bold and italic***.
 {{< icon "view" >}} view\
 {{< icon "x" >}} x
 
+### Lucide icons
+
+Inline icons from the [Lucide](https://lucide.dev/icons) library, rendered with
+the `lucide` shortcode.
+
+Default: {{< lucide "circle-plus" >}}
+Settings: {{< lucide "settings" >}}
+Large: {{< lucide icon="circle-check" size="large" >}}
+Small: {{< lucide icon="circle-check" size="small" >}}
+
+Inline usage inside a list item and bold text:
+
+- To enter focus mode, click **{{< lucide "fullscreen" >}} Focus** in the
+  upper right of the editing area.
+
 ## h2 This is a header2
 
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.

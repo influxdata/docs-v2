@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Delete configurations
     parent: Manage configurations
-weight: 105
+weight: 109
 ---
 
 Delete configurations you no longer use to keep {{% product-name %}} organized.
@@ -34,8 +34,8 @@ configuration detail page.
 
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar.
-2.  Click the **More button ({{% icon "tc-more" %}})** next to the configuration
-    you want to delete and select **{{% icon "trash" %}} Delete**.
+2.  Click the **More button ({{% lucide "ellipsis-vertical" %}})** next to the configuration
+    you want to delete and select **{{% lucide "trash-2" %}} Delete**.
 3.  Confirm the deletion.
 
 ### From the configuration detail page
@@ -53,5 +53,5 @@ configuration detail page.
 1.  In the {{% product-name %}} web interface, select **Configurations** in the 
     navigation bar.
 2.  Use the select boxes to select all of the configurations you want to delete.
-3.  In the bulk options menu that appears, click **{{% icon "trash" %}} Delete**.
+3.  In the bulk options menu that appears, click **{{% lucide "trash-2" %}} Delete**.
 4.  Confirm the deletion.

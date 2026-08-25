@@ -9,7 +9,8 @@ menu:
     parent: Configuration UI tools
 weight: 201
 related:
-  - /telegraf/controller/configs/dynamic-values/
+  - /telegraf/controller/configs/substitute-values/
+  - /telegraf/controller/configs/constants/
 ---
 
 Use the {{% product-name %}} **Code Editor** to upload, write, or edit raw
@@ -19,6 +20,9 @@ Telegraf configuration TOML.
 
 The Code Editor is the default view when managing a configuration. If it is not
 displayed, click the **Code Editor** tab.
+
+To expand the editor to fill your browser window while you work, use
+[focus mode](/telegraf/controller/configs/ui/#focus-mode).
 
 > [!Important]
 > #### Switching from the Code Editor to the Telegraf Builder
@@ -96,11 +100,16 @@ The following bindings come from the reference keymaps.
 - {{< keybind all="⌘⌫" >}} (macOS only): Delete to line start
 - {{< keybind all="⌘ fn⌫" >}} (macOS only): Delete to line end
 
-### Dynamic value syntax highlighting
+### Value substitution syntax highlighting
 
 The {{% product-name %}} Code Editor automatically applies special syntax
-highlighting to dynamic values (parameters, environment variables, and secrets)
-in your configuration TOML to make them more visible.
+highlighting to substituted values (parameters, constants, environment
+variables, and secrets) in your configuration TOML to make them more visible.
 
-For more information about using dynamic values, see
-[Use dynamic values](/telegraf/controller/configs/dynamic-values/).
+For [global constants](/telegraf/controller/configs/constants/), the editor
+also provides autocomplete: type `::{` and the editor suggests defined
+constant names. References to constants that are not defined are flagged
+while you edit.
+
+For more information about substituting values, see
+[Substitute values in configurations](/telegraf/controller/configs/substitute-values/).

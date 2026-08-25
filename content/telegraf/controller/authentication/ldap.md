@@ -212,7 +212,7 @@ Group-to-role mappings translate directory group membership into
 
 1. On the **Settings** page, scroll to **LDAP Authentication >
    Group role mappings**.
-2. Click **Add mapping** and provide:
+2. Click **{{% lucide "plus" %}} Add Mapping** and provide:
    - **Provider ID**: a label that identifies the LDAP instance. Use the
      default `default` unless you run multiple directories.
    - **Group name**: the value {{% product-name %}} receives in the

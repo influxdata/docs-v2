@@ -9,10 +9,76 @@ menu:
 weight: 101
 ---
 
-## v1.0.2 {date="2026-08-04"}
+## v1.1.0 {date="2026-08-25"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.0.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.1.0](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Features
+
+- Add [high availability](/telegraf/controller/high-availability/)
+  (Telegraf Enterprise): run multiple
+  {{% product-name %}} nodes against a shared PostgreSQL database with
+  automatic leader election, failover, and load-balancer health endpoints.
+- Add [configuration versioning](/telegraf/controller/configs/versions/):
+  {{% product-name %}} records a version each time a configuration's content
+  changes. View version history, attach change notes, compare two versions,
+  roll back to a previous version, and prune versions you no longer need.
+- Add [configuration aliases](/telegraf/controller/configs/aliases/):
+  human-readable names that agents and users can use in place of
+  configuration IDs, including short `/c/` URLs. Transfer an alias to repoint
+  agents to a different configuration without changing agent commands.
+- Add [global constants](/telegraf/controller/configs/constants/): define a
+  value once and reference it across configurations with the
+  `::{constant_name}` syntax. {{% product-name %}} substitutes constants
+  server-side when serving a configuration.
+- Add [configuration groups](/telegraf/controller/config-groups/): bundle
+  multiple configurations into an ordered group that agents retrieve as a
+  single merged TOML document. Groups compose by reference, support their
+  own aliases and labels, and include a merged TOML preview and the agent
+  command builder. Agent detail pages link reporting agents to the
+  configuration groups they use.
+- Add a nested **Configurations** menu to the navigation with **Configs**,
+  **Config Groups**, and **Constants** entries.
+- Add [focus mode](/telegraf/controller/configs/ui/#focus-mode) to expand
+  the configuration editing area to fill the browser window.
+- Warn before navigating away from unsaved changes on configuration and
+  configuration group pages.
+- Rename the Dynamic Configuration Values panel to Substitute Configuration
+  Values and add Telegraf secret syntax highlighting in the Code Editor.
+  See [Substitute values in configurations](/telegraf/controller/configs/substitute-values/).
+- Add plugin support to the Telegraf Builder UI:
+  - InfluxDB v3 (`outputs.influxdb_v3`)
+  - Network Response (`inputs.net_response`)
+  - NetFlow (`inputs.netflow`)
+  - NFS Client (`inputs.nfsclient`)
+  - nftables (`inputs.nftables`)
+  - Nginx Plus (`inputs.nginx_plus`)
+  - Nginx Plus API (`inputs.nginx_plus_api`)
+  - Nginx STS (`inputs.nginx_sts`)
+  - Nginx Upstream Check (`inputs.nginx_upstream_check`)
+  - Nginx VTS (`inputs.nginx_vts`)
+
+### Bug fixes
+
+- Make agent last-reported timestamps monotonic and read them from the
+  database clock, preventing out-of-order timestamps between nodes.
+- Run each agent status evaluation tick in a transaction, and continue
+  status evaluation even if an audit log entry can't be written.
+- Apply each database migration in a transaction and fail startup on
+  migration errors instead of silently recording a failed migration as
+  applied.
+- Make enabling audit logging idempotent.
+- Keep audit logging active during the Telegraf Enterprise license grace
+  period, matching the behavior of other Telegraf Enterprise features.
+- Point TOML parse error locations at the correct position in the document
+  in the Code Editor.
+- Clean up list styling on the configurations, labels, and reporting rules
+  pages.
+
+---
+
+## v1.0.2 {date="2026-08-04"}
 
 ### Features
 
@@ -281,7 +347,7 @@ telegraf_controller --disable-auth-endpoints=configs,heartbeat
 3.  Use the `INFLUX_TOKEN` environment variable to define the `token` option
     in your heartbeat output plugin configuration:
     
-    ```toml { .tc-dynamic-values }
+    ```toml { .tc-substitute-values }
     [[outputs.heartbeat]]
     # ...
     token = "${INFLUX_TOKEN}"
