@@ -205,7 +205,7 @@ yarn test:lint-codeblocks
 
 | Language                 | On failure                         |
 | ------------------------ | ---------------------------------- |
-| JSON, YAML, TOML         | `::error::` — fails the PR check   |
+| JSON, YAML, TOML, LP     | `::error::` — fails the PR check   |
 | bash, python, javascript | `::warning::` — informational only |
 
 **Normalization:** declared `placeholders="TOKEN|DURATION"` fence attributes and Hugo shortcodes (`{{< >}}`, `{{% %}}`) are substituted before parsing. See `DOCS-TESTING.md § "Parse/compile code-block lint"` for details.
