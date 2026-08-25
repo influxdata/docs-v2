@@ -4,6 +4,7 @@ import * as toml from './codeblock-validators/toml.mjs';
 import * as bash from './codeblock-validators/bash.mjs';
 import * as python from './codeblock-validators/python.mjs';
 import * as javascript from './codeblock-validators/javascript.mjs';
+import * as lp from './codeblock-validators/lp.mjs';
 
 const VALIDATORS = {
   json: (c) => json.validate(c),
@@ -14,6 +15,7 @@ const VALIDATORS = {
   python: (c) => python.validate(c),
   js: (c) => javascript.validate(c),
   javascript: (c) => javascript.validate(c),
+  lp: (c) => lp.validate(c),
 };
 
 // Flux: |> pipe is unambiguous; from(bucket:) is a strong secondary signal.

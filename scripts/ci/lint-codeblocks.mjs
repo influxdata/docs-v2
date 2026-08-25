@@ -9,7 +9,7 @@ import {
   findPagesReferencingSharedContent,
 } from '../lib/content-utils.js';
 
-const BLOCKING_LANGS = new Set(['json', 'jsonl', 'yaml', 'toml']);
+const BLOCKING_LANGS = new Set(['json', 'jsonl', 'yaml', 'toml', 'lp']);
 
 function escapeGitHubCommandMessage(message) {
   return String(message)

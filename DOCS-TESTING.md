@@ -138,10 +138,16 @@ yarn test:lint-codeblocks
 
 | Language                 | Policy on parse failure                    |
 | ------------------------ | ------------------------------------------ |
-| JSON, YAML, TOML         | `::error::` — fails the PR check           |
+| JSON, YAML, TOML, LP     | `::error::` — fails the PR check           |
 | bash, python, javascript | `::warning::` — does not fail the PR check |
 
 SQL, InfluxQL, Go, and other languages are not yet checked.
+
+`lp` fences validate InfluxDB line protocol, including qualified field keys such
+as `family::field`.
+The validator accepts a single family delimiter and treats later `::` sequences
+as part of the field name.
+Use `{lint="false"}` for intentionally invalid line protocol examples.
 
 **Normalization**: The linter handles common docs patterns:
 
