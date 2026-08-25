@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@redocly/cli@2.47.0":
+  version "2.47.0"
+  resolved "https://registry.yarnpkg.com/@redocly/cli/-/cli-2.47.0.tgz#5b39ba5a344d002bc534aca3cbde2a424d4d3fe1"
+  integrity sha512-4sv638LZxiUSsNGqfWPzA2hrNM4KrNRc9jOaH9igqDJlZimiGCYliVpbdrWvfL/YlaSnIBpJE1O1CveXDYTTWw==
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"

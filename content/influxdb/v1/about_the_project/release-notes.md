@@ -14,6 +14,82 @@ alt_links:
 ---
 
 
+## v1.13.0 {date="2026-07-23"}
+
+### Features
+
+- **mTLS support**: Add mutual TLS (mTLS) authentication for the HTTP, OpenTSDB,
+  and subscriber services, including certificate reload on `SIGHUP` and
+  separate client and server certificate configuration.
+  ([#27534](https://github.com/influxdata/influxdb/pull/27534),
+  [#27543](https://github.com/influxdata/influxdb/pull/27543))
+- **Adaptive TSI cache sizing**: The
+  [`series-id-set-cache-size`](/influxdb/v1/administration/config/#series-id-set-cache-size)
+  cache can now grow and shrink itself between a configurable floor and
+  ceiling based on the measured query hit rate, instead of staying at one
+  fixed size. Configure it with the new
+  [`series-id-set-cache-max-size`](/influxdb/v1/administration/config/#series-id-set-cache-max-size),
+  [`series-id-set-cache-target-hit-rate`](/influxdb/v1/administration/config/#series-id-set-cache-target-hit-rate),
+  and
+  [`series-id-set-cache-shrink-conservatism`](/influxdb/v1/administration/config/#series-id-set-cache-shrink-conservatism)
+  settings. Monitor it through the new `tsi1_cache` `SHOW STATS` measurement.
+  ([#27480](https://github.com/influxdata/influxdb/pull/27480),
+  [#27552](https://github.com/influxdata/influxdb/pull/27552))
+- **`hardening-enabled`**: Add a `hardening-enabled` configuration option
+  that restricts Flux HTTP requests to public addresses, mitigating
+  server-side request forgery (SSRF). Disabled by default to preserve
+  existing behavior. ([#27488](https://github.com/influxdata/influxdb/pull/27488))
+- **Backup compression**: Add a `-gzipCompressionLevel` flag to `influxd backup`
+  for trading compression ratio against speed.
+  ([#27293](https://github.com/influxdata/influxdb/pull/27293))
+- **Broader config value formats**: Size and duration configuration settings
+  now accept a wider range of human-readable input formats, while remaining
+  compatible with all previously accepted values.
+  ([#27376](https://github.com/influxdata/influxdb/pull/27376))
+- **`SHOW MEASUREMENTS`**: Support partial results when some shards are
+  unavailable. ([#27443](https://github.com/influxdata/influxdb/pull/27443))
+- **Operational visibility**: Failed and slow queries, per-user query and
+  [write byte statistics](/influxdb/v1/administration/config/#user-write-bytes-enabled)
+  (opt-in), the remote host and user in query logs, compaction planning
+  statistics, continuous query diagnostics, and TSM file-store merge
+  metrics are now available through `SHOW STATS`, `/debug/vars`, and
+  `EXPLAIN ANALYZE`.
+  ([#27536](https://github.com/influxdata/influxdb/pull/27536),
+  [#27547](https://github.com/influxdata/influxdb/pull/27547),
+  [#27188](https://github.com/influxdata/influxdb/pull/27188),
+  [#27528](https://github.com/influxdata/influxdb/pull/27528),
+  [#26981](https://github.com/influxdata/influxdb/pull/26981),
+  [#27523](https://github.com/influxdata/influxdb/pull/27523),
+  [#26874](https://github.com/influxdata/influxdb/pull/26874),
+  [#26615](https://github.com/influxdata/influxdb/pull/26615),
+  [#26624](https://github.com/influxdata/influxdb/pull/26624))
+
+### Bug Fixes
+
+- Fixed a potential deadlock and reduced lock contention between compactions
+  and hot query reads in the TSM file store by splitting its single lock
+  into separate fast and slow paths.
+  ([#27501](https://github.com/influxdata/influxdb/pull/27501))
+- Corrected several TSI compaction-planning and lock-contention issues.
+  ([#27146](https://github.com/influxdata/influxdb/pull/27146),
+  [#27123](https://github.com/influxdata/influxdb/pull/27123),
+  [#26649](https://github.com/influxdata/influxdb/pull/26649),
+  [#26647](https://github.com/influxdata/influxdb/pull/26647),
+  [#26432](https://github.com/influxdata/influxdb/pull/26432))
+- Fixed authorizer leakage in `SHOW` queries.
+  ([#27196](https://github.com/influxdata/influxdb/pull/27196))
+
+Other updates include numerous compaction planning, locking, and stability
+improvements.
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/influxdb/v1/administration/upgrading/).
+
+---
+
 ## v1.12.4 {date="2026-04-13"}
 
 ### Bug Fixes
@@ -27,10 +103,10 @@ alt_links:
   [#27343](https://github.com/influxdata/influxdb/issues/27343)
 
 > [!Important]
-> #### We strongly recommend upgrading to v1.12.4
+> #### We strongly recommend upgrading to v1.12.4 or later
 >
 > If you’re using any previous InfluxDB v1.x version, we strongly
-> recommend [upgrading to 1.12.4](/influxdb/v1/administration/upgrading/).
+> recommend [upgrading to 1.12.4 or later](/influxdb/v1/administration/upgrading/).
 
 ---
 

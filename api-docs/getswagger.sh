@@ -120,15 +120,19 @@ function postProcess() {
   local configPath="$2"
   local api="$3"
 
-  local openapiCLI="@redocly/cli"
   local currentPath
   currentPath=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+  local redoclyBin="$currentPath/node_modules/.bin/redocly"
+
+  if [[ ! -x "$redoclyBin" ]]; then
+    echo "Error: $redoclyBin not found. Run 'yarn install' in api-docs first." >&2
+    exit 1
+  fi
 
   INFLUXDB_PRODUCT=$(dirname "$configPath") \
   INFLUXDB_API_NAME="${api%%@*}" \
   API_DOCS_ROOT_PATH="$currentPath" \
-  npm_config_yes=true \
-  npx "$openapiCLI" bundle "$specPath" \
+  "$redoclyBin" bundle "$specPath" \
     -o "$specPath" \
     --config="$configPath"
 }
