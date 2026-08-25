@@ -1122,7 +1122,8 @@ The number of writes that succeeded.
 ### userquerybytes
 The `userquerybytes` measurement tracks the number of bytes returned by
 queries for each user. It only appears when
-[`user-query-bytes-enabled`](/influxdb/v1/administration/config/#user-query-bytes-enabled)
+{{% show-in "influxdb/v1" %}}[`user-query-bytes-enabled`](/influxdb/v1/administration/config/#user-query-bytes-enabled){{% /show-in %}}
+{{% show-in "enterprise_influxdb/v1" %}}[`user-query-bytes-enabled`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#user-query-bytes-enabled){{% /show-in %}}
 is set to `true` (available in InfluxDB OSS and Enterprise v1.12.3+).
 Each series carries a `user` tag (unauthenticated queries are attributed to
 `(anonymous)`), along with `bind` and `hostname` tags. On InfluxDB Enterprise,
@@ -1136,7 +1137,8 @@ The number of bytes returned by queries for this user.
 ### userwritebytes
 The `userwritebytes` measurement tracks the number of bytes received in
 write requests for each user. It only appears when
-[`user-write-bytes-enabled`](/influxdb/v1/administration/config/#user-write-bytes-enabled)
+{{% show-in "influxdb/v1" %}}[`user-write-bytes-enabled`](/influxdb/v1/administration/config/#user-write-bytes-enabled){{% /show-in %}}
+{{% show-in "enterprise_influxdb/v1" %}}[`user-write-bytes-enabled`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#user-write-bytes-enabled){{% /show-in %}}
 is set to `true` (available in InfluxDB OSS and Enterprise v1.13.0+).
 Each series carries a `user` tag (unauthenticated writes are attributed to
 `(anonymous)`), along with `bind` and `hostname` tags. On InfluxDB Enterprise,
