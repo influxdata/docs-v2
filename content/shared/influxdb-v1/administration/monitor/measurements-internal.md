@@ -290,6 +290,10 @@ to visualize InfluxDB `_internal` metrics.
   - [oldSegmentsDiskBytes](#oldsegmentsdiskbytes)
   - [writeErr](#writeerr)
   - [writeOk](#writeok)
+- [userquerybytes](#userquerybytes)
+  - [userQueryRespBytes](#userqueryrespbytes)
+- [userwritebytes](#userwritebytes)
+  - [userWriteReqBytes](#userwritereqbytes)
 - [write](#write)
   - [pointReq](#pointreq)
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
@@ -1112,6 +1116,34 @@ The number of writes that failed due to errors.
 
 #### writeOk
 The number of writes that succeeded.
+
+---
+
+### userquerybytes
+The `userquerybytes` measurement tracks the number of bytes returned by
+queries for each user. It only appears when
+[`user-query-bytes-enabled`](/influxdb/v1/administration/config/#user-query-bytes-enabled)
+is set to `true` (available in InfluxDB OSS and Enterprise v1.12.3+).
+Each series carries a `user` tag (unauthenticated queries are attributed to
+`(anonymous)`), along with `bind` and `hostname` tags. On InfluxDB Enterprise,
+series also carry `clusterID` and `nodeID` tags.
+
+#### userQueryRespBytes
+The number of bytes returned by queries for this user.
+
+---
+
+### userwritebytes
+The `userwritebytes` measurement tracks the number of bytes received in
+write requests for each user. It only appears when
+[`user-write-bytes-enabled`](/influxdb/v1/administration/config/#user-write-bytes-enabled)
+is set to `true` (available in InfluxDB OSS and Enterprise v1.13.0+).
+Each series carries a `user` tag (unauthenticated writes are attributed to
+`(anonymous)`), along with `bind` and `hostname` tags. On InfluxDB Enterprise,
+series also carry `clusterID` and `nodeID` tags.
+
+#### userWriteReqBytes
+The number of bytes received in write requests for this user.
 
 ---
 
