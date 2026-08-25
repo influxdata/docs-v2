@@ -155,8 +155,9 @@
     - /flux/
   title: Telegraf Controller 1.1 now available
   slug: |
-    High availability _(Telegraf Enterprise)_, global constants, configuration
-    groups, configuration aliases, and configuration versioning.
+    Telegraf Controller 1.1 adds high availability _(Telegraf Enterprise)_,
+    global constants, configuration groups, configuration aliases, and
+    configuration versioning.
   message: |
     Telegraf Controller 1.1 lets teams make fleet-wide configuration changes
     with a single edit using
