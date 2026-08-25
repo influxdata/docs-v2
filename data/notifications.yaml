@@ -171,7 +171,7 @@
     so agents can continue pulling configurations and reporting health if an
     instance goes down.
 
-    - [Read the announcement](https://influxdata.com/blog/telegraf-controller-1-1-influxdb/)
+    - [Read the announcement](https://influxdata.com/blog/telegraf-controller-1-1/)
     - [See the release notes](/telegraf/controller/reference/release-notes/#v110)
     - [Download and install Telegraf Controller 1.1](/telegraf/controller/install/)
 
