@@ -122,6 +122,14 @@ yarn test:codeblocks:all
 For comprehensive testing workflows, see
 [content-editing skill](../skills/content-editing/SKILL.md).
 
+### Line protocol fences
+
+Use `lp` for InfluxDB line protocol examples.
+The code-block linter validates `lp` fences and blocks malformed syntax in CI.
+Qualified field keys use `family::field`; only the first `::` identifies the
+family delimiter, so later `::` sequences remain part of the field name.
+For an intentionally invalid example, add `{lint="false"}` to the fence.
+
 ## Style Guidelines
 
 - Use semantic line feeds (one sentence per line)

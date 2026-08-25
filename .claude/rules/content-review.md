@@ -62,6 +62,8 @@ Products defined in [data/products.yml](../../data/products.yml):
 ## Code Blocks
 
 - Use `python` not `py` for language identifiers (pytest requirement)
+- Use `lp` for line protocol examples. `lp` fences are blocking syntax checks;
+  use `{lint="false"}` only for examples that intentionally show invalid input.
 - Long options in CLI examples (`--output` not `-o`)
 - Keep lines within 80 characters
 - Include language identifier on fenced code blocks

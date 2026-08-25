@@ -118,6 +118,13 @@ Add shortcode usage examples to `content/example.md` to verify:
 See [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) for complete shortcode
 documentation.
 
+#### Line protocol render hook
+
+`layouts/_default/_markup/render-codeblock-lp.html` renders `lp` code fences.
+Keep its output Chroma-compatible (`.highlight > pre.chroma > code.language-lp`)
+and HTML-escape source text before marking generated markup safe.
+For malformed source, render escaped plain text rather than partial highlighting.
+
 ### Related Resources
 
 - **Complete Hugo template workflow**:

@@ -84,6 +84,35 @@ describe('Shortcode examples page', () => {
     assertHasHighlightedCodeBlock();
     assertNoEscapedHighlightMarkup();
   });
+
+  it('highlights line protocol field families without changing source text', () => {
+    cy.visit('/example/');
+    cy.contains('h3', 'Line protocol fence')
+      .nextUntil('h3')
+      .find('code.language-lp')
+      .first()
+      .as('lineProtocol');
+
+    cy.get('@lineProtocol').should('contain.text', 'a::b::c="quoted-value"');
+    cy.get('@lineProtocol').find('.nx').contains('cpu').should('exist');
+    cy.get('@lineProtocol')
+      .find('.lp-family-delimiter')
+      .should('have.length', 4)
+      .each(($delimiter) => expect($delimiter).to.have.text('::'));
+    cy.get('@lineProtocol').find('.na').contains('b::c').should('exist');
+    cy.get('@lineProtocol')
+      .find('.s')
+      .contains('Unicode-value')
+      .should('exist');
+  });
+
+  it('uses escaped plain text for malformed line protocol', () => {
+    cy.visit('/example/');
+    cy.contains('The malformed fence falls back')
+      .next('div.highlight')
+      .find('code.language-lp')
+      .should('contain.text', 'cpu field="unterminated');
+  });
 });
 
 describe('Representative product pages', () => {

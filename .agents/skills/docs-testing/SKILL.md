@@ -58,20 +58,20 @@ Code block execution tests are **disabled** in pre-push hooks. Run them manually
 
 ### CI checks on every PR
 
-| Workflow                         | What it checks                                                                                                                         | Blocks merge?              |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `pr-vale-check.yml`              | Vale on changed markdown + shared content                                                                                              | Errors only                |
-| `pr-link-check.yml`              | Links in changed pages (also download/install pages when `data/products.yml` changes)                                                  | Warnings only              |
-| `pr-release-check.yml`           | Reminds to bump `data/products.yml` when release notes advance; on a version bump, reminds to confirm download artifacts are published | No (reminders only)        |
-| `test.yml` (lint-codeblocks job) | Parse/compile check on changed content                                                                                                 | JSON/YAML/TOML errors only |
-| `pr-render-check.yml`            | Whitespace-escaped code blocks, Cypress render                                                                                         | Yes (render artifacts)     |
-| `pr-remark-check.yml`            | Remark lint on repo docs                                                                                                               | No                         |
-| `pr-ai-artifacts-check.yml`      | Markdown twins, llms-full corpora, JSON-LD `@id` references (full site build)                                                          | Yes                        |
-| `block-ephemeral-docs.yml`       | Blocks PLAN.md and HANDOVER.md on master                                                                                               | Yes                        |
-| `pr-feedback-links.yml`          | Rendered feedback link validation                                                                                                      | Warnings only              |
-| `pr-lockfile-lint.yml`           | yarn.lock integrity                                                                                                                    | Yes                        |
-| `auto-label.yml`                 | Applies product labels                                                                                                                 | No                         |
-| `pr-preview.yml`                 | Deploys a full-site preview to staging S3                                                                                              | No                         |
+| Workflow                         | What it checks                                                                                                                         | Blocks merge?                 |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `pr-vale-check.yml`              | Vale on changed markdown + shared content                                                                                              | Errors only                   |
+| `pr-link-check.yml`              | Links in changed pages (also download/install pages when `data/products.yml` changes)                                                  | Warnings only                 |
+| `pr-release-check.yml`           | Reminds to bump `data/products.yml` when release notes advance; on a version bump, reminds to confirm download artifacts are published | No (reminders only)           |
+| `test.yml` (lint-codeblocks job) | Parse/compile check on changed content                                                                                                 | JSON/YAML/TOML/LP errors fail |
+| `pr-render-check.yml`            | Whitespace-escaped code blocks, Cypress render                                                                                         | Yes (render artifacts)        |
+| `pr-remark-check.yml`            | Remark lint on repo docs                                                                                                               | No                            |
+| `pr-ai-artifacts-check.yml`      | Markdown twins, llms-full corpora, JSON-LD `@id` references (full site build)                                                          | Yes                           |
+| `block-ephemeral-docs.yml`       | Blocks PLAN.md and HANDOVER.md on master                                                                                               | Yes                           |
+| `pr-feedback-links.yml`          | Rendered feedback link validation                                                                                                      | Warnings only                 |
+| `pr-lockfile-lint.yml`           | yarn.lock integrity                                                                                                                    | Yes                           |
+| `auto-label.yml`                 | Applies product labels                                                                                                                 | No                            |
+| `pr-preview.yml`                 | Deploys a full-site preview to staging S3                                                                                              | No                            |
 
 Code block **execution** is NOT a PR check. It runs on demand via `workflow_dispatch`.
 
@@ -107,7 +107,12 @@ yarn lint-codeblocks:pretty content/**/*.md
 yarn test:lint-codeblocks
 ```
 
-Exit code 1 if any JSON/YAML/TOML block fails to parse. bash/python/JS failures are warnings only.
+Exit code 1 if any JSON/YAML/TOML/LP block fails to parse.
+bash/python/JS failures are warnings only.
+
+`lp` validates InfluxDB line protocol, including qualified field keys such as
+`family::field`.
+Use `{lint="false"}` only for intentionally invalid examples.
 
 Linter normalizes `{ placeholders="..." }` fence attributes and strips Hugo shortcodes inside fences before parsing.
 

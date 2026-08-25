@@ -17,6 +17,22 @@ This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, con
 
 This is **bold** text. This is *italic* text. This is ***bold and italic***.
 
+### Line protocol fence
+
+```lp
+# A comment remains source text.
+cpu,host=west usage=42.5,active=true 1700000000000000000
+cpu cpu::user=12.5,cpu::system=2.5,mem::used=1.2,plain=3.4
+table a::b::c="quoted-value",status="ready"
+東京,tag=値 field="Unicode-value"
+```
+
+The malformed fence falls back to escaped plain text instead of partial markup:
+
+```lp {lint="false"}
+cpu field="unterminated
+```
+
 ### Clockface v2 icons
 
 {{< nav-icon "account" "v2" >}}

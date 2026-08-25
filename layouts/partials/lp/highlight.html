@@ -1,0 +1,16 @@
+{{- $valid := true -}}
+{{- range split .Inner "\n" -}}
+  {{- $quotes := len (findRE `&#34;` (. | htmlEscape)) -}}
+  {{- if ne (mod $quotes 2) 0 -}}
+    {{- $valid = false -}}
+  {{- end -}}
+{{- end -}}
+{{- $code := .Inner | htmlEscape -}}
+{{- if $valid -}}
+  {{- /* Apply replacements to escaped source, then mark only the generated
+        markup safe. An unterminated string falls back to plain text. */ -}}
+  {{- $code = replaceRE `([[:alnum:]_.-]+)::([^=,[:space:]]+)(=)` `<span class="nx">$1</span><span class="p lp-family-delimiter">::</span><span class="na">$2</span><span class="o">$3</span>` $code -}}
+  {{- $code = replaceRE `&#34;[^&#34;\n]*&#34;` `<span class="s">$0</span>` $code -}}
+  {{- $code = replaceRE `(?m)^#.*$` `<span class="c">$0</span>` $code -}}
+{{- end -}}
+{{- printf "<div class=\"highlight\"><pre tabindex=\"0\" class=\"chroma\"><code class=\"language-lp\" data-lang=\"lp\">%s</code></pre></div>" $code | safeHTML -}}

@@ -123,6 +123,14 @@ yarn test:codeblocks:all
 For comprehensive testing workflows, see
 [content-editing skill](../.agents/skills/content-editing/SKILL.md).
 
+#### Line protocol fences
+
+Use `lp` for InfluxDB line protocol examples.
+The code-block linter validates `lp` fences and blocks malformed syntax in CI.
+Qualified field keys use `family::field`; only the first `::` identifies the
+family delimiter, so later `::` sequences remain part of the field name.
+For an intentionally invalid example, add `{lint="false"}` to the fence.
+
 ### Style Guidelines
 
 - Use semantic line feeds (one sentence per line)
@@ -262,6 +270,8 @@ Products defined in [data/products.yml](../data/products.yml):
 ### Code Blocks
 
 - Use `python` not `py` for language identifiers (pytest requirement)
+- Use `lp` for line protocol examples. `lp` fences are blocking syntax checks;
+  use `{lint="false"}` only for examples that intentionally show invalid input.
 - Long options in CLI examples (`--output` not `-o`)
 - Keep lines within 80 characters
 - Include language identifier on fenced code blocks
