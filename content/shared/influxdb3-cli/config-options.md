@@ -2437,12 +2437,9 @@ Limits the number of queries that can run concurrently.
 You can also update the limit at runtime with
 `POST /api/v3/configure/query_concurrency_limit`.
 
-<!-- Environment variable not listed in `influxdb3 serve --help-all`
-(verified against 3.10.0-0.rc.2). Confirm before documenting. -->
-
-| influxdb3 serve option     | Environment variable |
-| :------------------------- | :------------------- |
-| `--max-concurrent-queries` |                      |
+| influxdb3 serve option     | Environment variable               |
+| :-------------------------- | :---------------------------------- |
+| `--max-concurrent-queries` | `INFLUXDB3_MAX_CONCURRENT_QUERIES` |
 
 ***
 
