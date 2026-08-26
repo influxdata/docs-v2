@@ -1,5 +1,5 @@
 
-Use [MinIO](https://min.io) as the Object store for your {{% product-name %}} instance.
+Use [MinIO](https://min.io) as the object store for your {{% product-name %}} instance.
 InfluxDB uses the MinIO S3-compatible API to interact with your MinIO server or
 cluster.
 
@@ -21,29 +21,13 @@ While both can be used as your {{% product-name %}} object store,
 
 ## Object store requirements
 
-{{% product-name %}} uses the object store as the source of truth for catalog
-state.
-The catalog write path relies on conditional PUT (PUT-if-not-exists) to
-serialize catalog log writes, and every node depends on immediate visibility
-of writes made by any other node.
-Your MinIO deployment must provide the object store semantics
-{{% product-name %}} depends on.
-
-### Consistency semantics
-
-{{% product-name %}} requires at least the following from any S3-compatible object
-store, including MinIO:
-
-- **Strong read-after-write consistency**: a `GET` immediately after a
-  successful `PUT` returns the new object.
-- **Strong list-after-write consistency**: a `LIST` immediately after a
-  successful `PUT` includes the new key.
-- **Conditional PUT (PUT-if-not-exists) semantics**: concurrent creates of the
-  same key serialize so that exactly one write succeeds and the other returns
-  `AlreadyExists`.
-
-A backend that violates these semantics can cause catalog split-brain, stale
-reads on node startup, and unexpected node-state warnings.
+{{% product-name %}} depends on strict object store consistency semantics—
+strong read-after-write and list-after-write consistency, and conditional PUT
+(PUT-if-not-exists) support.
+Your MinIO deployment must provide these semantics.
+See [Object store requirements](../#object-store-requirements) for the full
+list of semantics {{% product-name %}} depends on and how to verify your
+object store meets them.
 
 {{% show-in "enterprise" %}}
 
@@ -83,34 +67,6 @@ reads on node startup, and unexpected node-state warnings.
 > for details.
 
 {{% /show-in %}}
-
-### Verify your object store
-
-{{% product-name %}} 3.10.0 and later includes the
-[`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
-command that validates an object store against the preceding semantic requirements.
-Run it against your MinIO endpoint before putting the deployment into
-production, and again after any change to the MinIO topology or backing
-storage:
-
-```bash { placeholders="http://localhost:9000|MINIO_(USERNAME|PASSWORD)" }
-influxdb3 debug object-store-check \
-  --object-store s3 \
-  --bucket influxdb3 \
-  --aws-endpoint http://localhost:9000 \
-  --aws-access-key-id MINIO_USERNAME \
-  --aws-secret-access-key MINIO_PASSWORD \
-  --aws-allow-http \
-  --check-prefix oscheck
-```
-
-The tool confines all writes to `<check-prefix>/oscheck-<uuid>/` and reports
-any semantic violation it finds.
-If the synthetic checks pass but a real catalog is still failing to load,
-pass `--probe-prefix <your-catalog-prefix>` to replay the loader's object
-store operations against your real catalog in read-only mode.
-See [`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
-for the full flag reference.
 
 ## Set up MinIO
 
