@@ -163,6 +163,10 @@
       }
     }
 
+    > li.feature-board-item:before {
+      display: none;
+    }
+
     a {
       text-decoration: none;
       font-weight: $medium;
