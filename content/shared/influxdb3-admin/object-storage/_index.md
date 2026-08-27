@@ -53,11 +53,15 @@ influxdb3 debug object-store-check \
   --check-prefix oscheck
 ```
 
+`--check-prefix` is required.
 The tool confines all writes to `<check-prefix>/oscheck-<uuid>/` and reports
 any semantic violation it finds.
 If the synthetic checks pass but a real catalog is still failing to load,
-pass `--probe-prefix <your-catalog-prefix>` to replay the loader's object
-store operations against your real catalog in read-only mode.
+add `--probe-prefix <your-catalog-prefix>` to also replay the loader's
+object store operations against your real catalog.
+The probe itself is read-only, but the command still runs the synthetic
+write and delete checks under `--check-prefix` first, so that prefix must
+remain writable and the credentials need write access.
 See [`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
 for the full flag reference.
 
