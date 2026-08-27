@@ -2,9 +2,9 @@
 title: Deploy a highly available Telegraf Controller cluster
 list_title: Deploy a cluster
 description: >
-  Deploy multiple Telegraf Controller nodes against a shared PostgreSQL
-  database, route traffic with a load balancer using the health endpoints, and
-  tune PostgreSQL for fast failover.
+  Deploy multiple Telegraf Controller nodes against a shared PostgreSQL or
+  PostgreSQL-compatible database, route traffic with a load balancer using the
+  health endpoints, and tune PostgreSQL for fast failover.
 menu:
   telegraf_controller:
     name: Deploy a cluster
@@ -17,9 +17,9 @@ related:
   - /telegraf/controller/install/upgrade/
 ---
 
-Deploy multiple {{% product-name %}} nodes against a shared PostgreSQL database,
-put them behind a load balancer, and let one node lead while the others stand
-by. This guide covers configuring the nodes, routing traffic with the health
+Deploy multiple {{% product-name %}} nodes against a shared PostgreSQL or
+PostgreSQL-compatible database, put them behind a load balancer, and let one
+node lead while the others stand by. This guide covers configuring the nodes, routing traffic with the health
 endpoints, and tuning PostgreSQL for quick failover.
 
 {{< telegraf/enterprise-feature "High availability" >}}
@@ -49,9 +49,10 @@ endpoints, and tuning PostgreSQL for quick failover.
 Every node connects to the same PostgreSQL database and signs sessions with the
 same secret.
 
-1. Provision a PostgreSQL database and note its connection string. Connect nodes
-   directly to PostgreSQL, or use a connection pooler in **session-pooling**
-   mode. Transaction-pooling mode breaks leader election.
+1. Provision a PostgreSQL or PostgreSQL-compatible database and note its
+   connection string. Connect nodes directly to the database, or use a
+   connection pooler in **session-pooling** mode. Transaction-pooling mode
+   breaks leader election.
 
 2. Generate a single `SESSION_SECRET` to share across all nodes. Reuse the same
    value on every node so a session stays valid regardless of which node serves
@@ -222,6 +223,10 @@ ALTER SYSTEM SET tcp_keepalives_interval = 5;
 ALTER SYSTEM SET tcp_keepalives_count = 3;
 SELECT pg_reload_conf();
 ```
+
+If you use a managed or PostgreSQL-compatible service that doesn't support
+`ALTER SYSTEM`, set the equivalent keepalive parameters through your provider's
+configuration interface.
 
 With settings in this range, failover after an abrupt failure completes in well
 under a minute. Adjust the values to match your availability requirements and
