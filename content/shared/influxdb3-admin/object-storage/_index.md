@@ -72,7 +72,11 @@ Replace the following:
    object store operations against your real catalog.
    The probe itself is read-only, but the command still runs the synthetic
    write and delete checks under `--check-prefix` first, so that prefix must
-   remain writable and the credentials need write access.
+   remain writable and the credentials need read, write, delete, and list
+   permissions on it--for example, an AWS IAM policy needs `s3:GetObject`,
+   `s3:PutObject`, `s3:DeleteObject`, and `s3:ListBucket`
+   (see [Create IAM credentials](/influxdb3/version/admin/object-storage/s3/#create-iam-credentials)
+   for a sample policy).
 
 See [`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
 for the full flag reference.
