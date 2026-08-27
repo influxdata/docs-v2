@@ -29,6 +29,8 @@
   {{ if gt (len $properties) 0 }}
   <div class="api-schema-properties">
     {{ range $propName, $propSchema := $properties }}
+      {{/* Resolve $ref and flatten allOf so type and properties are visible */}}
+      {{ $propSchema = partial "api/resolve-schema.html" (dict "schema" $propSchema "spec" $spec) }}
       {{ $isRequired := index $requiredMap $propName | default false }}
       {{ $propType := $propSchema.type | default "string" }}
       {{ $propDescription := $propSchema.description | default "" }}
@@ -37,12 +39,24 @@
       {{ $propDefault := $propSchema.default }}
       {{ $propExample := $propSchema.example }}
 
+      {{/* Resolve oneOf variants for display */}}
+      {{ $propVariants := slice }}
+      {{ range $propSchema.oneOf | default slice }}
+        {{ $propVariants = $propVariants | append (partial "api/resolve-schema.html" (dict "schema" . "spec" $spec)) }}
+      {{ end }}
+
       {{/* Build type display */}}
       {{ $typeDisplay := $propType }}
-      {{ if eq $propType "array" }}
+      {{ if gt (len $propVariants) 0 }}
+        {{ $variantTypes := slice }}
+        {{ range $propVariants }}
+          {{ $variantTypes = $variantTypes | append (.type | default "object") }}
+        {{ end }}
+        {{ $typeDisplay = delimit $variantTypes " or " }}
+      {{ else if eq $propType "array" }}
         {{ $itemsType := "object" }}
         {{ with $propSchema.items }}
-          {{ $itemsType = .type | default "object" }}
+          {{ $itemsType = (partial "api/resolve-schema.html" (dict "schema" . "spec" $spec)).type | default "object" }}
         {{ end }}
         {{ $typeDisplay = printf "%s[]" $itemsType }}
       {{ else if $propFormat }}
@@ -90,6 +104,36 @@
         </div>
         {{ end }}
 
+        {{/* oneOf variants */}}
+        {{ if and (gt (len $propVariants) 0) (lt $level 2) }}
+        <div class="api-schema-oneof">
+          {{ range $i, $variant := $propVariants }}
+          <div class="api-schema-oneof-variant">
+            <div class="api-schema-oneof-variant-header">
+              <span class="api-oneof-label">{{ if $i }}Or{{ else }}One of{{ end }}:</span>
+              <span class="api-schema-property-type">{{ $variant.type | default "object" }}</span>
+            </div>
+            {{ with $variant.description }}
+            <div class="api-schema-property-description">
+              {{ . | markdownify }}
+            </div>
+            {{ end }}
+            {{ with $variant.enum }}
+            <div class="api-schema-property-enum">
+              <span class="api-enum-label">Allowed:</span>
+              {{ range $j, $val := . }}
+                {{ if $j }}, {{ end }}<code class="api-enum-value">{{ $val }}</code>
+              {{ end }}
+            </div>
+            {{ end }}
+            {{ with $variant.properties }}
+              {{ partial "api/schema.html" (dict "schema" $variant "spec" $spec "level" (add $level 1)) }}
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+        {{ end }}
+
         {{/* Nested object/array rendering (limit depth to prevent infinite loops) */}}
         {{ if and (eq $propType "object") (lt $level 2) }}
           {{ with $propSchema.properties }}
@@ -97,8 +141,9 @@
           {{ end }}
         {{ else if and (eq $propType "array") (lt $level 2) }}
           {{ with $propSchema.items }}
-            {{ if isset . "properties" }}
-              {{ partial "api/schema.html" (dict "schema" . "spec" $spec "level" (add $level 1)) }}
+            {{ $items := partial "api/resolve-schema.html" (dict "schema" . "spec" $spec) }}
+            {{ if isset $items "properties" }}
+              {{ partial "api/schema.html" (dict "schema" $items "spec" $spec "level" (add $level 1)) }}
             {{ end }}
           {{ end }}
         {{ end }}

@@ -976,9 +976,9 @@ paths:
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
                   disabled: false
-                trigger_settings:
-                  run_async: false
-                  error_behavior: log
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
               github_plugin:
                 summary: Trigger using a remotely fetched plugin
                 description: |
@@ -992,7 +992,27 @@ paths:
                   trigger_name: my_trigger
                   trigger_specification: all_tables
                   disabled: false
-                  trigger_settings: {}
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
+              node_specific:
+                summary: Trigger on specific cluster nodes
+                description: |
+                  In `node_spec`, use `"all"` (default) to run the trigger on
+                  all nodes, or `{"nodes": ["NODE_ID"]}` to run it only on the
+                  specified nodes.
+                value:
+                  db: mydb
+                  plugin_filename: table.py
+                  trigger_name: node_specific_trigger
+                  trigger_specification: table:sensors
+                  node_spec:
+                    nodes:
+                      - node-01
+                  disabled: false
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -5039,11 +5059,11 @@ components:
       properties:
         run_async:
           type: boolean
-          default: false
           description: |
-            Whether to run the trigger asynchronously.
-            When `true`, the trigger executes in the background without blocking.
-            When `false`, the trigger executes synchronously.
+            Whether invocations of the trigger can run concurrently.
+            If `false`, invocations run serially--each invocation must finish before the next one starts.
+            If `true`, invocations can run concurrently, up to the `--async-trigger-concurrency-limit`
+            server option (by default, unlimited).
         error_behavior:
           type: string
           enum:
@@ -5051,31 +5071,42 @@ components:
             - retry
             - disable
           description: |
-            Specifies how to handle errors that occur during trigger execution:
-            - `log`: Log the error and continue (default)
-            - `retry`: Retry the trigger execution
-            - `disable`: Disable the trigger after an error
-          default: log
+            How the trigger responds when the plugin returns an error:
+            - `log`: Log the error and keep the trigger active.
+            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure. Errors identified as permanent aren't retried.
+            - `disable`: Disable the trigger until you manually re-enable it.
       required:
         - run_async
         - error_behavior
     ApiNodeSpec:
       x-enterprise-only: true
-      type: object
       description: |
-        Optional specification for targeting specific nodes in a multi-node InfluxDB 3 Enterprise cluster.
-        Use this to control which node(s) should handle the cache or trigger.
-      properties:
-        node_id:
-          type: string
+        Specifies which nodes in a multi-node InfluxDB 3 Enterprise cluster
+        handle the cache or trigger.
+        Accepts the string `all` or an object that lists specific node IDs.
+        If omitted, defaults to `all`.
+      default: all
+      example: all
+      oneOf:
+        - type: string
+          enum:
+            - all
           description: |
-            The ID of a specific node in the cluster.
-            If specified, the cache or trigger will only be created on this node.
-        node_group:
-          type: string
+            Create the cache or trigger on all nodes in the cluster.
+        - type: object
           description: |
-            The name of a node group in the cluster.
-            If specified, the cache or trigger will be created on all nodes in this group.
+            Create the cache or trigger only on the specified nodes.
+          properties:
+            nodes:
+              type: array
+              items:
+                type: string
+              description: |
+                Node IDs (the `--node-id` value each node was started with).
+                Each node must exist and must run in `process` mode.
+          required:
+            - nodes
+          additionalProperties: false
     WALPluginTestRequest:
       type: object
       description: |
