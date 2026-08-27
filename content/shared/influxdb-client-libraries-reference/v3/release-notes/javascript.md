@@ -1,5 +1,14 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v2.4.0 {date="2026-08-27"}
+
+### Bugfix
+
+1. [#864](https://github.com/InfluxCommunity/influxdb3-js/pull/864): Add support for connecting to InfluxDB servers
+   using IPv6 addresses.
+   - IPv6 addresses in server URLs must be enclosed in square brackets, for example, http://[2001:db8::1]:8086.
+   - IPv6 zone identifiers are not currently supported.
+
 ## v2.3.0 {date="2026-06-11"}
 
 ### Features

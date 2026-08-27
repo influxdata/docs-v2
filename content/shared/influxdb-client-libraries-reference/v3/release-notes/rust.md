@@ -1,5 +1,23 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v0.3.0 {date="2026-08-27"}
+
+> ⚠️ This release requires Rust 1.91 or later.
+
+### Performance
+
+1. [#30](https://github.com/InfluxCommunity/influxdb3-rust/pull/30): Rewrite the polars DataFrame serializer with typed column iterators
+   and the shared ryu/itoa line-protocol writers; ~2.5x faster on wide numeric frames.
+   Floats on the DataFrame path now format via ryu, matching `Point`, so extreme
+   magnitudes emit exponent notation instead of expanded decimals.
+
+### Dependencies
+
+1. [#20](https://github.com/InfluxCommunity/influxdb3-rust/pull/20): Upgrade Arrow dependencies from version 58 to 59.
+2. [#22](https://github.com/InfluxCommunity/influxdb3-rust/pull/22): Upgrade Polars from version 0.53 to 0.54.
+
+- CI updates
+
 ## v0.2.0 {date="2026-06-16"}
 
 ### Features
