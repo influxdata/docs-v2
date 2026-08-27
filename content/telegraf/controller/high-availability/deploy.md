@@ -49,10 +49,9 @@ endpoints, and tuning PostgreSQL for quick failover.
 Every node connects to the same PostgreSQL database and signs sessions with the
 same secret.
 
-1. Provision a PostgreSQL or PostgreSQL-compatible database and note its
-   connection string. Connect nodes directly to the database, or use a
-   connection pooler in **session-pooling** mode. Transaction-pooling mode
-   breaks leader election.
+1. Provision a PostgreSQL-compatible database and note its connection string.
+   Connect nodes directly to the database, or use a connection pooler in
+   **session-pooling** mode. Transaction-pooling mode breaks leader election.
 
 2. Generate a single `SESSION_SECRET` to share across all nodes. Reuse the same
    value on every node so a session stays valid regardless of which node serves
