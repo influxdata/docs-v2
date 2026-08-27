@@ -996,6 +996,7 @@ paths:
                     run_async: false
                     error_behavior: log
               node_specific:
+                x-enterprise-only: true
                 summary: Trigger on specific cluster nodes
                 description: |
                   In `node_spec`, use `"all"` (default) to run the trigger on
