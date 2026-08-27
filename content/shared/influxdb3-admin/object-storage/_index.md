@@ -42,7 +42,7 @@ command that validates an object store against the preceding semantic requiremen
 Run it against your object store endpoint before putting the deployment into
 production, and again after any change to its topology or backing storage:
 
-```bash { placeholders="http://localhost:9000|MINIO_(USERNAME|PASSWORD)" }
+```bash { placeholders="http://localhost:9000|MINIO_(USERNAME|PASSWORD)|CHECK_PREFIX" }
 influxdb3 debug object-store-check \
   --object-store s3 \
   --bucket influxdb3 \
@@ -50,18 +50,30 @@ influxdb3 debug object-store-check \
   --aws-access-key-id MINIO_USERNAME \
   --aws-secret-access-key MINIO_PASSWORD \
   --aws-allow-http \
-  --check-prefix oscheck
+  --check-prefix CHECK_PREFIX
 ```
 
-`--check-prefix` is required.
-The tool confines all writes to `<check-prefix>/oscheck-<uuid>/` and reports
-any semantic violation it finds.
-If the synthetic checks pass but a real catalog is still failing to load,
-add `--probe-prefix <your-catalog-prefix>` to also replay the loader's
-object store operations against your real catalog.
-The probe itself is read-only, but the command still runs the synthetic
-write and delete checks under `--check-prefix` first, so that prefix must
-remain writable and the credentials need write access.
+Replace the following:
+
+- {{% code-placeholder-key %}}`CHECK_PREFIX`{{% /code-placeholder-key %}}:
+  a prefix for the tool's synthetic test objects, such as `oscheck`.
+  `--check-prefix` is required.
+
+1. The tool writes and deletes synthetic test objects under
+   `<CHECK_PREFIX>/oscheck-<uuid>/`, where `oscheck-<uuid>` is a fixed,
+   tool-generated subdirectory name (not user-configurable) that's unique
+   to each run, and reports any semantic violation it finds.
+2. If every check passes, your object store meets the semantics
+   {{% product-name %}} depends on.
+3. If a check fails, resolve the reported issue in your object store or its
+   configuration, and then rerun the command.
+4. If the synthetic checks pass but a real catalog is still failing to load,
+   add `--probe-prefix <your-catalog-prefix>` to also replay the loader's
+   object store operations against your real catalog.
+   The probe itself is read-only, but the command still runs the synthetic
+   write and delete checks under `--check-prefix` first, so that prefix must
+   remain writable and the credentials need write access.
+
 See [`influxdb3 debug object-store-check`](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/)
 for the full flag reference.
 
