@@ -19,19 +19,8 @@
 {{ $jsonContent := index $content "application/json" | default dict }}
 {{ $schema := $jsonContent.schema | default dict }}
 
-{{/* Resolve $ref if present */}}
-{{ $resolvedSchema := $schema }}
-{{ if isset $schema "$ref" }}
-  {{ $refPath := index $schema "$ref" }}
-  {{/* Parse ref like "#/components/schemas/DistinctCacheCreateRequest" */}}
-  {{ $refParts := split $refPath "/" }}
-  {{ if ge (len $refParts) 4 }}
-    {{ $schemaName := index $refParts 3 }}
-    {{ with index $spec.components.schemas $schemaName }}
-      {{ $resolvedSchema = . }}
-    {{ end }}
-  {{ end }}
-{{ end }}
+{{/* Resolve $ref and flatten allOf if present */}}
+{{ $resolvedSchema := partial "api/resolve-schema.html" (dict "schema" $schema "spec" $spec) }}
 
 <div class="api-request-body">
   <h4 class="api-section-title">
