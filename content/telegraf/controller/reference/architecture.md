@@ -51,8 +51,8 @@ responsive even under heavy agent load.
 
 The process model above describes a single node. With
 [Telegraf Enterprise](/telegraf/enterprise/), you can run multiple
-{{% product-name %}} nodes against a shared PostgreSQL database for continuous
-availability. The nodes coordinate through a PostgreSQL advisory lock: one node
+{{% product-name %}} nodes against a shared PostgreSQL or PostgreSQL-compatible
+database for continuous availability. The nodes coordinate through a PostgreSQL advisory lock: one node
 is elected **leader** and runs the background scheduler, while the others stand
 by and take over if the leader fails. Every node accepts agent heartbeats, so
 monitoring continues during a leadership change.
