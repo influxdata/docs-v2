@@ -32,6 +32,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [import](/influxdb3/enterprise/reference/cli/influxdb3/import/)   | Manage bulk Parquet imports         |
 | [install](/influxdb3/enterprise/reference/cli/influxdb3/install/) | Install plugins                     |
 | [loadcap](/influxdb3/enterprise/reference/cli/influxdb3/loadcap/) | Capture and manage workload profiles |
+| [manage](/influxdb3/enterprise/reference/cli/influxdb3/manage/)   | Perform cluster maintenance operations |
 | [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
 | [remove](/influxdb3/enterprise/reference/cli/influxdb3/remove/)   | Remove stopped nodes                |
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
