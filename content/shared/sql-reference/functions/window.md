@@ -52,10 +52,12 @@ ORDER BY
   - [rank](#rank)
   - [row_number](#row_number)
 - [Analytical Functions](#analytical-functions)
+  {{% show-in "cloud-serverless,cloud-dedicated" %}}- [difference](#difference){{% /show-in %}}
   - [first_value](#first_value)
   - [lag](#lag)
   - [last_value](#last_value)
   - [lead](#lead)
+  {{% show-in "cloud-serverless,cloud-dedicated" %}}- [non_negative_difference](#non_negative_difference){{% /show-in %}}
   - [nth_value](#nth_value)
 
 ## Window frames
@@ -796,11 +798,70 @@ Key differences:
 
 ## Analytical Functions
 
+{{% show-in "cloud-serverless,cloud-dedicated" %}}- [difference](#difference){{% /show-in %}}
 - [first_value](#first_value)
 - [lag](#lag)
 - [last_value](#last_value)
 - [lead](#lead)
+{{% show-in "cloud-serverless,cloud-dedicated" %}}- [non_negative_difference](#non_negative_difference){{% /show-in %}}
 - [nth_value](#nth_value)
+
+{{% show-in "cloud-serverless,cloud-dedicated" %}}
+### difference
+
+Returns the result of subtraction between subsequent values.
+
+```sql
+difference(expression)
+```
+
+#### Arguments
+
+- **expression**: Expression to operate on. Can be a numeric column or
+  function, and any combination of arithmetic operators.
+
+##### Related functions
+
+[non_negative_difference](#non_negative_difference)
+
+{{< expand-wrapper >}}
+{{% expand "View `difference` query example" %}}
+
+The following example uses the {{< influxdb3/home-sample-link >}}.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  time,
+  room,
+  temp,
+  difference(temp) OVER (
+    PARTITION BY room
+    ORDER BY time 
+  ) AS difference
+FROM home
+WHERE  
+  time >= '2022-01-01T08:00:00Z'
+  AND time < '2022-01-01T11:00:00Z'
+ORDER BY room, time
+```
+
+| time                | room        | temp | difference |
+| :------------------ | :---------- | ---: | ---------: |
+| 2022-01-01T08:00:00 | Kitchen     | 21.0 |            |
+| 2022-01-01T09:00:00 | Kitchen     | 23.0 |        2.0 |
+| 2022-01-01T10:00:00 | Kitchen     | 22.7 |       -0.3 |
+| 2022-01-01T08:00:00 | Living Room | 21.1 |            |
+| 2022-01-01T09:00:00 | Living Room | 21.4 |        0.3 |
+| 2022-01-01T10:00:00 | Living Room | 21.8 |        0.4 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{% /show-in %}}
 
 ### first_value
 
@@ -1119,6 +1180,65 @@ ORDER BY room, time
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+{{% show-in "cloud-serverless,cloud-dedicated" %}}
+
+### non_negative_difference
+
+Returns only non-negative results of subtraction between subsequent values.
+Negative differences return _NULL_.
+
+```sql
+non_negative_difference(expression)
+```
+
+#### Arguments
+
+- **expression**: Expression to operate on. Can be a numeric column or
+  function, and any combination of arithmetic operators.
+
+##### Related functions
+
+[difference](#difference)
+
+{{< expand-wrapper >}}
+{{% expand "View `non_negative_difference` query example" %}}
+
+The following example uses the {{< influxdb3/home-sample-link >}}.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  time,
+  room,
+  temp,
+  non_negative_difference(temp) OVER (
+    PARTITION BY room
+    ORDER BY time 
+  ) AS non_negative_difference
+FROM home
+WHERE  
+  time >= '2022-01-01T08:00:00Z'
+  AND time < '2022-01-01T11:00:00Z'
+ORDER BY room, time
+```
+
+| time                | room        | temp | non_negative_difference |
+| :------------------ | :---------- | ---: | ----------------------: |
+| 2022-01-01T08:00:00 | Kitchen     | 21.0 |                         |
+| 2022-01-01T09:00:00 | Kitchen     | 23.0 |                     2.0 |
+| 2022-01-01T10:00:00 | Kitchen     | 22.7 |                         |
+| 2022-01-01T08:00:00 | Living Room | 21.1 |                         |
+| 2022-01-01T09:00:00 | Living Room | 21.4 |                     0.3 |
+| 2022-01-01T10:00:00 | Living Room | 21.8 |                     0.4 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{% /show-in %}}
 
 ### nth_value
 
