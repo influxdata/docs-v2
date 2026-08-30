@@ -456,6 +456,93 @@ describe('API lifecycle badges', () => {
   });
 });
 
+// ── Schema rendering: allOf flattening, oneOf variants ──────────────
+// Covers a regression where `trigger_settings` (wrapped in `allOf`) and
+// `node_spec` (a `oneOf` union via `ApiNodeSpec`) rendered as empty
+// property tables because the schema renderer didn't resolve $ref/allOf
+// before reading `type`/`properties`. See layouts/partials/api/
+// resolve-schema.html and example-value.html.
+
+describe('API schema rendering (allOf / oneOf)', () => {
+  beforeEach(() => {
+    cy.visit('/influxdb3/enterprise/api/processing-engine/');
+  });
+
+  it('trigger_settings (allOf-wrapped $ref) renders its nested properties', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.contains('.api-schema-property-name', 'trigger_settings')
+          .closest('.api-schema-property')
+          .as('triggerSettings');
+
+        // allOf flattening: type must resolve to "object", not fall through
+        // to the "string" default resolve-schema.html would leave unresolved.
+        cy.get('@triggerSettings')
+          .find('.api-schema-property-type')
+          .first()
+          .should('contain', 'object');
+
+        // Nested properties from the flattened TriggerSettings schema.
+        cy.get('@triggerSettings')
+          .find('.api-schema-property-name')
+          .should('contain', 'run_async')
+          .and('contain', 'error_behavior');
+
+        // Enum values on the nested error_behavior property.
+        cy.get('@triggerSettings')
+          .find('.api-schema-property-enum .api-enum-value')
+          .should(($vals) => {
+            const values = [...$vals].map((el) => el.textContent);
+            expect(values).to.include.members(['log', 'retry', 'disable']);
+          });
+      }
+    );
+  });
+
+  it('node_spec (oneOf ApiNodeSpec) renders both variants, not required', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.contains('.api-schema-property-name', 'node_spec')
+          .closest('.api-schema-property')
+          .as('nodeSpec');
+
+        // node_spec is optional in CreateTriggerRequest.required.
+        cy.get('@nodeSpec').should(
+          'not.have.class',
+          'api-schema-property--required'
+        );
+
+        // oneOf renders both variants: string "all" and object w/ nodes.
+        cy.get('@nodeSpec')
+          .find('.api-schema-oneof-variant')
+          .should('have.length', 2);
+        cy.get('@nodeSpec')
+          .find('.api-schema-oneof-variant')
+          .first()
+          .find('.api-enum-value')
+          .should('contain', 'all');
+        cy.get('@nodeSpec')
+          .find('.api-schema-oneof-variant')
+          .eq(1)
+          .find('.api-schema-property-name')
+          .should('contain', 'nodes');
+      }
+    );
+  });
+
+  it('example request body includes resolved trigger_settings values', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.get('.api-code-block').invoke('text').should((text) => {
+          expect(text).to.match(/"trigger_settings":\s*{/);
+          expect(text).to.match(/"run_async":\s*false/);
+          expect(text).to.match(/"error_behavior":\s*"log"/);
+        });
+      }
+    );
+  });
+});
+
 // ── Legacy URL redirects ─────────────────────────────────────────────
 // Covers URLs that 404'd on production before Hugo aliases were added
 // via api-docs/<product>/content/page.yml. See
