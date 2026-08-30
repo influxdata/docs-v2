@@ -533,11 +533,13 @@ describe('API schema rendering (allOf / oneOf)', () => {
   it('example request body includes resolved trigger_settings values', () => {
     cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
       () => {
-        cy.get('.api-code-block').invoke('text').should((text) => {
-          expect(text).to.match(/"trigger_settings":\s*{/);
-          expect(text).to.match(/"run_async":\s*false/);
-          expect(text).to.match(/"error_behavior":\s*"log"/);
-        });
+        cy.get('.api-code-block')
+          .invoke('text')
+          .should((text) => {
+            expect(text).to.match(/"trigger_settings":\s*{/);
+            expect(text).to.match(/"run_async":\s*false/);
+            expect(text).to.match(/"error_behavior":\s*"log"/);
+          });
       }
     );
   });
