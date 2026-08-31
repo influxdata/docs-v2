@@ -21,7 +21,7 @@ set -euo pipefail
 #       --minAlertLevel=suggestion \
 #       --config=content/influxdb/cloud-dedicated/.vale.ini
 
-VALE_VERSION="3.18.0"
+VALE_VERSION="3.19.0"
 VALE_MAJOR_MIN=3
 
 if command -v vale &>/dev/null; then
