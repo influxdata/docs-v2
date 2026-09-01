@@ -13,8 +13,8 @@ influxdb3 debug <SUBCOMMAND>
 
 | Subcommand | Description |
 | :--------- | :---------- |
-| [object-store-check](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/) | Validate object store compatibility |
 | help | Print command help or the help of a subcommand |
+{{% show-in "enterprise" %}}| [object-store-check](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/) | Validate object store compatibility |{{% /show-in %}}
 
 ## Options
 

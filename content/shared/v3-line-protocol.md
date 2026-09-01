@@ -285,9 +285,10 @@ letter or a number. They can contain dashes (`-`) and underscores (`_`).
 
 A point is uniquely identified by the table name, tag set, and timestamp.
 If you submit line protocol with the same table, tag set, and timestamp,
-but with a different field set, the field set becomes the union of the old
-field set and the new field set, where any conflicts favor the new field set.
-Overwrite behavior is product-specific.
+InfluxDB stores a single point for that identity, merging the field sets of the
+duplicate writes.
+When duplicate writes set the same field, InfluxDB does not guarantee which
+value is retained.
 Read the following warning before relying on overwrites to maintain a last-value view.
 
 {{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
@@ -299,32 +300,16 @@ Read the following warning before relying on overwrites to maintain a last-value
 > See [Anti-patterns to avoid](#anti-patterns-to-avoid) and [Recommended patterns](#recommended-patterns-for-last-value-tracking).
 {{% /show-in %}}
 
-{{% show-in "enterprise,cloud" %}}
-> [!Warning]
-> #### Overwrites need time between writes
->
-> To ensure the last write wins when overwriting a point (same table, tag set, and
-> timestamp), leave enough time between writes of the same point for the earlier write
-> to be persisted and referenced in a snapshot — with default settings, we recommend
-> at least 30 minutes (assumes a running compactor).
-> Writes of the same point with insufficient delay resolve non-deterministically:
-> queries may return either version, and either version may be permanently stored.
->
-> In clusters with multiple ingest nodes, the ordering of overwrites of the same point
-> written through different nodes is not defined.
-> Route all writes of a given point through the same node, in addition to leaving at least 30 minutes between writes of the same point.
->
-> For reliable last-value tracking, use the [append-only patterns](#recommended-patterns-for-last-value-tracking)
-> instead of overwrites.
-{{% /show-in %}}
-
-{{% show-in "core" %}}
+{{% show-in "core,enterprise,cloud" %}}
 > [!Warning]
 > #### Overwrites are not deterministic
 >
-> Overwriting a point is not reliable in {{% product-name %}}, regardless of the
-> delay between writes: queries may return either version, and either version may
-> be permanently stored.
+> Overwriting a point (same table, tag set, and timestamp) is not reliable in
+> {{% product-name %}}, regardless of the delay between writes: queries may
+> return either version, and either version may be permanently stored.
+> Which version is retained depends on write rate, buffer and snapshot timing,
+> compaction state, and, in clusters with multiple ingest nodes, which node
+> received each write.
 >
 > To maintain a last-value view, use the [append-only patterns](#recommended-patterns-for-last-value-tracking)
 > instead of overwrites.
@@ -432,12 +417,8 @@ device_status,device_id=sensor01 status="inactive",temperature=73.1,version=3i 1
 Short delays don't guarantee that duplicate points won't be flushed together.
 The flush interval depends on buffer size, ingestion rate, and system load.
 
-{{% show-in "core" %}}
-In {{% product-name %}}, overwrite timing is never deterministic, regardless of delay length; use the append-only patterns instead.
-{{% /show-in %}}
-
-{{% show-in "enterprise,cloud" %}}
-For {{% product-name %}}, "short" means less than 30 minutes (the recommended delay, assuming a running compactor).
+{{% show-in "core,enterprise,cloud" %}}
+In {{% product-name %}}, overwrite resolution is never deterministic, regardless of delay length; use the append-only patterns instead.
 {{% /show-in %}}
 
 For example, **don't do this**:

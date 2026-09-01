@@ -1,10 +1,9 @@
 ---
 title: High availability
 description: >
-  Run multiple Telegraf Controller nodes against a shared PostgreSQL database
-  for continuous availability. One node is elected leader to run cluster-wide
-  background work while every node serves traffic, and a standby takes over if
-  the leader fails.
+  Run multiple Telegraf Controller nodes against a shared PostgreSQL-compatible database for continuous availability. One node is
+  elected leader to run cluster-wide background work while every node serves
+  traffic, and a standby takes over if the leader fails.
 menu:
   telegraf_controller:
     name: High availability
@@ -19,8 +18,8 @@ related:
 ---
 
 High availability lets you run more than one {{% product-name %}} node against a
-shared PostgreSQL database so that management operations continue if a node
-fails. One node is elected **leader** and performs cluster-wide work; the
+shared PostgreSQL or [PostgreSQL-compatible](#requirements-and-constraints)
+database so that management operations continue if a node fails. One node is elected **leader** and performs cluster-wide work; the
 remaining nodes stand by, ready to take over. Every node keeps accepting agent
 heartbeats, so agent monitoring continues without interruption during a
 failover.

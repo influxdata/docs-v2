@@ -24,8 +24,8 @@ influxdb3 debug object-store-check [OPTIONS]
 |        | `--aws-secret-access-key <AWS_SECRET_ACCESS_KEY>` | AWS secret access key                                                                                                                   | No       |
 |        | `--aws-allow-http`                      | Allow non-HTTPS connections to the object store                                                                                                     | No       |
 |        | `--aws-default-region <AWS_DEFAULT_REGION>` | AWS region                                                                                                                                      | No       |
-|        | `--check-prefix <CHECK_PREFIX>`         | Prefix for synthetic test objects. The command writes to `<CHECK_PREFIX>/oscheck-<uuid>/`.                                                          | No       |
-|        | `--probe-prefix <PROBE_PREFIX>`         | Read-only prefix to replay catalog loader operations against. Use this option to diagnose failures with an existing catalog without writing new data. | No       |
+|        | `--check-prefix <CHECK_PREFIX>`         | Prefix for synthetic test objects. The command writes to `<CHECK_PREFIX>/oscheck-<uuid>/`. Environment variable: `INFLUXDB3_OSCHECK_PREFIX` | Yes      |
+|        | `--probe-prefix <PROBE_PREFIX>`         | Prefix of an existing catalog to also replay the catalog loader's startup operations against, to diagnose failures without writing new data. The probe itself is read-only, but the command still runs the synthetic write and delete checks under `--check-prefix` first. | No       |
 | `-h`   | `--help`                                | Print help information                                                                                                                              | No       |
 |        | `--help-all`                            | Print detailed help information                                                                                                                     | No       |
 
@@ -53,10 +53,13 @@ influxdb3 debug object-store-check \
   --check-prefix oscheck
 ```
 
-### Probe an existing catalog prefix (read-only)
+### Also probe an existing catalog prefix
 
-Use `--probe-prefix` with your actual cluster ID to diagnose catalog load
-failures without writing any data to the object store.
+Add `--probe-prefix` with your actual cluster ID to also diagnose catalog
+load failures against your real catalog.
+The probe itself is read-only, but the command still runs the synthetic
+write and delete checks under `--check-prefix` first, so that prefix must
+remain writable and the credentials need write access.
 
 <!--pytest.mark.skip-->
 
@@ -68,5 +71,6 @@ influxdb3 debug object-store-check \
   --aws-access-key-id MINIO_USERNAME \
   --aws-secret-access-key MINIO_PASSWORD \
   --aws-allow-http \
+  --check-prefix oscheck \
   --probe-prefix my-cluster-id
 ```

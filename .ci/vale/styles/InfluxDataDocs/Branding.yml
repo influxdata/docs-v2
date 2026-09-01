@@ -12,7 +12,6 @@ swap:
   '/w*/b(?i)influxdb': InfluxDB
   'the ingester': the Ingester
   '(?i)iox': v3
-  'the object store': the Object store
   'a {{% product-name %}}': an {{% product-name %}}
   'the querier': the Querier
   'SQL Alchemy': SQLAlchemy
