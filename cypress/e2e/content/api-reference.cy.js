@@ -506,7 +506,7 @@ describe('API schema rendering (allOf / oneOf)', () => {
           .closest('.api-schema-property')
           .as('nodeSpec');
 
-        // node_spec is optional in CreateTriggerRequest.required.
+        // node_spec is optional in ProcessingEngineTriggerRequest.required.
         cy.get('@nodeSpec').should(
           'not.have.class',
           'api-schema-property--required'
