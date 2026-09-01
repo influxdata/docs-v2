@@ -456,14 +456,14 @@ describe('API lifecycle badges', () => {
   });
 });
 
-// ── Schema rendering: allOf flattening, oneOf variants ──────────────
+// ── Schema rendering: allOf flattening, oneOf variants, object examples ──
 // Covers a regression where `trigger_settings` (wrapped in `allOf`) and
 // `node_spec` (a `oneOf` union via `ApiNodeSpec`) rendered as empty
 // property tables because the schema renderer didn't resolve $ref/allOf
 // before reading `type`/`properties`. See layouts/partials/api/
 // resolve-schema.html and example-value.html.
 
-describe('API schema rendering (allOf / oneOf)', () => {
+describe('API schema rendering', () => {
   beforeEach(() => {
     cy.visit('/influxdb3/enterprise/api/processing-engine/');
   });
@@ -539,6 +539,41 @@ describe('API schema rendering (allOf / oneOf)', () => {
             expect(text).to.match(/"trigger_settings":\s*{/);
             expect(text).to.match(/"run_async":\s*false/);
             expect(text).to.match(/"error_behavior":\s*"log"/);
+          });
+      }
+    );
+  });
+
+  it('object properties render their description, JSON example, and request value', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.contains('.api-schema-property-name', 'trigger_arguments')
+          .closest('.api-schema-property')
+          .as('objectProperty');
+
+        cy.get('@objectProperty')
+          .find('.api-schema-property-type')
+          .should('contain', 'object');
+        cy.get('@objectProperty')
+          .find('.api-schema-property-description')
+          .should('contain', 'Optional, plugin-specific arguments')
+          .and('contain', 'string key-value pairs');
+        cy.get('@objectProperty')
+          .find('.api-example-value')
+          .invoke('text')
+          .then((example) => {
+            expect(JSON.parse(example)).to.deep.equal({
+              target_table: 'alerts',
+              threshold: '90',
+            });
+          });
+
+        cy.get('.api-code-block')
+          .invoke('text')
+          .should((text) => {
+            expect(text).to.match(/"trigger_arguments":\s*{/);
+            expect(text).to.match(/"target_table":\s*"alerts"/);
+            expect(text).to.match(/"threshold":\s*"90"/);
           });
       }
     );
