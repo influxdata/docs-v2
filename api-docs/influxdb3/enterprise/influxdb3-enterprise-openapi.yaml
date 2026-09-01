@@ -5048,7 +5048,7 @@ components:
             Refer to the plugin documentation for supported argument names and values.
           example:
             threshold: "90"
-            notify_email: admin@example.com
+            target_table: alerts
         disabled:
           type: boolean
           default: false
