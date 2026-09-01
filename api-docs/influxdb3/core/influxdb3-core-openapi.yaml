@@ -2904,8 +2904,15 @@ components:
           example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
-          additionalProperties: true
-          description: Optional arguments passed to the plugin.
+          additionalProperties:
+            type: string
+          description: |
+            Optional, plugin-specific arguments passed to the plugin entry point as its `args` dictionary.
+            Provide string key-value pairs. Omit this field to pass `None` as `args`.
+            Refer to the plugin documentation for supported argument names and values.
+          example:
+            threshold: "90"
+            notify_email: admin@example.com
         disabled:
           type: boolean
           default: false
