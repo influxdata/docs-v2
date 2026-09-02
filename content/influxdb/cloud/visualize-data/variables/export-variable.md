@@ -20,4 +20,5 @@ Variables are exported as downloadable JSON files.
 2. Select the **Variables** tab.
 3. Hover over a variable in the list, then click the gear icon (**{{< icon "gear" >}}**)
    and select **Export**.
-4. Your browser opens a file dialog. Choose a location to save the variable as a JSON file.
+4. Your browser downloads the variable JSON file.
+   If prompted, choose a save location.
