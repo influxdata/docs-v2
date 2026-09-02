@@ -2,9 +2,48 @@
 
 This directory contains scripts and configuration for automating plugin documentation sync between `influxdata/influxdb3_plugins` (source) and `influxdata/docs-v2` (documentation site).
 
+## Terminology
+
+Upstream and docs-v2 name several of these concepts differently.
+Use the following terms in code, comments, pull requests, and content.
+
+- **Official plugin**: a plugin under `influxdata/` in `influxdb3_plugins`.
+  These are the only plugins the documentation covers.
+  Not "community plugin" or "first-party plugin".
+- **Contributor plugin**: a plugin under a personal directory (`efbar/`,
+  `pbarnett/`). Unvalidated and unpublished upstream, and out of scope here.
+- **Plugin library**: the documentation section listing official plugins, one
+  page per plugin. Not "catalog", "registry", or "index".
+- **Manifest**: a plugin's `manifest.toml` upstream. The source of truth for
+  name, version, description, trigger types, and dependencies.
+- **Registry index**: the `index.json` asset on the `registry` release of
+  `influxdb3_plugins`. Distinct from `plugin_library.json`, which is
+  hand-maintained and serves the InfluxDB 3 Explorer UI.
+- **Shared page**: a body-only Markdown file under `content/shared/` with no
+  frontmatter. Not "source file" or "partial".
+- **Product stub**: a per-product Markdown file carrying all frontmatter and
+  pointing at a shared page through `source:`. Not "wrapper" or "shim".
+- **Generated region**: a span of a shared page the sync overwrites every run.
+- **Hand-owned region**: a span of a shared page the sync preserves.
+- **Sync run**: one execution of the sync, covering every official plugin.
+- **Backfill**: the one-time reviewed change adding pages for official plugins
+  that have never been documented.
+
+### Trigger types
+
+Upstream spells these four ways: `manifest.toml` uses `process_scheduled_call`
+/ `process_writes` / `process_request`; the Python docstring uses `scheduled` /
+`onwrite` / `http`; `plugin_library.json` uses `scheduler` / `data_writes` /
+`http`; the README emoji line uses `scheduled` / `data-write` / `http`.
+Documentation uses the following, mapped from the manifest.
+
+- **Scheduled**: fires on an interval or cron expression.
+- **Data write**: fires when rows are written. Not "WAL trigger" or "onwrite".
+- **HTTP request**: fires when a request reaches a custom endpoint.
+
 ## Files in This Directory
 
-- **`port_to_docs.js`** - Transforms plugin READMEs from influxdb3_plugins to docs-v2 format
+- **`port_to_docs.js`** - Transforms plugin READMEs from influxdb3\_plugins to docs-v2 format
 - **`docs_mapping.yaml`** - Maps source plugin READMEs to destination documentation files
 - **`README.md`** - This file: complete workflow documentation
 
@@ -12,7 +51,7 @@ This directory contains scripts and configuration for automating plugin document
 
 ### Automated Sync (Recommended)
 
-When you update plugin READMEs in influxdb3_plugins:
+When you update plugin READMEs in influxdb3\_plugins:
 
 1. **Commit your changes** - The reminder workflow will automatically detect changes
 2. **Click the sync link** - A comment will appear with a pre-filled link to create a sync request
@@ -30,7 +69,7 @@ To manually trigger synchronization:
 
 For local testing and development:
 
-1. **Validate source content** (run from influxdb3_plugins directory):
+1. **Validate source content** (run from influxdb3\_plugins directory):
    ```bash
    cd /path/to/influxdb3_plugins
    python scripts/validate_readme.py
@@ -69,13 +108,15 @@ This workflow maintains consistent plugin documentation between repositories whi
 
 ## Repository Responsibilities
 
-### influxdb3_plugins (Source)
+### influxdb3\_plugins (Source)
+
 - Contains canonical plugin documentation in README files
 - Follows strict template structure
 - Includes all technical details and examples
 - Validates README compliance
 
 ### docs-v2 (Documentation Site)
+
 - Transforms and enhances source documentation
 - Adds product-specific formatting and shortcodes
 - Includes additional support sections
@@ -87,7 +128,7 @@ This workflow maintains consistent plugin documentation between repositories whi
 
 All plugin READMEs in `influxdb3_plugins` must follow this structure:
 
-```markdown
+````markdown
 # [Plugin Name]
 
 ⚡ [trigger-type1, trigger-type2] 🏷️ [tag1, tag2, tag3] 🔧 InfluxDB 3 Core, InfluxDB 3 Enterprise
@@ -143,7 +184,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
      --object-store file \
      --data-dir ~/.influxdb3 \
      --plugin-dir ~/.plugins
-   ```
+````
 
 2. Install required Python packages (if any):
    ```bash
@@ -152,9 +193,9 @@ For more information on using TOML configuration files, see the Using TOML Confi
 
 ## Trigger setup
 
-### [Trigger Type 1]
+### \[Trigger Type 1]
 
-[Description and example]
+\[Description and example]
 
 ```bash
 influxdb3 create trigger \
@@ -165,15 +206,15 @@ influxdb3 create trigger \
   trigger_name
 ```
 
-### [Trigger Type 2]
+### \[Trigger Type 2]
 
-[Additional trigger examples as needed]
+\[Additional trigger examples as needed]
 
 ## Example usage
 
-### Example 1: [Use case name]
+### Example 1: \[Use case name]
 
-[Description of the example]
+\[Description of the example]
 
 ```bash
 # Create the trigger
@@ -202,12 +243,13 @@ influxdb3 query \
 ```
 
 **Details:**
-- Before: [input state]
-- After: [output state]
 
-### Example 2: [Use case name]
+- Before: \[input state]
+- After: \[output state]
 
-[Additional examples following the same pattern]
+### Example 2: \[Use case name]
+
+\[Additional examples following the same pattern]
 
 ## Code overview
 
@@ -219,41 +261,46 @@ influxdb3 query \
 ### Main functions
 
 #### `function_name(params)`
-[Description of what the function does]
+
+\[Description of what the function does]
 
 Key operations:
-1. [Operation 1]
-2. [Operation 2]
-3. [Operation 3]
+
+1. \[Operation 1]
+2. \[Operation 2]
+3. \[Operation 3]
 
 ### Key logic
 
-[Description of the plugin's core logic and processing flow]
+\[Description of the plugin's core logic and processing flow]
 
 ## Troubleshooting
 
 ### Common issues
 
-#### Issue: [Problem description]
-**Solution**: [How to fix it]
+#### Issue: \[Problem description]
 
-#### Issue: [Problem description]
-**Solution**: [How to fix it]
+**Solution**: \[How to fix it]
+
+#### Issue: \[Problem description]
+
+**Solution**: \[How to fix it]
 
 ### Debugging tips
 
-1. **[Tip 1]**: [Description]
-2. **[Tip 2]**: [Description]
+1. **\[Tip 1]**: \[Description]
+2. **\[Tip 2]**: \[Description]
 
 ### Performance considerations
 
-- [Performance note 1]
-- [Performance note 2]
+- \[Performance note 1]
+- \[Performance note 2]
 
 ## Questions/Comments
 
-For questions or comments about this plugin, please open an issue in the [influxdb3_plugins repository](https://github.com/influxdata/influxdb3_plugins/issues).
-```
+For questions or comments about this plugin, please open an issue in the [influxdb3\_plugins repository](https://github.com/influxdata/influxdb3_plugins/issues).
+
+````
 
 ### 1.2 Validation Requirements
 
@@ -300,13 +347,14 @@ Logs are stored in the `_internal` database (or the database where the trigger i
 
 ```bash
 influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
-```
+````
 
 Log columns:
-- **event_time**: Timestamp of the log event
-- **trigger_name**: Name of the trigger that generated the log
-- **log_level**: Severity level (INFO, WARN, ERROR)
-- **log_text**: Message describing the action or error
+
+- **event\_time**: Timestamp of the log event
+- **trigger\_name**: Name of the trigger that generated the log
+- **log\_level**: Severity level (INFO, WARN, ERROR)
+- **log\_text**: Message describing the action or error
 
 ## Report an issue
 
@@ -315,7 +363,8 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 ## Find support for {{% product-name %}}
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
-```
+
+````
 
 ### 2.2 File Structure in docs-v2
 
@@ -397,11 +446,11 @@ if __name__ == "__main__":
             print(f"✅ {readme_path}")
     
     sys.exit(0 if all_valid else 1)
-```
+````
 
-### 3.2 Transformation Script (port_to_docs.py)
+### 3.2 Transformation Script (port\_to\_docs.py)
 
-```python
+````python
 #!/usr/bin/env python3
 """
 Transforms plugin READMEs from influxdb3_plugins to docs-v2 format.
@@ -437,13 +486,14 @@ Logs are stored in the `_internal` database (or the database where the trigger i
 
 ```bash
 influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
-```
+````
 
 Log columns:
-- **event_time**: Timestamp of the log event
-- **trigger_name**: Name of the trigger that generated the log
-- **log_level**: Severity level (INFO, WARN, ERROR)
-- **log_text**: Message describing the action or error
+
+- **event\_time**: Timestamp of the log event
+- **trigger\_name**: Name of the trigger that generated the log
+- **log\_level**: Severity level (INFO, WARN, ERROR)
+- **log\_text**: Message describing the action or error
 
 ## Report an issue
 
@@ -453,38 +503,45 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 """
-    
-    return content + docs_sections
 
-def process_plugin(source_path, target_path, plugin_name):
-    """Process a single plugin README."""
-    with open(source_path, 'r') as f:
-        content = f.read()
-    
-    transformed = transform_content(content, plugin_name)
-    
-    # Ensure target directory exists
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    with open(target_path, 'w') as f:
-        f.write(transformed)
-    
-    print(f"✅ Processed {plugin_name}")
-
-if __name__ == "__main__":
-    # Load mapping configuration
-    with open('docs_mapping.yaml', 'r') as f:
-        config = yaml.safe_load(f)
-    
-    for plugin_name, mapping in config['plugins'].items():
-        source = Path(mapping['source'])
-        target = Path(mapping['target'])
-        
-        if source.exists():
-            process_plugin(source, target, plugin_name)
-        else:
-            print(f"❌ Source not found: {source}")
 ```
+return content + docs_sections
+```
+
+def process\_plugin(source\_path, target\_path, plugin\_name):
+"""Process a single plugin README."""
+with open(source\_path, 'r') as f:
+content = f.read()
+
+```
+transformed = transform_content(content, plugin_name)
+
+# Ensure target directory exists
+target_path.parent.mkdir(parents=True, exist_ok=True)
+
+with open(target_path, 'w') as f:
+    f.write(transformed)
+
+print(f"✅ Processed {plugin_name}")
+```
+
+if **name** == "**main**":
+\# Load mapping configuration
+with open('docs\_mapping.yaml', 'r') as f:
+config = yaml.safe\_load(f)
+
+```
+for plugin_name, mapping in config['plugins'].items():
+    source = Path(mapping['source'])
+    target = Path(mapping['target'])
+    
+    if source.exists():
+        process_plugin(source, target, plugin_name)
+    else:
+        print(f"❌ Source not found: {source}")
+```
+
+````
 
 ### 3.3 Mapping Configuration (docs_mapping.yaml)
 
@@ -544,7 +601,7 @@ plugins:
     source: influxdata/threshold_deadman_checks/README.md
     target: ../docs-v2/content/shared/influxdb3-plugins/plugins-library/official/threshold-deadman-checks.md
     category: official
-```
+````
 
 ## Phase 4: GitHub Actions Automation
 
@@ -552,10 +609,10 @@ plugins:
 
 The plugin documentation sync process uses a two-repository workflow:
 
-1. **influxdb3_plugins**: Detects README changes and creates reminder comments
+1. **influxdb3\_plugins**: Detects README changes and creates reminder comments
 2. **docs-v2**: Handles the complete sync workflow via issue-triggered automation
 
-### 4.2 Reminder System (influxdb3_plugins)
+### 4.2 Reminder System (influxdb3\_plugins)
 
 **File**: `.github/workflows/remind-sync-docs.yml`
 
@@ -564,6 +621,7 @@ The plugin documentation sync process uses a two-repository workflow:
 - **No secrets required**: Pure URL-based integration
 
 **Flow**:
+
 ```
 Plugin README change → Commit → Automatic comment with sync link
 ```
@@ -571,14 +629,17 @@ Plugin README change → Commit → Automatic comment with sync link
 ### 4.3 Sync Automation (docs-v2)
 
 **Files**:
+
 - `.github/workflows/sync-plugins.yml` - Main sync workflow
 - `.github/ISSUE_TEMPLATE/sync-plugin-docs.yml` - Issue template for requests
 
 **Triggers**:
+
 - Issue creation with `sync-plugin-docs` label (from template)
 - Manual workflow dispatch
 
 **Process**:
+
 1. **Parse request** - Extract plugin names and source commit from issue
 2. **Validate source** - Run `scripts/validate_readme.py` on specified plugins
 3. **Transform content** - Apply docs-v2 formatting and enhancements
@@ -597,39 +658,46 @@ Plugin README change → Commit → Automatic comment with sync link
 ## Phase 5: Manual Workflow (Until Automation is Ready)
 
 ### Step 1: Update Source README
+
 1. Edit README in `influxdb3_plugins/influxdata/[plugin]/`
 2. Run validation: `python scripts/validate_readme.py`
 3. Fix any validation errors
 
 ### Step 2: Transform Content
+
 1. Change to docs-v2 directory: `cd ../docs-v2`
 2. Run transformation: `npm run sync-plugins`
 3. Review generated content: `git diff content/shared/influxdb3-plugins/`
 
 ### Step 3: Manual Adjustments (if needed)
+
 1. Add any docs-specific enhancements
 2. Verify shortcodes and formatting
 3. Test links and examples
 
 ### Step 4: Commit and PR
-1. Commit changes in influxdb3_plugins
+
+1. Commit changes in influxdb3\_plugins
 2. Commit transformed content in docs-v2
 3. Reference source commit in docs-v2 commit message
 
 ## Maintenance Guidelines
 
 ### For New Plugins
+
 1. Create README following template in `influxdb3_plugins`
 2. Add entry to `docs_mapping.yaml`
 3. Run validation and transformation scripts
 4. Review and merge generated documentation
 
 ### For Updates
+
 1. Update source README in `influxdb3_plugins`
 2. Automation (or manual script) creates PR to docs-v2
 3. Review for accuracy and merge
 
 ### Exception Handling
+
 - Use `[no-sync]` in commit message to skip automation
 - Document special cases in `exceptions.yaml`
 - Manual override allowed for urgent fixes
