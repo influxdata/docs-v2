@@ -70,24 +70,6 @@ to visualize InfluxDB `_internal` metrics.
 > `_internal` series only appear after the corresponding subsystem has run at
 > least once, so a given instance may not report every field below.
 
-<!-- VERIFY (live instance): `httpd.valuesWrittenOK`, `write.pointsWrittenOK`,
-     `write.subWriteDrop`, and `write.valuesWrittenOK` are documented by the
-     Telegraf `influxdb` input plugin but were absent on two live InfluxDB
-     v1.12.4 instances (OSS and Enterprise) after fresh write and query
-     activity—they may be limited to older 1.x releases. The `hh_database`
-     measurement is still unconfirmed; reproducing it requires an active
-     hinted handoff failure between cluster nodes, which wasn't tested.
-     Tracked in https://github.com/influxdata/docs-v2/issues/7684
-
-     Correction: an earlier version of this PR also removed
-     `queryExecutor.queriesFailed`, `queryExecutor.queriesSlow`, and
-     `tsm1_engine`'s six `compactionPlanner*` fields as "confirmed absent."
-     That test used a single write and query, not enough to trigger a TSM
-     compaction cycle or a failed-query code path. Re-verified against live
-     InfluxDB v1.13.0 (OSS) and v1.13.0rc5 (Enterprise) with a deliberately
-     failing query, and all 8 fields are present with real, non-zero values.
-     They've been restored below. -->
-
 {{% truncate %}}
 - [ae](#ae-enterprise-only) (Enterprise only)
   - [bytesRx](#bytesrx)
@@ -173,7 +155,6 @@ to visualize InfluxDB `_internal` metrics.
   - [reqDurationNs](#reqdurationns)
   - [serverError](#servererror)
   - [statusReq](#statusreq)
-  - [valuesWrittenOK](#valueswrittenok)
   - [writeReq](#writereq)
   - [writeReqActive](#writereqactive)
   - [writeReqBytes](#writereqbytes)
@@ -299,11 +280,8 @@ to visualize InfluxDB `_internal` metrics.
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
   - [pointReqLocal](#pointreqlocal)
   - [pointReqRemote](#pointreqremote-enterprise-only) (Enterprise only)
-  - [pointsWrittenOK](#pointswrittenok-1)
   - [req](#req)
-  - [subWriteDrop](#subwritedrop)
   - [subWriteOk](#subwriteok)
-  - [valuesWrittenOK](#valueswrittenok-1)
   - [writeDrop](#writedrop)
   - [writeError](#writeerror)
   - [writeOk](#writeok)
@@ -693,9 +671,6 @@ The number of HTTP responses due to server errors.
 
 #### statusReq
 The number of status requests served using the HTTP `/status` endpoint.
-
-#### valuesWrittenOK
-The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
 
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
@@ -1175,20 +1150,11 @@ Then if the write attempt fails, we check again if HH exists, and if so, add the
 This statistic does not distinguish between requests that are directly written to
 the destination node versus enqueued into the hinted handoff queue for the destination node.  
 
-#### pointsWrittenOK
-Number of points written to the HTTP `/write` endpoint and persisted successfully.
-
 #### req
 The total number of batches of points requested to be written to this node.
 
-#### subWriteDrop
-The total number of batches of points that failed to be sent to the subscription dispatcher.
-
 #### subWriteOk
 The total number of batches of points that were successfully sent to the subscription dispatcher.
-
-#### valuesWrittenOK
-Number of values (fields) written to the HTTP `/write` endpoint and persisted successfully.
 
 #### writeDrop
 The total number of write requests for points that have been dropped due to timestamps
