@@ -1,6 +1,6 @@
 # Explorer install docs: route by version and edition
 
-**Status:** In progress — branch `explorer-v1.10-install-restructure`
+**Status:** In review — PR [#7734](https://github.com/influxdata/docs-v2/pull/7734)
 **Closes:** [#6702](https://github.com/influxdata/docs-v2/issues/6702)
 
 ## Goal
