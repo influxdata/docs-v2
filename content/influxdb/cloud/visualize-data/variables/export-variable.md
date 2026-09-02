@@ -20,8 +20,4 @@ Variables are exported as downloadable JSON files.
 2. Select the **Variables** tab.
 3. Hover over a variable in the list, then click the gear icon (**{{< icon "gear" >}}**)
    and select **Export**.
-4. Review the JSON in the window that appears.
-5. Select one of the following options:
-  * **Download JSON**: Download the dashboard as a JSON file.
-  * **Save as template**: Save the JSON as a dashboard template.
-  * **Copy to Clipboard**: Copy the JSON to your clipboard.
+4. Your browser opens a file dialog. Choose a location to save the variable as a JSON file.
