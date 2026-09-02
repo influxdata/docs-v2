@@ -846,9 +846,9 @@ paths:
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
                   disabled: false
-                trigger_settings:
-                  run_async: false
-                  error_behavior: log
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
               github_plugin:
                 summary: Trigger using a remotely fetched plugin
                 description: |
@@ -862,7 +862,9 @@ paths:
                   trigger_name: my_trigger
                   trigger_specification: all_tables
                   disabled: false
-                  trigger_settings: {}
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -2902,8 +2904,15 @@ components:
           example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
-          additionalProperties: true
-          description: Optional arguments passed to the plugin.
+          additionalProperties:
+            type: string
+          description: |
+            Optional, plugin-specific arguments passed to the plugin entry point as its `args` dictionary.
+            Provide string key-value pairs. Omit this field to pass `None` as `args`.
+            Refer to the plugin documentation for supported argument names and values.
+          example:
+            threshold: "90"
+            target_table: alerts
         disabled:
           type: boolean
           default: false
@@ -2922,11 +2931,11 @@ components:
       properties:
         run_async:
           type: boolean
-          default: false
           description: |
-            Whether to run the trigger asynchronously.
-            When `true`, the trigger executes in the background without blocking.
-            When `false`, the trigger executes synchronously.
+            Whether invocations of the trigger can run concurrently.
+            If `false`, invocations run serially--each invocation must finish before the next one starts.
+            If `true`, invocations can run concurrently, up to the `--async-trigger-concurrency-limit`
+            server option (by default, unlimited).
         error_behavior:
           type: string
           enum:
@@ -2934,11 +2943,10 @@ components:
             - retry
             - disable
           description: |
-            Specifies how to handle errors that occur during trigger execution:
-            - `log`: Log the error and continue (default)
-            - `retry`: Retry the trigger execution
-            - `disable`: Disable the trigger after an error
-          default: log
+            How the trigger responds when the plugin returns an error:
+            - `log`: Log the error and keep the trigger active.
+            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure. Errors identified as permanent aren't retried.
+            - `disable`: Disable the trigger until you manually re-enable it.
       required:
         - run_async
         - error_behavior
