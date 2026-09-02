@@ -2,6 +2,11 @@
 
 ## v2.4.0 {date="2026-08-27"}
 
+> [!Important]
+> #### Breaking Change: Node v22 required for v2.4.0
+>
+> With `v2.4.0`, Node v20 support is dropped. Node v22 or newer is now required ([#881](https://github.com/InfluxCommunity/influxdb3-js/pull/881)).
+
 ### Bugfix
 
 1. [#864](https://github.com/InfluxCommunity/influxdb3-js/pull/864): Add support for connecting to InfluxDB servers
