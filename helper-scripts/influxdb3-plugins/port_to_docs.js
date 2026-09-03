@@ -565,7 +565,9 @@ async function main() {
         console.log(`Wrote ${dataFilePath}`);
       }
     } catch (error) {
-      console.warn(`⚠️  Could not update the registry data file: ${error.message}`);
+      console.warn(
+        `⚠️  Could not update the registry data file: ${error.message}`
+      );
     }
     console.log('');
   }
