@@ -10,7 +10,7 @@
 
 ### Core
 
-Maintenance release: v3.11.3 Core includes only build and dependency updates, with no user-facing changes.
+Core remains on v3.11.2 for this cycle. 
 
 ### Enterprise
 
