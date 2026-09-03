@@ -357,6 +357,9 @@ in-flight limit.
 |:-------|:------------|:--------|
 | `--recover-deferred-snapshots-in-flight-limit` | Number of snapshots an ingest node can have in flight before deferred snapshot recovery pauses. Valid values are `1` to `4096`, validated at startup. Applies to recovery only--compaction scheduling keeps the built-in limit of three. | `3` |
 
+To set the limit through the environment, use
+`INFLUXDB3_RECOVER_DEFERRED_SNAPSHOTS_IN_FLIGHT_LIMIT`.
+
 If your ingest nodes snapshot faster than compaction completes batches, no node
 drops below the default limit, so recovery never runs and
 `deferred_snapshot_count` in
