@@ -7,7 +7,6 @@ plugins:
     target: ../../content/shared/influxdb3-plugins/plugins-library/official/basic-transformation.md
     category: official
     additional_sections:
-      - schema_requirements
       - logging
 
   downsampler:
@@ -15,7 +14,6 @@ plugins:
     target: ../../content/shared/influxdb3-plugins/plugins-library/official/downsampler.md
     category: official
     additional_sections:
-      - schema_management
       - logging
 
   forecast_error_evaluator:

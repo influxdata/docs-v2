@@ -1,6 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRegistryIndex, partitionDiscoveredPlugins } from '../discovery.js';
+import {
+  parseRegistryIndex,
+  partitionDiscoveredPlugins,
+} from '../discovery.js';
 
 test('dedupes repeated plugin names, keeping the latest published_at', () => {
   const indexJson = {
@@ -37,7 +40,10 @@ test('dedupes repeated plugin names, keeping the latest published_at', () => {
     ],
   };
 
-  const { plugins } = parseRegistryIndex(indexJson, { overrides: {}, exclude: [] });
+  const { plugins } = parseRegistryIndex(indexJson, {
+    overrides: {},
+    exclude: [],
+  });
 
   assert.equal(plugins.length, 1);
   assert.equal(plugins[0].version, '0.2.0');
@@ -62,7 +68,10 @@ test('derives a slug from the plugin name by replacing underscores with hyphens'
     ],
   };
 
-  const { plugins } = parseRegistryIndex(indexJson, { overrides: {}, exclude: [] });
+  const { plugins } = parseRegistryIndex(indexJson, {
+    overrides: {},
+    exclude: [],
+  });
 
   assert.equal(plugins[0].slug, 'basic-transformation');
   assert.equal(plugins[0].stubSlug, 'basic-transformation');
@@ -135,12 +144,21 @@ test('drops an excluded plugin from the result and reports it as excluded', () =
 });
 
 test('partitions discovered plugins by whether docs_mapping.yaml already maps them', () => {
-  const discovered = [{ name: 'basic_transformation' }, { name: 'stock_plugin' }];
+  const discovered = [
+    { name: 'basic_transformation' },
+    { name: 'stock_plugin' },
+  ];
 
   const { mapped, unmapped } = partitionDiscoveredPlugins(discovered, [
     'basic_transformation',
   ]);
 
-  assert.deepEqual(mapped.map((p) => p.name), ['basic_transformation']);
-  assert.deepEqual(unmapped.map((p) => p.name), ['stock_plugin']);
+  assert.deepEqual(
+    mapped.map((p) => p.name),
+    ['basic_transformation']
+  );
+  assert.deepEqual(
+    unmapped.map((p) => p.name),
+    ['stock_plugin']
+  );
 });

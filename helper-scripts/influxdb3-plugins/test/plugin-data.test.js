@@ -50,7 +50,7 @@ test('maps identity, description, and version fields', () => {
   );
 });
 
-test('uses the stub slug for id, since that is the plugin\'s actual page URL', () => {
+test("uses the stub slug for id, since that is the plugin's actual page URL", () => {
   const plugin = {
     name: 'mad_check',
     slug: 'mad-check',
