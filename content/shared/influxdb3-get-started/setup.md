@@ -115,6 +115,15 @@ Provide the following:
   To accept only local connections until you create your first admin token,
   specify `127.0.0.1:8181`.
 
+{{% show-in "enterprise" %}}
+- _(Optional, v3.11+)_ `--mode all,webui`: Serves the InfluxDB 3 Explorer web UI
+  from the server process.
+  `all` doesn't include `webui`, so name `webui` explicitly.
+  This mode also requires `--webui-session-secret` and `--plugin-dir`.
+  For the requirements and the full startup command, see
+  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+{{% /show-in %}}
+
 > [!Caution]
 > #### Create your admin token before you expose the server
 >
