@@ -10,7 +10,8 @@
 
 ### Core
 
-Core remains on v3.11.2 for this cycle. 
+No adjustments in this release.
+Core remains on v3.11.2.
 
 ### Enterprise
 
@@ -19,12 +20,27 @@ Additional Enterprise-specific updates:
 
 #### Features
 
-- **Run-set indexes written by later releases are readable**: The compactor now reads the v3 run-set index format that later releases write, so a rollback to v3.11.3 from a release that writes v3 leaves no unreadable indexes behind.
+- **Read run-set indexes written by later releases**:
+  The compactor now reads the v3 run-set index format that later releases write,
+  so you can roll back to v3.11.3 from a release that writes v3 indexes without
+  leaving unreadable indexes behind.
 
 #### Bug fixes
 
-- **Missing rows from an `OR` predicate against a [file index](/influxdb3/enterprise/admin/file-index/)**: File pruning now applies to an `OR` only when both sides resolve against the index, and falls back to scanning all files otherwise. Previously, when one side referenced a column the index doesn't cover, the query kept only the files matching the resolved side, so rows that matched solely through the uncovered side were dropped from the result. 
-- **Deferred snapshot recovery makes no progress on a busy cluster**: `--recover-deferred-snapshots` feeds deferred snapshots back into compaction only while every ingest node has fewer than three snapshots in flight. On a cluster which snapshots faster than batches complete, that gate is never met, so the deferred count never falls. The new `--recover-deferred-snapshots-in-flight-limit` option raises the gate for recovery alone.
+- **Missing rows from an `OR` predicate against a [file index](/influxdb3/enterprise/admin/file-index/)**:
+  File pruning now applies to an `OR` only when both sides resolve against the
+  index, and otherwise falls back to scanning all files.
+  Previously, when one side referenced a column that the index doesn't cover,
+  the query kept only the files that matched the resolved side, so rows that
+  matched only through the uncovered side were dropped from the results.
+- **Deferred snapshot recovery makes no progress on a busy cluster**:
+  The new `--recover-deferred-snapshots-in-flight-limit` option raises the
+  in-flight snapshot limit that gates recovery alone.
+  By default, `--recover-deferred-snapshots` feeds deferred snapshots back into
+  compaction only while every ingest node has fewer than three snapshots in
+  flight.
+  On a cluster that snapshots faster than batches complete, that gate is never
+  met, so the deferred count never falls.
 - Other bug fixes and performance improvements
 
 ## v3.11.2 {date="2026-08-20"}
