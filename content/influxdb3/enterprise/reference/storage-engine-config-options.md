@@ -378,7 +378,7 @@ A higher limit increases snapshot lag while recovery runs.
 Discovery lookahead and per-cycle feed limits are unchanged, so recovery can't
 overwhelm the compaction pipeline.
 
-## L1-L2 level tuning
+## L1-L4 level tuning
 
 For what these levels mean and how the time-disjoint compaction model uses
 them, see
