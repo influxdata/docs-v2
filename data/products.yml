@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.11.3
+  latest_patch: 3.11.2
   placeholder_host: localhost:8181
   scheme: http
   limits:
