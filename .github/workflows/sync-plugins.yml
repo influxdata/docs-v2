@@ -1,8 +1,6 @@
 name: Sync Plugin Documentation
 
 on:
-  issues:
-    types: [opened]
   workflow_dispatch:
     inputs:
       plugins:
@@ -17,61 +15,17 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  issues: write
 
 jobs:
   sync-plugins:
     runs-on: ubuntu-latest
-    # Only run on issues with sync-plugin-docs label or manual dispatch
-    if: |
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'source:sync'))
 
     steps:
-      - name: Parse issue inputs
-        id: parse-inputs
-        if: github.event_name == 'issues'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
-        with:
-          script: |
-            const issue = context.payload.issue;
-            const body = issue.body || '';
-
-            // Extract plugins and source_commit from issue body
-            const pluginsMatch = body.match(/### Plugin Names\s*\n\s*(.+)/);
-            const commitMatch = body.match(/### Source Commit\/Branch\s*\n\s*(.+)/);
-
-            const plugins = pluginsMatch ? pluginsMatch[1].trim() : 'all';
-            const sourceCommit = commitMatch ? commitMatch[1].trim() : 'main';
-
-            core.setOutput('plugins', plugins);
-            core.setOutput('source_commit', sourceCommit);
-            core.setOutput('issue_number', issue.number);
-
       - name: Set workflow inputs
         id: inputs
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "plugins=${{ github.event.inputs.plugins }}" >> $GITHUB_OUTPUT
-            echo "source_commit=${{ github.event.inputs.source_commit }}" >> $GITHUB_OUTPUT
-            echo "issue_number=" >> $GITHUB_OUTPUT
-          else
-            echo "plugins=${{ steps.parse-inputs.outputs.plugins }}" >> $GITHUB_OUTPUT
-            echo "source_commit=${{ steps.parse-inputs.outputs.source_commit }}" >> $GITHUB_OUTPUT
-            echo "issue_number=${{ steps.parse-inputs.outputs.issue_number }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Update issue status
-        if: steps.inputs.outputs.issue_number != ''
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ steps.inputs.outputs.issue_number }},
-              body: '🔄 Plugin sync started...\n\nPlugins: `${{ steps.inputs.outputs.plugins }}`\nSource: `${{ steps.inputs.outputs.source_commit }}`'
-            });
+          echo "plugins=${{ github.event.inputs.plugins }}" >> $GITHUB_OUTPUT
+          echo "source_commit=${{ github.event.inputs.source_commit }}" >> $GITHUB_OUTPUT
 
       - name: Checkout docs-v2
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -134,47 +88,6 @@ jobs:
           else
             echo "validation_passed=false" >> $GITHUB_OUTPUT
           fi
-
-      - name: Report validation failure
-        if: steps.validate.outputs.validation_passed == 'false'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
-        with:
-          script: |
-            const fs = require('fs');
-            let validationLog = '';
-            try {
-              validationLog = fs.readFileSync('influxdb3_plugins/validation.log', 'utf8');
-            } catch (e) {
-              validationLog = 'Could not read validation log';
-            }
-
-            const issueNumber = '${{ steps.inputs.outputs.issue_number }}';
-            if (issueNumber) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: parseInt(issueNumber),
-                body: `❌ **Validation Failed**
-
-                Plugin READMEs do not meet template requirements. Please fix the following issues in influxdb3_plugins:
-
-                \`\`\`
-                ${validationLog}
-                \`\`\`
-
-                See [README_TEMPLATE.md](https://github.com/influxdata/influxdb3_plugins/blob/main/README_TEMPLATE.md) for requirements.`
-              });
-
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: parseInt(issueNumber),
-                state: 'closed',
-                labels: ['source:sync', 'validation-failed']
-              });
-            }
-
-            core.setFailed('Plugin validation failed');
 
       - name: Debug - Check file structure
         if: steps.validate.outputs.validation_passed == 'true'
@@ -268,7 +181,7 @@ jobs:
 
           # Run the transformation
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
-            node port_to_docs.js  # ← CHANGE: Script is in current dir now
+            node port_to_docs.js
           else
             # Transform specific plugins
             IFS=',' read -ra PLUGIN_ARRAY <<< "${{ steps.inputs.outputs.plugins }}"
@@ -367,12 +280,11 @@ jobs:
 
             **Source**: influxdb3_plugins@${{ steps.inputs.outputs.source_commit }}
             **Plugins**: ${{ steps.inputs.outputs.plugins }}
-            **Triggered by**: ${{ github.event_name == 'issues' && format('Issue #{0}', steps.inputs.outputs.issue_number) || 'Manual workflow dispatch' }}
+            **Triggered by**: Manual workflow dispatch
 
             ### Changes Made
-            - ✅ Validated source READMEs against template requirements
-            - 🔄 Transformed content for docs-v2 compatibility
-            - 🖼️ Generated ${{ steps.screenshots.outputs.screenshots_generated }} plugin page screenshots
+            - Validated source READMEs against template requirements
+            - Transformed content for docs-v2 compatibility
 
             ### Transformations Applied
             - Removed emoji metadata (already in plugin JSON metadata)
@@ -380,9 +292,6 @@ jobs:
             - Added Hugo product shortcodes (`{{% product-name %}}`)
             - Added standard logging section
             - Updated support sections with docs-v2 format
-
-            ### Screenshots
-            Plugin page previews are available in the `plugin-screenshots/` directory (if any were generated).
 
             ### Review Checklist
             - [ ] All plugin pages render correctly
@@ -393,49 +302,3 @@ jobs:
 
             ---
             *This PR was automatically generated by the plugin sync workflow.*
-
-      - name: Update issue with success
-        if: steps.validate.outputs.validation_passed == 'true' && steps.inputs.outputs.issue_number != ''
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ steps.inputs.outputs.issue_number }},
-              body: `✅ **Plugin sync completed successfully!**
-
-              **Pull Request**: #${{ steps.create-pr.outputs.pull-request-number }}
-              **Plugins synced**: ${{ steps.inputs.outputs.plugins }}
-              **Source commit**: ${{ steps.inputs.outputs.source_commit }}
-              **Screenshots generated**: ${{ steps.screenshots.outputs.screenshots_generated }}
-
-              The PR is ready for review and includes all necessary transformations and validations.`
-            });
-
-            await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ steps.inputs.outputs.issue_number }},
-              state: 'closed',
-              labels: ['source:sync', 'completed']
-            });
-
-      - name: Report failure
-        if: failure() && steps.inputs.outputs.issue_number != ''
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ steps.inputs.outputs.issue_number }},
-              body: `❌ **Plugin sync failed**
-
-              Please check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
-
-              You may need to:
-              - Check that the source commit exists
-              - Verify plugin names are correct
-              - Ensure all validation requirements are met`
-            });
