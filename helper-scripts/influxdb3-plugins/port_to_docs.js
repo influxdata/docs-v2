@@ -7,6 +7,12 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import {
+  fetchRegistryIndex,
+  parseRegistryIndex,
+  partitionDiscoveredPlugins,
+} from './discovery.js';
+import { mapEntry, renderPluginDataYaml } from './plugin-data.js';
 
 /**
  * Load the mapping configuration file.
@@ -514,6 +520,49 @@ async function main() {
     );
     console.log('  cd docs-v2/helper-scripts/influxdb3-plugins');
     process.exit(1);
+  }
+
+  // Discover official plugins from the registry index. The transform loop
+  // below still walks docs_mapping.yaml's plugins map for README content
+  // until Task 5 lands stub scaffolding for plugins that aren't mapped yet,
+  // but data/influxdb3_plugins.yml is fully registry-driven and regenerated
+  // every run regardless of --plugin.
+  if (!options.plugin) {
+    console.log('Discovering official plugins from the registry index...');
+    try {
+      const indexJson = await fetchRegistryIndex();
+      const { plugins: discovered, excluded } = parseRegistryIndex(indexJson, {
+        overrides: config.overrides ?? {},
+        exclude: config.exclude ?? [],
+      });
+      const { mapped, unmapped } = partitionDiscoveredPlugins(
+        discovered,
+        Object.keys(config.plugins)
+      );
+      console.log(
+        `Discovered ${discovered.length} official plugin(s) in the registry.`
+      );
+      if (excluded.length > 0) {
+        console.log(`Excluded by docs_mapping.yaml: ${excluded.join(', ')}`);
+      }
+      console.log(`  Mapped (transformed below): ${mapped.length}`);
+      console.log(`  Not yet mapped (pending Task 5): ${unmapped.length}`);
+      if (unmapped.length > 0) {
+        console.log(`    ${unmapped.map((plugin) => plugin.name).join(', ')}`);
+      }
+
+      const dataYaml = renderPluginDataYaml(discovered.map(mapEntry));
+      const dataFilePath = '../../data/influxdb3_plugins.yml';
+      if (options.dryRun) {
+        console.log(`DRY RUN: would write ${dataFilePath}`);
+      } else {
+        await fs.writeFile(dataFilePath, dataYaml, 'utf8');
+        console.log(`Wrote ${dataFilePath}`);
+      }
+    } catch (error) {
+      console.warn(`⚠️  Could not update the registry data file: ${error.message}`);
+    }
+    console.log('');
   }
 
   // Process plugins

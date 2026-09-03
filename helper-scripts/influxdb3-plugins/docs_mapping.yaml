@@ -111,6 +111,15 @@ settings:
   # Default category if not specified
   default_category: official
 
+# Registry discovery overrides. The product stub slug can differ from the
+# shared-page slug (which is always name-derived); list only the exceptions.
+overrides:
+  mad_check:
+    stub_slug: mad-anomaly-detection
+
+# Official plugins to drop from registry discovery entirely.
+exclude: []
+
 # Exceptions - plugins that require special handling
 exceptions:
   # List plugins that should not be automatically synced

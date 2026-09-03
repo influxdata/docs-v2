@@ -23,7 +23,11 @@ Recorded in [docs/adr/0004-plugin-sync-ownership-seam.md](docs/adr/0004-plugin-s
 Terminology is defined in
 [helper-scripts/influxdb3-plugins/README.md](helper-scripts/influxdb3-plugins/README.md#terminology).
 
-- Plugins are discovered by scanning `influxdata/*/manifest.toml` upstream.
+- Plugins are discovered from the upstream registry index
+  (`influxdata/influxdb3_plugins` release `registry`, asset `index.json`),
+  deduped to the latest published version per plugin name. This only
+  surfaces plugins that have been published to the registry; a plugin merged
+  in-tree but not yet released does not appear until it is.
   `docs_mapping.yaml` shrinks to slug overrides and exclusions.
 - Ownership splits three ways by file: manifest facts into a Hugo data file the
   sync fully owns; README prose into a generated region of the shared page;
@@ -49,18 +53,23 @@ rewrite, so it can merge immediately.
 
 **Acceptance criteria:**
 
-- [ ] `on:` in `.github/workflows/sync-plugins.yml` lists only
+- [x] `on:` in `.github/workflows/sync-plugins.yml` lists only
   `workflow_dispatch`.
-- [ ] The `Parse issue inputs`, `Update issue status`, `Report validation
+- [x] The `Parse issue inputs`, `Update issue status`, `Report validation
       failure`, `Update issue with success`, and `Report failure` steps are
   removed, along with `issues: write` from `permissions:`.
-- [ ] `.github/ISSUE_TEMPLATE/sync-plugin-docs.yml` is deleted.
+- [x] `.github/ISSUE_TEMPLATE/sync-plugin-docs.yml` is deleted.
 - [ ] Issue #7461 is closed with a comment explaining the replacement.
+  Deferred by request: link it from the pull request instead of closing it
+  ahead of the rewrite landing.
 
 **Verification:**
 
 - [ ] `actionlint .github/workflows/sync-plugins.yml` reports no errors.
-- [ ] Manual check: no `${{ github.event.issue` remains in the file.
+  Remaining alerts (shellcheck SC2086/SC2012, one `if-cond`) are pre-existing,
+  confirmed identical on `master`, and in the Debug/Playwright/screenshot
+  steps Task 7 removes; none are on lines this task touched.
+- [x] Manual check: no `${{ github.event.issue` remains in the file.
 
 **Dependencies:** None.
 
@@ -73,26 +82,37 @@ rewrite, so it can merge immediately.
 
 ### Phase 1: Generator
 
-#### Task 2: Discover plugins by scanning manifests
+#### Task 2: Discover plugins from the registry index
 
-**Description:** Replace the hand-maintained plugin list with a scan of
-`influxdata/*/manifest.toml` in the upstream checkout. Reduce
-`docs_mapping.yaml` to a slug override map and an exclusion list, keeping the
-existing `exceptions.manual_review` entries.
+**Description:** Replace the hand-maintained plugin list with a fetch of the
+`index.json` asset from the `influxdb3_plugins` `registry` release
+(`https://github.com/influxdata/influxdb3_plugins/releases/download/registry/index.json`).
+The index lists one entry per published version, scoped entirely to
+`influxdata/` plugins already; dedupe to the latest `published_at` per `name`.
+Reduce `docs_mapping.yaml` to a slug override map and an exclusion list,
+keeping the existing `exceptions.manual_review` entries.
 
 **Acceptance criteria:**
 
-- [ ] A scan of a fixture tree returns all official plugins, excluding
-  `influxdata/library/`.
-- [ ] `mad_check` resolves to the `mad-anomaly-detection` stub slug through an
+- [x] Reading a fixture `index.json` returns one entry per unique plugin
+  `name`, keeping only the entry with the latest `published_at` when a name
+  repeats.
+- [x] `mad_check` resolves to the `mad-anomaly-detection` stub slug through an
   override entry.
-- [ ] A plugin directory missing `manifest.toml` or `README.md` is skipped and
-  reported, not fatal.
+- [x] A plugin excluded in `docs_mapping.yaml` is dropped from the result and
+  reported as excluded, not fatal.
+- [x] A live fetch failure (network error, non-200, malformed JSON) is a
+  reported error, not a silent empty result.
 
 **Verification:**
 
-- [ ] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/`
-- [ ] Manual check: `yarn sync-plugins:dry-run` lists 34 plugins.
+- [x] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/*.test.js`
+  (a bare directory arg doesn't glob under this repo's Node version; every
+  other `node --test` script here already spells out the glob).
+- [x] Manual check: `yarn sync-plugins:dry-run` lists every official plugin
+  (35 at the time of this run; the registry grew by one between the ADR
+  snapshot and this check, which is the discovery mechanism working as
+  intended, not a fixed count to match).
 
 **Dependencies:** None.
 
@@ -100,43 +120,52 @@ existing `exceptions.manual_review` entries.
 
 - `helper-scripts/influxdb3-plugins/port_to_docs.js`
 - `helper-scripts/influxdb3-plugins/docs_mapping.yaml`
+- `helper-scripts/influxdb3-plugins/discovery.js` (new)
 - `helper-scripts/influxdb3-plugins/test/discovery.test.js`
+- `helper-scripts/influxdb3-plugins/test/discovery-fetch.test.js`
 
 **Estimated scope:** Medium.
 
 #### Task 3: Generate the plugin data file
 
-**Description:** Parse each plugin's `manifest.toml` into
-`data/influxdb3_plugins.yml`, mapping upstream trigger identifiers to the
-documentation vocabulary. The sync owns this file completely.
+**Description:** Map each discovered registry entry into
+`data/influxdb3_plugins.yml`, translating upstream trigger identifiers to the
+documentation vocabulary. The registry entry already carries name, version,
+description, triggers, and dependencies as JSON, so this task is a field
+mapping, not a parser. The sync owns this file completely.
 
 **Acceptance criteria:**
 
-- [ ] `data/influxdb3_plugins.yml` contains one entry per official plugin with
-  name, slug, description, trigger types, dependencies, and upstream URL.
-- [ ] Entries follow the shape `data/telegraf_plugins.yml` uses, so the
+- [x] `data/influxdb3_plugins.yml` contains one entry per official plugin with
+  name, id, description, trigger types, `database_version`, and upstream URL.
+  `id` is the *product-stub* slug (`stubSlug`), not the shared-page slug —
+  they differ for `mad_check`, and `id` is what Task 14's card link needs.
+- [x] Entries follow the shape `data/telegraf_plugins.yml` uses, so the
   existing `plugin-card` and `list-filters` rendering applies unchanged in
   Task 14: `name`, `id`, `description`, `tags`, plus `introduced` from the
-  manifest `version` and a minimum `database_version`.
-- [ ] `process_scheduled_call`, `process_writes`, and `process_request` map to
+  registry `version` and a minimum `database_version` from
+  `dependencies.database_version`.
+- [x] `process_scheduled_call`, `process_writes`, and `process_request` map to
   `scheduled`, `data-write`, and `HTTP request`.
-- [ ] Output is deterministic: two runs over the same input produce byte-
+- [x] Output is deterministic: two runs over the same input produce byte-
   identical files.
 
 **Verification:**
 
-- [ ] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/`
-- [ ] Build succeeds: `npx hugo --quiet`
+- [x] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/*.test.js`
+- [x] Build succeeds: `npx hugo --quiet`
 
 **Dependencies:** Task 2.
 
 **Files likely touched:**
 
 - `helper-scripts/influxdb3-plugins/port_to_docs.js`
+- `helper-scripts/influxdb3-plugins/plugin-data.js` (new)
 - `data/influxdb3_plugins.yml`
-- `helper-scripts/influxdb3-plugins/test/manifest.test.js`
+- `helper-scripts/influxdb3-plugins/test/plugin-data.test.js`
+- `helper-scripts/influxdb3-plugins/test/plugin-data-yaml.test.js`
 
-**Estimated scope:** Medium.
+**Estimated scope:** Small.
 
 #### Task 4: Preserve hand-owned regions in shared pages
 
@@ -557,11 +586,14 @@ need a data source and a facet definition, not new components.
 - The pull request token is provisioned separately by the docs maintainer.
   Task 7 assumes it exists under a repository secret.
 - The schedule is 07:30 UTC daily, clear of the three existing sync crons.
+- The sync covers only plugins published to the registry index, not every
+  in-tree plugin. A plugin merged but not yet released does not gain a page
+  until it is published. `index.json` at 34 unique names matches the
+  in-tree `influxdata/` count, is already scoped to official plugins with no
+  contributor-directory filtering needed, and its fields (`version`,
+  `description`, `triggers`, `dependencies`) map directly onto Task 3's data
+  file, so it replaces the `manifest.toml` scan as the discovery source.
 
 ## Deferred
 
 Does not block this plan. Revisit after the schedule is running.
-
-- Should the sync cover every in-tree plugin, or only those published to the
-  registry index? The plan assumes in-tree, which can include a plugin before
-  its first release.

@@ -14,8 +14,8 @@ reverted.
 Ownership is now split three ways by file, not by convention:
 
 - Structured facts (name, version, description, trigger types, dependencies)
-  are parsed from each plugin's `manifest.toml` into a Hugo data file that the
-  sync fully owns and nobody hand-edits.
+  are mapped from the plugin's registry index entry into a Hugo data file
+  that the sync fully owns and nobody hand-edits.
 - README-derived prose lands in a generated region of the shared page.
   Everything outside that region is hand-owned and preserved across runs.
 - Product stubs are created once when a plugin first appears and are never
@@ -31,8 +31,20 @@ We also rejected keeping `docs_mapping.yaml` as the list of plugins to sync.
 A hand-maintained map is why the library documented 11 of 34 official plugins:
 adding a plugin required three coordinated edits across two repositories, and
 forgetting any of them produced a successful-looking sync. Plugins are now
-discovered by scanning `influxdata/*/manifest.toml`, and the mapping file is
-reduced to slug overrides and exclusions.
+discovered from the upstream registry index (`index.json` on the
+`influxdb3_plugins` `registry` release), deduped to the latest published
+version per name, and the mapping file is reduced to slug overrides and
+exclusions.
+
+We rejected scanning `influxdata/*/manifest.toml` in the upstream checkout
+for discovery. It would see an in-tree plugin before its first release, but
+the registry index already carries every field this pipeline needs
+(version, description, trigger types, dependencies) as JSON, one HTTP fetch,
+with no TOML parser and no directory-exclusion logic. The tradeoff is real:
+a plugin merged but not yet published does not gain a page until it is. We
+accept that lag because it matches "official plugin" to "published plugin,"
+which is also what a reader following a documentation link expects to be
+able to install.
 
 ## Consequences
 
@@ -41,10 +53,10 @@ generated region and preserve everything around it, which means a malformed or
 missing region marker is a failure mode that whole-file overwrite did not have.
 Anything a writer places *inside* a generated region is still lost.
 
-Discovery by scan means a new upstream plugin now produces documentation
-without human action. That is the point, but it also means an upstream plugin
-added with a thin README produces a thin page, so the sync PR stays
-review-gated.
+Discovery from the registry index means a newly published upstream plugin now
+produces documentation without human action. That is the point, but it also
+means a plugin published with a thin README produces a thin page, so the sync
+PR stays review-gated.
 
 Deleting a plugin upstream does not delete its page. Removals are reported in
 the pull request body and resolved by hand, because a rename is
