@@ -34,26 +34,13 @@ Additional Enterprise-specific updates:
   the query kept only the files that matched the resolved side, so rows that
   matched only through the uncovered side were dropped from the results.
 - **Deferred snapshot recovery makes no progress on a busy cluster**:
-  The new `--recover-deferred-snapshots-in-flight-limit` option
-  (`INFLUXDB3_RECOVER_DEFERRED_SNAPSHOTS_IN_FLIGHT_LIMIT`) sets how many
-  snapshots an ingest node can have in flight before deferred snapshot recovery
-  pauses.
-  `--recover-deferred-snapshots` returns deferred snapshots to compaction only
-  while every ingest node is below this limit.
+  The new
+  [`--recover-deferred-snapshots-in-flight-limit`](/influxdb3/enterprise/reference/storage-engine-config-options/#deferred-snapshot-recovery)
+  option raises the per-node in-flight snapshot limit that gates
+  `--recover-deferred-snapshots`.
   The limit was previously fixed at three, so on a cluster whose ingest nodes
-  snapshot faster than compaction completes batches, no node ever dropped below
-  it, recovery never ran, and the deferred snapshot count never fell.
-  Raise the limit when `--recover-deferred-snapshots` is enabled but
-  `deferred_snapshot_count` in
-  [`system.pt_compaction_ingest_nodes`](/influxdb3/enterprise/admin/query-system-data/#query-system-tables)
-  isn't falling.
-  Valid values are `1` to `4096`.
-  The default is three, so leaving the option unset changes nothing.
-  The option applies to recovery only; compaction scheduling keeps the fixed
-  limit.
-  A higher limit increases snapshot lag while recovery runs, but discovery and
-  per-cycle feed limits are unchanged, so recovery can't overwhelm the
-  compaction pipeline.
+  snapshot faster than compaction completes batches, recovery never ran.
+  The default is unchanged.
 - Other bug fixes and performance improvements
 
 ## v3.11.2 {date="2026-08-20"}

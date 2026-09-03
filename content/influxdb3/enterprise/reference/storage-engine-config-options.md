@@ -345,6 +345,36 @@ influxdb3 serve \
   --final-compaction-age 48h
 ```
 
+### Deferred snapshot recovery
+
+When a snapshot fails to compact, the compactor defers it and records it in
+`system.pt_compaction_deferred_snapshots`.
+`--recover-deferred-snapshots` returns deferred snapshots to compaction, but
+only while every ingest node has fewer snapshots in flight than the recovery
+in-flight limit.
+
+| Option | Description | Default |
+|:-------|:------------|:--------|
+| `--recover-deferred-snapshots-in-flight-limit` | Number of snapshots an ingest node can have in flight before deferred snapshot recovery pauses. Valid values are `1` to `4096`, validated at startup. Applies to recovery only--compaction scheduling keeps the built-in limit of three. | `3` |
+
+If your ingest nodes snapshot faster than compaction completes batches, no node
+drops below the default limit, so recovery never runs and
+`deferred_snapshot_count` in
+[`system.pt_compaction_ingest_nodes`](/influxdb3/enterprise/admin/query-system-data/#query-system-tables)
+doesn't fall.
+Raise the limit to let recovery proceed:
+
+```bash
+influxdb3 serve \
+  # ...
+  --recover-deferred-snapshots \
+  --recover-deferred-snapshots-in-flight-limit 32
+```
+
+A higher limit increases snapshot lag while recovery runs.
+Discovery lookahead and per-cycle feed limits are unchanged, so recovery can't
+overwhelm the compaction pipeline.
+
 ## L1-L2 level tuning
 
 For what these levels mean and how the time-disjoint compaction model uses
