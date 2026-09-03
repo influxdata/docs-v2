@@ -5,7 +5,12 @@ import { renderPluginDataYaml } from '../plugin-data.js';
 test('sorts entries by name regardless of input order', () => {
   const entries = [
     { name: 'stock_plugin', id: 'stock-plugin', description: 'b', tags: [] },
-    { name: 'amqp_subscriber', id: 'amqp-subscriber', description: 'a', tags: [] },
+    {
+      name: 'amqp_subscriber',
+      id: 'amqp-subscriber',
+      description: 'a',
+      tags: [],
+    },
   ];
 
   const yaml = renderPluginDataYaml(entries);
@@ -16,7 +21,12 @@ test('sorts entries by name regardless of input order', () => {
 test('produces byte-identical output across repeated runs over the same input', () => {
   const entries = [
     { name: 'stock_plugin', id: 'stock-plugin', description: 'b', tags: [] },
-    { name: 'amqp_subscriber', id: 'amqp-subscriber', description: 'a', tags: [] },
+    {
+      name: 'amqp_subscriber',
+      id: 'amqp-subscriber',
+      description: 'a',
+      tags: [],
+    },
   ];
 
   const first = renderPluginDataYaml(entries);

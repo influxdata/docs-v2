@@ -258,56 +258,55 @@ function fixCodeBlockFormatting(content) {
   return content;
 }
 
+const GENERATED_REGION_BEGIN = '<!-- BEGIN GENERATED PLUGIN CONTENT -->';
+const GENERATED_REGION_END = '<!-- END GENERATED PLUGIN CONTENT -->';
+
 /**
- * Add schema requirements section for plugins that need it.
+ * Merge freshly generated README content into a shared page, preserving any
+ * hand-owned text outside the generated region.
+ *
+ * - No existing markers: the whole file is generated content; wrap it in
+ *   markers so future runs can locate the region.
+ * - Both markers present, in order: replace only the text between them.
+ * - Markers missing, duplicated, or out of order: report an error instead of
+ *   writing, so a malformed page isn't silently corrupted.
  */
-function addSchemaRequirements(content, pluginName) {
-  // List of plugins that require schema information
-  const schemaPlugins = ['basic_transformation', 'downsampler'];
+function mergeGeneratedRegion(existingContent, generatedContent) {
+  const body = generatedContent.trim();
 
-  if (!schemaPlugins.includes(pluginName)) {
-    return content;
+  if (!existingContent) {
+    return {
+      content: `${GENERATED_REGION_BEGIN}\n${body}\n${GENERATED_REGION_END}\n`,
+    };
   }
 
-  let schemaSection;
-  if (pluginName === 'basic_transformation') {
-    schemaSection = `## Schema requirements
+  const beginIndex = existingContent.indexOf(GENERATED_REGION_BEGIN);
+  const endIndex = existingContent.indexOf(GENERATED_REGION_END);
 
-The plugin assumes that the table schema is already defined in the database, as it relies on this schema to retrieve field and tag names required for processing.
-
-> [!WARNING]
-> #### Requires existing schema
->
-> By design, the plugin returns an error if the schema doesn't exist or doesn't contain the expected columns.
-`;
-  } else if (pluginName === 'downsampler') {
-    schemaSection = `## Schema management
-
-Each downsampled record includes three additional metadata columns:
-
-- \`record_count\` — the number of original points compressed into this single downsampled row
-- \`time_from\` — the minimum timestamp among the original points in the interval  
-- \`time_to\` — the maximum timestamp among the original points in the interval
-`;
-  } else {
-    return content;
+  if (beginIndex === -1 && endIndex === -1) {
+    return {
+      content: `${GENERATED_REGION_BEGIN}\n${body}\n${GENERATED_REGION_END}\n`,
+    };
   }
 
-  // Insert after Configuration section
-  if (content.includes('## Installation steps')) {
-    content = content.replace(
-      '## Installation steps',
-      schemaSection + '\n## Installation steps'
-    );
+  if (beginIndex === -1 || endIndex === -1 || endIndex < beginIndex) {
+    return {
+      error: `Unterminated generated-region marker: expected both "${GENERATED_REGION_BEGIN}" and "${GENERATED_REGION_END}", in that order.`,
+    };
   }
 
-  return content;
+  const prefix = existingContent.slice(
+    0,
+    beginIndex + GENERATED_REGION_BEGIN.length
+  );
+  const suffix = existingContent.slice(endIndex);
+  return { content: `${prefix}\n${body}\n${suffix}` };
 }
 
 /**
  * Apply all transformations to convert README for docs-v2.
  */
-function transformContent(content, pluginName, config) {
+function transformContent(content, pluginName) {
   // Apply transformations in order
   content = removeEmojiMetadata(content);
   content = removeTitleHeading(content);
@@ -319,14 +318,6 @@ function transformContent(content, pluginName, config) {
   content = enhanceOpeningParagraph(content);
   content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
-
-  // Add schema requirements if applicable
-  if (
-    config.additional_sections &&
-    config.additional_sections.includes('schema_requirements')
-  ) {
-    content = addSchemaRequirements(content, pluginName);
-  }
 
   // Add logging section
   content = addLoggingSection(content);
@@ -358,7 +349,21 @@ async function processPlugin(pluginName, mapping, dryRun = false) {
     const content = await fs.readFile(sourcePath, 'utf8');
 
     // Transform content
-    const transformed = transformContent(content, pluginName, mapping);
+    const transformed = transformContent(content, pluginName);
+
+    // Preserve any hand-owned text outside the generated region
+    let existingTarget = null;
+    try {
+      existingTarget = await fs.readFile(targetPath, 'utf8');
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+
+    const merged = mergeGeneratedRegion(existingTarget, transformed);
+    if (merged.error) {
+      console.error(`❌ ${pluginName}: ${merged.error}`);
+      return false;
+    }
 
     if (dryRun) {
       console.log(`✅ Would process ${pluginName}`);
@@ -370,8 +375,8 @@ async function processPlugin(pluginName, mapping, dryRun = false) {
     // Ensure target directory exists
     await fs.mkdir(path.dirname(targetPath), { recursive: true });
 
-    // Write transformed content
-    await fs.writeFile(targetPath, transformed, 'utf8');
+    // Write merged content
+    await fs.writeFile(targetPath, merged.content, 'utf8');
 
     console.log(`✅ Processed ${pluginName}`);
     console.log(`   Source: ${sourcePath}`);
@@ -627,4 +632,9 @@ if (import.meta.url.endsWith(process.argv[1])) {
   });
 }
 
-export { transformContent, processPlugin, loadMappingConfig };
+export {
+  transformContent,
+  processPlugin,
+  loadMappingConfig,
+  mergeGeneratedRegion,
+};

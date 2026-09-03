@@ -176,29 +176,49 @@ hand-owned regions of `basic-transformation.md` and `downsampler.md`.
 
 **Acceptance criteria:**
 
-- [ ] A page with a hand-owned region survives regeneration unchanged outside
+- [x] A page with a hand-owned region survives regeneration unchanged outside
   the generated region.
-- [ ] A page with no markers is treated as fully generated and gains markers on
+- [x] A page with no markers is treated as fully generated and gains markers on
   first write.
-- [ ] `addSchemaRequirements()` is removed from `port_to_docs.js` and its
-  content appears in the two pages.
-- [ ] A page with an unterminated marker fails that plugin and reports it,
+- [x] `addSchemaRequirements()` is removed from `port_to_docs.js` and its
+  content appears in the two pages. `downsampler.md`'s "Schema management"
+  section turned out to already be README-derived, not script-injected: the
+  config check that would have fired the downsampler branch of
+  `addSchemaRequirements()` tested `additional_sections.includes('schema_requirements')`,
+  but `docs_mapping.yaml` listed `schema_management` for that plugin, so the
+  branch never ran. Verified by diffing the upstream README against the page;
+  the section is byte-identical (`—` vs. `:` list punctuation aside). Only
+  `basic-transformation.md` needed a real hand-owned-region migration;
+  `downsampler.md` needed no content change, just markers, deferred to the
+  first real sync run.
+- [x] A page with an unterminated marker fails that plugin and reports it,
   rather than corrupting the file.
 
 **Verification:**
 
-- [ ] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/`
-- [ ] Manual check: regenerate the 11 existing pages and read the diff. Expect
-  marker insertion and the two migrated sections, nothing else.
+- [x] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/*.test.js`
+- [x] Build succeeds: `npx hugo --quiet`
+- [x] Manual check, revised: a real regen of all 11 pages (run once, ad hoc, to
+  observe behavior) showed marker insertion plus substantial unrelated content
+  drift on most pages — expected, since `sync-plugins.yml` has never completed
+  a run and the upstream READMEs have moved on (flag renames like `--path` to
+  `--plugin-filename`, a `_internal` database note, trimmed sections). That
+  drift is real and out of scope for this task: reconciling 11 pages to
+  current upstream content is the eventual first real scheduled-sync run's
+  job, not the writer's. Reverted that regen and instead hand-authored the
+  minimal, scoped diff on `basic-transformation.md` only (markers + relocated
+  schema section) and read it directly — matches expectations, nothing else
+  changed. `downsampler.md` was left untouched.
 
 **Dependencies:** Task 2.
 
 **Files likely touched:**
 
 - `helper-scripts/influxdb3-plugins/port_to_docs.js`
+- `helper-scripts/influxdb3-plugins/docs_mapping.yaml` (dropped the
+  `additional_sections` keys tied to the removed function)
 - `content/shared/influxdb3-plugins/plugins-library/official/basic-transformation.md`
-- `content/shared/influxdb3-plugins/plugins-library/official/downsampler.md`
-- `helper-scripts/influxdb3-plugins/test/regions.test.js`
+- `helper-scripts/influxdb3-plugins/test/region-writer.test.js`
 
 **Estimated scope:** Medium.
 

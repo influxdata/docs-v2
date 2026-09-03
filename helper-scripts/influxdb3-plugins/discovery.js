@@ -18,7 +18,10 @@ export async function fetchRegistryIndex(
   return response.json();
 }
 
-export function parseRegistryIndex(indexJson, mappingConfig = { overrides: {}, exclude: [] }) {
+export function parseRegistryIndex(
+  indexJson,
+  mappingConfig = { overrides: {}, exclude: [] }
+) {
   const { overrides, exclude } = mappingConfig;
 
   const latestByName = new Map();
@@ -29,7 +32,9 @@ export function parseRegistryIndex(indexJson, mappingConfig = { overrides: {}, e
     }
   }
 
-  const excluded = [...latestByName.keys()].filter((name) => exclude.includes(name));
+  const excluded = [...latestByName.keys()].filter((name) =>
+    exclude.includes(name)
+  );
 
   const plugins = [...latestByName.values()]
     .filter((entry) => !exclude.includes(entry.name))
