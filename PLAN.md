@@ -230,20 +230,40 @@ an existing stub.
 
 **Acceptance criteria:**
 
-- [ ] A new plugin produces stubs at
+- [x] A new plugin produces stubs at
   `content/influxdb3/{core,enterprise}/plugins/library/official/<slug>.md`
   with `title`, `description`, `menu`, `weight: 100`, product-namespaced
-  tags, `related`, `source`, and `canonical: self`.
-- [ ] An existing stub is left byte-identical.
-- [ ] Generated stubs render: the page resolves its shared source and appears
-  under `Official plugins` in both product menus.
+  tags, `related`, `source`, and `canonical: self`. The filename and `source:`
+  target use `stubSlug`; `source:` and the `//SOURCE` comment use `slug` (the
+  shared-page slug), matching the existing `mad-anomaly-detection.md` /
+  `mad-check.md` split. Baseline tags for a scaffolded stub are `[plugins,
+  processing engine, python, official]`, matching `_index.md`'s convention —
+  editorial tags beyond that aren't derivable from the registry and stay a
+  human decision, same as the existing hand-authored stubs.
+- [x] An existing stub is left byte-identical: `scaffoldStub` checks `exists`
+  before rendering and returns `{ skipped: true }` with no content, so
+  `port_to_docs.js` never opens the file for writing. Confirmed against real
+  data: a `yarn sync-plugins:dry-run` run reported 22 stubs already present
+  (11 mapped plugins × 2 products) and 0 rewrites.
+- [x] Generated stubs render: verified with a throwaway fixture plugin (one
+  shared page + two scaffolded stubs, not committed) — `npx hugo --quiet`
+  built cleanly and the rendered Core and Enterprise pages showed the
+  resolved shared body and appeared under `Official plugins` in both nav
+  trees. Fixture files were deleted after the check; `git status` confirmed
+  no residue.
 
 **Verification:**
 
-- [ ] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/`
-- [ ] Build succeeds: `npx hugo --quiet`
-- [ ] Manual check: `npx hugo server`, confirm one scaffolded page renders in
-  Core and Enterprise.
+- [x] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/*.test.js`
+  (21/21, including 5 new `stub-template.js` tests: core rendering, enterprise
+  rendering, `stubSlug`-keyed path, scaffold-when-missing, skip-when-present).
+- [x] Build succeeds: `npx hugo --quiet`
+- [x] Manual check: performed via the throwaway fixture above rather than a
+  live `npx hugo server` session, since running the scaffolder against the
+  real registry's 24 unmapped plugins would write stubs whose `source:` shared
+  pages don't exist yet (Task 10/11's job) — `readFile .Params.source` fails
+  the build for a missing target, so a full real-data scaffold run belongs in
+  the backfill, not here.
 
 **Dependencies:** Tasks 2, 3.
 

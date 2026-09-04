@@ -13,6 +13,7 @@ import {
   partitionDiscoveredPlugins,
 } from './discovery.js';
 import { mapEntry, renderPluginDataYaml } from './plugin-data.js';
+import { stubPath, scaffoldStub } from './stub-template.js';
 
 /**
  * Load the mapping configuration file.
@@ -329,6 +330,44 @@ function transformContent(content, pluginName) {
 }
 
 /**
+ * Create a Core and Enterprise stub for every discovered plugin that has
+ * neither yet. Never rewrites a stub that already exists.
+ */
+async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
+  const results = { scaffolded: [], skipped: [] };
+
+  for (const plugin of discoveredPlugins) {
+    for (const product of ['core', 'enterprise']) {
+      const targetPath = stubPath(plugin, product);
+      let exists = true;
+      try {
+        await fs.access(targetPath);
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+        exists = false;
+      }
+
+      const scaffold = scaffoldStub(plugin, product, { exists });
+      if (scaffold.skipped) {
+        results.skipped.push(scaffold.path);
+        continue;
+      }
+
+      if (dryRun) {
+        console.log(`✅ Would scaffold ${scaffold.path}`);
+      } else {
+        await fs.mkdir(path.dirname(scaffold.path), { recursive: true });
+        await fs.writeFile(scaffold.path, scaffold.content, 'utf8');
+        console.log(`✅ Scaffolded ${scaffold.path}`);
+      }
+      results.scaffolded.push(scaffold.path);
+    }
+  }
+
+  return results;
+}
+
+/**
  * Process a single plugin README.
  * Returns true if successful, false otherwise.
  */
@@ -564,6 +603,15 @@ async function main() {
         await fs.writeFile(dataFilePath, dataYaml, 'utf8');
         console.log(`Wrote ${dataFilePath}`);
       }
+
+      const scaffoldResults = await scaffoldMissingStubs(
+        discovered,
+        options.dryRun
+      );
+      console.log(
+        `Product stubs: ${scaffoldResults.scaffolded.length} scaffolded, ` +
+          `${scaffoldResults.skipped.length} already present.`
+      );
     } catch (error) {
       console.warn(
         `⚠️  Could not update the registry data file: ${error.message}`
