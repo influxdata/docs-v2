@@ -1149,8 +1149,12 @@ write requests for each user. It only appears when
 [`user-write-bytes-enabled`](/influxdb/v1/administration/config/#user-write-bytes-enabled)
 is set to `true` (available in InfluxDB OSS v1.13.0+).
 Each series carries a `user` tag (unauthenticated writes are attributed to
-`(anonymous)`), along with `bind` and `hostname` tags. On InfluxDB Enterprise,
-series also carry `clusterID` and `nodeID` tags.
+`(anonymous)`), along with `bind` and `hostname` tags.
+<!-- ROLLBACK-v1.13.0: this section is scoped to OSS while Enterprise v1.13.0
+     is rolled back, so the Enterprise tags don't apply. Restore this sentence
+     at the end of the paragraph above when Enterprise v1.13.x ships.
+On InfluxDB Enterprise, series also carry `clusterID` and `nodeID` tags.
+-->
 
 #### userWriteReqBytes
 The number of bytes received in write requests for this user.
