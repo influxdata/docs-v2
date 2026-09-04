@@ -59,7 +59,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.11.2
+  latest_patch: 3.11.3
   placeholder_host: localhost:8181
   scheme: http
   limits:

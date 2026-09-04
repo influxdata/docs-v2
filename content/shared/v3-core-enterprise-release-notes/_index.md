@@ -6,6 +6,43 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.11.3 {date="2026-08-28"}
+
+### Core
+
+No adjustments in this release.
+Core remains on v3.11.2.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Read run-set indexes written by later releases**:
+  The compactor now reads the v3 run-set index format that later releases write,
+  so you can roll back to v3.11.3 from a release that writes v3 indexes without
+  leaving unreadable indexes behind.
+
+#### Bug fixes
+
+- **Missing rows from an `OR` predicate against a [file index](/influxdb3/enterprise/admin/file-index/)**:
+  File pruning now applies to an `OR` only when both sides resolve against the
+  index, and otherwise falls back to scanning all files.
+  Previously, when one side referenced a column that the index doesn't cover,
+  the query kept only the files that matched the resolved side, so rows that
+  matched only through the uncovered side were dropped from the results.
+- **Deferred snapshot recovery makes no progress on a busy cluster**:
+  The new
+  [`--recover-deferred-snapshots-in-flight-limit`](/influxdb3/enterprise/reference/storage-engine-config-options/#deferred-snapshot-recovery)
+  option raises the per-node in-flight snapshot limit that gates
+  `--recover-deferred-snapshots`.
+  The limit was previously fixed at three, so on a cluster whose ingest nodes
+  snapshot faster than compaction completes batches, recovery never ran.
+  The default is unchanged.
+- Other bug fixes and performance improvements
+
 ## v3.11.2 {date="2026-08-20"}
 
 ### Core
