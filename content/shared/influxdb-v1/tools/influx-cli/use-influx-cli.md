@@ -15,9 +15,9 @@ system and package manager:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Linux](#linux)
-[macOS](#macos)
-[Homebrew](#homebrew)
+[Linux](#)
+[macOS](#)
+[Homebrew](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash

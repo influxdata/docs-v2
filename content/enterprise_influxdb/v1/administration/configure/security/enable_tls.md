@@ -17,7 +17,10 @@ Enabling HTTPS over TLS encrypts the communication between clients and the Influ
 When configured with a signed certificate, HTTPS over TLS can also verify the authenticity of the InfluxDB Enterprise server to connecting clients.
 
 This pages outlines how to set up HTTPS with InfluxDB Enterprise using either a signed or self-signed certificate.
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     this sentence when Enterprise v1.13.x ships.
 It also describes how to enable [mutual TLS (mTLS)](#enable-mutual-tls-mtls) so that both ends of each connection authenticate each other.
+-->
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB Enterprise over a network.
