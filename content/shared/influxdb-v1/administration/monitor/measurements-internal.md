@@ -292,8 +292,10 @@ to visualize InfluxDB `_internal` metrics.
   - [writeOk](#writeok)
 - [userquerybytes](#userquerybytes)
   - [userQueryRespBytes](#userqueryrespbytes)
+{{% show-in "influxdb/v1" %}}
 - [userwritebytes](#userwritebytes)
   - [userWriteReqBytes](#userwritereqbytes)
+{{% /show-in %}}
 - [write](#write)
   - [pointReq](#pointreq)
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
@@ -1134,12 +1136,18 @@ The number of bytes returned by queries for this user.
 
 ---
 
+{{% show-in "influxdb/v1" %}}
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4, so this
+     section is scoped to OSS. Restore the Enterprise variant of the
+     `user-write-bytes-enabled` link and remove the show-in wrapper when
+     Enterprise v1.13.x ships:
+     {{%/* show-in "enterprise_influxdb/v1" */%}}[`user-write-bytes-enabled`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#user-write-bytes-enabled){{%/* /show-in */%}}
+-->
 ### userwritebytes
 The `userwritebytes` measurement tracks the number of bytes received in
 write requests for each user. It only appears when
-{{% show-in "influxdb/v1" %}}[`user-write-bytes-enabled`](/influxdb/v1/administration/config/#user-write-bytes-enabled){{% /show-in %}}
-{{% show-in "enterprise_influxdb/v1" %}}[`user-write-bytes-enabled`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#user-write-bytes-enabled){{% /show-in %}}
-is set to `true` (available in InfluxDB OSS and Enterprise v1.13.0+).
+[`user-write-bytes-enabled`](/influxdb/v1/administration/config/#user-write-bytes-enabled)
+is set to `true` (available in InfluxDB OSS v1.13.0+).
 Each series carries a `user` tag (unauthenticated writes are attributed to
 `(anonymous)`), along with `bind` and `hostname` tags. On InfluxDB Enterprise,
 series also carry `clusterID` and `nodeID` tags.
@@ -1148,6 +1156,7 @@ series also carry `clusterID` and `nodeID` tags.
 The number of bytes received in write requests for this user.
 
 ---
+{{% /show-in %}}
 
 ### write
 The `write` measurement statistics are about writes to the data node, regardless of the source of the write.

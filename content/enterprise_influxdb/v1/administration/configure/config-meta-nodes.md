@@ -204,6 +204,9 @@ This is useful when testing with self-signed certificates.
 
 Environment variable: `INFLUXDB_META_DATA_INSECURE_TLS`
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these mTLS settings when Enterprise v1.13.x ships.
+
 #### https-ignore-sanity-checks {metadata="v1.13.0+"}
 
 Default is `false`.
@@ -302,6 +305,7 @@ Environment variables:
 
 - `INFLUXDB_META_HTTPS_ROOT_CA_PATHS`
 - `INFLUXDB_META_HTTPS_ROOT_CA_INCLUDE_SYSTEM`
+-->
 
 #### gossip-frequency
 

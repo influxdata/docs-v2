@@ -253,6 +253,9 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
 
     That's it! You've successfully set up HTTPS with InfluxDB Enterprise.
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     this section when Enterprise v1.13.x ships.
+
 ## Enable mutual TLS (mTLS) {metadata="v1.13.0+"}
 
 With standard HTTPS, only the server presents a certificate and the client verifies it.
@@ -460,6 +463,7 @@ influx -ssl -host <domain_name>.com \
 
 You can also set the `INFLUX_CERT` and `INFLUX_KEY` environment variables instead
 of the `-cert` and `-key` flags.
+-->
 
 ## Connect Telegraf to a secured InfluxDB Enterprise instance
 

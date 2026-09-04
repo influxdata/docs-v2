@@ -502,9 +502,9 @@ enterprise_influxdb:
   list_order: 5
   versions: [v1]
   supports_flux: true
-  latest: v1.13
+  latest: v1.12
   latest_patches:
-    v1: 1.13.0
+    v1: 1.12.4
   detector_config:
     query_languages:
       InfluxQL:

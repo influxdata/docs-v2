@@ -196,6 +196,9 @@ Set to `true` to allow the data node to accept self-signed certificates if [`htt
 
 Environment variable: `INFLUXDB_META_META_INSECURE_TLS`
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these meta-node mTLS settings when Enterprise v1.13.x ships.
+
 #### meta-client-certificate {metadata="v1.13.0+"}
 
 Default is `""`.
@@ -261,6 +264,7 @@ Environment variables:
 
 - `INFLUXDB_META_META_ROOT_CA_PATHS`
 - `INFLUXDB_META_META_ROOT_CA_INCLUDE_SYSTEM`
+-->
 
 #### meta-auth-enabled
 
@@ -586,6 +590,9 @@ increase in cache size may lead to an increase in heap usage.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these adaptive series ID set cache settings when Enterprise v1.13.x ships.
+
 #### series-id-set-cache-max-size {metadata="v1.13.0+"}
 
 Default is `0`.
@@ -634,6 +641,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SHRINK_CONSERVATISM`
 To monitor the series ID set cache, run `SHOW STATS` and check the
 `tsi1_cache` measurement. It reports `hit`, `miss`, `eviction`,
 `shrink_eviction`, `size`, and `capacity` fields.
+-->
 
 -----
 
@@ -776,6 +784,9 @@ Skips file permission checking for `https-certificate` and `https-private-key` w
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these cluster mTLS settings when Enterprise v1.13.x ships.
+
 #### https-ignore-sanity-checks {metadata="v1.13.0+"}
 
 Default is `false`.
@@ -872,6 +883,7 @@ Environment variables:
 
 - `INFLUXDB_CLUSTER_HTTPS_ROOT_CA_PATHS`
 - `INFLUXDB_CLUSTER_HTTPS_ROOT_CA_INCLUDE_SYSTEM`
+-->
 
 #### cluster-tracing
 
@@ -1418,6 +1430,9 @@ Unauthenticated queries are attributed to `(anonymous)`.
 
 Environment variable: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     this setting when Enterprise v1.13.x ships.
+
 #### user-write-bytes-enabled {metadata="v1.13.0+"}
 
 Default is `false`.
@@ -1436,6 +1451,7 @@ decompressed (post-gzip) bytes, while the Prometheus remote write endpoint
 counts compressed wire bytes.
 
 Environment variable: `INFLUXDB_HTTP_USER_WRITE_BYTES_ENABLED`
+-->
 
 #### https-enabled
 
@@ -1470,6 +1486,9 @@ Default is `false`.
 Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
+
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these HTTP mTLS settings when Enterprise v1.13.x ships.
 
 #### https-ignore-sanity-checks {metadata="v1.13.0+"}
 
@@ -1520,6 +1539,7 @@ Environment variables:
 
 - `INFLUXDB_HTTP_HTTPS_CLIENT_CA_PATHS`
 - `INFLUXDB_HTTP_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
+-->
 
 #### shared-secret
 
@@ -1685,6 +1705,9 @@ If the set to the empty string (`""`), the default system certs will used.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_CA_CERTS`
 
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these subscriber mTLS settings when Enterprise v1.13.x ships.
+
 #### root-ca {metadata="v1.13.0+"}
 
 Default is unset.
@@ -1743,6 +1766,7 @@ The failed checks are logged instead.
 A missing or unparseable certificate is still an error.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_IGNORE_CERT_SANITY_CHECKS`
+-->
 
 #### write-concurrency
 
@@ -1927,6 +1951,11 @@ For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_in
 # consistency-level = "one"
 # tls-enabled = false
 # certificate = "/etc/ssl/influxdb.pem"
+```
+
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     these OpenTSDB TLS mutual-authentication options to the sample
+     configuration above, along with the note, when Enterprise v1.13.x ships.
 
 # TLS private key when TLS is enabled.
 # If blank, defaults to assuming the key is in the certificate.
@@ -1951,13 +1980,13 @@ For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_in
 # authentication. "paths" lists PEM files to trust; "include-system" also
 # trusts the host's system CA pool.
 # client-ca = { paths = ["/etc/ssl/client-ca.pem"], include-system = false } # v1.13.0+
-```
 
 {{% note %}}
 The OpenTSDB TLS mutual-authentication options (`private-key`,
 `insecure-certificate`, `ignore-cert-sanity-checks`, `client-auth-type`, and
 `client-ca`) were added in **v1.13.0**.
 {{% /note %}}
+-->
 
 #### log-point-errors
 

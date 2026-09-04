@@ -15,6 +15,15 @@ alt_links:
 
 ## v1.13.0 {date="2026-08-20"}
 
+> [!Caution]
+> #### v1.13.0 has been withdrawn
+>
+> InfluxDB Enterprise v1.13.0 has been withdrawn.
+> The current InfluxDB Enterprise v1 release is [v1.12.4](#v1124).
+> These release notes remain for reference.
+> Documentation for the v1.13.0 features listed below is withheld until those
+> features ship in a later release.
+
 > [!Note]
 > #### InfluxDB OSS and Enterprise v1 relationship
 >
