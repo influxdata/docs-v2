@@ -1981,11 +1981,11 @@ For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_in
 # trusts the host's system CA pool.
 # client-ca = { paths = ["/etc/ssl/client-ca.pem"], include-system = false } # v1.13.0+
 
-{{% note %}}
+{{%/* note */%}}
 The OpenTSDB TLS mutual-authentication options (`private-key`,
 `insecure-certificate`, `ignore-cert-sanity-checks`, `client-auth-type`, and
 `client-ca`) were added in **v1.13.0**.
-{{% /note %}}
+{{%/* /note */%}}
 -->
 
 #### log-point-errors

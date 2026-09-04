@@ -20,9 +20,13 @@ alt_links:
 >
 > InfluxDB Enterprise v1.13.0 has been withdrawn.
 > The current InfluxDB Enterprise v1 release is [v1.12.4](#v1124).
-> These release notes remain for reference.
-> Documentation for the v1.13.0 features listed below is withheld until those
-> features ship in a later release.
+> This entry remains so the version history stays complete.
+> The release details and the documentation for v1.13.0 features are withheld
+> until those features ship in a later release.
+
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     this entry's details when Enterprise v1.13.x ships, and remove the
+     withdrawal callout above.
 
 > [!Note]
 > #### InfluxDB OSS and Enterprise v1 relationship
@@ -47,13 +51,8 @@ alt_links:
 
 - Add mTLS support to Enterprise data and meta nodes, including certificate
   reload on `SIGHUP` and TLS configuration integrated into `influxd-ctl` and
-  other CLI commands.
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4, so the
-     setup steps this sentence pointed to aren't published. Restore it at the
-     end of the bullet above when Enterprise v1.13.x ships.
-  For setup steps, see
+  other CLI commands. For setup steps, see
   [Enable mTLS](/enterprise_influxdb/v1/administration/configure/security/enable_tls/).
--->
 - Add an `influx-meta cleanup-shards` command that removes shards with no
   owners and shard groups with no shards from a live cluster.
 - Add a
@@ -72,6 +71,7 @@ alt_links:
 All OSS v1.13.0 updates, including the
 [adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1130)
 and the TSM file-store lock fix, apply to Enterprise v1.13.0 too.
+-->
 
 > [!Important]
 > #### We strongly recommend upgrading to v1.12.4 or later
