@@ -260,6 +260,9 @@ Additional Enterprise-specific updates:
   cluster. AI chat is included and can point at any OpenAI-compatible
   endpoint with `--webui-openai-base-url`.
 
+  For setup steps, see
+  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+
 - **Thread defaults scale with your license on the upgraded storage engine**:
   On clusters running the upgraded storage engine (the default for new
   clusters), `--num-io-threads` and the DataFusion thread pool each default to
