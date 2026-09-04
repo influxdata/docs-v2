@@ -15,7 +15,7 @@ alt_links:
 
 ## v1.13.0 {date="2026-08-20"}
 
-> [!Caution]
+> [!Important]
 > #### v1.13.0 has been withdrawn
 >
 > InfluxDB Enterprise v1.13.0 has been withdrawn.
