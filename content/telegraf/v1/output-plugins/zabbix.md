@@ -12,7 +12,7 @@ os_support: "freebsd, linux, macos, solaris, windows"
 
 # Zabbix Output Plugin
 
-This plugin writes metrics to [Zabbix](https://www.zabbix.com/) via [traps](https://www.zabbix.com/documentation/current/en/manual/appendix/items/trapper). It has been
+This plugin writes metrics to [Zabbix](https://www.zabbix.com/) via [traps](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/trapper). It has been
 tested with versions v3.0, v4.0 and v6.0 but should work with newer versions
 of Zabbix as long as the protocol doesn't change.
 
@@ -21,7 +21,7 @@ of Zabbix as long as the protocol doesn't change.
 **OS support:** all
 
 [zabbix]: https://www.zabbix.com/
-[traps]: https://www.zabbix.com/documentation/current/en/manual/appendix/items/trapper
+[traps]: https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/trapper
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
