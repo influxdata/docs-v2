@@ -392,9 +392,9 @@ telegraf:
   list_order: 6
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: v1.39
+  latest: v1.40
   latest_patches:
-    v1: 1.39.3
+    v1: 1.40.0
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
