@@ -8,32 +8,6 @@ input:
     introduced: v1.8.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [messaging]
-  - name: Aerospike
-    id: aerospike
-    description: |
-      This plugin queries [Aerospike](https://www.aerospike.com) server(s) for
-      node statistics and statistics on all configured namespaces.
-
-      > [!CAUTION]
-      > As of version 1.30 the Aerospike plugin has been deprecated in favor of
-      > the prometheus plugin and the officially supported [Aerospike Prometheus
-      > Exporter](https://aerospike.com/docs/monitorstack/configure/configure-exporter)
-
-      For details on the measurements mean, please consult the [Aerospike
-      Metrics Reference
-      Docs](https://www.aerospike.com/docs/reference/metrics).
-
-      > [!NOTE]
-      > Metric names will have dashes (`-`) replaced as underscores (`_`) to
-      > make querying more consistently and easy.
-
-      All metrics are attempted to be cast to integers, then booleans, then
-      strings in order.
-    introduced: v0.2.0
-    deprecated: v1.30.0
-    removal: v1.40.0
-    os_support: [freebsd, linux, macos, solaris, windows]
-    tags: [server]
   - name: Alibaba Cloud Monitor Service (Aliyun)
     id: aliyuncms
     description: |
@@ -621,8 +595,8 @@ input:
       and to count the number of terms for a particular field.
 
       > [!IMPORTANT]
-      > This plugins supports Elasticsearch 5.x and 6.x but is known to break on
-      > 7.x or higher. Node discovery is not supported with Elasticsearch 5.x.
+      > This plugin supports Elasticsearch 5.x to 9.x only. Node discovery is
+      > not supported with Elasticsearch 5.x.
     introduced: v1.20.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
@@ -778,6 +752,15 @@ input:
       devices (routers, repeaters, etc) using the device's
       [TR-064](https://fritz.com/en/pages/interfaces) interface.
     introduced: v1.35.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [iot, network]
+  - name: Fritzbox Smarthome
+    id: fritzbox_smarthome
+    description: |
+      This plugin gathers status information from Smarthome capable
+      [FRITZ!](https://fritz.com/) routers using the device's [AVM Home
+      Automation](https://fritz.com/en/pages/interfaces) interface.
+    introduced: v1.40.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot, network]
   - name: GitHub
@@ -2358,24 +2341,6 @@ input:
     introduced: v0.10.1
     os_support: [linux]
     tags: [hardware, system]
-  - name: SFlow
-    id: sflow
-    description: |
-      This service plugin produces metrics from information received by acting
-      as a [SFlow V5](https://sflow.org/sflow_version_5.txt) collector.
-      Currently, the plugin can collect Flow Samples of Ethernet / IPv4, IPv4
-      TCP and UDP headers. Counters and other header samples are ignored.
-      Please use the [netflow plugin](/telegraf/v1/plugins/#input-netflow) for
-      a more modern and sophisticated implementation.
-
-      > [!CRITICAL]
-      > This plugin produces high cardinality data, which when not controlled
-      > for will cause high load on your database. Please make sure to
-      > [filter](/telegraf/v1/configuration/#metric-filtering) the produced
-      > metrics or configure your database to avoid cardinality issues!
-    introduced: v1.14.0
-    os_support: [freebsd, linux, macos, solaris, windows]
-    tags: [network]
   - name: SIP
     id: sip
     description: |
@@ -2986,22 +2951,6 @@ input:
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
 output:
-  - name: Amon
-    id: amon
-    description: |
-      This plugin writes metrics to [Amon monitoring
-      platform](https://www.amon.cx). It requires a `serverkey` and
-      `amoninstance` URL which can be obtained from the
-      [website](https://www.amon.cx/docs/monitoring/) for your account.
-
-      > [!IMPORTANT]
-      > If point values being sent cannot be converted to a `float64`, the
-      > metric is skipped.
-    introduced: v0.2.1
-    deprecated: v1.37.0
-    removal: v1.40.0
-    os_support: [freebsd, linux, macos, solaris, windows]
-    tags: [datastore]
   - name: AMQP
     id: amqp
     description: |
@@ -3764,12 +3713,29 @@ output:
     id: zabbix
     description: |
       This plugin writes metrics to [Zabbix](https://www.zabbix.com/) via
-      [traps](https://www.zabbix.com/documentation/current/en/manual/appendix/items/trapper).
+      [traps](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/trapper).
       It has been tested with versions v3.0, v4.0 and v6.0 but should work with
       newer versions of Zabbix as long as the protocol doesn't change.
     introduced: v1.30.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
+  - name: Zerobus
+    id: zerobus
+    description: |
+      This plugin writes metrics to a [Unity Catalog Delta
+      table](https://docs.databricks.com/aws/en/tables/managed) using the
+      [Databricks Zerobus
+      Ingest](https://docs.databricks.com/aws/en/ingestion/zerobus-ingest)
+      service. Tags and fields are mapped onto the columns of the destination
+      table.
+
+      > [!IMPORTANT]
+      > Be aware that this plugin accesses APIs that are
+      > [chargeable](https://www.databricks.com/product/pricing/lakeflow-connect)
+      > and might incur costs.
+    introduced: v1.40.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [cloud, datastore]
 aggregator:
   - name: Basic Statistics
     id: basicstats
