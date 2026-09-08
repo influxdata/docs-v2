@@ -284,26 +284,69 @@ genuine errors.
 
 **Acceptance criteria:**
 
-- [ ] The script writes a markdown table to `GITHUB_STEP_SUMMARY` listing each
-  plugin and its status.
-- [ ] `needs_attention` is set when any plugin is skipped or a page is
-  reported as newly scaffolded.
-- [ ] A skipped plugin does not fail the run; a malformed region or unwritable
-  target does.
-- [ ] Multi-line outputs use a random heredoc delimiter.
+- [x] The script writes a markdown table to `GITHUB_STEP_SUMMARY` listing each
+  plugin and its status. One row per plugin, not per artifact: `processPlugin`
+  and `scaffoldMissingStubs` each append a `{ plugin, status, detail }` entry,
+  and `collapseByPlugin` reduces them to the worst status per plugin. The
+  detail column describes only the artifacts that produced the reported
+  status, so an `error` row explains the error rather than also listing the
+  files that were fine.
+- [x] `needs_attention` is set when any plugin is skipped or a page is
+  reported as newly scaffolded. `removed` also sets it, per the decision
+  below.
+- [x] A skipped plugin does not fail the run; a malformed region or unwritable
+  target does. Verified end to end: a plugin with a missing source README
+  exits 0 with a `skipped` row, and a page with an unterminated region marker
+  exits 1 with the hand-owned text left byte-identical on disk.
+- [x] Multi-line outputs use a random heredoc delimiter
+  (`EOF_` plus 8 random bytes, a fresh one per call).
+
+Two decisions settled while implementing:
+
+- **Drift is in scope for this task.** `detectRemovedPlugins` reports a shared
+  page whose plugin is no longer in the registry index. It matches on `slug`
+  (the shared-page name), not `stubSlug`, and ignores `_index.md`, `CLAUDE.md`,
+  and `README.md`, which otherwise appear as phantom removals on every run.
+  Removals are reported, never deleted, per ADR 0004.
+- **The discovery failure modes are split.** A registry fetch failure is a
+  `skipped` row and exits 0, because a flaky network must not fail a nightly.
+  A write failure to the data file or a stub is an `error` row and exits 1,
+  because a sync that reports success while publishing nothing is the exact
+  failure this rebuild exists to end. Previously both were a `console.warn`
+  and exit 0.
 
 **Verification:**
 
-- [ ] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/`
-- [ ] Manual check: run with one fixture plugin deliberately malformed and
-  confirm the run succeeds with the plugin listed as skipped.
+- [x] Tests pass: `yarn test:sync-plugins` (46/46, including 19 new
+  `reporting.js` tests and 6 new `processPlugin` result tests).
+  `node --test helper-scripts/influxdb3-plugins/test/` does not work — Node
+  resolves a bare directory as a module — so a `test:sync-plugins` script was
+  added using the quoted-glob form the repo already uses for
+  `test:lint-codeblocks`.
+- [x] Manual check: ran the CLI against fixture configs for both cases. A
+  missing source README produced `| ghost_plugin | skipped | ... |`,
+  `needs_attention=true`, and exit 0. A malformed generated region produced an
+  `error` row, exit 1, and left the page untouched.
+- [x] Real-data check: `yarn sync-plugins:dry-run` reported 35 rows (24
+  scaffolded, 11 skipped for the absent local upstream checkout) and zero
+  `removed` rows, confirming all 11 existing shared pages still match a
+  registry slug.
+
+**Note for Task 7:** `processPlugin` no longer prints per-plugin progress. That
+output duplicated the summary table, and it also corrupted the Node test
+runner's stdout IPC under parallel workers — measured at 14 failures in 15 runs
+with the logging and 0 in 15 without, on otherwise identical code. The workflow
+should read the step summary, not scrape stdout.
 
 **Dependencies:** Tasks 2, 4, 5.
 
-**Files likely touched:**
+**Files touched:**
 
+- `helper-scripts/influxdb3-plugins/reporting.js` (new)
 - `helper-scripts/influxdb3-plugins/port_to_docs.js`
-- `helper-scripts/influxdb3-plugins/test/reporting.test.js`
+- `helper-scripts/influxdb3-plugins/test/reporting.test.js` (new)
+- `helper-scripts/influxdb3-plugins/test/sync-results.test.js` (new)
+- `package.json`
 
 **Estimated scope:** Small.
 
@@ -327,33 +370,87 @@ unnecessary PAT on the upstream checkout.
 
 **Acceptance criteria:**
 
-- [ ] The only trigger is `workflow_dispatch`; its input accepts a plugin list
+- [x] The only trigger is `workflow_dispatch`; its input accepts a plugin list
   or `all`. The cron is added in Task 12, after the backfill, so the
   schedule never runs against a knowingly incomplete library.
-- [ ] The upstream checkout is tokenless, sparse on `influxdata/` and
-  `scripts/`, at `main`.
-- [ ] `node-version-file: docs-v2/.nvmrc` — the path bug that broke the last
+- [x] The upstream checkout is tokenless, sparse on `influxdata/` and
+  `scripts/`, at `main`. `PLUGINS_CONTENT_READ_TOKEN` is gone;
+  `influxdata/influxdb3_plugins` is public and needs no secret. That secret is
+  now referenced by no workflow in the repository.
+- [x] `node-version-file: docs-v2/.nvmrc` — the path bug that broke the last
   run is fixed.
-- [ ] A `concurrency` group prevents a dispatch racing the cron.
-- [ ] `persist-credentials: false` on the upstream checkout.
-- [ ] The generator runs, then the job exits early when the tree is clean.
-- [ ] `peter-evans/create-pull-request` targets the fixed branch
+- [x] A `concurrency` group prevents a dispatch racing the cron
+  (`group: sync-plugins`, `cancel-in-progress: false`).
+- [x] `persist-credentials: false` on the upstream checkout, and on the
+  docs-v2 checkout too — `create-pull-request` pushes with its own token, so
+  neither checkout needs persisted credentials, and zizmor flags the omission.
+- [x] The generator runs, then the job exits early when the tree is clean.
+  A `changes` step gates both the body composition and the pull request.
+- [x] `peter-evans/create-pull-request` targets the fixed branch
   `sync/influxdb3-plugins` with labels `source:sync` and
   `product:v3-monolith`, and a PR body composed from generator output
-  passed through `env:`, not interpolated into shell.
-- [ ] All actions are SHA-pinned with version comments.
+  passed through `env:`, not interpolated into shell. `SUMMARY` and
+  `NEEDS_ATTENTION` reach the script only as environment variables, and the
+  static prose uses quoted heredocs so backticks stay literal.
+- [x] All actions are SHA-pinned with version comments.
+
+Two changes beyond the workflow file:
+
+- **The generator accepts a plugin list in one run.** The old workflow looped
+  `node port_to_docs.js --plugin X` once per name. Each run appends `summary`
+  and `needs_attention` to `$GITHUB_OUTPUT`, so a loop left only the last
+  plugin's outcome visible and silently dropped earlier skips. `selectPlugins`
+  now resolves `all`, a single name, or a comma-separated list, and unknown
+  names fail the run by name instead of syncing nothing.
+- **README validation is informational.** `validate_readme.py` previously
+  gated the whole transform, so one bad README blocked all plugins. The
+  generator reports an unusable README as a per-plugin `skipped` row, which is
+  the behavior the risk table calls for, so the step is now
+  `continue-on-error: true` and gates nothing. The `scripts/` sparse checkout
+  stays, because that is where the validator lives.
 
 **Verification:**
 
-- [ ] `actionlint` and `zizmor` report no errors.
+- [x] `actionlint` and `zizmor` report no errors. Both clean; zizmor reports
+  "No findings" with 5 suppressed.
+- [x] Tests pass: `yarn test:sync-plugins` (50/50, including 4 new
+  `selectPlugins` tests).
+- [x] The PR body script was executed directly with representative
+  `SUMMARY` and `NEEDS_ATTENTION` values and its markdown inspected. Heredoc
+  bodies render at column 0, so no line is accidentally indented into a code
+  block.
 - [ ] Manual check: `gh workflow run` against a test branch produces a pull
-  request with the expected diff.
+  request with the expected diff. Not run — `workflow_dispatch` needs the
+  workflow on a pushed branch, and a real run opens a real pull request.
+  Blocked on a human.
+
+**On the pull request token:** no additional secret is needed. The workflow
+uses the default `GITHUB_TOKEN`, like the two existing sync workflows, and the
+job-level `permissions` block grants everything `create-pull-request` needs:
+`contents: write` to push the `sync/influxdb3-plugins` branch and
+`pull-requests: write` to open or update the pull request and apply its labels.
+Labels need no `issues: write` — verified against pull request #7699, which the
+same setup labeled `source:sync` and `product:v2`. Repository settings already
+permit this: `default_workflow_permissions` is `write` and
+`can_approve_pull_request_reviews` is true.
+
+The one real consequence for the Phase 2 checkpoint: on a *scheduled* run, docs
+CI is created but does not execute. Runs on `sync/openapi-oss-v2-spec` from the
+2026-08-31 cron sit at `conclusion: action_required`, waiting for a human to
+approve them, while the runs from human-dispatched or human-pushed commits on
+the same branch completed normally. So "Docs CI runs on the generated pull
+request" holds for `workflow_dispatch` and needs one "Approve and run" click
+per scheduled pull request. A PAT would remove that click; it is not required
+for the sync itself, and Task 12 is where the choice matters, since that is
+when the cron lands.
 
 **Dependencies:** Tasks 1, 6.
 
-**Files likely touched:**
+**Files touched:**
 
 - `.github/workflows/sync-plugins.yml`
+- `helper-scripts/influxdb3-plugins/port_to_docs.js`
+- `helper-scripts/influxdb3-plugins/test/sync-results.test.js`
 
 **Estimated scope:** Medium.
 

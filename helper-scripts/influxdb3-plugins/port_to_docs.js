@@ -14,6 +14,15 @@ import {
 } from './discovery.js';
 import { mapEntry, renderPluginDataYaml } from './plugin-data.js';
 import { stubPath, scaffoldStub } from './stub-template.js';
+import {
+  collapseByPlugin,
+  detectRemovedPlugins,
+  formatSummary,
+  hasFatal,
+  needsAttention,
+  writeStepOutputs,
+  writeStepSummary,
+} from './reporting.js';
 
 /**
  * Load the mapping configuration file.
@@ -334,9 +343,11 @@ function transformContent(content, pluginName) {
  * neither yet. Never rewrites a stub that already exists.
  */
 async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
-  const results = { scaffolded: [], skipped: [] };
+  const results = { scaffolded: [], skipped: [], byPlugin: [] };
 
   for (const plugin of discoveredPlugins) {
+    const created = [];
+
     for (const product of ['core', 'enterprise']) {
       const targetPath = stubPath(plugin, product);
       let exists = true;
@@ -361,6 +372,15 @@ async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
         console.log(`✅ Scaffolded ${scaffold.path}`);
       }
       results.scaffolded.push(scaffold.path);
+      created.push(`${product} stub`);
+    }
+
+    if (created.length > 0) {
+      results.byPlugin.push({
+        plugin: plugin.name,
+        status: 'scaffolded',
+        detail: created.join(', '),
+      });
     }
   }
 
@@ -368,19 +388,70 @@ async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
 }
 
 /**
+ * Resolve the `--plugin` argument against the mapping config.
+ *
+ * Accepts a single name, a comma-separated list, or `all` (also the default).
+ * A list is processed in one run rather than one run per plugin, because each
+ * run appends `summary` and `needs_attention` to `$GITHUB_OUTPUT` -- a loop
+ * would leave only the last plugin's outcome visible to the workflow.
+ */
+function selectPlugins(configPlugins, pluginArg) {
+  const entries = Object.entries(configPlugins);
+
+  if (!pluginArg || pluginArg === 'all') {
+    return { selected: entries, unknown: [] };
+  }
+
+  const requested = pluginArg
+    .split(',')
+    .map((name) => name.trim())
+    .filter(Boolean);
+
+  return {
+    selected: requested
+      .filter((name) => configPlugins[name])
+      .map((name) => [name, configPlugins[name]]),
+    unknown: requested.filter((name) => !configPlugins[name]),
+  };
+}
+
+const SHARED_OFFICIAL_DIR =
+  '../../content/shared/influxdb3-plugins/plugins-library/official';
+
+/**
+ * Shared pages left behind by a plugin that is no longer in the registry.
+ * Read-only: the sync reports removals and never deletes a published page.
+ */
+async function findRemovedPlugins(discoveredPlugins) {
+  let filenames;
+  try {
+    filenames = await fs.readdir(SHARED_OFFICIAL_DIR);
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    return [];
+  }
+  return detectRemovedPlugins(discoveredPlugins, filenames);
+}
+
+/**
  * Process a single plugin README.
- * Returns true if successful, false otherwise.
+ *
+ * Returns a `{ plugin, status, detail }` result rather than a pass/fail
+ * boolean, so the run can report a missing README as a skip and a mangled
+ * region as a failure instead of collapsing both into "error".
  */
 async function processPlugin(pluginName, mapping, dryRun = false) {
   const sourcePath = mapping.source;
   const targetPath = mapping.target;
+  const result = (status, detail) => ({ plugin: pluginName, status, detail });
 
   try {
     // Check if source exists
     await fs.access(sourcePath);
-  } catch (error) {
-    console.error(`❌ Source not found: ${sourcePath}`);
-    return false;
+  } catch {
+    // A plugin published without a README the transform can read is a gap to
+    // fill upstream, not a broken sync. Report it and keep going.
+    return result('skipped', `source README not found: ${sourcePath}`);
   }
 
   try {
@@ -400,15 +471,15 @@ async function processPlugin(pluginName, mapping, dryRun = false) {
 
     const merged = mergeGeneratedRegion(existingTarget, transformed);
     if (merged.error) {
-      console.error(`❌ ${pluginName}: ${merged.error}`);
-      return false;
+      return result('error', merged.error);
+    }
+
+    if (merged.content === existingTarget) {
+      return result('unchanged', targetPath);
     }
 
     if (dryRun) {
-      console.log(`✅ Would process ${pluginName}`);
-      console.log(`   Source: ${sourcePath}`);
-      console.log(`   Target: ${targetPath}`);
-      return true;
+      return result('updated', `would write ${targetPath}`);
     }
 
     // Ensure target directory exists
@@ -417,13 +488,9 @@ async function processPlugin(pluginName, mapping, dryRun = false) {
     // Write merged content
     await fs.writeFile(targetPath, merged.content, 'utf8');
 
-    console.log(`✅ Processed ${pluginName}`);
-    console.log(`   Source: ${sourcePath}`);
-    console.log(`   Target: ${targetPath}`);
-    return true;
+    return result('updated', targetPath);
   } catch (error) {
-    console.error(`❌ Error processing ${pluginName}: ${error.message}`);
-    return false;
+    return result('error', error.message);
   }
 }
 
@@ -434,7 +501,7 @@ async function validateDocsV2Path() {
   try {
     await fs.access('../..');
     return true;
-  } catch (error) {
+  } catch {
     console.warn('⚠️  Warning: docs-v2 repository structure not detected');
     console.warn(
       '   Make sure you are running this from docs-v2/helper-scripts/influxdb3-plugins'
@@ -544,7 +611,7 @@ async function main() {
 
       try {
         await fs.access(mapping.source);
-      } catch (error) {
+      } catch {
         console.warn(
           `⚠️  Source not found for ${pluginName}: ${mapping.source}`
         );
@@ -571,14 +638,24 @@ async function main() {
   // until Task 5 lands stub scaffolding for plugins that aren't mapped yet,
   // but data/influxdb3_plugins.yml is fully registry-driven and regenerated
   // every run regardless of --plugin.
+  // Each artifact the run touches appends a `{ plugin, status, detail }`
+  // entry. `main` collapses them to one row per plugin before reporting.
+  const artifactResults = [];
+
   if (!options.plugin) {
     console.log('Discovering official plugins from the registry index...');
+
+    // A registry fetch failure is a bad afternoon on the network, not drift.
+    // It must not fail a nightly run, so it is reported as a skip.
+    let discovered = null;
     try {
       const indexJson = await fetchRegistryIndex();
-      const { plugins: discovered, excluded } = parseRegistryIndex(indexJson, {
+      const parsed = parseRegistryIndex(indexJson, {
         overrides: config.overrides ?? {},
         exclude: config.exclude ?? [],
       });
+      discovered = parsed.plugins;
+
       const { mapped, unmapped } = partitionDiscoveredPlugins(
         discovered,
         Object.keys(config.plugins)
@@ -586,86 +663,104 @@ async function main() {
       console.log(
         `Discovered ${discovered.length} official plugin(s) in the registry.`
       );
-      if (excluded.length > 0) {
-        console.log(`Excluded by docs_mapping.yaml: ${excluded.join(', ')}`);
+      if (parsed.excluded.length > 0) {
+        console.log(
+          `Excluded by docs_mapping.yaml: ${parsed.excluded.join(', ')}`
+        );
       }
       console.log(`  Mapped (transformed below): ${mapped.length}`);
-      console.log(`  Not yet mapped (pending Task 5): ${unmapped.length}`);
+      console.log(`  Not yet mapped: ${unmapped.length}`);
       if (unmapped.length > 0) {
         console.log(`    ${unmapped.map((plugin) => plugin.name).join(', ')}`);
       }
+    } catch (error) {
+      console.warn(`⚠️  Could not read the registry index: ${error.message}`);
+      artifactResults.push({
+        plugin: 'registry index',
+        status: 'skipped',
+        detail: `could not read the registry index: ${error.message}`,
+      });
+    }
 
-      const dataYaml = renderPluginDataYaml(discovered.map(mapEntry));
-      const dataFilePath = '../../data/influxdb3_plugins.yml';
-      if (options.dryRun) {
-        console.log(`DRY RUN: would write ${dataFilePath}`);
-      } else {
-        await fs.writeFile(dataFilePath, dataYaml, 'utf8');
-        console.log(`Wrote ${dataFilePath}`);
+    if (discovered) {
+      // Writing is a different failure. An unwritable data file or stub means
+      // the sync reported success while publishing nothing, which is the
+      // failure this pipeline is being rebuilt to stop having.
+      try {
+        const dataYaml = renderPluginDataYaml(discovered.map(mapEntry));
+        const dataFilePath = '../../data/influxdb3_plugins.yml';
+        if (options.dryRun) {
+          console.log(`DRY RUN: would write ${dataFilePath}`);
+        } else {
+          await fs.writeFile(dataFilePath, dataYaml, 'utf8');
+          console.log(`Wrote ${dataFilePath}`);
+        }
+
+        const scaffoldResults = await scaffoldMissingStubs(
+          discovered,
+          options.dryRun
+        );
+        console.log(
+          `Product stubs: ${scaffoldResults.scaffolded.length} scaffolded, ` +
+            `${scaffoldResults.skipped.length} already present.`
+        );
+        artifactResults.push(...scaffoldResults.byPlugin);
+      } catch (error) {
+        console.error(`❌ Could not write generated files: ${error.message}`);
+        artifactResults.push({
+          plugin: 'generated files',
+          status: 'error',
+          detail: error.message,
+        });
       }
 
-      const scaffoldResults = await scaffoldMissingStubs(
-        discovered,
-        options.dryRun
-      );
-      console.log(
-        `Product stubs: ${scaffoldResults.scaffolded.length} scaffolded, ` +
-          `${scaffoldResults.skipped.length} already present.`
-      );
-    } catch (error) {
-      console.warn(
-        `⚠️  Could not update the registry data file: ${error.message}`
+      artifactResults.push(
+        ...(await findRemovedPlugins(discovered)).map((slug) => ({
+          plugin: slug,
+          status: 'removed',
+          detail: 'shared page has no plugin in the registry index',
+        }))
       );
     }
     console.log('');
   }
 
   // Process plugins
-  let pluginsToProcess = Object.entries(config.plugins);
+  const { selected: pluginsToProcess, unknown } = selectPlugins(
+    config.plugins,
+    options.plugin
+  );
 
-  if (options.plugin) {
-    if (!config.plugins[options.plugin]) {
-      console.error(`❌ Plugin '${options.plugin}' not found in configuration`);
-      process.exit(1);
-    }
-    pluginsToProcess = [[options.plugin, config.plugins[options.plugin]]];
+  if (unknown.length > 0) {
+    console.error(`❌ Not found in configuration: ${unknown.join(', ')}`);
+    process.exit(1);
   }
 
   console.log(
     `${options.dryRun ? 'DRY RUN: ' : ''}Processing ${pluginsToProcess.length} plugin(s)...\n`
   );
 
-  let successCount = 0;
-  let errorCount = 0;
-
   for (const [pluginName, mapping] of pluginsToProcess) {
-    if (await processPlugin(pluginName, mapping, options.dryRun)) {
-      successCount++;
-    } else {
-      errorCount++;
-    }
+    artifactResults.push(
+      await processPlugin(pluginName, mapping, options.dryRun)
+    );
   }
 
-  // Print summary
+  const results = collapseByPlugin(artifactResults);
+  const summary = formatSummary(results);
+
   console.log('\n' + '='.repeat(60));
   console.log('TRANSFORMATION SUMMARY');
   console.log('='.repeat(60));
-  console.log(`Successfully processed: ${successCount}`);
-  console.log(`Errors: ${errorCount}`);
+  console.log(summary);
 
-  if (errorCount === 0) {
-    console.log('\n✅ All plugins processed successfully!');
-    if (!options.dryRun) {
-      console.log('\nNext steps:');
-      console.log('1. Review the generated documentation in docs-v2');
-      console.log('2. Test that all links work correctly');
-      console.log('3. Verify product shortcodes render properly');
-      console.log('4. Commit changes in both repositories');
-    }
-  } else {
-    console.log(`\n❌ ${errorCount} plugin(s) failed to process`);
-    process.exit(1);
-  }
+  writeStepSummary(`## InfluxDB 3 plugin documentation sync\n\n${summary}`);
+  writeStepOutputs({
+    needs_attention: needsAttention(results) ? 'true' : 'false',
+    summary,
+  });
+
+  process.exit(hasFatal(results) ? 1 : 0);
 }
 
 // Handle unhandled promise rejections
@@ -687,4 +782,5 @@ export {
   processPlugin,
   loadMappingConfig,
   mergeGeneratedRegion,
+  selectPlugins,
 };

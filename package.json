@@ -139,6 +139,7 @@
     "test:render-artifacts": ".ci/scripts/check-render-artifacts.sh public",
     "test:no-test-fixtures": ".ci/scripts/check-no-test-fixtures.sh public",
     "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/index.cy.js\" content/example.md",
+    "test:sync-plugins": "node --test 'helper-scripts/influxdb3-plugins/test/**/*.test.js'",
     "sync-plugins": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js",
     "sync-plugins:dry-run": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --dry-run",
     "validate-plugin-config": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --validate",
