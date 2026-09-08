@@ -3,7 +3,11 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { processPlugin, selectPlugins } from '../port_to_docs.js';
+import {
+  processPlugin,
+  selectPlugins,
+  shouldRunDiscovery,
+} from '../port_to_docs.js';
 
 const CONFIG_PLUGINS = {
   notifier: { source: 'a', target: 'b' },
@@ -47,6 +51,19 @@ test('reports unknown plugin names rather than silently syncing nothing', () => 
     ['notifier']
   );
   assert.deepEqual(unknown, ['nope', 'also_nope']);
+});
+
+test('runs discovery for a full sync, however the run asks for one', () => {
+  // The workflow always passes --plugin, defaulting to "all". If "all" did not
+  // run discovery, a scheduled sync would publish no data file and no stubs.
+  for (const arg of [null, undefined, '', 'all']) {
+    assert.equal(shouldRunDiscovery(arg), true);
+  }
+});
+
+test('skips discovery when the run names specific plugins', () => {
+  assert.equal(shouldRunDiscovery('notifier'), false);
+  assert.equal(shouldRunDiscovery('notifier,state_change'), false);
 });
 
 test('ignores empty entries from a trailing or doubled comma', () => {
