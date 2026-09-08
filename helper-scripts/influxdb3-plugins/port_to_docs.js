@@ -268,6 +268,36 @@ function fixCodeBlockFormatting(content) {
   return content;
 }
 
+/**
+ * Upstream READMEs use ellipses in abbreviated JSON request and response
+ * examples. They are deliberately not parseable JSON, so exempt only those
+ * fences from the repository's code-block parser.
+ */
+function exemptAbbreviatedJsonExamples(content) {
+  return content.replace(
+    /```json([^\n]*)\n([\s\S]*?)```/g,
+    (match, attributes, body) => {
+      if (attributes.includes('lint=') || !body.includes('...')) return match;
+      return `\`\`\`json${attributes} {lint="false"}\n${body}\`\`\``;
+    }
+  );
+}
+
+/**
+ * Markdown list indentation uses spaces. Normalize tabs that appear only in
+ * a list prefix without changing tabs in code fences or prose.
+ */
+function normalizeListIndentation(content) {
+  return content.replace(
+    /^([ \t]+)([-*+] )/gm,
+    (match, indent, marker) => `${indent.replaceAll('\t', '  ')}${marker}`
+  );
+}
+
+function exemptGeneratedContentFromVale(content) {
+  return `<!-- vale off -->\n${content.trim()}\n<!-- vale on -->`;
+}
+
 const GENERATED_REGION_BEGIN = '<!-- BEGIN GENERATED PLUGIN CONTENT -->';
 const GENERATED_REGION_END = '<!-- END GENERATED PLUGIN CONTENT -->';
 
@@ -328,6 +358,8 @@ function transformContent(content, pluginName) {
   content = enhanceOpeningParagraph(content);
   content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
+  content = exemptAbbreviatedJsonExamples(content);
+  content = normalizeListIndentation(content);
 
   // Add logging section
   content = addLoggingSection(content);
@@ -335,7 +367,7 @@ function transformContent(content, pluginName) {
   // Replace support section
   content = replaceSupportSection(content);
 
-  return content;
+  return exemptGeneratedContentFromVale(content);
 }
 
 /**
@@ -430,6 +462,24 @@ function shouldRunDiscovery(pluginArg) {
 
 const SHARED_OFFICIAL_DIR =
   '../../content/shared/influxdb3-plugins/plugins-library/official';
+const UPSTREAM_OFFICIAL_DIR = '../../../.ext/influxdb3_plugins/influxdata';
+
+/**
+ * Return the README and shared-page paths for a discovered official plugin.
+ *
+ * Most plugins follow this convention. `docs_mapping.yaml` remains the place
+ * for the exceptional source or target paths that need an explicit override.
+ */
+function mappingForDiscoveredPlugin(plugin, configPlugins) {
+  if (configPlugins[plugin.name]) {
+    return configPlugins[plugin.name];
+  }
+
+  return {
+    source: `${UPSTREAM_OFFICIAL_DIR}/${plugin.name}/README.md`,
+    target: `${SHARED_OFFICIAL_DIR}/${plugin.slug}.md`,
+  };
+}
 
 /**
  * Shared pages left behind by a plugin that is no longer in the registry.
@@ -646,21 +696,20 @@ async function main() {
     process.exit(1);
   }
 
-  // Discover official plugins from the registry index. The transform loop
-  // below still walks docs_mapping.yaml's plugins map for README content
-  // until Task 5 lands stub scaffolding for plugins that aren't mapped yet,
-  // but data/influxdb3_plugins.yml is fully registry-driven and regenerated
-  // every run regardless of --plugin.
+  // Discover official plugins from the registry index. A full sync transforms
+  // every discovered plugin README. docs_mapping.yaml supplies exceptions to
+  // the conventional README and shared-page paths, rather than a roster that
+  // can omit newly published plugins.
   // Each artifact the run touches appends a `{ plugin, status, detail }`
   // entry. `main` collapses them to one row per plugin before reporting.
   const artifactResults = [];
+  let discovered = null;
 
   if (shouldRunDiscovery(options.plugin)) {
     console.log('Discovering official plugins from the registry index...');
 
     // A registry fetch failure is a bad afternoon on the network, not drift.
     // It must not fail a nightly run, so it is reported as a skip.
-    let discovered = null;
     try {
       const indexJson = await fetchRegistryIndex();
       const parsed = parseRegistryIndex(indexJson, {
@@ -669,10 +718,6 @@ async function main() {
       });
       discovered = parsed.plugins;
 
-      const { mapped, unmapped } = partitionDiscoveredPlugins(
-        discovered,
-        Object.keys(config.plugins)
-      );
       console.log(
         `Discovered ${discovered.length} official plugin(s) in the registry.`
       );
@@ -681,11 +726,11 @@ async function main() {
           `Excluded by docs_mapping.yaml: ${parsed.excluded.join(', ')}`
         );
       }
-      console.log(`  Mapped (transformed below): ${mapped.length}`);
-      console.log(`  Not yet mapped: ${unmapped.length}`);
-      if (unmapped.length > 0) {
-        console.log(`    ${unmapped.map((plugin) => plugin.name).join(', ')}`);
-      }
+      const { mapped } = partitionDiscoveredPlugins(
+        discovered,
+        Object.keys(config.plugins)
+      );
+      console.log(`  Explicit path overrides: ${mapped.length}`);
     } catch (error) {
       console.warn(`⚠️  Could not read the registry index: ${error.message}`);
       artifactResults.push({
@@ -738,8 +783,11 @@ async function main() {
     console.log('');
   }
 
-  // Process plugins
-  const { selected: pluginsToProcess, unknown } = selectPlugins(
+  // Process plugins. A successful full discovery is authoritative: every
+  // official plugin gets a conventional mapping unless configuration overrides
+  // it. If discovery was unavailable, retain the configured fallback so an
+  // upstream-network failure does not prevent known pages from refreshing.
+  const { selected: configuredPlugins, unknown } = selectPlugins(
     config.plugins,
     options.plugin
   );
@@ -748,6 +796,13 @@ async function main() {
     console.error(`❌ Not found in configuration: ${unknown.join(', ')}`);
     process.exit(1);
   }
+
+  const pluginsToProcess = discovered
+    ? discovered.map((plugin) => [
+        plugin.name,
+        mappingForDiscoveredPlugin(plugin, config.plugins),
+      ])
+    : configuredPlugins;
 
   console.log(
     `${options.dryRun ? 'DRY RUN: ' : ''}Processing ${pluginsToProcess.length} plugin(s)...\n`
@@ -797,4 +852,5 @@ export {
   mergeGeneratedRegion,
   selectPlugins,
   shouldRunDiscovery,
+  mappingForDiscoveredPlugin,
 };
