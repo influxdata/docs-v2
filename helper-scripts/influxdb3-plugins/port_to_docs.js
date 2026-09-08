@@ -415,6 +415,18 @@ function selectPlugins(configPlugins, pluginArg) {
   };
 }
 
+/**
+ * Whether this run covers every official plugin, not a named subset.
+ *
+ * Discovery, the data file, stub scaffolding, and removal detection are
+ * whole-library concerns, so they run only for a full sync. The workflow
+ * always passes `--plugin`, defaulting to `all`, so `all` has to mean the same
+ * thing here as it does in `selectPlugins`.
+ */
+function shouldRunDiscovery(pluginArg) {
+  return !pluginArg || pluginArg === 'all';
+}
+
 const SHARED_OFFICIAL_DIR =
   '../../content/shared/influxdb3-plugins/plugins-library/official';
 
@@ -642,7 +654,7 @@ async function main() {
   // entry. `main` collapses them to one row per plugin before reporting.
   const artifactResults = [];
 
-  if (!options.plugin) {
+  if (shouldRunDiscovery(options.plugin)) {
     console.log('Discovering official plugins from the registry index...');
 
     // A registry fetch failure is a bad afternoon on the network, not drift.
@@ -783,4 +795,5 @@ export {
   loadMappingConfig,
   mergeGeneratedRegion,
   selectPlugins,
+  shouldRunDiscovery,
 };
