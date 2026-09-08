@@ -132,15 +132,18 @@ identical from the registry index, so resolving one is a human decision.
 
 ## Files in this directory
 
-| File                | Purpose                                                           |
-| ------------------- | ----------------------------------------------------------------- |
-| `port_to_docs.js`   | CLI entry point: discovery, transform, merge, scaffold, report.   |
-| `discovery.js`      | Fetches and parses the registry index.                            |
-| `plugin-data.js`    | Maps registry entries to `data/influxdb3_plugins.yml`.            |
-| `stub-template.js`  | Renders and scaffolds product stubs.                              |
-| `reporting.js`      | Collapses results per plugin and writes step summary and outputs. |
-| `docs_mapping.yaml` | README source and target paths, slug overrides, exclusions.       |
-| `test/`             | Node test runner tests for all of the above.                      |
+| File                     | Purpose                                                           |
+| ------------------------ | ----------------------------------------------------------------- |
+| `port_to_docs.js`        | CLI entry point: discovery, transform, merge, scaffold, report.   |
+| `discovery.js`           | Fetches and parses the registry index.                            |
+| `plugin-data.js`         | Maps registry entries to `data/influxdb3_plugins.yml`.            |
+| `stub-template.js`       | Renders and scaffolds product stubs.                              |
+| `reporting.js`           | Collapses results per plugin and writes step summary and outputs. |
+| `coverage.js`            | Reconciles upstream plugins against published pages, per axis.    |
+| `verify-coverage.js`     | Coverage CLI: reads the tree, compares against the baseline.      |
+| `coverage-baseline.json` | The documentation gap the repository has accepted.                |
+| `docs_mapping.yaml`      | README source and target paths, slug overrides, exclusions.       |
+| `test/`                  | Node test runner tests for all of the above.                      |
 
 ## Configuration
 
@@ -175,7 +178,27 @@ work; every mapped plugin reports `skipped` because its README is missing.
 | `yarn sync-plugins:dry-run`   | Report what would change, write nothing.           |
 | `yarn sync-plugins`           | Write the data file, stubs, and shared pages.      |
 | `yarn validate-plugin-config` | Check `docs_mapping.yaml` source and target paths. |
+| `yarn verify-plugin-coverage` | Report the documentation gap per axis.             |
 | `yarn test:sync-plugins`      | Run the tests.                                     |
+
+## Coverage
+
+`yarn verify-plugin-coverage` reconciles the official plugins in the registry
+against what docs-v2 actually publishes, on four axes: a `data/influxdb3_plugins.yml`
+entry, a shared page, a Core stub, and an Enterprise stub. It names the missing
+plugins per axis rather than printing one total, because a plugin can have a
+shared page and no Enterprise stub.
+
+`coverage-baseline.json` records the gap the repository has accepted. The check
+fails when the gap grows past that baseline and names what grew; a gap that
+shrinks is reported and passes, so the backfill can land in batches. Update the
+baseline to record a gap a human accepted, never to silence one a sync just
+introduced.
+
+The sync workflow runs the check on every run, including a no-op run, and puts
+its table in the step summary and the pull request body. A regression fails the
+job in a final step, after the pull request is opened, so the reviewer sees the
+gap instead of only a red X.
 
 To limit the run to specific plugins, pass a name or a comma-separated list:
 

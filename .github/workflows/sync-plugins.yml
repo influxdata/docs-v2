@@ -84,6 +84,16 @@ jobs:
           PLUGINS: ${{ inputs.plugins }}
         run: node port_to_docs.js --plugin "$PLUGINS"
 
+      # Runs on every sync, including a no-op run, so the coverage number
+      # appears even when nothing changed. A regression past the committed
+      # baseline fails the job in the last step, after the pull request is
+      # opened -- the reviewer needs to see the gap, not just a red X.
+      - name: Verify plugin coverage
+        id: coverage
+        continue-on-error: true
+        working-directory: docs-v2/helper-scripts/influxdb3-plugins
+        run: node verify-coverage.js
+
       - name: Check for changes
         id: changes
         working-directory: docs-v2
@@ -99,6 +109,7 @@ jobs:
         id: body
         if: steps.changes.outputs.changed == 'true'
         env:
+          COVERAGE: ${{ steps.coverage.outputs.coverage_table }}
           NEEDS_ATTENTION: ${{ steps.sync.outputs.needs_attention }}
           SUMMARY: ${{ steps.sync.outputs.summary }}
         run: |
@@ -121,6 +132,16 @@ jobs:
 
           INTRO
             printf '%s\n' "$SUMMARY"
+            if [ -n "$COVERAGE" ]; then
+              cat <<'COVERAGE_HEADING'
+
+          ## Coverage
+
+          Official plugins upstream, reconciled against what docs-v2 publishes.
+
+          COVERAGE_HEADING
+              printf '%s\n' "$COVERAGE"
+            fi
             cat <<'LEGEND'
 
           ## What each status means
@@ -159,3 +180,12 @@ jobs:
           labels: |
             source:sync
             product:v3-monolith
+
+      # Last, so a coverage regression still leaves a reviewable pull request
+      # behind. A red job with no artifact tells a reviewer nothing.
+      - name: Fail on a coverage regression
+        if: steps.coverage.outcome == 'failure'
+        run: |
+          echo "Plugin coverage regressed past coverage-baseline.json." >&2
+          echo "See the 'Verify plugin coverage' step for the plugins named." >&2
+          exit 1

@@ -536,33 +536,56 @@ output the acceptance test for that one.
 
 **Acceptance criteria:**
 
-- [ ] `yarn verify-plugin-coverage` reports, for official plugins upstream: how
+- [x] `yarn verify-plugin-coverage` reports, for official plugins upstream: how
   many have a `data/influxdb3_plugins.yml` entry, a shared page, a Core
   stub, and an Enterprise stub.
-- [ ] Output names the missing items per axis, not just totals.
-- [ ] A committed baseline file records the accepted gap. The check fails when
+- [x] Output names the missing items per axis, not just totals.
+- [x] A committed baseline file records the accepted gap. The check fails when
   the gap grows beyond the baseline, and reports without failing when it
-  shrinks.
-- [ ] The sync workflow runs the verifier and writes its table into the step
-  summary and the pull request body on every run, including no-op runs.
-- [ ] A plugin listed in the `docs_mapping.yaml` exclusion list is excluded
+  shrinks. A closed gap is reported as an improvement, so a batched backfill
+  shows progress without needing a baseline edit to stay green.
+- [x] The sync workflow runs the verifier and writes its table into the step
+  summary and the pull request body on every run, including no-op runs. The
+  verify step is `continue-on-error: true` and a final step fails the job on
+  its outcome, so a coverage regression still leaves a reviewable pull request
+  behind rather than a red job with no artifact.
+- [x] A plugin listed in the `docs_mapping.yaml` exclusion list is excluded
   from the expected count and named as excluded.
+
+The presence key differs per axis: the data file and the product stubs key on
+`stubSlug`, the shared page on `slug`. They differ for `mad_check`, so a single
+key would report it as permanently missing on two axes.
+
+A registry fetch failure reports and exits 0, matching the sync's treatment of
+the same failure. Only a real regression fails the check.
 
 **Verification:**
 
-- [ ] Tests pass: `node --test helper-scripts/influxdb3-plugins/test/`
-- [ ] Manual check: run against the current tree and confirm it reports 11 of
-  34 documented, naming the 23 that are missing.
-- [ ] Manual check: delete one Enterprise stub in a scratch tree and confirm
-  the check fails and names that stub.
+- [x] Tests pass: `yarn test:sync-plugins` (58/58, including 6 new
+  `coverage.js` tests).
+- [x] Manual check: against the current tree it reports 35 of 35 on the data
+  file axis and 11 of 35 on the other three, naming the same 24 plugins on
+  each. 24 rather than 23, and 35 rather than 34, because the registry grew
+  between the ADR snapshot and this run. The data file axis is already full
+  because Task 3 writes it from the registry, so the real gap is pages and
+  stubs.
+- [x] Manual check: moving `content/influxdb3/enterprise/plugins/library/official/notifier.md`
+  aside made the check fail with `Beyond the baseline (enterprise): notifier`,
+  and it passed again once restored.
+- [x] Manual check: the pull request body script was run with a representative
+  coverage table and renders the new Coverage section at column 0, between the
+  sync results and the status legend.
+- [x] `actionlint` and `zizmor` report no errors on the workflow.
 
 **Dependencies:** Tasks 2, 3, 5.
 
-**Files likely touched:**
+**Files touched:**
 
-- `helper-scripts/influxdb3-plugins/verify-coverage.js`
-- `helper-scripts/influxdb3-plugins/coverage-baseline.json`
-- `helper-scripts/influxdb3-plugins/test/coverage.test.js`
+- `helper-scripts/influxdb3-plugins/coverage.js` (new, holds the logic)
+- `helper-scripts/influxdb3-plugins/verify-coverage.js` (new, the CLI adapter)
+- `helper-scripts/influxdb3-plugins/coverage-baseline.json` (new)
+- `helper-scripts/influxdb3-plugins/test/coverage.test.js` (new)
+- `helper-scripts/influxdb3-plugins/README.md`
 - `package.json`
 - `.github/workflows/sync-plugins.yml`
 
