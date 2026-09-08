@@ -62,6 +62,33 @@ canonical: self
   );
 });
 
+test('preserves known initialisms in generated titles and menu labels', () => {
+  const content = renderStub(
+    {
+      ...BASIC_TRANSFORMATION,
+      name: 'nws_weather',
+      slug: 'nws-weather',
+      stubSlug: 'nws-weather',
+    },
+    'enterprise'
+  );
+
+  assert.match(content, /^title: NWS weather plugin$/m);
+  assert.match(content, /^    name: NWS weather$/m);
+  assert.match(content, /NWS weather plugin on GitHub/);
+});
+
+test('does not repeat plugin in titles that already include it', () => {
+  const content = renderStub(
+    { ...BASIC_TRANSFORMATION, name: 'stock_plugin' },
+    'core'
+  );
+
+  assert.match(content, /^title: Stock plugin$/m);
+  assert.match(content, /Stock plugin on GitHub/);
+  assert.doesNotMatch(content, /plugin plugin/);
+});
+
 const MAD_CHECK = {
   name: 'mad_check',
   slug: 'mad-check',
