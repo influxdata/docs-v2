@@ -36,6 +36,12 @@ it. Add an alias with **{{% lucide "plus" %}} Add Alias**, and transfer or
 delete an alias from its row actions, exactly as for
 [configuration aliases](/telegraf/controller/configs/aliases/).
 
+You can also assign aliases while
+[creating a group](/telegraf/controller/config-groups/manage/#create-a-configuration-group).
+As with configurations, if an alias you request at creation is already
+assigned, {{% product-name %}} doesn't create the group. Remove the alias to
+continue, or transfer it after you create the group.
+
 ## Repoint agents from a configuration to a group
 
 Because the alias namespace spans configurations and groups, you can
