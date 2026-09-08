@@ -1,20 +1,51 @@
-# Generated Content - Do Not Edit Directly
+# Partly generated content
 
-The plugin documentation files in this directory are **generated from source READMEs** in the [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) repository.
+Each file in this directory is a shared page for one official InfluxDB 3
+plugin. The plugin's README in
+[influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins)
+is the source of truth for its prose.
 
-## Workflow
+These pages are not fully generated. Each one has a generated region the sync
+overwrites and a hand-owned remainder the sync preserves.
 
-1. **Source of truth**: `influxdb3_plugins/influxdata/<plugin>/README.md`
-2. **Sync script**: `yarn sync-plugins` transforms and ports content to this directory
-3. **Transformations**: The sync applies shortcodes, formatting, and docs-specific sections
+## Generated and hand-owned regions
 
-## To Make Changes
+```markdown
+Hand-owned. Written here, kept here.
 
-1. Edit the source README in `influxdb3_plugins/influxdata/<plugin>/README.md`
-2. Run `yarn sync-plugins` from the docs-v2 root to port changes
-3. Commit changes in both repositories
+<!-- BEGIN GENERATED PLUGIN CONTENT -->
 
-## Cross-Plugin Links
+Transformed from the upstream README. Overwritten every sync run.
+
+<!-- END GENERATED PLUGIN CONTENT -->
+
+Hand-owned. Written here, kept here.
+```
+
+- **Inside the markers**: edit the upstream README, not this file. Anything
+  written here is lost on the next sync run.
+- **Outside the markers**: docs-owned. The sync never touches it. This is where
+  content belongs that has no upstream home, such as the schema requirements
+  section in `basic-transformation.md`.
+- **No markers at all**: the page is treated as fully generated and gains
+  markers on its first write.
+- **One marker, or markers out of order**: the sync fails that plugin and
+  leaves the file untouched rather than guessing where the generated region
+  ends.
+
+## Frontmatter
+
+These files have no frontmatter. Each has one product stub per product at
+`content/influxdb3/{core,enterprise}/plugins/library/official/`, and the stub
+carries `title`, `menu`, `source`, and the rest. Stubs are scaffolded once and
+never rewritten by the sync, so editorial changes to a title or tags are safe
+there.
+
+The shared page filename is the upstream plugin name with underscores replaced
+by hyphens. A stub filename can differ: `mad_check`'s shared page is
+`mad-check.md` and its stubs are `mad-anomaly-detection.md`.
+
+## Cross-plugin links
 
 Upstream READMEs link to other plugins with a GitHub-relative path, for
 example `[influxdata/notifier plugin](../notifier/README.md)`. That path is
@@ -31,22 +62,10 @@ hand-fix only the generated file; re-run `yarn sync-plugins`, and if the
 link still isn't rewritten, check `convertRelativeLinks()` in
 `helper-scripts/influxdb3-plugins/port_to_docs.js` for a pattern gap.
 
-## Documentation
+## Running the sync
 
-See [helper-scripts/influxdb3-plugins/README.md](/helper-scripts/influxdb3-plugins/README.md) for the complete sync workflow documentation.
-
-## Files in This Directory
-
-| File | Source |
-|------|--------|
-| `basic-transformation.md` | `influxdb3_plugins/influxdata/basic_transformation/README.md` |
-| `downsampler.md` | `influxdb3_plugins/influxdata/downsampler/README.md` |
-| `forecast-error-evaluator.md` | `influxdb3_plugins/influxdata/forecast_error_evaluator/README.md` |
-| `influxdb-to-iceberg.md` | `influxdb3_plugins/influxdata/influxdb_to_iceberg/README.md` |
-| `mad-check.md` | `influxdb3_plugins/influxdata/mad_check/README.md` |
-| `notifier.md` | `influxdb3_plugins/influxdata/notifier/README.md` |
-| `prophet-forecasting.md` | `influxdb3_plugins/influxdata/prophet_forecasting/README.md` |
-| `state-change.md` | `influxdb3_plugins/influxdata/state_change/README.md` |
-| `stateless-adtk-detector.md` | `influxdb3_plugins/influxdata/stateless_adtk_detector/README.md` |
-| `system-metrics.md` | `influxdb3_plugins/influxdata/system_metrics/README.md` |
-| `threshold-deadman-checks.md` | `influxdb3_plugins/influxdata/threshold_deadman_checks/README.md` |
+`yarn sync-plugins` from the repository root, with a checkout of
+`influxdb3_plugins` at `.ext/influxdb3_plugins`. See
+[helper-scripts/influxdb3-plugins/README.md](/helper-scripts/influxdb3-plugins/README.md)
+for the full pipeline, the ownership model, and what each reported status
+means.
