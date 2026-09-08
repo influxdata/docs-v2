@@ -1,5 +1,4 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-
 The Basic Transformation Plugin enables real-time and scheduled transformation of time series data in {{% product-name %}}. Transform field and tag names, convert values between units, and apply custom string replacements to standardize or clean your data. The plugin supports both scheduled batch processing of historical data and real-time transformation as data is written.
 
 ## Configuration
@@ -14,12 +13,13 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 
 ### Required parameters
 
-| Parameter            | Type   | Default          | Description                                       |
-|----------------------|--------|------------------|---------------------------------------------------|
-| `measurement`        | string | required         | Source measurement containing data to transform   |
-| `target_measurement` | string | required         | Destination measurement for transformed data      |
-| `target_database`    | string | current database | Database for storing transformed data             |
-| `dry_run`            | string | "false"          | When "true", logs transformations without writing |
+| Parameter             | Type    | Default          | Description                                                                                                                                                                               |
+|-----------------------|---------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `measurement`         | string  | required         | Source measurement containing data to transform                                                                                                                                           |
+| `target_measurement`  | string  | required         | Destination measurement for transformed data                                                                                                                                              |
+| `target_database`     | string  | current database | Database for storing transformed data                                                                                                                                                     |
+| `dry_run`             | string  | "false"          | When "true", logs transformations without writing                                                                                                                                         |
+| `enable_full_logging` | boolean | false            | When `true`, full exception messages are written to logs. When `false` (default), only the exception type is logged, to avoid leaking sensitive values. Enable temporarily for debugging. |
 
 ### Transformation parameters
 
