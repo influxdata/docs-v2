@@ -30,6 +30,15 @@ describe('Tab content fragment ids', () => {
       .find('.code-tab-content')
       .eq(1)
       .should('have.id', 'macos');
+
+    cy.get('@wrapper')
+      .find('.code-tabs a')
+      .eq(0)
+      .should('have.attr', 'href', '#linux');
+    cy.get('@wrapper')
+      .find('.code-tabs a')
+      .eq(1)
+      .should('have.attr', 'href', '#macos');
   });
 
   it('slugifies a tab label the same way goldmark slugifies headings', () => {
@@ -100,5 +109,78 @@ describe('Tab content fragment ids', () => {
 
     // The heading keeps its id; only one element on the page owns it.
     cy.get('[id="docker"]').should('have.length', 1);
+  });
+
+  it("rewrites a tab link's href to match its paired section id, not just the first group's", () => {
+    cy.contains('h4', 'Tab link hrefs match their paired section id')
+      .nextUntil('h4')
+      .filter('.code-tabs-wrapper')
+      .as('groups');
+
+    cy.get('@groups').eq(0).find('.code-tab-content').should('have.id', 'go');
+    cy.get('@groups')
+      .eq(0)
+      .find('.code-tabs a')
+      .should('have.attr', 'href', '#go');
+
+    cy.get('@groups')
+      .eq(1)
+      .find('.code-tab-content')
+      .invoke('attr', 'id')
+      .should('match', /^go-\d+$/)
+      .then((secondId) => {
+        cy.get('@groups')
+          .eq(1)
+          .find('.code-tabs a')
+          .should('have.attr', 'href', `#${secondId}`);
+      });
+  });
+
+  it('prefixes ids with the wrapper id argument when one is given', () => {
+    cy.contains('h4', 'Wrapper-level id opts a tab group into a durable fragment')
+      .nextUntil('h4')
+      .filter('.tabs-wrapper')
+      .first()
+      .as('wrapper');
+
+    cy.get('@wrapper')
+      .find('.tab-content')
+      .eq(0)
+      .should('have.id', 'install-linux');
+    cy.get('@wrapper')
+      .find('.tab-content')
+      .eq(1)
+      .should('have.id', 'install-macos');
+
+    cy.get('@wrapper')
+      .find('.tabs a')
+      .eq(0)
+      .should('have.attr', 'href', '#install-linux');
+    cy.get('@wrapper')
+      .find('.tabs a')
+      .eq(1)
+      .should('have.attr', 'href', '#install-macos');
+  });
+});
+
+describe('Tab content fragment ids on shared (source:) content', () => {
+  // influxdb3/core/get-started/query.md has no body of its own -- it's
+  // rendered from content/shared/influxdb3-get-started/query.md via
+  // `source:`. That page has several `[SQL](#)`/`[InfluxQL](#)` code-tabs
+  // groups ahead of a later "### SQL" / "### InfluxQL" heading pair, so the
+  // first tab group's fallback id collides with the heading's id unless
+  // collision detection sees the real (sourced) markdown, not this page's
+  // empty stub body.
+  it('disambiguates tab ids against headings on a source: page', () => {
+    cy.visit('/influxdb3/core/get-started/query/');
+
+    cy.get('h3#sql').should('have.length', 1);
+    cy.get('h3#influxql').should('have.length', 1);
+
+    cy.get('.code-tab-content[id="sql"]').should('have.length', 0);
+    cy.get('.code-tab-content[id="influxql"]').should('have.length', 0);
+
+    cy.get('[id="sql"]').should('have.length', 1);
+    cy.get('[id="influxql"]').should('have.length', 1);
   });
 });
