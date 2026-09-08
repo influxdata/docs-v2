@@ -444,6 +444,17 @@ per scheduled pull request. A PAT would remove that click; it is not required
 for the sync itself, and Task 12 is where the choice matters, since that is
 when the cron lands.
 
+**Bug found while writing Task 8 and fixed here:** the workflow always passes
+`--plugin`, defaulting to `all`, but the discovery block was guarded by
+`if (!options.plugin)`. A default CI run therefore skipped registry discovery,
+`data/influxdb3_plugins.yml`, stub scaffolding, and removal detection, and
+transformed only the 11 mapped READMEs. `selectPlugins` already treated `all`
+as a full run; the guard did not. Replaced with an exported
+`shouldRunDiscovery()` so both readings of the argument live next to each
+other, covered by two tests, and confirmed with
+`node port_to_docs.js --plugin all --dry-run` now reporting 35 discovered
+plugins and 24 scaffolds.
+
 **Dependencies:** Tasks 1, 6.
 
 **Files touched:**
@@ -465,16 +476,29 @@ the generated-directory `CLAUDE.md` for the region model.
 
 **Acceptance criteria:**
 
-- [ ] The README describes the scheduled pull, the three-way ownership split,
-  and how to add a hand-owned region.
-- [ ] Every claim in it is true of the workflow as landed.
-- [ ] `content/shared/influxdb3-plugins/plugins-library/official/CLAUDE.md`
-  distinguishes generated regions from hand-owned regions.
+- [x] The README describes the scheduled pull, the three-way ownership split,
+  and how to add a hand-owned region. Rewritten around the pipeline as it
+  actually runs: discovery, ownership, statuses, configuration, local and CI
+  operation. The embedded Python listings of a `port_to_docs.py` that no
+  longer exists, the "Phase 1-5" structure, the screenshot claims, and the
+  issue-form path are gone. The Terminology section is kept verbatim; ADR 0004
+  and `PLAN.md` link to its anchor.
+- [x] Every claim in it is true of the workflow as landed. Writing this is what
+  surfaced the `--plugin all` discovery bug recorded under Task 7: the README
+  draft claimed a full run writes the data file, and the code did not.
+- [x] `content/shared/influxdb3-plugins/plugins-library/official/CLAUDE.md`
+  distinguishes generated regions from hand-owned regions. Also dropped its
+  per-file source table, which listed 11 of 35 plugins and would need an edit
+  on every backfill batch; the filename rule and the `mad_check` exception
+  replace it.
 
 **Verification:**
 
-- [ ] Manual check: every file path, label, and command named in the README
-  exists.
+- [x] Manual check: every file path, label, and command named in the README
+  exists. Verified the four `yarn` scripts in `package.json`, the six modules
+  in this directory, the ADR path, the marker constants against
+  `port_to_docs.js`, and the markers present in `basic-transformation.md`. No
+  reference to the deleted issue form remains on this branch.
 
 **Dependencies:** Task 7.
 
