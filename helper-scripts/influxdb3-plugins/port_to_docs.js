@@ -396,13 +396,14 @@ async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
  * would leave only the last plugin's outcome visible to the workflow.
  */
 function selectPlugins(configPlugins, pluginArg) {
+  const normalized = typeof pluginArg === 'string' ? pluginArg.trim() : pluginArg;
   const entries = Object.entries(configPlugins);
 
-  if (!pluginArg || pluginArg === 'all') {
+  if (!normalized || normalized === 'all') {
     return { selected: entries, unknown: [] };
   }
 
-  const requested = pluginArg
+  const requested = normalized
     .split(',')
     .map((name) => name.trim())
     .filter(Boolean);
