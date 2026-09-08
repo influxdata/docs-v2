@@ -1692,6 +1692,45 @@ Podman tab content.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+#### Tab link hrefs match their paired section id
+
+Two separate groups sharing a label ("Go") force the second group's
+fallback id to a disambiguated suffix. The paired link's `href` must
+follow, not stay on the first group's fragment.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Go](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+First Go group content.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Go](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+Second Go group content.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Wrapper-level id opts a tab group into a durable fragment
+
+{{< tabs-wrapper id="install" >}}
+{{% tabs %}}
+[Linux](#)
+[macOS](#)
+{{% /tabs %}}
+{{% tab-content %}}
+Linux install instructions.
+{{% /tab-content %}}
+{{% tab-content %}}
+macOS install instructions.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
 ### Diff fence — subtractive only
 
 The previous `display: inline-block` rule on `.gi`/`.gd` (influxdata/docs-v2#7173)
