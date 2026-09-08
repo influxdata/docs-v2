@@ -143,6 +143,7 @@
     "sync-plugins": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js",
     "sync-plugins:dry-run": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --dry-run",
     "validate-plugin-config": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --validate",
+    "verify-plugin-coverage": "cd helper-scripts/influxdb3-plugins && node verify-coverage.js",
     "debug:browser": "node scripts/puppeteer/debug-browser.js",
     "debug:screenshot": "node scripts/puppeteer/screenshot.js",
     "debug:inspect": "node scripts/puppeteer/inspect-page.js"
