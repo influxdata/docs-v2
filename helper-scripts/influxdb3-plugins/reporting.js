@@ -77,7 +77,7 @@ function collapseByPlugin(artifactResults) {
 
 // Files that live alongside the generated plugin pages but do not describe a
 // plugin. Without this, every run reports them as removed plugins.
-const NON_PLUGIN_PAGES = new Set(['_index.md', 'CLAUDE.md', 'README.md']);
+const NON_PLUGIN_PAGES = new Set(['_index.md', 'CLAUDE.md', 'README.md', 'AGENTS.md']);
 
 /**
  * Shared pages that no longer have a plugin in the registry index.
