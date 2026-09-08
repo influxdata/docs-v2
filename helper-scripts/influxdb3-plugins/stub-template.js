@@ -11,10 +11,17 @@ const PRODUCTS = {
 };
 
 const BASE_TAGS = ['plugins', 'processing engine', 'python', 'official'];
+const INITIALISMS = new Map([['nws', 'NWS']]);
 
 function sentenceCase(name) {
-  const words = name.split('_').join(' ');
-  return words[0].toUpperCase() + words.slice(1);
+  return name
+    .split('_')
+    .map(
+      (word, index) =>
+        INITIALISMS.get(word.toLowerCase()) ??
+        (index === 0 ? word[0].toUpperCase() + word.slice(1) : word)
+    )
+    .join(' ');
 }
 
 export function stubPath(plugin, product) {
@@ -24,9 +31,10 @@ export function stubPath(plugin, product) {
 export function renderStub(plugin, product) {
   const { menuKey, tagPrefix } = PRODUCTS[product];
   const label = sentenceCase(plugin.name);
+  const title = label.endsWith(' plugin') ? label : `${label} plugin`;
 
   return `---
-title: ${label} plugin
+title: ${title}
 description: ${plugin.description}
 menu:
   ${menuKey}:
@@ -35,7 +43,7 @@ menu:
 weight: 100
 ${tagPrefix}/tags: [${BASE_TAGS.join(', ')}]
 related:
-  - ${plugin.repository}, ${label} plugin on GitHub
+  - ${plugin.repository}, ${title} on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/${plugin.slug}.md
 canonical: self
 ---

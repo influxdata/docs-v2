@@ -219,7 +219,10 @@ test('matches the shared page on slug, not on the product stub slug', () => {
 
 test('ignores the section index and the writer guidance file', () => {
   assert.deepEqual(
-    detectRemovedPlugins([], ['_index.md', 'CLAUDE.md', 'README.md']),
+    detectRemovedPlugins(
+      [],
+      ['_index.md', 'AGENTS.md', 'CLAUDE.md', 'README.md']
+    ),
     []
   );
 });
