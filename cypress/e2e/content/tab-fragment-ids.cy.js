@@ -137,7 +137,10 @@ describe('Tab content fragment ids', () => {
   });
 
   it('prefixes ids with the wrapper id argument when one is given', () => {
-    cy.contains('h4', 'Wrapper-level id opts a tab group into a durable fragment')
+    cy.contains(
+      'h4',
+      'Wrapper-level id opts a tab group into a durable fragment'
+    )
       .nextUntil('h4')
       .filter('.tabs-wrapper')
       .first()
