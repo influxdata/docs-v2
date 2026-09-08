@@ -25,11 +25,16 @@ labels, and lifecycle from the group detail page.
     **Configurations > Config Groups** in the navigation bar.
 2.  Click **{{% lucide "plus" %}} Add Config Group**.
 3.  Enter a group name and optional description.
-4.  Click **{{% lucide "plus" %}} Add Configs** and select the
+4.  _(Optional)_ To assign
+    [aliases](/telegraf/controller/config-groups/aliases/) to the group,
+    click **{{% lucide "plus" %}} Add Alias** and enter an alias that
+    follows the
+    [naming rules](/telegraf/controller/configs/aliases/#alias-naming-rules).
+5.  Click **{{% lucide "plus" %}} Add Configs** and select the
     configurations to include.
-5.  Drag members by the **drag handle ({{% lucide "grip-vertical" %}})**
+6.  Drag members by the **drag handle ({{% lucide "grip-vertical" %}})**
     into the order you want them rendered.
-6.  Click **Create Config Group**.
+7.  Click **Create Config Group**.
 
 ## View configuration groups
 
