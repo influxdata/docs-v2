@@ -1,4 +1,4 @@
-
+<!-- BEGIN GENERATED PLUGIN CONTENT -->
 The Downsampler Plugin enables time-based data aggregation and downsampling in {{% product-name %}}. Reduce data volume by aggregating measurements over specified time intervals using functions like avg, sum, min, max, median, count, stddev, first_value, last_value, var, or approx_median. The plugin supports both scheduled batch processing of historical data and on-demand downsampling through HTTP requests. Each downsampled record includes metadata about the original data points compressed.
 
 ## Configuration
@@ -11,37 +11,42 @@ If a plugin supports multiple trigger specifications, some parameters may depend
 
 This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
-### Required parameters
+### Scheduled trigger parameters
 
-| Parameter            | Type   | Default                   | Description                                                                        |
-|----------------------|--------|---------------------------|------------------------------------------------------------------------------------|
-| `source_measurement` | string | required                  | Source measurement containing data to downsample                                   |
-| `target_measurement` | string | required                  | Destination measurement for downsampled data                                       |
-| `window`             | string | required (scheduled only) | Time window for each downsampling job. Format: `<number><unit>` (for example, "1h", "1d") |
+| Parameter            | Type    | Default    | Description                                                                                                                                                                               |
+|----------------------|---------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `source_measurement` | string  | required   | Source measurement containing data to downsample                                                                                                                                          |
+| `target_measurement` | string  | required   | Destination measurement for downsampled data                                                                                                                                              |
+| `window`             | string  | required   | Time window for each downsampling job. Format: `<number><unit>` (for example, "1h", "1d")                                                                                               |
+| `interval`           | string  | "10min"    | Time interval for downsampling. Format: `<number><unit>` (for example, "10min", "2h", "1d")                                                                                             |
+| `calculations`       | string  | "avg"      | Aggregation functions. Single function or dot-separated field:aggregation pairs                                                                                                           |
+| `specific_fields`    | string  | all fields | Dot-separated list of fields to downsample (for example, "co.temperature")                                                                                                               |
+| `excluded_fields`    | string  | none       | Dot-separated list of fields and tags to exclude from downsampling results                                                                                                                |
+| `tag_values`         | string  | none       | Tag filters. Format: `tag:value1@value2@value3` for multiple values                                                                                                                       |
+| `offset`             | string  | "0"        | Time offset to apply to the window                                                                                                                                                        |
+| `target_database`    | string  | "default"  | Database for storing downsampled data                                                                                                                                                     |
+| `max_retries`        | integer | 5          | Maximum number of retries for write operations                                                                                                                                            |
+| `enable_full_logging` | boolean | false      | When `true`, full exception messages are written to logs. When `false` (default), only the exception type is logged, to avoid leaking sensitive values. Enable temporarily for debugging. |
 
-### Aggregation parameters
+### HTTP request parameters
 
-| Parameter         | Type   | Default    | Description                                                                          |
-|-------------------|--------|------------|--------------------------------------------------------------------------------------|
-| `interval`        | string | "10min"    | Time interval for downsampling. Format: `<number><unit>` (for example, "10min", "2h", "1d") |
-| `calculations`    | string | "avg"      | Aggregation functions. Single function or dot-separated field:aggregation pairs      |
-| `specific_fields` | string | all fields | Dot-separated list of fields to downsample (for example, "co.temperature")                  |
-| `excluded_fields` | string | none       | Dot-separated list of fields and tags to exclude from downsampling results           |
+Send these parameters as JSON in the HTTP POST request body:
 
-### Filtering parameters
-
-| Parameter    | Type   | Default | Description                                                         |
-|--------------|--------|---------|---------------------------------------------------------------------|
-| `tag_values` | string | none    | Tag filters. Format: `tag:value1@value2@value3` for multiple values |
-| `offset`     | string | "0"     | Time offset to apply to the window                                  |
-
-### Advanced parameters
-
-| Parameter         | Type    | Default   | Description                                         |
-|-------------------|---------|-----------|-----------------------------------------------------|
-| `target_database` | string  | "default" | Database for storing downsampled data               |
-| `max_retries`     | integer | 5         | Maximum number of retries for write operations      |
-| `batch_size`      | string  | "30d"     | Time interval for batch processing (HTTP mode only) |
+| Parameter             | Type    | Default      | Description                                                                                                                                                                               |
+|-----------------------|---------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `source_measurement`  | string  | required     | Source measurement containing data to downsample                                                                                                                                          |
+| `target_measurement`  | string  | required     | Destination measurement for downsampled data                                                                                                                                              |
+| `interval`            | string  | "10min"      | Time interval for downsampling. Format: `<number><unit>` (for example, "10min", "2h", "1d")                                                                                             |
+| `batch_size`          | string  | "30d"        | Time interval for each HTTP backfill batch                                                                                                                                                |
+| `calculations`        | string/array | "avg"    | Aggregation functions. Use `"avg"` for all fields, or an array of `[field, aggregation]` pairs                                                                                            |
+| `specific_fields`     | array   | all fields   | List of fields to downsample                                                                                                                                                              |
+| `excluded_fields`     | array   | none         | List of fields and tags to exclude from downsampling results                                                                                                                              |
+| `tag_values`          | object  | none         | Tag filters as an object mapping tag names to lists of values                                                                                                                             |
+| `target_database`     | string  | "default"    | Database for storing downsampled data                                                                                                                                                     |
+| `max_retries`         | integer | 5            | Maximum number of retries for write operations                                                                                                                                            |
+| `backfill_start`      | string  | oldest point | ISO 8601 datetime with timezone for the start of the HTTP backfill window                                                                                                                 |
+| `backfill_end`        | string  | current time | ISO 8601 datetime with timezone for the end of the HTTP backfill window                                                                                                                   |
+| `enable_full_logging` | boolean | false        | When `true`, full exception messages are written to logs. When `false` (default), only the exception type is logged, to avoid leaking sensitive values. Enable temporarily for debugging. |
 
 ### TOML configuration
 
@@ -224,7 +229,7 @@ Key operations:
 3. Applies time-based aggregation with specified functions
 4. Writes downsampled data with metadata columns
 
-#### `process_http_request(influxdb3_local, request_body, args)`
+#### `process_request(influxdb3_local, query_parameters, request_headers, request_body, args)`
 
 Handles HTTP-triggered on-demand downsampling. Processes batch downsampling with configurable time ranges for backfill scenarios.
 
@@ -235,9 +240,9 @@ Key operations:
 3. Applies aggregation functions to historical data
 4. Returns processing statistics and results
 
-#### `aggregate_data(data, interval, calculations)`
+#### `build_downsample_query(fields_list, measurement, tags_list, interval, tag_values, start_time, end_time)`
 
-Core aggregation engine that applies statistical functions to time-series data.
+Builds the SQL query that applies time bucketing, tag filters, grouping, and aggregation functions to source data.
 
 Supported aggregation functions:
 
@@ -362,3 +367,4 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- END GENERATED PLUGIN CONTENT -->
