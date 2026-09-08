@@ -1,4 +1,5 @@
-
+<!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The State Change Plugin provides comprehensive field monitoring and threshold detection for {{% product-name %}} data streams. Detect field value changes, monitor threshold conditions, and trigger notifications when specified criteria are met. Supports both scheduled batch monitoring and real-time data write monitoring with configurable stability checks and multi-channel alerts.
 
 ## Configuration
@@ -13,20 +14,20 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 
 ### Required parameters
 
-| Parameter            | Type   | Default  | Description                                                                                  |
-|----------------------|--------|----------|----------------------------------------------------------------------------------------------|
-| `measurement`        | string | required | Measurement to monitor for field changes                                                     |
-| `field_change_count` | string | required | Dot-separated field thresholds (for example, "temp:3.load:2"). Supports count-based conditions    |
-| `senders`            | string | required | Dot-separated notification channels with multi-channel alert support (Slack, Discord, etc.) |
-| `window`             | string | required | Time window for analysis. Format: `<number><unit>` (for example, "10m", "1h")                      |
+| Parameter            | Type   | Default  | Description                                                                                                            |
+|----------------------|--------|----------|------------------------------------------------------------------------------------------------------------------------|
+| `measurement`        | string | required | Measurement to monitor for field changes                                                                               |
+| `field_change_count` | string | required | Dot-separated field thresholds (for example, "temp:3.load:2" or "temp:3.disk.used:2"). Each count must be 1 or greater |
+| `senders`            | string | required | Dot-separated notification channels with multi-channel alert support (Slack, Discord, etc.)                            |
+| `window`             | string | required | Time window for analysis. Format: `<number><unit>`, units: `us`, `ms`, `s`, `min`, `h`, `d`, `w`. Must be positive     |
 
 ### Data write trigger parameters
 
-| Parameter          | Type   | Default  | Description                                                                                                    |
-|--------------------|--------|----------|----------------------------------------------------------------------------------------------------------------|
-| `measurement`      | string | required | Measurement to monitor for threshold conditions                                                                |
-| `field_thresholds` | string | required | Flexible threshold conditions with count-based and duration-based support (for example, "temp:30:10@status:ok:1h") |
-| `senders`          | string | required | Dot-separated notification channels with multi-channel alert support (Slack, Discord, HTTP, SMS, WhatsApp)   |
+| Parameter          | Type   | Default  | Description                                                                                                                                                 |
+|--------------------|--------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `measurement`      | string | required | Measurement to monitor for threshold conditions                                                                                                             |
+| `field_thresholds` | string | required | Threshold conditions with count-based and duration-based support (for example, "temp:30:10@status:ok:1h"). Counts must be 1 or greater; durations must be positive |
+| `senders`          | string | required | Dot-separated notification channels with multi-channel alert support (Slack, Discord, HTTP, SMS, WhatsApp)                                                  |
 
 ### Notification parameters
 
@@ -43,8 +44,10 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 
 | Parameter             | Type   | Default | Description                                                                               |
 |-----------------------|--------|---------|-------------------------------------------------------------------------------------------|
-| `state_change_window` | number | 1       | Recent values to check for stability (configurable state change detection to reduce noise) |
-| `state_change_count`  | number | 1       | Max changes allowed within stability window (configurable state change detection)         |
+| `state_change_window` | number | 1       | Recent values to check for stability (reduces noise from flapping fields)                 |
+| `state_change_count`  | number | 1       | Changes within the stability window at which notifications start being suppressed         |
+
+The stability check applies only when `state_change_window` is 2 or greater; the default of 1 leaves it off. Notifications are suppressed once the window contains `state_change_count` changes, so `state_change_count=3` is the setting that tolerates two flips.
 
 ### TOML configuration
 
@@ -52,7 +55,11 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}. Relative paths are resolved against the first directory that is set: `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of `VIRTUAL_ENV`. Only that directory is used — the file is not looked up in the remaining ones.
+
+When `config_file_path` is set, the TOML file provides the whole configuration and inline trigger arguments are ignored. `INFLUXDB3_AUTH_TOKEN` from the environment still applies when `influxdb3_auth_token` is not set in the file. In TOML, `senders`, `field_thresholds`, and `field_change_count` use native structures (list, list of entries, table) instead of the inline string formats, though the inline strings are also accepted.
+
+Data write triggers cache the loaded configuration for 10 minutes to keep the write path fast, so configuration changes take effect within that window.
 
 Example TOML configuration files provided:
 
@@ -74,7 +81,8 @@ The plugin assumes that the table schema is already defined in the database, as 
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Notification Sender Plugin for {{% product-name %}}**: Required for sending notifications. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 - **Python packages**:
- 	- `requests` (for HTTP notifications)
+   - `influxdata-plugin-utils>=0.3.0` (configuration loading, parsing, and schema introspection)
+   - `requests` (for HTTP notifications)
 
 ### Installation steps
 
@@ -90,6 +98,7 @@ The plugin assumes that the table schema is already defined in the database, as 
 2. Install required Python packages:
 
    ```bash
+   influxdb3 install package "influxdata-plugin-utils>=0.3.0"
    influxdb3 install package requests
    ```
 3. *Optional*: For notifications, install and configure the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/)
@@ -105,7 +114,7 @@ influxdb3 create trigger \
   --database mydb \
   --path "gh:influxdata/state_change/state_change_check_plugin.py" \
   --trigger-spec "every:10m" \
-  --trigger-arguments "measurement=cpu,field_change_count=temp:3.load:2,window=10m,senders=slack,slack_webhook_url=$SLACK_WEBHOOK_URL" \
+  --trigger-arguments "measurement=cpu,field_change_count=temp:3.load:2,window=10min,senders=slack,slack_webhook_url=$SLACK_WEBHOOK_URL" \
   state_change_scheduler
 ```
 Set `SLACK_WEBHOOK_URL` to your Slack incoming webhook URL.
@@ -174,7 +183,7 @@ Set `SLACK_WEBHOOK_URL` to your Slack incoming webhook URL.
 
 **Expected output**
 
-When the field changes more than 5 times within 1 hour, a notification is sent: "Temperature sensor value changed 6 times in 1h for tags location=office"
+When the field changes 5 or more times within 1 hour, a notification is sent: "Field value in table temperature changed 6 times in window 1:00:00 for tags location=office"
 
 ### Example 2: Advanced scheduled field change monitoring
 
@@ -225,6 +234,9 @@ Set `SLACK_WEBHOOK_URL` to your Slack incoming webhook URL.
 - `state_change_check_plugin.py`: The main plugin code containing handlers for scheduled and data write triggers
 - `state_change_config_scheduler.toml`: Example TOML configuration for scheduled triggers
 - `state_change_config_data_writes.toml`: Example TOML configuration for data write triggers
+- `test_state_change.py`: Pytest suite, runs without a live {{% product-name %}} server
+- `requirements.txt`: Runtime dependencies (`influxdata-plugin-utils>=0.3.0`, `requests`)
+- `requirements-dev.txt`: Development dependencies (`pytest`)
 
 ### Logging
 
@@ -264,17 +276,21 @@ Handles real-time threshold monitoring on data writes. Evaluates incoming data a
 **Count-based thresholds**
 
 - Format: `field_name:"value":count`
-- Example: `temp:"30.5":10` (10 occurrences of temperature = 30.5)
+- Example: `temp:"30.5":10` (10 consecutive occurrences of temperature = 30.5)
+- The count must be an integer of 1 or greater
 
 **Time-based thresholds**
 
 - Format: `field_name:"value":duration`
 - Example: `status:"error":5min` (status = error for 5 minutes)
-- Supported units: `s`, `min`, `h`, `d`, `w`
+- Supported units: `us`, `ms`, `s`, `min`, `h`, `d`, `w`; the duration must be positive
 
 **Multiple conditions**
 
 - Separate with `@`: `temp:"30":5@humidity:"high":10min`
+- Segments that fail to parse are skipped with a warning; if none remain, the run stops with an error
+
+In TOML, the same thresholds are written as entries: `field_thresholds = [["temp", 30.5, 10], ["status", "error", "5min"]]`.
 
 ### Message template variables
 
@@ -302,3 +318,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
+<!-- END GENERATED PLUGIN CONTENT -->

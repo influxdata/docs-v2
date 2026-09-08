@@ -98,9 +98,9 @@ is the worked example.
    no pull request.
 3. Scaffold Core and Enterprise stubs for any plugin that lacks them. An
    existing stub is never opened for writing.
-4. Transform the README of each plugin in the `plugins:` map of
-   `docs_mapping.yaml` and merge it into the generated region of its shared
-   page.
+4. Transform the README of every discovered plugin and merge it into the
+   generated region of its shared page. `docs_mapping.yaml` supplies only
+   exceptions to the standard upstream README and shared-page paths.
 5. Report one row per plugin to the step summary, and set the
    `needs_attention` output.
 
@@ -149,9 +149,9 @@ identical from the registry index, so resolving one is a human decision.
 
 `docs_mapping.yaml` carries four things the registry index cannot supply.
 
-- `plugins`: the README source and shared-page target for each plugin whose
-  prose is transformed. A plugin absent here still gets a data file entry and
-  product stubs.
+- `plugins`: exceptional README source and shared-page target paths. Plugins
+  absent here use the standard `influxdata/<name>/README.md` upstream path and
+  a hyphenated shared-page filename.
 - `overrides`: per-plugin product stub slugs, where the stub slug differs from
   the name-derived shared-page slug. `mad_check` is the only current case: its
   shared page is `mad-check.md` and its stubs are `mad-anomaly-detection.md`.
@@ -167,7 +167,7 @@ The transform reads plugin READMEs from a checkout of `influxdb3_plugins` at
 
 ```bash
 git clone --depth 1 https://github.com/influxdata/influxdb3_plugins.git \
-  .ext/influxdb3_plugins
+  ../.ext/influxdb3_plugins
 ```
 
 Without that checkout, discovery, the data file, and stub scaffolding still
@@ -243,6 +243,6 @@ Two things still need a human:
 
 1. The scaffolded stubs carry baseline tags (`plugins`, `processing engine`,
    `python`, `official`). Editorial tags are not derivable from the registry.
-2. To publish the plugin's README prose as a shared page, add a `plugins:`
-   entry to `docs_mapping.yaml` pointing at its upstream README and its shared
-   page target.
+2. If the plugin's README or shared-page path differs from the standard
+   convention, add a `plugins:` entry to `docs_mapping.yaml` with the
+   exceptional paths.
