@@ -1,4 +1,5 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
+{{ $inner := partial "tab-fragment-ids.html" (dict "inner" .Inner "page" .Page "labelClass" "tabs" "contentClass" "tab-content") }}
 <div class="tabs-wrapper">
-  {{ .Inner }}
+  {{ $inner | safeHTML }}
 </div>
