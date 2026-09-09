@@ -23,6 +23,49 @@ const packageVersion = JSON.parse(
 ).version;
 const prebuiltVersion = `v${packageVersion}`;
 const prebuiltVersionPath = path.join(pkgDir, '.prebuilt-version');
+const committedChecksumPath = path.join(pkgDir, 'checksums.txt');
+
+/**
+ * Read the committed checksum manifest.
+ *
+ * Downloads are verified against this file, never against the checksums.txt
+ * published alongside the release: a checksum fetched from the same URL as the
+ * asset proves the transfer was not corrupted, not that the bytes are the ones
+ * this repo intends to run. Returns null when the manifest is missing or does
+ * not describe the version we are about to fetch, which sends the caller to a
+ * source build rather than to an unverified download.
+ */
+function committedChecksums() {
+  if (!existsSync(committedChecksumPath)) {
+    console.warn(
+      `⚠ ${path.relative(process.cwd(), committedChecksumPath)} is missing; ` +
+        'refusing to trust an unverified download.'
+    );
+    return null;
+  }
+
+  const contents = readFileSync(committedChecksumPath, 'utf8');
+  const declaredVersion = contents.match(/^#\s*version:\s*(\S+)$/m)?.[1];
+  if (declaredVersion !== prebuiltVersion) {
+    console.warn(
+      `⚠ Committed checksums describe ${declaredVersion ?? 'no version'} but ` +
+        `package.json asks for ${prebuiltVersion}. Refresh them with ` +
+        '`node scripts/update-converter-checksums.js` once the release is ' +
+        'published.'
+    );
+    return null;
+  }
+
+  return new Map(
+    contents
+      .split('\n')
+      .filter((line) => line.trim() && !line.startsWith('#'))
+      .map((line) => {
+        const [checksum, asset] = line.trim().split(/\s{2,}/);
+        return [asset, checksum];
+      })
+  );
+}
 
 function nativeAsset() {
   if (process.platform === 'darwin' && process.arch === 'arm64') {
@@ -70,12 +113,16 @@ function downloadPrebuilt() {
     return true;
   }
 
+  const checksums = committedChecksums();
+  if (!checksums) {
+    return false;
+  }
+
   const release = `rust-markdown-converter-${prebuiltVersion}`;
   const releaseUrl = `https://github.com/influxdata/docs-v2/releases/download/${release}`;
   const assetPath = path.join(pkgDir, target.asset);
   const loaderAsset = 'rust-markdown-converter-loader.js';
   const loaderAssetPath = path.join(pkgDir, loaderAsset);
-  const checksumPath = path.join(pkgDir, 'checksums.txt');
   const outputPath = path.join(pkgDir, target.output);
   const loaderOutputPath = path.join(pkgDir, 'index.js');
 
@@ -106,29 +153,6 @@ function downloadPrebuilt() {
       loaderAssetPath,
       `${releaseUrl}/${loaderAsset}`,
     ]);
-    execFileSync('curl', [
-      '--fail',
-      '--location',
-      '--silent',
-      '--show-error',
-      '--connect-timeout',
-      '5',
-      '--max-time',
-      '30',
-      '--output',
-      checksumPath,
-      `${releaseUrl}/checksums.txt`,
-    ]);
-
-    const checksums = new Map(
-      readFileSync(checksumPath, 'utf8')
-        .trim()
-        .split('\n')
-        .map((line) => {
-          const [checksum, asset] = line.split(/\s{2,}/);
-          return [asset, checksum];
-        })
-    );
     for (const [asset, assetFile] of [
       [target.asset, assetPath],
       [loaderAsset, loaderAssetPath],
@@ -137,7 +161,11 @@ function downloadPrebuilt() {
         .update(readFileSync(assetFile))
         .digest('hex');
       if (checksums.get(asset) !== actualChecksum) {
-        throw new Error(`checksum verification failed for ${asset}`);
+        throw new Error(
+          `checksum verification failed for ${asset}: expected ` +
+            `${checksums.get(asset) ?? '(not in committed manifest)'}, got ` +
+            `${actualChecksum}`
+        );
       }
     }
 
@@ -157,7 +185,6 @@ function downloadPrebuilt() {
   } finally {
     rmSync(assetPath, { force: true });
     rmSync(loaderAssetPath, { force: true });
-    rmSync(checksumPath, { force: true });
   }
 }
 
