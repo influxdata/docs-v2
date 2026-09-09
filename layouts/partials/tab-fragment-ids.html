@@ -1,0 +1,71 @@
+{{- /*
+  Pairs tab links with their content sections by document order, injects a
+  slugified id into each content section's opening tag, and rewrites the
+  paired link's href to match.
+
+  Params (dict):
+    inner        - the wrapper shortcode's already-rendered .Inner (string)
+    page         - the current Page context (for collision checks)
+    labelClass   - the div class wrapping the tab links (e.g. "tabs")
+    contentClass - the section class wrapping tab content (e.g. "tab-content")
+    id           - optional author-supplied prefix (wrapper's `id` arg) that
+                   makes the id durable across reordering; empty for the
+                   label-slug fallback.
+*/ -}}
+{{- $inner := .inner -}}
+{{- $page := .page -}}
+{{- $labelClass := .labelClass -}}
+{{- $contentClass := .contentClass -}}
+{{- $prefix := .id -}}
+{{- $openTag := printf "<section class=\"%s\">" $contentClass -}}
+{{- $parts := split $inner $openTag -}}
+{{- $labelsBlock := index $parts 0 -}}
+{{- $linkTags := findRE "<a href=\"[^\"]*\">[^<]*</a>" $labelsBlock -}}
+{{- $out := $labelsBlock -}}
+{{- /*
+  Collision candidates come from the page's real raw markdown headings, held
+  in $page.Store (set by layouts/partials/article/content.html before
+  rendering), not $page.RawContent directly -- on a source: page, RawContent
+  is just a stub body, not the sourced file's real markdown. $page.Fragments
+  or $page.Content can't be called here either: doing so from a shortcode
+  that runs during this same page's content render creates a circular render
+  dependency and deadlocks the build.
+*/ -}}
+{{- $rawContent := $page.Store.Get "tabFragmentRawContent" | default $page.RawContent -}}
+{{- $headingIDs := slice -}}
+{{- range findRE "(?m)^#{1,6}[ \t]+.+$" $rawContent -}}
+  {{- $headingIDs = $headingIDs | append (anchorize (trim . "# \t")) -}}
+{{- end -}}
+{{- range $i, $part := after 1 $parts -}}
+  {{- $slug := "" -}}
+  {{- with index $linkTags $i -}}
+    {{- $oldTag := . -}}
+    {{- $label := htmlUnescape (replaceRE "<[^>]+>" "" .) -}}
+    {{- $labelSlug := anchorize $label -}}
+    {{- $base := $labelSlug -}}
+    {{- if $prefix -}}
+      {{- $base = printf "%s-%s" $prefix $labelSlug -}}
+    {{- end -}}
+    {{- $slug = $base -}}
+    {{- $n := 2 -}}
+    {{- range $headingIDs -}}
+      {{- if eq . $slug -}}
+        {{- $slug = printf "%s-%d" $base $n -}}
+        {{- $n = add $n 1 -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $used := $page.Store.Get "tabFragmentIDs" -}}
+    {{- if not $used -}}{{- $used = slice -}}{{- end -}}
+    {{- range $used -}}
+      {{- if eq . $slug -}}
+        {{- $slug = printf "%s-%d" $base $n -}}
+        {{- $n = add $n 1 -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $page.Store.Set "tabFragmentIDs" ($used | append $slug) -}}
+    {{- $newTag := replaceRE `href="[^"]*"` (printf `href="#%s"` $slug) $oldTag -}}
+    {{- $out = replace $out $oldTag $newTag 1 -}}
+  {{- end -}}
+  {{- $out = printf "%s<section class=\"%s\" id=\"%s\">%s" $out $contentClass $slug $part -}}
+{{- end -}}
+{{- return $out -}}
