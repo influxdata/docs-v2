@@ -292,12 +292,12 @@ metrics:
 [[outputs.influxdb]]
   urls = ["http://localhost:8086"]
   database = "telegraf"
-  namedrop = ["aerospike*"]
+  namedrop = ["redis*"]
 
 [[outputs.influxdb]]
   urls = ["http://localhost:8086"]
-  database = "telegraf-aerospike-data"
-  namepass = ["aerospike*"]
+  database = "telegraf-redis-data"
+  namepass = ["redis*"]
 ```
 
 Route metrics with a dedicated tag, then remove the tag before writing:

@@ -1,7 +1,7 @@
 ---
-title: telegraf secrets set
+title: telegraf secrets remove
 description: >
-  The `telegraf secrets set` command creates or modify a secret in a specified
+  The `telegraf secrets remove` command removes a secret from a specified
   secret store.
 menu:
   telegraf_v1_ref:
@@ -9,7 +9,9 @@ menu:
 weight: 301
 ---
 
-The `telegraf secrets set` command creates or modify a secret in a specified secret store.
+The `telegraf secrets remove` command removes a secret from a specified secret
+store.
+Removing a key that does not exist in the store results in an error.
 
 Not all secret stores support modifying secrets.
 Stores backed by a read-only source reject the `set` and `remove` commands.
@@ -33,16 +35,15 @@ View secret store plugin configuration documentation in the
 ## Usage
 
 ```sh
-telegraf [global-flags] secrets set [flags] <SECRET_STORE_ID> <SECRET_KEY> <SECRET_VALUE>
+telegraf [global-flags] secrets remove [flags] <SECRET_STORE_ID> <SECRET_KEY>
 ```
 
 ## Arguments
 
-| Argument            | Description                                 |
-| :------------------ | :------------------------------------------ |
-| **SECRET_STORE_ID** | ID of the secret store to set the secret in |
-| **SECRET_KEY**      | Key of the secret to set                    |
-| **SECRET_VALUE**    | Value of the secret to set                  |
+| Argument            | Description                                      |
+| :------------------ | :----------------------------------------------- |
+| **SECRET_STORE_ID** | ID of the secret store to remove the secret from |
+| **SECRET_KEY**      | Key of the secret to remove                      |
 
 ## Flags
 
@@ -56,37 +57,34 @@ _Also see [Telegraf global flags](/telegraf/v1/commands/#telegraf-global-flags).
 
 ## Examples
 
-- [Set a secret using the default configuration location](#set-a-secret-using-the-default-configuration-location)
-- [Set a secret using a non-default configuration location](#set-a-secret-using-a-non-default-configuration-location)
+- [Remove a secret using the default configuration location](#remove-a-secret-using-the-default-configuration-location)
+- [Remove a secret using a non-default configuration location](#remove-a-secret-using-a-non-default-configuration-location)
 
 In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`SECRET_STORE_ID`{{% /code-placeholder-key %}}:
-  The ID of the secret store to store the secret in.
+  The ID of the secret store to remove the secret from.
 - {{% code-placeholder-key %}}`SECRET_KEY`{{% /code-placeholder-key %}}:
-  The key of the secret to set.
-- {{% code-placeholder-key %}}`SECRET_VALUE`{{% /code-placeholder-key %}}:
-  The value of the secret to set.
+  The key of the secret to remove.
 - {{% code-placeholder-key %}}`CUSTOM_CONFIG_PATH`{{% /code-placeholder-key %}}:
   The non-default filepath to your Telegraf configuration file containing your
   secret store definitions.
 
-### Set a secret using the default configuration location
+### Remove a secret using the default configuration location
 
 The following example assumes the Telegraf configuration file that contains the
 secret store definition is at the [default location](/telegraf/v1/configuration/#configuration-file-locations).
 
-```sh { placeholders="SECRET_(STORE_ID|KEY|VALUE)" }
-telegraf secrets set SECRET_STORE_ID SECRET_KEY SECRET_VALUE
+```sh { placeholders="SECRET_(STORE_ID|KEY)" }
+telegraf secrets remove SECRET_STORE_ID SECRET_KEY
 ```
 
-### Set a secret using a non-default configuration location
+### Remove a secret using a non-default configuration location
 
-```sh { placeholders="CUSTOM_CONFIG_PATH|SECRET_(STORE_ID|KEY|VALUE)" }
+```sh { placeholders="CUSTOM_CONFIG_PATH|SECRET_(STORE_ID|KEY)" }
 telegraf \
   --config CUSTOM_CONFIG_PATH \
-  secrets set \
+  secrets remove \
   SECRET_STORE_ID \
-  SECRET_KEY \
-  SECRET_VALUE
+  SECRET_KEY
 ```
