@@ -7,6 +7,7 @@ import {
   processPlugin,
   selectPlugins,
   shouldRunDiscovery,
+  mappingForDiscoveredPlugin,
 } from '../port_to_docs.js';
 
 const CONFIG_PLUGINS = {
@@ -16,7 +17,7 @@ const CONFIG_PLUGINS = {
 };
 
 test('selects every plugin when the run is for all of them', () => {
-  for (const arg of [null, undefined, 'all']) {
+  for (const arg of [null, undefined, 'all', '  all  ']) {
     const { selected, unknown } = selectPlugins(CONFIG_PLUGINS, arg);
 
     assert.deepEqual(
@@ -64,6 +65,29 @@ test('runs discovery for a full sync, however the run asks for one', () => {
 test('skips discovery when the run names specific plugins', () => {
   assert.equal(shouldRunDiscovery('notifier'), false);
   assert.equal(shouldRunDiscovery('notifier,state_change'), false);
+});
+
+test('derives conventional README and shared-page paths for a new plugin', () => {
+  const mapping = mappingForDiscoveredPlugin(
+    { name: 'nws_weather', slug: 'nws-weather' },
+    CONFIG_PLUGINS
+  );
+
+  assert.deepEqual(mapping, {
+    source: '../../../.ext/influxdb3_plugins/influxdata/nws_weather/README.md',
+    target:
+      '../../content/shared/influxdb3-plugins/plugins-library/official/nws-weather.md',
+  });
+});
+
+test('uses an explicit mapping when a plugin needs nonstandard paths', () => {
+  const customMapping = { source: 'custom-readme', target: 'custom-page' };
+  const mapping = mappingForDiscoveredPlugin(
+    { name: 'notifier', slug: 'notifier' },
+    { notifier: customMapping }
+  );
+
+  assert.equal(mapping, customMapping);
 });
 
 test('ignores empty entries from a trailing or doubled comma', () => {

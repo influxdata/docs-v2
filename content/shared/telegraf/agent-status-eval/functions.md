@@ -26,7 +26,7 @@ now() - last_update > duration('5m')
 ## Math functions
 
 Math functions from the
-[CEL math library](https://github.com/google/cel-go/blob/master/ext/README.md#math)
+[CEL math library](https://github.com/cel-expr/cel-go/blob/master/ext/README.md#math)
 are available for numeric calculations.
 
 ### Commonly used functions
@@ -46,7 +46,7 @@ math.greatest(log_errors, log_warnings) > 5
 ## String functions
 
 String functions from the
-[CEL strings library](https://github.com/google/cel-go/blob/master/ext/README.md#strings)
+[CEL strings library](https://github.com/cel-expr/cel-go/blob/master/ext/README.md#strings)
 are available for string operations.
 These are useful when checking plugin `alias` or `id` fields.
 
@@ -60,7 +60,7 @@ inputs.cpu.exists(i, has(i.alias) && i.alias.contains("critical"))
 ## Encoding functions
 
 Encoding functions from the
-[CEL encoder library](https://github.com/google/cel-go/blob/master/ext/README.md#encoders)
+[CEL encoder library](https://github.com/cel-expr/cel-go/blob/master/ext/README.md#encoders)
 are available for encoding and decoding values.
 
 ## Operators

@@ -30,11 +30,10 @@ the following sections will guide you through the process.
     [create a new bug report issue](https://github.com/influxdata/telegraf/issues/new?assignees=&labels=bug&projects=&template=BUG_REPORT.yml).
 3.  Include all the requested details.
 
-{{% note %}}
-Do not open general support requests as GitHub issues.
-Support-related questions should be directed to the [InfluxDB Community Slack](https://influxdata.com/slack)
-or [InfluxData Community forum](https://community.influxdata.com/).
-{{% /note %}}
+> [!Note]
+> Do not open general support requests as GitHub issues.
+> Support-related questions should be directed to the [InfluxDB Community Slack](https://influxdata.com/slack)
+> or [InfluxData Community forum](https://community.influxdata.com/).
 
 ### Open feature requests
 
@@ -78,13 +77,12 @@ or [InfluxData Community forum](https://community.influxdata.com/).
     The pull request title needs to follow the
     [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/#summary).
 
-{{% note %}}
-If you have a pull request with only one commit, the commit message must follow
-the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/#summary),
-otherwise the **Semantic Pull Request** check will fail.
-For single-commit pull requests, GitHub uses the commit message as the default
-pull request title.
-{{% /note %}}
+> [!Note]
+> If you have a pull request with only one commit, the commit message must follow
+> the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/#summary),
+> otherwise the **Semantic Pull Request** check will fail.
+> For single-commit pull requests, GitHub uses the commit message as the default
+> pull request title.
 
 ### Contribute an external plugin
 

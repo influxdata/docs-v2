@@ -12,12 +12,11 @@ weight: 301
 The `telegraf secrets get` command retrieves the value of a secret from the
 specified secret store.
 
-{{% note %}}
-This command requires your configuration file that contains the secret store
-definitions you want to access. If the `--config` or `--config-directory` flags
-are not included in the command, Telegraf checks the
-[default configuration file location](/telegraf/v1/configuration/#configuration-file-locations).
-{{% /note %}}
+> [!Note]
+> This command requires your configuration file that contains the secret store
+> definitions you want to access. If the `--config` or `--config-directory` flags
+> are not included in the command, Telegraf checks the
+> [default configuration file location](/telegraf/v1/configuration/#configuration-file-locations).
 
 Use [`telegraf secrets list`](/telegraf/v1/commands/secrets/list/) to get the
 IDs of available secret stores and the available secret keys.

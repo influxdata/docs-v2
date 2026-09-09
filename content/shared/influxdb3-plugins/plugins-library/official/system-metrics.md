@@ -1,4 +1,5 @@
-
+<!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The System Metrics Plugin provides comprehensive system monitoring capabilities for {{% product-name %}}, collecting CPU, memory, disk, and network metrics from the host system. Monitor detailed performance insights including per-core CPU statistics, memory usage breakdowns, disk I/O performance, and network interface statistics. Features configurable metric collection with robust error handling and retry logic for reliable monitoring.
 
 ## Configuration
@@ -13,16 +14,18 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 
 ### Optional parameters
 
-| Parameter         | Type    | Default     | Description                                                                    |
-|-------------------|---------|-------------|--------------------------------------------------------------------------------|
-| `hostname`        | string  | `localhost` | Hostname to tag all metrics with for system identification                     |
-| `include_cpu`     | boolean | `true`      | Include comprehensive CPU metrics collection (overall and per-core statistics) |
-| `include_memory`  | boolean | `true`      | Include memory metrics collection (RAM usage, swap statistics, page faults)    |
-| `include_disk`    | boolean | `true`      | Include disk metrics collection (partition usage, I/O statistics, performance) |
-| `include_network` | boolean | `true`      | Include network metrics collection (interface statistics and error counts)     |
-| `max_retries`     | integer | `3`         | Maximum retry attempts on failure with graceful error handling                 |
+| Parameter         | Type    | Default     | Description                                                                                      |
+|-------------------|---------|-------------|--------------------------------------------------------------------------------------------------|
+| `hostname`        | string  | `localhost` | Hostname to tag all metrics with for system identification                                       |
+| `include_cpu`     | boolean | `true`      | Include comprehensive CPU metrics collection (overall and per-core statistics)                   |
+| `include_memory`  | boolean | `true`      | Include memory metrics collection (RAM usage, swap statistics, page faults)                      |
+| `include_disk`    | boolean | `true`      | Include disk metrics collection (partition usage, I/O statistics, performance)                   |
+| `include_network` | boolean | `true`      | Include network metrics collection (interface statistics and error counts)                       |
+| `max_retries`     | integer | `3`         | Retry attempts per metric type; the group is skipped and the run continues once they are used up |
 
 *Note: This plugin has no required parameters. All parameters have sensible defaults.*
+
+Boolean parameters accept `true`/`false`, `1`/`0`, `yes`/`no`, and `on`/`off`. A value the plugin cannot interpret is reported in the logs and the run collects nothing, so fix the trigger arguments and the next run recovers.
 
 ### TOML configuration
 
@@ -30,7 +33,9 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}. Relative paths are resolved against the first directory that is set: `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of `VIRTUAL_ENV`. Only that directory is used — the file is not looked up in the remaining ones.
+
+Values in the TOML file override the inline trigger arguments. If the file cannot be read, the plugin logs an error and collects metrics using the inline arguments and defaults.
 
 #### Example TOML configuration
 
@@ -41,8 +46,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
 ## Software Requirements
 
 - **{{% product-name %}}**: with the Processing Engine enabled.
-- **Python packages**:
- 	- `psutil` (for system metrics collection)
+- **Python packages**: `influxdata-plugin-utils>=0.3.0`, `psutil`
 
 ### Installation steps
 
@@ -58,6 +62,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
 2. Install required Python packages:
 
    ```bash
+   influxdb3 install package "influxdata-plugin-utils>=0.3.0"
    influxdb3 install package psutil
    ```
 ## Trigger setup
@@ -153,21 +158,19 @@ influxdb3 query \
 
 #### `process_scheduled_call()`
 
-The main entry point for scheduled triggers. Collects system metrics based on configuration and writes them to InfluxDB.
+The main entry point for scheduled triggers. Loads the configuration, then runs each enabled collector and writes the lines it built. A collector is retried up to `max_retries` times, and its lines are written only once it completes.
 
 ```python
-def process_scheduled_call(influxdb3_local, call_time, args):
-    # Parse configuration
-    config = parse_config(args)
-    
-    # Collect metrics based on configuration
-    if config['include_cpu']:
-        collect_cpu_metrics(influxdb3_local, config['hostname'])
-    
-    if config['include_memory']:
-        collect_memory_metrics(influxdb3_local, config['hostname'])
-    
-    # ... additional metric collections
+def process_scheduled_call(influxdb3_local, call_time, args=None):
+    config = _load_config(influxdb3_local, args, task_id)
+
+    for config_key, metric_type, collect in _COLLECTORS:
+        if not config[config_key]:
+            continue
+        lines = _collect_with_retry(
+            influxdb3_local, collect, metric_type, hostname, max_retries, task_id
+        )
+        write_data(influxdb3_local, lines, batch=False, retries=0)
 ```
 ### Measurements and Fields
 
@@ -178,12 +181,16 @@ Overall CPU statistics and metrics:
 - **Tags**: `host`, `cpu=total`
 - **Fields**: `user`, `system`, `idle`, `iowait`, `nice`, `irq`, `softirq`, `steal`, `guest`, `guest_nice`, `frequency_current`, `frequency_min`, `frequency_max`, `ctx_switches`, `interrupts`, `soft_interrupts`, `syscalls`, `load1`, `load5`, `load15`
 
+The state shares (`user` through `guest_nice`) are derived from the change in the CPU time counters between two consecutive runs, so each value covers the interval between the previous run and the current one. They are absent on the first run after the trigger is created or restarted; the remaining fields are written from the first run on.
+
 #### system_cpu_cores
 
 Per-core CPU statistics:
 
 - **Tags**: `host`, `core` (core number)
 - **Fields**: `usage`, `user`, `system`, `idle`, `iowait`, `nice`, `irq`, `softirq`, `steal`, `guest`, `guest_nice`, `frequency_current`, `frequency_min`, `frequency_max`
+
+Shares are derived the same way as in `system_cpu`; `usage` is the busy share of the core, everything except `idle` and `iowait`.
 
 #### system_memory
 
@@ -222,10 +229,12 @@ Disk I/O statistics:
 
 #### system_disk_performance
 
-Calculated disk performance metrics:
+Disk performance rates, derived from the change in the I/O counters between two consecutive runs of the plugin:
 
 - **Tags**: `host`, `device`
 - **Fields**: `read_bytes_per_sec`, `write_bytes_per_sec`, `read_iops`, `write_iops`, `avg_read_latency_ms`, `avg_write_latency_ms`, `util_percent`
+
+Each value covers the interval between the previous run and the current one, so the shorter the trigger interval, the finer the resolution. A device gets no line when there is nothing to compare against: on the first run after the trigger is created or restarted, and when its counters were reset (for example after the device was re-attached).
 
 #### system_network
 
@@ -242,13 +251,26 @@ Network interface statistics:
 
 **Solution**: The plugin will continue collecting other metrics even if some require elevated permissions. Run InfluxDB with appropriate permissions if disk I/O metrics are required.
 
-#### Issue: Missing psutil library
+#### Issue: Missing Python packages
 
-**Solution**: Install the psutil package:
+**Solution**: Install the required packages:
 
 ```bash
+influxdb3 install package "influxdata-plugin-utils>=0.3.0"
 influxdb3 install package psutil
 ```
+#### Issue: No `system_disk_performance` data, or CPU shares are missing
+
+**Solution**: Both are derived from two consecutive runs. Wait for the second run of the trigger; if the values stay missing, check the logs for `No previous disk I/O sample` and `No previous CPU sample`, which repeat when the cached counters are lost on every run.
+
+#### Issue: One metric group is missing while the others are written
+
+**Solution**: A collector that keeps failing is skipped so the rest of the run survives. Look for `Failed to collect <type> metrics after N retries` in the logs, followed by `skipped after repeated failures`, which names every group left out of that run.
+
+#### Issue: No metrics at all and a configuration error in the logs
+
+**Solution**: An invalid parameter value stops the run before any collection. Look for `Failed to load configuration` in the logs, which names the offending value, and fix the trigger arguments. A TOML file that cannot be read is a separate case: it is logged as `Failed to apply config file` and collection continues with the inline arguments.
+
 #### Issue: High CPU usage from plugin
 
 **Solution**: Increase the trigger interval (for example, from `every:10s` to `every:30s`). Disable unnecessary metric types. Reduce the number of disk partitions monitored.
@@ -300,3 +322,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
+<!-- END GENERATED PLUGIN CONTENT -->
