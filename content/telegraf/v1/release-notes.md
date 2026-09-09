@@ -5261,9 +5261,8 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 
 ## v1.21 {date="2021-12-15"}
 
-{{% note %}}
-The signing for RPM digest has changed to use sha256 to improve security. Due to this change, RPM builds might not be compatible with RHEL6 and older releases. (Telegraf only supports releases in RHEL production.)
-{{% /note %}}
+> [!Note]
+> The signing for RPM digest has changed to use sha256 to improve security. Due to this change, RPM builds might not be compatible with RHEL6 and older releases. (Telegraf only supports releases in RHEL production.)
 
 - Restart Telegraf service if it's already running and upgraded via RPM.
 - Print loaded plugins and deprecations for once and test flags.
@@ -6170,9 +6169,8 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 
 ## v1.15.0 {date="2020-07-22"}
 
-{{% warn %}}
-Critical bug that impacted non-amd64 packages was introduced in 1.15.0. **Do not install this release.** Instead, install 1.15.1, which includes the features, new plugins, and bug fixes below.
-{{% /warn %}}
+> [!Warning]
+> Critical bug that impacted non-amd64 packages was introduced in 1.15.0. **Do not install this release.** Instead, install 1.15.1, which includes the features, new plugins, and bug fixes below.
 
 ### Breaking changes
 
@@ -6352,10 +6350,9 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - **Microsoft SQL Server** (`sqlserver`) input plugin: Renamed the `sqlserver_azurestats` measurement to `sqlserver_azure_db_resource_stats` to resolve an issue where numeric metrics were previously being reported incorrectly as strings.
 - **Date** (`date`) processor plugin: Now uses the UTC timezone when creating its tag. Previously, the local time was used.
 
-{{% note %}}
-Support for SSL v3.0 is deprecated in this release.
-Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
-{{% /note %}}
+> [!Note]
+> Support for SSL v3.0 is deprecated in this release.
+> Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 ### New plugins
 
