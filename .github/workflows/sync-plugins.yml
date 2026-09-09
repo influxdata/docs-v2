@@ -1,8 +1,9 @@
 name: Sync InfluxDB 3 plugin documentation
 
-# The daily cron is added once the library backfill lands, so the schedule
-# never runs against a knowingly incomplete plugin library.
 on:
+  schedule:
+    # Run daily at 06:00 UTC.
+    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       plugins:
