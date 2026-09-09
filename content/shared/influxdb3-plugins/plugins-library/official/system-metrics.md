@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The System Metrics Plugin provides comprehensive system monitoring capabilities for {{% product-name %}}, collecting CPU, memory, disk, and network metrics from the host system. Monitor detailed performance insights including per-core CPU statistics, memory usage breakdowns, disk I/O performance, and network interface statistics. Features configurable metric collection with robust error handling and retry logic for reliable monitoring.
 
 ## Configuration
@@ -321,4 +322,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

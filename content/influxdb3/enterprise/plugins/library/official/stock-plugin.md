@@ -1,5 +1,5 @@
 ---
-title: Stock plugin plugin
+title: Stock plugin
 description: Tracks stock, ETF, and mutual fund portfolio values from Yahoo Finance with market-hours gating and rollups.
 menu:
   influxdb3_enterprise:
@@ -8,7 +8,7 @@ menu:
 weight: 100
 influxdb3/enterprise/tags: [plugins, processing engine, python, official]
 related:
-  - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/stock_plugin, Stock plugin plugin on GitHub
+  - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/stock_plugin, Stock plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/stock-plugin.md
 canonical: self
 ---

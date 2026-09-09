@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The Notifier Plugin provides multi-channel notification capabilities for {{% product-name %}}, enabling real-time alert delivery through various communication channels. Send notifications via Slack, Discord, HTTP webhooks, SMS, or WhatsApp based on incoming HTTP requests. Acts as a centralized notification dispatcher that receives data from other plugins or external systems and routes notifications to the appropriate channels.
 
 ## Configuration
@@ -65,8 +66,8 @@ The `senders_config` object accepts channel configurations where keys are sender
 
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Python packages**:
- 	- `httpx` (for HTTP requests)
- 	- `twilio` (for SMS/WhatsApp notifications)
+   - `httpx` (for HTTP requests)
+   - `twilio` (for SMS/WhatsApp notifications)
 
 ### Installation steps
 
@@ -238,4 +239,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

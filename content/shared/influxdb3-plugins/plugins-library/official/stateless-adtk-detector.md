@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The ADTK Anomaly Detector Plugin provides advanced time series anomaly detection for {{% product-name %}} using the ADTK (Anomaly Detection Toolkit) library. Apply statistical and machine learning-based detection methods to identify outliers, level shifts, volatility changes, and seasonal anomalies in your data. Features consensus-based detection requiring multiple detectors to agree before triggering alerts, reducing false positives.
 
 ## Configuration
@@ -307,4 +308,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

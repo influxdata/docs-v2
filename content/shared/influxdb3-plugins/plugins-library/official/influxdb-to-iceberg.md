@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The InfluxDB to Iceberg Plugin enables data transfer from {{% product-name %}} to Apache Iceberg tables. Transfer time series data to Iceberg for long-term storage, analytics, or integration with data lake architectures. The plugin supports both scheduled batch transfers of historical data and on-demand transfers via HTTP API.
 
 ## Configuration
@@ -66,10 +67,10 @@ For more information on using TOML configuration files, see the Using TOML Confi
 
 - Automatically creates Iceberg table schema from the first batch of data
 - Maps Pandas data types to Iceberg types:
- 	- `int64` → `IntegerType`
- 	- `float64` → `FloatType`
- 	- `datetime64[us]` → `TimestampType`
- 	- `object` → `StringType`
+   - `int64` → `IntegerType`
+   - `float64` → `FloatType`
+   - `datetime64[us]` → `TimestampType`
+   - `object` → `StringType`
 - Fields with no null values are marked as `required`
 - The `time` column is converted to `datetime64[us]` for Iceberg compatibility
 - Tables are created in format: `<namespace>.<table_name>`
@@ -87,9 +88,9 @@ When `auto_update_schema=true`:
 
 - **{{% product-name %}}**: with the Processing Engine enabled
 - **Python packages**:
- 	- `pandas` (for data manipulation)
- 	- `pyarrow` (for Parquet support)
- 	- `pyiceberg[catalog-options]` (for Iceberg integration)
+   - `pandas` (for data manipulation)
+   - `pyarrow` (for Parquet support)
+   - `pyiceberg[catalog-options]` (for Iceberg integration)
 
 ### Installation steps
 
@@ -374,4 +375,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

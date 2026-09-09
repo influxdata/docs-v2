@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeGeneratedRegion } from '../port_to_docs.js';
+import { mergeGeneratedRegion, transformContent } from '../port_to_docs.js';
 
 test('wraps content in markers when the target has none yet', () => {
   const result = mergeGeneratedRegion(null, 'Generated body text.');
@@ -52,4 +52,27 @@ test('preserves hand-owned content after the generated region', () => {
       'Hand-written text that must survive regeneration.\n'
   );
   assert.equal(result.error, undefined);
+});
+
+test('exempts abbreviated JSON examples from code-block parsing', () => {
+  const transformed = transformContent(
+    '# Example\n\n```json\n{"items": [{"value": 1}, ...]}\n```',
+    'example'
+  );
+
+  assert.match(transformed, /```json \{lint="false"\}/);
+});
+
+test('normalizes tabs used to indent Markdown list items', () => {
+  const transformed = transformContent('# Example\n\n \t- Item', 'example');
+
+  assert.match(transformed, /^- Item$/m);
+  assert.doesNotMatch(transformed, /^\s*\t/m);
+});
+
+test('exempts generated upstream prose from Vale', () => {
+  const transformed = transformContent('# Example', 'example');
+
+  assert.match(transformed, /^<!-- vale off -->$/m);
+  assert.match(transformed, /<!-- vale on -->$/);
 });
