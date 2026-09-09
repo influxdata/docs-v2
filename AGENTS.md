@@ -134,4 +134,6 @@ instruction file.
   broken link.
 - `DOCS-SHORTCODES.md`: shortcode reference.
 - `DOCS-FRONTMATTER.md`: frontmatter reference.
+- `DOCS-VERSION-AVAILABILITY.md`: which marker states a version or edition
+  constraint, which surface carries it, and when temporary notices are removed.
 - `DOCS-CONTRIBUTING.md`: contribution and commit conventions.
