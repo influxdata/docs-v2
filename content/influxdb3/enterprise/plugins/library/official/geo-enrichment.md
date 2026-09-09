@@ -1,6 +1,6 @@
 ---
 title: Geo enrichment plugin
-description: Resolves lat/lon into location attributes — country and city, a zone or site you define, or a grid cell — merged into the source rows or written to a target table. HTTP endpoint backfills history.
+description: Resolves lat/lon into location attributes—country and city, a zone or site you define, or a grid cell—merged into the source rows or written to a target table. HTTP endpoint backfills history.
 menu:
   influxdb3_enterprise:
     name: Geo enrichment

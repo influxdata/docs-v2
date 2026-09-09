@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The State Change Plugin provides comprehensive field monitoring and threshold detection for {{% product-name %}} data streams. Detect field value changes, monitor threshold conditions, and trigger notifications when specified criteria are met. Supports both scheduled batch monitoring and real-time data write monitoring with configurable stability checks and multi-channel alerts.
 
 ## Configuration
@@ -80,8 +81,8 @@ The plugin assumes that the table schema is already defined in the database, as 
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Notification Sender Plugin for {{% product-name %}}**: Required for sending notifications. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 - **Python packages**:
- 	- `influxdata-plugin-utils>=0.3.0` (configuration loading, parsing, and schema introspection)
- 	- `requests` (for HTTP notifications)
+   - `influxdata-plugin-utils>=0.3.0` (configuration loading, parsing, and schema introspection)
+   - `requests` (for HTTP notifications)
 
 ### Installation steps
 
@@ -317,4 +318,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

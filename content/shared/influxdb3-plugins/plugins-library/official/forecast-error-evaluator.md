@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The Forecast Error Evaluator Plugin validates forecast model accuracy for time series data in {{% product-name %}} by comparing predicted values with actual observations. On every scheduled run the plugin matches the two measurements over a time window, computes an error metric (MSE, MAE, RMSE, MAPE, or SMAPE) for each matched timestamp, and notifies for the points that reach a configured threshold. It includes debounce logic to suppress transient anomalies and supports multi-channel notifications via the Notification Sender Plugin.
 
 The metric is computed per timestamp rather than aggregated over the window, which is what lets `min_condition_duration` measure how long an elevated error persists. As a consequence `rmse` yields the same value as `mae`: the root of a single squared difference is its absolute value.
@@ -126,9 +127,9 @@ For more information on using TOML configuration files, see the Using TOML Confi
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Notification Sender Plugin for {{% product-name %}}**: Required for sending notifications. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 - **Python packages**:
- 	- `influxdata-plugin-utils>=0.3.0` (configuration loading, parsing, and schema introspection)
- 	- `pandas` (for data processing)
- 	- `requests` (for HTTP notifications)
+   - `influxdata-plugin-utils>=0.3.0` (configuration loading, parsing, and schema introspection)
+   - `pandas` (for data processing)
+   - `requests` (for HTTP notifications)
 
 ### Installation steps
 
@@ -451,4 +452,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

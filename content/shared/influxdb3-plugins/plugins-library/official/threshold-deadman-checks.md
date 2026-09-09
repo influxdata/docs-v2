@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The Threshold Deadman Checks Plugin provides comprehensive monitoring capabilities for time series data in {{% product-name %}}, combining real-time threshold detection with deadman monitoring. Monitor field values against configurable thresholds, detect data absence patterns, and trigger multi-level alerts based on aggregated metrics. Features both scheduled batch monitoring and real-time data write monitoring with configurable trigger counts and severity levels.
 
 ## Configuration
@@ -342,4 +343,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

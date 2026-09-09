@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The MAD-Based Anomaly Detection Plugin provides real-time anomaly detection for time series data in {{% product-name %}} using Median Absolute Deviation (MAD). Detect outliers in your field values as data is written, with configurable thresholds for both count-based and duration-based alerts. The plugin maintains in-memory deques for efficient computation and integrates with the Notification Sender Plugin to deliver alerts via multiple channels.
 
 ## Configuration
@@ -201,8 +202,8 @@ Set `SLACK_WEBHOOK_URL` and `DISCORD_WEBHOOK_URL` to your webhook URLs.
 **Expected output**
 
 - Monitors two fields independently:
- 	- `cpu_load`: Alerts when exceeds 3 MADs for 2 minutes
- 	- `memory_used`: Alerts when exceeds 2.5 MADs for 5 minutes
+   - `cpu_load`: Alerts when exceeds 3 MADs for 2 minutes
+   - `memory_used`: Alerts when exceeds 2.5 MADs for 5 minutes
 - Sends notifications to both Slack and Discord
 
 ### Example 3: Anomaly detection with flip suppression
@@ -409,4 +410,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->

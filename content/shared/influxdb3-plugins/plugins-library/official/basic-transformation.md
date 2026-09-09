@@ -1,4 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The Basic Transformation Plugin enables real-time and scheduled transformation of time series data in {{% product-name %}}. Transform field and tag names, convert values between units, and apply custom string replacements to standardize or clean your data. The plugin supports both scheduled batch processing of historical data and real-time transformation as data is written.
 
 ## Configuration
@@ -62,7 +63,7 @@ The plugin assumes that the table schema is already defined in the database, as 
 
 - **{{% product-name %}}**: with the Processing Engine enabled
 - **Python packages**:
- 	- `pint` (for unit conversions)
+   - `pint` (for unit conversions)
 
 ## Installation steps
 
@@ -403,6 +404,7 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
 <!-- END GENERATED PLUGIN CONTENT -->
 
 ## Schema requirements
