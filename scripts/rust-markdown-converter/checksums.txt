@@ -1,0 +1,22 @@
+# Expected SHA256 checksums for the published prebuilt converter assets.
+#
+# scripts/build-rust-converter.js verifies every downloaded asset against THIS
+# committed file. It deliberately does not use the checksums.txt published
+# alongside the release: verifying a download against a checksum fetched from
+# the same URL proves only that the transfer was not corrupted, not that the
+# bytes are the ones this repo intends to run. Whoever can publish the release
+# can publish a matching checksum.
+#
+# The version below must match the "version" field in
+# scripts/rust-markdown-converter/package.json. When the converter version is
+# bumped and a new release is published, refresh this file with:
+#
+#   node scripts/update-converter-checksums.js
+#
+# Until it is refreshed, installs fall back to building from source rather than
+# trusting an unverified download.
+#
+# version: v0.1.0
+9e1d14a11720591f3779d6dc40f9dd96d4e34ea70c9a53ca3e7c7c71ee6af64f  rust-markdown-converter-darwin-arm64.node
+787d17b7e7e99ee55a0d9e52b94bc0526ff047f60217936170476b196ca02be9  rust-markdown-converter-linux-x86_64-gnu.node
+fd22b790756c8494475484bd21389b1de50d7d05883bf309a29df4d298b2787e  rust-markdown-converter-loader.js
