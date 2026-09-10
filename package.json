@@ -61,6 +61,7 @@
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "axios": "^1.18.0",
+    "dompurify": ">=3.3.2",
     "glob": "^13.0.6",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
