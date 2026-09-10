@@ -1607,6 +1607,130 @@ curl --request POST \
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Tab content fragment ids
+
+Fixtures for influxdata/docs-v2#7703: a tab link with a real slug
+(`[Label](#slug)`) must resolve to a real `id` on its paired content
+section, derived from the tab's label text.
+
+#### Basic code-tabs pairing
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux](#linux)
+[macOS](#macos)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+Linux instructions.
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+macOS instructions.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Basic tabs pairing with a slugified label
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[SQL & InfluxQL](#)
+[Flux](#)
+{{% /tabs %}}
+{{% tab-content %}}
+SQL and InfluxQL content.
+{{% /tab-content %}}
+{{% tab-content %}}
+Flux content.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### Nested wrapper pairing does not bleed across the boundary
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Windows](#windows)
+[FreeBSD](#freebsd)
+{{% /tabs %}}
+{{% tab-content %}}
+Windows install intro.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[apt](#apt)
+[yum](#yum)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+apt instructions.
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+yum instructions.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+FreeBSD install intro.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### Tab label collides with an existing heading id
+
+##### Docker
+
+Placeholder heading whose auto-generated id collides with the tab label
+below.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Docker](#)
+[Podman](#)
+{{% /tabs %}}
+{{% tab-content %}}
+Docker tab content.
+{{% /tab-content %}}
+{{% tab-content %}}
+Podman tab content.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### Tab link hrefs match their paired section id
+
+Two separate groups sharing a label ("Go") force the second group's
+fallback id to a disambiguated suffix. The paired link's `href` must
+follow, not stay on the first group's fragment.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Go](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+First Go group content.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Go](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+Second Go group content.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Wrapper-level id opts a tab group into a durable fragment
+
+{{< tabs-wrapper id="install" >}}
+{{% tabs %}}
+[Linux](#)
+[macOS](#)
+{{% /tabs %}}
+{{% tab-content %}}
+Linux install instructions.
+{{% /tab-content %}}
+{{% tab-content %}}
+macOS install instructions.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
 ### Diff fence — subtractive only
 
 The previous `display: inline-block` rule on `.gi`/`.gd` (influxdata/docs-v2#7173)

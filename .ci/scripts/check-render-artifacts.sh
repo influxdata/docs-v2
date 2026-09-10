@@ -103,8 +103,16 @@ done
 #
 # Patterns are intentionally strict (3+ ordered-list markers) to keep
 # false positives near zero on prose that legitimately enumerates.
+#
+# The numbered-list pattern uses [^<]* rather than .* to stay within a
+# single <p>...</p>. List/tag pages render many sibling <p> teasers on
+# one physical output line with no separating newline, so .* let the
+# match span across unrelated paragraphs — three different plugin
+# descriptions each containing "InfluxDB 3." (product name + sentence
+# period, not a list marker) satisfied "3+ 'N.' markers" even though
+# none of them contained a list. See #7764.
 PATTERNS_REGEX=(
-  "<p[^>]*>.*\\s[0-9]+\\.\\s.*\\s[0-9]+\\.\\s.*\\s[0-9]+\\.|Flattened ordered list in prose — three or more 'N.' markers in one paragraph. Likely cause: a template joined multi-line markdown with ' ' before markdownify (see #7122)."
+  "<p[^>]*>[^<]*\\s[0-9]+\\.\\s[^<]*\\s[0-9]+\\.\\s[^<]*\\s[0-9]+\\.|Flattened ordered list in prose — three or more 'N.' markers in one paragraph. Likely cause: a template joined multi-line markdown with ' ' before markdownify (see #7122)."
   "<p[^>]*>[^<]*\`\`\`|Raw markdown code fence inside a prose paragraph. Likely cause: a template passed a description containing code fences to markdownify after flattening newlines."
 )
 
