@@ -193,6 +193,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 - [Processing Engine](#processing-engine)
   {{% show-in "enterprise" %}}
 - [Cluster Management](#cluster-management)
+- [Web UI](#web-ui)
   {{% /show-in %}}
 - [Resource Limits](#resource-limits)
 - [Data Lifecycle Management](#data-lifecycle-management)
@@ -260,6 +261,7 @@ This option supports the following values:
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
 - `process`: Activates the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/) so the node can execute trigger plugins. `process` has no API surface of its own — it doesn't accept writes or serve queries. Setting [`--plugin-dir`](#plugin-dir) implicitly adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a multi-node cluster, combine `process` with another mode (typically `query`) so plugins can call `influxdb3_local.query()` locally.
+- `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/visualize-data/explorer/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret) and [`--plugin-dir`](#plugin-dir).
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
@@ -2358,6 +2360,50 @@ together with the `--internode-bind-addr` option.
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
 | `--conn-info`          | `INFLUXDB3_CONN_INFO`<br>`INFLUXDB3_ENTERPRISE_CONN_INFO` ([pre-3.11 name](#name-changes-in-3-11)) |
+
+***
+
+### Web UI {#web-ui metadata="v3.11+"}
+
+Configure the integrated [InfluxDB 3 Explorer](/influxdb3/enterprise/visualize-data/explorer/) web UI,
+which the server hosts in-process as a WebAssembly (WASM) guest.
+The web UI is off unless you add `webui` to [`--mode`](#mode).
+
+- [webui-session-secret](#webui-session-secret)
+- [webui-openai-base-url](#webui-openai-base-url)
+
+<!-- NEEDS VERIFICATION: this section documents the two options named in the
+3.11 release notes. `influxdb3 serve --help-all` may list more `--webui-*`
+options, and the environment variable names below follow the standard
+`--option-name` to `INFLUXDB3_OPTION_NAME` mapping but haven't been confirmed
+against a build. Extract the full option list from `--help-all` and test the
+variable names before publishing. -->
+
+#### webui-session-secret
+
+Specifies the secret that signs web UI session cookies.
+Required whenever [`--mode`](#mode) includes `webui`--the server doesn't start
+without it.
+
+Generate a secret with `openssl rand -base64 24`, then pass the same value on
+every start.
+A secret that changes between restarts signs out every user.
+
+| influxdb3 serve option    | Environment variable              |
+| :------------------------ | :-------------------------------- |
+| `--webui-session-secret`  | `INFLUXDB3_WEBUI_SESSION_SECRET`  |
+
+***
+
+#### webui-openai-base-url
+
+Specifies the base URL of the OpenAI-compatible endpoint that the web UI AI
+chat sends requests to.
+Chat prompts, and any query results included with them, go to this endpoint.
+
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--webui-openai-base-url`  | `INFLUXDB3_WEBUI_OPENAI_BASE_URL`  |
 
 {{% /show-in %}}
 
