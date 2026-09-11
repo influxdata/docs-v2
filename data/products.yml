@@ -158,6 +158,30 @@ influxdb3_explorer:
       price: "0"
       price_currency: "USD"
 
+influxdb3_edr:
+  name: Edge Data Replication (EDR) for InfluxDB 3 Enterprise
+  altname: EDR
+  namespace: influxdb3_edr
+  content_path: influxdb3/edr
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  label_group: edr
+  menu_category: tools
+  list_order: 2
+  search_includes_resources: false
+  latest: edr
+  latest_patch: 1.0.0-0.rc.1
+  placeholder_host: localhost:9091
+  scheme: http
+  ai_sample_questions:
+    - How do I install and configure EDR?
+    - How do I replicate data from InfluxDB 3 Enterprise to InfluxDB 3 Cloud?
+    - How do I troubleshoot EDR replication that's stopped or lagging?
+  ai_input_placeholder: 'Specify "EDR" or "Edge Data Replication for InfluxDB 3 Enterprise" for better results'
+  ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Linux, macOS, Docker"
+    application_category: "DatabaseApplication"
+
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
   altname: InfluxDB Cloud
