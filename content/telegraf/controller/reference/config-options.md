@@ -136,7 +136,6 @@ telegraf_controller --no-interactive
     - [auth-oidc-allow-insecure](#auth-oidc-allow-insecure)
 - [Logging](#logging)
   - [rust-log](#rust-log)
-  - [logs-dir](#logs-dir)
 - [High availability](#high-availability)
   - [ha-enabled](#ha-enabled)
   - [ha-poll-interval-ms](#ha-poll-interval-ms)
@@ -1109,7 +1108,6 @@ this is enabled.
 ### Logging
 
 - [rust-log](#rust-log)
-- [logs-dir](#logs-dir)
 
 #### rust-log
 
@@ -1121,18 +1119,6 @@ Tracing level for the Rust heartbeat server. Supports `trace`, `debug`,
 | Command flag | Environment variable |
 | :----------- | :------------------- |
 | _(none)_     | `RUST_LOG`           |
-
----
-
-#### logs-dir
-
-Absolute path for heartbeat agent logs.
-
-**Default:** System temp directory
-
-| Command flag | Environment variable |
-| :----------- | :------------------- |
-| `--logs-dir` | `LOGS_DIR`           |
 
 ---
 

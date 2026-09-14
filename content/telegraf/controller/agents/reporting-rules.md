@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Define reporting rules
     parent: Manage agents
-weight: 103
+weight: 104
 ---
 
 Reporting rules define how long an agent can go without sending a heartbeat
