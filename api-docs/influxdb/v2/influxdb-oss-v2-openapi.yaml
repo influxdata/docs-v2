@@ -8384,6 +8384,15 @@ paths:
       operationId: PostRestoreBucketMetadata
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
+        - description: Behavior when a bucket with the same name already exists.
+          in: query
+          name: onConflict
+          schema:
+            enum:
+              - error
+              - skip
+              - replace
+            type: string
       requestBody:
         content:
           application/json:
