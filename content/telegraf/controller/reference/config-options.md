@@ -98,9 +98,11 @@ telegraf_controller --no-interactive
   - [reset-owner-password](#reset-owner-password)
   - [owner-auth-provider](#owner-auth-provider)
   - [owner-external-id](#owner-external-id)
+  - [owner-token](#owner-token)
 - [Authentication and security](#authentication-and-security)
   - [session-secret](#session-secret)
   - [disable-auth-endpoints](#disable-auth-endpoints)
+  - [disable-preshared-tokens](#disable-preshared-tokens)
   - [Local authentication](#local-authentication)
     - [auth-local-enabled](#auth-local-enabled)
     - [login-lockout-attempts](#login-lockout-attempts)
@@ -455,6 +457,7 @@ administrative access to {{% product-name %}}.
 - [reset-owner-password](#reset-owner-password)
 - [owner-auth-provider](#owner-auth-provider)
 - [owner-external-id](#owner-external-id)
+- [owner-token](#owner-token)
 
 > [!Note]
 > #### Bootstrap-only settings
@@ -547,10 +550,31 @@ external authentication provider. Required when
 
 ---
 
+#### owner-token
+
+API token value to provision at startup as an all-access, non-expiring token
+owned by the owner account. The value must meet the
+[token requirements](/telegraf/controller/tokens/preshared/#token-requirements).
+If both the flag and the environment variable are set, the flag takes
+precedence.
+
+Unlike the other owner account settings, {{% product-name %}} re-evaluates
+this value on every startup. Changing the value provisions a new bootstrap
+token and revokes the previous one.
+For provisioning behavior and lifecycle details, see
+[Bootstrap an owner token](/telegraf/controller/tokens/bootstrap/).
+
+| Command flag    | Environment variable |
+| :-------------- | :------------------- |
+| `--owner-token` | `OWNER_TOKEN`        |
+
+---
+
 ### Authentication and security
 
 - [session-secret](#session-secret)
 - [disable-auth-endpoints](#disable-auth-endpoints)
+- [disable-preshared-tokens](#disable-preshared-tokens)
 
 - [Local authentication](#local-authentication)
   - [auth-local-enabled](#auth-local-enabled)
@@ -631,6 +655,30 @@ telegraf_controller --disable-auth-endpoints="*"
 | Command flag               | Environment variable      |
 | :------------------------- | :------------------------ |
 | `--disable-auth-endpoints` | `DISABLED_AUTH_ENDPOINTS` |
+
+---
+
+#### disable-preshared-tokens
+
+Refuse client-supplied token values. Set the environment variable to `true`
+or pass the flag without a value. When set, `POST /api/tokens` requests that
+include a `rawToken` field return `403 Forbidden`, and the UI hides the
+**Provide your own token string** field. Requests without the field are
+unaffected.
+For details, see
+[Use pre-shared tokens](/telegraf/controller/tokens/preshared/#disable-pre-shared-tokens).
+
+**Default:** Not set. Pre-shared tokens are enabled.
+
+> [!Note]
+> {{% product-name %}} reads this value once at startup; the value is
+> immutable at runtime. This option does not restrict
+> [`owner-token`](#owner-token). Bootstrap provisioning keeps working on an
+> instance where pre-shared tokens are disabled.
+
+| Command flag                 | Environment variable        |
+| :--------------------------- | :-------------------------- |
+| `--disable-preshared-tokens` | `DISABLE_PRESHARED_TOKENS`  |
 
 ---
 
