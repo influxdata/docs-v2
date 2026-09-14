@@ -21,8 +21,9 @@ To configure how users sign in to {{% product-name %}}, see
 
 ## Token format
 
-All API tokens use the `tc-apiv1_` prefix, making them easy to identify in
-configuration files and scripts.
+All API tokens use the `tc-apiv1_` prefix followed by 64 lowercase
+hexadecimal characters, making them easy to identify in configuration files
+and scripts.
 
 The full token value is displayed only once at the time of creation and cannot be retrieved later.
 Copy and store the token in a secure location immediately after creating it.
@@ -32,6 +33,18 @@ Copy and store the token in a secure location immediately after creating it.
 >
 > Tokens are stored as a cryptographic hash. The original value is never saved.
 > If you lose a token, you must revoke it and create a new one.
+
+## Token sources
+
+Every token records where its value came from:
+
+| Source      | UI label         | Origin                                     |
+| :---------- | :--------------- | :----------------------------------------- |
+| `system`    | System-generated | {{% product-name %}} generated the value. This is the default. |
+| `user`      | User-provided    | A client supplied the raw value. See [Use pre-shared tokens](/telegraf/controller/tokens/preshared/). |
+| `bootstrap` | Env/flag-provided | Provisioned from `OWNER_TOKEN` or `--owner-token` at startup. See [Bootstrap an owner token](/telegraf/controller/tokens/bootstrap/). |
+
+The source is set at creation and never changes.
 
 ## Token permissions
 
