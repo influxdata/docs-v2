@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Delete agents
     parent: Manage agents
-weight: 105
+weight: 106
 ---
 
 Remove individual or multiple Telegraf agents from {{% product-name %}}.
