@@ -78,6 +78,15 @@ a gate.
 > traffic, because standby nodes serve that traffic too.
 
 > [!Note]
+> #### Agent IP addresses behind a load balancer
+>
+> When heartbeats arrive through a load balancer, the connection's peer
+> address is the load balancer's, so agents are recorded with that address.
+> To record each agent's real address, configure agents to send it in the
+> `Telegraf-Agent-IP` header. See
+> [Report the agent IP address from behind a proxy](/telegraf/controller/agents/create/#report-the-agent-ip-address-from-behind-a-proxy).
+
+> [!Note]
 > #### Serving the web interface on a separate port
 >
 > When you serve the web interface on its own port, route it as a separate pool.
