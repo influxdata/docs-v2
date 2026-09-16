@@ -179,24 +179,37 @@ jobs:
           echo "status=$status" >> "$GITHUB_OUTPUT"
 
       # Sticky comment: one per PR, updated in place, so the gate's state is
-      # visible in the conversation and not only in the checks list.
+      # visible in the conversation and not only in the checks list. Created
+      # only when a gate is triggered; once it exists it is kept current on
+      # every run, including one where the bump has since been removed, so a
+      # stale "needs approval" never outlives the change it described.
       - name: Post or update gate comment
         if: >-
-          steps.gates.outputs.triggered == 'true' &&
+          steps.detect.outputs.changed == 'true' &&
           github.event.pull_request.head.repo.full_name == github.repository
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRIGGERED: ${{ steps.gates.outputs.triggered }}
         run: |
           marker='<!-- release-gate-comment -->'
-          { echo "$marker"; grep -v '^::' /tmp/report.md; } > /tmp/comment.md
+          if [[ "$TRIGGERED" == "true" ]]; then
+            { echo "$marker"; grep -v '^::' /tmp/report.md; } > /tmp/comment.md
+          else
+            {
+              echo "$marker"
+              echo "## Release gate"
+              echo
+              echo "No gated version bump on the current head (\`${HEAD_SHA:0:7}\`)."
+            } > /tmp/comment.md
+          fi
           existing=$(gh api --paginate \
             "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
             --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
           if [[ -n "$existing" ]]; then
             gh api -X PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${existing}" \
               -F body=@/tmp/comment.md > /dev/null
-          else
+          elif [[ "$TRIGGERED" == "true" ]]; then
             gh api -X POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
               -F body=@/tmp/comment.md > /dev/null
           fi
@@ -215,15 +228,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # curl rather than gh api: on a 422 gh prints only "Validation
+          # Failed", and the reason (team without repo access, team not
+          # visible to the Actions app, ...) is in the response body.
           while IFS= read -r team; do
             [[ -z "$team" ]] && continue
             slug="${team#*/}"
-            if gh api -X POST \
-                "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/requested_reviewers" \
-                -f "team_reviewers[]=${slug}" > /dev/null 2>/tmp/req-err.txt; then
+            code=$(curl -sS -o /tmp/req-body.json -w '%{http_code}' -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/requested_reviewers" \
+              -d "{\"team_reviewers\":[\"${slug}\"]}")
+            if [[ "$code" == "201" ]]; then
               echo "Requested review from @${team}"
             else
-              echo "::warning::Could not request review from @${team} (the team may need read access to this repository): $(cat /tmp/req-err.txt)"
+              echo "::warning::Could not request review from @${team} (HTTP ${code}): $(tr -d '\n' < /tmp/req-body.json)"
             fi
           done < /tmp/teams.txt
 
