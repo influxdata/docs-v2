@@ -15,6 +15,19 @@ alt_links:
 
 ## v1.13.0 {date="2026-08-20"}
 
+> [!Important]
+> #### v1.13.0 has been withdrawn
+>
+> InfluxDB Enterprise v1.13.0 has been withdrawn.
+> The current InfluxDB Enterprise v1 release is [v1.12.4](#v1124).
+> This entry remains so the version history stays complete.
+> The release details and the documentation for v1.13.0 features are withheld
+> until those features ship in a later release.
+
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     this entry's details when Enterprise v1.13.x ships, and remove the
+     withdrawal callout above.
+
 > [!Note]
 > #### InfluxDB OSS and Enterprise v1 relationship
 >
@@ -58,6 +71,7 @@ alt_links:
 All OSS v1.13.0 updates, including the
 [adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1130)
 and the TSM file-store lock fix, apply to Enterprise v1.13.0 too.
+-->
 
 > [!Important]
 > #### We strongly recommend upgrading to v1.12.4 or later

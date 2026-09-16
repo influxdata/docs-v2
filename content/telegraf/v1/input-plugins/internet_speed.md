@@ -45,6 +45,10 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## Caches the closest server location
   # cache = false
 
+  ## Local IP address to bind to when connecting to the servers
+  ## Use the local address assigned by the operating system by default.
+  # local_address = ""
+
   ## Number of concurrent connections
   ## By default or set to zero, the number of CPU cores is used. Use this to
   ## reduce the impact on system performance or to increase the connections on

@@ -1,0 +1,292 @@
+- name: amqp_subscriber
+  id: amqp-subscriber
+  description: Enables real-time ingestion of AMQP messages into InfluxDB 3. Subscribe to queues and transform messages into time-series data with support for JSON, Line Protocol, and custom text formats.
+  tags:
+    - scheduled
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/amqp_subscriber
+- name: basic_transformation
+  id: basic-transformation
+  description: Enables transformation of time series data stored in InfluxDB 3 (transformations are supported for field/tag names and values).
+  tags:
+    - data-write
+    - scheduled
+  introduced: v1.1.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/basic_transformation
+- name: bird_data_simulator
+  id: bird-data-simulator
+  description: Generates synthetic bird tracking telemetry with persistent birds, ranges, simulated movement, speed, heading, and body temperature. Exposes only simple volume controls.
+  tags:
+    - scheduled
+  introduced: v1.0.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/bird_data_simulator
+- name: chronos_forecasting
+  id: chronos-forecasting
+  description: Enables zero-shot time-series forecasting with Amazon Chronos models from HuggingFace, supporting scheduled batch forecasts and on-demand HTTP forecasts.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v0.1.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/chronos_forecasting
+- name: downsampler
+  id: downsampler
+  description: Enables downsampling of data in InfluxDB 3 with flexible configuration for time intervals, field aggregations, tag filtering, and batch processing. Supports scheduler and HTTP trigger modes.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v1.4.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/downsampler
+- name: earthquake_sampler
+  id: earthquake-sampler
+  description: Ingests USGS earthquake events on a schedule and writes normalized records for dashboards and alerting, with optional canonical quake-schema output.
+  tags:
+    - scheduled
+  introduced: v0.1.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/earthquake_sampler
+- name: forecast_error_evaluator
+  id: forecast-error-evaluator
+  description: Evaluates accuracy of forecast models by comparing predicted values with actual observations. Computes error metrics and detects anomalies based on elevated errors with multi-channel notifications.
+  tags:
+    - scheduled
+  introduced: v1.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/forecast_error_evaluator
+- name: gapfill
+  id: gapfill
+  description: Detects gaps in time series and fills them with imputed values using configurable interpolation methods, with optional fill marking and per-gap quality reports. Supports scheduled and HTTP backfill.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/gapfill
+- name: geo_enrichment
+  id: geo-enrichment
+  description: Resolves lat/lon into location attributes — country and city, a zone or site you define, or a grid cell — merged into the source rows or written to a target table. HTTP endpoint backfills history.
+  tags:
+    - data-write
+    - HTTP request
+  introduced: v0.1.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/geo_enrichment
+- name: import
+  id: import
+  description: Enables seamless data import from InfluxDB v1, v2, or v3 instances to InfluxDB 3 Core/Enterprise
+  tags:
+    - HTTP request
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/import
+- name: influxdb_to_iceberg
+  id: influxdb-to-iceberg
+  description: Transfers data from InfluxDB 3 to Apache Iceberg tables with automatic schema management, customizable namespace and table naming, field filtering, and batch processing support.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v1.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/influxdb_to_iceberg
+- name: kafka_subscriber
+  id: kafka-subscriber
+  description: Ingests Kafka messages into InfluxDB 3 with JSON, Line Protocol, text, Avro, JSON Schema, and Protobuf decoding, plus Schema Registry and local schema support.
+  tags:
+    - scheduled
+  introduced: v0.4.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/kafka_subscriber
+- name: mad_check
+  id: mad-anomaly-detection
+  description: Provides Median Absolute Deviation (MAD)-based anomaly detection using data writes trigger. Maintains in-memory deques for efficient computation and supports count-based and duration-based thresholds.
+  tags:
+    - data-write
+  introduced: v1.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mad_check
+- name: mqtt_subscriber
+  id: mqtt-subscriber
+  description: Enables real-time ingestion of MQTT messages into InfluxDB 3. Subscribe to MQTT topics and transform messages into time-series data with support for JSON, Line Protocol, and custom text formats.
+  tags:
+    - scheduled
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mqtt_subscriber
+- name: nori_regression
+  id: nori-regression
+  description: Predict a numeric InfluxDB 3 field from other columns with Synthefy's Nori in-context tabular regression model, via the Synthefy inference gateway. Imputes rows where the target field is null.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v0.1.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/nori_regression
+- name: notifier
+  id: notifier
+  description: Notification dispatcher that sends notifications through various channels (Slack, Discord, HTTP, SMS, WhatsApp) based on incoming HTTP requests. Features retry logic and environment variable support.
+  tags:
+    - HTTP request
+  introduced: v1.2.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/notifier
+- name: nws_weather
+  id: nws-weather
+  description: Provides real-time weather data from the National Weather Service API for demonstration and sample data purposes. Fetches live observations from multiple weather stations across the United States.
+  tags:
+    - scheduled
+  introduced: v1.0.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/nws_weather
+- name: opcua
+  id: opcua
+  description: Enables periodic ingestion of OPC UA node values into InfluxDB 3. Connect to OPC UA servers and read current values with auto-discovery browse mode, data type detection, and namespace resolution.
+  tags:
+    - scheduled
+  introduced: v0.3.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/opcua
+- name: prophet_forecasting
+  id: prophet-forecasting
+  description: Provides time series forecasting capabilities for InfluxDB 3 data using the Prophet library.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v1.5.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/prophet_forecasting
+- name: resampler
+  id: resampler
+  description: Resamples time series with non-uniform timestamps onto a uniform time grid via configurable interpolation, or snaps timestamps to grid nodes keeping values and types unchanged.
+  tags:
+    - scheduled
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/resampler
+- name: river_anomaly_detector
+  id: river-anomaly-detector
+  description: Detects time-series anomalies on writes using River ML models, combining rolling statistics with HalfSpaceTrees for per-series anomaly scoring and optional auto-tuning from River Auto Profiler output.
+  tags:
+    - data-write
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/river_anomaly_detector
+- name: river_auto_profiler
+  id: river-auto-profiler
+  description: Incrementally profiles time-series data with River ML streaming statistics and writes per-series recommendations for anomaly detection tuning, including thresholds, fading factors, and maturity.
+  tags:
+    - data-write
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/river_auto_profiler
+- name: river_forecaster
+  id: river-forecaster
+  description: Provides online time-series forecasting with River ML SNARIMAX models, learning from writes and producing scheduled multi-step forecasts with per-series model state and optional auto-horizon support.
+  tags:
+    - data-write
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/river_forecaster
+- name: sagemaker
+  id: sagemaker
+  description: Runs scheduled inference against Amazon SageMaker endpoints using recent InfluxDB 3 rows and writes prediction results back to InfluxDB.
+  tags:
+    - scheduled
+  introduced: v0.3.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/sagemaker
+- name: schema_validator
+  id: schema-validator
+  description: Validates incoming line protocol data against a JSON schema.
+  tags:
+    - data-write
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/schema_validator
+- name: signal_filter
+  id: signal-filter
+  description: Applies streaming digital IIR filters to numeric fields
+  tags:
+    - data-write
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/signal_filter
+- name: signal_generator
+  id: signal-generator
+  description: Generates scheduled, configurable waveform time-series data for demos, testing, dashboards, alerts, and plugin validation without external sources. Simulates outage gaps by default.
+  tags:
+    - scheduled
+  introduced: v0.3.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/signal_generator
+- name: simple_data_replicator
+  id: simple-data-replicator
+  description: Replicates data between InfluxDB 3 instances over HTTP with table and field filtering, renaming, scheduler/write triggers, and compressed retry queue buffering.
+  tags:
+    - data-write
+    - scheduled
+  introduced: v0.1.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/simple_data_replicator
+- name: state_change
+  id: state-change
+  description: Provides field change and threshold monitoring capabilities through scheduler and data writes plugins. Detects changes in field values or threshold conditions with customizable notification templates.
+  tags:
+    - data-write
+    - scheduled
+  introduced: v1.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/state_change
+- name: stateless_adtk_detector
+  id: stateless-adtk-detector
+  description: Provides anomaly detection capabilities for time series data using the ADTK library. Supports multiple stateless detectors with consensus-based detection and customizable notification messages.
+  tags:
+    - scheduled
+  introduced: v1.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/stateless_adtk_detector
+- name: stock_plugin
+  id: stock-plugin
+  description: Tracks stock, ETF, and mutual fund portfolio values from Yahoo Finance with market-hours gating and rollups.
+  tags:
+    - scheduled
+  introduced: v0.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/stock_plugin
+- name: synthefy_forecasting
+  id: synthefy-forecasting
+  description: Integrates Synthefy Forecasting API with InfluxDB 3 for on-demand time series forecasting via HTTP. Reads data from InfluxDB, generates forecasts with Synthefy models, and writes results back.
+  tags:
+    - HTTP request
+  introduced: v0.2.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/synthefy_forecasting
+- name: system_metrics
+  id: system-metrics
+  description: Collects system-level metrics (CPU, memory, disk, and network) using psutil and writes them to InfluxDB. Designed to run on a schedule and provide observability into host-level performance.
+  tags:
+    - scheduled
+  introduced: v1.2.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/system_metrics
+- name: threshold_deadman_checks
+  id: threshold-deadman-checks
+  description: Provides comprehensive monitoring capabilities including deadman alerts and aggregation-based threshold checks. Supports both scheduler and data write triggers with multi-channel notifications.
+  tags:
+    - data-write
+    - scheduled
+  introduced: v1.3.0
+  database_version: '>=3.0.0'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/threshold_deadman_checks
+- name: valuecounter
+  id: valuecounter
+  description: Counts unique field values from data-write or scheduled inputs and writes rollup measurements with per-value counts.
+  tags:
+    - data-write
+    - scheduled
+  introduced: v0.3.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/valuecounter

@@ -29,7 +29,13 @@
   {{ $raw := readFile .Params.source }}
   {{ $raw = replace $raw "/product/version/" (print "/" $contentPath "/") }}
   {{ $raw = replaceRE $legacyRegex $contentPath $raw }}
+  {{/* Tab-fragment-id collision detection (layouts/partials/tab-fragment-ids.html)
+       needs the real markdown headings, which live in this sourced file, not
+       in .RawContent -- a source: page's own body is just a stub. Store it
+       before rendering so shortcodes invoked during RenderString can read it. */}}
+  {{ .Page.Store.Set "tabFragmentRawContent" $raw }}
   {{ $raw | .RenderString | safeHTML }}
 {{ else }}
+  {{ .Page.Store.Set "tabFragmentRawContent" .RawContent }}
   {{ .Content }}
 {{ end }}

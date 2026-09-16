@@ -6,6 +6,101 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.11.4 {date="2026-09-04"}
+
+### Core
+
+#### Bug fixes
+
+- **Overwrites in the write buffer resolved arbitrarily**: Writes that repeat a series key and timestamp within one write buffer chunk now resolve to the last acknowledged write, in query results and in the persisted Parquet file. Previously the duplicate rows tied on both deduplication sort keys and an unstable sort picked an arbitrary survivor, so a superseded version could win. An overwrite that arrives while a snapshot is persisting also now wins over the frozen rows it replaces.
+- **Snapshot manifest skipped for an empty snapshot**: Every snapshot sequence number now lands a manifest, including a snapshot with nothing to persist. Previously the manifest was skipped, leaving a permanent hole in the sequence. Consumers that walk the sequence by exact key cannot tell a skipped snapshot from a manifest that failed to persist, so a single hole stalled Enterprise compaction on that node and blocked its read replicas.
+- **Stale plugin source after re-enabling a trigger**: Stopping a trigger now drops its plugin from the worker's in-memory cache, so re-enabling it re-reads the code. Since v3.11.0 the cache was insert-only, so disabling and re-enabling a trigger resumed the cached copy and never contacted the plugin repository again, which is the documented way to pick up a new version of a `gh:` plugin.
+- **Plugin source retained after a database was deleted**: Deleting a database now evicts its triggers' cached plugin source. Previously it stayed resident until the server restarted.
+- **Processing engine Python updated to 3.13.15**: Picks up the security fixes in that release.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Startup phase logging**: The server logs the start and completion of each startup phase, so a node killed during startup shows which phase it was in.
+
+#### Bug fixes
+
+- **Privilege escalation through role assignment**: Creating, updating, and deleting a role, and assigning roles to a user, now require admin authorization. Previously a non-admin subject holding `User:Update`, or `User:Create` with roles in the request, could grant permissions beyond its own. This affects the [user authentication preview](/influxdb3/enterprise/admin/security/manage-users/), which is off by default (`--user-auth-type none`); deployments that have not enabled it are unaffected.
+- **Out-of-memory clearing the WAL backlog during a storage engine upgrade**: The upgrade now snapshots during WAL replay whenever the buffer reaches a quarter of the query executor's memory pool, instead of buffering the whole backlog and persisting it in one pass. Each snapshot removes the WAL files it covers, so a restart resumes from the last one rather than replaying from the beginning.
+- **Out-of-memory importing a large source during a storage engine upgrade**: Bulk import now admits a job by its estimated working set rather than its compressed size, runs a job larger than the compactor's input-size budget on its own, and refuses a source that cannot fit at all with an error naming the budget it would need. Previously an oversized source was retried until the node ran out of memory, with no attempt recorded.
+- **File index left behind when a generation expires**: Retention now deletes a generation's detail object along with its Parquet files. Previously the detail, which holds the file index describing those files, was left unreferenced in object storage. On a table with high-cardinality index columns the detail is the larger of the two, so retention shrank the data and accumulated the indexes for the life of the cluster.
+- **Compactor replans forever against a missing index file (upgraded storage engine)**: A run set whose index object is confirmed gone from object storage is now skipped after three failed reads on separate scheduler passes, so planning moves on to other work. Previously every planner that read the index failed, abandoned the plan, and recreated it on the next tick indefinitely. The skip list is in memory only: a restart clears it, and a repaired index is picked up again.
+- **Empty snapshot manifests were never deleted**: Gen1 cleanup now deletes a consumed manifest that references no files. Previously it returned early on such a manifest without deleting it, and because cleanup retains the oldest entries in each batch, undeletable manifests could eventually fill every batch and starve cleanup.
+- **Stale plugin source after a catalog restore**: Restoring a catalog now evicts the worker's cached plugin source, so restarted triggers re-read their code. Previously a trigger whose restored definition matched the cached one resumed the pre-restore source without contacting the plugin repository.
+- **Spurious memory reservation warning at startup**: The warning threshold is now above the sum of the shipped percentage defaults, which come to 90 percent of detected memory. Previously a server running the default configuration warned about itself.
+- Other bug fixes and performance improvements
+
+## v3.10.6 {date="2026-09-04"}
+
+### Core
+
+#### Features
+
+- **`--shutdown-timeout` graceful shutdown bound**: This new option (default `30s`) caps how long the server waits for active connections to drain during shutdown before forcibly closing them. Set it to `0s` to skip the drain.
+
+#### Bug fixes
+
+- **Crash loop migrating a catalog written by Core**: Catalog snapshots deserialize again when the node spec is missing from trigger, last value cache, and distinct value cache entries, defaulting to all nodes. Core never writes that field, so the unified deserializer rejected Core-written checkpoint files and the v2-to-v3 catalog migration crash-looped on upgrade.
+- **Snapshot manifest skipped for an empty snapshot**: Every snapshot sequence number now lands a manifest, including a snapshot with nothing to persist. Previously the manifest was skipped, leaving a permanent hole in the sequence. Consumers that walk the sequence by exact key cannot tell a skipped snapshot from a manifest that failed to persist, so a single hole stalled Enterprise compaction on that node and blocked its read replicas.
+- **Unnecessary node shutdown after a retried WAL write**: Each WAL file now carries a nonce in its object metadata, so a node recognizes its own write and shuts down only for a file written by another node. Previously, a conditional PUT that was applied but returned a 500 was retried, and the node read the resulting 412 as a second process holding the same `--node-id` and shut down, though the file was durable and correct.
+- **Panic on oversized duration values**: Time arithmetic now saturates at the minimum or maximum representable timestamp instead of panicking when a duration is too large to represent. Previously, an oversized user-supplied duration produced a panic and could put the server into a startup panic loop.
+- **Processing engine Python updated to 3.13.15**: Picks up the security fixes in that release.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Startup phase logging**: The server logs the start and completion of each startup phase, so a node killed during startup shows which phase it was in.
+
+#### Bug fixes
+
+- **Privilege escalation through role assignment**: Creating, updating, and deleting a role, and assigning roles to a user, now require admin authorization. Previously a non-admin subject holding `User:Update`, or `User:Create` with roles in the request, could grant permissions beyond its own. This affects the [user authentication preview](/influxdb3/enterprise/admin/security/manage-users/), which is off by default (`--without-user-auth true`); deployments that have not enabled it are unaffected.
+- **File index left behind when a generation expires**: Retention now deletes a generation's detail object along with its Parquet files. Previously the detail, which holds the file index describing those files, was left unreferenced in object storage. On a table with high-cardinality index columns the detail is the larger of the two, so retention shrank the data and accumulated the indexes for the life of the cluster.
+- **Slow compaction catch-up behind a lagging node**: The compactor now accumulates the rerun signal across every node in a cycle. Previously it kept only the last node's value, so a caught-up node could end the cycle after a single snapshot and leave a lagging node advancing one snapshot per check interval until restart.
+- Other bug fixes and performance improvements
+
+## v3.9.13 {date="2026-09-04"}
+
+### Core
+
+#### Bug fixes
+
+- **Snapshot manifest skipped for an empty snapshot**: Every snapshot sequence number now lands a manifest, including a snapshot with nothing to persist. Previously the manifest was skipped, leaving a permanent hole in the sequence. Consumers that walk the sequence by exact key cannot tell a skipped snapshot from a manifest that failed to persist, so a single hole stalled Enterprise compaction on that node and blocked its read replicas.
+- **Unnecessary node shutdown after a retried WAL write**: Each WAL file now carries a nonce in its object metadata, so a node recognizes its own write and shuts down only for a file written by another node. Previously, a conditional PUT that was applied but returned a 500 was retried, and the node read the resulting 412 as a second process holding the same `--node-id` and shut down, though the file was durable and correct.
+- **Restarted downloads of large manifests and checkpoints at startup**: Snapshot manifest and checkpoint reads larger than 128 MiB are now fetched as 16 MiB ranged reads, so a slow or failed transfer retries one range. Previously, a single whole-object GET restarted a multi-gigabyte download from byte 0.
+- **Panic on oversized duration values**: Time arithmetic now saturates at the minimum or maximum representable timestamp instead of panicking when a duration is too large to represent. Previously, an oversized user-supplied duration produced a panic and could put the server into a startup panic loop.
+- **Processing engine Python updated to 3.13.15**: Picks up the security fixes in that release.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Startup phase logging**: The server logs the start and completion of each startup phase, so a node killed during startup shows which phase it was in.
+
+#### Bug fixes
+
+- **File index left behind when a generation expires**: Retention now deletes a generation's detail object along with its Parquet files. Previously the detail, which holds the file index describing those files, was left unreferenced in object storage. On a table with high-cardinality index columns the detail is the larger of the two, so retention shrank the data and accumulated the indexes for the life of the cluster.
+- **Slow compaction catch-up behind a lagging node**: The compactor now accumulates the rerun signal across every node in a cycle. Previously it kept only the last node's value, so a caught-up node could end the cycle after a single snapshot and leave a lagging node advancing one snapshot per check interval until restart.
+- Other bug fixes and performance improvements
+
 ## v3.11.3 {date="2026-08-28"}
 
 ### Core

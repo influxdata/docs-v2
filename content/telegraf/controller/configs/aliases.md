@@ -63,6 +63,13 @@ If the alias is already assigned to another configuration,
 agents use it, and offers to [transfer the alias](#transfer-an-alias) to this
 configuration instead.
 
+You can also assign aliases while
+[creating a configuration](/telegraf/controller/configs/create/).
+If an alias you request at creation is already assigned to another
+configuration or configuration group, {{% product-name %}} doesn't create
+the configuration. Remove the alias to continue, or transfer it from the
+**Aliases** tab after you create the configuration.
+
 ## Use an alias
 
 Anywhere the {{% product-name %}} API accepts a configuration ID, you can use

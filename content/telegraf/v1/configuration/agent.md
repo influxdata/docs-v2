@@ -286,7 +286,7 @@ after.
 ### skip_processors_after_aggregators
 
 If `true`, processors don't run a second time after aggregators.
-The default is scheduled to change to `true` in Telegraf 1.40, and Telegraf
+The default is scheduled to change to `true` in a future release, and Telegraf
 logs a warning at startup until you set the option explicitly.
 
 **Type:** boolean  

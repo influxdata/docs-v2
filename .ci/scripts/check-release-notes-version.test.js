@@ -9,6 +9,7 @@
  */
 import assert from 'node:assert';
 import {
+  emitWarnings,
   evaluate,
   parseEditionVersions,
 } from './check-release-notes-version.js';
@@ -57,6 +58,27 @@ test('notes newer than products.yml → drift (scalar field)', () => {
   assert.strictEqual(c.status, 'drift');
   assert.strictEqual(c.documented, '3.11.0');
   assert.strictEqual(c.current, '3.10.3');
+});
+
+test('drift annotations write outside the Markdown report stream', () => {
+  const warnings = [];
+  emitWarnings(
+    [
+      {
+        status: 'drift',
+        notesFile: V3,
+        documented: '3.11.0',
+        selector: 'latest_patch',
+        product: 'influxdb3_core',
+        current: '3.10.3',
+      },
+    ],
+    (warning) => warnings.push(warning)
+  );
+  assert.deepStrictEqual(warnings, [
+    `::warning file=${V3}::Release notes show v3.11.0 but ` +
+      'data/products.yml latest_patch for influxdb3_core is 3.10.3 — bump products.yml.',
+  ]);
 });
 
 test('shared v3 file maps to both core and enterprise', () => {
