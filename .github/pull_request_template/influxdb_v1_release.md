@@ -1,16 +1,15 @@
 ## InfluxDB v1 Release Documentation
 
 **Release Version:** `v1.x.x`
-**Release Type:** \[ ] OSS \[ ] Enterprise
+**Release Type:** [ ] OSS [ ] Enterprise
 
-> \[!Important]
+> [!Important]
 > **Always create separate PRs for OSS and Enterprise releases.**
 > OSS can publish immediately when the GitHub release tag is available.
 > Enterprise must wait until the release artifact is GA in the InfluxData portal.
 > Never combine both products in a single release PR.
 
 ### Description
-
 Brief description of the release and documentation changes.
 
 ### Pre-merge Gate (Enterprise only)
@@ -25,21 +24,16 @@ approving review on this PR. Their approval is the greenlight. Request their
 review when the release is ready; do not infer readiness yourself.
 
 These are **not** the greenlight:
-
 - A release candidate delivered to specific customers
-
 - A Docker image published
-
 - A Cloud 1 deployment (the shake-out period starts there; it does not end there)
 
 - [ ] **Release gate check is green** (approved by an `@influxdata/edge` member)
-
 - [ ] **Confirm release artifact is GA in the InfluxData portal**
 
 ### Release Documentation Checklist
 
 #### Release Notes
-
 - [ ] Generate release notes from changelog
   - OSS: Use commit messages from GitHub release tag `https://github.com/influxdata/influxdb/releases/tag/v1.x.x`
   - Enterprise: Use `https://dl.influxdata.com/enterprise/nightlies/master/CHANGELOG.md`
@@ -50,7 +44,6 @@ These are **not** the greenlight:
 - [ ] Ensure release notes follow documentation formatting standards
 
 #### Version Updates
-
 - [ ] Update patch version in `data/products.yml` (**only for this product**)
   - OSS: `influxdb > latest_patches > v1`
   - Enterprise: `enterprise_influxdb > latest_patches > v1`
@@ -61,14 +54,12 @@ These are **not** the greenlight:
   - [ ] Code examples with version-specific commands
 
 #### Content Verification
-
 - [ ] Review breaking changes and update migration guides if needed
 - [ ] Update compatibility matrices if applicable
 - [ ] Verify all download links work correctly
 - [ ] Check that version-specific features are documented
 
 #### Testing
-
 - [ ] Build documentation locally and verify changes render correctly
 - [ ] Test all updated links
 - [ ] Run link validation for the product being released:
@@ -76,14 +67,12 @@ These are **not** the greenlight:
   - Enterprise: `yarn test:links content/enterprise_influxdb/v1/**/*.md`
 
 ### Related Resources
-
 - DAR Issue: #
-- OSS Release: <https://github.com/influxdata/influxdb/releases/tag/v1.x.x>
-- Enterprise Changelog: <https://dl.influxdata.com/enterprise/nightlies/master/CHANGELOG.md>
-- Slack Discussion: \[Link to #releases thread]
+- OSS Release: https://github.com/influxdata/influxdb/releases/tag/v1.x.x
+- Enterprise Changelog: https://dl.influxdata.com/enterprise/nightlies/master/CHANGELOG.md
+- Slack Discussion: [Link to #releases thread]
 
 ### Post-Merge Actions
-
 - [ ] Verify documentation is deployed to production
 - [ ] Announce in #docs channel
 - [ ] Close related DAR issue(s)

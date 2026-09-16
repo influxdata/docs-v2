@@ -44,9 +44,15 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
+          # GitHub PR and issue templates use GitHub-only syntax (`> [!Important]`
+          # alerts, `[ ]` placeholders) that remark reports and would escape to
+          # `\[`, which breaks the rendered template. Skip them, as lefthook does.
           git diff --name-only --diff-filter=d "$BASE_SHA"..."$HEAD_SHA" \
             | grep -v '^content/' \
             | grep -v '^layouts/' \
+            | grep -v '^\.github/pull_request_template/' \
+            | grep -v '^\.github/PULL_REQUEST_TEMPLATE' \
+            | grep -v '^\.github/ISSUE_TEMPLATE/' \
             | grep -E '^(README\.md|DOCS-.*\.md|AGENTS\.md|CLAUDE\.md|CHANGELOG\.md|CONTRIBUTING\.md|\.github/.*\.md|\.claude/.*\.md|docs/.*\.md)$' \
             > files_to_check.txt || true
 
