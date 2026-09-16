@@ -14,7 +14,7 @@
 
 enterprise_influxdb:
   field: latest_patches.v1
-  team: influxdata/edge
+  team: influxdata/influxdb-v1-release-owners
   note: >
     Bumping this value publishes the InfluxDB Enterprise v1 release to all
     Enterprise customers: download URLs, install commands, and version

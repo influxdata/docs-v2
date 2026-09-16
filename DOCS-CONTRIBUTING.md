@@ -450,7 +450,7 @@ has an approving review on the pull request.
 
 | Product                | Field                                   | Approving team                                     |
 | ---------------------- | --------------------------------------- | -------------------------------------------------- |
-| InfluxDB Enterprise v1 | `enterprise_influxdb.latest_patches.v1` | `@influxdata/edge`                                 |
+| InfluxDB Enterprise v1 | `enterprise_influxdb.latest_patches.v1` | `@influxdata/influxdb-v1-release-owners`           |
 | InfluxDB 3 Core        | `influxdb3_core.latest_patch`           | `@influxdata/influxdb3-monolith-release-approvers` |
 | InfluxDB 3 Enterprise  | `influxdb3_enterprise.latest_patch`     | `@influxdata/influxdb3-monolith-release-approvers` |
 
