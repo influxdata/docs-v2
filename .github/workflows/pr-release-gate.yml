@@ -38,8 +38,9 @@ on:
 
 permissions:
   contents: read
-  # write: post the sticky gate comment and request the approver team's
-  # review. Fork PRs get a read-only token; those steps skip themselves.
+  # write: post the sticky gate comment. Fork PRs get a read-only token; that
+  # step skips itself. The check never requests reviews: asking the approver
+  # team is the author's call, blocking the merge is the check's.
   pull-requests: write
 
 concurrency:
@@ -162,8 +163,8 @@ jobs:
             mv /tmp/members.next.json /tmp/members.json
           done < /tmp/teams.txt
 
-      # Records the result instead of failing here, so the comment and
-      # review-request steps below still run. The last step fails the job.
+      # Records the result instead of failing here, so the comment step below
+      # still runs. The last step fails the job.
       - name: Evaluate release gates
         if: steps.gates.outputs.triggered == 'true'
         id: evaluate
@@ -213,39 +214,6 @@ jobs:
             gh api -X POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
               -F body=@/tmp/comment.md > /dev/null
           fi
-
-      # Ask the approver team for review when the gate is closed after a push.
-      # Not on review events: re-requesting right after someone from the team
-      # just reviewed would only nag them. GitHub ignores a request for a team
-      # that is already requested, so repeated pushes do not re-ping.
-      - name: Request review from the release team
-        if: >-
-          steps.gates.outputs.triggered == 'true' &&
-          steps.evaluate.outputs.status != '0' &&
-          github.event_name == 'pull_request' &&
-          github.event.pull_request.head.repo.full_name == github.repository
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # curl rather than gh api: on a 422 gh prints only "Validation
-          # Failed", and the reason (team without repo access, team not
-          # visible to the Actions app, ...) is in the response body.
-          while IFS= read -r team; do
-            [[ -z "$team" ]] && continue
-            slug="${team#*/}"
-            code=$(curl -sS -o /tmp/req-body.json -w '%{http_code}' -X POST \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/requested_reviewers" \
-              -d "{\"team_reviewers\":[\"${slug}\"]}")
-            if [[ "$code" == "201" ]]; then
-              echo "Requested review from @${team}"
-            else
-              echo "::warning::Could not request review from @${team} (HTTP ${code}): $(tr -d '\n' < /tmp/req-body.json)"
-            fi
-          done < /tmp/teams.txt
 
       - name: Fail if a gate is closed
         if: steps.gates.outputs.triggered == 'true'
