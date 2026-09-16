@@ -37,7 +37,7 @@ EDR always replicates **from** InfluxDB 3 Enterprise. It replicates **to**:
 
 <!-- TODO(pm): confirm AWS Timestream for InfluxDB 3 destination
 stability at GA and the correct product name / link target from
-AWS-facing docs before publishing this callout — see PLAN.md §9 item 3. —>
+AWS-facing docs before publishing this callout — see PLAN.md §9 item 3. -->
 > [!Note]
 > #### AWS Timestream for InfluxDB 3
 > AWS Timestream for InfluxDB 3 is a supported EDR destination. AWS
@@ -137,7 +137,7 @@ The formats behind the matrix, for operators who want the detail:
 |---|---|---|
 | `.pt` WAL files | live replication (block shipping) | unchanged 3.10 to 3.11 |
 | `.ptsnap` snapshot manifests | snapshot boundary, historic planning | v3 across both lines |
-| Compaction checkpoints (`.ptv2chk`) | historic fill + gap recovery via compacted data | **the moving part**: v9 (3.10) to v10 (3.11); newer versions are the usual cause of INCOMPATIBLE |
+| [Compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction) checkpoints (`.ptv2chk`) | historic fill + gap recovery read compacted data once EDR's WAL replicator can no longer see it | **the moving part**: v9 (3.10) to v10 (3.11); newer versions are the usual cause of INCOMPATIBLE |
 | Catalog | schema for encoding | versioned; compatibility tracked per release |
 
 ## Release <-> compatibility summary

@@ -1,7 +1,7 @@
 ---
-title: EDR HTTP API reference
+title: EDR replication protocol reference
 description: >
-  The EDR agent-to-agent HTTP protocol—endpoints, protocol version
+  The EDR agent-to-agent replication protocol—endpoints, protocol version
   negotiation, capabilities, and the observability API.
 menu:
   influxdb3_edr:
@@ -9,6 +9,12 @@ menu:
     parent: Reference
 weight: 204
 ---
+
+> [!Note]
+> `v1` in `/edr/v1/*` is the EDR replication protocol's own version. It has
+> no relationship to InfluxDB v1. EDR sources from InfluxDB 3 Enterprise and
+> replicates to InfluxDB 3 Enterprise, InfluxDB 3 Cloud, or AWS Timestream
+> for InfluxDB 3.
 
 Agent-to-agent communication is HTTP-based. The downstream facet serves the
 endpoints below. The upstream agent connects (`/connect`), then sends data
@@ -23,6 +29,9 @@ upstream's replication cursor advances only on confirmed delivery.
 
 ## Replication protocol endpoints
 
+These endpoints carry the EDR agent-to-agent replication protocol
+(`/edr/v1/*`), not an InfluxDB API.
+
 | Endpoint | Method | Purpose |
 |---|---|---|
 | `/edr/v1/connect` | POST | Handshake: upstream declares identity, scope, comms expectations, topology. Sent only between agents negotiating protocol v2 or below; not sent between v3 peers. |
@@ -31,6 +40,9 @@ upstream's replication cursor advances only on confirmed delivery.
 | `/health` | GET | Liveness. |
 
 ## Observability API endpoints
+
+These endpoints expose an EDR agent's own replication metrics and status,
+not InfluxDB data.
 
 | Endpoint | Method | Purpose |
 |---|---|---|

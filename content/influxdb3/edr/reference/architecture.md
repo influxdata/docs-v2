@@ -10,26 +10,31 @@ menu:
 weight: 201
 ---
 
+1. [External sidecar agent](#external-sidecar-agent)
+2. [Two timestamps](#two-timestamps)
+3. [The replication pipeline](#the-replication-pipeline)
+
 ## External sidecar agent
 
 EDR runs as a separate process (`influxdb3-edr`) alongside InfluxDB 3
-Enterprise, reading the PachaTree object store directly. The InfluxDB
-binary itself is unmodified.
+Enterprise, reading the
+[upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)'s
+object store directly. The InfluxDB binary itself is unmodified.
 
 <!-- Regenerated as Mermaid from the source's hand-authored inline SVG
 (docs/external/overview.md); the two-cluster box-and-arrow shape translates
-cleanly to a flowchart with subgraphs. —>
+cleanly to a flowchart with subgraphs. -->
 {{< diagram >}}
 flowchart LR
   subgraph SRC["Source Node"]
     direction LR
-    S1["InfluxDB 3 Enterprise"] — "shared object store" —> S2["EDR Agent"]
+    S1["InfluxDB 3 Enterprise"] -- "shared object store" --> S2["EDR Agent"]
   end
   subgraph DST["Destination Node"]
     direction LR
-    D1["EDR Agent"] —> D2["InfluxDB 3"]
+    D1["EDR Agent"] --> D2["InfluxDB 3"]
   end
-  S2 — "HTTP POST (EDRP)" —> D1
+  S2 -- "HTTP POST (EDRP)" --> D1
 {{< /diagram >}}
 
 ### Components
@@ -37,8 +42,8 @@ flowchart LR
 - **EDR Agent** (`influxdb3-edr`)—the replication process. One per node.
   Depending on configuration, one agent process acts as:
   - **Upstream facet** (source role)—reads the local InfluxDB instance's
-    PachaTree object store (WAL files, snapshots, compacted files),
-    maintains replication state, and pushes data to a downstream
+    upgraded-storage-engine object store (WAL files, snapshots, compacted
+    files), maintains replication state, and pushes data to a downstream
     destination.
   - **Downstream facet** (sink role)—receives data from one or more
     configured upstream agents and writes it to the local InfluxDB instance
