@@ -38,8 +38,9 @@ on:
 
 permissions:
   contents: read
-  # write: post the sticky gate comment and request the approver team's
-  # review. Fork PRs get a read-only token; those steps skip themselves.
+  # write: post the sticky gate comment. Fork PRs get a read-only token; that
+  # step skips itself. The check never requests reviews: asking the approver
+  # team is the author's call, blocking the merge is the check's.
   pull-requests: write
 
 concurrency:
@@ -213,59 +214,6 @@ jobs:
             gh api -X POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
               -F body=@/tmp/comment.md > /dev/null
           fi
-
-      # Ask the approver team for review when the gate is closed after a push.
-      # Not on review events: re-requesting right after someone from the team
-      # just reviewed would only nag them. GitHub ignores a request for a team
-      # that is already requested, so repeated pushes do not re-ping.
-      - name: Request review from the release team
-        if: >-
-          steps.gates.outputs.triggered == 'true' &&
-          steps.evaluate.outputs.status != '0' &&
-          github.event_name == 'pull_request' &&
-          github.event.pull_request.head.repo.full_name == github.repository
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-        run: |
-          # The default Actions token cannot reference teams: a team request
-          # fails with 422 "Could not resolve to a node with the global id",
-          # because the token has no org membership permission. Try the team
-          # anyway (a future token may allow it), then fall back to requesting
-          # the team's members individually. The resolve step already listed
-          # them. GitHub rejects a request for the PR's own author, so skip it.
-          request() {
-            curl -sS -o /tmp/req-body.json -w '%{http_code}' -X POST \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/requested_reviewers" \
-              -d "$1"
-          }
-          while IFS= read -r team; do
-            [[ -z "$team" ]] && continue
-            slug="${team#*/}"
-            code=$(request "{\"team_reviewers\":[\"${slug}\"]}")
-            if [[ "$code" == "201" ]]; then
-              echo "Requested review from @${team}"
-              continue
-            fi
-            echo "Team request for @${team} returned HTTP ${code}; requesting its members instead."
-            members=$(jq -c --arg t "$team" --arg a "$PR_AUTHOR" \
-              '(.[$t] // []) | map(select(ascii_downcase != ($a | ascii_downcase)))' \
-              /tmp/members.json)
-            if [[ "$(jq length <<< "$members")" == "0" ]]; then
-              echo "::warning::No members of @${team} to request (team unresolved, or the author is its only member)."
-              continue
-            fi
-            code=$(request "{\"reviewers\":${members}}")
-            if [[ "$code" == "201" ]]; then
-              echo "Requested review from members of @${team}: $(jq -r 'join(", ")' <<< "$members")"
-            else
-              echo "::warning::Could not request review from members of @${team} (HTTP ${code}): $(tr -d '\n' < /tmp/req-body.json)"
-            fi
-          done < /tmp/teams.txt
 
       - name: Fail if a gate is closed
         if: steps.gates.outputs.triggered == 'true'
