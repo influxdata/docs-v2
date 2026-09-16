@@ -298,18 +298,28 @@ ranges.
 **Parquet upgrade status** — if you
 [upgraded from Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet):
 
-```sql
--- Per-node upgrade status
-SELECT * FROM system.upgrade_parquet_node;
+```bash
+# Per-node upgrade status
+influxdb3 query \
+  --database _internal \
+  "SELECT * FROM system.upgrade_parquet_node"
 
--- Per-file migration progress
-SELECT * FROM system.upgrade_parquet;
+# Per-file migration progress
+influxdb3 query \
+  --database _internal \
+  "SELECT * FROM system.upgrade_parquet"
 ```
 
-Monitor `system.upgrade_parquet_node` to confirm each node reaches
-`completed` status.
-The status updates on a polling interval (default 5 seconds, configurable
-with `--upgrade-poll-interval`).
+`system.upgrade_parquet_node` returns an `ingest` row for each node that runs
+in `ingest` mode and a `compactor` row for each node that runs in `compact`
+mode.
+Nodes that run only in `query` mode don't report upgrade status.
+A node finishes upgrading only when every row for that node reads `completed`.
+The upgrade coordinator checks progress periodically.
+After migration work completes, a row can remain `upgrading` until the
+coordinator detects completion.
+The `completed` status reports when the coordinator detects that the migration
+has finished.
 
 **Query telemetry** — the query telemetry endpoint provides detailed
 execution statistics for analyzing query performance:

@@ -9,10 +9,63 @@ menu:
 weight: 101
 ---
 
-## v1.1.0 {date="2026-08-25"}
+## v1.1.1 {date="2026-09-07"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.1.0](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.1.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Features
+
+- Assign [aliases](/telegraf/controller/configs/aliases/) while creating a
+  configuration or a configuration group, in the web interface and through
+  the `POST /api/configs` and `POST /api/config-groups` API endpoints. If a
+  requested alias is already assigned, {{% product-name %}} rejects the
+  request and identifies the alias's current owner.
+- Add TLS client and TLS server settings to 70 plugins in the Telegraf
+  Builder, including plugins that previously had no TLS options.
+- Describe every request, response, and error in the
+  [interactive API reference](/telegraf/controller/reference/api/).
+- Add plugin support to the Telegraf Builder UI:
+  - Nomad (`inputs.nomad`)
+  - NSD (`inputs.nsd`)
+  - NSDP (`inputs.nsdp`)
+  - NSQ (`inputs.nsq`)
+  - NSQ Consumer (`inputs.nsq_consumer`)
+  - Nstat (`inputs.nstat`)
+  - NTPQ (`inputs.ntpq`)
+  - Nvidia SMI (`inputs.nvidia_smi`)
+  - OPC UA (`inputs.opcua`)
+  - OPC UA Listener (`inputs.opcua_listener`)
+  - OpenLDAP (`inputs.openldap`)
+  - OpenNTPD (`inputs.openntpd`)
+  - OpenSearch Query (`inputs.opensearch_query`)
+  - OpenSMTPD (`inputs.opensmtpd`)
+  - OpenStack (`inputs.openstack`)
+  - OpenTelemetry (`inputs.opentelemetry`)
+  - OpenWeatherMap (`inputs.openweathermap`)
+  - P4Runtime (`inputs.p4runtime`)
+  - Passenger (`inputs.passenger`)
+  - PF (`inputs.pf`)
+  - PgBouncer (`inputs.pgbouncer`)
+  - PHP-FPM (`inputs.phpfpm`)
+  - Postfix (`inputs.postfix`)
+  - PostgreSQL (`inputs.postgresql`)
+
+### Bug fixes
+
+- Show configuration groups in the **Managed Configurations** list on agent
+  detail pages.
+- Parse common plugin fields, including `alias`, `interval`, `name_override`,
+  `tags`, and metric filters, when the Telegraf Builder imports the ActiveMQ,
+  Aurora, Beat, Burrow, ClickHouse, Couchbase, DC/OS, and Jenkins input
+  plugins. Previously, the builder dropped these fields.
+- Keep API request and response schemas in the interactive API reference when
+  running {{% product-name %}} as a packaged binary.
+- Align label chips with the plugin count chip on the configurations list.
+
+---
+
+## v1.1.0 {date="2026-08-25"}
 
 ### Features
 

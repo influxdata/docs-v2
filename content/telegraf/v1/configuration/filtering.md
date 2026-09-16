@@ -112,7 +112,7 @@ Telegraf tests `tagdrop` after metrics pass the `tagpass` test.
 
 ### metricpass
 
-A [Common Expression Language (CEL)](https://github.com/google/cel-go/tree/master)
+A [Common Expression Language (CEL)](https://github.com/cel-expr/cel-go)
 expression with a boolean result: `true` passes the metric, anything else
 discards it.
 CEL expressions are more general than the other selectors and support
@@ -292,12 +292,12 @@ metrics:
 [[outputs.influxdb]]
   urls = ["http://localhost:8086"]
   database = "telegraf"
-  namedrop = ["aerospike*"]
+  namedrop = ["redis*"]
 
 [[outputs.influxdb]]
   urls = ["http://localhost:8086"]
-  database = "telegraf-aerospike-data"
-  namepass = ["aerospike*"]
+  database = "telegraf-redis-data"
+  namepass = ["redis*"]
 ```
 
 Route metrics with a dedicated tag, then remove the tag before writing:

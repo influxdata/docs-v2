@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-core-openapi.yaml)
-  version: v3.10.0
+  version: v3.11.2
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:d0a62a892334fbe16b4a8d816a99bc02e5454f3232c270d33c8af09bab4360a5
+  x-source-hash: sha256:7894710bb3bf5f946c2e855f8bb9c0235abbb2faec6f0d56068aa89c09b99ade
   x-influxdata-download-url: /openapi/influxdb3-core-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -2942,10 +2942,14 @@ components:
             - log
             - retry
             - disable
-          description: |
+          description: >
             How the trigger responds when the plugin returns an error:
+
             - `log`: Log the error and keep the trigger active.
-            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure. Errors identified as permanent aren't retried.
+
+            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure.
+            Errors identified as permanent aren't retried.
+
             - `disable`: Disable the trigger until you manually re-enable it.
       required:
         - run_async

@@ -26,10 +26,15 @@ plugins.
     navigation bar. 
 2.  Click **{{% lucide "plus" %}} Add Config**.
 3.  Enter a configuration name and optional description.
-4.  Use the {{% product-name %}} [Code Editor](#use-the-code-editor) or
+4.  _(Optional)_ To assign
+    [aliases](/telegraf/controller/configs/aliases/) to the configuration,
+    click **{{% lucide "plus" %}} Add Alias** and enter an alias that
+    follows the
+    [naming rules](/telegraf/controller/configs/aliases/#alias-naming-rules).
+5.  Use the {{% product-name %}} [Code Editor](#use-the-code-editor) or
     [Telegraf Builder](#use-the-telegraf-builder) to provide or build the
     Telegraf configuration TOML.
-5.  Click **Create Configuration**.
+6.  Click **Create Configuration**.
 
 When you create a configuration, {{% product-name %}} records it as the first
 version in the configuration's
