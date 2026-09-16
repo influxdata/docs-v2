@@ -5,8 +5,7 @@ description: >
 menu:
   influxdb3_edr:
     name: Manage tokens
-    parent: Manage
-weight: 108
+weight: 7
 ---
 
 Tokens are resolved from the token store **on every use—never cached**. To

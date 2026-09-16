@@ -76,7 +76,7 @@ Current limitations of the implementation:
 a constrained gateway, or a disk-footprint-per-device-stream formula at a
 given cardinality. -->
 Size WAL retention to your expected outage window—see
-[Size WAL retention](/influxdb3/edr/admin/size-wal-retention/)—and test
+[Size WAL retention](/influxdb3/edr/size-wal-retention/)—and test
 your specific workload's cardinality and write volume before committing to
 constrained hardware.
 

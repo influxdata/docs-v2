@@ -6,21 +6,26 @@ description: >
 menu:
   influxdb3_edr:
     name: Size WAL retention
-    parent: Manage
-weight: 106
+weight: 8
 ---
 
-WAL retention on the **source** InfluxDB 3 Enterprise server is the primary
-knob that determines whether EDR replicates from WAL files (fast, precise)
-or falls back to slower compacted-file recovery after an outage. This page
-covers sizing that retention and, if the resulting WAL buildup becomes a
-storage concern, using EDR's optional WAL cleanup to bound it.
+**Size WAL retention on the source to exceed your maximum expected outage
+plus margin.** WAL retention on the **source** InfluxDB 3 Enterprise server
+is the primary knob that determines whether EDR replicates from WAL files
+(fast, precise) or falls back to slower compacted-file recovery after an
+outage. WAL files are compact (about 3x smaller than gen0), so generous
+retention is cheap: a source ingesting 1 MB/s needs about 86 GB for 24
+hours of WAL retention.
+
+This page covers sizing that retention and, if the resulting WAL buildup
+becomes a storage concern, using EDR's optional WAL cleanup to bound it.
 
 ## Why retention matters
 
-The InfluxDB flag `--wal-snapshots-to-keep` (spelled
-`--pt-wal-snapshots-to-keep` on InfluxDB 3.10.x) controls how many WAL
-snapshots are retained before deletion:
+The InfluxDB flag
+[`--wal-snapshots-to-keep`](/influxdb3/enterprise/reference/storage-engine-config-options/#wal)
+(spelled `--pt-wal-snapshots-to-keep` on InfluxDB 3.10.x) controls how many
+WAL snapshots are retained before deletion:
 
 ```
 retention_window ~= snapshots_to_keep x snapshot_interval (~10-20s)
@@ -34,20 +39,17 @@ retention_window ~= snapshots_to_keep x snapshot_interval (~10-20s)
 | 10,000 | ~28-56 hours |
 | 100,000 | ~12-23 days |
 
-The InfluxDB default (5) is only about one to two minutes of retention—with
-it, any agent restart or network interruption longer than that sends EDR to
+The InfluxDB default (5) retains only about one to two minutes of data. Any
+agent restart or network interruption longer than that sends EDR to
 compacted-file recovery. EDR is **correct** either way—delivery is
 at-least-once regardless, and data that outlives WAL retention is recovered
 from the compacted files (see
-[Historic fill](/influxdb3/edr/admin/monitor/#historic-fill) and
-[Gap fill](/influxdb3/edr/admin/monitor/#gap-fill)). But EDR is *better*
-with sized retention: WAL replication is precise and cheap, recovery from
-cv2 is slower and replicates more bytes than strictly necessary.
-
-**Size retention to exceed your maximum expected outage plus margin.** WAL
-files are compact (about 3x smaller than gen0), so generous retention is
-cheap: a source ingesting 1 MB/s needs about 86 GB for 24 hours of WAL
-retention.
+[Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill)
+and
+[Gap fill](/influxdb3/edr/monitor/historic-and-gap-fill/#gap-fill)). But EDR
+replicates faster with sized retention: WAL replication is precise and
+cheap, while recovery from cv2 is slower and replicates more bytes than
+strictly necessary.
 
 If you see gaps regularly (`gaps_pending` in metrics), increase
 `--wal-snapshots-to-keep` on the source InfluxDB—recovery from compacted
@@ -55,18 +57,20 @@ files is a safety net, not the intended steady state.
 
 ## WAL cleanup (optional stop-gap)
 
-The trade-off: generous retention also means WAL files linger long after EDR
-has replicated them. EDR reads WAL files from the source object store; the
-**source server** owns their lifecycle and deletes them once they've been
-rolled into gen0 (governed by `--wal-snapshots-to-keep`). If you raise that
-retention so EDR has a wide replication window, WAL files can accumulate
-well past the point EDR has already replicated them.
+Generous WAL retention also means WAL files linger on the source object
+store long after EDR has replicated them. The **source server** owns their
+lifecycle and deletes them once they're rolled into gen0 (governed by
+`--wal-snapshots-to-keep`). If you raise that retention so EDR has a wide
+replication window, WAL files can accumulate well past the point EDR has
+already replicated them.
 
-`--wal-cleanup-enabled` turns on an **opt-in, in-agent** sweep that deletes
-already-replicated WAL files itself. It is a **temporary stop-gap** until
-the source server can honor a cleanup *hold* requested by EDR; leave it
-**off** unless WAL buildup is a problem, because deleting source WAL is
-destructive.
+Leave `--wal-cleanup-enabled` off unless that buildup becomes an actual
+storage problem; sizing `--wal-snapshots-to-keep` appropriately is the
+first lever, and deleting source WAL is destructive. When buildup is a
+problem, `--wal-cleanup-enabled` turns on an **opt-in, in-agent** sweep
+that deletes already-replicated WAL files itself. It's a **temporary
+stop-gap** until the source server can honor a cleanup *hold* requested by
+EDR.
 
 ```
 influxdb3-edr ... --wal-cleanup-enabled \
@@ -123,10 +127,6 @@ held (retried next sweep).
 > destination's series—don't sum it across the `destination` label, that
 > multiplies the real count by the number of destinations.
 
-Operationally:
-
-- Leave it off unless WAL buildup is an actual problem; sizing
-  `--wal-snapshots-to-keep` appropriately is the first lever.
-- After enabling, confirm `gaps_pending` / `wal_files_lost_total` stay flat—
-  cleanup is designed never to create gaps; a rise is a signal to
-  investigate, not expected.
+After enabling WAL cleanup, confirm `gaps_pending` and
+`wal_files_lost_total` stay flat—cleanup is designed never to create gaps,
+so a rise is a signal to investigate.

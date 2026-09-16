@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb3_edr:
     name: Release notes
-weight: 9
+weight: 11
 related:
   - /influxdb3/edr/
 ---

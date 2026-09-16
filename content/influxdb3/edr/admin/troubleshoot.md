@@ -36,7 +36,7 @@ Symptom, what to run first, and what it tells you:
 | Error | Cause | Fix |
 |----|----|---|
 | "config must include at least one of 'downstream' or 'upstreams'" | Config has neither section. | Add one. |
-| "downstream.historic_fill must be set explicitly ..." | No historic intent declared. | Add `historic_fill: { mode: none }` (live-only) or `full`/`since`. See [Historic fill](/influxdb3/edr/admin/monitor/#historic-fill). |
+| "downstream.historic_fill must be set explicitly ..." | No historic intent declared. | Add `historic_fill: { mode: none }` (live-only) or `full`/`since`. See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill). |
 | "historic_fill mode 'since' requires a 'since' value" / "... is not parseable" | `since` missing or malformed. | Set `since` to a whole-day duration (`7d`) or an ISO date (`2026-06-01`); sub-day units (`30m`/`6h`) are rejected. |
 | "Multiple ingest nodes detected... idempotent_writes is false" | Multi-node store without the guarantee. | Add `idempotent_writes: true` or point at a single-node store. |
 | "failed to resolve token" | Token file missing from store. | Check `--token-store` path and file names. |
@@ -47,7 +47,7 @@ Symptom, what to run first, and what it tells you:
 1. First-line triage: `edr-inspect state <state-location>` (what's owed / in
    progress, even if the agent is wedged) and `edr-inspect topology` /
    `edr-inspect metrics` (live health + flow). See
-   [Triage CLI](/influxdb3/edr/admin/monitor/#triage-cli-edr-inspect). For
+   [Triage CLI](/influxdb3/edr/monitor/#triage-cli-edr-inspect). For
    what the state files mean—and before deleting ANY of them—see
    [State & recovery](/influxdb3/edr/reference/state-and-recovery/).
 2. Check node info: `curl http://127.0.0.1:9091/edr/v1/node_info`
@@ -72,7 +72,7 @@ Symptom, what to run first, and what it tells you:
 
 | Message | Meaning |
 |-----|-----|
-| `historic fill: MANIFEST GAP ...` | Expected—compactor deleted old manifests; recovery proceeds via WAL/cv2. See [Historic fill](/influxdb3/edr/admin/monitor/#historic-fill). |
+| `historic fill: MANIFEST GAP ...` | Expected—compactor deleted old manifests; recovery proceeds via WAL/cv2. See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill). |
 | cv2 over-replication warnings | Expected when recovering compacted data; idempotent writes absorb it. |
 | `... POTENTIAL DATA LOSS` | Not expected—data missing from all tiers. Check retention settings. |
 | Schema conflict / channel blocked, retrying every 60s | Destination rejected a write due to a type mismatch. Drop the conflicting table on the destination; the retry recreates it with the source schema. |
@@ -130,7 +130,7 @@ will fight over the cursor.
 - High `pending_bytes` -> the destination is slow or unreachable.
 - WAL files deleted before replication -> increase
   `--wal-snapshots-to-keep` on the source server. See
-  [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/). Gap fill
+  [Size WAL retention](/influxdb3/edr/size-wal-retention/). Gap fill
   will recover, but at a cost.
 - Slow WAL discovery -> lower `--poll-interval-ms` (more frequent object
   store listing).
@@ -145,7 +145,7 @@ will fight over the cursor.
   the source rolls it to gen0.
 - If the buildup of already-replicated WAL is a problem, enable EDR's
   opt-in `--wal-cleanup-enabled` so the agent prunes the replicated tail
-  itself. See [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/).
+  itself. See [Size WAL retention](/influxdb3/edr/size-wal-retention/).
   It only deletes below `min(cursor, snapshot boundary - margin,
   historic-fill floor)`, so it cannot strand replication, source recovery,
   or backfill.

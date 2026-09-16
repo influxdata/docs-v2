@@ -47,7 +47,7 @@ In direct mode:
 
 Replace `cloud-api-token` with a token-store entry containing an InfluxDB 3
 Cloud API token with write access to the target database. See
-[Manage tokens](/influxdb3/edr/admin/manage-tokens/).
+[Manage tokens](/influxdb3/edr/manage-tokens/).
 
 ## Compatibility
 
@@ -61,7 +61,7 @@ agent-to-agent and agent-to-InfluxDB compatibility matrices.
 
 ## Next
 
-- [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/) on the
+- [Size WAL retention](/influxdb3/edr/size-wal-retention/) on the
   source Enterprise instance to cover your expected outage windows.
-- [Monitor EDR](/influxdb3/edr/admin/monitor/) to watch replication health
+- [Monitor EDR](/influxdb3/edr/monitor/) to watch replication health
   and lag to Cloud.

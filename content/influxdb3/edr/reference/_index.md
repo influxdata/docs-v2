@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb3_edr:
     name: Reference
-weight: 7
+weight: 10
 ---
 
 {{< children >}}

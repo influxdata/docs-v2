@@ -53,8 +53,8 @@ was down or disconnected when that happened, the WAL file may be gone—but
 the data still exists in gen0 or a higher compaction level (cv2 files).
 Historic fill and gap fill recover data from these files. For more
 information, see
-[Historic fill and gap fill](/influxdb3/edr/admin/monitor/#historic-fill)
-and [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/), which
+[Historic fill and gap fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill)
+and [Size WAL retention](/influxdb3/edr/size-wal-retention/), which
 covers sizing the InfluxDB flag that governs this recovery window and the
 trade-offs of raising it.
 
@@ -168,14 +168,14 @@ the link is restored.
   disconnection.
 
 The demo runs happily on defaults. Before you size a production deployment,
-see [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/) for the
+see [Size WAL retention](/influxdb3/edr/size-wal-retention/) for the
 two settings worth setting deliberately.
 
 ## Next
 
 - [Manage EDR](/influxdb3/edr/admin/)—install, configure, and run EDR in
   production.
-- [Monitor EDR](/influxdb3/edr/admin/monitor/)—health, historic fill, and
+- [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
 - [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/)—when something
   looks wrong.
