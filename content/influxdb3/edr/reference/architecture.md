@@ -52,7 +52,7 @@ flowchart LR
     where a regional node receives from edges and forwards to a central
     node.
 - **Token Store**—a directory of secret files for authentication. See
-  [Manage tokens](/influxdb3/edr/admin/manage-tokens/).
+  [Manage tokens](/influxdb3/edr/manage-tokens/).
 - **Config File**—YAML defining topology, scope, and behavior. See
   [Configuration file reference](/influxdb3/edr/reference/config-file/).
 - **Object Store**—the InfluxDB data directory (local filesystem, or
@@ -103,7 +103,7 @@ confused:
 
 The historic/live replication boundary is defined in WAL-ID / ingest-time
 space. The `historic_fill.since` threshold is a data-timestamp filter. See
-[Historic fill](/influxdb3/edr/admin/monitor/#historic-fill).
+[Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill).
 
 ## The replication pipeline
 

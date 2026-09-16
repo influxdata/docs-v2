@@ -70,4 +70,4 @@ recovery. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/).
 - To **pause** a destination without losing its cursor, don't remove it—
   give it a `silent` bandwidth schedule. Note a paused destination keeps
   holding the WAL-cleanup floor. See
-  [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/).
+  [Size WAL retention](/influxdb3/edr/size-wal-retention/).

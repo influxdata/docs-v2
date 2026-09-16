@@ -59,7 +59,7 @@ cp /path/to/destination-write-token /etc/edr/secrets/dest-write-token
 ```
 
 For rotation, ownership, and Vault guidance, see
-[Manage tokens](/influxdb3/edr/admin/manage-tokens/).
+[Manage tokens](/influxdb3/edr/manage-tokens/).
 
 ## Configure the source node
 
@@ -150,7 +150,7 @@ does.
    replication—the embedded UI shows topology, health, and lag. The UI and
    `/metrics` bind to loopback by default (`--observability-listen`);
    expose them deliberately if you need off-host access. See
-   [Monitor EDR](/influxdb3/edr/admin/monitor/).
+   [Monitor EDR](/influxdb3/edr/monitor/).
 
 ## Test recovery
 
@@ -172,7 +172,7 @@ what the agent persists to make this possible.
   intermittent link recovering.
 - [Manage EDR](/influxdb3/edr/admin/)—configure scope, bandwidth
   scheduling, and multi-destination fan-out for production.
-- [Monitor EDR](/influxdb3/edr/admin/monitor/)—health, historic fill, and
+- [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
 - [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/)—when something
   looks wrong.

@@ -145,5 +145,5 @@ a message naming the config key.
   layer of its own. Restricting or revoking an upstream is done by scoping
   or revoking its tokens.
 
-See [Manage tokens](/influxdb3/edr/admin/manage-tokens/) for token store
+See [Manage tokens](/influxdb3/edr/manage-tokens/) for token store
 operations.

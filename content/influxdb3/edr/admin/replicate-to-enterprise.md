@@ -26,7 +26,7 @@ and CLI flag reference, see
   receives data. See [Install EDR](/influxdb3/edr/install/).
 - A token store directory with auth and write tokens.
 - Sufficient WAL retention on each source node. See
-  [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/).
+  [Size WAL retention](/influxdb3/edr/size-wal-retention/).
 
 ## Topology shapes
 
@@ -123,13 +123,13 @@ influxdb3-edr \
 Open `http://127.0.0.1:9091/ui`—the embedded UI shows topology, health,
 replication lag, and data-flow metrics. The UI and `/metrics` bind to
 loopback by default (`--observability-listen`); expose them deliberately if
-you need off-host access. See [Monitor EDR](/influxdb3/edr/admin/monitor/).
+you need off-host access. See [Monitor EDR](/influxdb3/edr/monitor/).
 
 ## Next
 
 - [Replicate to multiple destinations](/influxdb3/edr/admin/multi-destination-fan-out/)
   if this source also needs to feed a central archive.
-- [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/) for your
+- [Size WAL retention](/influxdb3/edr/size-wal-retention/) for your
   expected outage windows.
 - [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/) if replication
   doesn't start flowing.

@@ -24,7 +24,7 @@ EDR ships as pre-built binaries. You don't build anything from source.
 |---|---|
 | `influxdb3` | InfluxDB 3 Enterprise server (built and shipped by InfluxData). This EDR release targets InfluxDB 3 Enterprise 3.11 (v0.2.0 targeted 3.10). |
 | `influxdb3-edr` | The EDR agent. Runs one process per node that participates in replication. |
-| `edr-inspect` | Read-only triage CLI (`state` / `metrics` / `topology`). See [Monitor EDR](/influxdb3/edr/admin/monitor/#triage-cli-edr-inspect). |
+| `edr-inspect` | Read-only triage CLI (`state` / `metrics` / `topology`). See [Monitor EDR](/influxdb3/edr/monitor/#triage-cli-edr-inspect). |
 
 Place the binaries on each host—on `PATH`, or referenced by an absolute
 path in your service definitions. EDR has no other runtime dependencies.
@@ -65,7 +65,7 @@ influxdb3-edr \
 | Flag | Description |
 |---|---|
 | `--data-dir` | InfluxDB data directory (the shared object store). |
-| `--token-store` | Path to the token store directory. See [Manage tokens](/influxdb3/edr/admin/manage-tokens/). |
+| `--token-store` | Path to the token store directory. See [Manage tokens](/influxdb3/edr/manage-tokens/). |
 | `--state-location` | Where the agent persists replication state. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/). |
 | `--listen` | Network listener for the replication protocol. Defaults to `0.0.0.0:9090`. |
 

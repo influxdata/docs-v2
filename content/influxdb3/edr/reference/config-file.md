@@ -45,10 +45,10 @@ forwards on.
 | `retry.initial_backoff_secs` | Integer | 1 | Initial retry backoff after send failure. |
 | `retry.max_backoff_secs` | Integer | 30 | Maximum retry backoff. |
 | `retry.multiplier` | Integer | 2 | Exponential backoff multiplier. |
-| `retry.halt_patience_secs` | Integer | 180 | Patience window before persistent write errors / unclassified rejections trigger the halted state. See [The halted state](/influxdb3/edr/admin/monitor/#the-halted-state). |
+| `retry.halt_patience_secs` | Integer | 180 | Patience window before persistent write errors / unclassified rejections trigger the halted state. See [The halted state](/influxdb3/edr/monitor/#the-halted-state). |
 | `share_topology` | Boolean | true | Include this node's upstream tree in reports to the destination. When false, this node appears as a leaf. |
 | `idempotent_writes` | Boolean | false | User asserts no `(series_key, timestamp)` pair is ever written with differing field values. Unlocks `concurrent_sends > 1`, multi-ingest replication, priority reordering, and historic fill. See [Performance vs. correctness](#performance-vs-correctness) below. |
-| `historic_fill` | Object | **required** | Declares the historic start point (`mode: none` \| `full` \| `since`). No default—absent means the agent refuses to start. Modes `full`/`since` require `idempotent_writes: true`. See [Historic fill](/influxdb3/edr/admin/monitor/#historic-fill). |
+| `historic_fill` | Object | **required** | Declares the historic start point (`mode: none` \| `full` \| `since`). No default—absent means the agent refuses to start. Modes `full`/`since` require `idempotent_writes: true`. See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill). |
 | `priorities` | List | absent | Priority routing rules (first match wins). Requires `idempotent_writes: true`. See [Priorities](#priorities). |
 | `on_state_loss` | `recover` \| `halt` | derived | What to do when a state journal AND its previous-good mirror are both corrupt. Default: `recover` when `idempotent_writes: true`, else `halt`. Explicit `recover` without the idempotency assertion is rejected. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/). |
 | `encoding` | `lp` \| `pt` | `lp` | Wire encoding. `pt` (PT+zstd) is agent-to-agent only, approximately 2.5x bandwidth saving. |
