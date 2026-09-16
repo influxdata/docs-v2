@@ -14,7 +14,7 @@ Use EDR to replicate data from InfluxDB 3 Enterprise to
 [InfluxDB 3 Cloud](/influxdb3/cloud/). This guide covers only what's
 different when Cloud is the destination—auth and endpoint. For shared
 configuration (token store, `historic_fill`, scope, bandwidth scheduling),
-see [Configure EDR](/influxdb3/edr/admin/configure/).
+see [Configuration file reference](/influxdb3/edr/reference/config-file/).
 
 <!-- TODO(pm): the source docs (docs/external/*.md) don't document a
 Cloud-specific destination shape beyond "mode: direct" — confirm whether

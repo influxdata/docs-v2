@@ -315,7 +315,7 @@ points Grafana at the mounted `grafana/dashboards/edr-overview.json`, no
 manual import needed.
 
 A worked example ships with the
-[signals demo](/influxdb3/edr/get-started/)—its optional
+[signals demo](/influxdb3/edr/demo/)—its optional
 `compose.observability.yaml` overlay gives every one of the four nodes this
 same Telegraf + Grafana pipeline (`demo/signals-demo/` in the source
 repository).
@@ -382,4 +382,4 @@ journals directly); it also accepts a cloud `state-location`
 `topology` default to the loopback observability address
 (`$INFLUXDB3_EDR_OBSERVABILITY_LISTEN`). In Docker, run these via
 `docker exec` with no arguments—see
-[Run EDR in Docker](/influxdb3/edr/admin/run-in-docker/#triage-with-edr-inspect-via-docker-exec).
+[Run EDR in Docker](/influxdb3/edr/install/docker/#triage-with-edr-inspect-via-docker-exec).

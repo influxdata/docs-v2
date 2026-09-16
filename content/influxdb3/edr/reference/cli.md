@@ -71,4 +71,4 @@ the loopback observability address
 never the object store.
 
 For usage in Docker via `docker exec`, see
-[Run EDR in Docker](/influxdb3/edr/admin/run-in-docker/#triage-with-edr-inspect-via-docker-exec).
+[Run EDR in Docker](/influxdb3/edr/install/docker/#triage-with-edr-inspect-via-docker-exec).

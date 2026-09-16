@@ -84,7 +84,7 @@ Edge -> InfluxDB 3 (no agent)        (direct mode, plain v3 write API)
   agent. This sacrifices the agent-to-agent protocol's PT wire format,
   topology, and health reporting, but requires nothing at the destination
   beyond a write token. See
-  [Configure EDR](/influxdb3/edr/admin/configure/#direct-mode).
+  [Configuration file reference](/influxdb3/edr/reference/config-file/#direct-mode).
 
 ## Two timestamps
 

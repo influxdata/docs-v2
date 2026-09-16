@@ -7,17 +7,17 @@ description: >
 menu:
   influxdb3_edr:
     name: Run in Docker
-    parent: Manage
-weight: 109
+    parent: Install
+weight: 21
 ---
 
 Running EDR in a container is identical to a native deployment for
-everything covered in [Manage EDR](/influxdb3/edr/admin/)—configuration,
-scope, historic and gap fill, the health model, token management. This page
-covers only the **Docker-specific** items: container layout, the
-environment contract, exposing the operator surfaces, and triage via
-`docker exec`. For **building** the image, see `docker/README.md` in the
-source repository.
+everything covered in [Install EDR](/influxdb3/edr/install/) and
+[Manage EDR](/influxdb3/edr/admin/)—configuration, scope, historic and gap
+fill, the health model, token management. This page covers only the
+**Docker-specific** items: container layout, the environment contract,
+exposing the operator surfaces, and triage via `docker exec`. For
+**building** the image, see `docker/README.md` in the source repository.
 
 This assumes you already have:
 
@@ -43,7 +43,7 @@ read/writable by both:
 
 | Path | Contents | Agent flag |
 |---|---|---|
-| `/var/lib/influxdb3` | shared object store (the source's PachaTree WAL) | `--data-dir` |
+| `/var/lib/influxdb3` | shared object store (the source's upgraded-storage-engine WAL) | `--data-dir` |
 | `/var/lib/edr/state` | EDR state journals (`wal_cursor.json`, ...) | `--state-location` |
 | `/var/lib/edr/secrets` | token store (auth + write tokens) | `--token-store` |
 | `/etc/edr` | the replication config YAML | `--config` |

@@ -185,4 +185,4 @@ The manual procedure above always works without any additional tooling.
 
 ## Docker-specific troubleshooting
 
-See [Run EDR in Docker](/influxdb3/edr/admin/run-in-docker/#docker-specific-troubleshooting).
+See [Run EDR in Docker](/influxdb3/edr/install/docker/#docker-specific-troubleshooting).
