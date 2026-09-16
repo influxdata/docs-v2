@@ -58,6 +58,14 @@ pre-commit:
       glob: "layouts/_default/_markup/render-*.html"
       run: .ci/scripts/check-render-hook-whitespace.sh {staged_files}
       fail_text: "Render hook has bare {{ ... }} action(s). Use {{- ... -}} trimming to prevent whitespace leaks (see influxdata/docs-v2#7079)."
+    check-products-schema:
+      tags: lint
+      glob:
+        - "data/products.yml"
+        - "scripts/schemas/products.schema.json"
+        - ".ci/release-gates.yml"
+      run: node .ci/scripts/check-products-schema.js
+      fail_text: "data/products.yml does not match scripts/schemas/products.schema.json. Version values must be quoted MAJOR.MINOR.PATCH strings, per-version maps must use keys from `versions`, and `latest` must agree with the patch version. Unknown fields are rejected: add new fields to the schema."
     check-feedback-links:
       tags: lint
       glob:

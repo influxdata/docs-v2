@@ -63,12 +63,14 @@ jobs:
 
       # Fast path: most PRs never touch data/products.yml. Fetch the base
       # commit only (not the whole history) and exit before Node is installed.
+      # Changes to the schema, the gates config, or the checkers also run the
+      # full job so their own PRs prove they still pass.
       - name: Detect products.yml change
         id: detect
         run: |
           git fetch --no-tags --depth=1 origin "$BASE_SHA"
           if git diff --name-only "$BASE_SHA" "$HEAD_SHA" \
-              | grep -qx 'data/products.yml'; then
+              | grep -qxE 'data/products\.yml|scripts/schemas/products\.schema\.json|\.ci/release-gates\.yml|\.ci/scripts/check-(products-schema|release-gate)(\.test)?\.js'; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -92,9 +94,17 @@ jobs:
           CYPRESS_INSTALL_BINARY: 0
         run: yarn install --frozen-lockfile
 
-      - name: Verify the checker itself
+      - name: Verify the checkers themselves
         if: steps.detect.outputs.changed == 'true'
-        run: node --test .ci/scripts/check-release-gate.test.js
+        run: |
+          node --test .ci/scripts/check-products-schema.test.js
+          node --test .ci/scripts/check-release-gate.test.js
+
+      # Shape first: a structurally bad products.yml fails here with a
+      # field-level message, not later as a confusing gate result.
+      - name: Validate products.yml against its schema
+        if: steps.detect.outputs.changed == 'true'
+        run: node .ci/scripts/check-products-schema.js
 
       # Which gates does this diff trigger? Prints team slugs, or nothing.
       - name: Find triggered gates

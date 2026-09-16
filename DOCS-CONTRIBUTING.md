@@ -463,6 +463,14 @@ To gate another product, add an entry to `.ci/release-gates.yml`.
 The check is implemented in `.ci/scripts/check-release-gate.js` and runs from
 `.github/workflows/pr-release-gate.yml`.
 
+The same workflow, and the pre-commit hook, validate `data/products.yml`
+against [`scripts/schemas/products.schema.json`](scripts/schemas/products.schema.json).
+Version values must be quoted `MAJOR.MINOR.PATCH` strings, per-version maps
+must use keys from `versions`, `latest` must agree with the patch version, and
+unknown fields are rejected.
+When you add a field to `products.yml`, add it to the schema in the same change.
+Run the check locally with `node .ci/scripts/check-products-schema.js`.
+
 ### Submit a pull request
 
 Push your changes up to your forked repository, then [create a new pull request](https://help.github.com/articles/creating-a-pull-request/).
