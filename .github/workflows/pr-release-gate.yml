@@ -38,7 +38,9 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  # write: post the sticky gate comment and request the approver team's
+  # review. Fork PRs get a read-only token; those steps skip themselves.
+  pull-requests: write
 
 concurrency:
   group: release-gate-${{ github.event.pull_request.number }}
@@ -160,8 +162,11 @@ jobs:
             mv /tmp/members.next.json /tmp/members.json
           done < /tmp/teams.txt
 
+      # Records the result instead of failing here, so the comment and
+      # review-request steps below still run. The last step fails the job.
       - name: Evaluate release gates
         if: steps.gates.outputs.triggered == 'true'
+        id: evaluate
         run: |
           set +e
           node .ci/scripts/check-release-gate.js \
@@ -171,7 +176,66 @@ jobs:
           status=${PIPESTATUS[0]}
           set -e
           grep -v '^::' /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
-          exit "$status"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      # Sticky comment: one per PR, updated in place, so the gate's state is
+      # visible in the conversation and not only in the checks list.
+      - name: Post or update gate comment
+        if: >-
+          steps.gates.outputs.triggered == 'true' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          marker='<!-- release-gate-comment -->'
+          { echo "$marker"; grep -v '^::' /tmp/report.md; } > /tmp/comment.md
+          existing=$(gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+            --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
+          if [[ -n "$existing" ]]; then
+            gh api -X PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${existing}" \
+              -F body=@/tmp/comment.md > /dev/null
+          else
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+              -F body=@/tmp/comment.md > /dev/null
+          fi
+
+      # Ask the approver team for review when the gate is closed after a push.
+      # Not on review events: re-requesting right after someone from the team
+      # just reviewed would only nag them. GitHub ignores a request for a team
+      # that is already requested, so repeated pushes do not re-ping.
+      - name: Request review from the release team
+        if: >-
+          steps.gates.outputs.triggered == 'true' &&
+          steps.evaluate.outputs.status != '0' &&
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          while IFS= read -r team; do
+            [[ -z "$team" ]] && continue
+            slug="${team#*/}"
+            if gh api -X POST \
+                "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/requested_reviewers" \
+                -f "team_reviewers[]=${slug}" > /dev/null 2>/tmp/req-err.txt; then
+              echo "Requested review from @${team}"
+            else
+              echo "::warning::Could not request review from @${team} (the team may need read access to this repository): $(cat /tmp/req-err.txt)"
+            fi
+          done < /tmp/teams.txt
+
+      - name: Fail if a gate is closed
+        if: steps.gates.outputs.triggered == 'true'
+        run: |
+          status="${{ steps.evaluate.outputs.status }}"
+          if [[ "$status" != "0" ]]; then
+            echo "Release gate is closed (see the step summary and PR comment)."
+            exit "${status:-1}"
+          fi
+          echo "All triggered gates are approved."
 
       - name: Report ungated bump
         if: >-

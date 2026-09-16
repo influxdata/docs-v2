@@ -460,8 +460,9 @@ approving review from that team.
 The team's approval is the greenlight.
 Earlier signals such as a release candidate sent to specific customers, a
 published Docker image, a git tag, or a Cloud deployment are not.
-Keep release content in a draft PR until the team says the release is ready,
-then request their review on the PR that bumps the version.
+When the gate is closed, the check posts a comment on the PR with what it
+needs and requests a review from the team.
+Keep release content in a draft PR until the team says the release is ready.
 
 To gate another product, add an entry to `.ci/release-gates.yml`.
 The check is implemented in `.ci/scripts/check-release-gate.js` and runs from
