@@ -32,11 +32,11 @@ InfluxDB 3 Enterprise **3.11.0** (revision `e5242f505d`). Images:
 `edr:1.0.0-0.rc.1-proe5242f505d-amd64` / `-arm64`.
 
 **Compatibility** (see
-[Compatibility](/influxdb3/edr/reference/compatibility/)): agent protocol
-**v3** (stateless data path; v1 peers accepted—a mixed fleet with 0.2.0
-agents interoperates in both directions); InfluxDB storage matrix **3.10.x
-and 3.11.x**—the agent runs unchanged across a source server's 3.10 to
-3.11 upgrade (upgrade EDR first).
+[Compatibility](/influxdb3/edr/reference/compatibility/)): EDR replication
+protocol **version 3** (stateless data path; version-1 peers accepted—a
+mixed fleet with 0.2.0 agents interoperates in both directions); InfluxDB
+storage matrix **3.10.x and 3.11.x**—the agent runs unchanged across a
+source server's 3.10 to 3.11 upgrade (upgrade EDR first).
 
 **Upgrading from 0.2.0**: drop-in. On first start the agent migrates its
 on-disk state (v1 to v2, adding journal mirrors) automatically; no
@@ -91,9 +91,9 @@ First customer beta release. Built against InfluxDB 3 Enterprise 3.10.0
 `-arm64`.
 
 **Compatibility** (see
-[Compatibility](/influxdb3/edr/reference/compatibility/)): agent protocol
-**v1** (implicit—predates protocol versioning); InfluxDB storage matrix
-**3.10.x only**.
+[Compatibility](/influxdb3/edr/reference/compatibility/)): EDR replication
+protocol **version 1** (implicit—predates protocol versioning); InfluxDB
+storage matrix **3.10.x only**.
 
 **Highlights over the preview builds (0.1.0):**
 
