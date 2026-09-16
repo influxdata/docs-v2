@@ -177,5 +177,5 @@ two settings worth setting deliberately.
   production.
 - [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
-- [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/)—when something
+- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/)—when something
   looks wrong.

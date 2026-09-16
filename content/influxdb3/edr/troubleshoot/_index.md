@@ -6,8 +6,7 @@ description: >
 menu:
   influxdb3_edr:
     name: Troubleshoot
-    parent: Manage
-weight: 110
+weight: 9
 ---
 
 When something looks wrong, start here. The quick index maps a symptom to
@@ -180,7 +179,7 @@ Then reconstruct the final run:
 
 For the complete rule set—delivery failures, data loss, cursor/state,
 connectivity, config, and infrastructure signatures—see the
-[EDR log post-mortem playbook](/influxdb3/edr/admin/log-postmortem-playbook/).
+[EDR log post-mortem playbook](/influxdb3/edr/troubleshoot/log-postmortem-playbook/).
 The manual procedure above always works without any additional tooling.
 
 ## Docker-specific troubleshooting

@@ -93,7 +93,7 @@ and both minimums; the upstream **halts that hop**—nothing is sent, health
 shows `Halted`, one ERROR at halt time, and a `PROTOCOL-HALTED` WARN every
 minute. Because negotiation rides every report, the halt clears **within
 one report interval** (default 10s) of the named agent being upgraded. See
-[Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/#protocol-incompatible-agents-of-different-versions).
+[Troubleshoot EDR](/influxdb3/edr/troubleshoot/#protocol-incompatible-agents-of-different-versions).
 
 ## EDR agent <-> InfluxDB 3 Enterprise (storage formats)
 

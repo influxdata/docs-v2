@@ -131,5 +131,5 @@ you need off-host access. See [Monitor EDR](/influxdb3/edr/monitor/).
   if this source also needs to feed a central archive.
 - [Size WAL retention](/influxdb3/edr/size-wal-retention/) for your
   expected outage windows.
-- [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/) if replication
+- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/) if replication
   doesn't start flowing.
