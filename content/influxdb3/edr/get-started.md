@@ -174,5 +174,5 @@ what the agent persists to make this possible.
   scheduling, and multi-destination fan-out for production.
 - [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
-- [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/)—when something
+- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/)—when something
   looks wrong.

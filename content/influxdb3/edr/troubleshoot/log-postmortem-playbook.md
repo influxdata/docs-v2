@@ -6,8 +6,7 @@ description: >
 menu:
   influxdb3_edr:
     name: Log post-mortem playbook
-    parent: Manage
-weight: 111
+weight: 1
 ---
 
 Diagnose **what happened** to an EDR agent from a **captured log**, after
@@ -16,7 +15,15 @@ the fact—especially a **crashed or restarted** agent, when the live views
 in-memory counters reset on every restart. EDR logs are structured JSON, so
 this is deterministic field-extraction, not guesswork.
 
-## 1. Capture the log first
+1. [Capture the log first](#capture-the-log-first)
+2. [Log shape](#log-shape)
+3. [Cause-of-death procedure](#cause-of-death-procedure)
+4. [Detector rules](#detector-rules)
+5. [Worked example](#worked-example)
+6. [Limits](#limits)
+7. [Corroborate with `edr-inspect`](#corroborate-with-edr-inspect)
+
+## Capture the log first
 
 EDR logs JSON to **stdout**—there is no log file by default, so capture the
 evidence before it's gone:
@@ -34,9 +41,9 @@ agent's stream for the incident window instead. This playbook is for the
 dead/restarted case—but pair it with `edr-inspect` either way: `state`
 reads the durable journals **offline** (works even on a dead agent), and
 `metrics`/`topology` give the live picture **if the agent is running
-again** (see [§6](#6-corroborate-with-edr-inspect)).
+again** (see [Corroborate with `edr-inspect`](#corroborate-with-edr-inspect)).
 
-## 2. Log shape
+## Log shape
 
 Each line is JSON with: `timestamp`, `level` (`ERROR`/`WARN`/`INFO`/
 `DEBUG`), `target` (the module), structured `fields` (for example,
@@ -52,10 +59,12 @@ jq -c 'select(.fields.upstream=="Dublin")' edr.log            # one channel
 jq -rc '[.timestamp,.level,.message]|@tsv' edr.log | tail -50 # the tail, compact
 ```
 
-## 3. Cause-of-death procedure (do this first)
+## Cause-of-death procedure
 
-Reconstruct the final run in five steps—this is the core of a post-mortem
-and the one thing the live tools cannot give you once the agent is gone:
+Run this after you've captured the log (see
+[Capture the log first](#capture-the-log-first)). It's the core of a
+post-mortem, and the one thing the live tools cannot give you once the
+agent is gone. Reconstruct the final run in five steps:
 
 1. **Find the final run.** The last startup banner—`"upstream replication
    pipeline started"` / `"starting HTTP servers"`. Everything after it is
@@ -78,7 +87,7 @@ and the one thing the live tools cannot give you once the agent is gone:
    > -> ended uncleanly at 11:41**. Likely cause: schema conflict—drop the
    > table downstream."*
 
-## 4. Detector rules
+## Detector rules
 
 Each rule keys on a real log signal. Evidence-first: when you cite one,
 record its **count, first/last timestamp, and a sample line**—never a bare
@@ -141,7 +150,7 @@ verdict.
 | Signal | Severity | Inference & action |
 |---|---|---|
 | `catalog could not be read from the object store (transient?)` / `verify the object store is reachable, then restart` | high | Object store / InfluxDB unreachable—an **infrastructure** root cause, not an EDR fault. |
-| `catalog not found ... cannot resolve database/table names` / `ensure the InfluxDB instance has been started at least once` | high | The source InfluxDB never wrote a catalog—start it (with `--use-pacha-tree`) before the agent. |
+| `catalog not found ... cannot resolve database/table names` / `ensure the InfluxDB instance has been started at least once` | high | The source InfluxDB never wrote a catalog. Start the InfluxDB 3 Enterprise instance before the agent; if it runs on 3.10.x, start it with `--upgrade-pacha-tree` so it writes the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)'s catalog format. |
 
 ### WAL cleanup (only when `--wal-cleanup-enabled`)
 
@@ -156,7 +165,7 @@ verdict.
 Roll up the remaining `ERROR`/`WARN` lines **by `target`** with counts, so
 the long tail is visible and nothing is silently dropped.
 
-## 5. Worked example
+## Worked example
 
 ```json
 {"timestamp":"...11:31:02","level":"INFO","message":"upstream replication pipeline started"}
@@ -173,17 +182,20 @@ at 11:41:55. **No shutdown marker, so this is an unclean end** (crash or
 kill while halted). **Likely cause:** schema conflict—drop `air_quality`
 downstream; the retry recreates it with the source schema.
 
-## 6. Limits (so the inference isn't oversold)
+## Limits
+
+So the inference isn't oversold:
 
 - **Needs captured logs.** Gone if a `--rm` container was removed, or
-  beyond log rotation. Capture early (see [§1](#1-capture-the-log-first)).
+  beyond log rotation. Capture early (see
+  [Capture the log first](#capture-the-log-first)).
 - **Clean-exit is inferred from markers**—a truncated/rotated log can look
   unclean. Phrase it "no shutdown marker *in the captured window*."
 - **SIGKILL / OOM emit nothing.** Only "abrupt end" is inferable, never
   proven. Correlate with the host's OOM killer / orchestrator events for
   the real cause.
 
-## 7. Corroborate with `edr-inspect`
+## Corroborate with `edr-inspect`
 
 The log says *how it got there*; `edr-inspect` says *where it ended up* and
 *whether it's still broken*. Confirm and quantify the log's findings with

@@ -117,7 +117,7 @@ reason appears in the status API/UI/logs, and a WARN repeats once a minute
 while halted. Negotiation re-runs on **every report** (default 10s), so a
 peer upgrade clears the halt within one report interval—there's no
 separate probe task. See
-[Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/#protocol-incompatible-agents-of-different-versions).
+[Troubleshoot EDR](/influxdb3/edr/troubleshoot/#protocol-incompatible-agents-of-different-versions).
 
 ### Capabilities
 

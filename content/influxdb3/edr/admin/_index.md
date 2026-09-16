@@ -23,7 +23,7 @@ Use the following guides to install, configure, and operate {{% product-name %}}
 | Watch replication health, lag, and progress | [Monitor EDR](/influxdb3/edr/monitor/) |
 | Manage and rotate auth and write tokens | [Manage tokens](/influxdb3/edr/manage-tokens/) |
 | Run EDR in Docker | [Run EDR in Docker](/influxdb3/edr/install/docker/) |
-| Diagnose something that looks wrong | [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/) |
-| Diagnose a crashed or restarted agent from a captured log | [EDR log post-mortem playbook](/influxdb3/edr/admin/log-postmortem-playbook/) |
+| Diagnose something that looks wrong | [Troubleshoot EDR](/influxdb3/edr/troubleshoot/) |
+| Diagnose a crashed or restarted agent from a captured log | [EDR log post-mortem playbook](/influxdb3/edr/troubleshoot/log-postmortem-playbook/) |
 
 {{< children >}}

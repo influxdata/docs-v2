@@ -122,4 +122,4 @@ the agent's `/metrics`, never the object store.
 
 For non-Docker symptoms (config errors, data not flowing, replication lag,
 the halted state, log messages), see
-[Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/).
+[Troubleshoot EDR](/influxdb3/edr/troubleshoot/).
