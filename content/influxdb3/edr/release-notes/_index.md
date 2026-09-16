@@ -102,7 +102,7 @@ First customer beta release. Built against InfluxDB 3 Enterprise 3.10.0
   or re-sends data—concurrent sending, priority routing, historic fill,
   multi-ingest—requires the `idempotent_writes: true` assertion and is
   rejected by config validation otherwise. See
-  [Configure EDR](/influxdb3/edr/admin/configure/#performance-vs-correctness-idempotent_writes-and-concurrent_sends).
+  [Configuration file reference](/influxdb3/edr/reference/config-file/#performance-vs-correctness).
 - **Agent-side WAL cleanup** (`--wal-cleanup-enabled`, opt-in): bounded
   deletion of already-replicated WAL from the source object store, so WAL
   no longer accumulates when server-side retention is set high. Deletion

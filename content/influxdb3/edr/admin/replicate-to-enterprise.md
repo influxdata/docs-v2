@@ -13,14 +13,17 @@ weight: 103
 Use EDR to replicate data between InfluxDB 3 Enterprise instances—edge to
 regional relay to central hub, or a direct edge-to-central hop. This guide
 covers the Enterprise-to-Enterprise topology end to end. For general config
-and CLI flag reference, see [Configure EDR](/influxdb3/edr/admin/configure/).
+and CLI flag reference, see
+[Configuration file reference](/influxdb3/edr/reference/config-file/).
 
 ## Prerequisites
 
-- InfluxDB 3 Enterprise on the PachaTree storage engine (the default for new
-  clusters on 3.11+; on 3.10.x pass `--use-pacha-tree`) on every node.
+- InfluxDB 3 Enterprise on the
+  [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+  (the default for new clusters on 3.11+; on 3.10.x pass
+  `--upgrade-pacha-tree`) on every node.
 - The `influxdb3-edr` binary installed on every node that sources or
-  receives data. See [Install EDR](/influxdb3/edr/admin/install/).
+  receives data. See [Install EDR](/influxdb3/edr/install/).
 - A token store directory with auth and write tokens.
 - Sufficient WAL retention on each source node. See
   [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/).

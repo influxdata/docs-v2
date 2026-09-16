@@ -15,15 +15,14 @@ Use the following guides to install, configure, and operate {{% product-name %}}
 
 | Your goal | Guide |
 |---|---|
-| Install the agent and CLI on each node | [Install EDR](/influxdb3/edr/admin/install/) |
-| Set up the config file, CLI flags, token store, or bandwidth scheduling | [Configure EDR](/influxdb3/edr/admin/configure/) |
+| Install the agent and CLI on each node | [Install EDR](/influxdb3/edr/install/) |
 | Replicate InfluxDB 3 Enterprise to another Enterprise instance | [Replicate to InfluxDB 3 Enterprise](/influxdb3/edr/admin/replicate-to-enterprise/) |
 | Replicate InfluxDB 3 Enterprise to InfluxDB 3 Cloud | [Replicate to InfluxDB 3 Cloud](/influxdb3/edr/admin/replicate-to-cloud/) |
 | Replicate one source to multiple destinations at once | [Replicate to multiple destinations](/influxdb3/edr/admin/multi-destination-fan-out/) |
 | Size WAL retention and WAL cleanup for your expected outages | [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/) |
 | Watch replication health, lag, and progress | [Monitor EDR](/influxdb3/edr/admin/monitor/) |
 | Manage and rotate auth and write tokens | [Manage tokens](/influxdb3/edr/admin/manage-tokens/) |
-| Run EDR in Docker | [Run EDR in Docker](/influxdb3/edr/admin/run-in-docker/) |
+| Run EDR in Docker | [Run EDR in Docker](/influxdb3/edr/install/docker/) |
 | Diagnose something that looks wrong | [Troubleshoot EDR](/influxdb3/edr/admin/troubleshoot/) |
 | Diagnose a crashed or restarted agent from a captured log | [EDR log post-mortem playbook](/influxdb3/edr/admin/log-postmortem-playbook/) |
 

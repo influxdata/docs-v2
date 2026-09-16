@@ -14,7 +14,7 @@ weight: 202
 Configuration is a YAML file passed to the agent with `--config`. Tokens are
 referenced **by name** and resolved at runtime from a token store directory
 (`--token-store`)—secrets never live in the config file. For a
-task-oriented walkthrough, see [Configure EDR](/influxdb3/edr/admin/configure/).
+task-oriented walkthrough, see [Get started with EDR](/influxdb3/edr/get-started/).
 
 ## Top-level fields
 
@@ -47,7 +47,7 @@ forwards on.
 | `retry.multiplier` | Integer | 2 | Exponential backoff multiplier. |
 | `retry.halt_patience_secs` | Integer | 180 | Patience window before persistent write errors / unclassified rejections trigger the halted state. See [The halted state](/influxdb3/edr/admin/monitor/#the-halted-state). |
 | `share_topology` | Boolean | true | Include this node's upstream tree in reports to the destination. When false, this node appears as a leaf. |
-| `idempotent_writes` | Boolean | false | User asserts no `(series_key, timestamp)` pair is ever written with differing field values. Unlocks `concurrent_sends > 1`, multi-ingest replication, priority reordering, and historic fill. See [Configure EDR](/influxdb3/edr/admin/configure/#performance-vs-correctness-idempotent_writes-and-concurrent_sends). |
+| `idempotent_writes` | Boolean | false | User asserts no `(series_key, timestamp)` pair is ever written with differing field values. Unlocks `concurrent_sends > 1`, multi-ingest replication, priority reordering, and historic fill. See [Performance vs. correctness](#performance-vs-correctness) below. |
 | `historic_fill` | Object | **required** | Declares the historic start point (`mode: none` \| `full` \| `since`). No default—absent means the agent refuses to start. Modes `full`/`since` require `idempotent_writes: true`. See [Historic fill](/influxdb3/edr/admin/monitor/#historic-fill). |
 | `priorities` | List | absent | Priority routing rules (first match wins). Requires `idempotent_writes: true`. See [Priorities](#priorities). |
 | `on_state_loss` | `recover` \| `halt` | derived | What to do when a state journal AND its previous-good mirror are both corrupt. Default: `recover` when `idempotent_writes: true`, else `halt`. Explicit `recover` without the idempotency assertion is rejected. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/). |
@@ -56,6 +56,50 @@ forwards on.
 | `poll_interval_ms` | Integer | 1000 | WAL discovery poll interval. |
 | `bandwidth_schedule` | List | absent | Time-of-day send rate control. See [Bandwidth scheduling](#bandwidth-scheduling). |
 | `bandwidth_timezone` | String | `"utc"` | Timezone the whole `bandwidth_schedule` is interpreted in. IANA name (for example, `"Asia/Kolkata"`) or `"utc"`. |
+
+## Performance vs. correctness
+
+EDR's default is correctness-first: strict-order delivery. One batch is in
+flight at a time (`concurrent_sends: 1`), held through retries, so data
+arrives at the destination in exactly the order it was written at the
+source.
+
+Why this matters: when the same point (identical series key + timestamp)
+is written more than once—an overwrite—InfluxDB resolves it last-write-wins
+by arrival order. Any concurrency that lets batches race can deliver an
+overwrite *before* the original it replaces; the original then lands second
+and silently wins. The data isn't lost in transit—it's reverted at the
+destination, which is worse, because every count matches.
+
+`idempotent_writes: true` is your assertion about the workload: no (series
+key, timestamp) pair is ever written with differing field values. Under that
+assertion, re-ordering and re-delivery cannot change the final stored
+values, which is what makes the throughput features below safe. The agent
+enforces the pairing at startup and on config reload—these are rejected
+without the assertion:
+
+| Feature | Why it needs the assertion |
+|---|---|
+| `concurrent_sends > 1` | batches race to the destination; arrival order != write order |
+| `priorities` | deliberately reorders blocks within and across WAL files |
+| `historic_fill: full`/`since` | backfill overlaps live replication and re-sends data |
+| multiple ingest nodes | independent per-node WAL streams interleave |
+
+**Choosing a mode:**
+
+- **Workload has overwrites, upserts, or corrections** (or you can't rule
+  them out): leave the defaults—`idempotent_writes: false`,
+  `concurrent_sends: 1`, `historic_fill: { mode: none }`. Throughput is
+  bounded by round-trip latency per batch; size batches up rather than
+  adding concurrency.
+- **Workload is append-only** (each point written once—typical
+  sensor/metrics ingest): set `idempotent_writes: true` and raise
+  `concurrent_sends` (for example, 4-16) for parallel delivery; historic
+  fill and priorities become available.
+
+The assertion is about the *writers*, not about EDR: if any producer can
+ever rewrite a point with a different value, it is not idempotent—
+regardless of how rarely it happens.
 
 ## Upstreams (destination receiving sources)
 
@@ -100,9 +144,31 @@ scope:
 | `tables` | Specific `{database, table}` pairs. |
 
 Scope filtering happens at block evaluation: out-of-scope blocks are
-dropped before queueing, so they consume no bandwidth. See
-[Configure EDR](/influxdb3/edr/admin/configure/#scope) for the exclusion
-semantics and validation rules.
+dropped before queueing, so they consume no bandwidth.
+
+`exclude:` subtracts from whatever the scope includes—the natural way to
+say "replicate everything except local ops noise" without inverting the
+config into an allowlist. Two trade-offs to understand before choosing this
+shape:
+
+- **It is fail-open.** Under `type: instance` with exclusions, a database
+  created tomorrow replicates automatically. That is the point—but if you
+  scope for compliance or data-jurisdiction reasons, prefer the fail-closed
+  allowlist (`type: databases`), where new databases never leave the node
+  until you name them. When a new database enters scope this way, the agent
+  logs it once (`new database entered replication scope`) so automatic
+  growth is visible, not silent.
+- **Exclusions are validated at load.** Excluding something the include
+  can't reach, excluding under `type: tables`, duplicate entries, or
+  excluding every included database are all rejected with the offender
+  named—a config that would silently do nothing (or everything) fails fast
+  instead.
+
+Scope changes are picked up by config hot-reload. Narrowing scope (adding
+an exclusion) takes effect immediately. Widening scope (removing an
+exclusion, adding a database) replicates new data going forward only—
+historic data for the newly added entity is not backfilled; re-run
+historic fill if the older data is owed.
 
 ## Priorities
 
@@ -175,12 +241,32 @@ downstream:
 | `max_bytes_per_sec` | Required for `limited`. |
 | `silent_reports` | For `silent` mode: keep sending status reports (default true). When false, no traffic at all—the downstream marks the channel unhealthy for the duration. |
 
-Entries are evaluated in order; the first matching entry wins. When
+Entries are evaluated in order; the first matching entry wins, so more
+specific rules (a weekend override, a calendar exception) must come before
+the general rule they're meant to carve an exception out of. When
 `bandwidth_schedule` is absent, or nothing matches at a given moment, the
-pipeline runs unlimited. See
-[Configure EDR](/influxdb3/edr/admin/configure/#bandwidth-scheduling) for
-validation behavior and the UTC-by-default change at the 1.0.0 release
-candidate.
+pipeline runs unlimited. Data is never dropped by scheduling—it queues
+during limited/silent windows and drains when the window changes.
+
+`bandwidth_timezone` sets the zone the whole schedule is interpreted in:
+`"utc"` (the default) or an IANA name like `"Asia/Kolkata"`, which also
+handles daylight-saving correctly—unlike hand-offsetting a UTC window,
+which drifts an hour for half the year.
+
+> [!Important]
+> #### Bandwidth schedules changed to UTC by default at the 1.0.0 release candidate
+> Schedules previously ran in process-local time—which was already UTC
+> inside containers, and whatever the host zone happened to be on bare
+> metal. If you relied on host-local hours, set `bandwidth_timezone` to that
+> zone. Schedule entries also now reject unknown keys, `"24:00"` as a start
+> time, two-digit years in `dates`, and an empty `days:` list—each of these
+> previously mis-parsed silently.
+
+The agent validates the schedule at load time (and on hot reload) and logs
+advisory warnings—never load errors—for rules that are fully or partially
+shadowed by an earlier rule, weekly coverage gaps that silently default to
+unlimited, and duplicate/conflicting calendar dates. These also appear in
+`/edr/v1/metrics` (`bandwidth_warnings`) and the UI.
 
 ## Direct mode
 
@@ -192,8 +278,12 @@ downstream:
   mode: direct
 ```
 
-See [Configure EDR](/influxdb3/edr/admin/configure/#direct-mode) for
-behavior differences from agent-to-agent mode.
+When the destination does not run an EDR agent, replicate directly to a
+plain InfluxDB v3 write endpoint. In direct mode there is no `/connect`
+handshake, health checks use the destination's `GET /health`, and no
+topology is propagated. Auth failures and schema conflicts are handled
+identically to agent-to-agent mode. The `pt` wire encoding is not available
+in direct mode.
 
 ## Configuration reload
 

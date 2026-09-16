@@ -68,10 +68,23 @@ InfluxDB Clustered are not supported as an EDR source or destination.
 
 ## Get started
 
-- [Get started with EDR](/influxdb3/edr/get-started/): Learn the core
-  concepts and run the 4-node demo.
-- [Manage EDR](/influxdb3/edr/admin/): Install, configure, and operate EDR.
+- [Install EDR](/influxdb3/edr/install/): Install the agent and CLI
+  binaries.
+- [Get started with EDR](/influxdb3/edr/get-started/): Replicate between
+  two InfluxDB 3 Enterprise instances on one host.
+- [Run the signals demo](/influxdb3/edr/demo/): A fuller 4-node topology.
+- [Manage EDR](/influxdb3/edr/admin/): Configure and operate EDR in
+  production.
 - [Reference](/influxdb3/edr/reference/): Architecture, configuration schema,
   CLI, API, and compatibility reference.
+
+<!-- TODO(pm): confirm distribution channel and acquisition path for the
+EDR binaries, container image, and signals demo bundle before GA — see
+edr-docs-open-issues.md, "EDR artifacts have no documented acquisition
+path for readers". —>
+> [!Note]
+> #### Getting EDR
+> EDR is distributed directly by InfluxData. Contact your account team to
+> obtain the binaries, container image, and demo bundle.
 
 <a class="btn" href="/influxdb3/edr/get-started/">Get started with EDR</a>
