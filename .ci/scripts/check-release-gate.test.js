@@ -4,12 +4,22 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   gatedBumps,
   latestReviewStates,
   evaluate,
   formatReport,
 } from './check-release-gate.js';
+
+const SCRIPT = join(
+  dirname(fileURLToPath(import.meta.url)),
+  'check-release-gate.js'
+);
 
 const gates = {
   enterprise_influxdb: {
@@ -162,4 +172,57 @@ test('report names the team and note when blocked', () => {
 
 test('report is quiet when nothing is gated', () => {
   assert.match(formatReport([]), /No gated version bump/);
+});
+
+for (const [label, value] of [
+  ['null', null],
+  ['empty string', ''],
+  ['whitespace', '   '],
+  ['nested map', { v1: '1.13.1' }],
+]) {
+  test(`gated value set to ${label} → invalid; approval cannot clear it`, () => {
+    const head = structuredClone(base);
+    head.influxdb3_enterprise.latest_patch = value;
+    const bumps = gatedBumps(base, head, gates);
+    assert.equal(bumps.length, 1);
+    assert.equal(bumps[0].invalid, true);
+    const r = evaluate(
+      bumps,
+      [review('pm', 'APPROVED', '2026-09-01T10:00:00Z')],
+      { 'influxdata/influxdb3-monolith-release-approvers': ['pm'] }
+    );
+    assert.equal(r[0].status, 'invalid');
+    assert.match(formatReport(r), /empty or not a version/);
+  });
+}
+
+test('a value that is unusable on both sides does not trigger', () => {
+  const b = structuredClone(base);
+  b.influxdb3_enterprise.latest_patch = null;
+  assert.deepEqual(gatedBumps(b, structuredClone(b), gates), []);
+});
+
+test('CLI exits 2 with a clear error on unreadable or malformed products.yml', () => {
+  const tmp = mkdtempSync(join(tmpdir(), 'release-gate-'));
+  const good = join(tmp, 'good.yml');
+  const bad = join(tmp, 'bad.yml');
+  writeFileSync(good, 'influxdb3_enterprise:\n  latest_patch: 3.11.3\n');
+  writeFileSync(bad, 'influxdb3_enterprise:\n  latest_patch: [unclosed\n');
+  const gatesFile = join(tmp, 'gates.yml');
+  writeFileSync(
+    gatesFile,
+    'influxdb3_enterprise:\n  field: latest_patch\n  team: influxdata/x\n'
+  );
+  const run = (head) =>
+    spawnSync(
+      process.execPath,
+      [SCRIPT, '--base', good, '--head', head, '--gates', gatesFile],
+      { encoding: 'utf8' }
+    );
+  const malformed = run(bad);
+  assert.equal(malformed.status, 2);
+  assert.match(malformed.stderr, /cannot parse .*bad\.yml/);
+  const missing = run(join(tmp, 'nope.yml'));
+  assert.equal(missing.status, 2);
+  assert.match(missing.stderr, /cannot read .*nope\.yml/);
 });

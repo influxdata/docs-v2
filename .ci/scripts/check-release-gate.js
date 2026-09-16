@@ -59,9 +59,21 @@ export function getPath(obj, dotted) {
 }
 
 /**
+ * A version value the shortcode can use: a non-empty scalar. null, an empty
+ * or whitespace-only string, and a nested map or list are not versions.
+ * The shortcode renders them as nothing, which blanks download URLs.
+ */
+export function isUsableVersion(value) {
+  if (value == null) return false;
+  if (typeof value === 'object') return false;
+  return String(value).trim().length > 0;
+}
+
+/**
  * Which gated fields changed between two parsed products.yml objects.
  * Returns one entry per triggered gate. A field that is absent on both sides,
- * or unchanged, does not trigger.
+ * or unchanged, does not trigger. A change to an unusable value (null, empty,
+ * nested) is flagged `invalid`; no approval can satisfy it.
  */
 export function gatedBumps(oldProducts, newProducts, gates) {
   const bumps = [];
@@ -73,14 +85,16 @@ export function gatedBumps(oldProducts, newProducts, gates) {
     }
     const before = getPath(oldProducts?.[product], gate.field);
     const after = getPath(newProducts?.[product], gate.field);
-    const from = before == null ? null : String(before);
-    const to = after == null ? null : String(after);
-    if (from !== to) {
+    const from = isUsableVersion(before) ? String(before).trim() : null;
+    const to = isUsableVersion(after) ? String(after).trim() : null;
+    const invalid = !isUsableVersion(after) && after !== before;
+    if (from !== to || invalid) {
       bumps.push({
         product,
         field: gate.field,
         from,
         to,
+        invalid,
         team: gate.team,
         note: (gate.note || '').trim(),
       });
@@ -113,12 +127,20 @@ export function latestReviewStates(reviews) {
 /**
  * Evaluate triggered gates against reviews and resolved team members.
  * Returns one result per bump:
- *   { ...bump, status: 'approved' | 'missing' | 'unresolved', approvedBy }
- * 'unresolved' means members[team] was null or absent: the gate fails closed.
+ *   { ...bump, status, approvedBy }
+ * status is one of:
+ *   'approved'    a team member's latest decisive review is APPROVED
+ *   'missing'     no such approval
+ *   'unresolved'  members[team] was null or absent: the gate fails closed
+ *   'invalid'     the new value is unusable (null, empty, nested); no
+ *                 approval can satisfy it
  */
 export function evaluate(bumps, reviews, members) {
   const states = latestReviewStates(reviews);
   return bumps.map((bump) => {
+    if (bump.invalid) {
+      return { ...bump, status: 'invalid', approvedBy: [] };
+    }
     const team = members?.[bump.team];
     if (!Array.isArray(team)) {
       return { ...bump, status: 'unresolved', approvedBy: [] };
@@ -154,6 +176,10 @@ export function formatReport(results) {
       lines.push(
         `- ❌ ${change} — needs an approving review from a member of \`@${r.team}\`.`
       );
+    } else if (r.status === 'invalid') {
+      lines.push(
+        `- ❌ ${change} — the new value is empty or not a version. The \`latest-patch\` shortcode would render nothing and every download URL for this product would break. Set a version or revert the change; approval cannot clear this.`
+      );
     } else {
       lines.push(
         `- ❌ ${change} — cannot resolve members of \`@${r.team}\`. Check that the \`RELEASE_GATE_ORG_TOKEN\` secret exists, has \`read:org\`, and that the team slug is correct. The gate fails closed until it can.`
@@ -176,12 +202,28 @@ function parseArgs(argv) {
   return args;
 }
 
-function loadYaml(path, fallback) {
+/**
+ * Parse a YAML file or throw. A products.yml that cannot be read or parsed
+ * must stop the check with a clear error, not be treated as empty: empty
+ * would report every gated version as removed and hide the real problem.
+ */
+function loadYaml(path) {
+  let text;
   try {
-    return yaml.load(readFileSync(path, 'utf8')) ?? fallback;
-  } catch {
-    return fallback;
+    text = readFileSync(path, 'utf8');
+  } catch (e) {
+    throw new Error(`cannot read ${path}: ${e.message}`);
   }
+  let data;
+  try {
+    data = yaml.load(text);
+  } catch (e) {
+    throw new Error(`cannot parse ${path}: ${e.message}`);
+  }
+  if (data == null || typeof data !== 'object') {
+    throw new Error(`${path} is empty or not a YAML mapping`);
+  }
+  return data;
 }
 
 function loadJson(path, fallback) {
@@ -201,16 +243,17 @@ function main() {
     );
     process.exit(2);
   }
-  const gates = loadYaml(args.gates, null);
-  if (!gates) {
-    console.error(`cannot read gates file: ${args.gates}`);
+  let bumps;
+  try {
+    bumps = gatedBumps(
+      loadYaml(args.base),
+      loadYaml(args.head),
+      loadYaml(args.gates)
+    );
+  } catch (e) {
+    console.error(`::error::Release gate: ${e.message}`);
     process.exit(2);
   }
-  const bumps = gatedBumps(
-    loadYaml(args.base, {}),
-    loadYaml(args.head, {}),
-    gates
-  );
 
   if (args.printTeams) {
     for (const team of new Set(bumps.map((b) => b.team))) console.log(team);
@@ -225,10 +268,12 @@ function main() {
 
   const blocked = results.filter((r) => r.status !== 'approved');
   for (const r of blocked) {
-    const why =
-      r.status === 'missing'
-        ? `needs approval from a member of @${r.team}`
-        : `cannot resolve @${r.team}; gate fails closed`;
+    const why = {
+      missing: `needs approval from a member of @${r.team}`,
+      invalid:
+        'new value is empty or not a version; approval cannot clear this',
+      unresolved: `cannot resolve @${r.team}; gate fails closed`,
+    }[r.status];
     console.log(
       `::error::Release gate: ${r.product}.${r.field} → ${r.to} ${why}`
     );
