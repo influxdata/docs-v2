@@ -163,8 +163,8 @@ jobs:
             mv /tmp/members.next.json /tmp/members.json
           done < /tmp/teams.txt
 
-      # Records the result instead of failing here, so the comment and
-      # review-request steps below still run. The last step fails the job.
+      # Records the result instead of failing here, so the comment step below
+      # still runs. The last step fails the job.
       - name: Evaluate release gates
         if: steps.gates.outputs.triggered == 'true'
         id: evaluate
