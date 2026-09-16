@@ -41,10 +41,9 @@
  * "Dismiss stale pull request approvals when new commits are pushed" in branch
  * protection so a push after approval re-closes the gate.
  */
-import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import yaml from 'js-yaml';
+import { readJson, readYaml } from '../../scripts/lib/file-operations.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..', '..');
@@ -203,36 +202,16 @@ function parseArgs(argv) {
 }
 
 /**
- * Parse a YAML file or throw. A products.yml that cannot be read or parsed
+ * Read a YAML mapping or throw. A products.yml that cannot be read or parsed
  * must stop the check with a clear error, not be treated as empty: empty
  * would report every gated version as removed and hide the real problem.
  */
-function loadYaml(path) {
-  let text;
-  try {
-    text = readFileSync(path, 'utf8');
-  } catch (e) {
-    throw new Error(`cannot read ${path}: ${e.message}`);
-  }
-  let data;
-  try {
-    data = yaml.load(text);
-  } catch (e) {
-    throw new Error(`cannot parse ${path}: ${e.message}`);
-  }
+function readMapping(path) {
+  const data = readYaml(path);
   if (data == null || typeof data !== 'object') {
     throw new Error(`${path} is empty or not a YAML mapping`);
   }
   return data;
-}
-
-function loadJson(path, fallback) {
-  if (!path) return fallback;
-  try {
-    return JSON.parse(readFileSync(path, 'utf8'));
-  } catch {
-    return fallback;
-  }
 }
 
 function main() {
@@ -244,12 +223,18 @@ function main() {
     process.exit(2);
   }
   let bumps;
+  let reviews = [];
+  let members = {};
   try {
     bumps = gatedBumps(
-      loadYaml(args.base),
-      loadYaml(args.head),
-      loadYaml(args.gates)
+      readMapping(args.base),
+      readMapping(args.head),
+      readMapping(args.gates)
     );
+    // Optional inputs. Absent means "not provided" (the gate then fails
+    // closed); present but unreadable is an error, not a silent fallback.
+    if (args.reviews) reviews = readJson(args.reviews);
+    if (args.members) members = readJson(args.members);
   } catch (e) {
     console.error(`::error::Release gate: ${e.message}`);
     process.exit(2);
@@ -260,8 +245,6 @@ function main() {
     return;
   }
 
-  const reviews = loadJson(args.reviews, []);
-  const members = loadJson(args.members, {});
   const results = evaluate(bumps, reviews, members);
   const report = formatReport(results);
   console.log(report);

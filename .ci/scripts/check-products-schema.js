@@ -26,11 +26,10 @@
  *
  * Usage: node .ci/scripts/check-products-schema.js [products.yml]
  */
-import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import yaml from 'js-yaml';
 import Ajv from 'ajv';
+import { readJson, readYaml } from '../../scripts/lib/file-operations.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..', '..');
@@ -75,7 +74,8 @@ function formatAjvError(err) {
   } else if (err.keyword === 'enum') {
     msg = `${err.message}: ${err.params.allowedValues.join(', ')}`;
   } else if (err.keyword === 'type' && err.params.type === 'string') {
-    msg = `must be a string (quote numeric values in YAML so 1.10 is not read as 1.1)`;
+    msg =
+      'must be a string (quote numeric values in YAML so 1.10 is not read as 1.1)';
   } else if (err.keyword === 'pattern') {
     msg = `must match ${err.params.pattern}`;
   } else if (err.keyword === 'not') {
@@ -188,29 +188,15 @@ export function check(products, schema, gates) {
   return semanticErrors(products, gates);
 }
 
-function loadYaml(path) {
-  let text;
-  try {
-    text = readFileSync(path, 'utf8');
-  } catch (e) {
-    throw new Error(`cannot read ${path}: ${e.message}`);
-  }
-  try {
-    return yaml.load(text);
-  } catch (e) {
-    throw new Error(`cannot parse ${path}: ${e.message}`);
-  }
-}
-
 function main() {
   const productsPath = process.argv[2] || DEFAULT_PRODUCTS;
   let products;
   let schema;
   let gates;
   try {
-    products = loadYaml(productsPath);
-    schema = JSON.parse(readFileSync(DEFAULT_SCHEMA, 'utf8'));
-    gates = loadYaml(DEFAULT_GATES) || {};
+    products = readYaml(productsPath);
+    schema = readJson(DEFAULT_SCHEMA);
+    gates = readYaml(DEFAULT_GATES) || {};
   } catch (e) {
     console.error(`::error::${e.message}`);
     process.exit(2);

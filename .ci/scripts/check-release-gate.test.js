@@ -167,7 +167,7 @@ test('report names the team and note when blocked', () => {
   const text = formatReport(evaluate([bump], [], { 'influxdata/edge': [] }));
   assert.match(text, /@influxdata\/edge/);
   assert.match(text, /1\.13\.0 → 1\.13\.1/);
-  assert.match(text, /\n  n\n/);
+  assert.match(text, /\n {2}n\n/);
 });
 
 test('report is quiet when nothing is gated', () => {
