@@ -15,6 +15,15 @@ means, and—the part you are probably here for—what happens if you delete
 it. Every behavior stated on this page is asserted by an automated test in
 the EDR test suite.
 
+1. [Where the state lives](#where-the-state-lives)
+2. [What each file is](#what-each-file-is)
+3. [Read before you touch](#read-before-you-touch)
+4. [The golden rules](#the-golden-rules)
+5. [Corruption vs. deliberate deletion](#corruption-vs-deliberate-deletion)
+6. [The deletion matrix](#the-deletion-matrix)
+7. [Sanctioned recovery recipes](#sanctioned-recovery-recipes)
+8. [Risk summary](#risk-summary)
+
 ## Where the state lives
 
 Everything the agent remembers is under `--state-location` (env

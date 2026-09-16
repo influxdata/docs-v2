@@ -17,8 +17,10 @@ backup tool, or a transformation layer. The destination is eventually
 consistent. Data arrives byte-for-byte as written at the source, scoped to
 the configured databases/tables.
 
-EDR is specified exclusively for the PachaTree storage engine and its
-associated data formats. The Parquet-based storage engine is not supported.
+EDR is specified exclusively for the
+[upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+and its associated data formats. The Parquet-based storage engine is not
+supported.
 
 EDR is a commercial feature of InfluxDB 3 Enterprise. It is distinct from
 the open source Synchronizer plugin and is not available with InfluxDB 3
@@ -70,9 +72,10 @@ Current limitations of the implementation:
 
 ## Sizing and capacity
 
-The public documentation doesn't currently publish RAM/CPU minimums for a
-constrained gateway, or a disk-footprint-per-device-stream formula at a
-given cardinality. Size WAL retention to your expected outage window—see
+<!-- The public documentation doesn't currently publish RAM/CPU minimums for
+a constrained gateway, or a disk-footprint-per-device-stream formula at a
+given cardinality. -->
+Size WAL retention to your expected outage window—see
 [Size WAL retention](/influxdb3/edr/admin/size-wal-retention/)—and test
 your specific workload's cardinality and write volume before committing to
 constrained hardware.
