@@ -97,7 +97,7 @@ upstreams:
 
 A node needs at least one of `downstream`/`downstreams` (where it sends
 data) or `upstreams` (who sends it data). A node with both is a regional
-relay—see [Replicate to InfluxDB 3 Enterprise](/influxdb3/edr/admin/replicate-to-enterprise/)
+relay—see [Replicate to InfluxDB 3 Enterprise](/influxdb3/edr/replicate/to-enterprise/)
 for multi-hop topologies.
 
 ## Start the agents
@@ -170,8 +170,10 @@ what the agent persists to make this possible.
 - [Run the signals demo](/influxdb3/edr/demo/)—a fuller 4-node topology
   (edge to regional relay to central hub) that also demonstrates an
   intermittent link recovering.
-- [Manage EDR](/influxdb3/edr/admin/)—configure scope, bandwidth
-  scheduling, and multi-destination fan-out for production.
+- [Configuration file reference](/influxdb3/edr/reference/config-file/)—
+  scope and bandwidth scheduling for production.
+- [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/)—
+  fan out one source to several destinations at once.
 - [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
 - [Troubleshoot EDR](/influxdb3/edr/troubleshoot/)—when something

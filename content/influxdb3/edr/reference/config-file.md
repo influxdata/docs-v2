@@ -23,7 +23,7 @@ task-oriented walkthrough, see [Get started with EDR](/influxdb3/edr/get-started
 | `name` | String | Yes | Node identity name. Used in topology, logs, and UI. |
 | `location` | Object | No | Geographic location (`label`, `lat`, `lng`). Shown on map UI. |
 | `downstream` | Object | No* | Where this node sends data to. Shorthand for a one-entry `downstreams:` list. |
-| `downstreams` | List | No* | Multiple downstream destinations (fan-out). See [Replicate to multiple destinations](/influxdb3/edr/admin/multi-destination-fan-out/). Declaring both forms at once is a config error. |
+| `downstreams` | List | No* | Multiple downstream destinations (fan-out). See [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/). Declaring both forms at once is a config error. |
 | `upstreams` | List | No* | Who sends data to this node. |
 
 \* At least one of `downstream`/`downstreams` or `upstreams` must be

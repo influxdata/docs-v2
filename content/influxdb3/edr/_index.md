@@ -73,8 +73,12 @@ InfluxDB Clustered are not supported as an EDR source or destination.
 - [Get started with EDR](/influxdb3/edr/get-started/): Replicate between
   two InfluxDB 3 Enterprise instances on one host.
 - [Run the signals demo](/influxdb3/edr/demo/): A fuller 4-node topology.
-- [Manage EDR](/influxdb3/edr/admin/): Configure and operate EDR in
-  production.
+- [Replicate with EDR](/influxdb3/edr/replicate/): Configure replication to
+  Enterprise, Cloud, or multiple destinations.
+- [Monitor EDR](/influxdb3/edr/monitor/): Watch replication health, lag, and
+  progress.
+- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/): Diagnose something that
+  looks wrong.
 - [Reference](/influxdb3/edr/reference/): Architecture, configuration schema,
   CLI, API, and compatibility reference.
 

@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb3_edr:
     name: Multi-destination fan-out
-    parent: Manage
-weight: 105
+    parent: Replicate
+weight: 3
 ---
 
 One agent can replicate to several destinations at once—an edge feeding its
@@ -16,28 +16,31 @@ regional hub and a central archive, or dual centers for redundancy.
 (singular); `downstream:` remains valid indefinitely and is exactly a
 one-entry list.
 
+The following generic example fans one source out to a regional relay and a
+separate long-term archive:
+
 ```yaml
-name: mumbai
+name: edge-01
 
 downstreams:
-  - name: singapore              # identity -- also the journal namespace key
-    address: http://sg:9090
-    auth_token: sg-token
+  - name: regional-relay          # identity -- also the journal namespace key
+    address: http://relay:9090
+    auth_token: relay-token
     historic_fill: { mode: none }
 
-  - name: london-archive
-    address: http://ldn:9090
-    auth_token: ldn-token
+  - name: archive
+    address: http://archive:9090
+    auth_token: archive-token
     idempotent_writes: true
     historic_fill: { mode: full }   # per-destination: the archive takes
-                                     # full history; singapore is live-only
+                                     # full history; the relay is live-only
 ```
 
-Everything per-destination is per-destination: scope (selective fan-out),
-encoding, ordering guarantees, retry/comms, schedules, priorities, historic
-intent, and protocol negotiation. There are no shared destination defaults—
-each entry is explicit and independent. One shared WAL discovery feeds every
-destination, so discovery cost does not grow with destination count.
+Scope (selective fan-out), encoding, ordering guarantees, retry/comms,
+schedules, priorities, historic intent, and protocol negotiation are all
+independent per destination. There are no shared destination defaults—each
+entry is explicit. One shared WAL discovery feeds every destination, so
+discovery cost does not grow with destination count.
 
 ## Validation rules
 

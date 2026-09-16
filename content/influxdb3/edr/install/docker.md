@@ -12,9 +12,11 @@ weight: 21
 ---
 
 Running EDR in a container is identical to a native deployment for
-everything covered in [Install EDR](/influxdb3/edr/install/) and
-[Manage EDR](/influxdb3/edr/admin/)—configuration, scope, historic and gap
-fill, the health model, token management. This page covers only the
+everything covered in [Install EDR](/influxdb3/edr/install/),
+[Configuration file reference](/influxdb3/edr/reference/config-file/)
+(scope, historic and gap fill), [Monitor EDR](/influxdb3/edr/monitor/)
+(the health model), and [Manage tokens](/influxdb3/edr/manage-tokens/).
+This page covers only the
 **Docker-specific** items: container layout, the environment contract,
 exposing the operator surfaces, and triage via `docker exec`. For
 **building** the image, see `docker/README.md` in the source repository.
