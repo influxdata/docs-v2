@@ -448,10 +448,14 @@ For products listed in [`.ci/release-gates.yml`](.ci/release-gates.yml), the
 **Release gate** check blocks merge until a member of the named GitHub team
 has an approving review on the pull request.
 
-| Product | Field | Approving team |
-| --- | --- | --- |
-| InfluxDB Enterprise v1 | `enterprise_influxdb.latest_patches.v1` | `@influxdata/edge` |
-| InfluxDB 3 Enterprise | `influxdb3_enterprise.latest_patch` | `@influxdata/influxdb3-monolith-release-approvers` |
+| Product                | Field                                   | Approving team                                     |
+| ---------------------- | --------------------------------------- | -------------------------------------------------- |
+| InfluxDB Enterprise v1 | `enterprise_influxdb.latest_patches.v1` | `@influxdata/edge`                                 |
+| InfluxDB 3 Core        | `influxdb3_core.latest_patch`           | `@influxdata/influxdb3-monolith-release-approvers` |
+| InfluxDB 3 Enterprise  | `influxdb3_enterprise.latest_patch`     | `@influxdata/influxdb3-monolith-release-approvers` |
+
+Core and Enterprise share an approver team, so a PR that bumps both needs one
+approving review from that team.
 
 The team's approval is the greenlight.
 Earlier signals such as a release candidate sent to specific customers, a

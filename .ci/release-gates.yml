@@ -23,6 +23,15 @@ enterprise_influxdb:
     customers, a Docker image publish, or a Cloud 1 deployment (the shake-out
     period starts there, it does not end there).
 
+influxdb3_core:
+  field: latest_patch
+  team: influxdata/influxdb3-monolith-release-approvers
+  note: >
+    Bumping this value publishes InfluxDB 3 Core download URLs, install
+    commands, and version strings across the docs.
+    Requires release approver sign-off; a tag or Docker publish alone is not
+    the greenlight.
+
 influxdb3_enterprise:
   field: latest_patch
   team: influxdata/influxdb3-monolith-release-approvers
