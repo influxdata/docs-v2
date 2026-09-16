@@ -1,0 +1,33 @@
+# Release gates: which data/products.yml version bumps need whose approval.
+#
+# Read by .ci/scripts/check-release-gate.js, run by
+# .github/workflows/pr-release-gate.yml. When a pull request changes one of
+# the fields below, the workflow fails until a member of the named GitHub team
+# has an approving review on the pull request. The approval is the release
+# team's greenlight; nothing earlier in the release process counts.
+#
+# Keys are product keys from data/products.yml.
+#   field  Dotted path to the version value under that product.
+#   team   GitHub team, as org/slug. Membership is resolved at run time.
+#   note   Shown in the check output when the gate is closed. Say what the
+#          bump publishes and which earlier signals are NOT the greenlight.
+
+enterprise_influxdb:
+  field: latest_patches.v1
+  team: influxdata/edge
+  note: >
+    Bumping this value publishes the InfluxDB Enterprise v1 release to all
+    Enterprise customers: download URLs, install commands, and version
+    strings across the docs switch to it.
+    Not sufficient on their own: a release candidate delivered to specific
+    customers, a Docker image publish, or a Cloud 1 deployment (the shake-out
+    period starts there, it does not end there).
+
+influxdb3_enterprise:
+  field: latest_patch
+  team: influxdata/influxdb3-monolith-release-approvers
+  note: >
+    Bumping this value publishes InfluxDB 3 Enterprise download URLs,
+    install commands, and version strings across the docs.
+    Requires release approver sign-off; a tag or Docker publish alone is not
+    the greenlight.
