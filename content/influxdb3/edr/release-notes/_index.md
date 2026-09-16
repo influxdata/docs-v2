@@ -52,7 +52,7 @@ example `Asia/Kolkata`) to keep them meaning what they meant.
   downstreams at once—for example, a live feed plus a full-history
   archive—with per-destination scope, schedule, journal, and health/UI
   channel. See
-  [Replicate to multiple destinations](/influxdb3/edr/admin/multi-destination-fan-out/).
+  [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/).
 - **Scope exclusions.** `exclude: { databases: [...], tables: [...] }`
   composes with instance- and database-level scope, so "everything except
   `internal_edr`" is now a two-line config.

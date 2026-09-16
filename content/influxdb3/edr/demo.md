@@ -173,8 +173,8 @@ two settings worth setting deliberately.
 
 ## Next
 
-- [Manage EDR](/influxdb3/edr/admin/)—install, configure, and run EDR in
-  production.
+- [Replicate with EDR](/influxdb3/edr/replicate/)—configure production
+  topologies to Enterprise, Cloud, or multiple destinations.
 - [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
 - [Troubleshoot EDR](/influxdb3/edr/troubleshoot/)—when something

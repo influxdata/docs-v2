@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb3_edr:
     name: Replicate to Cloud
-    parent: Manage
-weight: 104
+    parent: Replicate
+weight: 2
 ---
 
 Use EDR to replicate data from InfluxDB 3 Enterprise to

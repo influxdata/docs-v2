@@ -32,7 +32,7 @@ EDR always replicates **from** InfluxDB 3 Enterprise. It replicates **to**:
 - InfluxDB 3 Enterprise (agent-to-agent, full protocol and storage
   compatibility as described below)
 - [InfluxDB 3 Cloud](/influxdb3/cloud/) (see
-  [Replicate to InfluxDB 3 Cloud](/influxdb3/edr/admin/replicate-to-cloud/))
+  [Replicate to InfluxDB 3 Cloud](/influxdb3/edr/replicate/to-cloud/))
 - AWS Timestream for InfluxDB 3
 
 <!-- TODO(pm): confirm AWS Timestream for InfluxDB 3 destination

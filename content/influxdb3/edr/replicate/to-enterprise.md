@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb3_edr:
     name: Replicate to Enterprise
-    parent: Manage
-weight: 103
+    parent: Replicate
+weight: 1
 ---
 
 Use EDR to replicate data between InfluxDB 3 Enterprise instances—edge to
@@ -127,7 +127,7 @@ you need off-host access. See [Monitor EDR](/influxdb3/edr/monitor/).
 
 ## Next
 
-- [Replicate to multiple destinations](/influxdb3/edr/admin/multi-destination-fan-out/)
+- [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/)
   if this source also needs to feed a central archive.
 - [Size WAL retention](/influxdb3/edr/size-wal-retention/) for your
   expected outage windows.
