@@ -255,6 +255,7 @@ which drifts an hour for half the year.
 
 > [!Important]
 > #### Bandwidth schedules changed to UTC by default at the 1.0.0 release candidate
+>
 > Schedules previously ran in process-local time—which was already UTC
 > inside containers, and whatever the host zone happened to be on bare
 > metal. If you relied on host-local hours, set `bandwidth_timezone` to that

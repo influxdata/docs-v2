@@ -49,8 +49,9 @@ again** (see [Corroborate with `edr-inspect`](#corroborate-with-edr-inspect)).
 Each line is JSON with: `timestamp`, `level` (`ERROR`/`WARN`/`INFO`/
 `DEBUG`), `target` (the module), structured `fields` (for example,
 `node_id`, `upstream`, `wal_id`, `database`, `table`, `error`), and
-`message`. EDR is **loud only for abnormal**: `ERROR`/`WARN` are real
-events; `INFO` carries lifecycle transitions.
+`message`. `ERROR` and `WARN` always indicate a real problem—EDR doesn't
+log warnings for expected conditions. `INFO` is routine: startup,
+shutdown, and other lifecycle transitions, not faults.
 
 Useful filters:
 
@@ -63,9 +64,10 @@ jq -rc '[.timestamp,.level,.message]|@tsv' edr.log | tail -50 # the tail, compac
 ## Cause-of-death procedure
 
 Run this after you've captured the log (see
-[Capture the log first](#capture-the-log-first)). It's the core of a
-post-mortem, and the one thing the live tools cannot give you once the
-agent is gone. Reconstruct the final run in five steps:
+[Capture the log first](#capture-the-log-first)). This reconstructs what
+happened in the agent's final run—information the live tools can't give
+you once the agent is gone, because their counters reset on restart.
+Reconstruct the final run in five steps:
 
 1. **Find the final run.** The last startup banner—`"upstream replication
    pipeline started"` / `"starting HTTP servers"`. Everything after it is
@@ -96,70 +98,116 @@ verdict.
 
 ### Exit and lifecycle
 
-| Signal (log) | Severity | Inference & action |
-|---|---|---|
-| `upstream replication pipeline started` / `starting HTTP servers` | info | Run boundary. **Count to find restarts.** Many, tightly spaced, indicates a **crash loop** (the live tools can't show this—counters reset each run). |
-| `shutdown signal received` + `... shutting down` cascade at the tail | info | **Clean stop**—operator/orchestrator initiated. Not a fault. |
-| *(tail has none of the above; ends on ERROR or just stops)* | high | **Unclean exit**—crash / OOM / SIGKILL. The headline post-mortem fact. |
+- **info**—`upstream replication pipeline started` / `starting HTTP
+  servers`. Run boundary. **Count to find restarts.** Many, tightly
+  spaced, indicates a **crash loop** (the live tools can't show this—
+  counters reset each run).
+- **info**—`shutdown signal received` + `... shutting down` cascade at
+  the tail. **Clean stop**—operator/orchestrator initiated. Not a fault.
+- **high**—tail has none of the above; ends on `ERROR` or just stops.
+  **Unclean exit**—crash / OOM / SIGKILL. The headline post-mortem fact.
 
 ### Delivery failures (why replication stalled)
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| halt / "halted batch ... is the probe" | high | **Halted**—the channel is wedged on a batch it can't deliver. Cause = the **preceding** auth/schema/write error. Resolve the cause; the halted batch retries as the probe and resumes. |
-| `Unauthorised` | high | Downstream rejected the auth token. Update the token file; the next retry picks it up. |
-| schema conflict / "channel blocked, retrying" | high | Downstream rejected a write on a type mismatch. Drop the conflicting table downstream; the retry recreates it with the source schema. |
-| `schema conflict resolved — replication resumed` | info | It recovered—the conflict was **transient**. Closes the loop on an earlier halt. |
+- **high**—halt / "halted batch ... is the probe". **Halted**—the channel
+  is wedged on a batch it can't deliver. Cause = the **preceding**
+  auth/schema/write error. Resolve the cause; the halted batch retries as
+  the probe and resumes.
+- **high**—`Unauthorised`. Downstream rejected the auth token. Update the
+  token file; the next retry picks it up.
+- **high**—schema conflict / "channel blocked, retrying". Downstream
+  rejected a write on a type mismatch. Drop the conflicting table
+  downstream; the retry recreates it with the source schema.
+- **info**—`schema conflict resolved — replication resumed`. It
+  recovered—the conflict was **transient**. Closes the loop on an earlier
+  halt.
 
 ### Data loss (durable—always surface)
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| `POTENTIAL DATA LOSS` | critical | Data missing from **all** tiers. Record the time window. Check retention/eviction settings; this is not self-healing. |
-| `historic fill: ... no Gen0 AND no cv2 coverage — data may be missing` | critical | A historic range is unrecoverable from any medium. |
-| WAL files lost / eviction outrunning replication | high | The source evicted WAL before EDR replicated it. Raise `--wal-snapshots-to-keep`; gap fill recovers what it can (at a cost). |
+- **critical**—`POTENTIAL DATA LOSS`. Data missing from **all** tiers.
+  Record the time window. Check retention/eviction settings; this is not
+  self-healing.
+- **critical**—`historic fill: ... no Gen0 AND no cv2 coverage — data may
+  be missing`. A historic range is unrecoverable from any medium.
+- **high**—WAL files lost / eviction outrunning replication. The source
+  evicted WAL before EDR replicated it. Raise `--wal-snapshots-to-keep`;
+  gap fill recovers what it can (at a cost).
 
 ### State and cursor
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| `failed to save cursor — will not survive restart` | high | Explains **post-restart rework** (re-replication)—the cursor didn't persist. Check the state-location's durability/permissions. |
-| `cursor state unparseable — falling back to previous-good copy` | medium | Primary corrupt, recovered from the mirror—self-healed, no operator action. Explains nothing else; not a large re-replication. |
-| `previous-good cursor also unparseable — starting from default` / `cursor state loss: primary AND mirror both corrupt/unreadable` | high | **State loss**—both copies gone. What happens next depends on `on_state_loss`: look for the follow-up line below. |
-| `cursor rebuilt from snapshot floor` (per node) | high | `on_state_loss: recover` fired—explains a re-replication bounded by the node's retained WAL (not the whole backlog from WAL 1, and not silent—the position and reason are both in this line). |
-| `cursor state loss ... Refusing to start per on_state_loss: halt` | critical | The agent **did not start**. Restore the state location from backup, or switch to `on_state_loss: recover` (requires `idempotent_writes: true`). |
-| `historic fill manifest state loss ... Refusing to start per on_state_loss: halt` | critical | Same as above, for the historic manifest specifically—distinct from `historic_fill is configured but live replication has already started` (a config-ambiguity refusal, not a corruption event). |
-| `Cursor reset detected` | medium | Upstream InfluxDB WAL IDs reset (for example, a data wipe with state retained). The agent auto-resets; explains a discontinuity. |
-| `failed to save gap ledger ...` | medium | Gap obligations may not have survived a restart. |
+- **high**—`failed to save cursor — will not survive restart`. Explains
+  **post-restart rework** (re-replication)—the cursor didn't persist.
+  Check the state-location's durability/permissions.
+- **medium**—`cursor state unparseable — falling back to previous-good
+  copy`. Primary corrupt, recovered from the mirror—self-healed, no
+  operator action. Explains nothing else; not a large re-replication.
+- **high**—`previous-good cursor also unparseable — starting from
+  default` / `cursor state loss: primary AND mirror both
+  corrupt/unreadable`. **State loss**—both copies gone. What happens next
+  depends on `on_state_loss`: see the next two entries.
+- **high**—`cursor rebuilt from snapshot floor` (per node).
+  `on_state_loss: recover` fired—explains a re-replication bounded by the
+  node's retained WAL (not the whole backlog from WAL 1, and not
+  silent—the position and reason are both in this line).
+- **critical**—`cursor state loss ... Refusing to start per
+  on_state_loss: halt`. The agent **did not start**. Restore the state
+  location from backup, or switch to `on_state_loss: recover` (requires
+  `idempotent_writes: true`).
+- **critical**—`historic fill manifest state loss ... Refusing to start
+  per on_state_loss: halt`. Same as above, for the historic manifest
+  specifically—distinct from `historic_fill is configured but live
+  replication has already started` (a config-ambiguity refusal, not a
+  corruption event).
+- **medium**—`Cursor reset detected`. Upstream InfluxDB WAL IDs reset (for
+  example, a data wipe with state retained). The agent auto-resets;
+  explains a discontinuity.
+- **medium**—`failed to save gap ledger ...`. Gap obligations may not have
+  survived a restart.
 
 ### Connectivity
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| `upstream timed out — marking disconnected` alternating with `reconnect requested` | medium | **Flapping** if cycling. Report the rate over the window to identify network instability, not an EDR fault. |
+- **medium**—`upstream timed out — marking disconnected` alternating with
+  `reconnect requested`. **Flapping** if cycling. Report the rate over
+  the window to identify network instability, not an EDR fault.
 
 ### Config and startup refusal (never got going)
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| `config must include at least one of 'downstream' or 'upstreams'` | high | The agent **refused to start**—fix the config. |
-| `historic fill: cannot parse 'since' value — aborting` / `... requires a 'since' value` | high | Refused to start—set `since` to a whole-day duration (`7d`) or ISO date (sub-day units are rejected). |
-| `config reload skipped — requires full restart` | medium | A config change was **silently not applied**—a non-reloadable field changed; the agent kept the old config. Restart to apply. |
+- **high**—`config must include at least one of 'downstream' or
+  'upstreams'`. The agent **refused to start**—fix the config.
+- **high**—`historic fill: cannot parse 'since' value — aborting` / `...
+  requires a 'since' value`. Refused to start—set `since` to a whole-day
+  duration (`7d`) or ISO date (sub-day units are rejected).
+- **medium**—`config reload skipped — requires full restart`. A config
+  change was **silently not applied**—a non-reloadable field changed; the
+  agent kept the old config. Restart to apply.
 
 ### Infrastructure
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| `catalog could not be read from the object store (transient?)` / `verify the object store is reachable, then restart` | high | Object store / InfluxDB unreachable—an **infrastructure** root cause, not an EDR fault. |
-| `catalog not found ... cannot resolve database/table names` / `ensure the InfluxDB instance has been started at least once` | high | The source InfluxDB never wrote a catalog. Start the InfluxDB 3 Enterprise instance before the agent; if it runs on 3.10.x, start it with `--upgrade-pacha-tree` so it writes the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)'s catalog format. |
+- **high**—`catalog could not be read from the object store
+  (transient?)` / `verify the object store is reachable, then restart`.
+  Object store / InfluxDB unreachable—an **infrastructure** root cause,
+  not an EDR fault.
+- **high**—`catalog not found ... cannot resolve database/table names` /
+  `ensure the InfluxDB instance has been started at least once`. The
+  source InfluxDB never wrote a catalog. Start the InfluxDB 3 Enterprise
+  instance before the agent; if it runs on 3.10.x, start it with
+  `--upgrade-pacha-tree` so it writes the
+  [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)'s
+  catalog format.
 
 ### WAL cleanup (only when `--wal-cleanup-enabled`)
 
-| Signal | Severity | Inference & action |
-|---|---|---|
-| `wal cleanup: deleted replicated WAL files` | info | **Routine.** The agent pruned already-replicated WAL (logs the watermark and the floors). Not loss—only WAL below `min(cursor, snapshot-margin, historic-fill floor)`. |
-| `wal cleanup: delete failed` / `sweep had delete errors; watermark held` | low | Transient object-store delete errors; the watermark is held and the range retried next sweep (idempotent). Persistent errors warrant checking store reachability/permissions. |
-| `wal cleanup: historic fill not ready — skipping sweep` | info | Cleanup is configured but historic fill's plan isn't built yet, so the sweep no-ops (conservative). Expected early in a backfill. |
+- **info**—`wal cleanup: deleted replicated WAL files`. **Routine.** The
+  agent pruned already-replicated WAL (logs the watermark and the
+  floors). Not loss—only WAL below `min(cursor, snapshot-margin,
+  historic-fill floor)`.
+- **low**—`wal cleanup: delete failed` / `sweep had delete errors;
+  watermark held`. Transient object-store delete errors; the watermark is
+  held and the range retried next sweep (idempotent). Persistent errors
+  warrant checking store reachability/permissions.
+- **info**—`wal cleanup: historic fill not ready — skipping sweep`.
+  Cleanup is configured but historic fill's plan isn't built yet, so the
+  sweep no-ops (conservative). Expected early in a backfill.
 
 ### Everything else
 
@@ -168,7 +216,7 @@ the long tail is visible and nothing is silently dropped.
 
 ## Worked example
 
-```json
+```json {lint="false"}
 {"timestamp":"...11:31:02","level":"INFO","message":"upstream replication pipeline started"}
 {"timestamp":"...11:33:10","level":"INFO","message":"...replicated...","fields":{"wal_id":1042}}
 {"timestamp":"...11:33:41","level":"WARN","message":"schema conflict","fields":{"database":"sensors","table":"air_quality"}}
@@ -202,20 +250,30 @@ The log says *how it got there*; `edr-inspect` says *where it ended up* and
 *whether it's still broken*. Confirm and quantify the log's findings with
 the three views—but they split on whether the agent is running:
 
-| Command | Needs a live agent? | What it adds to the post-mortem |
-|---|---|---|
-| `edr-inspect state <state-location>` | **No—reads the journals offline** | The durable end-state, even on a dead agent (the journals survive on the volume): the WAL cursor, the gap ledger (pending / unrecoverable), and historic progress + lost-counts. The primary corroborator. |
-| `edr-inspect metrics [addr]` | **Yes** | Current live health of the (restarted) agent—*is it still failing?* Counters are for the **current run**, so they show recovery state, **not** the incident—the log does that. |
-| `edr-inspect topology [addr]` | **Yes** | Current per-channel health after recovery—which upstream/downstream is degraded now. |
+- **`edr-inspect state <state-location>`**—no, reads the journals
+  offline. The durable end-state, even on a dead agent (the journals
+  survive on the volume): the WAL cursor, the gap ledger (pending /
+  unrecoverable), and historic progress + lost-counts. The primary
+  corroborator.
+- **`edr-inspect metrics [addr]`**—yes, needs a live agent. Current live
+  health of the (restarted) agent—*is it still failing?* Counters are
+  for the **current run**, so they show recovery state, **not** the
+  incident—the log does that.
+- **`edr-inspect topology [addr]`**—yes, needs a live agent. Current
+  per-channel health after recovery—which upstream/downstream is
+  degraded now.
 
 **Map a log finding to its corroborator:**
 
-| Log finding | Confirm / quantify with |
-|---|---|
-| `POTENTIAL DATA LOSS` / WAL lost | `state` -> HISTORIC lost-counts + GAP FILL `unrecoverable` entries |
-| `Cursor reset` / corrupt-cursor re-seed | `state` -> LIVE REPLICATION (current cursor vs. expected) |
-| gap advisories | `state` -> gap ledger (what's `pending` / `in-progress` now) |
-| halt / `Unauthorised` / schema conflict (agent **now running**) | `metrics` (`replication_halted`, `last_write_result`) / `topology` (channel health) to check whether it's still wedged, or recovered |
+- `POTENTIAL DATA LOSS` / WAL lost -> `state`: HISTORIC lost-counts + GAP
+  FILL `unrecoverable` entries.
+- `Cursor reset` / corrupt-cursor re-seed -> `state`: LIVE REPLICATION
+  (current cursor vs. expected).
+- gap advisories -> `state`: gap ledger (what's `pending` /
+  `in-progress` now).
+- halt / `Unauthorised` / schema conflict (agent **now running**) ->
+  `metrics` (`replication_halted`, `last_write_result`) / `topology`
+  (channel health) to check whether it's still wedged, or recovered.
 
 Rule of thumb: **check `state` always** (it's offline and durable); check
 **`metrics`/`topology` only if the agent is back up**, and treat their

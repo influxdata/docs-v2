@@ -163,7 +163,10 @@ EDR delivers at-least-once, even across a destination outage:
 The destination catches up on the backlog it missed while stopped—no data
 written at the source is lost. See
 [EDR state and recovery](/influxdb3/edr/reference/state-and-recovery/) for
-what the agent persists to make this possible.
+what the agent persists to make this possible. If an agent crashes rather
+than stopping cleanly, see the
+[log post-mortem playbook](/influxdb3/edr/troubleshoot/log-postmortem-playbook/)
+to reconstruct what happened from its captured log.
 
 ## Next
 
@@ -176,5 +179,6 @@ what the agent persists to make this possible.
   fan out one source to several destinations at once.
 - [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
-- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/)—when something
-  looks wrong.
+- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/).
+
+{{< page-nav prev="/influxdb3/edr/install/" prevText="Install EDR" next="/influxdb3/edr/demo/" nextText="Run the signals demo" >}}

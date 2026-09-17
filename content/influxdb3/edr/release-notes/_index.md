@@ -11,16 +11,17 @@ related:
   - /influxdb3/edr/
 ---
 
-EDR beta releases. Version numbers follow `0.MINOR.PATCH` during the beta:
-the minor bumps with each beta drop, a patch marks a re-spin of the same
-drop, and `1.0.0` marks general availability (release candidates for it are
-numbered `1.0.0-0.rc.N`). Every release is immutable once published—a
-given version always refers to exactly the same bytes—and the agent
-identifies its build precisely: `influxdb3-edr --version` prints the
-version plus the source revision it was built from (for example, `0.2.0
-(682ce264f)`), the same identity appears in the agent's startup log, and
-each agent reports it to its downstream, so the destination's API/UI shows
-which build every connected edge is running.
+EDR follows [SemVer](https://semver.org). During the beta, the version stays
+below `1.0.0`; within that range, EDR bumps the minor number for each beta
+drop and the patch number for a re-spin of the same drop. `1.0.0` marks
+general availability (release candidates for it are numbered
+`1.0.0-0.rc.N`). Every release is immutable once published—a given version
+always refers to exactly the same bytes—and the agent identifies its build
+precisely: `influxdb3-edr --version` prints the version plus the source
+revision it was built from (for example, `0.2.0 (682ce264f)`), the same
+identity appears in the agent's startup log, and each agent reports it to
+its downstream, so the destination's API/UI shows which build every
+connected edge is running.
 
 Each release is built against a pinned InfluxDB 3 Enterprise revision,
 encoded in the image tag (`edr:<version>-pro<revision>-<arch>`).

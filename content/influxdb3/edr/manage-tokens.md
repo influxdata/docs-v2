@@ -45,6 +45,13 @@ agent resolves tokens fresh on every use, so no restart is required. When
 rotating a token shared between a source and a destination, update the
 **destination** first, then the source.
 
+## Retire an upstream
+
+There's no dedicated decommission API. Permanently retire an upstream by
+removing it from the downstream's config (its `upstreams` list) and
+revoking its auth token. Previously replicated data at the destination is
+preserved.
+
 ## Vault-backed token stores
 
 A Vault-backed store is planned behind the same `TokenStore` service

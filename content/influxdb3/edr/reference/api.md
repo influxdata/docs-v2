@@ -30,7 +30,7 @@ upstream's replication cursor advances only on confirmed delivery.
 ## Replication protocol endpoints
 
 These endpoints carry the EDR agent-to-agent replication protocol
-(`/edr/v1/*`), not an InfluxDB API.
+(`/edr/v1/*`), not an InfluxDB 3 API.
 
 | Endpoint | Method | Purpose |
 |---|---|---|
@@ -42,7 +42,7 @@ These endpoints carry the EDR agent-to-agent replication protocol
 ## Observability API endpoints
 
 These endpoints expose an EDR agent's own replication metrics and status,
-not InfluxDB data.
+not InfluxDB 3 data.
 
 | Endpoint | Method | Purpose |
 |---|---|---|
@@ -140,7 +140,7 @@ a message naming the config key.
   identity (`upstreams[].auth_token`).
 - **Authorization by the destination**: the downstream writes each
   upstream's data using that upstream's `write_token` against the local
-  InfluxDB instance. The token's permissions on the destination determine
+  InfluxDB 3 instance. The token's permissions on the destination determine
   what the upstream can effectively write—EDR implements no authorization
   layer of its own. Restricting or revoking an upstream is done by scoping
   or revoking its tokens.
