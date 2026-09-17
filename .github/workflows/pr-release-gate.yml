@@ -20,18 +20,19 @@ name: Release Gate
 #     anything.
 #   - Runs on pull_request_review too, so an approval or dismissal re-evaluates
 #     the gate without a new push.
-#   - Team membership is resolved with RELEASE_GATE_ORG_TOKEN (a token with
-#     read:org). Only the teams for triggered gates are resolved, so PRs that
-#     bump ungated products never need the token. If a triggered gate's team
-#     cannot be resolved (missing secret, fork PR, wrong slug), the check fails
-#     closed and says so.
+#   - Team membership is resolved in an isolated job with
+#     RELEASE_GATE_ORG_TOKEN (a token with read:org). That job reads only the
+#     trusted base policy and passes qualifying approver names to the gate job.
+#     If a triggered gate's team cannot be resolved, the check fails closed.
 #   - Turn on "Dismiss stale pull request approvals when new commits are
 #     pushed" in branch protection so a push after approval re-closes the gate.
 #   - Make this check required in branch protection once it has passed on a
 #     test PR. The job name below is the status check name.
 
 on:
-  pull_request:
+  # Run the workflow definition from the trusted base branch. Jobs read the PR
+  # head only as data and never check out or execute its code.
+  pull_request_target:
     types: [opened, synchronize, reopened]
   pull_request_review:
     types: [submitted, dismissed]
@@ -48,8 +49,95 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  resolve-release-team-approvers:
+    name: Resolve release team approvers
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      approvers: ${{ steps.resolve.outputs.approvers }}
+    env:
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+    steps:
+      # Read gate policy and public review states without checking out either
+      # revision. The only value passed to the gate job is the
+      # subset of approving reviewers that belong to each release team.
+      - name: Fetch release teams and approving reviews
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          merge_base=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/compare/${BASE_SHA}...${HEAD_SHA}?per_page=1" \
+            --jq '.merge_base_commit.sha')
+          for revision in "base:$merge_base" "head:$HEAD_SHA"; do
+            name="${revision%%:*}"
+            ref="${revision#*:}"
+            if content=$(gh api --method GET \
+                "repos/${GITHUB_REPOSITORY}/contents/.ci/release-gates.yml" \
+                -f ref="$ref" --jq '.content' 2>/dev/null); then
+              printf '%s' "$content" | base64 --decode > "/tmp/gates-${name}.yml"
+            else
+              echo '{}' > "/tmp/gates-${name}.yml"
+            fi
+          done
+          ruby -ryaml -e '
+            base = YAML.safe_load_file(ARGV[0], aliases: false) || {}
+            head = YAML.safe_load_file(ARGV[1], aliases: false) || {}
+            gates = head.merge(base)
+            gates.each_value { |gate| puts gate.fetch("team") }
+          ' /tmp/gates-base.yml /tmp/gates-head.yml \
+            | sort -u > /tmp/teams.txt
+          gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/reviews" \
+            --jq '.[]' | jq -s '
+              sort_by(.submitted_at // "", .id // 0)
+              | reduce .[] as $review ({};
+                  if ($review.user.login and
+                      (["APPROVED", "CHANGES_REQUESTED", "DISMISSED"]
+                       | index($review.state)))
+                  then .[$review.user.login] = $review.state
+                  else .
+                  end)
+              | to_entries
+              | map(select(.value == "APPROVED") | .key)
+            ' > /tmp/approved-reviews.json
+
+      - name: Resolve release team approvers
+        id: resolve
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_GATE_ORG_TOKEN }}
+        run: |
+          echo '{}' > /tmp/approvers.json
+          while IFS= read -r team; do
+            org="${team%%/*}"
+            slug="${team#*/}"
+            if [[ -z "$GH_TOKEN" ]] ||
+                ! gh api "orgs/${org}/teams/${slug}" --silent 2>/dev/null; then
+              approvers='null'
+            else
+              approvers='[]'
+              while IFS= read -r login; do
+                if gh api "orgs/${org}/teams/${slug}/memberships/${login}" \
+                    --jq '.state' 2>/dev/null | grep -qx active; then
+                  approvers=$(jq --arg login "$login" \
+                    '. + [$login]' <<< "$approvers")
+                fi
+              done < <(jq -r '.[]' /tmp/approved-reviews.json)
+            fi
+            jq --arg team "$team" --argjson approvers "$approvers" \
+              '. + {($team): $approvers}' /tmp/approvers.json \
+              > /tmp/approvers.next.json
+            mv /tmp/approvers.next.json /tmp/approvers.json
+          done < /tmp/teams.txt
+          echo "approvers=$(jq -c . /tmp/approvers.json)" >> "$GITHUB_OUTPUT"
+
   release-gate:
     name: Release gate
+    needs: resolve-release-team-approvers
+    if: always()
     runs-on: ubuntu-latest
     env:
       PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -59,10 +147,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # The PR head, not the merge ref, so the diff below is the PR's own
-          # change. Works the same for pull_request and pull_request_review.
-          ref: ${{ github.event.pull_request.head.sha }}
+          # Execute only trusted base-revision scripts. The PR's products.yml
+          # is extracted below and treated only as input data.
+          ref: ${{ github.event.pull_request.base.sha }}
           fetch-depth: 1
+          persist-credentials: false
 
       # `pull_request.base.sha` is the base branch tip from when the PR was
       # opened or its base last changed, NOT the merge base. Diffing against it
@@ -85,16 +174,17 @@ jobs:
           echo "Merge base: $mb"
           echo "sha=$mb" >> "$GITHUB_OUTPUT"
 
-      # Fast path: most PRs never touch data/products.yml. Fetch the merge-base
-      # commit only (not the whole history) and exit before Node is installed.
-      # Changes to the schema, the gates config, or the checkers also run the
-      # full job so their own PRs prove they still pass.
+      # Fast path: most PRs never touch data/products.yml. Fetch only the
+      # commits needed for the diff and exit before Node is installed.
+      # Changes to the schema, gates config, or checkers also run the full gate
+      # against the trusted base implementation.
       - name: Detect products.yml change
         id: detect
         env:
           MERGE_BASE: ${{ steps.mergebase.outputs.sha }}
         run: |
           git fetch --no-tags --depth=1 origin "$MERGE_BASE"
+          git fetch --no-tags --depth=1 origin "$HEAD_SHA"
           if git diff --name-only "$MERGE_BASE" "$HEAD_SHA" \
               | grep -qxE 'data/products\.yml|scripts/schemas/products\.schema\.json|\.ci/release-gates\.yml|\.ci/scripts/check-(products-schema|release-gate)(\.test)?\.js'; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -130,7 +220,9 @@ jobs:
       # field-level message, not later as a confusing gate result.
       - name: Validate products.yml against its schema
         if: steps.detect.outputs.changed == 'true'
-        run: node .ci/scripts/check-products-schema.js
+        run: |
+          git show "$HEAD_SHA:data/products.yml" > /tmp/products-new.yml
+          node .ci/scripts/check-products-schema.js /tmp/products-new.yml
 
       # Which gates does this diff trigger? Prints team slugs, or nothing.
       - name: Find triggered gates
@@ -149,10 +241,12 @@ jobs:
           # one means "no policy yet", not a failure.
           git show "$MERGE_BASE:.ci/release-gates.yml" > /tmp/gates-base.yml \
             2>/dev/null || echo '{}' > /tmp/gates-base.yml
+          git show "$HEAD_SHA:.ci/release-gates.yml" > /tmp/gates-head.yml \
+            2>/dev/null || echo '{}' > /tmp/gates-head.yml
           node .ci/scripts/check-release-gate.js \
-            --base /tmp/products-old.yml --head data/products.yml \
+            --base /tmp/products-old.yml --head /tmp/products-new.yml \
             --gates-base /tmp/gates-base.yml \
-            --gates-head .ci/release-gates.yml \
+            --gates-head /tmp/gates-head.yml \
             --print-teams > /tmp/teams.txt
           echo "Triggered gate teams:"
           cat /tmp/teams.txt
@@ -172,32 +266,15 @@ jobs:
             --jq '.[]' | jq -s '.' > /tmp/reviews.json
           echo "$(jq length /tmp/reviews.json) review(s) fetched"
 
-      # One JSON object: { "org/slug": [logins] | null }. null when the team
-      # cannot be read; the checker treats that as fail-closed.
-      - name: Resolve release team members
+      # One JSON object: { "org/slug": [approving logins] | null }. The trusted
+      # resolver returns null when a team cannot be read, so the checker fails
+      # closed without exposing the read:org token to the gate job.
+      - name: Load release team approvers
         if: steps.gates.outputs.triggered == 'true'
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_GATE_ORG_TOKEN }}
+          APPROVERS: ${{ needs.resolve-release-team-approvers.outputs.approvers }}
         run: |
-          echo '{}' > /tmp/members.json
-          while IFS= read -r team; do
-            [[ -z "$team" ]] && continue
-            org="${team%%/*}"
-            slug="${team#*/}"
-            if [[ -z "$GH_TOKEN" ]]; then
-              echo "::warning::RELEASE_GATE_ORG_TOKEN is not set; cannot resolve $team"
-              members='null'
-            elif members=$(gh api --paginate "orgs/${org}/teams/${slug}/members" \
-                --jq '.[].login' 2>/tmp/gh-err.txt | jq -R -s 'split("\n") | map(select(length > 0))'); then
-              echo "$team: $(jq length <<< "$members") member(s)"
-            else
-              echo "::warning::Could not read members of $team: $(cat /tmp/gh-err.txt)"
-              members='null'
-            fi
-            jq --arg t "$team" --argjson m "$members" '. + {($t): $m}' \
-              /tmp/members.json > /tmp/members.next.json
-            mv /tmp/members.next.json /tmp/members.json
-          done < /tmp/teams.txt
+          printf '%s\n' "${APPROVERS:-{}}" > /tmp/members.json
 
       # Records the result instead of failing here, so the comment step below
       # still runs. The last step fails the job.
@@ -207,9 +284,9 @@ jobs:
         run: |
           set +e
           node .ci/scripts/check-release-gate.js \
-            --base /tmp/products-old.yml --head data/products.yml \
+            --base /tmp/products-old.yml --head /tmp/products-new.yml \
             --gates-base /tmp/gates-base.yml \
-            --gates-head .ci/release-gates.yml \
+            --gates-head /tmp/gates-head.yml \
             --reviews /tmp/reviews.json --members /tmp/members.json \
             | tee /tmp/report.md
           status=${PIPESTATUS[0]}
