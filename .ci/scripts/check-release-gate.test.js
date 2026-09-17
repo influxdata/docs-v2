@@ -2,13 +2,14 @@
  * Self-tests for check-release-gate.js.
  * Run: node --test .ci/scripts/check-release-gate.test.js
  */
-import { test } from 'node:test';
+import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import yaml from 'js-yaml';
 import {
   gatedBumps,
   latestReviewStates,
@@ -238,6 +239,108 @@ test('a value that is unusable on both sides does not trigger', () => {
   const b = structuredClone(base);
   b.influxdb3_enterprise.latest_patch = null;
   assert.deepEqual(gatedBumps(b, structuredClone(b), gates), []);
+});
+
+/**
+ * --print-teams drives the workflow's `triggered` output, so its stdout is a
+ * contract: one team per line, nothing at all when no gate fires.
+ */
+describe('--print-teams', () => {
+  const tmp = mkdtempSync(join(tmpdir(), 'release-gate-teams-'));
+  const write = (name, obj) => {
+    const p = join(tmp, name);
+    writeFileSync(p, yaml.dump(obj));
+    return p;
+  };
+  const twoGates = {
+    influxdb3_core: { field: 'latest_patch', team: 'influxdata/monolith' },
+    influxdb3_enterprise: {
+      field: 'latest_patch',
+      team: 'influxdata/monolith',
+    },
+    enterprise_influxdb: {
+      field: 'latest_patches.v1',
+      team: 'influxdata/v1',
+    },
+  };
+  const products = {
+    influxdb3_core: { latest_patch: '3.11.4' },
+    influxdb3_enterprise: { latest_patch: '3.11.4' },
+    enterprise_influxdb: { latest_patches: { v1: '1.12.4' } },
+  };
+  const printTeams = (extra) =>
+    spawnSync(process.execPath, [SCRIPT, '--print-teams', ...extra], {
+      encoding: 'utf8',
+    });
+
+  test('prints nothing when no gated field changed', () => {
+    const base = write('same-a.yml', products);
+    const head = write('same-b.yml', products);
+    const r = printTeams([
+      '--base',
+      base,
+      '--head',
+      head,
+      '--gates',
+      write('g1.yml', twoGates),
+    ]);
+    assert.equal(r.status, 0);
+    assert.equal(r.stdout.trim(), '');
+  });
+
+  test('prints one line per team, deduplicated across products', () => {
+    const head = structuredClone(products);
+    head.influxdb3_core.latest_patch = '3.11.5';
+    head.influxdb3_enterprise.latest_patch = '3.11.5';
+    const r = printTeams([
+      '--base',
+      write('base-a.yml', products),
+      '--head',
+      write('head-a.yml', head),
+      '--gates',
+      write('g2.yml', twoGates),
+    ]);
+    assert.equal(r.status, 0);
+    assert.deepEqual(r.stdout.trim().split('\n'), ['influxdata/monolith']);
+  });
+
+  test('prints every distinct team when gates for two teams fire', () => {
+    const head = structuredClone(products);
+    head.influxdb3_core.latest_patch = '3.11.5';
+    head.enterprise_influxdb.latest_patches.v1 = '1.12.5';
+    const r = printTeams([
+      '--base',
+      write('base-b.yml', products),
+      '--head',
+      write('head-b.yml', head),
+      '--gates',
+      write('g3.yml', twoGates),
+    ]);
+    assert.equal(r.status, 0);
+    assert.deepEqual(r.stdout.trim().split('\n').sort(), [
+      'influxdata/monolith',
+      'influxdata/v1',
+    ]);
+  });
+
+  test('honors base precedence when the head policy drops the gate', () => {
+    const head = structuredClone(products);
+    head.influxdb3_core.latest_patch = '3.11.5';
+    const r = printTeams([
+      '--base',
+      write('base-c.yml', products),
+      '--head',
+      write('head-c.yml', head),
+      '--gates-base',
+      write('g-base.yml', twoGates),
+      '--gates-head',
+      write('g-head.yml', {
+        enterprise_influxdb: twoGates.enterprise_influxdb,
+      }),
+    ]);
+    assert.equal(r.status, 0);
+    assert.deepEqual(r.stdout.trim().split('\n'), ['influxdata/monolith']);
+  });
 });
 
 test('CLI exits 2 with a clear error on unreadable or malformed products.yml', () => {

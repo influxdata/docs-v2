@@ -460,11 +460,15 @@ approving review from that team.
 The team's approval is the greenlight.
 Earlier signals such as a release candidate sent to specific customers, a
 published Docker image, a git tag, or a Cloud deployment are not.
-When the gate is closed, the check posts a comment on the PR with what it
-needs.
+When the gate is closed on a branch in this repository, the check posts a
+comment on the PR with what it needs.
 It does not request the review for you.
 Keep release content in a draft PR until the team says the release is ready,
 then request the team's review yourself.
+
+The gate applies to pull requests from forks as well, but the check cannot
+comment on those.
+Look at the check's summary for the reason instead.
 
 To gate another product, add an entry to `.ci/release-gates.yml`.
 The check is implemented in `.ci/scripts/check-release-gate.js` and runs from
