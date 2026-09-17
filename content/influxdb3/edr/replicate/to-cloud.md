@@ -20,7 +20,7 @@ see [Configuration file reference](/influxdb3/edr/reference/config-file/).
 Cloud-specific destination shape beyond "mode: direct" — confirm whether
 InfluxDB 3 Cloud runs an EDR agent (agent-to-agent mode) or is always a
 direct-mode destination, and what the production endpoint/auth flow looks
-like, before publishing this page. See PLAN.md §9. —>
+like, before publishing this page. See PLAN.md §9. -->
 
 ## Direct mode: write straight to InfluxDB 3 Cloud
 

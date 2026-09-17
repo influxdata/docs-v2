@@ -42,6 +42,20 @@ Use GitHub-flavored Markdown blockquotes with special alert types:
 > Insert tip markdown content here.
 ```
 
+### Callouts with a heading
+
+To give a callout its own heading, follow the alert type with a Markdown
+heading line, then a blank blockquote line (`>`) before the body text.
+Without the blank line, Markdown treats the heading and the body as a single
+paragraph and doesn't render the heading as a heading:
+
+```md
+> [!Note]
+> #### Heading text
+>
+> Body text starts here.
+```
+
 ## Required Elements
 
 Use the `{{< req >}}` shortcode to identify required elements in documentation with orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but you can customize the text by passing a string argument with the shortcode.

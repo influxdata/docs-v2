@@ -6,7 +6,8 @@ description: >
 menu:
   influxdb3_edr:
     name: Log post-mortem playbook
-weight: 1
+    parent: Troubleshoot
+weight: 2
 ---
 
 Diagnose **what happened** to an EDR agent from a **captured log**, after
