@@ -16,22 +16,68 @@ weight: 203
 influxdb3-edr [OPTIONS]
 ```
 
-| Flag | Required | Default | Description |
-|---|-----|-----|-------|
-| `--config <PATH>` | Yes | — | Path to replication config YAML file. |
-| `--data-dir <PATH>` | Yes | — | InfluxDB data directory (shared object store). |
-| `--token-store <PATH>` | Yes | — | Path to token store directory. |
-| `--listen <ADDR:PORT>` | No | `0.0.0.0:9090` | Network listener—the replication protocol (`/edr/v1/connect\|data\|report`) and `/health`. Must be reachable by upstreams. `0.0.0.0:0` for an OS-assigned port. Env: `INFLUXDB3_EDR_LISTEN`. |
-| `--observability-listen <ADDR:PORT>` | No | `127.0.0.1:9091` | **Loopback by default**—the UI, `/metrics`, and the JSON observability API. Set to `0.0.0.0:<port>` (or a specific interface) to expose for off-host Prometheus / remote UI. Env: `INFLUXDB3_EDR_OBSERVABILITY_LISTEN`. |
-| `--listener-file-path <PATH>` | No | — | File to write the actual network listener address to (for testing with port 0). |
-| `--state-location <URL/PATH>` | No | `edr-state` | State persistence location, **independent of `--object-store-type`**. A path or `file://` URL = local; `s3://bucket/prefix`, `gs://...`, `az://...` = object storage (credentials/region from the environment). Holds `wal_cursor.json`, `gap_ledger.json`, `historic_manifest.json`. Env: `INFLUXDB3_EDR_STATE_LOCATION`. |
-| `--poll-interval-ms <MS>` | No | `1000` | Object store polling interval in milliseconds. |
-| `--object-store-type <TYPE>` | No | — | Override object store type (`s3`, `google`, `azure`). Uses env vars for credentials. |
-| `--wal-cleanup-enabled` | No | `false` | **Opt-in, temporary stop-gap.** Enable agent-side deletion of already-replicated WAL files from the source object store, so they don't build up past the replicated journal. Off by default (deleting source WAL is destructive). See [Size WAL retention](/influxdb3/edr/size-wal-retention/). Env: `INFLUXDB3_EDR_WAL_CLEANUP_ENABLED`. |
-| `--wal-cleanup-interval-secs <S>` | No | `300` | How often the cleanup sweep runs (only when enabled). Env: `INFLUXDB3_EDR_WAL_CLEANUP_INTERVAL_SECS`. |
-| `--wal-cleanup-snapshot-margin <N>` | No | `100` | WAL files to keep below the last snapshotted WAL id—the safety margin behind the snapshot boundary (only when enabled). Env: `INFLUXDB3_EDR_WAL_CLEANUP_SNAPSHOT_MARGIN`. |
-| `--wal-cleanup-max-destination-hold <D>` | No | unbounded | Fan-out only: a destination whose cursor hasn't advanced for this long (`"7d"`, `"12h"`, `"30m"`) stops holding the cleanup floor; it recovers the evicted range via gap fill when it returns (over-replication, never loss). Unset = a down destination pins WAL indefinitely. Env: `INFLUXDB3_EDR_WAL_CLEANUP_MAX_DESTINATION_HOLD`. |
-| `--benchmark <N>` | No | — | Run a bandwidth benchmark against up to N WAL files and exit. |
+| Flag | Required | Default |
+|---|---|---|
+| `--config <PATH>` | Yes | — |
+| `--data-dir <PATH>` | Yes | — |
+| `--token-store <PATH>` | Yes | — |
+| `--listen <ADDR:PORT>` | No | `0.0.0.0:9090` |
+| `--observability-listen <ADDR:PORT>` | No | `127.0.0.1:9091` |
+| `--listener-file-path <PATH>` | No | — |
+| `--state-location <URL/PATH>` | No | `edr-state` |
+| `--poll-interval-ms <MS>` | No | `1000` |
+| `--object-store-type <TYPE>` | No | — |
+| `--wal-cleanup-enabled` | No | `false` |
+| `--wal-cleanup-interval-secs <S>` | No | `300` |
+| `--wal-cleanup-snapshot-margin <N>` | No | `100` |
+| `--wal-cleanup-max-destination-hold <D>` | No | unbounded |
+| `--benchmark <N>` | No | — |
+
+- **`--config <PATH>`**—path to the replication config YAML file.
+- **`--data-dir <PATH>`**—InfluxDB data directory (shared object store).
+- **`--token-store <PATH>`**—path to the token store directory.
+- **`--listen <ADDR:PORT>`**—network listener for the replication
+  protocol (`/edr/v1/connect|data|report`) and `/health`. Must be
+  reachable by upstreams. `0.0.0.0:0` for an OS-assigned port. Env:
+  `INFLUXDB3_EDR_LISTEN`.
+- **`--observability-listen <ADDR:PORT>`**—**loopback by default**: the
+  UI, `/metrics`, and the JSON observability API. Set to
+  `0.0.0.0:<port>` (or a specific interface) to expose for off-host
+  Prometheus or a remote UI. Env: `INFLUXDB3_EDR_OBSERVABILITY_LISTEN`.
+- **`--listener-file-path <PATH>`**—file to write the actual network
+  listener address to (for testing with port 0).
+- **`--state-location <URL/PATH>`**—state persistence location,
+  **independent of `--object-store-type`**. A path or `file://` URL is
+  local; `s3://bucket/prefix`, `gs://...`, `az://...` are object
+  storage (credentials/region from the environment). Holds
+  `wal_cursor.json`, `gap_ledger.json`, `historic_manifest.json`. Env:
+  `INFLUXDB3_EDR_STATE_LOCATION`.
+- **`--poll-interval-ms <MS>`**—object store polling interval in
+  milliseconds.
+- **`--object-store-type <TYPE>`**—override the object store type
+  (`s3`, `google`, `azure`). Uses environment variables for
+  credentials.
+- **`--wal-cleanup-enabled`**—**opt-in, temporary stop-gap.** Enables
+  agent-side deletion of already-replicated WAL files from the source
+  object store, so they don't build up past the replicated journal.
+  Off by default (deleting source WAL is destructive). See
+  [Size WAL retention](/influxdb3/edr/size-wal-retention/). Env:
+  `INFLUXDB3_EDR_WAL_CLEANUP_ENABLED`.
+- **`--wal-cleanup-interval-secs <S>`**—how often the cleanup sweep
+  runs (only when enabled). Env:
+  `INFLUXDB3_EDR_WAL_CLEANUP_INTERVAL_SECS`.
+- **`--wal-cleanup-snapshot-margin <N>`**—WAL files to keep below the
+  last snapshotted WAL id, the safety margin behind the snapshot
+  boundary (only when enabled). Env:
+  `INFLUXDB3_EDR_WAL_CLEANUP_SNAPSHOT_MARGIN`.
+- **`--wal-cleanup-max-destination-hold <D>`**—fan-out only: a
+  destination whose cursor hasn't advanced for this long (`"7d"`,
+  `"12h"`, `"30m"`) stops holding the cleanup floor; it recovers the
+  evicted range via gap fill when it returns (over-replication, never
+  loss). Unset means a down destination pins WAL indefinitely. Env:
+  `INFLUXDB3_EDR_WAL_CLEANUP_MAX_DESTINATION_HOLD`.
+- **`--benchmark <N>`**—run a bandwidth benchmark against up to N WAL
+  files and exit.
 
 State and index files live wherever you point them—keep them on durable
 local storage. The state file holds the WAL cursor (what has been

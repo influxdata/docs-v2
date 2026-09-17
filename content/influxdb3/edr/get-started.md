@@ -129,10 +129,15 @@ does.
 
 ## Verify replication
 
+Use each instance's own InfluxDB admin or database token—not the EDR
+auth/write tokens from [Create a token store](#create-a-token-store),
+which authenticate the agents to each other, not you to InfluxDB.
+
 1. Write a point to the source instance:
 
    ```bash
    curl -X POST "http://localhost:<source-instance-port>/api/v3/write_lp?db=getting_started" \
+     --header "Authorization: Bearer <source-instance-admin-token>" \
      --data-raw "edr_test,host=source value=1"
    ```
 
@@ -140,6 +145,7 @@ does.
 
    ```bash
    curl -G "http://localhost:<destination-instance-port>/api/v3/query_sql" \
+     --header "Authorization: Bearer <destination-instance-admin-token>" \
      --data-urlencode "db=getting_started" \
      --data-urlencode "q=SELECT * FROM edr_test"
    ```

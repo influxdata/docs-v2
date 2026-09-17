@@ -15,8 +15,8 @@ multi-tier relay, and at-least-once delivery in one topology: two edges
 replicating up through a regional relay to a central hub, entirely in
 Docker.
 
-The demo is a self-contained bundle (`demo/signals-demo/`) that you
-download and run with Docker Compose—see [Run it](#run-it).
+The demo is a self-contained bundle that you unzip and run with Docker
+Compose—see [Run it](#run-it).
 
 1. [How EDR sources data](#how-edr-sources-data)
 2. [The topology](#the-topology)
@@ -147,11 +147,14 @@ large. For a two-node version, see
 
 ## Run it
 
-The demo is a self-contained bundle (`demo/signals-demo/`). Unzip it and
-follow its `README.md`—that's the canonical guide, covering prerequisites,
-licensing (trial or file-based), driving the dashboard (start/stop signals,
-cut/restore channels), the `edr-inspect` triage tooling, ports, and layout.
-In brief:
+The demo ships as its own zip, separate from the agent binaries and
+container image—see [EDR](/influxdb3/edr/) for how to obtain it if you
+don't have it yet. Unzip it; the archive extracts to a `signals-demo/`
+directory. `cd` into that directory and follow its `README.md`—that's
+the canonical guide, covering prerequisites, licensing (trial or
+file-based), driving the dashboard (start/stop signals, cut/restore
+channels), the `edr-inspect` triage tooling, ports, and layout. In
+brief, from inside `signals-demo/`:
 
 ```bash
 cp .env.example .env        # set the Enterprise image + the four license emails
