@@ -102,24 +102,31 @@ for multi-hop topologies.
 
 ## Start the agents
 
-```bash
+```bash { placeholders="SOURCE_INSTANCE_DATA_DIR|DESTINATION_INSTANCE_PORT|DESTINATION_INSTANCE_DATA_DIR" }
 # Source node:
 influxdb3-edr \
   --config /etc/edr/source-config.yaml \
-  --data-dir <source-instance-data-dir> \
+  --data-dir SOURCE_INSTANCE_DATA_DIR \
   --token-store /etc/edr/secrets \
   --listen 0.0.0.0:9090 \
   --state-location /var/lib/edr/source-state
 
 # Destination node:
-EDR_WRITE_ENDPOINT="http://localhost:<destination-instance-port>" \
+EDR_WRITE_ENDPOINT="http://localhost:DESTINATION_INSTANCE_PORT" \
 influxdb3-edr \
   --config /etc/edr/destination-config.yaml \
-  --data-dir <destination-instance-data-dir> \
+  --data-dir DESTINATION_INSTANCE_DATA_DIR \
   --token-store /etc/edr/secrets \
   --listen 0.0.0.0:9190 \
   --state-location /var/lib/edr/destination-state
 ```
+
+- {{% code-placeholder-key %}}`SOURCE_INSTANCE_DATA_DIR`{{% /code-placeholder-key %}}:
+  the source InfluxDB instance's data directory
+- {{% code-placeholder-key %}}`DESTINATION_INSTANCE_PORT`{{% /code-placeholder-key %}}:
+  the destination InfluxDB instance's HTTP port
+- {{% code-placeholder-key %}}`DESTINATION_INSTANCE_DATA_DIR`{{% /code-placeholder-key %}}:
+  the destination InfluxDB instance's data directory
 
 Each `influxdb3-edr` agent needs its own `--data-dir` (pointing at its
 InfluxDB instance's object store), `--listen` address, and
@@ -135,20 +142,30 @@ which authenticate the agents to each other, not you to InfluxDB.
 
 1. Write a point to the source instance:
 
-   ```bash
-   curl -X POST "http://localhost:<source-instance-port>/api/v3/write_lp?db=getting_started" \
-     --header "Authorization: Bearer <source-instance-admin-token>" \
+   ```bash { placeholders="SOURCE_INSTANCE_PORT|SOURCE_INSTANCE_ADMIN_TOKEN" }
+   curl -X POST "http://localhost:SOURCE_INSTANCE_PORT/api/v3/write_lp?db=getting_started" \
+     --header "Authorization: Bearer SOURCE_INSTANCE_ADMIN_TOKEN" \
      --data-raw "edr_test,host=source value=1"
    ```
 
+   - {{% code-placeholder-key %}}`SOURCE_INSTANCE_PORT`{{% /code-placeholder-key %}}:
+     the source InfluxDB instance's HTTP port
+   - {{% code-placeholder-key %}}`SOURCE_INSTANCE_ADMIN_TOKEN`{{% /code-placeholder-key %}}:
+     an admin or database token for the source instance
+
 2. Query the destination instance for the same point:
 
-   ```bash
-   curl -G "http://localhost:<destination-instance-port>/api/v3/query_sql" \
-     --header "Authorization: Bearer <destination-instance-admin-token>" \
+   ```bash { placeholders="DESTINATION_INSTANCE_PORT|DESTINATION_INSTANCE_ADMIN_TOKEN" }
+   curl -G "http://localhost:DESTINATION_INSTANCE_PORT/api/v3/query_sql" \
+     --header "Authorization: Bearer DESTINATION_INSTANCE_ADMIN_TOKEN" \
      --data-urlencode "db=getting_started" \
      --data-urlencode "q=SELECT * FROM edr_test"
    ```
+
+   - {{% code-placeholder-key %}}`DESTINATION_INSTANCE_PORT`{{% /code-placeholder-key %}}:
+     the destination InfluxDB instance's HTTP port
+   - {{% code-placeholder-key %}}`DESTINATION_INSTANCE_ADMIN_TOKEN`{{% /code-placeholder-key %}}:
+     an admin or database token for the destination instance
 
    The point EDR replicated from the source appears in the result.
 

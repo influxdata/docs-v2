@@ -82,10 +82,10 @@ expects before starting it:
 | `INFLUX_ADMIN_TOKEN` | — | This InfluxDB instance's admin token |
 | `EDR_SCRAPE_INTERVAL` | `10s` (default) | Optional. Scrape **and** flush cadence—see below. |
 
-```bash
+```bash { placeholders="ADMIN_TOKEN" }
 EDR_METRICS_URL=http://localhost:9091/metrics \
 INFLUX_WRITE_URL=http://localhost:8181 \
-INFLUX_ADMIN_TOKEN=<admin-token> \
+INFLUX_ADMIN_TOKEN=ADMIN_TOKEN \
 telegraf --config observability/telegraf/telegraf.conf
 ```
 
@@ -123,9 +123,9 @@ separate one:
 | `INFLUX_QUERY_URL` | `http://localhost:8181` | This node's InfluxDB |
 | `INFLUX_ADMIN_TOKEN` | — | This InfluxDB instance's admin token |
 
-```bash
+```bash { placeholders="ADMIN_TOKEN" }
 INFLUX_QUERY_URL=http://localhost:8181 \
-INFLUX_ADMIN_TOKEN=<admin-token> \
+INFLUX_ADMIN_TOKEN=ADMIN_TOKEN \
 grafana-server --homepath /usr/share/grafana
 ```
 

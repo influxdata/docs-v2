@@ -31,10 +31,10 @@ evidence before it's gone:
 
 ```bash
 # Docker -- do this BEFORE removing a --rm container (removal discards logs):
-docker logs <container> > edr.log 2>&1
+docker logs <CONTAINER> > edr.log 2>&1
 
 # systemd:
-journalctl -u <edr-unit> -o cat > edr.log
+journalctl -u <EDR_UNIT> -o cat > edr.log
 ```
 
 If you ship logs to an aggregator (Loki / ELK / CloudWatch), export the
@@ -250,7 +250,7 @@ The log says *how it got there*; `edr-inspect` says *where it ended up* and
 *whether it's still broken*. Confirm and quantify the log's findings with
 the three views—but they split on whether the agent is running:
 
-- **`edr-inspect state <state-location>`**—no, reads the journals
+- **`edr-inspect state <STATE_LOCATION>`**—no, reads the journals
   offline. The durable end-state, even on a dead agent (the journals
   survive on the volume): the WAL cursor, the gap ledger (pending /
   unrecoverable), and historic progress + lost-counts. The primary

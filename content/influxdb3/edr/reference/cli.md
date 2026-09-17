@@ -42,7 +42,7 @@ influxdb3-edr [OPTIONS]
   `INFLUXDB3_EDR_LISTEN`.
 - **`--observability-listen <ADDR:PORT>`**—**loopback by default**: the
   UI, `/metrics`, and the JSON observability API. Set to
-  `0.0.0.0:<port>` (or a specific interface) to expose for off-host
+  `0.0.0.0:<PORT>` (or a specific interface) to expose for off-host
   Prometheus or a remote UI. Env: `INFLUXDB3_EDR_OBSERVABILITY_LISTEN`.
 - **`--listener-file-path <PATH>`**—file to write the actual network
   listener address to (for testing with port 0).
@@ -104,7 +104,7 @@ change-tracking log.
 
 | Command | Reads | Output |
 |---|---|---|
-| `edr-inspect state <state-location>` | the state journals only (offline—no running agent) | live replication (WAL cursor), live gap fill (gap ledger), historic replication (manifest progress) |
+| `edr-inspect state <STATE_LOCATION>` | the state journals only (offline—no running agent) | live replication (WAL cursor), live gap fill (gap ledger), historic replication (manifest progress) |
 | `edr-inspect metrics [addr]` | the live `/metrics` (observability listener) | a scrolling table watch; `--once` for one detailed block |
 | `edr-inspect topology [addr]` | `/edr/v1/topology` | a one-shot upstream/downstream ASCII diagram with per-edge health |
 
