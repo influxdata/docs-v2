@@ -1,6 +1,6 @@
 ## InfluxDB v1 Release Documentation
 
-**Release Version:** v1.x.x
+**Release Version:** `v1.x.x`
 **Release Type:** [ ] OSS [ ] Enterprise
 
 > [!Important]
@@ -13,8 +13,23 @@
 Brief description of the release and documentation changes.
 
 ### Pre-merge Gate (Enterprise only)
+
+Bumping `enterprise_influxdb > latest_patches > v1` in `data/products.yml`
+publishes this release to all Enterprise customers: download URLs, install
+commands, and version strings across the docs switch to it.
+
+The **Release gate** check blocks merge until a member of
+[`@influxdata/influxdb-v1-release-owners`](https://github.com/orgs/influxdata/teams/influxdb-v1-release-owners) has an
+approving review on this PR. Their approval is the greenlight. Request their
+review when the release is ready; do not infer readiness yourself.
+
+These are **not** the greenlight:
+- A release candidate delivered to specific customers
+- A Docker image published
+- A Cloud 1 deployment (the shake-out period starts there; it does not end there)
+
+- [ ] **Release gate check is green** (approved by an `@influxdata/influxdb-v1-release-owners` member)
 - [ ] **Confirm release artifact is GA in the InfluxData portal**
-- [ ] **v1 codeowner has signaled readiness** (e.g., applied a release label)
 
 ### Release Documentation Checklist
 
