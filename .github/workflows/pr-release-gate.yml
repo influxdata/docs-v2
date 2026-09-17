@@ -174,19 +174,21 @@ jobs:
           echo "Merge base: $mb"
           echo "sha=$mb" >> "$GITHUB_OUTPUT"
 
-      # Fast path: most PRs never touch data/products.yml. Fetch only the
-      # commits needed for the diff and exit before Node is installed.
+      # Fast path: most PRs never touch data/products.yml. Read changed paths
+      # through the API and exit before Node is installed.
       # Changes to the schema, gates config, or checkers also run the full gate
       # against the trusted base implementation.
       - name: Detect products.yml change
         id: detect
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_BASE: ${{ steps.mergebase.outputs.sha }}
         run: |
-          git fetch --no-tags --depth=1 origin "$MERGE_BASE"
-          git fetch --no-tags --depth=1 origin "$HEAD_SHA"
-          if git diff --name-only "$MERGE_BASE" "$HEAD_SHA" \
-              | grep -qxE 'data/products\.yml|scripts/schemas/products\.schema\.json|\.ci/release-gates\.yml|\.ci/scripts/check-(products-schema|release-gate)(\.test)?\.js'; then
+          gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/compare/${MERGE_BASE}...${HEAD_SHA}?per_page=100" \
+            --jq '.files[].filename' > /tmp/changed-files.txt
+          if grep -qxE 'data/products\.yml|scripts/schemas/products\.schema\.json|\.ci/release-gates\.yml|\.ci/scripts/check-(products-schema|release-gate)(\.test)?\.js' \
+              /tmp/changed-files.txt; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -220,8 +222,13 @@ jobs:
       # field-level message, not later as a confusing gate result.
       - name: Validate products.yml against its schema
         if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git show "$HEAD_SHA:data/products.yml" > /tmp/products-new.yml
+          gh api --method GET \
+            "repos/${GITHUB_REPOSITORY}/contents/data/products.yml" \
+            -f ref="$HEAD_SHA" --jq '.content' | base64 --decode \
+            > /tmp/products-new.yml
           node .ci/scripts/check-products-schema.js /tmp/products-new.yml
 
       # Which gates does this diff trigger? Prints team slugs, or nothing.
@@ -229,20 +236,32 @@ jobs:
         if: steps.detect.outputs.changed == 'true'
         id: gates
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_BASE: ${{ steps.mergebase.outputs.sha }}
         run: |
           # Snapshots from the merge base. products.yml has always existed, so
           # a read failure there is a real problem: an empty mapping would
           # report every gated version as newly set, which fails closed.
-          git show "$MERGE_BASE:data/products.yml" > /tmp/products-old.yml \
-            || echo '{}' > /tmp/products-old.yml
+          if ! gh api --method GET \
+              "repos/${GITHUB_REPOSITORY}/contents/data/products.yml" \
+              -f ref="$MERGE_BASE" --jq '.content' | base64 --decode \
+              > /tmp/products-old.yml; then
+            echo '{}' > /tmp/products-old.yml
+          fi
           # The gates file legitimately does not exist on a base that predates
           # it (including the pull request that introduces it), so an absent
           # one means "no policy yet", not a failure.
-          git show "$MERGE_BASE:.ci/release-gates.yml" > /tmp/gates-base.yml \
-            2>/dev/null || echo '{}' > /tmp/gates-base.yml
-          git show "$HEAD_SHA:.ci/release-gates.yml" > /tmp/gates-head.yml \
-            2>/dev/null || echo '{}' > /tmp/gates-head.yml
+          for revision in "base:$MERGE_BASE" "head:$HEAD_SHA"; do
+            name="${revision%%:*}"
+            ref="${revision#*:}"
+            if content=$(gh api --method GET \
+                "repos/${GITHUB_REPOSITORY}/contents/.ci/release-gates.yml" \
+                -f ref="$ref" --jq '.content' 2>/dev/null); then
+              printf '%s' "$content" | base64 --decode > "/tmp/gates-${name}.yml"
+            else
+              echo '{}' > "/tmp/gates-${name}.yml"
+            fi
+          done
           node .ci/scripts/check-release-gate.js \
             --base /tmp/products-old.yml --head /tmp/products-new.yml \
             --gates-base /tmp/gates-base.yml \
