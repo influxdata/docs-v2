@@ -24,7 +24,7 @@ its downstream, so the destination's API/UI shows which build every
 connected edge is running.
 
 Each release is built against a pinned InfluxDB 3 Enterprise revision,
-encoded in the image tag (`edr:<version>-pro<revision>-<arch>`).
+encoded in the image tag (`edr:<VERSION>-pro<REVISION>-<ARCH>`).
 
 ## v1.0.0-0.rc.1 {date="2026-09-01"}
 

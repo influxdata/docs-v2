@@ -61,7 +61,7 @@ Symptom, what to run first, and what it tells you:
 
 ## Data not flowing
 
-1. First-line triage: `edr-inspect state <state-location>` (what's owed / in
+1. First-line triage: `edr-inspect state <STATE_LOCATION>` (what's owed / in
    progress, even if the agent is wedged) and `edr-inspect topology` /
    `edr-inspect metrics` (live health + flow). See
    [Triage CLI](/influxdb3/edr/monitor/#triage-cli-edr-inspect). For
@@ -71,7 +71,7 @@ Symptom, what to run first, and what it tells you:
    (observability listener, loopback)
 3. Check connectivity: `curl http://destination:9090/health` (network
    listener)
-4. Check WAL files exist: `ls <data-dir>/<node-id>/pt_wal/`
+4. Check WAL files exist: `ls <DATA_DIR>/<NODE_ID>/pt_wal/`
 5. Check scope includes the database/table.
 6. Verbose logs: restart with `RUST_LOG=debug`.
 
@@ -149,7 +149,7 @@ of "the new version didn't take effect".
 
 EDR agents, proxies, and InfluxDB instances hold their listen ports until
 fully stopped. If a start fails with "address in use", find the holder with
-`lsof -ti :<port>`. Process managers that track PID files can lose track of
+`lsof -ti :<PORT>`. Process managers that track PID files can lose track of
 processes across crashes—always verify with
 `ps aux | grep influxdb3 | grep -v grep` that no orphans remain before
 restarting. Orphaned old agents reading the same state file as a new agent
@@ -198,7 +198,7 @@ only witness. EDR logs structured JSON to stdout; capture them first (a
 `--rm` container discards them on removal):
 
 ```bash
-docker logs <container> > edr.log 2>&1     # or: journalctl -u <edr-unit> -o cat > edr.log
+docker logs <CONTAINER> > edr.log 2>&1     # or: journalctl -u <EDR_UNIT> -o cat > edr.log
 ```
 
 Then reconstruct the final run:

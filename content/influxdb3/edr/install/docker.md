@@ -23,7 +23,7 @@ exposing the operator surfaces, and triage via `docker exec`. For
 
 This assumes you already have:
 
-- the **EDR agent image** loaded locally (`edr:<ver>-pro<rev>-<arch>`), and
+- the **EDR agent image** loaded locally (`edr:<VERSION>-pro<REVISION>-<ARCH>`), and
 - the **InfluxDB 3 Enterprise** image (consumed separately—not built here).
 
 A complete worked composite app (Enterprise InfluxDB + EDR sender +
@@ -91,9 +91,9 @@ observability address from the container environment (the same vars the
 agent reads), so it needs **no arguments**:
 
 ```bash
-docker exec <container> edr-inspect state      # state journals: live repl / gap fill / historic
-docker exec <container> edr-inspect metrics    # live /metrics, scrolling watch (--once for one block)
-docker exec <container> edr-inspect topology   # upstream/downstream diagram + per-edge health
+docker exec <CONTAINER> edr-inspect state      # state journals: live repl / gap fill / historic
+docker exec <CONTAINER> edr-inspect metrics    # live /metrics, scrolling watch (--once for one block)
+docker exec <CONTAINER> edr-inspect topology   # upstream/downstream diagram + per-edge health
 ```
 
 - **`state`** reads `$INFLUXDB3_EDR_STATE_LOCATION`. It is **offline**—it
@@ -105,7 +105,8 @@ docker exec <container> edr-inspect topology   # upstream/downstream diagram + p
   and reach the agent over loopback **inside the same container**—so they
   work with the default loopback-only binding (no need to expose `9091`).
 - Override per-invocation if you need a different target:
-  `edr-inspect state <path|s3://...>`, `edr-inspect metrics <host:port> --once`.
+  `edr-inspect state <STATE_LOCATION>` (a path or `s3://`/`gs://`/`az://`
+  URL), `edr-inspect metrics <HOST:PORT> --once`.
 
 `edr-inspect` needs no `--data-dir`—it reads only the state journals and
 the agent's `/metrics`, never the object store.
@@ -115,8 +116,8 @@ the agent's `/metrics`, never the object store.
 | Symptom | Cause / fix |
 |---|---|
 | EDR can't read the source WAL / `state` shows nothing | The agent's `--data-dir` and `--state-location` volumes must be the **same** the InfluxDB server (and any prior EDR run) wrote to. With a shared file object store, mount the **same named volume** into both containers. |
-| Permission denied on a mounted volume | The container runs as uid `1500`. On bind mounts from a Linux host, `chown -R 1500:1500 <hostdir>` (Docker Desktop/macOS does not enforce host uid, so it usually "just works" there). |
-| Container exits immediately | The default `CMD` is `--help`. Pass real flags (`--config ...`) or an env-templated command; the entrypoint prepends `influxdb3-edr`. Check `docker logs <container>`. |
+| Permission denied on a mounted volume | The container runs as uid `1500`. On bind mounts from a Linux host, `chown -R 1500:1500 <HOST_DIR>` (Docker Desktop/macOS does not enforce host uid, so it usually "just works" there). |
+| Container exits immediately | The default `CMD` is `--help`. Pass real flags (`--config ...`) or an env-templated command; the entrypoint prepends `influxdb3-edr`. Check `docker logs <CONTAINER>`. |
 | `edr-inspect` reports "no EDR agent reachable" | The observability address it derived doesn't match where the agent bound. Set `INFLUXDB3_EDR_OBSERVABILITY_LISTEN` (env) so both agree, or pass the address positionally. |
 | `edr-inspect state` errors "required argument" | Neither a positional nor `$INFLUXDB3_EDR_STATE_LOCATION` was set—set the env (it is by default in this image) or pass the path. |
 | Container -> host InfluxDB (EDR in Docker, InfluxDB native) | Reach the host as `host.docker.internal` (add `--add-host host.docker.internal:host-gateway` on Linux); set `EDR_WRITE_ENDPOINT` / the upstream address accordingly. |

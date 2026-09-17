@@ -111,7 +111,7 @@ read-only:
 edr-inspect state /var/lib/edr/state
 ```
 
-(or `docker exec <container> edr-inspect state`—it picks up the agent's
+(or `docker exec <CONTAINER> edr-inspect state`—it picks up the agent's
 own `INFLUXDB3_EDR_STATE_LOCATION`). If you are diagnosing, start there;
 most questions ("is it stuck?", "what does it think it owes?") are
 answered without touching anything.

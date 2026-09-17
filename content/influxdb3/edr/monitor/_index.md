@@ -31,7 +31,7 @@ only—all thresholds come from config.
 ## Endpoints
 
 The observability endpoints below are served on `--observability-listen`
-(loopback by default—expose with `--observability-listen 0.0.0.0:<port>`).
+(loopback by default—expose with `--observability-listen 0.0.0.0:<PORT>`).
 `/health` and the replication protocol are on the network `--listen`.
 
 | Endpoint | Purpose |
@@ -106,7 +106,7 @@ Three independent subcommands, each reading one source:
 
 | Command | Reads | Output |
 |---|---|---|
-| `edr-inspect state <state-location>` | the state journals only (offline—no running agent) | live replication (WAL cursor), live gap fill (gap ledger), historic replication (manifest progress) |
+| `edr-inspect state <STATE_LOCATION>` | the state journals only (offline—no running agent) | live replication (WAL cursor), live gap fill (gap ledger), historic replication (manifest progress) |
 | `edr-inspect metrics [addr]` | the live `/metrics` (observability listener) | a scrolling table watch; `--once` for one detailed block |
 | `edr-inspect topology [addr]` | `/edr/v1/topology` | a one-shot upstream/downstream ASCII diagram with per-edge health |
 
