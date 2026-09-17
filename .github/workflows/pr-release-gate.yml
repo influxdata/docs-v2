@@ -186,7 +186,6 @@ jobs:
       # stale "needs approval" never outlives the change it described.
       - name: Post or update gate comment
         if: >-
-          steps.detect.outputs.changed == 'true' &&
           github.event.pull_request.head.repo.full_name == github.repository
         continue-on-error: true
         env:
