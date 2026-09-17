@@ -71,14 +71,31 @@ holds secrets, not progress.
 
 ## What each file is
 
-| File | Plane | What it records | Written by |
-|---|---|---|---|
-| `wal_cursor.json` | Live replication | Per-ingest-node high-water mark (`last_replicated_wal_id`), out-of-order completions, and **skip receipts**—durable records that a WAL range was handed to gap fill | The dispatcher on every file completion; the replicator on seeding and receipts. `wal_cursor_prev.json` is its safety mirror |
-| `gap_ledger.json` | Gap fill | Recovery obligations: each detected gap with its status (pending / in-progress / resolved / unrecoverable) and the files that covered it | The gap-fill worker; `gap_ledger_prev.json` is its safety mirror |
-| `historic_manifest.json` | Historic fill | The backfill plan: snapshot work list, cv2 work list, per-file statuses, and the completed flag | The historic planner (full saves); `historic_manifest_prev.json` is its safety mirror |
-| `historic_progress.json` | Historic fill | Compact status checkpoints overlaid on the plan, guarded by a sequence number so a stale overlay can never resurrect finished work | The historic fill task (frequent) |
-| `live_seed_done.json` | Live replication | Marker: first-start seeding already happened—a restart resumes instead of re-seeding | The replicator, once |
-| `wal_cleanup_watermark.json` | WAL cleanup | Per-node "deleted through id N" resume points (only with `--wal-cleanup-enabled`). **Lives at the state ROOT**—agent-level, shared by all destinations | The cleanup sweep |
+- **`wal_cursor.json`** (live replication)—per-ingest-node high-water
+  mark (`last_replicated_wal_id`), out-of-order completions, and
+  **skip receipts**: durable records that a WAL range was handed to
+  gap fill. Written by the dispatcher on every file completion, and
+  the replicator on seeding and receipts. `wal_cursor_prev.json` is
+  its safety mirror.
+- **`gap_ledger.json`** (gap fill)—recovery obligations: each detected
+  gap with its status (pending / in-progress / resolved /
+  unrecoverable) and the files that covered it. Written by the
+  gap-fill worker; `gap_ledger_prev.json` is its safety mirror.
+- **`historic_manifest.json`** (historic fill)—the backfill plan:
+  snapshot work list, cv2 work list, per-file statuses, and the
+  completed flag. Written by the historic planner (full saves);
+  `historic_manifest_prev.json` is its safety mirror.
+- **`historic_progress.json`** (historic fill)—compact status
+  checkpoints overlaid on the plan, guarded by a sequence number so a
+  stale overlay can never resurrect finished work. Written by the
+  historic fill task (frequent).
+- **`live_seed_done.json`** (live replication)—marker: first-start
+  seeding already happened—a restart resumes instead of re-seeding.
+  Written by the replicator, once.
+- **`wal_cleanup_watermark.json`** (WAL cleanup)—per-node "deleted
+  through id N" resume points (only with `--wal-cleanup-enabled`).
+  **Lives at the state ROOT**—agent-level, shared by all
+  destinations. Written by the cleanup sweep.
 
 All files except `wal_cleanup_watermark.json` and `state_layout.json` live
 inside a destination's namespace; a recovery recipe that says "delete the
@@ -156,17 +173,69 @@ visible without touching anything.
 
 What happens when a state item is removed, by agent state:
 
-| Deleted | Agent RUNNING | Agent STOPPED, then restarted |
-|---|---|---|
-| **Entire state location** | Self-heals piecemeal (files reappear as each plane persists), but you have destroyed receipts mid-flight—don't do this; stop first | The sanctioned **full reset**. Behavior is governed entirely by golden rules 3 and 4: `full` + idempotent gives a safe re-fill; `none` means owed backlog is silently skipped |
-| **`wal_cursor.json`** ONLY (`wal_cursor_prev.json` intact) | Harmless: in-memory state is authoritative, delivery continues, the journal re-persists on the next file completion | Recovers transparently **from the mirror** (WARN logged)—resumes at the mirror's position, not a fresh start, no re-transmission storm |
-| **`wal_cursor.json`** AND its mirror | Harmless (same as above—in-memory state is authoritative) | **State loss**—see `on_state_loss` above. `recover`: rebuilds a conservative per-node floor and re-sends the retained window (bounded). `halt`: refuses to start |
-| **`gap_ledger.json`** | Recreated on the next ledger save | The most forgiving: outstanding obligations are **rebuilt from the cursor's skip receipts** at startup (works even with the mirror ALSO gone, as long as the cursor survives). You lose the resolved/unrecoverable *history* (audit trail), not the obligations |
-| **`historic_manifest.json`** ONLY (`historic_manifest_prev.json` intact, fill incomplete) | Recreated only at the next *full plan save*—routine checkpoints write the overlay, not the plan | Recovers transparently **from the mirror** (WARN logged)—resumes the existing plan, no rebuild, no double-send |
-| **`historic_manifest.json`** AND its mirror (historic_fill configured, fill incomplete) | Same as above | With a **non-zero cursor**: the agent **refuses to start** (`CursorExists`—historic_fill added late vs. manifest vanished are indistinguishable, and a same-session cursor rebuild doesn't resolve that ambiguity either). Restore a file, do a full reset, or remove `historic_fill`. With a genuinely **fresh cursor**: normal fresh start, plan rebuilt |
-| **`historic_progress.json`** | Recreated at the next checkpoint | Statuses revert to the last full plan save—some already-sent files are re-sent (absorbed by idempotence). The sequence guard prevents any stale overlay from marking unfinished work done |
-| **`live_seed_done.json`** | No effect until restart | With a cursor present: harmless (a non-zero cursor is itself proof of a previous start). With the cursor *also* gone: a genuine fresh start—see full reset |
-| **`wal_cleanup_watermark.json`** | Next sweep reseeds from the oldest surviving snapshot | Same—the sweep re-derives its position; at worst it re-issues deletes for already-deleted files (harmless NotFounds) |
+- **Entire state location**
+  - *Agent running*: self-heals piecemeal (files reappear as each
+    plane persists), but you have destroyed receipts mid-flight—don't
+    do this; stop first.
+  - *Agent stopped, then restarted*: the sanctioned **full reset**.
+    Behavior is governed entirely by golden rules 3 and 4: `full` +
+    idempotent gives a safe re-fill; `none` means owed backlog is
+    silently skipped.
+- **`wal_cursor.json`** only (`wal_cursor_prev.json` intact)
+  - *Agent running*: harmless: in-memory state is authoritative,
+    delivery continues, the journal re-persists on the next file
+    completion.
+  - *Agent stopped, then restarted*: recovers transparently **from
+    the mirror** (WARN logged)—resumes at the mirror's position, not
+    a fresh start, no re-transmission storm.
+- **`wal_cursor.json`** and its mirror
+  - *Agent running*: harmless (same as above—in-memory state is
+    authoritative).
+  - *Agent stopped, then restarted*: **state loss**—see
+    `on_state_loss` above. `recover`: rebuilds a conservative
+    per-node floor and re-sends the retained window (bounded).
+    `halt`: refuses to start.
+- **`gap_ledger.json`**
+  - *Agent running*: recreated on the next ledger save.
+  - *Agent stopped, then restarted*: the most forgiving: outstanding
+    obligations are **rebuilt from the cursor's skip receipts** at
+    startup (works even with the mirror also gone, as long as the
+    cursor survives). You lose the resolved/unrecoverable *history*
+    (audit trail), not the obligations.
+- **`historic_manifest.json`** only (`historic_manifest_prev.json`
+  intact, fill incomplete)
+  - *Agent running*: recreated only at the next *full plan save*—
+    routine checkpoints write the overlay, not the plan.
+  - *Agent stopped, then restarted*: recovers transparently **from
+    the mirror** (WARN logged)—resumes the existing plan, no
+    rebuild, no double-send.
+- **`historic_manifest.json`** and its mirror (historic_fill
+  configured, fill incomplete)
+  - *Agent running*: same as above.
+  - *Agent stopped, then restarted*: with a **non-zero cursor**: the
+    agent **refuses to start** (`CursorExists`—historic_fill added
+    late vs. manifest vanished are indistinguishable, and a
+    same-session cursor rebuild doesn't resolve that ambiguity
+    either). Restore a file, do a full reset, or remove
+    `historic_fill`. With a genuinely **fresh cursor**: normal fresh
+    start, plan rebuilt.
+- **`historic_progress.json`**
+  - *Agent running*: recreated at the next checkpoint.
+  - *Agent stopped, then restarted*: statuses revert to the last
+    full plan save—some already-sent files are re-sent (absorbed by
+    idempotence). The sequence guard prevents any stale overlay from
+    marking unfinished work done.
+- **`live_seed_done.json`**
+  - *Agent running*: no effect until restart.
+  - *Agent stopped, then restarted*: with a cursor present: harmless
+    (a non-zero cursor is itself proof of a previous start). With the
+    cursor *also* gone: a genuine fresh start—see full reset.
+- **`wal_cleanup_watermark.json`**
+  - *Agent running*: next sweep reseeds from the oldest surviving
+    snapshot.
+  - *Agent stopped, then restarted*: same—the sweep re-derives its
+    position; at worst it re-issues deletes for already-deleted files
+    (harmless NotFounds).
 
 ## Sanctioned recovery recipes
 

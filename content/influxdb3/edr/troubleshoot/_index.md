@@ -16,12 +16,21 @@ the first tool to run; the sections below go deeper.
 
 Symptom, what to run first, and what it tells you:
 
-| Symptom | Run first | What it tells you / fix |
-|---|---|---|
-| Replication stopped / "halted" | `edr-inspect metrics` (live), or the log's last `REPLICATION HALTED ...` (after a crash) | The halt **class** (auth / schema / network). Fix the cause—the halted batch retries as a probe and **auto-resumes**; nothing is skipped. |
-| Lag climbing / "behind" | `edr-inspect state`, then `edr-inspect metrics` | Whether anything is actually **lost** (rare) or just **owed backlog** that drains once the link recovers. Lag != loss. |
-| Data missing | `edr-inspect state` (lost / gap counts) | **The only authority on loss.** A non-zero `lost(unrecoverable)` here is real; a scary `metrics` reading is not. |
-| Agent crashed / restarted | capture the log, then follow the log post-mortem procedure below | In-memory metrics reset on restart—the log is the only witness. |
+- **Replication stopped / "halted"**—run `edr-inspect metrics` (live), or
+  check the log's last `REPLICATION HALTED ...` (after a crash). Tells
+  you the halt **class** (auth / schema / network). Fix the cause—the
+  halted batch retries as a probe and **auto-resumes**; nothing is
+  skipped.
+- **Lag climbing / "behind"**—run `edr-inspect state`, then
+  `edr-inspect metrics`. Tells you whether anything is actually
+  **lost** (rare) or just **owed backlog** that drains once the link
+  recovers. Lag != loss.
+- **Data missing**—run `edr-inspect state` (lost / gap counts).
+  **The only authority on loss.** A non-zero `lost(unrecoverable)`
+  here is real; a scary `metrics` reading is not.
+- **Agent crashed / restarted**—capture the log, then follow the log
+  post-mortem procedure below. In-memory metrics reset on restart—the
+  log is the only witness.
 
 > [!Important]
 > Trust order when the planes disagree: durable `state` > the log's
@@ -32,14 +41,23 @@ Symptom, what to run first, and what it tells you:
 
 ## Agent won't start
 
-| Error | Cause | Fix |
-|----|----|---|
-| "config must include at least one of 'downstream' or 'upstreams'" | Config has neither section. | Add one. |
-| "downstream.historic_fill must be set explicitly ..." | No historic intent declared. | Add `historic_fill: { mode: none }` (live-only) or `full`/`since`. See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill). |
-| "historic_fill mode 'since' requires a 'since' value" / "... is not parseable" | `since` missing or malformed. | Set `since` to a whole-day duration (`7d`) or an ISO date (`2026-06-01`); sub-day units (`30m`/`6h`) are rejected. |
-| "Multiple ingest nodes detected... idempotent_writes is false" | Multi-node store without the guarantee. | Add `idempotent_writes: true` or point at a single-node store. |
-| "failed to resolve token" | Token file missing from store. | Check `--token-store` path and file names. |
-| "... changed — requires full restart" (on reload) | A non-reloadable field changed. | Restart the agent. |
+- **"config must include at least one of 'downstream' or
+  'upstreams'"**—config has neither section. Add one.
+- **"downstream.historic_fill must be set explicitly ..."**—no historic
+  intent declared. Add `historic_fill: { mode: none }` (live-only) or
+  `full`/`since`. See
+  [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill).
+- **"historic_fill mode 'since' requires a 'since' value" / "... is not
+  parseable"**—`since` missing or malformed. Set `since` to a whole-day
+  duration (`7d`) or an ISO date (`2026-06-01`); sub-day units
+  (`30m`/`6h`) are rejected.
+- **"Multiple ingest nodes detected... idempotent_writes is
+  false"**—multi-node store without the guarantee. Add
+  `idempotent_writes: true` or point at a single-node store.
+- **"failed to resolve token"**—token file missing from store. Check
+  `--token-store` path and file names.
+- **"... changed — requires full restart" (on reload)**—a
+  non-reloadable field changed. Restart the agent.
 
 ## Data not flowing
 
@@ -69,17 +87,35 @@ Symptom, what to run first, and what it tells you:
 
 ## Common log messages
 
-| Message | Meaning |
-|-----|-----|
-| `historic fill: MANIFEST GAP ...` | Expected—compactor deleted old manifests; recovery proceeds via WAL/cv2. See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill). |
-| cv2 over-replication warnings | Expected when recovering compacted data; idempotent writes absorb it. |
-| `... POTENTIAL DATA LOSS` | Not expected—data missing from all tiers. Check retention settings. |
-| Schema conflict / channel blocked, retrying every 60s | Destination rejected a write due to a type mismatch. Drop the conflicting table on the destination; the retry recreates it with the source schema. |
-| Unauthorised | Destination rejected the auth token. Update the token file; the next retry picks it up. |
-| Cursor reset detected | InfluxDB WAL IDs reset (for example, after a data wipe with state retained). The agent auto-detects and resets its cursor. |
-| `failed to connect to downstream` + a burst of `batch send failed`, right after a restart | Restart-ordering gap—the source came up before the destination's listener was accepting. Clears at the next `connected to downstream` / `edge connected`. Benign and self-healing; not data loss. |
-| `rejecting data: upstream has not called /connect` (destination side) | Momentary—data arrived a beat before the `/connect` handshake re-registered (typical just after a restart). Self-clears once the source re-issues `/connect`. |
-| Source `REPLICATION HALTED: auth failure` **and** destination `batch write failed: auth failure` on the **same `batch_id`** | Both ends agree, so this is a genuine token mismatch on that hop, not a source-side phantom. Update the token (see *Unauthorised* above); the next probe resumes. |
+- **`historic fill: MANIFEST GAP ...`**—expected: the compactor deleted
+  old manifests; recovery proceeds via WAL/cv2. See
+  [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill).
+- **cv2 over-replication warnings**—expected when recovering compacted
+  data; idempotent writes absorb it.
+- **`... POTENTIAL DATA LOSS`**—not expected: data missing from all
+  tiers. Check retention settings.
+- **Schema conflict / channel blocked, retrying every 60s**—destination
+  rejected a write due to a type mismatch. Drop the conflicting table on
+  the destination; the retry recreates it with the source schema.
+- **Unauthorised**—destination rejected the auth token. Update the
+  token file; the next retry picks it up.
+- **Cursor reset detected**—InfluxDB WAL IDs reset (for example, after
+  a data wipe with state retained). The agent auto-detects and resets
+  its cursor.
+- **`failed to connect to downstream` + a burst of `batch send failed`,
+  right after a restart**—restart-ordering gap: the source came up
+  before the destination's listener was accepting. Clears at the next
+  `connected to downstream` / `edge connected`. Benign and self-healing;
+  not data loss.
+- **`rejecting data: upstream has not called /connect` (destination
+  side)**—momentary: data arrived a beat before the `/connect` handshake
+  re-registered (typical just after a restart). Self-clears once the
+  source re-issues `/connect`.
+- **Source `REPLICATION HALTED: auth failure` and destination `batch
+  write failed: auth failure` on the same `batch_id`**—both ends agree,
+  so this is a genuine token mismatch on that hop, not a source-side
+  phantom. Update the token (see *Unauthorised* above); the next probe
+  resumes.
 
 ## Protocol incompatible (agents of different versions)
 
