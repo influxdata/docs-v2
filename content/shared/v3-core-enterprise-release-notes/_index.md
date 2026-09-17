@@ -6,7 +6,7 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
-## v3.11.5 {date="2026-09-16"}
+## v3.11.5 {date="2026-09-17"}
 
 ### Core
 
