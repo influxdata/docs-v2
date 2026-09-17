@@ -69,6 +69,23 @@ export function isUsableVersion(value) {
 }
 
 /**
+ * Combine the gate policy as of the merge base with the policy on the PR head.
+ * A product present in both keeps the BASE entry, so a pull request cannot
+ * disarm a gate (delete it, repoint its field, or swap in a friendlier team)
+ * in the same commit that bumps the version. A product only on the head is an
+ * addition and applies as written.
+ *
+ * This closes the single-commit bypass. It does not stop a two-step one: a PR
+ * that only edits release-gates.yml changes no gated field, so nothing
+ * triggers and it merges, and a later PR bumps the now-ungated version. The
+ * gate protects against misreading release signals, not against someone with
+ * write access who means to route around it.
+ */
+export function mergeGates(baseGates, headGates) {
+  return { ...(headGates || {}), ...(baseGates || {}) };
+}
+
+/**
  * Which gated fields changed between two parsed products.yml objects.
  * Returns one entry per triggered gate. A field that is absent on both sides,
  * or unchanged, does not trigger. A change to an unusable value (null, empty,
@@ -218,7 +235,8 @@ function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.base || !args.head) {
     console.error(
-      'usage: check-release-gate.js --base <old.yml> --head <new.yml>'
+      'usage: check-release-gate.js --base <old.yml> --head <new.yml>\n' +
+        '       [--gates <file> | --gates-base <file> --gates-head <file>]'
     );
     process.exit(2);
   }
@@ -226,11 +244,16 @@ function main() {
   let reviews = [];
   let members = {};
   try {
-    bumps = gatedBumps(
-      readMapping(args.base),
-      readMapping(args.head),
-      readMapping(args.gates)
-    );
+    // Gate policy: the merge base's, plus head-only additions. One --gates
+    // file is the local shorthand for "the same policy on both sides".
+    const gates =
+      args['gates-base'] || args['gates-head']
+        ? mergeGates(
+            args['gates-base'] ? readMapping(args['gates-base']) : {},
+            args['gates-head'] ? readMapping(args['gates-head']) : {}
+          )
+        : readMapping(args.gates);
+    bumps = gatedBumps(readMapping(args.base), readMapping(args.head), gates);
     // Optional inputs. Absent means "not provided" (the gate then fails
     // closed); present but unreadable is an error, not a silent fallback.
     if (args.reviews) reviews = readJson(args.reviews);

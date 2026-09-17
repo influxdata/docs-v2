@@ -14,6 +14,7 @@ import {
   latestReviewStates,
   evaluate,
   formatReport,
+  mergeGates,
 } from './check-release-gate.js';
 
 const SCRIPT = join(
@@ -197,6 +198,41 @@ for (const [label, value] of [
     assert.match(formatReport(r), /empty or not a version/);
   });
 }
+
+test('mergeGates: a gate deleted on the head still applies', () => {
+  const merged = mergeGates(gates, {});
+  assert.deepEqual(Object.keys(merged).sort(), Object.keys(gates).sort());
+});
+
+test('mergeGates: the base team wins when the head repoints a gate', () => {
+  const merged = mergeGates(gates, {
+    enterprise_influxdb: { field: 'latest_patch', team: 'influxdata/friendly' },
+  });
+  assert.equal(
+    merged.enterprise_influxdb.team,
+    'influxdata/influxdb-v1-release-owners'
+  );
+  assert.equal(merged.enterprise_influxdb.field, 'latest_patches.v1');
+});
+
+test('mergeGates: a head-only gate is an addition and applies', () => {
+  const merged = mergeGates(
+    {},
+    { telegraf: { field: 'latest_patches.v1', team: 'influxdata/t' } }
+  );
+  assert.equal(merged.telegraf.team, 'influxdata/t');
+});
+
+test('a PR that bumps and deletes its gate in one commit still triggers', () => {
+  const head = structuredClone(base);
+  head.enterprise_influxdb.latest_patches.v1 = '1.13.1';
+  // Head policy drops the enterprise gate entirely.
+  const headGates = { influxdb3_enterprise: gates.influxdb3_enterprise };
+  const bumps = gatedBumps(base, head, mergeGates(gates, headGates));
+  assert.equal(bumps.length, 1);
+  assert.equal(bumps[0].product, 'enterprise_influxdb');
+  assert.equal(bumps[0].team, 'influxdata/influxdb-v1-release-owners');
+});
 
 test('a value that is unusable on both sides does not trigger', () => {
   const b = structuredClone(base);
