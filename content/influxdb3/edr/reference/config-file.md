@@ -18,13 +18,23 @@ task-oriented walkthrough, see [Get started with EDR](/influxdb3/edr/get-started
 
 ## Top-level fields
 
-| Field | Type | Required | Description |
-|----|---|-----|-------|
-| `name` | String | Yes | Node identity name. Used in topology, logs, and UI. |
-| `location` | Object | No | Geographic location (`label`, `lat`, `lng`). Shown on map UI. |
-| `downstream` | Object | No* | Where this node sends data to. Shorthand for a one-entry `downstreams:` list. |
-| `downstreams` | List | No* | Multiple downstream destinations (fan-out). See [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/). Declaring both forms at once is a config error. |
-| `upstreams` | List | No* | Who sends data to this node. |
+| Field | Type | Required |
+|---|---|---|
+| `name` | String | Yes |
+| `location` | Object | No |
+| `downstream` | Object | No* |
+| `downstreams` | List | No* |
+| `upstreams` | List | No* |
+
+- **`name`**—node identity name. Used in topology, logs, and UI.
+- **`location`**—geographic location (`label`, `lat`, `lng`). Shown on
+  map UI.
+- **`downstream`**—where this node sends data to. Shorthand for a
+  one-entry `downstreams:` list.
+- **`downstreams`**—multiple downstream destinations (fan-out). See
+  [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/).
+  Declaring both forms at once is a config error.
+- **`upstreams`**—who sends data to this node.
 
 \* At least one of `downstream`/`downstreams` or `upstreams` must be
 present. A node with both is a regional hub: it receives from edges and
@@ -32,30 +42,82 @@ forwards on.
 
 ## Downstream (source -> destination)
 
-| Field | Type | Default | Description |
-|----|---|-----|-------|
-| `name` | String | — | Name of the destination node. |
-| `address` | String | — | URL of the destination EDR agent (for example, `http://hub:9090`). |
-| `auth_token` | String | — | Token store key for authenticating to the destination. |
-| `mode` | `edr` \| `direct` | `edr` | `edr`: agent-to-agent. `direct`: write directly to an InfluxDB v3 write API. |
-| `scope` | Object | Instance (all) | Which databases/tables to replicate. See [Scope](#scope). |
-| `comms.interval_secs` | Integer | 10 | How often (seconds) to send status reports when idle. |
-| `comms.degraded_after` | Integer | 3 | Missed reports before the destination considers this channel degraded. |
-| `comms.unhealthy_after` | Integer | 6 | Missed reports before the destination considers this channel unhealthy. |
-| `retry.initial_backoff_secs` | Integer | 1 | Initial retry backoff after send failure. |
-| `retry.max_backoff_secs` | Integer | 30 | Maximum retry backoff. |
-| `retry.multiplier` | Integer | 2 | Exponential backoff multiplier. |
-| `retry.halt_patience_secs` | Integer | 180 | Patience window before persistent write errors / unclassified rejections trigger the halted state. See [The halted state](/influxdb3/edr/monitor/#the-halted-state). |
-| `share_topology` | Boolean | true | Include this node's upstream tree in reports to the destination. When false, this node appears as a leaf. |
-| `idempotent_writes` | Boolean | false | User asserts no `(series_key, timestamp)` pair is ever written with differing field values. Unlocks `concurrent_sends > 1`, multi-ingest replication, priority reordering, and historic fill. See [Performance vs. correctness](#performance-vs-correctness) below. |
-| `historic_fill` | Object | **required** | Declares the historic start point (`mode: none` \| `full` \| `since`). No default—absent means the agent refuses to start. Modes `full`/`since` require `idempotent_writes: true`. See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill). |
-| `priorities` | List | absent | Priority routing rules (first match wins). Requires `idempotent_writes: true`. See [Priorities](#priorities). |
-| `on_state_loss` | `recover` \| `halt` | derived | What to do when a state journal AND its previous-good mirror are both corrupt. Default: `recover` when `idempotent_writes: true`, else `halt`. Explicit `recover` without the idempotency assertion is rejected. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/). |
-| `encoding` | `lp` \| `pt` | `lp` | Wire encoding. `pt` (PT+zstd) is agent-to-agent only, approximately 2.5x bandwidth saving. |
-| `concurrent_sends` | Integer | 1 | Maximum concurrent send tasks. `1` = strict-order delivery (the default). `> 1` requires `idempotent_writes: true`; `0` is rejected. |
-| `poll_interval_ms` | Integer | 1000 | WAL discovery poll interval. |
-| `bandwidth_schedule` | List | absent | Time-of-day send rate control. See [Bandwidth scheduling](#bandwidth-scheduling). |
-| `bandwidth_timezone` | String | `"utc"` | Timezone the whole `bandwidth_schedule` is interpreted in. IANA name (for example, `"Asia/Kolkata"`) or `"utc"`. |
+| Field | Type | Default |
+|---|---|---|
+| `name` | String | — |
+| `address` | String | — |
+| `auth_token` | String | — |
+| `mode` | `edr` \| `direct` | `edr` |
+| `scope` | Object | Instance (all) |
+| `comms.interval_secs` | Integer | 10 |
+| `comms.degraded_after` | Integer | 3 |
+| `comms.unhealthy_after` | Integer | 6 |
+| `retry.initial_backoff_secs` | Integer | 1 |
+| `retry.max_backoff_secs` | Integer | 30 |
+| `retry.multiplier` | Integer | 2 |
+| `retry.halt_patience_secs` | Integer | 180 |
+| `share_topology` | Boolean | true |
+| `idempotent_writes` | Boolean | false |
+| `historic_fill` | Object | **required** |
+| `priorities` | List | absent |
+| `on_state_loss` | `recover` \| `halt` | derived |
+| `encoding` | `lp` \| `pt` | `lp` |
+| `concurrent_sends` | Integer | 1 |
+| `poll_interval_ms` | Integer | 1000 |
+| `bandwidth_schedule` | List | absent |
+| `bandwidth_timezone` | String | `"utc"` |
+
+- **`name`**—name of the destination node.
+- **`address`**—URL of the destination EDR agent (for example,
+  `http://hub:9090`).
+- **`auth_token`**—token store key for authenticating to the
+  destination.
+- **`mode`**—`edr`: agent-to-agent. `direct`: write directly to an
+  InfluxDB v3 write API.
+- **`scope`**—which databases/tables to replicate. See
+  [Scope](#scope).
+- **`comms.interval_secs`**—how often (seconds) to send status reports
+  when idle.
+- **`comms.degraded_after`**—missed reports before the destination
+  considers this channel degraded.
+- **`comms.unhealthy_after`**—missed reports before the destination
+  considers this channel unhealthy.
+- **`retry.initial_backoff_secs`**—initial retry backoff after send
+  failure.
+- **`retry.max_backoff_secs`**—maximum retry backoff.
+- **`retry.multiplier`**—exponential backoff multiplier.
+- **`retry.halt_patience_secs`**—patience window before persistent
+  write errors / unclassified rejections trigger the halted state. See
+  [The halted state](/influxdb3/edr/monitor/#the-halted-state).
+- **`share_topology`**—include this node's upstream tree in reports to
+  the destination. When false, this node appears as a leaf.
+- **`idempotent_writes`**—user asserts no `(series_key, timestamp)`
+  pair is ever written with differing field values. Unlocks
+  `concurrent_sends > 1`, multi-ingest replication, priority
+  reordering, and historic fill. See
+  [Performance vs. correctness](#performance-vs-correctness) below.
+- **`historic_fill`**—declares the historic start point (`mode: none`
+  \| `full` \| `since`). No default—absent means the agent refuses to
+  start. Modes `full`/`since` require `idempotent_writes: true`. See
+  [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill).
+- **`priorities`**—priority routing rules (first match wins). Requires
+  `idempotent_writes: true`. See [Priorities](#priorities).
+- **`on_state_loss`**—what to do when a state journal and its
+  previous-good mirror are both corrupt. Default: `recover` when
+  `idempotent_writes: true`, else `halt`. Explicit `recover` without
+  the idempotency assertion is rejected. See
+  [State & recovery](/influxdb3/edr/reference/state-and-recovery/).
+- **`encoding`**—wire encoding. `pt` (PT+zstd) is agent-to-agent only,
+  approximately 2.5x bandwidth saving.
+- **`concurrent_sends`**—maximum concurrent send tasks. `1` =
+  strict-order delivery (the default). `> 1` requires
+  `idempotent_writes: true`; `0` is rejected.
+- **`poll_interval_ms`**—WAL discovery poll interval.
+- **`bandwidth_schedule`**—time-of-day send rate control. See
+  [Bandwidth scheduling](#bandwidth-scheduling).
+- **`bandwidth_timezone`**—timezone the whole `bandwidth_schedule` is
+  interpreted in. IANA name (for example, `"Asia/Kolkata"`) or
+  `"utc"`.
 
 ## Performance vs. correctness
 
@@ -105,15 +167,17 @@ regardless of how rarely it happens.
 
 Each entry in the `upstreams` list:
 
-| Field | Type | Description |
-|----|---|-------|
-| `name` | String | Expected source node name (must match the source's `name`). |
-| `auth_token` | String | Token store key for verifying the source's identity. Each upstream needs a unique auth token so the downstream can identify who connected. |
-| `write_token` | String | Token store key for writing the source's data into local InfluxDB. |
+- **`name`**—expected source node name (must match the source's
+  `name`).
+- **`auth_token`**—token store key for verifying the source's
+  identity. Each upstream needs a unique auth token so the downstream
+  can identify who connected.
+- **`write_token`**—token store key for writing the source's data
+  into local InfluxDB.
 
 ## Scope
 
-```yaml
+```yaml {lint="false"}
 # Replicate everything (default):
 scope:
   type: instance
@@ -188,13 +252,18 @@ priorities:
     historic_fill: true              # historic fill traffic uses this tier
 ```
 
-| Field | Type | Description |
-|---|---|---|
-| `match.type` | `all` \| `database` \| `tables` | What the rule matches. |
-| `recency` | Duration | Optional data-time recency window; the rule matches only blocks whose max data time is within the window of now. |
-| `priority` | Integer (1-255) | Lower is more urgent. Unique values become dispatch tiers. |
-| `share` | Integer | Optional deficit round-robin (DRR) weight for this tier. |
-| `historic_fill` | Boolean | One rule may claim historic fill traffic for its tier. Otherwise historic fill rides the lowest-priority tier. |
+- **`match.type`** (`all` \| `database` \| `tables`)—what the rule
+  matches.
+- **`recency`** (Duration)—optional data-time recency window; the
+  rule matches only blocks whose max data time is within the window
+  of now.
+- **`priority`** (Integer, 1-255)—lower is more urgent. Unique values
+  become dispatch tiers.
+- **`share`** (Integer)—optional deficit round-robin (DRR) weight for
+  this tier.
+- **`historic_fill`** (Boolean)—one rule may claim historic fill
+  traffic for its tier. Otherwise historic fill rides the
+  lowest-priority tier.
 
 See [Priorities](/influxdb3/edr/reference/architecture/#priorities) for how
 tiers are scheduled.
@@ -231,15 +300,30 @@ downstream:
       mode: unlimited
 ```
 
-| Field | Description |
-|----|-------|
-| `name` | Optional label, shown in the UI and logs. |
-| `hours` | `"HH:MM-HH:MM"`, 24-hour, in the schedule's timezone (see `bandwidth_timezone`). Wraps midnight (`"22:00-06:00"`). `"24:00"` is accepted as an end-of-day sentinel only, so a whole-day window can be written as `"00:00-24:00"` instead of the off-by-one `"00:00-23:59"`—as a *start* time it's a config error. Mutually exclusive with `dates`. |
-| `days` | Optional list of `mon`/`tue`/`wed`/`thu`/`fri`/`sat`/`sun` restricting which weekdays `hours` applies to. Absent = every day. A wrapping window (for example, `"22:00-06:00", days: [fri]`) is anchored to its **start day**—the post-midnight tail on Saturday still counts as Friday's window. Combining `days` with `dates` is a config error. |
-| `dates` | Optional list of calendar-date overrides, matching the **whole day**: `"YYYY-MM-DD"` (one-time—this exact date only) or `"MM-DD"` (no year—recurs every year, for example `"12-25"`). An entry has either `hours` (+ optional `days`) or `dates`, never both—combining them, or setting neither, is a config error. |
-| `mode` | `unlimited` (full speed), `limited` (throttled to `max_bytes_per_sec`), or `silent` (no data sends). |
-| `max_bytes_per_sec` | Required for `limited`. |
-| `silent_reports` | For `silent` mode: keep sending status reports (default true). When false, no traffic at all—the downstream marks the channel unhealthy for the duration. |
+- **`name`**—optional label, shown in the UI and logs.
+- **`hours`**—`"HH:MM-HH:MM"`, 24-hour, in the schedule's timezone
+  (see `bandwidth_timezone`). Wraps midnight (`"22:00-06:00"`).
+  `"24:00"` is accepted as an end-of-day sentinel only, so a
+  whole-day window can be written as `"00:00-24:00"` instead of the
+  off-by-one `"00:00-23:59"`—as a *start* time it's a config error.
+  Mutually exclusive with `dates`.
+- **`days`**—optional list of
+  `mon`/`tue`/`wed`/`thu`/`fri`/`sat`/`sun` restricting which
+  weekdays `hours` applies to. Absent = every day. A wrapping window
+  (for example, `"22:00-06:00", days: [fri]`) is anchored to its
+  **start day**—the post-midnight tail on Saturday still counts as
+  Friday's window. Combining `days` with `dates` is a config error.
+- **`dates`**—optional list of calendar-date overrides, matching the
+  **whole day**: `"YYYY-MM-DD"` (one-time—this exact date only) or
+  `"MM-DD"` (no year—recurs every year, for example `"12-25"`). An
+  entry has either `hours` (+ optional `days`) or `dates`, never
+  both—combining them, or setting neither, is a config error.
+- **`mode`**—`unlimited` (full speed), `limited` (throttled to
+  `max_bytes_per_sec`), or `silent` (no data sends).
+- **`max_bytes_per_sec`**—required for `limited`.
+- **`silent_reports`**—for `silent` mode: keep sending status reports
+  (default true). When false, no traffic at all—the downstream marks
+  the channel unhealthy for the duration.
 
 Entries are evaluated in order; the first matching entry wins, so more
 specific rules (a weekend override, a calendar exception) must come before
