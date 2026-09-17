@@ -7,17 +7,18 @@ description: >
   connections that may be intermittent or bandwidth-constrained.
 menu:
   influxdb3_edr:
-    name: EDR
-weight: 1
+    name: EDR for InfluxDB 3 Enterprise
+    weight: 1
+weight: 100
 cascade:
   product: influxdb3_edr
   version: edr
 ---
 
 <!-- TODO(pm): confirm final disambiguation wording (title, lede, and
-callout below) — see PLAN.md §9 item 10. —>
+callout below) — see PLAN.md §9 item 10. -->
 
-Edge Data Replication (EDR) for InfluxDB 3 Enterprise moves time series data
+{{% product-name %}} moves time series data
 from edge InfluxDB 3 Enterprise instances up through regional relays to a
 central hub, over links that may be intermittent or bandwidth-constrained.
 EDR runs as a separate agent process alongside InfluxDB 3 Enterprise and
@@ -85,9 +86,10 @@ InfluxDB Clustered are not supported as an EDR source or destination.
 <!-- TODO(pm): confirm distribution channel and acquisition path for the
 EDR binaries, container image, and signals demo bundle before GA — see
 edr-docs-open-issues.md, "EDR artifacts have no documented acquisition
-path for readers". —>
+path for readers". -->
 > [!Note]
 > #### Getting EDR
+>
 > EDR is distributed directly by InfluxData. Contact your account team to
 > obtain the binaries, container image, and demo bundle.
 
