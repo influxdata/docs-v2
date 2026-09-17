@@ -27,6 +27,7 @@ Identify products by their product path. Dictionary schema:
      this product needs a distinct alt_link key to avoid colliding with it. */}}
 {{ $influxdb3Cloud := dict "influxdb3/cloud" (slice $.Site.Data.products.influxdb3_cloud.name "cloud3") }}
 {{ $influxdb3Explorer := dict "influxdb3/explorer" (slice $.Site.Data.products.influxdb3_explorer.name "explorer") }}
+{{ $influxdb3Edr := dict "influxdb3/edr" (slice $.Site.Data.products.influxdb3_edr.name "edr") }}
 {{ $influxdb3CloudServerless := dict "influxdb3/cloud-serverless" (slice $.Site.Data.products.influxdb3_cloud_serverless.name "cloud-serverless") }}
 {{ $influxdb3CloudDedicated := dict "influxdb3/cloud-dedicated" (slice $.Site.Data.products.influxdb3_cloud_dedicated.name "cloud-dedicated") }}
 {{ $influxdb3Clustered := dict "influxdb3/clustered" (slice $.Site.Data.products.influxdb3_clustered.name "clustered") }}
@@ -38,7 +39,7 @@ Identify products by their product path. Dictionary schema:
 {{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
 {{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 {{ $influxdbCloud1 := dict "influxcloud/v1" (slice $.Site.Data.products.influxdb_cloud1.name "v1") }}
-{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3Cloud $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $telegrafEnterprise $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb $influxdbCloud1 }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3Cloud $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $telegrafEnterprise $chronograf $kapacitor $influxdb3Explorer $influxdb3Edr $flux $enterpriseInfluxdb $influxdbCloud1 }}
 
 {{ define "productLink" }}
   {{ $specialLink := "" }}
@@ -87,6 +88,7 @@ Identify products by their product path. Dictionary schema:
       </ul>
       <ul class="item-list products" data-category="Tools">
         <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/explorer" "state" "New") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "influxdb3/edr" "state" "New") $templateDefaults) }}</li>
       </ul>
     </div>
     <div class="product-group">
