@@ -18,6 +18,13 @@ Explorer is fully featured for [InfluxDB 3 Core](/influxdb3/core/) and
 [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
 You can use Explorer to query data in and administer these products.
 
+Explorer v1.9 and earlier runs as a standalone Docker container that works
+with either Core or Enterprise. Starting with Explorer v1.10, Explorer is
+included with InfluxDB 3 Enterprise and runs as WebAssembly (WASM); it isn't
+distributed separately for Core. See
+[Install Explorer](/influxdb3/explorer/install/) to find the instructions for
+your version.
+
 Explorer provides only _partial_ support for
 [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) and
 [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/).

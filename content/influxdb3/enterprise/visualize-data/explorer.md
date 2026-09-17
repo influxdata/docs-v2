@@ -47,7 +47,7 @@ To serve Explorer from your server, you need the following:
 
 - {{% product-name %}} v3.11 or later.
   For earlier releases, run the
-  [Explorer Docker container](/influxdb3/explorer/install/).
+  [Explorer Docker container](/influxdb3/explorer/install/docker/).
 - A session secret.
   {{% product-name %}} requires
   [`--webui-session-secret`](/influxdb3/enterprise/reference/config-options/#webui-session-secret)
@@ -162,7 +162,7 @@ The integrated Explorer keeps its application state in a SQLite database that
 the server synchronizes to object storage for each cluster.
 You don't mount a volume to persist it, which is the main operational
 difference from the
-[Explorer Docker container](/influxdb3/explorer/install/#persist-data-across-restarts).
+[Explorer Docker container](/influxdb3/explorer/install/docker/#persist-data-across-restarts).
 
 ## Enable AI chat
 
@@ -204,4 +204,4 @@ option in a specific build. -->
 Use the container when you run Core, when you run an Enterprise release
 earlier than v3.11, or when you want Explorer to run separately from the
 database server--for example, on an operator workstation.
-See [Install and run InfluxDB 3 Explorer](/influxdb3/explorer/install/).
+See [Install and run InfluxDB 3 Explorer with Docker](/influxdb3/explorer/install/docker/).
