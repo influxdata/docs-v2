@@ -27,6 +27,7 @@ catches up automatically.
 
 > [!Note]
 > #### Not the same as InfluxDB v2/Cloud's replication streams
+>
 > This EDR product for InfluxDB 3 Enterprise is unrelated to
 > [Edge Data Replication in InfluxDB v2 and InfluxDB Cloud](/influxdb/v2/write-data/replication/),
 > which forwards writes from a local OSS bucket to a remote bucket. The two

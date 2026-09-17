@@ -15,6 +15,9 @@ multi-tier relay, and at-least-once delivery in one topology: two edges
 replicating up through a regional relay to a central hub, entirely in
 Docker.
 
+The demo is a self-contained bundle (`demo/signals-demo/`) that you
+download and run with Docker Compose—see [Run it](#run-it).
+
 1. [How EDR sources data](#how-edr-sources-data)
 2. [The topology](#the-topology)
 3. [The three config shapes](#the-three-config-shapes)
@@ -49,7 +52,7 @@ Write arrives
 ```
 
 After a WAL file is snapshotted, it becomes eligible for deletion. If EDR
-was down or disconnected when that happened, the WAL file may be gone—but
+was down or disconnected when that happened, the WAL file may be gone, but
 the data still exists in gen0 or a higher compaction level (cv2 files).
 Historic fill and gap fill recover data from these files. For more
 information, see
@@ -83,13 +86,13 @@ ever takes:
 | `singapore` | **regional relay**—receives *and* forwards | both `upstreams:` and `downstream:` |
 | `london` | **downstream-only**—a pure sink | an `upstreams:` list (who sends to it) |
 
-A fifth container—the **dashboard**—generates the test signals, queries
+A fifth container, the **dashboard**, generates the test signals, queries
 every tier, serves the UI, and runs the channel relay. It is demo
 scaffolding, not part of EDR.
 
 ## The three config shapes
 
-These are the heart of EDR, and the *only* three. The `auth_token` on each
+Every EDR agent uses one of these three shapes. The `auth_token` on each
 sender's `downstream` matches an `upstreams` entry on the receiver—that
 pairing is how a receiver knows who connected.
 
@@ -128,12 +131,13 @@ upstreams:
   - { name: singapore, auth_token: singapore-auth, write_token: london-token }
 ```
 
-Every EDR deployment, however large, is just these shapes composed into a
-tree. For a two-node version of these shapes, see
+Every EDR deployment composes these three shapes into a tree, however
+large. For a two-node version, see
 [Get started with EDR](/influxdb3/edr/get-started/).
 
 > [!Note]
-> #### One demo-only twist
+> #### The dashboard relay is demo-only
+>
 > Above, each sender's `downstream.address` is the next hop's EDR
 > directly—the production shape. The demo instead points each
 > `downstream.address` at the dashboard's relay, which transparently
@@ -167,9 +171,9 @@ the link is restored.
 - **At-least-once delivery** with automatic catch-up; no data lost on
   disconnection.
 
-The demo runs happily on defaults. Before you size a production deployment,
-see [Size WAL retention](/influxdb3/edr/size-wal-retention/) for the
-two settings worth setting deliberately.
+The demo runs on defaults with no tuning. Before you size a production
+deployment, see [Size WAL retention](/influxdb3/edr/size-wal-retention/)
+for the two settings worth setting deliberately.
 
 ## Next
 
@@ -177,5 +181,6 @@ two settings worth setting deliberately.
   topologies to Enterprise, Cloud, or multiple destinations.
 - [Monitor EDR](/influxdb3/edr/monitor/)—health, historic fill, and
   gap fill.
-- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/)—when something
-  looks wrong.
+- [Troubleshoot EDR](/influxdb3/edr/troubleshoot/).
+
+{{< page-nav prev="/influxdb3/edr/get-started/" prevText="Get started with EDR" >}}

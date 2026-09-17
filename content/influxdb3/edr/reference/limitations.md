@@ -48,26 +48,23 @@ Current limitations of the implementation:
 3. **Silent windows are not propagated to the downstream.** A fully silent
    schedule window (`silent_reports: false`) causes the downstream to mark
    the channel unhealthy even though the silence is intentional.
-4. **Decommission endpoint removed.** A stubbed, unauthenticated
-   decommission endpoint was removed rather than hardened; retire an
-   upstream via config and token revocation.
-5. **PT-wire partial application.** A multi-database PT batch that fails
+4. **PT-wire partial application.** A multi-database PT batch that fails
    partway may have applied earlier databases; the failure is reported to
    the sender without classification (schema vs auth vs write). Idempotent
    re-delivery converges the state, but error reporting should improve.
-6. **Topology cycle rendering.** The UI tree renderer does not detect
+5. **Topology cycle rendering.** The UI tree renderer does not detect
    cycles; peer-to-peer topologies need `share_topology: false` on both
    peers.
-7. **Historic fill over-replication residue.** Sending whole cv2 files
+6. **Historic fill over-replication residue.** Sending whole cv2 files
    over-delivers for windows narrower than the file; block-level time
    filters help only time-partitioned workloads. Row-level filtering at
    encode time is future work.
-8. **Series disjointness is unenforced.** When multiple upstreams write to
+7. **Series disjointness is unenforced.** When multiple upstreams write to
    the same downstream table, each series (database + table + tag set)
    should be owned by exactly one upstream, so per-point write ordering
    stays a purely local concern within one upstream's stream. This is a
    documented operator responsibility, not enforced.
-9. **Open downstream registration, upstream/downstream scale-out, and
+8. **Open downstream registration, upstream/downstream scale-out, and
    Cloud-as-upstream** are design-stage items, not yet implemented.
 
 ## Sizing and capacity

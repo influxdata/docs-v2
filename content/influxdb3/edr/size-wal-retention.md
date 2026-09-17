@@ -9,16 +9,22 @@ menu:
 weight: 8
 ---
 
-**Size WAL retention on the source to exceed your maximum expected outage
-plus margin.** WAL retention on the **source** InfluxDB 3 Enterprise server
-is the primary knob that determines whether EDR replicates from WAL files
-(fast, precise) or falls back to slower compacted-file recovery after an
-outage. WAL files are compact (about 3x smaller than gen0), so generous
-retention is cheap: a source ingesting 1 MB/s needs about 86 GB for 24
-hours of WAL retention.
+WAL retention on the source InfluxDB 3 Enterprise server determines
+whether EDR recovers a missed window from WAL files (fast, precise) or
+falls back to slower compacted-file recovery: an outage or disconnection
+longer than the retention window forces the fallback. WAL files are
+compact (about 3x smaller than gen0), so generous retention is cheap—a
+source ingesting 1 MB/s needs about 86 GB for 24 hours of WAL retention.
 
 This page covers sizing that retention and, if the resulting WAL buildup
 becomes a storage concern, using EDR's optional WAL cleanup to bound it.
+
+> [!Important]
+> #### Size retention to your longest expected outage
+>
+> Size WAL retention on the source to exceed your maximum expected outage
+> or disconnection, plus a safety margin. See
+> [Why retention matters](#why-retention-matters) for a sizing table.
 
 ## Why retention matters
 

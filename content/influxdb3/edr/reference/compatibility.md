@@ -40,6 +40,7 @@ stability at GA and the correct product name / link target from
 AWS-facing docs before publishing this callout — see PLAN.md §9 item 3. -->
 > [!Note]
 > #### AWS Timestream for InfluxDB 3
+>
 > AWS Timestream for InfluxDB 3 is a supported EDR destination. AWS
 > maintains this destination's own documentation; see AWS's documentation
 > for AWS Timestream for InfluxDB 3 for setup and compatibility details
