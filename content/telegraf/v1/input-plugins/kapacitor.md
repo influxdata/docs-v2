@@ -43,6 +43,9 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## Time limit for http requests
   timeout = "5s"
 
+  ## Add "url" tag identifying the scrape source to nested Kapacitor metrics
+  # tag_url = false
+
   ## Optional TLS Config
   # tls_ca = "/etc/telegraf/ca.pem"
   # tls_cert = "/etc/telegraf/cert.pem"

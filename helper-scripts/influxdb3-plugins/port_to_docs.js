@@ -7,6 +7,22 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import {
+  fetchRegistryIndex,
+  parseRegistryIndex,
+  partitionDiscoveredPlugins,
+} from './discovery.js';
+import { mapEntry, renderPluginDataYaml } from './plugin-data.js';
+import { stubPath, scaffoldStub } from './stub-template.js';
+import {
+  collapseByPlugin,
+  detectRemovedPlugins,
+  formatSummary,
+  hasFatal,
+  needsAttention,
+  writeStepOutputs,
+  writeStepSummary,
+} from './reporting.js';
 
 /**
  * Load the mapping configuration file.
@@ -253,55 +269,84 @@ function fixCodeBlockFormatting(content) {
 }
 
 /**
- * Add schema requirements section for plugins that need it.
+ * Upstream READMEs use ellipses in abbreviated JSON request and response
+ * examples. They are deliberately not parseable JSON, so exempt only those
+ * fences from the repository's code-block parser.
  */
-function addSchemaRequirements(content, pluginName) {
-  // List of plugins that require schema information
-  const schemaPlugins = ['basic_transformation', 'downsampler'];
+function exemptAbbreviatedJsonExamples(content) {
+  return content.replace(
+    /```json([^\n]*)\n([\s\S]*?)```/g,
+    (match, attributes, body) => {
+      if (attributes.includes('lint=') || !body.includes('...')) return match;
+      return `\`\`\`json${attributes} {lint="false"}\n${body}\`\`\``;
+    }
+  );
+}
 
-  if (!schemaPlugins.includes(pluginName)) {
-    return content;
+/**
+ * Markdown list indentation uses spaces. Normalize tabs that appear only in
+ * a list prefix without changing tabs in code fences or prose.
+ */
+function normalizeListIndentation(content) {
+  return content.replace(
+    /^([ \t]+)([-*+] )/gm,
+    (match, indent, marker) => `${indent.replaceAll('\t', '  ')}${marker}`
+  );
+}
+
+function exemptGeneratedContentFromVale(content) {
+  return `<!-- vale off -->\n${content.trim()}\n<!-- vale on -->`;
+}
+
+const GENERATED_REGION_BEGIN = '<!-- BEGIN GENERATED PLUGIN CONTENT -->';
+const GENERATED_REGION_END = '<!-- END GENERATED PLUGIN CONTENT -->';
+
+/**
+ * Merge freshly generated README content into a shared page, preserving any
+ * hand-owned text outside the generated region.
+ *
+ * - No existing markers: the whole file is generated content; wrap it in
+ *   markers so future runs can locate the region.
+ * - Both markers present, in order: replace only the text between them.
+ * - Markers missing, duplicated, or out of order: report an error instead of
+ *   writing, so a malformed page isn't silently corrupted.
+ */
+function mergeGeneratedRegion(existingContent, generatedContent) {
+  const body = generatedContent.trim();
+
+  if (!existingContent) {
+    return {
+      content: `${GENERATED_REGION_BEGIN}\n${body}\n${GENERATED_REGION_END}\n`,
+    };
   }
 
-  let schemaSection;
-  if (pluginName === 'basic_transformation') {
-    schemaSection = `## Schema requirements
+  const beginIndex = existingContent.indexOf(GENERATED_REGION_BEGIN);
+  const endIndex = existingContent.indexOf(GENERATED_REGION_END);
 
-The plugin assumes that the table schema is already defined in the database, as it relies on this schema to retrieve field and tag names required for processing.
-
-> [!WARNING]
-> #### Requires existing schema
->
-> By design, the plugin returns an error if the schema doesn't exist or doesn't contain the expected columns.
-`;
-  } else if (pluginName === 'downsampler') {
-    schemaSection = `## Schema management
-
-Each downsampled record includes three additional metadata columns:
-
-- \`record_count\` — the number of original points compressed into this single downsampled row
-- \`time_from\` — the minimum timestamp among the original points in the interval  
-- \`time_to\` — the maximum timestamp among the original points in the interval
-`;
-  } else {
-    return content;
+  if (beginIndex === -1 && endIndex === -1) {
+    return {
+      content: `${GENERATED_REGION_BEGIN}\n${body}\n${GENERATED_REGION_END}\n`,
+    };
   }
 
-  // Insert after Configuration section
-  if (content.includes('## Installation steps')) {
-    content = content.replace(
-      '## Installation steps',
-      schemaSection + '\n## Installation steps'
-    );
+  if (beginIndex === -1 || endIndex === -1 || endIndex < beginIndex) {
+    return {
+      error: `Unterminated generated-region marker: expected both "${GENERATED_REGION_BEGIN}" and "${GENERATED_REGION_END}", in that order.`,
+    };
   }
 
-  return content;
+  const prefix = existingContent.slice(
+    0,
+    beginIndex + GENERATED_REGION_BEGIN.length
+  );
+  const suffix = existingContent.slice(endIndex);
+  return { content: `${prefix}\n${body}\n${suffix}` };
 }
 
 /**
  * Apply all transformations to convert README for docs-v2.
  */
-function transformContent(content, pluginName, config) {
+function transformContent(content, pluginName) {
   // Apply transformations in order
   content = removeEmojiMetadata(content);
   content = removeTitleHeading(content);
@@ -313,14 +358,8 @@ function transformContent(content, pluginName, config) {
   content = enhanceOpeningParagraph(content);
   content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
-
-  // Add schema requirements if applicable
-  if (
-    config.additional_sections &&
-    config.additional_sections.includes('schema_requirements')
-  ) {
-    content = addSchemaRequirements(content, pluginName);
-  }
+  content = exemptAbbreviatedJsonExamples(content);
+  content = normalizeListIndentation(content);
 
   // Add logging section
   content = addLoggingSection(content);
@@ -328,23 +367,154 @@ function transformContent(content, pluginName, config) {
   // Replace support section
   content = replaceSupportSection(content);
 
-  return content;
+  return exemptGeneratedContentFromVale(content);
+}
+
+/**
+ * Create a Core and Enterprise stub for every discovered plugin that has
+ * neither yet. Never rewrites a stub that already exists.
+ */
+async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
+  const results = { scaffolded: [], skipped: [], byPlugin: [] };
+
+  for (const plugin of discoveredPlugins) {
+    const created = [];
+
+    for (const product of ['core', 'enterprise']) {
+      const targetPath = stubPath(plugin, product);
+      let exists = true;
+      try {
+        await fs.access(targetPath);
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+        exists = false;
+      }
+
+      const scaffold = scaffoldStub(plugin, product, { exists });
+      if (scaffold.skipped) {
+        results.skipped.push(scaffold.path);
+        continue;
+      }
+
+      if (dryRun) {
+        console.log(`✅ Would scaffold ${scaffold.path}`);
+      } else {
+        await fs.mkdir(path.dirname(scaffold.path), { recursive: true });
+        await fs.writeFile(scaffold.path, scaffold.content, 'utf8');
+        console.log(`✅ Scaffolded ${scaffold.path}`);
+      }
+      results.scaffolded.push(scaffold.path);
+      created.push(`${product} stub`);
+    }
+
+    if (created.length > 0) {
+      results.byPlugin.push({
+        plugin: plugin.name,
+        status: 'scaffolded',
+        detail: created.join(', '),
+      });
+    }
+  }
+
+  return results;
+}
+
+/**
+ * Resolve the `--plugin` argument against the mapping config.
+ *
+ * Accepts a single name, a comma-separated list, or `all` (also the default).
+ * A list is processed in one run rather than one run per plugin, because each
+ * run appends `summary` and `needs_attention` to `$GITHUB_OUTPUT` -- a loop
+ * would leave only the last plugin's outcome visible to the workflow.
+ */
+function selectPlugins(configPlugins, pluginArg) {
+  const normalized = typeof pluginArg === 'string' ? pluginArg.trim() : pluginArg;
+  const entries = Object.entries(configPlugins);
+
+  if (!normalized || normalized === 'all') {
+    return { selected: entries, unknown: [] };
+  }
+
+  const requested = normalized
+    .split(',')
+    .map((name) => name.trim())
+    .filter(Boolean);
+
+  return {
+    selected: requested
+      .filter((name) => configPlugins[name])
+      .map((name) => [name, configPlugins[name]]),
+    unknown: requested.filter((name) => !configPlugins[name]),
+  };
+}
+
+/**
+ * Whether this run covers every official plugin, not a named subset.
+ *
+ * Discovery, the data file, stub scaffolding, and removal detection are
+ * whole-library concerns, so they run only for a full sync. The workflow
+ * always passes `--plugin`, defaulting to `all`, so `all` has to mean the same
+ * thing here as it does in `selectPlugins`.
+ */
+function shouldRunDiscovery(pluginArg) {
+  return !pluginArg || pluginArg === 'all';
+}
+
+const SHARED_OFFICIAL_DIR =
+  '../../content/shared/influxdb3-plugins/plugins-library/official';
+const UPSTREAM_OFFICIAL_DIR = '../../../.ext/influxdb3_plugins/influxdata';
+
+/**
+ * Return the README and shared-page paths for a discovered official plugin.
+ *
+ * Most plugins follow this convention. `docs_mapping.yaml` remains the place
+ * for the exceptional source or target paths that need an explicit override.
+ */
+function mappingForDiscoveredPlugin(plugin, configPlugins) {
+  if (configPlugins[plugin.name]) {
+    return configPlugins[plugin.name];
+  }
+
+  return {
+    source: `${UPSTREAM_OFFICIAL_DIR}/${plugin.name}/README.md`,
+    target: `${SHARED_OFFICIAL_DIR}/${plugin.slug}.md`,
+  };
+}
+
+/**
+ * Shared pages left behind by a plugin that is no longer in the registry.
+ * Read-only: the sync reports removals and never deletes a published page.
+ */
+async function findRemovedPlugins(discoveredPlugins) {
+  let filenames;
+  try {
+    filenames = await fs.readdir(SHARED_OFFICIAL_DIR);
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    return [];
+  }
+  return detectRemovedPlugins(discoveredPlugins, filenames);
 }
 
 /**
  * Process a single plugin README.
- * Returns true if successful, false otherwise.
+ *
+ * Returns a `{ plugin, status, detail }` result rather than a pass/fail
+ * boolean, so the run can report a missing README as a skip and a mangled
+ * region as a failure instead of collapsing both into "error".
  */
 async function processPlugin(pluginName, mapping, dryRun = false) {
   const sourcePath = mapping.source;
   const targetPath = mapping.target;
+  const result = (status, detail) => ({ plugin: pluginName, status, detail });
 
   try {
     // Check if source exists
     await fs.access(sourcePath);
-  } catch (error) {
-    console.error(`❌ Source not found: ${sourcePath}`);
-    return false;
+  } catch {
+    // A plugin published without a README the transform can read is a gap to
+    // fill upstream, not a broken sync. Report it and keep going.
+    return result('skipped', `source README not found: ${sourcePath}`);
   }
 
   try {
@@ -352,28 +522,38 @@ async function processPlugin(pluginName, mapping, dryRun = false) {
     const content = await fs.readFile(sourcePath, 'utf8');
 
     // Transform content
-    const transformed = transformContent(content, pluginName, mapping);
+    const transformed = transformContent(content, pluginName);
+
+    // Preserve any hand-owned text outside the generated region
+    let existingTarget = null;
+    try {
+      existingTarget = await fs.readFile(targetPath, 'utf8');
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+
+    const merged = mergeGeneratedRegion(existingTarget, transformed);
+    if (merged.error) {
+      return result('error', merged.error);
+    }
+
+    if (merged.content === existingTarget) {
+      return result('unchanged', targetPath);
+    }
 
     if (dryRun) {
-      console.log(`✅ Would process ${pluginName}`);
-      console.log(`   Source: ${sourcePath}`);
-      console.log(`   Target: ${targetPath}`);
-      return true;
+      return result('updated', `would write ${targetPath}`);
     }
 
     // Ensure target directory exists
     await fs.mkdir(path.dirname(targetPath), { recursive: true });
 
-    // Write transformed content
-    await fs.writeFile(targetPath, transformed, 'utf8');
+    // Write merged content
+    await fs.writeFile(targetPath, merged.content, 'utf8');
 
-    console.log(`✅ Processed ${pluginName}`);
-    console.log(`   Source: ${sourcePath}`);
-    console.log(`   Target: ${targetPath}`);
-    return true;
+    return result('updated', targetPath);
   } catch (error) {
-    console.error(`❌ Error processing ${pluginName}: ${error.message}`);
-    return false;
+    return result('error', error.message);
   }
 }
 
@@ -384,7 +564,7 @@ async function validateDocsV2Path() {
   try {
     await fs.access('../..');
     return true;
-  } catch (error) {
+  } catch {
     console.warn('⚠️  Warning: docs-v2 repository structure not detected');
     console.warn(
       '   Make sure you are running this from docs-v2/helper-scripts/influxdb3-plugins'
@@ -494,7 +674,7 @@ async function main() {
 
       try {
         await fs.access(mapping.source);
-      } catch (error) {
+      } catch {
         console.warn(
           `⚠️  Source not found for ${pluginName}: ${mapping.source}`
         );
@@ -516,52 +696,139 @@ async function main() {
     process.exit(1);
   }
 
-  // Process plugins
-  let pluginsToProcess = Object.entries(config.plugins);
+  // Discover official plugins from the registry index. A full sync transforms
+  // every discovered plugin README. docs_mapping.yaml supplies exceptions to
+  // the conventional README and shared-page paths, rather than a roster that
+  // can omit newly published plugins.
+  // Each artifact the run touches appends a `{ plugin, status, detail }`
+  // entry. `main` collapses them to one row per plugin before reporting.
+  const artifactResults = [];
+  let discovered = null;
 
-  if (options.plugin) {
-    if (!config.plugins[options.plugin]) {
-      console.error(`❌ Plugin '${options.plugin}' not found in configuration`);
-      process.exit(1);
+  if (shouldRunDiscovery(options.plugin)) {
+    console.log('Discovering official plugins from the registry index...');
+
+    // A registry fetch failure is a bad afternoon on the network, not drift.
+    // It must not fail a nightly run, so it is reported as a skip.
+    try {
+      const indexJson = await fetchRegistryIndex();
+      const parsed = parseRegistryIndex(indexJson, {
+        overrides: config.overrides ?? {},
+        exclude: config.exclude ?? [],
+      });
+      discovered = parsed.plugins;
+
+      console.log(
+        `Discovered ${discovered.length} official plugin(s) in the registry.`
+      );
+      if (parsed.excluded.length > 0) {
+        console.log(
+          `Excluded by docs_mapping.yaml: ${parsed.excluded.join(', ')}`
+        );
+      }
+      const { mapped } = partitionDiscoveredPlugins(
+        discovered,
+        Object.keys(config.plugins)
+      );
+      console.log(`  Explicit path overrides: ${mapped.length}`);
+    } catch (error) {
+      console.warn(`⚠️  Could not read the registry index: ${error.message}`);
+      artifactResults.push({
+        plugin: 'registry index',
+        status: 'skipped',
+        detail: `could not read the registry index: ${error.message}`,
+      });
     }
-    pluginsToProcess = [[options.plugin, config.plugins[options.plugin]]];
+
+    if (discovered) {
+      // Writing is a different failure. An unwritable data file or stub means
+      // the sync reported success while publishing nothing, which is the
+      // failure this pipeline is being rebuilt to stop having.
+      try {
+        const dataYaml = renderPluginDataYaml(discovered.map(mapEntry));
+        const dataFilePath = '../../data/influxdb3_plugins.yml';
+        if (options.dryRun) {
+          console.log(`DRY RUN: would write ${dataFilePath}`);
+        } else {
+          await fs.writeFile(dataFilePath, dataYaml, 'utf8');
+          console.log(`Wrote ${dataFilePath}`);
+        }
+
+        const scaffoldResults = await scaffoldMissingStubs(
+          discovered,
+          options.dryRun
+        );
+        console.log(
+          `Product stubs: ${scaffoldResults.scaffolded.length} scaffolded, ` +
+            `${scaffoldResults.skipped.length} already present.`
+        );
+        artifactResults.push(...scaffoldResults.byPlugin);
+      } catch (error) {
+        console.error(`❌ Could not write generated files: ${error.message}`);
+        artifactResults.push({
+          plugin: 'generated files',
+          status: 'error',
+          detail: error.message,
+        });
+      }
+
+      artifactResults.push(
+        ...(await findRemovedPlugins(discovered)).map((slug) => ({
+          plugin: slug,
+          status: 'removed',
+          detail: 'shared page has no plugin in the registry index',
+        }))
+      );
+    }
+    console.log('');
   }
+
+  // Process plugins. A successful full discovery is authoritative: every
+  // official plugin gets a conventional mapping unless configuration overrides
+  // it. If discovery was unavailable, retain the configured fallback so an
+  // upstream-network failure does not prevent known pages from refreshing.
+  const { selected: configuredPlugins, unknown } = selectPlugins(
+    config.plugins,
+    options.plugin
+  );
+
+  if (unknown.length > 0) {
+    console.error(`❌ Not found in configuration: ${unknown.join(', ')}`);
+    process.exit(1);
+  }
+
+  const pluginsToProcess = discovered
+    ? discovered.map((plugin) => [
+        plugin.name,
+        mappingForDiscoveredPlugin(plugin, config.plugins),
+      ])
+    : configuredPlugins;
 
   console.log(
     `${options.dryRun ? 'DRY RUN: ' : ''}Processing ${pluginsToProcess.length} plugin(s)...\n`
   );
 
-  let successCount = 0;
-  let errorCount = 0;
-
   for (const [pluginName, mapping] of pluginsToProcess) {
-    if (await processPlugin(pluginName, mapping, options.dryRun)) {
-      successCount++;
-    } else {
-      errorCount++;
-    }
+    artifactResults.push(
+      await processPlugin(pluginName, mapping, options.dryRun)
+    );
   }
 
-  // Print summary
+  const results = collapseByPlugin(artifactResults);
+  const summary = formatSummary(results);
+
   console.log('\n' + '='.repeat(60));
   console.log('TRANSFORMATION SUMMARY');
   console.log('='.repeat(60));
-  console.log(`Successfully processed: ${successCount}`);
-  console.log(`Errors: ${errorCount}`);
+  console.log(summary);
 
-  if (errorCount === 0) {
-    console.log('\n✅ All plugins processed successfully!');
-    if (!options.dryRun) {
-      console.log('\nNext steps:');
-      console.log('1. Review the generated documentation in docs-v2');
-      console.log('2. Test that all links work correctly');
-      console.log('3. Verify product shortcodes render properly');
-      console.log('4. Commit changes in both repositories');
-    }
-  } else {
-    console.log(`\n❌ ${errorCount} plugin(s) failed to process`);
-    process.exit(1);
-  }
+  writeStepSummary(`## InfluxDB 3 plugin documentation sync\n\n${summary}`);
+  writeStepOutputs({
+    needs_attention: needsAttention(results) ? 'true' : 'false',
+    summary,
+  });
+
+  process.exit(hasFatal(results) ? 1 : 0);
 }
 
 // Handle unhandled promise rejections
@@ -578,4 +845,12 @@ if (import.meta.url.endsWith(process.argv[1])) {
   });
 }
 
-export { transformContent, processPlugin, loadMappingConfig };
+export {
+  transformContent,
+  processPlugin,
+  loadMappingConfig,
+  mergeGeneratedRegion,
+  selectPlugins,
+  shouldRunDiscovery,
+  mappingForDiscoveredPlugin,
+};

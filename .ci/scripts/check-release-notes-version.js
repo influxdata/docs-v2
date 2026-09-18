@@ -249,6 +249,15 @@ export function evaluate(products, changed, lookup = documentedVersion) {
   return results;
 }
 
+export function emitWarnings(results, write = console.error) {
+  for (const r of results.filter((x) => x.status === 'drift')) {
+    write(
+      `::warning file=${r.notesFile}::Release notes show v${r.documented} but ` +
+        `data/products.yml ${r.selector} for ${r.product} is ${r.current} — bump products.yml.`
+    );
+  }
+}
+
 const BADGE_REMINDER = [
   '### 💡 Badge new features with the version',
   '',
@@ -318,12 +327,7 @@ function main() {
   const products = yaml.load(readFileSync(PRODUCTS_YAML, 'utf8'));
   const results = evaluate(products, changed);
 
-  for (const r of results.filter((x) => x.status === 'drift')) {
-    console.log(
-      `::warning file=${r.notesFile}::Release notes show v${r.documented} but ` +
-        `data/products.yml ${r.selector} for ${r.product} is ${r.current} — bump products.yml.`
-    );
-  }
+  emitWarnings(results);
 
   const report = buildReport(results);
   console.log(report);

@@ -1,4 +1,5 @@
-
+<!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The Threshold Deadman Checks Plugin provides comprehensive monitoring capabilities for time series data in {{% product-name %}}, combining real-time threshold detection with deadman monitoring. Monitor field values against configurable thresholds, detect data absence patterns, and trigger multi-level alerts based on aggregated metrics. Features both scheduled batch monitoring and real-time data write monitoring with configurable trigger counts and severity levels.
 
 ## Configuration
@@ -11,11 +12,11 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 
 ### Required parameters
 
-| Parameter     | Type   | Default  | Description                                                                                       |
-|---------------|--------|----------|---------------------------------------------------------------------------------------------------|
-| `measurement` | string | required | Measurement to monitor for deadman alerts and aggregation-based conditions                       |
-| `senders`     | string | required | Dot-separated notification channels with multi-channel notification integration                   |
-| `window`      | string | required | Time window for periodic data presence checking                                                   |
+| Parameter     | Type   | Default  | Description                                                                                                                              |
+|---------------|--------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `measurement` | string | required | Measurement to monitor for deadman alerts and aggregation-based conditions                                                               |
+| `senders`     | string | required | Dot-separated notification channels with multi-channel notification integration                                                          |
+| `window`      | string | required | Time window for periodic data presence checking. Format: `<number><unit>`, units: `s`, `min`, `h`, `d`, `w`. Must be a positive duration |
 
 ### Data write trigger parameters
 
@@ -27,12 +28,12 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 
 ### Threshold check parameters
 
-| Parameter                  | Type    | Default | Description                                                                                                                                                       |
-|----------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `field_aggregation_values` | string  | none    | Multi-level aggregation conditions with aggregation support for avg, min, max, count, sum, median, stddev, first_value, last_value, var, and approx_median values |
-| `deadman_check`            | boolean | false   | Enable deadman detection to monitor for data absence and missing data streams                                                                                     |
-| `interval`                 | string  | "5min"  | Configurable aggregation time interval for batch processing with performance optimization                                                                         |
-| `trigger_count`            | number  | 1       | Configurable triggers requiring multiple consecutive failures before alerting                                                                                     |
+| Parameter                  | Type    | Default | Description                                                                                                                                                                                           |
+|----------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `field_aggregation_values` | string  | none    | Multi-level aggregation conditions with aggregation support for avg, min, max, count, sum, median, stddev, first_value, last_value, var, and approx_median values                                     |
+| `deadman_check`            | boolean | false   | Enable deadman detection to monitor for data absence and missing data streams                                                                                                                         |
+| `interval`                 | string  | "5min"  | Aggregation time interval used in `DATE_BIN`. Format: `<number><unit>`, units: `s`, `min`, `h`, `d`, `w`                                                                                              |
+| `trigger_count`            | number  | 1       | Breaches required before alerting. Threshold checks count consecutive breaches per row identifier, including across the time bins of a single run; deadman checks count consecutive runs without data |
 
 ### Notification parameters
 
@@ -51,7 +52,11 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}. Relative paths are resolved against the first directory that is set: `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of `VIRTUAL_ENV`. Only that directory is used — the file is not looked up in the remaining ones.
+
+When `config_file_path` is set, the TOML file provides the whole configuration and inline trigger arguments are ignored. `INFLUXDB3_AUTH_TOKEN` from the environment still applies when `influxdb3_auth_token` is not set in the file. In TOML, `senders`, `field_conditions`, and `field_aggregation_values` use native structures instead of the inline string formats.
+
+Data write triggers cache the loaded configuration for 10 minutes to keep the write path fast, so configuration changes take effect within that window.
 
 Example TOML configuration files provided:
 
@@ -71,6 +76,7 @@ The plugin assumes that the table schema is already defined in the database, as 
 ## Software requirements
 
 - **InfluxDB v3 Core/Enterprise**: with the Processing Engine enabled.
+- **Python packages**: `influxdata-plugin-utils>=0.3.0`, `requests`
 - **Notification Sender Plugin for {{% product-name %}}**: This plugin is required for sending notifications. See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 
 ## Installation steps
@@ -87,6 +93,7 @@ The plugin assumes that the table schema is already defined in the database, as 
 2. **Install required Python packages**:
 
    ```bash
+   influxdb3 install package "influxdata-plugin-utils>=0.3.0"
    influxdb3 install package requests
    ```
 3. **Optional**: For notifications, install and configure the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/)
@@ -102,7 +109,7 @@ influxdb3 create trigger \
   --database mydb \
   --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:10m" \
-  --trigger-arguments "measurement=cpu,senders=slack,field_aggregation_values=temp:avg@>=30-ERROR,window=10m,trigger_count=3,deadman_check=true,slack_webhook_url=$SLACK_WEBHOOK_URL" \
+  --trigger-arguments "measurement=cpu,senders=slack,field_aggregation_values=temp:avg@>=30-ERROR,window=10min,trigger_count=3,deadman_check=true,slack_webhook_url=$SLACK_WEBHOOK_URL" \
   threshold_scheduler
 ```
 Set `SLACK_WEBHOOK_URL` to your Slack incoming webhook URL.
@@ -148,7 +155,7 @@ influxdb3 create trigger \
   --database sensors \
   --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:5m" \
-  --trigger-arguments "measurement=heartbeat,senders=slack,window=5m,deadman_check=true,slack_webhook_url=$SLACK_WEBHOOK_URL" \
+  --trigger-arguments "measurement=heartbeat,senders=slack,window=5min,deadman_check=true,slack_webhook_url=$SLACK_WEBHOOK_URL" \
   heartbeat_monitor
 
 influxdb3 enable trigger --database sensors heartbeat_monitor
@@ -173,7 +180,7 @@ influxdb3 create trigger \
   --database sensors \
   --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:15m" \
-  --trigger-arguments "measurement=heartbeat,senders=sms,window=10m,deadman_check=true,trigger_count=2,twilio_from_number=+1234567890,twilio_to_number=+0987654321,notification_deadman_text=CRITICAL: No heartbeat data from \$table between \$time_from and \$time_to" \
+  --trigger-arguments "measurement=heartbeat,senders=sms,window=10min,deadman_check=true,trigger_count=2,twilio_from_number=+1234567890,twilio_to_number=+0987654321,notification_deadman_text=CRITICAL: No heartbeat data from \$table between \$time_from and \$time_to" \
   heartbeat_monitor
 ```
 ### Multi-level threshold monitoring
@@ -185,7 +192,7 @@ influxdb3 create trigger \
   --database monitoring \
   --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:5m" \
-  --trigger-arguments "measurement=system_metrics,senders=slack.discord,field_aggregation_values='cpu_usage:avg@>=80-WARN cpu_usage:avg@>=95-ERROR memory_usage:max@>=90-WARN',window=5m,interval=1min,trigger_count=3,slack_webhook_url=$SLACK_WEBHOOK_URL,discord_webhook_url=$DISCORD_WEBHOOK_URL" \
+  --trigger-arguments "measurement=system_metrics,senders=slack.discord,field_aggregation_values='cpu_usage:avg@>=80-WARN cpu_usage:avg@>=95-ERROR memory_usage:max@>=90-WARN',window=5min,interval=1min,trigger_count=3,slack_webhook_url=$SLACK_WEBHOOK_URL,discord_webhook_url=$DISCORD_WEBHOOK_URL" \
   system_threshold_monitor
 ```
 Set `SLACK_WEBHOOK_URL` and `DISCORD_WEBHOOK_URL` to your webhook URLs.
@@ -213,7 +220,7 @@ influxdb3 create trigger \
   --database comprehensive \
   --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:10m" \
-  --trigger-arguments "measurement=temperature_sensors,senders=whatsapp,field_aggregation_values='temperature:avg@>=35-WARN temperature:max@>=40-ERROR',window=15m,deadman_check=true,trigger_count=2,twilio_from_number=+1234567890,twilio_to_number=+0987654321" \
+  --trigger-arguments "measurement=temperature_sensors,senders=whatsapp,field_aggregation_values='temperature:avg@>=35-WARN temperature:max@>=40-ERROR',window=15min,deadman_check=true,trigger_count=2,twilio_from_number=+1234567890,twilio_to_number=+0987654321" \
   comprehensive_sensor_monitor
 ```
 
@@ -224,6 +231,9 @@ influxdb3 create trigger \
 - `threshold_deadman_checks_plugin.py`: The main plugin code containing handlers for scheduled and data write triggers
 - `threshold_deadman_config_scheduler.toml`: Example TOML configuration for scheduled triggers
 - `threshold_deadman_config_data_writes.toml`: Example TOML configuration for data write triggers
+- `test_threshold_deadman_checks.py`: Pytest suite (59 tests, runs without a live {{% product-name %}} server)
+- `requirements.txt`: Runtime dependencies (`influxdata-plugin-utils>=0.3.0`, `requests`)
+- `requirements-dev.txt`: Development dependencies (`pytest`)
 
 ### Logging
 
@@ -252,7 +262,7 @@ Handles real-time threshold monitoring on data writes. Evaluates incoming data a
 
 #### Issue: False positive alerts
 
-**Solution**: Increase `trigger_count` to require more consecutive failures. Adjust threshold values to be less sensitive. Consider longer aggregation intervals for noisy data.
+**Solution**: Increase `trigger_count` to require more consecutive breaches. In scheduled mode every `DATE_BIN` bin of the window counts as a breach, so keep `window`, `interval`, and `trigger_count` aligned. Adjust threshold values to be less sensitive. Consider longer aggregation intervals for noisy data.
 
 #### Issue: Missing deadman alerts
 
@@ -316,12 +326,14 @@ Handles real-time threshold monitoring on data writes. Evaluates incoming data a
 - `$op_sym`: Operator symbol
 - `$compare_val`: Threshold value
 - `$actual`: Actual field value
+- `$trigger_count`: Consecutive matches required before alerting
+- `$row`: Unique identifier
 
 ### Row identification
 
-The `row` variable uniquely identifies alert contexts using format: `measurement:level:tag1=value1:tag2=value2`
+The `row` variable uniquely identifies alert contexts using format: `measurement:field[:aggregation]:level:tag1=value1:tag2=value2` (`aggregation` is present for scheduled threshold checks only). Tags without a value are omitted.
 
-This ensures trigger counts are maintained independently for each unique combination of measurement, severity level, and tag values.
+Trigger counts are maintained independently for each unique combination of measurement, field, aggregation, severity level, tag values, **and the condition's operator and threshold** — two conditions that differ only by threshold never share a count.
 
 ## Report an issue
 
@@ -331,3 +343,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
+<!-- END GENERATED PLUGIN CONTENT -->

@@ -1463,6 +1463,7 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 - [exec-mem-pool-size](#exec-mem-pool-size) <small>(`--exec-mem-pool-bytes` before 3.11)</small>
 - [force-snapshot-mem-size](#force-snapshot-mem-size) <small>(`--force-snapshot-mem-threshold` before 3.11)</small>
+- [force-snapshot-max-age](#force-snapshot-max-age)
 
 #### exec-mem-pool-size
 
@@ -1507,6 +1508,34 @@ percentage (portion of available memory) or a value with a
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
 | `--force-snapshot-mem-size`<br>`--force-snapshot-mem-threshold` (pre-3.11 name) | `INFLUXDB3_FORCE_SNAPSHOT_MEM_SIZE`<br>`INFLUXDB3_FORCE_SNAPSHOT_MEM_THRESHOLD` ([pre-3.11 name](#name-changes-in-3-11)) |
+
+***
+
+#### force-snapshot-max-age {#force-snapshot-max-age metadata="v3.11.5+"}
+
+Specifies how long WAL data can wait for a snapshot.
+When the oldest WAL data that isn't in a snapshot reaches this age, InfluxDB
+forces a snapshot, regardless of how many WAL files have accumulated.
+WAL data replayed after a restart ages from the time it's replayed.
+InfluxDB checks the age every 10 seconds.
+
+Snapshots otherwise trigger on the WAL file count or on
+[force-snapshot-mem-size](#force-snapshot-mem-size), so a node that receives
+few or no writes can hold hours of data in memory and replay it all on
+restart.
+This option bounds that wait.
+
+{{% show-in "enterprise" %}}
+This option applies to the Parquet engine only (clusters that started on 3.10
+or earlier that have not run the
+[storage engine upgrade](#upgrade-pacha-tree)).
+{{% /show-in %}}
+
+**Default:** `1h`
+
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--force-snapshot-max-age` | `INFLUXDB3_FORCE_SNAPSHOT_MAX_AGE` |
 
 ***
 
@@ -1802,6 +1831,10 @@ correct but slower. Pruning generations by time range is unaffected.
 The setting applies to the node as a whole: a node started with this option also
 skips index merges for newly compacted generations, and continues to persist
 full indexes to the object store for other nodes to use.
+
+Starting in v3.11.5, nodes that run only in ingest mode (`--mode ingest`) skip
+the index regardless of this option, because they don't prune files at query
+time.
 
 This option isn't supported in the TOML configuration file; use the command
 option or environment variable.

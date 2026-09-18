@@ -14,6 +14,8 @@ related:
 ---
 
 Use `influxdb3 loadcap delete` to delete a workload capture profile.
+You can't delete a profile while it's still capturing.
+Wait for the capture to finish, then retry.
 
 > [!Note]
 > Load capture requires the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)—the default for new clusters.

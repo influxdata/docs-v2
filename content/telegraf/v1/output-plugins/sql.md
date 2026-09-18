@@ -193,10 +193,10 @@ specify the `table_update_template` setting in your config file.
 
 ### go-sql-driver/mysql
 
-MySQL default quoting differs from standard ANSI/ISO SQL quoting. You must use
-MySQL's ANSI\_QUOTES mode with this plugin. You can enable this mode by using
-the setting `init_sql = "SET sql_mode='ANSI_QUOTES';"` or through a command-line
-option when running MySQL. See MySQL's docs for [details on
+MySQL default quoting differs from standard ANSI/ISO SQL quoting. Before v1.40.0
+you had to use MySQL's ANSI\_QUOTES mode with this plugin. You can enable this
+mode by using the setting `init_sql = "SET sql_mode='ANSI_QUOTES';"` or through
+a command-line option when running MySQL. See MySQL's docs for [details on
 ANSI\_QUOTES](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_ansi_quotes) and [how to set the SQL mode](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-setting).
 
 You can use a DSN of the format "username:password@tcp(host:port)/dbname". See
@@ -216,10 +216,15 @@ docs](https://github.com/jackc/pgx) for more details.
 
 ### modernc.org/sqlite
 
-It is not supported on windows/386, mips, and mips64 platforms.
+The DSN is a filename or url with scheme `file:`. See the
+[driver docs](https://modernc.org/sqlite) for details.
 
-The DSN is a filename or url with scheme "file:". See the [driver
-docs](https://modernc.org/sqlite) for details.
+> [!IMPORTANT]
+> The sqlite driver is not available on all architectures and platforms. Check
+> the driver's [support matrix](https://pkg.go.dev/modernc.org/sqlite#hdr-Supported_platforms_and_architectures) for details.
+
+[sqlite-driver]: https://modernc.org/sqlite
+[sqlite-supported-platforms]: https://pkg.go.dev/modernc.org/sqlite#hdr-Supported_platforms_and_architectures
 
 ### clickhouse
 

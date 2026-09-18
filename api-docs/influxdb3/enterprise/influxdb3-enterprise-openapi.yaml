@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
-  version: v3.10.0
+  version: v3.11.2
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:d0a62a892334fbe16b4a8d816a99bc02e5454f3232c270d33c8af09bab4360a5
+  x-source-hash: sha256:7894710bb3bf5f946c2e855f8bb9c0235abbb2faec6f0d56068aa89c09b99ade
   x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -1960,6 +1960,118 @@ paths:
       tags:
         - Server information
         - Enterprise
+  /api/v3/enterprise/upgrade/parquet_cleanup:
+    post:
+      operationId: PostEnterpriseUpgradeParquetCleanup
+      summary: Request Parquet cleanup after a storage engine upgrade
+      description: >-
+        Requests removal of the Parquet-era data left behind by a completed Parquet-to-PachaTree storage engine upgrade.
+        Any node in the cluster accepts the request. The compactor node executes it.
+
+
+        Requires the cluster to be fully on the upgraded (PachaTree) storage engine, with the Parquet-to-PachaTree
+        upgrade already complete. Use `dry_run` to count and size the data a real cleanup would delete without deleting
+        anything.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 manage cleanup-parquet](/influxdb3/enterprise/reference/cli/influxdb3/manage/cleanup-parquet/)
+      x-enterprise-only: true
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParquetCleanupRequest"
+      responses:
+        "202":
+          description: Success. The cleanup started, is already running, or already completed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParquetCleanupResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          description: >-
+            The cluster isn't on the upgraded storage engine, no Parquet-to-PachaTree upgrade was ever recorded, the
+            upgrade hasn't completed, or a cleanup is already active in a different mode (dry run vs. delete).
+      tags:
+        - Server information
+        - Enterprise
+      x-influxdb-introduced-in: v3.11.1
+    get:
+      operationId: GetEnterpriseUpgradeParquetCleanup
+      summary: Get Parquet cleanup status
+      description: |-
+        Returns the current or most recent Parquet cleanup state for the cluster.
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+        #### Related
+
+        - [influxdb3 manage cleanup-parquet](/influxdb3/enterprise/reference/cli/influxdb3/manage/cleanup-parquet/)
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns the current Parquet cleanup state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParquetCleanupStatusSnapshot"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: No Parquet cleanup has ever been requested on this cluster.
+      tags:
+        - Server information
+        - Enterprise
+      x-influxdb-introduced-in: v3.11.1
+  /api/v3/enterprise/upgrade/retry_parquet_to_pacha_tree:
+    post:
+      operationId: PostEnterpriseUpgradeRetryParquetToPachaTree
+      summary: Retry a failed Parquet-to-PachaTree upgrade
+      description: >-
+        Resets a Parquet-to-PachaTree storage engine upgrade that latched to a `failed` state, so it resumes the next
+        time a compactor node starts with `--upgrade-pacha-tree`.
+
+
+        Re-checks every previously failed upgrade source against the catalog and object store: sources that are still
+        readable are requeued, sources whose table or database was dropped are recorded as skipped, and sources that
+        can't be read back are left unresolved for the next retry.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 manage
+        retry-upgrade-to-pacha-tree](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/)
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns a summary of what the retry changed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpgradeRetryResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          description: >-
+            The upgrade isn't in a state this request can act on (for example, it isn't `failed`), or another request
+            already reset it.
+      tags:
+        - Server information
+        - Enterprise
+      x-influxdb-introduced-in: v3.11.2
   /api/v3/enterprise/configure/query_groups:
     post:
       operationId: PostEnterpriseConfigureQueryGroups
@@ -2305,8 +2417,10 @@ paths:
         Creates a resource (fine-grained permissions) token.
         A resource token is a token that has access to specific resources in the system.
 
-        Resource tokens are available in InfluxDB 3 Enterprise and InfluxDB 3 Cloud.
-        They are not available in InfluxDB 3 Core.
+        This endpoint is only available in InfluxDB 3 Enterprise.
+        InfluxDB 3 Cloud supports a narrower set of database-scoped read and write tokens instead of resource
+        tokens---see [Manage tokens in InfluxDB 3 Cloud](https://docs.influxdata.com/influxdb3/cloud/admin/tokens/).
+        InfluxDB 3 Core doesn't support resource tokens.
       responses:
         "201":
           description: |
@@ -2815,8 +2929,8 @@ paths:
       operationId: GetLoadcapProfile
       summary: Retrieve load capture profile details
       description: >
-        Returns file counts, total size, and an anonymized catalog summary for a load capture profile.
-        The response is the same as the profile preview.
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile. The response is
+        the same as the profile preview.
 
 
         This endpoint requires an admin token.
@@ -2843,9 +2957,8 @@ paths:
     delete:
       operationId: DeleteLoadcapProfile
       summary: Delete a load capture profile
-      description: >
+      description: |
         Deletes a load capture profile and its stored artifacts from object storage.
-
 
         This endpoint requires an admin token.
       responses:
@@ -2859,6 +2972,8 @@ paths:
           description: >-
             The profile does not exist, or load capture is unavailable because this node does not use the performance
             upgrade preview with an explicit `--mode` setting that includes `query`.
+        "409":
+          description: The profile is still capturing. Wait for it to finish (or its status to catch up to `complete`), then retry.
       tags:
         - Load capture
         - Enterprise
@@ -4430,14 +4545,6 @@ paths:
         - Write data
 components:
   parameters:
-    LoadCaptureProfileId:
-      name: profile_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: Identifier of the load capture profile.
     AcceptQueryHeader:
       name: Accept
       in: header
@@ -4568,6 +4675,15 @@ components:
         Password for v1 compatibility authentication.
         For query string authentication, pass a database token with write permissions as this parameter.
         InfluxDB 3 checks that the `p` value is an authorized token.
+    LoadCaptureProfileId:
+      x-enterprise-only: true
+      name: profile_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the load capture profile.
   requestBodies:
     lineProtocolRequestBody:
       required: true
@@ -5078,10 +5194,14 @@ components:
             - log
             - retry
             - disable
-          description: |
+          description: >
             How the trigger responds when the plugin returns an error:
+
             - `log`: Log the error and keep the trigger active.
-            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure. Errors identified as permanent aren't retried.
+
+            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure.
+            Errors identified as permanent aren't retried.
+
             - `disable`: Disable the trigger until you manually re-enable it.
       required:
         - run_async
@@ -5438,8 +5558,8 @@ components:
           type: object
           nullable: true
           description: >-
-            Anonymized catalog snapshot taken when the capture started, including databases, tables, columns, and
-            node metadata. Null for `query`-only captures.
+            Anonymized catalog snapshot taken when the capture started, including databases, tables, columns, and node
+            metadata. Null for `query`-only captures.
     LicenseResponse:
       type: object
       properties:
@@ -5584,6 +5704,198 @@ components:
         - node_id
       example:
         node_id: node-1
+    ParquetCleanupRequest:
+      type: object
+      description: |
+        Request body for `POST /api/v3/enterprise/upgrade/parquet_cleanup`.
+        An empty body is equivalent to the defaults (a real deletion).
+      properties:
+        dry_run:
+          type: boolean
+          description: |
+            When `true`, only count and size the Parquet-era data a real cleanup would delete.
+            Delete nothing.
+          default: false
+      example:
+        dry_run: false
+    ParquetCleanupResponse:
+      type: object
+      description: Response body for `POST /api/v3/enterprise/upgrade/parquet_cleanup`.
+      properties:
+        state:
+          type: string
+          enum:
+            - started
+            - already_running
+            - already_completed
+          description: The outcome of this cleanup request.
+        status:
+          $ref: "#/components/schemas/ParquetCleanupStatusSnapshot"
+      required:
+        - state
+        - status
+    ParquetCleanupStatusSnapshot:
+      type: object
+      description: |
+        Point-in-time view of the durable Parquet cleanup state.
+        Returned by `GET /api/v3/enterprise/upgrade/parquet_cleanup` and embedded in the POST response.
+      properties:
+        status:
+          type: string
+          enum:
+            - requested
+            - running
+            - completed
+            - failed
+          description: The cleanup's current status.
+        mode:
+          type: string
+          enum:
+            - delete
+            - dry_run
+          description: Whether this cleanup deletes data or only reports what it would delete.
+        requested_by:
+          type: string
+          nullable: true
+          description: The node that accepted the cleanup request, if recorded.
+        files_scanned:
+          type: integer
+          format: int64
+          description: Number of files the cleanup has scanned so far.
+        files_matched:
+          type: integer
+          format: int64
+          description: Number of files identified as Parquet-era data to delete.
+        bytes_matched:
+          type: integer
+          format: int64
+          description: Total size, in bytes, of the matched files.
+        files_deleted:
+          type: integer
+          format: int64
+          description: |
+            Number of files deleted so far.
+            Always `0` in `dry_run` mode.
+        bytes_deleted:
+          type: integer
+          format: int64
+          description: |
+            Total size, in bytes, of the deleted files.
+            Always `0` in `dry_run` mode.
+        files_failed:
+          type: integer
+          format: int64
+          description: Number of files the cleanup failed to delete.
+        requested_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When the cleanup was requested, in nanoseconds since the Unix epoch.
+        started_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When the cleanup started running, in nanoseconds since the Unix epoch.
+        completed_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When the cleanup finished, in nanoseconds since the Unix epoch.
+        updated_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When this status was last updated, in nanoseconds since the Unix epoch.
+        last_message:
+          type: string
+          nullable: true
+          description: The most recent human-readable status message, if any.
+      required:
+        - status
+        - mode
+        - files_scanned
+        - files_matched
+        - bytes_matched
+        - files_deleted
+        - bytes_deleted
+        - files_failed
+      example:
+        status: completed
+        mode: delete
+        requested_by: node-1
+        files_scanned: 1024
+        files_matched: 812
+        bytes_matched: 4294967296
+        files_deleted: 812
+        bytes_deleted: 4294967296
+        files_failed: 0
+        requested_at_ns: 1735689600000000000
+        started_at_ns: 1735689601000000000
+        completed_at_ns: 1735689900000000000
+        updated_at_ns: 1735689900000000000
+        last_message: null
+    UpgradeRetryResponse:
+      type: object
+      description: Response body for `POST /api/v3/enterprise/upgrade/retry_parquet_to_pacha_tree`.
+      properties:
+        entries_inspected:
+          type: integer
+          format: int64
+          description: Terminal failures the retry re-checked against the catalog and object store.
+        entries_skipped_source_missing:
+          type: integer
+          format: int64
+          description: Entries skipped because their source object no longer exists.
+        entries_skipped_table_dropped:
+          type: integer
+          format: int64
+          description: Entries skipped because their table was dropped.
+        entries_requeued:
+          type: integer
+          format: int64
+          description: Entries returned to the queue because their source is still readable.
+        entries_already_skipped:
+          type: integer
+          format: int64
+          description: Terminal failures that were already recorded as skips.
+        entries_already_converted:
+          type: integer
+          format: int64
+          description: |
+            Entries whose sequence already held converted data.
+            Recorded as imported instead of skipped.
+        entries_unresolved:
+          type: integer
+          format: int64
+          description: |
+            Entries left untouched because the object holding their sequence couldn't be read back.
+            Run this endpoint again to re-attempt them.
+        upgrade_status:
+          type: string
+          description: The status the enterprise upgrade state was left in after the retry.
+        message:
+          type: string
+          description: What to do next.
+      required:
+        - entries_inspected
+        - entries_skipped_source_missing
+        - entries_skipped_table_dropped
+        - entries_requeued
+        - entries_already_skipped
+        - entries_already_converted
+        - entries_unresolved
+        - upgrade_status
+        - message
+      example:
+        entries_inspected: 3
+        entries_skipped_source_missing: 1
+        entries_skipped_table_dropped: 0
+        entries_requeued: 2
+        entries_already_skipped: 0
+        entries_already_converted: 0
+        entries_unresolved: 0
+        upgrade_status: upgrading
+        message: Migration state reset. Restart the compactor node with --upgrade-pacha-tree to resume the upgrade.
     AbortDeleteRequestBody:
       type: object
       description: Request body for aborting a row-delete request.
