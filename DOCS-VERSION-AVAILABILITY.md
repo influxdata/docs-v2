@@ -68,29 +68,27 @@ If both products need the same body, use `source:` to share the content and set
 
 ## Include a version check
 
-A page that documents a version-gated feature states how to verify the version,
-or links to a page that does.
+A page that documents a version-gated feature states how to verify the
+version, or links to a page that does.
 Give both a local check and a check that works against a running instance, so
-that a reader without shell access to the server can still confirm the version.
+that a reader without shell access to the server can still confirm the
+version.
 
-Local:
+Don't restate the check commands.
+Each InfluxDB product uses a different CLI, port, and endpoint, so the
+commands live in one shared source:
+[`content/shared/identify-version.md`](content/shared/identify-version.md),
+published at `/platform/identify-version/`.
+That page covers InfluxDB v1 OSS and Enterprise, InfluxDB v2, InfluxDB 3 Core
+and Enterprise, Clustered, and the Cloud products, including CLI commands,
+HTTP endpoints, and response headers.
+Link to the product-specific version of that page (for example,
+`/influxdb3/core/admin/identify-version/`) when the reader is already in a
+specific product's docs.
 
-```bash
-influxdb3 --version
-```
-
-Running instance:
-
-```sh
-curl --get "http://localhost:8181/ping" \
-  --header "Authorization: Bearer AUTH_TOKEN"
-```
-
-The `/ping` response includes the `x-influxdb-version` and `x-influxdb-build`
-headers, and `version` and `revision` in the body.
-Because `x-influxdb-build` reports `Core` or `Enterprise`, `/ping` is the only
-check that answers both the version question and the edition question.
-Use `GET`; a `HEAD` request returns `404`.
+For InfluxDB 3 Core and Enterprise, `/ping`'s `x-influxdb-build` header
+(`Core` or `Enterprise`) makes it the one check that answers both the version
+question and the edition question in a single request.
 
 ## Retire a notice
 
