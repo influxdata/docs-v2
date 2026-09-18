@@ -25,6 +25,10 @@ yarn validate:agent-instructions
 
 - Preserve unrelated working-tree changes.
 
+- Check `git log` before you treat the staged diff as the whole change. If the
+  branch carries a commit you didn't make, tell the user instead of squashing
+  or amending it.
+
 - Never cancel Hugo builds or code-block tests. Give Hugo at least 180 seconds
   and long code-block suites 30 minutes.
 
@@ -34,6 +38,10 @@ yarn validate:agent-instructions
   - `content/influxdb3/enterprise/`
 
 - Use `python`, not `py`, for code block language identifiers.
+
+- Some sandboxes block writes to `api.github.com` while GET requests succeed.
+  If a `gh` write fails that way, give the user the exact command to run
+  instead of retrying.
 
 ## Choose checks
 
