@@ -11,14 +11,14 @@ cascade:
   version: explorer
   prepend: |
     > [!Important]
-    > #### Explorer's distribution model is changing in v1.10
+    > #### How you install Explorer depends on your InfluxDB 3 server
     >
-    > Starting with v1.10, Explorer is included with
-    > [InfluxDB 3 Enterprise](/influxdb3/enterprise/) and runs as WebAssembly
-    > (WASM) instead of a standalone Docker container. Explorer v1.9 and
-    > earlier remains available as Docker. See
+    > Starting with InfluxDB 3 Enterprise v3.11, Explorer is included with
+    > the server and runs as WebAssembly (WASM)--there's no separate
+    > container to install. For InfluxDB 3 Core, or Enterprise earlier than
+    > v3.11, Explorer runs as a standalone Docker container. See
     > [Install Explorer](/influxdb3/explorer/install/) to find the
-    > instructions for your version.
+    > instructions for your server.
 ---
 
 InfluxDB 3 Explorer is the standalone web application designed for visualizing, querying, and managing your data stored in InfluxDB 3 Core and Enterprise.
@@ -34,10 +34,13 @@ Use InfluxDB 3 Explorer for:
 
 ## Quick start
 
-How you install {{% product-name %}} depends on your version:
+How you install {{% product-name %}} depends on your InfluxDB 3 server:
 
-- **v1.10 and later** is included with InfluxDB 3 Enterprise and runs as WASM.
-- **v1.9 and earlier** runs as a standalone Docker container:
+- **InfluxDB 3 Enterprise v3.11 and later** includes Explorer as an
+  integrated WASM component. See
+  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+- **InfluxDB 3 Core, or Enterprise earlier than v3.11**, runs Explorer as a
+  standalone Docker container:
 
   ```sh
   # Pull the Docker image

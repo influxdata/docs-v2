@@ -13,10 +13,13 @@ menu:
     identifier: visualize-with-explorer
 weight: 100
 metadata: [InfluxDB 3 Enterprise v3.11+]
+alt_links:
+  explorer: /influxdb3/explorer/install/
 related:
   - /influxdb3/enterprise/reference/config-options/#mode
   - /influxdb3/enterprise/reference/config-options/#web-ui
   - /influxdb3/explorer/, InfluxDB 3 Explorer documentation
+  - /influxdb3/explorer/install/, Install InfluxDB 3 Explorer
 ---
 
 Starting with {{% product-name %}} v3.11, the

@@ -16,10 +16,13 @@ related:
 Core instance or InfluxDB 3 Enterprise cluster.
 
 > [!Important]
-> Using {{% product-name %}} to manage authorization tokens in InfluxDB 3 requires that
-> Explorer is running in [admin mode](/influxdb3/explorer/install/docker/#choose-operational-mode)
-> and that the token used in the InfluxDB 3 server configuration is an
+> Using {{% product-name %}} to manage authorization tokens in InfluxDB 3
+> requires that the token used in the InfluxDB 3 server configuration is an
 > [admin token](/influxdb3/enterprise/admin/tokens/admin/).
+> If you're running the
+> [Docker container](/influxdb3/explorer/install/docker/), Explorer must also
+> be running in
+> [admin mode](/influxdb3/explorer/install/docker/#choose-operational-mode).
 
 To manage InfluxDB authorization tokens, navigate to **Manage Tokens** in Explorer.
 This page provides a list of databases in the connected InfluxDB 3 server that
