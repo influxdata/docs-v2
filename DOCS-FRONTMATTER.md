@@ -206,13 +206,33 @@ alt_links:
   core: /influxdb3/core/reference/cli/influxdb3/update/  # Points to parent if exact page doesn't exist
 ```
 
-Supported product keys for InfluxDB 3:
+`layouts/partials/topnav/product-selector.html` defines the supported keys in the
+`$productInfo` merge.
+That template is the authoritative list.
+Check it before you assume a product can't carry a cross-link.
 
-- `core`
-- `enterprise`
-- `cloud-serverless`
-- `cloud-dedicated`
-- `clustered`
+| Product path                 | `alt_links` key       |
+| ---------------------------- | --------------------- |
+| `influxdb3/core`             | `core`                |
+| `influxdb3/enterprise`       | `enterprise`          |
+| `influxdb3/cloud`            | `cloud3`              |
+| `influxdb3/cloud-serverless` | `cloud-serverless`    |
+| `influxdb3/cloud-dedicated`  | `cloud-dedicated`     |
+| `influxdb3/clustered`        | `clustered`           |
+| `influxdb3/explorer`         | `explorer`            |
+| `influxdb/v1`                | `v1`                  |
+| `influxdb/v2`                | `v2`                  |
+| `influxdb/cloud`             | `cloud`               |
+| `enterprise_influxdb/v1`     | `enterprise_v1`       |
+| `telegraf/v1`                | `telegraf`            |
+| `telegraf/controller`        | `telegraf_controller` |
+| `telegraf/enterprise`        | `telegraf_enterprise` |
+| `chronograf/v1`              | `chronograf`          |
+| `kapacitor/v1`               | `kapacitor`           |
+| `flux/v0`                    | `flux`                |
+
+The key doesn't always match the last path segment.
+InfluxDB 3 Cloud uses `cloud3` because `influxdb/cloud` already owns `cloud`.
 
 ### Prepend and Append
 
@@ -261,6 +281,23 @@ cascade:
 > is included in the page's Markdown twin (`index.md`) and in per-product
 > `llms-full.txt` corpora.
 > See [LLM Markdown generation](DOCS-DEPLOYING.md#llm-markdown-generation).
+
+### Metadata messages
+
+Use the `metadata` frontmatter to render short tag strings under the page h1.
+`layouts/partials/article/page-meta.html` renders each list item as an `<li>` in
+the page metadata list and runs it through `markdownify`.
+
+Keep each string short.
+Use one list item per constraint instead of one long string.
+
+```yaml
+metadata: [InfluxDB 3 Core, InfluxDB 3 Enterprise earlier than v3.11]
+```
+
+`metadata` isn't limited to version ceilings.
+Product, edition, and version constraints all work as separate items.
+The `updated_in` and `date` fields render in the same list.
 
 ### Cascade
 
