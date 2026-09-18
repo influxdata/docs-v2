@@ -85,8 +85,13 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
       >
       > The token's permissions also define what anyone with access to this
       > Explorer instance can do. Use a token scoped to what you need, and
-      > control who can reach Explorer. See
-      > [Network exposure and access control](/influxdb3/explorer/install/#network-exposure-and-access-control).
+      > control who can reach Explorer. If you're running the
+      > [Docker container](/influxdb3/explorer/install/docker/), see
+      > [Network exposure and access control](/influxdb3/explorer/install/docker/#network-exposure-and-access-control).
+      > If you're using the
+      > [integrated Explorer UI](/influxdb3/enterprise/visualize-data/explorer/),
+      > control access through
+      > [`--http-bind`](/influxdb3/enterprise/reference/config-options/#http-bind).
 
 4.  Click **Add Server**.
 

@@ -1,14 +1,24 @@
 ---
-title: Install and run InfluxDB 3 Explorer
+title: Install and run InfluxDB 3 Explorer with Docker
 description: >
-  Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
+  Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**
+  as a standalone container against InfluxDB 3 Core or InfluxDB 3 Enterprise
+  earlier than v3.11.
 menu:
   influxdb3_explorer:
-    name: Install Explorer
-weight: 2
+    name: Docker
+weight: 1
+metadata: [InfluxDB 3 Core, InfluxDB 3 Enterprise earlier than v3.11]
 ---
 
-Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
+Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**
+as a standalone container. Use this method with
+[InfluxDB 3 Core](/influxdb3/core/), or with
+[InfluxDB 3 Enterprise](/influxdb3/enterprise/) releases earlier than v3.11.
+Starting with Enterprise v3.11, Explorer is also available as an integrated
+WebAssembly (WASM) component of the server--see
+[Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/)
+if you run Enterprise v3.11 or later and want to skip the separate container.
 
 > [!Important]
 > #### Control who can reach Explorer
