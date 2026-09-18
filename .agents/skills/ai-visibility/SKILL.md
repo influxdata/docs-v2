@@ -20,6 +20,13 @@ from recommendations.
 yarn build:md
 yarn check:md-coherence
 yarn check:jsonld-links
+node scripts/check-jsonld-links.js --public-dir <dir>
+node scripts/check-md-alternate-coherence.js --public-dir <dir>
 ```
+
+Both check scripts accept `--public-dir`, so they run against a
+`hugo --destination <dir>` build without `build:md`. Without the twins,
+`check:md-coherence` fails for every page in the site; that is an environment
+gap, not a regression.
 
 Load the applicable reference only for its artifact class.
