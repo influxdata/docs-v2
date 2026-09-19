@@ -151,8 +151,8 @@ Refusal is explicit and terminal. The refusing side answers **HTTP 426**
 (on `/connect`, `/report`, or `/data`) with a diagnosis naming both
 versions and both minimums; the upstream latches a **protocol halt**:
 dispatch stops (nothing pops from any tier), health reads `Halted`, the
-reason appears in the status API, the UI, and the logs, and a WARN
-repeats once a minute while halted. Negotiation re-runs on **every
+reason appears in the status API, the UI, and the logs, and a
+`PROTOCOL-HALTED` WARN repeats once a minute while halted. Negotiation re-runs on **every
 report** (default 10s), so a peer upgrade clears the halt within one
 report interval—there's no separate probe task. See
 [Troubleshoot EDR](/influxdb3/edr/troubleshoot/common-issues/#protocol-incompatible-agents-of-different-versions).
