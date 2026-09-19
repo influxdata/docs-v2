@@ -76,48 +76,18 @@ are also not supported as an EDR source or destination.
 ## EDR agent <-> EDR agent (wire protocol)
 
 Directly connected agents negotiate a **protocol version** and a
-**capability set**, per hop—never propagated along a relay chain (a bad
-hop reports at that hop; the rest of the chain is unaffected).
-
-- **Protocol v1** is defined retroactively: it is exactly the wire behavior
-  of agents released before versioning existed (0.1.x and 0.2.x). Those
-  agents send no version fields; absence is read as v1. Nothing about v1
-  changed.
-- **Protocol v2** (interim development builds; never in a released
-  version) added the negotiation itself, carried on `/connect`.
-- **Protocol v3** (current) is the **stateless data path**: the upstream's
-  declaration rides every `/report` (in full) and every `/data` (as
-  compact headers), and the downstream's declaration rides the `/report`
-  response. Between v3 peers `/connect` is never sent, and `/data` needs no
-  prior contact—any receiver instance can serve any request (the basis for
-  receiver fault tolerance and load balancing). Negotiation is refreshed on
-  every report.
-- The agreement is **min(both versions)**, refused when that falls below
-  either side's minimum. A pairing whose agreement lands below v3 runs the
-  v2 connect-gated flow automatically—mixed fleets need no configuration.
-- **Capabilities** gate optional features (the version gates wire-breaking
-  changes). Registry: `pt-wire-1`—the PT wire format (`encoding: pt`). A
-  downstream that lacks a capability the upstream's config requires is
-  treated as incompatible, with the config key named.
-
-| Upstream \ Downstream | 0.1.x / 0.2.x (v1) | interim dev builds (v2) | 1.0.0-0.rc.1+ (v3) |
-|---|---|---|---|
-| **0.1.x / 0.2.x** | v1 (implicit) | v1—accepted | v1—accepted |
-| **interim dev builds** | v1—accepted | v2, connect-gated | v2, connect-gated |
-| **1.0.0-0.rc.1+** | v1—accepted | v2, connect-gated | **v3, stateless** |
+**capability set** on each hop. Negotiation never propagates along a relay
+chain, so a bad hop reports at that hop and the rest of the chain is
+unaffected.
 
 With the current minimums, **no released pairing can be refused**. The
 first possible refusal requires a future release that deliberately raises
-its minimum—a compatibility break that will be called out in release
-notes.
+its minimum, and [release notes](/influxdb3/edr/release-notes/) will call
+out that break.
 
-**What incompatibility looks like** (future-skew or capability mismatch):
-the downstream answers with HTTP 426 and a diagnosis naming both versions
-and both minimums; the upstream **halts that hop**—nothing is sent, health
-shows `Halted`, one ERROR at halt time, and a `PROTOCOL-HALTED` WARN every
-minute. Because negotiation rides every report, the halt clears **within
-one report interval** (default 10s) of the named agent being upgraded. See
-[Troubleshoot EDR](/influxdb3/edr/troubleshoot/common-issues/#protocol-incompatible-agents-of-different-versions).
+For the protocol version matrix, what each version changed, the capability
+registry, and what a refusal looks like on the wire, see
+[Protocol version negotiation](/influxdb3/edr/reference/api/#protocol-version-negotiation).
 
 ## EDR agent <-> InfluxDB 3 Enterprise (storage formats)
 
