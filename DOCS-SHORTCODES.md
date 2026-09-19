@@ -510,6 +510,9 @@ The shortcode accepts optional parameters that adjust how the diagram renders:
 - `natural-size`: Render the diagram at Mermaid's natural size.
   By default, diagrams scale up to fill the article column (up to 680px wide),
   which can blow up narrow diagrams such as top-down flowcharts.
+- `medium`: Render the diagram up to 400px wide. Use this for a narrow diagram
+  that needs more room than its natural size but should not fill the article
+  column.
 - `center`: Center the diagram in the article column.
   By default, diagrams are left-aligned.
 
