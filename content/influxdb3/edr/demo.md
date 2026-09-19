@@ -10,6 +10,8 @@ menu:
 weight: 4
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/start-here.md, docs/external/overview.md -->
+
 The signals demo is the fastest way to see EDR's store-and-forward,
 multi-tier relay, and at-least-once delivery in one topology: two edges
 replicating up through a regional relay to a central hub, entirely in
@@ -31,17 +33,24 @@ simpler two-node case on one host.
 
 ## How EDR sources data
 
-**Primary source: WAL files.** InfluxDB 3 Enterprise, on the
+EDR reads the files that InfluxDB 3 Enterprise's storage engine writes.
+For what WAL, PT, gen0, cv2, and `.ptsnap` mean, see
+[Storage engine terms](/influxdb3/edr/reference/architecture/#storage-engine-terms).
+
+### Primary source: WAL files
+
+InfluxDB 3 Enterprise, on the
 [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
 (the default for new clusters on 3.11+; on 3.10.x enable it with
-`--upgrade-pacha-tree`), flushes incoming data to WAL files on the object
-store roughly every second—the flush interval, sooner under heavy ingest
-as the buffer fills. Snapshots later roll these already-persisted WAL
-files up into compacted files. EDR's WAL replicator discovers new files as
-they appear and ships them downstream.
+`--upgrade-pacha-tree`), flushes incoming data to write-ahead log (WAL)
+files on the object store roughly every second—the flush interval, sooner
+under heavy ingest as the buffer fills. Snapshots later roll these
+already-persisted WAL files up into compacted files. EDR's WAL replicator
+discovers new files as they appear and ships them downstream.
 
-**Secondary source: compacted PT files.** The upgraded storage engine
-promotes WAL data through compaction levels:
+### Secondary source: compacted PT files
+
+The upgraded storage engine promotes WAL data through compaction levels:
 
 ```
 Write arrives
@@ -52,8 +61,8 @@ Write arrives
 ```
 
 After a WAL file is snapshotted, it becomes eligible for deletion. If EDR
-was down or disconnected when that happened, the WAL file may be gone, but
-the data still exists in gen0 or a higher compaction level (cv2 files).
+was down or disconnected when that happened, the WAL file might be gone,
+but the data still exists in gen0 or a higher compaction level (cv2 files).
 Historic fill and gap fill recover data from these files. For more
 information, see
 [Historic fill and gap fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill)
@@ -97,7 +106,7 @@ sender's `downstream` matches an `upstreams` entry on the receiver—that
 pairing is how a receiver knows who connected.
 
 **Edge (upstream-only)**—`mumbai` (Chennai is identical with its own
-name/token):
+name and token):
 
 ```yaml
 name: mumbai
@@ -152,9 +161,9 @@ container image—see [EDR](/influxdb3/edr/) for how to obtain it if you
 don't have it yet. Unzip it; the archive extracts to a `signals-demo/`
 directory. `cd` into that directory and follow its `README.md`—that's
 the canonical guide, covering prerequisites, licensing (trial or
-file-based), driving the dashboard (start/stop signals, cut/restore
-channels), the `edr-inspect` triage tooling, ports, and layout. In
-brief, from inside `signals-demo/`:
+file-based), driving the dashboard (start and stop signals, cut and
+restore channels), the `edr-inspect` triage tooling, ports, and
+layout. In brief, from inside `signals-demo/`:
 
 ```bash
 cp .env.example .env        # set the Enterprise image + the four license emails

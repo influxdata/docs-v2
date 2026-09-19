@@ -10,6 +10,8 @@ menu:
 weight: 2
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md -->
+
 1. [Exclude the metrics database from replication](#1-exclude-the-metrics-database-from-replication)
 2. [Create the metrics database](#2-create-the-metrics-database)
 3. [Configure Telegraf](#3-configure-telegraf)
@@ -59,7 +61,7 @@ downstream:
       databases: [internal_edr]
 ```
 
-If you're already scoping to specific databases (`type: databases`), just
+If you're already scoping to specific databases (`type: databases`),
 leave `internal_edr` off the list—an allowlist that doesn't name it already
 keeps it local.
 
@@ -96,8 +98,9 @@ interval of the agent deciding it. The default `10s` suits a production
 fleet; drop it to `1s`-`2s` for a near-live view (`/metrics` is cheap to
 generate). It does **not** change how quickly the agent itself declares a
 channel degraded or down—that is the `comms` anti-flap window on the
-sending node (`comms.interval_secs` / `degraded_after` / `unhealthy_after`
-in [Configuration file reference](/influxdb3/edr/reference/config-file/)).
+sending node (`comms.interval_secs`, `degraded_after`, and
+`unhealthy_after` in
+[Configuration file reference](/influxdb3/edr/reference/config-file/)).
 
 > [!Important]
 > If you adapt the file, keep `name_override = "edr"` in the
@@ -112,7 +115,7 @@ Mount `observability/grafana/provisioning/` and
 (`/etc/grafana/provisioning/datasources/`,
 `/etc/grafana/provisioning/dashboards/`, and the folder `dashboards.yml`'s
 `path` points at), and set two environment variables for the Grafana
-process before starting it. They're read from `${INFLUX_QUERY_URL}` /
+process before starting it. They're read from `${INFLUX_QUERY_URL}` and
 `${INFLUX_ADMIN_TOKEN}` placeholders inside
 `grafana/provisioning/datasources/internal_edr.yml`, which Grafana expands
 from its own environment at startup—the same admin token as step 3, not a
@@ -135,9 +138,9 @@ manual import needed.
 
 A worked example ships with the
 [signals demo](/influxdb3/edr/demo/)—its optional
-`compose.observability.yaml` overlay gives every one of the four nodes this
-same Telegraf + Grafana pipeline (`demo/signals-demo/` in the source
-repository).
+`compose.observability.yaml` overlay gives every one of the four nodes
+this same Telegraf and Grafana pipeline (`demo/signals-demo/` in the
+source repository).
 
 ## 5. Verify
 
@@ -155,8 +158,8 @@ every panel is empty:
 
 | Tier | Shows |
 |---|---|
-| Fleet headline | Healthy / unhealthy counts, upstream and downstream |
-| Channel status table | Exactly one row per channel—network/application health, status |
+| Fleet headline | Healthy and unhealthy counts, upstream and downstream |
+| Channel status table | Exactly one row per channel—network and application health, status |
 | Detail — upstream (selectable per upstream) | Bytes received/sec, write failures & columns dropped |
 | Detail — downstream (totals across all destinations) | Bytes sent/sec, pending backlog, WAL backlog, gaps, halted state per destination |
 

@@ -10,12 +10,16 @@ menu:
 weight: 207
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/edr-spec.md, docs/external/overview.md -->
+
 ## What EDR is not
 
 EDR is not a synchronous replication layer, a conflict resolution system, a
 backup tool, or a transformation layer. The destination is eventually
 consistent. Data arrives byte-for-byte as written at the source, scoped to
-the configured databases/tables.
+the configured databases and tables.
+
+## Requirements and availability
 
 EDR is specified exclusively for the
 [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
@@ -32,7 +36,8 @@ serve as an EDR source.
 
 Current limitations of the implementation:
 
-1. **No retention hold enforcement.** The agent requests holds on Gen0/cv2
+1. **No retention hold enforcement.** The agent requests holds on
+   [Gen0 and cv2](/influxdb3/edr/reference/architecture/#storage-engine-terms)
    files during recovery but the InfluxDB compactor does not enforce them.
    Correctness does not depend on holds (recovery falls through WAL to cv2
    with per-file tracking), but a hold would narrow boundary overlap,
@@ -49,7 +54,7 @@ Current limitations of the implementation:
    schedule window (`silent_reports: false`) causes the downstream to mark
    the channel unhealthy even though the silence is intentional.
 4. **PT-wire partial application.** A multi-database PT batch that fails
-   partway may have applied earlier databases; the failure is reported to
+   partway might have applied earlier databases; the failure is reported to
    the sender without classification (schema vs auth vs write). Idempotent
    re-delivery converges the state, but error reporting should improve.
 5. **Topology cycle rendering.** The UI tree renderer does not detect
@@ -59,12 +64,13 @@ Current limitations of the implementation:
    over-delivers for windows narrower than the file; block-level time
    filters help only time-partitioned workloads. Row-level filtering at
    encode time is future work.
-7. **Series disjointness is unenforced.** When multiple upstreams write to
-   the same downstream table, each series (database + table + tag set)
-   should be owned by exactly one upstream, so per-point write ordering
-   stays a purely local concern within one upstream's stream. This is a
-   documented operator responsibility, not enforced.
-8. **Open downstream registration, upstream/downstream scale-out, and
+7. **Series disjointness is unenforced.** When multiple upstreams write
+   to the same downstream table, each series (database, table, and
+   tag set) should be owned by exactly one upstream, so per-point
+   write ordering stays a purely local concern within one upstream's
+   stream. This is a documented operator responsibility, not
+   enforced.
+8. **Open downstream registration, upstream and downstream scale-out, and
    Cloud-as-upstream** are design-stage items, not yet implemented.
 
 ## Sizing and capacity

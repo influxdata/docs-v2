@@ -10,6 +10,8 @@ menu:
 weight: 1
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md, docs/external/start-here.md, docs/external/edr-spec.md -->
+
 Use EDR to replicate data between InfluxDB 3 Enterprise instances—edge to
 regional relay to central hub, or a direct edge-to-central hop. This guide
 covers the Enterprise-to-Enterprise topology end to end. For general config
@@ -39,9 +41,9 @@ shapes:
 | **Regional relay**—receives *and* forwards | both `upstreams:` and `downstream:` |
 | **Downstream-only (hub)**—a pure sink | an `upstreams:` list |
 
-A node with both `downstream`/`downstreams` and `upstreams` is a regional
-hub: it receives from edges and forwards on. There's no architectural depth
-limit; practical deployments are 2-3 levels.
+A node with both `downstream` (or `downstreams`) and `upstreams` is a
+regional hub: it receives from edges and forwards on. There's no
+architectural depth limit; practical deployments are 2-3 levels.
 
 ## 1. Create a token store
 

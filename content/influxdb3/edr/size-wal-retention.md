@@ -9,12 +9,17 @@ menu:
 weight: 8
 ---
 
-WAL retention on the source InfluxDB 3 Enterprise server determines
-whether EDR recovers a missed window from WAL files (fast, precise) or
-falls back to slower compacted-file recovery: an outage or disconnection
-longer than the retention window forces the fallback. WAL files are
-compact (about 3x smaller than gen0), so generous retention is cheap—a
-source ingesting 1 MB/s needs about 86 GB for 24 hours of WAL retention.
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/overview.md, docs/external/configuration.md, docs/external/operations.md -->
+
+[Write-ahead log (WAL)](/influxdb3/edr/reference/glossary/#wal-write-ahead-log)
+retention on the source InfluxDB 3 Enterprise server determines whether
+EDR recovers a missed window from WAL files (fast, precise) or falls back
+to slower compacted-file recovery: an outage or disconnection longer than
+the retention window forces the fallback. WAL files are compact (about 3x
+smaller than
+[gen0](/influxdb3/enterprise/reference/storage-engine-config-options/#gen0)),
+so generous retention is cheap—a source ingesting 1 MB/s needs about 86 GB
+for 24 hours of WAL retention.
 
 This page covers sizing that retention and, if the resulting WAL buildup
 becomes a storage concern, using EDR's optional WAL cleanup to bound it.
@@ -54,8 +59,9 @@ from the compacted files (see
 and
 [Gap fill](/influxdb3/edr/monitor/historic-and-gap-fill/#gap-fill)). But EDR
 replicates faster with sized retention: WAL replication is precise and
-cheap, while recovery from cv2 is slower and replicates more bytes than
-strictly necessary.
+cheap, while recovery from
+[cv2](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor)
+is slower and replicates more bytes than strictly necessary.
 
 If you see gaps regularly (`gaps_pending` in metrics), increase
 `--wal-snapshots-to-keep` on the source InfluxDB—recovery from compacted
@@ -89,7 +95,7 @@ influxdb3-edr ... --wal-cleanup-enabled \
 | `--wal-cleanup-enabled` | `false` | Enable agent-side deletion of already-replicated WAL files. |
 | `--wal-cleanup-interval-secs` | `300` | How often the cleanup sweep runs. |
 | `--wal-cleanup-snapshot-margin` | `100` | WAL files to keep below the last snapshotted WAL id—the safety margin behind the snapshot boundary. |
-| `--wal-cleanup-max-destination-hold` | unbounded | Fan-out only: a destination whose cursor hasn't advanced for this long (`"7d"`, `"12h"`, `"30m"`) stops holding the cleanup floor; it recovers the evicted range via gap fill when it returns (over-replication, never loss). Unset = a down destination pins WAL indefinitely. |
+| `--wal-cleanup-max-destination-hold` | unbounded | Fan-out only: a destination whose cursor hasn't advanced for this long (`"7d"`, `"12h"`, `"30m"`) stops holding the cleanup floor; it recovers the evicted range through gap fill when it returns (over-replication, never loss). Unset = a down destination pins WAL indefinitely. |
 
 When enabled, every `--wal-cleanup-interval-secs` (default 5 minutes) the
 agent deletes WAL files for each source node **only below the lowest of
@@ -117,8 +123,9 @@ With **multiple destinations** the first, third, and fourth floors are the
 consumer. A destination that is down therefore pins WAL indefinitely by
 default; `--wal-cleanup-max-destination-hold` bounds that: a destination
 whose cursor hasn't advanced within the hold stops holding the floor (one
-loud WARN naming it), and when it returns it recovers the evicted range from
-gen0/cv2 via gap fill—the standard over-replication trade, never loss.
+loud WARN naming it), and when it returns it recovers the evicted range
+from gen0 and cv2 files through gap fill—the standard over-replication
+trade, never loss.
 
 Deletion is by WAL-id range (no object-store listing) and resumes from a
 persisted per-node watermark, so steady-state sweeps only touch the small

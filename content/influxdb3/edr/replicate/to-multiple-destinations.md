@@ -10,6 +10,8 @@ menu:
 weight: 3
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/configuration.md -->
+
 One agent can replicate to several destinations at once—an edge feeding its
 regional hub and a central archive, or dual centers for redundancy.
 `downstreams:` is a list of the exact same destination shape as `downstream:`
@@ -36,11 +38,12 @@ downstreams:
                                      # full history; the relay is live-only
 ```
 
-Scope (selective fan-out), encoding, ordering guarantees, retry/comms,
-schedules, priorities, historic intent, and protocol negotiation are all
-independent per destination. There are no shared destination defaults—each
-entry is explicit. One shared WAL discovery feeds every destination, so
-discovery cost does not grow with destination count.
+Scope (selective fan-out), encoding, ordering guarantees, retry and
+comms settings, schedules, priorities, historic intent, and protocol
+negotiation are all independent per destination. There are no shared
+destination defaults—each entry is explicit. One shared WAL discovery
+feeds every destination, so discovery cost does not grow with
+destination count.
 
 ## Validation rules
 
@@ -55,7 +58,7 @@ discovery cost does not grow with destination count.
 
 Each destination's journals live in their own namespace,
 `{state-location}/{destination}/...`—fully independent cursors and
-recovery. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/).
+recovery. See [State and recovery](/influxdb3/edr/reference/state-and-recovery/).
 
 ## Live add and remove (config reload, no restart)
 
@@ -66,11 +69,11 @@ recovery. See [State & recovery](/influxdb3/edr/reference/state-and-recovery/).
   namespace—config is the source of truth for state. Re-adding the same
   name later starts fresh (with idempotent writes the cost is
   over-replication, never corruption).
-- **Renaming is remove + add** (the name is the journal identity). A single
-  reload that removes one name and adds a brand-new one is rejected as a
-  probable typo—apply the remove and the add as two separate reloads if
-  intentional.
+- **Renaming is a remove and an add** (the name is the journal
+  identity). A single reload that removes one name and adds a
+  brand-new one is rejected as a probable typo—apply the remove and
+  the add as two separate reloads if intentional.
 - To **pause** a destination without losing its cursor, don't remove it—
-  give it a `silent` bandwidth schedule. Note a paused destination keeps
+  give it a `silent` bandwidth schedule. A paused destination keeps
   holding the WAL-cleanup floor. See
   [Size WAL retention](/influxdb3/edr/size-wal-retention/).

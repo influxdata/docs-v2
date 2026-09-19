@@ -8,6 +8,8 @@ menu:
 weight: 7
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md, docs/external/edr-spec.md -->
+
 Tokens are resolved from the token store **on every use—never cached**. To
 rotate a token, overwrite the file; the next operation uses the new value.
 No restart required. If both ends rotate, update the destination first.
@@ -24,7 +26,7 @@ Each node's config file references two kinds of tokens by name:
   needs a unique auth token so the downstream can identify who connected
   (`upstreams[].auth_token` on the receiving node; `auth_token` on the
   sending node's `downstream`).
-- **Write token**—used by the destination's EDR agent to write the
+- **Write token**—the destination's EDR agent uses it to write the
   source's data into local InfluxDB (`upstreams[].write_token`). Typically
   the destination InfluxDB instance's admin or operator token.
 
