@@ -22,10 +22,10 @@ EDR has two compatibility dimensions.
 > pairing refuses to start or halts loudly, and names the side that must
 > change.
 
-| Dimension | Between | Decided by | On incompatibility |
+| Compatibility dimension | Compared components | Compatibility check | Incompatible behavior |
 |---|---|---|---|
-| Agent <-> agent | two EDR agents on one replication hop | protocol negotiation at `/connect` | upstream halts that hop; both sides name the versions |
-| Agent <-> InfluxDB | an EDR agent and the InfluxDB 3 Enterprise store it reads | storage-format preflight and runtime checks | agent refuses to start, or halts if the store changes underneath it |
+| Agent protocol | Two EDR agents on one replication hop. | Protocol v3 agents negotiate on every `/report`. Protocol v1 and v2 agents negotiate at `/connect`. | The upstream agent halts the replication hop. Both agents report their protocol versions. |
+| Storage format | An EDR agent and the source InfluxDB 3 Enterprise store. | The agent checks the storage format at startup and while it runs. | The agent refuses to start with an incompatible store. If a running store becomes incompatible, the agent halts replication. |
 
 <!-- VERIFIED against the EDR source and agent log output: the agent logs
 `storage compatibility: COMPATIBLE` during a successful startup preflight
