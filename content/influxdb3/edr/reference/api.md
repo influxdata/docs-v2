@@ -104,27 +104,35 @@ Directly connected agents negotiate a **protocol version** and a
 **capability set**, per hop—never propagated along a relay chain (a bad
 hop reports at that hop; the rest of the chain is unaffected).
 
-- **Protocol v1** is defined retroactively: it is exactly the wire behavior
-  of agents released before versioning existed (0.1.x and 0.2.x). Those
-  agents send no version fields; absence is read as v1. Nothing about v1
-  changed.
+- **Protocol v1** is the name for the wire behavior of agents released before
+  versioning existed (0.1.x and 0.2.x).
+  Those agents send no version fields.
+  EDR interprets missing version fields as protocol v1.
+  The protocol v1 behavior hasn't changed.
 - **Protocol v2** (interim development builds; never in a released
-  version) added the negotiation itself, carried on `/connect`, which also
-  gates `/data` (HTTP 428 until connected).
-- **Protocol v3** (current) is the **stateless data path**: the upstream's
-  full declaration—identity, location, comms expectations, agent version,
-  protocol declaration—flattens into every `/report`, and a compact form
-  rides every `/data` as headers (`X-EDR-Name`, `X-EDR-Protocol:
-  <declared>,<min>`, `X-EDR-Caps`). The downstream's declaration returns in
-  the `/report` response (`ReportAccept`—its absence identifies a <=v2
-  downstream). Between v3 peers `/connect` is never sent and `/data` needs
-  no prior contact—any receiver instance can serve any request (the basis
-  for receiver fault tolerance and load balancing). Negotiation is
-  refreshed on every report.
-- Both sides compute the same agreement: **effective version = min(both
-  versions)**, refused when the effective version is below either side's
-  minimum. An agreement below v3 selects the v2 connect-gated flow
-  automatically—mixed fleets need no configuration.
+  version) added explicit protocol negotiation.
+  Protocol v2 agents negotiate at `/connect`.
+  The `/connect` request gates `/data`.
+  The `/data` endpoint returns HTTP 428 until the agents connect.
+- **Protocol v3** (current) uses the **stateless data path**.
+  Every `/report` includes the upstream agent's full declaration: identity,
+  location, communication settings, agent version, and protocol declaration.
+  The downstream agent returns its declaration in the `ReportAccept` response.
+  Both agents negotiate the protocol on every report.
+  A response without a downstream declaration identifies a protocol v2 or
+  earlier agent.
+  Every `/data` request includes a compact declaration in the `X-EDR-Name`,
+  `X-EDR-Protocol: <declared>,<min>`, and `X-EDR-Caps` headers.
+  Protocol v3 peers never send `/connect`.
+  The `/data` endpoint requires no prior contact.
+  Any receiver instance can serve any request.
+  This stateless behavior supports receiver fault tolerance and load balancing.
+- Both agents calculate the same agreement.
+  The effective version is the lower of the two declared versions.
+  An agent refuses the connection if the effective version is lower than either
+  agent's minimum.
+  An effective version below protocol v3 selects the v2 connect-gated flow.
+  Mixed-version fleets require no additional configuration.
 
 | Upstream \ Downstream | 0.1.x / 0.2.x (v1) | interim dev builds (v2) | 1.0.0-0.rc.1+ (v3) |
 |---|---|---|---|
