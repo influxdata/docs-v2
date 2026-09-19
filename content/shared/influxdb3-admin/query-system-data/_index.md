@@ -321,6 +321,15 @@ coordinator detects completion.
 The `completed` status reports when the coordinator detects that the migration
 has finished.
 
+Starting in v3.11.5, `compactor` rows also report upgrade health.
+A `stalled` value of `true` means the upgrade has stopped making progress;
+`stalled_since` reports when it stopped.
+Check `last_progress_at` for the last time the upgrade advanced and `restarts`
+for how many times the compactor restarted during the upgrade.
+The `conversion_*` and `import_*` columns report conversion and import
+progress.
+These columns are null on `ingest` rows.
+
 **Query telemetry** — the query telemetry endpoint provides detailed
 execution statistics for analyzing query performance:
 
