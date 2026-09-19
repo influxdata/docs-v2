@@ -11,6 +11,8 @@ menu:
 weight: 202
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/configuration.md, docs/external/edr-spec.md, docs/external/operations.md -->
+
 Configuration is a YAML file passed to the agent with `--config`. Tokens are
 referenced **by name** and resolved at runtime from a token store directory
 (`--token-store`)—secrets never live in the config file. For a
@@ -36,9 +38,9 @@ task-oriented walkthrough, see [Get started with EDR](/influxdb3/edr/get-started
   Declaring both forms at once is a config error.
 - **`upstreams`**—who sends data to this node.
 
-\* At least one of `downstream`/`downstreams` or `upstreams` must be
-present. A node with both is a regional hub: it receives from edges and
-forwards on.
+\* At least one of `downstream`, `downstreams`, or `upstreams` must
+be present. A node with both is a regional hub: it receives from
+edges and forwards on.
 
 ## Downstream (source -> destination)
 
@@ -74,7 +76,7 @@ forwards on.
   destination.
 - **`mode`**—`edr`: agent-to-agent. `direct`: write directly to an
   InfluxDB v3 write API.
-- **`scope`**—which databases/tables to replicate. See
+- **`scope`**—which databases and tables to replicate. See
   [Scope](#scope).
 - **`comms.interval_secs`**—how often (seconds) to send status reports
   when idle.
@@ -87,8 +89,8 @@ forwards on.
 - **`retry.max_backoff_secs`**—maximum retry backoff.
 - **`retry.multiplier`**—exponential backoff multiplier.
 - **`retry.halt_patience_secs`**—patience window before persistent
-  write errors / unclassified rejections trigger the halted state. See
-  [The halted state](/influxdb3/edr/monitor/#the-halted-state).
+  write errors or unclassified rejections trigger the halted state.
+  See [The halted state](/influxdb3/edr/monitor/#the-halted-state).
 - **`share_topology`**—include this node's upstream tree in reports to
   the destination. When false, this node appears as a leaf.
 - **`idempotent_writes`**—user asserts no `(series_key, timestamp)`
@@ -98,17 +100,17 @@ forwards on.
   [Performance vs. correctness](#performance-vs-correctness) below.
 - **`historic_fill`**—declares the historic start point (`mode: none`
   \| `full` \| `since`). No default—absent means the agent refuses to
-  start. Modes `full`/`since` require `idempotent_writes: true`. See
-  [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill).
+  start. Modes `full` and `since` require `idempotent_writes: true`.
+  See [Historic fill](/influxdb3/edr/monitor/historic-and-gap-fill/#historic-fill).
 - **`priorities`**—priority routing rules (first match wins). Requires
   `idempotent_writes: true`. See [Priorities](#priorities).
 - **`on_state_loss`**—what to do when a state journal and its
   previous-good mirror are both corrupt. Default: `recover` when
   `idempotent_writes: true`, else `halt`. Explicit `recover` without
   the idempotency assertion is rejected. See
-  [State & recovery](/influxdb3/edr/reference/state-and-recovery/).
-- **`encoding`**—wire encoding. `pt` (PT+zstd) is agent-to-agent only,
-  approximately 2.5x bandwidth saving.
+  [State and recovery](/influxdb3/edr/reference/state-and-recovery/).
+- **`encoding`**—wire encoding. `pt` (zstd-compressed PT) is
+  agent-to-agent only, approximately 2.5x bandwidth saving.
 - **`concurrent_sends`**—maximum concurrent send tasks. `1` =
   strict-order delivery (the default). `> 1` requires
   `idempotent_writes: true`; `0` is rejected.
@@ -126,12 +128,13 @@ flight at a time (`concurrent_sends: 1`), held through retries, so data
 arrives at the destination in exactly the order it was written at the
 source.
 
-Why this matters: when the same point (identical series key + timestamp)
-is written more than once—an overwrite—InfluxDB resolves it last-write-wins
-by arrival order. Any concurrency that lets batches race can deliver an
-overwrite *before* the original it replaces; the original then lands second
-and silently wins. The data isn't lost in transit—it's reverted at the
-destination, which is worse, because every count matches.
+When the same point (identical series key and timestamp) is written more
+than once—an overwrite—InfluxDB resolves it last-write-wins by arrival
+order. Any concurrency that lets batches race can deliver an overwrite
+before the original it replaces. The original then arrives second and
+wins, so the destination reverts to the earlier value. Nothing is lost
+in transit, and every count matches, which makes this harder to detect
+than data loss.
 
 `idempotent_writes: true` is your assertion about the workload: no (series
 key, timestamp) pair is ever written with differing field values. Under that
@@ -144,7 +147,7 @@ without the assertion:
 |---|---|
 | `concurrent_sends > 1` | batches race to the destination; arrival order != write order |
 | `priorities` | deliberately reorders blocks within and across WAL files |
-| `historic_fill: full`/`since` | backfill overlaps live replication and re-sends data |
+| `historic_fill: full` or `since` | backfill overlaps live replication and re-sends data |
 | multiple ingest nodes | independent per-node WAL streams interleave |
 
 **Choosing a mode:**
@@ -155,7 +158,7 @@ without the assertion:
   bounded by round-trip latency per batch; size batches up rather than
   adding concurrency.
 - **Workload is append-only** (each point written once—typical
-  sensor/metrics ingest): set `idempotent_writes: true` and raise
+  sensor and metrics ingest): set `idempotent_writes: true` and raise
   `concurrent_sends` (for example, 4-16) for parallel delivery; historic
   fill and priorities become available.
 
@@ -228,7 +231,7 @@ shape:
   named—a config that would silently do nothing (or everything) fails fast
   instead.
 
-Scope changes are picked up by config hot-reload. Narrowing scope (adding
+Config hot-reload picks up scope changes. Narrowing scope (adding
 an exclusion) takes effect immediately. Widening scope (removing an
 exclusion, adding a database) replicates new data going forward only—
 historic data for the newly added entity is not backfilled; re-run
@@ -261,7 +264,7 @@ priorities:
   become dispatch tiers.
 - **`share`** (Integer)—optional deficit round-robin (DRR) weight for
   this tier.
-- **`historic_fill`** (Boolean)—one rule may claim historic fill
+- **`historic_fill`** (Boolean)—one rule can claim historic fill
   traffic for its tier. Otherwise historic fill rides the
   lowest-priority tier.
 
@@ -307,16 +310,16 @@ downstream:
   whole-day window can be written as `"00:00-24:00"` instead of the
   off-by-one `"00:00-23:59"`—as a *start* time it's a config error.
   Mutually exclusive with `dates`.
-- **`days`**—optional list of
-  `mon`/`tue`/`wed`/`thu`/`fri`/`sat`/`sun` restricting which
-  weekdays `hours` applies to. Absent = every day. A wrapping window
+- **`days`**—optional list of `mon`, `tue`, `wed`, `thu`, `fri`,
+  `sat`, and `sun` restricting which weekdays `hours` applies to.
+  Absent = every day. A wrapping window
   (for example, `"22:00-06:00", days: [fri]`) is anchored to its
   **start day**—the post-midnight tail on Saturday still counts as
   Friday's window. Combining `days` with `dates` is a config error.
 - **`dates`**—optional list of calendar-date overrides, matching the
   **whole day**: `"YYYY-MM-DD"` (one-time—this exact date only) or
   `"MM-DD"` (no year—recurs every year, for example `"12-25"`). An
-  entry has either `hours` (+ optional `days`) or `dates`, never
+  entry has either `hours` (with optional `days`) or `dates`, never
   both—combining them, or setting neither, is a config error.
 - **`mode`**—`unlimited` (full speed), `limited` (throttled to
   `max_bytes_per_sec`), or `silent` (no data sends).
@@ -329,8 +332,9 @@ Entries are evaluated in order; the first matching entry wins, so more
 specific rules (a weekend override, a calendar exception) must come before
 the general rule they're meant to carve an exception out of. When
 `bandwidth_schedule` is absent, or nothing matches at a given moment, the
-pipeline runs unlimited. Data is never dropped by scheduling—it queues
-during limited/silent windows and drains when the window changes.
+pipeline runs unlimited. Data is never dropped by scheduling—it
+queues during limited or silent windows and drains when the window
+changes.
 
 `bandwidth_timezone` sets the zone the whole schedule is interpreted in:
 `"utc"` (the default) or an IANA name like `"Asia/Kolkata"`, which also
@@ -350,8 +354,8 @@ which drifts an hour for half the year.
 The agent validates the schedule at load time (and on hot reload) and logs
 advisory warnings—never load errors—for rules that are fully or partially
 shadowed by an earlier rule, weekly coverage gaps that silently default to
-unlimited, and duplicate/conflicting calendar dates. These also appear in
-`/edr/v1/metrics` (`bandwidth_warnings`) and the UI.
+unlimited, and duplicate or conflicting calendar dates. These also appear
+in `/edr/v1/metrics` (`bandwidth_warnings`) and the UI.
 
 ## Direct mode
 

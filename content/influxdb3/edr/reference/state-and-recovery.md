@@ -5,15 +5,19 @@ description: >
   means, and what happens if you delete it.
 menu:
   influxdb3_edr:
-    name: State & recovery
+    name: State and recovery
     parent: Reference
 weight: 205
 ---
 
-What EDR remembers between restarts, where it keeps it, what each piece
-means, and—the part you are probably here for—what happens if you delete
-it. Every behavior stated on this page is asserted by an automated test in
-the EDR test suite.
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/state-and-recovery.md -->
+
+EDR remembers its replication progress between restarts. This page covers
+where it keeps that state, what each piece means, and what happens if you
+delete it.
+
+<!-- VERIFIED by the EDR test suite: an automated test asserts every
+behavior stated on this page. -->
 
 1. [Where the state lives](#where-the-state-lives)
 2. [What each file is](#what-each-file-is)
@@ -29,11 +33,12 @@ the EDR test suite.
 Everything the agent remembers is under `--state-location` (env
 `INFLUXDB3_EDR_STATE_LOCATION`, default `edr-state`). A bare path or
 `file://` URL selects the local filesystem; `s3://bucket/prefix`, `gs://...`,
-`az://...` select object storage (credentials from the same `AWS_*` /
-`GOOGLE_*` / `AZURE_*` environment the data plane uses).
+`az://...` select object storage (credentials from the same `AWS_*`,
+`GOOGLE_*`, or `AZURE_*` environment the agent uses for replicated data).
 
 Each item is one JSON object named `{key}.json`. The state location is
-**independent of the data-plane object store**—moving or resetting it
+**independent of the object store that holds your replicated
+data**—moving or resetting it
 never touches your data; it only changes what the agent believes it has
 already done.
 
@@ -48,7 +53,7 @@ live at the root: `state_layout.json` (the layout format marker) and
 by all destinations).
 
 The layout is self-maintaining, and **config is the source of truth** (a
-destination's namespace exists iff the destination is configured):
+destination's namespace exists if the destination is configured):
 
 - **Migration**: on the first start of a fan-out-capable build, journals
   from the old un-namespaced layout are moved into the (single) configured
@@ -63,8 +68,8 @@ destination's namespace exists iff the destination is configured):
   error names both and the fix (correct the name, or delete the orphan
   namespace deliberately). The same guard rejects a live reload that
   removes one destination and adds a stateless new one in one pass.
-- **Removing a destination via reload deletes its namespace** immediately;
-  re-adding the same name later starts fresh.
+- **Removing a destination through reload deletes its namespace**
+  immediately; re-adding the same name later starts fresh.
 
 The token store (`--token-store`) is separate and is not covered here—it
 holds secrets, not progress.
@@ -74,28 +79,28 @@ holds secrets, not progress.
 - **`wal_cursor.json`** (live replication)—per-ingest-node high-water
   mark (`last_replicated_wal_id`), out-of-order completions, and
   **skip receipts**: durable records that a WAL range was handed to
-  gap fill. Written by the dispatcher on every file completion, and
+  gap fill. The dispatcher writes it on every file completion, and
   the replicator on seeding and receipts. `wal_cursor_prev.json` is
   its safety mirror.
 - **`gap_ledger.json`** (gap fill)—recovery obligations: each detected
-  gap with its status (pending / in-progress / resolved /
-  unrecoverable) and the files that covered it. Written by the
-  gap-fill worker; `gap_ledger_prev.json` is its safety mirror.
+  gap with its status (pending, in-progress, resolved, or
+  unrecoverable) and the files that covered it. The gap-fill worker
+  writes it; `gap_ledger_prev.json` is its safety mirror.
 - **`historic_manifest.json`** (historic fill)—the backfill plan:
   snapshot work list, cv2 work list, per-file statuses, and the
-  completed flag. Written by the historic planner (full saves);
+  completed flag. The historic planner writes it (full saves);
   `historic_manifest_prev.json` is its safety mirror.
 - **`historic_progress.json`** (historic fill)—compact status
   checkpoints overlaid on the plan, guarded by a sequence number so a
-  stale overlay can never resurrect finished work. Written by the
-  historic fill task (frequent).
+  stale overlay can never resurrect finished work. The historic fill
+  task writes it frequently.
 - **`live_seed_done.json`** (live replication)—marker: first-start
   seeding already happened—a restart resumes instead of re-seeding.
-  Written by the replicator, once.
+  The replicator writes it once.
 - **`wal_cleanup_watermark.json`** (WAL cleanup)—per-node "deleted
   through id N" resume points (only with `--wal-cleanup-enabled`).
   **Lives at the state ROOT**—agent-level, shared by all
-  destinations. Written by the cleanup sweep.
+  destinations. The cleanup sweep writes it.
 
 All files except `wal_cleanup_watermark.json` and `state_layout.json` live
 inside a destination's namespace; a recovery recipe that says "delete the
@@ -104,22 +109,24 @@ is untouched.
 
 ## Read before you touch
 
-`edr-inspect` ships in the EDR image and renders all three planes
-read-only:
+`edr-inspect` ships in the EDR image and renders all three—live
+replication, gap fill, and historic fill—read-only:
 
 ```bash
 edr-inspect state /var/lib/edr/state
 ```
 
-(or `docker exec <CONTAINER> edr-inspect state`—it picks up the agent's
-own `INFLUXDB3_EDR_STATE_LOCATION`). If you are diagnosing, start there;
-most questions ("is it stuck?", "what does it think it owes?") are
-answered without touching anything.
+In Docker, run `docker exec <CONTAINER> edr-inspect state` with no path.
+That form picks up the agent's own `INFLUXDB3_EDR_STATE_LOCATION`.
+
+Start here when you diagnose a problem.
+`edr-inspect state` answers most questions—"is it stuck?", "what does it
+think it owes?"—without touching anything.
 
 ## The golden rules
 
 1. **Never modify state while the agent is running.** The in-memory copy is
-   authoritative; your edit is silently overwritten by the next persist.
+   authoritative; the next persist silently overwrites your edit.
    (Deleting files while running is harmless but pointless—see the
    matrix.)
 2. **Never hand-edit the JSON at all.** The schemas evolve between releases
@@ -149,8 +156,8 @@ happens when *both* copies are gone (deliberately, or because corruption
 hit both).
 
 When **both** the primary and mirror are corrupt or unreadable—"state
-loss"—the agent's behavior is governed by `on_state_loss` (a downstream
-config knob):
+loss"—`on_state_loss` (a downstream config knob) governs the agent's
+behavior:
 
 - **`recover`** (the default when `idempotent_writes: true`): rebuild a
   conservative per-node cursor position from the oldest surviving snapshot
@@ -175,12 +182,13 @@ What happens when a state item is removed, by agent state:
 
 - **Entire state location**
   - *Agent running*: self-heals piecemeal (files reappear as each
-    plane persists), but you have destroyed receipts mid-flight—don't
+    subsystem writes its state again), but you have destroyed receipts
+    mid-flight—don't
     do this; stop first.
   - *Agent stopped, then restarted*: the sanctioned **full reset**.
-    Behavior is governed entirely by golden rules 3 and 4: `full` +
-    idempotent gives a safe re-fill; `none` means owed backlog is
-    silently skipped.
+    Golden rules 3 and 4 govern the behavior entirely: a `full`
+    fill with idempotent writes gives a safe re-fill; `none` means
+    owed backlog is silently skipped.
 - **`wal_cursor.json`** only (`wal_cursor_prev.json` intact)
   - *Agent running*: harmless: in-memory state is authoritative,
     delivery continues, the journal re-persists on the next file
@@ -200,8 +208,8 @@ What happens when a state item is removed, by agent state:
   - *Agent stopped, then restarted*: the most forgiving: outstanding
     obligations are **rebuilt from the cursor's skip receipts** at
     startup (works even with the mirror also gone, as long as the
-    cursor survives). You lose the resolved/unrecoverable *history*
-    (audit trail), not the obligations.
+    cursor survives). You lose the resolved and unrecoverable
+    *history* (audit trail), not the obligations.
 - **`historic_manifest.json`** only (`historic_manifest_prev.json`
   intact, fill incomplete)
   - *Agent running*: recreated only at the next *full plan save*—

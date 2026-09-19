@@ -11,6 +11,8 @@ related:
   - /influxdb3/edr/
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/releases.md -->
+
 EDR follows [SemVer](https://semver.org). During the beta, the version stays
 below `1.0.0`; within that range, EDR bumps the minor number for each beta
 drop and the patch number for a re-spin of the same drop. `1.0.0` marks
@@ -20,7 +22,7 @@ always refers to exactly the same bytes—and the agent identifies its build
 precisely: `influxdb3-edr --version` prints the version plus the source
 revision it was built from (for example, `0.2.0 (682ce264f)`), the same
 identity appears in the agent's startup log, and each agent reports it to
-its downstream, so the destination's API/UI shows which build every
+its downstream, so the destination's API and UI show which build every
 connected edge is running.
 
 Each release is built against a pinned InfluxDB 3 Enterprise revision,
@@ -30,7 +32,7 @@ encoded in the image tag (`edr:<VERSION>-pro<REVISION>-<ARCH>`).
 
 Release candidate for the 1.0.0 general-availability release. Built against
 InfluxDB 3 Enterprise **3.11.0** (revision `e5242f505d`). Images:
-`edr:1.0.0-0.rc.1-proe5242f505d-amd64` / `-arm64`.
+`edr:1.0.0-0.rc.1-proe5242f505d-amd64` and `-arm64`.
 
 **Compatibility** (see
 [Compatibility](/influxdb3/edr/reference/compatibility/)): EDR replication
@@ -51,8 +53,8 @@ example `Asia/Kolkata`) to keep them meaning what they meant.
 
 - **Multi-destination fan-out.** A sender can replicate to several
   downstreams at once—for example, a live feed plus a full-history
-  archive—with per-destination scope, schedule, journal, and health/UI
-  channel. See
+  archive—with per-destination scope, schedule, journal, and the
+  health and UI channel. See
   [Replicate to multiple destinations](/influxdb3/edr/replicate/to-multiple-destinations/).
 - **Scope exclusions.** `exclude: { databases: [...], tables: [...] }`
   composes with instance- and database-level scope, so "everything except
@@ -65,19 +67,20 @@ example `Asia/Kolkata`) to keep them meaning what they meant.
 - **WAL loss is accounted, not buried.** WAL evicted by the server before
   replication is classified distinctly (`WalFileMissing`), counted in a new
   `wal_files_lost_total` metric, and recovered from gen0/compacted files
-  via gap fill where possible.
+  through gap fill where possible.
 - **Cleanup correctness.** Agent-side WAL cleanup now holds a fourth floor
-  under queued/in-flight work and unresolved gap-ledger ranges, so a slow
-  or recovering destination can never have its input deleted out from
-  under it.
+  under queued and in-flight work and unresolved gap-ledger ranges, so a
+  slow or recovering destination can never have its input deleted out
+  from under it.
 - **Bandwidth schedule hardening.** Stricter validation (unknown fields,
-  malformed times/dates, empty day lists are config errors), UTC-by-default
-  semantics with the `bandwidth_timezone` opt-in above.
+  malformed times and dates, empty day lists are config errors),
+  UTC-by-default semantics with the `bandwidth_timezone` opt-in above.
 - **Refreshed embedded UI**, matching InfluxDB 3 Explorer's branding.
-- **`edr-inspect`**—a read-only triage CLI (`state` / `metrics` /
-  `topology`), shipped in the image and run via `docker exec`.
-- **Optional observability overlay** in the signals demo: Telegraf +
-  Grafana dashboards layered on with a second compose file, like licensing.
+- **`edr-inspect`**—a read-only triage CLI (`state`, `metrics`, and
+  `topology`), shipped in the image and run through `docker exec`.
+- **Optional observability overlay** in the signals demo: Telegraf and
+  Grafana dashboards layered on with a second compose file, like
+  licensing.
 
 **Known limitation**: the source server's WAL retention
 (`wal-snapshots-to-keep`, un-prefixed spelling on 3.11) is the only hold on
@@ -88,7 +91,7 @@ EDR is planned for GA.
 ## v0.2.0 {date="2026-07-16"}
 
 First customer beta release. Built against InfluxDB 3 Enterprise 3.10.0
-(revision `0119b6f42f`). Images: `edr:0.2.0-pro0119b6f42f-amd64` /
+(revision `0119b6f42f`). Images: `edr:0.2.0-pro0119b6f42f-amd64` and
 `-arm64`.
 
 **Compatibility** (see

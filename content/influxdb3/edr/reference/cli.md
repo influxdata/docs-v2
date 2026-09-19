@@ -10,6 +10,8 @@ menu:
 weight: 203
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/configuration.md, docs/external/operations.md -->
+
 ## `influxdb3-edr`
 
 ```
@@ -49,7 +51,7 @@ influxdb3-edr [OPTIONS]
 - **`--state-location <URL/PATH>`**—state persistence location,
   **independent of `--object-store-type`**. A path or `file://` URL is
   local; `s3://bucket/prefix`, `gs://...`, `az://...` are object
-  storage (credentials/region from the environment). Holds
+  storage (credentials and region from the environment). Holds
   `wal_cursor.json`, `gap_ledger.json`, `historic_manifest.json`. Env:
   `INFLUXDB3_EDR_STATE_LOCATION`.
 - **`--poll-interval-ms <MS>`**—object store polling interval in
@@ -73,7 +75,7 @@ influxdb3-edr [OPTIONS]
 - **`--wal-cleanup-max-destination-hold <D>`**—fan-out only: a
   destination whose cursor hasn't advanced for this long (`"7d"`,
   `"12h"`, `"30m"`) stops holding the cleanup floor; it recovers the
-  evicted range via gap fill when it returns (over-replication, never
+  evicted range through gap fill when it returns (over-replication, never
   loss). Unset means a down destination pins WAL indefinitely. Env:
   `INFLUXDB3_EDR_WAL_CLEANUP_MAX_DESTINATION_HOLD`.
 - **`--benchmark <N>`**—run a bandwidth benchmark against up to N WAL
@@ -91,8 +93,8 @@ change-tracking log.
 |-----|-----|
 | `EDR_WRITE_ENDPOINT` | Local InfluxDB write endpoint for the destination facet (default: `http://localhost:8181`). |
 | `RUST_LOG` | Log level filter (default: `info`). Example: `info,influxdb3_catalog=warn` |
-| `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` / `AWS_DEFAULT_REGION` | S3 credentials (with `--object-store-type s3`). |
-| `INFLUXDB3_BUCKET` | S3/GCS/Azure bucket name. |
+| `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_DEFAULT_REGION` | S3 credentials (with `--object-store-type s3`). |
+| `INFLUXDB3_BUCKET` | S3, GCS, or Azure bucket name. |
 | `INFLUXDB3_EDR_WAL_CLEANUP_ENABLED` | Enable agent-side WAL cleanup (`--wal-cleanup-enabled`). |
 | `INFLUXDB3_EDR_WAL_CLEANUP_INTERVAL_SECS` | WAL cleanup sweep interval (`--wal-cleanup-interval-secs`). |
 | `INFLUXDB3_EDR_WAL_CLEANUP_SNAPSHOT_MARGIN` | WAL files kept below the snapshot boundary (`--wal-cleanup-snapshot-margin`). |
@@ -106,15 +108,15 @@ change-tracking log.
 |---|---|---|
 | `edr-inspect state <STATE_LOCATION>` | the state journals only (offline—no running agent) | live replication (WAL cursor), live gap fill (gap ledger), historic replication (manifest progress) |
 | `edr-inspect metrics [addr]` | the live `/metrics` (observability listener) | a scrolling table watch; `--once` for one detailed block |
-| `edr-inspect topology [addr]` | `/edr/v1/topology` | a one-shot upstream/downstream ASCII diagram with per-edge health |
+| `edr-inspect topology [addr]` | `/edr/v1/topology` | a one-shot upstream and downstream ASCII diagram with per-edge health |
 
 `state` works even against a stopped or wedged agent (it reads the journals
-directly); it also accepts a cloud `state-location` (`s3://`/`gs://`/
-`az://`, credentials from the environment). `metrics`/`topology` default to
-the loopback observability address
+directly); it also accepts a cloud `state-location` (`s3://`, `gs://`, or
+`az://`, credentials from the environment). `metrics` and `topology`
+default to the loopback observability address
 (`$INFLUXDB3_EDR_OBSERVABILITY_LISTEN`). `edr-inspect` needs no
 `--data-dir`—it reads only the state journals and the agent's `/metrics`,
 never the object store.
 
-For usage in Docker via `docker exec`, see
-[Run EDR in Docker](/influxdb3/edr/install/docker/#triage-with-edr-inspect-via-docker-exec).
+For usage in Docker through `docker exec`, see
+[Run EDR in Docker](/influxdb3/edr/install/docker/#triage-with-edr-inspect-through-docker-exec).

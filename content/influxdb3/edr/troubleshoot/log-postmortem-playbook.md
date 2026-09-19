@@ -10,6 +10,8 @@ menu:
 weight: 2
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/log-postmortem-playbook.md -->
+
 Diagnose what happened to an EDR agent from a captured log, after the fact.
 This helps most when the agent crashed or restarted.
 The live views (`edr-inspect metrics` and `topology`) can't help in that case,
@@ -42,7 +44,7 @@ If you ship logs to an aggregator such as Loki, ELK, or CloudWatch,
 export the agent's stream for the incident window instead.
 
 This playbook covers the dead or restarted case.
-Pair it with `edr-inspect` either way:
+Pair it with `edr-inspect`:
 
 - **`state`** reads the durable journals **offline**,
   so it works even on a dead agent.
@@ -292,28 +294,41 @@ Keep these limits in mind so you don't overstate the verdict:
 
 ## Corroborate with `edr-inspect`
 
-The log says *how the agent got there*.
-`edr-inspect` says *where it ended up* and *whether it's still broken*.
-Confirm and quantify the log's findings with the three views below.
-They split on whether the agent is running:
+The log says how the agent got there.
+`edr-inspect` says where it ended up and whether it's still broken.
 
-- **`edr-inspect state <STATE_LOCATION>`** (no live agent needed)—reads
-  the journals offline.
-  Shows the durable end-state, even on a dead agent,
-  because the journals survive on the volume:
-  the WAL cursor, the gap ledger (pending and unrecoverable),
-  and historic progress and lost-counts.
-  The primary corroborator.
-- **`edr-inspect metrics [addr]`** (needs a live agent)—shows the current
-  live health of the (restarted) agent: *is it still failing?*
-  Counters are for the **current run**,
-  so they show recovery state, **not** the incident.
-  The log shows the incident.
-- **`edr-inspect topology [addr]`** (needs a live agent)—shows current
-  per-channel health after recovery:
-  which upstream or downstream is degraded now.
+### Check the evidence in this order
 
-**Map a log finding to its corroborator:**
+Confirm and quantify the log's findings with the evidence below.
+Each kind of evidence answers a different question:
+
+1. `edr-inspect state <STATE_LOCATION>`—the durable truth:
+   where did it actually end up?
+   Always check it first.
+   It needs no live agent, because it reads the journals offline,
+   and the journals survive on the volume.
+   It shows the WAL cursor, the gap ledger (pending and unrecoverable),
+   and historic progress and lost-counts.
+   This is the primary corroborator.
+2. The log—the sequence: did it recover, and what was the cause?
+   The log shows the incident.
+3. `edr-inspect metrics [addr]` and `edr-inspect topology [addr]`—current
+   health: is it still failing?
+   Check these only if the agent is back up, because both need a live
+   agent.
+   - `metrics` shows the live health of the restarted agent.
+     Its counters cover the current run,
+     so they show recovery state, not the incident.
+     Treat the numbers as data from "the new run."
+     A single reading might be a blip.
+   - `topology` shows per-channel health after recovery:
+     which upstream or downstream is degraded now.
+
+### Map a log finding to its corroborator
+
+<!-- VERIFIED against a live EDR 1.0.0-rc.1 and InfluxDB 3 Enterprise 3.11.4
+cluster: edr-inspect metrics showed the halt and recovery states described
+below, and agent logs recorded replication resuming. -->
 
 - **`POTENTIAL DATA LOSS` or WAL lost**—check `state`:
   HISTORIC lost-counts and GAP FILL `unrecoverable` entries.
@@ -322,33 +337,30 @@ They split on whether the agent is running:
 - **Gap advisories**—check `state`: the gap ledger
   (what's `pending` or `in-progress` now).
 - **Halt, `Unauthorised`, or schema conflict**, if the agent is **now
-  running**—check `metrics` (`replication_halted`, `last_write_result`)
-  and `topology` (channel health),
-  to see whether it's still wedged or has recovered.
+  running**—check `metrics` for `REPLICATION HALTED` and `last-write`.
+  Check `topology` for channel health.
+  These views show whether the agent is still halted or has recovered.
+  For the corresponding JSON fields and numeric values,
+  see the [halt field values](/influxdb3/edr/reference/api/#halt-fields).
 
-Rule of thumb: **always check `state`**, because it's offline and durable.
-Check **`metrics` and `topology` only if the agent is back up**,
-and treat their numbers as data from "the new run," not the incident.
+### When the evidence disagrees
 
-**No single plane is trustworthy alone—cross-check before concluding.**
-A metrics reading is a point-in-time snapshot of the *current run*:
-it can catch a **transient at its worst moment**
-and read far worse than reality.
-For example, a captured snapshot might show `replication_halted: true` with
-high lag, which looks like the agent died wedged on auth.
-Yet the **log** shows `REPLICATION RESUMED` the same second,
-and `edr-inspect state` shows the cursor fully caught up with **zero loss**.
-So:
+No single kind of evidence is trustworthy alone,
+so cross-check before you conclude.
+A metrics reading is a point-in-time snapshot of the current run.
+It can capture a transient failure at its peak.
+The snapshot can overstate the incident's severity.
 
-- **metrics** = current-run health—*is it failing right now?*
-  (might be a blip)
-- **log** = the sequence—*did it recover, and what was the cause?*
-- **state** = the durable truth—*where did it actually end up?*
+For example, a captured snapshot might show
+`REPLICATION HALTED: 1 batch(es)` with high lag.
+That output can look like the agent stopped while authentication was failing.
+Yet the log shows `REPLICATION RESUMED` the same second.
+`edr-inspect state` shows the cursor fully caught up with zero loss.
 
-When the planes disagree,
-the **log and state** win over a lone metrics snapshot.
+When the evidence disagrees, the log and `state` win over a lone
+`metrics` snapshot.
 A clean conclusion needs at least the durable `state` to confirm it.
-If you have metrics or state snapshots *captured at the time*
-(not just live), feed all of them into the post-mortem and reconcile them
-against the log.
+If you captured metrics or state snapshots at the time of the incident,
+and not just live readings,
+feed all of them into the post-mortem and reconcile them against the log.
 Don't act on any one in isolation.

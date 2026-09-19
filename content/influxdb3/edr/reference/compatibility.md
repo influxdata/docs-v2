@@ -10,20 +10,43 @@ menu:
 weight: 206
 ---
 
-EDR has two compatibility dimensions, and both are **binary**: a pairing is
-COMPATIBLE or INCOMPATIBLE—there is no partial mode. Within a compatible
-pairing, everything works; an incompatible pairing refuses to start or
-halts loudly, and says exactly which side must change.
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/compatibility.md, docs/external/edr-spec.md -->
+
+EDR has two compatibility dimensions.
+
+> [!Important]
+> #### Compatibility is binary
+>
+> Neither dimension has a partial mode. In a compatible pairing, live
+> replication, historic fill, and gap recovery all work. An incompatible
+> pairing refuses to start or halts loudly, and names the side that must
+> change.
 
 | Dimension | Between | Decided by | On incompatibility |
 |---|---|---|---|
 | Agent <-> agent | two EDR agents on one replication hop | protocol negotiation at `/connect` | upstream halts that hop; both sides name the versions |
-| Agent <-> InfluxDB | an EDR agent and the InfluxDB 3 Enterprise store it reads | storage-format preflight + runtime checks | agent refuses to start, or halts if the store changes underneath it |
+| Agent <-> InfluxDB | an EDR agent and the InfluxDB 3 Enterprise store it reads | storage-format preflight and runtime checks | agent refuses to start, or halts if the store changes underneath it |
 
-**Where to read versions**: `influxdb3-edr --version` (agent build + the
-InfluxDB format line it was built against); the startup log (one line per
-dimension); `/edr/v1/status` (negotiated protocol per upstream, storage
-verdict); `edr-inspect topology` / `metrics`.
+<!-- VERIFIED against the EDR source and agent log output: the agent logs
+`storage compatibility: COMPATIBLE` during a successful startup preflight
+and `storage compatibility: INCOMPATIBLE` before refusing to start or
+halting at runtime. `edr-inspect` never prints either label.
+`/edr/v1/status` returns per-upstream protocol fields (`agent_version`,
+`negotiated_protocol`, `protocol_refused`) and no storage verdict.
+`/edr/v1/node_info` returns `compat.built_against`,
+`supported_server_lines`, and nullable protocol and storage halt reasons;
+it does not serialize the internal `StorageCompat` enum.
+`influxdb3-edr --version` prints only the EDR version and Git SHA, for
+example `1.0.0-0.rc.1 (085be6c69)`. -->
+
+**Where to read compatibility information**: Run `influxdb3-edr --version`
+to find the agent version and build SHA. Check the startup log for the
+storage compatibility verdict and build matrix. Check connection logs or
+`/edr/v1/status` for the protocol negotiated with each upstream agent.
+Check `/edr/v1/node_info` for the supported InfluxDB server lines and
+active compatibility halt reasons. Use `edr-inspect topology` and
+`edr-inspect metrics` to assess the resulting channel health and
+replication state.
 
 ## Supported destinations
 
@@ -36,8 +59,8 @@ EDR always replicates **from** InfluxDB 3 Enterprise. It replicates **to**:
 - AWS Timestream for InfluxDB 3
 
 <!-- TODO(pm): confirm AWS Timestream for InfluxDB 3 destination
-stability at GA and the correct product name / link target from
-AWS-facing docs before publishing this callout — see PLAN.md §9 item 3. -->
+stability at GA and the correct product name and link target from
+AWS-facing docs before publishing this callout. -->
 > [!Note]
 > #### AWS Timestream for InfluxDB 3
 >
@@ -57,7 +80,7 @@ Directly connected agents negotiate a **protocol version** and a
 hop reports at that hop; the rest of the chain is unaffected).
 
 - **Protocol v1** is defined retroactively: it is exactly the wire behavior
-  of agents released before versioning existed (0.1.x / 0.2.x). Those
+  of agents released before versioning existed (0.1.x and 0.2.x). Those
   agents send no version fields; absence is read as v1. Nothing about v1
   changed.
 - **Protocol v2** (interim development builds; never in a released
@@ -94,7 +117,7 @@ and both minimums; the upstream **halts that hop**—nothing is sent, health
 shows `Halted`, one ERROR at halt time, and a `PROTOCOL-HALTED` WARN every
 minute. Because negotiation rides every report, the halt clears **within
 one report interval** (default 10s) of the named agent being upgraded. See
-[Troubleshoot EDR](/influxdb3/edr/troubleshoot/#protocol-incompatible-agents-of-different-versions).
+[Troubleshoot EDR](/influxdb3/edr/troubleshoot/common-issues/#protocol-incompatible-agents-of-different-versions).
 
 ## EDR agent <-> InfluxDB 3 Enterprise (storage formats)
 
@@ -102,10 +125,8 @@ The sender agent reads the source server's object store directly—WAL
 files, snapshot manifests, compaction checkpoints, catalog. Compatibility
 is therefore about **on-disk formats**, and the store itself is the
 evidence: at startup the agent sniffs the newest artifacts and either
-starts (COMPATIBLE) or refuses with the exact format mismatch
-(INCOMPATIBLE). There is no partial mode: within a compatible pairing, live
-replication, historic fill and gap recovery all work; nothing is silently
-feature-reduced.
+starts, logging `storage compatibility: COMPATIBLE`, or refuses with the
+exact format mismatch and logs `storage compatibility: INCOMPATIBLE`.
 
 | EDR release | InfluxDB 3 Enterprise 3.10.x | 3.11.x | newer |
 |---|---|---|---|
@@ -114,7 +135,7 @@ feature-reduced.
 
 The dual support is real, validated both ways: the full test suite and
 chaos matrix run green against 3.10.5 and 3.11.0 stores. An out-of-matrix
-pairing may *appear* to partly function—for example, 0.2.0
+pairing might *appear* to partly function—for example, 0.2.0
 live-replicating from a 3.11 store—but it is not a supported mode and
 recovery paths will fail.
 
@@ -132,13 +153,15 @@ server. A 1.0.0-0.rc.1 agent runs against 3.10 today and keeps running
 across the server's 3.10 to 3.11 upgrade; upgrading the server first (past
 the matrix) halts replication until EDR catches up.
 
-The formats behind the matrix, for operators who want the detail:
+The formats behind the matrix, for operators who want the detail—see
+[Storage engine terms](/influxdb3/edr/reference/architecture/#storage-engine-terms)
+for what each one holds:
 
 | Format | What EDR uses it for | Stability |
 |---|---|---|
 | `.pt` WAL files | live replication (block shipping) | unchanged 3.10 to 3.11 |
 | `.ptsnap` snapshot manifests | snapshot boundary, historic planning | v3 across both lines |
-| [Compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction) checkpoints (`.ptv2chk`) | historic fill + gap recovery read compacted data once EDR's WAL replicator can no longer see it | **the moving part**: v9 (3.10) to v10 (3.11); newer versions are the usual cause of INCOMPATIBLE |
+| [Compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction) checkpoints (`.ptv2chk`)—the cv2 tier | historic fill and gap recovery read compacted data once EDR's WAL replicator can no longer see it | **the moving part**: v9 (3.10) to v10 (3.11); newer versions are the usual cause of INCOMPATIBLE |
 | Catalog | schema for encoding | versioned; compatibility tracked per release |
 
 ## Release <-> compatibility summary

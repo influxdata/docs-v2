@@ -10,6 +10,8 @@ menu:
 weight: 5
 ---
 
+<!-- ADAPTED_FROM: none — docs-v2 original (site IA scaffolding) -->
+
 Use the following guides to configure EDR replication for your destination.
 
 | Your destination | Guide |

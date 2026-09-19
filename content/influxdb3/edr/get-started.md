@@ -10,6 +10,8 @@ menu:
 weight: 3
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md, docs/external/overview.md -->
+
 This guide takes you from two running InfluxDB 3 Enterprise instances to a
 replicated point you can query at the destination. It uses EDR's native
 binaries and one host with two instances, so you don't need a second
@@ -95,9 +97,13 @@ upstreams:
     write_token: "dest-write-token"    # used to write into local InfluxDB
 ```
 
-A node needs at least one of `downstream`/`downstreams` (where it sends
-data) or `upstreams` (who sends it data). A node with both is a regional
-relay—see [Replicate to InfluxDB 3 Enterprise](/influxdb3/edr/replicate/to-enterprise/)
+A node needs at least one of the following:
+
+- `downstream` or `downstreams`—where it sends data.
+- `upstreams`—who sends it data.
+
+A node with both is a regional relay—see
+[Replicate to InfluxDB 3 Enterprise](/influxdb3/edr/replicate/to-enterprise/)
 for multi-hop topologies.
 
 ## Start the agents
@@ -137,7 +143,7 @@ does.
 ## Verify replication
 
 Use each instance's own InfluxDB admin or database token—not the EDR
-auth/write tokens from [Create a token store](#create-a-token-store),
+auth and write tokens from [Create a token store](#create-a-token-store),
 which authenticate the agents to each other, not you to InfluxDB.
 
 1. Write a point to the source instance:

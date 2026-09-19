@@ -4,7 +4,7 @@ description: >
   Edge Data Replication (EDR) provides durable, observable, at-least-once
   replication of time series data from InfluxDB 3 Enterprise to InfluxDB 3
   Enterprise, InfluxDB 3 Cloud, or AWS Timestream for InfluxDB 3, over
-  connections that may be intermittent or bandwidth-constrained.
+  connections that might be intermittent or bandwidth-constrained.
 menu:
   influxdb3_edr:
     name: EDR for InfluxDB 3 Enterprise
@@ -15,18 +15,20 @@ cascade:
   version: edr
 ---
 
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/overview.md, docs/external/edr-spec.md -->
+
 <!-- TODO(pm): confirm final disambiguation wording (title, lede, and
-callout below) — see PLAN.md §9 item 10. -->
+callout below). -->
 
 {{% product-name %}} moves time series data
 from edge InfluxDB 3 Enterprise instances up through regional relays to a
-central hub, over links that may be intermittent or bandwidth-constrained.
+central hub, over links that might be intermittent or bandwidth-constrained.
 EDR runs as a separate agent process alongside InfluxDB 3 Enterprise and
 handles arbitrarily long disconnections—when the link comes back, data
 catches up automatically.
 
 > [!Note]
-> #### Not the same as InfluxDB v2/Cloud's replication streams
+> #### Not the same as replication streams in InfluxDB v2 and InfluxDB Cloud
 >
 > This EDR product for InfluxDB 3 Enterprise is unrelated to
 > [Edge Data Replication in InfluxDB v2 and InfluxDB Cloud](/influxdb/v2/write-data/replication/),
@@ -41,17 +43,17 @@ catches up automatically.
 
 EDR provides durable, observable replication of time series data between
 InfluxDB 3 Enterprise instances—and from InfluxDB 3 Enterprise to InfluxDB 3
-Cloud or AWS Timestream for InfluxDB 3—over connections that may be
+Cloud or AWS Timestream for InfluxDB 3—over connections that might be
 intermittent, unreliable, or bandwidth-constrained.
 
 | Property | Detail |
 |-----|----|
-| Delivery guarantee | At-least-once. Data is not lost during disconnection; data that outlives WAL retention is recovered from compacted files. |
+| Delivery guarantee | At-least-once. Data is not lost during disconnection; data that outlives [write-ahead log (WAL)](/influxdb3/edr/reference/glossary/#wal-write-ahead-log) retention is recovered from compacted files. |
 | Ordering | WAL-file order preserved per ingest node (serial pipeline by default). |
 | Direction | Push from upstream (source) to downstream (destination). The source initiates all transfers. |
-| Wire format | Line Protocol over HTTP (default) or PT+zstd binary format (agent-to-agent, ~2.5x smaller). |
+| Wire format | Line Protocol over HTTP (default) or zstd-compressed [PT](/influxdb3/enterprise/reference/internals/storage-engine/#new-file-format) binary format (agent-to-agent, ~2.5x smaller). |
 | Topology | Tree-shaped: edges to regionals to central. Each hop is independent. |
-| Observability | Per-node UI, Prometheus metrics, JSON metrics API, SSE real-time updates. |
+| Observability | Per-node UI, Prometheus metrics, JSON metrics API, Server-Sent Events (SSE) real-time updates. |
 
 EDR is not a synchronous replication layer, a conflict resolution system, a
 backup tool, or a transformation layer. For the full list of what EDR is and
@@ -91,7 +93,7 @@ path for readers". -->
 > [!Note]
 > #### Getting EDR
 >
-> EDR is distributed directly by InfluxData. Contact your account team to
+> InfluxData distributes EDR directly. Contact your account team to
 > obtain the binaries, container image, and demo bundle.
 
 <a class="btn" href="/influxdb3/edr/get-started/">Get started with EDR</a>
