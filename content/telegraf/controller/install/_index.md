@@ -315,6 +315,8 @@ service.
 
 {{% product-name %}} supports **SQLite** (default), **PostgreSQL**, or
 **PostgreSQL-compatible** databases as its data backend.
+To back up, restore, or troubleshoot the database after installation, see
+[Manage the database](/telegraf/controller/admin/database/).
 
 ### SQLite {note="(Default)"}
 
