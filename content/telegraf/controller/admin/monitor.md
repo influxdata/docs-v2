@@ -8,9 +8,9 @@ menu:
   telegraf_controller:
     name: Monitor
     parent: Administer Telegraf Controller
-weight: 102
+weight: 104
 related:
-  - /telegraf/controller/high-availability/load-balancing/
+  - /telegraf/controller/admin/high-availability/load-balancing/
   - /telegraf/controller/admin/database/troubleshoot/
   - /telegraf/controller/install/troubleshoot/
 ---
@@ -30,11 +30,11 @@ API port and on the heartbeat port.
 general-purpose liveness and readiness probes, and the heartbeat service
 answers `GET /health` on its own port.
 `GET /health/leader` identifies the leader in a
-[high-availability cluster](/telegraf/controller/high-availability/).
+[high-availability cluster](/telegraf/controller/admin/high-availability/).
 
 For the full endpoint reference, including status codes, response bodies,
 and how to choose a probe, see
-[Health endpoints](/telegraf/controller/high-availability/load-balancing/#health-endpoints).
+[Health endpoints](/telegraf/controller/admin/high-availability/load-balancing/#health-endpoints).
 The endpoints are documented with load balancers in mind, but any monitoring
 system can poll them.
 

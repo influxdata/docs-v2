@@ -11,7 +11,7 @@ related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/authentication-authorization/
   - /telegraf/controller/authentication/
-  - /telegraf/controller/audit-logs/
+  - /telegraf/controller/admin/audit-logs/
 ---
 
 Owners and administrators can configure public endpoints, login security, and
@@ -208,7 +208,7 @@ from 30 days to 2 years or infinite.
 > Audit logging itself is enabled at startup only and requires a
 > [Telegraf Enterprise](/telegraf/enterprise/) license.
 > For details, see
-> [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+> [Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 
 To change the audit log retention period:
 

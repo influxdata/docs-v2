@@ -5,11 +5,13 @@ description: >
   Enable audit logging in Telegraf Controller at startup, configure the
   retention period, and optionally forward audit events to syslog, a
   webhook, or a file.
+aliases:
+  - /telegraf/controller/audit-logs/enable-configure/
 menu:
   telegraf_controller:
     name: Enable and configure
     parent: Audit logs
-weight: 101
+weight: 201
 related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/telegraf-enterprise/apply-license/
@@ -122,7 +124,7 @@ After {{% product-name %}} starts:
 
 - The **Settings > Audit Logging** section displays as enabled.
 - Audit entries begin appearing in the platform data directory described in
-  [Where audit logs are stored](/telegraf/controller/audit-logs/#where-audit-logs-are-stored).
+  [Where audit logs are stored](/telegraf/controller/admin/audit-logs/#where-audit-logs-are-stored).
 
 {{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}}
 
@@ -231,5 +233,5 @@ The startup-only policy applies in both directions: audit logging cannot be
 disabled from the UI.
 
 Existing audit files remain on disk and continue to be readable through
-[`GET /api/audit-logger`](/telegraf/controller/audit-logs/view/) until they
+[`GET /api/audit-logger`](/telegraf/controller/admin/audit-logs/view/) until they
 age out of retention.

@@ -8,11 +8,11 @@ menu:
   telegraf_controller:
     name: Networking and ports
     parent: Administer Telegraf Controller
-weight: 103
+weight: 105
 related:
   - /telegraf/controller/reference/config-options/
-  - /telegraf/controller/install/secure-tls/
-  - /telegraf/controller/high-availability/load-balancing/
+  - /telegraf/controller/admin/secure-tls/
+  - /telegraf/controller/admin/high-availability/load-balancing/
 ---
 
 {{% product-name %}} serves different kinds of traffic on different ports.
@@ -44,7 +44,7 @@ Requests to it require an API token.
 Both the API listener and the heartbeat listener also expose unauthenticated
 health endpoints designed for load balancers and monitoring.
 See
-[Health endpoints](/telegraf/controller/high-availability/load-balancing/#health-endpoints).
+[Health endpoints](/telegraf/controller/admin/high-availability/load-balancing/#health-endpoints).
 
 ## Expose the right ports
 
@@ -80,7 +80,7 @@ enables HTTPS on all listeners: the web interface and API, the separate web
 interface port if configured, and the agent heartbeat service.
 For setup, certificate options, and configuring agents to trust the
 certificate, see
-[Secure with TLS](/telegraf/controller/install/secure-tls/).
+[Secure with TLS](/telegraf/controller/admin/secure-tls/).
 
 ## Reverse proxies and public URLs
 
@@ -101,12 +101,12 @@ presents:
 
 ## High availability
 
-In a [high-availability cluster](/telegraf/controller/high-availability/),
+In a [high-availability cluster](/telegraf/controller/admin/high-availability/),
 the load balancer routes web interface and API traffic to each node's API
 port and agent heartbeat traffic to each node's heartbeat port, using the
 unauthenticated health endpoints as probes.
 See
-[Configure a load balancer](/telegraf/controller/high-availability/load-balancing/).
+[Configure a load balancer](/telegraf/controller/admin/high-availability/load-balancing/).
 
 ## Outbound connections
 
@@ -118,7 +118,7 @@ networks may need to allow:
 - **Authentication providers**: your LDAP or OIDC provider, when
   [configured](/telegraf/controller/authentication/).
 - **Audit log forwarding**: your syslog or webhook destinations, when
-  [audit log forwarding](/telegraf/controller/audit-logs/enable-configure/)
+  [audit log forwarding](/telegraf/controller/admin/audit-logs/enable-configure/)
   is configured.
 
 <!-- TODO: document analytics/telemetry outbound connections here alongside

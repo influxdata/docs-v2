@@ -26,15 +26,9 @@ Additional operator documentation lives in the following sections:
 
 - [Install {{% product-name %}}](/telegraf/controller/install/):
   download, install, and set up the server and its database.
-- [Secure with TLS](/telegraf/controller/install/secure-tls/):
-  enable HTTPS with your own certificates.
 - [Upgrade](/telegraf/controller/install/upgrade/):
   upgrade to a new version of {{% product-name %}}.
 - [Troubleshoot installation](/telegraf/controller/install/troubleshoot/):
   resolve installation and startup issues.
-- [High availability](/telegraf/controller/high-availability/):
-  deploy a multi-instance cluster behind a load balancer.
-- [Audit logs](/telegraf/controller/audit-logs/):
-  record security-relevant events to a tamper-evident audit log.
 - [Authentication](/telegraf/controller/authentication/):
   configure local, LDAP, or OIDC authentication.

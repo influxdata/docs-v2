@@ -12,7 +12,7 @@ menu:
 weight: 101
 related:
   - /telegraf/controller/install/
-  - /telegraf/controller/high-availability/
+  - /telegraf/controller/admin/high-availability/
   - /telegraf/controller/reference/release-notes/
 ---
 
@@ -207,7 +207,7 @@ logs for migration errors and see
 
 ## Upgrade a high-availability cluster
 
-Upgrade a [high-availability](/telegraf/controller/high-availability/)
+Upgrade a [high-availability](/telegraf/controller/admin/high-availability/)
 cluster by upgrading one node at a time. The cluster keeps serving
 throughout: when you stop a node, any leadership it holds transfers to a
 standby within a few seconds, and the remaining nodes continue to accept
@@ -224,7 +224,7 @@ agent heartbeats and serve the web interface and API.
 1.  On one node, stop {{% product-name %}}, replace the executable, and
     restart it, following the [steps above](#upgrade-telegraf-controller).
 2.  Wait for the node to report healthy through your load balancer's
-    [health checks](/telegraf/controller/high-availability/load-balancing/),
+    [health checks](/telegraf/controller/admin/high-availability/load-balancing/),
     and confirm the new version with `telegraf_controller --version`.
 3.  Repeat for each remaining node.
 
