@@ -189,8 +189,9 @@ Corruption almost always traces back to one of the following, all avoidable:
 so troubleshooting is directed at the server rather than at
 {{% product-name %}}:
 
-- **Connection problems**, including connection string format, credentials,
-  and TLS certificates: see
+- **Connection problems**: connection string format, credentials, and TLS
+  certificates.
+  See
   [Database connection issues](/telegraf/controller/install/troubleshoot/#database-connection-issues).
 - **Server health and corruption**: use your PostgreSQL tooling and the
   [PostgreSQL documentation](https://www.postgresql.org/docs/).
