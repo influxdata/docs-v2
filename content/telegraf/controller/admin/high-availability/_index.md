@@ -4,14 +4,17 @@ description: >
   Run multiple Telegraf Controller nodes against a shared PostgreSQL-compatible database for continuous availability. One node is
   elected leader to run cluster-wide background work while every node serves
   traffic, and a standby takes over if the leader fails.
+aliases:
+  - /telegraf/controller/high-availability/
 menu:
   telegraf_controller:
     name: High availability
-weight: 11
+    parent: Administer Telegraf Controller
+weight: 103
 cascade:
   metadata: [Telegraf Enterprise]
 related:
-  - /telegraf/controller/high-availability/deploy/
+  - /telegraf/controller/admin/high-availability/deploy/
   - /telegraf/controller/reference/architecture/
   - /telegraf/controller/reference/config-options/
   - /telegraf/enterprise/
@@ -191,21 +194,21 @@ the full license lifecycle, see
 
 ## Audit logs in a cluster
 
-[Audit logging](/telegraf/controller/audit-logs/) is **per node**, not shared.
+[Audit logging](/telegraf/controller/admin/audit-logs/) is **per node**, not shared.
 Each node writes its own tamper-evident audit files, maintains its own hash
 chain, and forwards events to whatever destination that node is configured to
-use. Querying a node's [audit log API](/telegraf/controller/audit-logs/view/)
+use. Querying a node's [audit log API](/telegraf/controller/admin/audit-logs/view/)
 returns only that node's events.
 
 To review activity across the whole cluster, forward each node's audit events to
 a shared destination, such as syslog or a webhook, and aggregate them there. See
-[Forward audit events](/telegraf/controller/audit-logs/enable-configure/#forward-audit-events).
+[Forward audit events](/telegraf/controller/admin/audit-logs/enable-configure/#forward-audit-events).
 
 > [!Important]
 > #### Tamper detection is per node
 >
 > Each node maintains its own
-> [hash chain](/telegraf/controller/audit-logs/#tamper-detection) and sequence
+> [hash chain](/telegraf/controller/admin/audit-logs/#tamper-detection) and sequence
 > numbers, so events from different nodes merged into one time-ordered stream do
 > not form a single valid chain. Verify integrity per node: separate aggregated
 > events by their originating node, then check each node's chain on its own.

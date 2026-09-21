@@ -11,7 +11,7 @@ menu:
 weight: 101
 related:
   - /telegraf/controller/reference/config-options/
-  - /telegraf/controller/high-availability/
+  - /telegraf/controller/admin/high-availability/
   - /telegraf/controller/install/#set-up-your-database
 ---
 
@@ -40,7 +40,7 @@ where the database lives, how to back it up, and how to repair it.
   [lock contention](/telegraf/controller/admin/database/troubleshoot/#identify-the-failure-type).
 - **PostgreSQL** (or PostgreSQL-compatible): a separate database server.
   Recommended for production use cases.
-  Required for [high availability](/telegraf/controller/high-availability/),
+  Required for [high availability](/telegraf/controller/admin/high-availability/),
   and the right choice when you want the database on separate
   infrastructure from the {{% product-name %}} host or want to reuse
   existing PostgreSQL backup, monitoring, and operations tooling.
@@ -75,7 +75,7 @@ file (`sqlite.db-shm`).
 
 ## Audit log storage is separate
 
-If you use [audit logging](/telegraf/controller/audit-logs/),
+If you use [audit logging](/telegraf/controller/admin/audit-logs/),
 {{% product-name %}} writes audit records to separate per-month SQLite
 files, not to the application database.
 Include both in your backup strategy.

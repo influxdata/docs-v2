@@ -274,7 +274,7 @@ Ensure the following ports are open in your network Firewall configuration:
   environment variables for production deployments. If agents log
   `x509: certificate signed by unknown authority`, they do not trust the
   certificate. See
-  [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/#trust-the-certificate-on-each-agent).
+  [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/#trust-the-certificate-on-each-agent).
 - **Firewall**: Restrict access to the web interface and heartbeat ports
 - **Database Security**:
   - **PostgreSQL**: Use strong passwords

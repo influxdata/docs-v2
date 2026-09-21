@@ -4,11 +4,13 @@ description: >
   Serve Telegraf Controller over HTTPS and configure Telegraf agents to trust
   the certificate so agents can fetch configurations and send heartbeats over
   encrypted connections.
+aliases:
+  - /telegraf/controller/install/secure-tls/
 menu:
   telegraf_controller:
     name: Secure with TLS
-    parent: Install Telegraf Controller
-weight: 100
+    parent: Administer Telegraf Controller
+weight: 102
 related:
   - /telegraf/controller/reference/config-options/#tls
   - /telegraf/controller/settings/#public-endpoints
