@@ -129,3 +129,7 @@ closing parcel for any adopted mid-stream.
   marks where it belongs. Document it alongside the planned telemetry
   pipeline update, covering destination hosts, what is sent, and how to
   opt out.
+- Cross-references end as standalone `See [link].` sentences, never
+  colon-joined tails (`...: see [link]`), and list lead-ins are complete
+  sentences (adopted from PR review on the monitor page). Closing-parcel
+  sweep: `grep -rn ": see" content/telegraf/controller/` on prose.
