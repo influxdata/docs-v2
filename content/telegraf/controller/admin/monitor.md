@@ -1,29 +1,79 @@
 ---
 title: Monitor Telegraf Controller
+list_title: Monitor
 description: >
-  Monitor the health of a Telegraf Controller server using its status
-  endpoints and log output.
+  Monitor the health of a Telegraf Controller server using its
+  unauthenticated health endpoints and its log output.
 menu:
   telegraf_controller:
     name: Monitor
     parent: Administer Telegraf Controller
 weight: 102
-draft: true
+related:
+  - /telegraf/controller/high-availability/load-balancing/
+  - /telegraf/controller/admin/database/troubleshoot/
+  - /telegraf/controller/install/troubleshoot/
 ---
 
-Monitor the health of a {{% product-name %}} server.
+Monitor a {{% product-name %}} server with its built-in health endpoints and
+its log output.
 
-<!-- TODO: planned content for this page:
-  - Server health checks: which HTTP endpoints an operator (or a load
-    balancer) can poll to verify the API server and the heartbeat listener
-    are healthy. Cross-link the high-availability load balancer docs.
-  - Heartbeat service status: the read-only heartbeat info/status/log
-    endpoints and what they report.
-  - Log output: where server logs go and a reference of common log
-    messages and what they mean (including database error messages;
-    cross-link /telegraf/controller/admin/database/troubleshoot/).
-  - 1.2-specific TODO: document the additional API health endpoints and
-    expanded health data that Telegraf Controller 1.2 adds. Add them here
-    when 1.2 ships; until then this page must only describe released
-    (v1.1.x) behavior.
--->
+- [Health endpoints](#health-endpoints)
+- [Server logs](#server-logs)
+- [What to watch for](#what-to-watch-for)
+
+## Health endpoints
+
+{{% product-name %}} exposes unauthenticated HTTP health endpoints on the
+API port and on the heartbeat port.
+`GET /health/live` and `GET /health/ready` on the API port are the
+general-purpose liveness and readiness probes, and the heartbeat service
+answers `GET /health` on its own port.
+`GET /health/leader` identifies the leader in a
+[high-availability cluster](/telegraf/controller/high-availability/).
+
+For the full endpoint reference, including status codes, response bodies,
+and how to choose a probe, see
+[Health endpoints](/telegraf/controller/high-availability/load-balancing/#health-endpoints).
+The endpoints are documented with load balancers in mind, but any monitoring
+system can poll them.
+
+## Server logs
+
+{{% product-name %}} writes log output to the console (standard output and
+standard error).
+Where that output ends up depends on how you run the server:
+
+- **Interactive terminal**: log output appears in the terminal.
+- **systemd**: the journal captures console output.
+  Read it with `journalctl -u telegraf-controller`.
+- **LaunchDaemon (macOS)**: output goes to the file paths configured in the
+  service plist.
+  The
+  [install example](/telegraf/controller/install/#install-as-a-launchdaemon)
+  uses `/var/log/telegraf-controller.log`.
+- **Windows service**: configure your service manager to capture console
+  output to files.
+  See
+  [Install as a Windows Service](/telegraf/controller/install/#install-as-a-windows-service).
+
+## What to watch for
+
+Log messages worth alerting on, and where to go when you see them:
+
+- **Database errors**, such as `database is locked`,
+  `database or disk is full`, or `database disk image is malformed`: see
+  [Troubleshoot the database](/telegraf/controller/admin/database/troubleshoot/).
+- **Rejected agent heartbeats** (HTTP `401`, invalid token): see
+  [Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+- **License errors**: see
+  [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/).
+
+<!-- TODO (1.2): document the heartbeat service health additions when they
+  ship:
+  - GET /api/heartbeat/health (authenticated): heartbeat service health,
+    including database connectivity, token cache status, and scheduler
+    state.
+  - A heartbeat service health indicator in the web interface. Its UI
+    location is not final; confirm where it landed before documenting.
+  Verify both against the released build. Details in PLAN.md. -->
