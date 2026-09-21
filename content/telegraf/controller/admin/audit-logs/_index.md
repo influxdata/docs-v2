@@ -4,10 +4,13 @@ description: >
   Telegraf Controller records security-relevant events to a tamper-evident,
   append-only audit log. Use audit logs to investigate access, detect
   unauthorized changes, and demonstrate compliance.
+aliases:
+  - /telegraf/controller/audit-logs/
 menu:
   telegraf_controller:
     name: Audit logs
-weight: 12
+    parent: Administer Telegraf Controller
+weight: 106
 cascade:
   metadata: [Telegraf Enterprise]
   related:
@@ -71,13 +74,13 @@ Each file is a SQLite database that enforces immutability through a database
 trigger: attempts to delete rows are rolled back.
 {{% product-name %}} keeps up to 48 months of audit files available for query.
 
-In a [high-availability (HA) cluster](/telegraf/controller/high-availability/),
+In a [high-availability (HA) cluster](/telegraf/controller/admin/high-availability/),
 audit logging is **per node**, not shared.
 Each node writes its own audit files and, when queried, returns only its own
 events.
 To review activity across the cluster, forward each node's events to a shared
 destination and aggregate them there.
-See [Audit logs in a cluster](/telegraf/controller/high-availability/#audit-logs-in-a-cluster).
+See [Audit logs in a cluster](/telegraf/controller/admin/high-availability/#audit-logs-in-a-cluster).
 
 ## Tamper detection
 
@@ -91,7 +94,7 @@ sequence numbers, so events from different nodes merged into a single stream do
 not form one valid chain.
 Verify integrity per node: separate aggregated events by their originating node,
 then check each node's chain on its own.
-See [Audit logs in a cluster](/telegraf/controller/high-availability/#audit-logs-in-a-cluster).
+See [Audit logs in a cluster](/telegraf/controller/admin/high-availability/#audit-logs-in-a-cluster).
 
 ## License and permissions
 
@@ -100,10 +103,10 @@ and is unavailable in the free tier.
 With a valid license:
 
 - Audit logging is **enabled at startup only** by setting `AUDIT_ENABLED`.
-  See [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+  See [Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 - Only the retention period is modifiable at runtime, from the **Settings**
   page.
 - Only the **Owner** and **Administrator** roles can read audit log entries.
-  See [View audit logs](/telegraf/controller/audit-logs/view/).
+  See [View audit logs](/telegraf/controller/admin/audit-logs/view/).
 
 {{< children hlevel="h2" >}}

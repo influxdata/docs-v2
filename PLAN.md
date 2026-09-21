@@ -42,9 +42,20 @@ admin/_index.md                Administer Telegraf Controller   weight 13
 ├── database/_index.md         Manage the database              weight 101
 │   ├── back-up-and-restore.md Back up and restore              weight 201
 │   └── troubleshoot.md        Troubleshoot                     weight 202
-├── monitor.md                 Monitor                          weight 102
-└── networking.md              Networking and ports             weight 103
+├── secure-tls.md              Secure with TLS                  weight 102
+├── high-availability/_index.md High availability               weight 103
+│   ├── deploy.md              Deploy a cluster                 weight 201
+│   └── load-balancing.md      Configure a load balancer        weight 202
+├── monitor.md                 Monitor                          weight 104
+├── networking.md              Networking and ports             weight 105
+└── audit-logs/_index.md       Audit logs                       weight 106
+    ├── enable-configure.md    Enable and configure             weight 201
+    └── view.md                View audit logs                  weight 202
 ```
+
+Children are ordered by operational impact: database first (the critical
+asset), then TLS, high availability, monitor, networking, and audit logs
+(Enterprise audience) last.
 
 `run-as-a-service.md` was planned as a stub but dropped in Parcel 2:
 service setup for all three platforms already lives inside the install
@@ -55,10 +66,26 @@ page's OS tabs. It returns as move parcel M5 (see below).
 Each move requires an alias from the old URL and an inbound-fragment survey
 before it runs:
 
-- `install/secure-tls.md` → `admin/`
-- `install/upgrade.md` → `admin/`
-- `high-availability/` → `admin/` (decide whether the whole section moves)
-- `audit-logs/` → `admin/`
+- Done in Parcel 3 (M1, M3, M4): `install/secure-tls.md`,
+  `high-availability/` (whole section), and `audit-logs/` (whole section)
+  moved into `admin/`. Every old URL has an alias; every internal link was
+  rewritten to the new URL (internal links never rely on aliases — aliases
+  serve external link sources only).
+- M2 (upgrade) was canceled during Parcel 3 review: upgrade documentation
+  stays with the install section permanently (it is part of the install
+  lifecycle). The admin landing page links to it under "Other
+  administration tasks".
+- Proposed Parcel 4 — `admin/troubleshoot/` section (shape pending
+  review): a symptom-index `_index.md`; move
+  `admin/database/troubleshoot.md` into it with an internal link rewrite
+  only — no alias, that URL has never shipped on master; split
+  `install/troubleshoot.md` into subject-specific docs
+  (installation/startup, agent heartbeats and tokens; its
+  database-connection content merges into the database troubleshooting
+  doc). `install/troubleshoot/` IS published on master, so it must keep
+  resolving: alias it to the new troubleshoot index (or keep a page at
+  that URL). Licensing troubleshooting stays with `telegraf-enterprise/`,
+  linked from the index.
 - M5: the service-setup content embedded in `install/_index.md`'s OS tabs
   (systemd unit, LaunchDaemon plist, NSSM Windows service) →
   `admin/run-as-a-service.md`. This is a content extraction, not a page
@@ -95,21 +122,29 @@ Authentication (Local/LDAP/OIDC) stays where it is.
 
 ## URL and alias strategy
 
+- **Aliases exist for published URLs only**: a URL needs an alias only if
+  it exists on master (has been deployed). URLs that only ever existed on
+  this unmerged base branch are intermediate states — restructure them
+  freely with an internal link rewrite and no alias. Check with
+  `git cat-file -e master:content/<path>`.
 - All Parcel 1 pages are new URLs. No aliases needed.
-- Future move parcels: Hugo alias from every old URL; fragment checks run
-  against built HTML with exact-match unquoted ids.
+- Move parcels: Hugo alias from every master-published old URL; fragment
+  checks run against built HTML with exact-match unquoted ids.
+- Parcel 3's seven aliases were verified against master (all published).
 
 ## Parcel table
 
 Every parcel gets its own branch and merges into `docs/controller-admin`
 by PR. The base branch receives no direct commits.
 
-| Parcel  | Branch                           | Scope                                                                              | Depends on |
-| ------- | -------------------------------- | ---------------------------------------------------------------------------------- | ---------- |
-| 1       | `docs/controller-admin-database` | PLAN.md, admin scaffold, database section, install cross-links                     | none       |
-| 2       | `docs/controller-admin-stubs`    | Build out networking and monitor pages; drop run-as-a-service stub                 | 1          |
-| M1–M5   | TBD                              | Moves: secure-tls, upgrade, high-availability, audit-logs, install service content | 1          |
-| closing | TBD                              | Convention sweep, verify links/anchors, remove PLAN.md                             | all        |
+| Parcel  | Branch                           | Scope                                                                                                                                                | Depends on |
+| ------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 1       | `docs/controller-admin-database` | PLAN.md, admin scaffold, database section, install cross-links                                                                                       | none       |
+| 2       | `docs/controller-admin-stubs`    | Build out networking and monitor pages; drop run-as-a-service stub                                                                                   | 1          |
+| 3       | `docs/controller-admin-moves`    | Moves M1, M3, M4: secure-tls, high-availability, audit-logs (aliases + internal link rewrite); M2 upgrade canceled; reorder admin children by impact | 1, 2       |
+| 4       | TBD                              | admin/troubleshoot/ section: move database troubleshooting, split install troubleshooting into subject docs                                          | 3          |
+| M5      | TBD                              | Extract install service content into admin/run-as-a-service, plus hardening additions                                                                | 3          |
+| closing | TBD                              | Convention sweep, verify links/anchors, remove PLAN.md                                                                                               | all        |
 
 ## Conventions log
 

@@ -4,13 +4,15 @@ list_title: View audit logs
 description: >
   Query Telegraf Controller audit logs through the audit log API. Read
   access is restricted to Owners and Administrators.
+aliases:
+  - /telegraf/controller/audit-logs/view/
 menu:
   telegraf_controller:
     name: View audit logs
     parent: Audit logs
-weight: 102
+weight: 202
 related:
-  - /telegraf/controller/audit-logs/enable-configure/
+  - /telegraf/controller/admin/audit-logs/enable-configure/
   - /telegraf/controller/reference/authentication-authorization/
   - /telegraf/controller/tokens/create/
 ---
@@ -26,7 +28,7 @@ Use the {{% product-name %}} API to query and read audit entries.
 
 ## Prerequisites
 
-- Audit logging must be [enabled](/telegraf/controller/audit-logs/enable-configure/).
+- Audit logging must be [enabled](/telegraf/controller/admin/audit-logs/enable-configure/).
 - The **Owner** or **Administrator** role assigned to your account.
 - An API token issued to a user with one of those roles.
   See [Create an API token](/telegraf/controller/tokens/create/).
@@ -76,7 +78,7 @@ tamper-detection hash chain fields.
 
 `actorType` is one of `User`, `Token`, or `System`.
 For the categories of events captured, see
-[What gets audited](/telegraf/controller/audit-logs/#what-gets-audited).
+[What gets audited](/telegraf/controller/admin/audit-logs/#what-gets-audited).
 
 ## Verify integrity
 
@@ -89,4 +91,4 @@ To detect tampering, walk the result set in `seq` order and check that:
 If either check fails, an entry has been altered, removed, or inserted out
 of order.
 For background on how the chain is constructed, see
-[Tamper detection](/telegraf/controller/audit-logs/#tamper-detection).
+[Tamper detection](/telegraf/controller/admin/audit-logs/#tamper-detection).

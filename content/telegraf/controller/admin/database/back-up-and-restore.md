@@ -12,7 +12,7 @@ weight: 201
 related:
   - /telegraf/controller/admin/database/troubleshoot/
   - /telegraf/controller/install/upgrade/
-  - /telegraf/controller/audit-logs/
+  - /telegraf/controller/admin/audit-logs/
 ---
 
 Back up the {{% product-name %}} database regularly, and always before an
@@ -110,7 +110,7 @@ psql --dbname=telegraf_controller --file=telegraf_controller.sql
 
 ## Back up and restore audit log files
 
-If you use [audit logging](/telegraf/controller/audit-logs/),
+If you use [audit logging](/telegraf/controller/admin/audit-logs/),
 {{% product-name %}} writes audit records to per-month SQLite files,
 separate from the application database.
 Audit log files are SQLite databases even if the application database is
@@ -120,12 +120,12 @@ Restoring an application database backup does not restore audit logs.
 Follow the same SQLite [backup](#back-up-sqlite) and
 [restore](#restore-sqlite) procedures for each audit log file.
 For default audit log file locations, see
-[Where audit logs are stored](/telegraf/controller/audit-logs/#where-audit-logs-are-stored).
+[Where audit logs are stored](/telegraf/controller/admin/audit-logs/#where-audit-logs-are-stored).
 
 > [!Note]
 > In a
-> [high-availability {{% product-name %}} cluster](/telegraf/controller/high-availability/),
+> [high-availability {{% product-name %}} cluster](/telegraf/controller/admin/high-availability/),
 > each node writes its own audit log files.
 > Back up the audit log files on every node.
 > See
-> [Audit logs in a cluster](/telegraf/controller/high-availability/#audit-logs-in-a-cluster).
+> [Audit logs in a cluster](/telegraf/controller/admin/high-availability/#audit-logs-in-a-cluster).

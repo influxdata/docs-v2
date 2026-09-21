@@ -400,7 +400,7 @@ _For a full list of options, see the
 > Setting `--ssl-cert`/`--ssl-key` enables HTTPS on the server, but agents must
 > also trust the certificate to fetch configurations and send heartbeats. For the
 > full server and agent setup, see
-> [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+> [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/).
 
 #### Examples
 
