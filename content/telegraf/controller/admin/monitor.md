@@ -59,15 +59,16 @@ Where that output ends up depends on how you run the server:
 
 ## What to watch for
 
-Log messages worth alerting on, and where to go when you see them:
+Alert on the following log messages.
+Each entry links to the page that explains how to fix the problem.
 
 - **Database errors**, such as `database is locked`,
-  `database or disk is full`, or `database disk image is malformed`: see
-  [Troubleshoot the database](/telegraf/controller/admin/database/troubleshoot/).
-- **Rejected agent heartbeats** (HTTP `401`, invalid token): see
-  [Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
-- **License errors**: see
-  [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/).
+  `database or disk is full`, or `database disk image is malformed`.
+  See [Troubleshoot the database](/telegraf/controller/admin/database/troubleshoot/).
+- **Rejected agent heartbeats**, which return HTTP `401` with an invalid token error.
+  See [Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+- **License errors**.
+  See [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/).
 
 <!-- TODO (1.2): document the heartbeat service health additions when they
   ship:
