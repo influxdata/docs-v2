@@ -42,6 +42,9 @@ fails:
 - **PostgreSQL**: use your database or provider backup tooling, for example
   `pg_dump`.
 
+For complete backup and restore procedures, see
+[Back up and restore the database](/telegraf/controller/admin/database/back-up-and-restore/).
+
 ## Upgrade {{% product-name %}}
 
 1.  **Download the new {{% product-name %}} executable.**
