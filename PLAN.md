@@ -42,10 +42,13 @@ admin/_index.md                Administer Telegraf Controller   weight 13
 ├── database/_index.md         Manage the database              weight 101
 │   ├── back-up-and-restore.md Back up and restore              weight 201
 │   └── troubleshoot.md        Troubleshoot                     weight 202
-├── monitor.md                 Monitor                (draft)   weight 102
-├── networking.md              Networking and ports   (draft)   weight 103
-└── run-as-a-service.md        Run as a service       (draft)   weight 104
+├── monitor.md                 Monitor                          weight 102
+└── networking.md              Networking and ports             weight 103
 ```
+
+`run-as-a-service.md` was planned as a stub but dropped in Parcel 2:
+service setup for all three platforms already lives inside the install
+page's OS tabs. It returns as move parcel M5 (see below).
 
 ### Planned moves (future parcels)
 
@@ -56,6 +59,14 @@ before it runs:
 - `install/upgrade.md` → `admin/`
 - `high-availability/` → `admin/` (decide whether the whole section moves)
 - `audit-logs/` → `admin/`
+- M5: the service-setup content embedded in `install/_index.md`'s OS tabs
+  (systemd unit, LaunchDaemon plist, NSSM Windows service) →
+  `admin/run-as-a-service.md`. This is a content extraction, not a page
+  move: the install page keeps its URL, so survey the in-page anchors
+  (`#install-as-a-launchdaemon`, `#install-as-a-windows-service`, and the
+  Linux service steps) for inbound links before extracting. Service
+  hardening additions (dedicated service user, environment file, explicit
+  database path, clean shutdown) land with the move.
 
 Authentication (Local/LDAP/OIDC) stays where it is.
 
@@ -65,15 +76,22 @@ Authentication (Local/LDAP/OIDC) stays where it is.
   `telegraf_ui` repo (`libs/heartbeat-napi` WAL configuration) and the
   published install reference (`--database`/`DATABASE_URL`, default
   SQLite data locations, ports).
-- **Monitor stub**: heartbeat read-only info/status/log endpoints.
-  1.2 adds additional API health endpoints and data; document those when
-  1.2 ships (1.2-specific TODO recorded in the stub).
+- **Monitor page 1.2 follow-up** (TODO comment recorded in the page):
+  `feat/769-heartbeat-health` adds authenticated
+  `GET /api/heartbeat/health` reporting database connectivity, token cache
+  status, and scheduler state; `feat/769-heartbeat-health-fe` adds a
+  heartbeat service health indicator to the web interface (in the app
+  header as of September 2026, but the location is not final).
+  When documenting, note the endpoint answers without a session when the
+  `heartbeat` group is listed in `DISABLED_AUTH_ENDPOINTS`.
+  Verify everything against the released 1.2 build first.
 - **Networking stub**: `APP_PORT` 8888, optional `UI_PORT`,
   `HEARTBEAT_PORT` 8000. The heartbeat listener is a separate HTTP server
   with its own security posture.
-- **Run as a service stub**: systemd/launchd/Windows service setup; clean
-  shutdown ties into corruption prevention in
-  `database/troubleshoot.md`.
+- **Run as a service** (move parcel M5): source content is the service
+  sections already in `install/_index.md`; hardening additions verified
+  against the released install reference (owner bootstrap flags, EULA
+  environment variable, default data locations).
 
 ## URL and alias strategy
 
@@ -86,12 +104,12 @@ Authentication (Local/LDAP/OIDC) stays where it is.
 Every parcel gets its own branch and merges into `docs/controller-admin`
 by PR. The base branch receives no direct commits.
 
-| Parcel  | Branch                           | Scope                                                          | Depends on |
-| ------- | -------------------------------- | -------------------------------------------------------------- | ---------- |
-| 1       | `docs/controller-admin-database` | PLAN.md, admin scaffold, database section, install cross-links | none       |
-| 2+      | TBD                              | Build out monitor, networking, run-as-a-service stubs          | 1          |
-| M1–M4   | TBD                              | Moves: secure-tls, upgrade, high-availability, audit-logs      | 1          |
-| closing | TBD                              | Convention sweep, verify links/anchors, remove PLAN.md         | all        |
+| Parcel  | Branch                           | Scope                                                                              | Depends on |
+| ------- | -------------------------------- | ---------------------------------------------------------------------------------- | ---------- |
+| 1       | `docs/controller-admin-database` | PLAN.md, admin scaffold, database section, install cross-links                     | none       |
+| 2       | `docs/controller-admin-stubs`    | Build out networking and monitor pages; drop run-as-a-service stub                 | 1          |
+| M1–M5   | TBD                              | Moves: secure-tls, upgrade, high-availability, audit-logs, install service content | 1          |
+| closing | TBD                              | Convention sweep, verify links/anchors, remove PLAN.md                             | all        |
 
 ## Conventions log
 
@@ -105,3 +123,9 @@ closing parcel for any adopted mid-stream.
   serializes writes, so heavy agent workloads can cause lock contention),
   not internal architecture (for example, which components hold database
   connections).
+- Analytics/telemetry disclosure is deferred: the outbound analytics the
+  server and web interface can send (Amplitude) is not yet documented
+  anywhere in the Controller docs. A TODO comment in `admin/networking.md`
+  marks where it belongs. Document it alongside the planned telemetry
+  pipeline update, covering destination hosts, what is sent, and how to
+  opt out.
