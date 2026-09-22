@@ -10,7 +10,7 @@ menu:
     parent: Manage the database
 weight: 201
 related:
-  - /telegraf/controller/admin/database/troubleshoot/
+  - /telegraf/controller/admin/troubleshoot/database/
   - /telegraf/controller/install/upgrade/
   - /telegraf/controller/admin/audit-logs/
 ---
@@ -59,7 +59,7 @@ For default locations, see
 
 The `.backup` command requires the SQLite command-line shell.
 For installation instructions, see
-[SQLite CLI prerequisites](/telegraf/controller/admin/database/troubleshoot/#prerequisites-install-the-sqlite-cli).
+[SQLite CLI prerequisites](/telegraf/controller/admin/troubleshoot/database/#prerequisites-install-the-sqlite-cli).
 
 #### While {{% product-name %}} is stopped
 

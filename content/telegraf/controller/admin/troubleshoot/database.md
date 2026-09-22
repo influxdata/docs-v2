@@ -1,17 +1,17 @@
 ---
 title: Troubleshoot the database
-list_title: Troubleshoot
+list_title: Database
 description: >
-  Identify and repair Telegraf Controller SQLite database problems,
-  including lock contention and database corruption.
+  Identify and repair Telegraf Controller database problems, including
+  connection failures, lock contention, and database corruption.
 menu:
   telegraf_controller:
-    name: Troubleshoot
-    parent: Manage the database
-weight: 202
+    name: Database
+    parent: Troubleshoot
+weight: 203
 related:
+  - /telegraf/controller/admin/database/
   - /telegraf/controller/admin/database/back-up-and-restore/
-  - /telegraf/controller/install/troubleshoot/
   - /telegraf/controller/reference/config-options/
 ---
 
@@ -32,7 +32,7 @@ Database errors appear in the {{% product-name %}} server log output.
 
 ### Identify the failure type
 
-Three different SQLite failures appear in log output, and they require
+The following SQLite failures appear in log output, and they require
 different responses:
 
 - **`database is locked`**: lock contention, not damage.
@@ -45,6 +45,11 @@ different responses:
   out of space, not damaged.
   Free disk space and restart {{% product-name %}}.
   No repair is needed unless a corruption error also appears.
+- **`unable to open database file`**: the server cannot read or create the
+  database file, which is usually a path or permissions problem, not damage.
+  Check that the database directory exists and that the user running
+  {{% product-name %}} can read and write the file and its directory.
+  Do not run repair commands for this error.
 - **`database disk image is malformed`**: database corruption.
   The database file or one of its internal structures is damaged.
   Corruption does not heal on its own and the affected queries keep failing
@@ -189,10 +194,16 @@ Corruption almost always traces back to one of the following, all avoidable:
 so troubleshooting is directed at the server rather than at
 {{% product-name %}}:
 
-- **Connection problems**: connection string format, credentials, and TLS
-  certificates.
+- **Connection problems**: verify that the PostgreSQL server is running,
+  check the format of and credentials in your connection string (DSN or
+  database URL), and verify network connectivity between the
+  {{% product-name %}} host and the server.
+- **TLS handshake failures**: `error performing TLS handshake` in the log
+  means {{% product-name %}} does not trust the certificate presented by
+  the PostgreSQL server.
+  Provide the certificate authority (CA) certificate that signed it.
   See
-  [Database connection issues](/telegraf/controller/install/troubleshoot/#database-connection-issues).
+  [Provide the database CA certificate](/telegraf/controller/admin/troubleshoot/agents/#provide-the-database-ca-certificate).
 - **Server health and corruption**: use your PostgreSQL tooling and the
   [PostgreSQL documentation](https://www.postgresql.org/docs/).
 - **Unrecoverable state**:

@@ -3,7 +3,7 @@ title: Manage the database
 description: >
   Telegraf Controller stores all application state in a SQLite (default) or
   PostgreSQL database. Learn where the database lives, how to configure it,
-  and how to back it up, restore it, and troubleshoot it.
+  and how to back it up and restore it.
 menu:
   telegraf_controller:
     name: Manage the database
@@ -12,6 +12,7 @@ weight: 101
 related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/admin/high-availability/
+  - /telegraf/controller/admin/troubleshoot/database/
   - /telegraf/controller/install/#set-up-your-database
 ---
 
@@ -20,6 +21,8 @@ configurations and configuration versions, configuration groups, agents,
 labels, reporting rules, users, tokens, and settings.
 Losing the database means losing all of this data, so operators should know
 where the database lives, how to back it up, and how to repair it.
+For database error messages and repair procedures, see
+[Troubleshoot the database](/telegraf/controller/admin/troubleshoot/database/).
 
 - [Choose a database](#choose-a-database)
 - [Configure the database connection](#configure-the-database-connection)
@@ -37,7 +40,7 @@ where the database lives, how to back it up, and how to repair it.
   SQLite supports one {{% product-name %}} instance at a time, requires a
   local filesystem, and serializes writes, so a heavy agent workload can
   cause
-  [lock contention](/telegraf/controller/admin/database/troubleshoot/#identify-the-failure-type).
+  [lock contention](/telegraf/controller/admin/troubleshoot/database/#identify-the-failure-type).
 - **PostgreSQL** (or PostgreSQL-compatible): a separate database server.
   Recommended for production use cases.
   Required for [high availability](/telegraf/controller/admin/high-availability/),
@@ -72,6 +75,10 @@ file (`sqlite.db-shm`).
 > Never delete, move, or edit them while they exist.
 > Removing a write-ahead log can corrupt the database or silently discard
 > recent writes.
+
+Restrict access to the database file and its companion files, for example
+with `chmod 600`, so only the user running {{% product-name %}} can read
+them.
 
 ## Audit log storage is separate
 
