@@ -18,7 +18,7 @@ This section covers operator-level tasks: managing the database that stores
 {{% product-name %}} data, monitoring server health, and configuring the
 server's runtime environment.
 
-{{< children >}}
+{{< children hlevel="h2" >}}
 
 ## Other administration tasks
 
@@ -28,7 +28,5 @@ Additional operator documentation lives in the following sections:
   download, install, and set up the server and its database.
 - [Upgrade](/telegraf/controller/install/upgrade/):
   upgrade to a new version of {{% product-name %}}.
-- [Troubleshoot installation](/telegraf/controller/install/troubleshoot/):
-  resolve installation and startup issues.
 - [Authentication](/telegraf/controller/authentication/):
   configure local, LDAP, or OIDC authentication.

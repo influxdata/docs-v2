@@ -15,7 +15,7 @@ related:
   - /telegraf/controller/reference/config-options/#tls
   - /telegraf/controller/settings/#public-endpoints
   - /telegraf/controller/configs/use/
-  - /telegraf/controller/install/troubleshoot/
+  - /telegraf/controller/admin/troubleshoot/agents/
 ---
 
 Serve {{% product-name %}} over HTTPS and configure your Telegraf agents to trust
@@ -268,7 +268,7 @@ unknown authority`, the agent does not trust the CA that signed the
 
 If agents receive a `401` response with an `Invalid token` error instead of a
 certificate error, the problem is not the agent connection. See
-[Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+[Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
 
-For more installation and startup issues, see
-[Troubleshoot {{% product-name %}} installation](/telegraf/controller/install/troubleshoot/).
+For more troubleshooting help, see
+[Troubleshoot {{% product-name %}}](/telegraf/controller/admin/troubleshoot/).
