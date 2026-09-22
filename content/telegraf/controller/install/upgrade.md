@@ -203,7 +203,7 @@ telegraf_controller --version
 
 If {{% product-name %}} fails to start after an upgrade, check the service
 logs for migration errors and see
-[Troubleshoot installation](/telegraf/controller/install/troubleshoot/).
+[Troubleshoot {{% product-name %}}](/telegraf/controller/admin/troubleshoot/).
 
 ## Upgrade a high-availability cluster
 

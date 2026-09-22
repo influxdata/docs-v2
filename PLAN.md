@@ -40,17 +40,20 @@ master. A required check blocks `PLAN.md` from merging.
 ```
 admin/_index.md                Administer Telegraf Controller   weight 13
 ├── database/_index.md         Manage the database              weight 101
-│   ├── back-up-and-restore.md Back up and restore              weight 201
-│   └── troubleshoot.md        Troubleshoot                     weight 202
+│   └── back-up-and-restore.md Back up and restore              weight 201
 ├── secure-tls.md              Secure with TLS                  weight 102
 ├── high-availability/_index.md High availability               weight 103
 │   ├── deploy.md              Deploy a cluster                 weight 201
 │   └── load-balancing.md      Configure a load balancer        weight 202
 ├── monitor.md                 Monitor                          weight 104
 ├── networking.md              Networking and ports             weight 105
-└── audit-logs/_index.md       Audit logs                       weight 106
-    ├── enable-configure.md    Enable and configure             weight 201
-    └── view.md                View audit logs                  weight 202
+├── audit-logs/_index.md       Audit logs                       weight 106
+│   ├── enable-configure.md    Enable and configure             weight 201
+│   └── view.md                View audit logs                  weight 202
+└── troubleshoot/_index.md     Troubleshoot                     weight 107
+    ├── installation.md        Installation and startup         weight 201
+    ├── agents.md              Agent heartbeats and tokens      weight 202
+    └── database.md            Troubleshoot the database        weight 203
 ```
 
 Children are ordered by operational impact: database first (the critical
@@ -75,17 +78,22 @@ before it runs:
   stays with the install section permanently (it is part of the install
   lifecycle). The admin landing page links to it under "Other
   administration tasks".
-- Proposed Parcel 4 — `admin/troubleshoot/` section (shape pending
-  review): a symptom-index `_index.md`; move
-  `admin/database/troubleshoot.md` into it with an internal link rewrite
-  only — no alias, that URL has never shipped on master; split
-  `install/troubleshoot.md` into subject-specific docs
-  (installation/startup, agent heartbeats and tokens; its
-  database-connection content merges into the database troubleshooting
-  doc). `install/troubleshoot/` IS published on master, so it must keep
-  resolving: alias it to the new troubleshoot index (or keep a page at
-  that URL). Licensing troubleshooting stays with `telegraf-enterprise/`,
-  linked from the index.
+- Done in Parcel 4 — `admin/troubleshoot/` section: a symptom-index
+  `_index.md`; `admin/database/troubleshoot.md` moved to
+  `admin/troubleshoot/database.md` with an internal link rewrite only (the
+  URL never shipped on master, so no alias). `install/troubleshoot.md`
+  split into `admin/troubleshoot/installation.md` (port conflicts,
+  permission errors, unreachable ports) and `admin/troubleshoot/agents.md`
+  (heartbeat 401 responses, agent certificate trust); its
+  database-connection content merged into the database troubleshooting
+  doc. The published `install/troubleshoot/` URL aliases to the new
+  troubleshoot index. The old page's "Security considerations" section
+  dissolved into the pages that now own each topic: the TLS and firewall
+  bullets already live on `admin/secure-tls.md` and `admin/networking.md`,
+  the SQLite file-permissions guidance moved to
+  `admin/database/_index.md`, and the generic PostgreSQL
+  "use strong passwords" bullet was dropped. Licensing troubleshooting
+  stays with `telegraf-enterprise/`, linked from the index.
 - M5: the service-setup content embedded in `install/_index.md`'s OS tabs
   (systemd unit, LaunchDaemon plist, NSSM Windows service) →
   `admin/run-as-a-service.md`. This is a content extraction, not a page
@@ -137,14 +145,14 @@ Authentication (Local/LDAP/OIDC) stays where it is.
 Every parcel gets its own branch and merges into `docs/controller-admin`
 by PR. The base branch receives no direct commits.
 
-| Parcel  | Branch                           | Scope                                                                                                                                                | Depends on |
-| ------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 1       | `docs/controller-admin-database` | PLAN.md, admin scaffold, database section, install cross-links                                                                                       | none       |
-| 2       | `docs/controller-admin-stubs`    | Build out networking and monitor pages; drop run-as-a-service stub                                                                                   | 1          |
-| 3       | `docs/controller-admin-moves`    | Moves M1, M3, M4: secure-tls, high-availability, audit-logs (aliases + internal link rewrite); M2 upgrade canceled; reorder admin children by impact | 1, 2       |
-| 4       | TBD                              | admin/troubleshoot/ section: move database troubleshooting, split install troubleshooting into subject docs                                          | 3          |
-| M5      | TBD                              | Extract install service content into admin/run-as-a-service, plus hardening additions                                                                | 3          |
-| closing | TBD                              | Convention sweep, verify links/anchors, remove PLAN.md                                                                                               | all        |
+| Parcel  | Branch                               | Scope                                                                                                                                                | Depends on |
+| ------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 1       | `docs/controller-admin-database`     | PLAN.md, admin scaffold, database section, install cross-links                                                                                       | none       |
+| 2       | `docs/controller-admin-stubs`        | Build out networking and monitor pages; drop run-as-a-service stub                                                                                   | 1          |
+| 3       | `docs/controller-admin-moves`        | Moves M1, M3, M4: secure-tls, high-availability, audit-logs (aliases + internal link rewrite); M2 upgrade canceled; reorder admin children by impact | 1, 2       |
+| 4       | `docs/controller-admin-troubleshoot` | admin/troubleshoot/ section: move database troubleshooting, split install troubleshooting into subject docs                                          | 3          |
+| M5      | TBD                                  | Extract install service content into admin/run-as-a-service, plus hardening additions                                                                | 3          |
+| closing | TBD                                  | Convention sweep, verify links/anchors, remove PLAN.md                                                                                               | all        |
 
 ## Conventions log
 

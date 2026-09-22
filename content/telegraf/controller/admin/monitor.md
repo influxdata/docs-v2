@@ -11,8 +11,8 @@ menu:
 weight: 104
 related:
   - /telegraf/controller/admin/high-availability/load-balancing/
-  - /telegraf/controller/admin/database/troubleshoot/
-  - /telegraf/controller/install/troubleshoot/
+  - /telegraf/controller/admin/troubleshoot/database/
+  - /telegraf/controller/admin/troubleshoot/agents/
 ---
 
 Monitor a {{% product-name %}} server with its built-in health endpoints and
@@ -64,9 +64,9 @@ Each entry links to the page that explains how to fix the problem.
 
 - **Database errors**, such as `database is locked`,
   `database or disk is full`, or `database disk image is malformed`.
-  See [Troubleshoot the database](/telegraf/controller/admin/database/troubleshoot/).
+  See [Troubleshoot the database](/telegraf/controller/admin/troubleshoot/database/).
 - **Rejected agent heartbeats**, which return HTTP `401` with an invalid token error.
-  See [Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+  See [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
 - **License errors**.
   See [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/).
 

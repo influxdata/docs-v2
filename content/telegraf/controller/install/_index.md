@@ -649,3 +649,6 @@ Once started, access the {{% product-name %}} web interface at
 <http://localhost:8888> _(or using your custom port)_. If you set
 [`ui-port`](/telegraf/controller/reference/config-options/#ui-port) to serve the
 web interface on a separate port, use that port instead.
+
+If the server does not start or you cannot access the web interface, see
+[Troubleshoot {{% product-name %}}](/telegraf/controller/admin/troubleshoot/).
