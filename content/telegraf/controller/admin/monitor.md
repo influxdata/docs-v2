@@ -50,12 +50,12 @@ Where that output ends up depends on how you run the server:
 - **LaunchDaemon (macOS)**: output goes to the file paths configured in the
   service plist.
   The
-  [install example](/telegraf/controller/install/#install-as-a-launchdaemon)
+  [LaunchDaemon example](/telegraf/controller/admin/run-as-a-service/#macos-launchdaemon)
   uses `/var/log/telegraf-controller.log`.
 - **Windows service**: configure your service manager to capture console
   output to files.
   See
-  [Install as a Windows Service](/telegraf/controller/install/#install-as-a-windows-service).
+  [Run {{% product-name %}} as a service](/telegraf/controller/admin/run-as-a-service/#windows-nssm).
 
 ## What to watch for
 

@@ -10,7 +10,7 @@ menu:
   telegraf_controller:
     name: Audit logs
     parent: Administer Telegraf Controller
-weight: 106
+weight: 107
 cascade:
   metadata: [Telegraf Enterprise]
   related:

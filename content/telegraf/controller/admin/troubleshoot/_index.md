@@ -10,7 +10,7 @@ menu:
   telegraf_controller:
     name: Troubleshoot
     parent: Administer Telegraf Controller
-weight: 107
+weight: 108
 related:
   - /telegraf/controller/admin/monitor/
   - /telegraf/controller/reference/config-options/
