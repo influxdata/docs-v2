@@ -43,7 +43,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 
   ## Query record type.
   ## Possible values: A, AAAA, CNAME, MX, NS, PTR, TXT, SOA, SPF, SRV.
-  # record_type = "A"
+  # record_type = "NS"
 
   ## Dns server port.
   # port = 53
