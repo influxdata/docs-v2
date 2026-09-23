@@ -47,10 +47,11 @@ admin/_index.md                Administer Telegraf Controller   weight 13
 │   └── load-balancing.md      Configure a load balancer        weight 202
 ├── monitor.md                 Monitor                          weight 104
 ├── networking.md              Networking and ports             weight 105
-├── audit-logs/_index.md       Audit logs                       weight 106
+├── run-as-a-service.md        Run as a service                 weight 106
+├── audit-logs/_index.md       Audit logs                       weight 107
 │   ├── enable-configure.md    Enable and configure             weight 201
 │   └── view.md                View audit logs                  weight 202
-└── troubleshoot/_index.md     Troubleshoot                     weight 107
+└── troubleshoot/_index.md     Troubleshoot                     weight 108
     ├── installation.md        Installation and startup         weight 201
     ├── agents.md              Agent heartbeats and tokens      weight 202
     └── database.md            Troubleshoot the database        weight 203
@@ -94,14 +95,18 @@ before it runs:
   `admin/database/_index.md`, and the generic PostgreSQL
   "use strong passwords" bullet was dropped. Licensing troubleshooting
   stays with `telegraf-enterprise/`, linked from the index.
-- M5: the service-setup content embedded in `install/_index.md`'s OS tabs
-  (systemd unit, LaunchDaemon plist, NSSM Windows service) →
-  `admin/run-as-a-service.md`. This is a content extraction, not a page
-  move: the install page keeps its URL, so survey the in-page anchors
-  (`#install-as-a-launchdaemon`, `#install-as-a-windows-service`, and the
-  Linux service steps) for inbound links before extracting. Service
-  hardening additions (dedicated service user, environment file, explicit
-  database path, clean shutdown) land with the move.
+- Done in Parcel 5 (M5): the service-setup content in
+  `install/_index.md`'s OS tabs extracted to
+  `admin/run-as-a-service.md` (weight 106; audit-logs and troubleshoot
+  bumped to 107/108). The install page keeps its URL and every service
+  heading, so all published in-page anchor ids survive as one-line
+  pointers to the new page. Hardening added with the move: "Before you
+  begin" (EULA, owner account, explicit database path for a service
+  user), a dedicated system user and environment file in the systemd
+  example, `EnvironmentVariables` in the plist, NSSM environment and log
+  capture, and a "Shut down cleanly" section linking corruption
+  prevention. No aliases needed anywhere (no URL changed). The inbound
+  anchor survey found only `admin/monitor.md`, which was retargeted.
 
 Authentication (Local/LDAP/OIDC) stays where it is.
 
@@ -151,7 +156,7 @@ by PR. The base branch receives no direct commits.
 | 2       | `docs/controller-admin-stubs`        | Build out networking and monitor pages; drop run-as-a-service stub                                                                                   | 1          |
 | 3       | `docs/controller-admin-moves`        | Moves M1, M3, M4: secure-tls, high-availability, audit-logs (aliases + internal link rewrite); M2 upgrade canceled; reorder admin children by impact | 1, 2       |
 | 4       | `docs/controller-admin-troubleshoot` | admin/troubleshoot/ section: move database troubleshooting, split install troubleshooting into subject docs                                          | 3          |
-| M5      | TBD                                  | Extract install service content into admin/run-as-a-service, plus hardening additions                                                                | 3          |
+| 5       | `docs/controller-admin-service`      | Extract install service content into admin/run-as-a-service, plus hardening additions                                                                | 3, 4       |
 | closing | TBD                                  | Convention sweep, verify links/anchors, remove PLAN.md                                                                                               | all        |
 
 ## Conventions log
@@ -176,3 +181,8 @@ closing parcel for any adopted mid-stream.
   colon-joined tails (`...: see [link]`), and list lead-ins are complete
   sentences (adopted from PR review on the monitor page). Closing-parcel
   sweep: `grep -rn ": see" content/telegraf/controller/` on prose.
+- Section index pages render children at h2:
+  `{{< children hlevel="h2" >}}` (adopted on the database index in
+  Parcel 1 and the admin and troubleshoot indexes in Parcel 4
+  review). Closing-parcel sweep: check the high-availability and
+  audit-logs indexes for bare `{{< children >}}`.
