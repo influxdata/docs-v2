@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.11.4
+  latest_patch: 3.11.5
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -59,7 +59,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.11.4
+  latest_patch: 3.11.5
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -394,7 +394,7 @@ telegraf:
   versions: [v1]
   latest: v1.40
   latest_patches:
-    v1: 1.40.0
+    v1: 1.40.1
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -452,7 +452,7 @@ chronograf:
   has_support_contract: false
   latest: v1.11
   latest_patches:
-    v1: 1.11.4
+    v1: 1.11.5
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -480,7 +480,7 @@ kapacitor:
   has_support_contract: false
   latest: v1.8
   latest_patches:
-    v1: 1.8.6
+    v1: 1.8.7
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?

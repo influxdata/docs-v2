@@ -6,6 +6,42 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.11.5 {date="2026-09-17"}
+
+### Core
+
+#### Features
+
+- **Age-based snapshot trigger**: The new [`--force-snapshot-max-age`](/influxdb3/version/reference/config-options/#force-snapshot-max-age) option (default `1h`) forces a snapshot once the oldest WAL data that isn't in a snapshot reaches that age. Previously, snapshots triggered only on WAL file count or buffer memory, so a node receiving few or no writes could hold hours of data in memory and replay all of it on its next restart.
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Parquet engine WAL and snapshot metrics**: Parquet engine nodes that ingest data now report WAL files and bytes not yet covered by a persisted snapshot (`influxdb3_parquet_wal_pending_files`, `influxdb3_parquet_wal_pending_bytes`), buffered bytes and the threshold that forces a snapshot (`influxdb3_parquet_write_buffer_bytes`, `influxdb3_parquet_write_buffer_memory_threshold_bytes`), the time of the last successful snapshot (`influxdb3_parquet_snapshot_last_success_timestamp_seconds`), and failed snapshot attempts by `error_code` (`influxdb3_parquet_snapshot_failures_total`).
+- **Stalled storage engine upgrade reporting**: `system.upgrade_parquet_node` now flags a node whose upgrade has stopped making progress (`stalled`, `stalled_since`), and reports when it last progressed (`last_progress_at`), how many times the compactor restarted during the upgrade (`restarts`), and conversion and import progress. Previously, an upgrade that had stopped making progress looked the same as one still in progress.
+- **Compaction completion logging (Parquet engine)**: The compactor logs each completed compaction at `INFO` level, so the logs show whether compaction is running.
+- **Stuck compaction warning (Parquet engine)**: The compactor logs a `compaction not planned` warning when a table has enough uncompacted files for a compaction but none has been planned for 15 minutes, and repeats it every 15 minutes while the condition holds.
+
+#### Bug fixes
+
+- **Missing rows from filtered queries on tables without tags (upgraded storage engine)**: A query with a `WHERE` clause, including one with only a time predicate, now returns compacted data from a table that has no tag columns. Previously, once such a table's data compacted, a filtered query could return no rows, while the same query without a `WHERE` clause returned every row.
+- **Compaction stopped while work waited for memory (upgraded storage engine)**: Compaction work waiting for memory is no longer aborted as stuck before it starts. Previously, when more work was scheduled than memory could admit, the waiting work was aborted and retried until its compaction failed, after which the compactor stopped planning new work, including snapshots.
+- **Missing rows from tag queries after a compactor restart (Parquet engine)**: Removing a generation now removes only that generation's [file index](/influxdb3/enterprise/admin/file-index/) entries. Previously, a compact-only node numbered its files from zero again after a restart, so removing an older generation also removed the index entries for a live file with the same number, and queries that filter on an indexed tag value skipped that file and returned incomplete results.
+- **Startup stalled on large compaction metadata**: Compaction summary, compaction detail, and generation detail reads larger than 128 MiB are now fetched as 16 MiB ranged reads, so a slow or failed transfer retries one range. Previously, a single whole-object GET restarted a multi-gigabyte download from byte 0, so a node loading Parquet engine compacted data at startup, including during a storage engine upgrade, could stall without an error.
+- **Stopped nodes blocked an At-Home license node from starting**: The [At-Home license](/influxdb3/enterprise/admin/license/) single-node check now ignores nodes in the `stopped` or `removing` state. Previously, any other node registered in the catalog prevented startup.
+- **Ingest-only nodes built an unused file index**: Nodes that run only in ingest mode (`--mode ingest`) no longer build the Parquet engine's compacted data file index at startup, including during a storage engine upgrade, which reduces their startup memory. Ingest-only nodes never use the index.
+- **Unneeded file index decoding during a storage engine upgrade**: The upgrade now reads only the file list from each generation's detail object when it discovers files to import. Previously, it also decoded the file index, which added CPU and memory cost to compactor startup on tables with large indexes.
+- **Spurious snapshot sequence error on first startup (upgraded storage engine)**: A new node starting with an empty object store no longer logs a `snapshot sequence seeds disagree` error.
+- Other bug fixes and performance improvements
+
 ## v3.11.4 {date="2026-09-04"}
 
 ### Core

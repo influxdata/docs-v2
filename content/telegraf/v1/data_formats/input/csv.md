@@ -237,9 +237,8 @@ If timestamps in the `csv_timestamp_column` contain a time zone offset, the pars
 If `csv_timestamp_format` and your timestamp data contain a time zone abbreviation, then the parser tries to resolve the abbreviation to a location in the [IANA Time Zone Database](https://www.iana.org/time-zones) and return a UTC offset for that location.
 To set the location that the parser should use when resolving time zone abbreviations, specify a value for `csv_timezone`, following the TZ syntax in the [Internet Assigned Numbers Authority time zone database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
 
-{{% warn %}}
-Prior to Telegraf v1.27, the Telegraf parser ignored abbreviated time zones (for example, "EST") in parsed time values, and used UTC for the timestamp location.
-{{% /warn %}}
+> [!Warning]
+> Prior to Telegraf v1.27, the Telegraf parser ignored abbreviated time zones (for example, "EST") in parsed time values, and used UTC for the timestamp location.
 
 ## Examples
 
