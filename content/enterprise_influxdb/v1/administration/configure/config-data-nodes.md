@@ -283,12 +283,14 @@ specified in the meta node configuration file.
 
 Environment variable: `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`
 
-#### retention-autocreate
+#### retention-autocreate {metadata="Replication factor default changed in v1.12.3"}
 
 Default is `true`.
 
 Automatically creates a default [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp) (RP) when the system creates a database.
-The default RP (`autogen`) has an infinite duration, a shard group duration of seven days, and a replication factor set to the number of data nodes in the cluster.
+The default RP (`autogen`) has an infinite duration and a shard group duration of seven days.
+In v1.12.3 and later, its replication factor equals the number of data nodes in the cluster, up to a maximum of `2`.
+In v1.12.2 and earlier, the maximum is `3`.
 The system targets the `autogen` RP when a write or query does not specify an RP.
 Set this option to `false` to prevent the system from creating the `autogen` RP when the system creates a database.
 
