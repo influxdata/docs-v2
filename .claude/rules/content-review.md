@@ -50,6 +50,8 @@ Products defined in [data/products.yml](../../data/products.yml):
 
 - Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
   "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
+- Treat "Cloud" alone as ambiguous; require the exact product or edition rather
+  than inferring Cloud Dedicated
 - Don't mix v2/v3 terminology (e.g., "bucket" in v3 Core docs)
 - Version references match the content path
 
@@ -73,6 +75,8 @@ Products defined in [data/products.yml](../../data/products.yml):
 - `source:` frontmatter points to an existing shared file
 - Shared files don't contain frontmatter (only content)
 - Changes to shared content affect multiple products — flag if unintentional
+- Claims and links match every consuming product's supported surface and sibling
+  navigation; flag missing product targets as blocking mismatches
 
 ## Severity
 

@@ -1,6 +1,6 @@
 
 Use compatibility APIs when you need to migrate existing InfluxDB v1 or v2 write
-workloads to InfluxDB 3.x.
+workloads to {{% product-name %}}.
 The `/api/v2/write` (v2-compatible) and `/write` (v1-compatible) HTTP API
 endpoints work with InfluxDB [client libraries](/influxdb3/version/reference/client-libraries/), [Telegraf](/telegraf/v1/), and third-party integrations 
 to write points as line protocol data to {{% product-name %}}.
@@ -8,9 +8,11 @@ to write points as line protocol data to {{% product-name %}}.
 > [!Tip]
 > #### Choose the write endpoint for your workload
 > 
+> {{% show-in "core,enterprise" %}}
 > When creating new write workloads, use the
 > [InfluxDB HTTP API `/api/v3/write_lp` endpoint](/influxdb3/version/write-data/http-api/v3-write-lp/)
 > and [client libraries](/influxdb3/version/write-data/client-libraries/).
+> {{% /show-in %}}
 >
 > When bringing existing v1 write workloads, use the
 > [v1-compatible `/write` endpoint](#influxdb-v1-compatibility).
@@ -344,4 +346,3 @@ Replace the following configuration values:
   the name of the [database](/influxdb3/version/admin/databases/) to write to
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   your {{< product-name >}} {{% token-link %}}{{% show-in "enterprise" %}} with write access to the database{{% /show-in %}}
-
