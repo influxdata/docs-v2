@@ -1,7 +1,7 @@
 ---
 title: Networking and ports
 description: >
-When you run Telegraf Controller, identify the ports and listeners it uses, determine which clients need access to each one, and expose them safely with Transport Layer Security (TLS), firewalls, and reverse proxies.
+  When you run Telegraf Controller, identify the ports and listeners it uses, determine which clients need access to each one, and expose them safely with Transport Layer Security (TLS), firewalls, and reverse proxies.
 menu:
   telegraf_controller:
     name: Networking and ports
