@@ -196,10 +196,7 @@ Set to `true` to allow the data node to accept self-signed certificates if [`htt
 
 Environment variable: `INFLUXDB_META_META_INSECURE_TLS`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these meta-node mTLS settings when Enterprise v1.13.x ships.
-
-#### meta-client-certificate {metadata="v1.13.0+"}
+#### meta-client-certificate {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -211,7 +208,7 @@ If it is just the certificate, specify a key in
 
 Environment variable: `INFLUXDB_META_META_CLIENT_CERTIFICATE`
 
-#### meta-client-private-key {metadata="v1.13.0+"}
+#### meta-client-private-key {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -219,7 +216,7 @@ Use a separate private key location for the meta client certificate.
 
 Environment variable: `INFLUXDB_META_META_CLIENT_PRIVATE_KEY`
 
-#### meta-insecure-certificate {metadata="v1.13.0+"}
+#### meta-insecure-certificate {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -229,7 +226,7 @@ Relaxes the local file-permission checks on
 
 Environment variable: `INFLUXDB_META_META_INSECURE_CERTIFICATE`
 
-#### meta-ignore-cert-sanity-checks {metadata="v1.13.0+"}
+#### meta-ignore-cert-sanity-checks {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -241,7 +238,7 @@ A missing or unparseable certificate is still an error.
 
 Environment variable: `INFLUXDB_META_META_IGNORE_CERT_SANITY_CHECKS`
 
-#### meta-root-ca {metadata="v1.13.0+"}
+#### meta-root-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -264,7 +261,6 @@ Environment variables:
 
 - `INFLUXDB_META_META_ROOT_CA_PATHS`
 - `INFLUXDB_META_META_ROOT_CA_INCLUDE_SYSTEM`
--->
 
 #### meta-auth-enabled
 
@@ -590,10 +586,7 @@ increase in cache size may lead to an increase in heap usage.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these adaptive series ID set cache settings when Enterprise v1.13.x ships.
-
-#### series-id-set-cache-max-size {metadata="v1.13.0+"}
+#### series-id-set-cache-max-size {metadata="v1.13.1+"}
 
 Default is `0`.
 
@@ -613,7 +606,7 @@ which takes precedence over adaptive sizing.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_MAX_SIZE`
 
-#### series-id-set-cache-target-hit-rate {metadata="v1.13.0+"}
+#### series-id-set-cache-target-hit-rate {metadata="v1.13.1+"}
 
 Default is `0.0`.
 
@@ -626,7 +619,7 @@ evicting entries, InfluxDB grows the cache capacity, up to
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_TARGET_HIT_RATE`
 
-#### series-id-set-cache-shrink-conservatism {metadata="v1.13.0+"}
+#### series-id-set-cache-shrink-conservatism {metadata="v1.13.1+"}
 
 Default is `2.5`.
 
@@ -641,7 +634,6 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SHRINK_CONSERVATISM`
 To monitor the series ID set cache, run `SHOW STATS` and check the
 `tsi1_cache` measurement. It reports `hit`, `miss`, `eviction`,
 `shrink_eviction`, `size`, and `capacity` fields.
--->
 
 -----
 
@@ -784,10 +776,7 @@ Skips file permission checking for `https-certificate` and `https-private-key` w
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these cluster mTLS settings when Enterprise v1.13.x ships.
-
-#### https-ignore-sanity-checks {metadata="v1.13.0+"}
+#### https-ignore-sanity-checks {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -798,7 +787,7 @@ A missing or unparseable server certificate is still an error.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_IGNORE_SANITY_CHECKS`
 
-#### https-client-certificate {metadata="v1.13.0+"}
+#### https-client-certificate {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -811,7 +800,7 @@ that dial this node.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_CLIENT_CERTIFICATE`
 
-#### https-client-private-key {metadata="v1.13.0+"}
+#### https-client-private-key {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -819,7 +808,7 @@ Use a separate private key location for the `https-client-certificate`.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_CLIENT_PRIVATE_KEY`
 
-#### https-client-auth-type {metadata="v1.13.0+"}
+#### https-client-auth-type {metadata="v1.13.1+"}
 
 Default is unset (`NoClientCert`).
 
@@ -837,7 +826,7 @@ Leaving it unset disables client-certificate authentication (`NoClientCert`).
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_CLIENT_AUTH_TYPE`
 
-#### https-client-ca {metadata="v1.13.0+"}
+#### https-client-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -860,7 +849,7 @@ Environment variables:
 - `INFLUXDB_CLUSTER_HTTPS_CLIENT_CA_PATHS`
 - `INFLUXDB_CLUSTER_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
 
-#### https-root-ca {metadata="v1.13.0+"}
+#### https-root-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -883,7 +872,6 @@ Environment variables:
 
 - `INFLUXDB_CLUSTER_HTTPS_ROOT_CA_PATHS`
 - `INFLUXDB_CLUSTER_HTTPS_ROOT_CA_INCLUDE_SYSTEM`
--->
 
 #### cluster-tracing
 
@@ -1430,10 +1418,7 @@ Unauthenticated queries are attributed to `(anonymous)`.
 
 Environment variable: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this setting when Enterprise v1.13.x ships.
-
-#### user-write-bytes-enabled {metadata="v1.13.0+"}
+#### user-write-bytes-enabled {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -1451,7 +1436,6 @@ decompressed (post-gzip) bytes, while the Prometheus remote write endpoint
 counts compressed wire bytes.
 
 Environment variable: `INFLUXDB_HTTP_USER_WRITE_BYTES_ENABLED`
--->
 
 #### https-enabled
 
@@ -1487,10 +1471,7 @@ Skips file permission checking for `https-certificate` and `https-private-key` w
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these HTTP mTLS settings when Enterprise v1.13.x ships.
-
-#### https-ignore-sanity-checks {metadata="v1.13.0+"}
+#### https-ignore-sanity-checks {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -1501,7 +1482,7 @@ A missing or unparseable certificate is still an error.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_IGNORE_SANITY_CHECKS`
 
-#### https-client-auth-type {metadata="v1.13.0+"}
+#### https-client-auth-type {metadata="v1.13.1+"}
 
 Default is unset (`NoClientCert`).
 
@@ -1519,7 +1500,7 @@ Leaving it unset disables client authentication (`NoClientCert`).
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_CLIENT_AUTH_TYPE`
 
-#### https-client-ca {metadata="v1.13.0+"}
+#### https-client-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -1539,7 +1520,6 @@ Environment variables:
 
 - `INFLUXDB_HTTP_HTTPS_CLIENT_CA_PATHS`
 - `INFLUXDB_HTTP_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
--->
 
 #### shared-secret
 
@@ -1705,10 +1685,7 @@ If the set to the empty string (`""`), the default system certs will used.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_CA_CERTS`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these subscriber mTLS settings when Enterprise v1.13.x ships.
-
-#### root-ca {metadata="v1.13.0+"}
+#### root-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -1729,7 +1706,7 @@ Environment variables:
 - `INFLUXDB_SUBSCRIBER_ROOT_CA_PATHS`
 - `INFLUXDB_SUBSCRIBER_ROOT_CA_INCLUDE_SYSTEM`
 
-#### certificate {metadata="v1.13.0+"}
+#### certificate {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -1739,7 +1716,7 @@ Empty means no client certificate is presented.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_CERTIFICATE`
 
-#### private-key {metadata="v1.13.0+"}
+#### private-key {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -1747,7 +1724,7 @@ The private key for the subscriber client [`certificate`](#certificate).
 
 Environment variable: `INFLUXDB_SUBSCRIBER_PRIVATE_KEY`
 
-#### insecure-certificate {metadata="v1.13.0+"}
+#### insecure-certificate {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -1756,7 +1733,7 @@ Allows insecure file permissions on [`certificate`](#certificate) and
 
 Environment variable: `INFLUXDB_SUBSCRIBER_INSECURE_CERTIFICATE`
 
-#### ignore-cert-sanity-checks {metadata="v1.13.0+"}
+#### ignore-cert-sanity-checks {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -1766,7 +1743,6 @@ The failed checks are logged instead.
 A missing or unparseable certificate is still an error.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_IGNORE_CERT_SANITY_CHECKS`
--->
 
 #### write-concurrency
 
@@ -1951,42 +1927,37 @@ For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_in
 # consistency-level = "one"
 # tls-enabled = false
 # certificate = "/etc/ssl/influxdb.pem"
-```
-
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these OpenTSDB TLS mutual-authentication options to the sample
-     configuration above, along with the note, when Enterprise v1.13.x ships.
 
 # TLS private key when TLS is enabled.
 # If blank, defaults to assuming the key is in the certificate.
-# private-key = ""                                                 # v1.13.0+
+# private-key = ""                                                 # v1.13.1+
 
 # Allow insecure file permissions on certificate and private-key.
-# insecure-certificate = false                                     # v1.13.0+
+# insecure-certificate = false                                     # v1.13.1+
 
 # Load the certificate even when it fails the checks for whether a server can
 # use it, such as the certificate not permitting server authentication.
 # The failed checks are logged instead.
 # A missing or unparseable certificate is still an error.
-# ignore-cert-sanity-checks = false                                # v1.13.0+
+# ignore-cert-sanity-checks = false                                # v1.13.1+
 
 # The type of client certificate authentication (mutual TLS) to require. One of
 # NoClientCert, RequestClientCert, RequireAnyClientCert,
 # VerifyClientCertIfGiven, or RequireAndVerifyClientCert. Unset disables client
 # authentication.
-# client-auth-type = "RequireAndVerifyClientCert"                  # v1.13.0+
+# client-auth-type = "RequireAndVerifyClientCert"                  # v1.13.1+
 
 # CA certificates used to verify client certificates during client
 # authentication. "paths" lists PEM files to trust; "include-system" also
 # trusts the host's system CA pool.
-# client-ca = { paths = ["/etc/ssl/client-ca.pem"], include-system = false } # v1.13.0+
+# client-ca = { paths = ["/etc/ssl/client-ca.pem"], include-system = false } # v1.13.1+
+```
 
-{{%/* note */%}}
+{{% note %}}
 The OpenTSDB TLS mutual-authentication options (`private-key`,
 `insecure-certificate`, `ignore-cert-sanity-checks`, `client-auth-type`, and
-`client-ca`) were added in **v1.13.0**.
-{{%/* /note */%}}
--->
+`client-ca`) were added in **v1.13.1**.
+{{% /note %}}
 
 #### log-point-errors
 
