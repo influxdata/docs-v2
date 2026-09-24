@@ -1,0 +1,306 @@
+---
+title: EDR state and recovery
+description: >
+  What EDR remembers between restarts, where it keeps it, what each piece
+  means, and what happens if you delete it.
+menu:
+  influxdb3_edr:
+    name: State and recovery
+    parent: Reference
+weight: 205
+---
+
+<!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/state-and-recovery.md -->
+
+EDR remembers its replication progress between restarts. This page covers
+where it keeps that state, what each piece means, and what happens if you
+delete it.
+
+<!-- VERIFIED by the EDR test suite: an automated test asserts every
+behavior stated on this page. -->
+
+1. [Where the state lives](#where-the-state-lives)
+2. [What each file is](#what-each-file-is)
+3. [Read before you touch](#read-before-you-touch)
+4. [The golden rules](#the-golden-rules)
+5. [Corruption vs. deliberate deletion](#corruption-vs-deliberate-deletion)
+6. [The deletion matrix](#the-deletion-matrix)
+7. [Sanctioned recovery recipes](#sanctioned-recovery-recipes)
+8. [Risk summary](#risk-summary)
+
+## Where the state lives
+
+Everything the agent remembers is under `--state-location` (env
+`INFLUXDB3_EDR_STATE_LOCATION`, default `edr-state`). A bare path or
+`file://` URL selects the local filesystem; `s3://bucket/prefix`, `gs://...`,
+`az://...` select object storage (credentials from the same `AWS_*`,
+`GOOGLE_*`, or `AZURE_*` environment the agent uses for replicated data).
+
+Each item is one JSON object named `{key}.json`. The state location is
+**independent of the object store that holds your replicated
+data**—moving or resetting it
+never touches your data; it only changes what the agent believes it has
+already done.
+
+### Per-destination namespaces
+
+Journals are namespaced **per downstream destination**:
+`{state-location}/{destination}/wal_cursor.json` (and siblings). Each
+destination's cursor, gap ledger, and historic progress are fully
+independent—a fan-out node has one namespace per destination. Two items
+live at the root: `state_layout.json` (the layout format marker) and
+`wal_cleanup_watermark.json` (agent-level—the cleanup watermark is shared
+by all destinations).
+
+The layout is self-maintaining, and **config is the source of truth** (a
+destination's namespace exists if the destination is configured):
+
+- **Migration**: on the first start of a fan-out-capable build, journals
+  from the old un-namespaced layout are moved into the (single) configured
+  destination's namespace, one log line per file. With multiple
+  destinations configured and un-namespaced journals present, the agent
+  refuses to start—it cannot guess whose history they are.
+- **Orphan sweep**: at startup, a namespace with no matching configured
+  destination (removed while the agent was down) is **deleted, loudly**.
+- **Rename guard**: if the same pass sees an orphan namespace AND a
+  configured destination with no state—the signature of a typo'd
+  rename—the agent refuses to start rather than delete a real cursor. The
+  error names both and the fix (correct the name, or delete the orphan
+  namespace deliberately). The same guard rejects a live reload that
+  removes one destination and adds a stateless new one in one pass.
+- **Removing a destination through reload deletes its namespace**
+  immediately; re-adding the same name later starts fresh.
+
+The token store (`--token-store`) is separate and is not covered here—it
+holds secrets, not progress.
+
+## What each file is
+
+- **`wal_cursor.json`** (live replication)—per-ingest-node high-water
+  mark (`last_replicated_wal_id`), out-of-order completions, and
+  **skip receipts**: durable records that a WAL range was handed to
+  gap fill. The dispatcher writes it on every file completion, and
+  the replicator on seeding and receipts. `wal_cursor_prev.json` is
+  its safety mirror.
+- **`gap_ledger.json`** (gap fill)—recovery obligations: each detected
+  gap with its status (pending, in-progress, resolved, or
+  unrecoverable) and the files that covered it. The gap-fill worker
+  writes it; `gap_ledger_prev.json` is its safety mirror.
+- **`historic_manifest.json`** (historic fill)—the backfill plan:
+  snapshot work list, cv2 work list, per-file statuses, and the
+  completed flag. The historic planner writes it (full saves);
+  `historic_manifest_prev.json` is its safety mirror.
+- **`historic_progress.json`** (historic fill)—compact status
+  checkpoints overlaid on the plan, guarded by a sequence number so a
+  stale overlay can never resurrect finished work. The historic fill
+  task writes it frequently.
+- **`live_seed_done.json`** (live replication)—marker: first-start
+  seeding already happened—a restart resumes instead of re-seeding.
+  The replicator writes it once.
+- **`wal_cleanup_watermark.json`** (WAL cleanup)—per-node "deleted
+  through id N" resume points (only with `--wal-cleanup-enabled`).
+  **Lives at the state ROOT**—agent-level, shared by all
+  destinations. The cleanup sweep writes it.
+
+All files except `wal_cleanup_watermark.json` and `state_layout.json` live
+inside a destination's namespace; a recovery recipe that says "delete the
+cursor" means **that destination's** cursor—the other destinations' state
+is untouched.
+
+## Read before you touch
+
+`edr-inspect` ships in the EDR image and renders all three—live
+replication, gap fill, and historic fill—read-only:
+
+```bash
+edr-inspect state /var/lib/edr/state
+```
+
+In Docker, run `docker exec <CONTAINER> edr-inspect state` with no path.
+That form picks up the agent's own `INFLUXDB3_EDR_STATE_LOCATION`.
+
+Start here when you diagnose a problem.
+`edr-inspect state` answers most questions—"is it stuck?", "what does it
+think it owes?"—without touching anything.
+
+## The golden rules
+
+1. **Never modify state while the agent is running.** The in-memory copy is
+   authoritative; the next persist silently overwrites your edit.
+   (Deleting files while running is harmless but pointless—see the
+   matrix.)
+2. **Never hand-edit the JSON at all.** The schemas evolve between releases
+   and the fields interlock (a cursor that disagrees with its own skip
+   receipts is worse than either alone). Recovery is done by *deleting*
+   specific files with the agent stopped—never by editing.
+3. **Resets are only safe when the destination absorbs re-sends**—that is,
+   `idempotent_writes: true`. With `idempotent_writes: false`, any reset
+   that causes re-delivery corrupts the destination (duplicate points at
+   new timestamps). Do not reset state in that mode without also clearing
+   the affected destination range.
+4. **Your `historic_fill` mode decides what a full reset means.** With
+   `mode: full` the agent re-plans and re-sends all history (safe,
+   expensive). With `mode: none` it seeds at the current leading edge—
+   **any backlog the old cursor still owed is silently skipped**. That's
+   genuine data loss with no gap recorded, because the record of the debt
+   was the thing you deleted.
+
+## Corruption vs. deliberate deletion
+
+The cursor, gap ledger, and historic manifest each write a **previous-good
+mirror** alongside the primary (`{key}_prev.json`) on every successful
+save. On load, a corrupt or unreadable primary silently falls back to the
+mirror—logged as a WARN, no operator action needed, no restart required.
+This is different from the deletion matrix below, which is about what
+happens when *both* copies are gone (deliberately, or because corruption
+hit both).
+
+When **both** the primary and mirror are corrupt or unreadable—"state
+loss"—`on_state_loss` (a downstream config knob) governs the agent's
+behavior:
+
+- **`recover`** (the default when `idempotent_writes: true`): rebuild a
+  conservative per-node cursor position from the oldest surviving snapshot
+  and continue—re-replicates the retained WAL window (bounded, absorbed by
+  idempotent writes), rather than defaulting to position 0 and silently
+  re-sending the *entire* retained backlog. The historic manifest, on its
+  own state loss, rebuilds the plan from current store state the same way
+  it always has (loud, double-send absorbed)—it never needed the mirror to
+  have a safe fallback.
+- **`halt`** (the default when `idempotent_writes: false`, since
+  re-sending isn't safe there): refuse to start; an operator decides.
+  Restore the state location from backup, or switch to `recover` (requires
+  `idempotent_writes: true`).
+
+`edr-inspect state` reports which tier each journal was actually read
+from—healthy primary, recovered-from-mirror, or state loss—so this is
+visible without touching anything.
+
+## The deletion matrix
+
+What happens when a state item is removed, by agent state:
+
+- **Entire state location**
+  - *Agent running*: self-heals piecemeal (files reappear as each
+    subsystem writes its state again), but you have destroyed receipts
+    mid-flight—don't
+    do this; stop first.
+  - *Agent stopped, then restarted*: the sanctioned **full reset**.
+    Golden rules 3 and 4 govern the behavior entirely: a `full`
+    fill with idempotent writes gives a safe re-fill; `none` means
+    owed backlog is silently skipped.
+- **`wal_cursor.json`** only (`wal_cursor_prev.json` intact)
+  - *Agent running*: harmless: in-memory state is authoritative,
+    delivery continues, the journal re-persists on the next file
+    completion.
+  - *Agent stopped, then restarted*: recovers transparently **from
+    the mirror** (WARN logged)—resumes at the mirror's position, not
+    a fresh start, no re-transmission storm.
+- **`wal_cursor.json`** and its mirror
+  - *Agent running*: harmless (same as above—in-memory state is
+    authoritative).
+  - *Agent stopped, then restarted*: **state loss**—see
+    `on_state_loss` above. `recover`: rebuilds a conservative
+    per-node floor and re-sends the retained window (bounded).
+    `halt`: refuses to start.
+- **`gap_ledger.json`**
+  - *Agent running*: recreated on the next ledger save.
+  - *Agent stopped, then restarted*: the most forgiving: outstanding
+    obligations are **rebuilt from the cursor's skip receipts** at
+    startup (works even with the mirror also gone, as long as the
+    cursor survives). You lose the resolved and unrecoverable
+    *history* (audit trail), not the obligations.
+- **`historic_manifest.json`** only (`historic_manifest_prev.json`
+  intact, fill incomplete)
+  - *Agent running*: recreated only at the next *full plan save*—
+    routine checkpoints write the overlay, not the plan.
+  - *Agent stopped, then restarted*: recovers transparently **from
+    the mirror** (WARN logged)—resumes the existing plan, no
+    rebuild, no double-send.
+- **`historic_manifest.json`** and its mirror (historic_fill
+  configured, fill incomplete)
+  - *Agent running*: same as above.
+  - *Agent stopped, then restarted*: with a **non-zero cursor**: the
+    agent **refuses to start** (`CursorExists`—historic_fill added
+    late vs. manifest vanished are indistinguishable, and a
+    same-session cursor rebuild doesn't resolve that ambiguity
+    either). Restore a file, do a full reset, or remove
+    `historic_fill`. With a genuinely **fresh cursor**: normal fresh
+    start, plan rebuilt.
+- **`historic_progress.json`**
+  - *Agent running*: recreated at the next checkpoint.
+  - *Agent stopped, then restarted*: statuses revert to the last
+    full plan save—some already-sent files are re-sent (absorbed by
+    idempotence). The sequence guard prevents any stale overlay from
+    marking unfinished work done.
+- **`live_seed_done.json`**
+  - *Agent running*: no effect until restart.
+  - *Agent stopped, then restarted*: with a cursor present: harmless
+    (a non-zero cursor is itself proof of a previous start). With the
+    cursor *also* gone: a genuine fresh start—see full reset.
+- **`wal_cleanup_watermark.json`**
+  - *Agent running*: next sweep reseeds from the oldest surviving
+    snapshot.
+  - *Agent stopped, then restarted*: same—the sweep re-derives its
+    position; at worst it re-issues deletes for already-deleted files
+    (harmless NotFounds).
+
+## Sanctioned recovery recipes
+
+**Full reset (start replication over)**
+
+```bash
+# 1. Stop the agent.
+# 2. Confirm your posture: idempotent_writes true? historic_fill mode?
+#    (Golden rules 3 and 4 -- this decides whether the reset is safe.)
+# 3. Delete the state location contents.
+rm -rf /var/lib/edr/state/*
+# 4. Start the agent. With historic_fill: full it re-plans all history.
+```
+
+**Force a re-backfill without touching live progress**
+
+```bash
+# Stop the agent, then remove the historic plan, ITS MIRROR, and the overlay
+# -- leaving historic_manifest_prev.json in place would just recover the old
+# plan from the mirror instead of triggering a rebuild:
+rm /var/lib/edr/state/historic_manifest.json \
+   /var/lib/edr/state/historic_manifest_prev.json \
+   /var/lib/edr/state/historic_progress.json
+# ALSO delete the cursor (and its mirror) if you want history re-planned
+# from scratch -- without it the agent refuses to start (see the matrix
+# row). In most cases you actually want the full reset above.
+```
+
+**Clear a poisoned gap ledger** (for example, an Unrecoverable entry you
+have resolved out of band)
+
+```bash
+# Stop the agent, delete the ledger and its mirror:
+rm /var/lib/edr/state/gap_ledger.json /var/lib/edr/state/gap_ledger_prev.json
+# On restart, genuinely outstanding gaps are re-created from the
+# cursor's skip receipts and re-attempted; settled history is gone.
+```
+
+**Move the state location**
+
+```bash
+# Stop the agent, copy the whole directory (it is just files), point
+# --state-location / INFLUXDB3_EDR_STATE_LOCATION at the new place,
+# start. Copying while stopped is also the correct backup procedure.
+```
+
+## Risk summary
+
+| Action | Risk |
+|---|---|
+| Full reset, `historic_fill: full`, idempotent | Re-transmission cost only |
+| Full reset, `historic_fill: none` | **Silent loss of owed backlog** |
+| Any reset with `idempotent_writes: false` | **Destination corruption** |
+| Delete cursor primary only (mirror intact) | None—recovers from mirror |
+| Delete cursor primary AND mirror (stopped) | `recover`: bounded re-send from the snapshot floor. `halt`: startup refusal |
+| Delete manifest primary only (mirror intact, fill incomplete) | None—recovers from mirror |
+| Delete manifest primary AND mirror (stopped, fill incomplete, non-zero cursor) | Startup refusal until resolved (`CursorExists`) |
+| Delete gap ledger alone | Lost audit history; obligations survive |
+| Hand-editing any file | Undefined; never sanctioned |
+| Anything while the agent runs | Ineffective (overwritten)—stop first |
