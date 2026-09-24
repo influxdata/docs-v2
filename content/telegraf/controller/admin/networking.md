@@ -1,9 +1,7 @@
 ---
 title: Networking and ports
 description: >
-  Ports and listeners Telegraf Controller uses, which clients need access to
-  each, and how to expose them safely with TLS, firewalls, and reverse
-  proxies.
+When you run Telegraf Controller, identify the ports and listeners it uses, determine which clients need access to each one, and expose them safely with Transport Layer Security (TLS), firewalls, and reverse proxies.
 menu:
   telegraf_controller:
     name: Networking and ports
@@ -16,8 +14,7 @@ related:
 ---
 
 {{% product-name %}} serves different kinds of traffic on different ports.
-Use this page to understand what listens where, which clients need access to
-each port, and how to expose them safely.
+When you run {{% product-name %}}, identify the ports and listeners it uses, determine which clients need access to each one, and expose them safely with Transport Layer Security (TLS), firewalls, and reverse proxies.
 
 - [Ports and listeners](#ports-and-listeners)
 - [Expose the right ports](#expose-the-right-ports)

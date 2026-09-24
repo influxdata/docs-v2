@@ -183,9 +183,8 @@ Corruption almost always traces back to one of the following, all avoidable:
 - **Forced shutdown**: stop {{% product-name %}} with a normal termination
   signal (`SIGTERM` or Ctrl+C) rather than `kill -9`, and avoid powering
   off the host while the server is writing.
-- **No backups**: corruption you can't repair is only a real loss without a
-  backup.
-  [Back up the database](/telegraf/controller/admin/database/back-up-and-restore/)
+- **No backups**: If you can't repair database corruption and don't have a backup, you lose data.
+  [[Back up the database](app://-/telegraf/controller/admin/database/back-up-and-restore/)](/telegraf/controller/admin/database/back-up-and-restore/)
   on a schedule.
 
 ## PostgreSQL
