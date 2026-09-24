@@ -13,20 +13,7 @@ alt_links:
 
 <span id="v1.13.x"></span>
 
-## v1.13.0 {date="2026-08-20"}
-
-> [!Important]
-> #### v1.13.0 has been withdrawn
->
-> InfluxDB Enterprise v1.13.0 has been withdrawn.
-> The current InfluxDB Enterprise v1 release is [v1.12.4](#v1124).
-> This entry remains so the version history stays complete.
-> The release details and the documentation for v1.13.0 features are withheld
-> until those features ship in a later release.
-
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this entry's details when Enterprise v1.13.x ships, and remove the
-     withdrawal callout above.
+## v1.13.1
 
 > [!Note]
 > #### InfluxDB OSS and Enterprise v1 relationship
@@ -35,17 +22,6 @@ alt_links:
 > [OSS v1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130)
 > are included in this release. This page lists Enterprise-specific updates
 > only.
-
-> [!Important]
-> #### Default replication factor changed to 2
->
-> Starting in v1.13.0, InfluxDB Enterprise uses a default replication factor
-> of `2` (previously `3`) when you create a database or retention policy
-> without an explicit `REPLICATION` value. This matches InfluxData's
-> recommendation for clusters with two or more data nodes. Existing
-> databases and retention policies aren't affected. To keep the previous
-> default, specify `REPLICATION 3` explicitly when you create a database or
-> retention policy.
 
 ### Features
 
@@ -70,8 +46,7 @@ alt_links:
 
 All OSS v1.13.0 updates, including the
 [adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1130)
-and the TSM file-store lock fix, apply to Enterprise v1.13.0 too.
--->
+and the TSM file-store lock fix, apply to Enterprise v1.13.1 too.
 
 > [!Important]
 > #### We strongly recommend upgrading to v1.12.4 or later
