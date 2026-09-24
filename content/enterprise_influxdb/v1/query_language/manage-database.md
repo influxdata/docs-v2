@@ -271,16 +271,18 @@ or `INF` (infinite).
 The minimum duration for a retention policy is one hour and the maximum
 duration is `INF`.
 
-##### `REPLICATION`
+##### `REPLICATION` {metadata="Default changed in v1.12.3"}
 
 - The `REPLICATION` clause determines how many independent copies of each point
   are stored in the cluster.
 
-- By default, the replication factor `n` usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor `n` is 2.
+- For auto-created retention policies in v1.12.3 and later, the default
+  replication factor equals the number of data nodes, up to a maximum of `2`.
+  In v1.12.2 and earlier, the maximum is `3`.
 
 - To ensure data is immediately available for queries, set the replication factor `n` to less than or equal to the number of data nodes in the cluster.
 
-> **Important:** If you have four or more data nodes, verify that the database replication factor is correct.
+> **Important:** If you have three or more data nodes, verify that the database replication factor is correct.
 
 - Replication factors do not serve a purpose with single node instances.
 

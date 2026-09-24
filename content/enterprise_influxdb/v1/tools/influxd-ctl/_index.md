@@ -60,18 +60,13 @@ influxd-ctl [global-flags] <command> [command-flags] [arguments]
 | `-secret`    | JWT shared secret _(ignored without `-auth-type jwt`)_                   |
 | `-timeout`   | Override the default timeout of 10s for operations _(for example, `30s`, `1m`)_. _v1.12.3+_ |
 | `-user`      | Username _(ignored without `-auth-type basic` or `jwt`)_                 |
-
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back. Restore these mTLS
-     global flags into the table above when Enterprise v1.13.x ships.
-
-| `-ca-cert`                   | CA certificate used to verify the meta node's server certificate _(ignored without `-bind-tls`)_. _v1.13.0+_        |
-| `-cert`                      | Client certificate for mutual TLS (mTLS), used unless `-client-cert` is given _(ignored without `-bind-tls`)_. _v1.13.0+_ |
-| `-client-cert`               | Client certificate for mutual TLS (mTLS), overriding `-cert` _(ignored without `-bind-tls`)_. _v1.13.0+_           |
-| `-client-key`                | Client private key for `-client-cert` _(ignored without `-bind-tls`)_. _v1.13.0+_                                   |
-| `-ignore-cert-sanity-checks` | Present the client certificate even if it fails the checks for whether a client can use it. _v1.13.0+_             |
-| `-insecure-certificate`      | Skip file-permission checks on the certificate and private key. _v1.13.0+_                                          |
-| `-key`                       | Client private key for `-cert` _(ignored without `-bind-tls`)_. _v1.13.0+_                                          |
--->
+| `-ca-cert`                   | CA certificate used to verify the meta node's server certificate _(ignored without `-bind-tls`)_. _v1.13.1+_        |
+| `-cert`                      | Client certificate for mutual TLS (mTLS), used unless `-client-cert` is given _(ignored without `-bind-tls`)_. _v1.13.1+_ |
+| `-client-cert`               | Client certificate for mutual TLS (mTLS), overriding `-cert` _(ignored without `-bind-tls`)_. _v1.13.1+_           |
+| `-client-key`                | Client private key for `-client-cert` _(ignored without `-bind-tls`)_. _v1.13.1+_                                   |
+| `-ignore-cert-sanity-checks` | Present the client certificate even if it fails the checks for whether a client can use it. _v1.13.1+_             |
+| `-insecure-certificate`      | Skip file-permission checks on the certificate and private key. _v1.13.1+_                                          |
+| `-key`                       | Client private key for `-cert` _(ignored without `-bind-tls`)_. _v1.13.1+_                                          |
 
 ## Examples
 
@@ -79,7 +74,7 @@ influxd-ctl [global-flags] <command> [command-flags] [arguments]
 - [Authenticate with JWT](#authenticate-with-jwt)
 - [Authenticate with basic authentication](#authenticate-with-basic-authentication)
 - [Override the default timeout](#override-the-default-timeout)
-<!-- ROLLBACK-v1.13.0: - [Connect with mutual TLS (mTLS)](#connect-with-mutual-tls-mtls) -->
+- [Connect with mutual TLS (mTLS)](#connect-with-mutual-tls-mtls)
 
 ### Bind to a remote meta node
 
@@ -105,10 +100,7 @@ influxd-ctl -auth-type basic -user admin -pwd passw0rd
 influxd-ctl -timeout 30s show-shards
 ```
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back. Restore this section
-     when Enterprise v1.13.x ships.
-
-### Connect with mutual TLS (mTLS) {metadata="v1.13.0+"}
+### Connect with mutual TLS (mTLS) {metadata="v1.13.1+"}
 
 When the cluster's meta nodes require a client certificate
 ([`https-client-auth-type`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#https-client-auth-type)),
@@ -136,7 +128,6 @@ influxd-ctl -bind-tls \
 
 For more information about configuring mTLS in a cluster, see
 [Enable mutual TLS (mTLS)](/enterprise_influxdb/v1/administration/configure/security/enable_tls/#enable-mutual-tls-mtls).
--->
 
 {{< expand-wrapper >}}
 {{% expand "Troubleshoot `influxd-ctl` authentication" %}}
