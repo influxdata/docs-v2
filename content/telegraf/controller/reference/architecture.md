@@ -58,7 +58,7 @@ by and take over if the leader fails. Every node accepts agent heartbeats, so
 monitoring continues during a leadership change.
 
 For requirements, license behavior, and deployment steps, see
-[High availability](/telegraf/controller/high-availability/).
+[High availability](/telegraf/controller/admin/high-availability/).
 
 ## Configuration
 

@@ -69,7 +69,7 @@ weight: 101
 
 ### Features
 
-- Add [high availability](/telegraf/controller/high-availability/)
+- Add [high availability](/telegraf/controller/admin/high-availability/)
   (Telegraf Enterprise): run multiple
   {{% product-name %}} nodes against a shared PostgreSQL database with
   automatic leader election, failover, and load-balancer health endpoints.

@@ -17,7 +17,7 @@ const CONFIG_PLUGINS = {
 };
 
 test('selects every plugin when the run is for all of them', () => {
-  for (const arg of [null, undefined, 'all']) {
+  for (const arg of [null, undefined, 'all', '  all  ']) {
     const { selected, unknown } = selectPlugins(CONFIG_PLUGINS, arg);
 
     assert.deepEqual(

@@ -1,7 +1,7 @@
 ---
 title: telegraf secrets set
 description: >
-  The `telegraf secrets set` command creates or modify a secret in a specified
+  The `telegraf secrets set` command creates or modifies a secret in a specified
   secret store.
 menu:
   telegraf_v1_ref:
@@ -9,14 +9,17 @@ menu:
 weight: 301
 ---
 
-The `telegraf secrets set` command creates or modify a secret in a specified secret store.
+The `telegraf secrets set` command creates or modifies a secret in a specified
+secret store.
 
-{{% note %}}
-This command requires your configuration file that contains the secret store
-definitions you want to access. If the `--config` or `--config-directory` flags
-are not included in the command, Telegraf checks the
-[default configuration file location](/telegraf/v1/configuration/#configuration-file-locations).
-{{% /note %}}
+Not all secret stores support modifying secrets.
+Stores backed by a read-only source reject the `set` and `remove` commands.
+
+> [!Note]
+> This command requires your configuration file that contains the secret store
+> definitions you want to access. If the `--config` or `--config-directory` flags
+> are not included in the command, Telegraf checks the
+> [default configuration file location](/telegraf/v1/configuration/#configuration-file-locations).
 
 Use [`telegraf secrets list`](/telegraf/v1/commands/secrets/list/) to get the
 IDs of available secret stores and the available secret keys.

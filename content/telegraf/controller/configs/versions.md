@@ -13,7 +13,7 @@ weight: 103
 related:
   - /telegraf/controller/configs/update/
   - /telegraf/controller/configs/create/
-  - /telegraf/controller/audit-logs/
+  - /telegraf/controller/admin/audit-logs/
 ---
 
 {{% product-name %}} keeps a version history for every Telegraf configuration.
@@ -144,7 +144,7 @@ For how permissions map to user roles and API tokens, see
 
 If audit logging is enabled, {{% product-name %}} records version operations
 (rollbacks, change note updates, and pruning) in the
-[audit log](/telegraf/controller/audit-logs/).
+[audit log](/telegraf/controller/admin/audit-logs/).
 
 ## Version API
 

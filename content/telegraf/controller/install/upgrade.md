@@ -12,7 +12,7 @@ menu:
 weight: 101
 related:
   - /telegraf/controller/install/
-  - /telegraf/controller/high-availability/
+  - /telegraf/controller/admin/high-availability/
   - /telegraf/controller/reference/release-notes/
 ---
 
@@ -41,6 +41,9 @@ fails:
   [Default SQLite data locations](/telegraf/controller/install/#default-sqlite-data-locations).
 - **PostgreSQL**: use your database or provider backup tooling, for example
   `pg_dump`.
+
+For complete backup and restore procedures, see
+[Back up and restore the database](/telegraf/controller/admin/database/back-up-and-restore/).
 
 ## Upgrade {{% product-name %}}
 
@@ -200,11 +203,11 @@ telegraf_controller --version
 
 If {{% product-name %}} fails to start after an upgrade, check the service
 logs for migration errors and see
-[Troubleshoot installation](/telegraf/controller/install/troubleshoot/).
+[Troubleshoot {{% product-name %}}](/telegraf/controller/admin/troubleshoot/).
 
 ## Upgrade a high-availability cluster
 
-Upgrade a [high-availability](/telegraf/controller/high-availability/)
+Upgrade a [high-availability](/telegraf/controller/admin/high-availability/)
 cluster by upgrading one node at a time. The cluster keeps serving
 throughout: when you stop a node, any leadership it holds transfers to a
 standby within a few seconds, and the remaining nodes continue to accept
@@ -221,7 +224,7 @@ agent heartbeats and serve the web interface and API.
 1.  On one node, stop {{% product-name %}}, replace the executable, and
     restart it, following the [steps above](#upgrade-telegraf-controller).
 2.  Wait for the node to report healthy through your load balancer's
-    [health checks](/telegraf/controller/high-availability/load-balancing/),
+    [health checks](/telegraf/controller/admin/high-availability/load-balancing/),
     and confirm the new version with `telegraf_controller --version`.
 3.  Repeat for each remaining node.
 

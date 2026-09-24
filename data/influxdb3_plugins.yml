@@ -63,7 +63,7 @@
   tags:
     - scheduled
     - HTTP request
-  introduced: v0.2.0
+  introduced: v0.2.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/gapfill
 - name: geo_enrichment
@@ -72,7 +72,7 @@
   tags:
     - data-write
     - HTTP request
-  introduced: v0.1.0
+  introduced: v0.2.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/geo_enrichment
 - name: import
@@ -113,7 +113,7 @@
   description: Enables real-time ingestion of MQTT messages into InfluxDB 3. Subscribe to MQTT topics and transform messages into time-series data with support for JSON, Line Protocol, and custom text formats.
   tags:
     - scheduled
-  introduced: v0.2.0
+  introduced: v0.2.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mqtt_subscriber
 - name: nori_regression
@@ -122,7 +122,7 @@
   tags:
     - scheduled
     - HTTP request
-  introduced: v0.1.0
+  introduced: v0.1.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/nori_regression
 - name: notifier
@@ -163,7 +163,7 @@
   description: Resamples time series with non-uniform timestamps onto a uniform time grid via configurable interpolation, or snaps timestamps to grid nodes keeping values and types unchanged.
   tags:
     - scheduled
-  introduced: v0.2.0
+  introduced: v0.2.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/resampler
 - name: river_anomaly_detector
