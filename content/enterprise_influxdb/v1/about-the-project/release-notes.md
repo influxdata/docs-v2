@@ -23,16 +23,6 @@ alt_links:
 > are included in this release. This page lists Enterprise-specific updates
 > only.
 
-> [!Important]
-> #### Default replication factor is 2
->
-> In InfluxDB Enterprise v1.13.1, new databases and auto-created retention
-> policies use a default replication factor of `2` in clusters with two or more
-> data nodes when you don't specify a `REPLICATION` value.
-> Existing databases and retention policies aren't affected.
-> To use a replication factor of `3`, specify `REPLICATION 3` when you create a
-> database or retention policy.
-
 ### Features
 
 - Add mTLS support to Enterprise data and meta nodes, including certificate
@@ -88,6 +78,14 @@ and the TSM file-store lock fix, apply to Enterprise v1.13.1 too.
 
 InfluxDB Enterprise 1.12.3 delivers substantial efficiency gains in CPU, memory,
 and I/O usage, particularly in high-cardinality and large-scale environments.
+
+> [!Important]
+> #### Default replication factor changed to 2
+>
+> Starting in InfluxDB Enterprise v1.12.3, auto-created retention policies use a
+> maximum replication factor of `2` (previously `3`).
+> This change affects clusters with three or more data nodes.
+> Existing retention policies aren't affected.
 
 > [!Important]
 > #### We strongly recommend upgrading to v1.12.4 or later
