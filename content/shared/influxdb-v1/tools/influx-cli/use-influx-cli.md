@@ -102,15 +102,11 @@ Arguments specify connection, write, import, and output options for the CLI sess
 `-h`, `-help`
 List `influx` arguments
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this flag when Enterprise v1.13.x ships.
-
-{{%/* show-in "enterprise_influxdb/v1" */%}}
-`-cert 'path'` _(v1.13.0+)_
+{{% show-in "enterprise_influxdb/v1" %}}
+`-cert 'path'` _(v1.13.1+)_
 Path to the client certificate file (PEM) presented for mutual TLS (mTLS).
 Alternatively, set the certificate with the `INFLUX_CERT` environment variable.
-{{%/* /show-in */%}}
--->
+{{% /show-in %}}
 
 `-compressed`
 Set to true if the import file is compressed.
@@ -134,15 +130,11 @@ See [-format](#specify-the-format-of-the-server-responses-with--format).
 The host to which `influx` connects.
 By default, InfluxDB runs on localhost.
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this flag when Enterprise v1.13.x ships.
-
-{{%/* show-in "enterprise_influxdb/v1" */%}}
-`-ignore-cert-sanity-checks` _(v1.13.0+)_
+{{% show-in "enterprise_influxdb/v1" %}}
+`-ignore-cert-sanity-checks` _(v1.13.1+)_
 Load the client certificate even if it fails client-authentication sanity checks.
 Alternatively, set this with the `INFLUX_IGNORE_CERT_SANITY_CHECKS` environment variable.
-{{%/* /show-in */%}}
--->
+{{% /show-in %}}
 
 `-import`
 {{% show-in "influxdb/v1" %}}
@@ -153,19 +145,15 @@ Import new data or [exported data](/product/version/administration/backup-and-re
 {{% /show-in %}}
 See [-import](#import-data-from-a-file).
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these flags when Enterprise v1.13.x ships.
-
-{{%/* show-in "enterprise_influxdb/v1" */%}}
-`-insecure-certificate` _(v1.13.0+)_
+{{% show-in "enterprise_influxdb/v1" %}}
+`-insecure-certificate` _(v1.13.1+)_
 Ignore file permission checks when loading the client certificate and key.
 Alternatively, set this with the `INFLUX_INSECURE_CERTIFICATE` environment variable.
 
-`-key 'path'` _(v1.13.0+)_
+`-key 'path'` _(v1.13.1+)_
 Path to the client private key file (PEM) for mutual TLS (mTLS).
 Alternatively, set the key with the `INFLUX_KEY` environment variable.
-{{%/* /show-in */%}}
--->
+{{% /show-in %}}
 
 `-password 'password'`
 The password `influx` uses to connect to the server.
@@ -196,15 +184,11 @@ Precision defaults to nanoseconds.
 `-pretty`
 Turns on pretty print for the `json` format.
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this flag when Enterprise v1.13.x ships.
-
-{{%/* show-in "enterprise_influxdb/v1" */%}}
-`-root-ca 'path'` _(v1.13.0+)_
+{{% show-in "enterprise_influxdb/v1" %}}
+`-root-ca 'path'` _(v1.13.1+)_
 Path to the CA bundle (PEM) used to verify the server certificate.
 Alternatively, set the CA bundle with the `INFLUX_ROOT_CA` environment variable.
-{{%/* /show-in */%}}
--->
+{{% /show-in %}}
 
 `-ssl`
 Use HTTPS for requests.

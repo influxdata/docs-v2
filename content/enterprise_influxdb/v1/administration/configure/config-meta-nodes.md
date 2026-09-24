@@ -204,10 +204,7 @@ This is useful when testing with self-signed certificates.
 
 Environment variable: `INFLUXDB_META_DATA_INSECURE_TLS`
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     these mTLS settings when Enterprise v1.13.x ships.
-
-#### https-ignore-sanity-checks {metadata="v1.13.0+"}
+#### https-ignore-sanity-checks {metadata="v1.13.1+"}
 
 Default is `false`.
 
@@ -219,7 +216,7 @@ Applies to both the HTTP API and data/raft listeners.
 
 Environment variable: `INFLUXDB_META_HTTPS_IGNORE_SANITY_CHECKS`
 
-#### https-client-certificate {metadata="v1.13.0+"}
+#### https-client-certificate {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -232,7 +229,7 @@ verifies the peers that dial this node.
 
 Environment variable: `INFLUXDB_META_HTTPS_CLIENT_CERTIFICATE`
 
-#### https-client-private-key {metadata="v1.13.0+"}
+#### https-client-private-key {metadata="v1.13.1+"}
 
 Default is `""`.
 
@@ -241,7 +238,7 @@ Use a separate private key location for the
 
 Environment variable: `INFLUXDB_META_HTTPS_CLIENT_PRIVATE_KEY`
 
-#### https-client-auth-type {metadata="v1.13.0+"}
+#### https-client-auth-type {metadata="v1.13.1+"}
 
 Default is unset (`NoClientCert`).
 
@@ -259,7 +256,7 @@ Leaving it unset disables client-certificate authentication (`NoClientCert`).
 
 Environment variable: `INFLUXDB_META_HTTPS_CLIENT_AUTH_TYPE`
 
-#### https-client-ca {metadata="v1.13.0+"}
+#### https-client-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -282,7 +279,7 @@ Environment variables:
 - `INFLUXDB_META_HTTPS_CLIENT_CA_PATHS`
 - `INFLUXDB_META_HTTPS_CLIENT_CA_INCLUDE_SYSTEM`
 
-#### https-root-ca {metadata="v1.13.0+"}
+#### https-root-ca {metadata="v1.13.1+"}
 
 Default is unset.
 
@@ -305,7 +302,6 @@ Environment variables:
 
 - `INFLUXDB_META_HTTPS_ROOT_CA_PATHS`
 - `INFLUXDB_META_HTTPS_ROOT_CA_INCLUDE_SYSTEM`
--->
 
 #### gossip-frequency
 
