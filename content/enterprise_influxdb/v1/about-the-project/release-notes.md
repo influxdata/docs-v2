@@ -23,6 +23,16 @@ alt_links:
 > are included in this release. This page lists Enterprise-specific updates
 > only.
 
+> [!Important]
+> #### Default replication factor is 2
+>
+> In InfluxDB Enterprise v1.13.1, new databases and auto-created retention
+> policies use a default replication factor of `2` in clusters with two or more
+> data nodes when you don't specify a `REPLICATION` value.
+> Existing databases and retention policies aren't affected.
+> To use a replication factor of `3`, specify `REPLICATION 3` when you create a
+> database or retention policy.
+
 ### Features
 
 - Add mTLS support to Enterprise data and meta nodes, including certificate
