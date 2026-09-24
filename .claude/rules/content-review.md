@@ -31,6 +31,8 @@ Rules: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - Closing tags match opening tags
 - Required parameters are present
 - Callouts use GitHub-style syntax: `> [!Note]`, `> [!Warning]`, etc.
+- Conditional shortcodes wrap complete callouts, blockquotes, lists, or tables;
+  shortcode boundaries don't split Markdown containers
 
 ## Heading Hierarchy
 
@@ -77,6 +79,8 @@ Products defined in [data/products.yml](../../data/products.yml):
 - Changes to shared content affect multiple products — flag if unintentional
 - Claims and links match every consuming product's supported surface and sibling
   navigation; flag missing product targets as blocking mismatches
+- Conditional shared content renders as intact containers for every consumer;
+  verify the content and layout in a browser
 
 ## Severity
 
