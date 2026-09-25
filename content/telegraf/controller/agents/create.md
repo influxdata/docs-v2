@@ -91,4 +91,4 @@ to specify the `instance_id`.
 1. Open {{% product-name %}} and go to **Agents**.
 2. Confirm the agent appears in the list with the expected `instance_id`.
 3. Click the **More button ({{% lucide "ellipsis-vertical" %}})** and select
-  **{{% lucide "eye" %}} View Details** to verify metadata, labels, and the reporting rule assignment.
+  **{{% lucide "eye" %}} View Details** to verify metadata, [labels](/telegraf/controller/labels/), and the reporting rule assignment.
