@@ -4,7 +4,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { dirname, join, basename } from 'path';
+import { dirname, basename } from 'path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 
@@ -177,6 +177,26 @@ export function readJson(filePath) {
   }
   const content = readFileSync(filePath, 'utf8');
   return JSON.parse(content);
+}
+
+/**
+ * Read and parse a YAML file. Throws a message that names the file and says
+ * whether reading or parsing failed, so callers can surface it as-is.
+ * @param {string} filePath - Path to YAML file
+ * @returns {unknown} Parsed YAML (null for an empty document)
+ */
+export function readYaml(filePath) {
+  let content;
+  try {
+    content = readFileSync(filePath, 'utf8');
+  } catch (e) {
+    throw new Error(`cannot read ${filePath}: ${e.message}`, { cause: e });
+  }
+  try {
+    return yaml.load(content);
+  } catch (e) {
+    throw new Error(`cannot parse ${filePath}: ${e.message}`, { cause: e });
+  }
 }
 
 /**

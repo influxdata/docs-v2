@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://docs.influxdata.com/schemas/products.schema.json",
+  "title": "data/products.yml",
+  "description": "Shape of data/products.yml, the source of truth for product names, versions, and content paths. Validated by .ci/scripts/check-products-schema.js. Unknown fields are rejected so a typo in a field name fails here instead of silently rendering nothing; add new fields to this schema in the same change that introduces them.",
+  "type": "object",
+  "minProperties": 1,
+  "propertyNames": {
+    "pattern": "^[a-z][a-z0-9_]*$"
+  },
+  "additionalProperties": {
+    "$ref": "#/definitions/product"
+  },
+  "definitions": {
+    "version": {
+      "description": "A released patch version, MAJOR.MINOR.PATCH. Quote it in YAML so 1.10 is not parsed as the number 1.1. Feeds the latest-patch shortcode and every download URL.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "versionKey": {
+      "description": "A version identifier used as a key: v1, v2, core, cloud-serverless.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "perVersion": {
+      "description": "A map from version key to a string value.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/definitions/versionKey"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "perVersionVersion": {
+      "description": "A map from version key to a patch version.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/definitions/versionKey"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/version"
+      }
+    },
+    "product": {
+      "type": "object",
+      "required": ["name", "namespace", "menu_category", "latest", "schema"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "altname": { "type": "string", "minLength": 1 },
+        "namespace": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "menu_category": {
+          "type": "string",
+          "enum": ["self-managed", "managed", "tools", "other", "languages"]
+        },
+        "latest": {
+          "description": "The latest version key or MAJOR.MINOR label (v2.9, core, 1.1). Must be a string: quote numeric values in YAML.",
+          "type": "string",
+          "minLength": 1
+        },
+        "versions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/definitions/versionKey" }
+        },
+        "content_path": {
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "$ref": "#/definitions/perVersion" }
+          ]
+        },
+        "latest_patch": { "$ref": "#/definitions/version" },
+        "latest_patches": { "$ref": "#/definitions/perVersionVersion" },
+        "latest_cli": {
+          "oneOf": [
+            { "$ref": "#/definitions/version" },
+            { "$ref": "#/definitions/perVersionVersion" }
+          ]
+        },
+        "version_label": { "type": "string", "minLength": 1 },
+        "succeeded_by": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "list_order": { "type": "integer" },
+        "search_includes_resources": { "type": "boolean" },
+        "distributed_architecture": { "type": "boolean" },
+        "supports_flux": { "type": "boolean" },
+        "has_support_contract": { "type": "boolean" },
+        "product_issue_url": { "type": "string", "pattern": "^https://" },
+        "link": { "type": "string", "minLength": 1 },
+        "placeholder_host": { "type": "string", "minLength": 1 },
+        "scheme": { "type": "string", "enum": ["http", "https"] },
+        "label_group": {
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "$ref": "#/definitions/perVersion" }
+          ]
+        },
+        "oss_repo": {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "branch": {
+              "oneOf": [
+                { "type": "string", "minLength": 1 },
+                { "$ref": "#/definitions/perVersion" }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "detector_config": { "type": "object" },
+        "schema": { "type": "object" },
+        "ai_sample_questions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "ai_input_placeholder": { "type": "string" },
+        "ai_source_group_ids": { "type": "string" }
+      },
+      "patternProperties": {
+        "^(name|ai_sample_questions|ai_source_group_ids|ai_input_placeholder)__v[a-z0-9-]+$": {}
+      },
+      "additionalProperties": false,
+      "not": {
+        "description": "A product has latest_patch (single version) or latest_patches (per version), never both.",
+        "required": ["latest_patch", "latest_patches"]
+      }
+    }
+  }
+}
