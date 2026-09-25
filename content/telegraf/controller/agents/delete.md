@@ -38,7 +38,7 @@ Remove individual or multiple Telegraf agents from {{% product-name %}}.
 
 ## Automatically delete agents
 
-Use [reporting rules](/telegraf/controller/agents/reporting-rules) to
+Use [reporting rules](/telegraf/controller/agents/reporting-rules/) to
 automatically delete agents that have not reported in a specified amount of time.
 
 1.  [Create a reporting rule](/telegraf/controller/agents/reporting-rules/#create-a-reporting-rule)
