@@ -20,7 +20,7 @@ options.
 2.  Click the name of the configuration you want to edit or click the
     **More button ({{% lucide "ellipsis-vertical" %}})** and select
     **{{% lucide "eye" %}} View/Edit**.
-3.  Update global settings, labels, parameters, and plugin settings as needed.
+3.  Update global settings, [labels](/telegraf/controller/labels/assign/), parameters, and plugin settings as needed.
 4.  Review the TOML preview and resolve any validation errors.
 5.  Click **Save**.
 
