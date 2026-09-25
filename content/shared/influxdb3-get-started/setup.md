@@ -119,7 +119,9 @@ Provide the following:
 - _(Optional, v3.11+)_ `--mode all,webui`: Serves the InfluxDB 3 Explorer web UI
   from the server process.
   `all` doesn't include `webui`, so name `webui` explicitly.
-  This mode also requires `--webui-session-secret` and `--plugin-dir`.
+  This mode also requires `--webui-session-secret`.
+  Explorer is served at the root path of the server's HTTP address--for
+  example, <http://localhost:8181/>.
   For the requirements and the full startup command, see
   [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
 {{% /show-in %}}

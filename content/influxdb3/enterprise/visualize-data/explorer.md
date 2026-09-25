@@ -13,10 +13,13 @@ menu:
     identifier: visualize-with-explorer
 weight: 100
 metadata: [InfluxDB 3 Enterprise v3.11+]
+alt_links:
+  explorer: /influxdb3/explorer/install/
 related:
   - /influxdb3/enterprise/reference/config-options/#mode
   - /influxdb3/enterprise/reference/config-options/#web-ui
   - /influxdb3/explorer/, InfluxDB 3 Explorer documentation
+  - /influxdb3/explorer/install/, Install InfluxDB 3 Explorer
 ---
 
 Starting with {{% product-name %}} v3.11, the
@@ -52,10 +55,10 @@ To serve Explorer from your server, you need the following:
   {{% product-name %}} requires
   [`--webui-session-secret`](/influxdb3/enterprise/reference/config-options/#webui-session-secret)
   whenever `webui` mode is enabled, and doesn't start without it.
-- A plugin directory.
-  Pass the directory to
-  [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir)
-  and create it before you start the server.
+- _(Optional)_ A plugin directory.
+  Explorer runs without one.
+  To use the plugin features in Explorer, create the directory and pass it to
+  [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir).
 
 ## Check your version
 
@@ -84,13 +87,22 @@ Use `GET`; a `HEAD` request returns `404`.
 
 ## Start the server with Explorer enabled
 
-1. Create the plugin directory:
+1. Start the server with `webui` added to `--mode` and a session secret:
+
+   ```bash
+   influxdb3 serve \
+     --cluster-id cluster0 \
+     --node-id node0 \
+     --mode all,webui \
+     --webui-session-secret "$(openssl rand -base64 24)"
+   ```
+
+   To use the plugin features in Explorer, create a plugin directory and add
+   `--plugin-dir`:
 
    ```bash
    mkdir -p ./plugins
    ```
-
-2. Start the server with `webui` added to `--mode` and a session secret:
 
    ```bash
    influxdb3 serve \
@@ -100,6 +112,11 @@ Use `GET`; a `HEAD` request returns `404`.
      --plugin-dir ./plugins \
      --webui-session-secret "$(openssl rand -base64 24)"
    ```
+
+2. Open Explorer in your browser.
+   The server serves Explorer at the root path of its regular HTTP address and
+   port--for example, <http://localhost:8181/>.
+   Explorer doesn't use a separate port.
 
 `openssl rand -base64 24` generates a new secret on every start, which signs
 users out after each restart.
@@ -117,12 +134,9 @@ See [Manage the session secret](#manage-the-session-secret).
 > authenticating reverse proxy with TLS in front of any remote access.
 > To control which interface the server listens on, see
 > [`--http-bind`](/influxdb3/enterprise/reference/config-options/#http-bind).
-
-<!-- NEEDS VERIFICATION: the address and path that serve Explorer when `webui`
-mode is enabled. The 3.11 release notes don't state whether Explorer is served
-from the `--http-bind` address (default `0.0.0.0:8181`) at a path, or from a
-separate listener and port. Confirm before publishing and add an "Access
-Explorer" step here with the exact URL. -->
+> When browsers reach Explorer over HTTPS, also set
+> [`--webui-cookie-secure`](/influxdb3/enterprise/reference/config-options/#webui-cookie-secure)
+> so session cookies are never sent over HTTP.
 
 ## Connect Explorer to your server
 
@@ -132,10 +146,12 @@ same way you configure one in the standalone Docker Explorer--for example,
 For the connection fields and the steps to create a connection, see
 [Get started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/).
 
-<!-- NEEDS VERIFICATION: whether the integrated Explorer requires an operator
-token for the initial connection, and whether the server pre-populates the
-connection to itself. Per the 3.11 release notes draft, the connection setup
-landed with pending PRs still in progress. -->
+Choose the token for the connection based on what you need Explorer to do:
+
+- A [resource token](/influxdb3/enterprise/admin/tokens/resource/) is enough to
+  query and write data within the permissions you grant it.
+- To manage databases, tokens, and other resources from Explorer, use an
+  [admin token](/influxdb3/enterprise/admin/tokens/admin/).
 
 ## Manage the session secret
 
@@ -144,6 +160,9 @@ The server requires the option whenever `webui` mode is enabled.
 
 - **Generate the secret once and reuse it.**
   A secret that changes on restart invalidates every existing session.
+- **Use the same secret on every node that serves Explorer.**
+  When several nodes in a cluster run `webui` mode, they all need the same
+  secret.
 - **Keep the secret out of your shell history and process list.**
   Set the secret through the environment variable instead of the command line
   when you can.
@@ -166,30 +185,31 @@ difference from the
 
 ## Enable AI chat
 
-Explorer includes an AI chat feature that you can point at any
-OpenAI-compatible endpoint.
-To enable it, set
+Explorer includes an AI chat feature that supports OpenAI, Anthropic, and
+Gemini.
+Each user enters their own AI provider API key in Explorer's settings.
+You don't configure an API key on the server, and no server option turns the
+feature on.
+
 [`--webui-openai-base-url`](/influxdb3/enterprise/reference/config-options/#webui-openai-base-url)
-to the base URL of the endpoint:
+changes only where Explorer sends OpenAI requests.
+Set it to route OpenAI traffic to an OpenAI-compatible endpoint, such as a
+self-hosted model or a gateway:
 
 ```bash
 influxdb3 serve \
   --cluster-id cluster0 \
   --node-id node0 \
   --mode all,webui \
-  --plugin-dir ./plugins \
   --webui-session-secret "$WEBUI_SESSION_SECRET" \
   --webui-openai-base-url "https://your-openai-compatible-endpoint"
 ```
 
-Chat prompts, and any query results included with them, go to the endpoint you
-configure.
-Choose an endpoint that your data handling policies allow.
+The option doesn't affect Anthropic or Gemini requests.
 
-<!-- NEEDS VERIFICATION: how the AI chat endpoint authenticates. If an API key
-option or environment variable exists (for example, a `--webui-openai-*`
-credential option), document it here. `influxdb3 serve --help-all` lists every
-option in a specific build. -->
+Chat prompts, and any query results included with them, go to the AI provider
+the user selects.
+Choose providers and endpoints that your data handling policies allow.
 
 ## Choose between integrated and containerized Explorer
 
@@ -201,6 +221,9 @@ option in a specific build. -->
 | Application data | SQLite synchronized to object storage | SQLite in a mounted volume |
 | Works with InfluxDB 3 Core | No | Yes |
 
+The container isn't replaced by the integrated UI.
+It's required for Core and for Enterprise earlier than v3.11, and it still
+works with v3.11 and later.
 Use the container when you run Core, when you run an Enterprise release
 earlier than v3.11, or when you want Explorer to run separately from the
 database server--for example, on an operator workstation.
