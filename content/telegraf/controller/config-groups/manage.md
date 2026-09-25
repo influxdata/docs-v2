@@ -13,7 +13,6 @@ weight: 101
 related:
   - /telegraf/controller/configs/create/
   - /telegraf/controller/config-groups/use/
-  - /telegraf/controller/labels/
 ---
 
 Create a configuration group, then manage its member configurations, order,
@@ -88,7 +87,6 @@ value, and confirm.
 
 Use the **Labels** box on the group detail page to assign or remove labels.
 Labels on groups work the same way as labels on configurations and agents.
-For details, see [Manage labels](/telegraf/controller/labels/).
 
 ## Delete a configuration group
 

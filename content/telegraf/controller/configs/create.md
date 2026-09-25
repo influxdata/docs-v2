@@ -46,7 +46,7 @@ The {{% product-name %}} **Code Editor** is an in-browser TOML editor that lets
 you upload or manually write Telegraf configuration TOML.
 
 _For detailed information about using the Code Editor, see
-[Use the Code Editor](/telegraf/controller/configs/ui/code-editor)._
+[Use the Code Editor](/telegraf/controller/configs/ui/code-editor/)._
 
 {{< img-hd src="/img/telegraf/controller-code-editor.png" alt="Telegraf Controller Code Editor" />}}
 
@@ -57,7 +57,7 @@ Telegraf plugins in a Telegraf configuration. The Telegraf Builder is
 currently a beta feature.
 
 _For detailed information about using the Telegraf Builder, see
-[Use the Telegraf Builder](/telegraf/controller/configs/ui/telegraf-builder)._
+[Use the Telegraf Builder](/telegraf/controller/configs/ui/telegraf-builder/)._
 
 {{< img-hd src="/img/telegraf/controller-telegraf-builder.png" alt="Telegraf Builder in Telegraf Controller" />}}
 
