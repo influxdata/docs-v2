@@ -37,6 +37,14 @@ For the log messages worth alerting on before they become problems, see
 - **Agent heartbeats return `401 Invalid token`**: the heartbeat service
   cannot validate tokens, often because its token cache cannot load.
   See [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
+- **The heartbeat service health indicator shows a warning or an error**:
+  the indicator message names the problem.
+  Token and 401 messages point to
+  [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token),
+  and database messages point to
+  [Troubleshoot the database](/telegraf/controller/admin/troubleshoot/database/).
+  For the full list of indicator states, see
+  [Heartbeat service health](/telegraf/controller/admin/monitor/#heartbeat-service-health).
 - **Agents log `x509: certificate signed by unknown authority`**: agents do
   not trust the server's TLS certificate.
   See [Agents do not trust the server certificate](/telegraf/controller/admin/troubleshoot/agents/#agents-do-not-trust-the-server-certificate).
