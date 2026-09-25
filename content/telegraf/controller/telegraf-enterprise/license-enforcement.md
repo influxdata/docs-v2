@@ -74,8 +74,8 @@ operators have advance notice before requests start being rejected.
 
 A valid Telegraf Enterprise license unlocks the following features:
 
-- [Audit logging](/telegraf/controller/audit-logs/)
-- [High availability](/telegraf/controller/high-availability/)
+- [Audit logging](/telegraf/controller/admin/audit-logs/)
+- [High availability](/telegraf/controller/admin/high-availability/)
 - [LDAP authentication](/telegraf/controller/authentication/ldap/)
 - [OIDC authentication](/telegraf/controller/authentication/oidc/)
 

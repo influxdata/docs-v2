@@ -315,7 +315,7 @@ certificate and key.
 - [ssl-key-path](#ssl-key-path)
 
 For a full walkthrough that includes configuring agents to trust the certificate,
-see [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+see [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/).
 
 > [!Note]
 > #### Provide both the certificate and the key
@@ -391,8 +391,8 @@ certificate, {{% product-name %}} verifies against a bundled set of public
 root certificates (the Mozilla root store). Certificates issued by a private
 CA, including Amazon RDS, fail verification unless you provide the CA
 certificate. If database certificate verification fails, agent heartbeats are
-rejected; see
-[Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+rejected. See
+[Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
 
 > [!Note]
 > #### Client certificate authentication is not supported
@@ -1095,7 +1095,7 @@ lets you run multiple {{% product-name %}} nodes against a shared PostgreSQL
 database, with one node elected leader. These options are read at startup only.
 High availability requires PostgreSQL; setting `HA_ENABLED=true` with a SQLite
 [`database`](#database) stops startup with an error. For a full walkthrough, see
-[Deploy a highly available cluster](/telegraf/controller/high-availability/deploy/).
+[Deploy a highly available cluster](/telegraf/controller/admin/high-availability/deploy/).
 
 - [ha-enabled](#ha-enabled)
 - [ha-poll-interval-ms](#ha-poll-interval-ms)
@@ -1136,7 +1136,7 @@ only when [`ha-enabled`](#ha-enabled) is `true`.
 Audit logging is a [Telegraf Enterprise](/telegraf/enterprise/)
 feature. All of the following options are read at startup only; changes
 after startup require a restart. For a task-based walkthrough, see
-[Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+[Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 
 - [audit-enabled](#audit-enabled)
 - [audit-log-retention](#audit-log-retention)
