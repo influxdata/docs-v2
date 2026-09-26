@@ -10,11 +10,88 @@ related:
   - /influxdb3/explorer/
 ---
 
-To upgrade, pull the latest Docker image:
+To upgrade, use the method you run Explorer with:
+
+{{< expand-wrapper >}}
+{{% expand "Integrated web UI (InfluxDB 3 Enterprise)" %}}
+Explorer is built into InfluxDB 3 Enterprise 3.11 and later.
+[Upgrade InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/upgrade/)
+and start it with `--mode all,webui`.
+{{% /expand %}}
+{{% expand "Standalone Docker image" %}}
+Pull the latest image:
 
 ```sh
 docker pull influxdata/influxdb3-ui
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## v1.11.0 {date="2026-09-30"}
+
+#### Features
+
+- **Password sign-in**: Sign in with a username and password when connected to an InfluxDB 3 Enterprise server that uses [user authentication](/influxdb3/enterprise/admin/security/manage-users/).
+  On first run, create the administrator account and save the operator token.
+- **Single sign-on**: Sign in through an OpenID Connect (OIDC) provider.
+- **Role-based access**: Explorer shows the pages and actions your role allows.
+  After upgrading, choose whether to keep your existing dashboards and saved queries; stored keys and tokens are not carried over.
+- **Manage Users**: Add users with password, SSO, or both; assign roles; require a password reset; and delete users from the new **Manage Users** page.
+  Change your own password from the profile menu.
+- **Security navigation section**: Find **Tokens** and **Users** under a new **Security** section in the navigation.
+- **New visualization types**: Visualize query results as Area, Single Stat, Gauge, Pie, Scatter, and Ranking charts in the Data Explorer and in dashboard cells.
+- **EXPLAIN in SQL**: Run `EXPLAIN` and `EXPLAIN ANALYZE` statements in the SQL editor to view query plans.
+- **Flux to SQL feedback**: Rate a conversion and add an optional comment.
+
+#### Bug fixes
+
+- **Query mode**: Enforce read-only access on the server. In query mode, admin API endpoints now refuse requests instead of only hiding the admin pages.
+- **Security**: Stop sending the InfluxDB token to plugin registry URLs, refuse registry fetches to internal addresses, and update dependency versions.
+- **SQL**: Fix `SELECT *` over CTEs and subqueries without a time column failing, and show the reason a query was rejected instead of "Something went wrong".
+- **Data Explorer**: Keep the Export button visible and disable it when there is nothing to export, and stop paging through results from adding history entries and re-fetching chart data.
+- **Transform Data**: Fix Rename Table and Filter Data transformations that deployed but never wrote data, and show an error status when a trigger's latest run fails.
+- **Downsample**: Fix jobs with minute-level intervals writing one row per series instead of one row per interval.
+- **Plugins**: Fix deploys failing on InfluxDB 3.12 when a plugin has no Python dependencies, show why an install failed in the deploy dialog, and stop reporting successful package installs as errors.
+- **Plugins**: Show the plugin's response status and body in Run Now, including failures, and export trigger logs as plain text.
+- **Plugins**: Hide the `_internal` database from deploy dialogs, fix the copied CLI install command, display plugin names as provided by the registry, and make the Signal Generator plugin available for InfluxDB 3 Cloud servers.
+- **Connections**: Accept database-scoped tokens when adding an InfluxDB 3 Enterprise server, and report a refused token instead of showing empty states.
+- **Connections**: Explain an untrusted TLS certificate instead of reporting the server as unreachable, honor `DEFAULT_INFLUX_DATABASE`, and fix the Enterprise start command in the Configure Servers onboarding steps.
+- **System overview**: Fix status colors and labels in the query log, fix the query history failing on Enterprise while a query is running, and fix the request count that showed the number of metric series.
+- **Query history**: Fix search returning no results for terms containing an underscore.
+- **Command line builder**: Show the product name instead of a number in the start command hint.
+- **Caches**: Fix the empty-state message on the Distinct Value Caches tab.
+- **Version display**: Show the correct release version in the sidebar.
+- **Layout**: Fix page header button sizing and dashboard list spacing.
+
+## v1.10.1 {date="2026-08-03"}
+
+#### Bug fixes
+
+- **Upgrades**: Restore dashboards that disappeared after upgrading from v1.9.0 with a pre-configured default server.
+- **Charts**: Plot the full SQL query result instead of only the rows on the current table page.
+- **SQL**: Fix `SHOW` and `DESCRIBE` statements failing in the Data Explorer.
+- **Query history**: Preserve the query language so saved InfluxQL queries load in the InfluxQL editor.
+- **Databases**: Keep deleted databases hidden in database selectors unless you choose to show them.
+- **Dashboards**: Restore vertical scrolling on dashboard pages.
+- **Plugins**: Show a clear message when the Processing Engine isn't enabled, and fix the heading of the Add Registry dialog.
+- **Write data**: Improve error messages for CSV and JSON imports.
+- **Security**: Update dependency versions.
+
+## v1.10.0 {date="2026-07-29"}
+
+#### Features
+
+- **Plugin registries**: The Plugin Library now loads plugins from the InfluxData plugin registry, and you can add other registries by name and index URL to browse and install plugins from additional sources.
+  Plugin cards show logos, New and Beta tags, and the required InfluxDB version, and each plugin page includes a copyable CLI install command.
+- **Server setup guide**: The Configure Servers empty state walks you through connecting your first server, with copyable CLI commands for finding the server URL and creating an admin token.
+- **Configure AI in place**: Configure a missing AI provider from a dialog without leaving the current page.
+- **Stock Portfolio Tracker**: Generate live sample data with the new Stock Portfolio Tracker plugin.
+- **Faster page loads**: Admin pages and the query page load on demand.
+
+#### Bug fixes
+
+- **Queries**: Loading a saved InfluxQL query opens the InfluxQL tab.
+- **Charts**: Fit the time axis to the selected time range instead of the data extent.
 
 ## v1.9.0 {date="2026-06-22"}
 
