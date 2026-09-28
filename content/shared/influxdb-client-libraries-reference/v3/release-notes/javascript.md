@@ -2,7 +2,10 @@
 
 ## v2.4.0 {date="2026-08-27"}
 
-> :warning: **Breaking Changes**: Node v20 support is dropped. Node v22 or newer is now required ([#881](https://github.com/InfluxCommunity/influxdb3-js/pull/881)).
+> [!Important]
+> #### Breaking Change: Node v22 required for v2.4.0
+>
+> With `v2.4.0`, Node v20 support is dropped. Node v22 or newer is now required ([#881](https://github.com/InfluxCommunity/influxdb3-js/pull/881)).
 
 ### Bugfix
 
