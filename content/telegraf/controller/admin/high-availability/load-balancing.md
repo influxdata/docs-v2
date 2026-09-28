@@ -5,17 +5,19 @@ description: >
   Put a Telegraf Controller high-availability cluster behind a load balancer.
   Health-check each node with the unauthenticated health endpoints and route web
   interface, API, and agent heartbeat traffic to healthy nodes.
+aliases:
+  - /telegraf/controller/high-availability/load-balancing/
 menu:
   telegraf_controller:
     name: Configure a load balancer
     parent: High availability
-weight: 102
+weight: 202
 related:
-  - /telegraf/controller/high-availability/deploy/
+  - /telegraf/controller/admin/high-availability/deploy/
   - /telegraf/controller/reference/config-options/
 ---
 
-A [high-availability](/telegraf/controller/high-availability/) cluster runs
+A [high-availability](/telegraf/controller/admin/high-availability/) cluster runs
 behind a load balancer that health-checks each node and routes around any node
 that fails. {{% product-name %}} exposes unauthenticated health endpoints for
 this purpose. This page describes those endpoints and shows worked
