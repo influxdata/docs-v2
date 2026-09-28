@@ -142,7 +142,7 @@ influxdb3_explorer:
   list_order: 1
   search_includes_resources: false
   latest: explorer
-  latest_patch: 1.9.0
+  latest_patch: 1.11.0
   placeholder_host: localhost:8080
   scheme: http
   ai_sample_questions:
