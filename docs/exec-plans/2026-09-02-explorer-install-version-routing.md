@@ -9,15 +9,14 @@ Restructure the InfluxDB 3 Explorer install documentation so that each page
 states which Explorer versions and which InfluxDB 3 editions it applies to.
 After this change, `/influxdb3/explorer/install/` routes readers by version
 instead of presenting Docker as the only deployment method, and the Docker
-instructions live on a child page that declares its version ceiling in
-frontmatter, in the lede, and in the Markdown twin.
+instructions live on a child page that states which products they support.
 
 ## Why now
 
-Explorer v1.9 is the last release distributed as a standalone Docker container.
-Starting with v1.10, Explorer is included with InfluxDB 3 Enterprise and is
-deployed as WebAssembly (WASM). The current pages have no version or edition
-scoping:
+Starting with InfluxDB 3 Enterprise v3.11, Explorer is included with the
+server and deployed as WebAssembly (WASM).
+The standalone Docker container remains available for Core and Enterprise.
+The original pages have no version or edition scoping:
 
 - `content/influxdb3/explorer/install.md` documents only Docker.
 - `content/influxdb3/explorer/_index.md` repeats a `docker pull` quick start.
@@ -27,9 +26,8 @@ scoping:
   the JSON-LD `SoftwareApplication` node.
 
 Each of these tells readers, search engines, retrieval systems, and coding
-agents that Explorer is a Docker container that works with Core. Doing the
-restructure before v1.10 ships means the corpus and search index carry the
-version scoping before the release changes the answer.
+agents only about the Docker deployment.
+The restructure adds the integrated Enterprise path without removing Docker.
 
 Issue #6702 reports the related gap: the docs never state outright which
 distributions exist, so a docs-grounded assistant can only infer the
@@ -49,18 +47,13 @@ limitation.
   `#set-file-permissions-for-upgrades`.
 - **Do not redirect `/install/` to `/install/docker/`.** A redirect would send
   every "install Explorer" search result and every agent's first URL guess to
-  the deprecated path.
-- **Use `metadata: [Explorer v1.9 and earlier]` rather than
-  `introduced`/`deprecated`.** Both render into the `ul.metadata` list under the
-  h1 and into the first line of the Markdown twin, verified against
-  `/influxdb3/clustered/reference/cli/influxctl/query/index.md` (`* influxctl
-  2.4.0+`) and `/telegraf/v1/input-plugins/jenkins/index.md` (`* Telegraf
-  v1.9.0+`). The `introduced`/`deprecated` pair renders as a range
-  ("v1.0.0 – v1.10.0"), which is ambiguous about the last working release.
-  `metadata` states the ceiling exactly.
-- **Keep the Docker page published and indexed.** Explorer v1.9 remains
-  supported, and removing or hiding the instructions creates a retrieval dead
-  end. A page that states its own version ceiling is not misleading.
+  the Docker path, even when they run Enterprise v3.11 or later.
+- **State Docker compatibility without a version ceiling.** Product review in
+  [PR #7788](https://github.com/influxdata/docs-v2/pull/7788) confirmed that
+  Docker remains supported with Enterprise v3.11 and later.
+- **Keep the Docker page published and indexed.** Docker remains required for
+  Core and Enterprise earlier than v3.11, and remains optional for later
+  Enterprise releases.
 - **Use `cascade.prepend` on `explorer/_index.md` for the transition notice,
   not a template banner.** `article/stable-version.html` is gated on a
   hardcoded product whitelist and a `/vN/` URL segment, neither of which
@@ -68,7 +61,7 @@ limitation.
   (see `.claude/rules/layouts.md`). `article/special-state.html` has the same
   problem. `cascade.prepend` is documented in `DOCS-FRONTMATTER.md` and needs no
   template change.
-- **Accept the twin cost of the cascaded notice, and remove it after v1.11.**
+- **Accept the twin cost of the cascaded notice, and remove it at v1.11.**
   Prepended content appears in every Explorer Markdown twin and in
   `llms-full.txt`, which makes the first chunk of all 12 Explorer pages more
   alike (the twin-hygiene problem tracked in
@@ -85,8 +78,8 @@ limitation.
 
 ## Explicitly out of scope
 
-- WASM deployment instructions under `/influxdb3/enterprise/`. Those wait until
-  v1.10 ships; this change only prepares the routing and cross-links.
+- New Explorer feature pages and the v1.11 release notes. This change only
+  prepares the routing and cross-links.
 - `data/products.yml` updates to `latest_patch` and `schema.operating_system`.
   Both change on release day, not before.
 - The `localhost` connection failure reported in
@@ -97,12 +90,12 @@ limitation.
 
 ## How to update
 
-The Explorer version ceiling appears in four places on
-`content/influxdb3/explorer/install/docker.md`: the `metadata` frontmatter, the
-`description` frontmatter, the lede, and the transition notice cascaded from
-`content/influxdb3/explorer/_index.md`. Update the notice in `_index.md` once
-and it changes on every Explorer page. Remove the `cascade.prepend` block when
-v1.11 ships.
+The Docker compatibility statement appears in the `metadata` frontmatter,
+the `description` frontmatter, and the lede of
+`content/influxdb3/explorer/install/docker.md`.
+The transition notice cascades from `content/influxdb3/explorer/_index.md`
+to every Explorer page.
+Remove the `cascade.prepend` block when v1.11 ships.
 
 ## Verification
 
@@ -122,7 +115,7 @@ v1.11 ships.
    curl -s --compressed https://docs.influxdata.com/influxdb3/explorer/install/docker/index.md | head -20
    ```
 
-   The Docker twin starts with `* Explorer v1.9 and earlier` above the lede.
+   The Docker twin starts with `* InfluxDB 3 Core and Enterprise` above the lede.
 6. Ask the documentation MCP server "How do I install InfluxDB 3 Explorer?"
    after the corpus rebuilds. The answer routes by version instead of returning
    `docker run`.

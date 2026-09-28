@@ -1,7 +1,7 @@
 ---
 title: InfluxDB 3 Explorer documentation
 description: >
-  InfluxDB 3 Explorer is a standalone web-based interface for interacting with InfluxDB 3 Core and Enterprise. Visualize, query, and manage your time series data efficiently.
+  InfluxDB 3 Explorer is a web-based interface for InfluxDB 3 Core and Enterprise. Visualize, query, and manage your time series data efficiently.
 menu:
   influxdb3_explorer:
     name: InfluxDB 3 Explorer
@@ -15,13 +15,14 @@ cascade:
     >
     > Starting with InfluxDB 3 Enterprise v3.11, Explorer is included with
     > the server and runs as WebAssembly (WASM)--there's no separate
-    > container to install. For InfluxDB 3 Core, or Enterprise earlier than
-    > v3.11, Explorer runs as a standalone Docker container. See
+    > container to install. Docker is required for InfluxDB 3 Core and
+    > Enterprise earlier than v3.11, and remains an option for later
+    > Enterprise releases. See
     > [Install Explorer](/influxdb3/explorer/install/) to find the
     > instructions for your server.
 ---
 
-InfluxDB 3 Explorer is the standalone web application designed for visualizing, querying, and managing your data stored in InfluxDB 3 Core and Enterprise.
+InfluxDB 3 Explorer is the web application for visualizing, querying, and managing your data stored in InfluxDB 3 Core and Enterprise.
 Explorer provides an intuitive interface for interacting with your time series data, streamlining database operations and enhancing data insights.
 
 ## Key features
@@ -39,8 +40,8 @@ How you install {{% product-name %}} depends on your InfluxDB 3 server:
 - **InfluxDB 3 Enterprise v3.11 and later** includes Explorer as an
   integrated WASM component. See
   [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
-- **InfluxDB 3 Core, or Enterprise earlier than v3.11**, runs Explorer as a
-  standalone Docker container:
+- **InfluxDB 3 Core and Enterprise** can run Explorer as a standalone Docker
+  container. Docker is required for Core and Enterprise earlier than v3.11:
 
   ```sh
   # Pull the Docker image
