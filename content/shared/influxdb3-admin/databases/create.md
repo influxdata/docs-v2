@@ -7,6 +7,7 @@ to create a database in {{< product-name >}}.
 - [Create a database using the HTTP API](#create-a-database-using-the-http-api)
 {{% hide-in "cloud" %}}- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer){{% /hide-in %}}
 - [Retention period](#retention-period)
+- [Schema mode](#schema-mode)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Database limit](#database-limit)
@@ -19,6 +20,7 @@ to create a database. Provide the following:
 - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 - {{< product-name >}} {{% token-link "admin" "admin" %}}
 - _(Optional)_ [Retention period](#retention-period). If omitted, data doesn't expire.
+- _(Optional)_ [Schema mode](#schema-mode). If omitted, the database uses `implicit` schema mode.
 
 {{% show-in "core" %}}
 > [!Important]
@@ -45,6 +47,15 @@ influxdb3 create database \
 influxdb3 create database DATABASE_NAME
 ```
 
+{{% show-in "enterprise" %}}
+<!--pytest.mark.skip-->
+
+```sh{placeholders="DATABASE_NAME"}
+# Create a database with explicit schema mode
+influxdb3 create database --schema-mode explicit DATABASE_NAME
+```
+{{% /show-in %}}
+
 Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
@@ -63,6 +74,7 @@ Include the following in your request:
 - **Request body** (JSON object):
   - `db` _(string, required)_: Database name
   - `retention_period` _(string, optional)_: [Retention period](#retention-period). If omitted, data doesn't expire.
+  - `schema_mode` _(string, optional)_: [Schema mode](#schema-mode)--`implicit` or `explicit`. Defaults to `implicit`.
 
 {{% show-in "core" %}}
 > [!Important]
@@ -101,6 +113,19 @@ curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   }'
 ```
 
+{{% show-in "enterprise" %}}
+```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
+# Create a database with explicit schema mode
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "schema_mode": "explicit"
+  }'
+```
+{{% /show-in %}}
+
 Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
@@ -137,6 +162,7 @@ For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3
 {{% /hide-in %}}
 
 - [Retention period](#retention-period)
+- [Schema mode](#schema-mode)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Database limit](#database-limit)
@@ -193,6 +219,38 @@ For more information about retention periods, see [Data retention](/influxdb3/ve
 > periods override database retention periods.
 >
 > For more information, see [Retention period precedence](/influxdb3/enterprise/reference/internals/data-retention/#retention-period-precedence).
+{{% /show-in %}}
+
+## Schema mode
+
+Every database has a _schema mode_ that controls where table and column
+definitions come from:
+
+- **`implicit`** _(default)_: Tables and columns are created automatically
+  from the line protocol you write.
+- **`explicit`**: Tables and columns must be declared with the
+  [`influxdb3 create table` command](/influxdb3/version/reference/cli/influxdb3/create/table/)
+  or the `POST /api/v3/configure/table` API before you can write to them.
+  A write that names an undeclared table or column is rejected.
+
+Schema mode is set when you create the database and can't be changed afterward.
+If you need a different schema mode, create a new database and migrate your data.
+
+{{% show-in "core" %}}
+> [!Important]
+> #### Explicit schema mode requires Enterprise
+>
+> {{< product-name >}} only supports `implicit` schema mode.
+> A request to create a database with `explicit` schema mode fails with an error.
+>
+> For explicit schema enforcement, consider upgrading to
+> [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+For more information, including how writes are rejected and how to evolve a
+declared schema, see
+[Enforce a schema](/influxdb3/enterprise/admin/databases/enforce-schema/).
 {{% /show-in %}}
 
 ## Database naming restrictions

@@ -16,13 +16,16 @@ A node with `--mode=process` but no `--plugin-dir` won't function correctly.
 
 #### Cluster behavior
 
-In a multi-node cluster, configure `--plugin-dir` on **every** node, regardless of the node's other modes.
-The Enterprise catalog registers triggers cluster-wide and every node validates them at startup; if the plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
+In a multi-node cluster, every process node, meaning any node with `--plugin-dir` configured, follows the write-ahead log of every ingest node through object storage, and can run schedule and request triggers.
 
-`--mode` does not gate trigger execution.
-A trigger executes on the node(s) that match its [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) — by default, every node with `--plugin-dir` configured.
-For schedule and request triggers in a cluster, pin execution explicitly with `--node-spec nodes:<node-id>` so that only one node runs the trigger.
+What gates trigger execution is `--plugin-dir`, not `--mode`.
+A trigger's [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) selects which process nodes' schedulers own it, by default `all`, every process node.
+Each owning scheduler spreads its runs across itself and the other running process nodes that advertise an internode address (`--internode-bind-addr`); a node that doesn't have the trigger's plugin file in its `--plugin-dir` declines the run, and the scheduler tries another node.
 
+For schedule and request triggers in a cluster, pin execution explicitly with `--node-spec nodes:<node-id>` so that only one node's scheduler owns the trigger.
+For a WAL trigger, pin to a single node to avoid running once per process node for each write.
+
+For the full trigger execution model, including scheduler state persistence and restart behavior, see [Run the Processing Engine in a cluster](/influxdb3/enterprise/admin/processing-engine-cluster/).
 For cluster node configuration examples, see [Configure process-capable nodes](/influxdb3/enterprise/admin/clustering/#configure-process-capable-nodes).
 {{% /show-in %}}
 

@@ -18,6 +18,14 @@ Each file becomes a separate import job.
 Imported data is written to your object storage and becomes queryable after
 the compactor processes it.
 
+This command needs the `write` action on the target database, for example,
+`db:DATABASE_NAME:write`.
+For files that already sit in {{< product-name >}}'s own object store, or in
+an S3 bucket that the server can reach directly, use
+[`influxdb3 import from-object-store`](/influxdb3/enterprise/reference/cli/influxdb3/import/from-object-store/)
+instead: the server reads the files itself, so file bytes never stream
+through the `influxdb3` client.
+
 ## Usage
 
 <!--pytest.mark.skip-->
@@ -30,17 +38,19 @@ influxdb3 import upload [OPTIONS] [PATH]
 
 | Argument | Description |
 | :------- | :---------- |
-| `[PATH]` | Path to a Parquet file or a directory. If a directory, all `*.parquet` files are processed recursively and one import job is created per file. |
+| `[PATH]` | Path to a Parquet file or a directory, or an object store URL (`s3://bucket/prefix`, `gs://bucket/prefix`, `az://container/prefix`, `file:///path`). If a directory or a URL prefix, all `*.parquet` files are processed recursively and one import job is created per file. URL sources read credentials from the environment; use `--source-opt` to set or override store options. |
 
 ## Options
 
 | Option |                                   | Description                                                                                                                                                                                  | Default                   | Environment variable        |
 | :----- | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------ | :-------------------------- |
-|        | `--host <HOST_URL>`               | Host URL of the InfluxDB 3 Enterprise server                                                                                                                                                 | `http://127.0.0.1:8181`   | `INFLUXDB3_HOST_URL`        |
+| `-H`   | `--host <HOST_URL>`               | Host URL of the InfluxDB 3 Enterprise server                                                                                                                                                 | `http://127.0.0.1:8181`   | `INFLUXDB3_HOST_URL`        |
 |        | `--token <AUTH_TOKEN>`            | Authentication token                                                                                                                                                                         |                           | `INFLUXDB3_AUTH_TOKEN`      |
-|        | `--database <DATABASE>`           | Target database name                                                                                                                                                                         |                           | `INFLUXDB3_DATABASE_NAME`   |
-|        | `--table <TABLE>`                 | Target table name                                                                                                                                                                            |                           |                             |
-|        | `--column <COLUMN>`               | Map a Parquet column to an InfluxDB type: `<column>:<type>`. Supported types: `i64`, `u64`, `f64`, `bool`, `string`, `time`, `tag`. Can be specified multiple times. Unmapped columns default to field values. | |                             |
+| `-d`   | `--database <DATABASE>`           | Target database name                                                                                                                                                                         |                           |                             |
+| `-t`   | `--table <TABLE>`                 | Target table name                                                                                                                                                                            |                           |                             |
+|        | `--column <COLUMN>`               | Map a Parquet column to an InfluxDB type: `<column>=<type>`. Supported types: `i64`, `u64`, `f64`, `bool`, `string`, `time`, `tag`. Can be specified multiple times. Unmapped columns default to field values. | |                             |
+|        | `--source-opt <KEY=VALUE>`        | Object store option for a URL source, for example `aws_region=us-west-2`. Overrides environment variables. Can be specified multiple times. Ignored for local paths.                        |                           |                             |
+|        | `--concurrency <CONCURRENCY>`     | Maximum number of files to upload concurrently                                                                                                                                               | `8`                        |                             |
 |        | `--tls-ca <CA_CERT>`              | Path to a custom TLS certificate authority                                                                                                                                                   |                           | `INFLUXDB3_TLS_CA`          |
 |        | `--tls-no-verify`                 | Disable TLS certificate verification (not recommended in production)                                                                                                                         |                           | `INFLUXDB3_TLS_NO_VERIFY`   |
 | `-h`   | `--help`                          | Print help information                                                                                                                                                                       |                           |                             |
@@ -109,8 +119,29 @@ influxdb3 import upload \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   --table TABLE_NAME \
-  --column timestamp:time \
-  --column host:tag \
-  --column cpu_usage:f64 \
+  --column timestamp=time \
+  --column host=tag \
+  --column cpu_usage=f64 \
   /path/to/metrics.parquet
+```
+
+### Upload Parquet files from an S3 bucket
+
+Pass an `s3://` URL as the source to upload files that your machine can
+reach directly.
+File bytes still stream through the `influxdb3` client. For files that
+already sit in object storage {{< product-name >}} can reach itself, use
+[`influxdb3 import from-object-store`](/influxdb3/enterprise/reference/cli/influxdb3/import/from-object-store/)
+instead.
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" }
+influxdb3 import upload \
+  --host http://localhost:8181 \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  --table TABLE_NAME \
+  --source-opt aws_region=us-west-2 \
+  s3://my-bucket/parquet-exports/
 ```
