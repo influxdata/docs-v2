@@ -6,6 +6,7 @@ Learn how to avoid unexpected results and recover from errors when writing to
   - [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
+- [Unexpected duplicate-point results](#unexpected-duplicate-point-results)
 {{% show-in "core,enterprise" %}}- [Troubleshoot write performance issues](#troubleshoot-write-performance-issues)
   - [Use debug logs for troubleshooting](#use-debug-logs-for-troubleshooting){{% /show-in %}}
 
@@ -67,6 +68,36 @@ InfluxDB rejects points that don't match the schema of existing data.
 Check for [field data type](/influxdb3/version/reference/syntax/line-protocol/#data-types-and-format)
 differences between the rejected data point and points within the same
 database--for example, did you attempt to write `string` data to an `int` field?
+
+## Unexpected duplicate-point results
+
+If queries return an older value for a point you overwrote, or return
+different values for the same point over time, check whether your writes
+contain [duplicate points](/influxdb3/version/reference/data-model/#point-identity)--points
+with the same table, tag set, and timestamp.
+
+{{% product-name %}} doesn't guarantee which duplicate write is retained,
+regardless of the delay between writes.
+Queries may return either version, and either version may be permanently
+stored.
+The retained version depends on the following:
+
+- Write rate
+- Write buffer and snapshot timing
+- Compaction state{{% show-in "enterprise" %}}
+- In clusters with multiple ingest nodes, which node received each write{{% /show-in %}}
+
+To investigate, do the following:
+
+1.  Query the table for the table, tag set, and timestamp of the unexpected
+    point, and compare the result to the values you wrote.
+2.  Check your write client for retries or repeated batches that write the same
+    point more than once.
+3.  Check whether your client assigns the same timestamp to successive changes
+    (for example, by truncating timestamps to a coarse precision).
+
+To reliably track the latest value, write each change as a new point.
+See [Handle duplicate points](/influxdb3/version/write-data/best-practices/duplicate-points/).
 
 {{% show-in "core,enterprise" %}}
 

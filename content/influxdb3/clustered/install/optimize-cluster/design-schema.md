@@ -19,7 +19,7 @@ recommendation. For detailed recommendations, see
 
 ## Understand the difference between tags and fields
 
-In the [InfluxDB data structure](/influxdb3/clustered/write-data/best-practices/schema-design/#influxdb-data-structure),
+In the [InfluxDB data structure](/influxdb3/clustered/reference/data-model/#data-structure),
 there are three main "categories" of information--timestamps, tags, and fields.
 Understanding the difference between what should be a tag and what should be a
 field is important when designing your schema.

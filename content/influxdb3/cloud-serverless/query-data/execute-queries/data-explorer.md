@@ -29,7 +29,7 @@ Choose between **visualization types** for your query.
 
     {{< nav-icon "data-explorer" >}}
 
-2. Activate the **SQL Sync** toggle in the **Schema Browser** pane to build your SQL query as you select [fields and tag values](/influxdb3/cloud-serverless/write-data/best-practices/schema-design/#influxdb-data-structure).
+2. Activate the **SQL Sync** toggle in the **Schema Browser** pane to build your SQL query as you select [fields and tag values](/influxdb3/cloud-serverless/reference/data-model/#data-structure).
    - Typing within the script editor disables **SQL Sync**.
    - If you reenable **SQL Sync**, any selection changes you made in the **Schema Browser** are copied to the script editor.
 3. Select a **Bucket** to define your data source.

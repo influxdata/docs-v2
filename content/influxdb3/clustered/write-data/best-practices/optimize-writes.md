@@ -424,8 +424,8 @@ Deduplicating your data can reduce your write payload size and resource usage.
 > be retained in storage.
 >
 > For recommended patterns and anti-patterns to avoid, see
-> [Duplicate points](/influxdb3/clustered/reference/syntax/line-protocol/#duplicate-points)
-> in the line protocol reference.
+> [Handle duplicate points](/influxdb3/clustered/write-data/best-practices/duplicate-points/)
+> in the write best practices.
 
 Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup)
 to filter data whose field values are exact repetitions of previous values.

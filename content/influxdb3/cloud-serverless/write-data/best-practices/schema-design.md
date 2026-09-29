@@ -17,7 +17,6 @@ Use the following guidelines to design your [schema](/influxdb3/cloud-serverless
 for simpler and more performant queries.
 
 - [InfluxDB data structure](#influxdb-data-structure)
-  - [Primary keys](#primary-keys)
   - [Tags versus fields](#tags-versus-fields)
 - [Schema restrictions](#schema-restrictions)
   - [Do not use duplicate names for tags and fields](#do-not-use-duplicate-names-for-tags-and-fields)
@@ -35,38 +34,12 @@ for simpler and more performant queries.
 
 ## InfluxDB data structure
 
-The InfluxDB data model organizes time series data into buckets and measurements.
-A bucket can contain multiple measurements. Measurements contain multiple
-tags and fields.
-
-- **Bucket**: Named location where time series data is stored.
-  In the InfluxDB SQL implementation, a bucket is synonymous with a _database_.
-  A bucket can contain multiple _measurements_.
-  - **Measurement**: Logical grouping for time series data.
-    In the InfluxDB SQL implementation, a measurement is synonymous with a _table_.
-    All _points_ in a given measurement should have the same _tags_.
-    A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key-value pairs that store metadata string values for each point--for example,
-        a value that identifies or differentiates the data source or context--for example, host,
-        location, station, etc.
-        Tag values may be null.
-      - **Fields**: Key-value pairs that store data for each point--for example,
-        temperature, pressure, stock price, etc.
-        Field values may be null, but at least one field value is not null on any given row.
-      - **Timestamp**: Timestamp associated with the data.
-        When stored on disk and queried, all data is ordered by time.
-        In InfluxDB, a timestamp is a nanosecond-scale [Unix timestamp](#unix-timestamp) in UTC.
-        A timestamp is never null.
-
-### Primary keys
-
-In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb3/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb3/cloud-serverless/reference/glossary/#tag-value) on the point.
-A row's primary key tag set does not include tags with null values.
-
-> [!Important]
-> Overwriting points with the same primary key (timestamp and tag set) is not reliable for maintaining a last-value view.
-> For recommended patterns, see [Duplicate points](/influxdb3/cloud-serverless/reference/syntax/line-protocol/#duplicate-points) in the line protocol reference.
+{{% product-name %}} organizes time series data into buckets and measurements
+(also called _databases_ and _tables_).
+Each measurement contains tags, fields, and a timestamp, and each row's primary key
+is the combination of its timestamp and tag set.
+For definitions of each element and how InfluxDB identifies a point, see
+[Data model](/influxdb3/cloud-serverless/reference/data-model/).
 
 ### Tags versus fields
 

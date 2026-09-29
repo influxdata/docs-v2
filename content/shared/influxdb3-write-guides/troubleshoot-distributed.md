@@ -4,6 +4,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
   - [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
+- [Unexpected duplicate-point results](#unexpected-duplicate-point-results)
 - [Report write issues](#report-write-issues)
 {{% show-in "cloud-dedicated,clustered" %}}- [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy){{% /show-in %}}
 
@@ -105,6 +106,33 @@ The following example shows a response body for a write request that contains tw
 
 Check for [field data type](/influxdb3/version/reference/syntax/line-protocol/#data-types-and-format) differences between the rejected data point and points within the same database and partition (default partitioning
 is by measurement and day)--for example, did you attempt to write `string` data to an `int` field?
+
+## Unexpected duplicate-point results
+
+If queries return an older value for a point you overwrote, check whether
+your writes contain
+[duplicate points](/influxdb3/version/reference/data-model/#point-identity)--points
+with the same table, tag set, and timestamp.
+
+InfluxDB attempts to honor write ordering for duplicate points, with the most
+recently written point taking precedence.
+However, when data is flushed from the in-memory buffer to Parquet
+files--typically every 15 minutes, but sometimes sooner--ordering isn't
+guaranteed for duplicate points flushed at the same time.
+The flush interval depends on buffer size, ingestion rate, and system load, so
+a delay between writes doesn't guarantee which write is retained.
+
+To investigate, do the following:
+
+1.  Query the table for the table, tag set, and timestamp of the unexpected
+    point, and compare the result to the values you wrote.
+2.  Check your write client for retries or repeated batches that write the same
+    point more than once.
+3.  Check whether your client assigns the same timestamp to successive changes
+    (for example, by truncating timestamps to a coarse precision).
+
+To reliably track the latest value, write each change as a new point.
+See [Handle duplicate points](/influxdb3/version/write-data/best-practices/duplicate-points/).
 
 ## Report write issues
 
