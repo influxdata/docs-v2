@@ -2358,7 +2358,7 @@ Specifies the interval at which data replication occurs between cluster nodes.
 
 Defines how often the catalog synchronizes across cluster nodes.
 
-**Default:** `10s`
+**Default:** `1s`
 
 | influxdb3 serve option    | Environment variable                         |
 | :------------------------ | :------------------------------------------- |
