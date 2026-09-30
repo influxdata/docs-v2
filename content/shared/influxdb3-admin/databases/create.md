@@ -74,7 +74,7 @@ Include the following in your request:
 - **Request body** (JSON object):
   - `db` _(string, required)_: Database name
   - `retention_period` _(string, optional)_: [Retention period](#retention-period). If omitted, data doesn't expire.
-  - `schema_mode` _(string, optional)_: [Schema mode](#schema-mode)--`implicit` or `explicit`. Defaults to `implicit`.
+  - `schema_mode` _(string, optional)_: [Schema mode](#schema-mode){{% show-in "enterprise" %}}: `implicit` or `explicit`{{% /show-in %}}{{% show-in "core" %}}: only `implicit` is supported{{% /show-in %}}. Defaults to `implicit`.
 
 {{% show-in "core" %}}
 > [!Important]
@@ -223,6 +223,16 @@ For more information about retention periods, see [Data retention](/influxdb3/ve
 
 ## Schema mode
 
+{{% show-in "core" %}}
+{{< product-name >}} databases use `implicit` schema mode: tables and columns
+are created automatically from the line protocol you write.
+A request to create a database with `explicit` schema mode fails with an error.
+
+For explicit schema enforcement, consider upgrading to
+[InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/databases/enforce-schema/).
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
 Every database has a _schema mode_ that controls where table and column
 definitions come from:
 
@@ -236,18 +246,6 @@ definitions come from:
 Schema mode is set when you create the database and can't be changed afterward.
 If you need a different schema mode, create a new database and migrate your data.
 
-{{% show-in "core" %}}
-> [!Important]
-> #### Explicit schema mode requires Enterprise
->
-> {{< product-name >}} only supports `implicit` schema mode.
-> A request to create a database with `explicit` schema mode fails with an error.
->
-> For explicit schema enforcement, consider upgrading to
-> [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
-{{% /show-in %}}
-
-{{% show-in "enterprise" %}}
 For more information, including how writes are rejected and how to evolve a
 declared schema, see
 [Enforce a schema](/influxdb3/enterprise/admin/databases/enforce-schema/).
