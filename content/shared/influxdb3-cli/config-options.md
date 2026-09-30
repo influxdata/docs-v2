@@ -214,9 +214,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 - [mode](#mode)
   {{% /show-in %}}
 - [node-id](#node-id)
-  {{% show-in "enterprise" %}}
 - [node-id-from-env](#node-id-from-env)
-  {{% /show-in %}}
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
   {{% show-in "enterprise" %}}
@@ -315,8 +313,6 @@ configuration--for example, the same bucket.
 
 ***
 
-{{% show-in "enterprise" %}}
-
 #### node-id-from-env
 
 Specifies the node identifier used as a prefix in all object store file paths.
@@ -329,6 +325,8 @@ This option cannot be used with the `--node-id` option.
 
 ##### Example using --node-id-from-env
 
+{{% show-in "enterprise" %}}
+
 ```bash
 export DATABASE_NODE=node0 && influxdb3 serve \
   --node-id-from-env DATABASE_NODE \
@@ -337,9 +335,19 @@ export DATABASE_NODE=node0 && influxdb3 serve \
   --data-dir ~/.influxdb3/data
 ```
 
-***
+{{% /show-in %}}
+{{% show-in "core" %}}
+
+```bash
+export DATABASE_NODE=node0 && influxdb3 serve \
+  --node-id-from-env DATABASE_NODE \
+  --object-store file \
+  --data-dir ~/.influxdb3/data
+```
 
 {{% /show-in %}}
+
+***
 
 #### object-store
 
@@ -528,7 +536,7 @@ The server automatically shuts down after a successful token regeneration.
 
 | influxdb3 serve option             | Environment variable                       |
 | :--------------------------------- | :----------------------------------------- |
-| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
+| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND_ADDR` |
 
 ##### Example usage
 
@@ -2126,7 +2134,9 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
 
 ### Caching
 
+{{% show-in "enterprise" %}}
 - [preemptive-cache-age](#preemptive-cache-age)
+{{% /show-in %}}
 - [file-cache-size](#file-cache-size) <small>(`--parquet-mem-cache-size` before 3.11)</small>
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
@@ -2143,6 +2153,8 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
   {{% /show-in %}}
 - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
 
+{{% show-in "enterprise" %}}
+
 #### preemptive-cache-age
 
 Specifies the interval to prefetch into the Parquet cache during compaction.
@@ -2154,6 +2166,8 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 | `--preemptive-cache-age` | `INFLUXDB3_PREEMPTIVE_CACHE_AGE` |
 
 ***
+
+{{% /show-in %}}
 
 #### file-cache-size
 
