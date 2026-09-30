@@ -17,7 +17,7 @@ influxdb3 debug sweep list [OPTIONS] --cluster-id <CLUSTER_ID>
 
 | Option | Description | Required |
 | :----- | :---------- | :------- |
-| `--object-store <OBJECT_STORE>` | Object store type. Valid values: `s3`, `google`, `azure`, `file`, `memory` | Yes |
+| `--object-store <OBJECT_STORE>` | Object store type. Valid values: `s3`, `google`, `azure`, `file`, `memory`. Default: `file`. Environment variable: `INFLUXDB3_OBJECT_STORE` | No |
 | `--bucket <BUCKET>` | Object store bucket name. Required for `s3`, `google`, and `azure` object store types | Varies |
 | `--cluster-id <CLUSTER_ID>` | Cluster whose cleanup audit trail to read. Environment variable: `INFLUXDB3_CLUSTER_ID` | Yes |
 | `--engine-path-prefix <ENGINE_PATH_PREFIX>` | Engine path prefix the cluster runs with, if any. Environment variable: `INFLUXDB3_ENGINE_PATH_PREFIX` | No |

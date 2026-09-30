@@ -1,7 +1,6 @@
 ---
 title: Use the integrated Explorer UI
 seotitle: Use the integrated InfluxDB 3 Explorer UI in InfluxDB 3 Enterprise
-introduced: v3.12.0
 description: >
   Enable the Explorer UI embedded in {{% product-name %}}: quick start
   without authentication, sign in with multi-user authentication, configure
@@ -34,7 +33,7 @@ dashboarding UI.
 - [Default connections and query routing](#default-connections-and-query-routing)
 - [Configure SSO for the Explorer UI](#configure-sso-for-the-explorer-ui)
 - [Sessions](#sessions)
-- [Migrate data from a standalone 3.11 UI](#migrate-data-from-a-standalone-311-ui)
+- [Migrate data from the 3.11 UI](#migrate-data-from-the-311-ui)
 
 ## Enable the Explorer UI
 
@@ -71,8 +70,17 @@ open the UI and start querying immediately.
 
 When you start with
 [`--user-auth-type`](/influxdb3/enterprise/reference/config-options/#user-auth-type)
-set and no users exist yet, Explorer
+set and the cluster has no users and no operator token yet, Explorer
 shows a setup page ("Set up InfluxDB 3 Explorer") instead of the normal UI.
+
+If the cluster already has an operator token (for example, an existing
+deployment that used token authentication), the setup page isn't offered
+and `influxdb3 manage init-admin` returns `409 operator token already
+configured`. Create the first admin user with the operator token instead:
+
+```bash { placeholders="USERNAME|OPERATOR_TOKEN" }
+influxdb3 create user --username USERNAME --role Admin --token OPERATOR_TOKEN
+```
 
 - If password sign-in is available (`--jwt-key-id` and `--jwt-private-key`
   are set), the setup page lets you create the first admin user directly in
@@ -112,16 +120,18 @@ server:
 The node that serves the Explorer UI doesn't have to be the node that
 serves queries or writes:
 
-- On a node running `all,webui` (or another mode that includes `query` or
-  `ingest`), Explorer's default connection is handled locally.
-- On a node running `webui` mode by itself (without `query` or `ingest`),
-  the server forwards Explorer's default-connection requests over the
-  internode protocol to another node in the cluster: a query-capable node
-  for reads, and an ingest-capable node for writes. That routing relies on
-  the same internode connectivity
-  (`--internode-bind-addr` and
+- Every node that serves the UI forwards Explorer's default-connection
+  requests over the internode protocol to a running node in the cluster,
+  round-robin: a query-capable node for reads, and an ingest-capable node
+  for writes. Only nodes that advertise an internode address
+  (`--internode-bind-addr` or
   [`--conn-info`](/influxdb3/enterprise/reference/config-options/#conn-info))
-  other multi-node features use.
+  are used, and the serving node counts as a candidate if it advertises one.
+- If no such node is available, a serving node that itself runs `query` or
+  `ingest` mode (for example, a single `all,webui` node) handles the request
+  locally.
+- Sign-in and user-management requests are always handled by the node that
+  serves the UI.
 
 ## Configure SSO for the Explorer UI
 
@@ -163,11 +173,11 @@ Changing `--webui-session-secret` invalidates every existing session and
 signs all users out.
 Rotate the secret only when you intend to force everyone to sign in again.
 
-## Migrate data from a standalone 3.11 UI
+## Migrate data from the 3.11 UI
 
 If a browser has data from before you turned on user authentication (for
-example, from InfluxDB 3.11's standalone UI, or from using Explorer without
-authentication), Explorer offers to migrate that browser's dashboards, saved
+example, from the integrated Explorer in InfluxDB 3.11, or from using
+Explorer on this deployment without authentication), Explorer offers to migrate that browser's dashboards, saved
 queries, query history, and connections to your signed-in account the first
 time you sign in from that browser.
 

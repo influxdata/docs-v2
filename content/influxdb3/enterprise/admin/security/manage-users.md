@@ -84,23 +84,34 @@ Replace the following:
 > #### Use PKCS#1 keys, not PKCS#8
 >
 > A PKCS#8 key (the default `openssl genrsa` output without `-traditional`)
-> **silently fails** to sign tokens. Always generate the key with
-> `openssl genrsa -traditional`.
+> is rejected at startup: the server logs a warning and disables password
+> sign-in. Always generate the key with `openssl genrsa -traditional`.
 
-If `--jwt-key-id` or `--jwt-private-key` is missing or invalid when `basic`
-sign-in is requested, the server logs a warning, starts anyway, and disables
-password sign-in. `oauth` sign-in and `apiv3_` token authentication are
-unaffected.
+If only one of `--jwt-key-id` and `--jwt-private-key` is set, or the key is
+invalid, the server logs a warning, starts anyway, and disables password
+sign-in. If neither is set, it starts with password sign-in disabled and
+logs nothing at the default log level. `oauth` sign-in and `apiv3_` token
+authentication are unaffected.
 
 JWTs expire one hour after they're issued.
 
 ## Bootstrap the initial admin
 
-After enabling user authentication, create the initial admin user and operator
-token with `influxdb3 manage init-admin`:
+On a new deployment with no users and no operator token, create the initial
+admin user and operator token with `influxdb3 manage init-admin`:
 
 ```bash
 influxdb3 manage init-admin
+```
+
+`init-admin` only works while the cluster has no users and no operator
+token. On a deployment that already has an operator token (for example, one
+that used token authentication before you enabled user authentication), it
+returns `409 operator token already configured`. Create the first admin user
+with the operator token instead:
+
+```bash { placeholders="USERNAME|OPERATOR_TOKEN" }
+influxdb3 create user --username USERNAME --role Admin --token OPERATOR_TOKEN
 ```
 
 If you enabled only `oauth` sign-in (no `--jwt-key-id` and
@@ -135,8 +146,8 @@ automatically.
 
 > [!Note]
 > `influxdb3 auth logout` removes the local credentials but does **not** revoke
-> the issued JWT server-side. The token remains valid until it expires
-> (one hour by default).
+> the issued JWT server-side. The token remains valid until it expires, one
+> hour after it was issued.
 
 ## Upgrading to 3.12: sign in again if a token is rejected
 
@@ -144,10 +155,10 @@ automatically.
 UUID. Access tokens issued to `basic` sign-in users **before** upgrading to
 3.12 don't have a matching claim and are rejected after the upgrade.
 
-If a client has a stored refresh token, `influxdb3 auth login` and other
-clients that call `POST /api/v3/authorize/refresh` obtain a new, valid access
-token automatically. If refreshing fails, sign in again with
-`influxdb3 auth login`.
+Clients that call `POST /api/v3/authorize/refresh` with a stored refresh
+token get a valid access token. The `influxdb3` CLI refreshes only when its
+stored token is within 30 minutes of expiry, so if a command is rejected after
+the upgrade, sign in again with `influxdb3 auth login`.
 
 `apiv3_` API tokens are unaffected by this change.
 

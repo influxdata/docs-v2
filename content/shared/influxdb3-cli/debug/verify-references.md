@@ -24,7 +24,7 @@ influxdb3 debug verify-references [OPTIONS] --cluster-id <CLUSTER_ID>
 
 | Option | Description | Required |
 | :----- | :---------- | :------- |
-| `--object-store <OBJECT_STORE>` | Object store type. Valid values: `s3`, `google`, `azure`, `file`, `memory` | Yes |
+| `--object-store <OBJECT_STORE>` | Object store type. Valid values: `s3`, `google`, `azure`, `file`, `memory`. Default: `file`. Environment variable: `INFLUXDB3_OBJECT_STORE` | No |
 | `--bucket <BUCKET>` | Object store bucket name. Required for `s3`, `google`, and `azure` object store types | Varies |
 | `--cluster-id <CLUSTER_ID>` | Cluster whose references to verify. Environment variable: `INFLUXDB3_CLUSTER_ID` | Yes |
 | `--engine-path-prefix <ENGINE_PATH_PREFIX>` | Engine path prefix the cluster runs with, if any. Environment variable: `INFLUXDB3_ENGINE_PATH_PREFIX` | No |
@@ -48,7 +48,7 @@ Automation can gate on the exit code instead of parsing output:
 | Exit code | Meaning |
 | :-------- | :------ |
 | `0` | Every referenced object exists. This includes a cluster with no checkpoint yet, unless `--require-checkpoint` is set |
-| `1` | The audit itself couldn't run (object store errors, bad flags, or no checkpoint with `--require-checkpoint` set) |
+| `1` | The audit itself couldn't run (object store errors, an invalid object store configuration, or no checkpoint with `--require-checkpoint` set). Command-line parse errors, such as an unknown flag or a missing `--cluster-id`, exit with `2` instead, so check the output before treating `2` as missing data |
 | `2` | One or more referenced objects are missing or unreadable |
 
 ## Examples

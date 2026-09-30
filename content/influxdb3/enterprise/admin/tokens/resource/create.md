@@ -128,11 +128,11 @@ Provide the following request headers:
 In the request body, provide the following parameters:
 
 - `token_name`: a description of the token, unique within the instance
-- `resource_type`: the resource type for the token, which is always `db`
-- `resource_names`: an array of database names to grant permissions to
-  - The `resource_names` field supports the `*` wildcard, which grants read or write
-    permissions to all databases.
-- `permissions`: an array of token permission actions (`"read"`, `"write"`, `"describe"`) for the database
+- `permissions`: an array of permission objects, each with:
+  - `resource_type`: the resource type for the token, which is always `db`
+  - `resource_names`: an array of database names to grant permissions to.
+    Supports the `*` wildcard, which grants the actions on all databases.
+  - `actions`: an array of actions (`"read"`, `"write"`, `"create"`, `"describe"`, `"delete"`)
 - `expiry_secs`: Specify the token expiration time in seconds.
 
 The following example shows how to use the HTTP API to create a database token:

@@ -80,8 +80,11 @@ compaction jobs run:
 | `all` | The lease holder and every other compact node are eligible. |
 
 Set the same `--compactor-dispatch-target` value on every compact node.
-The primary reads only its own value, so a mismatched worker doesn't change
-where jobs run: it just wastes a node's capacity as an idle worker.
+Only the primary's value is used; a worker's own value has no effect while it
+is a worker, and it still runs the jobs dispatched to it.
+A mismatch shows up when the lease moves: the new primary applies its own
+value, so compaction placement changes. For example, if a node set to `local`
+takes the lease, every other compact node goes idle.
 
 `remote` keeps compaction execution off the primary, so an execution
 failure that would otherwise kill the process (such as an out-of-memory

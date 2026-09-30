@@ -44,8 +44,9 @@ through the configuration API before you can write to them, and a write
 that references anything undeclared is rejected.
 
 Explicit schema mode is available in {{% product-name %}} only.
-{{< product-name >}} accepts a request to create a database with `explicit`
-schema mode and rejects a Core server's identical request with an error.
+InfluxDB 3 Core rejects a request to create a database with `explicit`
+schema mode with HTTP status `400`
+(`explicit schema mode is only available in InfluxDB 3 Enterprise`).
 
 - [Create a database with explicit schema mode](#create-a-database-with-explicit-schema-mode)
 - [Declare tables and columns](#declare-tables-and-columns)
@@ -170,12 +171,15 @@ A few things to know about rejections:
   it is in an implicit database, with the existing `InvalidColumnType`
   error (`invalid column type for column '<column>', expected <expected>, got <got>`).
   Explicit mode adds nothing here.
-- **A declared tag written as a field, or a field written as a tag,** is a
-  column of a type that doesn't exist and is rejected as undeclared.
-- **Every write endpoint behaves the same.** The v1 (`/write`), v2
-  (`/api/v2/write`), and v3 (`/api/v3/write_lp`) write endpoints, the
-  Processing Engine, and bulk import all funnel into the same enforcement,
-  so which endpoint a client uses doesn't change the outcome.
+- **A declared tag written as a field, or a field written as a tag,** is
+  rejected with the same `InvalidColumnType` error as a type mismatch,
+  because column names are unique within a table.
+- **Every write path enforces the schema.** The v1 (`/write`), v2
+  (`/api/v2/write`), and v3 (`/api/v3/write_lp`) write endpoints return
+  `400`. Processing Engine writes are enforced with `accept_partial=false`,
+  so one rejected line fails the plugin's whole write. Bulk import is also
+  enforced, but a rejected import returns HTTP status `500`
+  (`Could not modify catalog: ...`).
 
 ## Partial writes
 
@@ -191,9 +195,8 @@ The `/api/v3/write_lp` endpoint defaults `accept_partial` to `true`.
 A client that sends a batch with one undeclared column and no
 `accept_partial` parameter gets a `400` response _and_ has its other lines
 stored.
-The legacy `/write` and `/api/v2/write` endpoints default `accept_partial`
-to `false`, so an undeclared column fails the whole request unless you set
-`accept_partial=true` explicitly.
+The legacy `/write` and `/api/v2/write` endpoints don't support
+`accept_partial`: an undeclared column always fails the whole request.
 
 ## Evolve a declared schema
 

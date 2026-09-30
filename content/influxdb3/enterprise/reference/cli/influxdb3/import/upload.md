@@ -31,14 +31,14 @@ through the `influxdb3` client.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 import upload [OPTIONS] [PATH]
+influxdb3 import upload [OPTIONS] --database <DATABASE> --table <TABLE> <FILE>
 ```
 
 ## Arguments
 
 | Argument | Description |
 | :------- | :---------- |
-| `[PATH]` | Path to a Parquet file or a directory, or an object store URL (`s3://bucket/prefix`, `gs://bucket/prefix`, `az://container/prefix`, `file:///path`). If a directory or a URL prefix, all `*.parquet` files are processed recursively and one import job is created per file. URL sources read credentials from the environment; use `--source-opt` to set or override store options. |
+| `<FILE>` | _Required_. Path to a Parquet file or a directory, or an object store URL (`s3://bucket/prefix`, `gs://bucket/prefix`, `az://container/prefix`, `file:///path`). If a directory or a URL prefix, all `*.parquet` files are processed recursively and one import job is created per file. URL sources read credentials from the environment; use `--source-opt` to set or override store options. |
 
 ## Options
 

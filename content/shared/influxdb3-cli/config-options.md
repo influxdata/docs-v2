@@ -261,9 +261,8 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `webui`: Serves the [integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/). `all` doesn't include `webui`, so combine them (for example, `all,webui`). Requires [`--webui-session-secret`](#webui-session-secret).
 - `process`: Activates the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/) so the node can execute trigger plugins. `process` has no API surface of its own — it doesn't accept writes or serve queries. Setting [`--plugin-dir`](#plugin-dir) implicitly adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a multi-node cluster, combine `process` with another mode (typically `query`) so plugins can call `influxdb3_local.query()` locally.
-- `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/visualize-data/explorer/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret). Set [`--plugin-dir`](#plugin-dir) as well to use the plugin features in Explorer.
+- `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/admin/explorer-ui/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret). Set [`--plugin-dir`](#plugin-dir) as well to use the plugin features in Explorer.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
@@ -458,8 +457,6 @@ interactive license prompt. Provide one of the following license types:
 - [oauth-audience](#oauth-audience)
 - [oauth-client-id](#oauth-client-id)
 - [oauth-scopes](#oauth-scopes)
-- [webui-session-secret](#webui-session-secret)
-- [webui-public-uri](#webui-public-uri)
 - [rbac-authoring-disabled](#rbac-authoring-disabled){{% /show-in %}}
 
 #### tls-key
@@ -711,9 +708,10 @@ This option supports the following values:
 
 #### without-user-auth {#without-user-auth metadata="v3.10+"}
 
-Disables user authentication.
-Set to `false` to enable multi-user authentication, where users authenticate
-with a username and password to receive a JWT.
+Deprecated. When set, overrides [`--user-auth-type`](#user-auth-type):
+`true` disables user authentication (the same as `--user-auth-type none`),
+and `false` enables both `basic` and `oauth` user authentication.
+The server logs a deprecation warning when this option is set.
 
 > [!Warning]
 > #### Deprecated
@@ -721,7 +719,7 @@ with a username and password to receive a JWT.
 > `--without-user-auth` is deprecated.
 > Use [`--user-auth-type`](#user-auth-type) instead.
 
-**Default:** `true`
+**Default:** not set (`--user-auth-type` applies)
 
 | influxdb3 serve option | Environment variable          |
 | :--------------------- | :---------------------------- |
@@ -815,34 +813,6 @@ OAuth scopes to request during device-code login (comma-separated).
 | influxdb3 serve option | Environment variable    |
 | :--------------------- | :---------------------- |
 | `--oauth-scopes`       | `INFLUXDB3_OAUTH_SCOPES` |
-
-***
-
-#### webui-session-secret
-
-Sets the session secret that the embedded Web UI uses to sign and encrypt
-user sessions.
-Must be unique per cluster and shared by every node running in `webui`
-[mode](#mode).
-Required when `--mode` includes `webui`.
-Changing this value signs out every active Web UI session.
-
-| influxdb3 serve option    | Environment variable            |
-| :------------------------- | :------------------------------- |
-| `--webui-session-secret`  | `INFLUXDB3_WEBUI_SESSION_SECRET` |
-
-***
-
-#### webui-public-uri {#webui-public-uri metadata="v3.12+"}
-
-Sets the browser-reachable base URI of the embedded Web UI.
-{{% product-name %}} derives the OAuth callback URI as
-`<public URI>/auth/callback`.
-Requires [`--oauth-client-id`](#oauth-client-id).
-
-| influxdb3 serve option | Environment variable         |
-| :----------------------- | :----------------------------- |
-| `--webui-public-uri`    | `INFLUXDB3_WEBUI_PUBLIC_URI`   |
 
 ***
 
@@ -2796,6 +2766,7 @@ which the server hosts in-process as a WebAssembly (WASM) guest.
 The web UI is off unless you add `webui` to [`--mode`](#mode).
 
 - [webui-session-secret](#webui-session-secret)
+- [webui-public-uri](#webui-public-uri)
 - [webui-cookie-secure](#webui-cookie-secure)
 - [webui-openai-base-url](#webui-openai-base-url)
 
@@ -2806,12 +2777,25 @@ Required whenever [`--mode`](#mode) includes `webui`--the server doesn't start
 without it.
 
 Generate a secret with `openssl rand -base64 24`, then pass the same value on
-every start.
+every start and on every node that runs `webui` mode.
 A secret that changes between restarts signs out every user.
 
 | influxdb3 serve option    | Environment variable              |
 | :------------------------ | :-------------------------------- |
 | `--webui-session-secret`  | `INFLUXDB3_WEBUI_SESSION_SECRET`  |
+
+***
+
+#### webui-public-uri {#webui-public-uri metadata="v3.12+"}
+
+Sets the browser-reachable base URI of the embedded Web UI.
+{{% product-name %}} derives the OAuth callback URI as
+`<public URI>/auth/callback`.
+Requires [`--oauth-client-id`](#oauth-client-id).
+
+| influxdb3 serve option | Environment variable         |
+| :----------------------- | :----------------------------- |
+| `--webui-public-uri`    | `INFLUXDB3_WEBUI_PUBLIC_URI`   |
 
 ***
 
@@ -2920,8 +2904,8 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 Limits the number of queries that can run concurrently.
 Queries beyond the limit wait in a queue until a running query completes.
-You can also update the limit at runtime with
-`POST /api/v3/configure/query_concurrency_limit`.
+{{% show-in "enterprise" %}}You can also update the limit at runtime with
+`PUT /api/v3/configure/query_concurrency_limit`.{{% /show-in %}}
 
 **Default:** `max(50, 4 x P)`, where `P` is the effective query
 parallelism: the smaller of the number of CPU cores

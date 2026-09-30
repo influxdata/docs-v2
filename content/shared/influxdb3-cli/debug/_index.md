@@ -15,6 +15,7 @@ influxdb3 debug <SUBCOMMAND>
 
 | Subcommand | Description |
 | :--------- | :---------- |
+| catalog | Inspect catalog files |
 | help | Print command help or the help of a subcommand |
 
 {{% /show-in %}}
@@ -23,6 +24,7 @@ influxdb3 debug <SUBCOMMAND>
 
 | Subcommand | Description |
 | :--------- | :---------- |
+| catalog | Inspect catalog files |
 | help | Print command help or the help of a subcommand |
 | [object-store-check](/influxdb3/version/reference/cli/influxdb3/debug/object-store-check/) | Validate object store compatibility |
 | [sweep](/influxdb3/version/reference/cli/influxdb3/debug/sweep/) | Read back [orphaned file cleanup](/influxdb3/version/admin/orphaned-file-cleanup/) audit trails as reports |

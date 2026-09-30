@@ -1345,28 +1345,29 @@ For the full trigger execution model, including scheduler state persistence and 
 
 | Plugin type   | Trigger spec             | Pin to                                            | Notes                                                                                          |
 |---------------|--------------------------|---------------------------------------------------|------------------------------------------------------------------------------------------------|
-| WAL rows      | `table:` or `all_tables` | A single process node                             | Every process node follows every ingester's WAL; pinning to one node avoids running once per process node for each write. |
-| Scheduled     | `every:` or `cron:`      | A node with `process` mode (typically `process,query`) | The plugin can call `influxdb3_local.query()` locally; results write back to an ingester via HTTP. |
-| HTTP request  | `request:`               | A node with `query` mode (the host-exposed port)  | The route exists only on the pinned node(s). Other nodes return `404 not found`.               |
+| WAL rows      | `table:` or `all_tables` | A single process node                             | Every process node follows every ingester's WAL; pinning to one node avoids running once per process node for each WAL flush. |
+| Scheduled     | `every:` or `cron:`      | A node with `process` mode (typically `process,query`) | The plugin can call `influxdb3_local.query()` locally; `influxdb3_local.write()` goes over the internode protocol to an ingest node that sets `--internode-bind-addr`. |
+| HTTP request  | `request:`               | A node with `query` mode (the host-exposed port)  | The route exists only on the pinned node(s). Other process nodes return `404 not found`; nodes without a Processing Engine return `405 Method Not Allowed`. |
 
 #### WAL triggers follow every ingester
 
 Every process node follows the WAL of every ingest node through object storage, starting from when it comes up, not from earlier history.
-A WAL trigger owned by more than one process node, the default `--node-spec all` on a cluster with more than one process node, can fire once per owning node for each write.
-Pin the trigger to a single process node with `--node-spec nodes:<node-id>` to run it once per write, or write the plugin so a repeated run is safe.
+A WAL trigger owned by more than one process node, the default `--node-spec all` on a cluster with more than one process node, fires once per owning node for each WAL flush.
+Pin the trigger to a single process node with `--node-spec nodes:<node-id>` to run it once per flush, or write the plugin so a repeated run is safe.
 
 Many production clusters avoid WAL triggers entirely and use the schedule + request pattern instead, where one node pulls aggregated state on a schedule and an HTTP endpoint serves point queries.
 
-#### Schedule triggers write back via HTTP
+#### Schedule triggers write back to an ingest node
 
-A schedule trigger pinned to a node without `ingest` mode can't write results to the cluster locally.
-Instead, the plugin should POST line protocol via HTTP to an ingest node.
+A schedule trigger pinned to a node without `ingest` mode can't write results locally.
+`influxdb3_local.write()` sends the write over the internode protocol to a running ingest node that advertises an internode address (`--internode-bind-addr`); if none is available, the call fails with `no remote write client found`.
+Alternatively, the plugin can POST line protocol via HTTP to an ingest node.
 For a worked example, see the reference architecture's [`plugins/_writeback.py`](https://github.com/influxdata/influxdb3-ref-network-telemetry/blob/main/plugins/_writeback.py) helper, which round-robins writes across configured ingest URLs with a fallback hop on connection error.
 
 #### Request triggers don't route across nodes
 
 The `/api/v3/engine/<trigger_name>` route exists only on the node(s) the trigger is pinned to.
-A client that hits a node where the trigger isn't pinned receives `HTTP 404 {error: "not found"}`.
+A client that hits a process node where the trigger isn't pinned receives `HTTP 404 {error: "not found"}`; a node without a Processing Engine returns `405 Method Not Allowed`.
 Pin request triggers to your query-serving node(s) and route external clients to those nodes.
 
 ### Pin triggers to specific nodes

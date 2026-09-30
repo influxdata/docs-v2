@@ -44,8 +44,8 @@ Before upgrading your {{% product-name %}} cluster, review the [release notes](/
 > This applies to {{% product-name %}} whether or not you use any of the
 > features that require it.
 >
-> Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before you
-> upgrade.
+> Back up everything under `{prefix}/catalog/` (the catalog snapshot and
+> logs under `catalog/v3/`) before you upgrade.
 > Restoring these objects is the only way to roll back to 3.11.x.
 
 ### Other changes to review before you upgrade to 3.12
@@ -59,7 +59,7 @@ Also review these {{% product-name %}} changes:
 
 - **Data file cache is now a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/version/reference/config-options/#file-cache-size) now also counts bytes held by running queries. A query that needs more than the remaining budget fails instead of the node using memory beyond the configured limit.
 - **Nodes without `query` mode refuse data queries (Parquet engine)**: A node that doesn't run `query` mode now returns `405 Method Not Allowed` for data queries instead of serving them. System table queries still work.
-- **`--node-spec` no longer pins a trigger to one node**: It now selects which process nodes' schedulers own the trigger. With the default, `all`, every process node owns the trigger and follows every ingest node's write-ahead log, so a trigger can run once per process node for each write. To keep a trigger running once per write in a cluster with more than one process node, set `--node-spec` to a single node. See [Run the Processing Engine in a cluster](/influxdb3/version/admin/processing-engine-cluster/).
+- **`--node-spec` no longer pins a trigger to one node**: It now selects which process nodes' schedulers own the trigger. With the default, `all`, every process node owns the trigger and follows every ingest node's write-ahead log, so a WAL trigger runs once per process node for each WAL flush. To keep a WAL trigger running once per flush in a cluster with more than one process node, set `--node-spec` to a single node. See [Run the Processing Engine in a cluster](/influxdb3/version/admin/processing-engine-cluster/).
 - **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password must now carry the cluster's catalog UUID. Tokens issued before 3.12 are rejected: refresh the token or sign in again. API tokens aren't affected.
 - **Orphaned file cleanup starts automatically (upgraded storage engine)**: The primary compactor begins finding and deleting unreferenced compacted files a few minutes after it first starts on 3.12, then repeats every 7 days. To only report candidates without deleting them, set `--compactor-sweep-mode dry-run`. To turn cleanup off, set `--compactor-sweep-interval off`. See [Orphaned file cleanup](/influxdb3/version/admin/orphaned-file-cleanup/).
 - **Distributed compaction is available (beta, upgraded storage engine)**: Compaction jobs can now run on every compact node instead of only the node that holds the compactor lease. It's off by default (`--compactor-dispatch-target local`), so upgrading alone doesn't change where compaction runs. See [Distributed compaction](/influxdb3/version/admin/distributed-compaction/).

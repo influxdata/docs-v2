@@ -35,11 +35,20 @@ determine their permissions.
 
 - **Admin**: Full access to all resources, including creating and managing
   other users, roles, and tokens.
-- **Auditor**: Read-only access to databases, tokens, users, roles, and
-  system information.
-- **Member**: Read, write, create, and delete access to databases, and the
-  ability to create, read, and delete tokens. Read-only access to users,
-  roles, and system information. Can't manage users, roles, or admin tokens.
+- **Auditor**: Can list and describe databases and read tokens, users, and
+  roles. Can't query or write data.
+- **Member**: Can query and write data and create databases, and can
+  create, read, and delete tokens. Can read users and roles. Can't delete
+  databases or manage users, roles, or admin tokens.
+
+> [!Important]
+> #### Auditor and Member grant less than their names suggest
+>
+> Only the **Admin** role (or an admin token) has full access. The
+> **Auditor** role can't read data, and neither **Auditor** nor **Member**
+> can access system endpoints such as `/health`, `/metrics`, `/ping`, and
+> `/ready`, or query the `_internal` database. Use an admin token for user
+> and role management.
 
 ## Assign roles
 

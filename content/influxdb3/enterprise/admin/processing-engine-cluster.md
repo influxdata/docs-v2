@@ -31,8 +31,9 @@ The cluster-specific behavior described here applies when you run more than one 
 
 ## How trigger execution works in a cluster
 
-A **process node** is any node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured.
-Setting `--plugin-dir` implicitly adds `process` mode, so you rarely need to set `--mode=process` explicitly.
+A **process node** is any node whose `--mode` includes `process` or `all`.
+Setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) implicitly adds `process` mode, so you rarely need to set `--mode=process` explicitly.
+A node started with an explicit `--mode process` and no `--plugin-dir` refuses to start.
 
 ### Every process node follows every ingester's WAL
 
@@ -50,7 +51,7 @@ This behavior is the same on the Parquet engine and the upgraded storage engine.
 Because every owning scheduler acts independently, `--node-spec all` duplicates work in a cluster with more than one process node:
 
 - A **schedule trigger** (`every:` or `cron:`) fires once per owning process node on every tick.
-- A **WAL trigger** (`table:` or `all_tables`) can fire once per owning process node for every write, since each process node follows every ingester's WAL.
+- A **WAL trigger** (`table:` or `all_tables`) fires once per owning process node for every WAL flush, since each process node follows every ingester's WAL.
 - A **request trigger** (`request:`) exposes the `/api/v3/engine/<trigger_name>` route on every owning process node.
 
 To run a trigger from exactly one node, pin it with `--node-spec nodes:<node-id>`.
@@ -68,27 +69,35 @@ A process node that doesn't advertise an internode address is never selected as 
 A candidate node that doesn't have the trigger's plugin file in its own `--plugin-dir` declines the run, and the scheduler tries the next candidate.
 `gh:`-prefixed plugins are fetched over HTTP the first time they run, so a node never declines a `gh:` plugin for a missing file.
 A node that declines is skipped for [`--trigger-work-silence-timeout`](/influxdb3/enterprise/reference/config-options/#trigger-work-silence-timeout) (default `60s`) before the scheduler tries it again.
-If every candidate declines, the scheduler still runs the trigger on the node whose scheduler owns it, so the real error, for example a missing plugin file, surfaces in `system.processing_engine_logs` there.
+If every candidate declines, the scheduler still runs the trigger on the node whose scheduler owns it, so the real error, for example a missing plugin file, surfaces in `system.processing_engine_logs`.
+Query that table from a node with `query` mode and filter on the `node_id` column; a process-only node returns `405 Method Not Allowed` for it.
 
 ### `--mode` doesn't gate trigger execution; `--plugin-dir` does
 
 What determines whether a node can execute a trigger is `--plugin-dir`, not `--mode`.
-Pinning a trigger to a node without `--plugin-dir` configured succeeds at create time, but that node logs an error when the trigger starts, and its own worker always declines the run, since it never has the plugin file.
-The scheduler then places the work on another reachable process node instead.
-A schedule trigger that calls `influxdb3_local.query()` still needs a node with `query` mode to read locally; without it, the call HTTP-hops to a query node.
+Pinning a trigger to a node without `--plugin-dir` configured succeeds at create time, but the trigger doesn't run there:
+
+- A node that isn't a process node (for example, `--mode ingest` or `--mode query`) has no Processing Engine, so it never owns the trigger and logs nothing about it.
+- A `--mode all` node without `--plugin-dir` logs an error when the trigger starts, and every run its scheduler places on its own worker fails with `Node not configured with plugin directory`. Those failures count against the trigger's error behavior.
+
+Pin triggers only to nodes that set `--plugin-dir`.
+
+A schedule trigger that calls `influxdb3_local.query()` reads locally on a node with `query` mode.
+On a process node without `query` mode, the call is sent over the internode protocol to a running query node that advertises an internode address; the same applies to `influxdb3_local.write()` and ingest nodes.
+If no such node is available, the call fails with `no remote query client found` (or `no remote write client found`).
 
 | Trigger type   | Pin to                                                             | Why                                                                                              |
 |----------------|--------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
 | WAL (`table:`) | A single process node                                              | Every process node follows every ingester's WAL, so pinning to one node keeps the trigger from running once per process node for each write. |
-| Schedule (`every:` or `cron:`) | A process node with `query` mode (typically `process,query`) | The plugin reads via `influxdb3_local.query()` locally; results write back to an ingester via HTTP. |
-| Request (`request:`) | A process node with `query` mode (the host-exposed port)     | The HTTP route exists only on pinned nodes; unpinned nodes return `404 not found`.               |
+| Schedule (`every:` or `cron:`) | A process node with `query` mode (typically `process,query`) | The plugin reads via `influxdb3_local.query()` locally; `influxdb3_local.write()` goes over the internode protocol to an ingest node that sets `--internode-bind-addr`. |
+| Request (`request:`) | A process node with `query` mode (the host-exposed port)     | The HTTP route exists only on owning nodes. Other process nodes return `404 not found`; nodes without a Processing Engine return `405 Method Not Allowed`. |
 
 ### Retry and recovery options
 
 Three options tune retry and recovery behavior; set them the same way on every process node:
 
-- [`--trigger-retry-max-attempts`](/influxdb3/enterprise/reference/config-options/#trigger-retry-max-attempts) (default `5`): Maximum attempts for a failed invocation before it stops retrying.
-- [`--trigger-work-silence-timeout`](/influxdb3/enterprise/reference/config-options/#trigger-work-silence-timeout) (default `60s`): How long a scheduler waits on a candidate node that's gone quiet, including a node that declined, before trying another one.
+- [`--trigger-retry-max-attempts`](/influxdb3/enterprise/reference/config-options/#trigger-retry-max-attempts) (default `5`): Maximum attempts for a failed invocation before it stops retrying, for triggers with `--error-behavior retry`.
+- [`--trigger-work-silence-timeout`](/influxdb3/enterprise/reference/config-options/#trigger-work-silence-timeout) (default `60s`): How long a scheduler waits to hear from the node running an invocation before it abandons the run and applies the trigger's error behavior (with `--error-behavior retry`, the run is retried). It's also how long a node that declined a run is skipped for that trigger.
 - [`--processing-engine-restart-state-snapshot-interval`](/influxdb3/enterprise/reference/config-options/#processing-engine-restart-state-snapshot-interval) (default `1s`): How often a process node checkpoints its scheduler state.
 
 ### Scheduler state persists across restarts
@@ -108,7 +117,7 @@ Write your plugins so a repeated run is safe, for example by making writes idemp
 ### Request triggers aren't persisted, and their queue is bounded
 
 A request trigger's in-flight invocation is never written to the restart-state snapshot.
-If a node restarts mid-request, the request itself doesn't replay; the client sees the connection drop and can retry.
+If a node restarts mid-request, the request itself doesn't replay: on a graceful shutdown the client receives `503` with `{"error": "server is shutting down"}`, and after a hard kill the connection drops. Either way, the client can retry.
 
 Each trigger holds up to 60 pending invocations in its queue, regardless of trigger type.
 Once a request trigger's queue is full, `/api/v3/engine/<trigger_name>` returns `503 Service Unavailable` with body `{"error": "trigger queue is full"}` instead of waiting for a free slot.
@@ -119,13 +128,14 @@ Each cluster node runs `influxdb3 serve` with a unique `--node-id`, the same `--
 Configure `--plugin-dir` on every process node, and set `--internode-bind-addr` on each one so their schedulers can place runs on each other.
 
 ```bash { placeholders="CLUSTER_ID|DATA_DIR|PLUGINS_DIR|NODE_ID" }
-# Ingest node
+# Ingest node (advertises an internode address so plugins can write to it)
 influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id NODE_ID \
   --mode ingest \
   --object-store file \
-  --data-dir DATA_DIR
+  --data-dir DATA_DIR \
+  --internode-bind-addr 0.0.0.0:8083
 
 # Query node (host-exposed)
 influxdb3 serve \
@@ -155,11 +165,12 @@ influxdb3 serve \
 ```
 
 Only nodes that run Processing Engine plugins need `--plugin-dir`.
-Unlike earlier releases, an ingest-only or compact-only node doesn't need `--plugin-dir` just to satisfy trigger validation: without `process` mode, schedulers never consider it as a placement target, and it doesn't validate registered triggers at startup.
+An ingest-only or compact-only node doesn't need it: without `process` mode, schedulers never consider it as a placement target, and it doesn't validate registered triggers at startup.
+Ingest nodes (and query nodes, when a process node lacks `query` mode) need `--internode-bind-addr` so plugins can reach them with `influxdb3_local.write()` and `influxdb3_local.query()`.
 
 If you run more than one process node, give each one `--plugin-dir` (pointing at the same plugin files, for example a shared mount) and `--internode-bind-addr`, so schedulers can round-robin runs across all of them.
 
-After all nodes are up, register triggers from any node and pin them with `--node-spec`:
+After all nodes are up, register triggers through a process node that has the plugin file (or use `--upload` or a `gh:` path) and pin them with `--node-spec`. Nodes without a Processing Engine return `405 Method Not Allowed` for `create trigger`:
 
 ```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
 # Schedule trigger pinned to the process,query node
@@ -209,10 +220,11 @@ To fix:
 
 2. Reissue `influxdb3 create trigger` with the correct `--node-spec`.
 
-### `HTTP 404 {error: "not found"}` when calling a request trigger
+### `HTTP 404 {error: "not found"}` or `405` when calling a request trigger
 
 The `/api/v3/engine/<trigger_name>` route exists only on the node(s) whose schedulers own the trigger.
 There is no internal cross-node routing for request triggers.
+A process node that doesn't own the trigger returns `404 {error: "not found"}`; a node without a Processing Engine returns `405 Method Not Allowed` with `Current node mode does not use the processing engine`.
 
 To fix:
 
@@ -227,9 +239,9 @@ To fix:
 
 - Either pin the trigger to the node receiving the HTTP request (typically a `query`-mode node), or route the request to a node the trigger is pinned to.
 
-### A WAL trigger runs more than once per write
+### A WAL trigger runs more than once per WAL flush
 
-With the default `--node-spec all`, every process node owns the trigger and follows every ingester's WAL, so a WAL trigger can fire once per process node for the same write.
+With the default `--node-spec all`, every process node owns the trigger and follows every ingester's WAL, so a WAL trigger fires once per process node for the same WAL flush.
 
 To fix:
 
@@ -243,7 +255,7 @@ Once the queue is full, the HTTP route returns `503` immediately instead of wait
 
 To fix:
 
-- Check `system.processing_engine_logs` on the node the trigger runs on for slow or failing invocations.
+- Query `system.processing_engine_logs` from a query node, filtering on the `node_id` of the node the trigger runs on, for slow or failing invocations.
 - Reduce the plugin's per-invocation work, or send requests at a lower rate.
 - If invocations are failing and retrying, check [`--trigger-retry-max-attempts`](/influxdb3/enterprise/reference/config-options/#trigger-retry-max-attempts) and [`--trigger-work-silence-timeout`](/influxdb3/enterprise/reference/config-options/#trigger-work-silence-timeout).
 
@@ -263,8 +275,9 @@ To fix:
 
 ### A node logs an error at trigger start and never runs the trigger
 
-If a trigger's `--node-spec` includes a node without `--plugin-dir` configured, that node logs an error when the trigger starts, and its own worker always declines the run.
-This isn't fatal: the scheduler places the work on another reachable process node instead, if one is available.
+If a trigger's `--node-spec` includes a `--mode all` node without `--plugin-dir` configured, that node logs an error when the trigger starts, and every run placed on its own worker fails with `Node not configured with plugin directory`.
+Runs the scheduler places on other reachable process nodes still succeed, but the local failures count against the trigger's error behavior.
+A node that isn't a process node has no Processing Engine at all, so it neither logs nor runs anything for the trigger.
 
 To fix:
 
@@ -285,13 +298,13 @@ If an administrative tool reports a generic plugin error against your cluster, c
 
 1. Confirm at least one process node has `--plugin-dir` configured and runs the plugin's required mode, typically `process,query` for schedule plugins and `query` for request plugins.
 2. Confirm the trigger's `--node-spec` includes a running, healthy node.
-3. Inspect the `system.processing_engine_logs` table on the pinned node for execution errors:
+3. Inspect the `system.processing_engine_logs` table from a query node, filtering on the pinned node's `node_id`, for execution errors:
 
    ```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
    influxdb3 query \
      --database DATABASE_NAME \
      --token AUTH_TOKEN \
-     "SELECT event_time, trigger_name, log_level, log_text \
+     "SELECT event_time, node_id, trigger_name, log_level, log_text \
       FROM system.processing_engine_logs \
       ORDER BY event_time DESC LIMIT 20"
    ```

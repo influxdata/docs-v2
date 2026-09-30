@@ -28,13 +28,16 @@ and provide the following:
 - _Required_: The name of the table to update
 - _Required_: At least one of `--tags` or `--fields`
 
+`--tags` accepts one or more values, so place the table name before it or
+follow it with another option, as in the examples below.
+
 ```sh{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 # Add tag columns
 influxdb3 update table \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  --tags rack,zone \
-  TABLE_NAME
+  TABLE_NAME \
+  --tags rack,zone
 
 # Add field columns
 influxdb3 update table \
@@ -135,10 +138,8 @@ A successful request returns HTTP status `200` with no content body.
 
 An empty request that names no tags and no fields returns HTTP status `400`:
 
-```json
-{
-  "error": "at least one of tags or fields is required"
-}
+```text
+invalid request: at least one of tags or fields is required
 ```
 
 Adding a column that already exists with a different data type returns HTTP status `400`.

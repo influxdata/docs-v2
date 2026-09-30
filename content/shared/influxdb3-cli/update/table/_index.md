@@ -22,7 +22,7 @@ influxdb3 update table [OPTIONS] --database <DATABASE_NAME> <TABLE_NAME>
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
 | `-d`   | `--database`         | The name of the database containing the table                                                                                                    |
 |        | `--token`            | Authentication token                                                                                                                             |
-|        | `--tags`             | Comma-separated list of tag columns to add to the table                                                                                          |
+|        | `--tags`             | Comma-separated list of tag columns to add to the table. Takes one or more values, so place the table name before it or follow it with another option |
 | `-f`   | `--fields`           | Comma-separated list of field columns and their [data types](/influxdb3/version/reference/cli/influxdb3/create/table/#field-data-types) to add to the table |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
 |        | `--tls-no-verify`    | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates)  |
@@ -37,7 +37,7 @@ influxdb3 update table [OPTIONS] --database <DATABASE_NAME> <TABLE_NAME>
 | `-d`   | `--database`         | The name of the database containing the table                                                                                                    |
 |        | `--token`            | Authentication token                                                                                                                             |
 | `-r`   | `--retention-period` | The retention period as a [duration](/influxdb3/version/reference/glossary/#duration) value (for example: `30d`, `24h`) or `none` to clear     |
-|        | `--tags`             | Comma-separated list of tag columns to add to the table                                                                                          |
+|        | `--tags`             | Comma-separated list of tag columns to add to the table. Takes one or more values, so place the table name before it or follow it with another option |
 | `-f`   | `--fields`           | Comma-separated list of field columns and their [data types](/influxdb3/version/reference/cli/influxdb3/create/table/#field-data-types) to add to the table |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
 |        | `--tls-no-verify`    | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates)  |
@@ -93,8 +93,8 @@ This works whether the database uses implicit or explicit
 influxdb3 update table \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  --tags rack,zone \
-  TABLE_NAME
+  TABLE_NAME \
+  --tags rack,zone
 ```
 
 ### Add field columns to a table
