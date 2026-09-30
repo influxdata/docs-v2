@@ -10,6 +10,7 @@ menu:
     name: Use the Explorer UI
     parent: Administer InfluxDB
 weight: 208
+metadata: [InfluxDB 3 Enterprise v3.11+]
 related:
   - /influxdb3/explorer/
   - /influxdb3/enterprise/admin/security/manage-users/
@@ -89,7 +90,7 @@ influxdb3 serve --mode all,webui \
 Explorer configures a working default connection automatically, so you can
 open the UI and start querying immediately.
 
-## Quick start with user authentication
+## Quick start with user authentication {#quick-start-with-user-authentication metadata="v3.12+"}
 
 When you start with
 [`--user-auth-type`](/influxdb3/enterprise/reference/config-options/#user-auth-type)
@@ -156,7 +157,7 @@ serves queries or writes:
 - Sign-in and user-management requests are always handled by the node that
   serves the UI.
 
-## Configure SSO for the Explorer UI
+## Configure SSO for the Explorer UI {#configure-sso-for-the-explorer-ui metadata="v3.12+"}
 
 For browser-based single sign-on through the Explorer UI (as opposed to
 CLI OAuth login), set
@@ -213,7 +214,7 @@ You don't mount a volume to persist it, which is the main operational
 difference from the
 [Explorer Docker container](/influxdb3/explorer/install/#persist-data-across-restarts).
 
-## Migrate data from the 3.11 UI
+## Migrate data from the 3.11 UI {#migrate-data-from-the-311-ui metadata="v3.12+"}
 
 If a browser has data from before you turned on user authentication (for
 example, from the integrated Explorer in InfluxDB 3.11, or from using
