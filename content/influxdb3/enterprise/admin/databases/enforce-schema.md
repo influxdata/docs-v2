@@ -177,8 +177,14 @@ A few things to know about rejections:
 
 - **A declared column written at the wrong type** is rejected the same way
   it is in an implicit database, with the existing `InvalidColumnType`
-  error (`invalid column type for column '<column>', expected <expected>, got <got>`).
+  error.
   Explicit mode adds nothing here.
+  The error has the following form:
+
+  ```text
+  invalid column type for column '<column>', expected <expected>, got <got>
+  ```
+
 - **A declared tag written as a field, or a field written as a tag,** is
   a wrong type on a declared column.
   It gets the same `invalid column type` error, not the undeclared-column
@@ -189,19 +195,14 @@ A few things to know about rejections:
   The endpoint changes only the error format and whether other lines in the
   batch are stored.
   See [Partial writes](#partial-writes).
-- **Processing Engine writes enforce the schema with `accept_partial=false`.**
-  One rejected line fails the plugin's whole write.
-- **Bulk import enforces the schema.**
-  A rejected import returns HTTP status `500`
-  (`Could not modify catalog: ...`).
 
 <!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
 cluster: a declared tag written as a field and a declared field written as a tag
 both return 400 "invalid column type for column '<column>', expected
 <expected>, got <got>" (the same shape as a wrong field type), not the
 undeclared-column error. /api/v3/write_lp, /api/v2/write, and /write all return
-400 for an undeclared column. The Processing Engine and bulk import were not
-probed; their behavior comes from the origin/3.12 source review in c508a354e. -->
+400 for an undeclared column. Plugin writes and bulk import were tested
+separately; see the "Other ways data arrives" section. -->
 
 ## Partial writes
 
@@ -229,6 +230,69 @@ write of line protocol occurred" and stores the valid line.
 /api/v3/write_lp with accept_partial=false returns 400 and stores nothing.
 /api/v2/write and /write return 400 and store nothing, with or without
 accept_partial=true. -->
+
+## Other ways data arrives
+
+The schema check also applies to data that doesn't come through a line
+protocol write endpoint.
+
+| How the data arrives | Undeclared table or column | Other lines in the request |
+| :-- | :-- | :-- |
+| `/api/v3/write_lp`, default (`accept_partial=true`) | `400` `partial write of line protocol occurred`, and the body lists each rejected line | Written |
+| `/api/v3/write_lp`, `accept_partial=false` | `400` `line protocol parsing error` | Not written |
+| `/api/v2/write`, `/write` | `400`, and the server rejects the whole request | Not written |
+| Plugin, `influxdb3_local.write_sync()` | Raises an exception | Not applicable |
+| Plugin, `influxdb3_local.write()` | Fails after the plugin run, and the server logs an `ERROR` in `system.processing_engine_logs` | Not applicable |
+| Bulk import (`import upload` or `import from-object-store`) | `500` `Could not modify catalog`, and the server creates no import job | Not imported (the server rejects the whole file) |
+
+Every rejection message names the table or column and says to add it with the
+`/api/v3/configure/table` API.
+
+For a schedule trigger, a failed `write()` doesn't stop the trigger.
+For details, see
+[Writes to explicit schema databases](/influxdb3/enterprise/plugins/python-api-reference/#writes-to-explicit-schema-databases).
+For bulk import, declare every column in the file before you import.
+See [Import data](/influxdb3/enterprise/admin/import-data/#import-into-an-explicit-schema-database).
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
+cluster: write_lp, /api/v2/write, and /write results as in "Partial writes".
+Schedule trigger on one node: write_sync raised an exception, and write failed
+after the run with an ERROR log while the next run still executed. Bulk import
+of a Parquet file with an undeclared column, through both upload and
+object-store pull, returned 500 "Could not modify catalog: column '<column>'
+... is not defined in table '<table>' ..., which uses explicit schemas" and
+created no job. Plugin behavior was not tested for WAL or request triggers. -->
+
+### Declared columns written with the wrong type
+
+A line that writes a declared column with the wrong type is a type error, not
+an undeclared-column error, so declaring more columns doesn't fix it.
+The following results come from requests with `accept_partial=false` and one
+line per request.
+Each request returns HTTP status `400`.
+
+A declared tag written as a field (`t,region=west host="x"`) returns the
+following message:
+
+```text
+invalid column type for column 'host', expected iox::column_type::tag, got iox::column_type::field::string
+```
+
+A declared field written as a tag (`t,host=a,usage=5 …`) returns the
+following message:
+
+```text
+invalid column type for column 'usage', expected iox::column_type::field::float, got iox::column_type::tag
+```
+
+A declared field written with the wrong type (`usage="str"` for a `float64`
+field) returns the following message:
+
+```text
+invalid column type for column 'usage', expected iox::column_type::field::float, got iox::column_type::field::string
+```
+
+<!-- Not tested: these lines in the default (accept_partial=true) mode. -->
 
 ## Evolve a declared schema
 
@@ -268,6 +332,15 @@ Schema evolution is **add-only**: you can declare new columns, but you can't
 remove, rename, or retype an existing one.
 Declaring a column that already exists at its declared type is a no-op.
 Declaring it at a different type returns an error.
+
+> [!Important]
+> #### Use PATCH, not PUT, to add columns
+>
+> `PUT /api/v3/configure/table` updates only a table's retention period.
+> The endpoint ignores a `tags` or `fields` array in the request body and still returns HTTP status `200`.
+> In an explicit database, the next write that references the undeclared column fails with a `400` error.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): PUT with a tags or fields array returned 200 and added no column. PATCH returned 200 with an empty body and added the column. -->
 
 For more information, see [Add columns to a table](/influxdb3/enterprise/admin/tables/update/).
 

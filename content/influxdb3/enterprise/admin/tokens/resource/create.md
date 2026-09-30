@@ -421,6 +421,16 @@ You can create system tokens for the following system resources:
 - `metrics`: system metrics information from the `/metrics` HTTP API endpoint
 - `ping`: system ping information from the `/ping` HTTP API endpoint
 
+> [!Note]
+> #### Database tokens can't call /ping or /health
+>
+> A database token with the `read` action, for example, `db:DATABASE_NAME:read`,
+> gets an HTTP `403` response from the `/ping` and `/health` endpoints.
+> A health check that reuses an application's database token reports the
+> server as unavailable.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): a db:<name>:read token got 403 from /ping and /health. A db write token was not probed. VERIFY: no test confirms that system:health:read or system:ping:read (or an admin token) is the fix. Add a recommendation after engineering or a live test confirms it. -->
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [CLI](#)
