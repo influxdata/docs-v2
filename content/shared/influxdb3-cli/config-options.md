@@ -2787,6 +2787,8 @@ The web UI is off unless you add `webui` to [`--mode`](#mode).
 #### webui-session-secret
 
 Specifies the secret that signs web UI session cookies.
+The secret doesn't encrypt the cookies.
+Keep it private: anyone who has it can forge session cookies.
 Required whenever [`--mode`](#mode) includes `webui`--the server doesn't start
 without it.
 

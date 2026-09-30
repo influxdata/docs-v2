@@ -164,9 +164,9 @@ CLI OAuth login), set
 [`--webui-public-uri`](/influxdb3/enterprise/reference/config-options/#webui-public-uri)
 together with `--oauth-client-id`, `--oauth-issuer`, and `--oauth-audience`:
 
-```bash { placeholders="WEBUI_PUBLIC_URI|OAUTH_CLIENT_ID" }
+```bash { placeholders="WEBUI_SESSION_SECRET|WEBUI_PUBLIC_URI|OAUTH_CLIENT_ID" }
 influxdb3 serve --mode all,webui \
-  --webui-session-secret my-secret \
+  --webui-session-secret WEBUI_SESSION_SECRET \
   --user-auth-type oauth \
   --oauth-issuer https://my-idp.example.com/ \
   --oauth-audience my-audience \
@@ -174,7 +174,9 @@ influxdb3 serve --mode all,webui \
   --webui-public-uri WEBUI_PUBLIC_URI
 ```
 
-Replace {{% code-placeholder-key %}}`WEBUI_PUBLIC_URI`{{% /code-placeholder-key %}}
+Replace {{% code-placeholder-key %}}`WEBUI_SESSION_SECRET`{{% /code-placeholder-key %}}
+with your session secret,
+{{% code-placeholder-key %}}`WEBUI_PUBLIC_URI`{{% /code-placeholder-key %}}
 with the browser-reachable base URL of the Explorer UI (for example,
 `https://explorer.example.com`), and
 {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}
@@ -190,12 +192,24 @@ for the other OAuth flags.
 
 ## Sessions
 
-Explorer stores browser sessions server-side.
-Sessions last 120 days.
+Explorer stores sessions on the server and gives the browser a cookie that
+identifies the session.
+`--webui-session-secret` signs that cookie so the server can reject cookies
+that were altered or forged.
+The secret doesn't encrypt the cookie.
+Keep the secret private: anyone who has it can create cookies the server
+accepts.
+
+Sessions are sliding and last 120 days:
+
+- A session that has 60 days or less remaining is renewed for another
+  120 days on its next authenticated request, so an actively used session
+  doesn't expire.
+- A session with no authenticated requests expires 120 days after it was
+  created or last renewed.
 
 Changing `--webui-session-secret` invalidates every existing session and
 signs all users out.
-Rotate the secret only when you intend to force everyone to sign in again.
 
 To manage the session secret:
 
@@ -204,7 +218,8 @@ To manage the session secret:
 - **Keep the secret out of your shell history and process list.**
   Set the secret through the `INFLUXDB3_WEBUI_SESSION_SECRET` environment
   variable instead of the command line when you can.
-- **Rotate the secret when it may have been exposed.**
+- **Rotate the secret if it may have been exposed.**
+  Rotating signs out every user.
 
 ## Explorer application data
 
