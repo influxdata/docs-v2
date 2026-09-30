@@ -2904,8 +2904,11 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 Limits the number of queries that can run concurrently.
 Queries beyond the limit wait in a queue until a running query completes.
-{{% show-in "enterprise" %}}You can also update the limit at runtime with
-`PUT /api/v3/configure/query_concurrency_limit`.{{% /show-in %}}
+{{% show-in "enterprise" %}}
+To read, change, or reset the limit at runtime, send a `GET`, `PUT`, or `DELETE`
+request to `/api/v3/configure/query_concurrency_limit`.
+`DELETE` restores the limit set at startup.
+{{% /show-in %}}
 
 **Default:** `max(50, 4 x P)`, where `P` is the effective query
 parallelism: the smaller of the number of CPU cores
