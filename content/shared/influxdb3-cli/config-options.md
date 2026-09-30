@@ -2775,7 +2775,7 @@ together with the `--internode-bind-addr` option.
 
 ### Web UI {#web-ui metadata="v3.11+"}
 
-Configure the integrated [InfluxDB 3 Explorer](/influxdb3/enterprise/visualize-data/explorer/) web UI,
+Configure the [integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/),
 which the server hosts in-process as a WebAssembly (WASM) guest.
 The web UI is off unless you add `webui` to [`--mode`](#mode).
 

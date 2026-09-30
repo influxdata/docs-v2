@@ -33,6 +33,7 @@ dashboarding UI.
 - [Default connections and query routing](#default-connections-and-query-routing)
 - [Configure SSO for the Explorer UI](#configure-sso-for-the-explorer-ui)
 - [Sessions](#sessions)
+- [Explorer application data](#explorer-application-data)
 - [Migrate data from the 3.11 UI](#migrate-data-from-the-311-ui)
 
 ## Enable the Explorer UI
@@ -51,6 +52,28 @@ share the same session secret so a browser session stays valid across nodes.
 `--mode` accepts `webui` alongside any other mode
 (for example, `all,webui`, `query,webui`, or `webui` by itself).
 A node that doesn't include `webui` in `--mode` doesn't serve the UI.
+
+The server serves Explorer at the root path of its regular HTTP address and
+port--for example, <http://localhost:8181/>.
+Explorer doesn't use a separate port.
+
+Explorer runs without a plugin directory.
+To use the plugin features in Explorer, create a directory and pass it to
+[`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir).
+
+> [!Important]
+> #### Control who can reach Explorer
+>
+> Anyone who can reach Explorer can use the InfluxDB connection configured in
+> it, with that token's permissions.
+> Treat reaching Explorer the same as holding the token: bind the server to an
+> interface you intend to expose, use tokens scoped to the task, and put an
+> authenticating reverse proxy with TLS in front of any remote access.
+> To control which interface the server listens on, see
+> [`--http-bind`](/influxdb3/enterprise/reference/config-options/#http-bind).
+> When browsers reach Explorer over HTTPS, also set
+> [`--webui-cookie-secure`](/influxdb3/enterprise/reference/config-options/#webui-cookie-secure)
+> so session cookies are never sent over HTTP.
 
 ## Quick start without authentication
 
@@ -172,6 +195,23 @@ Sessions last 120 days.
 Changing `--webui-session-secret` invalidates every existing session and
 signs all users out.
 Rotate the secret only when you intend to force everyone to sign in again.
+
+To manage the session secret:
+
+- **Generate the secret once and reuse it.**
+  To generate a secret, run `openssl rand -base64 24`.
+- **Keep the secret out of your shell history and process list.**
+  Set the secret through the `INFLUXDB3_WEBUI_SESSION_SECRET` environment
+  variable instead of the command line when you can.
+- **Rotate the secret when it may have been exposed.**
+
+## Explorer application data
+
+The integrated Explorer keeps its application state in a SQLite database that
+the server synchronizes to object storage for each cluster.
+You don't mount a volume to persist it, which is the main operational
+difference from the
+[Explorer Docker container](/influxdb3/explorer/install/#persist-data-across-restarts).
 
 ## Migrate data from the 3.11 UI
 
