@@ -2792,9 +2792,7 @@ Keep it private: anyone who has it can forge session cookies.
 Required whenever [`--mode`](#mode) includes `webui`--the server doesn't start
 without it.
 
-Use a secret that's unique to the cluster, and set the same value on every
-node running in `webui` mode.
-
+Use a secret that's unique to the cluster.
 Generate a secret with `openssl rand -base64 24`, then pass the same value on
 every start and on every node that runs `webui` mode.
 A secret that changes between restarts signs out every user.
@@ -2923,8 +2921,8 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 Limits the number of queries that can run concurrently.
 Queries beyond the limit wait in a queue until a running query completes.
-<!-- VERIFIED against live 3.12.0-0.rc.2 (2026-09-30): the runtime route
-replaces the earlier `POST` wording. /api/v3/configure/query_concurrency_limit
+<!-- VERIFIED against live 3.12.0-0.rc.2 (2026-09-30):
+/api/v3/configure/query_concurrency_limit
 accepts GET (200, {"max_concurrent_queries":50}), PUT (JSON body), and DELETE
 (204, resets to the startup limit); POST returns 404. Core returns 404 for the
 route, so the runtime sentence is Enterprise-only. The --max-concurrent-queries
