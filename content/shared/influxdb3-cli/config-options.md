@@ -2790,6 +2790,9 @@ Specifies the secret that signs web UI session cookies.
 Required whenever [`--mode`](#mode) includes `webui`--the server doesn't start
 without it.
 
+Use a secret that's unique to the cluster, and set the same value on every
+node running in `webui` mode.
+
 Generate a secret with `openssl rand -base64 24`, then pass the same value on
 every start and on every node that runs `webui` mode.
 A secret that changes between restarts signs out every user.
