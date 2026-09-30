@@ -67,6 +67,8 @@ Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--f
 curl -i http://localhost:8181/ping
 ```
 
+Use `GET`. A `HEAD` request to `/ping` returns `404`.
+
 The response includes version information in the **headers** and **body**:
 
 - **Headers**:
@@ -265,6 +267,8 @@ Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--f
 ```bash
 curl -i http://localhost:8181/ping
 ```
+
+Use `GET`. A `HEAD` request to `/ping` returns `404`.
 
 The response includes version information in the **headers** and **body**:
 

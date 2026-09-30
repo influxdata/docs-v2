@@ -168,6 +168,23 @@ Save images using the following naming format: `project/version-context-descript
 For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
 Specify a version other than 2.0 only if the image is specific to that version.
 
+#### Links to procedures and prerequisites
+
+Link to the page that contains the steps, not to the parent landing page.
+"See the Enterprise documentation" makes the reader hunt for the procedure.
+Name the procedure and link to it directly.
+
+Prerequisites often differ by deployment mode.
+When a product ships in more than one mode, for example a Docker container and an
+integrated build, don't send every reader to mode-specific instructions.
+Condition the guidance on the mode: "If you run the Docker container, ...".
+If the other mode has no documented equivalent, say nothing about it rather than
+inventing a parallel claim.
+
+Verify a version requirement against the shipped documentation for that feature.
+An execution plan states the requirement as of the day someone wrote it.
+Search for the feature's own page and restate what it says.
+
 #### InfluxData Support links
 
 When linking to InfluxData Support, use one of these URLs:

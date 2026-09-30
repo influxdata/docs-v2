@@ -72,7 +72,7 @@
   tags:
     - data-write
     - HTTP request
-  introduced: v0.1.1
+  introduced: v0.2.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/geo_enrichment
 - name: import

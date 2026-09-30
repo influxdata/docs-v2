@@ -15,9 +15,11 @@ frontmatter, shortcode, or contributor references.
 | Technical claim         | Verify against the documentation search MCP | [references/fact-checking.md](references/fact-checking.md)   |
 | Validation              | Run the changed-file verifier               | `../docs-testing/SKILL.md`                                   |
 
-Prerequisites: identify the product from `data/products.yml`; read applicable
-frontmatter and shortcode references; preserve semantic line feeds. Shared files
-contain no frontmatter and product stubs use `source: /shared/...`.
+Prerequisites: resolve the exact product key from `data/products.yml`; read
+applicable frontmatter and shortcode references; preserve semantic line feeds.
+Treat `Cloud` alone as ambiguous and ask the operator for the product or edition
+before editing. Shared files contain no frontmatter and product stubs use
+`source: /shared/...`.
 
 ```sh
 docs edit <url-or-path> --list
