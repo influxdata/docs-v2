@@ -2918,6 +2918,12 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 Limits the number of queries that can run concurrently.
 Queries beyond the limit wait in a queue until a running query completes.
+<!-- VERIFIED against live 3.12.0-0.rc.2 (2026-09-30): the runtime route
+replaces the earlier `POST` wording. /api/v3/configure/query_concurrency_limit
+accepts GET (200, {"max_concurrent_queries":50}), PUT (JSON body), and DELETE
+(204, resets to the startup limit); POST returns 404. Core returns 404 for the
+route, so the runtime sentence is Enterprise-only. The --max-concurrent-queries
+flag itself is in both products. -->
 {{% show-in "enterprise" %}}
 To read, change, or reset the limit at runtime, send a `GET`, `PUT`, or `DELETE`
 request to `/api/v3/configure/query_concurrency_limit`.
