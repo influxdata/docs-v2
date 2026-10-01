@@ -9,9 +9,9 @@ menu:
     name: Install Explorer
 weight: 2
 alt_links:
-  enterprise: /influxdb3/enterprise/visualize-data/explorer/
+  enterprise: /influxdb3/enterprise/admin/explorer-ui/
 related:
-  - /influxdb3/enterprise/visualize-data/explorer/, Use the integrated InfluxDB 3 Explorer UI
+  - /influxdb3/enterprise/admin/explorer-ui/, Use the integrated Explorer UI
 ---
 
 How you install {{% product-name %}} depends on the InfluxDB 3 server you're
@@ -20,7 +20,7 @@ connecting it to:
 - **InfluxDB 3 Enterprise v3.11 and later** includes Explorer as an
   integrated WebAssembly (WASM) component--there's no separate container to
   install. For setup instructions, see
-  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+  [Use the integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/).
 - **InfluxDB 3 Core and Enterprise** can run Explorer as a standalone Docker
   container. Docker is required for Core and Enterprise earlier than v3.11.
   For installation and configuration instructions, see
@@ -46,7 +46,7 @@ Use `GET`; a `HEAD` request to `/ping` returns `404`.
 
 If `x-influxdb-build` reports `Enterprise` and `x-influxdb-version` is `3.11`
 or later, use the
-[integrated Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+[integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/).
 Otherwise, use [Docker](/influxdb3/explorer/install/docker/).
 Docker also works with Enterprise v3.11 and later if you want to run Explorer
 separately from the server.

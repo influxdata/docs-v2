@@ -16,7 +16,7 @@ as a standalone container with [InfluxDB 3 Core](/influxdb3/core/) or
 and later.
 Starting with Enterprise v3.11, Explorer is also available as an integrated
 WebAssembly (WASM) component of the server. See
-[Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/)
+[Use the integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/)
 if you run Enterprise v3.11 or later and don't need a separate container.
 
 > [!Important]

@@ -39,7 +39,7 @@ How you install {{% product-name %}} depends on your InfluxDB 3 server:
 
 - **InfluxDB 3 Enterprise v3.11 and later** includes Explorer as an
   integrated WASM component. See
-  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+  [Use the integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/).
 - **InfluxDB 3 Core and Enterprise** can run Explorer as a standalone Docker
   container. Docker is required for Core and Enterprise earlier than v3.11:
 

@@ -95,7 +95,7 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
       > [Docker container](/influxdb3/explorer/install/docker/), see
       > [Network exposure and access control](/influxdb3/explorer/install/docker/#network-exposure-and-access-control).
       > If you're using the
-      > [integrated Explorer UI](/influxdb3/enterprise/visualize-data/explorer/),
+      > [integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/),
       > control access through
       > [`--http-bind`](/influxdb3/enterprise/reference/config-options/#http-bind).
 
