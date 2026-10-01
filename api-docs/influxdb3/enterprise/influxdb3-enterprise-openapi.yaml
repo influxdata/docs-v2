@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
-  version: v3.11.2
+  version: v3.12.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:7894710bb3bf5f946c2e855f8bb9c0235abbb2faec6f0d56068aa89c09b99ade
+  x-source-hash: sha256:24c3cc46699dc72e1bbfe45f0a3d91b32ed9f7635526e0a44136a3982870f228
   x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -395,7 +395,21 @@ paths:
             cluster-uuid:
               $ref: "#/components/headers/ClusterUUID"
         "400":
-          description: Bad request.
+          description: |
+            Bad request. InfluxDB rejected the whole batch and wrote nothing.
+            This endpoint doesn't support partial writes: if any line is invalid, no
+            lines are written, and an `accept_partial` parameter is ignored.
+            To write the valid lines of a batch, use `/api/v3/write_lp`.
+          content:
+            application/json:
+              examples:
+                rejectedBatch:
+                  summary: One invalid line rejects the batch
+                  value: |
+                    {
+                      "code": "invalid",
+                      "message": "write buffer error: line protocol parse failed: No fields were provided"
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -473,11 +487,6 @@ paths:
             writes all points in the batch to the database.
 
             This parameter is named `bucket` for compatibility with InfluxDB v2 client libraries.
-        - name: accept_partial
-          in: query
-          required: false
-          schema:
-            $ref: "#/components/schemas/AcceptPartial"
         - $ref: "#/components/parameters/compatibilityPrecisionParam"
       requestBody:
         $ref: "#/components/requestBodies/lineProtocolRequestBody"
@@ -845,11 +854,17 @@ paths:
                 - requests
       responses:
         "200":
-          description: Success. The packages are installed.
+          description: >-
+            Success. The packages are installed. In InfluxDB 3 Core 3.12, a failed install can also return `200`;
+            confirm that the package imports before relying on it.
         "400":
           description: Bad request.
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "500":
+          description: >-
+            The package install failed, for example because pip couldn't find the package. The body includes the package
+            manager's error.
       tags:
         - Processing engine
   /api/v3/configure/plugin_environment/install_requirements:
@@ -1352,7 +1367,11 @@ paths:
       x-enterprise-only: true
       summary: Update a table
       description: |
-        Updates table configuration, such as retention period.
+        Updates a table's retention period.
+
+        This endpoint doesn't add columns. Other properties in the request body,
+        such as `tags` or `fields`, are ignored, and the request still returns
+        `200`. To add columns, use `PATCH /api/v3/configure/table`.
       requestBody:
         required: true
         content:
@@ -1360,8 +1379,33 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateTableRequest"
       tags:
-        - Table
         - Enterprise
+    patch:
+      operationId: PatchConfigureTable2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchTableRequest"
+      responses:
+        "200":
+          description: Success. The columns have been added to the table. The response body is empty.
+        "400":
+          description: Bad request. The request names no tags or fields, or is otherwise invalid.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database or table not found.
+      summary: Add columns to a table
+      description: |
+        Adds tag and field columns to an existing table.
+
+        The change is additive: a column that already exists with the requested type is left unchanged.
+        No other table settings are modified.
+        The request must name at least one tag or field.
+      tags:
+        - Table
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -2446,16 +2490,43 @@ paths:
   /api/v3/enterprise/import:
     post:
       operationId: PostEnterpriseImport
-      summary: Upload a Parquet file for bulk import
-      description: >-
-        Uploads a Parquet file, and optional column metadata, for bulk import into an existing table. The compactor node
-        asynchronously picks up and imports the file. Returns the staged import job info synchronously after the upload
-        is staged.
+      summary: Import Parquet data
+      description: |-
+        Imports Parquet data into an existing table. Send the data one of two ways:
 
+        - **Upload** (`multipart/form-data`): send one Parquet file in the request.
+        - **Object-store pull** (`application/json`): name a `source` prefix, and the server imports every Parquet
+          file under it. The source is either a prefix in the cluster's own object store or an `s3://bucket/prefix`
+          URL. The server reads another bucket with its own object-store credentials; the request carries none, so
+          those credentials must be able to read the bucket. A server whose own object store isn't S3 can't read
+          another bucket and returns `400`.
 
-        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
-        flag); the compactor node runs the bulk import scheduler that completes the import.
+        The request returns after the import is staged. The compactor node imports the data asynchronously. A job
+        moves through `queued`, `imported`, and `compacted`; rows become queryable once the job is `compacted`.
+        Use [List bulk import statuses](#operation/GetEnterpriseImport) to follow it.
 
+        #### Column types
+
+        For generic Parquet files, a column that isn't in `column_metadata` is imported as a field, typed from its
+        Parquet type. This applies even when the target table already declares the column as a tag, so map every
+        string tag column (for example, `{"column_mapping": {"host": "tag"}}`). Otherwise the import fails with
+        `invalid column type for column 'host', expected iox::column_type::tag, got iox::column_type::field::string`.
+        A string column with no mapping can also fail with `400` `Unable to infer data type for column`.
+
+        #### Explicit schema databases
+
+        In a database created with `schema_mode: explicit`, every column in the file must already be declared on the
+        table. Otherwise the import is rejected and no job is created. Declare columns with
+        `PATCH /api/v3/configure/table`.
+
+        #### Permissions
+
+        Requires a token with the `write` action on the target database (for example, `db:DATABASE_NAME:write`), or an
+        admin token. For a token without that permission, including when the database doesn't exist, the request
+        returns `403`.
+
+        Requires the upgraded storage engine (enabled with the `--use-pacha-tree` flag); the compactor node runs the
+        bulk import scheduler that completes the import.
 
         This endpoint is only available in InfluxDB 3 Enterprise.
       x-enterprise-only: true
@@ -2465,6 +2536,16 @@ paths:
           multipart/form-data:
             schema:
               $ref: "#/components/schemas/BulkImportUploadRequest"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkImportObjectStoreRequest"
+            example:
+              database: sensors
+              table: cpu
+              source: s3://import-bucket/exports/cpu/
+              column_metadata:
+                column_mapping:
+                  host: tag
       responses:
         "200":
           description: Success. The upload has been staged for import.
@@ -2484,15 +2565,24 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          description: >-
+            Forbidden. The token doesn't have the `write` action on the target database. A token without that permission
+            also gets `403` when the database doesn't exist (`Not authorized to import into database`).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
         "404":
-          description: Not found. The target database or table does not exist.
+          description: Not found. The target table does not exist ("Table `cpu` does not exist").
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMessage"
         "500":
-          description: Internal server error. Object store, status write, or catalog failure.
+          description: >-
+            Internal server error. Object store, status write, or catalog failure. In 3.12, a file whose columns don't
+            match the table also returns `500` with `Could not modify catalog`: a column that an explicit schema
+            database doesn't declare, or an unmapped string column that the table declares as a tag.
           content:
             application/json:
               schema:
@@ -2504,11 +2594,14 @@ paths:
       operationId: GetEnterpriseImport
       summary: List bulk import statuses
       description: >-
-        Lists the status of all uploaded bulk import jobs.
+        Lists the status of bulk import jobs, for both uploads and object-store pulls.
 
 
-        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
-        flag).
+        Requires a token with the `describe` action on at least one database, or an admin token. The list includes only
+        jobs for databases the token can describe. A token that can't describe any database gets `403`.
+
+
+        Requires the upgraded storage engine (enabled with the `--use-pacha-tree` flag).
 
 
         This endpoint is only available in InfluxDB 3 Enterprise.
@@ -2849,6 +2942,39 @@ paths:
         > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
         - Export data
+        - Enterprise
+  /api/v3/isAuthorized:
+    post:
+      operationId: PostIsAuthorized
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizationCheck"
+      responses:
+        "200":
+          description: |
+            The check was evaluated.
+            `authorized` is `false` when the caller isn't permitted to perform the action.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizationResult"
+        "400":
+          description: Bad request. The body must name exactly one action; boolean actions must be `true`.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. Only user subjects can call this endpoint; token subjects receive `403`.
+      x-enterprise-only: true
+      summary: Check whether the caller is authorized for an action
+      description: |
+        Reports whether the calling user may perform the single action named in the request body.
+
+        A denied action returns `200` with `authorized: false`.
+        A `403` response means the caller can't use this endpoint.
+      tags:
         - Enterprise
   /api/v3/loadcap/profiles:
     get:
@@ -3824,8 +3950,14 @@ paths:
         - name: accept_partial
           in: query
           required: false
+          description: |
+            Whether to write the valid lines when some lines in the batch are rejected.
+            Default is `true`: InfluxDB writes the valid lines and returns `400` with
+            `"partial write of line protocol occurred"` and the rejected lines.
+            With `false`, InfluxDB rejects the whole batch and writes nothing.
           schema:
             type: boolean
+            default: true
         - name: no_sync
           in: query
           required: false
@@ -3838,7 +3970,29 @@ paths:
             cluster-uuid:
               $ref: "#/components/headers/ClusterUUID"
         "400":
-          description: Bad request.
+          description: |
+            Bad request. Some or all lines were rejected; the body lists each rejected line.
+            With `accept_partial=true` (the default), the valid lines are written and
+            the error is `"partial write of line protocol occurred"`.
+            With `accept_partial=false`, nothing is written.
+            In a database that uses explicit schemas (`schema_mode: explicit`, Enterprise only), a line that writes an
+            undeclared table or column is rejected with a message that names it and points to `/api/v3/configure/table`.
+          content:
+            application/json:
+              examples:
+                partialWrite:
+                  summary: Partial write (default); line 1 was written
+                  value: |
+                    {
+                      "error": "partial write of line protocol occurred",
+                      "data": [
+                        {
+                          "error_message": "No fields were provided",
+                          "line_number": 2,
+                          "original_line": "home,room=Kitchen te"
+                        }
+                      ]
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -3846,7 +4000,10 @@ paths:
         "413":
           description: Request entity too large.
         "422":
-          description: Unprocessable entity.
+          description: |
+            Unprocessable entity. The write would exceed a schema limit: the number of
+            databases, tables, columns, tag columns, or fields. A partial write whose
+            rejected lines hit a limit also returns `422` instead of `400`.
       summary: Write line protocol
       description: |
         Writes line protocol to the specified database.
@@ -3859,7 +4016,8 @@ paths:
 
         #### Features
 
-        - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
+        - **Partial writes**: By default (`accept_partial=true`), InfluxDB writes the valid lines when some lines in a
+          batch fail. Set `accept_partial=false` to reject the whole batch instead.
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
           times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
@@ -3944,6 +4102,8 @@ paths:
                 example: OK
         "401":
           description: Unauthorized. Authentication is required.
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "500":
           description: Service is unavailable.
       summary: Health check
@@ -3954,6 +4114,9 @@ paths:
         Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
 
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+
+        A database-scoped resource token (for example, `db:DATABASE_NAME:read`) gets `403` from this endpoint. For
+        health checks, use a token with the `system:health:read` permission, or an admin token.
       tags:
         - Server information
   /metrics:
@@ -3983,6 +4146,8 @@ paths:
               schema:
                 type: string
                 example: Enterprise
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
           content:
             application/json:
               schema:
@@ -4002,6 +4167,11 @@ paths:
                     example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         "401":
           description: Unauthorized. Authentication is required.
+          headers:
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "404":
           description: |
             Not Found. Returned for HEAD requests.
@@ -4014,10 +4184,14 @@ paths:
 
         The response includes version information in both headers and the JSON body:
 
-        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Headers**: `x-influxdb-version`, `x-influxdb-build`, and `cluster-uuid`
+          (`cluster-uuid` is also returned on a `401`)
         - **Body**: JSON object with `version`, `revision`, and `process_id`
 
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+
+        A database-scoped resource token (for example, `db:DATABASE_NAME:read`) gets `403` from this endpoint. For
+        health checks, use a token with the `system:ping:read` permission, or an admin token.
       tags:
         - Server information
     post:
@@ -4036,6 +4210,8 @@ paths:
               schema:
                 type: string
                 example: Enterprise
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
           content:
             application/json:
               schema:
@@ -4055,6 +4231,11 @@ paths:
                     example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         "401":
           description: Unauthorized. Authentication is required.
+          headers:
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "404":
           description: |
             Not Found. Returned for HEAD requests.
@@ -4427,40 +4608,24 @@ paths:
               $ref: "#/components/headers/ClusterUUID"
         "400":
           description: |
-            Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
-            If a partial write occurred, then some points from the batch are written and queryable.
-
-            The response body:
-              - indicates if a partial write occurred or all data was rejected.
-              - contains details about the [rejected points](/influxdb3/enterprise/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+            Bad request. InfluxDB rejected the whole batch and wrote nothing.
+            This endpoint doesn't support partial writes: if any line is invalid, no
+            lines are written, and an `accept_partial` parameter is ignored.
+            The body describes the first rejected line.
+            To write the valid lines of a batch, use `/api/v3/write_lp`.
           content:
             application/json:
               examples:
-                rejectedAllPoints:
-                  summary: Rejected all points in the batch
+                rejectedBatch:
+                  summary: One invalid line rejects the batch
                   value: |
                     {
-                      "error": "write of line protocol failed",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
-                    }
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejected some points in the batch
-                  value: |
-                    {
-                      "error": "partial write of line protocol occurred",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
+                      "error": "line protocol parsing error",
+                      "data": {
+                        "error_message": "No fields were provided",
+                        "line_number": 2,
+                        "original_line": "home,room=Kitchen te"
+                      }
                     }
         "401":
           $ref: "#/components/responses/Unauthorized"
@@ -4914,6 +5079,20 @@ components:
             The retention period for the database. Specifies how long data should be retained.
             Use duration format (for example, "1d", "1h", "30m", "7d").
           example: 7d
+        schema_mode:
+          type: string
+          enum:
+            - implicit
+            - explicit
+          default: implicit
+          description: >-
+            How tables in the database get their schemas. Set at creation and can't be changed.
+
+            - `implicit` (default): writes create tables and columns.
+
+            - `explicit`: tables and columns are created only through the configuration API, and writes that reference
+            an undeclared table or column are rejected.
+              Enterprise only; InfluxDB 3 Core returns `400 Bad Request`.
       required:
         - db
     CreateTableRequest:
@@ -5030,6 +5209,122 @@ components:
           - field1
         count: 100
         ttl: 3600
+    PatchTableRequest:
+      type: object
+      description: Tags and fields to add to an existing table. At least one tag or field is required.
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                  - utf8
+                  - int64
+                  - uint64
+                  - float64
+                  - bool
+            required:
+              - name
+              - type
+      required:
+        - db
+        - table
+    AuthorizationScope:
+      type: object
+      properties:
+        scope:
+          type: string
+          enum:
+            - all
+            - identifier
+        identifier:
+          type: string
+          description: Resource name. Required when `scope` is `identifier`; not allowed when `scope` is `all`.
+      required:
+        - scope
+    AuthorizationCheck:
+      type: object
+      description: |
+        Exactly one action to check.
+        Scoped actions take an `AuthorizationScope`; boolean actions must be `true`.
+      minProperties: 1
+      maxProperties: 1
+      additionalProperties: false
+      properties:
+        describeDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        readDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        writeDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        deleteDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        readSystem:
+          $ref: "#/components/schemas/AuthorizationScope"
+        createDatabase:
+          type: boolean
+          const: true
+        readToken:
+          type: boolean
+          const: true
+        createToken:
+          type: boolean
+          const: true
+        deleteToken:
+          type: boolean
+          const: true
+        readUser:
+          type: boolean
+          const: true
+        createUser:
+          type: boolean
+          const: true
+        updateUser:
+          type: boolean
+          const: true
+        deleteUser:
+          type: boolean
+          const: true
+        readRole:
+          type: boolean
+          const: true
+        createRole:
+          type: boolean
+          const: true
+        updateRole:
+          type: boolean
+          const: true
+        deleteRole:
+          type: boolean
+          const: true
+        createAdminToken:
+          type: boolean
+          const: true
+        deleteAdminToken:
+          type: boolean
+          const: true
+      x-enterprise-only: true
+    AuthorizationResult:
+      type: object
+      properties:
+        authorized:
+          type: boolean
+      required:
+        - authorized
+      x-enterprise-only: true
     ProcessingEngineTriggerRequest:
       type: object
       properties:
@@ -5173,9 +5468,7 @@ components:
         - db
         - plugin_filename
         - trigger_name
-        - trigger_settings
         - trigger_specification
-        - disabled
     TriggerSettings:
       type: object
       description: |
@@ -5965,6 +6258,27 @@ components:
         - time
         - tag
       description: The InfluxDB column type for a mapped column. These are the supported `--column` types.
+    BulkImportObjectStoreRequest:
+      type: object
+      description: Request body for a bulk import that pulls Parquet files from object storage.
+      properties:
+        database:
+          type: string
+          description: The target database name. The database must already exist.
+        table:
+          type: string
+          description: The target table name. The table must already exist.
+        source:
+          type: string
+          description: >-
+            Where to read Parquet files: a prefix in the cluster's own object store (for example, `staging/exports/`),
+            or an `s3://bucket/prefix` URL. Every Parquet file under the prefix is imported.
+        column_metadata:
+          $ref: "#/components/schemas/ColumnMetadata"
+      required:
+        - database
+        - table
+        - source
     BulkImportJobStatus:
       type: string
       enum:
@@ -5974,7 +6288,9 @@ components:
         - compacted
         - failed
         - terminal_failed
-      description: The status of a bulk import job.
+      description: >-
+        The status of a bulk import job. A successful job moves through `queued`, `imported`, and `compacted`; its rows
+        become queryable once it's `compacted`, not when it's `imported`.
     BulkImportUploadRequest:
       type: object
       description: >-
@@ -6595,11 +6911,15 @@ components:
         min_timestamp_ns:
           type: integer
           format: int64
-          description: The minimum timestamp in the file (nanoseconds), from column statistics.
+          description: >-
+            The minimum timestamp in the file (nanoseconds), from the time column's Parquet statistics. `0` when the
+            file has no statistics the server can read; the imported data isn't affected.
         max_timestamp_ns:
           type: integer
           format: int64
-          description: The maximum timestamp in the file (nanoseconds), from column statistics.
+          description: >-
+            The maximum timestamp in the file (nanoseconds), from the time column's Parquet statistics. `0` when the
+            file has no statistics the server can read; the imported data isn't affected.
       required:
         - upload_uuid
         - db_id
