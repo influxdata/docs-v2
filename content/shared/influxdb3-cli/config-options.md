@@ -214,9 +214,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 - [mode](#mode)
   {{% /show-in %}}
 - [node-id](#node-id)
-  {{% show-in "enterprise" %}}
 - [node-id-from-env](#node-id-from-env)
-  {{% /show-in %}}
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
   {{% show-in "enterprise" %}}
@@ -315,8 +313,6 @@ configuration--for example, the same bucket.
 
 ***
 
-{{% show-in "enterprise" %}}
-
 #### node-id-from-env
 
 Specifies the node identifier used as a prefix in all object store file paths.
@@ -329,6 +325,8 @@ This option cannot be used with the `--node-id` option.
 
 ##### Example using --node-id-from-env
 
+{{% show-in "enterprise" %}}
+
 ```bash
 export DATABASE_NODE=node0 && influxdb3 serve \
   --node-id-from-env DATABASE_NODE \
@@ -337,9 +335,19 @@ export DATABASE_NODE=node0 && influxdb3 serve \
   --data-dir ~/.influxdb3/data
 ```
 
-***
+{{% /show-in %}}
+{{% show-in "core" %}}
+
+```bash
+export DATABASE_NODE=node0 && influxdb3 serve \
+  --node-id-from-env DATABASE_NODE \
+  --object-store file \
+  --data-dir ~/.influxdb3/data
+```
 
 {{% /show-in %}}
+
+***
 
 #### object-store
 
@@ -528,7 +536,7 @@ The server automatically shuts down after a successful token regeneration.
 
 | influxdb3 serve option             | Environment variable                       |
 | :--------------------------------- | :----------------------------------------- |
-| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
+| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND_ADDR` |
 
 ##### Example usage
 
@@ -2126,7 +2134,9 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
 
 ### Caching
 
+{{% show-in "enterprise" %}}
 - [preemptive-cache-age](#preemptive-cache-age)
+{{% /show-in %}}
 - [file-cache-size](#file-cache-size) <small>(`--parquet-mem-cache-size` before 3.11)</small>
 - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
 - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
@@ -2143,6 +2153,8 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
   {{% /show-in %}}
 - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
 
+{{% show-in "enterprise" %}}
+
 #### preemptive-cache-age
 
 Specifies the interval to prefetch into the Parquet cache during compaction.
@@ -2154,6 +2166,8 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 | `--preemptive-cache-age` | `INFLUXDB3_PREEMPTIVE_CACHE_AGE` |
 
 ***
+
+{{% /show-in %}}
 
 #### file-cache-size
 
@@ -2761,7 +2775,7 @@ together with the `--internode-bind-addr` option.
 
 ### Web UI {#web-ui metadata="v3.11+"}
 
-Configure the integrated [InfluxDB 3 Explorer](/influxdb3/enterprise/visualize-data/explorer/) web UI,
+Configure the [integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/),
 which the server hosts in-process as a WebAssembly (WASM) guest.
 The web UI is off unless you add `webui` to [`--mode`](#mode).
 
@@ -2773,9 +2787,12 @@ The web UI is off unless you add `webui` to [`--mode`](#mode).
 #### webui-session-secret
 
 Specifies the secret that signs web UI session cookies.
+The secret doesn't encrypt the cookies.
+Keep it private: anyone who has it can forge session cookies.
 Required whenever [`--mode`](#mode) includes `webui`--the server doesn't start
 without it.
 
+Use a secret that's unique to the cluster.
 Generate a secret with `openssl rand -base64 24`, then pass the same value on
 every start and on every node that runs `webui` mode.
 A secret that changes between restarts signs out every user.
@@ -2904,8 +2921,17 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 Limits the number of queries that can run concurrently.
 Queries beyond the limit wait in a queue until a running query completes.
-{{% show-in "enterprise" %}}You can also update the limit at runtime with
-`PUT /api/v3/configure/query_concurrency_limit`.{{% /show-in %}}
+<!-- VERIFIED against live 3.12.0-0.rc.2 (2026-09-30):
+/api/v3/configure/query_concurrency_limit
+accepts GET (200, {"max_concurrent_queries":50}), PUT (JSON body), and DELETE
+(204, resets to the startup limit); POST returns 404. Core returns 404 for the
+route, so the runtime sentence is Enterprise-only. The --max-concurrent-queries
+flag itself is in both products. -->
+{{% show-in "enterprise" %}}
+To read, change, or reset the limit at runtime, send a `GET`, `PUT`, or `DELETE`
+request to `/api/v3/configure/query_concurrency_limit`.
+`DELETE` restores the limit set at startup.
+{{% /show-in %}}
 
 **Default:** `max(50, 4 x P)`, where `P` is the effective query
 parallelism: the smaller of the number of CPU cores

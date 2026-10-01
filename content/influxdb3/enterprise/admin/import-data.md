@@ -56,20 +56,38 @@ the upload completes.
 
 ## Permissions
 
-To run `influxdb3 import upload` or `influxdb3 import from-object-store`, use a
-token with the `write` action on the target database, for example,
-`db:DATABASE_NAME:write`.
+The token you use for an import command needs the following permissions:
+
+| Command | Required action | Example permission |
+| :-- | :-- | :-- |
+| `influxdb3 import upload` | `write` on the target database | `db:DATABASE_NAME:write` |
+| `influxdb3 import from-object-store` | `write` on the target database | `db:DATABASE_NAME:write` |
+| `influxdb3 import list` | `describe` on at least one database | `db:DATABASE_NAME:describe` |
+
 An import doesn't create the database, so the token doesn't need the `create`
 action.
+If the token lacks the `write` action, the import fails with HTTP status `403`
+and the following message:
 
-To run `influxdb3 import list`, use a token with the `describe` action on at
-least one database, for example, `db:DATABASE_NAME:describe`.
-{{% product-name %}} filters the list to only the import jobs for databases
-your token can describe, and returns an HTTP 403 error if your token can't
-describe any database.
+```text
+Not authorized to import into database
+```
+
+You get this error even when the database doesn't exist.
+
+`influxdb3 import list` returns only the import jobs for databases your token
+can describe.
+If your token can't describe any database, the command returns an HTTP 403
+error.
 
 For more on creating tokens with these permissions, see
 [Create a resource token](/influxdb3/enterprise/admin/tokens/resource/create/).
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): the
+permissions above match observed behavior. A non-admin token for a database
+that doesn't exist got 403 "Not authorized to import into database", not 404.
+The pull path (import from-object-store) was not probed with a non-admin
+token. -->
 
 ## Upload Parquet files from your machine
 
@@ -173,4 +191,94 @@ The following types are supported:
 | `tag`    | Tag                          |
 
 Any Parquet column that you don't map with a `--column` flag is imported as a
-field.
+field, typed from its Parquet type.
+This is true even when the target table already declares the column as a tag.
+Map every string tag column, even when the table already declares it.
+
+Without the mapping, the import fails with the following error:
+
+```text
+invalid column type for column 'host', expected iox::column_type::tag, got iox::column_type::field::string
+```
+
+For example, to import `host` as a tag, add `--column host=tag`.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): importing a
+Parquet file with an unmapped string column into a table that declares the
+column as a tag failed with the error above, through both upload and
+object-store pull. The --column type list comes from the CLI error text. -->
+
+## Import into an explicit schema database
+
+In a database that uses
+[`explicit` schema mode](/influxdb3/enterprise/admin/databases/enforce-schema/),
+every column in the Parquet file must already be declared on the table.
+If the file has an undeclared column, the import fails and {{% product-name %}}
+creates no import job.
+This applies to both `influxdb3 import upload` and
+`influxdb3 import from-object-store`.
+
+Declare the columns first with
+[`influxdb3 update table`](/influxdb3/enterprise/reference/cli/influxdb3/update/table/)
+or a `PATCH` request to `/api/v3/configure/table`.
+For more information, see
+[Add columns to a table](/influxdb3/enterprise/admin/tables/update/).
+
+In {{% product-name %}} 3.12, the rejection returns HTTP status `500` with an
+error message like the following:
+
+```text
+Could not modify catalog: column 'usage' (iox::column_type::field::float) is not defined in table 'cpu' of database 'DATABASE_NAME', which uses explicit schemas; add the column with the /api/v3/configure/table API before writing to it
+```
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): both import
+paths returned 500 with this message and created no job. The 500 status is
+documented as it behaves in 3.12; update it if the status changes before GA. -->
+
+## Troubleshoot imports
+
+### The table doesn't exist
+
+Importing into a table that doesn't exist returns HTTP status `404` with the
+following message, in any schema mode:
+
+```text
+Table TABLE_NAME does not exist
+```
+
+Create the table first.
+
+### Invalid column type for a tag column
+
+The import fails with the following error:
+
+```text
+invalid column type for column 'host', expected iox::column_type::tag, got iox::column_type::field::string
+```
+
+This error means that you didn't map a string tag column.
+Add `--column COLUMN_NAME=tag` for each tag column.
+See [Map columns to InfluxDB types](#map-columns-to-influxdb-types).
+
+### Unable to infer data type for a column
+
+The import fails with HTTP status `400` and the following error:
+
+```text
+Unable to infer data type for column 'host' based on input parquet file
+```
+
+This error means that a string column needs a mapping.
+Add a `--column` flag for it.
+
+### Import list shows 0 for the minimum and maximum timestamps
+
+`influxdb3 import list` can show `min_timestamp_ns` and `max_timestamp_ns` as
+`0`.
+{{% product-name %}} takes the range from the time column's Parquet statistics.
+When the file has no statistics that the server can read, the fields are `0`.
+A `0` doesn't mean the import failed, and the imported data isn't affected.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): the 404 for a
+missing table, the 400 "Unable to infer data type" error, and the 0 timestamp
+range with correct imported data. -->

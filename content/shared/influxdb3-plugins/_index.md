@@ -442,24 +442,35 @@ For more information, see the [`influxdb3 create trigger` CLI reference](/influx
 
 #### Upload a plugin using the HTTP API
 
-To upload a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
+To create a plugin file using the HTTP API, send a `POST` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host-url >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host-url >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PostPluginsFiles" %}}
 
 Include the following in your request:
 
 - **Headers**:
   - `Authorization: Bearer` with your admin token
-  - `Content-Type: application/octet-stream`
-- **Query parameters**:
-  - `path` _(string, required)_: Path to the plugin file relative to the plugin directory
+  - `Content-Type: application/json`
+- **Request body** (JSON):
+  - `plugin_name` _(string, required)_: Name of the plugin file to create, for example, `plugin.py`
+  - `content` _(string, required)_: Source code of the plugin file
+
+The endpoint doesn't require an existing trigger.
+Create the file first, then create a trigger that references it.
+
+The endpoint rejects a request with `Content-Type: application/octet-stream` and returns HTTP status `415`.
+To build the JSON body from a local file, use `jq`:
 
 ```bash{placeholders="AUTH_TOKEN"}
-# Upload a single-file plugin
-curl -X PUT "{{< influxdb/host-url >}}/api/v3/plugins/files?path=plugin.py" \
+# Create a single-file plugin
+jq --null-input \
+  --arg plugin_name "plugin.py" \
+  --rawfile content "/local/path/to/plugin.py" \
+  '{plugin_name: $plugin_name, content: $content}' |
+curl --request POST "{{< influxdb/host-url >}}/api/v3/plugins/files" \
   --header "Authorization: Bearer AUTH_TOKEN" \
-  --header "Content-Type: application/octet-stream" \
-  --data-binary "@/local/path/to/plugin.py"
+  --header "Content-Type: application/json" \
+  --data @-
 ```
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
@@ -512,19 +523,33 @@ Include the following in your request:
 
 - **Headers**:
   - `Authorization: Bearer` with your admin token
-  - `Content-Type: application/octet-stream`
-- **Query parameters**:
-  - `path` _(string, required)_: Path to the plugin file relative to the plugin directory
+  - `Content-Type: application/json`
+- **Request body** (JSON):
+  - `plugin_name` _(string, required)_: Name of the existing trigger whose plugin file you want to update
+  - `content` _(string, required)_: Updated source code of the plugin file
 
-```bash{placeholders="AUTH_TOKEN"}
+The server resolves the trigger's plugin file from `plugin_name` and overwrites that file.
+If `plugin_name` doesn't match a registered trigger, the request returns HTTP status `500`.
+To add a plugin file before you create a trigger, [create a plugin file](#upload-a-plugin-using-the-http-api) instead.
+
+```bash{placeholders="AUTH_TOKEN|TRIGGER_NAME"}
 # Update a plugin file
-curl -X PUT "{{< influxdb/host-url >}}/api/v3/plugins/files?path=plugin.py" \
+jq --null-input \
+  --arg plugin_name "TRIGGER_NAME" \
+  --rawfile content "/path/to/updated/plugin.py" \
+  '{plugin_name: $plugin_name, content: $content}' |
+curl --request PUT "{{< influxdb/host-url >}}/api/v3/plugins/files" \
   --header "Authorization: Bearer AUTH_TOKEN" \
-  --header "Content-Type: application/octet-stream" \
-  --data-binary "@/path/to/updated/plugin.py"
+  --header "Content-Type: application/json" \
+  --data @-
 ```
 
-Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
+Replace the following:
+
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: the name of the trigger that uses the plugin file
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): PUT with Content-Type application/octet-stream returns 415 "expected: application/json"; POST with a JSON body returns 200 and a trigger then used the file. Source is the same at 3.11.5. The jq example was not run. -->
 
 **The update operation:**
 - Replaces plugin files immediately

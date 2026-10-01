@@ -153,4 +153,21 @@ to create the table first.
 > `PATCH /api/v3/configure/table` adds columns only and never touches
 > the table's retention period.
 > To update a table's retention period, use `PUT /api/v3/configure/table`.
+
+> [!Important]
+> #### PUT doesn't add columns
+>
+> `PUT /api/v3/configure/table` updates only the retention period.
+> The endpoint ignores a `tags` or `fields` array in the request body and still returns HTTP status `200`.
+> In a database that uses `explicit` schema mode, the next write that references the undeclared column fails.
+> To add columns, use `PATCH /api/v3/configure/table` or `influxdb3 update table`.
+<!-- VERIFIED against live 3.12.0 RC-2 (2026-09-30): PUT with a tags or fields array returned 200 and added no column; PATCH added the column. -->
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+> [!Note]
+> {{< product-name >}} doesn't support `PUT /api/v3/configure/table`.
+> The endpoint returns HTTP status `404`.
+> Use `PATCH /api/v3/configure/table` or `influxdb3 update table` to add columns.
+<!-- VERIFIED against live 3.12.0 RC-2 (2026-09-30): Core has no PUT route for /api/v3/configure/table (404). PATCH returns 200 with an empty body. -->
 {{% /show-in %}}

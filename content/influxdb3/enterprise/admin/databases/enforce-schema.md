@@ -91,9 +91,9 @@ Replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
 
 `retention_period` still works alongside `schema_mode`.
-Omitting `schema_mode` (or setting it to `implicit`) creates a database with
-the default, unenforced behavior, so existing scripts and clients keep
-working unchanged.
+If you omit `schema_mode` or set it to `implicit`, the database uses the
+default, unenforced behavior.
+As a result, existing scripts and clients keep working unchanged.
 
 ## Declare tables and columns
 
@@ -134,7 +134,7 @@ curl --request POST "http://localhost:8181/api/v3/configure/table" \
 This is the same `POST /api/v3/configure/table` endpoint that declares
 tables in an implicit database.
 Explicit mode only changes what happens when a write later references a
-table or column that nobody declared.
+table or column that isn't declared.
 A declared table always gets its `time` column automatically.
 
 For field type options, see
@@ -150,8 +150,10 @@ Line protocol that matches the declared schema is accepted as usual:
 influxdb3 write --database DATABASE_NAME 'TABLE_NAME,host=a,region=west usage=1.0,online=true'
 ```
 
-A write that names an undeclared table or column is rejected, and the error
-names the database, the table, the column, and the column type:
+A write that names an undeclared table or column is rejected.
+An undeclared column error names the database, the table, the column, and the
+column type.
+An undeclared table error names the database and the table:
 
 ```text
 column 'rack' (iox::column_type::tag) is not defined in table 'TABLE_NAME' of database 'DATABASE_NAME',
@@ -163,28 +165,50 @@ table 'other_table' is not defined in database 'DATABASE_NAME', which uses expli
 create the table with the /api/v3/configure/table API before writing to it
 ```
 
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
+cluster, POST /api/v3/write_lp: an undeclared table returns 400 "table '<table>'
+is not defined in database '<db>', which uses explicit schemas; ..." and names no
+column. An undeclared tag or field returns 400 "column '<column>'
+(iox::column_type::tag | iox::column_type::field::float) is not defined in table
+'<table>' of database '<db>', ...". -->
 Both errors return HTTP status `400`.
 
 A few things to know about rejections:
 
 - **A declared column written at the wrong type** is rejected the same way
   it is in an implicit database, with the existing `InvalidColumnType`
-  error (`invalid column type for column '<column>', expected <expected>, got <got>`).
+  error.
   Explicit mode adds nothing here.
+  The error has the following form:
+
+  ```text
+  invalid column type for column '<column>', expected <expected>, got <got>
+  ```
+
 - **A declared tag written as a field, or a field written as a tag,** is
-  rejected with the same `InvalidColumnType` error as a type mismatch,
-  because column names are unique within a table.
-- **Every write path enforces the schema.** The v1 (`/write`), v2
-  (`/api/v2/write`), and v3 (`/api/v3/write_lp`) write endpoints return
-  `400`. Processing Engine writes are enforced with `accept_partial=false`,
-  so one rejected line fails the plugin's whole write. Bulk import is also
-  enforced, but a rejected import returns HTTP status `500`
-  (`Could not modify catalog: ...`).
+  a wrong type on a declared column.
+  It gets the same `invalid column type` error, not the undeclared-column
+  error.
+- **Every write endpoint rejects the line with status `400`.**
+  The v1 (`/write`), v2 (`/api/v2/write`), and v3 (`/api/v3/write_lp`)
+  endpoints all enforce the declared schema.
+  The endpoint changes only the error format and whether other lines in the
+  batch are stored.
+  See [Partial writes](#partial-writes).
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
+cluster: a declared tag written as a field and a declared field written as a tag
+both return 400 "invalid column type for column '<column>', expected
+<expected>, got <got>" (the same shape as a wrong field type), not the
+undeclared-column error. /api/v3/write_lp, /api/v2/write, and /write all return
+400 for an undeclared column. Plugin writes and bulk import were tested
+separately; see the "Other ways data arrives" section. -->
 
 ## Partial writes
 
-A rejection is a line-protocol error like any other, so the `accept_partial`
-parameter governs the rest of the batch:
+A rejection is a line-protocol error like any other.
+As a result, the `accept_partial` parameter governs the rest of the batch
+on the `/api/v3/write_lp` endpoint:
 
 - With `accept_partial=false`, the whole request fails and nothing is
   written.
@@ -195,8 +219,80 @@ The `/api/v3/write_lp` endpoint defaults `accept_partial` to `true`.
 A client that sends a batch with one undeclared column and no
 `accept_partial` parameter gets a `400` response _and_ has its other lines
 stored.
-The legacy `/write` and `/api/v2/write` endpoints don't support
-`accept_partial`: an undeclared column always fails the whole request.
+
+The legacy `/write` and `/api/v2/write` endpoints fail the whole request
+when any line references an undeclared column, and they store nothing.
+Setting `accept_partial=true` doesn't change this.
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
+cluster, batch of one valid line and one line with an undeclared field:
+/api/v3/write_lp with no parameter or accept_partial=true returns 400 "partial
+write of line protocol occurred" and stores the valid line.
+/api/v3/write_lp with accept_partial=false returns 400 and stores nothing.
+/api/v2/write and /write return 400 and store nothing, with or without
+accept_partial=true. -->
+
+## Other ways data arrives
+
+The schema check also applies to data that doesn't come through a line
+protocol write endpoint.
+
+| How the data arrives | Undeclared table or column | Other lines in the request |
+| :-- | :-- | :-- |
+| `/api/v3/write_lp`, default (`accept_partial=true`) | `400` `partial write of line protocol occurred`, and the body lists each rejected line | Written |
+| `/api/v3/write_lp`, `accept_partial=false` | `400` `line protocol parsing error` | Not written |
+| `/api/v2/write`, `/write` | `400`, and the server rejects the whole request | Not written |
+| Plugin, `influxdb3_local.write_sync()` | Raises an exception | Not applicable |
+| Plugin, `influxdb3_local.write()` | Fails after the plugin run, and the server logs an `ERROR` in `system.processing_engine_logs` | Not applicable |
+| Bulk import (`import upload` or `import from-object-store`) | `500` `Could not modify catalog`, and the server creates no import job | Not imported (the server rejects the whole file) |
+
+Every rejection message names the table or column and says to add it with the
+`/api/v3/configure/table` API.
+
+For a schedule trigger, a failed `write()` doesn't stop the trigger.
+For details, see
+[Writes to explicit schema databases](/influxdb3/enterprise/plugins/python-api-reference/#writes-to-explicit-schema-databases).
+For bulk import, declare every column in the file before you import.
+See [Import data](/influxdb3/enterprise/admin/import-data/#import-into-an-explicit-schema-database).
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
+cluster: write_lp, /api/v2/write, and /write results as in "Partial writes".
+Schedule trigger on one node: write_sync raised an exception, and write failed
+after the run with an ERROR log while the next run still executed. Bulk import
+of a Parquet file with an undeclared column, through both upload and
+object-store pull, returned 500 "Could not modify catalog: column '<column>'
+... is not defined in table '<table>' ..., which uses explicit schemas" and
+created no job. Plugin behavior was not tested for WAL or request triggers. -->
+
+### Declared columns written with the wrong type
+
+A line that writes a declared column with the wrong type is a type error, not
+an undeclared-column error, so declaring more columns doesn't fix it.
+The following results come from requests with `accept_partial=false` and one
+line per request.
+Each request returns HTTP status `400`.
+
+A declared tag written as a field (`t,region=west host="x"`) returns the
+following message:
+
+```text
+invalid column type for column 'host', expected iox::column_type::tag, got iox::column_type::field::string
+```
+
+A declared field written as a tag (`t,host=a,usage=5 …`) returns the
+following message:
+
+```text
+invalid column type for column 'usage', expected iox::column_type::field::float, got iox::column_type::tag
+```
+
+A declared field written with the wrong type (`usage="str"` for a `float64`
+field) returns the following message:
+
+```text
+invalid column type for column 'usage', expected iox::column_type::field::float, got iox::column_type::field::string
+```
+
+<!-- Not tested: these lines in the default (accept_partial=true) mode. -->
 
 ## Evolve a declared schema
 
@@ -237,6 +333,15 @@ remove, rename, or retype an existing one.
 Declaring a column that already exists at its declared type is a no-op.
 Declaring it at a different type returns an error.
 
+> [!Important]
+> #### Use PATCH, not PUT, to add columns
+>
+> `PUT /api/v3/configure/table` updates only a table's retention period.
+> The endpoint ignores a `tags` or `fields` array in the request body and still returns HTTP status `200`.
+> In an explicit database, the next write that references the undeclared column fails with a `400` error.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): PUT with a tags or fields array returned 200 and added no column. PATCH returned 200 with an empty body and added the column. -->
+
 For more information, see [Add columns to a table](/influxdb3/enterprise/admin/tables/update/).
 
 ## Propagation across a cluster
@@ -244,31 +349,45 @@ For more information, see [Add columns to a table](/influxdb3/enterprise/admin/t
 In a multi-node cluster, nodes poll the object store for catalog updates at
 [`--catalog-sync-interval`](/influxdb3/enterprise/reference/cli/influxdb3/serve/)
 (default `1s`).
-Enforcement reads each node's local view of the catalog, which can lag the
-node that accepted a declaration by up to one interval.
+Enforcement reads each node's local view of the catalog.
+That view can lag the node that accepted a declaration by about one
+interval, and sometimes longer.
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), two-node
+cluster, default catalog sync interval: after a PATCH to
+/api/v3/configure/table on node 1, a write of the new column to node 2 was
+accepted after 518 to 1989 ms (six trials; 961 to 1957 ms in an earlier run).
+So "up to one interval" was wrong. The cause of the longer trials isn't
+established. Both nodes were started with --mode=ingest,query, and system.nodes
+reports ingest,process,query for them. Query-only and process-only nodes were
+not tested. The 1s default of --catalog-sync-interval was not re-read in this
+run. -->
 
-So a client that declares a column on one node and immediately writes it to
-a different node can have that write rejected, because the second node
-hasn't yet seen the declaration.
-The rejection is a per-line error the client can retry, and it self-corrects
-once the writing node's catalog catches up.
-A column declared on the same node you write to is never rejected this way,
-because that node's catalog advances synchronously with the declaration.
+A client that declares a column on one node and immediately writes it to a
+different node can have that write rejected.
+The reason is that the second node hasn't yet seen the declaration.
+The rejection is a per-line error the client can retry.
+It self-corrects once the writing node's catalog catches up.
 
-Add-only evolution is what keeps this safe: a lagging node's view of a
-declared column is never ahead of the catalog, only behind, so the lag can
-reject a write that should have been accepted but can never accept one that
-should have been rejected.
+A node's catalog advances synchronously with a declaration made on that node.
+That's why a column declared on the same node you write to is never rejected
+this way.
+
+Add-only evolution is what keeps this safe.
+A lagging node's view of a declared column is never ahead of the catalog,
+only behind.
+As a result, the lag can reject a write that should have been accepted.
+It can never accept a write that should have been rejected.
 
 ## Limits
 
 - **Explicit schema mode is fixed at creation.** No API changes it
-  afterward. An implicit database can't be made explicit, and an explicit
-  one can't be relaxed to implicit. If you need a different mode, create a
-  new database and migrate your data.
+  afterward. An implicit database can't be made explicit.
+  An explicit database can't be relaxed to implicit.
+  If you need a different mode, create a new database and migrate your data.
 - **Deleting and recreating a database resets the mode.** The mode belongs
-  to the database that was created, so recreating a database without
-  `schema_mode` creates an implicit one.
+  to the database that was created.
+  As a result, recreating a database without `schema_mode` creates an
+  implicit one.
 - **The `_internal` database is always implicit** and can't be created,
   deleted, or patched through the API.
 - **Schema evolution is add-only.** Column removal, rename, and type change
@@ -290,7 +409,7 @@ should have been rejected.
 > that level, no node in the cluster can roll back to a 3.11.x binary,
 > whether or not you ever create an explicit database.
 >
-> By the time you're able to create an explicit database, your cluster has
+> By the time you can create an explicit database, your cluster has
 > therefore already lost 3.11.x rollback compatibility.
 > For more information about catalog version constraints during an
 > upgrade, see

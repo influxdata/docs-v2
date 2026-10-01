@@ -10,6 +10,7 @@ menu:
     name: Use the Explorer UI
     parent: Administer InfluxDB
 weight: 208
+metadata: [InfluxDB 3 Enterprise v3.11+]
 related:
   - /influxdb3/explorer/
   - /influxdb3/enterprise/admin/security/manage-users/
@@ -33,6 +34,7 @@ dashboarding UI.
 - [Default connections and query routing](#default-connections-and-query-routing)
 - [Configure SSO for the Explorer UI](#configure-sso-for-the-explorer-ui)
 - [Sessions](#sessions)
+- [Explorer application data](#explorer-application-data)
 - [Migrate data from the 3.11 UI](#migrate-data-from-the-311-ui)
 
 ## Enable the Explorer UI
@@ -52,6 +54,38 @@ share the same session secret so a browser session stays valid across nodes.
 (for example, `all,webui`, `query,webui`, or `webui` by itself).
 A node that doesn't include `webui` in `--mode` doesn't serve the UI.
 
+The server serves Explorer at the root path of its regular HTTP address and
+port--for example, <http://localhost:8181/>.
+Explorer doesn't use a separate port.
+
+Explorer runs without a plugin directory.
+To use the plugin features in Explorer, create a directory and pass it to
+[`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir).
+
+> [!Important]
+> #### Control who can reach Explorer
+>
+> What someone can do after reaching Explorer depends on whether
+> [user authentication](/influxdb3/enterprise/admin/security/manage-users/)
+> is enabled.
+>
+> - **Without user authentication**, anyone who can reach Explorer can use the
+>   InfluxDB connection configured in it, with that token's permissions.
+>   Treat reaching Explorer the same as holding the token: use tokens scoped to
+>   the task, and put an authenticating reverse proxy with TLS in front of any
+>   remote access.
+> - **With user authentication** (v3.12+), users sign in before they reach the
+>   UI, and their
+>   [role](/influxdb3/enterprise/reference/internals/rbac/) determines what they
+>   can do. Use TLS for remote access.
+>
+> Either way, bind the server to an interface you intend to expose.
+> To control which interface the server listens on, see
+> [`--http-bind`](/influxdb3/enterprise/reference/config-options/#http-bind).
+> When browsers reach Explorer over HTTPS, also set
+> [`--webui-cookie-secure`](/influxdb3/enterprise/reference/config-options/#webui-cookie-secure)
+> so session cookies are never sent over HTTP.
+
 ## Quick start without authentication
 
 To try Explorer without setting up user authentication, start the server
@@ -66,7 +100,7 @@ influxdb3 serve --mode all,webui \
 Explorer configures a working default connection automatically, so you can
 open the UI and start querying immediately.
 
-## Quick start with user authentication
+## Quick start with user authentication {#quick-start-with-user-authentication metadata="v3.12+"}
 
 When you start with
 [`--user-auth-type`](/influxdb3/enterprise/reference/config-options/#user-auth-type)
@@ -133,16 +167,16 @@ serves queries or writes:
 - Sign-in and user-management requests are always handled by the node that
   serves the UI.
 
-## Configure SSO for the Explorer UI
+## Configure SSO for the Explorer UI {#configure-sso-for-the-explorer-ui metadata="v3.12+"}
 
 For browser-based single sign-on through the Explorer UI (as opposed to
 CLI OAuth login), set
 [`--webui-public-uri`](/influxdb3/enterprise/reference/config-options/#webui-public-uri)
 together with `--oauth-client-id`, `--oauth-issuer`, and `--oauth-audience`:
 
-```bash { placeholders="WEBUI_PUBLIC_URI|OAUTH_CLIENT_ID" }
+```bash { placeholders="WEBUI_SESSION_SECRET|WEBUI_PUBLIC_URI|OAUTH_CLIENT_ID" }
 influxdb3 serve --mode all,webui \
-  --webui-session-secret my-secret \
+  --webui-session-secret WEBUI_SESSION_SECRET \
   --user-auth-type oauth \
   --oauth-issuer https://my-idp.example.com/ \
   --oauth-audience my-audience \
@@ -150,7 +184,9 @@ influxdb3 serve --mode all,webui \
   --webui-public-uri WEBUI_PUBLIC_URI
 ```
 
-Replace {{% code-placeholder-key %}}`WEBUI_PUBLIC_URI`{{% /code-placeholder-key %}}
+Replace {{% code-placeholder-key %}}`WEBUI_SESSION_SECRET`{{% /code-placeholder-key %}}
+with your session secret,
+{{% code-placeholder-key %}}`WEBUI_PUBLIC_URI`{{% /code-placeholder-key %}}
 with the browser-reachable base URL of the Explorer UI (for example,
 `https://explorer.example.com`), and
 {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}
@@ -166,14 +202,44 @@ for the other OAuth flags.
 
 ## Sessions
 
-Explorer stores browser sessions server-side.
-Sessions last 120 days.
+Explorer stores sessions on the server and gives the browser a cookie that
+identifies the session.
+`--webui-session-secret` signs that cookie so the server can reject cookies
+that were altered or forged.
+The secret doesn't encrypt the cookie.
+Keep the secret private: anyone who has it can create cookies the server
+accepts.
+
+Sessions are sliding and last 120 days:
+
+- A session that has 60 days or less remaining is renewed for another
+  120 days on its next authenticated request, so an actively used session
+  doesn't expire.
+- A session with no authenticated requests expires 120 days after it was
+  created or last renewed.
 
 Changing `--webui-session-secret` invalidates every existing session and
 signs all users out.
-Rotate the secret only when you intend to force everyone to sign in again.
 
-## Migrate data from the 3.11 UI
+To manage the session secret:
+
+- **Generate the secret once and reuse it.**
+  To generate a secret, run `openssl rand -base64 24`.
+- **Keep the secret out of your shell history and process list.**
+  Set the secret through the `INFLUXDB3_WEBUI_SESSION_SECRET` environment
+  variable instead of the command line when you can.
+- **Rotate the secret if it may have been exposed.**
+  Rotating signs out every user.
+
+## Explorer application data
+
+The integrated Explorer keeps its application state in a SQLite database that
+the server synchronizes to object storage for each cluster.
+You don't mount a volume to persist it, which is the main operational
+difference from the
+[Explorer Docker container](/influxdb3/explorer/install/#persist-data-across-restarts).
+
+## Migrate data from the 3.11 UI {#migrate-data-from-the-311-ui metadata="v3.12+"}
 
 If a browser has data from before you turned on user authentication (for
 example, from the integrated Explorer in InfluxDB 3.11, or from using
