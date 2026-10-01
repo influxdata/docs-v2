@@ -6,14 +6,18 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
-## v3.12.0 {date="2026-09-23"}
+## v3.12.0 {date="2026-10-01"}
 
-<!-- DRAFT: written from origin/3.12 through a171538943 (after v3.12.0-0.rc.2).
-Set the date at GA. -->
+<!-- Written from origin/3.12 through a171538943 (after v3.12.0-0.rc.2). -->
+
+InfluxDB 3.12 makes bulk import faster and adds distributed compaction (beta),
+per-database schema enforcement, and generally available user authentication
+and role-based access control to InfluxDB 3 Enterprise.
+Before you upgrade, review [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/).
 
 > [!Important]
 >
-> #### You can't roll back to v3.11.x after upgrading
+> #### Back up your catalog before you upgrade
 >
 > InfluxDB 3.12 adds a catalog record type that v3.11.x can't read.
 > Once every running node in the cluster runs v3.12, which is at first startup
@@ -21,7 +25,8 @@ Set the date at GA. -->
 > From then on, a v3.11.x binary refuses to load the catalog and reports that
 > the node's feature level `is below the cluster's committed level`.
 > This applies to Core and Enterprise, whether or not you use the new features.
-> Back up the catalog before you upgrade.
+> Rolling back to v3.11.x requires restoring a catalog backup taken before
+> the upgrade. See [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/).
 
 ### Core
 
@@ -74,6 +79,7 @@ Additional Enterprise-specific updates:
 - **Database-scoped import permissions**: Creating an import now requires write permission on the target database instead of an admin token. Listing imports requires the `describe` action on at least one database and returns only the import jobs for databases the token can describe. For example, grant `db:<DATABASE_NAME>:describe,write` for an import job.
 - **Write timestamp bounds (upgraded storage engine)**: The new `--write-timestamp-max-past` and `--write-timestamp-max-future` options reject lines whose explicit timestamp is further from the request time than the given duration. Lines without a timestamp are accepted. Both are off unless set, apply to every database, and are read by each ingest node, so set the same values on every ingest node. Rejections are counted in `influxdb3_write_timestamp_rejections_total`.
 - **Faster `ORDER BY time ... LIMIT` queries (upgraded storage engine)**: SQL queries sorted by `time` with a `LIMIT` now read time windows in sort order and stop once they have enough rows. Previously, they scanned and sorted every window in the queried time range.
+- **User authentication and role-based access control (GA)**: Username and password sign-in, single sign-on (OAuth), and role-based access control are now generally available. They remain opt-in: `--user-auth-type` defaults to `none`, and custom role authoring stays off (`--rbac-authoring-disabled` defaults to `true`). Existing token workflows are unchanged. See [Manage users](/influxdb3/enterprise/admin/security/manage-users/).
 - **Integrated Explorer 1.11**: The Explorer UI embedded in `influxdb3 serve --mode ...,webui` is updated to 1.11.
   - Explorer connects to its own cluster automatically, with no URL or token to enter: at once with `--without-auth`, or after you sign in when user authentication is on. With token authentication alone, Explorer still asks for a URL and token.
   - With user authentication on and no users yet, Explorer opens a setup page that creates the first administrator and shows the operator token once. With OAuth sign-in only, the page shows the `influxdb3 manage init-admin --oauth-id` command to run instead.

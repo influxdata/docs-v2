@@ -91,26 +91,33 @@
 
     For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
 
-- id: influxdb3-11-core-release
+- id: influxdb3-12-core-release
   level: note
   scope:
     - /influxdb3/core/
-  title: 'InfluxDB 3.11 is now available'
+  title: 'InfluxDB 3.12 is now available'
   slug: |
-    InfluxDB 3 Core 3.11 improves processing engine trigger reliability and
-    adds a configurable graceful shutdown.
+    InfluxDB 3 Core 3.12 adds columns to existing tables, upgrades to
+    DataFusion 52, and speeds up startup and InfluxQL queries.
+    **Back up your catalog before you upgrade. Rolling back to 3.11.x
+    requires restoring that backup.**
   message: |
-    **Key updates in InfluxDB 3 Core 3.11:**
+    **Key updates in InfluxDB 3 Core 3.12:**
 
-    - **Processing engine trigger reliability improvements**—capped async
-      trigger concurrency, bounded retries for failed triggers, and WAL
-      triggers that skip empty flushes.
-    - **Configurable graceful shutdown** with the new `--shutdown-timeout` option.
+    - **Add columns to an existing table** with `influxdb3 update table`.
+    - **Query improvements**: DataFusion 52.5, regular expressions
+      rewritten as `IN` lists, and narrower InfluxQL scans.
+    - **Faster startup** with many tables or snapshots.
+    - **New defaults**: `--max-concurrent-queries` is now finite, and a full
+      WAL buffer returns `429 Too Many Requests`.
+    - **Back up your catalog before you upgrade**—3.11.x can't read the
+      3.12 catalog, so rolling back requires restoring that backup.
 
-    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-11/)
+    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-12/)
+    - [Upgrade InfluxDB 3 Core](/influxdb3/core/admin/upgrade/)
     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
 
-- id: influxdb3-11-enterprise-release
+- id: influxdb3-12-enterprise-release
   level: note
   scope:
     - /influxdb3/
@@ -122,22 +129,32 @@
     - /influxdb3/cloud-dedicated/
     - /influxdb3/cloud-serverless/
     - /influxdb3/clustered/
-  title: 'InfluxDB 3 Enterprise 3.11: A significant performance upgrade for complex time series workloads'
+  title: 'InfluxDB 3 Enterprise 3.12: Distributed compaction, faster imports, and more control'
   slug: |
-    Performance and flexibility for heavier, more complex workloads.
+    More ways to scale, and more control over how production data evolves
+    and who can access it.
+    **Back up your catalog before you upgrade. Rolling back to 3.11.x
+    requires restoring that backup.**
   message: |
-    **Key updates in InfluxDB 3 Enterprise 3.11:**
+    **Key updates in InfluxDB 3 Enterprise 3.12:**
 
-    - **Upgraded storage engine** reaches general availability. New
-      clusters default to Parquet; upgrade with `--upgrade-pacha-tree`.
-    - **In-place and incremental backup and restore**.
-    - **Integrated Explorer UI**—run with `--mode all,webui`.
-    - **Bulk import**: import from remote object store sources (for
-      example, S3) with configurable concurrency.
-    - **Compaction and query performance improvements**.
-    - **Catalog migration**—back up your catalog before upgrading.
+    - **Faster bulk import** that uses more compactor cores, plus server-side
+      import from object storage. Imports need only database write permission.
+    - **Distributed compaction (beta)**: run compaction on every compact
+      node. Off by default.
+    - **Schema enforcement**: create a database with
+      `--schema-mode explicit` to reject undeclared tables and columns.
+    - **User authentication and role-based access control** are generally
+      available and opt-in.
+    - **Processing Engine on dedicated process nodes** that share trigger
+      work across the cluster.
+    - **Integrated Explorer 1.11**, preconfigured to connect to its own
+      cluster.
+    - **Back up your catalog before you upgrade**—3.11.x can't read the
+      3.12 catalog, so rolling back requires restoring that backup.
 
-    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-11/)
+    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-12/)
+    - [Upgrade InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/upgrade/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
 - id: telegraf-controller-1-1
