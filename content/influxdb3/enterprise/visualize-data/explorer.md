@@ -123,4 +123,4 @@ works with v3.11 and later.
 Use the container when you run Core, when you run an Enterprise release
 earlier than v3.11, or when you want Explorer to run separately from the
 database server--for example, on an operator workstation.
-See [Install and run InfluxDB 3 Explorer](/influxdb3/explorer/install/).
+See [Install and run InfluxDB 3 Explorer with Docker](/influxdb3/explorer/install/docker/).

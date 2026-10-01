@@ -237,7 +237,7 @@ The integrated Explorer keeps its application state in a SQLite database that
 the server synchronizes to object storage for each cluster.
 You don't mount a volume to persist it, which is the main operational
 difference from the
-[Explorer Docker container](/influxdb3/explorer/install/#persist-data-across-restarts).
+[Explorer Docker container](/influxdb3/explorer/install/docker/#persist-data-across-restarts).
 
 ## Migrate data from the 3.11 UI {#migrate-data-from-the-311-ui metadata="v3.12+"}
 
