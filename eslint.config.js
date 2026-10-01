@@ -103,9 +103,9 @@ export default [
     },
   },
 
-  // Configuration for Node.js helper scripts
+  // Configuration for Node.js helper and CI scripts
   {
-    files: ['helper-scripts/**/*.js', 'scripts/**/*.js'],
+    files: ['helper-scripts/**/*.js', 'scripts/**/*.js', '.ci/scripts/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.node,
