@@ -29,6 +29,8 @@ Rules: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - Closing tags match opening tags
 - Required parameters are present
 - Callouts use GitHub-style syntax: `> [!Note]`, `> [!Warning]`, etc.
+- Conditional shortcodes wrap complete callouts, blockquotes, lists, or tables;
+  shortcode boundaries don't split Markdown containers
 
 ## Heading Hierarchy
 
@@ -48,6 +50,8 @@ Products defined in [data/products.yml](../../data/products.yml):
 
 - Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
   "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
+- Treat "Cloud" alone as ambiguous; require the exact product or edition rather
+  than inferring Cloud Dedicated
 - Don't mix v2/v3 terminology (e.g., "bucket" in v3 Core docs)
 - Version references match the content path
 
@@ -71,6 +75,10 @@ Products defined in [data/products.yml](../../data/products.yml):
 - `source:` frontmatter points to an existing shared file
 - Shared files don't contain frontmatter (only content)
 - Changes to shared content affect multiple products — flag if unintentional
+- Claims and links match every consuming product's supported surface and sibling
+  navigation; flag missing product targets as blocking mismatches
+- Conditional shared content renders as intact containers for every consumer;
+  verify the content and layout in a browser
 
 ## Severity
 

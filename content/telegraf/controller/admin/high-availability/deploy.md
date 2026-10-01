@@ -5,11 +5,13 @@ description: >
   Deploy multiple Telegraf Controller nodes against a shared PostgreSQL or
   PostgreSQL-compatible database, route traffic with a load balancer using the
   health endpoints, and tune PostgreSQL for fast failover.
+aliases:
+  - /telegraf/controller/high-availability/deploy/
 menu:
   telegraf_controller:
     name: Deploy a cluster
     parent: High availability
-weight: 101
+weight: 201
 related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/telegraf-enterprise/apply-license/
@@ -40,7 +42,7 @@ endpoints, and tuning PostgreSQL for quick failover.
 - A PostgreSQL database that every node can reach over the network. You can use
   self-managed PostgreSQL or a PostgreSQL-compatible managed service. High
   availability does not support SQLite. See
-  [Requirements and constraints](/telegraf/controller/high-availability/#requirements-and-constraints).
+  [Requirements and constraints](/telegraf/controller/admin/high-availability/#requirements-and-constraints).
 - Two or more hosts to run the {{% product-name %}} binary.
 - A load balancer that can route traffic based on an HTTP health check.
 
@@ -181,7 +183,7 @@ within one poll interval, without a restart. For details, see
 
 After a license is present, one node acquires the leader lock and the rest stand
 by. Confirm the cluster's state with the
-[health endpoints](/telegraf/controller/high-availability/load-balancing/#health-endpoints).
+[health endpoints](/telegraf/controller/admin/high-availability/load-balancing/#health-endpoints).
 
 ## Put the cluster behind a load balancer
 
@@ -202,7 +204,7 @@ are not required.
 
 For the full list of health endpoints and example configurations for HAProxy,
 NGINX, and cloud load balancers such as AWS Elastic Load Balancing, see
-[Configure a load balancer](/telegraf/controller/high-availability/load-balancing/).
+[Configure a load balancer](/telegraf/controller/admin/high-availability/load-balancing/).
 
 ## Tune PostgreSQL for fast failover
 

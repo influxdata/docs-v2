@@ -168,11 +168,13 @@ consumer GPS error. Raise it where exact edge behavior matters.
 ### HTTP body parameters
 
 Every parameter above may be given in the request body under the same name,
-plus the backfill-only fields here. The body is the last layer: trigger
-arguments, then the [TOML file](#toml-configuration) they name, then the body,
-each overriding the one before. A trigger created without arguments is
-configured by the body alone; one created with them holds the defaults each
-request overrides only where it names them.
+plus the backfill-only fields here. A request carries three layers of its own —
+the body, then the headers, then the query string, each overriding the one
+before — and all three override what the trigger holds: the
+[environment](#environment-variables), the trigger arguments, then the
+[TOML file](#toml-configuration) they name. A trigger created without arguments
+is configured by the request alone; one created with them holds the defaults
+each request overrides only where it names them.
 
 A body overrides a setting but cannot unset one: an empty string or `null`
 counts as absent, so the trigger's value stands, and a body naming only `start`
@@ -205,18 +207,52 @@ Use `retry_unknown` after widening `max_radius_m`, and `force` after redrawing a
 zone — those rows already hold a resolved value, so `retry_unknown` would pass
 over them. The reference file is re-read on every HTTP call.
 
+#### Headers and query parameters
+
+The same names reach the plugin as headers, spelled
+`X-Influxdb3-Geo-Enrichment-<PARAMETER>` with underscores written as hyphens
+(`X-Influxdb3-Geo-Enrichment-Max-Radius-M` sets `max_radius_m`), and as
+query-string parameters, spelled exactly like the parameter
+(`?retry_unknown=true`). Header names are matched regardless of casing, which
+RFC 9110 makes meaningless.
+
+```bash
+curl -X POST "http://localhost:8181/api/v3/engine/geo_backfill?retry_unknown=true" \
+  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "X-Influxdb3-Geo-Enrichment-Max-Radius-M: 5000" \
+  -d '{"start": "2026-08-01T00:00:00Z", "end": "2026-08-29T00:00:00Z"}'
+```
+A header the plugin does not ask for is ignored, since a client sends headers of
+its own on every request; an unknown query parameter is a 400, like an unknown
+body field, so a misspelled name cannot pass unnoticed. Neither layer can name
+`config_file_path`, for the reason the body cannot.
+
+### Environment variables
+
+Every parameter can also come from an environment variable named
+`INFLUXDB3_GEO_ENRICHMENT_<PARAMETER>` in upper case — for example,
+`INFLUXDB3_GEO_ENRICHMENT_REFERENCE_FILE` sets `reference_file`. The
+environment is the lowest layer: a trigger argument overrides it, the TOML file
+overrides both, and on the HTTP trigger the request — its body, its headers and
+its query string — overrides them all.
+`INFLUXDB3_GEO_ENRICHMENT_CONFIG_FILE_PATH` names the TOML file when the trigger
+doesn't carry a `config_file_path` argument.
+
 ### TOML configuration
 
 | Parameter          | Type   | Default   | Description                                         |
 |--------------------|--------|-----------|-----------------------------------------------------|
 | `config_file_path` | string | *(empty)* | `.toml` file, relative to `PLUGIN_DIR` or absolute. |
 
-A trigger argument on either trigger; the file's values override the other
-trigger arguments, and on the HTTP trigger the request body overrides the file.
-The path is never read from a request body. It names a layer rather than
-setting a value: a body that could choose which file the trigger reads would
-take the trigger's configuration out of the operator's hands, so the body
-refuses it.
+A trigger argument on either trigger, or the
+`INFLUXDB3_GEO_ENRICHMENT_CONFIG_FILE_PATH` variable when the trigger leaves it
+unset; the file's values override the other trigger arguments, and on the HTTP
+trigger the request overrides the file. The path is never read from a request —
+not from its body, its headers or its query string. It names a layer rather than
+setting a value: a request that could choose which file the trigger reads would
+take the trigger's configuration out of the operator's hands, so the body and
+the query string refuse it and a header spelling it is dropped.
 
 On the HTTP trigger the file is how a long setup is named once instead of
 repeated in every backfill request; each call then carries only what differs —
