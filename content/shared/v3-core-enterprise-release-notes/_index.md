@@ -39,8 +39,9 @@ Before you upgrade, review [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/)
 > 1. Back up everything under `{prefix}/catalog/`, including the catalog snapshot and logs under `catalog/v3/`.
 > 2. Keep the backup until you're sure you won't roll back.
 >
-> To roll back to v3.11.x, restore the backup.
-> For details, see [Before you upgrade](/influxdb3/version/admin/upgrade/#before-you-upgrade).
+> To roll back to v3.11.x, stop the nodes and replace the catalog objects with the backup.
+> {{% show-in "enterprise" %}}`influxdb3 create restore` can't roll back to v3.11.x.{{% /show-in %}}
+> For details, see [Back up the catalog before you upgrade to 3.12](/influxdb3/version/admin/upgrade/#back-up-the-catalog-before-you-upgrade-to-312).
 
 ### Core
 

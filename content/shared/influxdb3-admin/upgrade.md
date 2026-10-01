@@ -2,7 +2,10 @@
 Upgrade your {{% product-name %}} version.
 
 - [Before you upgrade](#before-you-upgrade)
+- [Version-specific upgrade notes](#version-specific-upgrade-notes)
+  - [Back up the catalog before you upgrade to 3.12](#back-up-the-catalog-before-you-upgrade-to-312)
   - [Other changes to review before you upgrade to 3.12](#other-changes-to-review-before-you-upgrade-to-312)
+  - [Earlier versions](#earlier-versions)
 - [Upgrade an InfluxDB 3 instance](#upgrade-an-influxdb-3-instance)
 {{% show-in "enterprise" %}}
 - [Upgrade a multi-node cluster](#upgrade-a-multi-node-cluster)
@@ -19,54 +22,6 @@ Before upgrading your {{% product-name %}} instance, review the [release notes](
 {{% show-in "enterprise" %}}
 Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
 {{% /show-in %}}
-
-> [!Important]
-> #### Upgrading to InfluxDB 3.10 is a one-way migration
->
-> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
-> catalog format from v2 to v3. After migration, 3.9.x and older
-> binaries are unable to read the new catalog, and fail to start on the same
-> cluster data.
->
-> Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
-> Restoring these objects is the only way to roll back to 3.9.x.
->
-> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
-
-> [!Important]
-> #### Upgrading to InfluxDB 3.12 removes rollback to any 3.11.x release
->
-> InfluxDB 3.12 adds a catalog record type that 3.11.x binaries can't read.
-> Once every running node in the cluster is on 3.12 (which happens at first
-> startup on a single node), the catalog commits the new feature level.
-> From then on, a 3.11.x binary refuses to load the catalog and reports that
-> the node's feature level is below the cluster's committed level.
-> This applies to {{% product-name %}} whether or not you use any of the
-> features that require it.
->
-> Back up everything under `{prefix}/catalog/` (the catalog snapshot and
-> logs under `catalog/v3/`) before you upgrade.
-> Restoring these objects is the only way to roll back to 3.11.x.
-
-### Other changes to review before you upgrade to 3.12
-
-- **Query concurrency now has a finite default**: [`--max-concurrent-queries`](/influxdb3/version/reference/config-options/#max-concurrent-queries) defaults to the larger of `50` and 4 times the node's query parallelism, instead of being effectively unlimited. Queries submitted over the limit wait for a slot instead of running immediately.
-- **The WAL buffer limit is now enforced**: [`--wal-max-buffered-writes`](/influxdb3/version/reference/config-options/#wal-max-buffered-writes) (default `100000`) previously had no effect. Once the WAL buffer fills, writes now return `429 Too Many Requests` until it drains.
-- **HTTP and gRPC request metrics are split by protocol**: `http_requests*` metrics now count only HTTP requests, and `grpc_requests*` metrics count only gRPC requests. Dashboards that summed the two families report lower values after you upgrade. The `path` and `method_path` labels are now route templates, such as `/api/v3/engine/:path`, instead of literal paths; update panels that filter on a specific path.
-{{% show-in "enterprise" %}}
-
-Also review these {{% product-name %}} changes:
-
-- **Data file cache is now a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/version/reference/config-options/#file-cache-size) now also counts bytes held by running queries. A query that needs more than the remaining budget fails instead of the node using memory beyond the configured limit.
-- **Nodes without `query` mode refuse data queries (Parquet engine)**: A node that doesn't run `query` mode now returns `405 Method Not Allowed` for data queries instead of serving them. System table queries still work.
-- **`--node-spec` no longer pins a trigger to one node**: It now selects which process nodes' schedulers own the trigger. With the default, `all`, every process node owns the trigger and follows every ingest node's write-ahead log, so a WAL trigger runs once per process node for each WAL flush. To keep a WAL trigger running once per flush in a cluster with more than one process node, set `--node-spec` to a single node. See [Run the Processing Engine in a cluster](/influxdb3/version/admin/processing-engine-cluster/).
-- **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password must now carry the cluster's catalog UUID. Tokens issued before 3.12 are rejected: refresh the token or sign in again. API tokens aren't affected.
-- **Orphaned file cleanup starts automatically (upgraded storage engine)**: The primary compactor begins finding and deleting unreferenced compacted files a few minutes after it first starts on 3.12, then repeats every 7 days. To only report candidates without deleting them, set `--compactor-sweep-mode dry-run`. To turn cleanup off, set `--compactor-sweep-interval off`. See [Orphaned file cleanup](/influxdb3/version/admin/orphaned-file-cleanup/).
-- **Distributed compaction is available (beta, upgraded storage engine)**: Compaction jobs can now run on every compact node instead of only the node that holds the compactor lease. It's off by default (`--compactor-dispatch-target local`), so upgrading alone doesn't change where compaction runs. See [Distributed compaction](/influxdb3/version/admin/distributed-compaction/).
-
-{{% /show-in %}}
-
-For the complete list of changes, see the [release notes](/influxdb3/version/release-notes/).
 
 ### Verify your current version
 
@@ -106,6 +61,188 @@ influxdb3 {{% latest-patch %}}
 > ### Verify your InfluxDB version
 > 
 > Before and after upgrading, verify the {{% product-name %}} version running on your instance.
+
+## Version-specific upgrade notes
+
+Review the notes for every release between your current version and the
+version you're upgrading to.
+
+### Back up the catalog before you upgrade to 3.12
+
+After you upgrade to 3.12, you can't run 3.11.x on the same data unless you
+restore a catalog backup taken before the upgrade.
+
+InfluxDB 3.12 adds a catalog record type that 3.11.x can't read.
+The catalog records this new feature level automatically:
+
+{{% show-in "core" %}}
+- The first time you start 3.12.
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+- On a single node, the first time you start 3.12.
+- In a cluster, once every running node runs 3.12.
+  Stopped nodes don't count. A 3.11.x node that's stopped at that point
+  can't start again until you upgrade it to 3.12.
+{{% /show-in %}}
+
+This happens whether or not you use any 3.12 features.
+After that, a 3.11.x node refuses to load the catalog and fails with an error
+similar to the following:
+
+```text
+this node's feature level (core=<N>, enterprise=<N>) is below the cluster's committed level (core=<N>, enterprise=<N>); upgrade required
+```
+
+If you created a database with `--schema-mode explicit` after the upgrade,
+3.11.x fails with this error instead:
+
+```text
+unknown record id 47 without UPGRADE_SAFE flag
+```
+
+{{% show-in "enterprise" %}}
+> [!Important]
+> The `influxdb3 create restore` command can't roll back the feature level.
+> A restore keeps the cluster's current feature level, even if the backup is
+> from 3.11.x.
+> To roll back, use a copy of the catalog objects, as described in the
+> following steps.
+{{% /show-in %}}
+
+#### Back up the catalog
+
+<!-- Rollback procedure derived from influxdb_pro v3.11.5/v3.12.0 source
+(object_store/versions/v3.rs load_catalog, format/registry.rs). Not yet
+verified end to end: influxdata/DAR#779. -->
+
+Before you start any node on 3.12, copy every object under
+{{% show-in "core" %}}`<NODE_ID>/catalog/`{{% /show-in %}}{{% show-in "enterprise" %}}`<CLUSTER_ID>/catalog/`{{% /show-in %}}
+in your object store to a separate location.
+This includes the catalog snapshot (`catalog/v3/snapshot`) and log files
+(`catalog/v3/logs/`).
+The snapshot is overwritten in place, so stop
+{{% show-in "core" %}}the node{{% /show-in %}}{{% show-in "enterprise" %}}every node{{% /show-in %}}
+before you copy it to make sure the copy is consistent.
+
+Copy the `catalog` directory directly, for example with `cp -r` or
+`aws s3 sync`.
+The [manual backup process](/influxdb3/version/admin/backup-restore/#manual-backup-process)
+shows these commands.
+Skip its `_catalog_checkpoint` steps; that file doesn't exist on current
+installations.
+
+Data written after the upgrade isn't in the catalog backup.
+To roll back without losing it, also back up your data.
+{{% show-in "enterprise" %}}On the upgraded storage engine, use
+[`influxdb3 create backup`](/influxdb3/version/admin/backup-restore/#create-a-backup).{{% /show-in %}}
+
+Keep the backup until you're sure you won't roll back.
+
+#### Roll back to 3.11.x
+
+Rolling back discards every catalog change made after the upgrade, such as
+new databases, tables, columns, tokens, and triggers.
+
+Data written after the upgrade, such as WAL, Parquet, and `.pt` files, can
+refer to catalog objects that no longer exist after you roll back.
+Roll back only if you can discard that data or restore it from a backup
+taken before the upgrade.
+
+{{% show-in "core" %}}
+1. Stop the node.
+2. Make `<NODE_ID>/catalog/` match your backup exactly.
+   Delete every object in it that isn't in the backup, including newer log
+   files.
+3. Install your previous 3.11.x version and start the node.
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+1. Stop every node in the cluster.
+2. Make `<CLUSTER_ID>/catalog/` match your backup exactly.
+   Delete every object in it that isn't in the backup, including newer log
+   files.
+3. Install 3.11.3 or later on every node.
+   If you use the upgraded storage engine, 3.11.0 through 3.11.2 can't read
+   files that the 3.12 compactor writes, and fail with
+   `Unsupported run-set index version: 3`.
+4. Start the nodes.
+{{% /show-in %}}
+
+Replacing only the snapshot isn't enough.
+At startup, a 3.11.x node replays every log file newer than the snapshot,
+and a log file written by 3.12 makes it fail.
+
+To copy the backup back, use `cp -r` into an emptied `catalog` directory, or
+`aws s3 sync --delete`, which also deletes objects that aren't in the backup.
+
+### Other changes to review before you upgrade to 3.12
+
+- **Query concurrency now has a finite default**: [`--max-concurrent-queries`](/influxdb3/version/reference/config-options/#max-concurrent-queries) defaults to the larger of `50` and 4 times the node's query parallelism, instead of being effectively unlimited. Queries submitted over the limit wait for a slot instead of running immediately.
+- **The WAL buffer limit is now enforced**: [`--wal-max-buffered-writes`](/influxdb3/version/reference/config-options/#wal-max-buffered-writes) (default `100000`) previously had no effect. Once the WAL buffer fills, writes now return `429 Too Many Requests` until it drains.
+- **HTTP and gRPC request metrics are split by protocol**: `http_requests*` metrics now count only HTTP requests, and `grpc_requests*` metrics count only gRPC requests. Dashboards that summed the two families report lower values after you upgrade. The `path` and `method_path` labels are now route templates, such as `/api/v3/engine/:path`, instead of literal paths; update panels that filter on a specific path.
+{{% show-in "enterprise" %}}
+
+Also review these {{% product-name %}} changes:
+
+- **Data file cache is now a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/version/reference/config-options/#file-cache-size) now also counts bytes held by running queries. A query that needs more than the remaining budget fails instead of the node using memory beyond the configured limit.
+- **Nodes without `query` mode refuse data queries (Parquet engine)**: A node that doesn't run `query` mode now returns `405 Method Not Allowed` for data queries instead of serving them. System table queries still work.
+- **`--node-spec` no longer pins a trigger to one node**: It now selects which process nodes' schedulers own the trigger. With the default, `all`, every process node owns the trigger and follows every ingest node's write-ahead log, so a WAL trigger runs once per process node for each WAL flush. To keep a WAL trigger running once per flush in a cluster with more than one process node, set `--node-spec` to a single node. See [Run the Processing Engine in a cluster](/influxdb3/version/admin/processing-engine-cluster/).
+- **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password must now carry the cluster's catalog UUID. Tokens issued before 3.12 are rejected: refresh the token or sign in again. API tokens aren't affected.
+- **Orphaned file cleanup starts automatically (upgraded storage engine)**: The primary compactor begins finding and deleting unreferenced compacted files a few minutes after it first starts on 3.12, then repeats every 7 days. To only report candidates without deleting them, set `--compactor-sweep-mode dry-run`. To turn cleanup off, set `--compactor-sweep-interval off`. See [Orphaned file cleanup](/influxdb3/version/admin/orphaned-file-cleanup/).
+- **Distributed compaction is available (beta, upgraded storage engine)**: Compaction jobs can now run on every compact node instead of only the node that holds the compactor lease. It's off by default (`--compactor-dispatch-target local`), so upgrading alone doesn't change where compaction runs. See [Distributed compaction](/influxdb3/version/admin/distributed-compaction/).
+
+{{% /show-in %}}
+
+For the complete list of changes, see the [release notes](/influxdb3/version/release-notes/).
+
+{{% show-in "enterprise" %}}
+### Rolling upgrades to 3.12
+
+During a rolling upgrade to 3.12, nodes on different versions keep working
+together, and you can keep changing the catalog, for example by adding tables
+and columns.
+Operations that need a 3.12 catalog record, such as creating a database with
+`--schema-mode explicit`, fail until every running node runs 3.12.
+These operations return an error similar to the following:
+
+```text
+record id <N> exceeds the cluster's committed feature level (core=<N>, enterprise=<N>); the cluster must finish upgrading before this operation is available
+```
+
+{{% /show-in %}}
+### Earlier versions
+
+> [!Important]
+> #### Upgrading to InfluxDB 3.10 is a one-way migration
+>
+> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
+> catalog format from v2 to v3. After migration, 3.9.x and older
+> binaries are unable to read the new catalog, and fail to start on the same
+> cluster data.
+>
+> Before upgrading, back up everything under `{prefix}/catalog/`.
+> To roll back to 3.9.x, restore it and delete any objects that aren't in the
+> backup, including `catalog/v3/`.
+>
+> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+{{< expand-wrapper >}}
+{{% expand "Upgrade across 3.2.x to 3.5.x: catalog version boundaries" %}}
+
+- **3.4.x**: Introduced a catalog version update that requires all nodes to
+  upgrade before catalog modifications can resume.
+- **3.2.x to 3.5.x**: Nodes running 3.2.1 can temporarily coexist with nodes
+  running 3.5.0, but catalog modifications are blocked until all nodes
+  complete the upgrade.
+
+During a rolling upgrade across one of these catalog version boundaries,
+nodes running older versions can't modify the catalog.
+This affects writes that add new tables, tags, or fields, but allows writes
+to existing tables, tags, and fields.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+{{% /show-in %}}
 
 ## Upgrade an InfluxDB 3 instance
 
@@ -196,20 +333,17 @@ When upgrading multi-node clusters, you need to understand catalog version const
 {{% product-name %}} uses a catalog to track metadata about tables, tags, and fields.
 Some versions introduce catalog version updates that affect how nodes can interoperate during rolling upgrades.
 
-> [!Important]
-> #### Important version transitions
-> 
-> - **3.4.x**: Introduced a catalog version update that requires all nodes to upgrade before catalog modifications can resume.
-> - **3.2.x to 3.5.x**: Nodes running 3.2.1 can temporarily coexist with nodes running 3.5.0, but catalog modifications are blocked until all nodes complete the upgrade.
-
-During a rolling upgrade across a catalog version boundary, nodes running older versions cannot modify the catalog.
-This affects writes that add new tables, tags, or fields, but allows writes to existing tables, tags, and fields.
-
-
+For how each release affects nodes running different versions, see
+[Version-specific upgrade notes](#version-specific-upgrade-notes).
 
 ### Multi-node upgrade procedure
 
 Follow these steps to upgrade your {{% product-name %}} deployment with minimal downtime.
+
+Before you upgrade any node, back up your data.
+To keep the option to roll back from 3.12 to 3.11.x, also
+[back up the catalog](#back-up-the-catalog-before-you-upgrade-to-312).
+For backup procedures, see [Back up and restore](/influxdb3/version/admin/backup-restore/).
 
 #### Recommended node upgrade order
 
