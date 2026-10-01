@@ -19,14 +19,28 @@ Before you upgrade, review [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/)
 >
 > #### Back up your catalog before you upgrade
 >
-> InfluxDB 3.12 adds a catalog record type that v3.11.x can't read.
-> Once every running node in the cluster runs v3.12, which is at first startup
-> on a single node, the catalog records the new feature level.
-> From then on, a v3.11.x binary refuses to load the catalog and reports that
-> the node's feature level `is below the cluster's committed level`.
-> This applies to Core and Enterprise, whether or not you use the new features.
-> Rolling back to v3.11.x requires restoring a catalog backup taken before
-> the upgrade. See [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/).
+> InfluxDB 3.12 adds a catalog record that v3.11.x can't read.
+> After the upgrade, you can't roll back to v3.11.x unless you have a catalog backup.
+>
+> The catalog records the new feature level automatically.
+> On a single node, this happens the first time you start v3.12.
+> In a cluster, it happens once every running node runs v3.12.
+> It happens whether or not you use the new features.
+> This applies to Core and Enterprise.
+>
+> After that, v3.11.x refuses to load the catalog and returns an error like the following:
+>
+> ```text
+> this node's feature level (core=<N>, enterprise=<N>) is below the cluster's committed level (core=<N>, enterprise=<N>); upgrade required
+> ```
+>
+> Before you upgrade:
+>
+> 1. Back up everything under `{prefix}/catalog/`, including the catalog snapshot and logs under `catalog/v3/`.
+> 2. Keep the backup until you're sure you won't roll back.
+>
+> To roll back to v3.11.x, restore the backup.
+> For details, see [Before you upgrade](/influxdb3/version/admin/upgrade/#before-you-upgrade).
 
 ### Core
 
