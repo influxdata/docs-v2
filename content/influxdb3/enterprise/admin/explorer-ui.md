@@ -65,11 +65,21 @@ To use the plugin features in Explorer, create a directory and pass it to
 > [!Important]
 > #### Control who can reach Explorer
 >
-> Anyone who can reach Explorer can use the InfluxDB connection configured in
-> it, with that token's permissions.
-> Treat reaching Explorer the same as holding the token: bind the server to an
-> interface you intend to expose, use tokens scoped to the task, and put an
-> authenticating reverse proxy with TLS in front of any remote access.
+> What someone can do after reaching Explorer depends on whether
+> [user authentication](/influxdb3/enterprise/admin/security/manage-users/)
+> is enabled.
+>
+> - **Without user authentication**, anyone who can reach Explorer can use the
+>   InfluxDB connection configured in it, with that token's permissions.
+>   Treat reaching Explorer the same as holding the token: use tokens scoped to
+>   the task, and put an authenticating reverse proxy with TLS in front of any
+>   remote access.
+> - **With user authentication** (v3.12+), users sign in before they reach the
+>   UI, and their
+>   [role](/influxdb3/enterprise/reference/internals/rbac/) determines what they
+>   can do. Use TLS for remote access.
+>
+> Either way, bind the server to an interface you intend to expose.
 > To control which interface the server listens on, see
 > [`--http-bind`](/influxdb3/enterprise/reference/config-options/#http-bind).
 > When browsers reach Explorer over HTTPS, also set
