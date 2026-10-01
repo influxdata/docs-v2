@@ -11,6 +11,15 @@
 #   slug: (optional) Short notification summary
 #   message: |
 #     Markdown message content.
+#
+# Length limits (the panel is 450px wide and shares the viewport with the page):
+#
+# - title: one line, about 50 characters. Put the product and version first.
+# - slug: one or two sentences, about 30 words. Always visible, so put any
+#   action the reader must take here.
+# - message: at most 4 short bullets (one line each) plus one line of links.
+#   Don't repeat the slug. Put details in release notes or guides and link
+#   to them; a notification is not a release summary.
 
 # - id: future-of-flux-new
 #   level: note
@@ -64,32 +73,24 @@
     - Flux upgrade
     - Compaction reliability improvements
 
-- id: explorer-1-9-key-enhancements
+- id: explorer-1-11-key-enhancements
   level: note
   scope:
     - /
     - /influxdb3/explorer/
     - /influxdb3/core/
     - /influxdb3/enterprise/
-  title: Key enhancements in Explorer 1.9
+  title: Explorer 1.11 is now available
   slug: |
-    Explorer 1.9 is now available with InfluxQL support, an AI-assisted
-    Flux to SQL converter (beta), and new live sample data simulators.
-
-    <a class="btn" href="/influxdb3/explorer/release-notes/#v190">View Explorer 1.9 release notes</a>
+    Six new visualization types, plus password and SSO sign-in and user
+    management for InfluxDB 3 Enterprise.
   message: |
-    Explorer 1.9 includes new features and improvements that make it easier to
-    query, visualize, and manage data.
+    - **Password and SSO sign-in** with role-based access.
+    - **Manage Users** page under a new **Security** section.
+    - **New visualizations**: Area, Single Stat, Gauge, Pie, Scatter, and Ranking.
+    - **`EXPLAIN` and `EXPLAIN ANALYZE`** in the SQL editor.
 
-    **Highlights:**
-
-    - **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter.
-    - **InfluxQL support**: Query data with InfluxQL in the Data Explorer and dashboards, and save and load InfluxQL queries.
-    - **InfluxQL visualizations**: Render line and bar charts from InfluxQL results with per-tag series grouping.
-    - **Query error history**: Review a history of query errors in the query tool.
-    - **Live sample data simulators**: Generate continuous live sample data with new bird data and signal generator simulators.
-
-    For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
+    [Explorer 1.11 release notes](/influxdb3/explorer/release-notes/#v1110)
 
 - id: influxdb3-12-core-release
   level: note
@@ -97,25 +98,17 @@
     - /influxdb3/core/
   title: 'InfluxDB 3.12 is now available'
   slug: |
-    InfluxDB 3 Core 3.12 adds columns to existing tables, upgrades to
-    DataFusion 52, and speeds up startup and InfluxQL queries.
-    **Back up your catalog before you upgrade. Rolling back to 3.11.x
-    requires restoring that backup.**
+    **Back up your catalog before you upgrade.** Rolling back to 3.11.x
+    requires restoring that backup.
   message: |
-    **Key updates in InfluxDB 3 Core 3.12:**
+    - **Add columns to existing tables** with `influxdb3 update table`.
+    - **Faster queries and startup** with DataFusion 52.5.
+    - **New defaults**: finite `--max-concurrent-queries` and an enforced
+      WAL buffer limit.
 
-    - **Add columns to an existing table** with `influxdb3 update table`.
-    - **Query improvements**: DataFusion 52.5, regular expressions
-      rewritten as `IN` lists, and narrower InfluxQL scans.
-    - **Faster startup** with many tables or snapshots.
-    - **New defaults**: `--max-concurrent-queries` is now finite, and a full
-      WAL buffer returns `429 Too Many Requests`.
-    - **Back up your catalog before you upgrade**—3.11.x can't read the
-      3.12 catalog, so rolling back requires restoring that backup.
-
-    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-12/)
-    - [Upgrade InfluxDB 3 Core](/influxdb3/core/admin/upgrade/)
-    - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
+    [Upgrade guide](/influxdb3/core/admin/upgrade/) |
+    [Release notes](/influxdb3/core/release-notes/) |
+    [Announcement](https://www.influxdata.com/blog/influxdb-3-12/)
 
 - id: influxdb3-12-enterprise-release
   level: note
@@ -129,33 +122,19 @@
     - /influxdb3/cloud-dedicated/
     - /influxdb3/cloud-serverless/
     - /influxdb3/clustered/
-  title: 'InfluxDB 3 Enterprise 3.12: Distributed compaction, faster imports, and more control'
+  title: 'InfluxDB 3 Enterprise 3.12 is now available'
   slug: |
-    More ways to scale, and more control over how production data evolves
-    and who can access it.
-    **Back up your catalog before you upgrade. Rolling back to 3.11.x
-    requires restoring that backup.**
+    **Back up your catalog before you upgrade.** Rolling back to 3.11.x
+    requires restoring that backup.
   message: |
-    **Key updates in InfluxDB 3 Enterprise 3.12:**
+    - **Faster bulk import**, including from object storage.
+    - **Distributed compaction** (beta).
+    - **Schema enforcement** per database.
+    - **User authentication and RBAC** are generally available.
 
-    - **Faster bulk import** that uses more compactor cores, plus server-side
-      import from object storage. Imports need only database write permission.
-    - **Distributed compaction (beta)**: run compaction on every compact
-      node. Off by default.
-    - **Schema enforcement**: create a database with
-      `--schema-mode explicit` to reject undeclared tables and columns.
-    - **User authentication and role-based access control** are generally
-      available and opt-in.
-    - **Processing Engine on dedicated process nodes** that share trigger
-      work across the cluster.
-    - **Integrated Explorer 1.11**, preconfigured to connect to its own
-      cluster.
-    - **Back up your catalog before you upgrade**—3.11.x can't read the
-      3.12 catalog, so rolling back requires restoring that backup.
-
-    - [Read the announcement](https://www.influxdata.com/blog/influxdb-3-12/)
-    - [Upgrade InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/upgrade/)
-    - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
+    [Upgrade guide](/influxdb3/enterprise/admin/upgrade/) |
+    [Release notes](/influxdb3/enterprise/release-notes/) |
+    [Announcement](https://www.influxdata.com/blog/influxdb-3-12/)
 
 - id: telegraf-controller-1-1
   level: note
