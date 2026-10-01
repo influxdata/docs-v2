@@ -264,6 +264,17 @@ local nanosecond timestamp in UTC.
 
 Aggregating high resolution data into lower resolution data to preserve disk space.
 
+### downstream (EDR)
+
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+the node an [upstream](#upstream-edr) node sends replicated data to. A node
+can be downstream-only (a sink), or both upstream and downstream at once (a
+regional relay).
+
+Related entries:
+[upstream (EDR)](#upstream-edr),
+[sidecar agent](#sidecar-agent)
+
 ### duration
 
 A data type that represents a duration of time--for example, `1s`, `1m`, `1h`, `1d`.
@@ -387,6 +398,19 @@ Related entries:
 
 ## G
 
+### gap fill (EDR)
+
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+the process that recovers a WAL file the replicator expected but that was
+already deleted (snapshotted and evicted) before it could be sent--typically
+after a long outage with short WAL retention. The agent detects the missing
+WAL ID range, records it in a gap ledger, and recovers the data from
+later-generation files.
+
+Related entries:
+[historic fill (EDR)](#historic-fill-edr),
+[WAL replication (EDR)](#wal-replication-edr)
+
 ### gzip
 
 gzip is a type of data compression that compress chunks of data, which is
@@ -395,10 +419,32 @@ The gzip file extension is `.gz`.
 
 ## H
 
+### halted state (EDR)
+
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+the state an agent enters when the downstream persistently refuses data
+that exists and could be delivered--for example, a schema conflict, an
+authentication failure, or a malformed batch. Dispatch stops on every tier
+until the cause is fixed; replication then auto-resumes without a restart.
+
+Related entries:
+[downstream (EDR)](#downstream-edr)
+
 ### histogram
 
 A visual representation of statistical information that uses rectangles to show
 the frequency of data items in successive, equal intervals or bins.
+
+### historic fill (EDR)
+
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+the process that replicates data that existed on the source before EDR was
+deployed (or before a destination was added), backfilling from snapshot and
+compacted files below the historic/live boundary.
+
+Related entries:
+[gap fill (EDR)](#gap-fill-edr),
+[WAL replication (EDR)](#wal-replication-edr)
 
 ## I
 
@@ -1023,6 +1069,18 @@ Related entries:
 [output plugin](#output-plugin),
 [processor plugin](#processor-plugin)
 
+### sidecar agent
+
+A process that runs alongside a primary application to extend it without
+modifying it. [Edge Data Replication (EDR) for InfluxDB 3
+Enterprise](/influxdb3/edr/) runs as a sidecar agent (`influxdb3-edr`)
+beside an unmodified InfluxDB 3 Enterprise instance, reading its object
+store directly.
+
+Related entries:
+[downstream (EDR)](#downstream-edr),
+[upstream (EDR)](#upstream-edr)
+
 ### string
 
 A data type used to represent text.
@@ -1234,6 +1292,18 @@ InfluxDB supports 64-bit unsigned integers (minimum: `0`, maximum: `184467440737
 Related entries:
 [integer](#integer)
 
+### upstream (EDR)
+
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+the source node that sends replicated data to a
+[downstream](#downstream-edr) node. The upstream initiates all data
+transfer. A node can be upstream-only (a pure source), or both upstream and
+downstream at once (a regional relay).
+
+Related entries:
+[downstream (EDR)](#downstream-edr),
+[sidecar agent](#sidecar-agent)
+
 ### user
 
 InfluxDB users are granted permission to access InfluxDB.
@@ -1280,6 +1350,19 @@ the storage engine.
 Points in the WAL are queryable and persist through a system reboot.
 On process start, all points in the WAL must be flushed before the system
 accepts new writes.
+
+### WAL replication (EDR)
+
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+the live replication path that discovers new [WAL](#wal-write-ahead-log)
+files as they appear on the source's object store and ships them
+downstream. WAL replication is EDR's primary, most precise data source;
+[historic fill](#historic-fill-edr) and [gap fill](#gap-fill-edr) recover
+data that outlives WAL retention from compacted files instead.
+
+Related entries:
+[historic fill (EDR)](#historic-fill-edr),
+[gap fill (EDR)](#gap-fill-edr)
 
 {{% show-in "core,enterprise" %}}
 ### WAL tail
