@@ -73,7 +73,10 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
        > For Linux Docker Engine details, see the [Docker daemon documentation](https://docs.docker.com/reference/cli/dockerd/#configure-host-gateway-ip).
 
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
-      We recommend using an InfluxDB 3 _admin_ token.
+      A resource token is enough to query and write data within the permissions
+      you grant it.
+      To manage databases, tokens, and other resources from Explorer, use an
+      admin token.
       
       > [!Important]
       > #### Token permissions determine Explorer's access
@@ -83,9 +86,12 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
       > tokens with limited permissions may not be able to use some Explorer
       > functionality.
       >
-      > The token's permissions also define what anyone with access to this
-      > Explorer instance can do. Use a token scoped to what you need, and
-      > control who can reach Explorer. If you're running the
+      > Without user authentication, the token's permissions also define what
+      > anyone with access to this Explorer instance can do. Use a token scoped
+      > to what you need, and control who can reach Explorer.
+      > With user authentication on an InfluxDB 3 Enterprise v3.12 or later
+      > server, users sign in first and their role determines what they can do.
+      > If you're running the
       > [Docker container](/influxdb3/explorer/install/docker/), see
       > [Network exposure and access control](/influxdb3/explorer/install/docker/#network-exposure-and-access-control).
       > If you're using the
