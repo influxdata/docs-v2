@@ -36,8 +36,8 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--plugin-filename` | _(Deprecated: use `--path` instead)_ Name of the file, stored in the server's `plugin-dir`, that contains the Python plugin code to run     |
 |        | `--trigger-spec`    | Trigger specification: `table:<TABLE_NAME>`, `all_tables`, `every:<DURATION>`, `cron:<EXPRESSION>`, or `request:<REQUEST_PATH>`                             |
 |        | `--trigger-arguments` | Additional arguments for the trigger, in the format `key=value`, separated by commas (for example, `arg1=val1,arg2=val2`) |
-|        | `--disabled`        | Create the trigger in disabled state                                                                     |
-|        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` |
+|        | `--disabled`        | Create the trigger in disabled state (default: enabled)                                                  |
+|        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` (default: `log`) |
 |        | `--run-asynchronous` | Run the trigger asynchronously, allowing multiple triggers to run simultaneously (default is synchronous)                                                 |
 |        | `--tls-ca`          | Path to a custom TLS certificate authority (for self-signed or internal certificates)                    |
 |        | `--tls-no-verify`   | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
@@ -49,7 +49,7 @@ Additional {{% product-name %}} option:
 
 | Option |               | Description                                                                                                                                                                 |
 | :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        | `--node-spec` | Which node(s) the trigger should be configured on. Two value formats are supported: `all` (default) - applies to all nodes, or `nodes:<node-id>[,<node-id>..]` - applies only to specified comma-separated list of nodes |
+|        | `--node-spec` | Which process nodes' schedulers own the trigger. Two value formats are supported: `all` (default) - every process node (a node with `--plugin-dir` configured) owns the trigger and schedules it independently, or `nodes:<node-id>[,<node-id>..]` - only the schedulers on the listed nodes own the trigger |
 {{% /show-in %}}
 
 ### Reference a plugin from GitHub
@@ -335,9 +335,13 @@ influxdb3 create trigger \
 
 ### Pin a trigger to specific nodes in a cluster
 
-In a multi-node {{% product-name %}} cluster, the default `--node-spec all` makes every node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured try to execute the trigger.
-For schedule triggers, this causes duplicate execution on every plugin-capable node.
-For request triggers, the route exists only on the node receiving the HTTP request, and other nodes return `404 not found` — there's no internal cross-node routing.
+In a multi-node {{% product-name %}} cluster, `--node-spec` selects which process nodes' schedulers own the trigger.
+A process node is any node whose `--mode` includes `process` or `all`; setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) adds `process` mode automatically.
+
+With the default `--node-spec all`, every process node owns the trigger and schedules it independently.
+For schedule triggers, this causes duplicate execution on every process node.
+For WAL triggers, every process node follows every ingester's WAL through object storage, so the trigger fires once per process node for each WAL flush.
+For request triggers, the route exists only on the owning node(s); other process nodes return `404 not found`, and nodes without a Processing Engine return `405 Method Not Allowed`, since there's no internal cross-node routing for the route itself.
 
 To pin a trigger to specific node(s), pass `--node-spec nodes:<node-id>[,<node-id>...]`:
 
@@ -362,13 +366,16 @@ influxdb3 create trigger \
 ```
 
 The cluster validates the node IDs in `--node-spec` against current cluster membership at create time.
-A typo or unknown node ID is rejected with `HTTP 500: invalid node name (<id>)`.
+A typo or unknown node ID is rejected with an `invalid node name (<id>)` error.
 
 The cluster doesn't validate the trigger type against the pinned node's mode at create time.
-Pinning a schedule trigger to a `compact`-only node, or a request trigger to an `ingest`-only node, succeeds — but the trigger fails or returns `404` at execution time.
+Pinning a trigger to a node without `--plugin-dir` configured succeeds, but the trigger doesn't run there: a node that isn't a process node has no Processing Engine, and a `--mode all` node without `--plugin-dir` logs an error when the trigger starts and fails every run placed on its own worker with `Node not configured with plugin directory`.
+Pin triggers only to nodes that set `--plugin-dir`.
 Choose the pinned node by what the trigger needs at execution:
 
-- **Schedule trigger** — pin to a node with `process,query` mode if the plugin reads with `influxdb3_local.query()`; otherwise the call HTTP-hops to another query node.
-- **Request trigger** — pin to the node(s) you want to serve external HTTP traffic. The `/api/v3/engine/<trigger_name>` route only exists on pinned nodes; clients hitting any other node receive `404 not found`.
+- **Schedule trigger**: Pin to a node with `process,query` mode if the plugin reads with `influxdb3_local.query()`; otherwise the call goes over the internode protocol to a query node that advertises an internode address (`--internode-bind-addr`).
+- **Request trigger**: Pin to the node(s) you want to serve external HTTP traffic. The `/api/v3/engine/<trigger_name>` route only exists on pinned nodes; other process nodes return `404 not found`, and nodes without a Processing Engine return `405 Method Not Allowed`.
+
+For the full trigger execution model in a cluster, including scheduler state persistence and restart behavior, see [Run the Processing Engine in a cluster](/influxdb3/enterprise/admin/processing-engine-cluster/).
 
 {{% /show-in %}}
