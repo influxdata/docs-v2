@@ -124,45 +124,80 @@ You can also download and install {{% product-name %}} build artifacts directly:
 
 ### Pull the Docker image
 
-<!-- TEMPORARY: InfluxDB 3.12.0 images aren't on Docker Hub yet.
-Revert to influxdb:3-{{< product-key >}} once Docker Hub publishes 3.12.0.
-Quay tags are the v3.12.0 release commits:
-Core influxdata/influxdb 3ba97c65f1ee4e1f127a8266517d4d2083b7ea39,
-Enterprise influxdata/influxdb_pro 7dd361197ee2834eaa56089b67ffe59ad02e349a. -->
+Run the following command to pull the [`influxdb:3-{{< product-key >}}` image](https://hub.docker.com/_/influxdb/tags?tag=3-{{< product-key >}}&name=3-{{< product-key >}}), available for x86_64 (AMD64) and ARM64 architectures:
 
-> [!Note]
-> #### {{< latest-patch >}} images aren't on Docker Hub yet
->
-> Until Docker Hub publishes {{% product-name %}} {{< latest-patch >}},
-> pull the image from Quay.
-> The `influxdb:3-{{< product-key >}}` image on Docker Hub still pulls the
-> previous release.
-
-Run the following command to pull the {{< latest-patch >}} image from
-{{% show-in "core" %}}[Quay](https://quay.io/repository/influxdb/influxdb3-core?tab=tags){{% /show-in %}}{{% show-in "enterprise" %}}[Quay](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags){{% /show-in %}},
-available for x86_64 (AMD64) and ARM64 architectures:
-
-{{% show-in "core" %}}
 <!--pytest.mark.skip-->
 ```bash
-docker pull quay.io/influxdb/influxdb3-core:3ba97c65f1ee4e1f127a8266517d4d2083b7ea39
+docker pull influxdb:3-{{< product-key >}}
 ```
-{{% /show-in %}}
-{{% show-in "enterprise" %}}
-<!--pytest.mark.skip-->
-```bash
-docker pull quay.io/influxdb/influxdb3-enterprise:7dd361197ee2834eaa56089b67ffe59ad02e349a
-```
-{{% /show-in %}}
 
 Docker automatically pulls the appropriate image for your system architecture.
-To specify the architecture, add `--platform linux/amd64` or
-`--platform linux/arm64`.
 
-The Quay tag is fixed to the {{< latest-patch >}} release, so it also pins
-your deployment to that version.
-In `docker run` commands and Compose files elsewhere in the documentation,
-replace `influxdb:3-{{< product-key >}}` with this image.
+<!-- Update the Quay tags below for each release: use the release commit SHA
+(influxdata/influxdb for Core, influxdata/influxdb_pro for Enterprise). -->
+
+{{% show-in "core" %}}
+> [!Tip]
+> #### Pull from Quay
+>
+> {{% product-name %}} images are also available from
+> [Quay](https://quay.io/repository/influxdb/influxdb3-core?tab=tags),
+> tagged by release commit.
+> For example, to pull the 3.12.0 image:
+>
+> ```bash
+> docker pull quay.io/influxdb/influxdb3-core:3ba97c65f1ee4e1f127a8266517d4d2083b7ea39
+> ```
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+> [!Tip]
+> #### Pull from Quay
+>
+> {{% product-name %}} images are also available from
+> [Quay](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags),
+> tagged by release commit.
+> For example, to pull the 3.12.0 image:
+>
+> ```bash
+> docker pull quay.io/influxdb/influxdb3-enterprise:7dd361197ee2834eaa56089b67ffe59ad02e349a
+> ```
+{{% /show-in %}}
+
+{{< expand-wrapper >}}
+{{% expand "Pull for a specific system architecture" %}}
+To specify the system architecture, use platform-specific tags--for example:
+
+```bash
+# For x86_64/AMD64
+docker pull \
+--platform linux/amd64 \
+influxdb:3-{{< product-key >}}
+```
+
+```bash
+# For ARM64
+docker pull \
+--platform linux/arm64 \
+influxdb:3-{{< product-key >}}
+```
+{{% /expand %}}
+{{% expand "Pin to a specific version" %}}
+The `3-{{< product-key >}}` tag always points to the latest 3.x release.
+To keep a deployment on a fixed version, pull a version-specific tag instead:
+
+```bash
+# Pin to a specific patch release
+docker pull influxdb:{{< latest-patch >}}-{{< product-key >}}
+
+# Pin to the latest patch in a minor series--for example, 3.10
+docker pull influxdb:3.10-{{< product-key >}}
+```
+
+To browse recent InfluxDB 3 image tags (Core and Enterprise), newest first, see
+[`influxdb` tags on Docker Hub](https://hub.docker.com/_/influxdb/tags?name=3.&ordering=last_updated).
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 
 ### Linux DEB or RPM
 
