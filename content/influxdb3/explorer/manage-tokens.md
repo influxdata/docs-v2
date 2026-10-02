@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: Manage tokens
-weight: 4
+weight: 5
 related:
   - /influxdb3/core/admin/tokens/, Manage tokens in InfluxDB 3 Core
   - /influxdb3/enterprise/admin/tokens/, Manage tokens in InfluxDB 3 Enterprise

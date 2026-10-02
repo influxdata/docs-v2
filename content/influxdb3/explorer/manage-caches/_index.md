@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: Manage caches
-weight: 6
+weight: 9
 related:
   - /influxdb3/enterprise/admin/last-value-cache/, Manage the Last Value Cache in InfluxDB 3 Enterprise
   - /influxdb3/enterprise/admin/distinct-value-cache/, Manage the Distinct Value Cache in InfluxDB 3 Enterprise
