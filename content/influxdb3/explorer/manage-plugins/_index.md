@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: Manage InfluxDB plugins
-weight: 5
+weight: 8
 cascade:
   related:
     - /influxdb3/core/plugins/, InfluxDB 3 Core Processing engine plugins
