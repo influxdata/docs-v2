@@ -139,6 +139,25 @@ Additional Enterprise-specific updates:
 - **`--compaction-max-num-files-per-plan` has no effect (Parquet engine)**: The compactor no longer limits plans by input file count. Setting the option logs a deprecation warning.
 - **Metric changes**: The unused `influxdb3_memory_pool_evictions`, `influxdb3_memory_pool_rejections`, `influxdb3_memory_pool_eviction_bytes`, `influxdb3_memory_pool_eviction_size_bytes`, and `influxdb3_memory_pool_eviction_duration_seconds` metrics are removed. `influxdb3_compaction_plans_skipped` (Parquet engine) now reports `reason="memory_exhaustion"` with no `phase` label, instead of `reason="file_limit"`.
 
+---
+
+### Known issues
+
+#### Core
+
+- **Failed package installs return success (Core)**: In Core, the package install API and `influxdb3 install package` return `200` when `pip` fails. The missing package surfaces later as a `ModuleNotFoundError` when a plugin runs. Enterprise returns an error. Workaround: after you install a package, run a trigger that imports it to confirm the install.
+- **Queries that exceed memory limits return 500 (Core)**: In Core, the HTTP query endpoints return `500` when a query fails because the DataFusion memory pool is exhausted. Enterprise returns `429 Too Many Requests`. Workaround: treat a `500` whose message contains `Resources exhausted` as retryable, and narrow the query before you retry.
+- **Creating a table over HTTP requires `fields`**: `POST /api/v3/configure/table` returns `400` with ``missing field `fields` `` when the request body has no `fields` key. Workaround: send `"fields": []` for a table with no fields. See [Create a table](/influxdb3/version/admin/tables/create/).
+
+#### Enterprise
+
+- **Tables with no fields can't be queried (upgraded storage engine)**: A query on a table that has tags but no fields returns `500` with `field_family_projections is required`. Workaround: define at least one field when you create a table.
+- **`PUT /api/v3/configure/table` doesn't add columns**: `PUT` ignores `tags` and `fields` in the request body and still returns `200`. Workaround: use `PATCH /api/v3/configure/table` to add columns. See [Update a table](/influxdb3/enterprise/admin/tables/update/).
+- **Bulk import schema mismatches return 500**: When a file's columns don't match the target table's schema or column types, the import endpoint returns `500` with `Could not modify catalog` and creates no import job. Retrying the same request fails the same way. Workaround: fix the column mapping, or add the columns to the table, then import again.
+- **Bulk import doesn't use the table's declared tags**: The importer infers an unmapped string column as a field, even when the target table declares that column as a tag. The import then fails. Workaround: map every string tag column, for example `--column host=tag` or `"column_metadata": {"column_mapping": {"host": "tag"}}`. See [Import data](/influxdb3/enterprise/admin/import-data/).
+- **Bulk import jobs can report a time range of 0**: When the server can't read the time statistics in a source Parquet file, the import job reports `min_timestamp_ns` and `max_timestamp_ns` as `0`. The rows themselves are imported.
+- **Queued imports run after their database is deleted**: An import job that is queued when you delete its database can still run and complete. Workaround: wait for a database's import jobs to finish before you delete the database.
+
 ## v3.11.5 {date="2026-09-17"}
 
 ### Core
