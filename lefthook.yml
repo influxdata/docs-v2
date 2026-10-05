@@ -58,6 +58,14 @@ pre-commit:
       glob: "layouts/_default/_markup/render-*.html"
       run: .ci/scripts/check-render-hook-whitespace.sh {staged_files}
       fail_text: "Render hook has bare {{ ... }} action(s). Use {{- ... -}} trimming to prevent whitespace leaks (see influxdata/docs-v2#7079)."
+    check-products-schema:
+      tags: lint
+      glob:
+        - "data/products.yml"
+        - "scripts/schemas/products.schema.json"
+        - ".ci/release-gates.yml"
+      run: node .ci/scripts/check-products-schema.js
+      fail_text: "data/products.yml does not match scripts/schemas/products.schema.json. Version values must be quoted MAJOR.MINOR.PATCH strings, per-version maps must use keys from `versions`, and `latest` must agree with the patch version. Unknown fields are rejected: add new fields to the schema."
     check-feedback-links:
       tags: lint
       glob:
@@ -95,7 +103,15 @@ pre-commit:
       run: |
         # Shortcode .md files contain Hugo template syntax that remark-lint would
         # escape, so filter content/ and layouts/ paths before running remark.
-        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | grep -v '^layouts/' | tr '\n' ' ' | sed 's/ $//')
+        # GitHub PR and issue templates use GitHub-only syntax (`> [!Important]`
+        # alerts, `[ ]` placeholders) that remark escapes to `\[`, which breaks
+        # the rendered template, so skip those too.
+        files=$(echo '{staged_files}' | tr ' ' '\n' \
+          | grep -v '^content/' | grep -v '^layouts/' \
+          | grep -v '^\.github/pull_request_template/' \
+          | grep -v '^\.github/PULL_REQUEST_TEMPLATE' \
+          | grep -v '^\.github/ISSUE_TEMPLATE/' \
+          | tr '\n' ' ' | sed 's/ $//')
         if [ -n "$files" ]; then
           .ci/remark/remark.sh $files --output --quiet || \
             { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }

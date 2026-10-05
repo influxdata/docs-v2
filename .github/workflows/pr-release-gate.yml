@@ -1,0 +1,370 @@
+name: Release Gate
+
+# Blocking check for gated version bumps in data/products.yml.
+#
+# .ci/release-gates.yml names, per product, the version field that publishes a
+# release and the GitHub team whose approving review is the greenlight. When a
+# pull request changes one of those fields, this job fails until a member of
+# that team has an approving review on the pull request.
+#
+# Why a review and not a label: a label can be applied by whoever opens the PR,
+# so it guards against forgetting, not against being wrong. The failures this
+# gate exists for were the docs author reading an earlier release signal
+# (release candidate to specific customers, Docker publish, Cloud deployment)
+# as the greenlight. Only the release team knows, so only their approval counts.
+#
+# Design notes:
+#   - No `paths:` filter. A required status check that is skipped by a path
+#     filter leaves the PR stuck at "Expected". Every PR runs this job; PRs that
+#     do not touch data/products.yml exit in the first step without installing
+#     anything.
+#   - Runs on pull_request_review too, so an approval or dismissal re-evaluates
+#     the gate without a new push.
+#   - Team membership is resolved in an isolated job with
+#     RELEASE_GATE_ORG_TOKEN (a token with read:org). That job reads only the
+#     trusted base policy and passes qualifying approver names to the gate job.
+#     If a triggered gate's team cannot be resolved, the check fails closed.
+#   - Turn on "Dismiss stale pull request approvals when new commits are
+#     pushed" in branch protection so a push after approval re-closes the gate.
+#   - Make this check required in branch protection once it has passed on a
+#     test PR. The job name below is the status check name.
+
+on:
+  # Run the workflow definition from the trusted base branch. Jobs read the PR
+  # head only as data and never check out or execute its code.
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+permissions:
+  contents: read
+  # write: post the sticky gate comment. Fork PRs get a read-only token; that
+  # step skips itself. The check never requests reviews: asking the approver
+  # team is the author's call, blocking the merge is the check's.
+  pull-requests: write
+
+concurrency:
+  group: release-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  resolve-release-team-approvers:
+    name: Resolve release team approvers
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      approvers: ${{ steps.resolve.outputs.approvers }}
+    env:
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+    steps:
+      # Read gate policy and public review states without checking out either
+      # revision. The only value passed to the gate job is the
+      # subset of approving reviewers that belong to each release team.
+      - name: Fetch release teams and approving reviews
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          merge_base=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/compare/${BASE_SHA}...${HEAD_SHA}?per_page=1" \
+            --jq '.merge_base_commit.sha')
+          for revision in "base:$merge_base" "head:$HEAD_SHA"; do
+            name="${revision%%:*}"
+            ref="${revision#*:}"
+            if content=$(gh api --method GET \
+                "repos/${GITHUB_REPOSITORY}/contents/.ci/release-gates.yml" \
+                -f ref="$ref" --jq '.content' 2>/dev/null); then
+              printf '%s' "$content" | base64 --decode > "/tmp/gates-${name}.yml"
+            else
+              echo '{}' > "/tmp/gates-${name}.yml"
+            fi
+          done
+          ruby -ryaml -e '
+            base = YAML.safe_load_file(ARGV[0], aliases: false) || {}
+            head = YAML.safe_load_file(ARGV[1], aliases: false) || {}
+            gates = head.merge(base)
+            gates.each_value { |gate| puts gate.fetch("team") }
+          ' /tmp/gates-base.yml /tmp/gates-head.yml \
+            | sort -u > /tmp/teams.txt
+          gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/reviews" \
+            --jq '.[]' | jq -s '
+              sort_by(.submitted_at // "", .id // 0)
+              | reduce .[] as $review ({};
+                  if ($review.user.login and
+                      (["APPROVED", "CHANGES_REQUESTED", "DISMISSED"]
+                       | index($review.state)))
+                  then .[$review.user.login] = $review.state
+                  else .
+                  end)
+              | to_entries
+              | map(select(.value == "APPROVED") | .key)
+            ' > /tmp/approved-reviews.json
+
+      - name: Resolve release team approvers
+        id: resolve
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_GATE_ORG_TOKEN }}
+        run: |
+          echo '{}' > /tmp/approvers.json
+          while IFS= read -r team; do
+            org="${team%%/*}"
+            slug="${team#*/}"
+            if [[ -z "$GH_TOKEN" ]] ||
+                ! gh api "orgs/${org}/teams/${slug}" --silent 2>/dev/null; then
+              approvers='null'
+            else
+              approvers='[]'
+              while IFS= read -r login; do
+                if gh api "orgs/${org}/teams/${slug}/memberships/${login}" \
+                    --jq '.state' 2>/dev/null | grep -qx active; then
+                  approvers=$(jq --arg login "$login" \
+                    '. + [$login]' <<< "$approvers")
+                fi
+              done < <(jq -r '.[]' /tmp/approved-reviews.json)
+            fi
+            jq --arg team "$team" --argjson approvers "$approvers" \
+              '. + {($team): $approvers}' /tmp/approvers.json \
+              > /tmp/approvers.next.json
+            mv /tmp/approvers.next.json /tmp/approvers.json
+          done < /tmp/teams.txt
+          echo "approvers=$(jq -c . /tmp/approvers.json)" >> "$GITHUB_OUTPUT"
+
+  release-gate:
+    name: Release gate
+    needs: resolve-release-team-approvers
+    if: always()
+    runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Execute only trusted base-revision scripts. The PR's products.yml
+          # is extracted below and treated only as input data.
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      # `pull_request.base.sha` is the base branch tip from when the PR was
+      # opened or its base last changed, NOT the merge base. Diffing against it
+      # makes commits that landed on the base after this branch diverged look
+      # like reverse changes from this PR, so a stale unrelated PR would trip
+      # the gate on a release someone else already shipped. Ask the API for the
+      # real merge base; a shallow checkout cannot compute one locally.
+      - name: Resolve the merge base
+        id: mergebase
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mb=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/compare/${BASE_SHA}...${HEAD_SHA}?per_page=1" \
+            --jq '.merge_base_commit.sha')
+          if [[ -z "$mb" ]]; then
+            echo "::error::Release gate: cannot resolve the merge base of ${BASE_SHA} and ${HEAD_SHA}"
+            exit 1
+          fi
+          echo "Merge base: $mb"
+          echo "sha=$mb" >> "$GITHUB_OUTPUT"
+
+      # Fast path: most PRs never touch data/products.yml. Read changed paths
+      # through the API and exit before Node is installed.
+      # Changes to the schema, gates config, or checkers also run the full gate
+      # against the trusted base implementation.
+      - name: Detect products.yml change
+        id: detect
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_BASE: ${{ steps.mergebase.outputs.sha }}
+        run: |
+          gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/compare/${MERGE_BASE}...${HEAD_SHA}?per_page=100" \
+            --jq '.files[].filename' > /tmp/changed-files.txt
+          if grep -qxE 'data/products\.yml|scripts/schemas/products\.schema\.json|\.ci/release-gates\.yml|\.ci/scripts/check-(products-schema|release-gate)(\.test)?\.js' \
+              /tmp/changed-files.txt; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "## Release gate"
+              echo
+              echo "\`data/products.yml\` not changed; nothing to gate."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Setup Node.js
+        if: steps.detect.outputs.changed == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      - name: Verify the checkers themselves
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          node --test .ci/scripts/check-products-schema.test.js
+          node --test .ci/scripts/check-release-gate.test.js
+
+      # Shape first: a structurally bad products.yml fails here with a
+      # field-level message, not later as a confusing gate result.
+      - name: Validate products.yml against its schema
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api --method GET \
+            "repos/${GITHUB_REPOSITORY}/contents/data/products.yml" \
+            -f ref="$HEAD_SHA" --jq '.content' | base64 --decode \
+            > /tmp/products-new.yml
+          node .ci/scripts/check-products-schema.js /tmp/products-new.yml
+
+      # Which gates does this diff trigger? Prints team slugs, or nothing.
+      - name: Find triggered gates
+        if: steps.detect.outputs.changed == 'true'
+        id: gates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_BASE: ${{ steps.mergebase.outputs.sha }}
+        run: |
+          # Snapshots from the merge base. products.yml has always existed, so
+          # a read failure there is a real problem: an empty mapping would
+          # report every gated version as newly set, which fails closed.
+          if ! gh api --method GET \
+              "repos/${GITHUB_REPOSITORY}/contents/data/products.yml" \
+              -f ref="$MERGE_BASE" --jq '.content' | base64 --decode \
+              > /tmp/products-old.yml; then
+            echo '{}' > /tmp/products-old.yml
+          fi
+          # The gates file legitimately does not exist on a base that predates
+          # it (including the pull request that introduces it), so an absent
+          # one means "no policy yet", not a failure.
+          for revision in "base:$MERGE_BASE" "head:$HEAD_SHA"; do
+            name="${revision%%:*}"
+            ref="${revision#*:}"
+            if content=$(gh api --method GET \
+                "repos/${GITHUB_REPOSITORY}/contents/.ci/release-gates.yml" \
+                -f ref="$ref" --jq '.content' 2>/dev/null); then
+              printf '%s' "$content" | base64 --decode > "/tmp/gates-${name}.yml"
+            else
+              echo '{}' > "/tmp/gates-${name}.yml"
+            fi
+          done
+          node .ci/scripts/check-release-gate.js \
+            --base /tmp/products-old.yml --head /tmp/products-new.yml \
+            --gates-base /tmp/gates-base.yml \
+            --gates-head /tmp/gates-head.yml \
+            --print-teams > /tmp/teams.txt
+          echo "Triggered gate teams:"
+          cat /tmp/teams.txt
+          if [[ -s /tmp/teams.txt ]]; then
+            echo "triggered=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "triggered=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Fetch pull request reviews
+        if: steps.gates.outputs.triggered == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/reviews" \
+            --jq '.[]' | jq -s '.' > /tmp/reviews.json
+          echo "$(jq length /tmp/reviews.json) review(s) fetched"
+
+      # One JSON object: { "org/slug": [approving logins] | null }. The trusted
+      # resolver returns null when a team cannot be read, so the checker fails
+      # closed without exposing the read:org token to the gate job.
+      - name: Load release team approvers
+        if: steps.gates.outputs.triggered == 'true'
+        env:
+          APPROVERS: ${{ needs.resolve-release-team-approvers.outputs.approvers }}
+        run: |
+          printf '%s\n' "${APPROVERS:-{}}" > /tmp/members.json
+
+      # Records the result instead of failing here, so the comment step below
+      # still runs. The last step fails the job.
+      - name: Evaluate release gates
+        if: steps.gates.outputs.triggered == 'true'
+        id: evaluate
+        run: |
+          set +e
+          node .ci/scripts/check-release-gate.js \
+            --base /tmp/products-old.yml --head /tmp/products-new.yml \
+            --gates-base /tmp/gates-base.yml \
+            --gates-head /tmp/gates-head.yml \
+            --reviews /tmp/reviews.json --members /tmp/members.json \
+            | tee /tmp/report.md
+          status=${PIPESTATUS[0]}
+          set -e
+          grep -v '^::' /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      # Sticky comment: one per PR, updated in place, so the gate's state is
+      # visible in the conversation and not only in the checks list. Created
+      # only when a gate is triggered; once it exists it is kept current on
+      # every run, including one where the bump has since been removed, so a
+      # stale "needs approval" never outlives the change it described.
+      - name: Post or update gate comment
+        if: >-
+          github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRIGGERED: ${{ steps.gates.outputs.triggered }}
+        run: |
+          marker='<!-- release-gate-comment -->'
+          if [[ "$TRIGGERED" == "true" ]]; then
+            { echo "$marker"; grep -v '^::' /tmp/report.md; } > /tmp/comment.md
+          else
+            {
+              echo "$marker"
+              echo "## Release gate"
+              echo
+              echo "No gated version bump on the current head (\`${HEAD_SHA:0:7}\`)."
+            } > /tmp/comment.md
+          fi
+          existing=$(gh api --paginate \
+            "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+            --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
+          if [[ -n "$existing" ]]; then
+            gh api -X PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${existing}" \
+              -F body=@/tmp/comment.md > /dev/null
+          elif [[ "$TRIGGERED" == "true" ]]; then
+            gh api -X POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+              -F body=@/tmp/comment.md > /dev/null
+          fi
+
+      - name: Fail if a gate is closed
+        if: steps.gates.outputs.triggered == 'true'
+        run: |
+          status="${{ steps.evaluate.outputs.status }}"
+          if [[ "$status" != "0" ]]; then
+            echo "Release gate is closed (see the step summary and PR comment)."
+            exit "${status:-1}"
+          fi
+          echo "All triggered gates are approved."
+
+      - name: Report ungated bump
+        if: >-
+          steps.detect.outputs.changed == 'true' &&
+          steps.gates.outputs.triggered == 'false'
+        run: |
+          {
+            echo "## Release gate"
+            echo
+            echo "\`data/products.yml\` changed, but no gated version field did."
+          } >> "$GITHUB_STEP_SUMMARY"
