@@ -273,4 +273,4 @@ the audit log when audit logging is enabled.
 | `user.logout`   | Recorded when a user signs out.                          |
 
 For details on enabling and reviewing audit events, see
-[Audit logs](/telegraf/controller/audit-logs/).
+[Audit logs](/telegraf/controller/admin/audit-logs/).

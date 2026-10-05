@@ -166,6 +166,34 @@ docker pull influxdb:3.10-{{< product-key >}}
 To browse recent InfluxDB 3 image tags (Core and Enterprise), newest first, see
 [`influxdb` tags on Docker Hub](https://hub.docker.com/_/influxdb/tags?name=3.&ordering=last_updated).
 {{% /expand %}}
+<!-- Update the Quay tags below for each release: use the release commit SHA
+(influxdata/influxdb for Core, influxdata/influxdb_pro for Enterprise). -->
+{{% show-in "core" %}}
+{{% expand "Pull from an alternative registry (Quay)" %}}
+{{% product-name %}} images are also published to
+[Quay](https://quay.io/repository/influxdb/influxdb3-core?tab=tags),
+tagged by release commit.
+For example, to pull the 3.12.0 image:
+
+<!--pytest.mark.skip-->
+```bash
+docker pull quay.io/influxdb/influxdb3-core:3ba97c65f1ee4e1f127a8266517d4d2083b7ea39
+```
+{{% /expand %}}
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+{{% expand "Pull from an alternative registry (Quay)" %}}
+{{% product-name %}} images are also published to
+[Quay](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags),
+tagged by release commit.
+For example, to pull the 3.12.0 image:
+
+<!--pytest.mark.skip-->
+```bash
+docker pull quay.io/influxdb/influxdb3-enterprise:7dd361197ee2834eaa56089b67ffe59ad02e349a
+```
+{{% /expand %}}
+{{% /show-in %}}
 {{< /expand-wrapper >}}
 
 

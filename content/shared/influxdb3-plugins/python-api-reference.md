@@ -193,6 +193,26 @@ Writes line protocol to the named database synchronously.
 `no_sync` is required; pass `no_sync=True` to skip waiting for WAL synchronization.
 Use [`write_sync`](#write_sync) to write to the trigger's database.
 
+{{% show-in "enterprise" %}}
+### Writes to explicit schema databases
+
+In a database that uses [`explicit` schema mode](/influxdb3/enterprise/admin/databases/enforce-schema/), the server rejects a plugin write to an undeclared table or column with the same explicit-schema error message it returns to HTTP writes.
+
+- `write_sync` and `write_sync_to_db` raise an exception when the write is rejected.
+- `write` and `write_to_db` queue the write, so the failure surfaces after the plugin run.
+  The server logs an `ERROR` entry in `system.processing_engine_logs`, for example:
+
+  ```text
+  error running schedule plugin: error writing back lines
+  ```
+
+  For a schedule trigger, the trigger keeps running and the next run executes.
+
+If your plugin needs to know that a write failed, use `write_sync` and check `system.processing_engine_logs`.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30), schedule trigger on one node: a write_sync to an undeclared column raised an exception in the plugin; a write to an undeclared column failed after the run, logged an ERROR in system.processing_engine_logs, and the next scheduled run still executed. Not tested: a try/except around write_sync, and WAL or request triggers. -->
+{{% /show-in %}}
+
 ## Cache data
 
 ```python

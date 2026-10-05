@@ -1,14 +1,23 @@
 ---
-title: Install and run InfluxDB 3 Explorer
+title: Install and run InfluxDB 3 Explorer with Docker
 description: >
-  Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
+  Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**
+  as a standalone container against InfluxDB 3 Core or Enterprise.
 menu:
   influxdb3_explorer:
-    name: Install Explorer
-weight: 2
+    name: Docker
+weight: 1
+metadata: [InfluxDB 3 Core and Enterprise]
 ---
 
-Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
+Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**
+as a standalone container with [InfluxDB 3 Core](/influxdb3/core/) or
+[InfluxDB 3 Enterprise](/influxdb3/enterprise/), including Enterprise v3.11
+and later.
+Starting with Enterprise v3.11, Explorer is also available as an integrated
+WebAssembly (WASM) component of the server. See
+[Use the integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/)
+if you run Enterprise v3.11 or later and don't need a separate container.
 
 > [!Important]
 > #### Control who can reach Explorer
@@ -232,8 +241,8 @@ Use the following practices to control access:
 
    {{< code-tabs-wrapper >}}
    {{% code-tabs %}}
-   [Docker](#)
-   [Docker Compose](#)
+   [Run container](#)
+   [Compose](#)
    {{% /code-tabs %}}
 
    {{% code-tab-content %}}
@@ -350,8 +359,8 @@ Instead of configuring connections through the UI, you can pre-define connection
 
    {{< code-tabs-wrapper >}}
    {{% code-tabs %}}
-   [Docker](#)
-   [Docker Compose](#)
+   [Run container](#)
+   [Compose](#)
    {{% /code-tabs %}}
 
    {{% code-tab-content %}}
@@ -405,8 +414,8 @@ To enable TLS/SSL for secure connections:
 
    {{< code-tabs-wrapper >}}
    {{% code-tabs %}}
-   [Docker](#)
-   [Docker Compose](#)
+   [Run container](#)
+   [Compose](#)
    {{% /code-tabs %}}
 
    {{% code-tab-content %}}
@@ -481,12 +490,12 @@ To configure Explorer to trust self-signed or custom CA certificates when connec
 3. **Mount the CA certificate directory and set the `NODE_EXTRA_CA_CERTS` environment variable:**
 
 {{< expand-wrapper >}}
-{{% expand "View example Docker configuration for self-signed certificates" %}}
+{{% expand "View example configuration for self-signed certificates" %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Docker](#)
-[Docker Compose](#)
+[Run container](#)
+[Compose](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
@@ -548,8 +557,8 @@ Set the mode using the `--mode` parameter:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Docker](#)
-[Docker Compose](#)
+[Run container](#)
+[Compose](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -635,8 +644,8 @@ services:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Docker](#)
-[Docker Compose](#)
+[Run container](#)
+[Compose](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}

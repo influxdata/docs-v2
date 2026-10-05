@@ -2,6 +2,7 @@
 Upgrade your {{% product-name %}} version.
 
 - [Before you upgrade](#before-you-upgrade)
+  - [Other changes to review before you upgrade to 3.12](#other-changes-to-review-before-you-upgrade-to-312)
 - [Upgrade an InfluxDB 3 instance](#upgrade-an-influxdb-3-instance)
 {{% show-in "enterprise" %}}
 - [Upgrade a multi-node cluster](#upgrade-a-multi-node-cluster)
@@ -31,6 +32,41 @@ Before upgrading your {{% product-name %}} cluster, review the [release notes](/
 > Restoring these objects is the only way to roll back to 3.9.x.
 >
 > {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+
+> [!Important]
+> #### Upgrading to InfluxDB 3.12 removes rollback to any 3.11.x release
+>
+> InfluxDB 3.12 adds a catalog record type that 3.11.x binaries can't read.
+> Once every running node in the cluster is on 3.12 (which happens at first
+> startup on a single node), the catalog commits the new feature level.
+> From then on, a 3.11.x binary refuses to load the catalog and reports that
+> the node's feature level is below the cluster's committed level.
+> This applies to {{% product-name %}} whether or not you use any of the
+> features that require it.
+>
+> Back up everything under `{prefix}/catalog/` (the catalog snapshot and
+> logs under `catalog/v3/`) before you upgrade.
+> Restoring these objects is the only way to roll back to 3.11.x.
+
+### Other changes to review before you upgrade to 3.12
+
+- **Query concurrency now has a finite default**: [`--max-concurrent-queries`](/influxdb3/version/reference/config-options/#max-concurrent-queries) defaults to the larger of `50` and 4 times the node's query parallelism, instead of being effectively unlimited. Queries submitted over the limit wait for a slot instead of running immediately.
+- **The WAL buffer limit is now enforced**: [`--wal-max-buffered-writes`](/influxdb3/version/reference/config-options/#wal-max-buffered-writes) (default `100000`) previously had no effect. Once the WAL buffer fills, writes now return `429 Too Many Requests` until it drains.
+- **HTTP and gRPC request metrics are split by protocol**: `http_requests*` metrics now count only HTTP requests, and `grpc_requests*` metrics count only gRPC requests. Dashboards that summed the two families report lower values after you upgrade. The `path` and `method_path` labels are now route templates, such as `/api/v3/engine/:path`, instead of literal paths; update panels that filter on a specific path.
+{{% show-in "enterprise" %}}
+
+Also review these {{% product-name %}} changes:
+
+- **Data file cache is now a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/version/reference/config-options/#file-cache-size) now also counts bytes held by running queries. A query that needs more than the remaining budget fails instead of the node using memory beyond the configured limit.
+- **Nodes without `query` mode refuse data queries (Parquet engine)**: A node that doesn't run `query` mode now returns `405 Method Not Allowed` for data queries instead of serving them. System table queries still work.
+- **`--node-spec` no longer pins a trigger to one node**: It now selects which process nodes' schedulers own the trigger. With the default, `all`, every process node owns the trigger and follows every ingest node's write-ahead log, so a WAL trigger runs once per process node for each WAL flush. To keep a WAL trigger running once per flush in a cluster with more than one process node, set `--node-spec` to a single node. See [Run the Processing Engine in a cluster](/influxdb3/version/admin/processing-engine-cluster/).
+- **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password must now carry the cluster's catalog UUID. Tokens issued before 3.12 are rejected: refresh the token or sign in again. API tokens aren't affected.
+- **Orphaned file cleanup starts automatically (upgraded storage engine)**: The primary compactor begins finding and deleting unreferenced compacted files a few minutes after it first starts on 3.12, then repeats every 7 days. To only report candidates without deleting them, set `--compactor-sweep-mode dry-run`. To turn cleanup off, set `--compactor-sweep-interval off`. See [Orphaned file cleanup](/influxdb3/version/admin/orphaned-file-cleanup/).
+- **Distributed compaction is available (beta, upgraded storage engine)**: Compaction jobs can now run on every compact node instead of only the node that holds the compactor lease. It's off by default (`--compactor-dispatch-target local`), so upgrading alone doesn't change where compaction runs. See [Distributed compaction](/influxdb3/version/admin/distributed-compaction/).
+
+{{% /show-in %}}
+
+For the complete list of changes, see the [release notes](/influxdb3/version/release-notes/).
 
 ### Verify your current version
 
