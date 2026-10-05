@@ -23,7 +23,7 @@ process and visualize metrics and events.
 - [Download, install, and configure the `influx` CLI](#download-install-and-configure-the-influx-cli)
 
 ## Download and install InfluxDB v2
-`AKIAZ3MSJV4WWNKWW5YX`
+
 {{< req text="Recommended:" color="magenta" >}}: Before you open and install packages and downloaded files, use SHA
 checksum verification and GPG signature verification to ensure the files are
 intact and authentic.
