@@ -3,7 +3,7 @@ title: Storage engine
 seotitle: InfluxDB 3 Core storage engine
 description: >
   Learn about the InfluxDB 3 Core storage engine and how it
-  differs from the optional upgraded storage engine available in
+  differs from the upgraded storage engine, the default in
   InfluxDB 3 Enterprise.
 menu:
   influxdb3_core:

@@ -46,6 +46,16 @@ to write points as line protocol data to {{% product-name %}}.
 > - Tags in a table (measurement) are _immutable_
 > - A tag and a field can't have the same name within a table.
 
+{{% show-in "core,enterprise" %}}
+The `/write` and `/api/v2/write` endpoints are all-or-nothing.
+If any line in a batch is invalid, the endpoint rejects the whole batch and stores nothing.
+The `accept_partial` parameter has no effect on these endpoints.
+To store the valid lines of a batch that contains invalid lines, use the
+[`/api/v3/write_lp` endpoint](/influxdb3/version/write-data/http-api/v3-write-lp/),
+which accepts partial writes by default.
+{{% /show-in %}}
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): a batch with one valid line and one invalid line sent to /write and /api/v2/write returned 400 and stored nothing, with and without accept_partial=true. /api/v3/write_lp with the default accept_partial stored the valid line. Core behavior matches the 3.12 Core OpenAPI spec. -->
+
 ## InfluxDB v2 compatibility
 
 The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards

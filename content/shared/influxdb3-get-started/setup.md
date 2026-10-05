@@ -123,7 +123,7 @@ Provide the following:
   Explorer is served at the root path of the server's HTTP address--for
   example, <http://localhost:8181/>.
   For the requirements and the full startup command, see
-  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+  [Use the integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/).
 {{% /show-in %}}
 
 > [!Caution]

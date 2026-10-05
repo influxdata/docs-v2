@@ -52,6 +52,7 @@
       font-size: 1.05rem;
       opacity: 1;
       max-height: 500px;
+      overflow-y: auto;
       margin-bottom: 1.5rem;
       transition: opacity .4s, max-height .2s ease-out, margin .2s ease-out, padding .2s;
       

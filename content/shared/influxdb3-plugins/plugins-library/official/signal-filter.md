@@ -25,8 +25,8 @@ plugin but works with any measurement carrying numeric fields.
 
 Plugin parameters may be specified as key-value pairs in the `--trigger-arguments`
 flag (`influxdb3 create trigger`) or in the `trigger_arguments` field of the API.
-Values are strings; the plugin coerces them. Alternatively, supply every parameter
-from a TOML file via `config_file_path` — see [TOML configuration](#toml-configuration).
+Values are strings; the plugin coerces them. Parameters may also come from a TOML
+file via `config_file_path` — see [TOML configuration](#toml-configuration).
 
 > **CLI limitation:** the `sos` argument is a JSON array containing commas, and
 > `influxdb3 create trigger --trigger-arguments` splits on every comma, so the value
@@ -69,27 +69,37 @@ and configure the plugin.
 
 ### Output parameters
 
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `output_target_database` | string | *(trigger db)* | Database to write filtered output to. |
-| `output_measurement` | string | *(source table)* | Measurement to write filtered output to. |
-| `output_field` | string | *(source field)* | Base name override for the output field. Only valid when a single input field is configured. |
-| `field_prefix` | string | *(empty)* | Prefix for the output field name. |
-| `field_suffix` | string | `_filtered` | Suffix for the output field name. |
-| `config_file_path` | string | — | Path to a TOML file supplying all parameters; mutually exclusive with inline arguments. Relative paths resolve against `PLUGIN_DIR`. |
+| Parameter                | Type   | Default          | Description                                                                                                                          |
+|--------------------------|--------|------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `output_target_database` | string | *(trigger db)*   | Database to write filtered output to.                                                                                                |
+| `output_measurement`     | string | *(source table)* | Measurement to write filtered output to.                                                                                             |
+| `output_field`           | string | *(source field)* | Base name override for the output field. Only valid when a single input field is configured.                                         |
+| `field_prefix`           | string | *(empty)*        | Prefix for the output field name. `none` means no prefix; an empty value counts as unset.                                            |
+| `field_suffix`           | string | `_filtered`      | Suffix for the output field name. `none` writes into the source field, replacing its samples; an empty value counts as unset.        |
+| `config_file_path`       | string | —                | Path to a TOML file supplying parameters; its values override inline arguments. Relative paths resolve against `PLUGIN_DIR`.         |
 
 The final output field name is `{field_prefix}{output_field or source_field}{field_suffix}`
 — by default, `value` becomes `value_filtered`. The raw input field is never copied
 to the output.
+
+### Environment variables
+
+Every parameter can also come from an environment variable named
+`INFLUXDB3_SIGNAL_FILTER_<PARAMETER>` in upper case — for example,
+`INFLUXDB3_SIGNAL_FILTER_FC` sets `fc`. The environment is the lowest layer: a
+trigger argument overrides it, and the TOML file overrides both.
+`INFLUXDB3_SIGNAL_FILTER_CONFIG_FILE_PATH` names the TOML file when the trigger
+doesn't carry a `config_file_path` argument.
 
 ### TOML configuration
 
 To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and
 reference the file with the `config_file_path` trigger argument (relative paths
 resolve against `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of
-`VIRTUAL_ENV`). The TOML file then supplies **all** parameters — it is mutually
-exclusive with inline trigger arguments, so passing both is rejected. See
-[`signal_filter_config_data_writes.toml`](signal_filter_config_data_writes.toml)
+`VIRTUAL_ENV`). The file and the inline trigger arguments are layered, and the
+file wins wherever both set a key, so a trigger can carry defaults that a file
+overrides. A blank value counts as unset and leaves the layer below it standing.
+See [`signal_filter_config_data_writes.toml`](signal_filter_config_data_writes.toml)
 for an annotated template.
 
 ## Data requirements
@@ -289,12 +299,18 @@ Manual mode needs no sample rate — the coefficients are already digital.
 
 Writing the output into the source measurement re-fires this trigger. This is
 safe by default: re-fired rows carry only the output field, the input field is
-null on them, and null values produce no samples. **However**, if your overrides
-resolve the output field to the *same name* as the input field in the same
-measurement and database (for example `field_suffix=""` with no `output_field`),
-the output feeds the filter again and grows without bound. The plugin logs a
-prominent warning in that configuration — change `field_suffix`, `output_field`,
-`output_measurement`, or `output_target_database` to break the cycle.
+null on them, and null values produce no samples.
+
+If your overrides resolve the output field to the *same name* as the input
+field in the same measurement and database — `field_suffix=none` with no
+`field_prefix`, or `input_fields=value_filtered` with `output_field=value` —
+the filtered values land on the source field at the same timestamps and
+**replace the source samples**, which cannot be undone. The re-fire that
+follows is dropped by the out-of-order guard (the samples are at or before the
+last processed timestamp), so it costs one extra empty invocation rather than
+running away. The plugin logs a prominent warning in that configuration; set
+`output_field`, `field_suffix`, `output_measurement`, or
+`output_target_database` to write elsewhere.
 
 ## Code overview
 
@@ -329,7 +345,7 @@ filtered points, and finally saves the advanced per-series state.
 Key operations:
 
 1. Guards that `numpy`, `scipy`, and `influxdata-plugin-utils` are installed; logs an install command otherwise
-2. Parses and validates trigger arguments (inline, or entirely from a TOML file)
+2. Parses and validates the configuration (trigger arguments layered under a TOML file)
 3. Warns on any write-loop hazard configuration
 4. Groups rows into per-(field, series) samples, dropping null/non-numeric/non-finite values
 5. Resolves the sample rate (explicit → frozen → inferred with warm-up)
