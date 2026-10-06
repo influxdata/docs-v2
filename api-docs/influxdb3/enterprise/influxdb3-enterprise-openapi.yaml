@@ -5358,6 +5358,7 @@ components:
         trigger_settings:
           description: |
             Configuration for trigger error handling and execution behavior.
+            Optional. If you omit `trigger_settings` or any of its fields, each omitted field uses its default.
           allOf:
             - $ref: "#/components/schemas/TriggerSettings"
         trigger_specification:
@@ -5476,13 +5477,15 @@ components:
       properties:
         run_async:
           type: boolean
+          default: false
           description: |
             Whether invocations of the trigger can run concurrently.
             If `false`, invocations run serially--each invocation must finish before the next one starts.
             If `true`, invocations can run concurrently, up to the `--async-trigger-concurrency-limit`
-            server option (by default, unlimited).
+            server option (default: `8`).
         error_behavior:
           type: string
+          default: log
           enum:
             - log
             - retry
@@ -5496,9 +5499,6 @@ components:
             Errors identified as permanent aren't retried.
 
             - `disable`: Disable the trigger until you manually re-enable it.
-      required:
-        - run_async
-        - error_behavior
     ApiNodeSpec:
       x-enterprise-only: true
       description: |
