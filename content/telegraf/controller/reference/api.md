@@ -2,8 +2,9 @@
 title: Telegraf Controller API
 description: >
   Use the Telegraf Controller HTTP API to manage agents, configurations, and
-  tokens programmatically. Learn how to authenticate API requests and explore
-  the interactive API reference served by your Telegraf Controller instance.
+  tokens programmatically. Learn how to authenticate API requests, explore
+  the interactive API reference, and download the OpenAPI document served by
+  your Telegraf Controller instance.
 menu:
   telegraf_controller:
     name: API
@@ -111,3 +112,38 @@ Use it to browse endpoints and try requests directly against your instance.
 > in your browser before opening the interactive reference. {{% product-name %}}
 > serves the reference from your running instance, so the documented endpoints
 > always match your installed version.
+
+## Download the OpenAPI document
+
+{{% product-name %}} also serves the OpenAPI document that describes its API
+as JSON and as YAML:
+
+``` { placeholders="TELEGRAF_CONTROLLER_HOST" }
+https://TELEGRAF_CONTROLLER_HOST/api/docs/openapi.json
+https://TELEGRAF_CONTROLLER_HOST/api/docs/openapi.yaml
+```
+
+Use the document to generate API clients, import the API into tools such as
+Postman, or compare API changes between {{% product-name %}} versions.
+Like the interactive reference, the document describes the endpoints of your
+running instance, so it always matches your installed version.
+
+Both URLs require authentication. In a browser, log in to
+{{% product-name %}} first. From the command line or a script, include an
+API token in the `Authorization` header. The following example uses cURL to
+download the YAML document:
+
+<!--pytest.mark.skip-->
+```bash { placeholders="TELEGRAF_CONTROLLER_HOST|TELEGRAF_CONTROLLER_TOKEN" }
+curl --request GET \
+  "https://TELEGRAF_CONTROLLER_HOST/api/docs/openapi.yaml" \
+  --header "Authorization: Bearer TELEGRAF_CONTROLLER_TOKEN" \
+  --output telegraf-controller-openapi.yaml
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`TELEGRAF_CONTROLLER_HOST`{{% /code-placeholder-key %}}:
+  the host and port of your {{% product-name %}} instance
+- {{% code-placeholder-key %}}`TELEGRAF_CONTROLLER_TOKEN`{{% /code-placeholder-key %}}:
+  your {{% product-name %}} API token

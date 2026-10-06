@@ -80,7 +80,7 @@
   description: Enables seamless data import from InfluxDB v1, v2, or v3 instances to InfluxDB 3 Core/Enterprise
   tags:
     - HTTP request
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/import
 - name: influxdb_to_iceberg
@@ -155,7 +155,7 @@
   tags:
     - scheduled
     - HTTP request
-  introduced: v1.5.0
+  introduced: v1.6.0
   database_version: '>=3.0.0'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/prophet_forecasting
 - name: resampler
@@ -203,7 +203,7 @@
   description: Validates incoming line protocol data against a JSON schema.
   tags:
     - data-write
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/schema_validator
 - name: signal_filter
@@ -211,7 +211,7 @@
   description: Applies streaming digital IIR filters to numeric fields
   tags:
     - data-write
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/signal_filter
 - name: signal_generator
@@ -269,7 +269,7 @@
   description: Collects system-level metrics (CPU, memory, disk, and network) using psutil and writes them to InfluxDB. Designed to run on a schedule and provide observability into host-level performance.
   tags:
     - scheduled
-  introduced: v1.2.0
+  introduced: v1.3.0
   database_version: '>=3.0.0'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/system_metrics
 - name: threshold_deadman_checks

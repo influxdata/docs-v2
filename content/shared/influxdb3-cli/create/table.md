@@ -65,6 +65,21 @@ influxdb3 create table [OPTIONS] \
 > Tag and field keys are alphanumeric and must start with a letter or number.
 > They can contain dashes (`-`) and underscores (`_`).
 
+### Field data types
+
+Use the following data types when defining field columns with `--fields`:
+
+| Type      | Description                |
+| :-------- | :-------------------------- |
+| `int64`   | 64-bit signed integer       |
+| `uint64`  | 64-bit unsigned integer     |
+| `float64` | 64-bit floating point number |
+| `utf8`    | UTF-8 string                |
+| `bool`    | Boolean (`true` or `false`) |
+
+Provide each field as `NAME:TYPE`--for example, `temp:float64`.
+Separate multiple fields with commas: `--fields temp:float64,hum:float64,co:int64`.
+
 ### Option environment variables
 
 You can use the following environment variables to set options instead of passing them via CLI flags:
@@ -154,3 +169,24 @@ Example output:
 
 > [!Note]
 > `SHOW TABLES` is an SQL query. It isn't supported in InfluxQL.
+
+## Relation to schema mode
+
+{{< product-name >}} databases use one of two
+[schema modes](/influxdb3/version/reference/cli/influxdb3/create/database/#schema-mode),
+set when you create the database:
+
+- **`implicit`** _(default)_: `influxdb3 create table` is optional.
+  {{< product-name >}} creates tables and columns automatically from the line
+  protocol you write.
+- **`explicit`**{{% hide-in "cloud" %}} _(InfluxDB 3 Enterprise only)_{{% /hide-in %}}:
+  `influxdb3 create table` is how you declare a table's tag and field
+  columns before writing to it.
+  A write that names a table or column you haven't declared is rejected.
+  Add columns to a declared table later with the
+  [`influxdb3 update table` command](/influxdb3/version/reference/cli/influxdb3/update/table/).
+
+In both modes, `influxdb3 create table` accepts the same options and defines
+the table the same way.
+The schema mode only changes what happens when a write references a table
+or column that `create table` hasn't defined.

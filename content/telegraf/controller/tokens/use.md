@@ -79,11 +79,16 @@ Telegraf uses the environment variable value defined when starting Telegraf.
 
 When authentication is required for the heartbeat endpoint, agents must include
 a valid token with each heartbeat request.
-If a heartbeat request is missing a token or includes an invalid token,
-{{% product-name %}} rejects the request and the agent's status is not updated.
+The token must have **write** permission on the **Heartbeat** resource, and
+the user who owns the token must be active.
+{{% product-name %}} rejects a heartbeat request, and doesn't update the
+agent's status, when the request is missing a token, the token is invalid or
+expired, or the token lacks Heartbeat write permission.
 If heartbeats are rejected with `Invalid token` even though the same token
 works in the web interface and the API, see
 [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
+If heartbeats are rejected with `Insufficient permissions`, see
+[Agent heartbeats return 403 Insufficient permissions](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-403-insufficient-permissions).
 
 ## With external API clients
 

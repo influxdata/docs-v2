@@ -96,7 +96,7 @@ files; on the upgraded storage engine, it captures them in a WAL snapshot.
 - With `--no-wait`, the command returns after the stop request is accepted.
   Verify that the node reaches `stopped` before removing it.
 - Other nodes in the cluster see the state change after their catalog sync
-  interval (default 10 seconds).
+  interval (default 1 second, set with `--catalog-sync-interval`).
 - The command requires authentication if the server has auth enabled.
 
 Running `stop node` against a node whose process is **already dead** cannot
