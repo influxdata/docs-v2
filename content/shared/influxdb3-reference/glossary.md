@@ -266,7 +266,7 @@ Aggregating high resolution data into lower resolution data to preserve disk spa
 
 ### downstream (EDR)
 
-In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/),
 the node an [upstream](#upstream-edr) node sends replicated data to. A node
 can be downstream-only (a sink), or both upstream and downstream at once (a
 regional relay).
@@ -400,7 +400,7 @@ Related entries:
 
 ### gap fill (EDR)
 
-In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/),
 the process that recovers a WAL file the replicator expected but that was
 already deleted (snapshotted and evicted) before it could be sent--typically
 after a long outage with short WAL retention. The agent detects the missing
@@ -421,7 +421,7 @@ The gzip file extension is `.gz`.
 
 ### halted state (EDR)
 
-In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/),
 the state an agent enters when the downstream persistently refuses data
 that exists and could be delivered--for example, a schema conflict, an
 authentication failure, or a malformed batch. Dispatch stops on every tier
@@ -437,7 +437,7 @@ the frequency of data items in successive, equal intervals or bins.
 
 ### historic fill (EDR)
 
-In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/),
 the process that replicates data that existed on the source before EDR was
 deployed (or before a destination was added), backfilling from snapshot and
 compacted files below the historic/live boundary.
@@ -934,7 +934,7 @@ Related entries:
 
 A row in a [table](#table) represents a specific record or instance of data.
 [Column](#column) values in a row represent specific attributes or properties of the instance.
-Each row has a [primary key](/#primary-key) that makes the row unique from other rows in the table.
+Each row has a [primary key](#primary-key) that makes the row unique from other rows in the table.
 
 Related entries:
 [column](#column),
@@ -1073,7 +1073,7 @@ Related entries:
 
 A process that runs alongside a primary application to extend it without
 modifying it. [Edge Data Replication (EDR) for InfluxDB 3
-Enterprise](/influxdb3/edr/) runs as a sidecar agent (`influxdb3-edr`)
+Enterprise](/influxdb3/enterprise/edr/) runs as a sidecar agent (`influxdb3-edr`)
 beside an unmodified InfluxDB 3 Enterprise instance, reading its object
 store directly.
 
@@ -1294,7 +1294,7 @@ Related entries:
 
 ### upstream (EDR)
 
-In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/),
 the source node that sends replicated data to a
 [downstream](#downstream-edr) node. The upstream initiates all data
 transfer. A node can be upstream-only (a pure source), or both upstream and
@@ -1353,7 +1353,7 @@ accepts new writes.
 
 ### WAL replication (EDR)
 
-In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/edr/),
+In [Edge Data Replication (EDR) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/),
 the live replication path that discovers new [WAL](#wal-write-ahead-log)
 files as they appear on the source's object store and ships them
 downstream. WAL replication is EDR's primary, most precise data source;

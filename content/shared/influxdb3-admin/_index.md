@@ -16,12 +16,12 @@ The following articles provide information about managing your
 {{% show-in "enterprise,cloud" %}}
 > [!Note]
 > #### Replicating data from the edge?
-> [EDR (Edge Data Replication) for InfluxDB 3 Enterprise](/influxdb3/edr/)
+> [EDR (Edge Data Replication) for InfluxDB 3 Enterprise](/influxdb3/enterprise/edr/)
 > replicates time series data from InfluxDB 3 Enterprise to another
 > Enterprise instance, to InfluxDB 3 Cloud, or to AWS Timestream for
 > InfluxDB 3--over connections that may be intermittent or
 > bandwidth-constrained. See
-> [Get started with EDR](/influxdb3/edr/get-started/).
+> [Get started with EDR](/influxdb3/enterprise/edr/get-started/).
 {{% /show-in %}}
 
 {{< children >}}
