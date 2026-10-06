@@ -44,6 +44,8 @@ The following heartbeat plugin configuration options are available:
 - **token**: _({{% req text="Required with auth enabled" %}})_
   {{% product-name %}} API token for the heartbeat endpoint.
   The token must have **write** permissions on the **Heartbeat** API.
+  {{% product-name %}} rejects heartbeats sent with a token that lacks this
+  permission with a `403` response.
 - **interval**: Interval for sending heartbeat messages. Default is `1m` (every minute).
 - **include**: Information to include in the heartbeat message.
   Available options are:

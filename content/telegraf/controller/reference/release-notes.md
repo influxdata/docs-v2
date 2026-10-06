@@ -9,10 +9,73 @@ menu:
 weight: 101
 ---
 
-## v1.1.1 {date="2026-09-07"}
+## v1.1.2 {date="2026-10-06"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.1.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.1.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+> [!Important]
+> #### Heartbeat requests now require Heartbeat write permission
+>
+> Starting in v1.1.2, {{% product-name %}} rejects heartbeat requests that use
+> an API token without **write** permission on the **Heartbeat** resource, or
+> a token owned by a disabled user. Before you upgrade, confirm that the tokens
+> your agents send with heartbeats include Heartbeat write permission.
+> See [Use API tokens](/telegraf/controller/tokens/use/#for-heartbeat-requests).
+
+### Features
+
+- Download the OpenAPI document for the {{% product-name %}} API as JSON or
+  YAML from `/api/docs/openapi.json` and `/api/docs/openapi.yaml`, and use it
+  with code generators and API tools.
+  See [Download the OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document).
+- Allow underscores (`_`) and periods (`.`) in
+  [configuration aliases](/telegraf/controller/configs/aliases/#alias-naming-rules).
+  Aliases must still begin and end with a letter or digit.
+- Add plugin support to the Telegraf Builder UI:
+  - PostgreSQL Extensible (`inputs.postgresql_extensible`)
+  - PowerDNS (`inputs.powerdns`)
+  - PowerDNS Recursor (`inputs.powerdns_recursor`)
+  - Procstat (`inputs.procstat`)
+  - PromQL (`inputs.promql`)
+  - Proxmox (`inputs.proxmox`)
+  - Puppet Agent (`inputs.puppetagent`)
+  - RabbitMQ (`inputs.rabbitmq`)
+  - RADIUS (`inputs.radius`)
+  - Raindrops (`inputs.raindrops`)
+  - RAS Daemon (`inputs.ras`)
+  - RavenDB (`inputs.ravendb`)
+  - Redfish (`inputs.redfish`)
+  - Redis (`inputs.redis`)
+  - Redis Sentinel (`inputs.redis_sentinel`)
+  - RethinkDB (`inputs.rethinkdb`)
+  - Riak (`inputs.riak`)
+  - Riemann Listener (`inputs.riemann_listener`)
+  - Salesforce (`inputs.salesforce`)
+  - Sensors (`inputs.sensors`)
+  - Siemens S7 (`inputs.s7comm`)
+
+### Bug fixes
+
+- Enforce API token permissions on heartbeat requests. The heartbeat endpoint
+  now rejects a token without Heartbeat write permission with a `403`
+  response and rejects tokens owned by disabled users. Previously, it
+  accepted any unrevoked, unexpired token. The heartbeat token cache also
+  refreshes when a user is disabled, re-enabled, or deleted, and when a
+  user's role changes.
+- Load the number of configurations shown per page by default on the
+  configurations list.
+- Limit the select-all control on the configurations list to its checkbox
+  and label.
+- Stop the unsaved-changes warning from appearing when you type in the
+  Telegraf Builder plugin search.
+- Align the Processes input plugin (`inputs.processes`) in the Telegraf
+  Builder with Telegraf: correct the **use_sudo** toggle label and remove
+  parser options the plugin doesn't support.
+
+---
+
+## v1.1.1 {date="2026-09-07"}
 
 ### Features
 

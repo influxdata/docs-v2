@@ -28,7 +28,8 @@ configuration without changing agent startup commands.
 An alias must:
 
 - be 3 to 63 characters long.
-- contain only lowercase letters, digits, and hyphens.
+- contain only lowercase letters, digits, hyphens (`-`), underscores (`_`),
+  and periods (`.`).
 - begin and end with a letter or digit.
 
 Aliases are unique across your {{% product-name %}} instance, and the
