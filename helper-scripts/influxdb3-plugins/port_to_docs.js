@@ -428,7 +428,8 @@ async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
  * would leave only the last plugin's outcome visible to the workflow.
  */
 function selectPlugins(configPlugins, pluginArg) {
-  const normalized = typeof pluginArg === 'string' ? pluginArg.trim() : pluginArg;
+  const normalized =
+    typeof pluginArg === 'string' ? pluginArg.trim() : pluginArg;
   const entries = Object.entries(configPlugins);
 
   if (!normalized || normalized === 'all') {
@@ -494,6 +495,61 @@ async function findRemovedPlugins(discoveredPlugins) {
     return [];
   }
   return detectRemovedPlugins(discoveredPlugins, filenames);
+}
+
+/**
+ * A full sync can prune missing READMEs only when the upstream checkout exists.
+ * Otherwise every source would appear missing on a local run without `.ext`.
+ */
+async function partitionPluginsByReadme(
+  discoveredPlugins,
+  configPlugins,
+  upstreamDir = UPSTREAM_OFFICIAL_DIR
+) {
+  try {
+    await fs.access(upstreamDir);
+  } catch (error) {
+    if (error.code === 'ENOENT') return null;
+    throw error;
+  }
+
+  const available = [];
+  const missing = [];
+  for (const plugin of discoveredPlugins) {
+    const mapping = mappingForDiscoveredPlugin(plugin, configPlugins);
+    try {
+      const source = await fs.stat(mapping.source);
+      (source.isFile() ? available : missing).push(plugin);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+      missing.push(plugin);
+    }
+  }
+  // An empty sparse checkout looks like every README disappeared. Preserve
+  // published pages until at least one plugin source confirms the checkout.
+  if (discoveredPlugins.length > 0 && available.length === 0) return null;
+  return { available, missing };
+}
+
+/** Remove only the known shared page and product stubs for one plugin. */
+async function prunePlugin(pluginName, paths, dryRun = false) {
+  const removed = [];
+  for (const targetPath of paths) {
+    try {
+      await fs.stat(targetPath);
+      if (!dryRun) await fs.unlink(targetPath);
+      removed.push(targetPath);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
+  return {
+    plugin: pluginName,
+    status: removed.length ? 'pruned' : 'skipped',
+    detail: removed.length
+      ? `${dryRun ? 'would remove' : 'removed'} ${removed.join(', ')}`
+      : 'source README missing; no published pages to remove',
+  };
 }
 
 /**
@@ -704,6 +760,8 @@ async function main() {
   // entry. `main` collapses them to one row per plugin before reporting.
   const artifactResults = [];
   let discovered = null;
+  let pluginsWithReadmes = null;
+  let pluginsWithoutReadmes = [];
 
   if (shouldRunDiscovery(options.plugin)) {
     console.log('Discovering official plugins from the registry index...');
@@ -717,6 +775,12 @@ async function main() {
         exclude: config.exclude ?? [],
       });
       discovered = parsed.plugins;
+      const readmes = await partitionPluginsByReadme(
+        discovered,
+        config.plugins
+      );
+      pluginsWithReadmes = readmes?.available ?? discovered;
+      pluginsWithoutReadmes = readmes?.missing ?? [];
 
       console.log(
         `Discovered ${discovered.length} official plugin(s) in the registry.`
@@ -745,7 +809,7 @@ async function main() {
       // the sync reported success while publishing nothing, which is the
       // failure this pipeline is being rebuilt to stop having.
       try {
-        const dataYaml = renderPluginDataYaml(discovered.map(mapEntry));
+        const dataYaml = renderPluginDataYaml(pluginsWithReadmes.map(mapEntry));
         const dataFilePath = '../../data/influxdb3_plugins.yml';
         if (options.dryRun) {
           console.log(`DRY RUN: would write ${dataFilePath}`);
@@ -755,7 +819,7 @@ async function main() {
         }
 
         const scaffoldResults = await scaffoldMissingStubs(
-          discovered,
+          pluginsWithReadmes,
           options.dryRun
         );
         console.log(
@@ -779,6 +843,29 @@ async function main() {
           detail: 'shared page has no plugin in the registry index',
         }))
       );
+
+      for (const plugin of pluginsWithoutReadmes) {
+        const mapping = mappingForDiscoveredPlugin(plugin, config.plugins);
+        try {
+          artifactResults.push(
+            await prunePlugin(
+              plugin.name,
+              [
+                mapping.target,
+                stubPath(plugin, 'core'),
+                stubPath(plugin, 'enterprise'),
+              ],
+              options.dryRun
+            )
+          );
+        } catch (error) {
+          artifactResults.push({
+            plugin: plugin.name,
+            status: 'error',
+            detail: `could not prune plugin pages: ${error.message}`,
+          });
+        }
+      }
     }
     console.log('');
   }
@@ -798,7 +885,7 @@ async function main() {
   }
 
   const pluginsToProcess = discovered
-    ? discovered.map((plugin) => [
+    ? pluginsWithReadmes.map((plugin) => [
         plugin.name,
         mappingForDiscoveredPlugin(plugin, config.plugins),
       ])
@@ -853,4 +940,6 @@ export {
   selectPlugins,
   shouldRunDiscovery,
   mappingForDiscoveredPlugin,
+  partitionPluginsByReadme,
+  prunePlugin,
 };

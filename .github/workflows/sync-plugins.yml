@@ -119,7 +119,7 @@ jobs:
             if [ "$NEEDS_ATTENTION" = "true" ]; then
               cat <<'WARNING'
           > [!WARNING]
-          > One or more plugins were skipped, newly scaffolded, or no longer
+          > One or more plugins were skipped, pruned, newly scaffolded, or no longer
           > appear in the upstream registry index. Check the Status column
           > before merging.
 
@@ -150,7 +150,9 @@ jobs:
           - `updated` / `unchanged` — the generated region of the shared page.
           - `scaffolded` — a new product stub. Review its title, menu name, and
             tags; the generator cannot derive editorial tags from the registry.
-          - `skipped` — no README the transform could read. Fix it upstream.
+          - `skipped` — the upstream checkout or a source README was unavailable.
+          - `pruned` — a plugin in the registry has no source README; its shared
+            page and product stubs were removed. Check for an upstream rename.
           - `removed` — a shared page whose plugin left the registry index.
             Resolve by hand: a rename and a delete are indistinguishable here,
             so the sync never deletes a published page.
@@ -164,7 +166,8 @@ jobs:
           regenerated every run; anything outside those markers is hand-owned
           and preserved. Product stubs under
           `content/influxdb3/{core,enterprise}/plugins/library/official/` are
-          created once and never rewritten.
+          created once and never rewritten. A missing source README causes the
+          sync to remove the shared page and both stubs.
           LEGEND
           } > "$BODY_FILE"
           echo "path=$BODY_FILE" >> "$GITHUB_OUTPUT"
