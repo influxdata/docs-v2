@@ -3,7 +3,8 @@ Upgrade your {{% product-name %}} version.
 
 - [Before you upgrade](#before-you-upgrade)
 - [Version-specific upgrade notes](#version-specific-upgrade-notes)
-  - [Back up the catalog before you upgrade to 3.12](#back-up-the-catalog-before-you-upgrade-to-312)
+  - [Back up the catalog and data before you upgrade to 3.12](#back-up-the-catalog-and-data-before-you-upgrade-to-312)
+  - [Troubleshooting a 3.12 rollback](#troubleshooting-a-312-rollback)
   - [Other changes to review before you upgrade to 3.12](#other-changes-to-review-before-you-upgrade-to-312)
   - [Earlier versions](#earlier-versions)
 - [Upgrade an InfluxDB 3 instance](#upgrade-an-influxdb-3-instance)
@@ -67,51 +68,26 @@ influxdb3 {{% latest-patch %}}
 Review the notes for every release between your current version and the
 version you're upgrading to.
 
-### Back up the catalog before you upgrade to 3.12
+### Back up the catalog and data before you upgrade to 3.12
 
-After you upgrade to 3.12, you can't run 3.11.x on the same data unless you
-restore a catalog backup taken before the upgrade.
-
-InfluxDB 3.12 adds a catalog record type that 3.11.x can't read.
-The catalog records this new feature level automatically:
-
-{{% show-in "core" %}}
-- The first time you start 3.12.
-{{% /show-in %}}
-{{% show-in "enterprise" %}}
-- On a single node, the first time you start 3.12.
-- In a cluster, once every running node runs 3.12.
-  Stopped nodes don't count. A 3.11.x node that's stopped at that point
-  can't start again until you upgrade it to 3.12.
-{{% /show-in %}}
-
-This happens whether or not you use any 3.12 features.
-After that, a 3.11.x node refuses to load the catalog and fails with an error
-similar to the following:
-
-```text
-this node's feature level (core=<N>, enterprise=<N>) is below the cluster's committed level (core=<N>, enterprise=<N>); upgrade required
-```
-
-If you created a database with `--schema-mode explicit` after the upgrade,
-3.11.x fails with this error instead:
-
-```text
-unknown record id 47 without UPGRADE_SAFE flag
-```
+InfluxDB 3.12 includes a catalog record that 3.11.x can't read.
+A 3.11.x node can't load a catalog containing this record.
+Creating a database with `--schema-mode explicit` in InfluxDB 3 Enterprise
+writes this record.
 
 {{% show-in "enterprise" %}}
 > [!Important]
 > The `influxdb3 create restore` command can't roll back the feature level.
 > A restore keeps the cluster's current feature level, even if the backup is
 > from 3.11.x.
-> To roll back, use a copy of the catalog objects, as described in the
-> following steps.
 {{% /show-in %}}
 
-#### Back up the catalog
+<!-- Supported rollback procedure under review: influxdata/influxdb_pro#5433. -->
 
-<!-- Rollback procedure under review: influxdata/DAR#779. -->
+Back up your data before upgrading.
+For backup options, see [Back up and restore](/influxdb3/version/admin/backup-restore/).
+{{% show-in "enterprise" %}}On the upgraded storage engine, use
+[`influxdb3 create backup`](/influxdb3/version/admin/backup-restore/#create-a-backup).{{% /show-in %}}
 
 Before you start any node on 3.12, copy every object under
 {{% show-in "core" %}}`<NODE_ID>/catalog/`{{% /show-in %}}{{% show-in "enterprise" %}}`<CLUSTER_ID>/catalog/`{{% /show-in %}}
@@ -129,48 +105,31 @@ shows these commands.
 Skip its `_catalog_checkpoint` steps; that file doesn't exist on current
 installations.
 
-Data written after the upgrade isn't in the catalog backup.
-To roll back without losing it, also back up your data.
-{{% show-in "enterprise" %}}On the upgraded storage engine, use
-[`influxdb3 create backup`](/influxdb3/version/admin/backup-restore/#create-a-backup).{{% /show-in %}}
+Keep the catalog and data backups until you're sure you won't need them for
+recovery.
 
-Keep the backup until you're sure you won't roll back.
+#### Plan a rollback to 3.11.x
 
-#### Roll back to 3.11.x
+Don't restore only a pre-upgrade catalog while retaining data written after the
+backup.
+Queries of a newly created table might then return rows written to a different
+table.
+See [Troubleshooting a 3.12 rollback](#queries-return-unexpected-rows-after-a-rollback).
+Contact InfluxData Support to plan a rollback for your deployment.
 
-Rolling back discards every catalog change made after the upgrade, such as
-new databases, tables, columns, tokens, and triggers.
+### Troubleshooting a 3.12 rollback
 
-Data written after the upgrade, such as WAL, Parquet, and `.pt` files, can
-refer to catalog objects that no longer exist after you roll back.
-Roll back only if you can discard that data or restore it from a backup
-taken before the upgrade.
+#### Queries return unexpected rows after a rollback
 
-{{% show-in "core" %}}
-1. Stop the node.
-2. Make `<NODE_ID>/catalog/` match your backup exactly.
-   Delete every object in it that isn't in the backup, including newer log
-   files.
-3. Install your previous 3.11.x version and start the node.
-{{% /show-in %}}
-{{% show-in "enterprise" %}}
-1. Stop every node in the cluster.
-2. Make `<CLUSTER_ID>/catalog/` match your backup exactly.
-   Delete every object in it that isn't in the backup, including newer log
-   files.
-3. Install 3.11.3 or later on every node.
-   If you use the upgraded storage engine, 3.11.0 through 3.11.2 can't read
-   files that the 3.12 compactor writes, and fail with
-   `Unsupported run-set index version: 3`.
-4. Start the nodes.
-{{% /show-in %}}
+If you restore a catalog backup taken before the upgrade but keep data written
+afterward, the catalog and data files can describe different tables.
+A table created after the rollback can return rows written to another table
+before the rollback.
 
-Replacing only the snapshot isn't enough.
-At startup, a 3.11.x node replays every log file newer than the snapshot,
-and a log file written by 3.12 makes it fail.
-
-To copy the backup back, use `cp -r` into an emptied `catalog` directory, or
-`aws s3 sync --delete`, which also deletes objects that aren't in the backup.
+If queries return unexpected rows, stop writes and preserve the current catalog
+and data files.
+Contact InfluxData Support before creating more databases or tables or
+attempting another restore.
 
 ### Other changes to review before you upgrade to 3.12
 
@@ -338,9 +297,8 @@ For how each release affects nodes running different versions, see
 
 Follow these steps to upgrade your {{% product-name %}} deployment with minimal downtime.
 
-Before you upgrade any node, back up your data.
-To keep the option to roll back from 3.12 to 3.11.x, also
-[back up the catalog](#back-up-the-catalog-before-you-upgrade-to-312).
+Before you upgrade any node, back up your data and catalog.
+See [Back up the catalog and data before you upgrade to 3.12](#back-up-the-catalog-and-data-before-you-upgrade-to-312).
 For backup procedures, see [Back up and restore](/influxdb3/version/admin/backup-restore/).
 
 #### Recommended node upgrade order
