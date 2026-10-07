@@ -1,6 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import {
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+  existsSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
@@ -8,6 +14,8 @@ import {
   selectPlugins,
   shouldRunDiscovery,
   mappingForDiscoveredPlugin,
+  partitionPluginsByReadme,
+  prunePlugin,
 } from '../port_to_docs.js';
 
 const CONFIG_PLUGINS = {
@@ -88,6 +96,54 @@ test('uses an explicit mapping when a plugin needs nonstandard paths', () => {
   );
 
   assert.equal(mapping, customMapping);
+});
+
+test('separates missing plugin READMEs when the upstream checkout exists', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'plugin-sources-'));
+  const present = join(dir, 'present.md');
+  writeFileSync(present, README, 'utf8');
+  const plugins = [{ name: 'present' }, { name: 'missing' }];
+  const mappings = {
+    present: { source: present },
+    missing: { source: join(dir, 'missing.md') },
+  };
+
+  assert.deepEqual(await partitionPluginsByReadme(plugins, mappings, dir), {
+    available: [plugins[0]],
+    missing: [plugins[1]],
+  });
+  assert.equal(
+    await partitionPluginsByReadme(plugins, mappings, join(dir, 'absent')),
+    null,
+    'an absent checkout must not classify every plugin as missing'
+  );
+  const emptyCheckout = join(dir, 'empty-checkout');
+  mkdirSync(emptyCheckout);
+  assert.equal(
+    await partitionPluginsByReadme([plugins[1]], mappings, emptyCheckout),
+    null,
+    'an incomplete checkout must not trigger mass pruning'
+  );
+});
+
+test("prunes only a missing plugin's known pages and previews a dry run", async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'plugin-prune-'));
+  const paths = ['shared.md', 'core.md', 'enterprise.md'].map((name) =>
+    join(dir, name)
+  );
+  for (const file of paths) writeFileSync(file, 'old docs', 'utf8');
+  const unrelated = join(dir, 'another-plugin.md');
+  writeFileSync(unrelated, 'keep', 'utf8');
+
+  const preview = await prunePlugin('nori_regression', paths, true);
+  assert.equal(preview.status, 'pruned');
+  assert.match(preview.detail, /would remove/);
+  assert.equal(paths.every(existsSync), true);
+
+  const result = await prunePlugin('nori_regression', paths);
+  assert.equal(result.status, 'pruned');
+  assert.equal(paths.some(existsSync), false);
+  assert.equal(readFileSync(unrelated, 'utf8'), 'keep');
 });
 
 test('ignores empty entries from a trailing or doubled comma', () => {
