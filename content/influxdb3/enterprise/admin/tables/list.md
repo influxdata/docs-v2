@@ -2,7 +2,7 @@
 title: List tables
 description: >
   Use the influxdb3 CLI or HTTP API to list tables in a specified database
-  in {{< product-name >}}.
+  in InfluxDB 3 Enterprise.
   Use SQL SHOW TABLES or InfluxQL SHOW MEASUREMENTS statements.
 menu:
   influxdb3_enterprise:

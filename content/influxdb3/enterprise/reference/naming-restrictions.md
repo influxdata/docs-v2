@@ -2,7 +2,7 @@
 title: Naming restrictions and conventions
 description: >
   Learn about naming restrictions and conventions for databases, tables, 
-  tags, fields, and other identifiers in {{% product-name %}}.
+  tags, fields, and other identifiers in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Reference

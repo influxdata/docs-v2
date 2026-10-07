@@ -2,7 +2,7 @@
 title: Manage tables
 seotitle: Manage tables in {{< product-name >}}
 description: >
-  Tables in {{< product-name >}} are synonymous with measurements and contain
+  Tables in InfluxDB 3 Enterprise are synonymous with measurements and contain
   time series data. Each table has a defined schema with tag and field columns.
 menu:
   influxdb3_enterprise:

@@ -3,7 +3,7 @@ title: Use Tableau to visualize data
 list_title: Tableau
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query and visualize
-  data from {{< product-name >}}.
+  data from InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Visualize data

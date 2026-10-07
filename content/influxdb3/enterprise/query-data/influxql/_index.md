@@ -1,7 +1,7 @@
 ---
 title: Query data with InfluxQL
 description: >
-  Learn to use InfluxQL to query data in {{< product-name >}}.
+  Learn to use InfluxQL to query data in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Query with InfluxQL

@@ -2,7 +2,7 @@
 title: Optimize writes to {{< product-name >}}
 description: >
   Tips and examples to optimize performance and system overhead when writing
-  data to {{< product-name >}}.
+  data to InfluxDB 3 Enterprise.
 weight: 203
 menu:
   influxdb3_enterprise:

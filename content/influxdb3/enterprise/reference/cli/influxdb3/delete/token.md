@@ -1,7 +1,7 @@
 ---
 title: influxdb3 delete token
 description: >
-  The `influxdb3 delete token` command deletes an authorization token from the {{% product-name %}} server.
+  The `influxdb3 delete token` command deletes an authorization token from the InfluxDB 3 Enterprise server.
 influxdb3/enterprise/tags: [cli]
 menu:
   influxdb3_enterprise:

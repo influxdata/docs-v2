@@ -1,7 +1,7 @@
 ---
 title: Explore your schema with SQL
 description: >
-  Use SQL to explore your data schema in your {{< product-name >}} database.
+  Use SQL to explore your data schema in your InfluxDB 3 Enterprise database.
 menu:
   influxdb3_enterprise:
     name: Explore your schema

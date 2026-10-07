@@ -1,6 +1,6 @@
 ---
 title: Install InfluxDB 3 Enterprise
-description: Download and install {{< product-name >}}.
+description: Download and install InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Install InfluxDB 3 Enterprise

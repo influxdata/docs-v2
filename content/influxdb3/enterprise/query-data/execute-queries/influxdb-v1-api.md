@@ -3,7 +3,7 @@ title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
 seotitle: Use InfluxQL and InfluxDB v1 HTTP query API
 list_title: Use the v1 query API and InfluxQL
 description: >
-  Use the InfluxDB v1 HTTP query API to query data in {{< product-name >}}
+  Use the InfluxDB v1 HTTP query API to query data in InfluxDB 3 Enterprise
   with InfluxQL.
 weight: 303
 menu:

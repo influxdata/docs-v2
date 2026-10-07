@@ -2,7 +2,7 @@
 title: Query system data
 description: |
   Query system tables to see data related
-  to the server, queries, and tables in an {{% product-name %}} instance. 
+  to the server, queries, and tables in an InfluxDB 3 Enterprise instance.
   Use the HTTP SQL query API to retrieve information about your database server
   and table schemas.
 menu:

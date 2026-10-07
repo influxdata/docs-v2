@@ -2,7 +2,7 @@
 title: Manage the Distinct Value Cache
 seotitle: Manage the Distinct Value Cache in {{< product-name >}}
 description: >
-  The {{< product-name >}} Distinct Value Cache (DVC) lets you cache distinct
+  The InfluxDB 3 Enterprise Distinct Value Cache (DVC) lets you cache distinct
   values of one or more columns in a table, improving the performance of
   queries that return distinct tag and field values. 
 menu:

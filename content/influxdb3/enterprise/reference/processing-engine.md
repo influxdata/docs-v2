@@ -2,7 +2,7 @@
 title: Processing engine reference
 description: >
   The InfluxDB 3 Processing engine is an embedded Python virtual machine
-  that runs inside {{< product-name >}} to execute Python code in response to triggers you define without requiring external application servers or middleware.
+  that runs inside InfluxDB 3 Enterprise to execute Python code in response to triggers you define without requiring external application servers or middleware.
 menu:
   influxdb3_enterprise:
     name: Processing engine
