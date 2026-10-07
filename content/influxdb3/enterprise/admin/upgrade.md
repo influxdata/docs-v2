@@ -1,7 +1,7 @@
 ---
 title: Upgrade InfluxDB 3 Enterprise
 description: >
-  Learn how to upgrade your {{% product-name %}} cluster across multiple versions, including
+  Learn how to upgrade your InfluxDB 3 Enterprise cluster across multiple versions, including
   rolling upgrades, catalog version constraints, and recommended upgrade order
   for different node modes.
 menu:

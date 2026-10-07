@@ -4,7 +4,6 @@ Upgrade your {{% product-name %}} version.
 - [Before you upgrade](#before-you-upgrade)
 - [Version-specific upgrade notes](#version-specific-upgrade-notes)
   - [Back up the catalog and data before you upgrade to 3.12](#back-up-the-catalog-and-data-before-you-upgrade-to-312)
-  - [Troubleshooting a 3.12 rollback](#troubleshooting-a-312-rollback)
   - [Other changes to review before you upgrade to 3.12](#other-changes-to-review-before-you-upgrade-to-312)
   - [Earlier versions](#earlier-versions)
 - [Upgrade an InfluxDB 3 instance](#upgrade-an-influxdb-3-instance)
@@ -14,15 +13,13 @@ Upgrade your {{% product-name %}} version.
   - [Rolling upgrade constraints](#rolling-upgrade-constraints)
   - [Troubleshooting cluster upgrades](#troubleshooting-cluster-upgrades)
 {{% /show-in %}}
+- [Troubleshooting a 3.12 rollback](#troubleshooting-a-312-rollback)
 
 ## Before you upgrade
 
-{{% show-in "core" %}}
-Before upgrading your {{% product-name %}} instance, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
-{{% /show-in %}}
-{{% show-in "enterprise" %}}
-Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
-{{% /show-in %}}
+Before upgrading {{% product-name %}}, [verify your current version](#verify-your-current-version).
+Review the [version-specific upgrade notes](#version-specific-upgrade-notes) and [release notes](/influxdb3/version/release-notes/) for compatibility requirements.
+Then plan your upgrade.
 
 ### Verify your current version
 
@@ -84,26 +81,23 @@ writes this record.
 
 <!-- Supported rollback procedure under review: influxdata/influxdb_pro#5433. -->
 
-Back up your data before upgrading.
-For backup options, see [Back up and restore](/influxdb3/version/admin/backup-restore/).
-{{% show-in "enterprise" %}}On the upgraded storage engine, use
-[`influxdb3 create backup`](/influxdb3/version/admin/backup-restore/#create-a-backup).{{% /show-in %}}
+{{% show-in "core" %}}Your catalog directory is `<NODE_ID>/catalog/` in your object store.{{% /show-in %}}
+{{% show-in "enterprise" %}}Your catalog directory is `<CLUSTER_ID>/catalog/` in your object store.{{% /show-in %}}
 
-Before you start any node on 3.12, copy every object under
-{{% show-in "core" %}}`<NODE_ID>/catalog/`{{% /show-in %}}{{% show-in "enterprise" %}}`<CLUSTER_ID>/catalog/`{{% /show-in %}}
-in your object store to a separate location.
-This includes the catalog snapshot (`catalog/v3/snapshot`) and log files
-(`catalog/v3/logs/`).
-The snapshot is overwritten in place, so stop
-{{% show-in "core" %}}the node{{% /show-in %}}{{% show-in "enterprise" %}}every node{{% /show-in %}}
-before you copy it to make sure the copy is consistent.
+Before you start any node on 3.12:
 
-Copy the `catalog` directory directly, for example with `cp -r` or
-`aws s3 sync`.
-The [manual backup process](/influxdb3/version/admin/backup-restore/#manual-backup-process)
-shows these commands.
-Skip its `_catalog_checkpoint` steps; that file doesn't exist on current
-installations.
+1. Back up your data.
+   For backup options, see [Back up and restore](/influxdb3/version/admin/backup-restore/).
+   {{% show-in "enterprise" %}}On the upgraded storage engine, use [`influxdb3 create backup`](/influxdb3/version/admin/backup-restore/#create-a-backup).{{% /show-in %}}
+2. Stop every node that uses the catalog.
+   The snapshot is overwritten in place, so stopping the nodes makes the copy consistent.
+3. Copy every object in your `catalog/` directory to a separate location.
+   This includes the catalog snapshot (`catalog/v3/snapshot`) and log files
+   (`catalog/v3/logs/`).
+   Copy the `catalog` directory directly, for example with `cp -r` or `aws s3 sync`.
+   The [manual backup process](/influxdb3/version/admin/backup-restore/#manual-backup-process) shows these commands.
+   Skip its `_catalog_checkpoint` steps; that file doesn't exist on current
+   installations.
 
 Keep the catalog and data backups until you're sure you won't need them for
 recovery.
@@ -114,30 +108,8 @@ Don't restore only a pre-upgrade catalog while retaining data written after the
 backup.
 Queries of a newly created table might then return rows written to a different
 table.
-See [Troubleshooting a 3.12 rollback](#queries-return-unexpected-rows-after-a-rollback).
+See [Queries return unexpected rows after a rollback](#queries-return-unexpected-rows-after-a-rollback).
 Contact InfluxData Support to plan a rollback for your deployment.
-
-### Troubleshooting a 3.12 rollback
-
-#### 3.11.x fails to start after running 3.12
-
-If a 3.11.x node can't load the catalog after running 3.12, the catalog might
-contain a record that 3.11.x can't read.
-Don't restore only an older catalog to get past the error.
-Preserve the catalog and data files, and contact InfluxData Support to plan
-recovery.
-
-#### Queries return unexpected rows after a rollback
-
-If you restore a catalog backup taken before the upgrade but keep data written
-afterward, the catalog and data files can describe different tables.
-A table created after the rollback can return rows written to another table
-before the rollback.
-
-If queries return unexpected rows, stop writes and preserve the current catalog
-and data files.
-Contact InfluxData Support before creating more databases or tables or
-attempting another restore.
 
 ### Other changes to review before you upgrade to 3.12
 
@@ -711,3 +683,25 @@ The v3.3.x → v3.4.x transition has specific constraints, but other version tra
 - Any special upgrade procedures or constraints
 
 {{% /show-in %}}
+
+## Troubleshooting a 3.12 rollback
+
+### 3.11.x fails to start after running 3.12
+
+If a 3.11.x node can't load the catalog after running 3.12, the catalog might
+contain a record that 3.11.x can't read.
+Don't restore only an older catalog to get past the error.
+Preserve the catalog and data files, and contact InfluxData Support to plan
+recovery.
+
+### Queries return unexpected rows after a rollback
+
+If you restore a catalog backup taken before the upgrade but keep data written
+afterward, the catalog and data files can describe different tables.
+A table created after the rollback can return rows written to another table
+before the rollback.
+
+If queries return unexpected rows, stop writes and preserve the current catalog
+and data files.
+Contact InfluxData Support before creating more databases or tables or
+attempting another restore.
