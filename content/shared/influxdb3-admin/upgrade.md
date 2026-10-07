@@ -23,7 +23,7 @@ Then plan your upgrade.
 
 ### Verify your current version
 
-Before upgrading, verify the {{% product-name %}} version running on each node.
+Before upgrading, [verify the {{% product-name %}} version](/influxdb3/version/admin/identify-version/) running on each node.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -58,7 +58,7 @@ influxdb3 {{% latest-patch %}}
 > [!Tip]
 > ### Verify your InfluxDB version
 > 
-> Before and after upgrading, verify the {{% product-name %}} version running on your instance.
+> Before and after upgrading, [verify the {{% product-name %}} version](/influxdb3/version/admin/identify-version/) running on your instance.
 
 ## Version-specific upgrade notes
 
