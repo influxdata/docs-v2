@@ -1895,6 +1895,8 @@ compaction levels. The first element specifies the duration of the first level
 
 Specifies the amount of time that the compactor waits after finishing a compaction run
 to delete files marked as needing deletion during that compaction run.
+On the legacy Parquet storage engine, compaction doesn't mark Gen1 files for
+deletion; see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
 
 **Default:** `10m`
 
