@@ -1240,7 +1240,7 @@ InfluxDB creates a Python virtual environment in your plugins directory with the
 
 For air-gapped deployments or environments with strict security requirements, you can disable Python package installation while maintaining Processing Engine functionality.
 
-Start the server with `--package-manager disabled`:
+Start the server with `--disable-package-management`:
 
 ```bash
 influxdb3 serve \
@@ -1248,8 +1248,13 @@ influxdb3 serve \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --plugin-dir ~/.plugins \
-  --package-manager disabled
+  --disable-package-management
 ```
+
+> [!Note]
+> `--disable-package-management` replaces the deprecated `--package-manager disabled`.
+> With this option set, the server never creates or modifies the virtual
+> environment or invokes `pip`.
 
 When package installation is disabled:
 - The Processing Engine continues to function normally for triggers
@@ -1259,16 +1264,16 @@ When package installation is disabled:
 
 **Pre-install required dependencies:**
 
-Before disabling the package manager, install all required Python packages:
+Before you disable package management, install all required Python packages:
 
 ```bash
 # Install packages first
 influxdb3 install package pandas requests numpy
 
-# Then start with disabled package manager
+# Then restart with package management disabled
 influxdb3 serve \
   --plugin-dir ~/.plugins \
-  --package-manager disabled
+  --disable-package-management
 ```
 
 **Use cases for disabled package management:**
@@ -1277,7 +1282,7 @@ influxdb3 serve \
 - Centrally managed dependency environments
 - Security policies requiring pre-approved packages only
 
-For more configuration options, see [--package-manager](/influxdb3/version/reference/config-options/#package-manager).
+For more configuration options, see [--disable-package-management](/influxdb3/version/reference/config-options/#disable-package-management).
 
 ## Plugin security
 
@@ -1339,7 +1344,7 @@ This security model ensures only administrators can introduce or modify executab
 **For production:**
 - Pre-deploy plugins to the server's plugin directory via secure file transfer
 - Use custom plugin repositories for vetted, approved plugins
-- Disable package installation (`--package-manager disabled`) in locked-down environments
+- Disable package installation (`--disable-package-management`) in locked-down environments
 - Audit plugin files using the [`system.plugin_files` table](#view-loaded-plugins)
 - Implement change control processes for plugin updates
 

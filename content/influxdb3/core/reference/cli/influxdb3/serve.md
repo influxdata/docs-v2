@@ -85,6 +85,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--delete-grace-period`                              | _See [configuration options](/influxdb3/core/reference/config-options/#delete-grace-period)_                              |
 |                  | `--disable-authz`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#disable-authz)_                                    |
 |                  | `--disable-file-cache`                        | _See [configuration options](/influxdb3/core/reference/config-options/#disable-file-cache)_                        |
+|                  | `--disable-package-management`                       | _See [configuration options](/influxdb3/core/reference/config-options/#disable-package-management)_                       |
 |                  | `--distinct-cache-eviction-interval`                 | _See [configuration options](/influxdb3/core/reference/config-options/#distinct-cache-eviction-interval)_                 |
 |                  | `--exec-mem-pool-size`                              | _See [configuration options](/influxdb3/core/reference/config-options/#exec-mem-pool-size)_                              |
 |                  | `--force-snapshot-mem-size`                     | _See [configuration options](/influxdb3/core/reference/config-options/#force-snapshot-mem-size)_                     |
