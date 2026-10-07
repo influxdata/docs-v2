@@ -2930,9 +2930,6 @@ components:
         trigger_name:
           type: string
         trigger_settings:
-          description: |
-            Configuration for trigger error handling and execution behavior.
-            Optional. If you omit `trigger_settings` or any of its fields, each omitted field uses its default.
           allOf:
             - $ref: "#/components/schemas/TriggerSettings"
         trigger_specification:
@@ -3046,8 +3043,6 @@ components:
         - trigger_specification
     TriggerSettings:
       type: object
-      description: |
-        Configuration settings for processing engine trigger error handling and execution behavior.
       properties:
         run_async:
           type: boolean
