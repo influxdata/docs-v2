@@ -48,4 +48,10 @@ process that organizes and optimizes Parquet files in storage and occurs in
 multiple phases or generations. Generation 1 (gen1) data is un-compacted and
 is not indexed. Generation 2 (gen2) data and beyond is all indexed.
 
+> [!Note]
+> In clusters that use the legacy Parquet storage engine, compaction doesn't
+> automatically delete Gen1 Parquet files after it compacts their data into
+> later generations.
+> The Gen1 files remain in object storage and continue to consume storage space.
+
 {{< children hlevel="h2" >}}
