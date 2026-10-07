@@ -177,7 +177,8 @@ jobs:
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           path: docs-v2
-          branch: sync/influxdb3-plugins
+          # Keep manual runs on a feature branch from updating the master sync PR.
+          branch: ${{ github.ref_name == 'master' && 'sync/influxdb3-plugins' || format('sync/influxdb3-plugins-{0}', github.ref_name) }}
           commit-message: 'sync(plugins): update InfluxDB 3 plugin documentation'
           title: 'sync(plugins): update InfluxDB 3 plugin documentation'
           body-path: ${{ steps.body.outputs.path }}

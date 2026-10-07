@@ -116,6 +116,15 @@
   introduced: v0.2.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mqtt_subscriber
+- name: nori_regression
+  id: nori-regression
+  description: Predict a numeric InfluxDB 3 field from other columns with Synthefy's Nori in-context tabular regression model, via the Synthefy inference gateway. Imputes rows where the target field is null.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v0.1.1
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/nori_regression
 - name: notifier
   id: notifier
   description: Notification dispatcher that sends notifications through various channels (Slack, Discord, HTTP, SMS, WhatsApp) based on incoming HTTP requests. Features retry logic and environment variable support.
