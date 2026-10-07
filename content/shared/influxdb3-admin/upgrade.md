@@ -119,6 +119,14 @@ Contact InfluxData Support to plan a rollback for your deployment.
 
 ### Troubleshooting a 3.12 rollback
 
+#### 3.11.x fails to start after running 3.12
+
+If a 3.11.x node can't load the catalog after running 3.12, the catalog might
+contain a record that 3.11.x can't read.
+Don't restore only an older catalog to get past the error.
+Preserve the catalog and data files, and contact InfluxData Support to plan
+recovery.
+
 #### Queries return unexpected rows after a rollback
 
 If you restore a catalog backup taken before the upgrade but keep data written
