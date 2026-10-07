@@ -264,6 +264,15 @@
   introduced: v0.2.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/synthefy_forecasting
+- name: synthefy_nori_regression
+  id: synthefy-nori-regression
+  description: Predict a numeric InfluxDB 3 field from other columns with Synthefy's Nori in-context tabular regression model, via the Synthefy inference gateway. Imputes rows where the target field is null.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v0.1.1
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/synthefy_nori_regression
 - name: system_metrics
   id: system-metrics
   description: Collects system-level metrics (CPU, memory, disk, and network) using psutil and writes them to InfluxDB. Designed to run on a schedule and provide observability into host-level performance.
