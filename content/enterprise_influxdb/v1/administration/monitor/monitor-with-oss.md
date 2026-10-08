@@ -9,7 +9,7 @@ menu:
     parent: Monitor
 weight: 101
 related:
-  - /platform/monitoring/influxdata-platform/tools/measurements-internal
+  - /enterprise_influxdb/v1/administration/monitor/measurements-internal/
 aliases:
   - /enterprise_influxdb/v1/administration/monitor-enterprise/monitor-with-oss/
 ---
@@ -86,7 +86,7 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
 To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded metrics, set the destination bucket name to `enterprise_metrics` in your `telegraf.conf`.
       {{% /note %}}
 
-   5. Add the [Prometheus input plugin](https://github.com/influxdata/telegraf/blob/release-1.19/plugins/inputs/prometheus/README.md) to your `telegraf.conf`. Specify your your InfluxDB Enterprise URL(s) in the `urls` parameter. For example:
+   5. Add the [Prometheus input plugin](/telegraf/v1/input-plugins/prometheus/) to your `telegraf.conf`. Specify your InfluxDB Enterprise URL(s) in the `urls` parameter. For example:
    
     {{< keep-url >}}
      ```toml
@@ -112,7 +112,7 @@ On each InfluxDB Enterprise instance you want to monitor, do the following:
 3. Complete the Telegraf Setup instructions. If you are using environment variables, set them up now. 
 
       {{% note %}}
-For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
+For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure it's available to the service.
       {{% /note %}}
 
 Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB OSS account.
@@ -135,7 +135,7 @@ To see your data in real time, view the Monitoring dashboard.
 
 The Monitoring template includes a [deadman check](/influxdb/v2/monitor-alert/checks/create/#deadman-check) to verify metrics are reported at regular intervals.
 
-To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB OSS account, do the following:
+To alert when data stops flowing from InfluxDB Enterprise instances to your InfluxDB OSS account, do the following:
 
 1. [Customize the deadman check](#customize-the-deadman-check) to identify the fields you want to monitor.
 2. [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule) to receive notifications when your deadman check is triggered.
@@ -146,7 +146,7 @@ To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB OS
 
     {{< nav-icon "alerts" >}}
 
-2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert:
+2. Choose an InfluxDB OSS field or create a new OSS field for your deadman alert:
    1. Click **{{< icon "plus" "v2" >}} Create** and select **Deadman Check** in the dropown menu.
    2. Define your query with at least one field.
    3. Click **Submit** and **Configure Check**.

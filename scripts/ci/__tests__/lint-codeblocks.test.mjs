@@ -28,6 +28,16 @@ test('exits 1 when a JSON block fails to parse', () => {
   assert.match(r.stdout + r.stderr, /bad-json\.md/);
 });
 
+test('fails blocking lp fences and maps diagnostics to Markdown lines', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'lint-lp-'));
+  const file = join(dir, 'invalid-lp.md');
+  writeFileSync(file, '# Example\n\n```lp\ncpu usage=1.0\ncpu field=NaN\n```\n');
+  const r = run([file]);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /line=5/);
+  assert.match(r.stdout, /lp: invalid field value/);
+});
+
 test('dedupes inputs that resolve to the same canonical source', () => {
   // Pass the same consumer file twice — canonical should be grouped once.
   const consumer = fx('consumer.md');

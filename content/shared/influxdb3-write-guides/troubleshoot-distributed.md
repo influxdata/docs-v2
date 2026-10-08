@@ -129,7 +129,7 @@ When reporting write issues, provide the following information to help InfluxDat
 # Example: Capture both successful and failed write attempts
 curl --silent --show-error --write-out "\nHTTP Status: %{http_code}\nResponse Time: %{time_total}s\n" \
   --request POST \
-  "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=ns" \
+  "{{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=ns" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --data-binary @problematic-data.lp \
@@ -182,7 +182,7 @@ import (
 func main() {
     // Enable debug logging
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:     "https://{{< influxdb/host >}}",
+        Host:     "{{< influxdb/host-url >}}",
         Token:    "AUTH_TOKEN",
         Database: "DATABASE_NAME",
         Debug:    true,
@@ -212,7 +212,7 @@ public class WriteErrorExample {
     
     public static void main(String[] args) {
         try (InfluxDBClient client = InfluxDBClient.getInstance(
-                "https://{{< influxdb/host >}}",
+                "{{< influxdb/host-url >}}",
                 "AUTH_TOKEN".toCharArray(),
                 "DATABASE_NAME")) {
             
@@ -231,7 +231,7 @@ public class WriteErrorExample {
 import { InfluxDBClient } from '@influxdata/influxdb3-client'
 
 const client = new InfluxDBClient({
-  host: 'https://{{< influxdb/host >}}',
+  host: '{{< influxdb/host-url >}}',
   token: 'AUTH_TOKEN',
   database: 'DATABASE_NAME'
 })
@@ -376,7 +376,7 @@ max_delay=30
 max_retries=5
 
 for attempt in $(seq 0 $max_retries); do
-  resp_code=$(curl -s -o /dev/null -w "%{http_code}" --request POST "https://{{< influxdb/host >}}/write?db=DB" ...)
+  resp_code=$(curl -s -o /dev/null -w "%{http_code}" --request POST "{{< influxdb/host-url >}}/write?db=DB" ...)
   if [ "$resp_code" -eq 204 ]; then
     echo "Write succeeded"
     break

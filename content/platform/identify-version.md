@@ -7,4 +7,7 @@ menu:
     name: Identify version
 weight: 102
 source: /shared/identify-version.md
+related:
+  - /platform/
+  - /influxdb3/cloud/
 ---

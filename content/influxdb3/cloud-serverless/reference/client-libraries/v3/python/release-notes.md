@@ -10,8 +10,8 @@ menu:
 weight: 301
 canonical: /influxdb3/core/reference/client-libraries/v3/python/release-notes/
 source: /shared/influxdb-client-libraries-reference/v3/release-notes/python.md
-latest_version: "0.20.0"
-latest_release_date: "2026-06-11"
+latest_version: "0.21.0"
+latest_release_date: "2026-08-27"
 ---
 
 <!-- Content sourced from content/shared/influxdb-client-libraries-reference/v3/release-notes/python.md -->

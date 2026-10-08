@@ -9,19 +9,8 @@ menu:
     parent: influxd
 alt_links:
   v2: /influxdb/v2/reference/cli/influxd/version/
+source: /shared/influxdb-v1/tools/influxd/version.md
 ---
 
-
-The `influxd version` command outputs the current version of InfluxDB.
-
-## Usage
-
-```
-influxd version [flags]
-```
-
-## Flags
-
-| Flag |         | Description                    |
-|:---- |:---     |:-----------                    |
-| `-h` | `-help` | Help for the `version` command |
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v1/tools/influxd/version.md -->

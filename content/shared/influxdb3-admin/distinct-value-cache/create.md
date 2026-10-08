@@ -12,8 +12,14 @@ to create a Distinct Value Cache (DVC). Provide the following:
 - **Table** (`-t`, `--table`): _({{< req >}})_ The name of the table to
   associate the DVC with.
 {{% show-in "enterprise" %}}
-- **Node specification** (`-n`, `--node-spec`): Specify which nodes the DVC
-  should be configured on.
+- **Node specification** (`-n`, `--node-spec`): Specify which nodes load
+  historical data into the DVC. The default (`all`) loads historical data on
+  all query- and processing-capable nodes. To reduce the initial cache warm-up
+  load, use `nodes:<node-id>[,<node-id>...]` to limit the historical data load
+  to specific nodes. All query-capable nodes serve the DVC and add newly
+  written data to it, but excluded nodes return incomplete query results until
+  new data arrives. Only specify a node list if you accept temporarily
+  incomplete query results from excluded nodes.
 {{% /show-in %}}
 - **Columns** (`--columns`): _({{< req >}})_ Specify which columns to cache
   distinct values for. These are typically tag columns but can also be

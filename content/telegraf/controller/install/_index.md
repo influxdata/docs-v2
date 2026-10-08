@@ -8,6 +8,7 @@ menu:
     name: Install Telegraf Controller
 weight: 2
 related:
+  - /telegraf/controller/install/upgrade/
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/eula/
 ---
@@ -30,7 +31,9 @@ configurations, monitoring agents, and organizing plugins.
 - **Operating Systems**: Linux, macOS, Windows
 - **Architecture**: x64 (Intel/AMD) or ARM64 (Apple Silicon/ARM)
 - **Database**: SQLite (default), PostgreSQL, or PostgreSQL-compatible
-- **Ports**: 8888 (web interface), 8000 (heartbeat service)
+- **Ports**: 8888 (web interface and API), 8000 (heartbeat service).
+  Optionally, serve the web interface on a separate
+  [`ui-port`](/telegraf/controller/reference/config-options/#ui-port).
 
 
 ## Review the EULA
@@ -128,46 +131,8 @@ run it in place. You can also run {{% product-name %}} as a service.
 
 #### Install the executable as a systemd service {note="Optional"}
 
-> [!Note]
-> If this is the first run on the host, accept the EULA in a TTY or set
-> `TELEGRAF_CONTROLLER_EULA=accept` in the service environment.
-
-1.  Create a {{% product-name %}} service file:
-
-    ```bash
-    sudo tee /etc/systemd/system/telegraf-controller.service > /dev/null <<EOF
-    [Unit]
-    Description=Telegraf Controller
-    After=network.target
-
-    [Service]
-    Type=simple
-    User=$USER
-    WorkingDirectory=/opt/telegraf-controller
-    ExecStart=/opt/telegraf-controller/telegraf_controller
-    Restart=on-failure
-    RestartSec=10
-
-    [Install]
-    WantedBy=multi-user.target
-    EOF
-    ```
-
-2.  Move the executable to `/opt`:
-
-    ```bash
-    sudo mkdir -p /opt/telegraf-controller
-    sudo mv telegraf_controller /opt/telegraf-controller/
-    sudo chmod +x /opt/telegraf-controller/telegraf_controller
-    ```
-
-3.  Enable and start the service: 
-
-    ```bash
-    sudo systemctl daemon-reload
-    sudo systemctl enable telegraf-controller
-    sudo systemctl start telegraf-controller
-    ```
+To run {{% product-name %}} as a systemd service, see
+[Run {{% product-name %}} as a service](/telegraf/controller/admin/run-as-a-service/#linux-systemd).
 
 <!--------------------------------- END LINUX --------------------------------->
 {{% /tab-content %}}
@@ -213,48 +178,8 @@ export PATH="/usr/local/bin:$PATH"
 
 #### Install as a LaunchDaemon {note="Optional"}
 
-> [!Note]
-> If this is the first run on the host, accept the EULA in a TTY or set
-> `TELEGRAF_CONTROLLER_EULA=accept` in the service environment.
-
-1.  Create a plist file:
-
-    ```bash
-    sudo tee /Library/LaunchDaemons/com.influxdata.telegraf-controller.plist > /dev/null <<EOF
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>com.influxdata.telegraf-controller</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>/usr/local/bin/telegraf_controller</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>KeepAlive</key>
-        <true/>
-        <key>StandardOutPath</key>
-        <string>/var/log/telegraf-controller.log</string>
-        <key>StandardErrorPath</key>
-        <string>/var/log/telegraf-controller.error.log</string>
-    </dict>
-    </plist>
-    EOF
-    ```
-
-2.  Move the executable to `/usr/local/bin`:
-
-    ```bash
-    sudo mv telegraf_controller /usr/local/bin/
-    ```
-
-3.  Load the service:
-
-    ```bash
-    sudo launchctl load /Library/LaunchDaemons/com.influxdata.telegraf-controller.plist
-    ```
+To run {{% product-name %}} as a LaunchDaemon, see
+[Run {{% product-name %}} as a service](/telegraf/controller/admin/run-as-a-service/#macos-launchdaemon).
 
 <!--------------------------------- END MACOS --------------------------------->
 {{% /tab-content %}}
@@ -280,29 +205,8 @@ run:
 
 #### Install as a Windows Service {note="optional"}
 
-Use NSSM (Non-Sucking Service Manager) to run {{% product-name %}} as a Windows
-service.
-
-> [!Note]
-> If this is the first run on the host, accept the EULA in a TTY or set
-> `TELEGRAF_CONTROLLER_EULA=accept` in the service environment.
-
-1.  [Download NSSM](https://nssm.cc/download)
-
-2.  In **Command Prompt or PowerShell**, install the {{% product-name %}} service:
-
-    ```powershell
-    nssm install TelegrafController "C:\Program Files\TelegrafController\telegraf_controller.exe"
-    nssm set TelegrafController DisplayName "Telegraf Controller"
-    nssm set TelegrafController Description "Web-based Telegraf configuration manager"
-    nssm set TelegrafController Start SERVICE_AUTO_START
-    ```
-
-3.  Start the service:
-
-    ```powershell
-    nssm start TelegrafController
-    ```
+To run {{% product-name %}} as a Windows service, see
+[Run {{% product-name %}} as a service](/telegraf/controller/admin/run-as-a-service/#windows-nssm).
 
 <!-------------------------------- END WINDOWS -------------------------------->
 {{% /tab-content %}}
@@ -312,6 +216,8 @@ service.
 
 {{% product-name %}} supports **SQLite** (default), **PostgreSQL**, or
 **PostgreSQL-compatible** databases as its data backend.
+To back up, restore, or troubleshoot the database after installation, see
+[Manage the database](/telegraf/controller/admin/database/).
 
 ### SQLite {note="(Default)"}
 
@@ -373,6 +279,7 @@ Use the following command line options to configure {{% product-name %}}.
 | Command Flag                | Environment Variable       | Description                                  | Default              |
 | :-------------------------- | :------------------------- | :------------------------------------------- | :------------------- |
 | `--port`                    | `APP_PORT`                 | Web interface and API port                   | `8888`               |
+| `--ui-port`                 | `UI_PORT`                  | Optional separate web interface port         | Served on API port   |
 | `--heartbeat-port`          | `HEARTBEAT_PORT`           | Agent heartbeat service port                 | `8000`               |
 | `--database`                | `DATABASE_URL`             | Database connection string                   | Auto-detected SQLite |
 | `--logs-dir`                | `LOGS_DIR`                 | Absolute path for agent logs                 | System temp dir      |
@@ -387,6 +294,14 @@ Use the following command line options to configure {{% product-name %}}.
 
 _For a full list of options, see the
 [{{% product-name %}} configuration options reference](/telegraf/controller/reference/config-options/)._
+
+> [!Note]
+> #### Enabling HTTPS also requires agent-side trust
+>
+> Setting `--ssl-cert`/`--ssl-key` enables HTTPS on the server, but agents must
+> also trust the certificate to fetch configurations and send heartbeats. For the
+> full server and agent setup, see
+> [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/).
 
 #### Examples
 
@@ -632,4 +547,9 @@ comparison.
 ## Access {{% product-name %}}
 
 Once started, access the {{% product-name %}} web interface at
-<http://localhost:8888> _(or using your custom port)_.
+<http://localhost:8888> _(or using your custom port)_. If you set
+[`ui-port`](/telegraf/controller/reference/config-options/#ui-port) to serve the
+web interface on a separate port, use that port instead.
+
+If the server does not start or you cannot access the web interface, see
+[Troubleshoot {{% product-name %}}](/telegraf/controller/admin/troubleshoot/).

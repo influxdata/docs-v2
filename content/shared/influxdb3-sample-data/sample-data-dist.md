@@ -97,7 +97,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -138,7 +138,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
@@ -180,7 +180,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/version/admin/tokens/)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -258,7 +258,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -281,7 +281,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% influxdb/custom-timestamps %}}
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary '
@@ -305,7 +305,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/version/admin/tokens/)
   with _write_ permission to the database
 
 {{% /expand %}}
@@ -367,7 +367,7 @@ influxctl write \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -379,7 +379,7 @@ curl --request POST \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
@@ -393,7 +393,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/version/admin/tokens/)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -452,7 +452,7 @@ influxctl write \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -464,7 +464,7 @@ curl --request POST \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
@@ -478,7 +478,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/version/admin/tokens/)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -542,7 +542,7 @@ influxctl write \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -554,7 +554,7 @@ curl --request POST \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
@@ -568,7 +568,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/version/admin/tokens/)
   with sufficient permissions to the specified database
 
 {{% /expand %}}
@@ -620,7 +620,7 @@ influxctl write \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  {{< influxdb/host-url >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -632,7 +632,7 @@ curl --request POST \
 
 ```sh {placeholders="DATABASE_(TOKEN|NAME)"}
 curl --request POST \
-  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  {{< influxdb/host-url >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
@@ -646,7 +646,7 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Dedicated database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/version/admin/tokens/)
   with sufficient permissions to the specified database
 
 {{% /expand %}}

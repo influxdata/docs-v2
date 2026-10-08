@@ -60,7 +60,7 @@ influxdb3 delete table \
 
 To delete a table using the HTTP API, send a `DELETE` request to the `/api/v3/configure/table` endpoint:
 
-{{% api-endpoint method="DELETE" endpoint="{{< influxdb/host >}}/api/v3/configure/table" %}}
+{{% api-endpoint method="DELETE" endpoint="{{< influxdb/host-url >}}/api/v3/configure/table" %}}
 
 Include the following in your request:
 
@@ -74,7 +74,7 @@ Include the following in your request:
 ### Soft delete a table
 
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
-curl -X DELETE "{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME" \
+curl -X DELETE "{{< influxdb/host-url >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -89,7 +89,7 @@ Replace the following:
 To schedule a hard deletion at a specific time, include the `hard_delete_at` parameter with an ISO 8601 timestamp:
 
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
-curl -X DELETE "{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME&hard_delete_at=2025-12-31T23:59:59Z" \
+curl -X DELETE "{{< influxdb/host-url >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME&hard_delete_at=2025-12-31T23:59:59Z" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
@@ -143,7 +143,7 @@ Replace the following:
 To delete only data using the HTTP API, include the `data_only=true` query parameter:
 
 ```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
-curl -X DELETE "{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME&data_only=true" \
+curl -X DELETE "{{< influxdb/host-url >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME&data_only=true" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 

@@ -118,68 +118,16 @@
   {{ else if hasPrefix $contentType "application/json" }}
     {{/* JSON — use schema.example, or build from properties */}}
     {{ with $mediaType.schema }}
-      {{/* Resolve schema $ref */}}
-      {{ $schema := . }}
-      {{ if isset . "$ref" }}
-        {{ $refPath := index . "$ref" }}
-        {{ $refParts := split $refPath "/" }}
-        {{ if ge (len $refParts) 4 }}
-          {{ $schemaName := index $refParts 3 }}
-          {{ with index $spec.components.schemas $schemaName }}
-            {{ $schema = . }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
+      {{/* Resolve schema $ref and flatten allOf */}}
+      {{ $schema := partial "api/resolve-schema.html" (dict "schema" . "spec" $spec) }}
       {{ if $schema.example }}
         {{ $bodyFlag = printf "--data-raw '%s'" (jsonify $schema.example) }}
       {{ else if $schema.properties }}
         {{/* Build example JSON from schema properties */}}
         {{ $bodyObj := dict }}
-        {{ $requiredList := $schema.required | default slice }}
         {{ range $propName, $propDef := $schema.properties }}
-          {{/* Resolve property $ref */}}
-          {{ $prop := $propDef }}
-          {{ if isset $propDef "$ref" }}
-            {{ $pRefPath := index $propDef "$ref" }}
-            {{ $pRefParts := split $pRefPath "/" }}
-            {{ if ge (len $pRefParts) 4 }}
-              {{ $pSchemaName := index $pRefParts 3 }}
-              {{ with index $spec.components.schemas $pSchemaName }}
-                {{ $prop = . }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-          {{/* Use example → default → enum[0] → type placeholder */}}
-          {{ $val := "" }}
-          {{ if ne $prop.example nil }}
-            {{ $val = $prop.example }}
-          {{ else if ne $prop.default nil }}
-            {{ $val = $prop.default }}
-          {{ else if $prop.enum }}
-            {{ $val = index $prop.enum 0 }}
-          {{ else if eq $prop.type "string" }}
-            {{ $val = printf "%s" ($propName | upper) }}
-          {{ else if eq $prop.type "integer" }}
-            {{ $val = 0 }}
-          {{ else if eq $prop.type "number" }}
-            {{ $val = 0 }}
-          {{ else if eq $prop.type "boolean" }}
-            {{ $val = false }}
-          {{ else if eq $prop.type "array" }}
-            {{ if $prop.items }}
-              {{ if eq $prop.items.type "string" }}
-                {{ $val = slice "example" }}
-              {{ else }}
-                {{ $val = slice }}
-              {{ end }}
-            {{ else }}
-              {{ $val = slice }}
-            {{ end }}
-          {{ else if eq $prop.type "object" }}
-            {{ $val = dict }}
-          {{ else }}
-            {{ $val = printf "%s" ($propName | upper) }}
-          {{ end }}
+          {{ $prop := partial "api/resolve-schema.html" (dict "schema" $propDef "spec" $spec) }}
+          {{ $val := partial "api/example-value.html" (dict "schema" $prop "name" $propName "spec" $spec "depth" 0) }}
           {{ $bodyObj = merge $bodyObj (dict $propName $val) }}
         {{ end }}
         {{ $bodyFlag = printf "--data-raw '%s'" (jsonify (dict "indent" "  ") $bodyObj) }}

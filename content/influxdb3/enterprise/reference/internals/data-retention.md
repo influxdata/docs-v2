@@ -20,6 +20,7 @@ related:
   - /influxdb3/enterprise/api/database/#operation/update_database, Update database API
   - /influxdb3/enterprise/reference/glossary/#retention-period
 source: /shared/influxdb3-internals/data-retention.md
+canonical: self
 ---
 
 <!--

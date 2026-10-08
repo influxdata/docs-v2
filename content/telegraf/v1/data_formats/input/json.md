@@ -1,137 +1,170 @@
 ---
 title: JSON input data format
 list_title: JSON
-description: |
-  The `json` input data format parses JSON objects, or an array of objects, into Telegraf metrics.
-  For most cases, use the JSON v2 input data format instead.
+description: >
+  Use the `json` input data format to parse flat JSON objects, or an array
+  of flat objects, into Telegraf metrics. Includes a complete option
+  reference and worked examples.
 menu:
   telegraf_v1_ref:
     name: JSON
-    weight: 10
     parent: Input data formats
+weight: 10
+related:
+  - /telegraf/v1/data_formats/input/json_v2/
+  - /telegraf/v1/data_formats/input/xpath_json/
+  - /telegraf/v1/configure_plugins/input_plugins/parse-data/
 ---
 
-{{% note %}}
-The following information applies to the legacy JSON input data format.
-For most cases, use the [JSON v2 input data format](/telegraf/v1/data_formats/input/json_v2/) instead.
-{{% /note %}}
+Use the `json` input data format to parse a [JSON](https://www.json.org/)
+object, or an array of objects, into Telegraf metric fields.
+It is the simplest of the three JSON parsers and works best for flat data.
+For nested objects and arrays, or when you need control over individual
+values, compare the parsers in
+[Choose a JSON parser](/telegraf/v1/data_formats/input/#choose-a-json-parser).
 
-The `json` data format parses a [JSON][json] object or an array of objects into
-metric fields.
+How this parser reads values:
 
-**NOTE:** All JSON numbers are converted to float fields.  JSON strings and
-booleans are ignored unless specified in the `tag_key` or `json_string_fields`
-options.
+- **Numbers** become float fields.
+- **Strings and booleans are ignored** unless you list the key in
+  `tag_keys` (to make it a tag) or `json_string_fields` (to keep it as a
+  field).
+- **Nested objects** are flattened.
+  Keys are joined with underscores, so `{"b": {"c": 6}}` becomes the field
+  `b_c`.
+- **A top-level array** produces one metric per array element.
+
+- [Configuration](#configuration)
+- [Option reference](#option-reference)
+- [Examples](#examples)
 
 ## Configuration
 
 ```toml
 [[inputs.file]]
-  files = ["example"]
-
-  ## Data format to consume.
-  ## Each data format has its own unique set of configuration options, read
-  ## more about them here:
-  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
+  files = ["example.json"]
   data_format = "json"
 
-  ## When strict is true and a JSON array is being parsed, all objects within the
-  ## array must be valid
+  ## When strict is true and a JSON array is being parsed, all objects
+  ## within the array must be valid.
   json_strict = true
 
-  ## Query is a GJSON path that specifies a specific chunk of JSON to be
-  ## parsed, if not specified the whole document will be parsed.
-  ##
-  ## GJSON query paths are described here:
-  ##   https://github.com/tidwall/gjson/tree/v1.3.0#path-syntax
+  ## GJSON path to a subset of the document to parse instead of the
+  ## whole document.
   json_query = ""
 
-  ## Tag keys is an array of keys that should be added as tags.  Matching keys
-  ## are no longer saved as fields. Supports wildcard glob matching.
-  tag_keys = [
-    "my_tag_1",
-    "my_tag_2",
-    "tags_*",
-    "tag*"
-  ]
+  ## Keys to store as tags instead of fields.
+  ## Supports wildcard glob matching.
+  tag_keys = []
 
-  ## Array of glob pattern strings or booleans keys that should be added as string fields.
+  ## String or boolean keys to keep as string fields.
+  ## Supports wildcard glob matching.
   json_string_fields = []
 
-  ## Name key is the key to use as the measurement name.
+  ## Key to use as the measurement name.
   json_name_key = ""
 
-  ## Time key is the key containing the time that should be used to create the
-  ## metric.
+  ## Key containing the metric timestamp, and the format of its value.
   json_time_key = ""
-
-  ## Time format is the time layout that should be used to interpret the json_time_key.
-  ## The time must be `unix`, `unix_ms`, `unix_us`, `unix_ns`, or a time in the
-  ## "reference time".  To define a different format, arrange the values from
-  ## the "reference time" in the example to match the format you will be
-  ## using.  For more information on the "reference time", visit
-  ## https://golang.org/pkg/time/#Time.Format
-  ##   ex: json_time_format = "Mon Jan 2 15:04:05 -0700 MST 2006"
-  ##       json_time_format = "2006-01-02T15:04:05Z07:00"
-  ##       json_time_format = "01/02/2006 15:04:05"
-  ##       json_time_format = "unix"
-  ##       json_time_format = "unix_ms"
   json_time_format = ""
 
-  ## Timezone allows you to provide an override for timestamps that
-  ## don't already include an offset
-  ## e.g. 04/06/2016 12:41:45
-  ##
-  ## Default: "" which renders UTC
-  ## Options are as follows:
-  ##   1. Local               -- interpret based on machine localtime
-  ##   2. "America/New_York"  -- Unix TZ values like those found in https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  ##   3. UTC                 -- or blank/unspecified, will return timestamp in UTC
+  ## Timezone for timestamps that don't include an offset.
   json_timezone = ""
 ```
 
+## Option reference
+
 ### json_query
 
-The `json_query` is a [GJSON][gjson] path that can be used to transform the
-JSON document before being parsed.  The query is performed before any other
-options are applied and the new document produced will be parsed instead of the
-original document, as such, the result of the query should be a JSON object or
-an array of objects.
+A [GJSON](https://github.com/tidwall/gjson) path that selects a portion of
+the document to parse instead of the whole document.
+The query runs before any other option is applied, and its result must be a
+JSON object or an array of objects.
+Use the [GJSON playground](https://gjson.dev/) to develop and debug
+queries.
 
-Consult the GJSON [path syntax][gjson syntax] for details and examples, and
-consider using the [GJSON playground][gjson playground] for developing and
-debugging your query.
+**Type:** string  
+**Default:** Not set; the whole document is parsed
 
-### json_time_key, json_time_format, json_timezone
+### tag_keys
 
-By default the current time will be used for all created metrics, to set the
-time using the JSON document you can use the `json_time_key` and
-`json_time_format` options together to set the time to a value in the parsed
-document.
+Keys to store as tags instead of fields.
+Matching keys are no longer saved as fields.
+Supports wildcard glob matching, for example `tags_*`.
+Nested keys use their flattened name, for example `b_my_tag`.
 
-The `json_time_key` option specifies the key containing the time value and
-`json_time_format` must be set to `unix`, `unix_ms`, `unix_us`, `unix_ns`, or
-the Go "reference time" which is defined to be the specific time:
-`Mon Jan 2 15:04:05 MST 2006`.
+**Type:** array of strings  
+**Default:** `[]`
 
-Consult the Go [time][time parse] package for details and additional examples
-on how to set the time format.
+### json_string_fields
 
-When parsing times that don't include a timezone specifier, times are assumed to
-be UTC. To default to another timezone, or to local time, specify the
-`json_timezone` option.  This option should be set to a [Unix TZ
-value](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), such as
-`America/New_York`, to `Local` to utilize the system timezone, or to `UTC`.
+String or boolean keys to keep as fields.
+Without this option, the parser drops all string and boolean values.
+Supports wildcard glob matching.
+Nested keys use their flattened name, for example `b_my_field`.
+
+**Type:** array of strings  
+**Default:** `[]`
+
+### json_name_key
+
+The key whose value becomes the measurement name, replacing the input
+plugin's default.
+
+**Type:** string  
+**Default:** Not set
+
+### json_time_key
+
+The key containing the timestamp for the metric.
+Requires `json_time_format`.
+If not set, all metrics use the time the data was parsed.
+If set, metrics missing the key or failing to parse it are skipped.
+
+**Type:** string  
+**Default:** Not set
+
+### json_time_format
+
+The layout of the value in `json_time_key`.
+Use `unix`, `unix_ms`, `unix_us`, `unix_ns`, or a
+[Go reference time](https://pkg.go.dev/time#pkg-constants) layout such as
+`2006-01-02T15:04:05Z07:00`.
+For reference-time details, see
+[Parse timestamps](/telegraf/v1/configure_plugins/input_plugins/parse-data/#parse-timestamps).
+
+**Type:** string  
+**Default:** Not set; required when `json_time_key` is set
+
+### json_timezone
+
+Timezone for timestamps that don't include an offset, such as
+`04/06/2016 12:41:45`.
+Use a Unix TZ value, such as `America/New_York`, `Local` to use the system
+timezone, or `UTC`.
+
+**Type:** string  
+**Default:** `""` (UTC)
+
+### json_strict
+
+When parsing a JSON array, require every object in the array to be valid.
+When `false`, the parser skips invalid objects instead of returning an
+error.
+
+**Type:** boolean  
+**Default:** `true`
 
 ## Examples
 
-### Basic Parsing
+### Basic parsing
 
-Config:
+Nested numeric values flatten into underscore-joined field names, and the
+string value is dropped:
 
 ```toml
 [[inputs.file]]
-  files = ["example"]
+  files = ["example.json"]
   name_override = "myjsonmetric"
   data_format = "json"
 ```
@@ -154,13 +187,14 @@ Output:
 myjsonmetric a=5,b_c=6
 ```
 
-### Name, Tags, and String Fields
+### Set the name, tags, and string fields
 
-Config:
+Note that the nested string field is referenced by its flattened name,
+`b_my_field`:
 
 ```toml
 [[inputs.file]]
-  files = ["example"]
+  files = ["example.json"]
   json_name_key = "name"
   tag_keys = ["my_tag_1"]
   json_string_fields = ["b_my_field"]
@@ -187,16 +221,14 @@ Output:
 my_json,my_tag_1=foo a=5,b_c=6,b_my_field="description"
 ```
 
-### Arrays
+### Parse an array of objects
 
-If the JSON data is an array, then each object within the array is parsed with
-the configured settings.
-
-Config:
+When the document is an array, each object within the array is parsed with
+the configured settings and produces its own metric:
 
 ```toml
 [[inputs.file]]
-  files = ["example"]
+  files = ["example.json"]
   data_format = "json"
   json_time_key = "b_time"
   json_time_format = "02 Jan 06 15:04 MST"
@@ -230,15 +262,14 @@ file a=5,b_c=6 1136387040000000000
 file a=7,b_c=8 1168527840000000000
 ```
 
-### Query
+### Parse a subset of the document
 
-The `json_query` option can be used to parse a subset of the document.
-
-Config:
+Use `json_query` to select a nested array of objects.
+Values outside the query result are not parsed:
 
 ```toml
 [[inputs.file]]
-  files = ["example"]
+  files = ["example.json"]
   data_format = "json"
   tag_keys = ["first"]
   json_string_fields = ["last"]
@@ -271,8 +302,16 @@ file,first=Roger last="Craig",age=68
 file,first=Jane last="Murphy",age=47
 ```
 
-[gjson]:        https://github.com/tidwall/gjson
-[gjson syntax]: https://github.com/tidwall/gjson#path-syntax
-[gjson playground]: https://gjson.dev/
-[json]:         https://www.json.org/
-[time parse]:   https://golang.org/pkg/time/#Parse
+## When to use a different JSON parser
+
+Move to [json_v2](/telegraf/v1/data_formats/input/json_v2/) or
+[xpath_json](/telegraf/v1/data_formats/input/xpath_json/) when you need to:
+
+- Keep numbers as integers, or set the type of individual values.
+- Select specific values out of nested structures instead of flattening
+  everything.
+- Produce metrics from arrays nested inside a document.
+- Set tags, fields, or names from different levels of the document.
+
+For a side-by-side comparison, see
+[Choose a JSON parser](/telegraf/v1/data_formats/input/#choose-a-json-parser).

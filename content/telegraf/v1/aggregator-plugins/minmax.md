@@ -13,7 +13,7 @@ os_support: "freebsd, linux, macos, solaris, windows"
 # Minimum-Maximum Aggregator Plugin
 
 This plugin aggregates the minimum and maximum values of each field it sees,
-emitting the aggrate every `period` seconds with field names suffixed by `_min`
+emitting the aggregate every `period` seconds with field names suffixed by `_min`
 and `_max` respectively.
 
 **Introduced in:** Telegraf v1.1.0

@@ -133,8 +133,6 @@ Use the `{{< latest-patch cli=true >}}` shortcode to add the latest version of t
 
 ```md
 {{< latest-patch cli=true >}}
-
-{{< latest-cli version="2.1" >}}
 ```
 
 ## API Documentation
@@ -493,6 +491,22 @@ That --> There
 {{< /diagram >}}
 ```
 
+The shortcode accepts optional parameters that adjust how the diagram renders:
+
+- `natural-size`: Render the diagram at Mermaid's natural size.
+  By default, diagrams scale up to fill the article column (up to 680px wide),
+  which can blow up narrow diagrams such as top-down flowcharts.
+- `center`: Center the diagram in the article column.
+  By default, diagrams are left-aligned.
+
+```md
+{{< diagram natural-size center >}}
+graph TD
+This --> That
+That --> There
+{{< /diagram >}}
+```
+
 ### File system diagrams
 
 Use the `{{< filesystem-diagram >}}` shortcode to create a styled file system diagram using a Markdown unordered list.
@@ -617,6 +631,37 @@ The following case insensitive values are supported:
 - data, load data, load-data
 - settings
 - feedback
+
+### Lucide icons
+
+Use the `lucide` shortcode to inject an icon from the
+[Lucide](https://lucide.dev/icons) library into paragraph text---for example,
+to reference a control in a product UI that uses Lucide icons. Both the Telegraf
+Controller and InfluxDB 3 Explorer UIs use Lucide icons. Any icon name listed at
+[lucide.dev/icons](https://lucide.dev/icons) works; the shortcode inlines the
+SVG, so only the icons you reference are included in the build.
+
+Because Hugo doesn't allow mixing positional and named parameters in a single
+shortcode call, use the positional form for a bare icon and the named form
+when you add a size:
+
+```md
+Click {{< lucide "circle-plus" >}} to add a plugin.
+
+Status {{< lucide icon="circle-check" size="large" >}} indicates success.
+```
+
+Parameters:
+
+- **icon** (or the first positional argument): the Lucide icon name in
+  kebab-case, exactly as listed at lucide.dev/icons.
+- **size**: `small` or `large`. Defaults to the surrounding text size (1em).
+  Named form only.
+
+Icons are decorative (hidden from screen readers with `aria-hidden`), so pair
+each icon with the text that names the control. Icons inherit the surrounding
+text color (including dark mode). An unknown icon name renders nothing and logs
+a build warning.
 
 ## Content Formatting
 
@@ -1137,7 +1182,7 @@ The shortcode accepts two positional arguments:
 | 0        | `feature`  | "This feature" | Name of the Enterprise feature. Use the singular or plural form that fits the sentence. |
 | 1        | `wordForm` | "is"           | Verb form that follows the feature name—for example, `is` (singular) or `are` (plural). |
 
-The rendered callout reads: *"{feature} {wordForm} only available with Telegraf Enterprise..."* followed by a link and an **Upgrade to Enterprise** call-to-action button.
+The rendered callout reads: *"{feature} {wordForm} available with Telegraf Enterprise..."* followed by a link and an **Upgrade to Enterprise** call-to-action button.
 
 ### Telegraf Enterprise upgrade callout
 
@@ -1229,6 +1274,49 @@ The InfluxDB host placeholder that gets replaced by custom domains differs betwe
 
 {{< influxdb/host "serverless" >}}
 ```
+
+#### Automatically populate InfluxDB host URL with scheme
+
+Use the `influxdb/host-url` shortcode to render the full base URL
+(`scheme://host`) for the current product.
+It combines the product `scheme` and `placeholder_host` values from
+`data/products.yml`, so shared content doesn't hardcode a URL scheme.
+Self-managed products with a localhost host (Core, Enterprise, OSS) render
+`http://`; managed products (Cloud Serverless, Cloud Dedicated, Clustered,
+Cloud) render `https://`.
+
+Use `influxdb/host-url` instead of hardcoding a scheme in front of the
+`influxdb/host` shortcode--for example, use `{{< influxdb/host-url >}}` instead
+of `http://{{< influxdb/host >}}`.
+
+```md
+{{< influxdb/host-url >}}
+```
+
+##### Choose between influxdb/host and influxdb/host-url
+
+`influxdb/host` renders the host only (no scheme).
+`influxdb/host-url` renders `scheme://host`.
+Choosing the wrong one produces broken examples, so match the shortcode to the
+context.
+
+Use `influxdb/host-url` where the value is a full base URL:
+
+- A `curl` request URL, for example `curl "{{< influxdb/host-url >}}/api/v3/query_sql"`.
+- An `api-endpoint` `endpoint=` value.
+- An environment variable or code assignment that expects a full URL, for
+  example `INFLUXDB3_HOST_URL={{< influxdb/host-url >}}`.
+
+Use `influxdb/host` (bare host) where the field expects a hostname, not a URL,
+and the scheme is set separately. Converting these to a full URL breaks the
+example:
+
+- A client `host` field paired with a separate scheme, for example node-influx
+  (`host:` with `protocol:` and `port:`) or influxdb-python (`host=` with
+  `ssl=True`).
+- `InfluxDBClient3(host="{{< influxdb/host >}}")`, where the client adds the
+  scheme.
+- Server or CLI configuration that expects a hostname.
 
 ***
 

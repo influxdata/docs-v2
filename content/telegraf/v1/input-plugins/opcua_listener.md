@@ -61,7 +61,7 @@ to use them.
   # endpoint = "opc.tcp://localhost:4840"
   #
   ## Maximum time allowed to establish a connect to the endpoint.
-  # connect_timeout = "10s"
+  # connect_timeout = "5s"
   #
   ## Behavior when we fail to connect to the endpoint on initialization. Valid options are:
   ##     "error": throw an error and exits Telegraf
@@ -70,7 +70,7 @@ to use them.
   # connect_fail_behavior = "error"
   #
   ## Maximum time allowed for a request over the established connection.
-  # request_timeout = "5s"
+  # request_timeout = "10s"
   #
   # Maximum time that a session shall remain open without activity.
   # session_timeout = "20m"
@@ -377,6 +377,12 @@ to use them.
   #  # additional_valid_status_codes = ["0xC0"]
   #  ## Use unregistered reads instead of registered reads
   #  # use_unregistered_reads = false
+  #  ## Maximum number of monitored items registered per request when setting up the
+  #  ## subscription. With a large number of nodes the registration request can exceed
+  #  ## the server's maximum message size and cause the subscription to fail (e.g.
+  #  ## "BadTcpMessageTooLarge"). Splitting the registration into smaller batches avoids
+  #  ## this. 0 (the default) registers all items in a single request.
+  #  # monitored_items_batch_size = 0
 ```
 
 ### Node Configuration
@@ -554,42 +560,42 @@ and all paramters must be set in this section.
 This example group configuration shows how to use group settings:
 
 ```toml
-# Group 1
-[[inputs.opcua_listener.events]]
-   sampling_interval = "10s"
-   queue_size = "100"
-   source_names = ["SourceName1", "SourceName2"]
-   fields = ["Severity", "Message", "Time"]
+  # Group 1
+  [[inputs.opcua_listener.events]]
+    sampling_interval = "10s"
+    queue_size = 100
+    source_names = ["SourceName1", "SourceName2"]
+    fields = ["Severity", "Message", "Time"]
 
-   [inputs.opcua_listener.events.event_type_node]
-     namespace = "1"
-     identifier_type = "i"
-     identifier = "1234"
+    [[inputs.opcua_listener.events.node_ids]]
+      namespace = "2"
+      identifier_type = "i"
+      identifier = "2345"
 
-   [[inputs.opcua_listener.events.node_ids]]
-     namespace = "2"
-     identifier_type = "i"
-     identifier = "2345"
+    [inputs.opcua_listener.events.event_type_node]
+      namespace = "1"
+      identifier_type = "i"
+      identifier = "1234"
 
-# Group 2
-[[inputs.opcua_listener.events]]
-   sampling_interval = "10s"
-   queue_size = "100"
-   namespace = "3"
-   identifier_type = "s"
-   source_names = ["SourceName1", "SourceName2"]
-   fields = ["Severity", "Message", "Time"]
-
-   [inputs.opcua_listener.events.event_type_node]
-     namespace = "1"
-     identifier_type = "i"
-     identifier = "5678"
+  # Group 2
+  [[inputs.opcua_listener.events]]
+    sampling_interval = "10s"
+    queue_size = 100
+    namespace = "3"
+    identifier_type = "s"
+    source_names = ["SourceName1", "SourceName2"]
+    fields = ["Severity", "Message", "Time"]
 
     node_ids = [
-      {identifier="Sensor1"}, // default values will be used for namespace and identifier_type
-      {namespace="2", identifier="TemperatureSensor"}, // default values will be used for identifier_type
-      {namespace="5", identifier_type="i", identifier="2002"} // no default values will be used
+      { identifier="Sensor1" }, # default values will be used for namespace and identifier_type
+      { namespace="2", identifier="TemperatureSensor" }, # default values will be used for identifier_type
+      { namespace="5", identifier_type="i", identifier="2002" } # no default values will be used
     ]
+
+    [inputs.opcua_listener.events.event_type_node]
+      namespace = "1"
+      identifier_type = "i"
+      identifier = "5678"
 ```
 
 ## Browse-based Discovery

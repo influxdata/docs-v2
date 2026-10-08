@@ -5,8 +5,8 @@ description: Use the `nowmetric` ServiceNow metrics output data format (serializ
 menu:
   telegraf_v1_ref:
     name: ServiceNow metrics
-    weight: 10
     parent: Output data formats
+weight: 10
 ---
 
 The `nowmetric` output data format (serializer) outputs Telegraf metrics as [ServiceNow Operational Intelligence format](https://docs.servicenow.com/bundle/kingston-it-operations-management/page/product/event-management/reference/mid-POST-metrics.html).
@@ -16,7 +16,7 @@ If you're using the HTTP output plugin, this serializer knows how to batch the m
 
 An example event looks like:
 
-```javascript
+```json
 [{
     "metric_type": "Disk C: % Free Space",
     "resource": "C:\\",
@@ -26,7 +26,7 @@ An example event looks like:
     "ci2metric_id": {
         "node": "lnux100"
     },
-    "source": “Telegraf”
+    "source": "Telegraf"
 }]
 ```
 
@@ -62,6 +62,13 @@ To send this data to a ServiceNow MID Server with Web Server extension activated
   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
   data_format = "nowmetric"
 
+  ## Format Type
+  ## By default, the serializer returns an array of metrics matching the
+  ## Now Metric Operational Intelligence format or with the option set to 'oi'.
+  ## Optionally, if set to 'jsonv2' the output format will involve the newer
+  ## JSON object based format.
+  # nowmetric_format = "oi"
+
   ## Additional HTTP headers
   [outputs.http.headers]
   #   # Should be set manually to "application/json" for json data_format
@@ -69,9 +76,20 @@ To send this data to a ServiceNow MID Server with Web Server extension activated
   Accept = "application/json"
 ```
 
-Starting with the London release, you also need to explicitly create event rule to allow binding of metric events to host CIs.
+Starting with the London release, you also need to explicitly create an
+[event rule to allow binding of metric events to host CIs](https://docs.servicenow.com/bundle/london-it-operations-management/page/product/event-management/task/event-rule-bind-metrics-to-host.html).
 
-https://docs.servicenow.com/bundle/london-it-operations-management/page/product/event-management/task/event-rule-bind-metrics-to-host.html
+## Metric format
+
+The `nowmetric_format` option selects one of two payload formats:
+
+- `oi` (default): the Operational Intelligence format, used with the
+  `/api/mid/sa/metrics` API endpoint.
+  The payload is a JSON array of metrics.
+  See [ServiceNow KB0853084](https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0853084)
+  for details on this format.
+- `jsonv2`: the JSON object-based format required by the
+  [ServiceNow JSONv2 web service](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/inbound-other-web-services/concept/c_JSONv2WebService.html).
 
 ## Using with the File output plugin
 

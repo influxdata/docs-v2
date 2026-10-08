@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Uninstall
     parent: Install Telegraf Controller
-weight: 102
+weight: 103
 ---
 
 Uninstall Telegraf Controller and remove all files associated with the

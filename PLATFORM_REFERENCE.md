@@ -70,7 +70,7 @@ InfluxDB Cloud Dedicated:
 - Query languages: SQL, InfluxQL
 - Host hint: `cluster-id.a.influxdb.io`
 - Characteristics: Paid, Cloud, SQL/InfluxQL, Token, Databases
-- URL contains hints: influxdb.io
+- URL contains hints: a.influxdb.io
 
 InfluxDB Clustered:
 

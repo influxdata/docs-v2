@@ -11,6 +11,15 @@
 #   slug: (optional) Short notification summary
 #   message: |
 #     Markdown message content.
+#
+# Length limits (the panel is 450px wide and shares the viewport with the page):
+#
+# - title: one line, about 50 characters. Put the product and version first.
+# - slug: one or two sentences, about 30 words. Always visible, so put any
+#   action the reader must take here.
+# - message: at most 4 short bullets (one line each) plus one line of links.
+#   Don't repeat the slug. Put details in release notes or guides and link
+#   to them; a notification is not a release summary.
 
 # - id: future-of-flux-new
 #   level: note
@@ -64,53 +73,44 @@
     - Flux upgrade
     - Compaction reliability improvements
 
-- id: explorer-1-9-key-enhancements
+- id: explorer-1-11-key-enhancements
   level: note
   scope:
     - /
     - /influxdb3/explorer/
     - /influxdb3/core/
     - /influxdb3/enterprise/
-  title: Key enhancements in Explorer 1.9
+  title: Explorer 1.11 is now available
   slug: |
-    Explorer 1.9 is now available with InfluxQL support, an AI-assisted
-    Flux to SQL converter (beta), and new live sample data simulators.
-
-    <a class="btn" href="/influxdb3/explorer/release-notes/#v190">View Explorer 1.9 release notes</a>
+    Six new visualization types, plus password and SSO sign-in and user
+    management for InfluxDB 3 Enterprise.
   message: |
-    Explorer 1.9 includes new features and improvements that make it easier to
-    query, visualize, and manage data.
+    - **Password and SSO sign-in** with role-based access.
+    - **Manage Users** page under a new **Security** section.
+    - **New visualizations**: Area, Single Stat, Gauge, Pie, Scatter, and Ranking.
+    - **`EXPLAIN` and `EXPLAIN ANALYZE`** in the SQL editor.
 
-    **Highlights:**
+    [Explorer 1.11 release notes](/influxdb3/explorer/release-notes/#v1110)
 
-    - **Flux to SQL converter (beta)**: Convert Flux queries to SQL with an AI-assisted converter.
-    - **InfluxQL support**: Query data with InfluxQL in the Data Explorer and dashboards, and save and load InfluxQL queries.
-    - **InfluxQL visualizations**: Render line and bar charts from InfluxQL results with per-tag series grouping.
-    - **Query error history**: Review a history of query errors in the query tool.
-    - **Live sample data simulators**: Generate continuous live sample data with new bird data and signal generator simulators.
-
-    For more details, see [Explorer 1.9 release notes](/influxdb3/explorer/release-notes/#v190)
-
-- id: influxdb3-10-core-release
+- id: influxdb3-12-core-release
   level: note
   scope:
     - /influxdb3/core/
-  title: 'InfluxDB 3.10 is now available'
+  title: 'InfluxDB 3.12 is now available'
   slug: |
-    InfluxDB 3 Core 3.10 adds an automatic catalog format upgrade, a
-    configurable query-concurrency limit, and processing engine improvements.
+    **Back up your catalog before you upgrade.** Rolling back to 3.11.x
+    requires restoring that backup.
   message: |
-    **Key updates in InfluxDB 3 Core 3.10:**
+    - **Add columns to existing tables** with `influxdb3 update table`.
+    - **Faster queries and startup** with DataFusion 52.5.
+    - **New defaults**: finite `--max-concurrent-queries` and an enforced
+      WAL buffer limit.
 
-    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
-    - **`--max-concurrent-queries`**: limit concurrent queries (adjustable at runtime).
-    - **`GET /ready` endpoint** for readiness probes.
-    - **Processing engine**: cross-database queries and trigger lockdown flags.
+    [Upgrade guide](/influxdb3/core/admin/upgrade/) |
+    [Release notes](/influxdb3/core/release-notes/) |
+    [Announcement](https://www.influxdata.com/blog/influxdb-3-12/)
 
-    For more information, see the
-    [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/).
-
-- id: influxdb3-10-enterprise-release
+- id: influxdb3-12-enterprise-release
   level: note
   scope:
     - /influxdb3/
@@ -118,32 +118,25 @@
   exclude:
     - /influxdb3/core/
     - /influxdb3/explorer/
+    - /influxdb3/cloud/
     - /influxdb3/cloud-dedicated/
     - /influxdb3/cloud-serverless/
     - /influxdb3/clustered/
-  title: 'InfluxDB 3.10 is now available'
+  title: 'InfluxDB 3 Enterprise 3.12 is now available'
   slug: |
-    InfluxDB 3 Enterprise 3.10 adds automated backup and restore, row-level
-    deletions, and user management, with an automatic catalog format upgrade
-    and performance preview improvements.
+    **Back up your catalog before you upgrade.** Rolling back to 3.11.x
+    requires restoring that backup.
   message: |
-    **Key updates in InfluxDB 3 Enterprise 3.10:**
+    - **Faster bulk import**, including from object storage.
+    - **Distributed compaction** (beta).
+    - **Schema enforcement** per database.
+    - **User authentication and RBAC** are generally available.
 
-    - **Catalog format upgrade**: the on-disk catalog automatically upgrades from format v2 to v3 on first 3.10 startup. Migration is one-way—back up your catalog before upgrading.
-    - **Automated backup and restore** (beta)
-    - **Row-level deletions**
-    - **User management** (authentication and RBAC) — preview
-    - **Performance preview improvements**
+    [Upgrade guide](/influxdb3/enterprise/admin/upgrade/) |
+    [Release notes](/influxdb3/enterprise/release-notes/) |
+    [Announcement](https://www.influxdata.com/blog/influxdb-3-12/)
 
-    Backup and restore, row-level deletions, and the performance preview require
-    the Enterprise storage engine upgrade (opt-in beta). _Beta and preview
-    features are subject to breaking changes and aren't recommended for
-    production use._
-
-    For more information, see the
-    [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
-
-- id: telegraf-enterprise-ga
+- id: telegraf-controller-1-1
   level: note
   scope:
     - /
@@ -156,19 +149,72 @@
     - /influxdb3/
     - /influxdb/
     - /flux/
-  title: Telegraf Enterprise is now generally available
+  title: Telegraf Controller 1.1 now available
   slug: |
-    **Telegraf Enterprise** is now generally available, along with
-    **Telegraf Controller v1.0**.
+    Telegraf Controller 1.1 adds high availability _(Telegraf Enterprise)_,
+    global constants, configuration groups, configuration aliases, and
+    configuration versioning.
   message: |
-    Telegraf Enterprise combines Telegraf Controller, a centralized management
-    console for Telegraf, with official support from InfluxData. Manage
-    configurations, monitor fleet health, and operate tens of thousands of
-    Telegraf agents from a single system.
+    Telegraf Controller 1.1 lets teams make fleet-wide configuration changes
+    with a single edit using
+    [global constants](/telegraf/controller/configs/constants/),
+    [configuration groups](/telegraf/controller/config-groups/), and
+    [configuration aliases](/telegraf/controller/configs/aliases/).
+    [Configuration versioning](/telegraf/controller/configs/versions/) makes
+    every change traceable, comparable, and reversible.
+    [High availability](/telegraf/controller/high-availability/), available with
+    Telegraf Enterprise, automatically fails over between Controller instances
+    so agents can continue pulling configurations and reporting health if an
+    instance goes down.
 
-    - [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-ga)
-    - [Documentation](/telegraf/enterprise/)
-    - [Download and install Telegraf Controller](/telegraf/controller/install/)
+    - [Read the announcement](https://influxdata.com/blog/telegraf-controller-1-1/)
+    - [See the release notes](/telegraf/controller/reference/release-notes/#v110)
+    - [Download and install Telegraf Controller 1.1](/telegraf/controller/install/)
+
+- id: influxdb-v1-13-release
+  level: note
+  scope:
+    - /influxdb/v1/
+  title: 'InfluxDB OSS 1.13.0 is now available'
+  slug: |
+    InfluxDB OSS 1.13.0 adds mTLS support, adaptive TSI cache sizing, and
+    a hardening option to mitigate SSRF.
+
+    [View InfluxDB OSS 1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130)
+  message: |
+    **Key updates in InfluxDB OSS 1.13.0:**
+
+    - **mTLS support** for the HTTP, OpenTSDB, and subscriber services.
+    - **Adaptive TSI cache sizing**—the series ID set cache can grow and
+      shrink based on measured query hit rate.
+    - **`hardening-enabled`** option to mitigate server-side request
+      forgery (SSRF) in Flux HTTP requests.
+
+    For details, see the
+    [InfluxDB OSS 1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130).
+
+# ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4.
+# Restore this notification when Enterprise v1.13.x ships.
+# - id: enterprise-influxdb-v1-13-release
+#   level: note
+#   scope:
+#     - /enterprise_influxdb/v1/
+#   title: 'InfluxDB Enterprise 1.13.0 is now available'
+#   slug: |
+#     InfluxDB Enterprise 1.13.0 adds mTLS support and changes the default
+#     replication factor from 3 to 2.
+#
+#     [View InfluxDB Enterprise 1.13.0 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1130)
+#   message: |
+#     **Key updates in InfluxDB Enterprise 1.13.0:**
+#
+#     - **Default replication factor changed to 2** (previously 3) for new
+#       databases and retention policies. Existing ones aren't affected.
+#     - **mTLS support** for Enterprise data and meta nodes.
+#     - All InfluxDB OSS 1.13.0 updates apply to Enterprise too.
+#
+#     For details, see the
+#     [InfluxDB Enterprise 1.13.0 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1130).
 
 # - id: influxdb3.8-explorer-1.6
 #   level: note
@@ -219,3 +265,36 @@
     ```sh
     docker pull influxdb:2
     ```
+
+# DRAFT — InfluxDB 3 Cloud release announcement.
+# Stub to edit before release. Kept commented so it does not render until ready.
+# Before uncommenting to go live, confirm:
+#   - Final title, slug, and message copy
+#   - scope/exclude paths (where the banner should appear)
+#   - The announcement blog URL (replace the placeholder below)
+#   - Any launch date or availability wording
+# - id: influxdb3-cloud-ga
+#   level: note
+#   scope:
+#     - /influxdb3/
+#   exclude:
+#     - /influxdb3/cloud/
+#   title: 'InfluxDB 3 Cloud is now available'
+#   slug: |
+#     InfluxDB 3 Cloud is a fully managed, single-tenant InfluxDB 3 service
+#     that InfluxData operates for you.
+#
+#     <a class="btn" href="/influxdb3/cloud/">Explore InfluxDB 3 Cloud</a>
+#   message: |
+#     **InfluxDB 3 Cloud** brings InfluxDB 3 to a fully managed, single-tenant
+#     service. InfluxData runs the cluster; you write, query, and administer
+#     your data.
+#
+#     **Highlights:**
+#
+#     - Fully managed and single-tenant
+#     - SQL and InfluxQL support
+#     - Native v3 write and query APIs
+#
+#     For more information, see the
+#     [InfluxDB 3 Cloud documentation](/influxdb3/cloud/).

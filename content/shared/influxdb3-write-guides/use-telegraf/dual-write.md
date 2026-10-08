@@ -7,10 +7,11 @@ to a separate instance or for migrating from other versions of InfluxDB to
 The following example configures Telegraf for dual writing to {{% product-name %}} and an InfluxDB v2 OSS instance.
 Specifically, it uses the following:
 
-  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2)
-    twice--the first pointing to {{< product-name >}} and the other to an
-    InfluxDB v2 OSS instance.
-  - Two different tokens--one for InfluxDB v2 OSS and one for {{< product-name >}}.
+  - The [InfluxDB v3 output plugin](/telegraf/v1/output-plugins/influxdb_v3/)
+    pointing to {{< product-name >}} and the
+    [InfluxDB v2 output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
+    pointing to an InfluxDB v2 OSS instance.
+  - Two different tokens: one for InfluxDB v2 OSS and one for {{< product-name >}}.
     Configure both tokens as environment variables and use string interpolation
     in your Telegraf configuration file to reference each environment variable.
 
@@ -21,15 +22,13 @@ Specifically, it uses the following:
 # include in your configuration.
 
 # Send data to {{% product-name %}}
-[[outputs.influxdb_v2]]
+[[outputs.influxdb_v3]]
   ## The {{% product-name %}} URL
-  urls = ["http://{{< influxdb/host >}}"]
+  urls = ["{{< influxdb/host-url >}}"]
   ## {{% product-name %}} authorization token
   token = "${INFLUX_TOKEN}"
-  ## For {{% product-name %}}, set organization to an empty string
-  organization = ""
   ## Destination database to write into
-  bucket = "DATABASE_NAME"
+  database = "DATABASE_NAME"
 
 # Send data to InfluxDB v2 OSS
 [[outputs.influxdb_v2]]
@@ -44,8 +43,9 @@ Specifically, it uses the following:
 ```
 
 Telegraf lets you dual write data to any version of InfluxDB using the
-[`influxdb` (InfluxDB v1)](/telegraf/v1/output-plugins/influxdb/
-and [`influxdb_v2` output plugins](/telegraf/v1/output-plugins/influxdb_v2/).
+[`influxdb` (v1)](/telegraf/v1/output-plugins/influxdb/),
+[`influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/), and
+[`influxdb_v3`](/telegraf/v1/output-plugins/influxdb_v3/) output plugins.
 A single Telegraf agent sends identical data sets to all target outputs.
 You cannot filter data based on the output.
 

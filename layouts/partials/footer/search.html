@@ -1,11 +1,13 @@
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $version := index $productPathData 1 }}
-{{ $latestV2 := .Site.Data.products.influxdb.latest }}
-{{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
-{{ $influxdbFluxSupport := slice "v1" "v2" "cloud" }}
-{{ $includeFlux := and (in $fluxSupported $product) (in $influxdbFluxSupport $version) }}
-{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered" "core" "enterprise" "explorer") $version) }}
+{{ $ctx := partial "product/get-context.html" . }}
+{{ $product := $ctx.product }}
+{{ $version := $ctx.version }}
+{{/*
+  Both flags come from data/products.yml so adding a product never requires
+  editing this template. See `supports_flux` and `search_includes_resources`
+  in that file for what each one means.
+*/}}
+{{ $includeFlux := $ctx.data.supports_flux | default false }}
+{{ $includeResources := $ctx.data.search_includes_resources | default true }}
 
 <!-- DocSearch Component Container -->
 <div 

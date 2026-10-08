@@ -22,9 +22,10 @@ heartbeat server for agent monitoring.
 
 When you run the Telegraf Controller binary, it starts four main subsystems:
 
-- **Web Server**: Serves the management interface (default port: `8888`)
+- **Web Server**: Serves the management interface (default port: `8888`). Can
+  optionally be served on a separate port from the API using `UI_PORT`.
 - **API Server**: Handles configuration management and administrative requests
-  (served on the same port as the web server)
+  (served on the API port, `8888` by default)
 - **Heartbeat Server**: Dedicated high-performance server for agent heartbeats
   (default port: `8000`)
 - **Background Scheduler**: Monitors agent health every 60 seconds
@@ -46,6 +47,19 @@ The dual-server architecture separates high-frequency heartbeat traffic from
 regular management operations, ensuring that the web interface remains
 responsive even under heavy agent load.
 
+### High availability
+
+The process model above describes a single node. With
+[Telegraf Enterprise](/telegraf/enterprise/), you can run multiple
+{{% product-name %}} nodes against a shared PostgreSQL or PostgreSQL-compatible
+database for continuous availability. The nodes coordinate through a PostgreSQL advisory lock: one node
+is elected **leader** and runs the background scheduler, while the others stand
+by and take over if the leader fails. Every node accepts agent heartbeats, so
+monitoring continues during a leadership change.
+
+For requirements, license behavior, and deployment steps, see
+[High availability](/telegraf/controller/admin/high-availability/).
+
 ## Configuration
 
 {{% product-name %}} configuration is controlled through command options and
@@ -55,9 +69,10 @@ environment variables.
 | :----------------- | :------------------- | :--------------------------------------------------------------------------------------------------------------- |
 | `--port`           | `APP_PORT`           | API server port (default is `8888`)                                                                              |
 | `--heartbeat-port` | `HEARTBEAT_PORT`     | Heartbeat service port (default: `8000`)                                                                         |
+| `--ui-port`        | `UI_PORT`            | Optional separate port for the web interface (default: served on the API port)                                  |
 | `--database`       | `DATABASE_URL`       | Database filepath or URL (default is [SQLite path](/telegraf/controller/install/#default-sqlite-data-locations)) |
-| _(none)_           | `SSL_CERT_PATH`      | Path to SSL certificate                                                                                          |
-| _(none)_           | `SSL_KEY_PATH`       | Path to SSL private key                                                                                          |
+| `--ssl-cert`       | `SSL_CERT_PATH`      | Path to SSL certificate                                                                                          |
+| `--ssl-key`        | `SSL_KEY_PATH`       | Path to SSL private key                                                                                          |
 
 _For a full list of options, see the
 [{{% product-name %}} configuration options reference](/telegraf/controller/reference/config-options/)._

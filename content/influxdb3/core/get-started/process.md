@@ -19,6 +19,7 @@ related:
   - /influxdb3/core/reference/cli/influxdb3/create/plugin/
   - /influxdb3/core/reference/cli/influxdb3/create/trigger/
 source: /shared/influxdb3-get-started/processing-engine.md
+canonical: self
 ---
 
 <!-- 

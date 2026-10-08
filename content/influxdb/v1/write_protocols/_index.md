@@ -8,8 +8,8 @@ menu:
     weight: 80
 alt_links:
   v2: /influxdb/v2/reference/syntax/line-protocol/
+source: /shared/influxdb-v1/write_protocols/_index.md
 ---
 
-The InfluxDB line protocol is a text based format for writing points to InfluxDB databases.
-
-{{< children hlevel="h2" >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v1/write_protocols/_index.md -->

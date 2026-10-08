@@ -14,9 +14,59 @@ and an enterprise version ([MinIO AIStor](https://min.io/download)).
 While both can be used as your {{% product-name %}} object store,
 **this guide walks through using MinIO Community Edition**.
 
+- [Object store requirements](#object-store-requirements)
 - [Set up MinIO](#set-up-minio)
 - [Configure InfluxDB to connect to MinIO](#configure-influxdb-to-connect-to-minio)
 - [Confirm the object store is working](#confirm-the-object-store-is-working)
+
+## Object store requirements
+
+{{% product-name %}} depends on strict object store consistency semantics—
+strong read-after-write and list-after-write consistency, and conditional PUT
+(PUT-if-not-exists) support.
+Your MinIO deployment must provide these semantics.
+See [Object store requirements](../#object-store-requirements) for the full
+list of semantics {{% product-name %}} depends on and how to verify your
+object store meets them.
+
+{{% show-in "enterprise" %}}
+
+> [!Warning]
+> #### Deployment topologies to avoid
+>
+> The following MinIO topologies can violate the semantics {{% product-name %}}
+> depends on and are not supported for production:
+>
+> - **MinIO backed by NFS.** NFS attribute caching can return stale reads,
+>   breaking read-after-write consistency.
+>   Deploy MinIO on locally attached storage formatted with XFS.
+> - **Multiple independent MinIO instances sharing one backing volume**
+>   (for example, two containers mounting the same NFS export). If you need
+>   multi-node MinIO, use its supported
+>   [distributed mode](https://min.io/docs/minio/linux/operations/install-deploy-manage/deploy-minio-multi-node-multi-drive.html)
+>   with erasure coding across nodes that each have their own local storage.
+>
+> For MinIO's own guidance, see
+> [on storage requirements](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/requirements/storage),
+> [against NFS](https://github.com/minio/minio/blob/master/docs/distributed/README.md#consistency-guarantees),
+> and
+> [about primary storage requiring strict consistency](https://blog.min.io/strict-consistency-hard-requirement-for-primary-storage/).
+
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+
+> [!Note]
+> Deploy MinIO on locally attached storage formatted with a POSIX-strong
+> filesystem such as XFS.
+> Avoid NFS-backed storage and topologies where multiple MinIO instances share
+> the same backing volume—both can violate the consistency semantics
+> {{% product-name %}} depends on.
+> See MinIO's
+> [deployment guidance](https://min.io/docs/minio/linux/operations/installation.html)
+> for details.
+
+{{% /show-in %}}
 
 ## Set up MinIO
 
@@ -275,8 +325,8 @@ influxdb3 serve \
 {{% tab-content %}}
 <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
 
-{{% show-in "enterprise" %}}- `INFLUXDB3_ENTERPRISE_CLUSTER_ID`: Your {{% product-name %}} cluster ID ({{% code-placeholder-key %}}`INFLUXDB_CLUSTER_ID`{{% /code-placeholder-key %}}){{% /show-in %}}
-- `INFLUXDB3_NODE_IDENTIFIER_PREFIX`: Your {{% product-name %}} node ID ({{% code-placeholder-key %}}`INFLUXDB_NODE_ID`{{% /code-placeholder-key %}})
+{{% show-in "enterprise" %}}- `INFLUXDB3_CLUSTER_ID`: Your {{% product-name %}} cluster ID ({{% code-placeholder-key %}}`INFLUXDB_CLUSTER_ID`{{% /code-placeholder-key %}}){{% /show-in %}}
+- `INFLUXDB3_NODE_ID`: Your {{% product-name %}} node ID ({{% code-placeholder-key %}}`INFLUXDB_NODE_ID`{{% /code-placeholder-key %}})
 - `INFLUXDB3_OBJECT_STORE`: `s3`
 - `INFLUXDB3_BUCKET`: `influxdb3`
 - `AWS_ENDPOINT`: Your MinIO URL ({{% code-placeholder-key %}}`http://localhost:9000`{{% /code-placeholder-key %}} if running locally)
@@ -288,8 +338,8 @@ influxdb3 serve \
 <!-- pytest.mark.skip -->
 
 ```bash { placeholders="INFLUXDB_(CLUSTER|NODE)_ID|http://localhost:9000|MINIO_(USERNAME|PASSWORD)" }
-{{< show-in "enterprise" >}}export INFLUXDB3_ENTERPRISE_CLUSTER_ID=INFLUXDB_CLUSTER_ID
-{{< /show-in >}}export INFLUXDB3_NODE_IDENTIFIER_PREFIX=INFLUXDB_NODE_ID
+{{< show-in "enterprise" >}}export INFLUXDB3_CLUSTER_ID=INFLUXDB_CLUSTER_ID
+{{< /show-in >}}export INFLUXDB3_NODE_ID=INFLUXDB_NODE_ID
 export INFLUXDB3_OBJECT_STORE=s3
 export INFLUXDB3_BUCKET=influxdb3
 export AWS_ENDPOINT=http://localhost:9000

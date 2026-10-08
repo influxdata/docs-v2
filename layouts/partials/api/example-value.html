@@ -1,0 +1,63 @@
+{{/*
+  Example Value Builder
+
+  Returns a sample value for a resolved schema fragment, for use in
+  generated request examples.
+  Preference order: example, default, first enum value, then a
+  type-derived placeholder.
+  Objects recurse one level into their properties (depth-limited).
+
+  Params:
+    - schema: Resolved schema fragment (pass through api/resolve-schema.html first)
+    - name: Property name, used for string placeholders
+    - spec: The full OpenAPI spec object for resolving nested $ref
+    - depth: Current recursion depth (default 0)
+
+  Returns: a value suitable for jsonify
+*/}}
+
+{{ $schema := .schema | default dict }}
+{{ $name := .name | default "value" }}
+{{ $spec := .spec }}
+{{ $depth := .depth | default 0 }}
+
+{{ $val := printf "%s" ($name | upper) }}
+
+{{ if ne $schema.example nil }}
+  {{ $val = $schema.example }}
+{{ else if ne $schema.default nil }}
+  {{ $val = $schema.default }}
+{{ else if $schema.enum }}
+  {{ $val = index $schema.enum 0 }}
+{{ else if $schema.oneOf }}
+  {{/* No example on the union itself — sample the first variant */}}
+  {{ $variant := partial "api/resolve-schema.html" (dict "schema" (index $schema.oneOf 0) "spec" $spec) }}
+  {{ $val = partial "api/example-value.html" (dict "schema" $variant "name" $name "spec" $spec "depth" (add $depth 1)) }}
+{{ else if eq $schema.type "string" }}
+  {{ $val = printf "%s" ($name | upper) }}
+{{ else if eq $schema.type "integer" }}
+  {{ $val = 0 }}
+{{ else if eq $schema.type "number" }}
+  {{ $val = 0 }}
+{{ else if eq $schema.type "boolean" }}
+  {{ $val = false }}
+{{ else if eq $schema.type "array" }}
+  {{ $val = slice }}
+  {{ if and $schema.items (lt $depth 2) }}
+    {{ $items := partial "api/resolve-schema.html" (dict "schema" $schema.items "spec" $spec) }}
+    {{ $val = slice (partial "api/example-value.html" (dict "schema" $items "name" $name "spec" $spec "depth" (add $depth 1))) }}
+  {{ end }}
+{{ else if $schema.properties }}
+  {{ $val = dict }}
+  {{ if lt $depth 2 }}
+    {{ range $propName, $propSchema := $schema.properties }}
+      {{ $prop := partial "api/resolve-schema.html" (dict "schema" $propSchema "spec" $spec) }}
+      {{ $propVal := partial "api/example-value.html" (dict "schema" $prop "name" $propName "spec" $spec "depth" (add $depth 1)) }}
+      {{ $val = merge $val (dict $propName $propVal) }}
+    {{ end }}
+  {{ end }}
+{{ else if eq $schema.type "object" }}
+  {{ $val = dict }}
+{{ end }}
+
+{{ return $val }}

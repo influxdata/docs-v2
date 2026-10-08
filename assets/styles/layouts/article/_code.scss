@@ -160,9 +160,9 @@ span.code-callout, .code-placeholder {
 }
 .code-placeholder-key code {color: $code-placeholder !important}
 
-////// SPECIAL CODE HIGHLIGHTING FOR TELEGRAF CONTROLLER DYNAMIC VALUES ////////
+///// SPECIAL CODE HIGHLIGHTING FOR TELEGRAF CONTROLLER VALUE SUBSTITUTION /////
 
-pre span.tc-dynamic-value {
+pre span.tc-substitute-value {
   border: 1px solid;
   border-radius: 6px;
   padding: 0 .25rem;
@@ -171,8 +171,10 @@ pre span.tc-dynamic-value {
   --param-bg: #ff79c633;
   --env-color: #0092b8;
   --env-bg: #0092b833;
-  --secret-color: #9a09ff;
-  --secret-bg: #9809ff33;
+  --secret-color: #a333ff;
+  --secret-bg: #a333ff33;
+  --constant-color: #FFB867;
+  --constant-bg: #ffb86c33;
 
   &.param {
     color: var(--param-color);
@@ -188,6 +190,11 @@ pre span.tc-dynamic-value {
     color: var(--secret-color);
     background: var(--secret-bg);
     border-color: var(--secret-color);
+  }
+  &.constant {
+    color: var(--constant-color);
+    background: var(--constant-bg);
+    border-color: var(--constant-color);
   }
 }
 

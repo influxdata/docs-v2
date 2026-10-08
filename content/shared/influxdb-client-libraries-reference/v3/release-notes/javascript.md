@@ -1,5 +1,19 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v2.4.0 {date="2026-08-27"}
+
+> [!Important]
+> #### Breaking Change: Node v22 required for v2.4.0
+>
+> With `v2.4.0`, Node v20 support is dropped. Node v22 or newer is now required ([#881](https://github.com/InfluxCommunity/influxdb3-js/pull/881)).
+
+### Bugfix
+
+1. [#864](https://github.com/InfluxCommunity/influxdb3-js/pull/864): Add support for connecting to InfluxDB servers
+   using IPv6 addresses.
+   - IPv6 addresses in server URLs must be enclosed in square brackets, for example, http://[2001:db8::1]:8086.
+   - IPv6 zone identifiers are not currently supported.
+
 ## v2.3.0 {date="2026-06-11"}
 
 ### Features
@@ -40,9 +54,7 @@
    - Added QueryOptions.timeout and WriteOptions.timeout.
    - Users can pass timeout directly to the query and write functions.
 
-### CI
-
-1. [#626](https://github.com/InfluxCommunity/influxdb3-js/pull/626) Fix pipelines not downloading the correct node images.
+- CI updates
 
 ### Docs
 
@@ -50,9 +62,7 @@
 
 ## v1.4.0 {date="2025-09-15"}
 
-### CI
-
-1. [#607](https://github.com/InfluxCommunity/influxdb3-js/pull/607) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v1.3.0 {date="2025-08-12"}
 

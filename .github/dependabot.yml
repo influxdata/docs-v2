@@ -1,0 +1,22 @@
+# Dependabot configuration for GitHub Actions version updates.
+# The org-wide Dependabot config (managed by the security team) covers
+# dependency security updates. This file adds scheduled github-actions
+# version updates, which are NOT included in org-wide security updates.
+# Coordinate with the security team before modifying.
+#
+# Dependabot will open PRs to bump pinned SHAs (with version comments) to
+# the latest patch/minor within each major. See AGENTS.md §Dependency management.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore(ci)"

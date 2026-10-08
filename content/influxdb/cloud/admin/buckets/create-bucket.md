@@ -169,7 +169,7 @@ endpoint and set the `schemaType` property value to `explicit` in the request bo
 
 {{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud/api/buckets/" >}}
 
-```js
+```json
 {
   "orgID": "{INFLUX_ORG_ID}",
   "name": "my-explicit-bucket",

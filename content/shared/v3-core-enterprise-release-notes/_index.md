@@ -1,16 +1,3 @@
-> [!Important]
-> #### Upgrading to InfluxDB 3.10 is a one-way migration
->
-> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
-> catalog format from v2 to v3. After migration, 3.9.x and older
-> binaries are unable to read the new catalog, and fail to start on the same
-> cluster data.
->
-> Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
-> Restoring these objects is the only way to roll back to 3.9.x.
->
-> {{% show-in "enterprise" %}}If you have enabled the storage engine upgrade (`--use-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
-
 > \[!Note]
 >
 > #### InfluxDB 3 Core and Enterprise relationship
@@ -18,6 +5,892 @@
 > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
+
+## v3.12.0 {date="2026-10-01"}
+
+<!-- Written from origin/3.12 through a171538943 (after v3.12.0-0.rc.2). -->
+
+InfluxDB 3.12 makes bulk import faster and adds distributed compaction (beta),
+per-database schema enforcement, and generally available user authentication
+and role-based access control to InfluxDB 3 Enterprise.
+Before you upgrade, review [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/).
+
+> [!Important]
+>
+> #### Back up your catalog before you upgrade
+>
+> InfluxDB 3.12 adds a catalog record that v3.11.x can't read.
+> After the upgrade, you can't roll back to v3.11.x unless you have a catalog backup.
+>
+> The catalog records the new feature level automatically.
+> On a single node, this happens the first time you start v3.12.
+> In a cluster, it happens once every running node runs v3.12.
+> It happens whether or not you use the new features.
+> This applies to Core and Enterprise.
+>
+> After that, v3.11.x refuses to load the catalog and returns an error like the following:
+>
+> ```text
+> this node's feature level (core=<N>, enterprise=<N>) is below the cluster's committed level (core=<N>, enterprise=<N>); upgrade required
+> ```
+>
+> Before you upgrade:
+>
+> 1. Back up everything under `{prefix}/catalog/`, including the catalog snapshot and logs under `catalog/v3/`.
+> 2. Keep the backup until you're sure you won't roll back.
+>
+> To roll back to v3.11.x, restore the backup.
+> For details, see [Before you upgrade](/influxdb3/version/admin/upgrade/#before-you-upgrade).
+
+### Core
+
+#### Features
+
+- **Add columns to an existing table**: `influxdb3 update table` now takes `--tags` (tag names) and `--fields` (`name:type`), and the new `PATCH /api/v3/configure/table` endpoint does the same over HTTP. You can only add columns. Adding a column that already exists with the same type does nothing, and a different type returns an error.
+- **Trigger defaults in the create trigger API**: `trigger_settings` and `disabled` are now optional when you create a trigger through `POST /api/v3/configure/processing_engine_trigger`. They default to `run_async=false`, `error_behavior=log`, and `disabled=false`. Previously, a request that omitted either field returned 400.
+- **Regular expressions as `IN` lists**: More anchored regular expressions, such as `^host-(01|02)$` or `^val[1-4]$`, are now rewritten as an `IN` list (or `NOT IN` for `!~`), up to 1,000 values, in SQL and InfluxQL.
+- **Narrower InfluxQL scans with `LIMIT`, `OFFSET`, and `fill(N)`**: These queries now read only the columns they reference. Previously, they read every column in the table, so queries on wide tables were slower than the same query without these clauses.
+- **Faster startup with many tables**: Replaying the catalog no longer copies a database's whole schema for every table it creates or alters, so startup time no longer grows quadratically with the number of tables in a database.
+- **Faster startup with many snapshots**: Snapshot manifests are parsed in parallel at startup, on up to half of the available cores. On Enterprise, this applies to the Parquet engine.
+
+#### Bug fixes
+
+- **InfluxQL `SPREAD` with negative values**: `SPREAD` now returns the difference between the maximum and minimum when every value is negative. Previously, it returned the negated minimum.
+- **Packaged service failed to start on SELinux hosts**: On RHEL-family hosts with SELinux enforcing, the `systemd` unit from the `.deb` and `.rpm` packages exited with status `226`. No configuration change is needed.
+- **One query on a large Parquet file could run a node out of memory**: A query now fetches each Parquet file once per scan. Previously, every partition of the scan fetched and buffered its own copy of the whole file, so one query against a 4.4 GB file could use about 70 GB. To restore the old behavior, set `--datafusion-config iox.share_cached_parquet_loader_fetches=false`.
+- **Repeated downloads under Parquet cache pressure**: The Parquet cache no longer evicts files that are still downloading, and no longer starts a second download of a file that is already being fetched. Previously, a cache under sustained pressure could download the same file over and over.
+- Other bug fixes and performance improvements
+
+#### Breaking changes
+
+- **Finite default for `--max-concurrent-queries`**: The [`--max-concurrent-queries`](/influxdb3/version/reference/config-options/#max-concurrent-queries) default is now the larger of 50 and 4 times the node's query parallelism. Previously, the default was effectively unlimited. Queries over the limit wait for a slot instead of failing. An explicit value below 16, or below the node's query parallelism, logs a startup warning.
+- **WAL buffer limit enforced**: [`--wal-max-buffered-writes`](/influxdb3/version/reference/config-options/#wal-max-buffered-writes) (default `100000`) was never enforced. When the WAL buffer is full, writes now return `429 Too Many Requests`, so retry them after a short delay. On Enterprise, this applies to the Parquet engine.
+- **HTTP and gRPC request metrics split by protocol**: `http_requests*` metrics now count only HTTP requests, and `grpc_requests*` metrics count only gRPC requests. Previously, both counted every request, so dashboards that sum the two families will show lower values. The `path` and `method_path` labels now use route templates, such as `/api/v3/engine/:path`. Unrecognized paths are reported as `other`. Panels that filter on a literal path that includes an ID return no data.
+- **DataFusion 52.5**: The query engine is upgraded from DataFusion 51.0 to 52.5. `pow()` and `power()` with integer arguments now return a float.
+- **New system table columns**: `system.databases` adds a `schema_mode` column at the end. `system.nodes` adds `conn_info`, and `system.tables` adds `retention_period_ns`, both before existing columns, so the column order of `SELECT *` on those tables changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Distributed compaction (beta, upgraded storage engine)**: Compaction jobs can now run on every compact node in the cluster, not only on the node that holds the compactor lease. Set `--compactor-dispatch-target` to the same value on every compact node:
+  - `local` (default): The lease holder runs all compaction, as in v3.11.
+  - `all`: The lease holder and every other compact node run compaction.
+  - `remote`: Only the other compact nodes run compaction. With no other compact node available, compaction waits.
+
+  A compact node receives work only if it sets `--internode-bind-addr`. Use compact nodes of the same size. The lease holder plans for the smallest `--compactor-input-size-budget` and `--compactor-max-concurrent-merges` among them. If a node fails, its jobs are retried on another node. New `influxdb3_compactor_*` metrics report worker connections, dispatch activity, and which node holds the lease (`influxdb3_compactor_is_primary`).
+- **Processing Engine on dedicated process nodes**: Process nodes (`--mode process` or `--mode all`) now run triggers for the whole cluster:
+  - Every process node follows the WAL of every ingest node through object storage, so WAL triggers fire on a process node for writes sent to any ingest node. Previously, a WAL trigger fired only on the node that received the write. A new process node starts from the present and doesn't fire on existing WAL.
+  - The trigger's `--node-spec` now selects which process nodes' schedulers own the trigger. Each owning scheduler spreads runs across itself and the other running process nodes that set `--internode-bind-addr`. A node that doesn't have the plugin file in its `--plugin-dir` declines the run, and another node runs it. Keep plugin directories and Python packages the same on every process node.
+  - Each process node saves its scheduler state to object storage every second and at shutdown. After a restart, it replays schedule ticks that came due while it was down, resumes following the WAL where it stopped, and keeps pending retries. Make sure your plugins handle a repeated run. Triggers that were disabled or deleted while the node was down stay that way.
+  - New options: `--trigger-retry-max-attempts` (default `5`) sets the attempts before a failing invocation is discarded when the trigger uses `--error-behavior retry`, `--trigger-work-silence-timeout` (default `60s`) sets how long a scheduler waits on a silent node before giving up the run, and `--processing-engine-restart-state-snapshot-interval` (default `1s`) sets how often scheduler state is saved.
+- **Schema enforcement**: Create a database with `influxdb3 create database --schema-mode explicit` (or `"schema_mode": "explicit"` in the API) to reject writes to tables and columns you haven't declared. Declare tables with `influxdb3 create table` and add columns with `influxdb3 update table --tags --fields`. Every write path enforces it, including the Processing Engine and bulk import, on both storage engines. The default, `implicit`, keeps schema-on-write. You can't change a database's schema mode after you create it. After you add columns through one node, other nodes can reject writes to them until their next catalog sync (`--catalog-sync-interval`, default `1s`). Core rejects `--schema-mode explicit` with a 400 error.
+- **Bulk import from object storage (upgraded storage engine)**: `influxdb3 import from-object-store` (and `POST /api/v3/enterprise/import`) imports Parquet files that are already in object storage, without streaming them through the client. The source is a prefix in the cluster's own object store or an `s3://bucket/prefix` URL. The server reads the source with its own object store credentials and tries an S3 server-side copy first (`--import-attempt-server-side-copy`, default `true`), falling back to streaming.
+- **Faster bulk import uploads (upgraded storage engine)**: Uploaded files are converted into slices of up to 128 MiB that compaction processes in parallel, so large imports use more of the compactor's cores.
+- **Database-scoped import permissions**: Creating an import now requires write permission on the target database instead of an admin token. Listing imports requires the `describe` action on at least one database and returns only the import jobs for databases the token can describe. For example, grant `db:<DATABASE_NAME>:describe,write` for an import job.
+- **Write timestamp bounds (upgraded storage engine)**: The new `--write-timestamp-max-past` and `--write-timestamp-max-future` options reject lines whose explicit timestamp is further from the request time than the given duration. Lines without a timestamp are accepted. Both are off unless set, apply to every database, and are read by each ingest node, so set the same values on every ingest node. Rejections are counted in `influxdb3_write_timestamp_rejections_total`.
+- **Faster `ORDER BY time ... LIMIT` queries (upgraded storage engine)**: SQL queries sorted by `time` with a `LIMIT` now read time windows in sort order and stop once they have enough rows. Previously, they scanned and sorted every window in the queried time range.
+- **User authentication and role-based access control (GA)**: Username and password sign-in, single sign-on (OAuth), and role-based access control are now generally available. They remain opt-in: `--user-auth-type` defaults to `none`, and custom role authoring stays off (`--rbac-authoring-disabled` defaults to `true`). Existing token workflows are unchanged. See [Manage users](/influxdb3/enterprise/admin/security/manage-users/).
+- **Integrated Explorer 1.11**: The Explorer UI embedded in `influxdb3 serve --mode ...,webui` is updated to 1.11.
+  - Explorer connects to its own cluster automatically, with no URL or token to enter: at once with `--without-auth`, or after you sign in when user authentication is on. With token authentication alone, Explorer still asks for a URL and token.
+  - With user authentication on and no users yet, Explorer opens a setup page that creates the first administrator and shows the operator token once. With OAuth sign-in only, the page shows the `influxdb3 manage init-admin --oauth-id` command to run instead.
+  - The new `--webui-public-uri` option sets the public URL for single sign-on. Register `<PUBLIC_URI>/auth/callback` as the redirect URI with your identity provider.
+  - Sessions are stored on the server and last 120 days. Changing `--webui-session-secret` signs everyone out.
+  - When you turn on user authentication on a deployment that used the v3.11 UI, Explorer offers once per browser to move saved dashboards, queries, and settings into the signed-in account. Saved API keys and tokens aren't moved.
+  - Adds Area, Single Stat, Gauge, and Pie visualizations, and `EXPLAIN ANALYZE` in the SQL editor.
+- **Orphaned file cleanup (upgraded storage engine)**: The primary compactor now finds and deletes compacted files in object storage that nothing references, left behind by crashes or failed jobs. The first pass starts a few minutes after the compactor first starts on v3.12, then passes repeat every 7 days. Objects modified in the last 24 hours are never deleted, and passes don't run during a restore. To only record candidates, set `--compactor-sweep-mode dry-run`. To turn off cleanup, set `--compactor-sweep-interval off`. The offline, read-only `influxdb3 debug sweep list`, `influxdb3 debug sweep report`, and `influxdb3 debug verify-references` commands inspect cleanup passes and check that every file a checkpoint references exists.
+- **New metrics (upgraded storage engine)**:
+  - Per-ingest-node compaction progress: `influxdb3_compactor_uncompacted_snapshots` and `influxdb3_compactor_last_compacted_snapshot_sequence`, labeled by `node_id`.
+  - Data file cache: `influxdb3_file_cache_admission_rejected_total` counts fetches refused by the cache budget, and `influxdb3_file_cache_fetched_bytes_total` counts bytes fetched from object storage.
+  - Ingest time spread: `influxdb3_snapshot_windows`, `influxdb3_snapshot_windows_seen_24h`, and `influxdb3_snapshot_rows_by_window_age_total` show how many time windows each snapshot touches and how old incoming rows are.
+- **New Processing Engine metrics**: `influxdb3_processing_engine_scheduler_*` gauges for pending, running, retrying, and auto-disabling invocations, `influxdb3_processing_engine_wal_*_watermark` and `influxdb3_processing_engine_timer_*_watermark_unix_seconds` for how far each process node has followed the WAL and the schedule clock, and `influxdb3_processing_engine_restart_state_checkpoints` for saved scheduler state. These apply to both storage engines.
+
+#### Bug fixes
+
+- **Missing rows from `IN` filters against a [file index](/influxdb3/enterprise/admin/file-index/) (Parquet engine)**: A filter with an `IN` list of four or more values on a column the file index doesn't cover, such as a field, no longer skips every compacted file. Previously, such a query returned no rows from compacted data. An equality or `IN` filter could also skip every file after you narrowed a table's file index columns.
+- **Login response time revealed valid usernames**: A username and password login now takes the same time whether or not the username exists. Previously, a login for an unknown username returned faster, which revealed whether a username existed. This affects deployments with `--user-auth-type basic`.
+- **Removing a node could delete acknowledged writes (upgraded storage engine)**: Removing a node that still has snapshots the compactor deferred now returns `409 Conflict` and names the deferred snapshots. Previously, removal deleted those files, losing writes that had been acknowledged.
+- **Two processes with the same `--node-id` (upgraded storage engine)**: When two ingest-capable processes run with the same `--node-id`, the one that loses a snapshot write now logs `another process is writing under this node id` and exits, so only one writer survives.
+- **Two primary compactors on S3 (upgraded storage engine)**: Each compactor lease renewal now writes a unique value. Previously, a renewal wrote identical content with an unchanged ETag, so a standby compactor could take the lease immediately after a renewal while the primary kept running.
+- **Retention kept deleting after it was cleared (upgraded storage engine)**: After you remove the last retention period, the compactor stops applying the old cutoffs. Previously, it kept deleting backfilled and late-arriving data by the old cutoffs until it restarted.
+- **Restore on GCS and compactor deletes during a restore (upgraded storage engine)**: A restore on Google Cloud Storage now holds its lease past the first renewal, so a second restore started at the same time returns `409 Conflict`. The compactor now holds its deletes while a restore runs. Previously, it could delete files the restore had just copied back.
+- **No compaction on new clusters with `--shard-count` above 1 (upgraded storage engine)**: A new cluster started with `--shard-count` greater than `1` now compacts. Previously, it never compacted, and query nodes eventually ran out of memory.
+- **Growing ingest file inventory (upgraded storage engine)**: `system.pt_ingest_files` and ingest node memory now track only live files. Previously, they grew with every file written for the life of the process.
+- **Repeated object storage reads for new ingest nodes (upgraded storage engine)**: Query nodes no longer fetch an ingest node's recent files from object storage on every query when that ingest node joined after the query node started.
+- **Future-dated data displaced current data in the cache (upgraded storage engine)**: Cache preloading no longer warms time windows that start more than one window length in the future. Previously, every future window was warm, so data timestamped far in the future could use the preload budget before the current window loaded.
+- **`/ready` briefly reported not ready**: Expected object storage conflicts, such as a lost conditional write, no longer mark the node as not ready.
+- **Package install failures reported as success**: The package install API and `influxdb3 install package` now return an error with the end of the `pip` output when `pip` fails. Previously, they returned success, and the missing package surfaced later as a `ModuleNotFoundError`.
+- **Row deletes could remove the rows they were meant to keep (upgraded storage engine)**: A rewrite that applies a row delete keeps the files the delete doesn't touch by their original ID. Previously, it also queued those files for deletion, so after the cleanup cooldown the rows the delete was meant to preserve were gone and later reads of the run set failed with `Object not found`. On the first start after upgrading from an affected v3.11.x, stale row-delete entries in the persisted delete queue are dropped instead of replayed.
+- **Backup and restore could hang (upgraded storage engine)**: The backup copy loop now keeps its in-flight copies running while it writes progress. Previously, a copy that held the object store client's credential-refresh lock was left unpolled during a progress write, which blocked every request on that client and the backup or restore never finished.
+- **Rows lost when clearing the Parquet WAL after switching to the upgraded storage engine**: When a node starts on the upgraded storage engine with unflushed Parquet WAL, clearing that backlog no longer re-runs snapshots the previous process recorded but never persisted. Previously, a re-run could overwrite a manifest, and its Parquet file, so the rows it held were listed by no manifest.
+- **Queries that exceed memory limits returned 500**: The HTTP query endpoints now return `429 Too Many Requests` when a query fails because the data file cache budget or the DataFusion memory pool is exhausted. Previously, they returned `500`. Flight already returned `RESOURCE_EXHAUSTED` for the same errors.
+- Other bug fixes and performance improvements
+
+#### Breaking changes
+
+- **Data file cache is a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) now also counts data file bytes held by running queries. When the budget is used up, the query that needs more fails with `429 Too Many Requests` and a `file access cache budget exhausted` error instead of the node using memory beyond the budget. Query nodes that were killed for running out of memory under this load now stay up and fail individual queries.
+- **Nodes without query mode refuse data queries (Parquet engine)**: Nodes that don't run the `query` mode now return `405 Method Not Allowed` for data queries. System table queries still work. Previously, these nodes answered data queries, sometimes with partial results. The upgraded storage engine already behaved this way.
+- **`--node-spec` and WAL triggers on multiple process nodes**: `--node-spec` no longer pins where a trigger runs; it selects the process nodes whose schedulers own the trigger. With the default, `all`, every process node owns the trigger and now follows every ingest node's WAL, so a WAL trigger runs once per process node for each WAL flush. To run a WAL trigger once per flush in a cluster with more than one process node, set `--node-spec` to a single node.
+- **Request triggers return 503 when their queue is full**: A request trigger with 60 pending invocations now returns `503 Service Unavailable` with `trigger queue is full`. Previously, the request waited for a free slot.
+- **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password now must carry the cluster's catalog UUID as the `aud` claim. Access tokens issued before v3.12 are rejected. Refresh the token or sign in again. API tokens aren't affected.
+- **`--compaction-max-num-files-per-plan` has no effect (Parquet engine)**: The compactor no longer limits plans by input file count. Setting the option logs a deprecation warning.
+- **Metric changes**: The unused `influxdb3_memory_pool_evictions`, `influxdb3_memory_pool_rejections`, `influxdb3_memory_pool_eviction_bytes`, `influxdb3_memory_pool_eviction_size_bytes`, and `influxdb3_memory_pool_eviction_duration_seconds` metrics are removed. `influxdb3_compaction_plans_skipped` (Parquet engine) now reports `reason="memory_exhaustion"` with no `phase` label, instead of `reason="file_limit"`.
+
+## v3.11.5 {date="2026-09-17"}
+
+### Core
+
+#### Features
+
+- **Age-based snapshot trigger**: The new [`--force-snapshot-max-age`](/influxdb3/version/reference/config-options/#force-snapshot-max-age) option (default `1h`) forces a snapshot once the oldest WAL data that isn't in a snapshot reaches that age. Previously, snapshots triggered only on WAL file count or buffer memory, so a node receiving few or no writes could hold hours of data in memory and replay all of it on its next restart.
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Parquet engine WAL and snapshot metrics**: Parquet engine nodes that ingest data now report WAL files and bytes not yet covered by a persisted snapshot (`influxdb3_parquet_wal_pending_files`, `influxdb3_parquet_wal_pending_bytes`), buffered bytes and the threshold that forces a snapshot (`influxdb3_parquet_write_buffer_bytes`, `influxdb3_parquet_write_buffer_memory_threshold_bytes`), the time of the last successful snapshot (`influxdb3_parquet_snapshot_last_success_timestamp_seconds`), and failed snapshot attempts by `error_code` (`influxdb3_parquet_snapshot_failures_total`).
+- **Stalled storage engine upgrade reporting**: `system.upgrade_parquet_node` now flags a node whose upgrade has stopped making progress (`stalled`, `stalled_since`), and reports when it last progressed (`last_progress_at`), how many times the compactor restarted during the upgrade (`restarts`), and conversion and import progress. Previously, an upgrade that had stopped making progress looked the same as one still in progress.
+- **Compaction completion logging (Parquet engine)**: The compactor logs each completed compaction at `INFO` level, so the logs show whether compaction is running.
+- **Stuck compaction warning (Parquet engine)**: The compactor logs a `compaction not planned` warning when a table has enough uncompacted files for a compaction but none has been planned for 15 minutes, and repeats it every 15 minutes while the condition holds.
+
+#### Bug fixes
+
+- **Missing rows from filtered queries on tables without tags (upgraded storage engine)**: A query with a `WHERE` clause, including one with only a time predicate, now returns compacted data from a table that has no tag columns. Previously, once such a table's data compacted, a filtered query could return no rows, while the same query without a `WHERE` clause returned every row.
+- **Compaction stopped while work waited for memory (upgraded storage engine)**: Compaction work waiting for memory is no longer aborted as stuck before it starts. Previously, when more work was scheduled than memory could admit, the waiting work was aborted and retried until its compaction failed, after which the compactor stopped planning new work, including snapshots.
+- **Missing rows from tag queries after a compactor restart (Parquet engine)**: Removing a generation now removes only that generation's [file index](/influxdb3/enterprise/admin/file-index/) entries. Previously, a compact-only node numbered its files from zero again after a restart, so removing an older generation also removed the index entries for a live file with the same number, and queries that filter on an indexed tag value skipped that file and returned incomplete results.
+- **Startup stalled on large compaction metadata**: Compaction summary, compaction detail, and generation detail reads larger than 128 MiB are now fetched as 16 MiB ranged reads, so a slow or failed transfer retries one range. Previously, a single whole-object GET restarted a multi-gigabyte download from byte 0, so a node loading Parquet engine compacted data at startup, including during a storage engine upgrade, could stall without an error.
+- **Stopped nodes blocked an At-Home license node from starting**: The [At-Home license](/influxdb3/enterprise/admin/license/) single-node check now ignores nodes in the `stopped` or `removing` state. Previously, any other node registered in the catalog prevented startup.
+- **Ingest-only nodes built an unused file index**: Nodes that run only in ingest mode (`--mode ingest`) no longer build the Parquet engine's compacted data file index at startup, including during a storage engine upgrade, which reduces their startup memory. Ingest-only nodes never use the index.
+- **Unneeded file index decoding during a storage engine upgrade**: The upgrade now reads only the file list from each generation's detail object when it discovers files to import. Previously, it also decoded the file index, which added CPU and memory cost to compactor startup on tables with large indexes.
+- **Spurious snapshot sequence error on first startup (upgraded storage engine)**: A new node starting with an empty object store no longer logs a `snapshot sequence seeds disagree` error.
+- Other bug fixes and performance improvements
+
+## v3.11.4 {date="2026-09-04"}
+
+### Core
+
+#### Bug fixes
+
+- **Overwrites in the write buffer resolved arbitrarily**: Writes that repeat a series key and timestamp within one write buffer chunk now resolve to the last acknowledged write, in query results and in the persisted Parquet file. Previously the duplicate rows tied on both deduplication sort keys and an unstable sort picked an arbitrary survivor, so a superseded version could win. An overwrite that arrives while a snapshot is persisting also now wins over the frozen rows it replaces.
+- **Snapshot manifest skipped for an empty snapshot**: Every snapshot sequence number now lands a manifest, including a snapshot with nothing to persist. Previously the manifest was skipped, leaving a permanent hole in the sequence. Consumers that walk the sequence by exact key cannot tell a skipped snapshot from a manifest that failed to persist, so a single hole stalled Enterprise compaction on that node and blocked its read replicas.
+- **Stale plugin source after re-enabling a trigger**: Stopping a trigger now drops its plugin from the worker's in-memory cache, so re-enabling it re-reads the code. Since v3.11.0 the cache was insert-only, so disabling and re-enabling a trigger resumed the cached copy and never contacted the plugin repository again, which is the documented way to pick up a new version of a `gh:` plugin.
+- **Plugin source retained after a database was deleted**: Deleting a database now evicts its triggers' cached plugin source. Previously it stayed resident until the server restarted.
+- **Processing engine Python updated to 3.13.15**: Picks up the security fixes in that release.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Startup phase logging**: The server logs the start and completion of each startup phase, so a node killed during startup shows which phase it was in.
+
+#### Bug fixes
+
+- **Privilege escalation through role assignment**: Creating, updating, and deleting a role, and assigning roles to a user, now require admin authorization. Previously a non-admin subject holding `User:Update`, or `User:Create` with roles in the request, could grant permissions beyond its own. This affects the [user authentication preview](/influxdb3/enterprise/admin/security/manage-users/), which is off by default (`--user-auth-type none`); deployments that have not enabled it are unaffected.
+- **Out-of-memory clearing the WAL backlog during a storage engine upgrade**: The upgrade now snapshots during WAL replay whenever the buffer reaches a quarter of the query executor's memory pool, instead of buffering the whole backlog and persisting it in one pass. Each snapshot removes the WAL files it covers, so a restart resumes from the last one rather than replaying from the beginning.
+- **Out-of-memory importing a large source during a storage engine upgrade**: Bulk import now admits a job by its estimated working set rather than its compressed size, runs a job larger than the compactor's input-size budget on its own, and refuses a source that cannot fit at all with an error naming the budget it would need. Previously an oversized source was retried until the node ran out of memory, with no attempt recorded.
+- **File index left behind when a generation expires**: Retention now deletes a generation's detail object along with its Parquet files. Previously the detail, which holds the file index describing those files, was left unreferenced in object storage. On a table with high-cardinality index columns the detail is the larger of the two, so retention shrank the data and accumulated the indexes for the life of the cluster.
+- **Compactor replans forever against a missing index file (upgraded storage engine)**: A run set whose index object is confirmed gone from object storage is now skipped after three failed reads on separate scheduler passes, so planning moves on to other work. Previously every planner that read the index failed, abandoned the plan, and recreated it on the next tick indefinitely. The skip list is in memory only: a restart clears it, and a repaired index is picked up again.
+- **Empty snapshot manifests were never deleted**: Gen1 cleanup now deletes a consumed manifest that references no files. Previously it returned early on such a manifest without deleting it, and because cleanup retains the oldest entries in each batch, undeletable manifests could eventually fill every batch and starve cleanup.
+- **Stale plugin source after a catalog restore**: Restoring a catalog now evicts the worker's cached plugin source, so restarted triggers re-read their code. Previously a trigger whose restored definition matched the cached one resumed the pre-restore source without contacting the plugin repository.
+- **Spurious memory reservation warning at startup**: The warning threshold is now above the sum of the shipped percentage defaults, which come to 90 percent of detected memory. Previously a server running the default configuration warned about itself.
+- Other bug fixes and performance improvements
+
+## v3.10.6 {date="2026-09-04"}
+
+### Core
+
+#### Features
+
+- **`--shutdown-timeout` graceful shutdown bound**: This new option (default `30s`) caps how long the server waits for active connections to drain during shutdown before forcibly closing them. Set it to `0s` to skip the drain.
+
+#### Bug fixes
+
+- **Crash loop migrating a catalog written by Core**: Catalog snapshots deserialize again when the node spec is missing from trigger, last value cache, and distinct value cache entries, defaulting to all nodes. Core never writes that field, so the unified deserializer rejected Core-written checkpoint files and the v2-to-v3 catalog migration crash-looped on upgrade.
+- **Snapshot manifest skipped for an empty snapshot**: Every snapshot sequence number now lands a manifest, including a snapshot with nothing to persist. Previously the manifest was skipped, leaving a permanent hole in the sequence. Consumers that walk the sequence by exact key cannot tell a skipped snapshot from a manifest that failed to persist, so a single hole stalled Enterprise compaction on that node and blocked its read replicas.
+- **Unnecessary node shutdown after a retried WAL write**: Each WAL file now carries a nonce in its object metadata, so a node recognizes its own write and shuts down only for a file written by another node. Previously, a conditional PUT that was applied but returned a 500 was retried, and the node read the resulting 412 as a second process holding the same `--node-id` and shut down, though the file was durable and correct.
+- **Panic on oversized duration values**: Time arithmetic now saturates at the minimum or maximum representable timestamp instead of panicking when a duration is too large to represent. Previously, an oversized user-supplied duration produced a panic and could put the server into a startup panic loop.
+- **Processing engine Python updated to 3.13.15**: Picks up the security fixes in that release.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Startup phase logging**: The server logs the start and completion of each startup phase, so a node killed during startup shows which phase it was in.
+
+#### Bug fixes
+
+- **Privilege escalation through role assignment**: Creating, updating, and deleting a role, and assigning roles to a user, now require admin authorization. Previously a non-admin subject holding `User:Update`, or `User:Create` with roles in the request, could grant permissions beyond its own. This affects the [user authentication preview](/influxdb3/enterprise/admin/security/manage-users/), which is off by default (`--without-user-auth true`); deployments that have not enabled it are unaffected.
+- **File index left behind when a generation expires**: Retention now deletes a generation's detail object along with its Parquet files. Previously the detail, which holds the file index describing those files, was left unreferenced in object storage. On a table with high-cardinality index columns the detail is the larger of the two, so retention shrank the data and accumulated the indexes for the life of the cluster.
+- **Slow compaction catch-up behind a lagging node**: The compactor now accumulates the rerun signal across every node in a cycle. Previously it kept only the last node's value, so a caught-up node could end the cycle after a single snapshot and leave a lagging node advancing one snapshot per check interval until restart.
+- Other bug fixes and performance improvements
+
+## v3.9.13 {date="2026-09-04"}
+
+### Core
+
+#### Bug fixes
+
+- **Snapshot manifest skipped for an empty snapshot**: Every snapshot sequence number now lands a manifest, including a snapshot with nothing to persist. Previously the manifest was skipped, leaving a permanent hole in the sequence. Consumers that walk the sequence by exact key cannot tell a skipped snapshot from a manifest that failed to persist, so a single hole stalled Enterprise compaction on that node and blocked its read replicas.
+- **Unnecessary node shutdown after a retried WAL write**: Each WAL file now carries a nonce in its object metadata, so a node recognizes its own write and shuts down only for a file written by another node. Previously, a conditional PUT that was applied but returned a 500 was retried, and the node read the resulting 412 as a second process holding the same `--node-id` and shut down, though the file was durable and correct.
+- **Restarted downloads of large manifests and checkpoints at startup**: Snapshot manifest and checkpoint reads larger than 128 MiB are now fetched as 16 MiB ranged reads, so a slow or failed transfer retries one range. Previously, a single whole-object GET restarted a multi-gigabyte download from byte 0.
+- **Panic on oversized duration values**: Time arithmetic now saturates at the minimum or maximum representable timestamp instead of panicking when a duration is too large to represent. Previously, an oversized user-supplied duration produced a panic and could put the server into a startup panic loop.
+- **Processing engine Python updated to 3.13.15**: Picks up the security fixes in that release.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Startup phase logging**: The server logs the start and completion of each startup phase, so a node killed during startup shows which phase it was in.
+
+#### Bug fixes
+
+- **File index left behind when a generation expires**: Retention now deletes a generation's detail object along with its Parquet files. Previously the detail, which holds the file index describing those files, was left unreferenced in object storage. On a table with high-cardinality index columns the detail is the larger of the two, so retention shrank the data and accumulated the indexes for the life of the cluster.
+- **Slow compaction catch-up behind a lagging node**: The compactor now accumulates the rerun signal across every node in a cycle. Previously it kept only the last node's value, so a caught-up node could end the cycle after a single snapshot and leave a lagging node advancing one snapshot per check interval until restart.
+- Other bug fixes and performance improvements
+
+## v3.11.3 {date="2026-08-28"}
+
+### Core
+
+No adjustments in this release.
+Core remains on v3.11.2.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Read run-set indexes written by later releases**:
+  The compactor now reads the v3 run-set index format that later releases write,
+  so you can roll back to v3.11.3 from a release that writes v3 indexes without
+  leaving unreadable indexes behind.
+
+#### Bug fixes
+
+- **Missing rows from an `OR` predicate against a [file index](/influxdb3/enterprise/admin/file-index/)**:
+  File pruning now applies to an `OR` only when both sides resolve against the
+  index, and otherwise falls back to scanning all files.
+  Previously, when one side referenced a column that the index doesn't cover,
+  the query kept only the files that matched the resolved side, so rows that
+  matched only through the uncovered side were dropped from the results.
+- **Deferred snapshot recovery makes no progress on a busy cluster**:
+  The new
+  [`--recover-deferred-snapshots-in-flight-limit`](/influxdb3/enterprise/reference/storage-engine-config-options/#deferred-snapshot-recovery)
+  option raises the per-node in-flight snapshot limit that gates
+  `--recover-deferred-snapshots`.
+  The limit was previously fixed at three, so on a cluster whose ingest nodes
+  snapshot faster than compaction completes batches, recovery never ran.
+  The default is unchanged.
+- Other bug fixes and performance improvements
+
+## v3.11.2 {date="2026-08-20"}
+
+### Core
+
+#### Bug fixes
+
+- **Rows missing from queries during snapshot persistence**: Each persist job now drops only the buffer chunk whose Parquet file it published. Previously, the first job of a snapshot to finish evicted every sibling chunk, so whole time ranges vanished from query results until their persist job finished.
+- **Partial schema changes from a rejected line**: A line protocol line is now validated in full before the catalog is mutated, so a rejected line contributes nothing to it. Previously, with `accept_partial=true`, columns created earlier in the line were committed anyway, and a line rejected after its tags were processed merged them into the next valid line's series key.
+- **Unnecessary node shutdown after a retried WAL write**: Each WAL file now carries a nonce in its object metadata, so a node recognizes its own write and shuts down only for a file written by another node. Previously, a conditional PUT that was applied but returned a 500 was retried, and the node read the resulting 412 as a second process holding the same `--node-id` and shut down, though the file was durable and correct.
+- **Panic querying `system.parquet_files` for an unknown table**: Filtering on a `table_name` that is not a current table, or querying after its database is dropped, now returns zero rows. Previously, both panicked the request thread and returned a truncated HTTP 200.
+- **Duplicate rows from a concurrent snapshot handoff**: Buffer chunks and persisted Parquet files are now read under a single lock. Previously, a read landing between the two saw a new Parquet file alongside the buffer chunks it was written from and returned those rows twice. Served queries masked this through deduplication, but paths that read record batches directly, such as the Processing Engine, did not.
+- **Restarted downloads of large manifests and checkpoints at startup**: Snapshot manifest and checkpoint reads larger than 128 MiB are now fetched as 16 MiB ranged reads, so a slow or failed transfer retries one range. Previously, a single whole-object GET restarted a multi-gigabyte download from byte 0.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Retry storage engine upgrade**: The new `influxdb3 manage retry-upgrade-to-pacha-tree` command resets a [storage engine upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet), so it resumes the next time the compactor node starts with `--upgrade-pacha-tree`. Sources whose table, database, or objects are gone become skips, and anything still readable returns to the queue. Nothing is deleted, so the command is safe to run again.
+
+#### Bug fixes
+
+- **Compaction falls behind on a large snapshot backlog**: Snapshot compaction now caps outstanding plans relative to the compactor's core count, batches snapshots in ingest-time order, and fetches each plan's gen0 files once per worker. Previously, a deep backlog could accumulate thousands of outstanding plans, recompact the same time windows once per node, and delay the first plan by over 12 minutes.
+- **Compactor primacy livelock during a migration**: Primary lease reads and writes now bypass the process-wide object store concurrency limit. Previously, a migration's bulk import could starve lease renewal, so the holder repeatedly demoted at its 30-second lease TTL and reacquired, pinning the migration indefinitely while object storage itself was healthy.
+- **Multi-window migration imports make no progress**: The migration baseline now clips each staged file's contribution to its window's time range, and migration imports the newest windows first. Previously, a file crossing a window boundary caused publish validation to refuse each consolidation, so the scheduler replanned the same work forever.
+- **Migration fails on an unreadable source**: A source Parquet file confirmed missing, or whose table or database has been dropped, is now recorded as a skip instead of failing the whole upgrade, and `system.upgrade_parquet` reports it as `skipped_source_missing` or `skipped_table_dropped`. Only confirmed-missing sources are skipped, so a transient `NotFound` stays retryable and a grouped job still converts its readable companions.
+- **Compaction and migration fail on stale gen1 references**: `leftover_gen1_files` references are now reconciled against the deletions that ingesters record in their snapshots, so a reference is dropped when its Parquet file is deleted regardless of retention configuration. Previously, references were pruned only against the current retention cutoff, so they accumulated indefinitely on a table with no retention period, and a storage engine upgrade then failed enumerating them.
+- **`Internal error` querying a last value or distinct value cache**: A query node now registers caches that were created on another node during startup, regardless of the cache's node spec. Previously, a cache present in the catalog but missing from a node's in-memory provider failed every query against it with `last cache crate is invalid` until the node was restarted.
+- **Duplicate rows from a replica snapshot handoff**: Each buffer on a node now has its chunks and Parquet files read under a single lock, and each replica advances the gen1 chunk order offset by its own chunk count. Previously, a snapshot handoff landing between the two read passes returned those rows twice, and on clusters with more than three replicas the old offset let local chunks reuse an order a replica had taken.
+- **Slow compaction catch-up behind a lagging node**: The compactor now accumulates the rerun signal across every node in a cycle. Previously it kept only the last node's value, so a caught-up node could end the cycle after a single snapshot and leave a lagging node advancing one snapshot per check interval until restart.
+- **Catalog checkpoint persistence failures for large payloads**: Catalog checkpoint and month-rollover writes now fall back to a multipart upload for oversized payloads. Previously, both used a single PUT, so a checkpoint merging a month of snapshots could exceed object storage's 5 GiB single-PUT limit and fail, silently losing the boot-time fast path.
+- **Warning flood during startup snapshot restore**: `removed_files` entries whose target database or table is no longer present are now reported in one aggregated warning per restore. Previously, each miss logged its own warning, which buried real startup errors and slowed restore.
+- Other bug fixes and performance improvements
+
+#### Breaking changes
+
+- **`--l1-hot-tail-target-size` is functional again**: The option (default `250mb`) caps live L1 tail rewrites during snapshot compaction, and a larger tail is handed to L1 consolidation to seal. It was previously accepted and ignored.
+- **`--l1-consolidation-min-age` and `--row-delete-max-jobs-per-tick` are now ignored**: L1 consolidation has no age gate, and row-delete work shares the weighted delete slot. Both options are still accepted.
+- **`--l1-consolidation-target-size` is now the established-L1 size boundary**: Consolidation consumes run sets at or below it, and promotion requires at least two L1 run sets larger than it. `--l1-consolidation-min-run-sets` and `--compactor-max-source-run-sets-per-promotion` now apply only to the legacy layout.
+- **`--replica-snapshot-manifest-load-concurrency` applies to both storage engines**: It now bounds the boot-time snapshot manifest load on the Parquet engine as well as the upgraded engine. When unset, each engine derives its own default.
+- **Compactor status log fields changed**: The `service_memory_*` fields are gone, and `pending_input_mb` is renamed to `charged_input_mb`.
+
+## v3.11.1 {date="2026-08-06"}
+
+### Core
+
+#### Bug fixes
+
+- **Panic on oversized duration values**: Time arithmetic now saturates at the minimum or maximum representable timestamp instead of panicking when a duration is too large to represent. Previously, an oversized user-supplied duration produced a panic and could put the server into a startup panic loop.
+- **Duplicate admin token registration**: The catalog now rejects registering a token whose hashed value already exists. Previously, the server registered the duplicate under a new ID.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Remove migrated Parquet data after a storage engine upgrade**: The new `influxdb3 manage cleanup-parquet` command and `/api/v3/enterprise/upgrade/parquet_cleanup` API permanently delete the pre-upgrade Parquet data and compactor metadata from object storage after a [storage engine upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet) completes. Use `--dry-run` to report what a cleanup would delete, and how much space it would reclaim, without deleting anything; `--wait` to poll until the cleanup completes; and `--status-only` to check the status of the current or most recent cleanup. The cleanup runs on the compactor node, resumes automatically after a restart, and reports progress in the new `system.upgrade_parquet_cleanup` system table. After a cleanup deletes data, [downgrading to Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#downgrade-to-parquet) is no longer possible.
+
+#### Bug fixes
+
+- **Data missing from queries during a storage engine upgrade**: While a cluster migrates from Parquet to the upgraded storage engine, hybrid queries now serve the migrating node's own not-yet-compacted gen1 data, and data imported during the migration is queryable in all-in-one mode. Previously, on a single-node cluster, rows that the Parquet compactor had not yet folded into compacted data were missing from query results for the duration of the migration.
+- **Compactor crash loop after primary re-election**: The catalog's subscription registry now reclaims a subscription slot whose receiver was dropped and skips closed subscribers when broadcasting updates, and compactor teardown now completes before the next term re-subscribes. Previously, a compactor primary re-election within one process could panic on the stale slot and crash-loop the node, and a lingering stale slot could fail an unrelated catalog update.
+- **Compactor retention sweep stalls (upgraded storage engine)**: The retention sweep now checks each run set's key span in memory, and remembers negative results, instead of re-reading every run-set index from object storage on every scheduler tick. Previously, one table with a short retention period alongside a large historical dataset could freeze compaction dispatch, completion handling, and status reporting for hours while the sweep serially re-read every index.
+- **Query node boot loop with a large snapshot backlog (upgraded storage engine)**: At startup, a query node now fetches peer snapshot manifests concurrently, bounded by `--replica-gen0-load-concurrency` (default `16`), and walks at most 10,000 manifests per node. If the cap is reached, the server logs an error noting that data in the skipped older snapshots stays unqueryable until compaction covers it. Previously, the walk fetched the entire backlog serially with no bound, so a large backlog behind a stalled compactor could run for hours, exhaust memory, and restart the node from zero in a permanent boot loop.
+- **Incorrect query results from out-of-order series scans (upgraded storage engine)**: A window scan that advertises series-key ordering now always merge-sorts its inputs. Previously, files could be chained together out of order while the query plan claimed sorted output, and downstream sort-merge operations silently produced incorrect results.
+- Other bug fixes and performance improvements
+
+## v3.11.0 {date="2026-07-30"}
+
+### Core
+
+#### Features
+
+- **Async trigger concurrency limit**: The new `--async-trigger-concurrency-limit`
+  option caps the number of concurrent invocations for an asynchronous
+  processing engine trigger. The default is unlimited.
+
+- **Processing engine retry behavior for asynchronous triggers**: When
+  `trigger_settings.run_async = true`, a failed trigger invocation now retries
+  up to 5 times before being discarded. Previously, failed invocations retried
+  indefinitely.
+
+- **WAL triggers skip empty flushes**: A WAL trigger no longer runs when the
+  WAL flush it would process is empty. Previously, the trigger ran on every
+  flush, including empty ones.
+
+- **Disabled trigger state persists across restarts**: When
+  `trigger_settings.error_behavior = disable` disables a trigger, the disabled
+  state now survives a server restart. Previously, a disabled trigger
+  re-enabled itself on restart.
+
+- **`--disable-package-management`**: Use this option to prevent the server
+  from creating or modifying a Python virtual environment or invoking `pip`.
+  Package-install API calls are rejected while it's set.
+
+- **Virtual `event_time` column on `system.processing_engine_logs`**: Queries
+  that reference the former `event_time` column continue to work after the
+  column was renamed to `time`.
+
+- **`--shutdown-timeout` graceful shutdown bound**: This new option (default
+  `30s`) caps how long the server waits for active connections to drain during
+  shutdown before forcibly closing them. Set it to `0s` to skip the drain.
+
+#### Bug fixes
+
+- **cgroup-aware resource sizing**: Containerized deployments now size
+  memory-based defaults against the container's cgroup limits instead of the
+  host machine's total resources.
+
+#### Breaking changes
+
+
+- **Size options require an explicit unit**: Options that accept a size value
+  (for example, `--exec-mem-pool-size` and `--file-cache-size`) now reject a
+  bare number. Append a unit suffix (`b`, `kb`, `mb`, `gb`, `tb`) or, where
+  noted, a percentage (for example, `20%`). This avoids a silent change in
+  meaning — historically, a bare number meant megabytes for some options and
+  bytes for others.
+
+- **Three memory and cache options renamed, with a deprecated alias**:
+  `--exec-mem-pool-bytes` is now `--exec-mem-pool-size`,
+  `--parquet-mem-cache-size` is now `--file-cache-size`, and
+  `--force-snapshot-mem-threshold` is now `--force-snapshot-mem-size`
+  (`--parquet-mem-cache-query-path-duration` is now `--file-cache-recency`,
+  and `--disable-parquet-mem-cache` is now `--disable-file-cache`). The
+  deprecated old names, and their environment variables, still work and
+  still accept a bare number as megabytes — their pre-3.11 meaning — but log
+  a startup deprecation warning.
+
+- **`--max-http-request-size` keeps its name and its pre-3.11 meaning**: A
+  bare number is still accepted as bytes, but now logs a startup warning.
+  Prefer an explicit unit suffix, for example `10mb`.
+
+- **`--query-log-size` renamed to `--query-log-max-entries`**, with the old
+  name and its environment variable kept as a deprecated, backward-compatible
+  alias.
+
+- **Other options and environment variables renamed, with a deprecated
+  alias**: legacy names still work and log a startup deprecation warning; if
+  both the old and new name are set with different values, the new name
+  wins.
+
+  | Old | New |
+  | :---- | :---- |
+  | `--disable-parquet-mem-cache`, `--disable-data-file-cache` | `--disable-file-cache` |
+  | `--wal-max-write-buffer-size` | `--wal-max-buffered-writes` |
+  | `--wal-snapshot-size` | `--wal-files-per-snapshot` |
+  | `INFLUXDB3_DB_DIR` | `INFLUXDB3_DATA_DIR` |
+  | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` | `INFLUXDB3_NODE_ID` |
+  | `INFLUXDB3_NODE_IDENTIFIER_FROM_ENV` | `INFLUXDB3_NODE_ID_FROM_ENV` |
+  | `INFLUXDB3_NUM_WAL_FILES_TO_KEEP` | `INFLUXDB3_SNAPSHOTTED_WAL_FILES_TO_KEEP` |
+  | `INFLUXDB3_START_WITHOUT_AUTH` | `INFLUXDB3_WITHOUT_AUTH` |
+  | `INFLUXDB3_TCP_LISTINER_FILE_PATH` (misspelling) | `INFLUXDB3_TCP_LISTENER_FILE_PATH` |
+  | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` | `INFLUXDB3_DISABLE_TELEMETRY_UPLOAD` |
+
+  <!-- Internal engineering notes also listed `TOKIO_CONSOLE_*` →
+  `INFLUXDB3_TOKIO_CONSOLE_*`, but that rename doesn't appear anywhere in
+  the current config-options reference — confirm with engineering before
+  adding it back. -->
+
+  These renames apply to both Core and Enterprise. For the separate
+  Enterprise-only `INFLUXDB3_ENTERPRISE_*` → `INFLUXDB3_*` environment
+  variable renames, see Enterprise breaking changes below.
+
+- **Duplicate tag keys are rejected at write time**: A point that repeats a
+  tag key (for example, `m,t=a,t=a f=1i`) is now rejected with a clear error,
+  the same way duplicate field keys are. <!-- NEEDS VERIFICATION: this fix
+  already shipped in v3.9.8 / v3.10.3 below — confirm with engineering whether
+  3.11 changes anything further here, or drop this bullet as a duplicate. -->
+
+- **`/api/v2/write` returns 503 instead of 400 when the node is stopped**:
+  Clients that key retry logic off the status code now correctly treat this
+  response as retryable.
+
+- **`--hard-delete-default-duration` is confirmed to have no effect**: This
+  option has never affected hard-delete behavior in any release — the server
+  always uses its built-in default duration. The option is still accepted so
+  existing configurations keep starting, but the server now logs a startup
+  warning recommending you remove it.
+
+- **`--object-store-cache-endpoint` removed**: This option was parsed but
+  consumed by dead code and never had an effect. The flag now fails to
+  parse at startup, and the `INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT` /
+  `OBJECT_STORE_CACHE_ENDPOINT` environment variables are ignored. Remove
+  it from your configuration.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **The upgraded storage engine is now the default**: New clusters are
+  created on the upgraded storage engine with no opt-in flag required. The
+  engine is resolved from the catalog's persisted storage mode, not from a
+  flag:
+  - A brand new cluster is stamped for the upgraded storage engine at catalog
+    creation. There's no user-facing opt-out.
+  - An existing Parquet cluster keeps running Parquet after the binary
+    upgrade. The persisted mode wins on load.
+  - To migrate an existing Parquet cluster, pass `--upgrade-pacha-tree`
+    (environment variable `INFLUXDB3_UPGRADE_PACHA_TREE`). This moves the
+    catalog into a hybrid Parquet-and-upgraded-storage-engine mode and starts
+    the migration. A catalog in the upgraded or migrating mode always runs
+    the upgraded storage engine from then on.
+
+  `--use-pacha-tree` still works and keeps its historical migration-starting
+  semantics, but is deprecated and logs a warning at startup. Core remains
+  Parquet-only.
+
+- **Compaction throughput improvements (upgraded storage engine)**: Time-disjoint two-level
+  compaction and overlapping-L1 leading-edge parallelism are now the default.
+  Previously, all leading-edge ingest funneled through a single hot-tail L1
+  run set. This capped leading-edge throughput at one in-flight compaction
+  job.
+
+  In 3.11, several concurrent L1 compaction jobs can serve the leading edge
+  and any heavily-written range. This decouples ingest throughput from
+  compactor reconciliation.
+
+  New windows and shards use the time-disjoint layout. Existing checkpoints
+  keep their recorded layout until you upgrade them.
+
+- **Integrated Explorer**: The InfluxDB 3 Web UI (Explorer) now ships inside
+  the Enterprise binary as a WebAssembly guest, hosted in-process behind a WASI
+  sandbox. Enable it with `--mode all,webui`. The Web UI is **not** included in
+  plain `--mode all`, and a session secret is mandatory when `webui` mode is
+  enabled:
+
+  ```shell
+  mkdir -p ./plugins
+  influxdb3 serve \
+    --cluster-id cluster0 \
+    --node-id node0 \
+    --mode all,webui \
+    --plugin-dir ./plugins \
+    --webui-session-secret "$(openssl rand -base64 24)"
+  ```
+
+  You configure a connection to your local server (for example,
+  `http://localhost:8181`), the same way you connect to a database server
+  from the standalone Docker Explorer.
+  <!-- NEEDS VERIFICATION: per user note, this connection setup lands with
+  pending PRs still in progress as of this draft — confirm the exact steps
+  and whether an operator token is required before publishing. --> It keeps
+  a SQLite database that's automatically synchronized to object storage per
+  cluster. AI chat is included and can point at any OpenAI-compatible
+  endpoint with `--webui-openai-base-url`.
+
+  For setup steps, see
+  [Use the integrated InfluxDB 3 Explorer UI](/influxdb3/enterprise/visualize-data/explorer/).
+
+- **Thread defaults scale with your license on the upgraded storage engine**:
+  On clusters running the upgraded storage engine (the default for new
+  clusters), `--num-io-threads` and the DataFusion thread pool each default to
+  your licensed core count, instead of the flat defaults used on
+  Parquet-engine clusters. `--num-cores` validation runs after the server
+  resolves the active storage engine, since the upgraded engine can license
+  more cores than a Parquet-engine cluster does. A thread count set above the
+  licensed core count is capped with a startup warning instead of rejected.
+
+- **Incremental backups**: Backup is no longer full-only. Each incremental
+  backup names a parent, and restoring an incremental walks the manifest chain
+  to produce a full restore. Deleting an incremental also deletes every child
+  that depends on it.
+
+  ```shell
+  influxdb3 create backup --name base --token $ADMIN_TOKEN
+  influxdb3 create backup --name inc-1 --incremental --parent base --token $ADMIN_TOKEN
+  influxdb3 create restore --backup inc-1 --token $ADMIN_TOKEN
+  ```
+
+- **Restore is now a point-in-time rollback**: Restore was previously
+  additive. It's now destructive: it truncates the WAL above the backup's
+  watermark so a restart doesn't replay and resurrect post-backup data.
+
+- **In-place restore without a restart**: Restore can now apply to a running
+  cluster. Supporting work includes gen0 buffer eviction, fencing peer writes
+  on ingest-mode nodes during the restore, and evicting the query-node replica
+  buffer so queriers stop serving the pre-restore view.
+
+- **Query performance (upgraded storage engine)**: `PachaTreeWindowExec` and
+  `PachaTreeBufferExec` are now the default plan shape, giving visibility
+  through `EXPLAIN` and `EXPLAIN ANALYZE`. Field family pruning skips loading
+  field families that filters guarantee can't affect the result. Scan
+  predicate pushdown now extends across single-field-family scans, the union
+  path, dedup and gap-leaf scans, and time predicates.
+
+- **Bulk import: remote sources and concurrency**: `influxdb3 import upload`
+  now accepts an object store URL as a source, in addition to a local
+  directory, and a `--concurrency` option to control how many files import at
+  once (default 8).
+
+  ```shell
+  influxdb3 import upload --database mydb --table events \
+    s3://my-bucket/exports/ \
+    --source-opt aws_region=us-west-2 \
+    --concurrency 16
+  ```
+
+- **Five new system tables (upgraded storage engine)**: `system.pt_shards`,
+  `system.pt_compaction_files`, `system.pt_storage_snapshots`,
+  `system.pt_storage_checkpoints`, and `system.pt_storage_run_set_indexes`.
+  `pt_ingest_wal` and `pt_ingest_files` gained `node_id` and `node_name`
+  columns.
+
+- **`--user-auth-type` replaces `--without-user-auth`**: Configure the user
+  authentication preview with a comma-separated list of `basic` and/or
+  `oauth`, or `none` (the default). `--without-user-auth` is deprecated and
+  hidden, but still takes precedence when explicitly set.
+
+- **Query group CLI commands (not yet operational)**: `influxdb3 create
+  query_group`, `influxdb3 show query_groups`, `influxdb3 update
+  query_group`, and `influxdb3 delete query_group` store query group
+  definitions in the catalog, but the server doesn't yet use those
+  definitions to affect query routing, data placement, or replication.
+  Creating a query group currently has no effect on query node behavior.
+
+#### Bug fixes
+
+- **Bulk import data loss window (checkpoint v13)**: Import watermarks are now
+  embedded in the checkpoint itself, preventing data loss during a crash
+  window.
+
+- **In-place restore stability**: Release-candidate validation found that live
+  in-place restore could wedge queriers until restart, and that writing after
+  a restore could trigger ID-recycling corruption. Both are fixed in this
+  release.
+
+#### Breaking changes
+
+- **Upgraded storage engine options dropped the `pt-` prefix, with no
+  aliases**: An old `--pt-*` flag now causes a startup error, and legacy
+  `INFLUXDB3_PT_*` and `INFLUXDB3_ENTERPRISE_PT_*` environment variables are
+  ignored — startup logs a warning for each one that's still set. Review any
+  saved command line, systemd unit, Docker Compose file, Helm chart, or
+  packaged conf file before upgrading.
+
+  Any `--pt-*` option not listed below simply drops the `pt-` prefix, and its
+  environment variable follows the same pattern (`INFLUXDB3_PT_SNAPSHOT_SIZE`
+  becomes `INFLUXDB3_SNAPSHOT_SIZE`). The following options changed beyond
+  dropping the `pt-` prefix:
+
+  | Old name | New name |
+  | :---- | :---- |
+  | `--pt-max-columns` | `--max-total-columns` |
+  | `--pt-gen0-max-bytes-per-file` | `--gen0-max-file-size` |
+  | `--pt-wal-replica-queue-size` | `--wal-replica-queue-length` |
+  | `--pt-wal-max-buffer-size` | `--wal-buffer-size` |
+
+  Every remaining upgraded-storage-engine byte-size flag ending in `-bytes`
+  now ends in `-size` (the L1 through L4 tail and target-file flags).
+
+  A few `--pt-*` flags map onto flag names shared with the Parquet engine,
+  rather than getting their own new name — `--pt-wal-flush-interval` is now
+  `--wal-flush-interval`, `--pt-wal-replication-interval` is now
+  `--replication-interval`, `--pt-file-cache-size` is now `--file-cache-size`,
+  `--pt-file-cache-recency` is now `--file-cache-recency`, and
+  `--pt-disable-data-file-cache` is now `--disable-file-cache`.
+  `--file-cache-size` is a total budget shared across both engines: during a
+  storage engine upgrade with hybrid query enabled, the budget splits 50/50
+  between the two engine caches; otherwise the active engine gets the full
+  budget.
+
+  The upgraded storage engine's flags no longer require `--use-pacha-tree`:
+  in 3.10.x a `--pt-*` flag without `--use-pacha-tree` was a parse error, but
+  with the upgraded storage engine as the default that constraint is gone.
+
+  For the complete old-to-new name table, see
+  [Migrate from `pt-` option names](/influxdb3/enterprise/performance-preview/configure/#migrate-from-pt-option-names).
+
+- **`INFLUXDB3_ENTERPRISE_*` environment variables become plain
+  `INFLUXDB3_*`**: 35 Enterprise-specific environment variables dropped the
+  `ENTERPRISE_` segment — for example, `INFLUXDB3_ENTERPRISE_CLUSTER_ID` is
+  now `INFLUXDB3_CLUSTER_ID`, and `INFLUXDB3_ENTERPRISE_MODE` is now
+  `INFLUXDB3_MODE`. The legacy `ENTERPRISE_` names remain supported as
+  deprecated aliases; the server logs a deprecation warning at startup when
+  it detects one, and if both names are set with different values, the new
+  name wins.
+
+- **`--wait-for-running-ingestor` renamed to `--wait-for-running-ingester`**
+  (the old name was a misspelling). The old option, and its
+  `INFLUXDB3_WAIT_FOR_RUNNING_INGESTOR` /
+  `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` environment variables,
+  remain as deprecated, backward-compatible aliases.
+
+- **Metrics lost their per-database `db` label**: This breaks any dashboard or
+  alert that groups by database. Affected series include
+  `influxdb3_write_lines`, `influxdb3_write_lines_rejected`,
+  `influxdb3_write_bytes`, `influxdb3_compactions`,
+  `influxdb3_last_values_cache_query_duration`, and the upgraded-storage-engine
+  `influxdb3_ingest_*` family (`lp_bytes_received`, `pre_snapshot_buffer_*`,
+  `pre_wal_flush_buffer_*`, `write_concurrency`).
+
+- **`influxdb3 stop node` waits by default**: Previously, the server marked
+  the node stopping and returned immediately, but the CLI claimed the node
+  "has been stopped." The CLI now polls until the node reads `stopped`.
+  `--timeout` bounds the wait (default 5m), and `--no-wait` restores the old
+  fire-and-forget behavior. On timeout, it prints the last observed state and
+  recovery guidance, then exits non-zero.
+
+- **Parquet-only catalog limits are inert on the upgraded storage engine**: If
+  `--num-database-limit`, `--num-table-limit`, or
+  `--num-total-columns-per-table-limit` is set on a cluster running the
+  upgraded storage engine, startup now warns that they're ignored instead of
+  hard-failing, since existing manifests carry them across the storage engine
+  upgrade. Only the per-table column limit has an upgraded-engine counterpart
+  (`--max-total-columns`).
+
+- **Four inert Enterprise options removed**: `--database-split-level`,
+  `--table-split-level`, `--max-compact-destination`, and
+  `--pt-enable-row-deletes` were parsed but never read; they are removed.
+  The flags now fail to parse at startup and their environment variables
+  are ignored. Remove them from your configuration.
+
+## v3.10.5 {date="2026-07-20"}
+
+### Core
+
+#### Bug fixes
+
+- **Oversized buffer chunk persistence**: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+
+## v3.9.11 {date="2026-07-20"}
+
+### Core
+
+#### Bug fixes
+
+- **Oversized buffer chunk persistence**: When a buffer chunk splits because a single string or tag column exceeds 2 GiB, each resulting chunk now persists to its own Parquet file. Previously, the split chunks all wrote to the same path.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
+## v3.10.4 {date="2026-07-14"}
+
+<!-- Uncomment once Core v3.10.4 is released
+### Core
+
+Maintenance release: v3.10.4 Core includes only build and dependency updates—no user-facing changes.
+-->
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Skip loading the compacted data file index**: The new `--compacted-data-skip-file-index` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` environment variable, default `false`) loads compacted data without materializing the file index, letting nodes start when the index has grown too large to fit in host memory. Queries remain correct, but will run slower in exchange for a lower memory footprint.
+
+#### Bug fixes
+
+- **Skipped gen1 files in recompaction plans**: Gen1 files pulled into a recompaction plan that was skipped for exceeding the file limit are now carried into later plans' leftover lists. Previously, when the recompaction loop produced multiple plans for one table in a single cycle, those files were dropped from the final persisted compaction detail; the files remained in object storage, but no query path would serve them.
+- Other bug fixes and performance improvements
+
+## v3.9.10 {date="2026-07-14"}
+
+### Core
+
+Maintenance release: v3.9.10 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Skipped gen1 files in recompaction plans**: Gen1 files pulled into a recompaction plan that was skipped for exceeding the file limit are now carried into later plans' leftover lists. Previously, when the recompaction loop produced multiple plans for one table in a single cycle, those files were dropped from the final persisted compaction detail; the files remained in object storage, but no query path would serve them.
+- Other bug fixes and performance improvements
+
+## v3.9.9 {date="2026-07-08"}
+
+### Core
+
+#### Bug fixes
+
+- **Object store errors at startup**: When the catalog checkpoint existence check fails at startup, the underlying object store error is now logged and included in the reported error. Previously, the process exited with an opaque status code and no indication of the cause.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Skip loading the compacted data file index**: The new `--compacted-data-skip-file-index` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_SKIP_FILE_INDEX` environment variable, default `false`) loads compacted data without materializing the file index, letting nodes start when the index has grown too large to fit in host memory. Queries remain correct, but will run slower in exchange for a lower memory footprint.
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
+## v3.10.3 {date="2026-07-07"}
+
+### Core
+
+#### Bug fixes
+
+- **Duplicate tag key rejection**: Writes that repeat a tag key (for example, `m,t=a,t=a f=1i`) are now rejected with a clear error, the same way duplicate field keys are rejected. Previously, a point with a repeated tag key was accepted into the WAL and later caused a panic during snapshotting that crash-looped the node on WAL replay.
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run in Core, extending the Enterprise fix from v3.10.2. Previously, a synchronous scheduled trigger whose plugin run was still executing could block trigger `disable` and `delete --force` operations until the run finished.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Compacted data load concurrency limit**: The new `--compacted-data-load-concurrency-limit` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` environment variable, default `20`) bounds concurrent object store reads when a node loads compacted data at startup. Previously, nodes with large compaction indexes issued unbounded concurrent reads at startup, which could saturate the network, cause object store timeouts, and starve other subsystems of object store connections.
+
+#### Bug fixes
+
+- **Corrupt peer WAL and snapshot handling**: A durably corrupt WAL or snapshot file from a peer node is now logged, counted, and skipped so replication continues with later files. Previously, a corrupt peer WAL file stalled replication from that node—or prevented server startup—and a corrupt snapshot manifest silently halted snapshot replication from that peer. Transient errors, such as network failures, still retry as before.
+- Other bug fixes and performance improvements
+
+## v3.9.8 {date="2026-07-07"}
+
+### Core
+
+#### Bug fixes
+
+- **Duplicate tag key rejection**: Writes that repeat a tag key (for example, `m,t=a,t=a f=1i`) are now rejected with a clear error, the same way duplicate field keys are rejected. Previously, a point with a repeated tag key was accepted into the WAL and later caused a panic during snapshotting that crash-looped the node on WAL replay.
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run in Core, extending the Enterprise fix from v3.9.7. Previously, a synchronous scheduled trigger (the default, created without `--run-asynchronous`) whose plugin run was still executing could block trigger `disable`, `delete --force`, and database deletion until the run finished.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Compacted data load concurrency limit**: The new `--compacted-data-load-concurrency-limit` option (`INFLUXDB3_ENTERPRISE_COMPACTED_DATA_LOAD_CONCURRENCY_LIMIT` environment variable, default `20`) bounds concurrent object store reads when a node loads compacted data at startup. Previously, nodes with large compaction indexes issued unbounded concurrent reads at startup, which could saturate the network, cause object store timeouts, and starve other subsystems of object store connections.
+
+#### Bug fixes
+
+- Other bug fixes and performance improvements
+
+## v3.10.2 {date="2026-06-30"}
+
+### Core
+
+Maintenance release: v3.10.2 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run. Previously, a synchronous scheduled trigger whose plugin run was still executing could block trigger `disable` and `delete --force` operations until the run finished.
+- Other bug fixes and performance improvements
+
+## v3.9.7 {date="2026-06-30"}
+
+### Core
+
+Maintenance release: v3.9.7 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Processing engine trigger cancellation**: Disabling or deleting a trigger now cancels its in-flight plugin run promptly. Previously, a synchronous scheduled trigger (the default, created without `--run-asynchronous`) whose plugin run was still executing could block trigger `disable`, `delete --force`, and even unrelated `create` operations until the run finished.
+- Other bug fixes and performance improvements
 
 ## v3.10.1 {date="2026-06-25"}
 
@@ -68,11 +941,33 @@ All Core updates are included in Enterprise.
 
 ## v3.10.0 {date="2026-06-17"}
 
+> [!Important]
+> #### Upgrading to InfluxDB 3.10 is a one-way migration
+>
+> The first time you start InfluxDB 3.10, it automatically upgrades the on-disk
+> catalog format from v2 to v3. After migration, 3.9.x and older
+> binaries are unable to read the new catalog, and fail to start on the same
+> cluster data.
+>
+> Before upgrading, back up your current catalog. The paths depend on the version
+> you're upgrading from:
+>
+> - **3.4.0 or later**: `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot`
+> - **Before 3.4.0**: `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`
+>
+> Restoring these objects is the only way to roll back to 3.9.x.
+>
+> On a cluster running 3.4.0 or later, `{prefix}/catalogs/` and
+> `{prefix}/_catalog_checkpoint` may still be present as leftovers from an earlier
+> catalog format. They aren't current and aren't a valid rollback source.
+>
+> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+
 ### Core
 
 #### Features
 
-- **Catalog format upgrade (catalog v2 → v3)**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. **Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.**
+- **Catalog format upgrade (catalog v2 → v3)**: InfluxDB 3.10 automatically migrates the on-disk catalog to v3 format on first startup. The v3 catalog uses a compact binary record format (~5–6x smaller than v2). Migration is automatic, idempotent, and crash-safe. **Back up your current catalog before upgrading — the migration is one-way and 3.9.x binaries cannot read a v3 catalog.** If you're upgrading from 3.4.0 or later, back up `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot`. If you're upgrading from a version before 3.4.0, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
 
 - **`influxdb3 debug catalog` command**: Inspect catalog state offline directly from object storage — no running server required. Subcommands: `list`, `snapshot`, `sequence`. Available in both Core and Enterprise.
 
@@ -81,8 +976,6 @@ All Core updates are included in Enterprise.
 - **Processing engine: cross-database queries**: Plugins can now read data from any database using the optional `database=` keyword argument on `influxdb3_local.query()`.
 
 - **Processing engine: trigger lockdown flags**: Two new serve flags restrict plugin behavior. `--restrict-plugin-triggers-to` limits triggers to one or more of `wal`, `schedule`, or `request`. `--plugin-dir-only` (Enterprise) blocks plugin installation from any source other than the configured plugin directory.
-
-- **`GET /ready` endpoint**: Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems.
 
 - **Observability: always-on heap profiling**: Heap profiling is now enabled at startup with negligible overhead (~<1% CPU). Access profiles at the existing pprof endpoint. To disable, set `MALLOC_CONF=prof:false` before starting the server.
 
@@ -102,7 +995,7 @@ All Core updates are included in Enterprise.
 
 #### Breaking changes
 
-- **Catalog format upgrade (catalog v2 → v3) is one-way**: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` before upgrading.
+- **Catalog format upgrade (catalog v2 → v3) is one-way**: The first startup of InfluxDB 3.10 migrates the catalog to v3. After migration, 3.9.x binaries cannot start against the same object store. Back up your current catalog before upgrading: `{prefix}/catalog/v2/logs/` and `{prefix}/catalog/v2/snapshot` if you're upgrading from 3.4.0 or later, or `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint` if you're upgrading from an earlier version.
 
 - **`influxdb3 write` output changed**: The write command now prints a throughput report on success instead of printing `success`. Scripts that parse the previous output should use `--quiet` (`-q`) to suppress all output.
 
@@ -127,6 +1020,8 @@ All Core updates are included in Enterprise. The following updates are exclusive
 - **Row-level deletion**: Delete rows by time range and tag predicates using `influxdb3 delete rows` and `influxdb3 cancel row-delete`. Deletion is asynchronous — requests persist to object storage and the compactor applies them when rewriting run sets. Requires `--use-pacha-tree`. Monitor pending deletes with the `system.row_deletes` system table and 9 new `influxdb3_compactor_row_delete_*` metrics.
 
 - **Runtime query-concurrency limit**: Adjust the maximum number of concurrent queries at runtime via the `/api/v3/configure/query_concurrency_limit` API — `GET` to read the current limit, `PUT` to set it, and `DELETE` to reset it to the startup default.
+
+- **`GET /ready` endpoint**: Returns `200 OK` when the server can reach object storage, or `503 Service Unavailable` when it cannot. Use this endpoint for readiness probes in load balancers and orchestration systems.
 
 - **Backup and restore**: Create and manage full backups of Enterprise data with `influxdb3 create backup`, `influxdb3 status backup`, `influxdb3 show backups`, `influxdb3 delete backup`, and `influxdb3 cancel backup`. Initiate restore operations with `influxdb3 create restore`, `influxdb3 status restore`, `influxdb3 show restores`, and `influxdb3 cancel restore`. Backup and restore require `--use-pacha-tree` and a compactor node with an admin token. `create backup` refuses to overwrite an existing backup. Only one restore runs at a time across the cluster. After a restore completes, restart the node(s) for the in-memory view to update. API: `POST|GET|DELETE /api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]`.
 

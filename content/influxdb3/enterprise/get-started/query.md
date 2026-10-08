@@ -16,6 +16,7 @@ related:
   - https://datafusion.apache.org/user-guide/sql/index.html, Apache DataFusion SQL reference
   - /influxdb3/enterprise/reference/influxql/
 source: /shared/influxdb3-get-started/query.md
+canonical: self
 ---
 
 <!-- 

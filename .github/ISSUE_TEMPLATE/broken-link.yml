@@ -1,0 +1,45 @@
+name: Broken link
+description: Report a broken link found in the InfluxData documentation.
+title: "Broken link: [URL]"
+labels:
+  - area:links
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## About this template
+
+        Report a broken link so it can be tracked and fixed. Open issues with
+        this label are matched by the PR link checker: a broken URL that
+        appears in an open `area:links` issue is downgraded to a warning so
+        it stops blocking unrelated pull requests.
+
+  - type: input
+    id: broken-url
+    attributes:
+      label: Broken URL
+      description: The exact URL that is broken (include scheme for external links).
+      placeholder: "https://example.com/page or /influxdb3/core/missing-page/"
+    validations:
+      required: true
+
+  - type: textarea
+    id: source-pages
+    attributes:
+      label: Source page(s) or content file(s)
+      description: Where the broken link appears (content/ paths or published URLs).
+      placeholder: |
+        - content/influxdb3/core/get-started/_index.md
+
+  - type: input
+    id: error-status
+    attributes:
+      label: Error or status
+      placeholder: "e.g. 404 Not Found, Cannot find file, Timeout"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: How the link was found and anything useful for fixing it.
+      placeholder: "Found by link-checker on PR #1234"

@@ -26,7 +26,7 @@ token's detail view or the tokens list.
 
 1.  In {{% product-name %}}, navigate to the **API Tokens** page or open the
     detail page for the token you want to reassign.
-2.  Click **Reassign** on the token you want to transfer. If on the token detail
+2.  Click **{{% lucide "user-plus" %}} Reassign** on the token you want to transfer. If on the token detail
     page, select the **Manage** tab to reveal the **Reassign** action.
 3.  In the dialog that appears, select the target user you want to assign the
     token to.
@@ -43,7 +43,7 @@ If you need to reassign multiple tokens at once, use the bulk reassign option.
 
 1.  On the **API Tokens** page, select the checkboxes next to the tokens you want
     to reassign.
-2.  Click the **Reassign** option in the bulk actions bar.
+2.  Click the **{{% lucide "user-plus" %}} Reassign** option in the bulk actions bar.
 3.  Select the target user you want to assign the selected tokens to.
 4.  Click **Confirm** to reassign all selected tokens.
 

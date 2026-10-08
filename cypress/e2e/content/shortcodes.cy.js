@@ -392,6 +392,40 @@ describe('Cascade product shortcodes', function () {
         }
       });
 
+      it('renders show-in/hide-in for product/version composite identifiers, bare product identifiers, and whitespace-trimmed lists (v1 editions only)', function () {
+        if (
+          (key === 'influxdb' && version === 'v1') ||
+          key === 'enterprise_influxdb'
+        ) {
+          cy.get('[data-testid="show-in-composite-self"]').should(
+            'contain.text',
+            'VISIBLE'
+          );
+          cy.get('[data-testid="show-in-composite-other"]').should(
+            'not.contain.text',
+            'VISIBLE'
+          );
+          cy.get('[data-testid="hide-in-composite-self"]').should(
+            'not.contain.text',
+            'HIDDEN'
+          );
+          cy.get('[data-testid="hide-in-composite-other"]').should(
+            'contain.text',
+            'HIDDEN'
+          );
+          cy.get('[data-testid="show-in-product"]').should(
+            'contain.text',
+            'VISIBLE'
+          );
+          cy.get('[data-testid="show-in-spaced"]').should(
+            'contain.text',
+            'VISIBLE'
+          );
+        } else {
+          this.skip();
+        }
+      });
+
       // ────────────────────────────────────────────
       // Category F: Link field (cta-link)
       // ────────────────────────────────────────────

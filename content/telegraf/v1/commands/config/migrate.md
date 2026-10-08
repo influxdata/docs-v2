@@ -20,11 +20,10 @@ location of the source configuration files.
 If migrating remote configurations, the migrated configuration is stored in the
 current directory using the URL as the filename with a `.migrated` suffix.
 
-{{% warn %}}
-#### Test migrated configuration files
-
-We strongly recommend testing migrated configuration files before using them in production.
-{{% /warn %}}
+> [!Warning]
+> #### Test migrated configuration files
+>
+> We strongly recommend testing migrated configuration files before using them in production.
 
 ## Usage
 

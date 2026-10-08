@@ -11,6 +11,8 @@ menu:
     parent: Administer InfluxDB
 weight: 110
 influxdb3/enterprise/tags: [query, api, system information, schemas]
+aliases:
+  - /influxdb3/enterprise/performance-preview/monitor/
 related:
   - /influxdb3/enterprise/query-data/sql/
   - /influxdb3/enterprise/query-data/execute-queries/

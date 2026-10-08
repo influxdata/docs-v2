@@ -11,6 +11,76 @@ alt_links:
   v1: /influxdb/v1/about_the_project/release-notes/
 ---
 
+<span id="v1.13.x"></span>
+
+## v1.13.0 {date="2026-08-20"}
+
+> [!Important]
+> #### v1.13.0 has been withdrawn
+>
+> InfluxDB Enterprise v1.13.0 has been withdrawn.
+> The current InfluxDB Enterprise v1 release is [v1.12.4](#v1124).
+> This entry remains so the version history stays complete.
+> The release details and the documentation for v1.13.0 features are withheld
+> until those features ship in a later release.
+
+<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
+     this entry's details when Enterprise v1.13.x ships, and remove the
+     withdrawal callout above.
+
+> [!Note]
+> #### InfluxDB OSS and Enterprise v1 relationship
+>
+> InfluxDB Enterprise v1 is a superset of InfluxDB OSS v1. All updates in the
+> [OSS v1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130)
+> are included in this release. This page lists Enterprise-specific updates
+> only.
+
+> [!Important]
+> #### Default replication factor changed to 2
+>
+> Starting in v1.13.0, InfluxDB Enterprise uses a default replication factor
+> of `2` (previously `3`) when you create a database or retention policy
+> without an explicit `REPLICATION` value. This matches InfluxData's
+> recommendation for clusters with two or more data nodes. Existing
+> databases and retention policies aren't affected. To keep the previous
+> default, specify `REPLICATION 3` explicitly when you create a database or
+> retention policy.
+
+### Features
+
+- Add mTLS support to Enterprise data and meta nodes, including certificate
+  reload on `SIGHUP` and TLS configuration integrated into `influxd-ctl` and
+  other CLI commands. For setup steps, see
+  [Enable mTLS](/enterprise_influxdb/v1/administration/configure/security/enable_tls/).
+- Add an `influx-meta cleanup-shards` command that removes shards with no
+  owners and shard groups with no shards from a live cluster.
+- Add a
+  [`-timeout <duration>`](/enterprise_influxdb/v1/tools/influxd-ctl/#override-the-default-timeout)
+  flag to `influxd-ctl` that applies to any command that uses the control
+  client, including `add-data`.
+- `influxd-ctl backup` now avoids data nodes with no shard data and prefers
+  the most recently written shard copy when
+  [selecting a source](/enterprise_influxdb/v1/tools/influxd-ctl/backup/#node-selection).
+
+### Bug Fixes
+
+- Fixed deadlocks in the meta store, including one on raft listener close.
+- Fixed read timeouts while waiting for RPC connection reuse.
+
+All OSS v1.13.0 updates, including the
+[adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1130)
+and the TSM file-store lock fix, apply to Enterprise v1.13.0 too.
+-->
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4 or later
+>
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
+> recommend [upgrading to 1.12.4 or later](/enterprise_influxdb/v1/administration/upgrading/).
+
+---
+
 <span id="v1.12.x"></span>
 
 ## v1.12.4 {date="2026-04-13"}
@@ -22,10 +92,10 @@ alt_links:
   This was a regression introduced in v1.12.3. The fix restores the original locking behavior.
 
 > [!Important]
-> #### We strongly recommend upgrading to v1.12.4
+> #### We strongly recommend upgrading to v1.12.4 or later
 >
 > If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
-> recommend [upgrading to 1.12.4](/enterprise_influxdb/v1/administration/upgrading/).
+> recommend [upgrading to 1.12.4 or later](/enterprise_influxdb/v1/administration/upgrading/).
 
 ---
 
@@ -35,10 +105,10 @@ InfluxDB Enterprise 1.12.3 delivers substantial efficiency gains in CPU, memory,
 and I/O usage, particularly in high-cardinality and large-scale environments.
 
 > [!Important]
-> #### We strongly recommend upgrading to v1.12.4
+> #### We strongly recommend upgrading to v1.12.4 or later
 >
 > If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
-> recommend [upgrading to 1.12.4](/enterprise_influxdb/v1/administration/upgrading/).
+> recommend [upgrading to 1.12.4 or later](/enterprise_influxdb/v1/administration/upgrading/).
 
 Highlights include:
 
@@ -1198,7 +1268,7 @@ The following summarizes the expected settings for proper configuration of JWT a
 
 > [!Note]
 > To provide encrypted internode communication, you must enable HTTPS. Although
-> the JWT signature is encrypted, the the payload of a JWT token is encoded, but
+> the JWT signature is encrypted, the payload of a JWT token is encoded, but
 > is not encrypted.
 
 ### Bug fixes

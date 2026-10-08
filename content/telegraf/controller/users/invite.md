@@ -21,7 +21,7 @@ immediately active.
 ## Create an invite
 
 1. Navigate to the **Users** page.
-2. Click the {{% icon "plus" %}} **Invite User** button.
+2. Click the {{% lucide "plus" %}} **Invite User** button.
 3. Select an **Authentication provider** for the new user. The selector
    appears only when more than one provider is enabled. Default is
    **Local**. See
@@ -106,7 +106,7 @@ To revoke a pending invite before it is used:
 
 1. Navigate to the **Users** page.
 2. Locate the pending invite you want to remove.
-3. Click the **Delete** button next to the invite.
+3. Click the **{{% lucide "trash-2" %}} Delete** button next to the invite.
 4. Confirm the deletion when prompted.
 
 Deleting a pending invite invalidates the invite link. The invited user can no

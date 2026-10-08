@@ -14,6 +14,7 @@ related:
   - /influxdb3/enterprise/write-data/
   - /influxdb3/enterprise/query-data/
 source: /shared/influxdb3-get-started/_index.md
+canonical: self
 ---
 
 <!-- 

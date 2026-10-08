@@ -1,5 +1,41 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v0.21.0 {date="2026-08-27"}
+
+### Bug Fixes
+
+1. [#234](https://github.com/InfluxCommunity/influxdb3-python/pull/234): Add support for connecting to InfluxDB servers using IPv6 addresses.
+    - IPv6 addresses in server URLs must be enclosed in square brackets, for example, http://[2001:db8::1]:8086.
+    - IPv6 zone identifiers are not currently supported.
+
+### Breaking Changes
+
+1. [#217](https://github.com/InfluxCommunity/influxdb3-python/pull/217): Makes the writing API simpler and more consistent with other v3 clients.
+    - Removes unused `InfluxLoggingHandler` class.
+    - `WriteApi` now handles all functions to write to InfluxDB.
+        - The following internal classes have been removed:
+            - `Configuration`
+            - `ApiClient`
+            - `WriteService`
+            - `InfluxDBClient`
+        - The following internal classes have been refactored:
+            - `write_client._sync.RestClient` - this class is now responsible for low-level handling of transport requests. End users should not need to use it directly.
+            - `write_client.client.WriteApi` - all internal settings needed for writing are now encapsulated within this Api.
+    - Refactors Multiprocessing helper class.
+    - __Migration Guidance__
+        - `InfluxDBClient3` constructor now has additional parameters for configuring the internal `WriteApi` and `RestClient`.
+            - `auth_scheme` - string - the token authentation scheme, typically `Token` or `Bearer`.
+            - `enable_gzip` - boolean - whether or not to compress data in writing payloads.
+            - `gzip_threshold` - int - minimum payload size to trigger gzip compression when `enable_gzip` is True.
+            - `point_settings` - PointSettings - default settings used when writing Points, primarily used to wrap default tags to be added to Point data.
+            - `debug` - boolean - toggle debug level logging.
+        - Any clients explicitly using the `Configuration`, `ApiClient`, `WriteService` or _legacy_ `InfluxDBClient` classes, will need to migrate their settings to the `InfluxDBClient3` constructor.
+
+1. [#222](https://github.com/InfluxCommunity/influxdb3-python/pull/222): Refactor `MultiprocessingWriter` class.
+    - New Process will be created by using `DefaultContext.Process(target)` to prevent erratic crashes, handle cross-platform code behavior safely, and coordinate complex resource sharing.
+    - Users can now choose one of the start methods `fork`, `spawn` or `forkserver` when creating new Process. The default will be `spawn`.
+    - Users can set time to live for the child process through `process_ttl` parameter, the default value will be 300 seconds.
+
 ## v0.20.0 {date="2026-06-11"}
 
 ### Features
@@ -58,14 +94,7 @@
 
 1. [#177](https://github.com/InfluxCommunity/influxdb3-python/pull/177): Fix `TypeError` when writing DataFrames. Serializer-specific kwargs (e.g., `data_frame_measurement_name`) are now filtered before being passed to the HTTP layer.
 
-### CI
-
-1. [#164](https://github.com/InfluxCommunity/influxdb3-python/pull/164): Fix pipelines not downloading the correct python images.
-1. [#167](https://github.com/InfluxCommunity/influxdb3-python/pull/167):
-    - Remove incorrect symbol `>>` for config.yml.
-    - Added spacing for `<<` and `>>` just for consistency.
-1. [#176](https://github.com/InfluxCommunity/influxdb3-python/pull/176): Use `ConstantFlightServerDelayed` for timeout tests.
-1. [#183](https://github.com/InfluxCommunity/influxdb3-python/pull/183): Temporarily add annotation to support Python 3.8.
+- CI updates
 
 ## v0.16.0 {date="2025-09-15"}
 
@@ -80,9 +109,7 @@
          even in batching mode.
       - `client.query()` now propagates the argument `timeout` as a `float` in seconds on the call stack.
 
-### CI
-
-1. [#153](https://github.com/InfluxCommunity/influxdb3-python/pull/153) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v0.15.0 {date="2025-08-12"}
 

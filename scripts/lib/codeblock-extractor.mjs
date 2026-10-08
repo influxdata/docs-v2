@@ -11,6 +11,7 @@ const LANG_ALIASES = {
   yml: 'yaml', yaml: 'yaml',
   json: 'json', jsonl: 'jsonl',
   toml: 'toml',
+  lp: 'lp',
 };
 
 const CONT_RE = /^<!--\s*pytest-codeblocks:cont\s*-->$/;

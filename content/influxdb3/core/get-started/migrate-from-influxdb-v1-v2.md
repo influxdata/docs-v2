@@ -12,4 +12,5 @@ aliases:
   - /influxdb3/core/guides/migrate/influxdb-1x/
   - /influxdb3/core/guides/migrate/influxdb-2x/
 source: /shared/influxdb3-get-started/migrate-from-influxdb-v1-v2.md
+canonical: self
 ---

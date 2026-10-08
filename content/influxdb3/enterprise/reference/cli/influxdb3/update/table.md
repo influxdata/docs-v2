@@ -8,8 +8,9 @@ menu:
     name: influxdb3 update table
 weight: 400
 source: /shared/influxdb3-cli/update/table/_index.md
+canonical: self
 alt_links:
-  core: /influxdb3/core/reference/cli/influxdb3/update/
+  core: /influxdb3/core/reference/cli/influxdb3/update/table/
 ---
 
 <!-- 

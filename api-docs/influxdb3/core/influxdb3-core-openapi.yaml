@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-core-openapi.yaml)
-  version: v3.10.0
+  version: v3.12.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:59e0d108505b9909361470ccdd95015b6ea1bffcf2c5a9892e7217eabff5b994
+  x-source-hash: sha256:24c3cc46699dc72e1bbfe45f0a3d91b32ed9f7635526e0a44136a3982870f228
   x-influxdata-download-url: /openapi/influxdb3-core-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -313,7 +313,21 @@ paths:
             cluster-uuid:
               $ref: "#/components/headers/ClusterUUID"
         "400":
-          description: Bad request.
+          description: |
+            Bad request. InfluxDB rejected the whole batch and wrote nothing.
+            This endpoint doesn't support partial writes: if any line is invalid, no
+            lines are written, and an `accept_partial` parameter is ignored.
+            To write the valid lines of a batch, use `/api/v3/write_lp`.
+          content:
+            application/json:
+              examples:
+                rejectedBatch:
+                  summary: One invalid line rejects the batch
+                  value: |
+                    {
+                      "code": "invalid",
+                      "message": "write buffer error: line protocol parse failed: No fields were provided"
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -391,11 +405,6 @@ paths:
             writes all points in the batch to the database.
 
             This parameter is named `bucket` for compatibility with InfluxDB v2 client libraries.
-        - name: accept_partial
-          in: query
-          required: false
-          schema:
-            $ref: "#/components/schemas/AcceptPartial"
         - $ref: "#/components/parameters/compatibilityPrecisionParam"
       requestBody:
         $ref: "#/components/requestBodies/lineProtocolRequestBody"
@@ -715,11 +724,17 @@ paths:
                 - requests
       responses:
         "200":
-          description: Success. The packages are installed.
+          description: >-
+            Success. The packages are installed. In InfluxDB 3 Core 3.12, a failed install can also return `200`;
+            confirm that the package imports before relying on it.
         "400":
           description: Bad request.
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "500":
+          description: >-
+            The package install failed, for example because pip couldn't find the package. The body includes the package
+            manager's error.
       tags:
         - Processing engine
   /api/v3/configure/plugin_environment/install_requirements:
@@ -795,7 +810,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every:
                 summary: Schedule trigger using interval
                 description: |
@@ -809,7 +824,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_seconds:
                 summary: Schedule trigger using seconds interval
                 description: |
@@ -822,7 +837,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_minutes:
                 summary: Schedule trigger using minutes interval
                 description: |
@@ -835,7 +850,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               all_tables:
                 summary: All tables trigger example
                 description: |
@@ -848,7 +863,23 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
+              github_plugin:
+                summary: Trigger using a remotely fetched plugin
+                description: |
+                  Trigger that uses a plugin referenced with the `gh:` prefix.
+                  InfluxDB fetches the plugin from the default `influxdata/influxdb3_plugins`
+                  repository (or the repository configured with `--plugin-repo`)
+                  instead of the local `--plugin-dir`.
+                value:
+                  db: mydb
+                  plugin_filename: gh:examples/wal_plugin/wal_plugin.py
+                  trigger_name: my_trigger
+                  trigger_specification: all_tables
+                  disabled: false
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -861,7 +892,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               api_request:
                 summary: On-demand request trigger example
                 description: |
@@ -874,7 +905,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -887,7 +918,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_monthly:
                 summary: Cron trigger for monthly execution
                 description: |
@@ -900,7 +931,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
       responses:
         "200":
           description: Success. Processing engine trigger created.
@@ -1044,6 +1075,8 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+        "409":
+          description: Conflict. The table is already deleted.
       summary: Delete a table
       description: |
         Soft deletes a table.
@@ -1055,6 +1088,16 @@ paths:
 
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
+
+        #### Soft-deleted tables keep a renamed, visible entry until hard deletion
+
+        A soft delete renames the table to `<table_name>-<deleted_at_timestamp>` instead of removing it.
+        Until the table is hard deleted, this renamed entry still appears in `SHOW TABLES` output and in
+        `information_schema.tables` queries. Filter out names that end in a deleted-at timestamp to account for
+        these renamed entries when listing or counting tables.
+
+        Deleting an already-deleted table returns `409 Conflict`. There's no API to remove the renamed entry
+        directly; only a scheduled or immediate (`hard_delete_at=now`) hard deletion removes it.
       tags:
         - Table
     post:
@@ -1076,6 +1119,32 @@ paths:
           description: Database not found.
       summary: Create a table
       description: Creates a new table within a database.
+      tags:
+        - Table
+    patch:
+      operationId: PatchConfigureTable
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchTableRequest"
+      responses:
+        "200":
+          description: Success. The columns have been added to the table. The response body is empty.
+        "400":
+          description: Bad request. The request names no tags or fields, or is otherwise invalid.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database or table not found.
+      summary: Add columns to a table
+      description: |
+        Adds tag and field columns to an existing table.
+
+        The change is additive: a column that already exists with the requested type is left unchanged.
+        No other table settings are modified.
+        The request must name at least one tag or field.
       tags:
         - Table
   /api/v3/configure/token:
@@ -1634,8 +1703,14 @@ paths:
         - name: accept_partial
           in: query
           required: false
+          description: |
+            Whether to write the valid lines when some lines in the batch are rejected.
+            Default is `true`: InfluxDB writes the valid lines and returns `400` with
+            `"partial write of line protocol occurred"` and the rejected lines.
+            With `false`, InfluxDB rejects the whole batch and writes nothing.
           schema:
             type: boolean
+            default: true
         - name: no_sync
           in: query
           required: false
@@ -1648,7 +1723,29 @@ paths:
             cluster-uuid:
               $ref: "#/components/headers/ClusterUUID"
         "400":
-          description: Bad request.
+          description: |
+            Bad request. Some or all lines were rejected; the body lists each rejected line.
+            With `accept_partial=true` (the default), the valid lines are written and
+            the error is `"partial write of line protocol occurred"`.
+            With `accept_partial=false`, nothing is written.
+            In a database that uses explicit schemas (`schema_mode: explicit`, Enterprise only), a line that writes an
+            undeclared table or column is rejected with a message that names it and points to `/api/v3/configure/table`.
+          content:
+            application/json:
+              examples:
+                partialWrite:
+                  summary: Partial write (default); line 1 was written
+                  value: |
+                    {
+                      "error": "partial write of line protocol occurred",
+                      "data": [
+                        {
+                          "error_message": "No fields were provided",
+                          "line_number": 2,
+                          "original_line": "home,room=Kitchen te"
+                        }
+                      ]
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -1656,7 +1753,10 @@ paths:
         "413":
           description: Request entity too large.
         "422":
-          description: Unprocessable entity.
+          description: |
+            Unprocessable entity. The write would exceed a schema limit: the number of
+            databases, tables, columns, tag columns, or fields. A partial write whose
+            rejected lines hit a limit also returns `422` instead of `400`.
       summary: Write line protocol
       description: |
         Writes line protocol data to the specified database.
@@ -1667,8 +1767,9 @@ paths:
 
         #### Features
 
-        - **Partial writes**: Use `accept_partial=true` to allow partial success when
-          some lines in a batch fail
+        - **Partial writes**: By default (`accept_partial=true`), InfluxDB writes the
+          valid lines when some lines in a batch fail. Set `accept_partial=false` to
+          reject the whole batch instead.
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL
           synchronization, allowing faster response times but sacrificing durability
           guarantees
@@ -1739,6 +1840,8 @@ paths:
                 example: OK
         "401":
           description: Unauthorized. Authentication is required.
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "500":
           description: Service is unavailable.
       summary: Health check
@@ -1778,6 +1881,8 @@ paths:
               schema:
                 type: string
                 example: Core
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
           content:
             application/json:
               schema:
@@ -1797,6 +1902,11 @@ paths:
                     example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         "401":
           description: Unauthorized. Authentication is required.
+          headers:
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "404":
           description: |
             Not Found. Returned for HEAD requests.
@@ -1809,7 +1919,8 @@ paths:
 
         The response includes version information in both headers and the JSON body:
 
-        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Headers**: `x-influxdb-version`, `x-influxdb-build`, and `cluster-uuid`
+          (`cluster-uuid` is also returned on a `401`)
         - **Body**: JSON object with `version`, `revision`, and `process_id`
 
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Core.
@@ -1831,6 +1942,8 @@ paths:
               schema:
                 type: string
                 example: Core
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
           content:
             application/json:
               schema:
@@ -1850,6 +1963,11 @@ paths:
                     example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         "401":
           description: Unauthorized. Authentication is required.
+          headers:
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "404":
           description: |
             Not Found. Returned for HEAD requests.
@@ -2213,40 +2331,24 @@ paths:
               $ref: "#/components/headers/ClusterUUID"
         "400":
           description: |
-            Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
-            If a partial write occurred, then some points from the batch are written and queryable.
-
-            The response body:
-              - indicates if a partial write occurred or all data was rejected.
-              - contains details about the [rejected points](/influxdb3/core/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+            Bad request. InfluxDB rejected the whole batch and wrote nothing.
+            This endpoint doesn't support partial writes: if any line is invalid, no
+            lines are written, and an `accept_partial` parameter is ignored.
+            The body describes the first rejected line.
+            To write the valid lines of a batch, use `/api/v3/write_lp`.
           content:
             application/json:
               examples:
-                rejectedAllPoints:
-                  summary: Rejected all points in the batch
+                rejectedBatch:
+                  summary: One invalid line rejects the batch
                   value: |
                     {
-                      "error": "write of line protocol failed",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
-                    }
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejected some points in the batch
-                  value: |
-                    {
-                      "error": "partial write of line protocol occurred",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
+                      "error": "line protocol parsing error",
+                      "data": {
+                        "error_message": "No fields were provided",
+                        "line_number": 2,
+                        "original_line": "home,room=Kitchen te"
+                      }
                     }
         "401":
           $ref: "#/components/responses/Unauthorized"
@@ -2640,6 +2742,20 @@ components:
             The retention period for the database. Specifies how long data should be retained.
             Use duration format (for example, "1d", "1h", "30m", "7d").
           example: 7d
+        schema_mode:
+          type: string
+          enum:
+            - implicit
+            - explicit
+          default: implicit
+          description: >-
+            How tables in the database get their schemas. Set at creation and can't be changed.
+
+            - `implicit` (default): writes create tables and columns.
+
+            - `explicit`: tables and columns are created only through the configuration API, and writes that reference
+            an undeclared table or column are rejected.
+              Enterprise only; InfluxDB 3 Core returns `400 Bad Request`.
       required:
         - db
     CreateTableRequest:
@@ -2752,6 +2868,39 @@ components:
           - field1
         count: 100
         ttl: 3600
+    PatchTableRequest:
+      type: object
+      description: Tags and fields to add to an existing table. At least one tag or field is required.
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                  - utf8
+                  - int64
+                  - uint64
+                  - float64
+                  - bool
+            required:
+              - name
+              - type
+      required:
+        - db
+        - table
     ProcessingEngineTriggerRequest:
       type: object
       properties:
@@ -2759,17 +2908,28 @@ components:
           type: string
         plugin_filename:
           type: string
-          description: |
+          description: >
             The path and filename of the plugin to execute--for example,
+
             `schedule.py` or `endpoints/report.py`.
-            The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+
+            The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
+
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
+
+
+            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of
+            reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+
+            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw
+            plugin files.
+
+            For defaults, fetch behavior, and limitations, see [Use example
+            plugins](/influxdb3/core/plugins/#use-example-plugins).
         trigger_name:
           type: string
         trigger_settings:
-          description: |
-            Configuration for trigger error handling and execution behavior.
           allOf:
             - $ref: "#/components/schemas/TriggerSettings"
         trigger_specification:
@@ -2863,8 +3023,15 @@ components:
           example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
-          additionalProperties: true
-          description: Optional arguments passed to the plugin.
+          additionalProperties:
+            type: string
+          description: |
+            Optional, plugin-specific arguments passed to the plugin entry point as its `args` dictionary.
+            Provide string key-value pairs. Omit this field to pass `None` as `args`.
+            Refer to the plugin documentation for supported argument names and values.
+          example:
+            threshold: "90"
+            target_table: alerts
         disabled:
           type: boolean
           default: false
@@ -2873,36 +3040,34 @@ components:
         - db
         - plugin_filename
         - trigger_name
-        - trigger_settings
         - trigger_specification
-        - disabled
     TriggerSettings:
       type: object
-      description: |
-        Configuration settings for processing engine trigger error handling and execution behavior.
       properties:
         run_async:
           type: boolean
           default: false
           description: |
-            Whether to run the trigger asynchronously.
-            When `true`, the trigger executes in the background without blocking.
-            When `false`, the trigger executes synchronously.
+            Whether invocations of the trigger can run concurrently.
+            If `false`, invocations run serially--each invocation must finish before the next one starts.
+            If `true`, invocations can run concurrently, up to the `--async-trigger-concurrency-limit`
+            server option (default: `8`).
         error_behavior:
           type: string
+          default: log
           enum:
-            - Log
-            - Retry
-            - Disable
-          description: |
-            Specifies how to handle errors that occur during trigger execution:
-            - `Log`: Log the error and continue (default)
-            - `Retry`: Retry the trigger execution
-            - `Disable`: Disable the trigger after an error
-          default: Log
-      required:
-        - run_async
-        - error_behavior
+            - log
+            - retry
+            - disable
+          description: >
+            How the trigger responds when the plugin returns an error:
+
+            - `log`: Log the error and keep the trigger active.
+
+            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure.
+            Errors identified as permanent aren't retried.
+
+            - `disable`: Disable the trigger until you manually re-enable it.
     WALPluginTestRequest:
       type: object
       description: |

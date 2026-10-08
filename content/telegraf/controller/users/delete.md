@@ -29,7 +29,7 @@ removed:
 
 1.  In the {{% product-name %}} UI, navigate to **Users** and click the user you
     want to delete to open their detail page.
-2.  Click **Delete User**.
+2.  Click **{{% lucide "trash-2" %}} Delete User**.
 3.  In the confirmation dialog, confirm the deletion.
 
 The user is immediately removed and can no longer authenticate with

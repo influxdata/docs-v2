@@ -7,8 +7,8 @@ description:
 menu:
   telegraf_v1_ref:
      name: Form URL-encoded
-     weight: 10
      parent: Input data formats
+weight: 10
 metadata: [Form URLencoded parser plugin]
 ---
 
@@ -68,4 +68,4 @@ mymetric,tag1=foo field1=0.42,field2=42
 ```
 
 [query string]: https://en.wikipedia.org/wiki/Query_string
-[http_listener_v2]: /plugins/inputs/http_listener_v2
+[http_listener_v2]: /telegraf/v1/input-plugins/http_listener_v2/

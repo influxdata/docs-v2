@@ -13,7 +13,7 @@ stored. Each database can contain multiple tables.
 > **If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless**,
 > _database_ and _bucket_ are synonymous.
 
-{{% show-in "enterprise" %}}
+{{% show-in "enterprise,cloud" %}}
 ## Retention periods
 
 A database **retention period** is the maximum age of data stored in the database.
@@ -27,7 +27,7 @@ you can optionally set a retention period.
 The minimum practical retention period is 1 hour (`1h`).
 
 Database retention periods can be [updated after creation](/influxdb3/version/reference/cli/influxdb3/update/database/).
-For tables within a database, you can [set table-specific retention periods](/influxdb3/version/admin/tables/create/#create-a-table-with-a-retention-period)
+For tables within a database, you can [set table-specific retention periods](/influxdb3/version/admin/tables/create/#retention-period)
 that override the database retention period.
 
 For complete details about retention periods, including duration formats, precedence

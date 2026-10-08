@@ -534,6 +534,55 @@ An increase in cache size may lead to an increase in heap usage.
 **Default**: `100`  
 **Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
+#### series-id-set-cache-max-size {metadata="v1.13.0+"}
+
+The upper bound, in number of entries, for adaptive growth of the
+[`series-id-set-cache-size`](#series-id-set-cache-size) cache. Set this together
+with `series-id-set-cache-target-hit-rate` to let the cache grow beyond its
+fixed size when the query hit rate falls below the target. A value of `0`
+disables adaptive sizing.
+
+> [!Note]
+> `series-id-set-cache-max-size` and `series-id-set-cache-target-hit-rate` must
+> both be set to enable adaptive sizing, or both left at `0` to disable it.
+> Setting only one prevents InfluxDB from starting. When adaptive sizing is
+> enabled, `series-id-set-cache-max-size` must be greater than
+> `series-id-set-cache-size`, and `series-id-set-cache-size` must be greater
+> than `0`. A `series-id-set-cache-size` of `0` disables the cache entirely,
+> which takes precedence over adaptive sizing.
+
+**Default**: `0`  
+**Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_MAX_SIZE`
+
+#### series-id-set-cache-target-hit-rate {metadata="v1.13.0+"}
+
+The cache hit rate, as a fraction between `0.0` and `1.0` (exclusive), that
+adaptive sizing tries to reach for the
+[`series-id-set-cache-size`](#series-id-set-cache-size) cache. While the
+measured hit rate stays below this target and the cache is evicting entries,
+InfluxDB grows the cache capacity, up to `series-id-set-cache-max-size`. A
+value of `0.0` disables adaptive sizing. `1.0` isn't a valid value because
+that hit rate can never be reached.
+
+**Default**: `0.0`  
+**Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_TARGET_HIT_RATE`
+
+#### series-id-set-cache-shrink-conservatism {metadata="v1.13.0+"}
+
+How reluctant the adaptive shrink policy is to release memory from the
+[`series-id-set-cache-size`](#series-id-set-cache-size) cache, expressed in
+standard deviations. Higher values make the cache hold onto capacity longer
+and resist rapid grow-and-shrink cycles. Lower values reclaim memory sooner
+after demand drops. InfluxDB only uses this setting when adaptive sizing is
+enabled.
+
+**Default**: `2.5`  
+**Environment variable**: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SHRINK_CONSERVATISM`
+
+To monitor the series ID set cache, run `SHOW STATS` and check the
+`tsi1_cache` measurement. It reports `hit`, `miss`, `eviction`,
+`shrink_eviction`, `size`, and `capacity` fields.
+
 ## Query management settings
 
 ### [coordinator]
@@ -796,6 +845,27 @@ Flux queries, set the value to `true`.
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_HTTP_FLUX_ENABLED`
 
+#### flux-log-enabled
+
+Determines whether detailed logs for Flux queries are enabled.
+When set to `true`, InfluxDB logs detailed information about Flux queries, including:
+
+- `compiler_type`: Compiler used for processing the query (typically Flux).
+- `response_size`: Size of the response, in bytes.
+- `query`: The textual representation of the query.
+- `err`: Errors encountered while processing the query.
+- `stat_total_duration`: Total duration to process the query.
+- `stat_compile_duration`: Duration to compile the query.
+- `stat_execute_duration`: Duration to execute the query.
+- `stat_max_allocated`: Maximum allocated memory for the query.
+- `stat_total_allocated`: Total allocated memory for the query.
+
+To enable Flux logging, both `flux-enabled` and `flux-log-enabled` must be set to `true`.
+For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1/administration/logs).
+
+**Default**: `false`  
+**Environment variable**: `INFLUXDB_HTTP_FLUX_LOG_ENABLED`
+
 #### bind-address {#http-bind-address}
 
 The bind address (port) used by the HTTP service.
@@ -950,6 +1020,25 @@ Unauthenticated queries are attributed to `(anonymous)`.
 
 **Default**: `false`
 **Environment variable**: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
+
+#### user-write-bytes-enabled {metadata="v1.13.0+"}
+
+Enables per-user write request byte tracking, the write-path counterpart to
+[`user-query-bytes-enabled`](#user-query-bytes-enabled).
+When enabled, InfluxDB records the request body bytes for each v1, v2, and
+Prometheus remote write, per user, in the `userwritebytes` measurement,
+available through `SHOW STATS FOR 'userwritebytes'`, the `_internal`
+database, and the `/debug/vars` endpoint.
+
+Unauthenticated writes are attributed to `(anonymous)`.
+
+> [!Note]
+> Byte counts use each endpoint's existing units: `/write` counts
+> decompressed (post-gzip) bytes, while the Prometheus remote write endpoint
+> counts compressed wire bytes.
+
+**Default**: `false`  
+**Environment variable**: `INFLUXDB_HTTP_USER_WRITE_BYTES_ENABLED`
 
 #### http-headers
 

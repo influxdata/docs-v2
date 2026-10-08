@@ -38,7 +38,7 @@ list or an agent details page.
 ## Create a reporting rule
 
 1.  In Telegraf Controller, go to **Reporting Rules**.
-2.  Select **+ Add Rule**.
+2.  Select **{{% lucide "plus" %}} Add Rule**.
 3.  Enter the following:
     - **Description**: Reporting rule description
     - **Not Reporting Threshold**: The maximum time an agent can go without
@@ -51,18 +51,18 @@ list or an agent details page.
 
 ## Update a reporting rule
 
-1.  In **Reporting Rules**, click the **More button ({{% icon "tc-more" %}})**
+1.  In **Reporting Rules**, click the **More button ({{% lucide "ellipsis-vertical" %}})**
     of the rule you want to update.
-2.  Select **Edit**.
+2.  Select **{{% lucide "pencil" %}} Edit**.
 3.  Edit the description, not reporting threshold, auto-delete settings, or make
     the rule the default reporting rule.
 4.  Save your changes.
 
 ## Delete a reporting rule
 
-1.  In **Reporting Rules**, click the **More button ({{% icon "tc-more" %}})**
+1.  In **Reporting Rules**, click the **More button ({{% lucide "ellipsis-vertical" %}})**
     of the rule you want to delete.
-2.  Select **Delete** and confirm.
+2.  Select **{{% lucide "trash-2" %}} Delete** and confirm.
 
 > [!Important]
 >
@@ -80,15 +80,15 @@ list or an agent details page.
 
 ### From the reporting rules list
 
-1.  In **Reporting Rules**, click the **More button ({{% icon "tc-more" %}})**
+1.  In **Reporting Rules**, click the **More button ({{% lucide "ellipsis-vertical" %}})**
     of the rule you want to make the default.
-2.  Select **Make Default**.
+2.  Select **{{% lucide "check" %}} Make Default**.
 
 ### From reporting rule details
 
-1.  In **Reporting Rules**, click the **More button ({{% icon "tc-more" %}})**
+1.  In **Reporting Rules**, click the **More button ({{% lucide "ellipsis-vertical" %}})**
     of the rule you want to make the default.
-2.  Select **Edit**.
+2.  Select **{{% lucide "pencil" %}} Edit**.
 3.  Toggle **Default Rule** to true.
 4.  Save your changes.
 
@@ -97,12 +97,12 @@ list or an agent details page.
 ### From the agent list
 
 1. In **Agents**, select one or more agents.
-2. Select **Assign Rule**.
+2. Select **{{% lucide "file-check" %}} Assign Rule**.
 3. Choose a rule and assign it.
 
 ### From an agent details page
 
-1. In **Agents**, click the **More button ({{% icon "tc-more" %}})** for an
-   agent and select **View Details**.
+1. In **Agents**, click the **More button ({{% lucide "ellipsis-vertical" %}})** for an
+   agent and select **{{% lucide "eye" %}} View Details**.
 2. In the **Reporting Rule** section, select **Change**.
 3. Choose a rule and apply it.

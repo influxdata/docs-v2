@@ -294,7 +294,7 @@ influxd-ctl [global-options] restore [restore-options] <path-to-backup-directory
 
 {{% note %}}
 The existing cluster can have data in the `_internal` database (the database InfluxDB creates if
-[internal monitoring](/platform/monitoring/influxdata-platform/tools/measurements-internal) is enabled).
+[internal monitoring](/enterprise_influxdb/v1/administration/monitor/measurements-internal/) is enabled).
 The system automatically drops the `_internal` database when it performs a complete restore.
 {{% /note %}}
 

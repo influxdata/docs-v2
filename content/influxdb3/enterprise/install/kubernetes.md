@@ -9,6 +9,7 @@ menu:
     parent: Install InfluxDB 3 Enterprise
 weight: 101
 related:
+  - /influxdb3/enterprise/admin/node-lifecycle/
   - /influxdb3/enterprise/get-started/
   - /influxdb3/enterprise/admin/object-storage/
   - /influxdb3/enterprise/get-started/multi-server/

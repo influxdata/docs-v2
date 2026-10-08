@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, forecasting, evaluatio
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/forecast_error_evaluator, Forecast error evaluator plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/forecast-error-evaluator.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/forecast-error-evaluator.md -->

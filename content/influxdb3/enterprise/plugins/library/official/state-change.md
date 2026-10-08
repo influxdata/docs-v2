@@ -10,6 +10,7 @@ influxdb3/enterprise/tags: [plugins, processing engine, python, state-tracking, 
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/state_change, State change plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/state-change.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/state-change.md -->

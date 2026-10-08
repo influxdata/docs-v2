@@ -5,9 +5,9 @@ description: Use the `template` output data format (serializer) to format and ou
 menu:
   telegraf_v1_ref:
     name: Template
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-template
+weight: 10
 ---
 
 Use the `template` output data format (serializer) to format and output Telegraf metrics using custom [Go templates](https://pkg.go.dev/text/template).

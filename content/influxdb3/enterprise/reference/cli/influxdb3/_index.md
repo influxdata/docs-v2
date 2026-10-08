@@ -25,13 +25,19 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | Command                                                           | Description                         |
 | :---------------------------------------------------------------- | :---------------------------------- |
 | [create](/influxdb3/enterprise/reference/cli/influxdb3/create/)   | Create resources                    |
+| [debug](/influxdb3/enterprise/reference/cli/influxdb3/debug/)     | Diagnostic tools                    |
 | [delete](/influxdb3/enterprise/reference/cli/influxdb3/delete/)   | Delete resources                    |
 | [disable](/influxdb3/enterprise/reference/cli/influxdb3/disable/) | Disable resources                   |
 | [enable](/influxdb3/enterprise/reference/cli/influxdb3/enable/)   | Enable resources                    |
+| [import](/influxdb3/enterprise/reference/cli/influxdb3/import/)   | Manage bulk Parquet imports         |
+| [install](/influxdb3/enterprise/reference/cli/influxdb3/install/) | Install plugins                     |
+| [loadcap](/influxdb3/enterprise/reference/cli/influxdb3/loadcap/) | Capture and manage workload profiles |
+| [manage](/influxdb3/enterprise/reference/cli/influxdb3/manage/)   | Perform cluster maintenance operations |
 | [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
+| [remove](/influxdb3/enterprise/reference/cli/influxdb3/remove/)   | Remove stopped nodes                |
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
-| [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Mark nodes as stopped               |
+| [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Gracefully stop nodes               |
 | [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
 | [update](/influxdb3/enterprise/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
@@ -96,7 +102,7 @@ influxdb3
 influxdb3 --object-store memory
 
 # Use environment variables to override defaults
-INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+INFLUXDB3_NODE_ID=my-node influxdb3
 ```
 
 ### Run the InfluxDB 3 server

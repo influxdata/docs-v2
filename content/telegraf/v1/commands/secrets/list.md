@@ -10,12 +10,11 @@ weight: 301
 
 The `telegraf secrets list` command lists known secrets and secret stores.
 
-{{% note %}}
-This command requires your configuration file that contains the secret store
-definitions you want to access. If the `--config` or `--config-directory` flags
-are not included in the command, Telegraf checks the
-[default configuration file location](/telegraf/v1/configuration/#configuration-file-locations).
-{{% /note %}}
+> [!Note]
+> This command requires your configuration file that contains the secret store
+> definitions you want to access. If the `--config` or `--config-directory` flags
+> are not included in the command, Telegraf checks the
+> [default configuration file location](/telegraf/v1/configuration/#configuration-file-locations).
 
 If you haven't configured a secret store, use
 [`telegraf plugins secretstores`](/telegraf/v1/commands/plugins/secretstores/)

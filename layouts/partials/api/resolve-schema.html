@@ -1,0 +1,62 @@
+{{/*
+  Schema Resolver
+
+  Resolves a `$ref` to `#/components/schemas/*` and flattens `allOf`
+  composition into a single schema map so renderers can read `type`,
+  `properties`, and `required` directly.
+  Sibling keys on an `allOf` wrapper (such as `description`) override the
+  same keys from the composed members.
+
+  Params:
+    - schema: OpenAPI schema fragment (may be a $ref or allOf wrapper)
+    - spec: The full OpenAPI spec object for resolving $ref
+
+  Returns: the resolved schema map
+*/}}
+
+{{ $schema := .schema | default dict }}
+{{ $spec := .spec }}
+{{ $resolved := $schema }}
+
+{{/* Resolve a $ref like "#/components/schemas/TriggerSettings" */}}
+{{ if isset $resolved "$ref" }}
+  {{ $refParts := split (index $resolved "$ref") "/" }}
+  {{ if ge (len $refParts) 4 }}
+    {{ $schemaName := index $refParts 3 }}
+    {{ with index $spec.components.schemas $schemaName }}
+      {{ $resolved = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Flatten allOf: merge members, then overlay the wrapper's sibling keys */}}
+{{ if isset $resolved "allOf" }}
+  {{ $merged := dict }}
+  {{ $mergedProps := dict }}
+  {{ $mergedRequired := slice }}
+  {{ range $resolved.allOf }}
+    {{ $member := partial "api/resolve-schema.html" (dict "schema" . "spec" $spec) }}
+    {{ $merged = merge $merged $member }}
+    {{ with $member.properties }}
+      {{ $mergedProps = merge $mergedProps . }}
+    {{ end }}
+    {{ with $member.required }}
+      {{ $mergedRequired = $mergedRequired | append . }}
+    {{ end }}
+  {{ end }}
+  {{ $wrapper := dict }}
+  {{ range $key, $value := $resolved }}
+    {{ if ne $key "allOf" }}
+      {{ $wrapper = merge $wrapper (dict $key $value) }}
+    {{ end }}
+  {{ end }}
+  {{ $resolved = merge $merged $wrapper }}
+  {{ if gt (len $mergedProps) 0 }}
+    {{ $resolved = merge $resolved (dict "properties" $mergedProps) }}
+  {{ end }}
+  {{ if gt (len $mergedRequired) 0 }}
+    {{ $resolved = merge $resolved (dict "required" $mergedRequired) }}
+  {{ end }}
+{{ end }}
+
+{{ return $resolved }}

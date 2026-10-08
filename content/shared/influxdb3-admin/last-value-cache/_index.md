@@ -93,6 +93,17 @@ maintain it. Consider the following:
 On cache creation, {{% product-name %}} loads historical data into the cache.
 On restart, the server automatically reloads cache data.
 
+{{% show-in "enterprise" %}}
+In a multi-node cluster, only nodes included in the cache's
+[node specification](/influxdb3/version/admin/last-value-cache/create/)
+load historical data--at creation and on restart.
+Excluded nodes still serve the cache and add newly written data to it,
+but until new data arrives, queries served by those nodes return only values
+written after the cache was created (or after the node restarted).
+Only specify a node list to reduce the initial cache warm-up load, and only
+if you accept temporarily incomplete query results from excluded nodes.
+{{% /show-in %}}
+
 ### High cardinality key columns
 
 “Cardinality” refers to the number of unique key column combinations in your 

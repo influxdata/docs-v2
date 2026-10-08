@@ -105,6 +105,22 @@ docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
 
 To run the documentation locally, follow the instructions provided in the README.
 
+#### Deployed commit metadata
+
+Deployment builds add `<meta name="deployed-commit" content="<full commit SHA>">`
+to rendered content pages and the 404 page's HTML head.
+CircleCI sets `HUGO_PARAMS_DEPLOYEDCOMMIT` from `CIRCLE_SHA1` before building Hugo.
+The shared GitHub Actions build and the manual deployment scripts
+set it from `git rev-parse HEAD`.
+The value identifies the build's source checkout, rather than a page's last edit.
+Deploying existing output without rebuilding preserves that output's commit.
+
+Local builds omit the tag unless you supply the commit:
+
+```bash
+HUGO_PARAMS_DEPLOYEDCOMMIT="$(git rev-parse HEAD)" npx hugo server
+```
+
 ### Install Visual Studio Code extensions
 
 If you use Microsoft Visual Studio (VS) Code, you can install extensions
@@ -167,6 +183,23 @@ h2-h6 headings act as section headings.
 Save images using the following naming format: `project/version-context-description.png`.
 For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
 Specify a version other than 2.0 only if the image is specific to that version.
+
+#### Links to procedures and prerequisites
+
+Link to the page that contains the steps, not to the parent landing page.
+"See the Enterprise documentation" makes the reader hunt for the procedure.
+Name the procedure and link to it directly.
+
+Prerequisites often differ by deployment mode.
+When a product ships in more than one mode, for example a Docker container and an
+integrated build, don't send every reader to mode-specific instructions.
+Condition the guidance on the mode: "If you run the Docker container, ...".
+If the other mode has no documented equivalent, say nothing about it rather than
+inventing a parallel claim.
+
+Verify a version requirement against the shipped documentation for that feature.
+An execution plan states the requirement as of the day someone wrote it.
+Search for the feature's own page and restate what it says.
 
 #### InfluxData Support links
 
@@ -409,6 +442,35 @@ fix(influxdb3): correct Docker environment variable and compose examples for mon
 feat(telegraf): add new plugin documentation
 chore(ci): update Vale configuration
 ```
+
+#### Commit message body
+
+A one-line message is enough for a trivial fix.
+For anything larger, use the same sections as the
+[pull request template](.github/pull_request_template.md), so the commit and the
+pull request describe the change the same way:
+
+```
+type(scope): short description
+
+What changed:
+The change itself, in the order a reader meets it.
+
+Why:
+The reason the change was needed. Include evidence for any claim a reader would
+otherwise have to take on trust.
+
+Impact:
+What this changes for readers of the docs or consumers of the repo. Omit this
+section when the change has no external effect.
+
+Verification:
+The commands you ran and what they reported.
+```
+
+Write the body to inform, not to impress, as described under
+[Documentation style](AGENTS.md#documentation-style).
+State each finding directly rather than building up to it.
 
 ### Submit a pull request
 

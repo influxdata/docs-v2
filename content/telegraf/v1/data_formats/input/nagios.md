@@ -5,8 +5,8 @@ description: Use the `nagios` input data format to parse the output of Nagios pl
 menu:
   telegraf_v1_ref:
     name: Nagios
-    weight: 10
     parent: Input data formats
+weight: 10
 ---
 
 Use the `nagios` input data format to parse the output of

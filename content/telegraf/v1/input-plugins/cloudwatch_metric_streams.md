@@ -17,7 +17,7 @@ This plugin listens for metrics sent via HTTP by
 [response specifications](https://docs.aws.amazon.com/firehose/latest/dev/httpdeliveryrequestresponse.html).
 
 > [!IMPORTANT]
-> Using this plugin can incure costs, see the _Metric Streams example_ in
+> Using this plugin can incur costs, see the _Metric Streams example_ in
 > [CloudWatch pricing](https://aws.amazon.com/cloudwatch/pricing).
 
 **Introduced in:** Telegraf v1.24.0
@@ -165,7 +165,7 @@ to CloudWatch delays.
 
 ## Example Output
 
-Example output based on the above JSON & compatability flag is:
+Example output based on the above JSON & compatibility flag is:
 
 **Standard Metric Streams format:**
 
@@ -173,7 +173,7 @@ Example output based on the above JSON & compatability flag is:
 aws_ec2_cpuutilization,accountId=541737779709,region=us-west-2,InstanceId=i-0efc7ghy09c123428 max=10.011666666666667,min=10.011666666666667,sum=10.011666666666667,count=1 1651679580000
 ```
 
-**API Compatability format:**
+**API Compatibility format:**
 
 ```text
 aws_ec2_cpuutilization,accountId=541737779709,region=us-west-2,InstanceId=i-0efc7ghy09c123428 maximum=10.011666666666667,minimum=10.011666666666667,sum=10.011666666666667,samplecount=1 1651679580000

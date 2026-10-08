@@ -10,6 +10,7 @@ menu:
 weight: 400
 alias: /influxdb3/core/cli/influxdb3/create/plugin/
 source: /shared/influxdb3-cli/create/trigger.md
+canonical: self
 ---
 
 <!--

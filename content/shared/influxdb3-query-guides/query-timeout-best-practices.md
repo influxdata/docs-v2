@@ -151,7 +151,7 @@ batch_timeout = 300  # For analytical queries
 
 # Create client with default timeout
 client = InfluxDBClient3.InfluxDBClient3(
-    host="https://{{< influxdb/host >}}",
+    host="{{< influxdb/host-url >}}",
     database="DATABASE_NAME", 
     token="AUTH_TOKEN",
     timeout=api_timeout  # Python client uses seconds

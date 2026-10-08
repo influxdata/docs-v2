@@ -44,6 +44,8 @@ The following heartbeat plugin configuration options are available:
 - **token**: _({{% req text="Required with auth enabled" %}})_
   {{% product-name %}} API token for the heartbeat endpoint.
   The token must have **write** permissions on the **Heartbeat** API.
+  {{% product-name %}} rejects heartbeats sent with a token that lacks this
+  permission with a `403` response.
 - **interval**: Interval for sending heartbeat messages. Default is `1m` (every minute).
 - **include**: Information to include in the heartbeat message.
   Available options are:
@@ -58,10 +60,10 @@ The following heartbeat plugin configuration options are available:
 ### Example heartbeat output plugin
 
 The following is an example heartbeat output plugin configuration that uses
-an `agent_id` [configuration parameter](/telegraf/controller/configs/dynamic-values/#parameters)
+an `agent_id` [configuration parameter](/telegraf/controller/configs/substitute-values/#parameters)
 to specify the `instance_id`.
 
-```toml { .tc-dynamic-values }
+```toml { .tc-substitute-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -90,5 +92,5 @@ to specify the `instance_id`.
 
 1. Open {{% product-name %}} and go to **Agents**.
 2. Confirm the agent appears in the list with the expected `instance_id`.
-3. Click the **More button ({{% icon "tc-more" %}})** and select
-  **View Details** to verify metadata, labels, and the reporting rule assignment.
+3. Click the **More button ({{% lucide "ellipsis-vertical" %}})** and select
+  **{{% lucide "eye" %}} View Details** to verify metadata, [labels](/telegraf/controller/labels/), and the reporting rule assignment.

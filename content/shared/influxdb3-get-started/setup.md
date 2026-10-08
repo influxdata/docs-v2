@@ -67,9 +67,13 @@ Using auto-generated node id: mylaptop-node. For production deployments, explici
 > **For production deployments**, use explicit configuration values with the
 > [`influxdb3 serve` command](/influxdb3/version/reference/cli/influxdb3/serve/)
 > as shown in the [Start InfluxDB](#start-influxdb) section below.
+>
+> Quick-start mode listens on all network interfaces.
+> Before you start the server on a network that others can reach, see
+> [Create your admin token before you expose the server](#start-influxdb).
 
 **Configuration precedence**: Environment variables override auto-generated defaults.
-For example, if you set `INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node`, the system
+For example, if you set `INFLUXDB3_NODE_ID=my-node`, the system
 uses `my-node` instead of generating `{hostname}-node`.
 
 ## Start InfluxDB
@@ -105,6 +109,43 @@ Provide the following:
 
 - Other object store parameters depending on the selected `object-store` type.
   For example, if you use `s3`, you must provide the bucket name and credentials.
+
+- _(Optional)_ `--http-bind`: The address and port for the HTTP API
+  _(default is `0.0.0.0:8181`, which listens on all network interfaces)_.
+  To accept only local connections until you create your first admin token,
+  specify `127.0.0.1:8181`.
+
+{{% show-in "enterprise" %}}
+- _(Optional, v3.11+)_ `--mode all,webui`: Serves the InfluxDB 3 Explorer web UI
+  from the server process.
+  `all` doesn't include `webui`, so name `webui` explicitly.
+  This mode also requires `--webui-session-secret`.
+  Explorer is served at the root path of the server's HTTP address--for
+  example, <http://localhost:8181/>.
+  For the requirements and the full startup command, see
+  [Use the integrated Explorer UI](/influxdb3/enterprise/admin/explorer-ui/).
+{{% /show-in %}}
+
+> [!Caution]
+> #### Create your admin token before you expose the server
+>
+> Until the first admin token exists, the `/api/v3/configure/token/admin`
+> endpoint accepts unauthenticated requests, and the server listens on all
+> network interfaces by default.
+> Anyone who can reach the port during that window can claim the operator token
+> and then use the processing engine to run code on the host.
+>
+> Close the window using one of the following methods:
+>
+> - Start the server with `--http-bind 127.0.0.1:8181` (with Docker, publish
+>   the port as `127.0.0.1:8181:8181`),
+>   [create your admin token](#create-an-operator-token), and then restart the
+>   server on the address you intend to use.
+> - Block the server port with a firewall until you create the token.
+> - Start the server with a
+>   [preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/)
+>   so the endpoint never accepts unauthenticated requests.
+>   We recommend this method for automated and production deployments.
 
 > [!Note]
 > #### Diskless architecture
@@ -179,7 +220,7 @@ influxdb3 serve \
 {{% /expand %}}
 {{% expand "Docker with a mounted file system object store" %}}
 
-To run the [Docker image](/influxdb3/version/install/#docker-image) and persist
+To run the [Docker image](/influxdb3/version/install/#pull-the-docker-image) and persist
 data to the local file system, mount a volume for the object store--for example,
 provide the following options with your `docker run` command:
 
@@ -244,7 +285,7 @@ services:
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
+      - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
     volumes:
       - type: bind
         # Path to store data on your host system
@@ -441,7 +482,7 @@ InfluxDB 3 Enterprise licenses:
 >
 > To generate the trial or home license in Docker, bypass the email prompt.
 > The first time you start a new instance, provide your email address with the
-> `--license-email` option or the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable.
+> `--license-email` option or the `INFLUXDB3_LICENSE_EMAIL` environment variable.
 >
 > _Currently, if you use Docker and enter your email address in the prompt, a bug may
 > prevent the container from generating the license ._
@@ -529,12 +570,24 @@ The command returns a token string for authenticating CLI commands and API reque
 > InfluxDB displays the token string only when you create it.
 > Store your token securely—you cannot retrieve it from the database later.
 
+Now that an admin token exists, the server requires a token for all requests.
+If you started the server on `127.0.0.1` to protect the
+[bootstrap window](#start-influxdb), you can now restart it on the address you
+want to use--for example, `--http-bind IP_ADDRESS:8181` to listen on a specific
+interface, or omit `--http-bind` to listen on all interfaces (default is
+`--http-bind 0.0.0.0:8181`).
+
 ### Set your token for authorization
 
+{{% show-in "enterprise" %}}
 Use your operator token to authenticate server actions in {{% product-name %}},
-such as {{% show-in "enterprise" %}}creating additional tokens, {{% /show-in %}}
-performing administrative tasks{{% show-in "enterprise" %}},{{% /show-in %}}
-and writing and querying data.
+such as creating additional tokens, performing administrative tasks, and
+writing and querying data.
+{{% /show-in %}}
+{{% show-in "core" %}}
+Use your operator token to authenticate server actions in {{% product-name %}},
+such as performing administrative tasks and writing and querying data.
+{{% /show-in %}}
 
 #### Authorize CLI commands
 
@@ -585,7 +638,7 @@ influxdb3 show databases --token YOUR_AUTH_TOKEN
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
 ```bash { placeholders="YOUR_AUTH_TOKEN" }
-curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
+curl "{{< influxdb/host-url >}}/api/v3/configure/database" \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 

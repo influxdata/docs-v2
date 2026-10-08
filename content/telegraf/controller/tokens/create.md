@@ -21,7 +21,7 @@ Tokens let you grant scoped access to external tools, scripts, and services with
 ## Create a token
 
 1.  Navigate to the **API Tokens** page.
-2.  Click **Create Token**.
+2.  Click **{{% lucide "plus" %}} Create API Token**.
 3.  Enter a **Description** for the token that identifies where or how the token
     will be used.
 4.  _(Optional)_ Set an **Expiration** date.

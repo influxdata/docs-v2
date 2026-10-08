@@ -13,11 +13,11 @@
      Supports both 3-segment (/influxdb3/core/api/) and 4-segment
      (/influxdb3/cloud-dedicated/api/data-api/) URLs.
      When deployed under a subdirectory baseURL (e.g., PR previews at
-     /docs-v2/pr-preview/pr-N/…), apply prPreviewPathOffset to skip
-     the extra leading segments. */}}
+     /pr-preview/pr-N/…), skip the extra leading segments computed
+     from the baseURL path depth. */}}
 {{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
 {{ $segments := split $urlPath "/" }}
-{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
 {{ $productSegments := sub (len $segments) $pathOffset }}
 
 {{/* Get article data.
@@ -43,33 +43,7 @@
   {{ end }}
 {{ end }}
 
-{{/* Separate conceptual (traitTag) and non-conceptual articles */}}
-{{ $conceptualArticles := slice }}
-{{ $operationArticles := slice }}
-
-{{ range $articles }}
-  {{ if and (reflect.IsMap .) (isset . "fields") }}
-    {{ $fields := index . "fields" }}
-    {{ if reflect.IsMap $fields }}
-      {{ $isConceptual := false }}
-      {{ if isset $fields "isConceptual" }}
-        {{ $isConceptual = index $fields "isConceptual" }}
-      {{ end }}
-      {{ if $isConceptual }}
-        {{ $conceptualArticles = $conceptualArticles | append . }}
-      {{ else }}
-        {{ $operationArticles = $operationArticles | append . }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-
-{{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
-{{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-{{ $operationArticles = sort $operationArticles "fields.weight" }}
-
-{{/* Combine: conceptual first, then operations */}}
-{{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+{{ $sortedArticles := partial "api/sorted-tag-articles.html" $articles }}
 
 {{/* Also include static API pages (HTML files) not in article data */}}
 {{/* These are compatibility API pages like v1-compatibility, v2, management */}}

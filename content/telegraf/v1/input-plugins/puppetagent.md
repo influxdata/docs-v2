@@ -35,8 +35,15 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 # Reads last_run_summary.yaml file and converts to measurements
 [[inputs.puppetagent]]
   ## Location of puppet last run summary file
+  ## Use the following path for puppet version 7+ ($publicdir/last_run_summary.yaml)
+  ##   location = "/opt/puppetlabs/puppet/public/last_run_summary.yaml"
   location = "/var/lib/puppet/state/last_run_summary.yaml"
 ```
+
+If you use a distro packaged puppet the `$publicdir` might be different from above.
+
+By default, this file is not readable by the `telegraf` user.
+You can adjust file permissions by configuring the `lastrunfile` setting in Puppet.
 
 ## Metrics
 

@@ -10,11 +10,19 @@ menu:
     name: Configure specialized cluster nodes
 weight: 100
 related:
+  - /influxdb3/enterprise/admin/node-lifecycle/
   - /influxdb3/enterprise/admin/performance-tuning/
   - /influxdb3/enterprise/reference/internals/runtime-architecture/
   - /influxdb3/enterprise/reference/config-options/
   - /influxdb3/enterprise/admin/query-system-data/
 influxdb3/enterprise/tags: [clustering, performance, tuning, ingest, threads]
+prepend: |
+  > [!Note]
+  > Thread allocation on this page applies to the Parquet storage engine.
+  > If your cluster runs the upgraded storage engine (the default for new
+  > clusters in InfluxDB 3 Enterprise 3.11+), see the
+  > [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/)
+  > instead.
 ---
 
 Optimize performance for specific workloads in your {{% product-name %}} cluster
@@ -45,7 +53,7 @@ In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
 - **Ingest nodes**: Optimized for high-throughput data ingestion
 - **Query nodes**: Maximized for complex analytical queries
 - **Compactor nodes**: Dedicated to data compaction and optimization
-- **Process-capable nodes**: Any node with `--plugin-dir` configured can execute Processing Engine plugins. Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) when creating a trigger to pin its execution to specific nodes.
+- **Process-capable nodes**: Any node with `--plugin-dir` configured runs the Processing Engine and follows every ingest node's WAL through object storage. Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) when creating a trigger to control which process nodes' schedulers own it, see [Run the Processing Engine in a cluster](/influxdb3/enterprise/admin/processing-engine-cluster/).
 - **All-in-one nodes**: Balanced for mixed workloads (single-node deployments only)
 
 ## Configure node modes
@@ -69,18 +77,32 @@ Available modes:
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
-- `process`: Activates the Processing Engine. `process` has no API surface of its own — it activates the Python virtual machine that runs trigger plugins. Setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) implies `process` mode, so you rarely need to set `process` explicitly. In a multi-node cluster, combine `process` with another mode (typically `query`, so plugins can call `influxdb3_local.query()` against the local engine) — see [Configure process-capable nodes](#configure-process-capable-nodes).
+- `process`: Activates the Processing Engine. `process` has no API surface of its own, it activates the Python virtual machine that runs trigger plugins and makes the node follow every ingest node's WAL through object storage. Setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) implies `process` mode, so you rarely need to set `process` explicitly. In a multi-node cluster, combine `process` with another mode (typically `query`, so plugins can call `influxdb3_local.query()` against the local engine) and set `--internode-bind-addr` so other process nodes' schedulers can place runs on it, see [Configure process-capable nodes](#configure-process-capable-nodes).
+
+> [!Note]
+> #### Nodes without query mode refuse data queries (Parquet engine)
+>
+> A node that doesn't run `query` mode returns `405 Method Not Allowed` for data queries.
+> System table queries still work.
+> The upgraded storage engine already behaves this way.
 
 > [!Warning]
 > #### Don't use all mode in a multi-node cluster
 >
-> #### Don't use all mode in a multi-node cluster
->
 > Use `all` mode for **single-node** Enterprise deployments only.
 > Some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
-> In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
+> In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`).
+> With the Parquet engine, assign `compact` to exactly one node.
+> With the upgraded storage engine, one compact node at a time holds the compactor lease, and with [distributed compaction](/influxdb3/enterprise/admin/distributed-compaction/) the other compact nodes can run compaction jobs.
 
 ## Allocate threads by node type
+
+> [!Important]
+> With the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+> (the default for new clusters starting on 3.11+), ingest and compaction run on the
+> IO thread pool instead of the DataFusion thread pool. Follow the
+> [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/)
+> instead of the guidance in this section.
 
 ### Critical concept: Thread pools
 
@@ -106,7 +128,7 @@ influxdb3 \
   serve \
   --num-cores=32 \
   --datafusion-num-threads=20 \
-  --exec-mem-pool-bytes=60% \
+  --exec-mem-pool-size=60% \
   --mode=ingest \
   --node-id=ingester-01
 ```
@@ -161,8 +183,8 @@ influxdb3 \
   serve \
   --num-cores=64 \
   --datafusion-num-threads=60 \
-  --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size=8GB \
+  --exec-mem-pool-size=90% \
+  --file-cache-size=8GB \
   --mode=query \
   --node-id=query-01 \
   --cluster-id=prod-cluster
@@ -183,8 +205,8 @@ influxdb3 \
   serve \
   --num-cores=32 \
   --datafusion-num-threads=26 \
-  --exec-mem-pool-bytes=80% \
-  --parquet-mem-cache-size=4GB \
+  --exec-mem-pool-size=80% \
+  --file-cache-size=4GB \
   --mode=query \
   --node-id=query-02
 ```
@@ -244,20 +266,25 @@ You can adjust compaction strategies to balance performance and resource usage:
 --compaction-cleanup-wait=10m
 ```
 
+### Distributed compaction
+
+On the upgraded storage engine, you can spread compaction work across every compact node in the cluster instead of running it only on the lease holder.
+For setup and tuning guidance, see [Distributed compaction](/influxdb3/enterprise/admin/distributed-compaction/).
+
 ## Configure process-capable nodes
 
-Any node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured can execute Processing Engine plugins.
+Any node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured runs the Processing Engine: it follows every ingest node's WAL through object storage and can serve as a scheduler or a worker for triggers.
 Setting `--plugin-dir` implicitly adds `process` mode regardless of the node's other modes; explicit `--mode=process` requires `--plugin-dir` to be set.
 
 > [!Important]
-> #### Configure `--plugin-dir` on every cluster node
+> #### Configure `--plugin-dir` and `--internode-bind-addr` on every process node
 >
-> The Enterprise catalog registers triggers cluster-wide.
-> Every node validates the registered triggers at startup, even nodes that don't execute them — for example, ingest-only and compact-only nodes.
-> If a plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
+> A trigger's [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) selects which process nodes' schedulers own it.
+> Each owning scheduler spreads runs across itself and the other running process nodes that advertise an internode address, and a node that doesn't have the trigger's plugin file in its `--plugin-dir` declines the run.
 >
-> Configure `--plugin-dir` on every node and make the same plugin files available to each one (for example, by mounting a shared directory in your container or pod spec).
-> Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) on each trigger to control which nodes actually execute it.
+> Configure `--plugin-dir` on every process node and make the same plugin files available to each one (for example, by mounting a shared directory in your container or pod spec), and set `--internode-bind-addr` on each so schedulers can place runs on one another.
+> Only nodes that run Processing Engine plugins need `--plugin-dir`; an ingest-only or compact-only node doesn't need it.
+> For the full trigger execution model, see [Run the Processing Engine in a cluster](/influxdb3/enterprise/admin/processing-engine-cluster/).
 
 ### Enable the Processing Engine on any node
 
@@ -268,6 +295,7 @@ influxdb3 \
   --num-cores=16 \
   --datafusion-num-threads=12 \
   --plugin-dir=/path/to/plugins \
+  --internode-bind-addr=0.0.0.0:8083 \
   --node-id=hybrid-01 \
   --cluster-id=prod-cluster
 ```
@@ -284,6 +312,7 @@ influxdb3 \
   --num-cores=16 \
   --datafusion-num-threads=12 \
   --plugin-dir=/path/to/plugins \
+  --internode-bind-addr=0.0.0.0:8083 \
   --mode=process,query \
   --node-id=processor-01 \
   --cluster-id=prod-cluster
@@ -309,7 +338,7 @@ influxdb3 \
   serve \
   --num-cores=48 \
   --datafusion-num-threads=36 \
-  --exec-mem-pool-bytes=75% \
+  --exec-mem-pool-size=75% \
   --mode=ingest,query \
   --node-id=hybrid-01
 ```
@@ -458,6 +487,12 @@ WHERE max_time > extract(epoch from now() - INTERVAL '5 minutes') * 1000000000
 GROUP BY table_name;
 ```
 
+> [!Note]
+> On the legacy Parquet storage engine, `system.parquet_files` lists only Gen1
+> files, including compacted Gen1 files that haven't been cleaned up.
+> It doesn't list compacted generations.
+> For more information, see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
+
 #### Query nodes
 
 ```sql
@@ -596,7 +631,8 @@ GROUP BY event_type;
 - Increasing query times due to file fragmentation
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
-The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
+
+The upgraded storage engine does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
@@ -629,14 +665,14 @@ top -H -p $(pgrep influxdb3)
 free -h
 
 # Solution: Increase memory pool
---exec-mem-pool-bytes=90%
+--exec-mem-pool-size=90%
 ```
 
 **Problem**: Poor cache hit rates
 
 ```bash
 # Solution: Increase Parquet cache
---parquet-mem-cache-size=10GB
+--file-cache-size=10GB
 ```
 
 ### Compactor node issues
@@ -746,7 +782,7 @@ influxdb3 serve --config ingester.toml
 
 ```bash
 # Set environment variables for node type
-export INFLUXDB3_ENTERPRISE_MODE=ingest
+export INFLUXDB3_MODE=ingest
 export INFLUXDB3_NUM_IO_THREADS=20
 export INFLUXDB3_DATAFUSION_NUM_THREADS=76
 

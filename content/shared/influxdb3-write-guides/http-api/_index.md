@@ -15,7 +15,8 @@ Different APIs are available depending on your integration method.
 > When bringing existing _v2_ write workloads, use the {{% product-name %}}
 > HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/write-data/).
 >
-> **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](/telegraf/v1/output-plugins/influxdb/) or v2.x [`outputs.influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) output plugins.
+> **For Telegraf**, use the [`outputs.influxdb_v3`](/telegraf/v1/output-plugins/influxdb_v3/) output plugin.
+> For existing v1 or v2 write workloads, use the v1.x [`outputs.influxdb`](/telegraf/v1/output-plugins/influxdb/) or v2.x [`outputs.influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) output plugins.
 > See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).
 {{% /show-in %}}
 

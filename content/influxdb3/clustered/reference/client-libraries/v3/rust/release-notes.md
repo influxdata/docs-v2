@@ -10,8 +10,8 @@ menu:
 weight: 301
 canonical: /influxdb3/core/reference/client-libraries/v3/rust/release-notes/
 source: /shared/influxdb-client-libraries-reference/v3/release-notes/rust.md
-latest_version: "0.2.0"
-latest_release_date: "2026-06-16"
+latest_version: "0.3.0"
+latest_release_date: "2026-08-27"
 ---
 
 <!-- Content sourced from content/shared/influxdb-client-libraries-reference/v3/release-notes/rust.md -->

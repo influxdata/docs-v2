@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
-  version: v3.10.0
+  version: v3.12.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:59e0d108505b9909361470ccdd95015b6ea1bffcf2c5a9892e7217eabff5b994
+  x-source-hash: sha256:24c3cc46699dc72e1bbfe45f0a3d91b32ed9f7635526e0a44136a3982870f228
   x-influxdata-download-url: /openapi/influxdb3-enterprise-openapi.yaml
 servers:
   - url: https://{baseurl}
@@ -141,13 +141,14 @@ tags:
     x-related:
       - title: Use compatibility APIs to write data
         href: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
-  - name: Export data (beta)
+  - name: Export data
     description: |
       Export compacted data as Parquet files for use with external tools.
 
-      > **Beta**: Export endpoints require the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-      > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-      > and **should not be used for production workloads**.
+      > **Requires the upgraded storage engine**: Export endpoints require the
+      > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+      > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+      > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
 
       Data must be compacted before it can be exported.
       Uncompacted data is not available for export at this time.
@@ -162,7 +163,7 @@ tags:
       You can also use the [`influxdb3 export`](/influxdb3/enterprise/performance-preview/#export-to-parquet) CLI
       commands, which call these endpoints.
     x-related:
-      - title: Performance upgrade preview
+      - title: Storage engine upgrade
         href: /influxdb3/enterprise/performance-preview/
       - title: Export to Parquet
         href: /influxdb3/enterprise/performance-preview/#export-to-parquet
@@ -233,6 +234,17 @@ tags:
     x-related:
       - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
         href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
+  - name: Query groups
+    description: >
+      Manage distributed query groups--named sets of query nodes that InfluxDB 3 Enterprise load-balances queries
+      across.
+
+
+      > **Not yet operational**: These endpoints work and store query group definitions in the catalog, but InfluxDB 3
+      Enterprise doesn't yet use those definitions to affect query routing, data placement, or replication.
+    x-related:
+      - title: Configure query groups
+        href: /influxdb3/enterprise/admin/query-groups/
   - name: Quick start
     description: >
       1. [Create an admin token](#section/Authentication) to authorize API requests.
@@ -322,6 +334,14 @@ tags:
       Bulk import endpoints require the upgraded storage engine, enabled with the `--use-pacha-tree` flag, and a
       compactor node that runs the bulk import scheduler to complete the import. All endpoints require an admin
       (operator) token.
+  - name: Load capture
+    description: |
+      Capture a timed, anonymized profile of write requests, query requests, or both on a query-capable node.
+
+      Load capture endpoints require an admin token. Only one capture can run at a time on a node.
+    x-related:
+      - title: Capture workload data
+        href: /influxdb3/enterprise/admin/load-capture/
   - name: Data deletion
     description: |
       Manage row-delete requests.
@@ -375,7 +395,21 @@ paths:
             cluster-uuid:
               $ref: "#/components/headers/ClusterUUID"
         "400":
-          description: Bad request.
+          description: |
+            Bad request. InfluxDB rejected the whole batch and wrote nothing.
+            This endpoint doesn't support partial writes: if any line is invalid, no
+            lines are written, and an `accept_partial` parameter is ignored.
+            To write the valid lines of a batch, use `/api/v3/write_lp`.
+          content:
+            application/json:
+              examples:
+                rejectedBatch:
+                  summary: One invalid line rejects the batch
+                  value: |
+                    {
+                      "code": "invalid",
+                      "message": "write buffer error: line protocol parse failed: No fields were provided"
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -453,11 +487,6 @@ paths:
             writes all points in the batch to the database.
 
             This parameter is named `bucket` for compatibility with InfluxDB v2 client libraries.
-        - name: accept_partial
-          in: query
-          required: false
-          schema:
-            $ref: "#/components/schemas/AcceptPartial"
         - $ref: "#/components/parameters/compatibilityPrecisionParam"
       requestBody:
         $ref: "#/components/requestBodies/lineProtocolRequestBody"
@@ -825,11 +854,17 @@ paths:
                 - requests
       responses:
         "200":
-          description: Success. The packages are installed.
+          description: >-
+            Success. The packages are installed. In InfluxDB 3 Core 3.12, a failed install can also return `200`;
+            confirm that the package imports before relying on it.
         "400":
           description: Bad request.
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "500":
+          description: >-
+            The package install failed, for example because pip couldn't find the package. The body includes the package
+            manager's error.
       tags:
         - Processing engine
   /api/v3/configure/plugin_environment/install_requirements:
@@ -905,7 +940,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every:
                 summary: Schedule trigger using interval
                 description: |
@@ -919,7 +954,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_seconds:
                 summary: Schedule trigger using seconds interval
                 description: |
@@ -932,7 +967,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               schedule_every_minutes:
                 summary: Schedule trigger using minutes interval
                 description: |
@@ -945,7 +980,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               all_tables:
                 summary: All tables trigger example
                 description: |
@@ -958,7 +993,42 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
+              github_plugin:
+                summary: Trigger using a remotely fetched plugin
+                description: |
+                  Trigger that uses a plugin referenced with the `gh:` prefix.
+                  InfluxDB fetches the plugin from the default `influxdata/influxdb3_plugins`
+                  repository (or the repository configured with `--plugin-repo`)
+                  instead of the local `--plugin-dir`.
+                value:
+                  db: mydb
+                  plugin_filename: gh:examples/wal_plugin/wal_plugin.py
+                  trigger_name: my_trigger
+                  trigger_specification: all_tables
+                  disabled: false
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
+              node_specific:
+                x-enterprise-only: true
+                summary: Trigger on specific cluster nodes
+                description: |
+                  In `node_spec`, use `"all"` (default) to run the trigger on
+                  all nodes, or `{"nodes": ["NODE_ID"]}` to run it only on the
+                  specified nodes.
+                value:
+                  db: mydb
+                  plugin_filename: table.py
+                  trigger_name: node_specific_trigger
+                  trigger_specification: table:sensors
+                  node_spec:
+                    nodes:
+                      - node-01
+                  disabled: false
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -971,7 +1041,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               api_request:
                 summary: On-demand request trigger example
                 description: |
@@ -984,7 +1054,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -997,7 +1067,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
               cron_monthly:
                 summary: Cron trigger for monthly execution
                 description: |
@@ -1010,7 +1080,7 @@ paths:
                   disabled: false
                   trigger_settings:
                     run_async: false
-                    error_behavior: Log
+                    error_behavior: log
       responses:
         "200":
           description: Success. Processing engine trigger created.
@@ -1237,6 +1307,8 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           description: Table not found.
+        "409":
+          description: Conflict. The table is already deleted.
       summary: Delete a table
       description: |
         Soft deletes a table.
@@ -1248,6 +1320,16 @@ paths:
 
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
+
+        #### Soft-deleted tables keep a renamed, visible entry until hard deletion
+
+        A soft delete renames the table to `<table_name>-<deleted_at_timestamp>` instead of removing it.
+        Until the table is hard deleted, this renamed entry still appears in `SHOW TABLES` output and in
+        `information_schema.tables` queries. Filter out names that end in a deleted-at timestamp to account for
+        these renamed entries when listing or counting tables.
+
+        Deleting an already-deleted table returns `409 Conflict`. There's no API to remove the renamed entry
+        directly; only a scheduled or immediate (`hard_delete_at=now`) hard deletion removes it.
       tags:
         - Table
     post:
@@ -1285,7 +1367,11 @@ paths:
       x-enterprise-only: true
       summary: Update a table
       description: |
-        Updates table configuration, such as retention period.
+        Updates a table's retention period.
+
+        This endpoint doesn't add columns. Other properties in the request body,
+        such as `tags` or `fields`, are ignored, and the request still returns
+        `200`. To add columns, use `PATCH /api/v3/configure/table`.
       requestBody:
         required: true
         content:
@@ -1293,8 +1379,33 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateTableRequest"
       tags:
-        - Table
         - Enterprise
+    patch:
+      operationId: PatchConfigureTable2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchTableRequest"
+      responses:
+        "200":
+          description: Success. The columns have been added to the table. The response body is empty.
+        "400":
+          description: Bad request. The request names no tags or fields, or is otherwise invalid.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database or table not found.
+      summary: Add columns to a table
+      description: |
+        Adds tag and field columns to an existing table.
+
+        The change is additive: a column that already exists with the requested type is left unchanged.
+        No other table settings are modified.
+        The request must name at least one tag or field.
+      tags:
+        - Table
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -1854,6 +1965,404 @@ paths:
       tags:
         - Server information
         - Enterprise
+  /api/v3/enterprise/configure/node/remove:
+    post:
+      operationId: PostEnterpriseConfigureNodeRemove
+      summary: Permanently remove a stopped node
+      description: >-
+        Permanently removes a node that has already been marked as stopped, deleting its data from object storage once
+        the compactor finishes reassigning its work.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 remove node](/influxdb3/enterprise/reference/cli/influxdb3/remove/node/)
+
+        - [influxdb3 stop node](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/)
+      x-enterprise-only: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RemoveNodeRequest"
+      responses:
+        "200":
+          description: Success. The node has been removed.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Node not found.
+        "409":
+          description: The node is not in a state that allows removal (for example, still running).
+      tags:
+        - Server information
+        - Enterprise
+  /api/v3/enterprise/upgrade/parquet_cleanup:
+    post:
+      operationId: PostEnterpriseUpgradeParquetCleanup
+      summary: Request Parquet cleanup after a storage engine upgrade
+      description: >-
+        Requests removal of the Parquet-era data left behind by a completed Parquet-to-PachaTree storage engine upgrade.
+        Any node in the cluster accepts the request. The compactor node executes it.
+
+
+        Requires the cluster to be fully on the upgraded (PachaTree) storage engine, with the Parquet-to-PachaTree
+        upgrade already complete. Use `dry_run` to count and size the data a real cleanup would delete without deleting
+        anything.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 manage cleanup-parquet](/influxdb3/enterprise/reference/cli/influxdb3/manage/cleanup-parquet/)
+      x-enterprise-only: true
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParquetCleanupRequest"
+      responses:
+        "202":
+          description: Success. The cleanup started, is already running, or already completed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParquetCleanupResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          description: >-
+            The cluster isn't on the upgraded storage engine, no Parquet-to-PachaTree upgrade was ever recorded, the
+            upgrade hasn't completed, or a cleanup is already active in a different mode (dry run vs. delete).
+      tags:
+        - Server information
+        - Enterprise
+      x-influxdb-introduced-in: v3.11.1
+    get:
+      operationId: GetEnterpriseUpgradeParquetCleanup
+      summary: Get Parquet cleanup status
+      description: |-
+        Returns the current or most recent Parquet cleanup state for the cluster.
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+        #### Related
+
+        - [influxdb3 manage cleanup-parquet](/influxdb3/enterprise/reference/cli/influxdb3/manage/cleanup-parquet/)
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns the current Parquet cleanup state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParquetCleanupStatusSnapshot"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: No Parquet cleanup has ever been requested on this cluster.
+      tags:
+        - Server information
+        - Enterprise
+      x-influxdb-introduced-in: v3.11.1
+  /api/v3/enterprise/upgrade/retry_parquet_to_pacha_tree:
+    post:
+      operationId: PostEnterpriseUpgradeRetryParquetToPachaTree
+      summary: Retry a failed Parquet-to-PachaTree upgrade
+      description: >-
+        Resets a Parquet-to-PachaTree storage engine upgrade that latched to a `failed` state, so it resumes the next
+        time a compactor node starts with `--upgrade-pacha-tree`.
+
+
+        Re-checks every previously failed upgrade source against the catalog and object store: sources that are still
+        readable are requeued, sources whose table or database was dropped are recorded as skipped, and sources that
+        can't be read back are left unresolved for the next retry.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 manage
+        retry-upgrade-to-pacha-tree](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/)
+      x-enterprise-only: true
+      responses:
+        "200":
+          description: Success. Returns a summary of what the retry changed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpgradeRetryResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          description: >-
+            The upgrade isn't in a state this request can act on (for example, it isn't `failed`), or another request
+            already reset it.
+      tags:
+        - Server information
+        - Enterprise
+      x-influxdb-introduced-in: v3.11.2
+  /api/v3/enterprise/configure/query_groups:
+    post:
+      operationId: PostEnterpriseConfigureQueryGroups
+      summary: Create a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 create query_group](/influxdb3/enterprise/reference/cli/influxdb3/create/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "201":
+          description: Created. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query groups
+        - Enterprise
+    get:
+      operationId: GetEnterpriseConfigureQueryGroups
+      summary: List distributed query groups (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 show query_groups](/influxdb3/enterprise/reference/cli/influxdb3/show/query_groups/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query groups
+        - Enterprise
+  /api/v3/enterprise/configure/query_groups/{id}:
+    get:
+      operationId: GetEnterpriseConfigureQueryGroupsById
+      summary: Retrieve a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    put:
+      operationId: PutEnterpriseConfigureQueryGroupsById
+      summary: Replace a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 update query_group](/influxdb3/enterprise/reference/cli/influxdb3/update/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    patch:
+      operationId: PatchEnterpriseConfigureQueryGroupsById
+      summary: Update a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 update query_group](/influxdb3/enterprise/reference/cli/influxdb3/update/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Not documented. This endpoint is not yet operational; request fields aren't finalized.
+      responses:
+        "200":
+          description: Success. Not documented. This endpoint is not yet operational; response fields aren't finalized.
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
+    delete:
+      operationId: DeleteEnterpriseConfigureQueryGroupsById
+      summary: Delete a distributed query group (not yet operational)
+      description: >-
+        Reserved for the distributed query group feature.
+
+
+        > **Not yet operational**: Request and response fields aren't finalized, and InfluxDB 3 Enterprise doesn't yet
+        use query group definitions to affect query routing, data placement, or replication.
+
+
+        This endpoint is only available in InfluxDB 3 Enterprise.
+
+
+        #### Related
+
+
+        - [influxdb3 delete query_group](/influxdb3/enterprise/reference/cli/influxdb3/delete/query_group/)
+      x-enterprise-only: true
+      x-lifecycle: not-operational
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the query group.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success. The query group has been deleted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Query group not found.
+      tags:
+        - Query groups
+        - Enterprise
   /api/v3/enterprise/configure/table/retention_period:
     post:
       operationId: PostEnterpriseConfigureTableRetentionPeriod
@@ -1953,6 +2462,9 @@ paths:
         A resource token is a token that has access to specific resources in the system.
 
         This endpoint is only available in InfluxDB 3 Enterprise.
+        InfluxDB 3 Cloud supports a narrower set of database-scoped read and write tokens instead of resource
+        tokens---see [Manage tokens in InfluxDB 3 Cloud](https://docs.influxdata.com/influxdb3/cloud/admin/tokens/).
+        InfluxDB 3 Core doesn't support resource tokens.
       responses:
         "201":
           description: |
@@ -1978,16 +2490,43 @@ paths:
   /api/v3/enterprise/import:
     post:
       operationId: PostEnterpriseImport
-      summary: Upload a Parquet file for bulk import
-      description: >-
-        Uploads a Parquet file, and optional column metadata, for bulk import into an existing table. The compactor node
-        asynchronously picks up and imports the file. Returns the staged import job info synchronously after the upload
-        is staged.
+      summary: Import Parquet data
+      description: |-
+        Imports Parquet data into an existing table. Send the data one of two ways:
 
+        - **Upload** (`multipart/form-data`): send one Parquet file in the request.
+        - **Object-store pull** (`application/json`): name a `source` prefix, and the server imports every Parquet
+          file under it. The source is either a prefix in the cluster's own object store or an `s3://bucket/prefix`
+          URL. The server reads another bucket with its own object-store credentials; the request carries none, so
+          those credentials must be able to read the bucket. A server whose own object store isn't S3 can't read
+          another bucket and returns `400`.
 
-        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
-        flag); the compactor node runs the bulk import scheduler that completes the import.
+        The request returns after the import is staged. The compactor node imports the data asynchronously. A job
+        moves through `queued`, `imported`, and `compacted`; rows become queryable once the job is `compacted`.
+        Use [List bulk import statuses](#operation/GetEnterpriseImport) to follow it.
 
+        #### Column types
+
+        For generic Parquet files, a column that isn't in `column_metadata` is imported as a field, typed from its
+        Parquet type. This applies even when the target table already declares the column as a tag, so map every
+        string tag column (for example, `{"column_mapping": {"host": "tag"}}`). Otherwise the import fails with
+        `invalid column type for column 'host', expected iox::column_type::tag, got iox::column_type::field::string`.
+        A string column with no mapping can also fail with `400` `Unable to infer data type for column`.
+
+        #### Explicit schema databases
+
+        In a database created with `schema_mode: explicit`, every column in the file must already be declared on the
+        table. Otherwise the import is rejected and no job is created. Declare columns with
+        `PATCH /api/v3/configure/table`.
+
+        #### Permissions
+
+        Requires a token with the `write` action on the target database (for example, `db:DATABASE_NAME:write`), or an
+        admin token. For a token without that permission, including when the database doesn't exist, the request
+        returns `403`.
+
+        Requires the upgraded storage engine (enabled with the `--use-pacha-tree` flag); the compactor node runs the
+        bulk import scheduler that completes the import.
 
         This endpoint is only available in InfluxDB 3 Enterprise.
       x-enterprise-only: true
@@ -1997,6 +2536,16 @@ paths:
           multipart/form-data:
             schema:
               $ref: "#/components/schemas/BulkImportUploadRequest"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkImportObjectStoreRequest"
+            example:
+              database: sensors
+              table: cpu
+              source: s3://import-bucket/exports/cpu/
+              column_metadata:
+                column_mapping:
+                  host: tag
       responses:
         "200":
           description: Success. The upload has been staged for import.
@@ -2016,15 +2565,24 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: "#/components/responses/Forbidden"
+          description: >-
+            Forbidden. The token doesn't have the `write` action on the target database. A token without that permission
+            also gets `403` when the database doesn't exist (`Not authorized to import into database`).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
         "404":
-          description: Not found. The target database or table does not exist.
+          description: Not found. The target table does not exist ("Table `cpu` does not exist").
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMessage"
         "500":
-          description: Internal server error. Object store, status write, or catalog failure.
+          description: >-
+            Internal server error. Object store, status write, or catalog failure. In 3.12, a file whose columns don't
+            match the table also returns `500` with `Could not modify catalog`: a column that an explicit schema
+            database doesn't declare, or an unmapped string column that the table declares as a tag.
           content:
             application/json:
               schema:
@@ -2036,11 +2594,14 @@ paths:
       operationId: GetEnterpriseImport
       summary: List bulk import statuses
       description: >-
-        Lists the status of all uploaded bulk import jobs.
+        Lists the status of bulk import jobs, for both uploads and object-store pulls.
 
 
-        Requires an admin (operator) token. Requires the upgraded storage engine (enabled with the `--use-pacha-tree`
-        flag).
+        Requires a token with the `describe` action on at least one database, or an admin token. The list includes only
+        jobs for databases the token can describe. A token that can't describe any database gets `403`.
+
+
+        Requires the upgraded storage engine (enabled with the `--use-pacha-tree` flag).
 
 
         This endpoint is only available in InfluxDB 3 Enterprise.
@@ -2265,15 +2826,16 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
       x-enterprise-only: true
-      summary: List databases available for export (beta)
+      summary: List databases available for export
       description: |
         Returns a list of databases that have compacted data available for Parquet export.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/export/tables:
     get:
@@ -2292,15 +2854,16 @@ paths:
         "404":
           description: Database not found.
       x-enterprise-only: true
-      summary: List tables available for export (beta)
+      summary: List tables available for export
       description: |
         Returns a list of tables in a database that have compacted data available for Parquet export.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/export/window_data:
     get:
@@ -2334,15 +2897,16 @@ paths:
         "404":
           description: Database, table, or window not found.
       x-enterprise-only: true
-      summary: Export window data as Parquet (beta)
+      summary: Export window data as Parquet
       description: |
         Downloads compacted data for the specified windows as a tar archive containing Parquet files.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
   /api/v3/export/windows:
     get:
@@ -2367,17 +2931,248 @@ paths:
         "404":
           description: Database or table not found.
       x-enterprise-only: true
-      summary: List compacted windows for a table (beta)
+      summary: List compacted windows for a table
       description: |
         Returns a list of compacted 24-hour UTC windows for a table.
         Each window represents a time range of compacted data that can be exported as Parquet.
 
-        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
-        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
-        > and **should not be used for production workloads**.
+        > **Requires the upgraded storage engine**: This endpoint requires the
+        > [upgraded storage engine](/influxdb3/enterprise/performance-preview/), which is the default for
+        > new clusters. On clusters created with 3.10 or earlier, run the storage engine upgrade with
+        > [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
       tags:
-        - Export data (beta)
+        - Export data
         - Enterprise
+  /api/v3/isAuthorized:
+    post:
+      operationId: PostIsAuthorized
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizationCheck"
+      responses:
+        "200":
+          description: |
+            The check was evaluated.
+            `authorized` is `false` when the caller isn't permitted to perform the action.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizationResult"
+        "400":
+          description: Bad request. The body must name exactly one action; boolean actions must be `true`.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. Only user subjects can call this endpoint; token subjects receive `403`.
+      x-enterprise-only: true
+      summary: Check whether the caller is authorized for an action
+      description: |
+        Reports whether the calling user may perform the single action named in the request body.
+
+        A denied action returns `200` with `authorized: false`.
+        A `403` response means the caller can't use this endpoint.
+      tags:
+        - Enterprise
+  /api/v3/loadcap/profiles:
+    get:
+      operationId: GetLoadcapProfiles
+      summary: List load capture profiles
+      description: >
+        Returns load capture profiles stored by a query-capable Enterprise node that has the performance upgrade preview
+        enabled and an explicit `--mode` setting that includes `query`.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LoadCaptureProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/start:
+    post:
+      operationId: PostLoadcapStart
+      summary: Start a load capture
+      description: >
+        Starts a timed capture of write requests, query requests, or both on a query-capable Enterprise node that has
+        the performance upgrade preview enabled and an explicit `--mode` setting that includes `query`.
+
+
+        Only one capture can run at a time on a node. This endpoint requires an admin token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoadCaptureStartRequest"
+      responses:
+        "200":
+          description: Load capture started.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCaptureStartResponse"
+        "400":
+          description: Invalid capture type or duration.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            `--mode` setting that includes `query`.
+        "409":
+          description: A load capture is already running on this node.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfile
+      summary: Retrieve load capture profile details
+      description: >
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile. The response is
+        the same as the profile preview.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profile details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCapturePreview"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+    delete:
+      operationId: DeleteLoadcapProfile
+      summary: Delete a load capture profile
+      description: |
+        Deletes a load capture profile and its stored artifacts from object storage.
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: The profile was deleted.
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+        "409":
+          description: The profile is still capturing. Wait for it to finish (or its status to catch up to `complete`), then retry.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/preview:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfilePreview
+      summary: Preview a load capture profile
+      description: >
+        Returns file counts, total size, and an anonymized catalog summary for a load capture profile without
+        downloading the archive. For `query`-only captures, `catalog_summary` is null.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Load capture profile preview.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoadCapturePreview"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/download:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfileDownload
+      summary: Download a load capture profile
+      description: >
+        Downloads the load capture profile as a gzipped tar archive containing the anonymized capture
+        artifacts---`catalog.json` and `.pt` write-ahead log files for `write` and `both` captures, and
+        `queries.json.zst` for `query` and `both` captures.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: >-
+            The profile archive. The response `Content-Type` is `application/gzip` and `Content-Disposition` provides
+            the `{profile_id}.tar.gz` filename.
+          content:
+            application/gzip:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the performance
+            upgrade preview with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
   /api/v3/plugin_test/schedule:
     post:
       operationId: PostTestSchedulingPlugin
@@ -3155,8 +3950,14 @@ paths:
         - name: accept_partial
           in: query
           required: false
+          description: |
+            Whether to write the valid lines when some lines in the batch are rejected.
+            Default is `true`: InfluxDB writes the valid lines and returns `400` with
+            `"partial write of line protocol occurred"` and the rejected lines.
+            With `false`, InfluxDB rejects the whole batch and writes nothing.
           schema:
             type: boolean
+            default: true
         - name: no_sync
           in: query
           required: false
@@ -3169,7 +3970,29 @@ paths:
             cluster-uuid:
               $ref: "#/components/headers/ClusterUUID"
         "400":
-          description: Bad request.
+          description: |
+            Bad request. Some or all lines were rejected; the body lists each rejected line.
+            With `accept_partial=true` (the default), the valid lines are written and
+            the error is `"partial write of line protocol occurred"`.
+            With `accept_partial=false`, nothing is written.
+            In a database that uses explicit schemas (`schema_mode: explicit`, Enterprise only), a line that writes an
+            undeclared table or column is rejected with a message that names it and points to `/api/v3/configure/table`.
+          content:
+            application/json:
+              examples:
+                partialWrite:
+                  summary: Partial write (default); line 1 was written
+                  value: |
+                    {
+                      "error": "partial write of line protocol occurred",
+                      "data": [
+                        {
+                          "error_message": "No fields were provided",
+                          "line_number": 2,
+                          "original_line": "home,room=Kitchen te"
+                        }
+                      ]
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -3177,7 +4000,10 @@ paths:
         "413":
           description: Request entity too large.
         "422":
-          description: Unprocessable entity.
+          description: |
+            Unprocessable entity. The write would exceed a schema limit: the number of
+            databases, tables, columns, tag columns, or fields. A partial write whose
+            rejected lines hit a limit also returns `422` instead of `400`.
       summary: Write line protocol
       description: |
         Writes line protocol to the specified database.
@@ -3190,7 +4016,8 @@ paths:
 
         #### Features
 
-        - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
+        - **Partial writes**: By default (`accept_partial=true`), InfluxDB writes the valid lines when some lines in a
+          batch fail. Set `accept_partial=false` to reject the whole batch instead.
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
           times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
@@ -3275,6 +4102,8 @@ paths:
                 example: OK
         "401":
           description: Unauthorized. Authentication is required.
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "500":
           description: Service is unavailable.
       summary: Health check
@@ -3285,6 +4114,9 @@ paths:
         Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
 
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+
+        A database-scoped resource token (for example, `db:DATABASE_NAME:read`) gets `403` from this endpoint. For
+        health checks, use a token with the `system:health:read` permission, or an admin token.
       tags:
         - Server information
   /metrics:
@@ -3314,6 +4146,8 @@ paths:
               schema:
                 type: string
                 example: Enterprise
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
           content:
             application/json:
               schema:
@@ -3333,6 +4167,11 @@ paths:
                     example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         "401":
           description: Unauthorized. Authentication is required.
+          headers:
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "404":
           description: |
             Not Found. Returned for HEAD requests.
@@ -3345,10 +4184,14 @@ paths:
 
         The response includes version information in both headers and the JSON body:
 
-        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Headers**: `x-influxdb-version`, `x-influxdb-build`, and `cluster-uuid`
+          (`cluster-uuid` is also returned on a `401`)
         - **Body**: JSON object with `version`, `revision`, and `process_id`
 
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
+
+        A database-scoped resource token (for example, `db:DATABASE_NAME:read`) gets `403` from this endpoint. For
+        health checks, use a token with the `system:ping:read` permission, or an admin token.
       tags:
         - Server information
     post:
@@ -3367,6 +4210,8 @@ paths:
               schema:
                 type: string
                 example: Enterprise
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
           content:
             application/json:
               schema:
@@ -3386,6 +4231,11 @@ paths:
                     example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         "401":
           description: Unauthorized. Authentication is required.
+          headers:
+            cluster-uuid:
+              $ref: "#/components/headers/ClusterUUID"
+        "403":
+          description: Forbidden. The token doesn't have permission to call this endpoint.
         "404":
           description: |
             Not Found. Returned for HEAD requests.
@@ -3758,40 +4608,24 @@ paths:
               $ref: "#/components/headers/ClusterUUID"
         "400":
           description: |
-            Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
-            If a partial write occurred, then some points from the batch are written and queryable.
-
-            The response body:
-              - indicates if a partial write occurred or all data was rejected.
-              - contains details about the [rejected points](/influxdb3/enterprise/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+            Bad request. InfluxDB rejected the whole batch and wrote nothing.
+            This endpoint doesn't support partial writes: if any line is invalid, no
+            lines are written, and an `accept_partial` parameter is ignored.
+            The body describes the first rejected line.
+            To write the valid lines of a batch, use `/api/v3/write_lp`.
           content:
             application/json:
               examples:
-                rejectedAllPoints:
-                  summary: Rejected all points in the batch
+                rejectedBatch:
+                  summary: One invalid line rejects the batch
                   value: |
                     {
-                      "error": "write of line protocol failed",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
-                    }
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejected some points in the batch
-                  value: |
-                    {
-                      "error": "partial write of line protocol occurred",
-                      "data": [
-                        {
-                          "original_line": "dquote> home,room=Kitchen temp=hi",
-                          "line_number": 2,
-                          "error_message": "No fields were provided"
-                        }
-                      ]
+                      "error": "line protocol parsing error",
+                      "data": {
+                        "error_message": "No fields were provided",
+                        "line_number": 2,
+                        "original_line": "home,room=Kitchen te"
+                      }
                     }
         "401":
           $ref: "#/components/responses/Unauthorized"
@@ -4006,6 +4840,15 @@ components:
         Password for v1 compatibility authentication.
         For query string authentication, pass a database token with write permissions as this parameter.
         InfluxDB 3 checks that the `p` value is an authorized token.
+    LoadCaptureProfileId:
+      x-enterprise-only: true
+      name: profile_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Identifier of the load capture profile.
   requestBodies:
     lineProtocolRequestBody:
       required: true
@@ -4236,6 +5079,20 @@ components:
             The retention period for the database. Specifies how long data should be retained.
             Use duration format (for example, "1d", "1h", "30m", "7d").
           example: 7d
+        schema_mode:
+          type: string
+          enum:
+            - implicit
+            - explicit
+          default: implicit
+          description: >-
+            How tables in the database get their schemas. Set at creation and can't be changed.
+
+            - `implicit` (default): writes create tables and columns.
+
+            - `explicit`: tables and columns are created only through the configuration API, and writes that reference
+            an undeclared table or column are rejected.
+              Enterprise only; InfluxDB 3 Core returns `400 Bad Request`.
       required:
         - db
     CreateTableRequest:
@@ -4352,6 +5209,122 @@ components:
           - field1
         count: 100
         ttl: 3600
+    PatchTableRequest:
+      type: object
+      description: Tags and fields to add to an existing table. At least one tag or field is required.
+      properties:
+        db:
+          type: string
+        table:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                  - utf8
+                  - int64
+                  - uint64
+                  - float64
+                  - bool
+            required:
+              - name
+              - type
+      required:
+        - db
+        - table
+    AuthorizationScope:
+      type: object
+      properties:
+        scope:
+          type: string
+          enum:
+            - all
+            - identifier
+        identifier:
+          type: string
+          description: Resource name. Required when `scope` is `identifier`; not allowed when `scope` is `all`.
+      required:
+        - scope
+    AuthorizationCheck:
+      type: object
+      description: |
+        Exactly one action to check.
+        Scoped actions take an `AuthorizationScope`; boolean actions must be `true`.
+      minProperties: 1
+      maxProperties: 1
+      additionalProperties: false
+      properties:
+        describeDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        readDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        writeDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        deleteDatabase:
+          $ref: "#/components/schemas/AuthorizationScope"
+        readSystem:
+          $ref: "#/components/schemas/AuthorizationScope"
+        createDatabase:
+          type: boolean
+          const: true
+        readToken:
+          type: boolean
+          const: true
+        createToken:
+          type: boolean
+          const: true
+        deleteToken:
+          type: boolean
+          const: true
+        readUser:
+          type: boolean
+          const: true
+        createUser:
+          type: boolean
+          const: true
+        updateUser:
+          type: boolean
+          const: true
+        deleteUser:
+          type: boolean
+          const: true
+        readRole:
+          type: boolean
+          const: true
+        createRole:
+          type: boolean
+          const: true
+        updateRole:
+          type: boolean
+          const: true
+        deleteRole:
+          type: boolean
+          const: true
+        createAdminToken:
+          type: boolean
+          const: true
+        deleteAdminToken:
+          type: boolean
+          const: true
+      x-enterprise-only: true
+    AuthorizationResult:
+      type: object
+      properties:
+        authorized:
+          type: boolean
+      required:
+        - authorized
+      x-enterprise-only: true
     ProcessingEngineTriggerRequest:
       type: object
       properties:
@@ -4359,19 +5332,30 @@ components:
           type: string
         plugin_filename:
           type: string
-          description: |
+          description: >
             The path and filename of the plugin to execute--for example,
+
             `schedule.py` or `endpoints/report.py`.
-            The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+
+            The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
+
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
+
+
+            Prefix the path with `gh:` to fetch the plugin remotely from the configured `--plugin-repo` instead of
+            reading it from the local `--plugin-dir`--for example, `gh:examples/wal_plugin/wal_plugin.py`.
+
+            Despite the name, `gh:` doesn't require GitHub--`--plugin-repo` accepts any HTTP/HTTPS URL that serves raw
+            plugin files.
+
+            For defaults, fetch behavior, and limitations, see [Use example
+            plugins](/influxdb3/enterprise/plugins/#use-example-plugins).
         node_spec:
           $ref: "#/components/schemas/ApiNodeSpec"
         trigger_name:
           type: string
         trigger_settings:
-          description: |
-            Configuration for trigger error handling and execution behavior.
           allOf:
             - $ref: "#/components/schemas/TriggerSettings"
         trigger_specification:
@@ -4465,8 +5449,15 @@ components:
           example: cron:0 0 6 * * 1-5
         trigger_arguments:
           type: object
-          additionalProperties: true
-          description: Optional arguments passed to the plugin.
+          additionalProperties:
+            type: string
+          description: |
+            Optional, plugin-specific arguments passed to the plugin entry point as its `args` dictionary.
+            Provide string key-value pairs. Omit this field to pass `None` as `args`.
+            Refer to the plugin documentation for supported argument names and values.
+          example:
+            threshold: "90"
+            target_table: alerts
         disabled:
           type: boolean
           default: false
@@ -4475,53 +5466,65 @@ components:
         - db
         - plugin_filename
         - trigger_name
-        - trigger_settings
         - trigger_specification
-        - disabled
     TriggerSettings:
       type: object
-      description: |
-        Configuration settings for processing engine trigger error handling and execution behavior.
       properties:
         run_async:
           type: boolean
           default: false
           description: |
-            Whether to run the trigger asynchronously.
-            When `true`, the trigger executes in the background without blocking.
-            When `false`, the trigger executes synchronously.
+            Whether invocations of the trigger can run concurrently.
+            If `false`, invocations run serially--each invocation must finish before the next one starts.
+            In a cluster with multiple process nodes, the trigger runs on one process node at a time.
+            If `true`, invocations can run concurrently, up to the `--async-trigger-concurrency-limit`
+            server option (default: `8`).
+            In a cluster with multiple process nodes, pending invocations are distributed across all process nodes.
         error_behavior:
           type: string
+          default: log
           enum:
-            - Log
-            - Retry
-            - Disable
-          description: |
-            Specifies how to handle errors that occur during trigger execution:
-            - `Log`: Log the error and continue (default)
-            - `Retry`: Retry the trigger execution
-            - `Disable`: Disable the trigger after an error
-          default: Log
-      required:
-        - run_async
-        - error_behavior
+            - log
+            - retry
+            - disable
+          description: >
+            How the trigger responds when the plugin returns an error:
+
+            - `log`: Log the error and keep the trigger active.
+
+            - `retry`: Retry the failed invocation with exponential backoff (up to 5 attempts), then log the failure.
+            Errors identified as permanent aren't retried.
+
+            - `disable`: Disable the trigger until you manually re-enable it.
     ApiNodeSpec:
       x-enterprise-only: true
-      type: object
       description: |
-        Optional specification for targeting specific nodes in a multi-node InfluxDB 3 Enterprise cluster.
-        Use this to control which node(s) should handle the cache or trigger.
-      properties:
-        node_id:
-          type: string
+        Specifies which nodes in a multi-node InfluxDB 3 Enterprise cluster
+        handle the cache or trigger.
+        Accepts the string `all` or an object that lists specific node IDs.
+        If omitted, defaults to `all`.
+      default: all
+      example: all
+      oneOf:
+        - type: string
+          enum:
+            - all
           description: |
-            The ID of a specific node in the cluster.
-            If specified, the cache or trigger will only be created on this node.
-        node_group:
-          type: string
+            Create the cache or trigger on all nodes in the cluster.
+        - type: object
           description: |
-            The name of a node group in the cluster.
-            If specified, the cache or trigger will be created on all nodes in this group.
+            Create the cache or trigger only on the specified nodes.
+          properties:
+            nodes:
+              type: array
+              items:
+                type: string
+              description: |
+                Node IDs (the `--node-id` value each node was started with).
+                Each node must exist and must run in `process` mode.
+          required:
+            - nodes
+          additionalProperties: false
     WALPluginTestRequest:
       type: object
       description: |
@@ -4743,6 +5746,110 @@ components:
         - db
         - table
       description: Request schema for updating table configuration.
+    LoadCaptureStartRequest:
+      type: object
+      description: Request body for starting a timed load capture.
+      properties:
+        type:
+          type: string
+          description: The request types to capture.
+          enum:
+            - write
+            - query
+            - both
+        duration:
+          type: string
+          description: Capture duration using seconds, minutes, or hours. The maximum duration is one hour.
+          example: 5m
+      required:
+        - type
+        - duration
+    LoadCaptureStartResponse:
+      type: object
+      description: Response returned after a load capture starts.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the new load capture profile.
+      required:
+        - profile_id
+    LoadCaptureProfile:
+      type: object
+      description: Metadata for a load capture profile.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the load capture profile.
+        created_at:
+          type: string
+          format: date-time
+          description: Time when the capture started.
+        type:
+          type: string
+          enum:
+            - write
+            - query
+            - both
+          description: The request types captured by the profile.
+        duration:
+          type: string
+          description: Requested capture duration.
+        node_id:
+          type: integer
+          description: Identifier of the node that owns the profile.
+        status:
+          type: string
+          enum:
+            - running
+            - complete
+            - aborted
+          description: Current capture status.
+        wal_dropped:
+          type: integer
+          minimum: 0
+          description: Number of write-ahead log files that could not be captured.
+        query_dropped:
+          type: integer
+          minimum: 0
+          description: Number of queries that could not be captured.
+        unparseable_queries:
+          type: integer
+          minimum: 0
+          description: Number of queries replaced because they could not be parsed safely.
+    LoadCapturePreview:
+      type: object
+      description: >-
+        Contents summary for a load capture profile, including an anonymized catalog summary. Returned by the profile
+        details and preview endpoints.
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+          description: Identifier of the load capture profile.
+        file_count:
+          type: integer
+          minimum: 0
+          description: Total number of files in the profile archive.
+        total_size_bytes:
+          type: integer
+          minimum: 0
+          description: Total size of the profile archive contents, in bytes.
+        wal_file_count:
+          type: integer
+          minimum: 0
+          description: Number of anonymized write-ahead log (`.pt`) files in the profile.
+        query_count:
+          type: integer
+          minimum: 0
+          description: Number of captured queries in the profile.
+        catalog_summary:
+          type: object
+          nullable: true
+          description: >-
+            Anonymized catalog snapshot taken when the capture started, including databases, tables, columns, and node
+            metadata. Null for `query`-only captures.
     LicenseResponse:
       type: object
       properties:
@@ -4869,6 +5976,216 @@ components:
         - node_id
       example:
         node_id: node-1
+    RemoveNodeRequest:
+      type: object
+      description: Request body for permanently removing a stopped node from the cluster.
+      properties:
+        node_id:
+          type: string
+          description: The ID of the node to remove.
+        force_finalize:
+          type: boolean
+          description: >-
+            Force-finalize a node stuck in the `Stopping` state (for example, after a crash that never acknowledged the
+            stop). This can delete unsnapshotted WAL data for that node — only use it when the node's process is
+            confirmed gone and you accept the data-loss risk.
+          default: false
+      required:
+        - node_id
+      example:
+        node_id: node-1
+    ParquetCleanupRequest:
+      type: object
+      description: |
+        Request body for `POST /api/v3/enterprise/upgrade/parquet_cleanup`.
+        An empty body is equivalent to the defaults (a real deletion).
+      properties:
+        dry_run:
+          type: boolean
+          description: |
+            When `true`, only count and size the Parquet-era data a real cleanup would delete.
+            Delete nothing.
+          default: false
+      example:
+        dry_run: false
+    ParquetCleanupResponse:
+      type: object
+      description: Response body for `POST /api/v3/enterprise/upgrade/parquet_cleanup`.
+      properties:
+        state:
+          type: string
+          enum:
+            - started
+            - already_running
+            - already_completed
+          description: The outcome of this cleanup request.
+        status:
+          $ref: "#/components/schemas/ParquetCleanupStatusSnapshot"
+      required:
+        - state
+        - status
+    ParquetCleanupStatusSnapshot:
+      type: object
+      description: |
+        Point-in-time view of the durable Parquet cleanup state.
+        Returned by `GET /api/v3/enterprise/upgrade/parquet_cleanup` and embedded in the POST response.
+      properties:
+        status:
+          type: string
+          enum:
+            - requested
+            - running
+            - completed
+            - failed
+          description: The cleanup's current status.
+        mode:
+          type: string
+          enum:
+            - delete
+            - dry_run
+          description: Whether this cleanup deletes data or only reports what it would delete.
+        requested_by:
+          type: string
+          nullable: true
+          description: The node that accepted the cleanup request, if recorded.
+        files_scanned:
+          type: integer
+          format: int64
+          description: Number of files the cleanup has scanned so far.
+        files_matched:
+          type: integer
+          format: int64
+          description: Number of files identified as Parquet-era data to delete.
+        bytes_matched:
+          type: integer
+          format: int64
+          description: Total size, in bytes, of the matched files.
+        files_deleted:
+          type: integer
+          format: int64
+          description: |
+            Number of files deleted so far.
+            Always `0` in `dry_run` mode.
+        bytes_deleted:
+          type: integer
+          format: int64
+          description: |
+            Total size, in bytes, of the deleted files.
+            Always `0` in `dry_run` mode.
+        files_failed:
+          type: integer
+          format: int64
+          description: Number of files the cleanup failed to delete.
+        requested_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When the cleanup was requested, in nanoseconds since the Unix epoch.
+        started_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When the cleanup started running, in nanoseconds since the Unix epoch.
+        completed_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When the cleanup finished, in nanoseconds since the Unix epoch.
+        updated_at_ns:
+          type: integer
+          format: int64
+          nullable: true
+          description: When this status was last updated, in nanoseconds since the Unix epoch.
+        last_message:
+          type: string
+          nullable: true
+          description: The most recent human-readable status message, if any.
+      required:
+        - status
+        - mode
+        - files_scanned
+        - files_matched
+        - bytes_matched
+        - files_deleted
+        - bytes_deleted
+        - files_failed
+      example:
+        status: completed
+        mode: delete
+        requested_by: node-1
+        files_scanned: 1024
+        files_matched: 812
+        bytes_matched: 4294967296
+        files_deleted: 812
+        bytes_deleted: 4294967296
+        files_failed: 0
+        requested_at_ns: 1735689600000000000
+        started_at_ns: 1735689601000000000
+        completed_at_ns: 1735689900000000000
+        updated_at_ns: 1735689900000000000
+        last_message: null
+    UpgradeRetryResponse:
+      type: object
+      description: Response body for `POST /api/v3/enterprise/upgrade/retry_parquet_to_pacha_tree`.
+      properties:
+        entries_inspected:
+          type: integer
+          format: int64
+          description: Terminal failures the retry re-checked against the catalog and object store.
+        entries_skipped_source_missing:
+          type: integer
+          format: int64
+          description: Entries skipped because their source object no longer exists.
+        entries_skipped_table_dropped:
+          type: integer
+          format: int64
+          description: Entries skipped because their table was dropped.
+        entries_requeued:
+          type: integer
+          format: int64
+          description: Entries returned to the queue because their source is still readable.
+        entries_already_skipped:
+          type: integer
+          format: int64
+          description: Terminal failures that were already recorded as skips.
+        entries_already_converted:
+          type: integer
+          format: int64
+          description: |
+            Entries whose sequence already held converted data.
+            Recorded as imported instead of skipped.
+        entries_unresolved:
+          type: integer
+          format: int64
+          description: |
+            Entries left untouched because the object holding their sequence couldn't be read back.
+            Run this endpoint again to re-attempt them.
+        upgrade_status:
+          type: string
+          description: The status the enterprise upgrade state was left in after the retry.
+        message:
+          type: string
+          description: What to do next.
+      required:
+        - entries_inspected
+        - entries_skipped_source_missing
+        - entries_skipped_table_dropped
+        - entries_requeued
+        - entries_already_skipped
+        - entries_already_converted
+        - entries_unresolved
+        - upgrade_status
+        - message
+      example:
+        entries_inspected: 3
+        entries_skipped_source_missing: 1
+        entries_skipped_table_dropped: 0
+        entries_requeued: 2
+        entries_already_skipped: 0
+        entries_already_converted: 0
+        entries_unresolved: 0
+        upgrade_status: upgrading
+        message: Migration state reset. Restart the compactor node with --upgrade-pacha-tree to resume the upgrade.
     AbortDeleteRequestBody:
       type: object
       description: Request body for aborting a row-delete request.
@@ -4938,6 +6255,27 @@ components:
         - time
         - tag
       description: The InfluxDB column type for a mapped column. These are the supported `--column` types.
+    BulkImportObjectStoreRequest:
+      type: object
+      description: Request body for a bulk import that pulls Parquet files from object storage.
+      properties:
+        database:
+          type: string
+          description: The target database name. The database must already exist.
+        table:
+          type: string
+          description: The target table name. The table must already exist.
+        source:
+          type: string
+          description: >-
+            Where to read Parquet files: a prefix in the cluster's own object store (for example, `staging/exports/`),
+            or an `s3://bucket/prefix` URL. Every Parquet file under the prefix is imported.
+        column_metadata:
+          $ref: "#/components/schemas/ColumnMetadata"
+      required:
+        - database
+        - table
+        - source
     BulkImportJobStatus:
       type: string
       enum:
@@ -4947,7 +6285,9 @@ components:
         - compacted
         - failed
         - terminal_failed
-      description: The status of a bulk import job.
+      description: >-
+        The status of a bulk import job. A successful job moves through `queued`, `imported`, and `compacted`; its rows
+        become queryable once it's `compacted`, not when it's `imported`.
     BulkImportUploadRequest:
       type: object
       description: >-
@@ -5568,11 +6908,15 @@ components:
         min_timestamp_ns:
           type: integer
           format: int64
-          description: The minimum timestamp in the file (nanoseconds), from column statistics.
+          description: >-
+            The minimum timestamp in the file (nanoseconds), from the time column's Parquet statistics. `0` when the
+            file has no statistics the server can read; the imported data isn't affected.
         max_timestamp_ns:
           type: integer
           format: int64
-          description: The maximum timestamp in the file (nanoseconds), from column statistics.
+          description: >-
+            The maximum timestamp in the file (nanoseconds), from the time column's Parquet statistics. `0` when the
+            file has no statistics the server can read; the imported data isn't affected.
       required:
         - upload_uuid
         - db_id

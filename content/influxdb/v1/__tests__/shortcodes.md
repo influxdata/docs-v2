@@ -15,3 +15,9 @@ test_only: true
 <div data-testid="api-endpoint">{{< api-endpoint method="get" endpoint="https://{{< influxdb/host >}}/api/v2/query" >}}</div>
 <span data-testid="show-in-core">{{% show-in "core" %}}VISIBLE_IN_CORE{{% /show-in %}}</span>
 <span data-testid="hide-in-core">{{% hide-in "core" %}}HIDDEN_IN_CORE{{% /hide-in %}}</span>
+<span data-testid="show-in-composite-self">{{% show-in "influxdb/v1" %}}VISIBLE{{% /show-in %}}</span>
+<span data-testid="show-in-composite-other">{{% show-in "enterprise_influxdb/v1" %}}VISIBLE{{% /show-in %}}</span>
+<span data-testid="hide-in-composite-self">{{% hide-in "influxdb/v1" %}}HIDDEN{{% /hide-in %}}</span>
+<span data-testid="hide-in-composite-other">{{% hide-in "enterprise_influxdb/v1" %}}HIDDEN{{% /hide-in %}}</span>
+<span data-testid="show-in-product">{{% show-in "influxdb" %}}VISIBLE{{% /show-in %}}</span>
+<span data-testid="show-in-spaced">{{% show-in " influxdb/v1 , core " %}}VISIBLE{{% /show-in %}}</span>

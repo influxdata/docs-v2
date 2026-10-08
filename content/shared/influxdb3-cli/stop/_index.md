@@ -1,4 +1,5 @@
-The `influxdb3 stop` command marks nodes as stopped in the catalog for your {{< product-name >}} cluster.
+The `influxdb3 stop` command gracefully stops nodes in your
+{{< product-name >}} cluster.
 
 ## Usage
 
@@ -12,7 +13,7 @@ influxdb3 stop <SUBCOMMAND>
 
 | Subcommand                                                    | Description                                    |
 | :------------------------------------------------------------ | :--------------------------------------------- |
-| [node](/influxdb3/version/reference/cli/influxdb3/stop/node/) | Mark a node as stopped                         |
+| [node](/influxdb3/version/reference/cli/influxdb3/stop/node/) | Gracefully stop a node                         |
 | help                                                          | Print command help or the help of a subcommand |
 
 ## Options

@@ -212,7 +212,7 @@ Group-to-role mappings translate directory group membership into
 
 1. On the **Settings** page, scroll to **LDAP Authentication >
    Group role mappings**.
-2. Click **Add mapping** and provide:
+2. Click **{{% lucide "plus" %}} Add Mapping** and provide:
    - **Provider ID**: a label that identifies the LDAP instance. Use the
      default `default` unless you run multiple directories.
    - **Group name**: the value {{% product-name %}} receives in the
@@ -223,8 +223,8 @@ Group-to-role mappings translate directory group membership into
 
 When a user signs in, {{% product-name %}} matches each of their groups
 against the mappings and assigns the highest matching role. Users without a
-matching group fall back to **Default role** or are rejected, depending on
-**On no group match**.
+matching group fall back to **Default role** or are rejected, depending on the
+**On no group match** setting.
 
 > [!Note]
 > #### Owner role is not assignable through mappings
@@ -350,4 +350,4 @@ the audit log when audit logging is enabled.
 | `user.logout`   | Recorded when a user signs out.                          |
 
 For details on enabling and reviewing audit events, see
-[Audit logs](/telegraf/controller/audit-logs/).
+[Audit logs](/telegraf/controller/admin/audit-logs/).

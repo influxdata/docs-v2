@@ -110,7 +110,7 @@ The following table compares tools that you can use to interact with
 | [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB HTTP API](#influxdb-http-api){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | <span style="opacity:.5;">InfluxDB user interface</span>                                            |            -             |            -             |            -             |
-| [InfluxDB 3 client libraries](#influxdb-3-client-libraries){{< req text="\* " color="magenta" >}} |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB 3 client libraries](#influxdb-client-libraries){{< req text="\* " color="magenta" >}}   |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [InfluxDB v2 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v2/)            |            -             | **{{< icon "check" >}}** |            -             |
 | [InfluxDB v1 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v1/)            |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
 | [Telegraf](/telegraf/v1/){{< req text="\* " color="magenta" >}}                                     |            -             | **{{< icon "check" >}}** |            -             |
@@ -127,6 +127,17 @@ The following table compares tools that you can use to interact with
 > [!Warning]
 > Avoid using the `influx` CLI with {{% product-name %}}. While it
 > may coincidentally work, it isn't supported.
+
+> [!Important]
+> #### Administer your cluster with the Admin UI
+>
+> Use the {{% product-name %}} [Admin UI](https://console.influxdata.com) at
+> `console.influxdata.com` rather than
+> [InfluxDB 3 Explorer](/influxdb3/explorer/), the standalone UI for
+> [InfluxDB 3 Core](/influxdb3/core/) and
+> [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+> For administrative tasks, see
+> [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/).
 
 ### `influxctl` CLI
 

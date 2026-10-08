@@ -11,21 +11,33 @@ aliases:
   - /enterprise_influxdb/v1/administration/monitor/monitor-with-cloud/
 ---
 
-Monitoring is the act of observing changes in data over time.
-There are multiple ways to monitor your InfluxDB Enterprise cluster.
-See the guides below to monitor a cluster using another InfluxDB instance.
+Monitoring is the act of observing changes in data over time. "Monitoring"
+covers two different things:
 
-Alternatively, to view your output data occasionally (for example, for auditing or diagnostics),
-do one of the following:
+- **Monitor InfluxDB itself**—track the health and performance of your
+  InfluxDB Enterprise cluster.
+- **Monitor other systems with InfluxDB**—use InfluxDB and the wider TICK
+  stack (Telegraf, Chronograf, Kapacitor) as your monitoring backend for
+  infrastructure and applications.
 
+### Monitor with InfluxDB Insights
+
+> [!Note]
+> For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
+>
+> To apply for this service, please [contact InfluxData support](https://support.influxdata.com).
+
+## Monitor InfluxDB itself
+
+- [`_internal` measurements and fields](/enterprise_influxdb/v1/administration/monitor/measurements-internal/)
+- [SHOW STATS](/enterprise_influxdb/v1/administration/monitor/show-stats/) and [SHOW DIAGNOSTICS](/enterprise_influxdb/v1/administration/monitor/show-diagnostics/)
+- [Monitor with InfluxDB OSS](/enterprise_influxdb/v1/administration/monitor/monitor-with-oss/)
 - [Log and trace InfluxDB Enterprise operations](/enterprise_influxdb/v1/administration/monitor/logs/)
 - [Use InfluxQL for diagnostics](/enterprise_influxdb/v1/administration/monitor/diagnostics/)
+- [Monitoring dashboards](/enterprise_influxdb/v1/administration/monitor/monitoring-dashboards/)
+- [Internal vs. external monitoring](/enterprise_influxdb/v1/administration/monitor/internal-vs-external/) and [watcher of watchers setup](/enterprise_influxdb/v1/administration/monitor/external-monitor-setup/)
+- [Kapacitor measurements](/enterprise_influxdb/v1/administration/monitor/kapacitor-measurements/)
 
-{{% note %}}
-### Monitor with InfluxDB Insights
-For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
+## Monitor other systems with InfluxDB
 
-To apply for this service, please [contact InfluxData support](https://support.influxdata.com).
-{{% /note %}}
-
-{{< children >}}
+- [Monitor Kubernetes](/enterprise_influxdb/v1/administration/monitor/monitor-kubernetes/)

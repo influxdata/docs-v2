@@ -236,6 +236,54 @@ api-docs/
         └── v1/
 ```
 
+### Spec sources by product
+
+Not every spec comes from `influxdata/openapi`. `getswagger.sh` fetches each
+product from a different source, and some specs are maintained directly in this
+repo. Know the source before editing a spec — edits to a fetched or generated
+spec are overwritten on the next fetch.
+
+| Product spec                                                        | Source                                                                                                                                                                                                                                                                                                |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `influxdb/cloud` (v2), `influxdb/v2`                                | `influxdata/openapi` (`contracts/ref/{cloud,oss}.yml`)                                                                                                                                                                                                                                                |
+| `influxdb3/cloud-dedicated`, `cloud-serverless`, `clustered` (data) | `influxdata/openapi` (`contracts/ref/cloud.yml`)                                                                                                                                                                                                                                                      |
+| `influxdb3/cloud-dedicated`, `clustered` (management)               | `influxdata/granite` (`openapi.yaml`, cloned in `getswagger.sh`)                                                                                                                                                                                                                                      |
+| `influxdb3/core`, `influxdb3/enterprise` (v3)                       | **docs-tooling** pipeline, ported into this repo. `getswagger.sh` points at `TO_BE_DECIDED` — these are **not** fetched from `influxdata/openapi`. The generated spec is incomplete for newer endpoints, so some operations are hand-authored/edited here and must be kept in sync with docs-tooling. |
+| `influxdb3/cloud` (v3)                                              | **Maintained in this repo** by hand, derived from the Enterprise spec and scoped to the `influxdb3` CLI feature set. Cannot be generated from source yet.                                                                                                                                             |
+| `influxdb/v1`, `enterprise_influxdb/v1`                             | **Maintained in this repo**. `getswagger.sh` only post-processes them; it does not fetch.                                                                                                                                                                                                             |
+
+Durable description fixes to a docs-tooling-generated spec (Core/Enterprise v3)
+belong in docs-tooling, not here — a local edit here is lost on the next port.
+
+### Reading the final spec for `influxdb/v2` and `influxdb/cloud`
+
+For every product except `influxdb/v2` and `influxdb/cloud`, the committed
+spec file is close to what publishes — `getswagger.sh` bundles it with
+`docs-plugin.cjs` decorators applied, so paths, servers, and doc links are
+already resolved.
+
+`influxdb/v2` and `influxdb/cloud` are the exception: their committed source
+is a raw mirror of `influxdata/openapi`, kept that way so a scheduled sync PR
+diffs cleanly against upstream (see `docs/mirror` in `docs-plugin.cjs`). It
+still has `/api/v2/health`-style paths and absolute
+`https://docs.influxdata.com/influxdb/latest/...` links — grepping it
+directly will not show you what's published.
+
+The transforms that used to run at fetch time (version-prefix stripping,
+private-path removal, trailing-slash stripping, doc-link rewriting) now run
+at build time in `post-process-specs.ts`, into the gitignored `_build/`. To
+see the resolved spec for either product without a full Hugo build:
+
+```sh
+cd api-docs
+bash getswagger.sh v2 -B          # -B: use the already-fetched file, skip refetch
+node scripts/dist/post-process-specs.js influxdb/v2
+cat _build/influxdb/v2/influxdb-oss-v2-openapi.yaml
+```
+
+Swap `v2` / `influxdb/v2` for `cloud-v2` / `influxdb/cloud` for the Cloud
+spec. Omit `-B` to also refetch from `influxdata/openapi`.
+
 ### InfluxDB Cloud version
 
 InfluxDB Cloud releases are frequent and not versioned, so the Cloud API spec isn't versioned.
@@ -269,12 +317,12 @@ in each product's `api-docs/` directory.
 Each product directory can contain overlay files that the `post-process-specs.ts`
 script applies to the bundled spec before article generation:
 
-| Overlay          | Location                             | Behavior                                                                                 |
-| ---------------- | ------------------------------------ | ---------------------------------------------------------------------------------------- |
-| `content/info.yml`    | `{product}/content/info.yml`   | Merges each field into `spec.info`, preserving fields not in the overlay                 |
-| `content/servers.yml` | `{product}/content/servers.yml`| Replaces `spec.servers` entirely                                                         |
-| `content/page.yml`    | `{product}/content/page.yml`   | Sets the API landing page `description` and optional `body_extra` (e.g., callout blocks) |
-| `tags.yml`            | Colocated with spec            | Renames tags, sets descriptions and `x-related`, drops unsupported tags                  |
+| Overlay               | Location                        | Behavior                                                                                 |
+| --------------------- | ------------------------------- | ---------------------------------------------------------------------------------------- |
+| `content/info.yml`    | `{product}/content/info.yml`    | Merges each field into `spec.info`, preserving fields not in the overlay                 |
+| `content/servers.yml` | `{product}/content/servers.yml` | Replaces `spec.servers` entirely                                                         |
+| `content/page.yml`    | `{product}/content/page.yml`    | Sets the API landing page `description` and optional `body_extra` (e.g., callout blocks) |
+| `tags.yml`            | Colocated with spec             | Renames tags, sets descriptions and `x-related`, drops unsupported tags                  |
 
 For example, to customize the Info section for the Cloud Serverless API reference, edit
 `influxdb3/cloud-serverless/content/info.yml`.

@@ -9,10 +9,247 @@ menu:
 weight: 101
 ---
 
-## v1.0.0 {date="2026-06-23"}
+## v1.1.2 {date="2026-10-06"}
 
-<!-- Link only be on the latest version, update and move with new versions. -->
-[Download Telegraf Controller v1.0.0](/telegraf/controller/install/#download-and-install-telegraf-controller)
+<!-- Update and move the link to the latest version. -->
+[Download Telegraf Controller v1.1.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+> [!Important]
+> #### Heartbeat requests now require Heartbeat write permission
+>
+> Starting in v1.1.2, {{% product-name %}} rejects heartbeat requests that use
+> an API token without **write** permission on the **Heartbeat** resource, or
+> a token owned by a disabled user. Before you upgrade, confirm that the tokens
+> your agents send with heartbeats include Heartbeat write permission.
+> See [Use API tokens](/telegraf/controller/tokens/use/#for-heartbeat-requests).
+
+### Features
+
+- Download the OpenAPI document for the {{% product-name %}} API as JSON or
+  YAML from `/api/docs/openapi.json` and `/api/docs/openapi.yaml`, and use it
+  with code generators and API tools.
+  See [Download the OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document).
+- Allow underscores (`_`) and periods (`.`) in
+  [configuration aliases](/telegraf/controller/configs/aliases/#alias-naming-rules).
+  Aliases must still begin and end with a letter or digit.
+- Add plugin support to the Telegraf Builder UI:
+  - PostgreSQL Extensible (`inputs.postgresql_extensible`)
+  - PowerDNS (`inputs.powerdns`)
+  - PowerDNS Recursor (`inputs.powerdns_recursor`)
+  - Procstat (`inputs.procstat`)
+  - PromQL (`inputs.promql`)
+  - Proxmox (`inputs.proxmox`)
+  - Puppet Agent (`inputs.puppetagent`)
+  - RabbitMQ (`inputs.rabbitmq`)
+  - RADIUS (`inputs.radius`)
+  - Raindrops (`inputs.raindrops`)
+  - RAS Daemon (`inputs.ras`)
+  - RavenDB (`inputs.ravendb`)
+  - Redfish (`inputs.redfish`)
+  - Redis (`inputs.redis`)
+  - Redis Sentinel (`inputs.redis_sentinel`)
+  - RethinkDB (`inputs.rethinkdb`)
+  - Riak (`inputs.riak`)
+  - Riemann Listener (`inputs.riemann_listener`)
+  - Salesforce (`inputs.salesforce`)
+  - Sensors (`inputs.sensors`)
+  - Siemens S7 (`inputs.s7comm`)
+
+### Bug fixes
+
+- Enforce API token permissions on heartbeat requests. The heartbeat endpoint
+  now rejects a token without Heartbeat write permission with a `403`
+  response and rejects tokens owned by disabled users. Previously, it
+  accepted any unrevoked, unexpired token. The heartbeat token cache also
+  refreshes when a user is disabled, re-enabled, or deleted, and when a
+  user's role changes.
+- Load the number of configurations shown per page by default on the
+  configurations list.
+- Limit the select-all control on the configurations list to its checkbox
+  and label.
+- Stop the unsaved-changes warning from appearing when you type in the
+  Telegraf Builder plugin search.
+- Align the Processes input plugin (`inputs.processes`) in the Telegraf
+  Builder with Telegraf: correct the **use_sudo** toggle label and remove
+  parser options the plugin doesn't support.
+
+---
+
+## v1.1.1 {date="2026-09-07"}
+
+### Features
+
+- Assign [aliases](/telegraf/controller/configs/aliases/) while creating a
+  configuration or a configuration group, in the web interface and through
+  the `POST /api/configs` and `POST /api/config-groups` API endpoints. If a
+  requested alias is already assigned, {{% product-name %}} rejects the
+  request and identifies the alias's current owner.
+- Add TLS client and TLS server settings to 70 plugins in the Telegraf
+  Builder, including plugins that previously had no TLS options.
+- Describe every request, response, and error in the
+  [interactive API reference](/telegraf/controller/reference/api/).
+- Add plugin support to the Telegraf Builder UI:
+  - Nomad (`inputs.nomad`)
+  - NSD (`inputs.nsd`)
+  - NSDP (`inputs.nsdp`)
+  - NSQ (`inputs.nsq`)
+  - NSQ Consumer (`inputs.nsq_consumer`)
+  - Nstat (`inputs.nstat`)
+  - NTPQ (`inputs.ntpq`)
+  - Nvidia SMI (`inputs.nvidia_smi`)
+  - OPC UA (`inputs.opcua`)
+  - OPC UA Listener (`inputs.opcua_listener`)
+  - OpenLDAP (`inputs.openldap`)
+  - OpenNTPD (`inputs.openntpd`)
+  - OpenSearch Query (`inputs.opensearch_query`)
+  - OpenSMTPD (`inputs.opensmtpd`)
+  - OpenStack (`inputs.openstack`)
+  - OpenTelemetry (`inputs.opentelemetry`)
+  - OpenWeatherMap (`inputs.openweathermap`)
+  - P4Runtime (`inputs.p4runtime`)
+  - Passenger (`inputs.passenger`)
+  - PF (`inputs.pf`)
+  - PgBouncer (`inputs.pgbouncer`)
+  - PHP-FPM (`inputs.phpfpm`)
+  - Postfix (`inputs.postfix`)
+  - PostgreSQL (`inputs.postgresql`)
+
+### Bug fixes
+
+- Show configuration groups in the **Managed Configurations** list on agent
+  detail pages.
+- Parse common plugin fields, including `alias`, `interval`, `name_override`,
+  `tags`, and metric filters, when the Telegraf Builder imports the ActiveMQ,
+  Aurora, Beat, Burrow, ClickHouse, Couchbase, DC/OS, and Jenkins input
+  plugins. Previously, the builder dropped these fields.
+- Keep API request and response schemas in the interactive API reference when
+  running {{% product-name %}} as a packaged binary.
+- Align label chips with the plugin count chip on the configurations list.
+
+---
+
+## v1.1.0 {date="2026-08-25"}
+
+### Features
+
+- Add [high availability](/telegraf/controller/admin/high-availability/)
+  (Telegraf Enterprise): run multiple
+  {{% product-name %}} nodes against a shared PostgreSQL database with
+  automatic leader election, failover, and load-balancer health endpoints.
+- Add [configuration versioning](/telegraf/controller/configs/versions/):
+  {{% product-name %}} records a version each time a configuration's content
+  changes. View version history, attach change notes, compare two versions,
+  roll back to a previous version, and prune versions you no longer need.
+- Add [configuration aliases](/telegraf/controller/configs/aliases/):
+  human-readable names that agents and users can use in place of
+  configuration IDs, including short `/c/` URLs. Transfer an alias to repoint
+  agents to a different configuration without changing agent commands.
+- Add [global constants](/telegraf/controller/configs/constants/): define a
+  value once and reference it across configurations with the
+  `::{constant_name}` syntax. {{% product-name %}} substitutes constants
+  server-side when serving a configuration.
+- Add [configuration groups](/telegraf/controller/config-groups/): bundle
+  multiple configurations into an ordered group that agents retrieve as a
+  single merged TOML document. Groups compose by reference, support their
+  own aliases and labels, and include a merged TOML preview and the agent
+  command builder. Agent detail pages link reporting agents to the
+  configuration groups they use.
+- Add a nested **Configurations** menu to the navigation with **Configs**,
+  **Config Groups**, and **Constants** entries.
+- Add [focus mode](/telegraf/controller/configs/ui/#focus-mode) to expand
+  the configuration editing area to fill the browser window.
+- Warn before navigating away from unsaved changes on configuration and
+  configuration group pages.
+- Rename the Dynamic Configuration Values panel to Substitute Configuration
+  Values and add Telegraf secret syntax highlighting in the Code Editor.
+  See [Substitute values in configurations](/telegraf/controller/configs/substitute-values/).
+- Add plugin support to the Telegraf Builder UI:
+  - InfluxDB v3 (`outputs.influxdb_v3`)
+  - Network Response (`inputs.net_response`)
+  - NetFlow (`inputs.netflow`)
+  - NFS Client (`inputs.nfsclient`)
+  - nftables (`inputs.nftables`)
+  - Nginx Plus (`inputs.nginx_plus`)
+  - Nginx Plus API (`inputs.nginx_plus_api`)
+  - Nginx STS (`inputs.nginx_sts`)
+  - Nginx Upstream Check (`inputs.nginx_upstream_check`)
+  - Nginx VTS (`inputs.nginx_vts`)
+
+### Bug fixes
+
+- Make agent last-reported timestamps monotonic and read them from the
+  database clock, preventing out-of-order timestamps between nodes.
+- Run each agent status evaluation tick in a transaction, and continue
+  status evaluation even if an audit log entry can't be written.
+- Apply each database migration in a transaction and fail startup on
+  migration errors instead of silently recording a failed migration as
+  applied.
+- Make enabling audit logging idempotent.
+- Keep audit logging active during the Telegraf Enterprise license grace
+  period, matching the behavior of other Telegraf Enterprise features.
+- Point TOML parse error locations at the correct position in the document
+  in the Code Editor.
+- Clean up list styling on the configurations, labels, and reporting rules
+  pages.
+
+---
+
+## v1.0.2 {date="2026-08-04"}
+
+### Features
+
+- Add plugin support to the Telegraf Builder UI:
+  - MQTT Consumer (`inputs.mqtt_consumer`)
+  - Multifile (`inputs.multifile`)
+  - MySQL (`inputs.mysql`)
+  - NATS Server Monitoring (`inputs.nats`)
+  - NATS Consumer (`inputs.nats_consumer`)
+  - Neoom Beaam (`inputs.neoom_beaam`)
+  - Neptune Apex (`inputs.neptune_apex`)
+  - Apache Zookeeper (`inputs.zookeeper`)
+
+### Bug fixes
+
+- Fix agent list filters, page reset when filters change, and a pagination
+  off-by-one error.
+- Fix filtering agents by the Undefined status and pagination when a filter
+  returns no results.
+- No longer require a reporting rule's auto-delete threshold to be longer than
+  its not-reporting threshold, and clarify the auto-delete field help text.
+- Store agent timestamps consistently between the heartbeat service and the
+  API, fixing unreliable not-reporting status checks, incorrect sorting and
+  filtering by last-reported time, and a time zone offset on PostgreSQL
+  servers not set to UTC.
+- Fix the elapsed time display when an agent's last report is momentarily in
+  the future.
+
+---
+
+## v1.0.1 {date="2026-07-01"}
+
+### Features
+
+- Serve the web UI on a separate port from the API using the `UI_PORT` option,
+  for deployments that run the web UI behind a reverse proxy.
+- When serving the web UI on a separate port, configure the API URL and the
+  allowed CORS origins with the `PUBLIC_API_URL`, `PUBLIC_API_PORT`,
+  `PUBLIC_UI_URL`, and `PUBLIC_UI_PORT` options for reverse-proxy and
+  remapped-port deployments.
+- Sort the agent list by column (Agent Details, Status, Last Reported), backed
+  by `sortBy` and `sortOrder` query parameters on `GET /api/agents`.
+- Accept both `postgresql://` and `postgres://` connection string schemes and
+  tolerate quoted `DATABASE_URL` values.
+- Accept command-line flags in both `--flag value` and `--flag=value` forms and
+  validate port options at startup.
+
+### Bug fixes
+
+- Sync the agents quota counter with manual refresh and polling.
+- Fix an environment-variable example typo on the add-configuration page.
+
+---
+
+## v1.0.0 {date="2026-06-23"}
 
 > [!Important]
 > #### Telegraf Controller v1.0 (General Availability)
@@ -226,7 +463,7 @@ telegraf_controller --disable-auth-endpoints=configs,heartbeat
 3.  Use the `INFLUX_TOKEN` environment variable to define the `token` option
     in your heartbeat output plugin configuration:
     
-    ```toml { .tc-dynamic-values }
+    ```toml { .tc-substitute-values }
     [[outputs.heartbeat]]
     # ...
     token = "${INFLUX_TOKEN}"

@@ -117,4 +117,4 @@ InfluxDB Enterprise cluster is fully functional.
 #### Set up monitoring
 
 Monitoring gives you visibility into the status and performance of your cluster.
-See ["Monitor the InfluxData Platform"](/platform/monitoring/influxdata-platform/) for information on setting up monitoring for your InfluxDB Enterprise installation.
+See ["Monitor InfluxDB Enterprise"](/enterprise_influxdb/v1/administration/monitor/) for information on setting up monitoring for your InfluxDB Enterprise installation.

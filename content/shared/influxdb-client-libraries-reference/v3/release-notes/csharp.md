@@ -1,5 +1,12 @@
 <!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
 
+## v1.10.0 {date="2026-08-27"}
+
+### Features
+
+1. [#308](https://github.com/InfluxCommunity/influxdb3-csharp/pull/308): Add `writeOptions` argument to write async methods.  The passed `WriteOptions` argument will replace `WriteOptions` defined in `ClientConfig`, except for `Precision`, when the `writeOptions.Precision` argument is null.
+   - __Breaking change__: Note this changes the `IInfluxDBClient` interface in that write methods now have an additional optional argument `writeOptions`.  The CLR signature for this part of the library is now changed.
+
 ## v1.9.0 {date="2026-06-11"}
 
 ### Features
@@ -21,10 +28,7 @@
 
 1. [#220](https://github.com/InfluxCommunity/influxdb3-csharp/pull/220): Add InfluxDB 3 Core/Enterprise structured errors handling.
 
-### CI
-
-1. [#213](https://github.com/InfluxCommunity/influxdb3-csharp/pull/213): Turn off deploy workflow for Nighly builds.
-1. [#219](https://github.com/InfluxCommunity/influxdb3-csharp/pull/219): Add support for .NET 10.0.
+- CI updates
 
 ## v1.6.0 {date="2026-01-08"}
 
@@ -44,9 +48,7 @@
 1. [#175](https://github.com/InfluxCommunity/influxdb3-csharp/pull/175): Add QueryTimeout and WriteTimeout to ClientConfig.
 1. [#179](https://github.com/InfluxCommunity/influxdb3-csharp/pull/179): Allows create ClientConfig from ClientConfig(string connectionString) and ClientConfig(IDictionary env)
 
-### CI
-
-1. [#181](https://github.com/InfluxCommunity/influxdb3-csharp/pull/181): Fix CI executors parameters.
+- CI updates
 
 ## v1.4.0 {date="2025-09-15"}
 
@@ -54,9 +56,7 @@
 
 1. [#174](https://github.com/InfluxCommunity/influxdb3-csharp/pull/174): Support passing HttpClient to InfluxDBClient.
 
-### CI
-
-1. [#170](https://github.com/InfluxCommunity/influxdb3-csharp/pull/170) Add tests for arm64 CircleCI.
+- CI updates
 
 ## v1.3.0 {date="2025-08-12"}
 
@@ -76,7 +76,7 @@
    persistence:
     - New write option (`WriteOptions.NoSync`) added: `true` value means faster write but without the confirmation that
       the data was persisted. Default value: `false`.
-    - **Supported by self-managed InfluxDB 3 Core and Enterprise servers only!**
+    - __Supported by self-managed InfluxDB 3 Core and Enterprise servers only!__
     - Also configurable via connection string query parameter (`writeNoSync`).
     - Also configurable via environment variable (`INFLUX_WRITE_NO_SYNC`).
     - Long precision string values added from v3 HTTP API: `"nanosecond"`, `"microsecond"`, `"millisecond"`,
@@ -91,7 +91,7 @@
    - New configuration items:
       - `SslRootsFilePath`
       - `DisableCertificateRevocationListCheck`
-   - **Disclaimer:** Using custom SSL root certificate configurations is recommended for development and testing
+   - __Disclaimer:__ Using custom SSL root certificate configurations is recommended for development and testing
      purposes
      only. For production deployments, ensure custom certificates are added to the operating system's trusted
      certificate store.

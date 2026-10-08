@@ -31,8 +31,8 @@ To filter tokens and retrieve specific details using SQL, query the `system.toke
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-query-tokens)
-[HTTP API](#http-api-query-tokens)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -48,7 +48,7 @@ influxdb3 query \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT name, permissions FROM system.tokens WHERE permissions = '*:*:*'" \
   --data-urlencode "format=csv" \
@@ -63,8 +63,8 @@ curl -G \
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-in-query)
-[HTTP API](#http-api-filter-in-query)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -79,7 +79,7 @@ influxdb3 query \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-"http://{{< influxdb/host >}}/api/v3/query_sql" \
+"{{< influxdb/host-url >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
 --data-urlencode "q=SELECT name, permissions FROM system.tokens WHERE created_at > '2025-01-01 00:00:00'" \
 --header "Accept: application/json" \
@@ -104,8 +104,8 @@ commands.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#format-using-the-cli)
-[HTTP API](#format-using-the-api)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -119,7 +119,7 @@ influxdb3 show tokens \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=csv" \
@@ -142,8 +142,8 @@ using cURL's `--output` option.
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
-[CLI](#cli-output-to-parquet)
-[HTTP API](#http-api-output-to-parquet)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -158,7 +158,7 @@ influxdb3 show tokens \
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN|(/PATH/TO/FILE.parquet)" }
 curl -G \
-"http://{{< influxdb/host >}}/api/v3/query_sql" \
+"{{< influxdb/host-url >}}/api/v3/query_sql" \
 --data-urlencode "db=_internal" \
 --data-urlencode "q=SELECT * FROM system.tokens" \
 --data-urlencode "format=parquet" \
@@ -180,8 +180,8 @@ Use command-line tools such as `grep` or `jq` to filter the output of the
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-admin-using-grep)
-[HTTP API](#http-api-filter-admin-using-grep)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -195,7 +195,7 @@ grep _admin
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT * FROM system.tokens" \
   --data-urlencode "format=pretty" \
@@ -209,8 +209,8 @@ grep _admin
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[CLI](#cli-filter-output-using-jq)
-[HTTP API](#http-api-filter-output-using-jq)
+[CLI](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!---------------------------BEGIN CLI----------------------------------------->
@@ -224,7 +224,7 @@ jq '.[] | {name: .name, permissions: .permissions}'
 <!---------------------------BEGIN HTTP API---------------------------------->
 ```bash { placeholders="AUTH_TOKEN" }
 curl -G \
-  "http://{{< influxdb/host >}}/api/v3/query_sql" \
+  "{{< influxdb/host-url >}}/api/v3/query_sql" \
   --data-urlencode "db=_internal" \
   --data-urlencode "q=SELECT name, created_at FROM system.tokens WHERE permissions = '*:*:*' AND created_at > '2025-01-01 00:00:00'" \
   --data-urlencode "format=json" \

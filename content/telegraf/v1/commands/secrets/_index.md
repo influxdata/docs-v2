@@ -23,6 +23,7 @@ telegraf [global-flags] secrets [subcommand] [flags]
 | [list](/telegraf/v1/commands/secrets/list/) | List known secrets and secret stores               |
 | [get](/telegraf/v1/commands/secrets/get/)   | Retrieve the value of a secret from a secret store |
 | [set](/telegraf/v1/commands/secrets/set/)   | Create or modify a secret in a secret store        |
+| [remove](/telegraf/v1/commands/secrets/remove/) | Remove a secret from a secret store            |
 | `help`, `h`                                 | Shows command help                                 |
 
 ## Flags

@@ -12,7 +12,7 @@ os_support: "freebsd, linux, macos, solaris, windows"
 
 # Zabbix Output Plugin
 
-This plugin writes metrics to [Zabbix](https://www.zabbix.com/) via [traps](https://www.zabbix.com/documentation/current/en/manual/appendix/items/trapper). It has been
+This plugin writes metrics to [Zabbix](https://www.zabbix.com/) via [traps](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/trapper). It has been
 tested with versions v3.0, v4.0 and v6.0 but should work with newer versions
 of Zabbix as long as the protocol doesn't change.
 
@@ -21,7 +21,7 @@ of Zabbix as long as the protocol doesn't change.
 **OS support:** all
 
 [zabbix]: https://www.zabbix.com/
-[traps]: https://www.zabbix.com/documentation/current/en/manual/appendix/items/trapper
+[traps]: https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/trapper
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
@@ -186,7 +186,7 @@ measurement,host=hostname valueA=0,valueB=1
 
 It will generate this Zabbix metrics:
 
-```json
+```jsonl
 {"host": "hostname", "key": "telegraf.measurement.valueA", "value": "0"}
 {"host": "hostname", "key": "telegraf.measurement.valueB", "value": "1"}
 ```
@@ -200,7 +200,7 @@ measurement,host=hostname,tagA=keyA,tagB=keyB valueA=0,valueB=1
 
 Zabbix generated metrics:
 
-```json
+```jsonl
 {"host": "hostname", "key": "telegraf.measurement.valueA[keyA,keyB]", "value": "0"}
 {"host": "hostname", "key": "telegraf.measurement.valueB[keyA,keyB]", "value": "1"}
 ```
@@ -214,7 +214,7 @@ measurement,host=hostname,aaaTag=999,zzzTag=111 value=0
 
 Will generate this Zabbix metric:
 
-```json
+```jsonl
 {"host": "hostname", "key": "telegraf.measurement.value[999,111]", "value": "0"}
 ```
 
@@ -362,7 +362,7 @@ taginclude = ["host", "container_name"]
 ```
 
 Allowing only the tags "host" and "container_name" to be used to generate the
-key (and loosing the information provided in the others tags).
+key (and losing the information provided in the others tags).
 
 ## Examples of metrics converted to traps
 

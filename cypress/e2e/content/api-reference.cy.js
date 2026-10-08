@@ -98,8 +98,7 @@ const multiSpecProducts = [
       {
         slug: 'data-api',
         label: 'Data API',
-        dataPath:
-          'data/article_data/influxdb3/clustered/data-api/articles.yml',
+        dataPath: 'data/article_data/influxdb3/clustered/data-api/articles.yml',
       },
       {
         slug: 'management-api',
@@ -117,7 +116,9 @@ describe('API sidebar navigation', () => {
   products.forEach(({ name, base, dataPath }) => {
     it(`${name}: sidebar contains every tag from articles.yml and All endpoints`, () => {
       cy.task('readArticleData', dataPath).then((tags) => {
-        expect(tags, `article data loaded from ${dataPath}`).to.be.an('array').and.have.length.at.least(1);
+        expect(tags, `article data loaded from ${dataPath}`)
+          .to.be.an('array')
+          .and.have.length.at.least(1);
 
         cy.visit(`${base}/`);
 
@@ -167,10 +168,7 @@ describe('API sidebar navigation (multi-spec)', () => {
 
       specs.forEach(({ slug, label, dataPath }) => {
         cy.task('readArticleData', dataPath).then((tags) => {
-          expect(
-            tags,
-            `article data loaded from ${dataPath}`
-          )
+          expect(tags, `article data loaded from ${dataPath}`)
             .to.be.an('array')
             .and.have.length.at.least(1);
 
@@ -200,11 +198,7 @@ describe('API sidebar navigation (multi-spec)', () => {
             .find('ul.children li.nav-item a')
             .last()
             .should('contain', 'All endpoints')
-            .and(
-              'have.attr',
-              'href',
-              `${base}/${slug}/all-endpoints/`
-            );
+            .and('have.attr', 'href', `${base}/${slug}/all-endpoints/`);
         });
       });
     });
@@ -269,10 +263,7 @@ describe('API conceptual pages', () => {
   products.forEach(({ name, base, dataPath }) => {
     it(`${name}: all conceptual pages have content`, () => {
       cy.task('readConceptualTags', dataPath).then((conceptualPages) => {
-        expect(
-          conceptualPages,
-          `conceptual pages loaded from ${dataPath}`
-        )
+        expect(conceptualPages, `conceptual pages loaded from ${dataPath}`)
           .to.be.an('array')
           .and.have.length.at.least(1);
 
@@ -299,10 +290,7 @@ describe('API conceptual pages', () => {
     it(`${name}: all conceptual pages have content`, () => {
       specs.forEach(({ slug: specSlug, label, dataPath }) => {
         cy.task('readConceptualTags', dataPath).then((conceptualPages) => {
-          expect(
-            conceptualPages,
-            `conceptual pages loaded from ${dataPath}`
-          )
+          expect(conceptualPages, `conceptual pages loaded from ${dataPath}`)
             .to.be.an('array')
             .and.have.length.at.least(1);
 
@@ -377,7 +365,9 @@ describe('API operation ordering', () => {
     cy.visit('/enterprise_influxdb/v1/api/write/');
     // Native unversioned path is first, v2-compat follows.
     cy.get('.api-operation[data-operation-id]')
-      .then(($ops) => [...$ops].map((el) => el.getAttribute('data-operation-id')))
+      .then(($ops) =>
+        [...$ops].map((el) => el.getAttribute('data-operation-id'))
+      )
       .should('deep.equal', ['PostWrite', 'PostApiV2Write']);
     assertBodyAndTocOrderMatch();
   });
@@ -386,7 +376,9 @@ describe('API operation ordering', () => {
     cy.visit('/influxdb3/core/api/write-data/');
     // /api/v3/write_lp (native), /api/v2/write (v2-compat), /write (v1-compat).
     cy.get('.api-operation[data-operation-id]')
-      .then(($ops) => [...$ops].map((el) => el.getAttribute('data-operation-id')))
+      .then(($ops) =>
+        [...$ops].map((el) => el.getAttribute('data-operation-id'))
+      )
       .should('deep.equal', ['PostWriteLP', 'PostV2Write', 'PostV1Write']);
     assertBodyAndTocOrderMatch();
   });
@@ -417,6 +409,177 @@ describe('All endpoints page', () => {
   });
 });
 
+// ── Lifecycle badges (deprecated, x-lifecycle) ──────────────────────
+// Covers a regression where a long .api-operation-summary (flex-shrink: 0)
+// forced its sibling .api-path to collapse to zero width and wrap
+// character-by-character. See assets/styles/layouts/_api-layout.scss.
+
+describe('API lifecycle badges', () => {
+  it('Enterprise query groups: not-operational operations show badge', () => {
+    cy.visit('/influxdb3/enterprise/api/query-groups/');
+    cy.get('[data-operation-id="GetEnterpriseConfigureQueryGroups"]').within(
+      () => {
+        cy.get('.api-lifecycle-badge--not-operational')
+          .should('exist')
+          .and('contain', 'Not operational');
+      }
+    );
+  });
+
+  it('v2 Backup: GetBackupKV operation page shows Deprecated badge', () => {
+    cy.visit('/influxdb/v2/api/backup/');
+    cy.get('[data-operation-id="GetBackupKV"]').within(() => {
+      cy.get('.api-lifecycle-badge--deprecated')
+        .should('exist')
+        .and('contain', 'Deprecated');
+    });
+  });
+
+  it('v2 all-endpoints: GetBackupKV card shows Deprecated badge without collapsing .api-path', () => {
+    cy.visit('/influxdb/v2/api/all-endpoints/');
+
+    cy.contains('.api-operation-card', '/api/v2/backup/kv').as('card');
+
+    cy.get('@card').within(() => {
+      cy.get('.api-lifecycle-badge--deprecated')
+        .should('exist')
+        .and('contain', 'Deprecated');
+
+      // Regression guard: .api-path must render on a single line. A
+      // character-per-line collapse balloons height to 10x+ a normal line.
+      cy.get('.api-path')
+        .should('be.visible')
+        .and('contain', '/api/v2/backup/kv')
+        .invoke('outerHeight')
+        .should('be.lessThan', 30);
+    });
+  });
+});
+
+// ── Schema rendering: allOf flattening, oneOf variants, object examples ──
+// Covers a regression where `trigger_settings` (wrapped in `allOf`) and
+// `node_spec` (a `oneOf` union via `ApiNodeSpec`) rendered as empty
+// property tables because the schema renderer didn't resolve $ref/allOf
+// before reading `type`/`properties`. See layouts/partials/api/
+// resolve-schema.html and example-value.html.
+
+describe('API schema rendering', () => {
+  beforeEach(() => {
+    cy.visit('/influxdb3/enterprise/api/processing-engine/');
+  });
+
+  it('trigger_settings (allOf-wrapped $ref) renders its nested properties', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.contains('.api-schema-property-name', 'trigger_settings')
+          .closest('.api-schema-property')
+          .as('triggerSettings');
+
+        // allOf flattening: type must resolve to "object", not fall through
+        // to the "string" default resolve-schema.html would leave unresolved.
+        cy.get('@triggerSettings')
+          .find('.api-schema-property-type')
+          .first()
+          .should('contain', 'object');
+
+        // Nested properties from the flattened TriggerSettings schema.
+        cy.get('@triggerSettings')
+          .find('.api-schema-property-name')
+          .should('contain', 'run_async')
+          .and('contain', 'error_behavior');
+
+        // Enum values on the nested error_behavior property.
+        cy.get('@triggerSettings')
+          .find('.api-schema-property-enum .api-enum-value')
+          .should(($vals) => {
+            const values = [...$vals].map((el) => el.textContent);
+            expect(values).to.include.members(['log', 'retry', 'disable']);
+          });
+      }
+    );
+  });
+
+  it('node_spec (oneOf ApiNodeSpec) renders both variants, not required', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.contains('.api-schema-property-name', 'node_spec')
+          .closest('.api-schema-property')
+          .as('nodeSpec');
+
+        // node_spec is optional in ProcessingEngineTriggerRequest.required.
+        cy.get('@nodeSpec').should(
+          'not.have.class',
+          'api-schema-property--required'
+        );
+
+        // oneOf renders both variants: string "all" and object w/ nodes.
+        cy.get('@nodeSpec')
+          .find('.api-schema-oneof-variant')
+          .should('have.length', 2);
+        cy.get('@nodeSpec')
+          .find('.api-schema-oneof-variant')
+          .first()
+          .find('.api-enum-value')
+          .should('contain', 'all');
+        cy.get('@nodeSpec')
+          .find('.api-schema-oneof-variant')
+          .eq(1)
+          .find('.api-schema-property-name')
+          .should('contain', 'nodes');
+      }
+    );
+  });
+
+  it('example request body includes resolved trigger_settings values', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.get('.api-code-block')
+          .invoke('text')
+          .should((text) => {
+            expect(text).to.match(/"trigger_settings":\s*{/);
+            expect(text).to.match(/"run_async":\s*false/);
+            expect(text).to.match(/"error_behavior":\s*"log"/);
+          });
+      }
+    );
+  });
+
+  it('object properties render their description, JSON example, and request value', () => {
+    cy.get('[data-operation-id="PostConfigureProcessingEngineTrigger"]').within(
+      () => {
+        cy.contains('.api-schema-property-name', 'trigger_arguments')
+          .closest('.api-schema-property')
+          .as('objectProperty');
+
+        cy.get('@objectProperty')
+          .find('.api-schema-property-type')
+          .should('contain', 'object');
+        cy.get('@objectProperty')
+          .find('.api-schema-property-description')
+          .should('contain', 'Optional, plugin-specific arguments')
+          .and('contain', 'string key-value pairs');
+        cy.get('@objectProperty')
+          .find('.api-example-value')
+          .invoke('text')
+          .then((example) => {
+            expect(JSON.parse(example)).to.deep.equal({
+              target_table: 'alerts',
+              threshold: '90',
+            });
+          });
+
+        cy.get('.api-code-block')
+          .invoke('text')
+          .should((text) => {
+            expect(text).to.match(/"trigger_arguments":\s*{/);
+            expect(text).to.match(/"target_table":\s*"alerts"/);
+            expect(text).to.match(/"threshold":\s*"90"/);
+          });
+      }
+    );
+  });
+});
+
 // ── Legacy URL redirects ─────────────────────────────────────────────
 // Covers URLs that 404'd on production before Hugo aliases were added
 // via api-docs/<product>/content/page.yml. See
@@ -425,20 +588,26 @@ describe('All endpoints page', () => {
 describe('Legacy API URL redirects', () => {
   const redirects = [
     // /reference/api/ stubs (5 products)
-    ['/influxdb3/cloud-dedicated/reference/api/',  '/influxdb3/cloud-dedicated/api/'],
-    ['/influxdb3/cloud-serverless/reference/api/', '/influxdb3/cloud-serverless/api/'],
-    ['/influxdb3/clustered/reference/api/',        '/influxdb3/clustered/api/'],
-    ['/influxdb/v2/reference/api/',                '/influxdb/v2/api/'],
-    ['/influxdb/cloud/reference/api/',             '/influxdb/cloud/api/'],
+    [
+      '/influxdb3/cloud-dedicated/reference/api/',
+      '/influxdb3/cloud-dedicated/api/',
+    ],
+    [
+      '/influxdb3/cloud-serverless/reference/api/',
+      '/influxdb3/cloud-serverless/api/',
+    ],
+    ['/influxdb3/clustered/reference/api/', '/influxdb3/clustered/api/'],
+    ['/influxdb/v2/reference/api/', '/influxdb/v2/api/'],
+    ['/influxdb/cloud/reference/api/', '/influxdb/cloud/api/'],
     // Redoc-era /api/vN/ URLs (8 URLs across 7 products)
-    ['/influxdb3/core/api/v3/',                    '/influxdb3/core/api/'],
-    ['/influxdb3/enterprise/api/v3/',              '/influxdb3/enterprise/api/'],
-    ['/influxdb3/cloud-dedicated/api/v2/',         '/influxdb3/cloud-dedicated/api/'],
-    ['/influxdb3/cloud-serverless/api/v2/',        '/influxdb3/cloud-serverless/api/'],
-    ['/influxdb3/clustered/api/v2/',               '/influxdb3/clustered/api/'],
-    ['/influxdb/v2/api/v2/',                       '/influxdb/v2/api/'],
-    ['/influxdb/v2/api/v1/',                       '/influxdb/v2/api/'],
-    ['/influxdb/cloud/api/v2/',                    '/influxdb/cloud/api/'],
+    ['/influxdb3/core/api/v3/', '/influxdb3/core/api/'],
+    ['/influxdb3/enterprise/api/v3/', '/influxdb3/enterprise/api/'],
+    ['/influxdb3/cloud-dedicated/api/v2/', '/influxdb3/cloud-dedicated/api/'],
+    ['/influxdb3/cloud-serverless/api/v2/', '/influxdb3/cloud-serverless/api/'],
+    ['/influxdb3/clustered/api/v2/', '/influxdb3/clustered/api/'],
+    ['/influxdb/v2/api/v2/', '/influxdb/v2/api/'],
+    ['/influxdb/v2/api/v1/', '/influxdb/v2/api/'],
+    ['/influxdb/cloud/api/v2/', '/influxdb/cloud/api/'],
   ];
 
   redirects.forEach(([from, to]) => {

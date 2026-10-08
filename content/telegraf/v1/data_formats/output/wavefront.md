@@ -5,9 +5,9 @@ description: Use the `wavefront` output data format (serializer) to convert Tele
 menu:
   telegraf_v1_ref:
     name: Wavefront
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-wavefront
+weight: 10
 ---
 
 Use the `wavefront` output data format (serializer) to convert Telegraf metrics into the [Wavefront Data Format](https://docs.wavefront.com/wavefront_data_format.html).

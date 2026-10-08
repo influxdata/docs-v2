@@ -2,6 +2,7 @@
 Upgrade your {{% product-name %}} version.
 
 - [Before you upgrade](#before-you-upgrade)
+  - [Other changes to review before you upgrade to 3.12](#other-changes-to-review-before-you-upgrade-to-312)
 - [Upgrade an InfluxDB 3 instance](#upgrade-an-influxdb-3-instance)
 {{% show-in "enterprise" %}}
 - [Upgrade a multi-node cluster](#upgrade-a-multi-node-cluster)
@@ -30,7 +31,42 @@ Before upgrading your {{% product-name %}} cluster, review the [release notes](/
 > Before upgrading, back up `{prefix}/catalogs/` and `{prefix}/_catalog_checkpoint`.
 > Restoring these objects is the only way to roll back to 3.9.x.
 >
-> {{% show-in "enterprise" %}}If you have enabled the storage engine upgrade (`--use-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+> {{% show-in "enterprise" %}}If your cluster uses the upgraded storage engine (the default for new clusters, or after running the storage engine upgrade with `--upgrade-pacha-tree`), data written in the new `.pt` file format is also unreadable by 3.9.x.{{% /show-in %}}
+
+> [!Important]
+> #### Upgrading to InfluxDB 3.12 removes rollback to any 3.11.x release
+>
+> InfluxDB 3.12 adds a catalog record type that 3.11.x binaries can't read.
+> Once every running node in the cluster is on 3.12 (which happens at first
+> startup on a single node), the catalog commits the new feature level.
+> From then on, a 3.11.x binary refuses to load the catalog and reports that
+> the node's feature level is below the cluster's committed level.
+> This applies to {{% product-name %}} whether or not you use any of the
+> features that require it.
+>
+> Back up everything under `{prefix}/catalog/` (the catalog snapshot and
+> logs under `catalog/v3/`) before you upgrade.
+> Restoring these objects is the only way to roll back to 3.11.x.
+
+### Other changes to review before you upgrade to 3.12
+
+- **Query concurrency now has a finite default**: [`--max-concurrent-queries`](/influxdb3/version/reference/config-options/#max-concurrent-queries) defaults to the larger of `50` and 4 times the node's query parallelism, instead of being effectively unlimited. Queries submitted over the limit wait for a slot instead of running immediately.
+- **The WAL buffer limit is now enforced**: [`--wal-max-buffered-writes`](/influxdb3/version/reference/config-options/#wal-max-buffered-writes) (default `100000`) previously had no effect. Once the WAL buffer fills, writes now return `429 Too Many Requests` until it drains.
+- **HTTP and gRPC request metrics are split by protocol**: `http_requests*` metrics now count only HTTP requests, and `grpc_requests*` metrics count only gRPC requests. Dashboards that summed the two families report lower values after you upgrade. The `path` and `method_path` labels are now route templates, such as `/api/v3/engine/:path`, instead of literal paths; update panels that filter on a specific path.
+{{% show-in "enterprise" %}}
+
+Also review these {{% product-name %}} changes:
+
+- **Data file cache is now a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/version/reference/config-options/#file-cache-size) now also counts bytes held by running queries. A query that needs more than the remaining budget fails instead of the node using memory beyond the configured limit.
+- **Nodes without `query` mode refuse data queries (Parquet engine)**: A node that doesn't run `query` mode now returns `405 Method Not Allowed` for data queries instead of serving them. System table queries still work.
+- **`--node-spec` no longer pins a trigger to one node**: It now selects which process nodes' schedulers own the trigger. With the default, `all`, every process node owns the trigger and follows every ingest node's write-ahead log, so a WAL trigger runs once per process node for each WAL flush. To keep a WAL trigger running once per flush in a cluster with more than one process node, set `--node-spec` to a single node. See [Run the Processing Engine in a cluster](/influxdb3/version/admin/processing-engine-cluster/).
+- **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password must now carry the cluster's catalog UUID. Tokens issued before 3.12 are rejected: refresh the token or sign in again. API tokens aren't affected.
+- **Orphaned file cleanup starts automatically (upgraded storage engine)**: The primary compactor begins finding and deleting unreferenced compacted files a few minutes after it first starts on 3.12, then repeats every 7 days. To only report candidates without deleting them, set `--compactor-sweep-mode dry-run`. To turn cleanup off, set `--compactor-sweep-interval off`. See [Orphaned file cleanup](/influxdb3/version/admin/orphaned-file-cleanup/).
+- **Distributed compaction is available (beta, upgraded storage engine)**: Compaction jobs can now run on every compact node instead of only the node that holds the compactor lease. It's off by default (`--compactor-dispatch-target local`), so upgrading alone doesn't change where compaction runs. See [Distributed compaction](/influxdb3/version/admin/distributed-compaction/).
+
+{{% /show-in %}}
+
+For the complete list of changes, see the [release notes](/influxdb3/version/release-notes/).
 
 ### Verify your current version
 
@@ -97,13 +133,13 @@ curl -L https://dl.influxdata.com/influxdb/releases/influxdb3-{{< product-key >}
 tar xvzf influxdb3-{{< product-key >}}.tar.gz
 
 # 3. Stop the service
-sudo systemctl stop influxdb3
+sudo systemctl stop influxdb3-{{< product-key >}}
 
 # 4. Install the new binary
 sudo cp influxdb3 /usr/local/bin/
 
 # 5. Start the service
-sudo systemctl start influxdb3
+sudo systemctl start influxdb3-{{< product-key >}}
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -202,19 +238,21 @@ Follow these steps to upgrade each node in your deployment:
 [systemctl](#)
 [Docker](#)
 [Docker Compose](#)
+[Helm](#)
+[Ansible](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
 ```bash
 # 1. Stop the service
-sudo systemctl stop influxdb3
+sudo systemctl stop influxdb3-{{< product-key >}}
 
 # 2. Install the new version
 # Follow the installation instructions for your platform:
 # https://docs.influxdata.com/influxdb3/enterprise/install/
 
 # 3. Start the service
-sudo systemctl start influxdb3
+sudo systemctl start influxdb3-{{< product-key >}}
 
 # 4. Verify the version
 influxdb3 --version
@@ -247,7 +285,7 @@ docker pull influxdb:enterprise
 docker run -d \
   --name CONTAINER_NAME \
   -p 8181:8181 \
-  -e INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com \
+  -e INFLUXDB3_LICENSE_EMAIL=your-email@example.com \
   -v ~/.influxdb3/data:/var/lib/influxdb3/data \
   influxdb:enterprise \
   influxdb3 serve \
@@ -316,6 +354,173 @@ Replace the following:
 > The `influxdb:enterprise` tag always points to the latest InfluxDB 3 Enterprise release.
 > Update the `image:` field in your `compose.yaml` to `influxdb:enterprise` to pull the latest version, or specify a version tag directly (for example, `influxdb:{{< latest-patch >}}-enterprise`) to upgrade to a specific version.
 {{% /tab-content %}}
+{{% tab-content %}}
+
+The [{{% product-name %}} Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-enterprise)
+runs a separate StatefulSet for each node mode, but the image tag
+(`image.tag`) is a single chart-wide value.
+A plain `helm upgrade` therefore rolls _every_ node mode at once, and Kubernetes
+doesn't order rollouts across StatefulSets—so the upgrade doesn't follow the
+[recommended node upgrade order](#recommended-node-upgrade-order) on its own.
+
+To control the order, freeze the modes you aren't upgrading yet with the
+`updateStrategy.rollingUpdate.partition` field, then release them one mode at a
+time.
+Setting `partition` to a value greater than or equal to a StatefulSet's replica
+count holds every pod in that StatefulSet at its current version.
+A partition lower than the replica count lets the pods at or above that ordinal
+update, so use a ceiling that your replica counts can't reach.
+
+<!-- Verified against influxdata/helm-charts influxdb3-enterprise 0.9.0
+     (InfluxDB 3.10.5, commit 7a3289b): the values keys (querier, compactor,
+     processingEngine) and the app.kubernetes.io/component label values
+     (ingester, querier) below are current. -->
+
+```bash { placeholders="RELEASE_NAME|NAMESPACE|VERSION" }
+# 1. Freeze the modes you upgrade later, then apply the new image tag.
+#    Any partition >= a StatefulSet's replica count holds all of its pods, so
+#    10000 is a ceiling no deployment reaches. Only ingesters roll.
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE \
+  --reuse-values \
+  --set image.tag=VERSION-enterprise \
+  --set querier.updateStrategy.rollingUpdate.partition=10000 \
+  --set compactor.updateStrategy.rollingUpdate.partition=10000 \
+  --set processingEngine.updateStrategy.rollingUpdate.partition=10000
+
+# 2. Wait for the ingester pods to roll and become ready
+kubectl rollout status --namespace NAMESPACE \
+  "$(kubectl get statefulset --namespace NAMESPACE \
+    --selector app.kubernetes.io/component=ingester --output name)"
+
+# 3. Release queriers and wait for them to roll
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set querier.updateStrategy.rollingUpdate.partition=0
+kubectl rollout status --namespace NAMESPACE \
+  "$(kubectl get statefulset --namespace NAMESPACE \
+    --selector app.kubernetes.io/component=querier --output name)"
+
+# 4. Release the compactor and the processing engine. Process nodes have no
+#    ordering requirement, so they can roll alongside the compactor.
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set compactor.updateStrategy.rollingUpdate.partition=0 \
+  --set processingEngine.updateStrategy.rollingUpdate.partition=0
+
+# 5. Wait for the remaining StatefulSets to finish rolling before verifying
+for sts in $(kubectl get statefulset --namespace NAMESPACE --output name); do
+  kubectl rollout status --namespace NAMESPACE "$sts"
+done
+
+# 6. Verify every node re-registered and reports running
+influxdb3 show nodes
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`RELEASE_NAME`{{% /code-placeholder-key %}}: Your Helm release name
+- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}: The namespace of your release
+- {{% code-placeholder-key %}}`VERSION`{{% /code-placeholder-key %}}: The target version (for example, `{{< latest-patch >}}`)
+
+> [!Important]
+> #### Raise the termination grace period before upgrading
+>
+> The chart doesn't set `terminationGracePeriodSeconds`, so pods inherit the
+> Kubernetes default of 30 seconds.
+> If a node is still flushing its write-ahead log when Kubernetes sends
+> `SIGKILL`, it stops ungracefully and has to replay its WAL on restart.
+> Raise the grace period above your observed shutdown time before you roll a
+> cluster—see
+> [Deploy with an orchestrator](/influxdb3/version/admin/node-lifecycle/#kubernetes-and-helm).
+
+> [!Warning]
+> #### A rollout is a restart, not a removal
+>
+> Each pod keeps its StatefulSet-ordinal name, so every node re-registers under
+> its existing node ID.
+> Don't run
+> [`influxdb3 remove node`](/influxdb3/version/reference/cli/influxdb3/remove/node/)
+> as part of an upgrade—removal permanently deletes the node's catalog entry and
+> object-store files.
+> See [Restart compared to removal](/influxdb3/version/admin/node-lifecycle/#restart-compared-to-removal).
+
+> [!Caution]
+> #### helm rollback doesn't undo a catalog migration
+>
+> `helm rollback` reverts the image tag, but it can't revert changes the newer
+> version already made to your cluster data.
+> After a node starts {{% product-name %}} 3.10 or later, the on-disk catalog is
+> migrated to v3 and older binaries fail to start against it—so rolling the
+> release back leaves pods crash-looping on a catalog they can't read.
+> Restoring the catalog objects you backed up is the only way back.
+> See [Upgrading to InfluxDB 3.10 is a one-way migration](#upgrading-to-influxdb-310-is-a-one-way-migration).
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+Drive the upgrade one node at a time with `serial: 1`, and order your plays by
+node mode to match the
+[recommended node upgrade order](#recommended-node-upgrade-order).
+
+```yaml
+# Upgrade one host at a time, ingest nodes first.
+- hosts: influxdb3_ingest
+  serial: 1
+  vars:
+    # Pin the target version so every host lands on the same build.
+    influxdb3_version: "{{< latest-patch >}}"
+  tasks:
+    - name: Stop influxdb3 gracefully
+      ansible.builtin.systemd_service:
+        name: influxdb3
+        state: stopped
+
+    # Replace this task with the install method you use--for example, a
+    # package from your own repository or the downloaded release archive.
+    # See https://docs.influxdata.com/influxdb3/enterprise/install/
+    - name: Install influxdb3 {{ influxdb3_version }}
+      ansible.builtin.include_role:
+        name: influxdb3_install
+
+    - name: Start influxdb3
+      ansible.builtin.systemd_service:
+        name: influxdb3
+        state: started
+
+    - name: Wait for the node to report healthy
+      ansible.builtin.uri:
+        url: "http://{{ inventory_hostname }}:8181/health"
+        status_code: 200
+      register: health
+      until: health.status == 200
+      retries: 30
+      delay: 10
+
+# Repeat for influxdb3_query, then influxdb3_compact, then influxdb3_process.
+```
+
+Because `systemd` escalates to `SIGKILL` after `TimeoutStopSec`, confirm your
+unit file allows enough time for the final WAL flush before you roll a cluster:
+
+```ini
+[Service]
+KillSignal=SIGTERM
+TimeoutStopSec=300
+```
+
+> [!Important]
+> #### Restart in place—don't remove nodes
+>
+> Each host restarts with the same
+> [`--node-id`](/influxdb3/version/reference/config-options/#node-id), so it
+> re-registers as the same node.
+> Never add
+> [`influxdb3 remove node`](/influxdb3/version/reference/cli/influxdb3/remove/node/)
+> to an upgrade playbook—see
+> [Restart compared to removal](/influxdb3/version/admin/node-lifecycle/#restart-compared-to-removal).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 **Repeat these steps** for each remaining node in the recommended order.
@@ -361,6 +566,33 @@ If writes fail during a rolling upgrade, verify that you're not attempting to ad
 #### Upgrade order issues
 
 If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order), you may experience longer periods where catalog modifications are blocked.
+
+#### Nodes upgrade out of order in Helm deployments
+
+The {{% product-name %}} Helm chart uses a single chart-wide `image.tag`, so a
+plain `helm upgrade` rolls every node mode at once instead of following the
+[recommended node upgrade order](#recommended-node-upgrade-order).
+Use `updateStrategy.rollingUpdate.partition` to release one mode at a time, as
+shown in the **Helm** tab of
+[Perform a rolling upgrade](#perform-a-rolling-upgrade).
+
+#### Nodes don't return to running after a rollout
+
+A node that was killed before it finished flushing its write-ahead log stops
+ungracefully and replays its WAL on restart, which can extend startup.
+In Kubernetes, this usually means `terminationGracePeriodSeconds` (default 30)
+is shorter than the node's shutdown time; with `systemd`, it usually means
+`TimeoutStopSec` is too low.
+See [Deploy with an orchestrator](/influxdb3/version/admin/node-lifecycle/#deploy-with-an-orchestrator).
+
+#### Extra nodes appear in the catalog after an upgrade
+
+Each restart registered a new node ID instead of reclaiming the existing one.
+Verify that your deployment assigns a stable
+[`--node-id`](/influxdb3/version/reference/config-options/#node-id)—a
+Kubernetes Deployment generates a new pod name on every rollout, so use a
+StatefulSet instead.
+See [Kubernetes and Helm](/influxdb3/version/admin/node-lifecycle/#kubernetes-and-helm).
 
 #### Version compatibility problems
 

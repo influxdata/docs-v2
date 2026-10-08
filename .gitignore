@@ -83,3 +83,25 @@ docs/plans/
 
 # Migration parity baseline snapshot (Task 1) — local only
 .parity-baseline/
+
+# Agent worktrees. These are real checkouts kept inside the repo on purpose, so
+# `.worktrees/` above never matched them and ~10GB showed in every git status.
+# Ignoring them does not remove them; it stops git reporting another checkout's
+# files as this one's untracked noise.
+.claude/worktrees/
+
+# graphify knowledge-graph output and playwright-cli captures — generated.
+.graphify/
+.playwright-cli/
+
+# pnpm artifacts. This repo uses yarn; a stray `pnpm install` writes these and
+# they should never be committed. scripts/check-package-manager.js refuses the
+# install, and these keep the debris out of git if one predates that guard.
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+# Git hooks are generated, not authored. `lefthook install` writes shims into
+# this directory (core.hooksPath points here) and renames any it displaces to
+# *.old, so the contents are rebuilt on every install. lefthook.yml is the
+# source of truth and stays tracked.
+.husky/

@@ -20,7 +20,7 @@ influxdb3 test schedule_plugin [OPTIONS] --database <DATABASE_NAME> <FILENAME>
 | `-H`   | `--host`              | URL of the running {{< product-name >}} server <br>(default: `http://127.0.0.1:8181`)         |
 | `-d`   | `--database`          | _({{< req >}})_ Name of the database you want to test the plugin against                      |
 |        | `--token`             | _({{< req >}})_ Authentication token                                                          |
-|        | `--input-arguments`   | JSON map of key/value pairs to pass as plugin input arguments (for example, `'{"key":"val"}'`)|
+|        | `--input-arguments`   | Comma-separated list of `key=value` pairs to pass as plugin input arguments (for example, `key1=val1,key2=val2`) |
 |        | `--schedule`          | Cron schedule to simulate when testing the plugin <br>(default: `* * * * *`)                  |
 |        | `--cache-name`        | Optional cache name to associate with the test                                                |
 |        | `--tls-ca`            | Path to a custom TLS certificate authority for self-signed certs                              |

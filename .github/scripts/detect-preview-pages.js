@@ -1,11 +1,14 @@
 /**
  * Detect Preview Pages
- * Determines which pages should be included in PR preview based on changed files.
+ *
+ * Full-site PR previews deploy the entire built site, so this script no
+ * longer decides whether a preview happens. It maps changed files (and any
+ * URLs the author lists in the PR description) to a short list of "changed
+ * page" links for the sticky PR comment, so reviewers get direct deep links
+ * into the full preview instead of having to guess a path.
  *
  * Outputs (for GitHub Actions):
- * - pages-to-deploy: JSON array of URL paths to deploy
- * - has-layout-changes: 'true' if layout/asset/data changes detected
- * - needs-author-input: 'true' if author must select pages
+ * - changed-pages: JSON array of URL paths to link to from the PR comment
  * - change-summary: Human-readable summary of changes
  */
 
@@ -25,7 +28,7 @@ const PR_BODY =
     ? readFileSync(PR_BODY_FILE, 'utf-8')
     : process.env.PR_BODY || '';
 const BASE_REF = process.env.BASE_REF || 'origin/master';
-const MAX_PAGES = 50; // Limit to prevent storage bloat
+const MAX_PAGES = 50; // Limit how many links the comment lists
 
 // Validate BASE_REF to prevent command injection
 // Allows branch names with letters, numbers, dots, underscores, hyphens, and slashes
@@ -69,23 +72,6 @@ function categorizeChanges(files) {
 }
 
 /**
- * Check if PR only contains deletions (no additions/modifications)
- * @returns {boolean}
- */
-function isOnlyDeletions() {
-  try {
-    const output = execSync(
-      `git diff --diff-filter=d --name-only ${BASE_REF}...HEAD`,
-      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
-    );
-    // If there are no non-deletion changes, this returns empty
-    return output.trim() === '';
-  } catch {
-    return false;
-  }
-}
-
-/**
  * Write output for GitHub Actions
  */
 function setOutput(name, value) {
@@ -96,18 +82,7 @@ function setOutput(name, value) {
 
 // Main execution
 function main() {
-  console.log('🔍 Detecting changes for PR preview...\n');
-
-  // Check for deletions-only PR
-  if (isOnlyDeletions()) {
-    console.log('📭 PR contains only deletions - skipping preview');
-    setOutput('pages-to-deploy', '[]');
-    setOutput('has-layout-changes', 'false');
-    setOutput('needs-author-input', 'false');
-    setOutput('change-summary', 'No pages to preview (content removed)');
-    setOutput('skip-reason', 'deletions-only');
-    return;
-  }
+  console.log('🔍 Detecting changed pages for the preview comment...\n');
 
   const allChangedFiles = getAllChangedFiles();
   const changes = categorizeChanges(allChangedFiles);
@@ -119,82 +94,52 @@ function main() {
   console.log(`   Data: ${changes.data.length}`);
   console.log(`   API Docs: ${changes.apiDocs.length}\n`);
 
-  const hasLayoutChanges =
-    changes.layouts.length > 0 ||
-    changes.assets.length > 0 ||
-    changes.data.length > 0 ||
-    changes.apiDocs.length > 0;
+  let changedPages = [];
 
-  let pagesToDeploy = [];
-
-  // Strategy 1: Content-only changes - use existing change detection
+  // Content changes map directly to the pages they affect.
   if (changes.content.length > 0) {
     console.log('📝 Processing content changes...');
     const expandedContent = getChangedContentFiles(BASE_REF, { verbose: true });
     const htmlPaths = mapContentToPublic(expandedContent, 'public');
 
     // Convert HTML paths to URL paths
-    pagesToDeploy = Array.from(htmlPaths).map((htmlPath) => {
+    changedPages = Array.from(htmlPaths).map((htmlPath) => {
       return '/' + htmlPath.replace('public/', '').replace('/index.html', '/');
     });
-    console.log(`   Found ${pagesToDeploy.length} affected pages\n`);
+    console.log(`   Found ${changedPages.length} affected pages\n`);
   }
 
-  // Strategy 2: Layout/asset changes - parse URLs from PR body
-  if (hasLayoutChanges) {
+  // Auto-add the home page when its template changes.
+  if (changes.layouts.includes('layouts/index.html')) {
+    changedPages = [...new Set([...changedPages, '/'])];
     console.log(
-      '🎨 Layout/asset changes detected, checking PR description for URLs...'
+      '   🏠 Home page template (layouts/index.html) changed - auto-adding /'
     );
-
-    // Auto-detect home page when the root template changes
-    if (changes.layouts.includes('layouts/index.html')) {
-      pagesToDeploy = [...new Set([...pagesToDeploy, '/'])];
-      console.log(
-        '   🏠 Home page template (layouts/index.html) changed - auto-adding / to preview pages'
-      );
-    }
-
-    const prUrls = extractDocsUrls(PR_BODY);
-
-    if (prUrls.length > 0) {
-      console.log(`   Found ${prUrls.length} URLs in PR description`);
-      // Merge with content pages (deduplicate)
-      pagesToDeploy = [...new Set([...pagesToDeploy, ...prUrls])];
-    } else if (pagesToDeploy.length === 0) {
-      // No content changes, no auto-detected pages, and no URLs specified - need author input
-      console.log(
-        '   ⚠️  No URLs found in PR description - author input needed'
-      );
-      setOutput('pages-to-deploy', '[]');
-      setOutput('has-layout-changes', 'true');
-      setOutput('needs-author-input', 'true');
-      setOutput(
-        'change-summary',
-        'Layout/asset changes detected - please specify pages to preview'
-      );
-      return;
-    }
   }
 
-  // Apply page limit
-  if (pagesToDeploy.length > MAX_PAGES) {
+  // Authors can list specific URLs in the PR description as extra deep links.
+  const prUrls = extractDocsUrls(PR_BODY);
+  if (prUrls.length > 0) {
+    console.log(`   Found ${prUrls.length} URL(s) in PR description`);
+    changedPages = [...new Set([...changedPages, ...prUrls])];
+  }
+
+  // Cap how many links the comment lists (the full site deploys regardless).
+  if (changedPages.length > MAX_PAGES) {
     console.log(
-      `⚠️  Limiting preview to ${MAX_PAGES} pages (found ${pagesToDeploy.length})`
+      `⚠️  Limiting comment links to ${MAX_PAGES} (found ${changedPages.length})`
     );
-    pagesToDeploy = pagesToDeploy.slice(0, MAX_PAGES);
+    changedPages = changedPages.slice(0, MAX_PAGES);
   }
 
-  // Generate summary
   const summary =
-    pagesToDeploy.length > 0
-      ? `${pagesToDeploy.length} page(s) will be previewed`
-      : 'No pages to preview';
+    changedPages.length > 0
+      ? `${changedPages.length} page(s) changed`
+      : 'No specific pages detected';
 
   console.log(`\n✅ ${summary}`);
 
-  setOutput('pages-to-deploy', JSON.stringify(pagesToDeploy));
-  setOutput('has-layout-changes', String(hasLayoutChanges));
-  setOutput('needs-author-input', 'false');
+  setOutput('changed-pages', JSON.stringify(changedPages));
   setOutput('change-summary', summary);
 }
 

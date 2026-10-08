@@ -9,6 +9,12 @@ import process from 'process';
 import { execSync } from 'child_process';
 import matter from 'gray-matter';
 import {
+  INSTRUCTION_LIMIT,
+  lineLimitError,
+  ROOT_AGENTS_LIMIT,
+  SKILL_LIMIT,
+} from './agent-instruction-limits.js';
+import {
   buildAgentInstructionAdapters,
   buildPlatformReference,
   ensureClaudeSkillsSymlink,
@@ -25,6 +31,7 @@ const errors = [];
 
 validateInstructions();
 validateSkills();
+validateLineLimits();
 validateClaudeSkillsSymlink();
 await validateGeneratedAdapters();
 
@@ -34,6 +41,27 @@ if (errors.length > 0) {
     console.error(`- ${error}`);
   }
   process.exit(1);
+}
+
+function validateLineLimits() {
+  validateLineLimit(path.join(PROJECT_ROOT, 'AGENTS.md'), ROOT_AGENTS_LIMIT);
+  if (fs.existsSync(INSTRUCTIONS_DIR)) {
+    for (const file of fs.readdirSync(INSTRUCTIONS_DIR).sort()) {
+      if (file.endsWith('.md'))
+        validateLineLimit(path.join(INSTRUCTIONS_DIR, file), INSTRUCTION_LIMIT);
+    }
+  }
+  if (fs.existsSync(SKILLS_DIR)) {
+    for (const entry of fs.readdirSync(SKILLS_DIR).sort()) {
+      const skillPath = path.join(SKILLS_DIR, entry, 'SKILL.md');
+      if (fs.existsSync(skillPath)) validateLineLimit(skillPath, SKILL_LIMIT);
+    }
+  }
+}
+
+function validateLineLimit(filePath, limit) {
+  const error = lineLimitError(filePath, limit, PROJECT_ROOT);
+  if (error) errors.push(error);
 }
 
 console.log('✅ Agent instructions and skills are valid');

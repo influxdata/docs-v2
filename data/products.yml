@@ -11,9 +11,11 @@ influxdb3_core:
   menu_category: self-managed
   versions: [core]
   list_order: 2
+  search_includes_resources: false
   latest: core
-  latest_patch: 3.10.0
+  latest_patch: 3.12.0
   placeholder_host: localhost:8181
+  scheme: http
   limits:
     database: 5
     table: 2000
@@ -55,9 +57,11 @@ influxdb3_enterprise:
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
+  search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.10.0
+  latest_patch: 3.12.0
   placeholder_host: localhost:8181
+  scheme: http
   limits:
     database: 100
     table: 10000
@@ -87,6 +91,46 @@ influxdb3_enterprise:
     operating_system: "Linux, macOS, Windows, Docker"
     application_category: "DatabaseApplication"
 
+influxdb3_cloud:
+  name: InfluxDB 3 Cloud
+  altname: InfluxDB 3 Cloud
+  namespace: influxdb3
+  content_path: influxdb3/cloud
+  label_group: v3-distributed
+  menu_category: managed
+  versions: [cloud]
+  list_order: 1
+  latest: cloud
+  link: 'https://www.influxdata.com/contact-sales/'
+  placeholder_host: instance-id.enterprise.influxdb.io
+  scheme: https
+  version_label: Cloud
+  distributed_architecture: true
+  limits:
+    database: 100
+    table: 10000
+    column: 500
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+    characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
+    detection:
+      url_contains: ['enterprise.influxdb.io']
+  ai_sample_questions:
+    - What's my InfluxDB version?
+    - How do I get started with InfluxDB 3 Cloud?
+    - How do I query data with InfluxDB 3 Cloud?
+  ai_input_placeholder: 'Specify your version and product ("InfluxDB 3 Cloud", "InfluxDB 3 Enterprise", "Core") for better results'
+  ai_source_group_ids: 'b650cf0b-4b52-42e8-bde7-a02738f27262'
+  schema:
+    operating_system: "Any"
+    application_category: "DatabaseApplication"
+
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
   altname: Explorer
@@ -96,9 +140,11 @@ influxdb3_explorer:
   label_group: explorer
   menu_category: tools
   list_order: 1
+  search_includes_resources: false
   latest: explorer
-  latest_patch: 1.9.0
+  latest_patch: 1.11.0
   placeholder_host: localhost:8080
+  scheme: http
   ai_sample_questions:
     - How do I install and run Explorer?
     - How do I query data using Explorer?
@@ -121,8 +167,10 @@ influxdb3_cloud_serverless:
   menu_category: managed
   versions: [cloud-serverless]
   list_order: 2
+  search_includes_resources: false
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  scheme: https
   version_label: Cloud Serverless
   distributed_architecture: true
   detector_config:
@@ -159,10 +207,12 @@ influxdb3_cloud_dedicated:
   menu_category: managed
   versions: [cloud-dedicated]
   list_order: 3
+  search_includes_resources: false
   latest: cloud-dedicated
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
   latest_cli: 2.12.1
   placeholder_host: cluster-id.a.influxdb.io
+  scheme: https
   version_label: Cloud Dedicated
   distributed_architecture: true
   detector_config:
@@ -175,7 +225,7 @@ influxdb3_cloud_dedicated:
         optional_params: []
     characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
     detection:
-      url_contains: ['influxdb.io']
+      url_contains: ['a.influxdb.io']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I migrate from InfluxDB v1 to Cloud Dedicated?
@@ -195,9 +245,11 @@ influxdb3_clustered:
   menu_category: self-managed
   versions: [clustered]
   list_order: 3
+  search_includes_resources: false
   latest: clustered
   link: 'https://www.influxdata.com/contact-sales-influxdb-clustered/'
   placeholder_host: cluster-host.com
+  scheme: https
   version_label: Clustered
   distributed_architecture: true
   detector_config:
@@ -245,13 +297,15 @@ influxdb:
   menu_category: self-managed
   list_order: 1
   placeholder_host: localhost:8086
+  scheme: http
   versions:
     - v2
     - v1
+  supports_flux: true
   latest: v2.9
   latest_patches:
     v2: 2.9.1
-    v1: 1.12.4
+    v1: 1.13.0
   latest_cli:
     v2: 2.8.0
   detector_config:
@@ -297,8 +351,10 @@ influxdb_cloud:
   menu_category: managed
   versions: [cloud]
   list_order: 1
+  supports_flux: true
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  scheme: https
   version_label: Cloud
   detector_config:
     query_languages:
@@ -336,9 +392,9 @@ telegraf:
   list_order: 6
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: v1.39
+  latest: v1.40
   latest_patches:
-    v1: 1.39.0
+    v1: 1.40.1
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -355,11 +411,13 @@ telegraf_controller:
   name: Telegraf Controller
   altname: Controller
   namespace: telegraf
+  content_path:
+    v1: telegraf/controller
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 1.0
-  latest_patch: 1.0.0
+  latest: 1.1
+  latest_patch: 1.1.2
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
@@ -368,11 +426,13 @@ telegraf_enterprise:
   name: Telegraf Enterprise
   altname: Telegraf Enterprise
   namespace: telegraf
+  content_path:
+    v1: telegraf/enterprise
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 1.0
-  latest_patch: 1.0.0
+  latest: enterprise
+  latest_patch: 1.1.0
   schema:
     operating_system: "Linux, macOS, Windows, Docker"
     application_category: "BusinessApplication"
@@ -389,9 +449,10 @@ chronograf:
   menu_category: other
   list_order: 7
   versions: [v1]
+  has_support_contract: false
   latest: v1.11
   latest_patches:
-    v1: 1.11.4
+    v1: 1.11.5
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -416,9 +477,10 @@ kapacitor:
   menu_category: other
   list_order: 7
   versions: [v1]
+  has_support_contract: false
   latest: v1.8
   latest_patches:
-    v1: 1.8.6
+    v1: 1.8.7
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?
@@ -439,6 +501,7 @@ enterprise_influxdb:
   menu_category: self-managed
   list_order: 5
   versions: [v1]
+  supports_flux: true
   latest: v1.12
   latest_patches:
     v1: 1.12.4
@@ -474,6 +537,7 @@ influxdb_cloud1:
   list_order: 6
   latest: v1
   placeholder_host: cloud.influxdata.com
+  scheme: https
   detector_config:
     query_languages:
       InfluxQL:

@@ -76,7 +76,13 @@ telegraf_controller --no-interactive
 - [General](#general)
   - [port](#port)
   - [heartbeat-port](#heartbeat-port)
+  - [ui-port](#ui-port)
   - [database](#database)
+- [Public URLs and CORS](#public-urls-and-cors)
+  - [public-api-url](#public-api-url)
+  - [public-api-port](#public-api-port)
+  - [public-ui-url](#public-ui-url)
+  - [public-ui-port](#public-ui-port)
 - [TLS](#tls)
   - [ssl-cert-path](#ssl-cert-path)
   - [ssl-key-path](#ssl-key-path)
@@ -129,6 +135,9 @@ telegraf_controller --no-interactive
 - [Logging](#logging)
   - [rust-log](#rust-log)
   - [logs-dir](#logs-dir)
+- [High availability](#high-availability)
+  - [ha-enabled](#ha-enabled)
+  - [ha-poll-interval-ms](#ha-poll-interval-ms)
 - [Audit logging](#audit-logging)
   - [audit-enabled](#audit-enabled)
   - [audit-log-retention](#audit-log-retention)
@@ -150,6 +159,7 @@ telegraf_controller --no-interactive
 
 - [port](#port)
 - [heartbeat-port](#heartbeat-port)
+- [ui-port](#ui-port)
 - [database](#database)
 
 #### port
@@ -176,10 +186,36 @@ Agent heartbeat service port.
 
 ---
 
+#### ui-port
+
+Serve the web interface on a separate port from the API. By default,
+{{% product-name %}} serves the web interface and the API together on
+[`port`](#port). Set `ui-port` to serve the web interface on its own port.
+
+In separate-port mode, the browser loads the web interface from `ui-port` and
+calls the API on [`port`](#port), so web clients must be able to reach both
+ports. {{% product-name %}} automatically allows the web interface origin to
+call the API. When set, `ui-port` must differ from [`port`](#port) and
+[`heartbeat-port`](#heartbeat-port).
+
+**Default:** Not set (the web interface is served on [`port`](#port))
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| `--ui-port`  | `UI_PORT`            |
+
+---
+
 #### database
 
 Database connection URL or filesystem path. {{% product-name %}} supports
 SQLite and PostgreSQL.
+
+For PostgreSQL, {{% product-name %}} accepts both the `postgresql://` and
+`postgres://` URL schemes. {{% product-name %}} removes surrounding quotes from
+the value before connecting, so quoting the connection string in your shell or
+`.env` file is safe. If the value is not a URL, {{% product-name %}} treats it
+as a SQLite file path and adds the `file:` scheme automatically.
 
 **Default:** `file:./sqlite.db`
 
@@ -197,6 +233,77 @@ telegraf_controller --database="/path/to/database.db"
 
 ---
 
+### Public URLs and CORS
+
+The following options apply only when you serve the web interface on a separate
+port with [`ui-port`](#ui-port). Use them when a reverse proxy or port remapping
+changes the URL or port that browsers use to reach the web interface or the API.
+They adjust the API URL the web interface calls and the origins the API accepts
+through CORS.
+
+- [public-api-url](#public-api-url)
+- [public-api-port](#public-api-port)
+- [public-ui-url](#public-ui-url)
+- [public-ui-port](#public-ui-port)
+
+> [!Note]
+> These options take effect only when [`ui-port`](#ui-port) is set. They are
+> separate from the **Public Endpoints** settings configured in the
+> {{% product-name %}} UI. See
+> [Public endpoints](/telegraf/controller/settings/#public-endpoints).
+
+#### public-api-url
+
+Base URL the web interface uses to reach the API. Set this when the API is
+reachable at a different URL than the web interface would otherwise derive from
+the browser address and [`port`](#port), for example when the API is behind a
+reverse proxy. When set, this value takes precedence over
+[`public-api-port`](#public-api-port).
+
+| Command flag       | Environment variable |
+| :----------------- | :------------------- |
+| `--public-api-url` | `PUBLIC_API_URL`     |
+
+---
+
+#### public-api-port
+
+Port the web interface uses to reach the API when the external API port differs
+from [`port`](#port), for example when a reverse proxy remaps it. The browser
+combines this port with its own hostname. Ignored when
+[`public-api-url`](#public-api-url) is set.
+
+**Default:** The value of [`port`](#port)
+
+| Command flag        | Environment variable |
+| :------------------ | :------------------- |
+| `--public-api-port` | `PUBLIC_API_PORT`    |
+
+---
+
+#### public-ui-url
+
+Web interface origin to allow in the API's CORS checks. Set this to the external
+origin that serves the web interface, such as the address exposed by a reverse
+proxy.
+
+| Command flag      | Environment variable |
+| :---------------- | :------------------- |
+| `--public-ui-url` | `PUBLIC_UI_URL`      |
+
+---
+
+#### public-ui-port
+
+Web interface port to allow in the API's CORS checks when the external port
+differs from [`ui-port`](#ui-port).
+
+| Command flag       | Environment variable |
+| :----------------- | :------------------- |
+| `--public-ui-port` | `PUBLIC_UI_PORT`     |
+
+---
+
 ### TLS
 
 Provide both a certificate and a private key to serve the
@@ -206,6 +313,9 @@ certificate and key.
 
 - [ssl-cert-path](#ssl-cert-path)
 - [ssl-key-path](#ssl-key-path)
+
+For a full walkthrough that includes configuring agents to trust the certificate,
+see [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/).
 
 > [!Note]
 > #### Provide both the certificate and the key
@@ -277,7 +387,12 @@ telegraf_controller \
 To verify the server certificate, provide a CA certificate with
 [`sslrootcert`](#sslrootcert), [`database-ca-cert`](#database-ca-cert), or
 `PGSSLROOTCERT`. If you request verification but do not provide a CA
-certificate, {{% product-name %}} falls back to the system trust store.
+certificate, {{% product-name %}} verifies against a bundled set of public
+root certificates (the Mozilla root store). Certificates issued by a private
+CA, including Amazon RDS, fail verification unless you provide the CA
+certificate. If database certificate verification fails, agent heartbeats are
+rejected. See
+[Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
 
 > [!Note]
 > #### Client certificate authentication is not supported
@@ -973,12 +1088,55 @@ Absolute path for heartbeat agent logs.
 
 ---
 
+### High availability
+
+High availability is a [Telegraf Enterprise](/telegraf/enterprise/) feature that
+lets you run multiple {{% product-name %}} nodes against a shared PostgreSQL
+database, with one node elected leader. These options are read at startup only.
+High availability requires PostgreSQL; setting `HA_ENABLED=true` with a SQLite
+[`database`](#database) stops startup with an error. For a full walkthrough, see
+[Deploy a highly available cluster](/telegraf/controller/admin/high-availability/deploy/).
+
+- [ha-enabled](#ha-enabled)
+- [ha-poll-interval-ms](#ha-poll-interval-ms)
+
+#### ha-enabled
+
+Enable high-availability mode. When `true`, the node coordinates with other
+nodes through a PostgreSQL advisory lock so that one node leads and the others
+stand by. Requires a PostgreSQL [`database`](#database) and a Telegraf
+Enterprise license. When unset, the node runs standalone and marks itself leader
+at startup.
+
+**Default:** `false`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `HA_ENABLED`         |
+
+---
+
+#### ha-poll-interval-ms
+
+Interval, in milliseconds, at which each node reloads shared settings, API
+tokens, and license state from the database. This value is the upper bound on
+how long a change made on one node takes to apply across the cluster. Applies
+only when [`ha-enabled`](#ha-enabled) is `true`.
+
+**Default:** `5000`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `HA_POLL_INTERVAL_MS` |
+
+---
+
 ### Audit logging
 
 Audit logging is a [Telegraf Enterprise](/telegraf/enterprise/)
 feature. All of the following options are read at startup only; changes
 after startup require a restart. For a task-based walkthrough, see
-[Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+[Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 
 - [audit-enabled](#audit-enabled)
 - [audit-log-retention](#audit-log-retention)
@@ -998,7 +1156,7 @@ Enterprise license to take effect.
 
 | Command flag      | Environment variable    |
 | :---------------- | :---------------------- |
-| `--audit-enabled` | `AUDIT_LOGGING_ENABLED` |
+| `--audit-enabled` | `AUDIT_ENABLED` |
 
 ---
 

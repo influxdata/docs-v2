@@ -27,23 +27,13 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
@@ -71,12 +61,13 @@ function makeSpec(tags, operationTags, overrides) {
         ...overrides,
     };
 }
-function createTmpRoot() {
+function createTmpRoot(segments = ['influxdb3', 'core']) {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'post-process-test-'));
-    const productDir = path.join(root, 'influxdb3', 'core');
+    const productDirLabel = segments.join('/');
+    const productDir = path.join(root, ...segments);
     const specDir = path.join(productDir, 'v3');
     const specPath = path.join(specDir, 'openapi.yaml');
-    const buildSpecPath = path.join(root, '_build', 'influxdb3', 'core', 'v3', 'openapi.yaml');
+    const buildSpecPath = path.join(root, '_build', ...segments, 'v3', 'openapi.yaml');
     fs.mkdirSync(specDir, { recursive: true });
     const config = {
         apis: {
@@ -86,7 +77,7 @@ function createTmpRoot() {
         },
     };
     fs.writeFileSync(path.join(productDir, '.config.yml'), yaml.dump(config));
-    return { root, productDir, specDir, specPath, buildSpecPath };
+    return { root, productDirLabel, productDir, specDir, specPath, buildSpecPath };
 }
 function writeYaml(filePath, data) {
     fs.writeFileSync(filePath, yaml.dump(data, { lineWidth: -1 }), 'utf8');
@@ -447,6 +438,80 @@ function testCombinedOverlaysAndTags() {
         cleanup(root);
     }
 }
+// 14. Mirror-product transforms — version prefix, trailing slash, empty
+// servers, and doc-link rewriting, applied only to MIRROR_PRODUCT_PATHS.
+function testMirrorProductTransforms() {
+    const { root, productDirLabel, specPath, buildSpecPath } = createTmpRoot([
+        'influxdb',
+        'v2',
+    ]);
+    try {
+        writeYaml(specPath, makeSpec([{ name: 'Write data' }], ['Write data'], {
+            paths: {
+                '/api/v2/health': {
+                    get: {
+                        operationId: 'getHealth',
+                        tags: ['Write data'],
+                        description: 'See [buckets](/influxdb/latest/reference/glossary/#bucket) and ' +
+                            'https://docs.influxdata.com/influxdb/latest/security/tokens/.',
+                        responses: {},
+                        servers: [{ url: '' }, { url: 'https://kept.example.com' }],
+                    },
+                },
+                '/api/v2/write/': {
+                    get: { operationId: 'writeData', tags: ['Write data'], responses: {} },
+                },
+                '/api/v2/internal/private/debug': {
+                    get: { operationId: 'privateDebug', tags: [], responses: {} },
+                },
+            },
+        }));
+        const { exitCode } = runScript(root, productDirLabel);
+        assert('14a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+        const spec = readYaml(buildSpecPath);
+        const paths = spec.paths ?? {};
+        assert('14b. version prefix stripped from /health', '/health' in paths && !('/api/v2/health' in paths), `paths: ${Object.keys(paths).join(', ')}`);
+        assert('14c. trailing slash stripped from /write', '/api/v2/write' in paths && !('/api/v2/write/' in paths), `paths: ${Object.keys(paths).join(', ')}`);
+        assert('14d. private path removed', !('/api/v2/internal/private/debug' in paths), `paths: ${Object.keys(paths).join(', ')}`);
+        const health = paths['/health']?.['get'];
+        assert('14e. empty-url server removed, other server kept', health.servers?.length === 1 &&
+            health.servers[0]?.url === 'https://kept.example.com', `servers: ${JSON.stringify(health.servers)}`);
+        assert('14f. relative /latest/ link rewritten to product path', !!health.description?.includes('/influxdb/v2/reference/glossary/#bucket'), `description: ${health.description}`);
+        assert('14g. absolute docs.influxdata.com/latest/ link rewritten', !!health.description?.includes('/influxdb/v2/security/tokens/') &&
+            !health.description?.includes('docs.influxdata.com'), `description: ${health.description}`);
+    }
+    finally {
+        cleanup(root);
+    }
+}
+// 15. Non-mirror products are unaffected by mirror transforms.
+function testNonMirrorProductUnaffected() {
+    const { root, specPath, buildSpecPath } = createTmpRoot(['influxdb3', 'core']);
+    try {
+        writeYaml(specPath, makeSpec([{ name: 'Write data' }], ['Write data'], {
+            paths: {
+                '/api/v2/health': {
+                    get: {
+                        operationId: 'getHealth',
+                        tags: ['Write data'],
+                        description: 'See /influxdb/latest/reference/glossary/#bucket.',
+                        responses: {},
+                    },
+                },
+            },
+        }));
+        const { exitCode } = runScript(root, 'influxdb3/core');
+        assert('15a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+        const spec = readYaml(buildSpecPath);
+        const paths = spec.paths ?? {};
+        assert('15b. version prefix left untouched', '/api/v2/health' in paths, `paths: ${Object.keys(paths).join(', ')}`);
+        const health = paths['/api/v2/health']?.['get'];
+        assert('15c. doc link left untouched', health.description === 'See /influxdb/latest/reference/glossary/#bucket.', `description: ${health.description}`);
+    }
+    finally {
+        cleanup(root);
+    }
+}
 // ---------------------------------------------------------------------------
 // Run all tests
 // ---------------------------------------------------------------------------
@@ -469,6 +534,8 @@ const tests = [
     ],
     ['12. No overlays or tags — build mirrors source', testNoOverlaysNoWrite],
     ['13. Combined: info + servers + tags', testCombinedOverlaysAndTags],
+    ['14. Mirror-product presentation transforms', testMirrorProductTransforms],
+    ['15. Non-mirror product unaffected', testNonMirrorProductUnaffected],
 ];
 console.log('\npost-process-specs tests\n');
 for (const [name, fn] of tests) {

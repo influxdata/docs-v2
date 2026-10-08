@@ -46,12 +46,8 @@ v2: # Path to v2 equivalent page
 alt_links: # Alternate pages in other products/versions for cross-product navigation
   cloud-dedicated: /influxdb3/cloud-dedicated/path/to/page/
   core: /influxdb3/core/path/to/page/
-prepend: # Prepend markdown content to an article (especially powerful with cascade)
-  block: # (Optional) Wrap content in a block style (note, warn, cloud)
-  content: # Content to prepend to article
-append: # Append markdown content to an article (especially powerful with cascade)
-  block: # (Optional) Wrap content in a block style (note, warn, cloud)
-  content: # Content to append to article
+prepend: # Markdown content to prepend to an article (especially powerful with cascade)
+append: # Markdown content to append to an article (especially powerful with cascade)
 metadata: [] # List of metadata messages to include under the page h1
 updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 source: # Specify a file to pull page content from (typically in /content/shared/)
@@ -119,6 +115,15 @@ The next level is 101-199.
 Then 201-299 and so on.
 
 ***Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory.*
+
+Set `weight` at the page level (top-level frontmatter), not on the menu
+entry.
+Menu items inherit the page weight, and page-level weight also controls
+sorting outside menu contexts, such as `{{< children >}}` listings.
+Hugo sorts unweighted pages after weighted ones, so mixing menu-level and
+page-level weights within a section breaks list ordering.
+(Menu-level weight is still appropriate when a page appears in multiple
+menus at different positions.)
 
 ### Related Content
 
@@ -201,24 +206,60 @@ alt_links:
   core: /influxdb3/core/reference/cli/influxdb3/update/  # Points to parent if exact page doesn't exist
 ```
 
-Supported product keys for InfluxDB 3:
+`layouts/partials/topnav/product-selector.html` defines the supported keys in the
+`$productInfo` merge.
+That template is the authoritative list.
+Check it before you assume a product can't carry a cross-link.
 
-- `core`
-- `enterprise`
-- `cloud-serverless`
-- `cloud-dedicated`
-- `clustered`
+| Product path                 | `alt_links` key       |
+| ---------------------------- | --------------------- |
+| `influxdb3/core`             | `core`                |
+| `influxdb3/enterprise`       | `enterprise`          |
+| `influxdb3/cloud`            | `cloud3`              |
+| `influxdb3/cloud-serverless` | `cloud-serverless`    |
+| `influxdb3/cloud-dedicated`  | `cloud-dedicated`     |
+| `influxdb3/clustered`        | `clustered`           |
+| `influxdb3/explorer`         | `explorer`            |
+| `influxdb/v1`                | `v1`                  |
+| `influxdb/v2`                | `v2`                  |
+| `influxdb/cloud`             | `cloud`               |
+| `enterprise_influxdb/v1`     | `enterprise_v1`       |
+| `telegraf/v1`                | `telegraf`            |
+| `telegraf/controller`        | `telegraf_controller` |
+| `telegraf/enterprise`        | `telegraf_enterprise` |
+| `chronograf/v1`              | `chronograf`          |
+| `kapacitor/v1`               | `kapacitor`           |
+| `flux/v0`                    | `flux`                |
+
+The key doesn't always match the last path segment.
+InfluxDB 3 Cloud uses `cloud3` because `influxdb/cloud` already owns `cloud`.
 
 ### Prepend and Append
 
 Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
-Each has the following fields:
+Assign a Markdown string to either field.
+The string is rendered as Markdown, so it can contain
+[callouts](DOCS-SHORTCODES.md#notes-and-warnings), headings, links, and other
+Markdown syntax.
 
 ```yaml
 append: |
   > [!Note]
   > #### This is example markdown content
   > This is just an example note block that gets appended to the article.
+```
+
+`prepend` also accepts a map with the following optional fields:
+
+- **title**: Heading text rendered as an `h2` above the prepended content
+- **content**: Markdown content to prepend to the article
+
+```yaml
+prepend:
+  title: Deprecation notice
+  content: |
+    > [!Warning]
+    > This feature is deprecated and will be removed in a future release.
 ```
 
 Use this frontmatter with [cascade](#cascade) to add the same content to
@@ -231,6 +272,32 @@ cascade:
     > #### This is example markdown content
     > This is just an example note block that gets appended to the article.
 ```
+
+> \[!Note]
+>
+> #### Prepended and appended content appears in Markdown twins
+>
+> `prepend` and `append` content renders inside the page article element, so it
+> is included in the page's Markdown twin (`index.md`) and in per-product
+> `llms-full.txt` corpora.
+> See [LLM Markdown generation](DOCS-DEPLOYING.md#llm-markdown-generation).
+
+### Metadata messages
+
+Use the `metadata` frontmatter to render short tag strings under the page h1.
+`layouts/partials/article/page-meta.html` renders each list item as an `<li>` in
+the page metadata list and runs it through `markdownify`.
+
+Keep each string short.
+Use one list item per constraint instead of one long string.
+
+```yaml
+metadata: [InfluxDB 3 Core, InfluxDB 3 Enterprise earlier than v3.11]
+```
+
+`metadata` isn't limited to version ceilings.
+Product, edition, and version constraints all work as separate items.
+The `updated_in` and `date` fields render in the same list.
 
 ### Cascade
 

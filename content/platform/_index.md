@@ -13,6 +13,9 @@ aliases:
   - /platform/install-and-deploy/deploying/google-cloud-platform/
   - /platform/install-and-deploy/deploying/kubernetes/
   - /platform/install-and-deploy/deploying/sandbox-install/
+  - /platform/monitoring/
+  - /platform/monitoring/influxdata-platform/
+  - /platform/monitoring/influxdata-platform/tools/
 menu:
   platform:
     name: Introduction
@@ -47,6 +50,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 |---------|------------------|---------|------------|-----------------|-------------|-----|
 | **[InfluxDB 3 Core](#influxdb-3)** | v3 (InfluxDB 3) | Open Source (MIT/Apache 2) | Self-managed (single-node) | SQL, InfluxQL | Unlimited | v3, v2, v1 |
 | **[InfluxDB 3 Enterprise](#influxdb-3)** | v3 (InfluxDB 3) | Commercial | Self-managed (cluster or single-node) | SQL, InfluxQL | Unlimited | v3, v2, v1 |
+| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) | v3 (InfluxDB 3) | Commercial | Managed cloud (single-tenant) | SQL, InfluxQL | Unlimited | v3, v2, v1 |
 | **[InfluxDB Clustered](#influxdb-3)** | v3 (InfluxDB 3) | Commercial | Self-managed (Kubernetes) | SQL, InfluxQL | Unlimited | v2, v1 |
 | **[InfluxDB Cloud Serverless](#influxdb-3)** | v3 (InfluxDB 3) | Free & Paid | Managed cloud (multi-tenant) | SQL, InfluxQL | Unlimited | v2, v1 |
 | **[InfluxDB Cloud Dedicated](#influxdb-3)** | v3 (InfluxDB 3) | Paid | Managed cloud (single-tenant) | SQL, InfluxQL | Unlimited | v2, v1 |
@@ -63,12 +67,13 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 **Product availability:**
 
+- **InfluxDB 3 Cloud**: Early access; [request access](https://www.influxdata.com/products/influxdb3-cloud/)
 - **InfluxDB Cloud (TSM)**: Legacy managed v2 product; new signups are directed to InfluxDB Cloud Serverless (v3)
 - **InfluxDB Cloud 1**: Legacy managed v1 product; new signups are no longer available; existing customers only
 
 **API compatibility:**
 
-- **v3 API**: Latest API in InfluxDB 3 Core and Enterprise (`/api/v3` endpoints) with database-based data model
+- **v3 API**: Latest API in InfluxDB 3 Core, Enterprise, and Cloud (`/api/v3` endpoints) with database-based data model
 - **v2 API**: Used in InfluxDB v2 with token authentication and bucket-based data model; InfluxDB 3 products support `/api/v2/write` compatibility endpoint
 - **v1 HTTP API**: Legacy API with `/write` and `/query` endpoints; InfluxDB 3 products provide v1 compatibility for easier migration from v1 products
 {{% /expand %}}
@@ -77,6 +82,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 - [InfluxDB 2.x](#influxdb-2x)
 - [InfluxDB 1.x](#influxdb-1x)
 - [Migrate to InfluxDB 3](#migrate-to-influxdb-3)
+- [Monitoring](#monitoring)
 
 ## InfluxDB 3
 
@@ -90,6 +96,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 ### Hosted
 
+- [InfluxDB 3 Cloud](/influxdb3/cloud/): fully managed, single-tenant InfluxDB 3 Enterprise service in [early access](https://www.influxdata.com/products/influxdb3-cloud/)
 - [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/): fully managed, multi-tenant InfluxDB 3 instance
 - [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/): fully managed, single-tenant InfluxDB 3 cluster
 
@@ -193,3 +200,27 @@ All InfluxDB 3 products provide **v1 compatibility APIs** and the **v2 write API
 - [Use compatibility APIs and client libraries to write data to InfluxDB 3 Enterprise](/influxdb3/enterprise/write-data/compatibility-apis/)
 - [Migrate data to InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/guides/migrate-data/)
 - [Migrate data to InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/guides/migrate-data/)
+
+## Monitoring
+
+"Monitoring" covers two different things:
+
+- **Monitor InfluxDB itself**—track the health and performance of your
+  InfluxDB instance or cluster.
+- **Monitor other systems with InfluxDB**—use InfluxDB as your time series
+  monitoring backend for infrastructure and applications.
+
+### Monitor InfluxDB itself
+
+- **InfluxDB 3 Core and Enterprise**: [Query system data](/influxdb3/core/admin/query-system-data/)
+- **InfluxDB Cloud Dedicated**: [Monitor your cluster](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/)
+- **InfluxDB OSS v2**: [InfluxDB OSS metrics](/influxdb/v2/reference/internals/metrics/)
+- **InfluxDB Enterprise v1**: [Monitor InfluxDB Enterprise](/enterprise_influxdb/v1/administration/monitor/)
+- **InfluxDB OSS v1**: [Monitor InfluxDB](/influxdb/v1/administration/monitor/)
+
+### Monitor other systems with InfluxDB
+
+- Collect metrics from other systems with [Telegraf](/telegraf/v1/examples/monitor-system-metrics/)
+- **InfluxDB 3 Core and Enterprise**: process and alert on incoming data with the [Python processing engine](/influxdb3/core/process-data/python/plugins/)
+- **InfluxDB OSS v2 and InfluxDB Cloud (TSM)**: [checks, notification rules, and endpoints](/influxdb/v2/monitor-alert/)
+- **InfluxDB v1.x (TICK stack)**: [monitor Kubernetes with Telegraf](/influxdb/v1/administration/monitor/monitor-kubernetes/)

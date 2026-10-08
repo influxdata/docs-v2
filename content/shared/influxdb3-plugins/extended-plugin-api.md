@@ -5,7 +5,7 @@ The plugin API lets you:
 - [Write data](#write-data)
 - [Query data](#query-data)
 - [Log messages for monitoring and debugging](#log-messages-for-monitoring-and-debugging)
-- [Maintain state with the in-memory cache](#maintain-state-with-in-memory-cache)
+- [Maintain state with the in-memory cache](#maintain-state-with-the-in-memory-cache)
   - [Store and retrieve cached data](#store-and-retrieve-cached-data)
   - [Use TTL appropriately](#use-ttl-appropriately)
   - [Share data across plugins](#share-data-across-plugins)
@@ -221,7 +221,7 @@ The cache system offers two distinct namespaces:
 - [Store and retrieve cached data](#store-and-retrieve-cached-data)
 - [Store cached data with expiration](#store-cached-data-with-expiration)
 - [Share data across plugins](#share-data-across-plugins)
-- [Build a counter](#build-a-counter)
+- [Build a counter](#building-a-counter)
 
 ### Store and retrieve cached data
 

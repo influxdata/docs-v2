@@ -11,6 +11,7 @@ related:
   - /influxdb3/core/admin/tokens/
   - /influxdb3/core/api/v3/#tag/Token, InfluxDB /api/v3 Token API reference
 source: /shared/influxdb3-cli/delete/token.md
+canonical: self
 ---
 
 <!-- The content of this file is at

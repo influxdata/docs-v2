@@ -5,8 +5,8 @@ description: Use the `wavefront` input data format to parse Wavefront data into 
 menu:
   telegraf_v1_ref:
     name: Wavefront
-    weight: 10
     parent: Input data formats
+weight: 10
 ---
 
 Use the `wavefront` input data format to parse Wavefront data into Telegraf metrics.

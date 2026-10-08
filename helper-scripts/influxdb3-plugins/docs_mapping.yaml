@@ -7,7 +7,6 @@ plugins:
     target: ../../content/shared/influxdb3-plugins/plugins-library/official/basic-transformation.md
     category: official
     additional_sections:
-      - schema_requirements
       - logging
 
   downsampler:
@@ -15,7 +14,6 @@ plugins:
     target: ../../content/shared/influxdb3-plugins/plugins-library/official/downsampler.md
     category: official
     additional_sections:
-      - schema_management
       - logging
 
   forecast_error_evaluator:
@@ -110,6 +108,15 @@ settings:
   
   # Default category if not specified
   default_category: official
+
+# Registry discovery overrides. The product stub slug can differ from the
+# shared-page slug (which is always name-derived); list only the exceptions.
+overrides:
+  mad_check:
+    stub_slug: mad-anomaly-detection
+
+# Official plugins to drop from registry discovery entirely.
+exclude: []
 
 # Exceptions - plugins that require special handling
 exceptions:

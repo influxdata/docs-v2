@@ -42,6 +42,9 @@ workflow:
     skip-review:
       color: "#1E90FF"
       description: PR skips the automated doc review pipeline
+    copilot:fix:
+      color: "#8250DF"
+      description: Assign the Copilot coding agent to fix this issue
 
 area:
   color: "#a89129"

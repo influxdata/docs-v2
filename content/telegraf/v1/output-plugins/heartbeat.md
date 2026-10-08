@@ -321,15 +321,15 @@ heartbeat message.
 
 The following functions are available:
 
-- `encoding` functions of the [CEL encoder library](https://github.com/google/cel-go/blob/master/ext/README.md#encoders)
-- `math` functions of the [CEL math library](https://github.com/google/cel-go/blob/master/ext/README.md#math)
-- `string` functions of the [CEL strings library](https://github.com/google/cel-go/blob/master/ext/README.md#strings)
+- `encoding` functions of the [CEL encoder library](https://github.com/cel-expr/cel-go/blob/master/ext/README.md#encoders)
+- `math` functions of the [CEL math library](https://github.com/cel-expr/cel-go/blob/master/ext/README.md#math)
+- `string` functions of the [CEL strings library](https://github.com/cel-expr/cel-go/blob/master/ext/README.md#strings)
 - `now` function for getting the current time
 
 [schema]: /plugins/outputs/heartbeat/schema_v1.json
 [internal_plugin]: /plugins/inputs/internal/README.md
 
 [cel]: https://cel.dev
-[cel_encoder]: https://github.com/google/cel-go/blob/master/ext/README.md#encoders
-[cel_math]: https://github.com/google/cel-go/blob/master/ext/README.md#math
-[cel_strings]: https://github.com/google/cel-go/blob/master/ext/README.md#strings
+[cel_encoder]: https://github.com/cel-expr/cel-go/blob/master/ext/README.md#encoders
+[cel_math]: https://github.com/cel-expr/cel-go/blob/master/ext/README.md#math
+[cel_strings]: https://github.com/cel-expr/cel-go/blob/master/ext/README.md#strings

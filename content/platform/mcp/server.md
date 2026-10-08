@@ -11,6 +11,7 @@ weight: 10
 tags: [MCP, LLM, AI]
 aliases:
   - /platform/mcp-server/
+  - /platform/mcp/
 source: /shared/influxdb3-admin/mcp-server-docs-only.md
 ---
 

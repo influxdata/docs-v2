@@ -9,6 +9,7 @@ menu:
     name: influxdb3 show tokens 
 weight: 400
 source: /shared/influxdb3-cli/show/tokens.md
+canonical: self
 ---
 
 <!--The content of this file is at 

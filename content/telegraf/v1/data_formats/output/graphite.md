@@ -5,9 +5,9 @@ description: Use the `graphite` output data format (serializer) to format and ou
 menu:
   telegraf_v1_ref:
     name: Graphite
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-graphite
+weight: 10
 ---
 
 Use the `graphite` output data format (serializer) to format and output Telegraf metrics as [Graphite Message Format](https://graphite.readthedocs.io/en/latest/feeding-carbon.html#step-3-understanding-the-graphite-message-format).
@@ -33,8 +33,34 @@ To use the tag support method, set the [`graphite_tag_support`](#graphite_tag_su
   ## Graphite template pattern
   template = "host.tags.measurement.field"
 
+  ## Graphite templates patterns
+  ## 1. Template for cpu
+  ## 2. Template for disk*
+  ## 3. Default template
+  # templates = [
+  #  "cpu tags.measurement.host.field",
+  #  "disk* measurement.field",
+  #  "host.measurement.tags.field"
+  #]
+
+  ## Strict sanitization regex
+  ## This is the default sanitization regex that is used on data passed to
+  ## the graphite serializer. Users can add additional characters here if
+  ## required. Be aware that the characters '/' '@' '*' are always replaced
+  ## with '_', '..' is replaced with '.', and '\' is removed even if added
+  ## to the following regex.
+  # graphite_strict_sanitize_regex = '[^a-zA-Z0-9-:._=\p{L}]'
+
   ## Support Graphite tags, recommended to enable when using Graphite 1.1 or later.
   # graphite_tag_support = false
+
+  ## Applied sanitization mode when graphite tag support is enabled.
+  ## * strict - uses the regex specified above
+  ## * compatible - allows for greater number of characters
+  # graphite_tag_sanitize_mode = "strict"
+
+  ## Character for separating metric name and field for Graphite tags
+  # graphite_separator = "."
 ```
 
 ### graphite_tag_support
@@ -55,6 +81,30 @@ cpu.usage_user;cpu=cpu-total;dc=us-east-1;host=tars 0.89 1455320690
 cpu.usage_idle;cpu=cpu-total;dc=us-east-1;host=tars 98.09 1455320690
 ```
 
+### graphite_separator
+
+The `graphite_separator` option sets the character that joins the metric
+name and field name when tag support is enabled.
+With `graphite_separator = "_"`, the example above becomes:
+
+```
+cpu_usage_user;cpu=cpu-total;dc=us-east-1;host=tars 0.89 1455320690
+cpu_usage_idle;cpu=cpu-total;dc=us-east-1;host=tars 98.09 1455320690
+```
+
+### graphite_tag_sanitize_mode
+
+The `graphite_tag_sanitize_mode` option defines how to sanitize tag names
+and values when tag support is enabled.
+
+- `strict` (default): uses the same rules as metrics without tags,
+  applying the `graphite_strict_sanitize_regex` pattern.
+- `compatible`: allows more characters through.
+
 ### Templates
 
-To learn more about using templates and template patterns, see [Template patterns](/telegraf/v1/configure_plugins/template-patterns/).
+Use the `template` option to set the default template pattern, or the
+`templates` option to set patterns per measurement, using filters such as
+`cpu` and `disk*`.
+To learn more about using templates and template patterns, see
+[Template patterns](/telegraf/v1/data_formats/template-patterns/).

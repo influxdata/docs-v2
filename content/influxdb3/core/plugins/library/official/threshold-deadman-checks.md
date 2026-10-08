@@ -10,6 +10,7 @@ influxdb3/core/tags: [plugins, processing engine, python, monitoring, thresholds
 related:
   - https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/threshold_deadman_checks, Threshold deadman checks plugin on GitHub
 source: /shared/influxdb3-plugins/plugins-library/official/threshold-deadman-checks.md
+canonical: self
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-plugins/plugins-library/official/threshold-deadman-checks.md -->

@@ -17,6 +17,22 @@ This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, con
 
 This is **bold** text. This is *italic* text. This is ***bold and italic***.
 
+### Line protocol fence
+
+```lp
+# A comment remains source text.
+cpu,host=west usage=42.5,active=true 1700000000000000000
+cpu cpu::user=12.5,cpu::system=2.5,mem::used=1.2,plain=3.4
+table a::b::c="quoted-value",status="ready"
+東京,tag=値 field="Unicode-value"
+```
+
+The malformed fence falls back to escaped plain text instead of partial markup:
+
+```lp {lint="false"}
+cpu field="unterminated
+```
+
 ### Clockface v2 icons
 
 {{< nav-icon "account" "v2" >}}
@@ -251,6 +267,21 @@ This is **bold** text. This is *italic* text. This is ***bold and italic***.
 {{< icon "trashcan" >}} trashcan\
 {{< icon "view" >}} view\
 {{< icon "x" >}} x
+
+### Lucide icons
+
+Inline icons from the [Lucide](https://lucide.dev/icons) library, rendered with
+the `lucide` shortcode.
+
+Default: {{< lucide "circle-plus" >}}
+Settings: {{< lucide "settings" >}}
+Large: {{< lucide icon="circle-check" size="large" >}}
+Small: {{< lucide icon="circle-check" size="small" >}}
+
+Inline usage inside a list item and bold text:
+
+- To enter focus mode, click **{{< lucide "fullscreen" >}} Focus** in the
+  upper right of the editing area.
 
 ## h2 This is a header2
 
@@ -1576,6 +1607,130 @@ curl --request POST \
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Tab content fragment ids
+
+Fixtures for influxdata/docs-v2#7703: a tab link with a real slug
+(`[Label](#slug)`) must resolve to a real `id` on its paired content
+section, derived from the tab's label text.
+
+#### Basic code-tabs pairing
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux](#linux)
+[macOS](#macos)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+Linux instructions.
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+macOS instructions.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Basic tabs pairing with a slugified label
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[SQL & InfluxQL](#)
+[Flux](#)
+{{% /tabs %}}
+{{% tab-content %}}
+SQL and InfluxQL content.
+{{% /tab-content %}}
+{{% tab-content %}}
+Flux content.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### Nested wrapper pairing does not bleed across the boundary
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Windows](#windows)
+[FreeBSD](#freebsd)
+{{% /tabs %}}
+{{% tab-content %}}
+Windows install intro.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[apt](#apt)
+[yum](#yum)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+apt instructions.
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+yum instructions.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+FreeBSD install intro.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### Tab label collides with an existing heading id
+
+##### Docker
+
+Placeholder heading whose auto-generated id collides with the tab label
+below.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Docker](#)
+[Podman](#)
+{{% /tabs %}}
+{{% tab-content %}}
+Docker tab content.
+{{% /tab-content %}}
+{{% tab-content %}}
+Podman tab content.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+#### Tab link hrefs match their paired section id
+
+Two separate groups sharing a label ("Go") force the second group's
+fallback id to a disambiguated suffix. The paired link's `href` must
+follow, not stay on the first group's fragment.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Go](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+First Go group content.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Go](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+Second Go group content.
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Wrapper-level id opts a tab group into a durable fragment
+
+{{< tabs-wrapper id="install" >}}
+{{% tabs %}}
+[Linux](#)
+[macOS](#)
+{{% /tabs %}}
+{{% tab-content %}}
+Linux install instructions.
+{{% /tab-content %}}
+{{% tab-content %}}
+macOS install instructions.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
 ### Diff fence — subtractive only
 
 The previous `display: inline-block` rule on `.gi`/`.gd` (influxdata/docs-v2#7173)
@@ -1637,3 +1792,38 @@ green and red tints.
            memory: 2Gi
 ```
 
+## influxdb/host and influxdb/host-url shortcodes
+
+Use `influxdb/host` to render the host placeholder only, and `influxdb/host-url`
+to render the full base URL (`scheme://host`) for the current product. The
+scheme comes from the product `scheme` value in `data/products.yml`, so
+self-managed products with a localhost host render `http://` and managed
+products render `https://`.
+
+Host only:
+
+{{< influxdb/host >}}
+
+Host URL (scheme + host):
+
+{{< influxdb/host-url >}}
+
+In a code block:
+
+```sh
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=DATABASE_NAME" \
+  --header "Authorization: Bearer DATABASE_TOKEN"
+```
+
+In an API endpoint:
+
+{{< api-endpoint endpoint="{{< influxdb/host-url >}}/query" method="get" >}}
+
+> [!Note]
+> This page has no `product` frontmatter, so the shortcodes above fall back to
+> their defaults: `localhost:8086` for the host and `https` for the scheme.
+> The resulting `https://localhost:8086` is a nonsensical combination that only
+> appears here because there is no product context to resolve.
+> On real product pages, `influxdb/host-url` renders the product-correct scheme
+> and host--for example, `http://localhost:8181` for Core and Enterprise or
+> `https://cluster-host.com` for Clustered.

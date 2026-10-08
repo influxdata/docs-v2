@@ -55,6 +55,7 @@ LEFTHOOK=0 git push
 - **Link checker** (`.github/workflows/pr-link-check.yml`) — checks changed pages
 - **Codeblock lint** (`.github/workflows/test.yml`) — parse/compile check; JSON/YAML/TOML failures block merge
 - **Render regression** (`.github/workflows/pr-render-check.yml`) — checks for whitespace-escaped code blocks
+- **AI artifacts** (`.github/workflows/pr-ai-artifacts-check.yml`) — builds and verifies Markdown twins and JSON-LD `@id` references
 - **Remark** (`.github/workflows/pr-remark-check.yml`) — runs on repo docs (DOCS-\*.md, .github/, .claude/)
 - **Render artifacts** — site-wide grep for forbidden HTML patterns
 
@@ -137,15 +138,34 @@ yarn test:lint-codeblocks
 
 | Language                 | Policy on parse failure                    |
 | ------------------------ | ------------------------------------------ |
-| JSON, YAML, TOML         | `::error::` — fails the PR check           |
+| JSON, YAML, TOML, LP     | `::error::` — fails the PR check           |
 | bash, python, javascript | `::warning::` — does not fail the PR check |
 
 SQL, InfluxQL, Go, and other languages are not yet checked.
+
+`lp` fences validate InfluxDB line protocol, including qualified field keys such
+as `family::field`.
+The validator accepts a single family delimiter and treats later `::` sequences
+as part of the field name.
+Use `{lint="false"}` for intentionally invalid line protocol examples.
 
 **Normalization**: The linter handles common docs patterns:
 
 - `{ placeholders="TOKEN_NAME|DURATION" }` fence attributes — tokens get language-safe substitutions before parsing
 - Hugo shortcodes inside fences — stripped with a safe replacement
+
+**Skipping a block**: For examples that are *intentionally* invalid (for
+example, demonstrating a syntax error), add the `lint="false"` fence
+attribute:
+
+````markdown
+```toml {lint="false"}
+path = "C:\Program Files\"  # invalid TOML
+```
+````
+
+Skipped blocks still appear in the linter output with the skip reason, so
+exemptions stay visible in review.
 
 ## Link Validation
 
@@ -183,6 +203,13 @@ Local checks resolve relative links to the local filesystem. CI checks resolve t
 ## Style Linting (Vale)
 
 Install locally: `brew install vale` (recommended) or use the Docker fallback via `.ci/vale/vale.sh`.
+
+If neither a local Vale binary nor a running Docker daemon is available
+(for example, in sandboxed agent sessions), `.ci/vale/vale.sh` skips the
+check with a warning and exits 0 — don't use `git commit --no-verify`.
+CI (`pr-vale-check.yml`) remains the authoritative gate: it installs the
+pinned Vale binary, runs with `VALE_STRICT=1` so the check can never skip
+silently, and blocks merge on errors.
 
 ```bash
 # Lint specific files
@@ -234,9 +261,11 @@ For schema correctness, validate against [validator.schema.org](https://validato
 
 ## PR Preview Pages
 
-Add page URLs to the PR description to deploy a hosted preview automatically.
+Every pull request that touches `content/`, `layouts/`, `assets/`, `data/`, `api-docs/`, or `openapi/` gets a hosted preview of the *entire site*, deployed to `https://test2.docs.influxdata.com/pr-preview/pr-<N>/`. Use it when a reviewer would need a local Hugo build to verify a visual or structural change — no PR description setup required.
 
-The preview workflow (`.github/workflows/pr-preview.yml`) deploys only those pages to GitHub Pages. Use it when a reviewer would need a local Hugo build to verify a visual or structural change.
+The preview builds with `--environment production`, so it matches what production will serve.
+
+**Optional:** add page URLs to the PR description to get direct deep links in the sticky preview comment, instead of a reviewer navigating the site manually.
 
 **URL formats the extractor recognizes:**
 
@@ -244,7 +273,7 @@ The preview workflow (`.github/workflows/pr-preview.yml`) deploys only those pag
 - `http://localhost:1313/<path>`
 - Bare paths starting with a product namespace (`/influxdb3/...`, `/telegraf/...`)
 
-URLs inside fenced code blocks are ignored. List preview URLs as bare paths or markdown links.
+URLs inside fenced code blocks are ignored. List URLs as bare paths or markdown links.
 
 **Convention:** pair each URL with an "Expected" column describing what the reviewer should verify.
 
@@ -252,7 +281,7 @@ Related files:
 
 - `.github/workflows/pr-preview.yml` — the workflow
 - `.github/scripts/parse-pr-urls.js` — URL extractor
-- `.github/scripts/detect-preview-pages.js` — decides whether preview deploys
+- `.github/scripts/detect-preview-pages.js` — generates the comment's deep links (deployment itself is unconditional)
 
 ## Related Files
 

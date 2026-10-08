@@ -15,7 +15,7 @@ but you can use any HTTP client.
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
-{{< api-endpoint endpoint="http://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/version/api/query-data/" >}}
+{{< api-endpoint endpoint="{{< influxdb/host-url >}}/query" method="get" api-ref="/influxdb3/version/api/query-data/" >}}
 
 ## Authenticate API requests
 
@@ -58,7 +58,7 @@ Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and the
 The following example shows how to use cURL with the `Basic` authentication scheme:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl --get "https://{{< influxdb/host >}}/query" \
+curl --get "{{< influxdb/host-url >}}/query" \
   --user "any:DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -72,7 +72,7 @@ When authenticating requests, {{< product-name >}} checks that the `p` (_passwor
 ##### Syntax
 
 ```sh
-https://{{< influxdb/host >}}/query/?u=any&p=DATABASE_TOKEN
+{{< influxdb/host-url >}}/query/?u=any&p=DATABASE_TOKEN
 ```
 
 ##### Example
@@ -80,7 +80,7 @@ https://{{< influxdb/host >}}/query/?u=any&p=DATABASE_TOKEN
 The following example shows how to use cURL with query string authentication:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl --get "https://{{< influxdb/host >}}/query" \
+curl --get "{{< influxdb/host-url >}}/query" \
   --data-urlencode "p=DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -111,7 +111,7 @@ Authorization: Token DATABASE_TOKEN
 Use `Bearer` to authenticate a query request:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl --get "https://{{< influxdb/host >}}/query" \
+curl --get "{{< influxdb/host-url >}}/query" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -120,7 +120,7 @@ curl --get "https://{{< influxdb/host >}}/query" \
 Use `Token` to authenticate a query request:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl --get "https://{{< influxdb/host >}}/query" \
+curl --get "{{< influxdb/host-url >}}/query" \
   --header "Authorization: Token DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -170,7 +170,7 @@ return results in **CSV**. To return results as CSV, include the `Accept` header
 with the `application/csv` or `text/csv` MIME type:
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
-curl --get https://{{< influxdb/host >}}/query \
+curl --get {{< influxdb/host-url >}}/query \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Accept: application/csv" \
   --data-urlencode "db=DATABASE_NAME" \

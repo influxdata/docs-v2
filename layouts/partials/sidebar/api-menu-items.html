@@ -7,7 +7,6 @@
   Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
 
   Parameters:
-  - page: Current page context
   - url: URL of the API parent page (e.g., /influxdb3/core/api/)
   - siteData: site.Data reference
 
@@ -15,22 +14,28 @@
   Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
 */}}
 
-{{ $currentPage := .page }}
 {{ $apiUrl := .url }}
 {{ $siteData := .siteData }}
 
 {{/* Derive data lookup path from the API section URL.
      Split "/influxdb3/core/api/" into segments and index into site.Data.
      Single-spec: /influxdb3/core/api/ → article_data.influxdb3.core.api
-     Multi-spec:  /influxdb3/cloud-dedicated/api/ → article_data.influxdb3.cloud-dedicated */}}
+     Multi-spec:  /influxdb3/cloud-dedicated/api/ → article_data.influxdb3.cloud-dedicated
+
+     When deployed under a subdirectory baseURL (e.g., PR previews at
+     /pr-preview/pr-N/…), .URL is site-root-relative and so includes that
+     prefix. Skip the extra leading segments computed from the baseURL path
+     depth, matching api/section-children.html. */}}
 {{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" $apiUrl) }}
 {{ $segments := split $urlPath "/" }}
+{{ $pathOffset := partialCached "base-path-offset.html" . }}
+{{ $productSegments := sub (len $segments) $pathOffset }}
 
 {{ $dataNode := dict }}
-{{ if ge (len $segments) 3 }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
-  {{ $seg2 := index $segments 2 }}
+{{ if ge $productSegments 3 }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg2 := index $segments (add $pathOffset 2) }}
   {{ with index $siteData.article_data $seg0 $seg1 $seg2 }}
     {{ $dataNode = . }}
   {{ end }}
@@ -52,9 +57,9 @@
 
 {{/* If no sub-sections found under the 3-segment node, try 2-segment lookup
      (product family + product, e.g. influxdb3/cloud-dedicated). */}}
-{{ if and (eq (len $subSections) 0) (ge (len $segments) 2) }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
+{{ if and (eq (len $subSections) 0) (ge $productSegments 2) }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
   {{ $dataNode2 := dict }}
   {{ with index $siteData.article_data $seg0 $seg1 }}
     {{ $dataNode2 = . }}
@@ -84,36 +89,11 @@
       {{ $specLabel = . }}
     {{ end }}
 
-    {{/* Is any page in this sub-section currently active? */}}
-    {{ $specActive := hasPrefix $currentPage.RelPermalink $specUrl }}
-
-    <li class="nav-item{{ if $specActive }} active{{ end }}">
-      <a href="#" class="children-toggle{{ if $specActive }} open{{ end }}"></a>
+    <li class="nav-item" data-nav-url="{{ $specUrl | relURL }}">
+      <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ $specLabel }} nested items"></a>
       <a href="{{ $specUrl | relURL }}">{{ $specLabel }}</a>
-      <ul class="children{{ if $specActive }} open{{ end }}">
-        {{/* Separate conceptual and non-conceptual articles */}}
-        {{ $conceptualArticles := slice }}
-        {{ $operationArticles := slice }}
-        {{ range $specArticles }}
-          {{ if and (reflect.IsMap .) (isset . "fields") }}
-            {{ $fields := index . "fields" }}
-            {{ if reflect.IsMap $fields }}
-              {{ $isConceptual := false }}
-              {{ if isset $fields "isConceptual" }}
-                {{ $isConceptual = index $fields "isConceptual" }}
-              {{ end }}
-              {{ if $isConceptual }}
-                {{ $conceptualArticles = $conceptualArticles | append . }}
-              {{ else }}
-                {{ $operationArticles = $operationArticles | append . }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-
-        {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-        {{ $operationArticles = sort $operationArticles "fields.weight" }}
-        {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+      <ul class="children">
+        {{ $sortedArticles := partial "api/sorted-tag-articles.html" $specArticles }}
 
         {{ range $sortedArticles }}
           {{ $articlePath := index . "path" }}
@@ -122,17 +102,15 @@
           {{/* Article path is "api/<tag-slug>"; build URL as api/<subSection>/<tag-slug>/ */}}
           {{ $tagSlug := path.Base $articlePath }}
           {{ $tagPageUrl := printf "%s%s/" $specUrl $tagSlug | relURL }}
-          {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $specUrl $tagSlug) }}
 
-          <li class="nav-item{{ if $isActive }} active{{ end }}">
+          <li class="nav-item" data-nav-url="{{ $tagPageUrl }}">
             <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
           </li>
         {{ end }}
 
         {{/* ALL ENDPOINTS for this sub-section */}}
         {{ $allEndpointsUrl := printf "%sall-endpoints/" $specUrl | relURL }}
-        {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $specUrl) }}
-        <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+        <li class="nav-item" data-nav-url="{{ $allEndpointsUrl }}">
           <a href="{{ $allEndpointsUrl }}">All endpoints</a>
         </li>
       </ul>
@@ -147,33 +125,7 @@
   {{ end }}
 
   {{ if gt (len $articles) 0 }}
-    {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
-    {{ $conceptualArticles := slice }}
-    {{ $operationArticles := slice }}
-
-    {{ range $articles }}
-      {{ if and (reflect.IsMap .) (isset . "fields") }}
-        {{ $fields := index . "fields" }}
-        {{ if reflect.IsMap $fields }}
-          {{ $isConceptual := false }}
-          {{ if isset $fields "isConceptual" }}
-            {{ $isConceptual = index $fields "isConceptual" }}
-          {{ end }}
-          {{ if $isConceptual }}
-            {{ $conceptualArticles = $conceptualArticles | append . }}
-          {{ else }}
-            {{ $operationArticles = $operationArticles | append . }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-
-    {{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
-    {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
-    {{ $operationArticles = sort $operationArticles "fields.weight" }}
-
-    {{/* Combine: conceptual first, then operations */}}
-    {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+    {{ $sortedArticles := partial "api/sorted-tag-articles.html" $articles }}
 
     {{/* Render each tag as a nav item */}}
     {{ range $sortedArticles }}
@@ -183,17 +135,15 @@
       {{/* Build URL relative to the API section page */}}
       {{ $tagSlug := path.Base $articlePath }}
       {{ $tagPageUrl := printf "%s%s/" $apiUrl $tagSlug | relURL }}
-      {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $apiUrl $tagSlug) }}
 
-      <li class="nav-item{{ if $isActive }} active{{ end }}">
+      <li class="nav-item" data-nav-url="{{ $tagPageUrl }}">
         <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
       </li>
     {{ end }}
 
     {{/* ALL ENDPOINTS - Link to all-endpoints page */}}
     {{ $allEndpointsUrl := printf "%sall-endpoints/" $apiUrl | relURL }}
-    {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $apiUrl) }}
-    <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+    <li class="nav-item" data-nav-url="{{ $allEndpointsUrl }}">
       <a href="{{ $allEndpointsUrl }}">All endpoints</a>
     </li>
   {{ end }}

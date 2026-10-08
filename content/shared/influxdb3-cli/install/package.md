@@ -134,3 +134,12 @@ If package installation fails:
   docker image prune -af
   docker buildx prune -af
   ```
+
+{{% show-in "core" %}}
+In {{< product-name >}} 3.12, a failed install, for example a package that doesn't exist, can still return HTTP status `200`.
+Confirm that the package imports, for example, by testing a plugin that uses it, before you rely on it.
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+When an install fails, for example for a package that doesn't exist, {{< product-name >}} returns HTTP status `500` with pip's error message.
+{{% /show-in %}}
+<!-- VERIFIED against live 3.12.0-0.rc.2 (2026-09-30): installing a package that doesn't exist returned 200 on Core and 500 with pip's message on Enterprise. If the fix reaches Core before GA, remove the Core note. -->

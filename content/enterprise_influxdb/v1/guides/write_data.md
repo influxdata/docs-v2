@@ -60,11 +60,12 @@ The InfluxDB API is the primary means of writing data into InfluxDB.
 
 The preceding examples use a curl `--data-<format>` option to include a POST request body that contains [InfluxDB line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol) for the time series data that you want to store.
 
-```js
-// Syntax
+```text
+# Syntax
 <measurement>[,<tag_key>=<tag_value>[,<tag_key>=<tag_value>]] <field_key>=<field_value>[,<field_key>=<field_value>] [<timestamp>]
+```
 
-// Example
+```lp
 cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000
 ```
 

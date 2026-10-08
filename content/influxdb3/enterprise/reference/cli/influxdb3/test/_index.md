@@ -8,6 +8,7 @@ menu:
     name: influxdb3 test
 weight: 300
 source: /shared/influxdb3-cli/test/_index.md
+canonical: self
 ---
 
 <!--

@@ -1,0 +1,21 @@
+{{- /*
+  Returns the number of path segments in site.BaseURL's path.
+
+  Examples:
+    https://docs.influxdata.com/                          -> 0
+    https://test2.docs.influxdata.com/pr-preview/pr-123/  -> 2
+
+  Replaces the static prPreviewPathOffset param (formerly in
+  config/pr-preview/) so any subdirectory baseURL works without
+  per-environment config. Callers use this to skip leading RelPermalink
+  segments before product/version detection.
+
+  Usage: {{ $pathOffset := partialCached "base-path-offset.html" . }}
+*/ -}}
+{{- $offset := 0 -}}
+{{- $basePath := strings.Trim (urls.Parse site.BaseURL).Path "/" -}}
+{{- /* split of "" returns [""] (len 1), so only count non-empty paths */ -}}
+{{- if $basePath -}}
+  {{- $offset = len (split $basePath "/") -}}
+{{- end -}}
+{{- return $offset -}}

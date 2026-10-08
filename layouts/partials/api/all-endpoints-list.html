@@ -159,6 +159,8 @@
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
         {{ with $op.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
+        {{ if eq $op.lifecycle "not-operational" }}<span class="api-lifecycle-badge api-lifecycle-badge--not-operational">Not operational</span>{{ end }}
+        {{ if $op.deprecated }}<span class="api-lifecycle-badge api-lifecycle-badge--deprecated">Deprecated</span>{{ end }}
       </a>
       {{ end }}
     </div>
@@ -181,6 +183,8 @@
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
         {{ with $op.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
+        {{ if eq $op.lifecycle "not-operational" }}<span class="api-lifecycle-badge api-lifecycle-badge--not-operational">Not operational</span>{{ end }}
+        {{ if $op.deprecated }}<span class="api-lifecycle-badge api-lifecycle-badge--deprecated">Deprecated</span>{{ end }}
       </a>
       {{ end }}
     </div>
@@ -208,6 +212,8 @@
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
+        {{ if eq $op.lifecycle "not-operational" }}<span class="api-lifecycle-badge api-lifecycle-badge--not-operational">Not operational</span>{{ end }}
+        {{ if $op.deprecated }}<span class="api-lifecycle-badge api-lifecycle-badge--deprecated">Deprecated</span>{{ end }}
       </a>
       {{ end }}
     </div>

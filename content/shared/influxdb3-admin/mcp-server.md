@@ -40,7 +40,7 @@ Set the following environment variables when you start the MCP server:
 - **INFLUX_DB_INSTANCE_URL**: Your {{% product-name %}} URL--for example:
 
   ```txt
-  http://{{< influxdb/host >}}
+  {{< influxdb/host-url >}}
   ```
 
   > [!Note]
@@ -137,7 +137,7 @@ Enter the following JSON configuration:
       "args": ["/path/to/influxdb3_mcp_server/build/index.js"],
       "env": {
         "INFLUX_DB_PRODUCT_TYPE": "{{% product-key %}}",
-        "INFLUX_DB_INSTANCE_URL": "http://{{< influxdb/host >}}",
+        "INFLUX_DB_INSTANCE_URL": "{{< influxdb/host-url >}}",
         "INFLUX_DB_TOKEN": "AUTH_TOKEN"
       }
     }
@@ -238,7 +238,7 @@ In the examples below, replace the following:
       ],
       "env": {
         "INFLUX_DB_PRODUCT_TYPE": "{{% product-key %}}",
-        "INFLUX_DB_INSTANCE_URL": "http://{{< influxdb/host >}}",
+        "INFLUX_DB_INSTANCE_URL": "{{< influxdb/host-url >}}",
         "INFLUX_DB_TOKEN": "AUTH_TOKEN"
       }
     }

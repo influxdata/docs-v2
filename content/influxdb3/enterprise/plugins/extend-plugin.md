@@ -15,6 +15,7 @@ related:
 - /influxdb3/enterprise/reference/cli/influxdb3/test/
 - /influxdb3/enterprise/reference/processing-engine/
 source: /shared/influxdb3-plugins/extended-plugin-api.md
+canonical: self
 ---
 
 <!-- 

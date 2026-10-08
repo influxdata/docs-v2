@@ -5,6 +5,8 @@ menu:
   influxdb_v1:
     name: Troubleshoot
     weight: 110
+source: /shared/influxdb-v1/troubleshooting/_index.md
 ---
 
-{{< children hlevel="h2" >}}
+<!-- The content for this file is located at
+// SOURCE content/shared/influxdb-v1/troubleshooting/_index.md -->

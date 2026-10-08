@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: Check if re-run would overwrite successful status
         id: check
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
@@ -132,7 +132,7 @@ jobs:
       skipped: ${{ steps.detect.outputs.skipped }}
       skip-reason: ${{ steps.detect.outputs.skip-reason }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -142,11 +142,12 @@ jobs:
             scripts/lib/content-utils.js
             .github/scripts/resolve-review-urls.js
             package.json
+            .nvmrc
           sparse-checkout-cone-mode: false
 
-      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
         with:
-          node-version: 22
+          node-version-file: .nvmrc
 
       - name: Resolve base ref
         id: base
@@ -184,7 +185,7 @@ jobs:
         !contains(github.event.pull_request.labels.*.name, 'skip-review')))
     steps:
       - name: Request Copilot review
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
@@ -221,7 +222,7 @@ jobs:
     needs: resolve-urls
     if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) > 0
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
           sparse-checkout: .github/prompts/copilot-visual-review.md
@@ -229,7 +230,7 @@ jobs:
 
       - name: Get PR head SHA
         id: pr-sha
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
@@ -248,7 +249,7 @@ jobs:
 
       - name: Create in-progress check run
         id: create-check
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           HEAD_SHA: ${{ steps.pr-sha.outputs.sha }}
         with:
@@ -273,7 +274,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         run: |
-          PREVIEW_URL="https://influxdata.github.io/docs-v2/pr-preview/pr-${PR_NUMBER}/"
+          PREVIEW_URL="https://test2.docs.influxdata.com/pr-preview/pr-${PR_NUMBER}/"
           TIMEOUT=600  # 10 minutes
           INTERVAL=15
           ELAPSED=0
@@ -297,7 +298,7 @@ jobs:
 
       - name: Complete check run — preview available
         if: steps.wait.outputs.available == 'true'
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           PREVIEW_URLS: ${{ needs.resolve-urls.outputs.urls }}
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
@@ -307,7 +308,7 @@ jobs:
             const fs = require('fs');
             const checkRunId = Number(process.env.CHECK_RUN_ID);
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
-            const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
+            const previewBase = `https://test2.docs.influxdata.com/pr-preview/pr-${prNumber}`;
 
             let urls = [];
             try { urls = JSON.parse(process.env.PREVIEW_URLS); } catch {}
@@ -338,7 +339,7 @@ jobs:
 
       - name: Complete check run — timed out
         if: steps.wait.outputs.available == 'false'
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
           CHECK_RUN_ID: ${{ steps.create-check.outputs.check-run-id }}
@@ -346,7 +347,7 @@ jobs:
           script: |
             const checkRunId = Number(process.env.CHECK_RUN_ID);
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
-            const previewUrl = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}/`;
+            const previewUrl = `https://test2.docs.influxdata.com/pr-preview/pr-${prNumber}/`;
 
             await github.rest.checks.update({
               owner: context.repo.owner,
@@ -385,7 +386,7 @@ jobs:
     steps:
       - name: Get PR head SHA
         id: pr-sha
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
@@ -403,7 +404,7 @@ jobs:
             core.setOutput('sha', sha);
 
       - name: Create skipped visual review check run
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           HEAD_SHA: ${{ steps.pr-sha.outputs.sha }}
           SKIP_REASON: ${{ needs.resolve-urls.outputs.skip-reason }}

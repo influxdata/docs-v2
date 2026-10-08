@@ -1,6 +1,6 @@
 <!--Shortcode-->
 {{% product-name %}} stores data related to the database server, queries, and tables in _system tables_.
-You can query the system tables for information about your running server, databases, and and table schemas.
+You can query the system tables for information about your running server, databases, and table schemas.
 
 ## Query system tables
 
@@ -11,6 +11,7 @@ You can query the system tables for information about your running server, datab
     - [Recently executed queries](#recently-executed-queries)
     - [Query plugin files](#query-plugin-files)
     - [Query trigger logs](#query-trigger-logs)
+    {{% show-in "enterprise" %}}- [Query storage engine tables](#query-storage-engine-tables){{% /show-in %}}
 
 ### Use the HTTP query API 
 
@@ -50,7 +51,7 @@ tables (`"table_schema":"iox"`), system tables, and information schema tables
 for a database:
 
 ```bash
-curl "http://{{< influxdb/host >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
+curl "{{< influxdb/host-url >}}/api/v3/query_sql?db=mydb&format=jsonl&q=show%20tables"
 ```
 
 The response body contains the following JSONL:
@@ -235,3 +236,110 @@ influxdb3 query \
    ORDER BY event_time DESC
    LIMIT 50"
 ```
+
+{{% show-in "enterprise" %}}
+#### Query storage engine tables {#query-storage-engine-tables}
+
+The [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+(the default for new clusters in 3.11+) exposes internal state through
+system tables.
+
+**`system.pt_ingest_wal`** — WAL files and their shards:
+
+```sql
+SELECT * FROM system.pt_ingest_wal;
+```
+
+Columns: `wal_file_id`, `node_id`, `node_name`, `shard_start_time`,
+`shard_duration_seconds`, `min_time`, `max_time`, `row_count`,
+`size_bytes`, `is_merged`.
+Use this table to monitor WAL accumulation, shard distribution, time
+coverage, and merge status (`is_merged = false` rows are unmerged).
+
+**`system.pt_ingest_files`** — Gen0 files with metadata:
+
+```sql
+SELECT * FROM system.pt_ingest_files;
+```
+
+Columns: `file_id`, `node_id`, `node_name`, `generation`, `min_time`,
+`max_time`, `row_count`, `size_bytes`, `has_bloom_filter`.
+Use this table to monitor file counts per generation, file sizes, and time
+ranges.
+
+**Compaction tables** — expose the compaction subsystem's state:
+
+- `system.pt_compaction_active_jobs`: currently running compaction jobs
+  (`plan_id`, `plan_type`, `state`, `shard_id`, `total_slices`,
+  `completed_slices`).
+- `system.pt_compaction_ingest_nodes`: per-ingest-node compaction lag
+  (`node_id`, `compaction_lag`, `seen_lag`,
+  `deferred_snapshot_count`—a non-zero value means snapshots are failing
+  to compact and accumulating; check `system.pt_compaction_deferred_snapshots`).
+- `system.pt_compaction_nodes`: compaction node state.
+- `system.pt_compaction_run_sets`: pending compaction work grouped by time
+  window and shard.
+- `system.pt_compaction_deferred_snapshots`: snapshots that failed to
+  compact; a growing list indicates a persistent compaction failure—check
+  `error_message`.
+- `system.pt_shards`: identifies each time-window shard and whether it's
+  currently active; check `is_active`.
+- `system.pt_compaction_files`: per-file compaction metadata, one row per
+  compacted file; check `level` for compaction depth and
+  `size_bytes`/`row_count` for file growth.
+- `system.pt_storage_snapshots`: one row per snapshot taken from the WAL;
+  check `gen0_file_count` and `total_size_bytes` to monitor snapshot growth.
+- `system.pt_storage_checkpoints`: durable checkpoint metadata; check
+  `is_latest` to find the current checkpoint and `window_count` for its
+  coverage.
+- `system.pt_storage_run_set_indexes`: per-run-set index files; check
+  `size_bytes` and `last_modified` to spot stale or oversized indexes.
+
+**Parquet upgrade status** — if you
+[upgraded from Parquet](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet):
+
+```bash
+# Per-node upgrade status
+influxdb3 query \
+  --database _internal \
+  "SELECT * FROM system.upgrade_parquet_node"
+
+# Per-file migration progress
+influxdb3 query \
+  --database _internal \
+  "SELECT * FROM system.upgrade_parquet"
+```
+
+`system.upgrade_parquet_node` returns an `ingest` row for each node that runs
+in `ingest` mode and a `compactor` row for each node that runs in `compact`
+mode.
+Nodes that run only in `query` mode don't report upgrade status.
+A node finishes upgrading only when every row for that node reads `completed`.
+The upgrade coordinator checks progress periodically.
+After migration work completes, a row can remain `upgrading` until the
+coordinator detects completion.
+The `completed` status reports when the coordinator detects that the migration
+has finished.
+
+Starting in v3.11.5, `compactor` rows also report upgrade health.
+A `stalled` value of `true` means the upgrade has stopped making progress;
+`stalled_since` reports when it stopped.
+Check `last_progress_at` for the last time the upgrade advanced and `restarts`
+for how many times the compactor restarted during the upgrade.
+The `conversion_*` and `import_*` columns report conversion and import
+progress.
+These columns are null on `ingest` rows.
+
+**Query telemetry** — the query telemetry endpoint provides detailed
+execution statistics for analyzing query performance:
+
+```bash
+curl --request GET "http://localhost:8181/api/v3/query_sql_telemetry" \
+  --header "Authorization: Bearer AUTH_TOKEN"
+```
+
+Replace `AUTH_TOKEN` with your authentication token.
+The response includes `query_id`, `execution_time_us`, per-chunk
+statistics (`chunks`), cache hit rates by type (`cache_stats`), and
+file-level read statistics (`file_stats`).
+{{% /show-in %}}

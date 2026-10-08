@@ -1,4 +1,5 @@
-
+<!-- BEGIN GENERATED PLUGIN CONTENT -->
+<!-- vale off -->
 The InfluxDB to Iceberg Plugin enables data transfer from {{% product-name %}} to Apache Iceberg tables. Transfer time series data to Iceberg for long-term storage, analytics, or integration with data lake architectures. The plugin supports both scheduled batch transfers of historical data and on-demand transfers via HTTP API.
 
 ## Configuration
@@ -65,11 +66,11 @@ For more information on using TOML configuration files, see the Using TOML Confi
 ## Schema management
 
 - Automatically creates Iceberg table schema from the first batch of data
-- Maps pandas data types to Iceberg types:
- 	- `int64` → `IntegerType`
- 	- `float64` → `FloatType`
- 	- `datetime64[us]` → `TimestampType`
- 	- `object` → `StringType`
+- Maps Pandas data types to Iceberg types:
+   - `int64` → `IntegerType`
+   - `float64` → `FloatType`
+   - `datetime64[us]` → `TimestampType`
+   - `object` → `StringType`
 - Fields with no null values are marked as `required`
 - The `time` column is converted to `datetime64[us]` for Iceberg compatibility
 - Tables are created in format: `<namespace>.<table_name>`
@@ -87,9 +88,9 @@ When `auto_update_schema=true`:
 
 - **{{% product-name %}}**: with the Processing Engine enabled
 - **Python packages**:
- 	- `pandas` (for data manipulation)
- 	- `pyarrow` (for Parquet support)
- 	- `pyiceberg[catalog-options]` (for Iceberg integration)
+   - `pandas` (for data manipulation)
+   - `pyarrow` (for Parquet support)
+   - `pyiceberg[catalog-options]` (for Iceberg integration)
 
 ### Installation steps
 
@@ -284,7 +285,7 @@ Key operations:
 3. Creates Iceberg table if needed
 4. Appends data to Iceberg table
 
-#### `process_http_request(influxdb3_local, request_body, args)`
+#### `process_request(influxdb3_local, query_parameters, request_headers, request_body, args)`
 
 Handles on-demand data transfers via HTTP. Supports backfill operations with configurable batch sizes.
 
@@ -374,3 +375,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
+<!-- vale on -->
+<!-- END GENERATED PLUGIN CONTENT -->

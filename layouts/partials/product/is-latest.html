@@ -1,0 +1,34 @@
+{{- /*
+  Report whether a page documents the current version of its product.
+
+  The rule, in one place, with no product names in it:
+
+    1. The site home page is always current.
+    2. A page outside any versioned product (/platform/, /resources/) has
+       no older counterpart, so it is current.
+    3. Otherwise the page's version path segment must equal the product's
+       `latest` in data/products.yml, with any trailing patch digits
+       trimmed so /influxdb/v2/ matches `latest: v2.9`.
+
+  Rule 3 is why every product sets `latest` to the version segment that
+  appears in its URL. Products with a named version rather than a number
+  set it to that name (core, cloud, explorer, controller). Keeping that
+  convention is what stops this check from needing a list of exceptions.
+
+  Consumed by header/coveo-meta-data.html and header/search-attributes.html
+  so the two search systems cannot drift apart on the same question.
+
+  Usage:
+    {{ $isLatest := partial "product/is-latest.html" . }}
+*/ -}}
+{{- $ctx := partial "product/get-context.html" . -}}
+{{- $isLatest := false -}}
+{{- if eq .Kind "home" -}}
+  {{- $isLatest = true -}}
+{{- else if not $ctx.key -}}
+  {{- $isLatest = true -}}
+{{- else -}}
+  {{- $latest := replaceRE `\.[0-9x]+$` "" (string ($ctx.data.latest | default "")) -}}
+  {{- $isLatest = and (ne $latest "") (eq $ctx.version $latest) -}}
+{{- end -}}
+{{- return $isLatest -}}

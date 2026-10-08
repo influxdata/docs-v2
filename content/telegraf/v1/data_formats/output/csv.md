@@ -5,9 +5,9 @@ description: Use the `csv` output data format (serializer) to convert Telegraf m
 menu:
   telegraf_v1_ref:
     name: CSV
-    weight: 10
     parent: Output data formats
     identifier: output-data-format-csv
+weight: 10
 ---
 
 Use the `csv` output data format (serializer) to convert Telegraf metrics into CSV (Comma-Separated Values) lines.

@@ -10,11 +10,12 @@ It is a text-based format that provides the measurement, tag set, field set, and
 - [Naming restrictions](#naming-restrictions)
 - [Duplicate points](#duplicate-points)
 
-```js
-// Syntax
+```text
+# Syntax
 <measurement>[,<tag_key>=<tag_value>[,<tag_key>=<tag_value>]] <field_key>=<field_value>[,<field_key>=<field_value>] [<timestamp>]
+```
 
-// Example
+```lp
 myMeasurement,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 ```
 
@@ -63,7 +64,7 @@ _**Value data type:** [Float](#float) | [Integer](#integer) | [UInteger](#uinteg
 {{% note %}}
 _Always double quote string field values. More on quotes [below](#quotes)._
 
-```sh
+```lp
 measurementName fieldKey="field string value" 1556813561098000000
 ```
 {{% /note %}}
@@ -99,7 +100,7 @@ Default numerical type.
 _InfluxDB supports scientific notation in float field values._
 
 ##### Float field value examples
-```js
+```lp
 myMeasurement fieldKey=1.0
 myMeasurement fieldKey=1
 myMeasurement fieldKey=-1.234456e+78
@@ -114,7 +115,7 @@ Trailing `i` on the number specifies an integer.
 | `-9223372036854775808i` | `9223372036854775807i` |
 
 ##### Integer field value examples
-```js
+```lp
 myMeasurement fieldKey=1i
 myMeasurement fieldKey=12485903i
 myMeasurement fieldKey=-12485903i
@@ -129,7 +130,7 @@ Trailing `u` on the number specifies an unsigned integer.
 | `0u`             | `18446744073709551615u` |
 
 ##### UInteger field value examples
-```js
+```lp
 myMeasurement fieldKey=1u
 myMeasurement fieldKey=12485903u
 ```
@@ -139,7 +140,7 @@ Plain text string.
 Length limit 64KB.
 
 ##### String example
-```sh
+```lp
 # String measurement name, field key, and field value
 myMeasurement fieldKey="this is a string"
 ```
@@ -153,7 +154,7 @@ Stores `true` or `false` values.
 | False         | `f`, `F`, `false`, `False`, `FALSE` |
 
 ##### Boolean field value examples
-```js
+```lp
 myMeasurement fieldKey=true
 myMeasurement fieldKey=false
 myMeasurement fieldKey=t
@@ -176,7 +177,7 @@ Default precision is nanoseconds (`ns`).
 | `-9223372036854775806` | `9223372036854775806` |
 
 ##### Unix timestamp example
-```js
+```lp
 myMeasurementName fieldKey="fieldValue" 1556813561098000000
 ```
 
@@ -211,7 +212,7 @@ In the following contexts, it requires escaping certain characters with a backsl
 You do not need to escape other special characters.
 
 ##### Examples of special characters in line protocol
-```sh
+```lp
 # Measurement name with spaces
 my\ Measurement fieldKey="string value"
 
@@ -243,7 +244,7 @@ For example:
 Line protocol interprets `#` at the beginning of a line as a comment character
 and ignores all subsequent characters until the next newline `\n`.
 
-```sh
+```lp
 # This is a comment
 myMeasurement fieldKey="string value" 1556813561098000000
 ```

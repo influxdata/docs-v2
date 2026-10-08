@@ -24,6 +24,8 @@ the license type.
 > #### License storage portability in v3.10 and later
 >
 > Starting in **v3.10**, {{% product-name %}} licenses are no longer tied to a specific cluster's storage location.
+> You can copy a valid license file to another object store when moving a
+> deployment.
 > Licenses are still required, with per-cluster CPU core limits and license expiration continuing to apply.
 > This change applies to Commercial, Trial, and At-Home licenses and isn't
 > backwards compatible with versions earlier than v3.10.
@@ -35,6 +37,7 @@ the license type.
 - [Activate a license](#activate-a-license)
   - [Activate a trial or at-home license](#activate-a-trial-or-at-home-license)
   - [Activate a commercial license](#activate-a-commercial-license)
+- [Move a valid license to another object store](#move-a-valid-license-to-another-object-store)
 - [Change your license type](#change-your-license-type)
 - [Renew a license](#renew-a-license)
 - [Expiration behavior](#expiration-behavior)
@@ -117,7 +120,7 @@ The license file is a JWT file that contains the license information.
 >
 > If you're starting a new {{% product-name %}} server in a Docker container or
 > installed via DEB or RPM, you must use one of the methods to
-> [skip the email prompt](#skip-the-email-prompt).
+> [skip the email prompt](#skip-the-email-prompt) and specify a license type.
 > This ensures that the server can generate the license file after you
 > verify your email address. See the following examples:
 >
@@ -130,13 +133,33 @@ To skip the email prompt when starting the server, you can provide your email
 address using one of the following methods:
 
 - **CLI option:** Use the [`--license-email`](/influxdb3/enterprise/reference/cli/influxdb3/serve/) option with the `influxdb3 serve` command
-- **Environment variable:** Set the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
+- **Environment variable:** Set the `INFLUXDB3_LICENSE_EMAIL` environment variable
 - **TOML config (DEB/RPM-only):** Set the [`license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option in the [`/etc/influxdb3/influxdb3-enterprise.conf` file](/influxdb3/enterprise/install/#toml-configuration-linux) for a DEB or RPM install
+
+> [!Note]
+> #### Deprecated Enterprise license environment variables
+>
+> In {{< product-name >}} 3.11+, use `INFLUXDB3_LICENSE_EMAIL`,
+> `INFLUXDB3_LICENSE_FILE`, and `INFLUXDB3_LICENSE_TYPE`.
+> The legacy `INFLUXDB3_ENTERPRISE_*` names remain supported as deprecated
+> aliases, but the server logs a deprecation warning at startup.
 
 If the server finds a valid license file in your object store, it ignores the
 license email option.
 
 See examples to [start the server with your license email](#start-the-server-with-your-license-email).
+
+#### Select a license type without a prompt
+
+For a noninteractive startup, specify either `trial` or `home` in addition to
+the license email:
+
+- **CLI option:** Use `--license-type trial` or `--license-type home` with the
+  `influxdb3 serve` command.
+- **Environment variable:** Set the `INFLUXDB3_LICENSE_TYPE`
+  environment variable.
+- **TOML config (DEB/RPM-only):** Set `license-type` in
+  `/etc/influxdb3/influxdb3-enterprise.conf`.
 
 #### Use an existing trial or at-home license
 
@@ -146,7 +169,7 @@ To use your existing license--for example, if you deleted your license
 file--provide your email address using one of the following methods:
 
 - **CLI option:** Use the [`--license-email`](/influxdb3/enterprise/reference/cli/influxdb3/serve/) option with the `influxdb3 serve` command
-- **Environment variable:** Set the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
+- **Environment variable:** Set the `INFLUXDB3_LICENSE_EMAIL` environment variable
 - **TOML config (DEB/RPM-only):** Set the [`license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option in the [`/etc/influxdb3/influxdb3-enterprise.conf` file](/influxdb3/enterprise/install/#toml-configuration-linux) for a DEB or RPM install
 
 InfluxDB validates your email address with the license server and uses your
@@ -178,7 +201,7 @@ existing license if it's still valid.
     path using one of the following methods:
 
     - **CLI option:** Use the [`--license-file`](/influxdb3/enterprise/reference/config-options/#license-file) option with the `influxdb3 serve` command
-    - **Environment variable:** Set the `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable.
+    - **Environment variable:** Set the `INFLUXDB3_LICENSE_FILE` environment variable.
     - **TOML config (DEB/RPM-only):** Set the [`license-file`](/influxdb3/enterprise/reference/config-options/#license-file) option in the [`/etc/influxdb3/influxdb3-enterprise.conf` file](/influxdb3/enterprise/install/#toml-configuration-linux) for a DEB or RPM install
 
 ### License detection
@@ -186,11 +209,11 @@ existing license if it's still valid.
 {{% product-name %}} checks for a license in the following order:
 
 1. `--license-file` CLI option or `license-file` TOML option
-2. `INFLUXDB3_ENTERPRISE_LICENSE_FILE` environment variable
+2. `INFLUXDB3_LICENSE_FILE` environment variable
 3. Default commercial license path in the object store
 4. Default trial/home license path in the object store
 5. `--license-email` CLI option or `license-email` TOML option
-6. `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
+6. `INFLUXDB3_LICENSE_EMAIL` environment variable
 7. If no license is found, the server won't start
 
 #### Default license file location
@@ -202,6 +225,26 @@ looks for the license file in your [object store directory](/influxdb3/enterpris
 <OBJECT_STORE>/<CLUSTER_ID>/commercial_license
 <OBJECT_STORE>/<CLUSTER_ID>/trial_or_home_license
 ```
+
+### Move a valid license to another object store
+
+In v3.10 and later, you can copy a valid license file to the object store for
+another {{% product-name %}} deployment.
+Copy the file to the default license path that the new server checks:
+
+```text
+<NEW_OBJECT_STORE>/<NEW_CLUSTER_ID>/commercial_license
+<NEW_OBJECT_STORE>/<NEW_CLUSTER_ID>/trial_or_home_license
+```
+
+When the new server finds a valid license file in this location, it uses the
+file before checking license email options.
+Copying a license file doesn't renew an expired license or change its CPU
+limit.
+
+Treat license files as secrets.
+Don't commit a license file or include its contents in logs, support requests,
+or other shared artifacts.
 
 ### Start the server with your license email
 
@@ -222,6 +265,7 @@ The following examples show how to provide your license email for different
 influxdb3 serve \
 --cluster-id CLUSTER_ID \
 --node-id NODE_ID \
+--license-type LICENSE_TYPE \
 --license-email EMAIL_ADDRESS \
 # ...
 ```
@@ -230,8 +274,9 @@ influxdb3 serve \
 {{% code-tab-content %}}
 <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
 <!-- pytest.mark.skip -->
-```bash { placeholders="EMAIL_ADDRESS" }
-INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
+```bash { placeholders="EMAIL_ADDRESS|LICENSE_TYPE" }
+export INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
+export INFLUXDB3_LICENSE_TYPE=LICENSE_TYPE
 
 influxdb3 serve \
 --cluster-id CLUSTER_ID \
@@ -242,7 +287,7 @@ influxdb3 serve \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN DOCKER COMPOSE ------------------------>
-```yaml { placeholders="EMAIL_ADDRESS|NODE_ID|CLUSTER_ID" }
+```yaml { placeholders="EMAIL_ADDRESS|LICENSE_TYPE|NODE_ID|CLUSTER_ID" }
 # compose.yaml
 name: data-crunching-stack
 services:
@@ -256,11 +301,13 @@ services:
       - serve
       - --node-id=NODE_ID
       - --cluster-id=CLUSTER_ID
+      - --license-type=LICENSE_TYPE
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
     environment:
-      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
+      - INFLUXDB3_LICENSE_EMAIL=EMAIL_ADDRESS
+      - INFLUXDB3_LICENSE_TYPE=LICENSE_TYPE
     volumes:
       - type: bind
         # Path to store data on your host system
@@ -277,6 +324,7 @@ services:
 Replace the following:
 
 - {{% code-placeholder-key %}}`EMAIL_ADDRESS`{{% /code-placeholder-key %}}: Your email address for license activation
+- {{% code-placeholder-key %}}`LICENSE_TYPE`{{% /code-placeholder-key %}}: `trial` or `home`
 - {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: Your existing node identifier from Core
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: A new cluster identifier for Enterprise
 - {{% code-placeholder-key %}}`~/.influxdb3/data`{{% /code-placeholder-key %}}: The same data directory you used with Core
@@ -287,8 +335,9 @@ Replace the following:
 <!------------------------ BEGIN DEB AND RPM TOML ------------------------>
 1. Edit `/etc/influxdb3/influxdb3-enterprise.conf` to add your license email:
 
-    ```toml { placeholders="EMAIL_ADDRESS" }
+    ```toml { placeholders="EMAIL_ADDRESS|LICENSE_TYPE" }
     license-email="EMAIL_ADDRESS"
+    license-type="LICENSE_TYPE"
     ```
 
 2. To start the server, run the following command:
@@ -331,7 +380,7 @@ influxdb3 serve \
 <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
 <!-- pytest.mark.skip -->
 ```bash { placeholders="/path/to/license-file.jwt" }
-INFLUXDB3_ENTERPRISE_LICENSE_FILE=/path/to/license-file.jwt
+export INFLUXDB3_LICENSE_FILE=/path/to/license-file.jwt
 
 influxdb3 serve \
 --cluster-id cluster01 \
@@ -433,7 +482,7 @@ Or set the environment variable:
 
 <!-- pytest.mark.skip -->
 ```bash { placeholders="/path/to/commercial-license.jwt" }
-export INFLUXDB3_ENTERPRISE_LICENSE_FILE=/path/to/commercial-license.jwt
+export INFLUXDB3_LICENSE_FILE=/path/to/commercial-license.jwt
 influxdb3 serve # ... other options
 ```
 
@@ -455,7 +504,7 @@ Mount the license file and set the environment variable:
 ```bash { placeholders="/path/to/commercial-license.jwt" }
 docker run -d \
   -v /path/to/commercial-license.jwt:/license.jwt:ro \
-  -e INFLUXDB3_ENTERPRISE_LICENSE_FILE=/license.jwt \
+  -e INFLUXDB3_LICENSE_FILE=/license.jwt \
   # ... other options
   influxdb:3-enterprise
 ```

@@ -26,6 +26,11 @@ test('normalizes language aliases to canonical keys', () => {
   assert.deepEqual(langs, ['bash', 'python', 'yaml', null]);
 });
 
+test('recognizes lp as a canonical language', () => {
+  const [block] = extractCodeBlocks('```lp\ncpu usage=1.0\n```\n');
+  assert.equal(block.lang, 'lp');
+});
+
 test('flags unsupported langs as null (out of scope)', () => {
   const blocks = extractCodeBlocks(fx('aliases.md'));
   assert.equal(blocks[3].lang, null);

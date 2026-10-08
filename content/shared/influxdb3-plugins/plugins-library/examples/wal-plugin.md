@@ -15,7 +15,8 @@ The plugin can optionally double-count rows for a specified table to demonstrate
 1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`)
    ```bash
    influxdb3 serve \
-     --node-id node0 \
+     {{< show-in "enterprise" >}}--cluster-id cluster0 \
+     {{< /show-in >}}--node-id node0 \
      --object-store file \
      --data-dir ~/.influxdb3 \
      --plugin-dir ~/.plugins

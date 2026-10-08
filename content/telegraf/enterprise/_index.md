@@ -2,8 +2,8 @@
 title: Telegraf Enterprise
 description: >
   Telegraf Enterprise combines Telegraf and Telegraf Controller with higher
-  scale limits, enterprise authentication and audit logging, and an
-  enterprise support contract from InfluxData for organizations running
+  scale limits, high availability, enterprise authentication and audit logging,
+  and an enterprise support contract from InfluxData for organizations running
   Telegraf at scale.
 menu:
   telegraf_enterprise:
@@ -15,9 +15,9 @@ cascade:
 
 **Telegraf Enterprise** is the commercial package for organizations running
 [Telegraf](/telegraf/v1/) and [Telegraf Controller](/telegraf/controller/) at
-scale. It combines higher Telegraf Controller limits, enterprise authentication
-and audit logging, and an enterprise support contract from InfluxData covering
-both the Telegraf agent and Telegraf Controller.
+scale. It combines higher Telegraf Controller limits, high availability,
+enterprise authentication and audit logging, and an enterprise support contract
+from InfluxData covering both the Telegraf agent and Telegraf Controller.
 
 <a href="{{% cta-link %}}" class="btn magenta large">Purchase Telegraf Enterprise</a>
 
@@ -52,6 +52,8 @@ Telegraf Controller:
 
 - **Audit logging**: Tamper-evident log of administrative actions
   performed in Telegraf Controller.
+- **High availability**: Run multiple Telegraf Controller nodes against a
+  shared PostgreSQL database so management operations continue if a node fails.
 - **LDAP authentication**: Authenticate Telegraf Controller users
   against an LDAP directory.
 - **OIDC authentication**: Single sign-on through OpenID Connect
@@ -67,6 +69,7 @@ deployments when no license is applied.
 | Configurations | 20 | Defined per contract |
 | Reporting agents | 100 | Defined per contract |
 | Audit logging | --- | Included |
+| High availability | --- | Included |
 | LDAP authentication | --- | Included |
 | OIDC authentication | --- | Included |
 | Local authentication and API tokens | Included | Included |

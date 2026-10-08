@@ -151,7 +151,7 @@ You can't modify or delete columns in bucket schemas.
 
     {{< api-endpoint method="patch" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb3/cloud-serverless/api/buckets/" >}}
 
-    ```js
+    ```json
     {
       "columns": [
               {"name": "time", "type": "timestamp"},
