@@ -3,8 +3,9 @@ title: Troubleshoot agent heartbeats and tokens
 list_title: Agent heartbeats and tokens
 description: >
   Diagnose rejected Telegraf agent heartbeats, including 401 Invalid token
-  responses caused by token cache and database TLS failures, and agents
-  that do not trust the server certificate.
+  responses caused by token cache and database TLS failures, 403 responses
+  from tokens without Heartbeat write permission, and agents that do not
+  trust the server certificate.
 menu:
   telegraf_controller:
     name: Agent heartbeats and tokens
@@ -17,13 +18,15 @@ related:
 ---
 
 Diagnose problems between Telegraf agents and {{% product-name %}}:
-heartbeats rejected with `401 Invalid token` and agents that do not trust
-the server's TLS certificate.
+heartbeats rejected with `401 Invalid token`, heartbeats rejected with
+`403 Insufficient permissions`, and agents that do not trust the server's
+TLS certificate.
 
 - [Agent heartbeats return 401 Invalid token](#agent-heartbeats-return-401-invalid-token)
   - [Check the token cache logs](#check-the-token-cache-logs)
   - [Provide the database CA certificate](#provide-the-database-ca-certificate)
   - [Other causes of heartbeat 401 responses](#other-causes-of-heartbeat-401-responses)
+- [Agent heartbeats return 403 Insufficient permissions](#agent-heartbeats-return-403-insufficient-permissions)
 - [Agents do not trust the server certificate](#agents-do-not-trust-the-server-certificate)
 
 ## Agent heartbeats return 401 Invalid token
@@ -40,8 +43,8 @@ connection fails (for example, the PostgreSQL TLS handshake fails because the
 server certificate is signed by a private CA), the cache stays empty and the
 heartbeat service rejects every token with `Invalid token`. The web interface
 and API keep working because they use a separate database connection.
-The cache refreshes automatically when tokens change and reloads when the
-service starts.
+The cache refreshes automatically when tokens or their owners change and
+reloads when the service starts.
 
 ### Check the token cache logs
 
@@ -67,8 +70,9 @@ Token cache refreshed: 5 tokens loaded
 
 If the cache refresh fails, continue to the next step.
 If the refresh succeeds but reports `0 tokens loaded`, no active tokens exist
-in the database; [create a new token](/telegraf/controller/tokens/create/) or
-check that existing tokens are not revoked.
+in the database. [Create a new token](/telegraf/controller/tokens/create/), or
+check that existing tokens are not revoked and that their owners are not
+disabled.
 
 ### Provide the database CA certificate
 
@@ -121,13 +125,45 @@ The heartbeat endpoint returns a distinct error message for each failure mode:
 - **`Invalid token format`**: the token does not start with the `tc-apiv1_`
   prefix. Check for truncation or quoting issues in the agent configuration.
 - **`Invalid token`**: the token is not in the token cache. Either the token
-  was [revoked](/telegraf/controller/tokens/revoke/) or deleted, or the cache
-  failed to load (see above).
+  was [revoked](/telegraf/controller/tokens/revoke/) or deleted, the user who
+  owns the token is [disabled](/telegraf/controller/users/disable/), or the
+  cache failed to load (see above).
 - **`Token expired`**: the token is past its expiration date. Create a new
   token and update the agent configuration.
 
 For how agents send tokens with heartbeat requests, see
 [Use API tokens](/telegraf/controller/tokens/use/#for-heartbeat-requests).
+
+## Agent heartbeats return 403 Insufficient permissions
+
+If heartbeats fail with a `403` response and the error
+`Insufficient permissions: heartbeat:write required`, {{% product-name %}}
+recognizes the token, but the token doesn't grant **write** permission on
+the **Heartbeat** resource.
+The heartbeat endpoint checks the token's identity before its permissions:
+an unknown, revoked, or expired token returns `401`, and a known token
+without Heartbeat write permission returns `403`.
+
+A token can lack Heartbeat write permission for the following reasons:
+
+- The token was created with
+  [custom permissions](/telegraf/controller/tokens/create/#custom-permissions)
+  that don't include Heartbeat write.
+- The token was [reassigned](/telegraf/controller/tokens/reassign/) to a user
+  whose role doesn't include Heartbeat write, or the owner's role changed.
+  {{% product-name %}} restricts a token's permissions to match its owner's
+  role.
+
+The service logs each rejection with the last characters of the token:
+
+```text
+Auth rejected for token tc-apiv1_...abc123: Insufficient permissions: heartbeat:write required
+```
+
+To resolve the error, [create a token](/telegraf/controller/tokens/create/)
+with Heartbeat write permission and update the agent configuration.
+For the permissions agents require, see
+[Use API tokens](/telegraf/controller/tokens/use/#with-telegraf-agents).
 
 ## Agents do not trust the server certificate
 

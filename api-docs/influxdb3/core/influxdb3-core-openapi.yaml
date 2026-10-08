@@ -2930,8 +2930,6 @@ components:
         trigger_name:
           type: string
         trigger_settings:
-          description: |
-            Configuration for trigger error handling and execution behavior.
           allOf:
             - $ref: "#/components/schemas/TriggerSettings"
         trigger_specification:
@@ -3045,18 +3043,18 @@ components:
         - trigger_specification
     TriggerSettings:
       type: object
-      description: |
-        Configuration settings for processing engine trigger error handling and execution behavior.
       properties:
         run_async:
           type: boolean
+          default: false
           description: |
             Whether invocations of the trigger can run concurrently.
             If `false`, invocations run serially--each invocation must finish before the next one starts.
             If `true`, invocations can run concurrently, up to the `--async-trigger-concurrency-limit`
-            server option (by default, unlimited).
+            server option (default: `8`).
         error_behavior:
           type: string
+          default: log
           enum:
             - log
             - retry
@@ -3070,9 +3068,6 @@ components:
             Errors identified as permanent aren't retried.
 
             - `disable`: Disable the trigger until you manually re-enable it.
-      required:
-        - run_async
-        - error_behavior
     WALPluginTestRequest:
       type: object
       description: |
