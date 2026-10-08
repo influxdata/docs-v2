@@ -108,7 +108,7 @@ To run the documentation locally, follow the instructions provided in the README
 #### Deployed commit metadata
 
 Deployment builds add `<meta name="deployed-commit" content="<full commit SHA>">`
-to each page's HTML head, including the 404 page.
+to rendered content pages and the 404 page's HTML head.
 CircleCI sets `HUGO_PARAMS_DEPLOYEDCOMMIT` from `CIRCLE_SHA1` before building Hugo.
 The shared GitHub Actions build and the manual deployment scripts
 set it from `git rev-parse HEAD`.
