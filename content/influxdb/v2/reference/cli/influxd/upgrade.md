@@ -24,6 +24,8 @@ This command performs the following actions:
    If the configuration file is not available, the 1.x database folder can be passed via th `--v1-dir` flag.
 2. Copies and upgrades 1.x database files.
 
+In InfluxDB OSS v2.10 and later, the upgrade maps the 1.x `coordinator.max-time-range` option to [`influxql-max-time-range`](/influxdb/v2/reference/config-options/#influxql-max-time-range).
+
 The target 2.x database directory is specified by the `--engine-path` option.
 If changed, the bolt path can be specified by the `--bolt-path` option.
 

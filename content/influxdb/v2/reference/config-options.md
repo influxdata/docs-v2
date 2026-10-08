@@ -143,10 +143,13 @@ To configure InfluxDB, use the following configuration options when starting the
 - [http-idle-timeout](#http-idle-timeout)
 - [http-read-header-timeout](#http-read-header-timeout)
 - [http-read-timeout](#http-read-timeout)
+- [http-user-query-bytes-enabled](#http-user-query-bytes-enabled)
+- [http-user-write-bytes-enabled](#http-user-write-bytes-enabled)
 - [http-write-timeout](#http-write-timeout)
 - [influxql-max-select-buckets](#influxql-max-select-buckets)
 - [influxql-max-select-point](#influxql-max-select-point)
 - [influxql-max-select-series](#influxql-max-select-series)
+- [influxql-max-time-range](#influxql-max-time-range)
 - [instance-id](#instance-id)
 - [log-level](#log-level)
 - [metrics-disabled](#metrics-disabled)
@@ -796,6 +799,115 @@ http-read-timeout = "10s"
 
 ---
 
+### http-user-query-bytes-enabled
+_Available in InfluxDB OSS v2.10 and later._
+
+Enable per-user query response byte counting.
+When enabled, the `/metrics` endpoint exposes the `http_query_user_response_bytes` counter with the `user_id` and `endpoint` labels.
+For more information, see [HTTP API statistics](/influxdb/v2/reference/internals/metrics/#http-api-statistics).
+
+**Default:** `false`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--http-user-query-bytes-enabled` | `INFLUXD_HTTP_USER_QUERY_BYTES_ENABLED` | `http-user-query-bytes-enabled` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --http-user-query-bytes-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_USER_QUERY_BYTES_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-user-query-bytes-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-user-query-bytes-enabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-user-query-bytes-enabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-user-write-bytes-enabled
+_Available in InfluxDB OSS v2.10 and later._
+
+Enable per-user write request byte counting.
+When enabled, the `/metrics` endpoint exposes the `http_write_user_request_bytes` counter with the `user_id` and `endpoint` labels.
+For more information, see [HTTP API statistics](/influxdb/v2/reference/internals/metrics/#http-api-statistics).
+
+InfluxDB doesn't count requests that don't have a valid user ID.
+In InfluxDB 1.x, these requests are counted as `(anonymous)`.
+
+**Default:** `false`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--http-user-write-bytes-enabled` | `INFLUXD_HTTP_USER_WRITE_BYTES_ENABLED` | `http-user-write-bytes-enabled` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --http-user-write-bytes-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_USER_WRITE_BYTES_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-user-write-bytes-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-user-write-bytes-enabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-user-write-bytes-enabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### http-write-timeout
 Maximum duration to wait before timing out writes of the response.
 It doesn't let Handlers decide the duration on a per-request basis.
@@ -1017,6 +1129,67 @@ influxql-max-select-series = 0
 ```json
 {
   "influxql-max-select-series": 0
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### influxql-max-time-range
+_Available in InfluxDB OSS v2.10 and later._
+
+Maximum time range, as a duration, that an InfluxQL `SELECT` or `EXPLAIN` statement can query.
+`0` disables the limit.
+This option doesn't apply to Flux queries.
+
+If a query exceeds the limit, InfluxDB returns the following error:
+
+```text
+max-time-range limit exceeded: (<range>/<limit>)
+```
+
+The `influxd upgrade` command maps the InfluxDB 1.x `coordinator.max-time-range` option to this option.
+
+**Default:** `0`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--influxql-max-time-range` | `INFLUXD_INFLUXQL_MAX_TIME_RANGE` | `influxql-max-time-range` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --influxql-max-time-range=72h
+```
+
+###### Environment variable
+```sh
+export INFLUXD_INFLUXQL_MAX_TIME_RANGE=72h
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+influxql-max-time-range: 72h
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+influxql-max-time-range = "72h"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "influxql-max-time-range": "72h"
 }
 ```
 {{% /code-tab-content %}}
@@ -2194,21 +2367,25 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 ### storage-compact-throughput
 Sustained rate limit (in bytes per second) that TSM compactions can write to disk.
 
-InfluxDB also supports a separate burst limit (`storage-compact-throughput-burst`).
-In InfluxDB OSS v2, the sustained and burst compaction throughput values are currently the same.
-To tune compaction write throughput, set `storage-compact-throughput-burst` and verify the effective values in the `Compaction settings` log entry at startup.
+In InfluxDB OSS v2.10 and later, this setting is independent of the burst limit (`storage-compact-throughput-burst`).
+If the burst limit is lower than the sustained limit, InfluxDB raises the burst limit to match the sustained limit.
+To verify the effective values, check the `Compaction settings` log entry at startup.
 
-Example log entry:
-
-```text
-Compaction settings {"max_concurrent_compactions": 7, "throughput_bytes_per_second": 50331648, "throughput_bytes_per_second_burst": 50331648}
-```
+In earlier versions, you can't set this option with a flag, and the sustained and burst limits use the same value.
+To tune compaction write throughput in earlier versions, set `storage-compact-throughput-burst`.
 
 **Default:** `50331648`
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |
-| _Not available_ | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+| `--storage-compact-throughput` | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --storage-compact-throughput=50331648
+```
 
 ###### Environment variable
 ```sh
@@ -2246,7 +2423,8 @@ storage-compact-throughput = 50331648
 ### storage-compact-throughput-burst
 Maximum rate limit (in bytes per second) that TSM compactions can write to disk.
 
-In InfluxDB OSS v2, this setting also effectively controls the sustained compaction throughput.
+In InfluxDB OSS v2.10 and later, this setting is independent of the sustained limit (`storage-compact-throughput`).
+In earlier versions, this setting also controls the sustained compaction throughput.
 
 #### Scale compaction throughput
 

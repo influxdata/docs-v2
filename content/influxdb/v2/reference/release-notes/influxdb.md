@@ -8,6 +8,32 @@ menu:
 weight: 101
 ---
 
+## v2.10.0 {date="TBD"}
+
+### Features
+
+- Add the [`influxql-max-time-range`](/influxdb/v2/reference/config-options/#influxql-max-time-range) option to limit the time range of InfluxQL `SELECT` and `EXPLAIN` statements.
+  A query that exceeds the limit fails with a `max-time-range limit exceeded` error.
+  The default (`0`) disables the limit.
+  The limit doesn't apply to Flux queries.
+  `influxd upgrade` maps the 1.x `coordinator.max-time-range` option to this option.
+- Add the [`http-user-write-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-write-bytes-enabled) option.
+  When enabled, the `/metrics` endpoint exposes the `http_write_user_request_bytes` counter with the `user_id` and `endpoint` labels.
+  InfluxDB doesn't count requests that don't have a valid user ID.
+- Add the [`http-user-query-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-query-bytes-enabled) option.
+  When enabled, the `/metrics` endpoint exposes the `http_query_user_response_bytes` counter with the `user_id` and `endpoint` labels.
+- Add the [`--storage-compact-throughput`](/influxdb/v2/reference/config-options/#storage-compact-throughput) flag.
+  Sustained and burst compaction throughput are now independent.
+  If the burst value is lower than the sustained value, InfluxDB raises the burst value to match.
+- Add adaptive sizing and statistics to the TSI tag-value series ID cache.
+- Update the `/health` and `/ready` endpoints and add the `--health-auth-mode` and `--startup-error-linger` options.
+  For API changes, see the [InfluxDB OSS v2 API reference](/influxdb/v2/api/).
+
+### Bug Fixes
+
+- Report `http_write_request_bytes` for the legacy `/write` endpoint. Previously, the metric reported `0`.
+- Include the legacy `/query` endpoint in the `http_query_request_count`, `http_query_request_bytes`, and `http_query_response_bytes` metrics.
+
 ## v2.9.1 {date="2026-05-11"}
 
 ### Bug Fixes
