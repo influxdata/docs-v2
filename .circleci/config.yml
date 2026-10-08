@@ -86,6 +86,7 @@ jobs:
           name: Hugo Build
           command: |
             set -o pipefail
+            export HUGO_PARAMS_DEPLOYEDCOMMIT="$CIRCLE_SHA1"
             yarn hugo config --environment production > /tmp/hugo-config.toml
 
             echo "Raw outputFormats config:"
