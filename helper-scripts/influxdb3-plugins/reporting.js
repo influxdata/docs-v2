@@ -14,13 +14,14 @@ import { randomBytes } from 'node:crypto';
 // alternative is a green build that silently stopped syncing -- the failure
 // mode this pipeline already had for eight months.
 //
-// `skipped`, `scaffolded`, and `removed` are all "a human should look at this
+// `skipped`, `scaffolded`, `pruned`, and `removed` are all "a human should look at this
 // pull request", not "the sync is broken". A plugin published without a README
 // the transform can read, a plugin that just gained its first stub, and a
 // plugin that vanished upstream are each resolved by review, not by a red X.
 const FATAL_STATUSES = new Set(['error']);
 const ATTENTION_STATUSES = new Set([
   'scaffolded',
+  'pruned',
   'skipped',
   'removed',
   'error',
@@ -32,6 +33,7 @@ const ATTENTION_STATUSES = new Set([
 const STATUS_SEVERITY = [
   'error',
   'removed',
+  'pruned',
   'skipped',
   'scaffolded',
   'updated',

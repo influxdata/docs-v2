@@ -487,6 +487,12 @@ WHERE max_time > extract(epoch from now() - INTERVAL '5 minutes') * 1000000000
 GROUP BY table_name;
 ```
 
+> [!Note]
+> On the legacy Parquet storage engine, `system.parquet_files` lists only Gen1
+> files, including compacted Gen1 files that haven't been cleaned up.
+> It doesn't list compacted generations.
+> For more information, see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
+
 #### Query nodes
 
 ```sql
