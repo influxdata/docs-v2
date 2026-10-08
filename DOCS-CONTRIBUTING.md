@@ -105,6 +105,22 @@ docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
 
 To run the documentation locally, follow the instructions provided in the README.
 
+#### Deployed commit metadata
+
+Deployment builds add `<meta name="deployed-commit" content="<full commit SHA>">`
+to each page's HTML head, including the 404 page.
+CircleCI sets `HUGO_PARAMS_DEPLOYEDCOMMIT` from `CIRCLE_SHA1` before building Hugo.
+The shared GitHub Actions build and the manual deployment scripts
+set it from `git rev-parse HEAD`.
+The value identifies the build's source checkout, rather than a page's last edit.
+Deploying existing output without rebuilding preserves that output's commit.
+
+Local builds omit the tag unless you supply the commit:
+
+```bash
+HUGO_PARAMS_DEPLOYEDCOMMIT="$(git rev-parse HEAD)" npx hugo server
+```
+
 ### Install Visual Studio Code extensions
 
 If you use Microsoft Visual Studio (VS) Code, you can install extensions

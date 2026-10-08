@@ -12,7 +12,7 @@ describe('Docs home', function () {
       cy.get('input#algolia-search-input').type('sql uery');
       cy.get('#algolia-autocomplete-listbox-0').should(
         'contain',
-        'Basic query examples'
+        'Perform a basic SQL query'
       );
       cy.get('input#algolia-search-input').type('{esc}');
       cy.get('#algolia-autocomplete-listbox-0').should('not.be.visible');

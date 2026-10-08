@@ -3,6 +3,7 @@
   <head>
     {{ partial "header/google-analytics-head.html" }}
     <meta charset="utf-8">
+    {{ partialCached "header/deployed-commit.html" . }}
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Page not found</title>
     <meta name="description" content="Whoops! Looks like this page doesn't exist.">
