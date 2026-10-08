@@ -2416,6 +2416,7 @@ the following side-effects:
 - [plugin-dir](#plugin-dir)
 - [plugin-repo](#plugin-repo)
 - [virtual-env-location](#virtual-env-location)
+- [disable-package-management](#disable-package-management)
 - [package-manager](#package-manager)
 - [restrict-plugin-triggers-to](#restrict-plugin-triggers-to)
 
@@ -2544,58 +2545,67 @@ engine uses.
 
 ***
 
-#### package-manager
+#### disable-package-management
 
-> [!Caution]
-> #### Deprecated in {{% product-name %}} 3.10
->
-> `--package-manager` is deprecated.
-> Python and `pip` are bundled with {{< product-name >}}, and `pip` is always
-> used for plugin dependency installation.
-> The server still starts if you set this option, but prints a deprecation
-> warning.
-> `disabled` continues to block plugin package installation API calls for
-> compatibility.
+Disables Processing Engine package management.
+When set, {{< product-name >}} never creates or modifies a Python virtual
+environment and never invokes `pip`.
+The Processing Engine and plugins continue to run, but package installation
+requests (via CLI or API) return a `403 Forbidden` error.
 
-Specifies the Python package manager that the Processing Engine uses to install plugin dependencies.
-
-This option supports the following values:
-
-- `discover` *(default)*: Automatically detect and use available package manager (`uv` or `pip`)
-- `pip`: Use pip package manager exclusively
-- `uv`: Use uv package manager exclusively
-- `disabled`: Disable automatic package installation (all dependencies must be pre-installed)
-
-**Default:** `discover`
-
-##### Security mode (disabled)
-
-When set to `disabled`, {{< product-name >}} blocks all package installation attempts for security and compliance requirements.
-The Processing Engine and plugins continue to function normally, but package installation requests (via CLI or API) return a `403 Forbidden` error.
-
-This mode is designed for:
+Use this option for:
 
 - **Enterprise security requirements**: Prevent arbitrary package installation
 - **Compliance environments**: Control exactly which packages are available
 - **Air-gapped deployments**: Pre-install all dependencies before deployment
 - **Multi-tenant scenarios**: Prevent tenants from installing potentially malicious packages
 
-> \[!Important]
-> Before using `--package-manager disabled`, administrators must pre-install all required Python packages into the virtual environment that plugins will use.
+> [!Important]
+> Before you use `--disable-package-management`, create and manage the Python
+> virtual environment yourself, pre-install all packages your plugins require,
+> and point the server at it with [`--virtual-env-location`](#virtual-env-location).
+
+This option replaces `--package-manager disabled` and takes precedence over
+[`--package-manager`](#package-manager).
+
+**Default:** `false`
 
 **Example:**
 
 ```bash
-# Start InfluxDB 3 with disabled package manager
 influxdb3 serve \
   --node-id node0 \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --plugin-dir ~/.plugins \
-  --package-manager disabled
+  --virtual-env-location ~/.plugins/.venv \
+  --disable-package-management
 ```
 
 For more information about plugins and package management, see [Processing Engine plugins](/influxdb3/version/plugins/).
+
+| influxdb3 serve option         | Environment variable                   |
+| :----------------------------- | :------------------------------------- |
+| `--disable-package-management` | `INFLUXDB3_DISABLE_PACKAGE_MANAGEMENT` |
+
+***
+
+#### package-manager
+
+> [!Caution]
+> #### Deprecated in {{% product-name %}} 3.10
+>
+> `--package-manager` is deprecated and will be removed in a future release.
+> Python and `pip` are bundled with {{< product-name >}}, and `pip` is always
+> used for plugin dependency installation, so `discover`, `pip`, and `uv` all
+> behave the same.
+> The server still starts if you set this option, but prints a deprecation
+> warning.
+> To block plugin package installation, use
+> [`--disable-package-management`](#disable-package-management) instead of
+> `--package-manager disabled`.
+
+Remove this option from your startup configuration.
 
 | influxdb3 serve option | Environment variable        |
 | :--------------------- | :-------------------------- |
