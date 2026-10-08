@@ -2367,7 +2367,7 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 ### storage-compact-throughput
 Sustained rate limit (in bytes per second) that TSM compactions can write to disk.
 
-In InfluxDB OSS v2.10 and later, this setting is independent of the burst limit (`storage-compact-throughput-burst`).
+In InfluxDB OSS v2.10 and later, this setting is independent of the burst limit ([`storage-compact-throughput-burst`](#storage-compact-throughput-burst)).
 If the burst limit is lower than the sustained limit, InfluxDB raises the burst limit to match the sustained limit.
 To verify the effective values, check the `Compaction settings` log entry at startup.
 
@@ -2423,7 +2423,7 @@ storage-compact-throughput = 50331648
 ### storage-compact-throughput-burst
 Maximum rate limit (in bytes per second) that TSM compactions can write to disk.
 
-In InfluxDB OSS v2.10 and later, this setting is independent of the sustained limit (`storage-compact-throughput`).
+In InfluxDB OSS v2.10 and later, this setting is independent of the sustained limit ([`storage-compact-throughput`](#storage-compact-throughput)).
 In earlier versions, this setting also controls the sustained compaction throughput.
 
 #### Scale compaction throughput

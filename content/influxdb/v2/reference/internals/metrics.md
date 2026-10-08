@@ -484,18 +484,20 @@ http_query_response_bytes{endpoint="/api/v2/query",org_id="48c88459ee424a04",sta
 
 ### Query user response bytes
 
+Available in InfluxDB OSS v2.10 and later.
+
 The `http_query_user_response_bytes` counter: total number of bytes returned in query responses, by user and endpoint.
 InfluxDB exposes this counter only when you enable [`http-user-query-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-query-bytes-enabled).
-Available in InfluxDB OSS v2.10 and later.
 
 Labels: `user_id`, `endpoint`
 
 ### Write user request bytes
 
+Available in InfluxDB OSS v2.10 and later.
+
 The `http_write_user_request_bytes` counter: total number of bytes in write requests, by user and endpoint.
 InfluxDB exposes this counter only when you enable [`http-user-write-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-write-bytes-enabled).
 InfluxDB doesn't count requests that don't have a valid user ID.
-Available in InfluxDB OSS v2.10 and later.
 
 Labels: `user_id`, `endpoint`
 
