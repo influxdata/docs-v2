@@ -253,6 +253,59 @@ function applyServersOverlay(
   return true;
 }
 
+/** Shape of an `exclude.yml` overlay. */
+interface ExcludeYml {
+  /** Schema name -> property names the product doesn't return. */
+  schemaProperties?: Record<string, string[]>;
+}
+
+/**
+ * Apply exclude.yml overlay to the spec. Removes schema properties that the
+ * upstream contract lists but the product doesn't serve, so the published
+ * reference describes only live behavior. Remove whole endpoints with
+ * `drop: true` in tags.yml instead.
+ *
+ * @returns true if any properties were removed.
+ */
+function applyExcludeOverlay(
+  spec: OpenApiSpec,
+  specDir: string,
+  productAbsDir: string,
+  label: string
+): boolean {
+  const excludePath = resolveContentFile('exclude.yml', specDir, productAbsDir);
+  if (!excludePath) return false;
+
+  const exclude = loadYaml<ExcludeYml>(excludePath);
+  if (!exclude?.schemaProperties) return false;
+
+  const schemas = (spec.components as { schemas?: Record<string, unknown> })
+    ?.schemas;
+  let removed = 0;
+  for (const [schemaName, props] of Object.entries(exclude.schemaProperties)) {
+    const schema = schemas?.[schemaName] as
+      | { properties?: Record<string, unknown>; required?: string[] }
+      | undefined;
+    if (!schema?.properties) {
+      log(`WARN ${label}: exclude.yml schema '${schemaName}' not found`);
+      continue;
+    }
+    for (const prop of props) {
+      if (!(prop in schema.properties)) continue;
+      delete schema.properties[prop];
+      removed++;
+    }
+    if (schema.required) {
+      schema.required = schema.required.filter((p) => !props.includes(p));
+    }
+  }
+
+  log(
+    `${label}: removed ${removed} schema propert${removed === 1 ? 'y' : 'ies'} from ${path.relative(productAbsDir, excludePath)}`
+  );
+  return removed > 0;
+}
+
 // ---------------------------------------------------------------------------
 // Mirror-product presentation transforms
 //
@@ -680,6 +733,7 @@ function processProduct(apiDocsRoot: string, productDir: string): void {
     }
     applyInfoOverlay(spec, specDir, productAbsDir, label);
     applyServersOverlay(spec, specDir, productAbsDir, label);
+    applyExcludeOverlay(spec, specDir, productAbsDir, label);
 
     const tagConfigPath = path.join(specDir, 'tags.yml');
     if (fs.existsSync(tagConfigPath)) {
