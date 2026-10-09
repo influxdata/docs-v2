@@ -262,8 +262,7 @@ You can adjust compaction strategies to balance performance and resource usage:
 ```bash
 # Configure compaction strategy
 --compaction-multipliers=4,8,16 \
---compaction-max-num-files-per-plan=100 \
---compaction-cleanup-wait=10m
+--compaction-max-num-files-per-plan=100
 ```
 
 ### Distributed compaction
