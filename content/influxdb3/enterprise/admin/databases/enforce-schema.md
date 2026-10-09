@@ -398,19 +398,11 @@ It can never accept a write that should have been rejected.
 ## Upgrade considerations
 
 > [!Important]
-> #### Explicit schema mode requires your cluster to have already committed to 3.12
+> #### Explicit schema databases block 3.11.x from loading the catalog
 >
-> Creating an explicit database requires the cluster's catalog to already
-> be at the catalog feature level that ships with 3.12.
-> The catalog commits that level automatically once every node in the
-> cluster is running 3.12. No explicit database has to exist for this to
-> happen.
-> Once every node has started on 3.12 and the cluster has committed to
-> that level, no node in the cluster can roll back to a 3.11.x binary,
-> whether or not you ever create an explicit database.
->
-> By the time you can create an explicit database, your cluster has
-> therefore already lost 3.11.x rollback compatibility.
+> Creating an explicit-schema database writes a catalog record that 3.11.x
+> can't read.
+> A 3.11.x node can't load a catalog containing that record.
 > For more information about catalog version constraints during an
 > upgrade, see
 > [Upgrade InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/upgrade/).

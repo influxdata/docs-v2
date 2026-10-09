@@ -1,7 +1,7 @@
 ---
 title: Go client library for InfluxDB 3
 list_title: Go
-description: The InfluxDB 3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in an {{% product-name %}} database.
+description: The InfluxDB 3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in an InfluxDB 3 Enterprise database.
 menu:
   influxdb3_enterprise:
     name: Go

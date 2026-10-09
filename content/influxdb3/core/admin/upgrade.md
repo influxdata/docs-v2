@@ -1,7 +1,8 @@
 ---
 title: Upgrade InfluxDB 3 Core
 description: >
-  Learn how to upgrade your {{% product-name %}} instance to the latest version.
+  Learn how to upgrade your InfluxDB 3 Core instance to the latest version.
+canonical: self
 menu:
   influxdb3_core:
     name: Upgrade Core

@@ -1,7 +1,7 @@
 ---
 title: List databases
 description: >
-  Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to list databases in {{< product-name >}}.
+  Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to list databases in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Manage databases

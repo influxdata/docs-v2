@@ -2,7 +2,7 @@
 title: Use the influxdb3 CLI to write data
 description: >
   Use the [`influxdb3` CLI](/influxdb3/enterprise/reference/cli/influxdb3/)
-  to write line protocol data to {{% product-name %}}.
+  to write line protocol data to InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Use the influxdb3 CLI

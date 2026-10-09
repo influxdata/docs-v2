@@ -17,30 +17,19 @@ Before you upgrade, review [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/)
 
 > [!Important]
 >
-> #### Back up your catalog before you upgrade
+> #### Back up your catalog and data before you upgrade
 >
-> InfluxDB 3.12 adds a catalog record that v3.11.x can't read.
-> After the upgrade, you can't roll back to v3.11.x unless you have a catalog backup.
+> InfluxDB 3.12 includes a catalog record that v3.11.x can't read.
+> A v3.11.x node can't load a catalog containing this record.
 >
-> The catalog records the new feature level automatically.
-> On a single node, this happens the first time you start v3.12.
-> In a cluster, it happens once every running node runs v3.12.
-> It happens whether or not you use the new features.
-> This applies to Core and Enterprise.
->
-> After that, v3.11.x refuses to load the catalog and returns an error like the following:
->
-> ```text
-> this node's feature level (core=<N>, enterprise=<N>) is below the cluster's committed level (core=<N>, enterprise=<N>); upgrade required
-> ```
->
-> Before you upgrade:
->
-> 1. Back up everything under `{prefix}/catalog/`, including the catalog snapshot and logs under `catalog/v3/`.
-> 2. Keep the backup until you're sure you won't roll back.
->
-> To roll back to v3.11.x, restore the backup.
-> For details, see [Before you upgrade](/influxdb3/version/admin/upgrade/#before-you-upgrade).
+> Before you upgrade, back up the catalog and data.
+> Include the catalog snapshot and logs under `catalog/v3/` in the catalog backup.
+> Don't restore only an older catalog while retaining newer data.
+> A query can return rows written to a different table.
+> {{% show-in "enterprise" %}}`influxdb3 create restore` retains a higher committed feature level, even when the backup is from v3.11.x.{{% /show-in %}}
+> For backup guidance, see [Back up the catalog and data before you upgrade to 3.12](/influxdb3/version/admin/upgrade/#back-up-the-catalog-and-data-before-you-upgrade-to-312).
+> If queries return unexpected rows after a rollback, see [Troubleshooting a 3.12 rollback](/influxdb3/version/admin/upgrade/#queries-return-unexpected-rows-after-a-rollback).
+> Contact InfluxData Support to plan a rollback to v3.11.x.
 
 ### Core
 

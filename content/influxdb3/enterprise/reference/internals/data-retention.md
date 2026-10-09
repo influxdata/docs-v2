@@ -1,7 +1,7 @@
 ---
 title: Data retention in {{< product-name >}}
 description: >
-  {{% product-name %}} enforces database and table retention periods at query time
+  InfluxDB 3 Enterprise enforces database and table retention periods at query time
   and, to optimize storage, routinely deletes expired data.
 weight: 103
 menu:

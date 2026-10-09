@@ -2,7 +2,7 @@
 title: Set up {{% product-name %}}
 seotitle: Set up InfluxDB | Get started with {{% product-name %}}
 description: >
-  Install, configure, and set up authorization for {{% product-name %}}.
+  Install, configure, and set up authorization for InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Set up Enterprise
