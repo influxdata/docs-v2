@@ -49,6 +49,7 @@ influxdb3_core:
       price_currency: "USD"
 
 influxdb3_enterprise:
+  link: 'https://www.influxdata.com/contact-sales/'
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
   namespace: influxdb3

@@ -1792,6 +1792,15 @@ green and red tints.
            memory: 2Gi
 ```
 
+## Diagram shortcode
+
+This centered top-down diagram uses the `medium` width option:
+
+{{< diagram medium center >}}
+flowchart TB
+  Source --> Destination
+{{< /diagram >}}
+
 ## influxdb/host and influxdb/host-url shortcodes
 
 Use `influxdb/host` to render the host placeholder only, and `influxdb/host-url`
