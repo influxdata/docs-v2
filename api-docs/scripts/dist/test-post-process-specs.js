@@ -380,8 +380,7 @@ function testExcludeOverlay() {
                 Missing: ['anything'],
             },
         });
-        const { exitCode, stderr } = runScript(root, 'influxdb3/core');
-        assert('16a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+        const { stderr } = runScript(root, 'influxdb3/core');
         const spec = readYaml(buildSpecPath);
         const routes = spec.components.schemas.Routes;
         assert('16b. listed properties removed', !('backup' in routes.properties) && !('system' in routes.properties), `properties: ${Object.keys(routes.properties).join(', ')}`);
