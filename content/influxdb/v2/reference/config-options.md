@@ -139,6 +139,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [feature-flags](#feature-flags)
 - [flux-log-enabled](#flux-log-enabled)
 - [hardening-enabled](#hardening-enabled)
+- [health-auth-mode](#health-auth-mode)
 - [http-bind-address](#http-bind-address)
 - [http-idle-timeout](#http-idle-timeout)
 - [http-read-header-timeout](#http-read-header-timeout)
@@ -169,6 +170,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
 - [sqlite-path](#sqlite-path)
+- [startup-error-linger](#startup-error-linger)
 - [storage-cache-max-memory-size](#storage-cache-max-memory-size)
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
@@ -546,7 +548,14 @@ flux-log-enabled = "true"
 
 Enable [additional security features](/influxdb/v2/admin/security/enable-hardening/)
 in InfluxDB.
+
+In InfluxDB OSS v2.10 and later, hardening also restricts the detail that the
+`/health` and `/ready` endpoints return to callers without operator permissions.
+To keep full `/health` and `/ready` responses with hardening enabled,
+set [`health-auth-mode`](#health-auth-mode) to `disabled`.
+
 **Default:** `false`
+
 | influxd flag          | Environment variable        | Configuration key   |
 | :-------------------- | :-------------------------- | :------------------ |
 | `--hardening-enabled` | `INFLUXD_HARDENING_ENABLED` | `hardening-enabled` |
@@ -584,6 +593,79 @@ hardening-enabled = true
 ```json
 {
   "hardening-enabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### health-auth-mode
+_Available in InfluxDB OSS v2.10 and later._
+
+Controls whether the `/health` and `/ready` endpoints require operator permissions
+to return check details.
+
+By default, `/health` and `/ready` don't require authentication and return full check details.
+After a failed startup, check messages contain the raw error text,
+which can include file system paths and other configuration details.
+To hide these details from callers without operator permissions, set this option to `required`.
+
+This option never changes the HTTP status code,
+so liveness and readiness probes without credentials keep working.
+A caller without operator permissions receives a reduced response body:
+check names and statuses, without messages or build information.
+If startup fails before InfluxDB can verify tokens,
+every caller receives the reduced response body.
+
+Valid values:
+
+- `auto`: Restrict details only when [`hardening-enabled`](#hardening-enabled) is `true`.
+- `required`: Always restrict details.
+- `disabled`: Never restrict details, even when `hardening-enabled` is `true`.
+
+Write the value explicitly, for example `--health-auth-mode=required`.
+`true` and `false` aren't valid values.
+
+**Default:** `auto`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--health-auth-mode` | `INFLUXD_HEALTH_AUTH_MODE` | `health-auth-mode` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --health-auth-mode=required
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HEALTH_AUTH_MODE=required
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+health-auth-mode: required
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+health-auth-mode = "required"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "health-auth-mode": "required"
 }
 ```
 {{% /code-tab-content %}}
@@ -1143,11 +1225,18 @@ Maximum time range, as a duration, that an InfluxQL `SELECT` or `EXPLAIN` statem
 `0` disables the limit.
 This option doesn't apply to Flux queries.
 
-If a query exceeds the limit, InfluxDB returns the following error:
+A query with no upper time bound is measured up to `now()`.
+A query with no lower time bound covers all time, so it exceeds any non-zero limit.
 
-```text
-max-time-range limit exceeded: (<range>/<limit>)
+If a statement exceeds the limit, InfluxDB returns an HTTP `200` response
+and reports the error for that statement in `results[].error`:
+
+```json
+{"results":[{"statement_id":0,"error":"max-time-range limit exceeded: (1h59m59.999999999s/1h0m0s)"}]}
 ```
+
+The error has the format `max-time-range limit exceeded: (<range>/<limit>)`.
+Check `results[].error` in your client--the HTTP status code doesn't indicate the error.
 
 The `influxd upgrade` command maps the InfluxDB 1.x `coordinator.max-time-range` option to this option.
 
@@ -2158,6 +2247,71 @@ sqlite-path = "~/.influxdbv2/influxd.sqlite"
 ```json
 {
   "sqlite-path": "~/.influxdbv2/influxd.sqlite"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### startup-error-linger
+_Available in InfluxDB OSS v2.10 and later._
+
+Duration to keep the `/health` and `/ready` endpoints serving after a failed startup
+before `influxd` exits.
+Use this window to retrieve the startup error from `/health` or `/ready`,
+for example, when a container orchestrator restarts `influxd` before you can read its logs.
+
+During the window, `/health` and `/ready` return `503` with the failing checks,
+and every other path returns `503` with `{"status":"starting"}`.
+After the window, `influxd` exits with the [exit code](/influxdb/v2/reference/cli/influxd/#exit-codes)
+for the failure.
+
+`0` exits immediately.
+The maximum is `30m`.
+
+Check messages can include file system paths and other configuration details.
+To restrict them to callers with operator permissions, see [`health-auth-mode`](#health-auth-mode).
+
+**Default:** `0`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--startup-error-linger` | `INFLUXD_STARTUP_ERROR_LINGER` | `startup-error-linger` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --startup-error-linger=5m
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STARTUP_ERROR_LINGER=5m
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+startup-error-linger: 5m
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+startup-error-linger = "5m"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "startup-error-linger": "5m"
 }
 ```
 {{% /code-tab-content %}}
