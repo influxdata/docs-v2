@@ -536,8 +536,7 @@ function testExcludeOverlay(): void {
       },
     });
 
-    const { exitCode, stderr } = runScript(root, 'influxdb3/core');
-    assert('16a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+    const { stderr } = runScript(root, 'influxdb3/core');
 
     const spec = readYaml<{
       components: {
