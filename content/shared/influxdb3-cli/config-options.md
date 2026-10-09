@@ -1898,7 +1898,7 @@ to delete files marked as needing deletion during that compaction run.
 On the legacy Parquet storage engine, compaction doesn't mark Gen1 files for
 deletion; see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
 
-**Default:** `10m`
+**Default:** `1h`
 
 | influxdb3 serve option      | Environment variable                           |
 | :-------------------------- | :--------------------------------------------- |
