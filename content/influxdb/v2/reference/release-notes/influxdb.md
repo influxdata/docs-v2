@@ -8,6 +8,39 @@ menu:
 weight: 101
 ---
 
+## v2.10.0 {date="TBD"}
+
+### Features
+
+- Add the [`influxql-max-time-range`](/influxdb/v2/reference/config-options/#influxql-max-time-range) option to limit the time range of InfluxQL `SELECT` and `EXPLAIN` statements.
+  A statement that exceeds the limit returns a `max-time-range limit exceeded` error in `results[].error` with an HTTP `200` response.
+  The default (`0`) disables the limit.
+  The limit doesn't apply to Flux queries.
+  `influxd upgrade` maps the 1.x `coordinator.max-time-range` option to this option.
+- Add the [`http-user-write-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-write-bytes-enabled) option.
+  When enabled, the `/metrics` endpoint exposes the `http_write_user_request_bytes` counter with the `user_id` and `endpoint` labels.
+  InfluxDB doesn't count requests that don't have a valid user ID.
+- Add the [`http-user-query-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-query-bytes-enabled) option.
+  When enabled, the `/metrics` endpoint exposes the `http_query_user_response_bytes` counter with the `user_id` and `endpoint` labels.
+- Add the [`--storage-compact-throughput`](/influxdb/v2/reference/config-options/#storage-compact-throughput) flag.
+  Sustained and burst compaction throughput are now independent.
+  If the burst value is lower than the sustained value, InfluxDB raises the burst value to match.
+- Add adaptive sizing and statistics to the TSI tag-value series ID cache.
+- Update the `/health` and `/ready` endpoints.
+  During startup, `/ready` returns `503` with the readiness checks that haven't passed.
+  Both endpoints report an `uptime` value and more detail for each check.
+- Add the [`health-auth-mode`](/influxdb/v2/reference/config-options/#health-auth-mode) option
+  to restrict `/health` and `/ready` check details to callers with operator permissions.
+  [`hardening-enabled`](/influxdb/v2/reference/config-options/#hardening-enabled) now also restricts these details.
+- Add the [`startup-error-linger`](/influxdb/v2/reference/config-options/#startup-error-linger) option
+  to keep `/health` and `/ready` serving after a failed startup, so you can retrieve the error.
+- Add [`influxd` exit codes](/influxdb/v2/reference/cli/influxd/#exit-codes) that indicate whether restarting can fix a failed startup.
+
+### Bug Fixes
+
+- Report `http_write_request_bytes` for the legacy `/write` endpoint. Previously, the metric reported `0`.
+- Include the legacy `/query` endpoint in the `http_query_request_count`, `http_query_request_bytes`, and `http_query_response_bytes` metrics.
+
 ## v2.9.1 {date="2026-05-11"}
 
 ### Bug Fixes

@@ -29,6 +29,9 @@
 - flag: "--hardening-enabled"
   added: 2.2
 
+- flag: "--health-auth-mode"
+  added: "2.10"
+
 - flag: "-h, --help"
   added: 2.0
   nolink: true
@@ -45,6 +48,12 @@
 - flag: "--http-read-timeout"
   added: 2.0
 
+- flag: "--http-user-query-bytes-enabled"
+  added: "2.10"
+
+- flag: "--http-user-write-bytes-enabled"
+  added: "2.10"
+
 - flag: "--http-write-timeout"
   added: 2.0
 
@@ -56,6 +65,9 @@
 
 - flag: "--influxql-max-select-series"
   added: 2.0
+
+- flag: "--influxql-max-time-range"
+  added: "2.10"
 
 - flag: "--instance-id"
   added: 2.3
@@ -116,6 +128,9 @@
 - flag: "--sqlite-path"
   added: 2.1
 
+- flag: "--startup-error-linger"
+  added: "2.10"
+
 - flag: "--storage-cache-max-memory-size"
   added: 2.0
 
@@ -127,6 +142,9 @@
 
 - flag: "--storage-compact-full-write-cold-duration"
   added: 2.0
+
+- flag: "--storage-compact-throughput"
+  added: "2.10"
 
 - flag: "--storage-compact-throughput-burst"
   added: 2.0
