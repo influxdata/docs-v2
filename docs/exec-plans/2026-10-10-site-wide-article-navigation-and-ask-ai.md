@@ -1,6 +1,6 @@
 # Shared article navigation and chat layout
 
-Status: Draft for review in [PR #7873](https://github.com/influxdata/docs-v2/pull/7873). Implementation pending.
+Status: Partial implementation checkpoint in [PR #7873](https://github.com/influxdata/docs-v2/pull/7873). See the [checkpoint and resume sequence](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md#implementation-checkpoint-2026-10-10).
 Refs: [#7706](https://github.com/influxdata/docs-v2/issues/7706) and [PR #6622](https://github.com/influxdata/docs-v2/pull/6622).
 Spec: [Site-wide article navigation and Ask AI sidebar](../product-specs/site-wide-article-navigation-and-ask-ai.md).
 Plan: [Grounded implementation plan](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md).
@@ -16,7 +16,7 @@ The API navigation shipped in #6622, while #7706 describes chat ownership and de
 This review combines those requirements.
 The supplied 1280×1024 and 1920×1080 ChatGPT documentation screenshots show that ToC and chat can coexist with left navigation.
 The 2026-10-10 refinement replaces the original exclusive-rail proposal with separate desktop columns, including at exactly 1280px.
-Feature implementation remains pending.
+The regular article ToC has an initial implementation; API layout integration and chat remain pending.
 Publish the spec and reviewed plan before implementation so the layout and handoff rules have one reference.
 
 ## Decisions
@@ -34,8 +34,8 @@ Publish the spec and reviewed plan before implementation so the layout and hando
 
 ## Explicitly out of scope
 
-Feature implementation, left-navigation tree or preference redesign, API spec migration, article rewrites, a React or Chat SDK migration, and cross-page conversation persistence.
-This documentation PR references #7706 without closing it.
+Left-navigation tree or preference redesign, API spec migration, article rewrites, a React or Chat SDK migration, and cross-page conversation persistence.
+This partial implementation references #7706 without closing it.
 
 ## How to update
 

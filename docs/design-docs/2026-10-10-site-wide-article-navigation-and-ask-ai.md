@@ -1,6 +1,6 @@
 # Site-wide article ToC and Ask AI sidebar
 
-**Status:** Draft plan for review; implementation pending.
+**Status:** Partial implementation checkpoint; blocked on live Kapa browser verification.
 **Review PR:** [#7873](https://github.com/influxdata/docs-v2/pull/7873).
 **Reviewed:** 2026-10-09.
 **Review baseline:** GitHub `master` and local `work` both resolved to `f5a42077a16bb8334b92e077e882f57f893ebd25` on 2026-10-09. Master advanced by three commits to `dc9ce95938ea92a8d9bcc98bc33b73b81afbecf6` before publication on 2026-10-10; those commits change article content, not the reviewed UI implementation.
@@ -223,7 +223,64 @@ This follow-up inspected source and configuration only. No browser capture or vi
 
 ## Remaining work and scope boundaries
 
-The shared article ToC rollout, chat/composer replacement, separate desktop panel layout, narrow overlay coordination, and browser acceptance coverage remain to be implemented.
+Regular article ToC navigation and the narrow drawer have an initial implementation. API layout integration, the chat/composer replacement, separate desktop chat space, narrow overlay coordination, and full browser acceptance coverage remain incomplete.
 Use #7706 as the existing chat reference. The documentation PR records the site-wide extension without closing the implementation issue.
 Leave the left navigation tree, API spec migration, article content rewrites, and unrelated UI issues outside this feature.
 This plan was promoted from root `PLAN.md` so the reviewed requirements can remain in the repository. The linked spec defines required behavior, and the execution-plan record explains the decisions.
+
+## Implementation checkpoint, 2026-10-10
+
+Resume from this branch's HEAD and preserve the linked spec's requirements.
+Follow TDD through rendered navigation, composer handoff, and panel bounds.
+Keep Cypress coverage general and fast. Remove tautological tests, and add specific Cypress tests only when a demonstrated regression requires them.
+Continue until TypeScript, Hugo, and CSS are modular, clean, and DRY.
+Stop if required browser verification becomes unavailable.
+
+### Current implementation
+
+- Regular single and section layouts include the shared `[data-page-rail]` shell.
+- `PageToc` discovers visible headings from final rendered content, including shared `source:` content. It constructs literal labels and encoded fragments, excludes hidden and feedback headings, and refreshes after content visibility changes.
+- Navigation supports active entries, modified clicks, and reduced motion. The narrow drawer starts collapsed, closes after heading selection, and focuses the heading.
+- Scoped sizing respects the left sidebar's saved closed preference through `data-sidebar-state`.
+- The legacy API registration delegates to `PageToc`, which preserves server-rendered operation links. API layout markers, responsive integration, and regression verification remain pending.
+- `cypress/support/kapa-widget.js` renders a mock vendor panel with documented callbacks. `ask-ai-sidebar.cy.js` is the next red TDD slice. The composer and shared chat controller do not exist yet.
+
+### Fresh verification evidence
+
+| Command or check | Result |
+| --- | --- |
+| `node --test assets/js/components/__tests__/page-toc.test.mjs` in Chromium | Passed: literal labels, `/` fragment targets, hidden heading exclusion and refresh |
+| `cypress run --browser chromium --spec cypress/e2e/content/page-toc.cy.js` | Two passed: narrow drawer navigation and shared-content navigation at 1280px |
+| `node_modules/.bin/tsc --project tsconfig.json --outDir dist` | Passed |
+| `git diff --check` | Passed |
+| Local Hugo testing server on port 1315 | Rendered the pages used by the passing Cypress checks |
+| `cypress run --browser chromium --spec cypress/e2e/content/ask-ai-sidebar.cy.js` | Expected red: `#chat-assistant-textarea` is absent |
+
+This checkpoint intentionally includes a failing handoff test. Complete its implementation before treating the branch as mergeable.
+These checks do not establish the complete spec, API compatibility, the desktop chat width budget, or live widget behavior.
+
+### Live browser verification blocker
+
+Chromium works with the environment's approved execution permissions.
+The bundle loads from `widget.kapa.ai`, but live browser requests to `proxy.kapa.ai` and `metrics.kapa.ai` fail with `net::ERR_TUNNEL_CONNECTION_FAILED`.
+The sidebar prototype never receives `render({ onRender })` within 30 seconds.
+Requesting `https://proxy.kapa.ai/` directly returns HTTP 403 from the environment proxy.
+
+The user republished the environment configuration, but the last observed enforced policy, revision 13, still contained only `widget.kapa.ai` among Kapa hosts.
+In the new chat, inspect the actual enforced policy and readiness before assuming the edited allowlist reached the runtime.
+Use the inherited proxy and TLS trust. Do not bypass a destination-policy denial.
+Allow the observed runtime hosts through the supported configuration workflow, then inspect browser requests for additional required hosts.
+
+### Resume sequence
+
+1. Verify network readiness and re-run a live Kapa sidebar browser check. Confirm responsive width, nonmodal ToC interaction, focus, and retained history.
+2. Finish shared API layout integration, preserving operation order, badges, and IDs. Verify regular and API width budgets at 1280px and 1920px.
+3. Make the handoff test pass with one registered TypeScript Ask AI controller. Consolidate `ask-ai.ts` and `ask-ai-trigger.js`. Use render readiness, documented group setters, and actual widget callbacks.
+4. Cover retained drafts, failure/retry, duplicate requests, narrow ToC restoration, and resize without resubmission. Use smaller tests for lifecycle detail and retain focused, general Cypress integration tests.
+5. Verify shortcode, code-block, and version-detector entry points; themes; home/feature-board/404/print exclusions; API navigation; overflow; keyboard and history behavior. Remove redundant tests after preserving their useful coverage.
+6. Run the changed-file verifier, TypeScript build, Hugo build, focused tests, and fresh browser acceptance checks. Update this checkpoint with actual evidence.
+
+Use the direct Cypress CLI with the available browser. In this environment the repository runner attempted unavailable Chrome and returned success despite a launch failure.
+That runner exit status is not browser evidence.
+Give Hugo builds at least 180 seconds and never cancel a running build.
+Unrelated screenshot-tool edits and environment setup files remain outside this checkpoint.
