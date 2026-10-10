@@ -49,7 +49,7 @@ import { SidebarToggle } from './sidebar-toggle.js';
 import TcSubstituteValues from './components/tc-substitute-values.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
-import ApiToc from './components/api-toc.ts';
+import PageToc from './components/page-toc.ts';
 
 /**
  * Component Registry
@@ -83,7 +83,8 @@ const componentRegistry = {
   'tc-substitute-values': TcSubstituteValues,
   theme: Theme,
   'theme-switch': ThemeSwitch,
-  'api-toc': ApiToc,
+  'api-toc': PageToc,
+  'page-toc': PageToc,
 };
 
 /**

@@ -1,0 +1,75 @@
+// Shared article and API navigation layout. Panel dimensions include padding.
+:root {
+  --page-toc-width: 200px;
+  --page-nav-width: 240px;
+}
+
+.content-wrapper.page-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  overflow: visible;
+  min-width: 0;
+
+  > .article, > .api-main {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    max-width: none;
+    padding-right: 0;
+  }
+  .article {
+    padding: 2rem 1rem 3rem;
+    min-width: 0;
+  }
+  > .copyright { grid-column: 1; }
+  [data-page-rail] {
+    grid-column: 2;
+    grid-row: 1;
+    width: var(--page-toc-width);
+    display: block;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  [data-page-rail][hidden] { display: none; }
+  [data-page-rail] nav[hidden], .page-toc-toggle[hidden] { display: none; }
+  .page-toc-toggle { cursor: pointer; font: inherit; padding: .6rem 1rem; }
+}
+
+@media (max-width: 1279px) {
+  .content-wrapper.page-content [data-page-rail] {
+    position: fixed;
+    top: 5rem;
+    right: 0;
+    z-index: 30;
+    width: min(300px, 100vw);
+    max-height: calc(100dvh - 5rem);
+    padding: 0;
+    border: 1px solid;
+    background: $article-bg;
+    .api-toc-header { display: none; }
+    &:not(.is-expanded) { width: auto; }
+    &.is-suspended { display: none; }
+    nav { padding: 1rem; overflow-y: auto; max-height: calc(100dvh - 8rem); }
+  }
+}
+
+@media (min-width: 1280px) {
+  .page-wrapper:has(.page-content) > .sidebar {
+    flex: 0 0 auto;
+    width: var(--page-nav-width);
+  }
+  body[data-sidebar-state='closed'] .page-wrapper:has(.page-content) > .sidebar { width: 0; padding: 0; }
+  .content-wrapper.page-content {
+    width: auto;
+    flex: 1;
+    &.has-page-toc { grid-template-columns: minmax(0, 1fr) var(--page-toc-width); }
+  }
+}
+@media (min-width: 1441px) {
+  :root { --page-toc-width: 260px; --page-nav-width: 280px; }
+}
+@media print {
+  [data-page-rail] { display: none !important; }
+  .content-wrapper.page-content.has-page-toc { display: block; }
+}
