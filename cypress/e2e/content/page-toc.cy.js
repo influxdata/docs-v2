@@ -10,7 +10,9 @@ describe('Article navigation', () => {
       if (dismiss.length) cy.wrap(dismiss).click({ multiple: true });
     });
     cy.get('[data-page-rail] nav').should('not.be.visible');
-    cy.get('[data-page-rail] button').should('have.attr', 'aria-expanded', 'false').click();
+    cy.get('[data-page-rail] button')
+      .should('have.attr', 'aria-expanded', 'false')
+      .click();
     cy.get('[data-page-rail] nav').should('be.visible');
     cy.get('[data-page-rail]').contains('a', 'Construct line protocol').click();
     cy.location('hash').should('eq', '#construct-line-protocol');
@@ -31,8 +33,11 @@ describe('Article navigation', () => {
     cy.get('[data-page-rail]').should('be.visible');
     cy.get('[data-page-rail]').contains('a', 'Construct line protocol').click();
     cy.location('hash').should('eq', '#construct-line-protocol');
-    cy.get('[data-page-rail] a[aria-current="location"]')
-      .should('have.attr', 'href', '#construct-line-protocol');
+    cy.get('[data-page-rail] a[aria-current="location"]').should(
+      'have.attr',
+      'href',
+      '#construct-line-protocol'
+    );
     cy.get('[data-page-rail]').should('not.contain', 'Support and feedback');
   });
 });
