@@ -21,21 +21,21 @@
 
 ## Current code and verified gaps
 
-| Surface | Grounded finding | Implication |
-| --- | --- | --- |
-| `layouts/api/list.html:73`, other API layouts | API ToCs exist; operation links are rendered by Hugo and sorted like the body. | Preserve operation anchors, labels, method badges, and order. |
-| `layouts/_default/single.html:8`, `section.html:8`, `layouts/partials/article.html:1` | Regular pages render an article without a right rail. | Add the shared article/rail layout at these seams. |
-| `layouts/partials/article/content.html:21` | Shared content is rendered via `RenderString`, while ordinary pages use `.Content`. | Build regular-page entries from final rendered headings; `.TableOfContents` alone cannot be assumed to cover transcluded content. |
-| `assets/js/components/api-toc.ts:49` | Heading mode uses a document-wide root search; filters hidden and feedback headings. | Scope to the owning article and retain exclusions. |
-| `api-toc.ts:111` | Heading text and IDs are interpolated into an HTML string. | Construct links with DOM APIs and `textContent`; preserve literal angle brackets and safe attributes. |
-| `api-toc.ts:277` | Click handler prevents default even on Ctrl-click and always requests smooth scrolling. | Preserve modified/native navigation and respect reduced motion. |
-| `api-toc.ts:338` | Visibility observer only attaches to `.api-tab-panels`. | Ordinary tabs and collapsible content need bounded visibility refresh. |
-| `api-toc.ts:240` | Scroll fallback compares `offsetTop` with document scroll position. | Use a consistent document coordinate system; verify long sections and nested targets in a browser. |
-| `assets/styles/layouts/_content-wrapper.scss:6`, `_api-layout.scss:12` | Default wrapper clips overflow; API wrapper explicitly enables sticky positioning. | Introduce a scoped shared layout that supports sticky navigation without changing unrelated wrappers. |
-| `_api-layout.scss:28`, `:772` | API ToC is sticky, independently scrollable, hidden at widths up to 1280px. | Reuse the visual pattern; replace the hide rule with desktop coexistence at 1280px and drawer mode below it. |
-| `_global.scss:24`, `_sidebar.scss:6`, `_content-wrapper.scss:3`, `_article.scss:4` | The page uses flex layout; left navigation takes 25%, the content wrapper 75%, and the article adds 4rem padding on each side. | Introduce scoped, bounded columns and compact spacing. Appending chat to the existing percentages and padding cannot meet the 1280px reading-space budget. |
-| `assets/js/ask-ai-trigger.js:47`, `assets/js/ask-ai.ts:100` | Footer trigger loads a 640px modal; no shared rail marker or chat-open state exists. | Replace the launcher and centralize widget readiness, entry points, and ownership. |
-| `assets/js/theme.js:14` | Theme is selected by stylesheet enablement. | Expose a stable body theme attribute for widget synchronization. |
+| Surface                                                                               | Grounded finding                                                                                                               | Implication                                                                                                                                                |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `layouts/api/list.html:73`, other API layouts                                         | API ToCs exist; operation links are rendered by Hugo and sorted like the body.                                                 | Preserve operation anchors, labels, method badges, and order.                                                                                              |
+| `layouts/_default/single.html:8`, `section.html:8`, `layouts/partials/article.html:1` | Regular pages render an article without a right rail.                                                                          | Add the shared article/rail layout at these seams.                                                                                                         |
+| `layouts/partials/article/content.html:21`                                            | Shared content is rendered via `RenderString`, while ordinary pages use `.Content`.                                            | Build regular-page entries from final rendered headings; `.TableOfContents` alone cannot be assumed to cover transcluded content.                          |
+| `assets/js/components/api-toc.ts:49`                                                  | Heading mode uses a document-wide root search; filters hidden and feedback headings.                                           | Scope to the owning article and retain exclusions.                                                                                                         |
+| `api-toc.ts:111`                                                                      | Heading text and IDs are interpolated into an HTML string.                                                                     | Construct links with DOM APIs and `textContent`; preserve literal angle brackets and safe attributes.                                                      |
+| `api-toc.ts:277`                                                                      | Click handler prevents default even on Ctrl-click and always requests smooth scrolling.                                        | Preserve modified/native navigation and respect reduced motion.                                                                                            |
+| `api-toc.ts:338`                                                                      | Visibility observer only attaches to `.api-tab-panels`.                                                                        | Ordinary tabs and collapsible content need bounded visibility refresh.                                                                                     |
+| `api-toc.ts:240`                                                                      | Scroll fallback compares `offsetTop` with document scroll position.                                                            | Use a consistent document coordinate system; verify long sections and nested targets in a browser.                                                         |
+| `assets/styles/layouts/_content-wrapper.scss:6`, `_api-layout.scss:12`                | Default wrapper clips overflow; API wrapper explicitly enables sticky positioning.                                             | Introduce a scoped shared layout that supports sticky navigation without changing unrelated wrappers.                                                      |
+| `_api-layout.scss:28`, `:772`                                                         | API ToC is sticky, independently scrollable, hidden at widths up to 1280px.                                                    | Reuse the visual pattern; replace the hide rule with desktop coexistence at 1280px and drawer mode below it.                                               |
+| `_global.scss:24`, `_sidebar.scss:6`, `_content-wrapper.scss:3`, `_article.scss:4`    | The page uses flex layout; left navigation takes 25%, the content wrapper 75%, and the article adds 4rem padding on each side. | Introduce scoped, bounded columns and compact spacing. Appending chat to the existing percentages and padding cannot meet the 1280px reading-space budget. |
+| `assets/js/ask-ai-trigger.js:47`, `assets/js/ask-ai.ts:100`                           | Footer trigger loads a 640px modal; no shared rail marker or chat-open state exists.                                           | Replace the launcher and centralize widget readiness, entry points, and ownership.                                                                         |
+| `assets/js/theme.js:14`                                                               | Theme is selected by stylesheet enablement.                                                                                    | Expose a stable body theme attribute for widget synchronization.                                                                                           |
 
 Fresh bounded checks invoked the actual ToC component using Node 24 and DOM stubs: visible heading links, hidden/feedback exclusions, and hash updates pass; safe heading encoding, modified-click preservation, reduced motion, and ordinary-tab observation fail.
 These establish component code paths, not browser rendering, full-site correctness, or current production behavior.
@@ -130,16 +130,16 @@ Actual vendor nonmodal desktop interaction, focus behavior, responsive width ove
 
 ## Acceptance and evidence
 
-| Requirement | Required evidence | Current status |
-| --- | --- | --- |
-| Regular and sourced articles show the right headings and links | Rendered-page Cypress checks; each href resolves to its actual heading | Unimplemented |
-| API navigation preserves operation ordering and anchors | Existing API suite plus actual navigation/active-state assertions | Shipped; fresh full-suite run blocked |
-| Tabs, accordions, scroll, history, keyboard, and reduced motion work | Focused ToC runtime suite through public behavior | Component gaps identified |
-| Chat replaces the footer launcher and hands off exact questions | Stubbed widget/composer tests, including delayed readiness and retry | Unimplemented |
-| Desktop ToC and chat coexist at 1280px and above | Nonoverlapping article/ToC/chat bounds, at least 400px article text at 1280px, ToC and chat interaction, and screenshots at 1280×1024 and 1920×1080 | Unimplemented |
-| Below 1280px, the ToC drawer remains reachable and only one right-side overlay is available; print and themes remain usable | Boundary-width checks; drawer dismissal/target focus; chat-state restoration; keyboard QA; resize with chat open | Unimplemented |
-| Product filters and legacy prefill entry points remain correct | Explicit group-setting and query assertions in mocked Kapa calls | Unverified |
-| Real vendor sidebar/focus/history matches the integration | Live-widget smoke test after deterministic suites pass | Unverified |
+| Requirement                                                                                                                 | Required evidence                                                                                                                                   | Current status                        |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Regular and sourced articles show the right headings and links                                                              | Rendered-page Cypress checks; each href resolves to its actual heading                                                                              | Unimplemented                         |
+| API navigation preserves operation ordering and anchors                                                                     | Existing API suite plus actual navigation/active-state assertions                                                                                   | Shipped; fresh full-suite run blocked |
+| Tabs, accordions, scroll, history, keyboard, and reduced motion work                                                        | Focused ToC runtime suite through public behavior                                                                                                   | Component gaps identified             |
+| Chat replaces the footer launcher and hands off exact questions                                                             | Stubbed widget/composer tests, including delayed readiness and retry                                                                                | Unimplemented                         |
+| Desktop ToC and chat coexist at 1280px and above                                                                            | Nonoverlapping article/ToC/chat bounds, at least 400px article text at 1280px, ToC and chat interaction, and screenshots at 1280×1024 and 1920×1080 | Unimplemented                         |
+| Below 1280px, the ToC drawer remains reachable and only one right-side overlay is available; print and themes remain usable | Boundary-width checks; drawer dismissal/target focus; chat-state restoration; keyboard QA; resize with chat open                                    | Unimplemented                         |
+| Product filters and legacy prefill entry points remain correct                                                              | Explicit group-setting and query assertions in mocked Kapa calls                                                                                    | Unverified                            |
+| Real vendor sidebar/focus/history matches the integration                                                                   | Live-widget smoke test after deterministic suites pass                                                                                              | Unverified                            |
 
 Run the repository verifier on the final changed paths, then the relevant build/runtime checks:
 
@@ -163,13 +163,13 @@ No release-ready verdict follows from a build or mocked widget checks alone.
 
 Use the actual Hugo pages for layout iteration. The existing tooling is sufficient for a manual edit/reload/inspect loop; repeatable chat-state captures need a small scenario harness using the existing Puppeteer helpers.
 
-| Seam | Existing entry point | Use and limitation |
-| --- | --- | --- |
-| Persistent browser and live reload | `scripts/puppeteer/debug-browser.js:31`, `.vscode/launch.json` | Headed browser stays open with DevTools and console output. Hugo emits inline source maps in development/testing through `layouts/partials/header/javascript.html:48`. |
-| Viewport, element, and full-page captures | `scripts/puppeteer/screenshot.js:45`, `scripts/puppeteer/utils/puppeteer-helpers.js:141` | Capture the article and rail together to assess collisions; crop the rail for typography. The CLI opens a fresh page, so it cannot capture an already-open conversation or preserved draft. |
-| Responsive scenarios and image comparison | `puppeteer-helpers.js:380`, `:404` | `testResponsive()` and a working `compareScreenshots()` implementation already exist. `pixelmatch` and `pngjs` are declared dependencies. No caller or approved image-baseline workflow was found; render-regression Cypress coverage asserts DOM output, not pixels. |
-| Interactive behavioral replay | `cypress/e2e/content/api-reference.cy.js`, `ask-ai.cy.js`, `cypress.config.js:9` | Cypress open mode can replay interactions while inspecting the real page. The repository runner manages/reuses Hugo on port 1315, but does not forward `--headed`; use the Cypress CLI for the interactive runner. |
-| Production-build review | `DOCS-TESTING.md:262`, `.github/workflows/pr-preview.yml` | Eligible same-repository PRs get a full-site preview at `https://test2.docs.influxdata.com/pr-preview/pr-<N>/`. Use real product URLs and expected behavior in the PR description. Test-only fixtures are not a production-preview contract; fork previews are unavailable. |
+| Seam                                      | Existing entry point                                                                     | Use and limitation                                                                                                                                                                                                                                                          |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Persistent browser and live reload        | `scripts/puppeteer/debug-browser.js:31`, `.vscode/launch.json`                           | Headed browser stays open with DevTools and console output. Hugo emits inline source maps in development/testing through `layouts/partials/header/javascript.html:48`.                                                                                                      |
+| Viewport, element, and full-page captures | `scripts/puppeteer/screenshot.js:45`, `scripts/puppeteer/utils/puppeteer-helpers.js:141` | Capture the article and rail together to assess collisions; crop the rail for typography. The CLI opens a fresh page, so it cannot capture an already-open conversation or preserved draft.                                                                                 |
+| Responsive scenarios and image comparison | `puppeteer-helpers.js:380`, `:404`                                                       | `testResponsive()` and a working `compareScreenshots()` implementation already exist. `pixelmatch` and `pngjs` are declared dependencies. No caller or approved image-baseline workflow was found; render-regression Cypress coverage asserts DOM output, not pixels.       |
+| Interactive behavioral replay             | `cypress/e2e/content/api-reference.cy.js`, `ask-ai.cy.js`, `cypress.config.js:9`         | Cypress open mode can replay interactions while inspecting the real page. The repository runner manages/reuses Hugo on port 1315, but does not forward `--headed`; use the Cypress CLI for the interactive runner.                                                          |
+| Production-build review                   | `DOCS-TESTING.md:262`, `.github/workflows/pr-preview.yml`                                | Eligible same-repository PRs get a full-site preview at `https://test2.docs.influxdata.com/pr-preview/pr-<N>/`. Use real product URLs and expected behavior in the PR description. Test-only fixtures are not a production-preview contract; fork previews are unavailable. |
 
 Concrete local loop, once repository dependencies and a usable browser session are available. Run each long-lived command in its own terminal; the last two are alternative inspection surfaces:
 
@@ -183,13 +183,13 @@ The browser/screenshot CLI option parser requires `--option=value`, despite its 
 
 Start with a small set of real routes:
 
-| Route | Visual pressure it supplies |
-| --- | --- |
-| `/example/` in the testing environment | Heading hierarchy, ordinary tabs, code-tabs, accordions, long code, and shortcode combinations. Use this existing fixture for broad rendering checks. |
-| `/influxdb3/core/get-started/write/` | Article rendering from `source:` shared content; confirms ToC discovery covers final rendered headings. |
-| `/influxdb3/enterprise/reference/config-options/` | Long sourced reference with many headings/tables; sticky positioning, active-entry tracking, and independent rail scrolling. |
-| `/influxdb3/core/api/write-data/` after API generation | Existing API operation ToC, operation anchors, and API-specific layout compatibility. |
-| `/influxdb3/core/admin/identify-version/` | Existing Ask AI integration and version/prefill entry points. |
+| Route                                                  | Visual pressure it supplies                                                                                                                           |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/example/` in the testing environment                 | Heading hierarchy, ordinary tabs, code-tabs, accordions, long code, and shortcode combinations. Use this existing fixture for broad rendering checks. |
+| `/influxdb3/core/get-started/write/`                   | Article rendering from `source:` shared content; confirms ToC discovery covers final rendered headings.                                               |
+| `/influxdb3/enterprise/reference/config-options/`      | Long sourced reference with many headings/tables; sticky positioning, active-entry tracking, and independent rail scrolling.                          |
+| `/influxdb3/core/api/write-data/` after API generation | Existing API operation ToC, operation anchors, and API-specific layout compatibility.                                                                 |
+| `/influxdb3/core/admin/identify-version/`              | Existing Ask AI integration and version/prefill entry points.                                                                                         |
 
 Add home, feature-board, 404, and an empty-heading article to the exclusion checks. Keep a dedicated fixture under an existing `__tests__/` section only if the real routes cannot reliably express heading encoding or visibility edge cases; production excludes those sections.
 
@@ -247,14 +247,14 @@ Stop if required browser verification becomes unavailable.
 
 ### Fresh verification evidence
 
-| Command or check | Result |
-| --- | --- |
-| `node --test assets/js/components/__tests__/page-toc.test.mjs` in Chromium | Passed: literal labels, `/` fragment targets, hidden heading exclusion and refresh |
-| `cypress run --browser chromium --spec cypress/e2e/content/page-toc.cy.js` | Two passed: narrow drawer navigation and shared-content navigation at 1280px |
-| `node_modules/.bin/tsc --project tsconfig.json --outDir dist` | Passed |
-| `git diff --check` | Passed |
-| Local Hugo testing server on port 1315 | Rendered the pages used by the passing Cypress checks |
-| `cypress run --browser chromium --spec cypress/e2e/content/ask-ai-sidebar.cy.js` | Expected red: `#chat-assistant-textarea` is absent |
+| Command or check                                                                 | Result                                                                             |
+| -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `node --test assets/js/components/__tests__/page-toc.test.mjs` in Chromium       | Passed: literal labels, `/` fragment targets, hidden heading exclusion and refresh |
+| `cypress run --browser chromium --spec cypress/e2e/content/page-toc.cy.js`       | Two passed: narrow drawer navigation and shared-content navigation at 1280px       |
+| `node_modules/.bin/tsc --project tsconfig.json --outDir dist`                    | Passed                                                                             |
+| `git diff --check`                                                               | Passed                                                                             |
+| Local Hugo testing server on port 1315                                           | Rendered the pages used by the passing Cypress checks                              |
+| `cypress run --browser chromium --spec cypress/e2e/content/ask-ai-sidebar.cy.js` | Expected red: `#chat-assistant-textarea` is absent                                 |
 
 This checkpoint intentionally includes a failing handoff test. Complete its implementation before treating the branch as mergeable.
 These checks do not establish the complete spec, API compatibility, the desktop chat width budget, or live widget behavior.
