@@ -1,6 +1,6 @@
 # Site-wide article navigation and Ask AI sidebar
 
-Status: Proposed. Implementation pending.
+Status: Partial implementation; acceptance criteria remain pending. See the [implementation checkpoint](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md#implementation-checkpoint-2026-10-10).
 Updated: 2026-10-10.
 Review: [Draft PR #7873](https://github.com/influxdata/docs-v2/pull/7873).
 Related issue: [#7706](https://github.com/influxdata/docs-v2/issues/7706).
