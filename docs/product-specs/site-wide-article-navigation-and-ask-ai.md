@@ -2,6 +2,7 @@
 
 Status: Proposed. Implementation pending.
 Updated: 2026-10-10.
+Review: [Draft PR #7873](https://github.com/influxdata/docs-v2/pull/7873).
 Related issue: [#7706](https://github.com/influxdata/docs-v2/issues/7706).
 Existing API navigation: [PR #6622](https://github.com/influxdata/docs-v2/pull/6622).
 Implementation plan: [Site-wide article ToC and Ask AI sidebar](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md).

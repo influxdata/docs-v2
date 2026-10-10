@@ -1,6 +1,6 @@
 # Shared article navigation and chat ownership
 
-Status: Draft for review. Implementation pending.
+Status: Draft for review in [PR #7873](https://github.com/influxdata/docs-v2/pull/7873). Implementation pending.
 Refs: [#7706](https://github.com/influxdata/docs-v2/issues/7706) and [PR #6622](https://github.com/influxdata/docs-v2/pull/6622).
 Spec: [Site-wide article navigation and Ask AI sidebar](../product-specs/site-wide-article-navigation-and-ask-ai.md).
 Plan: [Grounded implementation plan](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md).

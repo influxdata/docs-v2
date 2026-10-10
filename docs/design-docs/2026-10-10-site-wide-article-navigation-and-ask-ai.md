@@ -1,6 +1,7 @@
 # Site-wide article ToC and Ask AI sidebar
 
 **Status:** Draft plan for review; implementation pending.
+**Review PR:** [#7873](https://github.com/influxdata/docs-v2/pull/7873).
 **Reviewed:** 2026-10-09.
 **Review baseline:** GitHub `master` and local `work` both resolved to `f5a42077a16bb8334b92e077e882f57f893ebd25` on 2026-10-09. Master advanced by three commits to `dc9ce95938ea92a8d9bcc98bc33b73b81afbecf6` before publication on 2026-10-10; those commits change article content, not the reviewed UI implementation.
 **Scope:** Extend the API ToC design to regular articles and accommodate an AI chat sidebar that replaces the production footer launcher.
