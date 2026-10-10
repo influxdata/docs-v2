@@ -1,7 +1,7 @@
 ---
 title: influxdb3 create token \--admin
 description: >
-  The `influxdb3 create token --admin` subcommand creates a named token with full administrative privileges for server actions.
+  The `influxdb3 create token --admin` subcommand creates a named token with full administrative privileges for your {{% product-name %}} instance.
 menu:
   influxdb3_cloud:
     parent: influxdb3 create token
@@ -30,8 +30,8 @@ influxdb3 create token --admin [OPTIONS]
 | :------------- | :------------------------------------------------------------------------------------------------------------ |
 | `--name`       | Name of the token                                                                                             |
 | `--expiry`     | Expires in `duration`--for example, 10d for 10 days or 1y for 1 year                                         |
-| `--host`       | The host URL of the running InfluxDB 3 server [env: `INFLUXDB3_HOST_URL=`] [default: `http://127.0.0.1:8181`] |
-| `--token`      | An existing administrator token for the InfluxDB 3 server                                                     |
+| `--host`       | The host URL of your {{% product-name %}} instance [env: `INFLUXDB3_HOST_URL=`]                                |
+| `--token`      | An existing administrator token for your {{% product-name %}} instance [env: `INFLUXDB3_AUTH_TOKEN=`]         |
 | `--tls-ca`     | An optional arg to use a custom CA for useful for testing with self-signed certs                              |
 | `--format`     | Output format for token [possible values: `json`, `text`]                                                     |
 | `-h`, `--help` | Print help information                                                                                        |
