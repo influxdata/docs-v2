@@ -6,7 +6,8 @@
 **Review baseline:** GitHub `master` and local `work` both resolved to `f5a42077a16bb8334b92e077e882f57f893ebd25` on 2026-10-09. Master advanced by three commits to `dc9ce95938ea92a8d9bcc98bc33b73b81afbecf6` before publication on 2026-10-10; those commits change article content, not the reviewed UI implementation.
 **Scope:** Extend the API ToC design to regular articles and accommodate an AI chat sidebar that replaces the production footer launcher.
 **Spec:** [Site-wide article navigation and Ask AI sidebar](../product-specs/site-wide-article-navigation-and-ask-ai.md).
-**Decisions:** [Shared article navigation and chat ownership](../exec-plans/2026-10-10-site-wide-article-navigation-and-ask-ai.md).
+**Decisions:** [Shared article navigation and chat layout](../exec-plans/2026-10-10-site-wide-article-navigation-and-ask-ai.md).
+**Responsive refinement:** 2026-10-10; separate desktop ToC and chat columns, including at 1280px.
 
 ## Sources and branch findings
 
@@ -31,7 +32,8 @@
 | `api-toc.ts:338` | Visibility observer only attaches to `.api-tab-panels`. | Ordinary tabs and collapsible content need bounded visibility refresh. |
 | `api-toc.ts:240` | Scroll fallback compares `offsetTop` with document scroll position. | Use a consistent document coordinate system; verify long sections and nested targets in a browser. |
 | `assets/styles/layouts/_content-wrapper.scss:6`, `_api-layout.scss:12` | Default wrapper clips overflow; API wrapper explicitly enables sticky positioning. | Introduce a scoped shared layout that supports sticky navigation without changing unrelated wrappers. |
-| `_api-layout.scss:28`, `:772` | API ToC is sticky, independently scrollable, hidden at widths up to 1280px. | Reuse the visual pattern and breakpoint, with separate ToC/chat widths. |
+| `_api-layout.scss:28`, `:772` | API ToC is sticky, independently scrollable, hidden at widths up to 1280px. | Reuse the visual pattern; replace the hide rule with desktop coexistence at 1280px and drawer mode below it. |
+| `_global.scss:24`, `_sidebar.scss:6`, `_content-wrapper.scss:3`, `_article.scss:4` | The page uses flex layout; left navigation takes 25%, the content wrapper 75%, and the article adds 4rem padding on each side. | Introduce scoped, bounded columns and compact spacing. Appending chat to the existing percentages and padding cannot meet the 1280px reading-space budget. |
 | `assets/js/ask-ai-trigger.js:47`, `assets/js/ask-ai.ts:100` | Footer trigger loads a 640px modal; no shared rail marker or chat-open state exists. | Replace the launcher and centralize widget readiness, entry points, and ownership. |
 | `assets/js/theme.js:14` | Theme is selected by stylesheet enablement. | Expose a stable body theme attribute for widget synchronization. |
 
@@ -42,30 +44,54 @@ No production files or checked-in tests were changed in this review.
 ## Proposed behavior and shared contracts
 
 1. Regular articles and API pages share the existing “On this page” visual language. Regular articles list visible h2 headings, with opt-in h3 depth. Exclude the page title, feedback, and navigation chrome; hide an empty ToC. Preserve all existing heading IDs and API operation IDs, including IDs containing `/`.
-2. Use one shared right-rail contract: `[data-page-rail]` marks the ToC on every eligible layout. Retain API-specific operation rendering behind the common shell. Chat opening hides the ToC; chat closing restores it without resetting article scroll or selected tabs.
-3. At widths above 1280px, reserve the active rail's width in layout: retain the API-derived ToC sizing and use `--ask-ai-rail-width: 386px` for chat. Do not subtract both widths. Prevent content, tables, code blocks, and fixed custom-time controls from being obscured.
-4. At 1280px and below, collapse the ToC by default behind a labeled “On this page” toggle, using the left sidebar's open/close affordance. Opening it reveals a right-side drawer over the article, with no permanently reserved rail width. At 601–1280px, chat also uses an overlay; at 600px and below, use Kapa's full-screen mobile mode. ToC and chat must not be open together. Test boundary widths, not just named devices.
+2. Use one shared ToC contract: `[data-page-rail]` marks the ToC on every eligible layout. Retain API-specific operation rendering behind the common shell. At 1280px and above, chat opening leaves the ToC visible and interactive in its own column.
+3. At 1280px and above, reserve both visible panel widths. Use a compact 200px ToC and 360px chat through 1440px, then grow chat to 386px with explicitly capped navigation widths. Preserve at least 400px of article text at 1280px with the left navigation open. Release only the absent panel's space. Prevent content, tables, code blocks, header controls, and fixed custom-time controls from being obscured.
+4. Below 1280px, collapse the ToC by default behind a labeled “On this page” toggle, using the left sidebar's open/close affordance. Opening it reveals a right-side drawer over the article, with no permanently reserved rail width. At 601–1279px, chat uses a 360px overlay; at 600px and below, use Kapa's full-screen mobile mode. Only one right-side overlay can be available at these widths. Test boundary widths, not just named devices.
 5. Replace the production footer Ask AI launcher with the first-party composer described in #7706 and a labeled top-navigation Ask AI button. The composer is centered near the bottom and capped at 386px; ensure it does not obscure final content or footer controls. No ToC is needed on the home, feature-board, or 404 pages; Ask AI remains available on home and feature-board, and is omitted on 404 and print.
 6. Composer submission opens chat and submits the exact question. Enter submits, Shift+Enter inserts a newline, IME composition does not submit, and whitespace disables send. Header opening starts/reopens chat without submitting. Existing shortcode, code-block, and version-detector entry points preserve their prefill behavior and product filters.
 7. The first-party composer and widget textarea are separate surfaces. Hide the first-party composer after handoff; do not move a vendor-owned textarea. Close restores the initiating control's focus and the appropriate ToC. Keep the same widget instance so conversation history survives close/reopen.
 8. Use body `data-ask-ai-state="loading|ready|opening|open|error"`, `[data-page-rail]`, and `data-theme="light|dark"`. The chat controller owns state and registers widget callbacks once. Drive the open state from the actual widget event; retain a draft and restore usable controls on load/render/open failure.
 9. ToC links retain real fragment URLs. Use safe DOM construction, plain-click navigation with the actual fixed-header offset, reduced-motion handling, initial hash/back/forward updates, and `aria-current="location"` for the active entry. Avoid a second competing handler from `content-interactions.js`.
 
+### Screenshot reference and desktop layout feasibility
+
+The user supplied ChatGPT documentation captures at 1280×1024 and 1920×1080.
+Both show left navigation, an article, its ToC, and a far-right Docs agent panel simultaneously.
+The smaller capture gives much less width to the article.
+Use the browser's emulated CSS viewport dimensions, not the scaled screenshot canvas or the width remaining beside DevTools.
+The screenshots establish the requested visual behavior; they do not establish the reference site's exact dimensions, CSS mechanism, or Kapa support.
+
+The [product spec's width budget](../product-specs/site-wide-article-navigation-and-ask-ai.md#desktop-width-budget) assigns 240px to left navigation, 416px to article text, 200px to ToC, 360px to chat, and 64px to all remaining spacing at 1280px.
+These border-box budgets replace the existing percentage split and nested article padding for eligible layouts.
+Use a shared scoped layout with separate article, ToC, and chat reservations, keeping the left sidebar's saved open/closed behavior.
+The article column can shrink with `min-width: 0`; code and tables scroll locally, and navigation labels wrap.
+Count every margin, border, padding, gap, and scrollbar before claiming the reading-space floor is met.
+Audit `.page-wrapper`, `.sidebar`, `.content-wrapper`, `.article`, API layout overrides, and `sidebar-closed.scss` together so the alternate stylesheet cannot undo the compact layout or restore space for a closed column.
+Fit header/search/product selectors and custom-time controls to the documentation area left of chat.
+
+Before completing the feature, compare two bounded layouts on actual Hugo regular and API pages at 1280px: a 360px compact chat and the previous 386px chat width.
+The initial 360px choice preserves 26px more reading space.
+Review both alongside 1920px, preserve the existing font sizes, and validate the chosen configuration with the live vendor sidebar.
+Separate desktop columns must support nonmodal article/ToC interaction; a vendor focus trap, page backdrop, or inert documentation area fails the coexistence requirement.
+Resolve any unsupported vendor width or interaction before continuing beyond layout exploration.
+Keep this comparison and browser evidence in the existing scenario harness; no production layout or vendor validation has been performed for this plan revision.
+
 ### Responsive ToC collapse
 
-The left sidebar supplies the visual precedent, but its current implementation has two behaviors: `assets/js/sidebar-toggle.js` swaps alternate stylesheets and saves the left-sidebar preference; at 800px and below, `content-interactions.js:97` instead toggles the inline navigation tree. Reuse the open/close affordance for the right ToC through its own controller and scoped styles, with the requested 1280px breakpoint. Keep left and right state independent.
+The left sidebar supplies the visual precedent, but its current implementation has two behaviors: `assets/js/sidebar-toggle.js` swaps alternate stylesheets and saves the left-sidebar preference; at 800px and below, `content-interactions.js:97` instead toggles the inline navigation tree. Reuse the open/close affordance for the right ToC through its own controller and scoped styles below 1280px. Keep left and right state independent.
 
-- **Above 1280px:** show the sticky ToC rail whenever chat is closed.
-- **At 1280px and below:** start collapsed; keep the toggle outside the hidden drawer and reachable below the fixed header. Use a right-edge open/close control on larger screens and a compact labeled control on phones. Expose `aria-expanded` and `aria-controls` on a real button; hide the toggle when there are no entries.
+- **At 1280px and above:** show the sticky ToC rail with chat closed, opening, open, or failed. Reserve a separate chat column only when the actual open event confirms chat visibility.
+- **Below 1280px:** start collapsed; keep the toggle outside the hidden drawer and reachable below the fixed header. Use a right-edge open/close control on larger screens and a compact labeled control on phones. Expose `aria-expanded` and `aria-controls` on a real button; hide the toggle when there are no entries.
 - **Expanded drawer:** constrain its width to the viewport and its height below the header; scroll its entries independently. Opening it must not squeeze the article between two sidebars or obscure its own close control. Close on Escape, outside activation, or plain ToC-link selection; preserve modified-link behavior and reduced-motion preferences. Return focus to the toggle on dismissal and to the target heading on link selection.
-- **Chat handoff:** save the drawer's expanded/collapsed state, close it, and hide its toggle while chat owns the right side. Restore that state and the appropriate initiating focus when chat closes, keeping article scroll and selected tabs intact.
-- **Resize:** switch between the desktop rail and narrow drawer without duplicating links or leaving hidden controls focusable. Keep the last narrow-screen choice within the current page; entering the narrow layout for the first time starts collapsed. Chat ownership takes precedence at every width.
+- **Chat handoff:** on narrow screens, save the drawer's expanded/collapsed state, close it, and hide its toggle during handoff and open chat. Restore that state on failure or close. Desktop handoff leaves navigation available. Close restores initiating focus without resetting article scroll or selected tabs.
+- **Resize:** switch between the desktop rail and narrow drawer without duplicating links or leaving hidden controls focusable. Keep the last narrow-screen choice within the current page; entering the narrow layout for the first time starts collapsed. An open chat suspends narrow drawer access, but widening to 1280px restores the ToC beside chat. Keep one vendor instance, query history, and selected tabs; do not resubmit or reopen on resize. Preserve the current reading target across reflow; move focus only if its control becomes hidden.
 
 ## Kapa API grounding and corrections to #7706
 
 Use the existing Website Widget and product/version data; this plan does not require React or the Chat SDK.
 The current [theming reference](https://docs.kapa.ai/integrations/website-widget/configuration/theming) confirms `data-view-mode="sidebar"` and a host theme selector.
-Its sidebar defaults include a **600px** modal, so explicitly override width to 386px and remove old modal offsets/positioning that would override sidebar defaults.
+Its sidebar defaults include a **600px** modal, so explicitly override width to the shared responsive value, 360px through 1440px and 386px above it, and remove old modal offsets/positioning that would override sidebar defaults.
+Verify that supported vendor configuration can follow this value on resize without recreating the widget or losing conversation history.
 Use current documented configuration names instead of copying legacy attributes unchanged.
 
 The [functions reference](https://docs.kapa.ai/integrations/website-widget/javascript-api/functions) documents `open({ mode, query, submit })`, asynchronous `render({ onRender })`, and `setSourceGroupIDs(ids)`.
@@ -74,15 +100,16 @@ Apply source filtering through `setSourceGroupIDs()` before opening/submitting, 
 Script load alone is not sufficient evidence that the widget has rendered.
 
 The [events reference](https://docs.kapa.ai/integrations/website-widget/javascript-api/events) confirms callable event registration and open, close, and query-submit callbacks.
-Use them for ownership, focus handoff, and draft acknowledgment.
-Actual vendor focus behavior, width overrides, and close/reopen history still require a live-widget browser smoke check; deterministic mocks cannot prove them.
+Use them for layout coordination, focus handoff, and draft acknowledgment.
+Actual vendor nonmodal desktop interaction, focus behavior, responsive width overrides, and close/reopen history still require a live-widget browser smoke check; deterministic mocks cannot prove them.
 
 ## Implementation sequence
 
 ### 1. Establish shared ToC and article layout
 
 - Add the shared rail partial and styles. Wire regular single/section layouts through the article wrapper; add `[data-page-rail]` to every API ToC variant. Audit custom layouts separately rather than assuming every `.article--content` needs a ToC.
-- Add the independent ToC collapse control and drawer state at widths up to 1280px. Preserve the left sidebar's own preference and mobile navigation behavior; cover keyboard dismissal, target focus, and resize transitions.
+- Establish the four-column desktop budget first, including scoped left-navigation sizing, reduced article padding, separate ToC/chat width reservations, and header/custom-time clearance. Compare 360px and 386px chat prototypes at 1280px and the wider 1920px case on regular and API pages. Validate actual Kapa nonmodal sidebar behavior before completing the feature.
+- Add the independent ToC collapse control and drawer state only below 1280px. Preserve the left sidebar's own preference and mobile navigation behavior; cover keyboard dismissal, target focus, and resize transitions. Replace existing API hide rules at 1280px, and release space for absent panels.
 - Extract common navigation behavior from `assets/js/components/api-toc.ts` into a registered page-ToC component, keeping the API operation adapter. Keep server-rendered API links usable before JS initialization.
 - Resolve regular headings from rendered content, scope discovery to the article, and refresh on ordinary tab/accordion visibility changes and relevant resize events. Observe bounded content, not the whole body or the ToC's own DOM. Disconnect obsolete observers and debounce refresh.
 - Address the confirmed encoding/click/motion gaps and the coordinate-system risk. Preserve API order and the feedback exclusion introduced by commit `fc71d9119`.
@@ -95,11 +122,11 @@ Actual vendor focus behavior, width overrides, and close/reopen history still re
 - Synchronize body theme state from the real theme switch. Validate the Hugo/TypeScript asset pipeline resolves the new imports; the current controller imports compiled `ask-ai.js` while its authored source is `ask-ai.ts`.
 - Stub Kapa deterministically in `cypress/e2e/content/ask-ai.cy.js`; cover delayed readiness, script/render failures, duplicate submissions, IME, source groups, and close/reopen history. Add top-navigation coverage for the labeled button.
 
-### 3. Integrate ownership and responsive behavior
+### 3. Integrate layout coordination and responsive behavior
 
-- Connect actual open/close events to the shared rail and composer state on regular, shared-content, and API pages.
-- Check 1440px, 1024px, 390px, plus 1280/1281px, 800/801px, and 600/601px; test both themes, left sidebar open/closed, ToC collapsed/expanded, long code/table content, no-heading pages, print, and restored scroll/focus after close. Include resizing with the drawer or chat open.
-- Complete one live Kapa smoke check to validate supported sidebar presentation and focus. Keep the automated suite independent of external answers and network timing.
+- Connect actual open/close events to independent desktop panel reservations and narrow overlay exclusion on regular, shared-content, and API pages. Handoff must not hide the desktop ToC; failure must not leave a blank chat column.
+- Check the supplied 1280×1024 and 1920×1080 cases, plus 1440px, 1024px, 390px, 1279/1280/1281px, 1440/1441px, 800/801px, and 600/601px. Test both themes, left sidebar open/closed, ToC collapsed/expanded, long code/table content, no-heading pages, print, and restored scroll/focus after close. At 1280px, verify at least 400px of article text, nonoverlapping bounds, and ToC navigation while chat stays open. Include resizing with the drawer or chat open.
+- Complete one live Kapa smoke check to validate responsive sidebar presentation, nonmodal desktop interaction, focus, and history across resize. Keep the automated suite independent of external answers and network timing.
 
 ## Acceptance and evidence
 
@@ -109,8 +136,8 @@ Actual vendor focus behavior, width overrides, and close/reopen history still re
 | API navigation preserves operation ordering and anchors | Existing API suite plus actual navigation/active-state assertions | Shipped; fresh full-suite run blocked |
 | Tabs, accordions, scroll, history, keyboard, and reduced motion work | Focused ToC runtime suite through public behavior | Component gaps identified |
 | Chat replaces the footer launcher and hands off exact questions | Stubbed widget/composer tests, including delayed readiness and retry | Unimplemented |
-| Exactly one desktop rail owns the space | Browser layout bounds before open, while open, after close | Unimplemented |
-| Collapsed ToC remains reachable at widths up to 1280px; drawer, chat, print, and themes remain usable | Boundary-width checks; drawer dismissal/target focus; chat-state restoration; keyboard QA | Unimplemented |
+| Desktop ToC and chat coexist at 1280px and above | Nonoverlapping article/ToC/chat bounds, at least 400px article text at 1280px, ToC and chat interaction, and screenshots at 1280×1024 and 1920×1080 | Unimplemented |
+| Below 1280px, the ToC drawer remains reachable and only one right-side overlay is available; print and themes remain usable | Boundary-width checks; drawer dismissal/target focus; chat-state restoration; keyboard QA; resize with chat open | Unimplemented |
 | Product filters and legacy prefill entry points remain correct | Explicit group-setting and query assertions in mocked Kapa calls | Unverified |
 | Real vendor sidebar/focus/history matches the integration | Live-widget smoke test after deterministic suites pass | Unverified |
 
@@ -168,14 +195,20 @@ Add home, feature-board, 404, and an empty-heading article to the exclusion chec
 
 The implementation boundaries are also the browser observation boundaries:
 
-- **Article/rail layout:** `layouts/partials/article.html`, the API `aside.api-toc` variants, and `_content-wrapper.scss`/`_api-layout.scss`. Measure article and rail bounding rectangles together; check sticky placement after a long scroll and interference from the left navigation/custom-time control. Add `[data-page-rail]` here as planned.
+- **Article/panel layout:** `.page-wrapper`, `layouts/partials/article.html`, the API `aside.api-toc` variants, `_sidebar.scss`, `sidebar-closed.scss`, `_article.scss`, and `_content-wrapper.scss`/`_api-layout.scss`. Measure article text, ToC, chat, and left-navigation bounding rectangles together; check sticky placement after a long scroll and interference from the header/custom-time control. Assert separate desktop space reservations and released space after close or empty ToC. Add `[data-page-rail]` here as planned.
 - **Navigation behavior:** `assets/js/components/api-toc.ts` and the component registration in `assets/js/main.js`. Inspect real links and active classes now; use `aria-current` once implemented. `window.influxdatadocs.componentRegistry` and `.instances` help identify initialized elements, but constructors do not consistently return controllers, so these are not dependable state-control APIs.
 - **Chat readiness/events:** `assets/js/ask-ai.ts:125` loads `https://widget.kapa.ai/kapa-widget.bundle.js`. Intercept that request before navigation in Cypress/Puppeteer and supply a callable Kapa mock implementing render/open/close/group-setting and event callbacks. A visual scenario also needs a minimal rendered sidebar; method spies alone cannot establish layout. Keep injection in the browser harness, without adding a production state-override parameter.
-- **Ownership/theme state:** Observe the proposed body `data-ask-ai-state`, `data-theme`, and `[data-page-rail]` through real controls and mock widget events. These markers are planned, not present today. Do not manufacture them directly as proof that the integration works.
+- **Layout/theme state:** Observe the proposed body `data-ask-ai-state`, `data-theme`, and `[data-page-rail]` through real controls and mock widget events. These markers are planned, not present today. Do not manufacture them directly as proof that the integration works.
 
 For the minimum repeatable harness, create the page, set its viewport, install request interception and startup state, attach error listeners, and only then navigate. Reuse `takeScreenshot()` and `compareScreenshots()` rather than adding a visual-testing dependency. Wait for `document.fonts.ready`, the expected component/widget state, and settled layout after resize/tab/scroll interactions; `networkidle2` alone is not a readiness contract. Save route/viewport/theme/state-named captures and diffs outside the Cypress runner's cleaned screenshot directories.
 
-Capture the desktop ToC, narrow ToC collapsed and expanded, focused composer/draft, delayed loading, chat open with a long answer, failure with retained draft, and close/reopen with restored drawer state/scroll/focus. Iterate first at 1440×900 in both themes, then 1024px and 390px, and check 1280/1281px, 800/801px, and 600/601px boundaries. Include both left-sidebar states and resizing while a panel is open. Pair screenshots with bounds/focus/scroll assertions; require human review of initial baselines. Finish with one live Kapa smoke check in a normal browser to verify vendor rendering, focus, and history. The helper's development browser disables web security, so it does not establish production cross-origin behavior.
+Capture desktop ToC with chat closed and open, narrow ToC collapsed and expanded, focused composer/draft, delayed loading, chat open with a long answer, failure with retained draft, and close/reopen with restored drawer state/scroll/focus.
+Iterate first at 1280×1024 and 1920×1080 in both themes, then 1440px, 1024px, and 390px; check 1279/1280/1281px, 1440/1441px, 800/801px, and 600/601px boundaries.
+Include both left-sidebar states and resize across those thresholds with chat open, confirming retained history, reading position, and the return of the ToC at 1280px.
+At 1280px, select a ToC entry while chat stays open, interact with the article and chat input, and assert a text-area width of at least 400px.
+Pair screenshots with bounds/focus/scroll assertions; require human review of initial baselines.
+Finish with one live Kapa smoke check in a normal browser to verify vendor rendering, responsive width, nonmodal desktop interaction, focus, and history.
+The helper's development browser disables web security, so it does not establish production cross-origin behavior.
 
 This follow-up inspected source and configuration only. No browser capture or visual comparison was executed; the execution limits below still apply.
 
@@ -190,7 +223,7 @@ This follow-up inspected source and configuration only. No browser capture or vi
 
 ## Remaining work and scope boundaries
 
-The shared article ToC rollout, chat/composer replacement, shared layout ownership, and browser acceptance coverage remain to be implemented.
+The shared article ToC rollout, chat/composer replacement, separate desktop panel layout, narrow overlay coordination, and browser acceptance coverage remain to be implemented.
 Use #7706 as the existing chat reference. The documentation PR records the site-wide extension without closing the implementation issue.
 Leave the left navigation tree, API spec migration, article content rewrites, and unrelated UI issues outside this feature.
 This plan was promoted from root `PLAN.md` so the reviewed requirements can remain in the repository. The linked spec defines required behavior, and the execution-plan record explains the decisions.
