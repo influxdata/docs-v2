@@ -6,9 +6,16 @@ import * as localStorage from './services/local-storage.js';
 // Placeholder start date used in InfluxDB custom timestamps
 const defaultStartDate = '2022-01-01';
 
-// Return yyyy-mm-dd formatted string from a Date object
+// Return yyyy-mm-dd formatted string from a Date object, using the local
+// calendar date. The date picker returns local midnight of the selected day;
+// toISOString() would convert that to UTC first, which yields the previous
+// day for readers east of UTC.
 function formatDate(dateObj) {
-  return dateObj.toISOString().replace(/T.*$/, '');
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }
 
 // Return yesterday's date

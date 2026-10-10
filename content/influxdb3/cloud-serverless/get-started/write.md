@@ -114,32 +114,32 @@ The following line protocol sample represents data collected hourly beginning at
 ##### Home sensor data line protocol
 
 ```text
-home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719924000
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719924000
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719927600
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719927600
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719931200
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719931200
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719934800
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719934800
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719938400
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719938400
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719942000
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719942000
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719945600
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719945600
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719949200
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719949200
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719952800
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719952800
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719956400
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719956400
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719960000
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719960000
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719963600
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719963600
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719967200
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719967200
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ```
 
 {{% /influxdb/custom-timestamps %}}
@@ -214,32 +214,32 @@ The UI confirms that the data has been written successfully.
 influx write \
   --bucket get-started \
   --precision s "
-home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719924000
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719924000
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719927600
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719927600
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719931200
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719931200
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719934800
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719934800
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719938400
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719938400
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719942000
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719942000
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719945600
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719945600
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719949200
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719949200
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719952800
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719952800
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719956400
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719956400
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719960000
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719960000
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719963600
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719963600
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719967200
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719967200
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
 
@@ -265,32 +265,32 @@ Use [Telegraf](/telegraf/v1/) to consume line protocol, and then write it to
 
     ```sh
     cat <<- EOF > home.lp
-    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719924000
-    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719924000
-    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719927600
-    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719927600
-    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719931200
-    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719931200
-    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719934800
-    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719934800
-    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719938400
-    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719938400
-    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719942000
-    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719942000
-    home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719945600
-    home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719945600
-    home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719949200
-    home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719949200
-    home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719952800
-    home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719952800
-    home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719956400
-    home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719956400
-    home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719960000
-    home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719960000
-    home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719963600
-    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719963600
-    home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719967200
-    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719967200
+    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+    home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+    home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+    home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+    home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+    home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+    home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+    home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+    home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+    home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+    home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+    home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+    home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
     EOF
     ```
 
@@ -676,32 +676,32 @@ dependencies to your current project.
     )
 
     lines = [
-        "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719924000",
-        "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719924000",
-        "home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719927600",
-        "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719927600",
-        "home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719931200",
-        "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719931200",
-        "home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719934800",
-        "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719934800",
-        "home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719938400",
-        "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719938400",
-        "home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719942000",
-        "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719942000",
-        "home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719945600",
-        "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719945600",
-        "home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719949200",
-        "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719949200",
-        "home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719952800",
-        "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719952800",
-        "home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719956400",
-        "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719956400",
-        "home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719960000",
-        "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719960000",
-        "home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719963600",
-        "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719963600",
-        "home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719967200",
-        "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719967200"
+        "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000",
+        "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
+        "home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600",
+        "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
+        "home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200",
+        "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
+        "home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800",
+        "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
+        "home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400",
+        "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
+        "home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000",
+        "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
+        "home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600",
+        "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
+        "home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200",
+        "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
+        "home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800",
+        "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
+        "home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400",
+        "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
+        "home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000",
+        "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
+        "home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600",
+        "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
+        "home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200",
+        "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
     ]
 
     client.write(lines,write_precision='s')
@@ -824,32 +824,32 @@ InfluxDB 3 [influxdb3-go client library package](https://github.com/InfluxCommun
       // to preserve backslashes and prevent interpretation
       // of escape sequences--for example, escaped spaces in tag values.
       lines := [...]string{
-        `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719124000`,
-        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719124000`,
-        `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719127600`,
-        `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719127600`,
-        `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719131200`,
-        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719131200`,
-        `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719134800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719134800`,
-        `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719138400`,
-        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719138400`,
-        `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719142000`,
-        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719142000`,
-        `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719145600`,
-        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719145600`,
-        `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719149200`,
-        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719149200`,
-        `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719152800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719152800`,
-        `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719156400`,
-        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719156400`,
-        `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719160000`,
-        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719160000`,
-        `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719163600`,
-        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719163600`,
-        `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719167200`,
-        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719167200`,
+        `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
+        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
+        `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
+        `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600`,
+        `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
+        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
+        `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
+        `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
+        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
+        `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
+        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
+        `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
+        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
+        `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
+        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
+        `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
+        `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
+        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
+        `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
+        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
+        `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
+        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
+        `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
+        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
       }
 
       // Iterate over the lines array and write each line
@@ -1000,32 +1000,32 @@ the failure message.
       * Define line protocol records to write.
       */
       const records = [
-        `home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1719124000`,
-        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719124000`,
-        `home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1719127600`,
-        `home,room=Kitchen temp=23.0,hum=36.2,co=0 1719127600`,
-        `home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1719131200`,
-        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719131200`,
-        `home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1719134800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719134800`,
-        `home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1719138400`,
-        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719138400`,
-        `home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1719142000`,
-        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719142000`,
-        `home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1719145600`,
-        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719145600`,
-        `home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1719149200`,
-        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719149200`,
-        `home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1719152800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719152800`,
-        `home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1719156400`,
-        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719156400`,
-        `home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1719160000`,
-        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719160000`,
-        `home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1719163600`,
-        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719163600`,
-        `home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1719167200`,
-        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719167200`,
+        `home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
+        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
+        `home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
+        `home,room=Kitchen temp=23.0,hum=36.2,co=0 1641027600`,
+        `home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
+        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
+        `home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
+        `home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
+        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
+        `home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
+        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
+        `home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
+        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
+        `home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
+        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
+        `home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
+        `home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
+        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
+        `home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
+        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
+        `home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
+        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
+        `home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
+        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
       ];
 
       /**
@@ -1197,32 +1197,32 @@ the failure message.
           * escaped spaces in tag values.
           */
         string[] lines = new string[] {
-              "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1719924000",
-              "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719924000",
-              "home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1719927600",
-              "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719927600",
-              "home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1719931200",
-              "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719931200",
-              "home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1719934800",
-              "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719934800",
-              "home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1719938400",
-              "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719938400",
-              "home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1719942000",
-              "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719942000",
-              "home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1719945600",
-              "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719945600",
-              "home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1719949200",
-              "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719949200",
-              "home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1719952800",
-              "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719952800",
-              "home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1719956400",
-              "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719956400",
-              "home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1719960000",
-              "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719960000",
-              "home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1719963600",
-              "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719963600",
-              "home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1719967200",
-              "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719967200"
+              "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000",
+              "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
+              "home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600",
+              "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
+              "home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200",
+              "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
+              "home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800",
+              "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
+              "home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400",
+              "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
+              "home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000",
+              "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
+              "home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600",
+              "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
+              "home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200",
+              "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
+              "home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800",
+              "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
+              "home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400",
+              "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
+              "home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000",
+              "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
+              "home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600",
+              "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
+              "home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200",
+              "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
         };
 
         // Write each record separately.
@@ -1401,32 +1401,32 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
             token, database)) {
                 // Create a list of line protocol records.
                 final List<String> records = List.of(
-                  "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1719924000",
-                  "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719924000",
-                  "home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1719927600",
-                  "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719927600",
-                  "home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1719931200",
-                  "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719931200",
-                  "home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1719934800",
-                  "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719934800",
-                  "home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1719938400",
-                  "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719938400",
-                  "home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1719942000",
-                  "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719942000",
-                  "home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1719945600",
-                  "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719945600",
-                  "home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1719949200",
-                  "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719949200",
-                  "home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1719952800",
-                  "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719952800",
-                  "home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1719956400",
-                  "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719956400",
-                  "home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1719960000",
-                  "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719960000",
-                  "home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1719963600",
-                  "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719963600",
-                  "home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1719967200",
-                  "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719967200"
+                  "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000",
+                  "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
+                  "home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600",
+                  "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
+                  "home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200",
+                  "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
+                  "home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800",
+                  "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
+                  "home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400",
+                  "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
+                  "home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000",
+                  "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
+                  "home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600",
+                  "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
+                  "home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200",
+                  "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
+                  "home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800",
+                  "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
+                  "home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400",
+                  "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
+                  "home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000",
+                  "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
+                  "home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600",
+                  "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
+                  "home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200",
+                  "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
                 );
 
                 /**
