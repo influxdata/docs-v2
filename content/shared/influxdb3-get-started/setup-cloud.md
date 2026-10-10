@@ -27,6 +27,12 @@ After your instance is provisioned, InfluxData provides your instance
 You authenticate with your InfluxData account in the following steps.
 You don't copy or store a token for interactive use.
 
+You can also manage your instance in the {{% product-name %}} Admin UI at
+[console.influxdata.com](https://console.influxdata.com).
+Sign in with the same InfluxData account to view your instance and to manage
+databases, tokens, and [users](/influxdb3/cloud/admin/users/admin-ui/).
+This guide uses the `influxdb3` CLI.
+
 ## Configure the influxdb3 CLI
 
 The [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/) lets you
