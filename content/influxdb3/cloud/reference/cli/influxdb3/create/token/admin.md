@@ -16,6 +16,7 @@ Create a named administrator token.
 > #### Operator tokens in InfluxDB 3 Cloud
 >
 > InfluxData manages the operator token for your {{% product-name %}} instance.
+> Customers cannot access or use the operator token.
 > The operator token never expires and cannot be edited or deleted.
 
 ## Usage
