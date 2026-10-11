@@ -49,26 +49,8 @@ Obtain explicit authorization before executing it in that session.
 Network destinations belong in environment settings, not a shell script. For
 the current docs UI, allow the Google font origins, the Kapa origins, and the
 reCAPTCHA origins needed by the loaded widget. In addition to the package-manager
-preset, preparation identified these custom hosts:
-
-```text
-api.github.com
-api.kapa.ai
-cdn.cypress.io
-docs.influxdata.com
-download.cypress.io
-fonts.googleapis.com
-fonts.gstatic.com
-influxdata-research-ext.mcp.kapa.ai
-kapa-widget-proxy-la7dkmplpq-uc.a.run.app
-metrics.kapa.ai
-proxy.kapa.ai
-recaptcha.google.com
-widget.kapa.ai
-www.google.com
-www.googletagmanager.com
-www.gstatic.com
-```
+preset, add the custom hosts in [allowed-hosts.txt](allowed-hosts.txt).
+The file lists one hostname per line; it does not apply the network policy.
 
 Collect failed destinations from a representative browser run and review additions
 together. Allowlisting does not resolve certificate errors or prove a widget works.
