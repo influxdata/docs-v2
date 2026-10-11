@@ -11,8 +11,10 @@ export default function SearchInteractions({ searchInput }) {
 
   // Fade content wrapper when focusing on search input
   function handleFocus() {
-    contentWrapper.style.opacity = '0.35';
-    contentWrapper.style.transition = 'opacity 300ms';
+    if (contentWrapper) {
+      contentWrapper.style.opacity = '0.35';
+      contentWrapper.style.transition = 'opacity 300ms';
+    }
   }
 
   // Hide search dropdown when leaving search input
@@ -27,8 +29,10 @@ export default function SearchInteractions({ searchInput }) {
       return;
     }
 
-    contentWrapper.style.opacity = '1';
-    contentWrapper.style.transition = 'opacity 200ms';
+    if (contentWrapper) {
+      contentWrapper.style.opacity = '1';
+      contentWrapper.style.transition = 'opacity 200ms';
+    }
 
     // Hide dropdown if it exists
     if (dropdownMenu) {
