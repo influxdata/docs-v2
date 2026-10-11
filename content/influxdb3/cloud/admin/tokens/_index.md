@@ -32,6 +32,7 @@ authorize actions in your instance.
   resources in the instance.
   - **Operator token**: The first admin token on an instance. InfluxData
     manages the operator token for your {{% product-name %}} instance.
+    Customers cannot access or use the operator token.
     - Never expires
     - Cannot be edited or deleted
   - **Named admin tokens**: Additional admin tokens that you create and manage.
