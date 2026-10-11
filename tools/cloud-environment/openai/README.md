@@ -64,10 +64,7 @@ Obtain explicit authorization before retrying the import in that session.
 
 Configure network destinations in environment settings instead of a shell script.
 For the current docs UI, allow the Google font origins, the Kapa origins, and the reCAPTCHA origins needed by the loaded widget.
-In addition to the package-manager preset, add the custom hosts in [the network allowlist](allowed-hosts.txt).
-The file lists one hostname per line.
-It doesn't apply the network policy.
-The [JSON reference](allowlist-reference.json) records the same custom hosts for manual configuration review.
+In addition to the package-manager preset, add the custom hosts in [JSON reference](allowlist-reference.json), which records the custom hosts for manual configuration review.
 Setup and startup scripts can't apply either file.
 
 Collect failed destinations from a representative browser run.
