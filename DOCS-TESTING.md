@@ -61,6 +61,11 @@ LEFTHOOK=0 git push
 
 Code block **execution** runs on demand via `workflow_dispatch`, not automatically on PRs.
 
+For shared-source changes, CI resolves affected consumers from their `source:` values without requiring a stub diff.
+Style checks use `.github/scripts/resolve-shared-content.sh`; link checks map changed sources to rendered pages with `link-checker map --existing-only`.
+CI uses fresh Hugo builds when rendering is needed, so checks don't depend on local timestamps or stub edits.
+The touch-or-restart workaround applies to a running development server; see [local previews of shared content](DOCS-FRONTMATTER.md#local-previews-of-shared-content).
+
 ## Code Block Testing
 
 Code block testing runs shell and Python examples using [pytest-codeblocks](https://github.com/nschloe/pytest-codeblocks/tree/main).
