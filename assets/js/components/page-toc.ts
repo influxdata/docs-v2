@@ -94,8 +94,17 @@ export default function PageToc({ component }: ComponentOptions): void {
     if (
       !desktop.matches &&
       expanded &&
+      !['loading', 'opening', 'open'].includes(
+        document.body.dataset.askAiState || ''
+      ) &&
       event.target instanceof Node &&
-      !component.contains(event.target)
+      !component.contains(event.target) &&
+      !(
+        event.target instanceof Element &&
+        event.target.closest(
+          '[data-ask-ai-action="open"], .ask-ai-open, .ask-ai-composer'
+        )
+      )
     )
       dismiss();
   });
@@ -108,6 +117,14 @@ export default function PageToc({ component }: ComponentOptions): void {
       if (link === active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
+    if (active && nav && !nav.hidden) {
+      const scroller = desktop.matches ? component : nav;
+      const panel = scroller.getBoundingClientRect();
+      const entry = active.getBoundingClientRect();
+      if (entry.top < panel.top) scroller.scrollTop += entry.top - panel.top;
+      else if (entry.bottom > panel.bottom)
+        scroller.scrollTop += entry.bottom - panel.bottom;
+    }
   }
 
   function highlight(): void {

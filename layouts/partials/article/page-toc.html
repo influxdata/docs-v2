@@ -1,4 +1,12 @@
-<aside class="api-toc" data-page-rail data-component="page-toc" data-toc-depth="{{ .Params.toc_depth | default 2 }}" aria-label="On this page">
+<aside class="api-toc" data-page-rail data-component="page-toc" data-toc-depth="{{ .Page.Params.toc_depth | default 2 }}" aria-label="On this page">
   <h4 class="api-toc-header">On this page</h4>
-  <nav class="api-toc-nav"></nav>
+  <nav class="api-toc-nav">
+    {{ range .Operations }}
+    {{ $anchor := printf "#operation/%s" .operationId }}
+    <a href="{{ $anchor | safeURL }}" class="api-toc-link api-toc-link--operation">
+      <span class="api-method api-method--{{ lower .method }} api-method--small">{{ upper .method }}</span>
+      <span class="api-toc-summary">{{ with .summary }}{{ . }}{{ else }}{{ .path }}{{ end }}</span>
+    </a>
+    {{ end }}
+  </nav>
 </aside>

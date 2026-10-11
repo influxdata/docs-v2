@@ -1,6 +1,6 @@
 # Site-wide article ToC and Ask AI sidebar
 
-**Status:** Partial implementation checkpoint; blocked on live Kapa browser verification.
+**Status:** Implementation verification in progress. The scoped Website Widget adapter is approved and implemented; live layout and desktop keyboard checks pass. Live answer and history verification await network access.
 **Review PR:** [#7873](https://github.com/influxdata/docs-v2/pull/7873).
 **Reviewed:** 2026-10-09.
 **Review baseline:** GitHub `master` and local `work` both resolved to `f5a42077a16bb8334b92e077e882f57f893ebd25` on 2026-10-09. Master advanced by three commits to `dc9ce95938ea92a8d9bcc98bc33b73b81afbecf6` before publication on 2026-10-10; those commits change article content, not the reviewed UI implementation.
@@ -259,7 +259,7 @@ Stop if required browser verification becomes unavailable.
 This checkpoint intentionally includes a failing handoff test. Complete its implementation before treating the branch as mergeable.
 These checks do not establish the complete spec, API compatibility, the desktop chat width budget, or live widget behavior.
 
-### Live browser verification blocker
+### Previous live browser verification blocker
 
 Chromium works with the environment's approved execution permissions.
 The bundle loads from `widget.kapa.ai`, but live browser requests to `proxy.kapa.ai` and `metrics.kapa.ai` fail with `net::ERR_TUNNEL_CONNECTION_FAILED`.
@@ -284,3 +284,117 @@ Use the direct Cypress CLI with the available browser. In this environment the r
 That runner exit status is not browser evidence.
 Give Hugo builds at least 180 seconds and never cancel a running build.
 Unrelated screenshot-tool edits and environment setup files remain outside this checkpoint.
+
+## Resumed live verification, 2026-10-10
+
+PR HEAD `00195741d307dbea307472a6a654ff91a1986d6c` was checked out without changing its existing commits.
+The new runtime enforces an allowlist containing `widget.kapa.ai` and `proxy.kapa.ai`.
+HTTPS requests to the proxy root return 404 with verified TLS, establishing reachability.
+Chromium also reaches that host when the environment proxy CA is available through its NSS trust store.
+`metrics.kapa.ai` remains denied by the environment proxy; a separate diagnostic observed its analytics loader failing with `ERR_TUNNEL_CONNECTION_FAILED`.
+
+The testing Hugo build initially failed because LibSass evaluates `min(300px, 100vw)` as incompatible units.
+Replacing it with `width: 300px; max-width: 100vw` preserves the intended drawer limit and lets the full testing site render.
+The rendered-heading component test, TypeScript compilation, and whitespace check passed again.
+
+### Reproducible vendor constraint
+
+Run the testing Hugo server on port 1315, then run:
+
+```sh
+PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium node scripts/puppeteer/kapa-sidebar-smoke.mjs
+```
+
+The script uses normal browser web security and certificate verification.
+It probes the live Website Widget on the sourced write-data article and saves JSON plus 1280px screenshots under `/tmp/docs-kapa-sidebar-smoke` by default.
+Its temporary page styles reserve a chat column for the width comparison; these are prototype evidence, not implemented production chat reservations.
+
+- Explicit `data-render-on-load="false"` followed by `render({ onRender })` provides render readiness. Calling `render` after the default automatic render does not provide a new readiness acknowledgment.
+- Both 360px and 386px widths render and update through `updateConfig` without replacing the widget instance.
+- At 1280px with left navigation and ToC visible, the 360px prototype leaves 448px of article text. The 386px prototype leaves 422px. Both meet the 400px floor on this regular article; API pages and other viewport cases remain unverified.
+- Supported pointer-event styles on the modal inner/content permit mouse activation of the ToC while chat is open. The live check navigates to `#line-protocol`.
+- The vendor still renders `aria-modal="true"`. After focusing its textarea, all 20 consecutive Tab presses stay inside `#kapa-widget-container`. The script exits 1 at the desktop keyboard-coexistence assertion.
+- The downloaded widget bundle passes no `trapFocus` override to its Mantine modal. The current [behavior reference](https://docs.kapa.ai/integrations/website-widget/configuration/behavior) exposes no focus-trap setting. The [sidebar theming defaults](https://docs.kapa.ai/integrations/website-widget/configuration/theming#sidebar) change sizing, positioning, and overlay presentation, not modal keyboard behavior.
+
+This is a vendor behavior failure, not a browser startup failure or proof that the proxy is unreachable.
+The agreed requirement above explicitly rejects a vendor focus trap and requires resolution before implementation continues beyond layout exploration.
+A user decision is pending on retaining the Website Widget until a supported vendor fix exists, approving a scoped vendor adapter, or revising the integration to use the Chat SDK.
+Do not silently relax the nonmodal requirement or treat this smoke check as a passing acceptance test.
+
+API integration, composer handoff, retained history, narrow-screen behavior, both-theme coverage, and the remaining acceptance scenarios are still pending.
+
+### Adapter versus Chat SDK
+
+The user requested a comparison before selecting an integration direction.
+No production vendor adapter or SDK migration is authorized by that comparison request.
+
+The live smoke harness accepts an optional `--adapter-prototype` argument after its output directory:
+
+```sh
+PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium node scripts/puppeteer/kapa-sidebar-smoke.mjs /tmp/docs-kapa-adapter-prototype --adapter-prototype
+```
+
+The prototype changes the vendor dialog to `aria-modal="false"` and intercepts only desktop Tab keydown events at the shadow root, allowing native focus traversal to skip the vendor trap.
+The live check then passes: Tab moves out of chat into document controls, and ToC mouse navigation still works.
+This establishes feasibility for this vendor bundle, not a production-ready accessibility adapter.
+It does not yet cover reverse Tab, screen-reader behavior, rerenders, mobile modal restoration, resize, or retained conversation history.
+
+| Choice                        | Benefit                                                                                                                                                 | Cost and risk                                                                                                                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scoped Website Widget adapter | Preserves the existing UI, analytics, source filtering, MCP menu, and Hugo/TypeScript stack. The desktop focus workaround has a working live prototype. | Depends on vendor shadow DOM and keyboard event ordering. Requires explicit desktop/narrow transitions, semantic restoration, structural guards, and a live vendor regression check. The widget bundle is loaded from an unversioned URL today.                                                                |
+| Chat SDK                      | Owns the sidebar DOM, keyboard behavior, responsive layout, and accessibility through a supported integration. Avoids patching the vendor modal.        | Introduces a client-only React island into this non-React site and makes the repository responsible for the chat UI, rendering answers/citations/code, feedback, error states, analytics callbacks, privacy text, and MCP menu parity. Requires a Chat SDK integration and enabled production/preview domains. |
+
+The [Chat SDK overview](https://docs.kapa.ai/dev/sdk) documents `@kapaai/react-sdk`, client-side CAPTCHA protection, and operation without a new backend or a browser API key.
+The [quickstart](https://docs.kapa.ai/dev/sdk/quickstart) requires a Chat SDK integration with enabled domains and a custom React UI.
+The [provider reference](https://docs.kapa.ai/dev/sdk/components/KapaProvider) supports source groups, fingerprint tracking, callbacks, and a replaceable API service for testing.
+Those supported capabilities reduce migration risk, but they do not supply the current Website Widget's complete interface.
+
+Recommendation for this PR: use the scoped adapter if preserving widget features and keeping implementation scope bounded is the priority, with desktop-only interception, narrow-screen modal behavior retained, and fresh live regression evidence.
+Choose the Chat SDK if owning the full chat experience is a deliberate longer-term direction and the added UI maintenance is acceptable.
+The implementation plan's existing Chat SDK exclusion must change before that migration begins.
+
+## Approved adapter implementation, 2026-10-11 UTC
+
+The user selected option 2, the scoped Website Widget adapter.
+The implementation keeps the existing widget and isolates the vendor-specific behavior in `assets/js/components/kapa-sidebar.ts`.
+At 1280px and above, it changes the widget dialog to nonmodal semantics and allows native Tab traversal past the vendor focus trap.
+Below 1280px, it restores modal semantics and vendor keyboard handling.
+An observer reapplies semantics after vendor rerenders; a changed dialog structure reports a retryable error.
+
+The composer controller owns lazy loading, API initialization, rendering, opening, and acknowledgment as separate phases.
+It uses one widget and retains a timed-out readiness promise so a retry cannot load a second instance or automatically resubmit a failed request.
+The documented query event clears only the matching submitted draft.
+Header, inline help, and code controls prefill without submitting, and source groups are set before each open.
+The shared Hugo rail now renders both regular headings and the existing sorted API operation links and method badges.
+
+Fresh live browser checks confirm 360px desktop chat through 1440px and 386px above it, native Tab leaving desktop chat, ToC coexistence, light/dark synchronization, and the 600/601px full-screen boundary.
+At 1280px, regular and API article text measures 448px with both rails visible.
+API header actions wrap to stay within that article column.
+The browser probe is `scripts/puppeteer/kapa-sidebar-smoke.mjs`; it writes screenshots and JSON evidence to its output directory.
+
+Live submissions reach the widget's acknowledgment event, but CAPTCHA verification times out while `www.google.com/recaptcha/enterprise.js` is blocked.
+The environment also blocks `metrics.kapa.ai`.
+The published configuration has not reached this running environment, which still reports enforced revision 6.
+The user authorized continuing without those live checks and will start a new session with the updated environment.
+A completed real answer and retained conversation must be checked there; this checkpoint does not claim those checks pass.
+
+### Verification checkpoint
+
+The production Hugo build passes. Chromium Cypress checks against that build pass all 15 tests across `ask-ai.cy.js`, `ask-ai-sidebar.cy.js`, and `page-toc.cy.js`.
+The three native browser component tests pass, including forward/reverse keyboard traversal and keeping the active link visible inside a scrolling ToC.
+`tsc --noEmit`, ESLint for the new controller/configuration/adapter and browser probes, and `git diff --check` pass.
+
+Run the component checks with:
+
+```sh
+PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium node --test assets/js/components/__tests__/page-toc.test.mjs scripts/__tests__/kapa-sidebar.test.mjs scripts/__tests__/page-toc-visibility.test.mjs
+```
+
+In the next session, check the enforced allowlist before rerunning the live probe against a locally served production build:
+
+```sh
+PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium node scripts/puppeteer/kapa-sidebar-smoke.mjs /tmp/docs-kapa-production-smoke
+```
+
+The probe must complete both real-answer and retained-history assertions before final live acceptance.
+The current implementation is a verified local checkpoint, with those two acceptance checks pending.

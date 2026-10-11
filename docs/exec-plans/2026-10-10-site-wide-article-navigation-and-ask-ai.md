@@ -1,6 +1,6 @@
 # Shared article navigation and chat layout
 
-Status: Partial implementation checkpoint in [PR #7873](https://github.com/influxdata/docs-v2/pull/7873). See the [checkpoint and resume sequence](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md#implementation-checkpoint-2026-10-10).
+Status: Implementation verification in progress in [PR #7873](https://github.com/influxdata/docs-v2/pull/7873). The user approved the scoped Website Widget adapter. Shared API/article rails and the composer/controller are implemented; live answer and history checks are deferred to a new session with the updated network policy, as authorized by the user. See the [approved adapter checkpoint](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md#approved-adapter-implementation-2026-10-11-utc).
 Refs: [#7706](https://github.com/influxdata/docs-v2/issues/7706) and [PR #6622](https://github.com/influxdata/docs-v2/pull/6622).
 Spec: [Site-wide article navigation and Ask AI sidebar](../product-specs/site-wide-article-navigation-and-ask-ai.md).
 Plan: [Grounded implementation plan](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md).
@@ -16,7 +16,7 @@ The API navigation shipped in #6622, while #7706 describes chat ownership and de
 This review combines those requirements.
 The supplied 1280×1024 and 1920×1080 ChatGPT documentation screenshots show that ToC and chat can coexist with left navigation.
 The 2026-10-10 refinement replaces the original exclusive-rail proposal with separate desktop columns, including at exactly 1280px.
-The regular article ToC has an initial implementation; API layout integration and chat remain pending.
+The shared article/API ToC and chat controller are implemented; verification is in progress.
 Publish the spec and reviewed plan before implementation so the layout and handoff rules have one reference.
 
 ## Decisions
@@ -49,3 +49,10 @@ Check the documentation diff for whitespace errors and verify all relative file 
 Run `node scripts/verify-changed.mjs --staged` to select repository checks.
 The original review found component-level gaps but could not run Cypress or browser captures in this environment.
 The spec's acceptance criteria remain pending until implementation provides fresh rendered-page, browser, and live-widget evidence.
+
+## Implementation checkpoint, 2026-10-11 UTC
+
+The production build, 15 Cypress checks, three native browser tests, TypeScript checks, and targeted ESLint checks pass.
+Live widget checks pass for desktop/narrow geometry, nonmodal desktop keyboard traversal, themes, left-navigation preferences, API anchors, and exact query acknowledgment.
+Real answer completion and retained history remain unverified because this runtime blocks the CAPTCHA and metrics hosts.
+The user authorized deferring these checks to a new session. See the design document's verification checkpoint for the rerun command.
