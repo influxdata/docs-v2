@@ -30,6 +30,9 @@ bash tools/cloud-environment/openai/maintenance.sh
 
 Sourcing `setup.sh` only exports paths and cache settings.
 `maintenance.sh` installs nothing.
+It verifies the Cypress binary, local browser rendering, and an allowed HTTPS resource under the current command's permissions.
+The default HTTPS resource is the Google reCAPTCHA bootstrap script.
+To use another allowed HTTPS resource, set `DOCS_BROWSER_HTTPS_URL`.
 Caches default to `/workspace/.cache`.
 Artifacts default to `/workspace/environment-artifacts/docs-v2`.
 For another writable environment, override `DOCS_CACHE_ROOT` and `DOCS_ENVIRONMENT_ARTIFACTS`.
@@ -50,22 +53,40 @@ Override `DOCS_BROWSER_NSS_DB` only if the selected Chromium uses another databa
 Before you change trust, close existing browser processes.
 Afterward, verify an allowed HTTPS origin.
 A successful import alone doesn't establish browser trust.
+Run `maintenance.sh` under the same permissions you use for browser tests.
+Chromium needs write access to its NSS database during browser execution.
+In the tested environment, that database is `/home/agent/.pki/nssdb`.
+If maintenance reports a read-only database, request a scoped filesystem write grant for that directory.
+Importing the CA during setup doesn't grant write access to later agent commands.
 
-A previous session's NSS import was rejected by automatic approval review.
-Including this script doesn't authorize retrying that rejected operation.
-Obtain explicit authorization before executing it in that session.
+If automatic approval review rejects a CA import, report the action and the stated reason.
+Obtain explicit authorization before retrying the import in that session.
 
 Configure network destinations in environment settings instead of a shell script.
 For the current docs UI, allow the Google font origins, the Kapa origins, and the reCAPTCHA origins needed by the loaded widget.
 In addition to the package-manager preset, add the custom hosts in [the network allowlist](allowed-hosts.txt).
 The file lists one hostname per line.
 It doesn't apply the network policy.
+The [JSON reference](allowlist-reference.json) records the same custom hosts for manual configuration review.
+Setup and startup scripts can't apply either file.
 
 Collect failed destinations from a representative browser run.
+Inspect bootstrap scripts for dependencies, such as reCAPTCHA's JavaScript on `www.gstatic.com`.
+Separate required script and API hosts from optional telemetry hosts.
 Review the additions together.
 Allowlisting doesn't resolve certificate errors or prove a widget works.
+After you publish an allowlist update, start a new session and verify its enforced policy.
 
 ## UI iteration
+
+If you test API reference pages, generate their content before you start the preview:
+
+```bash
+yarn build:api-docs
+```
+
+Verify that the affected API route and its CSS and JavaScript are present.
+A successful Hugo build alone doesn't establish that generated API pages exist.
 
 To start the preview, run:
 
@@ -90,6 +111,13 @@ node tools/cloud-environment/openai/browser-smoke.mjs http://127.0.0.1:1315/infl
 
 For visual inspection, use existing screenshot commands with an explicit viewport, Chrome path, base URL, and output location.
 The current generic Puppeteer helper disables web security, so its screenshots alone don't verify integration behavior.
+
+For live widget checks, observe callbacks and requests without replacing vendor methods.
+Across viewport changes, compare conversation content instead of all visible dialog text.
+Narrow layouts can hide controls, such as **Use MCP**, without losing the conversation.
+Record submission acknowledgment, answer completion, and retained conversation history as separate results.
+An acknowledged question doesn't establish a completed answer.
+If a required host is denied, finish independent checks and record the blocked criterion, host, policy revision, and rerun command.
 
 ## Snapshot qualification
 
@@ -119,5 +147,5 @@ for script in tools/cloud-environment/openai/*.sh; do bash -n "$script" || exit;
 node --test tools/cloud-environment/openai/setup.test.mjs
 ```
 
-The tests configure temporary shells only.
+The tests configure temporary shells and simulate readiness failures.
 They don't install Cypress or change browser trust.

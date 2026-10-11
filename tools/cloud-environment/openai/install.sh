@@ -5,7 +5,7 @@ cd -- "$DOCS_WORKTREE"
 mkdir -p "$DOCS_CACHE_ROOT/bin" "$DOCS_ENVIRONMENT_ARTIFACTS" "$HUGO_RESOURCEDIR"
 command -v corepack >/dev/null
 corepack enable --install-directory "$DOCS_CACHE_ROOT/bin"
-# packageManager pins Yarn; the lockfile and install hooks remain authoritative.
+# Installs dependencies with the pinned package manager.
 yarn install --frozen-lockfile
 if [[ ! -x "$PUPPETEER_EXECUTABLE_PATH" ]]; then
   echo "Install Chromium and its system dependencies in the base environment, or set PUPPETEER_EXECUTABLE_PATH." >&2

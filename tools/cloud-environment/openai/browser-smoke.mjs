@@ -2,8 +2,7 @@ import assert from 'node:assert/strict';
 import process from 'node:process';
 import { launch } from 'puppeteer';
 
-// Local smoke checks work without a server. Pass an HTTPS URL to test CA trust,
-// or a local preview URL to qualify a rendered page and its external resources.
+// Checks local HTML or the supplied URL.
 const target = process.argv[2];
 const url = target ? new URL(target) : null;
 if (url) assert.ok(['http:', 'https:'].includes(url.protocol));

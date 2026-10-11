@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Explicit setup step. Never call to bypass a rejected approval.
+# Imports the proxy CA into the selected NSS database.
 set -euo pipefail
 : "${DOCS_PROXY_CA_FILE:?Set DOCS_PROXY_CA_FILE to the platform-provided PEM CA certificate}"
 command -v certutil >/dev/null

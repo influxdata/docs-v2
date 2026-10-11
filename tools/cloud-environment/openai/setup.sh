@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Source to configure the current shell; execute to install the environment.
+# Configures the shell when sourced; installs tools when executed.
 docs_setup_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 DOCS_WORKTREE="$(cd -- "$docs_setup_dir/../../.." && pwd)" || return 1 2>/dev/null || exit 1
 export DOCS_WORKTREE
