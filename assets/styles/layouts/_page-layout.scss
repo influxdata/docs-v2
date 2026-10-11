@@ -243,6 +243,7 @@ body:has(.ask-ai-composer) .page-wrapper {
   }
 }
 .ask-ai-button {
+  align-self: flex-start;
   margin-right: 0.5rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
@@ -266,6 +267,7 @@ body:has(.ask-ai-composer) .page-wrapper {
     display: none;
   }
   .ask-ai-button {
+    align-self: flex-end;
     font-size: 0.85rem;
   }
   .ask-ai-composer {
