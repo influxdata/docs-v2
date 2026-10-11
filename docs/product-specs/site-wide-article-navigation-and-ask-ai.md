@@ -1,12 +1,11 @@
 # Site-wide article navigation and Ask AI sidebar
 
-Status: Partial implementation; acceptance criteria remain pending. See the [implementation checkpoint](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md#implementation-checkpoint-2026-10-10).
-Updated: 2026-10-10.
+Status: Implemented; live answer and conversation history verification remain pending.
+Updated: 2026-10-11.
 Review: [Draft PR #7873](https://github.com/influxdata/docs-v2/pull/7873).
 Related issue: [#7706](https://github.com/influxdata/docs-v2/issues/7706).
 Existing API navigation: [PR #6622](https://github.com/influxdata/docs-v2/pull/6622).
-Implementation plan: [Site-wide article ToC and Ask AI sidebar](../design-docs/2026-10-10-site-wide-article-navigation-and-ask-ai.md).
-Decision record: [Shared article navigation and chat layout](../exec-plans/2026-10-10-site-wide-article-navigation-and-ask-ai.md).
+Decision record: [Shared article navigation and Ask AI](../adr/0008-shared-article-navigation-and-ask-ai.md).
 
 ## Goal
 
