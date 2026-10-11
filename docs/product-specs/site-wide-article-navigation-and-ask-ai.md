@@ -257,4 +257,4 @@ Production-build PR previews supplement local testing; test-only fixtures need t
 - Treating mocked AI answers as proof of vendor response quality.
 
 The implementation plan contains code findings, delivery order, browser iteration commands, and the limits of the original review.
-This documentation change does not implement the feature or establish a browser-test pass.
+Current implementation and verification evidence are tracked in the implementation plan. Pending acceptance checks remain required.

@@ -6,7 +6,7 @@
   <div class="content-wrapper page-content">
     {{ partial "sidebar/sidebar-toggle.html" }}
     {{ partial "article.html" . }}
-    {{ partial "article/page-toc.html" . }}
+    {{ partial "article/page-toc.html" (dict "Page" .) }}
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>
