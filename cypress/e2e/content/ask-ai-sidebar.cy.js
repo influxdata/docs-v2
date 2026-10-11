@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { dismissNotifications } from '../../support/page-fixtures';
 import { mockKapaWidget } from '../../support/kapa-widget';
 
 describe('Ask AI handoff', () => {
@@ -6,10 +7,7 @@ describe('Ask AI handoff', () => {
     cy.viewport(1280, 1024);
     mockKapaWidget();
     cy.visit('/influxdb3/core/get-started/write/');
-    cy.get('body').then(($body) => {
-      const dismiss = $body.find('.notification:visible .close-notification');
-      if (dismiss.length) cy.wrap(dismiss).click({ multiple: true });
-    });
+    dismissNotifications();
     const question = '  How do I write data?\nKeep this line.  ';
     cy.get('#chat-assistant-textarea')
       .should('be.visible')
@@ -17,6 +15,7 @@ describe('Ask AI handoff', () => {
       .trigger('input');
     cy.get('[data-ask-ai-action="submit"]').click();
     cy.get('[data-ask-ai-action="submit"]').should('be.disabled');
+    cy.get('#chat-assistant-textarea').trigger('keydown', { key: 'Enter' });
     cy.get('[data-page-rail] nav').should('be.visible');
     cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
     cy.window().then((win) => win.kapaHarness.finishRender());
@@ -42,5 +41,94 @@ describe('Ask AI handoff', () => {
       });
       expect(win.kapaHarness.requests[1].submit).to.eq(false);
     });
+  });
+  it('retains a timed-out draft and reuses a late widget without submitting it automatically', () => {
+    mockKapaWidget();
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.clock(Date.now(), ['setTimeout', 'clearTimeout']);
+    cy.get('#chat-assistant-textarea')
+      .invoke('val', 'Retain this draft')
+      .trigger('input');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
+    cy.tick(30001);
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'error');
+    cy.get('#chat-assistant-textarea')
+      .should('have.value', 'Retain this draft')
+      .and('be.focused');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.get('script[src="https://widget.kapa.ai/kapa-widget.bundle.js"]').should(
+      'have.length',
+      1
+    );
+    cy.window().then((win) => win.kapaHarness.finishRender());
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
+    cy.window().then((win) =>
+      expect(win.kapaHarness.requests).to.have.length(1)
+    );
+  });
+  it('retries a render failure without loading or registering a second widget', () => {
+    mockKapaWidget({ renderFailures: 1 });
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('#chat-assistant-textarea')
+      .invoke('val', 'Draft after render error')
+      .trigger('input');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'error');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
+    cy.window().then((win) => win.kapaHarness.finishRender());
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
+    cy.get('script[src*="kapa-widget"]').should('have.length', 1);
+    cy.window().then((win) =>
+      expect(win.kapaHarness.requests).to.have.length(1)
+    );
+  });
+  it('retains the draft until acknowledgment and restores it after an open timeout', () => {
+    mockKapaWidget({ acknowledge: false });
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.clock(Date.now(), ['setTimeout', 'clearTimeout']);
+    cy.get('#chat-assistant-textarea')
+      .invoke('val', 'Unacknowledged draft')
+      .trigger('input');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
+    cy.window().then((win) => win.kapaHarness.finishRender());
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
+    cy.get('#chat-assistant-textarea').should(
+      'have.value',
+      'Unacknowledged draft'
+    );
+    cy.tick(10001);
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'error');
+    cy.get('#chat-assistant-textarea')
+      .should('be.visible')
+      .and('be.focused')
+      .and('have.value', 'Unacknowledged draft');
+    cy.get('[data-page-rail] nav').should('be.visible');
+  });
+  it('restores the draft after an open exception and retries the rendered widget', () => {
+    mockKapaWidget({ openFailures: 1 });
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('#chat-assistant-textarea')
+      .invoke('val', 'Retry opening')
+      .trigger('input');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
+    cy.window().then((win) => win.kapaHarness.finishRender());
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'error');
+    cy.get('#chat-assistant-textarea')
+      .should('have.value', 'Retry opening')
+      .and('be.focused');
+    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
+    cy.window().then((win) =>
+      expect(win.kapaHarness.requests).to.have.length(1)
+    );
+    cy.get('script[src*="kapa-widget"]').should('have.length', 1);
   });
 });
