@@ -243,7 +243,7 @@ Configure data file caching for query performance.
 > See [Disable caching on ingest nodes](#disable-caching-on-ingest-nodes) for an example.
 
 > [!Important]
-> #### In v3.12+: `--file-cache-size` is a hard limit
+> #### In v3.11.6+: `--file-cache-size` is a hard limit
 >
 > On the upgraded storage engine, `--file-cache-size` is a hard limit: the
 > budget also counts bytes held by data files that running queries
@@ -255,6 +255,8 @@ Configure data file caching for query performance.
 > budget: ...` if a single file is larger than the entire cache.
 > The HTTP API returns a `429` response; Flight (gRPC) clients see a
 > `RESOURCE_EXHAUSTED` error.
+> Before v3.12.1, JSON, JSON Lines, and CSV responses return `200` and end
+> early instead.
 > <!-- VERIFY: RC-2 source maps this error to HTTP 500 on the HTTP API; Flight RESOURCE_EXHAUSTED is correct. Confirm with engineering before changing the 429. -->
 > Retry the query after other queries finish.
 > Size the cache for your largest concurrent query workload, not just your
@@ -349,6 +351,7 @@ through four compaction levels (L1 through L4).
 |:-------|:------------|:--------|
 | `--shard-count` | Target number of shards per compaction window. | `1` |
 | `--compactor-input-size-budget` | Maximum total input bytes across all active compaction jobs. Acts as an admission control budget for the compactor scheduler. | 50% of system memory at startup |
+| `--compactor-import-batch-size` | Largest batch of staged data that one bulk import merge reads at once. Still capped at one quarter of `--compactor-input-size-budget`. Available in v3.12.1 and later. | `4gb` |
 | `--final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `4h` (time-disjoint layout); `72h` (legacy layout) |
 | `--compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
 
