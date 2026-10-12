@@ -29,8 +29,10 @@ You don't copy or store a token for interactive use.
 
 You can also manage your instance in the {{% product-name %}} Admin UI at
 [console.influxdata.com](https://console.influxdata.com).
-Sign in with the same InfluxData account to view your instance and to manage
-databases, tokens, and [users](/influxdb3/cloud/admin/users/admin-ui/).
+Sign in with the same InfluxData account to view your instance.
+Depending on your role, you can manage databases,
+[tokens](/influxdb3/cloud/admin/tokens/), and
+[users](/influxdb3/cloud/admin/users/admin-ui/).
 This guide uses the `influxdb3` CLI.
 
 ## Configure the influxdb3 CLI
@@ -217,7 +219,8 @@ Applications can authenticate with the token by setting the
 >
 > For interactive use, you authenticate as a user with
 > `influxdb3 auth login --oauth` — no token required.
-> For applications, create and manage tokens with the `influxdb3` CLI:
+> For applications, create and manage tokens in the Admin UI, with the
+> `influxdb3` CLI, or through the HTTP API. This guide uses the CLI:
 >
 > - **Database tokens**: Grant scoped read and/or write access to specific
 >   databases.
@@ -233,3 +236,4 @@ Applications can authenticate with the token by setting the
   next="/influxdb3/cloud/get-started/write/"
   nextText="Write data"
 %}}
+

@@ -18,11 +18,15 @@ related:
 authorize actions in your instance.
 
 > [!Note]
-> #### Manage InfluxDB 3 Cloud tokens with the influxdb3 CLI
+> #### Choose a token-management method
 >
-> In {{% product-name %}}, you create and manage tokens with the
-> [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/) or the InfluxDB
-> HTTP API.
+> Manage tokens in the {{% product-name %}} Admin UI at
+> [console.influxdata.com](https://console.influxdata.com), with the
+> [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/), or through the
+> InfluxDB HTTP API.
+> The CLI procedures on this page use your instance host URL and login.
+> In the Admin UI, select your instance and open **Tokens**.
+> Access to the **Tokens** page requires the account **Admin** role.
 
 ## Token types
 
@@ -117,3 +121,4 @@ Because {{% product-name %}} runs the same InfluxDB 3 engine as
 InfluxDB 3 Enterprise, token management works the same way.
 For more details, see
 [Manage tokens in InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/tokens/).
+
