@@ -8384,6 +8384,15 @@ paths:
       operationId: PostRestoreBucketMetadata
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
+        - description: Behavior when a bucket with the same name already exists.
+          in: query
+          name: onConflict
+          schema:
+            enum:
+              - error
+              - skip
+              - replace
+            type: string
       requestBody:
         content:
           application/json:
@@ -17329,10 +17338,19 @@ components:
         authorizations:
           format: uri
           type: string
+        backup:
+          format: uri
+          type: string
         buckets:
           format: uri
           type: string
+        checks:
+          format: uri
+          type: string
         dashboards:
+          format: uri
+          type: string
+        delete:
           format: uri
           type: string
         external:
@@ -17344,10 +17362,22 @@ components:
         flags:
           format: uri
           type: string
+        labels:
+          format: uri
+          type: string
         me:
           format: uri
           type: string
+        notificationEndpoints:
+          format: uri
+          type: string
+        notificationRules:
+          format: uri
+          type: string
         orgs:
+          format: uri
+          type: string
+        plugins:
           format: uri
           type: string
         query:
@@ -17365,6 +17395,12 @@ components:
               format: uri
               type: string
           type: object
+        restore:
+          format: uri
+          type: string
+        scrapers:
+          format: uri
+          type: string
         setup:
           format: uri
           type: string
@@ -17377,6 +17413,9 @@ components:
         sources:
           format: uri
           type: string
+        swagger:
+          format: uri
+          type: string
         system:
           properties:
             debug:
@@ -17386,6 +17425,9 @@ components:
               format: uri
               type: string
             metrics:
+              format: uri
+              type: string
+            ready:
               format: uri
               type: string
           type: object
