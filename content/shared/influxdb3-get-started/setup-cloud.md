@@ -236,4 +236,3 @@ Applications can authenticate with the token by setting the
   next="/influxdb3/cloud/get-started/write/"
   nextText="Write data"
 %}}
-

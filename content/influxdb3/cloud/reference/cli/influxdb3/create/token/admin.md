@@ -94,4 +94,3 @@ Replace the following:
 > ```bash
 > export INFLUXDB3_AUTH_TOKEN=ADMIN_TOKEN
 > ```
-

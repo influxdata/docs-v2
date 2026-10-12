@@ -121,4 +121,3 @@ Because {{% product-name %}} runs the same InfluxDB 3 engine as
 InfluxDB 3 Enterprise, token management works the same way.
 For more details, see
 [Manage tokens in InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/tokens/).
-

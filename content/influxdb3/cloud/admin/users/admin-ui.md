@@ -151,4 +151,3 @@ Only users with the **Admin** role can change roles or remove users.
 ## Limitations
 
 - **Historical records**: Invitation records remain even after user removal.
-
