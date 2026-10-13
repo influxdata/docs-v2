@@ -229,7 +229,7 @@ Every requirement is pending until the implementation supplies fresh evidence.
 | AI-10 and AI-11                  | Script, render, and open failures; timeout and retry; restored ToC, scroll, tabs, and focus                                                                                                                                                       |
 | AI-12 and AI-13                  | Both themes; existing entry points and analytics; preserved vendor configuration                                                                                                                                                                  |
 | Responsive layout                | At 1280px and above, article/ToC/chat bounds do not overlap, both panels remain interactive, and article text is at least 400px at 1280px; below 1280px, only one right-side overlay is available; no page overflow; header/custom-time clearance |
-| Real vendor integration          | One live-widget smoke check for responsive sidebar width, nonmodal desktop interaction, focus, theme, close, resize, and retained conversation history                                                                                            |
+| Real vendor integration          | Run `CYPRESS_BASE_URL=<preview-url> yarn test:e2e:kapa-live` for live widget width, desktop interaction, theme, close, resize, answer completion, and retained conversation history                                                               |
 
 Use `/example/` in the testing environment, a sourced article, a long reference, an API operation page, and the existing version-detector page.
 Also check the homepage, feature board, 404, an article without headings, and print.
