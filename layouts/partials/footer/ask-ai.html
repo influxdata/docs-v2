@@ -1,19 +1,7 @@
-<form class="ask-ai-composer" data-component="ask-ai" aria-label="Ask AI">
-  <label class="sr-only" for="chat-assistant-textarea"
-    >Ask a question about InfluxDB</label
-  >
-  <textarea
-    id="chat-assistant-textarea"
-    placeholder="Ask AI"
-    rows="2"
-  ></textarea>
-  <button
-    type="submit"
-    data-ask-ai-action="submit"
-    aria-label="Send question"
-    disabled
-  >
-    Send
-  </button>
-  <span role="status" aria-live="polite"></span>
-</form>
+<span
+  id="ask-ai-status"
+  class="ask-ai-status"
+  data-component="ask-ai"
+  role="status"
+  aria-live="polite"
+></span>

@@ -13,9 +13,9 @@ Related to [PR #7873](https://github.com/influxdata/docs-v2/pull/7873),
 - Give navigation and chat separate columns at widths of at least 1280px, preserving at least 400px of article text.
   Chat is 360px through 1440px and 386px at wider widths.
   Narrow layouts allow one right-side overlay; chat becomes full-screen at 600px or less.
-- Retain one Kapa Website Widget instance, a separate first-party composer, and a header button.
-  One controller owns readiness, source filters, and submission acknowledgment.
-  Preserve failed drafts and avoid duplicate submissions on retry or resize.
+- Retain one Kapa Website Widget instance and a header button. The widget owns question entry.
+  One controller owns readiness, source filters, and opening.
+  Avoid duplicate opens on retry or resize.
 - Isolate the desktop focus adapter in `kapa-sidebar.ts`.
   Desktop chat permits native keyboard traversal into the page; narrow layouts retain vendor modal behavior.
 
@@ -32,6 +32,7 @@ Blocked reCAPTCHA resources prevented completed-answer and conversation history 
 Network policy changes require a new session, with certificate verification enabled.
 
 Preview feedback led to theme-aware drawer styling and independent header-button alignment when the product menu opens.
+The user later chose the header button without a bottom composer in [PR #7889](https://github.com/influxdata/docs-v2/pull/7889).
 
 ## Consequences
 
