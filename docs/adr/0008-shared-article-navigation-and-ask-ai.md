@@ -27,7 +27,7 @@ Live width comparisons supported compact chat; regular and API checks measured 4
 Sidebar styling allowed pointer interaction but retained the vendor modal focus trap.
 The user selected a scoped adapter over a React Chat SDK migration to preserve widget features and limit scope.
 
-Rendered mocks and live probes verified layout and query acknowledgment.
+Rendered mocks and an opt-in Cypress live check verified layout and query acknowledgment.
 Blocked reCAPTCHA resources prevented completed-answer and conversation history checks.
 Network policy changes require a new session, with certificate verification enabled.
 
