@@ -263,6 +263,10 @@ jobs:
           hugo-log-level: info
           hugo-base-url: ${{ env.PREVIEW_BASE_URL }}
 
+      - name: Keep links within the PR preview
+        # Root-relative links in content and templates bypass Hugo's baseURL.
+        run: node .ci/scripts/check-preview-links.mjs public "$PREVIEW_BASE_URL" --rewrite
+
       - name: Record build time
         id: build
         run: |
