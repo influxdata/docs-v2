@@ -212,6 +212,7 @@ function CustomTimeTrigger({ component }) {
     nextArrow: '>',
     prevArrow: '<',
   });
+  datepicker.setDate(startDate);
 
   /////////////////////////////////// ACTIONS //////////////////////////////////
 
