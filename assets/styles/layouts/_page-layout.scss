@@ -191,7 +191,7 @@
 }
 
 body:has(.ask-ai-composer) .page-wrapper {
-  padding-bottom: 8rem;
+  padding-bottom: calc(var(--ask-ai-composer-height, 6rem) + 2rem);
 }
 .ask-ai-composer {
   position: fixed;
@@ -272,6 +272,12 @@ body:has(.ask-ai-composer) .page-wrapper {
   }
 }
 @media (max-width: 600px) {
+  body:has(.ask-ai-composer:not([hidden])) .page-wrapper {
+    padding-bottom: calc(var(--ask-ai-composer-height, 6rem) + 5rem);
+  }
+  body:has(.ask-ai-composer:not([hidden])) .footer-widgets {
+    bottom: calc(var(--ask-ai-composer-height, 6rem) + 1.25rem);
+  }
   .topnav .docs-home .long,
   .topnav .influx-home .icon-influx-logotype {
     display: none;
@@ -312,5 +318,11 @@ body:has(.ask-ai-composer) .page-wrapper {
     .article {
       padding: 1.5rem 1.5rem 3rem;
     }
+  }
+}
+}
+@media (max-width: 1279px) {
+  body[data-ask-ai-state='open'] .footer-widgets {
+    display: none;
   }
 }
