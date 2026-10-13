@@ -11,7 +11,7 @@ frontmatter, shortcode, or contributor references.
 | Situation               | Do this                                     | Load when needed                                             |
 | ----------------------- | ------------------------------------------- | ------------------------------------------------------------ |
 | New page or direct edit | Choose `docs` CLI or direct edit            | `../docs-cli-workflow/SKILL.md`                              |
-| Shared source           | Find and update every source stub           | [references/shared-content.md](references/shared-content.md) |
+| Shared source           | Identify and review every consumer; refresh the local preview when needed | [references/shared-content.md](references/shared-content.md) |
 | Technical claim         | Verify against the documentation search MCP | [references/fact-checking.md](references/fact-checking.md)   |
 | Validation              | Run the changed-file verifier               | `../docs-testing/SKILL.md`                                   |
 
