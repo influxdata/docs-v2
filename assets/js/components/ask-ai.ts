@@ -93,6 +93,13 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
   let disposeAdapter = () => {};
   let returnFocus: HTMLElement = textarea;
   let acknowledged = false;
+  const composerSize = new ResizeObserver(() => {
+    document.body.style.setProperty(
+      '--ask-ai-composer-height',
+      `${component.getBoundingClientRect().height}px`
+    );
+  });
+  composerSize.observe(component);
 
   function present(): void {
     document.body.dataset.askAiState = state.kind;
@@ -318,6 +325,7 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
       clearTimeout(pendingTimer);
       cancelAnimationFrame(readinessFrame);
       disposeAdapter();
+      composerSize.disconnect();
     },
     { once: true }
   );
