@@ -12,6 +12,15 @@ canonical: self
 
 Create a named administrator token.
 
+Set `INFLUXDB3_HOST_URL` to your instance host URL or pass `--host` with each
+command. The CLI defaults to `http://127.0.0.1:8181` if you omit both; it does
+not discover your Cloud instance automatically.
+
+For interactive use, [log in to your instance with OAuth](/influxdb3/cloud/get-started/setup/#log-in-to-your-instance).
+An authenticated user with the **Admin** role can create a token without
+passing `--token`. An explicit `--token` or `INFLUXDB3_AUTH_TOKEN` value takes
+precedence over cached login credentials.
+
 > [!Note]
 > #### Operator tokens in InfluxDB 3 Cloud
 >
