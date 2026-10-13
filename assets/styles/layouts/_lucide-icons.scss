@@ -1,9 +1,10 @@
-// Inline Lucide icons rendered by the {{< lucide >}} shortcode.
+// Inline Lucide icons rendered by the lucide partial and the {{< lucide >}}
+// shortcode.
 //
 // Lucide's static SVGs ship with `class="lucide lucide-<name>"` and
 // `stroke="currentColor"`, so icons inherit the surrounding text color
-// (including dark mode) with no extra styling. The shortcode strips the
-// hardcoded 24x24 dimensions so size follows the text via `em` units.
+// (including dark mode) with no extra styling. CSS overrides the SVGs' 24x24
+// attributes so size follows the text via `em` units.
 
 svg.lucide {
   display: inline-block;
