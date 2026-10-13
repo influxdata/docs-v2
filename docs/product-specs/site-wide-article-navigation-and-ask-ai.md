@@ -2,7 +2,7 @@
 
 Status: Implemented; live answer and conversation history verification remain pending.
 Updated: 2026-10-11.
-Review: [Draft PR #7873](https://github.com/influxdata/docs-v2/pull/7873).
+Review: [PR #7889](https://github.com/influxdata/docs-v2/pull/7889).
 Related issue: [#7706](https://github.com/influxdata/docs-v2/issues/7706).
 Existing API navigation: [PR #6622](https://github.com/influxdata/docs-v2/pull/6622).
 Decision record: [Shared article navigation and Ask AI](../adr/0008-shared-article-navigation-and-ask-ai.md).
@@ -10,7 +10,7 @@ Decision record: [Shared article navigation and Ask AI](../adr/0008-shared-artic
 ## Goal
 
 Readers can navigate sections of any eligible documentation article through the same "On this page" pattern used by the API reference.
-They can ask a question from a persistent composer or the top navigation, then continue in an AI chat sidebar.
+The top-navigation Ask AI button opens the chat sidebar, where readers enter and submit questions.
 At desktop widths, the ToC stays beside the article while chat opens in a separate far-right column.
 Both remain usable at a CSS viewport width of 1280px, with article space reserved between the left navigation and ToC.
 
@@ -23,23 +23,23 @@ Below 1280px, the ToC uses a drawer with the left sidebar's open and close affor
 
 1. On a wide-screen article, the reader sees "On this page" beside the content. Selecting a section moves to its existing fragment and identifies the active entry as the reader scrolls.
 2. At 1280px and above, opening chat leaves "On this page" visible and interactive. The article narrows within its own column; neither panel overlays it.
-3. The reader types a question into the bottom composer and submits it. The question passes unchanged to chat, and the composer gives way to the vendor input. Below 1280px, chat temporarily suspends the ToC drawer and its toggle.
+3. The reader opens chat through the header button and enters a question in the vendor widget. Below 1280px, chat temporarily suspends the ToC drawer and its toggle.
 4. The reader closes chat and returns to the same article position, selected tabs, and previous narrow-screen ToC state. Reopening chat retains the conversation within the current page.
-5. If chat cannot load or open, the reader keeps their draft, receives a retryable status message, and can continue using article navigation.
+5. If chat cannot load or open, the reader receives a retryable status message, and can continue using article navigation.
 6. Below 1280px, the reader opens "On this page" with a toggle. Selecting a heading closes the drawer and moves focus to that heading.
 
 ## Page eligibility
 
-| Page                                             | On this page                                                    | Ask AI entry points                       |
-| ------------------------------------------------ | --------------------------------------------------------------- | ----------------------------------------- |
-| Standard article or section with article content | Visible rendered headings                                       | Top-navigation button and bottom composer |
-| Article rendered from shared `source:` content   | Headings in the final rendered content                          | Top-navigation button and bottom composer |
-| API operation page or endpoint index             | Existing operation navigation, order, labels, and method badges | Top-navigation button and bottom composer |
-| API conceptual page                              | Existing heading navigation                                     | Top-navigation button and bottom composer |
-| Article with no eligible entries                 | No empty rail or toggle                                         | Top-navigation button and bottom composer |
-| Homepage or feature board                        | No ToC                                                          | Top-navigation button and bottom composer |
-| 404 page                                         | No ToC                                                          | No Ask AI button or composer              |
-| Printed page                                     | Article content without interactive navigation or chat controls | No composer or chat                       |
+| Page                                             | On this page                                                    | Ask AI entry points   |
+| ------------------------------------------------ | --------------------------------------------------------------- | --------------------- |
+| Standard article or section with article content | Visible rendered headings                                       | Top-navigation button |
+| Article rendered from shared `source:` content   | Headings in the final rendered content                          | Top-navigation button |
+| API operation page or endpoint index             | Existing operation navigation, order, labels, and method badges | Top-navigation button |
+| API conceptual page                              | Existing heading navigation                                     | Top-navigation button |
+| Article with no eligible entries                 | No empty rail or toggle                                         | Top-navigation button |
+| Homepage or feature board                        | No ToC                                                          | Top-navigation button |
+| 404 page                                         | No ToC                                                          | No Ask AI button      |
+| Printed page                                     | Article content without interactive navigation or chat controls | No chat controls      |
 
 Custom layouts require an explicit eligibility check.
 Finding `.article--content` alone does not make a page eligible.
@@ -62,7 +62,7 @@ The widget and host layout must consume the same width value, including after re
 Tables, code blocks, and article content must remain readable without horizontal page overflow caused by either panel.
 Use local horizontal scrolling for wide code blocks and tables; keep prose and navigation labels wrapping at the existing font size.
 The desktop custom-time control must move clear of chat when needed.
-The bottom composer must not cover final article content or footer controls.
+Header and custom-time controls remain reachable when desktop chat is open.
 
 ### Desktop width budget
 
@@ -124,24 +124,24 @@ The right ToC uses its own state and does not reuse the left sidebar's styleshee
 
 ## Ask AI requirements
 
-| ID    | Requirement                                                                                                                                                                                                                |
-| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| AI-01 | Replace the floating footer launcher with a persistent bottom composer and a labeled top-navigation "Ask AI" button. Preserve the existing Search behavior.                                                                |
-| AI-02 | Show the composer immediately on eligible pages. Center it near the bottom, cap its width at 386px, and label its multiline textarea. Use `#chat-assistant-textarea` and the placeholder `Ask a question...`.              |
-| AI-03 | Enter submits, Shift+Enter inserts a newline, and IME composition does not submit. Disable send for whitespace-only input. Validate emptiness without trimming or rewriting the submitted question.                        |
-| AI-04 | Header opening starts or reopens chat without submitting a question. Existing conversation history remains available within the current page.                                                                              |
-| AI-05 | Composer submission opens chat and submits the exact question once. Existing shortcode, code-block, and version-detector links preserve their prefill and submission behavior.                                             |
-| AI-06 | Before opening, apply the entry point's product source groups. Ordinary header and composer entry points restore the page's default groups after any filtered entry point.                                                 |
-| AI-07 | Keep the first-party composer and vendor textarea separate. Hide the first-party composer after successful handoff, focus the vendor input, and retain the vendor instance across close and reopen.                        |
-| AI-08 | Maintain one outstanding open or submission request. Repeated activations must not create another widget, replace a queued question, or submit it twice. Keep status and disabled controls consistent while it is pending. |
-| AI-09 | Retain a queued question until the widget is rendered and can open. Script load alone is not readiness. Clear the saved draft only after the query-submit acknowledgment.                                                  |
-| AI-10 | On script, render, or open failure, restore usable controls and the ToC, retain the draft, and announce a retryable error. Bound readiness and open waits. Do not automatically replay an unacknowledged submission.       |
-| AI-11 | On close, restore the initiating control's focus, composer, and appropriate ToC state. Preserve article scroll and selected tabs. If the initiating control no longer exists, use an available Ask AI control.             |
-| AI-12 | Synchronize the composer and vendor widget with the active light or dark theme, including changes while chat is open.                                                                                                      |
-| AI-13 | Preserve existing analytics, privacy and disclaimer content, MCP menu, product questions, and source filtering unless an existing setting conflicts with sidebar presentation.                                             |
+| ID    | Requirement                                                                                                                                                                    |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| AI-01 | Replace the floating footer launcher with a labeled top-navigation "Ask AI" button. Preserve the existing Search behavior.                                                     |
+| AI-02 | Render no first-party chat form or textarea. Keep the header button available before loading the vendor widget.                                                                |
+| AI-03 | The vendor widget owns question entry, keyboard handling, and submission.                                                                                                      |
+| AI-04 | Header opening starts or reopens chat without submitting a question. Existing conversation history remains available within the current page.                                  |
+| AI-05 | Existing shortcode, code-block, and version-detector links prefill the vendor input without submitting.                                                                        |
+| AI-06 | Before opening, apply the entry point's product source groups. Header opening restores the page's default groups after filtered entry points.                                  |
+| AI-07 | Retain one vendor widget across close and reopen. Questions and conversation history belong to that widget.                                                                    |
+| AI-08 | Maintain one outstanding open request. Mark the header button busy during readiness and opening, keep it focusable, and ignore repeated activations.                           |
+| AI-09 | Retain a queued prefill until the widget can open. Script load alone is not readiness.                                                                                         |
+| AI-10 | On script, render, or open failure, restore usable controls and navigation and announce a retryable error. Bound readiness and open waits.                                     |
+| AI-11 | On close, restore the initiating control's focus and the appropriate ToC state. Preserve scroll and selected tabs. If the control no longer exists, focus the header button.   |
+| AI-12 | Synchronize the vendor widget with the active light or dark theme, including changes while chat is open.                                                                       |
+| AI-13 | Preserve existing analytics, privacy and disclaimer content, MCP menu, product questions, and source filtering unless an existing setting conflicts with sidebar presentation. |
 
 After a query has been accepted, answer failures belong to the vendor conversation.
-They must not trigger a second automatic submission from the first-party composer.
+Entry points open or prefill chat without submitting a question.
 
 ## State and layout coordination
 
@@ -152,15 +152,15 @@ Chat handoff suspends the narrow ToC drawer while preserving its choice; desktop
 The actual widget open event confirms chat visibility; an open call alone does not reserve a desktop chat column.
 Failure or close releases chat space and restores narrow navigation when needed.
 
-| Chat state | Meaning                                | First-party behavior                                                                                    |
-| ---------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `loading`  | Widget readiness is pending            | Entry points remain visible; retain one queued request and its draft                                    |
-| `ready`    | Widget rendered; chat closed           | Composer and eligible ToC are available                                                                 |
-| `opening`  | A request is handing off to the widget | Prevent duplicate activation; preserve the draft and remembered ToC state                               |
-| `open`     | Actual widget open event received      | Hide composer; reserve chat beside the desktop ToC or suspend narrow ToC access for overlay/mobile chat |
-| `error`    | Load, render, or open failed           | Restore navigation and composer with retained draft and retry status                                    |
+| Chat state | Meaning                                | First-party behavior                                                                     |
+| ---------- | -------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `loading`  | Widget readiness is pending            | Entry points remain visible; retain one queued open request                              |
+| `ready`    | Widget rendered; chat closed           | Header button and eligible ToC are available                                             |
+| `opening`  | A request is handing off to the widget | Prevent duplicate activation; preserve the queued prefill and remembered ToC state       |
+| `open`     | Actual widget open event received      | Reserve chat beside the desktop ToC or suspend narrow ToC access for overlay/mobile chat |
+| `error`    | Load, render, or open failed           | Restore navigation and the header button with retry status                               |
 
-Represent pending request, initiating control, draft acknowledgment, and remembered ToC choice as state associated with the relevant transition.
+Represent pending request, initiating control, and remembered ToC choice as state associated with the relevant transition.
 Derive panel presentation from viewport mode, eligible entries, remembered drawer choice, and chat state.
 Simultaneous desktop panels are valid; simultaneous narrow overlays are not.
 
@@ -180,15 +180,15 @@ Use one chat controller for handoff and narrow overlay coordination; keep ToC na
 
 These are proposed contracts, not claims about current implementation.
 
-| Contract                                  | Meaning                                                                                      |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `data-component="ask-ai"`                 | Root for the single Ask AI controller                                                        |
-| `data-ask-ai-action="open"` or `"submit"` | First-party controls delegated to that controller                                            |
-| Body `data-ask-ai-state`                  | `loading`, `ready`, `opening`, `open`, or `error`, derived from controller state             |
-| `[data-page-rail]`                        | Shared marker for eligible regular and API ToCs                                              |
-| Body `data-theme`                         | Active `light` or `dark` theme                                                               |
-| `--ask-ai-rail-width`                     | Chat width, 360px through 1440px and 386px above it; mobile presentation takes precedence    |
-| `--page-toc-width`                        | Separate desktop ToC width, initially 200px in compact mode; zero space for empty navigation |
+| Contract                    | Meaning                                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------- |
+| `data-component="ask-ai"`   | Root for the single Ask AI controller                                                        |
+| `data-ask-ai-action="open"` | First-party controls delegated to that controller                                            |
+| Body `data-ask-ai-state`    | `loading`, `ready`, `opening`, `open`, or `error`, derived from controller state             |
+| `[data-page-rail]`          | Shared marker for eligible regular and API ToCs                                              |
+| Body `data-theme`           | Active `light` or `dark` theme                                                               |
+| `--ask-ai-rail-width`       | Chat width, 360px through 1440px and 386px above it; mobile presentation takes precedence    |
+| `--page-toc-width`          | Separate desktop ToC width, initially 200px in compact mode; zero space for empty navigation |
 
 Use the Kapa Website Widget in its documented sidebar mode.
 Remove legacy modal size and centering overrides that conflict with sidebar defaults.
@@ -220,22 +220,21 @@ Reduced motion disables animated scrolling and unnecessary panel transitions.
 
 Every requirement is pending until the implementation supplies fresh evidence.
 
-| Coverage                         | Required evidence                                                                                                                                                                                                                                          |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NAV-01 through NAV-05 and NAV-08 | Rendered-page assertions for regular, sourced, and API content; hidden-heading exclusions; safe labels; every href resolves                                                                                                                                |
-| NAV-06 and NAV-07                | Real fragment navigation, fixed-header alignment, history, modified clicks, reduced motion, active-state assertions                                                                                                                                        |
-| Collapsible ToC                  | Toggle, Escape, outside activation, heading focus, independent scrolling, resize, and retained narrow-screen choice                                                                                                                                        |
-| AI-01 through AI-09              | Deterministic Kapa mock covering controls, exact question, groups, delayed readiness, acknowledgment, and duplicate activation                                                                                                                             |
-| AI-10 and AI-11                  | Script, render, and open failures; timeout and retry; draft retention; restored ToC, scroll, tabs, and focus                                                                                                                                               |
-| AI-12 and AI-13                  | Both themes; existing entry points and analytics; preserved vendor configuration                                                                                                                                                                           |
-| Responsive layout                | At 1280px and above, article/ToC/chat bounds do not overlap, both panels remain interactive, and article text is at least 400px at 1280px; below 1280px, only one right-side overlay is available; no page overflow; composer/header/custom-time clearance |
-| Real vendor integration          | One live-widget smoke check for responsive sidebar width, nonmodal desktop interaction, focus, theme, close, resize, and retained conversation history                                                                                                     |
+| Coverage                         | Required evidence                                                                                                                                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NAV-01 through NAV-05 and NAV-08 | Rendered-page assertions for regular, sourced, and API content; hidden-heading exclusions; safe labels; every href resolves                                                                                                                       |
+| NAV-06 and NAV-07                | Real fragment navigation, fixed-header alignment, history, modified clicks, reduced motion, active-state assertions                                                                                                                               |
+| Collapsible ToC                  | Toggle, Escape, outside activation, heading focus, independent scrolling, resize, and retained narrow-screen choice                                                                                                                               |
+| AI-01 through AI-09              | Deterministic Kapa mock covering controls, exact question, groups, delayed readiness, acknowledgment, and duplicate activation                                                                                                                    |
+| AI-10 and AI-11                  | Script, render, and open failures; timeout and retry; restored ToC, scroll, tabs, and focus                                                                                                                                                       |
+| AI-12 and AI-13                  | Both themes; existing entry points and analytics; preserved vendor configuration                                                                                                                                                                  |
+| Responsive layout                | At 1280px and above, article/ToC/chat bounds do not overlap, both panels remain interactive, and article text is at least 400px at 1280px; below 1280px, only one right-side overlay is available; no page overflow; header/custom-time clearance |
+| Real vendor integration          | One live-widget smoke check for responsive sidebar width, nonmodal desktop interaction, focus, theme, close, resize, and retained conversation history                                                                                            |
 
 Use `/example/` in the testing environment, a sourced article, a long reference, an API operation page, and the existing version-detector page.
 Also check the homepage, feature board, 404, an article without headings, and print.
-The implementation plan names the routes and commands.
 
-Capture desktop ToC with chat closed and open, narrow ToC collapsed and expanded, composer draft, delayed loading, open chat with a long answer, failure, and restored navigation.
+Capture desktop ToC with chat closed and open, narrow ToC collapsed and expanded, button opening, delayed loading, open chat with a long answer, failure, and restored navigation.
 Reproduce the supplied 1280×1024 and 1920×1080 viewport cases in both themes, with both left-sidebar states.
 Also check 1440px, 1024px, and 390px, plus 1279/1280/1281px, 1440/1441px, 800/801px, and 600/601px boundaries.
 At 1280px with all columns visible, select a ToC entry while chat stays open, then interact with the article and chat input to prove simultaneous use.
@@ -255,5 +254,5 @@ Production-build PR previews supplement local testing; test-only fixtures need t
 - Persisting drafts, ToC choice, or conversations across page navigation or browser sessions.
 - Treating mocked AI answers as proof of vendor response quality.
 
-The implementation plan contains code findings, delivery order, browser iteration commands, and the limits of the original review.
-Current implementation and verification evidence are tracked in the implementation plan. Pending acceptance checks remain required.
+The [architecture decision record](../adr/0008-shared-article-navigation-and-ask-ai.md) captures the major decisions and turning points.
+Pending acceptance checks remain required.

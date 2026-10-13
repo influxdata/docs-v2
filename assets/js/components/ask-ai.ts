@@ -4,7 +4,7 @@ import { pageSourceGroups, widgetAttributes } from './ask-ai-config.js';
 interface OpenOptions {
   mode: 'ai';
   query: string;
-  submit: boolean;
+  submit: false;
 }
 interface KapaBootstrap {
   (event: string, listener: (data?: unknown) => void, action?: 'remove'): void;
@@ -23,7 +23,6 @@ declare global {
 }
 interface Request {
   query: string;
-  submit: boolean;
   groups: string[];
   origin: HTMLElement;
 }
@@ -71,19 +70,13 @@ function updateLayout(api: KapaWidget): void {
   api.updateConfig(attributes);
 }
 
-/** One page owns one widget, one outstanding request, and one draft. */
+/** Opens one widget through the page entry points. */
 export default function AskAI({ component }: { component: HTMLElement }): void {
-  const input = component.querySelector<HTMLTextAreaElement>(
-    '#chat-assistant-textarea'
-  );
-  const submit = component.querySelector<HTMLButtonElement>(
-    '[data-ask-ai-action="submit"]'
-  );
-  const status = component.querySelector<HTMLElement>('[role="status"]');
-  if (!input || !submit || !status) return;
-  const textarea = input;
-  const send = submit;
-  const announcement = status;
+  const headerButton =
+    document.querySelector<HTMLButtonElement>('.ask-ai-button');
+  if (!headerButton) return;
+  const launcher = headerButton;
+  const announcement = component;
   let state: State = { kind: 'ready' };
   let rendered: KapaWidget | null = null;
   let bootstrap: KapaBootstrap | null = null;
@@ -91,28 +84,16 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
   let pendingTimer = 0;
   let readinessFrame = 0;
   let disposeAdapter = () => {};
-  let returnFocus: HTMLElement = textarea;
-  let acknowledged = false;
-  const composerSize = new ResizeObserver(() => {
-    document.body.style.setProperty(
-      '--ask-ai-composer-height',
-      `${component.getBoundingClientRect().height}px`
-    );
-  });
-  composerSize.observe(component);
-
+  let returnFocus: HTMLElement = launcher;
   function present(): void {
     document.body.dataset.askAiState = state.kind;
     document.dispatchEvent(new Event('ask-ai-state-change'));
-    component.hidden = state.kind === 'open';
     const busy = state.kind === 'loading' || state.kind === 'opening';
-    send.disabled = busy || !textarea.value.trim();
-    textarea.readOnly = busy;
-    component.setAttribute('aria-busy', String(busy));
     document
       .querySelectorAll<HTMLButtonElement>('[data-ask-ai-action="open"]')
       .forEach((button) => {
-        button.disabled = busy;
+        button.setAttribute('aria-disabled', String(busy));
+        button.setAttribute('aria-busy', String(busy));
       });
     announcement.textContent =
       state.kind === 'error' ? state.message : busy ? 'Opening Ask AI…' : '';
@@ -121,33 +102,18 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     clearTimeout(pendingTimer);
     state = {
       kind: 'error',
-      message: 'Ask AI could not open. Your draft is saved. Try again.',
+      message: 'Ask AI could not open. Try again.',
     };
     present();
     if (rendered) rendered.close();
-    (returnFocus.isConnected ? returnFocus : textarea).focus({
+    (returnFocus.isConnected ? returnFocus : launcher).focus({
       preventScroll: true,
     });
-  }
-  function acknowledge(data: unknown): void {
-    if (state.kind !== 'open' && state.kind !== 'opening') return;
-    const request = state.request;
-    if (
-      !request.submit ||
-      typeof data !== 'object' ||
-      data === null ||
-      !('question' in data) ||
-      data.question !== request.query
-    )
-      return;
-    acknowledged = true;
-    textarea.value = '';
-    clearTimeout(pendingTimer);
   }
   function opened(): void {
     if (state.kind !== 'opening') return;
     state = { kind: 'open', request: state.request };
-    if (!state.request.submit || acknowledged) clearTimeout(pendingTimer);
+    clearTimeout(pendingTimer);
     present();
   }
   function closed(): void {
@@ -158,7 +124,7 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     const origin =
       returnFocus.isConnected && returnFocus.getClientRects().length
         ? returnFocus
-        : textarea;
+        : launcher;
     origin.focus({ preventScroll: true });
   }
   function ensureReady(): Promise<KapaWidget> {
@@ -184,7 +150,6 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
         function rollback(error: unknown): void {
           api('onModalOpen', opened, 'remove');
           api('onModalClose', closed, 'remove');
-          api('onAskAIQuerySubmit', acknowledge, 'remove');
           if ('unmount' in api && typeof api.unmount === 'function')
             api.unmount();
           reject(error);
@@ -192,7 +157,6 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
         try {
           api('onModalOpen', opened);
           api('onModalClose', closed);
-          api('onAskAIQuerySubmit', acknowledge);
           api.render({
             onRender: () => {
               const host = document.querySelector<HTMLElement>(
@@ -230,7 +194,6 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     )
       return;
     returnFocus = request.origin;
-    acknowledged = false;
     state = { kind: 'loading', request };
     present();
     try {
@@ -250,30 +213,11 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
       state = { kind: 'opening', request };
       present();
       pendingTimer = window.setTimeout(fail, 10000);
-      api.open({ mode: 'ai', query: request.query, submit: request.submit });
+      api.open({ mode: 'ai', query: request.query, submit: false });
     } catch {
       fail();
     }
   }
-  component.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (textarea.value.trim())
-      void requestOpen({
-        query: textarea.value,
-        submit: true,
-        groups: pageSourceGroups(),
-        origin: textarea,
-      });
-  });
-  textarea.addEventListener('input', present);
-  textarea.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
-      event.preventDefault();
-      component.dispatchEvent(
-        new Event('submit', { bubbles: true, cancelable: true })
-      );
-    }
-  });
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return;
     const trigger = event.target.closest<HTMLElement>(
@@ -284,26 +228,25 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     const groupIds = trigger.dataset.sourceGroupIds;
     void requestOpen({
       query: trigger.dataset.query || '',
-      submit: false,
       groups: groupIds
         ? groupIds
             .split(',')
             .map((id) => id.trim())
             .filter(Boolean)
         : pageSourceGroups(),
-      origin: trigger.isConnected ? trigger : textarea,
+      origin: trigger.isConnected ? trigger : launcher,
     });
   });
   document.addEventListener('keydown', (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault();
       const origin =
-        document.activeElement instanceof HTMLElement
+        document.activeElement instanceof HTMLElement &&
+        document.activeElement !== document.body
           ? document.activeElement
-          : textarea;
+          : launcher;
       void requestOpen({
         query: '',
-        submit: false,
         groups: pageSourceGroups(),
         origin,
       });
@@ -325,7 +268,6 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
       clearTimeout(pendingTimer);
       cancelAnimationFrame(readinessFrame);
       disposeAdapter();
-      composerSize.disconnect();
     },
     { once: true }
   );
