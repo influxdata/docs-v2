@@ -137,6 +137,57 @@ describe('Bottom-of-page widgets', () => {
     });
   }
 
+  it('changes result-table dates without changing numeric field values', () => {
+    cy.viewport(1280, 1024);
+    visitWithDate(
+      '/influxdb3/enterprise/reference/influxql/functions/aggregates/'
+    );
+    selectDay(12);
+    cy.get('.custom-timestamps').should('contain', '2025-02-12T18:00:00Z');
+    cy.get('.custom-timestamps').should('contain', '3.6742346141747673');
+  });
+
+  for (const edition of ['enterprise', 'core', 'cloud']) {
+    it(`updates every precision tab on the ${edition} write API page`, () => {
+      cy.viewport(1280, 1024);
+      visitWithDate(
+        `/influxdb3/${edition}/write-data/http-api/v3-write-lp/?t=Milliseconds`
+      );
+      cy.get('.code-tabs-wrapper').first().as('precisionTabs');
+      for (const day of [12, 14]) {
+        selectDay(day);
+        const milliseconds = BigInt(Date.parse(`2025-02-${day}T19:42:47Z`));
+        cy.get('@precisionTabs')
+          .find('.code-tab-content:visible pre')
+          .should('contain', String(milliseconds));
+        for (const [label, expected] of [
+          ['Auto (default)', milliseconds / 1000n],
+          ['Nanoseconds', milliseconds * 1000000n],
+          ['Milliseconds', milliseconds],
+          ['Seconds', milliseconds / 1000n],
+        ]) {
+          cy.get('@precisionTabs')
+            .find('.code-tabs')
+            .contains('a', label)
+            .click();
+          cy.get('@precisionTabs')
+            .find('.code-tab-content:visible pre')
+            .should('contain', String(expected));
+        }
+        cy.get('.custom-timestamps pre')
+          .last()
+          .should(
+            'contain',
+            String(Date.parse(`2025-02-${day}T08:00:00Z`) / 1000)
+          );
+        cy.get('@precisionTabs')
+          .find('.code-tabs')
+          .contains('a', 'Milliseconds')
+          .click();
+      }
+    });
+  }
+
   it('omits the date widget on pages without custom timestamps', () => {
     cy.visit('/');
     cy.get('.custom-time-trigger').should('not.exist');
