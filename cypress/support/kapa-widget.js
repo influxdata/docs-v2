@@ -24,6 +24,8 @@ export function installKapaWidget(settings) {
   const harness = Object.assign(
     {
       requests: [],
+      queries: [],
+      openAcknowledgment: true,
       groups: [],
       finishRender: null,
       renderFailures: 0,
@@ -56,7 +58,7 @@ export function installKapaWidget(settings) {
     );
     panel.hidden = false;
     input.value = options.query || '';
-    emit('onModalOpen');
+    if (harness.openAcknowledgment) emit('onModalOpen');
     input.focus();
     if (options.submit) {
       const message = document.createElement('p');
@@ -66,6 +68,23 @@ export function installKapaWidget(settings) {
         emit('onAskAIQuerySubmit', { question: options.query });
     }
   };
+  input.addEventListener('keydown', (event) => {
+    if (
+      event.key !== 'Enter' ||
+      event.shiftKey ||
+      event.isComposing ||
+      !input.value.trim()
+    )
+      return;
+    event.preventDefault();
+    const question = input.value;
+    harness.queries.push(question);
+    const message = document.createElement('p');
+    message.textContent = question;
+    history.append(message);
+    input.value = '';
+    emit('onAskAIQuerySubmit', { question });
+  });
   kapa.close = () => {
     panel.hidden = true;
     emit('onModalClose');
@@ -86,8 +105,9 @@ export function installKapaWidget(settings) {
 }
 
 export function mockKapaWidget(settings) {
+  const options = JSON.stringify(settings || {});
   cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', {
     headers: { 'content-type': 'application/javascript' },
-    body: `(${installKapaWidget.toString()})(${JSON.stringify(settings || {})});`,
+    body: `(${installKapaWidget.toString()})(${options});`,
   });
 }

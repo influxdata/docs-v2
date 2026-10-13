@@ -64,7 +64,7 @@ function mount(
       if (!suspended) toggle.focus({ preventScroll: true });
       else
         document
-          .querySelector<HTMLElement>('#chat-assistant-textarea')
+          .querySelector<HTMLElement>('.ask-ai-button')
           ?.focus({ preventScroll: true });
     }
   }
@@ -104,9 +104,7 @@ function mount(
       !component.contains(event.target) &&
       !(
         event.target instanceof Element &&
-        event.target.closest(
-          '[data-ask-ai-action="open"], .ask-ai-open, .ask-ai-composer'
-        )
+        event.target.closest('[data-ask-ai-action="open"], .ask-ai-open')
       )
     )
       dismiss();

@@ -14,7 +14,7 @@
   </div>
   <div class="topnav-right">
     {{ if ne .Kind "404" }}
-    <button class="ask-ai-button" type="button" data-ask-ai-action="open">Ask AI</button>
+    <button class="ask-ai-button" type="button" data-ask-ai-action="open" aria-describedby="ask-ai-status">Ask AI</button>
     {{ end }}
     {{ if eq $layout "feature-board" }}
       <a class="back-btn" href="/{{ $product }}/{{ $version }}/">{{ $productName }} Docs</a>

@@ -35,7 +35,7 @@ try {
   await page.goto(`${baseUrl}/influxdb3/core/get-started/write/`, {
     waitUntil: 'domcontentloaded',
   });
-  await page.waitForSelector('#chat-assistant-textarea');
+  await page.waitForSelector('.ask-ai-button');
   await page.evaluate(() => {
     document
       .querySelectorAll('.notification .close-notification')
@@ -50,8 +50,7 @@ try {
   } catch (error) {
     evidence.state = await page.evaluate(() => ({
       state: document.body.dataset.askAiState,
-      status: document.querySelector('.ask-ai-composer [role=status]')
-        .textContent,
+      status: document.querySelector('#ask-ai-status').textContent,
       host: !!document.querySelector('#kapa-widget-container'),
       api: typeof window.Kapa,
       scripts: Array.from(document.querySelectorAll('script[src*=kapa]')).map(
@@ -237,35 +236,28 @@ try {
     await page.evaluate(() => document.activeElement?.dataset.askAiAction),
     'open'
   );
-  await takeScreenshot(page, path.join(output, 'composer-390.png'));
-  const composerBounds = await page.evaluate(() => ({
-    composer: document
-      .querySelector('.ask-ai-composer')
-      .getBoundingClientRect()
-      .toJSON(),
+  await takeScreenshot(page, path.join(output, 'launcher-390.png'));
+  const launcherBounds = await page.evaluate(() => ({
     header: document
-      .querySelector('[data-ask-ai-action="open"]')
+      .querySelector('.ask-ai-button')
       .getBoundingClientRect()
       .toJSON(),
     viewport: innerWidth,
     pageWidth: document.documentElement.scrollWidth,
+    hasComposer: !!document.querySelector(
+      '.ask-ai-composer, #chat-assistant-textarea'
+    ),
   }));
-  evidence.composer = composerBounds;
-  assert.ok(
-    composerBounds.composer.width <= 386 &&
-      composerBounds.composer.left >= 0 &&
-      composerBounds.composer.right <= composerBounds.viewport
-  );
-  assert.ok(
-    composerBounds.header.left >= 0 &&
-      composerBounds.header.right <= composerBounds.viewport
-  );
-  assert.ok(composerBounds.pageWidth <= composerBounds.viewport);
+  evidence.launcher = launcherBounds;
+  assert.equal(launcherBounds.hasComposer, false);
+  assert.ok(launcherBounds.header.left >= 0);
+  assert.ok(launcherBounds.header.right <= launcherBounds.viewport);
+  assert.ok(launcherBounds.pageWidth <= launcherBounds.viewport);
   await page.goto(`${baseUrl}/influxdb3/core/api/write-data/`, {
     waitUntil: 'domcontentloaded',
   });
   await page.setViewport({ width: 1280, height: 1024 });
-  await page.waitForSelector('#chat-assistant-textarea');
+  await page.waitForSelector('.ask-ai-button');
   await page.evaluate(() =>
     document
       .querySelectorAll('.notification .close-notification')
@@ -312,22 +304,22 @@ try {
     () => document.body.dataset.askAiState === 'ready'
   );
   await page.setViewport({ width: 1280, height: 1024 });
+  await page.click('.ask-ai-button');
+  await page.waitForFunction(() => document.body.dataset.askAiState === 'open');
   await page.evaluate((query) => {
     window.liveAnswerCompleted = false;
+    window.liveQueryAcknowledged = false;
     window.Kapa('onAskAIAnswerCompleted', () => {
       window.liveAnswerCompleted = true;
     });
-    const input = document.querySelector('#chat-assistant-textarea');
-    input.value = query;
-    input.dispatchEvent(new Event('input', { bubbles: true }));
-    input.form.requestSubmit();
+    window.Kapa('onAskAIQuerySubmit', (data) => {
+      if (data?.question === query) window.liveQueryAcknowledged = true;
+    });
+    window.Kapa.open({ mode: 'ai', query, submit: true });
   }, question);
-  await page.waitForFunction(
-    () =>
-      document.body.dataset.askAiState === 'open' &&
-      document.querySelector('#chat-assistant-textarea').value === '',
-    { timeout: 15000 }
-  );
+  await page.waitForFunction(() => window.liveQueryAcknowledged, {
+    timeout: 15000,
+  });
   evidence.queryAcknowledged = true;
   await page.waitForFunction(() => window.liveAnswerCompleted, {
     timeout: 45000,
