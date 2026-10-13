@@ -86,11 +86,11 @@ jobs:
           fi
 
           if [ "$validation_status" -eq 0 ]; then
-            printf '%s\\n' "$validation_output"
+            printf '%s\n' "$validation_output"
           else
-            error_count=$(printf '%s\\n' "$validation_output" | sed -nE 's/^Errors found: ([0-9]+)$/\\1/p' | tail -n 1)
+            error_count=$(printf '%s\n' "$validation_output" | sed -nE 's/^Errors found: ([0-9]+)$/\1/p' | tail -n 1)
             echo "::group::README validation details"
-            printf '%s\\n' "$validation_output"
+            printf '%s\n' "$validation_output"
             echo "::endgroup::"
 
             if [ -n "$error_count" ]; then
