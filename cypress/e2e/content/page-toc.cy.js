@@ -36,6 +36,38 @@ describe('Article navigation', () => {
     );
     cy.get('[data-page-rail]').should('not.contain', 'Support and feedback');
   });
+  it('collapses to a hamburger on phones and follows the scroll up to 2rem', () => {
+    cy.viewport(500, 800);
+    cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', { body: '' });
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    const width = ($el) => $el[0].getBoundingClientRect().width;
+    const top = ($el) => Math.round($el[0].getBoundingClientRect().top);
+    cy.get('[data-page-rail] button .page-toc-toggle-icon').should(($icon) => {
+      expect(width($icon), 'icon shown').to.be.greaterThan(0);
+    });
+    cy.get('[data-page-rail] button .page-toc-toggle-label').should(
+      ($label) => {
+        expect(width($label), 'label hidden').to.be.at.most(1);
+      }
+    );
+    cy.get('[data-page-rail]').should(($rail) => {
+      expect(top($rail), 'starts below the header').to.be.greaterThan(32);
+    });
+    cy.scrollTo(0, 1000);
+    cy.get('[data-page-rail]').should(($rail) => {
+      expect(top($rail), 'stops 2rem from the top').to.equal(32);
+    });
+    cy.get('[data-page-rail] button').click();
+    cy.get('[data-page-rail] button .page-toc-toggle-label').should(
+      ($label) => {
+        expect(width($label), 'label shown when expanded').to.be.greaterThan(1);
+      }
+    );
+    cy.get('[data-page-rail] button .page-toc-toggle-icon').should(
+      'not.be.visible'
+    );
+  });
 });
 
 describe('API article navigation', () => {

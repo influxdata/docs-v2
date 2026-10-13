@@ -1,9 +1,6 @@
 {{- /*
   Renders a Lucide icon (https://lucide.dev/icons) as inline SVG.
 
-  Icons are decorative: they accompany the text that names the control, so they
-  are hidden from screen readers (aria-hidden) to avoid duplicate announcements.
-
   Usage:
     {{< lucide "circle-plus" >}}
     {{< lucide icon="circle-check" size="large" >}}
@@ -15,34 +12,14 @@
     size      Optional size modifier: "small" or "large". Defaults to 1em,
               sized to the surrounding text. Named form only.
 
-  Icons are read from the lucide-static package through the node_modules asset
-  mount. Lucide is ISC-licensed; see node_modules/lucide-static/LICENSE.
+  Rendering lives in the lucide partial so layouts can place the same icons.
 */ -}}
 {{- $name := "" -}}
 {{- $size := "" -}}
 {{- if .IsNamedParams -}}
   {{- $name = .Get "icon" -}}
-  {{- $size = .Get "size" | default "" -}}
+  {{- $size = .Get "size" -}}
 {{- else -}}
   {{- $name = .Get 0 -}}
 {{- end -}}
-
-{{- with resources.Get (printf "node_modules/lucide-static/icons/%s.svg" $name) -}}
-  {{- $svg := .Content -}}
-  {{- /* Strip the license comment. */ -}}
-  {{- $svg = $svg | replaceRE `(?s)<!--.*?-->` "" -}}
-  {{- /* Icons are decorative---the adjacent text names the control. */ -}}
-  {{- $svg = $svg | replaceRE `<svg` `<svg aria-hidden="true" focusable="false"` -}}
-  {{- /* Add the size modifier to the icon's existing class. */ -}}
-  {{- if ne $size "" -}}
-    {{- $svg = $svg | replaceRE `class="lucide ` (printf `class="lucide %s ` $size) -}}
-  {{- end -}}
-  {{- /* Collapse to a single line so the inline SVG renders as HTML in every
-         Markdown context (paragraphs, list items, bold text)---multi-line raw
-         HTML is escaped as text by Goldmark inline parsing. Size comes from CSS
-         (svg.lucide), which overrides the icon's width/height attributes. */ -}}
-  {{- $svg = $svg | replaceRE `\s*\n\s*` " " | strings.TrimSpace -}}
-  {{- $svg | safeHTML -}}
-{{- else -}}
-  {{- warnf "lucide shortcode: no icon named %q (see https://lucide.dev/icons)" $name -}}
-{{- end -}}
+{{- partialCached "lucide.html" (dict "icon" $name "size" $size) $name $size -}}
