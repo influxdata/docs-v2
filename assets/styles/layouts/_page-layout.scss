@@ -1,7 +1,7 @@
 // Shared article and API navigation layout. Panel dimensions include padding.
 :root {
-  --page-toc-width: 200px;
-  --page-nav-width: 240px;
+  --page-toc-width: auto;
+  --page-nav-width: 20%;
   --ask-ai-rail-width: 360px;
   --ask-ai-reservation: 0px;
 }
@@ -12,6 +12,7 @@
   align-items: start;
   overflow: visible;
   min-width: 0;
+  transition: width .2s;
 
   .api-header-actions {
     flex-wrap: wrap;
@@ -34,8 +35,9 @@
     padding-right: 0;
   }
   .article {
-    padding: 2rem 1rem 3rem;
+    padding: 2rem 3rem 3rem;
     min-width: 0;
+    border-radius: $radius * 2;
   }
   > .copyright {
     grid-column: 1;
@@ -43,7 +45,6 @@
   [data-page-rail] {
     grid-column: 2;
     grid-row: 1;
-    width: var(--page-toc-width);
     display: block;
     min-width: 0;
     overflow-wrap: anywhere;
@@ -58,31 +59,35 @@
   .page-toc-toggle {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 0.75rem;
     cursor: pointer;
     font: inherit;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: $article-heading;
-    background: mix($body-bg, $article-bg, 65%);
+    font-size: 0.75rem;
+    letter-spacing: .08rem;
+    font-weight: bold;
+    color: rgba($article-heading, 0.5);
+    text-transform: uppercase;
+    background: $body-bg;
     border: 0;
-    border-radius: 0.5rem 0 0 0.5rem;
-    padding: 0.6rem 1rem;
+    border-radius: $radius 0 0 $radius;
+    padding: 0.5rem 0.8rem;
+    transition: background .2s;
 
+    .page-toc-toggle-icon {
+      display: none;
+    }
     &::after {
       content: '';
-      width: 0.4rem;
-      height: 0.4rem;
+      width: 0.35rem;
+      height: 0.35rem;
       border-right: 1.5px solid currentColor;
       border-bottom: 1.5px solid currentColor;
-      transform: translateY(-0.1rem) rotate(45deg);
+      transform:  rotate(135deg);
       opacity: 0.65;
     }
     &[aria-expanded='true']::after {
-      transform: translateY(0.1rem) rotate(225deg);
-    }
-    &:hover {
-      background: mix($article-link, $article-bg, 8%);
+      transform: rotate(315deg);
     }
     &:focus-visible {
       outline: 2px solid $article-link;
@@ -94,18 +99,23 @@
 @media (max-width: 1279px) {
   .content-wrapper.page-content [data-page-rail] {
     position: fixed;
-    top: 5rem;
+    --page-rail-start: 4.25rem;
+    --page-rail-floor: 2rem;
+    top: var(--page-rail-start);
     right: 0;
     z-index: 30;
+    // Follow the page up from the breakpoint's start until the floor. The
+    // component publishes --page-rail-scroll; the clamp stays here.
+    transform: translateY(calc(-1 * clamp(0px, var(--page-rail-scroll, 0px), var(--page-rail-start) - var(--page-rail-floor))));
     width: 300px;
     max-width: 100vw;
     max-height: calc(100dvh - 5rem);
     padding: 0;
-    border: 1px solid $nav-border;
+    border: 1px solid rgba($nav-border, 0.35);
     border-right: 0;
     border-radius: 0.5rem 0 0 0.5rem;
-    box-shadow: 0 2px 8px rgba($article-shadow, 0.35);
-    background: $article-bg;
+    box-shadow: 2px 2px 6px $sidebar-search-shadow;
+    background: $body-bg;
     .api-toc-header {
       display: none;
     }
@@ -127,12 +137,14 @@
   body[data-ask-ai-state='open'] {
     --ask-ai-reservation: var(--ask-ai-rail-width);
   }
-  body:has(.ask-ai-composer) {
+  body[data-ask-ai-state] {
     .page-wrapper {
       margin-right: var(--ask-ai-reservation);
+      transition: margin-right .3s;
     }
     .topnav {
       margin-right: var(--ask-ai-reservation);
+      transition: margin-right .3s;
     }
     .footer-widgets {
       right: calc(var(--ask-ai-reservation) + 1rem);
@@ -158,8 +170,6 @@
 }
 @media (min-width: 1441px) {
   :root {
-    --page-toc-width: 260px;
-    --page-nav-width: 280px;
     --ask-ai-rail-width: 386px;
   }
 }
@@ -170,7 +180,7 @@
   .content-wrapper.page-content.has-page-toc {
     display: block;
   }
-  .ask-ai-composer,
+  .ask-ai-status,
   .ask-ai-button,
   #kapa-widget-container {
     display: none !important;
@@ -180,104 +190,70 @@
   }
 }
 
-body:has(.ask-ai-composer) .page-wrapper {
-  padding-bottom: calc(var(--ask-ai-composer-height, 6rem) + 2rem);
-}
-.ask-ai-composer {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1rem;
-  width: calc(100vw - 2rem);
-  max-width: 386px;
-  z-index: 40;
-  background: $article-bg;
-  color: $article-text;
-  border: 1px solid $nav-border;
-  border-radius: 0.75rem;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-  padding: 0.75rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.5rem;
-  &[hidden] {
-    display: none;
-  }
-  textarea {
-    width: 100%;
-    min-width: 0;
-    resize: vertical;
-    max-height: 12rem;
-    background: inherit;
-    color: inherit;
-    border: none;
-    font: inherit;
-  }
-  button {
-    align-self: end;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-  }
-  button:disabled {
-    cursor: default;
-    opacity: 0.5;
-  }
-  [role='status'] {
-    grid-column: 1 / -1;
-    font-size: 0.85rem;
-  }
-  [role='status']:empty {
-    display: none;
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
-  }
+.ask-ai-status {
+  @include visually-hidden;
 }
 .ask-ai-button {
   align-self: flex-start;
   margin-right: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  font: inherit;
+  padding: 0.45rem 0.7rem;
+  border-radius: $radius * 3;
+  font-family: $proxima;
+  font-weight: $medium;
+  font-size: .9rem;
   cursor: pointer;
-  color: $topnav-link;
-  background: transparent;
-  border: 1px solid $nav-border;
-}
-@media (min-width: 1280px) {
-  .ask-ai-composer {
-    left: calc(50% + var(--page-nav-width) / 2);
+  color: $g20-white;
+  @include gradient($grad-burningDusk, -45deg);
+  border: none;
+
+  &[aria-disabled='true'] {
+    cursor: progress;
+    opacity: 0.65;
   }
-  body[data-sidebar-state='closed'] .ask-ai-composer {
-    left: 50%;
+}
+@media (max-width: 800px) {
+  .content-wrapper.page-content [data-page-rail] {
+    --page-rail-start: 7.5rem;
   }
 }
 @media (max-width: 600px) {
-  body:has(.ask-ai-composer:not([hidden])) .page-wrapper {
-    padding-bottom: calc(var(--ask-ai-composer-height, 6rem) + 5rem);
-  }
-  body:has(.ask-ai-composer:not([hidden])) .footer-widgets {
-    bottom: calc(var(--ask-ai-composer-height, 6rem) + 1.25rem);
-  }
   .topnav .docs-home .long,
   .topnav .influx-home .icon-influx-logotype {
     display: none;
   }
   .ask-ai-button {
-    align-self: flex-end;
+    position: absolute;
+    top: -0.1rem;
+    right: 3.75rem;
     font-size: 0.85rem;
   }
-  .ask-ai-composer {
-    bottom: 0.5rem;
+  .content-wrapper.page-content {
+    [data-page-rail] {
+      --page-rail-start: 9.35rem;
+    }
+    .page-toc-toggle[aria-expanded='false'] {
+      .page-toc-toggle-icon {
+        display: block;
+        svg {
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          // Overlapping strokes compound a translucent currentColor where they
+          // meet, so draw the icon opaque and fade it as one group instead.
+          color: $article-heading;
+          opacity: 0.5;
+        }
+      }
+      .page-toc-toggle-label {
+        @include visually-hidden;
+      }
+      &::after {
+        display: none;
+      }
+    }
+    .article {
+      padding: 1.5rem 1.5rem 3rem;
+    }
   }
 }
 @media (max-width: 1279px) {

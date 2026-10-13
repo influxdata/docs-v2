@@ -27,7 +27,16 @@ export default function PageToc({ component }: ComponentOptions): void {
     .closest('.content-wrapper')
     ?.querySelector<HTMLElement>('.article--content');
   const nav = component.querySelector<HTMLElement>('.api-toc-nav');
-  if (!article || !nav) return;
+  const toggle = component.querySelector<HTMLButtonElement>('.page-toc-toggle');
+  if (article && nav && toggle) mount(component, article, nav, toggle);
+}
+
+function mount(
+  component: HTMLElement,
+  article: HTMLElement,
+  nav: HTMLElement,
+  toggle: HTMLButtonElement
+): void {
   const serverLinks = [
     ...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
   ];
@@ -36,18 +45,12 @@ export default function PageToc({ component }: ComponentOptions): void {
   let links: HTMLAnchorElement[] = [];
   let refreshTimer = 0;
   let scrollFrame = 0;
+  let pinned: { href: string; top: number; distance: number } | null = null;
+  let settleTimer = 0;
   const desktop = matchMedia('(min-width: 1280px)');
   let expanded = false;
-  const toggle = document.createElement('button');
-  toggle.className = 'page-toc-toggle';
-  toggle.type = 'button';
-  toggle.textContent = 'On this page';
-  nav.id ||= 'page-toc-navigation';
-  toggle.setAttribute('aria-controls', nav.id);
-  component.prepend(toggle);
 
   function present(): void {
-    if (!nav) return;
     const chat = document.body.dataset.askAiState;
     const suspended =
       !desktop.matches && ['loading', 'opening', 'open'].includes(chat || '');
@@ -61,7 +64,7 @@ export default function PageToc({ component }: ComponentOptions): void {
       if (!suspended) toggle.focus({ preventScroll: true });
       else
         document
-          .querySelector<HTMLElement>('#chat-assistant-textarea')
+          .querySelector<HTMLElement>('.ask-ai-button')
           ?.focus({ preventScroll: true });
     }
   }
@@ -101,9 +104,7 @@ export default function PageToc({ component }: ComponentOptions): void {
       !component.contains(event.target) &&
       !(
         event.target instanceof Element &&
-        event.target.closest(
-          '[data-ask-ai-action="open"], .ask-ai-open, .ask-ai-composer'
-        )
+        event.target.closest('[data-ask-ai-action="open"], .ask-ai-open')
       )
     )
       dismiss();
@@ -117,7 +118,7 @@ export default function PageToc({ component }: ComponentOptions): void {
       if (link === active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
-    if (active && nav && !nav.hidden) {
+    if (active && !nav.hidden) {
       const scroller = desktop.matches ? component : nav;
       const panel = scroller.getBoundingClientRect();
       const entry = active.getBoundingClientRect();
@@ -127,8 +128,61 @@ export default function PageToc({ component }: ComponentOptions): void {
     }
   }
 
-  function highlight(): void {
+  function unpin(): void {
+    window.clearTimeout(settleTimer);
+    pinned = null;
+  }
+
+  function release(): void {
+    unpin();
+    highlight();
+  }
+
+  /** Distance from the selected target, or from as close as the page can get. */
+  function remaining(top: number): number {
+    const limit = document.documentElement.scrollHeight - window.innerHeight;
+    return Math.abs(window.scrollY - Math.max(0, Math.min(top, limit)));
+  }
+
+  /**
+   * Release the selected link once scrolling stops. Re-evaluate the active
+   * entry only when the page stopped short of the selected target.
+   */
+  function settle(): void {
+    window.clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(() => {
+      const arrived = pinned !== null && remaining(pinned.top) <= 2;
+      unpin();
+      if (!arrived) highlight();
+    }, 150);
+  }
+
+  /**
+   * Below the desktop layout, publish the scroll offset so the stylesheet can
+   * carry the rail up from its breakpoint start to its floor.
+   */
+  function shiftRail(): void {
+    if (desktop.matches) return;
+    component.style.setProperty(
+      '--page-rail-scroll',
+      `${Math.round(window.scrollY)}px`
+    );
+  }
+
+  function frame(): void {
     scrollFrame = 0;
+    shiftRail();
+    if (!pinned) highlight();
+  }
+
+  function highlight(): void {
+    const pin = pinned;
+    const selected =
+      pin && links.find((link) => link.getAttribute('href') === pin.href);
+    if (selected) {
+      setActive(selected);
+      return;
+    }
     let active = links[0];
     for (const link of links) {
       const target = fragmentTarget(link);
@@ -139,7 +193,6 @@ export default function PageToc({ component }: ComponentOptions): void {
   }
 
   function refresh(): void {
-    if (!article || !nav) return;
     if (serverLinks.length) links = serverLinks;
     else {
       const list = document.createElement('ul');
@@ -168,6 +221,7 @@ export default function PageToc({ component }: ComponentOptions): void {
     component
       .closest('.content-wrapper')
       ?.classList.toggle('has-page-toc', !component.hidden);
+    shiftRail();
     highlight();
     present();
   }
@@ -190,13 +244,16 @@ export default function PageToc({ component }: ComponentOptions): void {
     const link = event.target.closest<HTMLAnchorElement>('a[href^="#"]');
     if (!link) return;
     const target = fragmentTarget(link);
-    if (!target) return;
+    const href = link.getAttribute('href');
+    if (!target || !href) return;
     event.preventDefault();
     if (!desktop.matches) dismiss(false);
-    const href = link.getAttribute('href');
-    if (href) history.pushState(null, '', href);
+    history.pushState(null, '', href);
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - headerOffset();
+    pinned = { href, top, distance: Infinity };
     window.scrollTo({
-      top: target.getBoundingClientRect().top + window.scrollY - headerOffset(),
+      top,
       behavior: matchMedia('(prefers-reduced-motion: reduce)').matches
         ? 'instant'
         : 'smooth',
@@ -204,17 +261,27 @@ export default function PageToc({ component }: ComponentOptions): void {
     target.setAttribute('tabindex', '-1');
     target.focus({ preventScroll: true });
     setActive(link);
+    settle();
   });
   window.addEventListener(
     'scroll',
     () => {
-      if (!scrollFrame) scrollFrame = requestAnimationFrame(highlight);
+      if (pinned) {
+        // A programmatic scroll only closes in on its target. Anything that
+        // moves the page away from it has taken over, so drop the selection.
+        const distance = remaining(pinned.top);
+        if (distance <= pinned.distance + 1) {
+          pinned.distance = distance;
+          settle();
+        } else unpin();
+      }
+      if (!scrollFrame) scrollFrame = requestAnimationFrame(frame);
     },
     { passive: true }
   );
   window.addEventListener('resize', scheduleRefresh);
-  window.addEventListener('hashchange', highlight);
-  window.addEventListener('popstate', highlight);
+  window.addEventListener('hashchange', release);
+  window.addEventListener('popstate', release);
   const observer = new MutationObserver(scheduleRefresh);
   observer.observe(article, {
     childList: true,
@@ -227,6 +294,7 @@ export default function PageToc({ component }: ComponentOptions): void {
     () => {
       observer.disconnect();
       clearTimeout(refreshTimer);
+      clearTimeout(settleTimer);
       cancelAnimationFrame(scrollFrame);
     },
     { once: true }

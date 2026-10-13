@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
-import { dismissNotifications } from '../../support/page-fixtures';
-import { mockKapaWidget } from '../../support/kapa-widget';
+import { dismissNotifications } from '../../support/page-fixtures.js';
+import { mockKapaWidget } from '../../support/kapa-widget.js';
 
 function finishRender() {
   cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
@@ -43,17 +43,20 @@ describe('Ask AI entry points', () => {
     );
   });
 
-  it('keeps whitespace, Shift+Enter, and IME Enter in the composer', () => {
+  it('keeps only the header button and opens without submitting', () => {
     cy.visit('/influxdb3/core/get-started/write/');
-    cy.get('#chat-assistant-textarea').invoke('val', '   ').trigger('input');
-    cy.get('[data-ask-ai-action="submit"]').should('be.disabled');
-    cy.get('#chat-assistant-textarea')
-      .invoke('val', 'Draft')
-      .trigger('input')
-      .trigger('keydown', { key: 'Enter', shiftKey: true })
-      .trigger('keydown', { key: 'Enter', isComposing: true });
-    cy.get('script[src*="kapa-widget"]').should('not.exist');
-    cy.get('#chat-assistant-textarea').should('have.value', 'Draft');
+    dismissNotifications();
+    cy.get('.ask-ai-composer, #chat-assistant-textarea').should('not.exist');
+    cy.get('.ask-ai-button').should('be.visible').click();
+    cy.get('.ask-ai-button').should('have.attr', 'aria-disabled', 'true');
+    finishRender();
+    cy.window().then((win) => {
+      expect(win.kapaHarness.requests).to.have.length(1);
+      expect(win.kapaHarness.requests[0]).to.include({
+        query: '',
+        submit: false,
+      });
+    });
   });
 
   it('restores the expanded ToC after narrow chat closes', () => {
@@ -71,7 +74,21 @@ describe('Ask AI entry points', () => {
     cy.get('[data-ask-ai-action="open"]').should('be.focused');
   });
 
-  it('restores the draft and ToC after script failure and allows retry', () => {
+  it('restores keyboard focus after opening from the narrow ToC', () => {
+    cy.viewport(1024, 768);
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('[data-page-rail] button').click();
+    cy.get('[data-page-rail] nav a').first().as('origin').focus();
+    cy.get('@origin').trigger('keydown', { key: 'k', ctrlKey: true });
+    cy.get('.ask-ai-button').should('be.focused');
+    cy.get('.ask-ai-button').should('have.attr', 'aria-busy', 'true');
+    finishRender();
+    cy.contains('button', 'Close chat').click();
+    cy.get('@origin').should('be.focused');
+  });
+
+  it('restores navigation after script failure and allows button retry', () => {
     cy.intercept(
       { url: 'https://widget.kapa.ai/kapa-widget.bundle.js', times: 1 },
       { statusCode: 503, body: 'Unavailable' }
@@ -80,26 +97,21 @@ describe('Ask AI entry points', () => {
     cy.visit('/influxdb3/core/get-started/write/');
     dismissNotifications();
     cy.get('[data-page-rail] button').click();
-    cy.get('#chat-assistant-textarea')
-      .invoke('val', 'Saved question')
-      .trigger('input')
-      .trigger('keydown', { key: 'Enter' });
+    cy.get('.ask-ai-button').click();
     cy.get('body').should('have.attr', 'data-ask-ai-state', 'error');
-    cy.get('[role="status"]').should('contain', 'Your draft is saved');
-    cy.get('#chat-assistant-textarea')
-      .should('have.value', 'Saved question')
-      .and('be.focused');
+    cy.get('#ask-ai-status').should('contain', 'Try again');
+    cy.get('.ask-ai-button').should('be.enabled').and('be.focused');
     cy.get('[data-page-rail] nav').should('be.visible');
-    cy.get('[data-ask-ai-action="submit"]').click();
+    cy.get('.ask-ai-button').click();
     finishRender();
     cy.window().then((win) =>
       expect(win.kapaHarness.requests).to.have.length(1)
     );
   });
 
-  it('provides homepage chat and excludes the composer and header trigger on 404', () => {
+  it('provides homepage chat and excludes the launcher on 404', () => {
     cy.visit('/');
-    cy.get('#chat-assistant-textarea').should('be.visible');
+    cy.get('.ask-ai-button').should('be.visible');
     cy.get('[data-page-rail]').should('not.exist');
     cy.get('[data-ask-ai-action="open"]').click();
     finishRender();
@@ -130,6 +142,6 @@ describe('Ask AI entry points', () => {
       expect(win.kapaHarness.requests[0].query).not.to.be.empty;
     });
     cy.contains('button', 'Close chat').click();
-    cy.get('#chat-assistant-textarea').should('be.focused');
+    cy.get('.ask-ai-button').should('be.focused');
   });
 });

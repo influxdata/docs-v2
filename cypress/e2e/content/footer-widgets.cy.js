@@ -17,21 +17,16 @@ function visitWithDate(path = writePage, theme = 'light') {
   dismissNotifications();
 }
 
-function expectSeparateControls() {
+function expectVisibleControls() {
   cy.get(trigger).should('be.visible');
-  cy.get('.ask-ai-composer').should('be.visible');
+  cy.get('.ask-ai-button').should('be.visible');
+  cy.get('.ask-ai-composer, #chat-assistant-textarea').should('not.exist');
   cy.get('.footer-widgets').should(($widgets) => {
     const widget = $widgets[0].getBoundingClientRect();
-    const composer = $widgets[0].ownerDocument
-      .querySelector('.ask-ai-composer')
-      .getBoundingClientRect();
-    expect(
-      widget.right <= composer.left ||
-        widget.left >= composer.right ||
-        widget.bottom <= composer.top ||
-        widget.top >= composer.bottom,
-      'date widget and composer do not overlap'
-    ).to.eq(true);
+    const win = $widgets[0].ownerDocument.defaultView;
+    expect(widget.bottom).to.be.at.most(win.innerHeight);
+    expect(widget.right).to.be.at.most(win.innerWidth);
+    expect(widget.top).to.be.at.least(0);
   });
 }
 
@@ -112,12 +107,10 @@ describe('Bottom-of-page widgets', () => {
       cy.viewport(375, 812);
       mockKapaWidget();
       visitWithDate(writePage, theme);
-      expectSeparateControls();
-      cy.get('#chat-assistant-textarea').invoke('css', 'height', '150px');
-      expectSeparateControls();
+      expectVisibleControls();
       selectDay(12);
       cy.get('[data-ask-ai-action="open"]').click();
-      expectSeparateControls();
+      expectVisibleControls();
       cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
       cy.window().then((win) => win.kapaHarness.finishRender());
       cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
@@ -129,7 +122,7 @@ describe('Bottom-of-page widgets', () => {
       cy.contains('button', 'Close chat').click();
       for (const width of [601, 600, 375]) {
         cy.viewport(width, 812);
-        expectSeparateControls();
+        expectVisibleControls();
       }
       cy.scrollTo('bottom');
       cy.get(trigger).click();
