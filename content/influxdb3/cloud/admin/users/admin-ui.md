@@ -45,15 +45,17 @@ The **Users** page displays your account information and a table of existing use
 
 ## View existing users
 
-The Users page shows a comprehensive view of all users and pending invitations for your account:
+The **Users** tab lists users who have accepted the user agreement and have
+access to the account. It displays the following information:
 
-- **Invite ID**: Unique identifier for each user invitation
-- **Email**: Email address of the invited or existing user
-- **Invited At**: Date and time when the invitation was sent
-- **Status**: Current status of the invitation
-  - `accepted`: User has accepted the invitation and has access to the instance
-  - `expired`: Invitation has expired and is no longer valid
-  - `revoked`: Invitation has been manually revoked by an administrator
+- **First Name** and **Last Name**
+- **Email**
+- **Roles**
+- **Joined On**
+- An **Actions** menu for each user
+
+To view invitation IDs, invitation dates, and invitation statuses, select
+**Invitations**.
 
 Use the search functionality to quickly find specific users by email address or invitation details.
 
@@ -143,8 +145,8 @@ Only users with the **Admin** role can change roles or remove users.
 1. On the **Users** tab, locate the user.
 2. Click the **Actions** menu (three vertical dots) for that user.
 3. Select **Remove User**.
-4. In the **Remove User** dialog, confirm the email address, and then click
-   **Remove User**.
+4. In the **Remove User** dialog, verify the displayed email address, and then
+   click **Remove User**.
 
 ## Limitations
 
