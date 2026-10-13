@@ -30,6 +30,16 @@ function expectWidgetWidth(width) {
   }
 }
 
+function tabOutOfWidget(remaining = 20) {
+  cy.press(Cypress.Keyboard.Keys.TAB);
+  cy.window().then((win) => {
+    if (win.document.activeElement?.id !== 'kapa-widget-container') return;
+    if (remaining === 1)
+      throw new Error('Tab did not leave the desktop widget');
+    tabOutOfWidget(remaining - 1);
+  });
+}
+
 describe('Live Kapa conversation', () => {
   it('submits a question, completes an answer, and retains history after reopening', () => {
     cy.viewport(1280, 1024);
@@ -41,6 +51,14 @@ describe('Live Kapa conversation', () => {
       'open'
     );
     cy.get('.ask-ai-composer, #chat-assistant-textarea').should('not.exist');
+    cy.get('#kapa-widget-container')
+      .shadow()
+      .find('#kapa-modal-content textarea')
+      .focus();
+    tabOutOfWidget();
+    cy.window()
+      .its('document.activeElement.id')
+      .should('not.eq', 'kapa-widget-container');
 
     for (const width of [
       1280, 1281, 1440, 1441, 1920, 1279, 1024, 801, 800, 601, 600, 390,
