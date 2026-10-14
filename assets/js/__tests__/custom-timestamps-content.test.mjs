@@ -77,3 +77,13 @@ test('get-started write examples use the home sample timestamps', () => {
   );
   assert.deepEqual(mismatches, []);
 });
+
+test('InfluxQL queries of home sample data start on a sample hour', () => {
+  const homeEpochQueryStart = /FROM home\s+WHERE time >= (\d{10})s/g;
+  const offHour = contentFiles.flatMap((file) =>
+    Array.from(readFileSync(file, 'utf8').matchAll(homeEpochQueryStart))
+      .filter(([, seconds]) => Number(seconds) % 3600 !== 0)
+      .map(([, seconds]) => `${file}: ${seconds}`)
+  );
+  assert.deepEqual(offHour, []);
+});
