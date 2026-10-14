@@ -1,5 +1,13 @@
-const timestampPattern =
-  /\b\d{4}-\d{2}-\d{2}(?!\d)|(?<![\w.])\d{10}(?:\d{3}){0,3}(?![\w.])/g;
+const isoDate = /\b\d{4}-\d{2}-\d{2}(?!\d)/;
+const bareEpoch = /(?<![\w.])\d{10}(?:\d{3}){0,3}(?![\w.])/;
+const influxqlEpoch =
+  /(?<![\w.])(?:\d{10}(?=s\b)|\d{13}(?=ms\b)|\d{19}(?=ns\b))/;
+const timestampPattern = new RegExp(
+  [isoDate, bareEpoch, influxqlEpoch]
+    .map((pattern) => pattern.source)
+    .join('|'),
+  'g'
+);
 const secondsPerDay = 86400n;
 const millisecondsPerDay = 86400000n;
 
