@@ -6,7 +6,7 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
-## v3.12.1 {date="2026-10-12"}
+## v3.12.1 {date="2026-10-14"}
 
 ### Core
 
@@ -46,7 +46,7 @@ Additional Enterprise-specific updates:
 - **Nodes without query mode built an unused file index (Parquet engine)**: Only nodes that run in `query` mode, including `all`, now load the compacted data file index at startup. Previously, compact and process nodes also loaded it, which used startup time and memory for an index they never read. A node that skips the index logs `compacted-data file index not loaded`.
 - Other bug fixes and performance improvements
 
-## v3.11.7 {date="2026-10-12"}
+## v3.11.7 {date="2026-10-14"}
 
 ### Core
 
