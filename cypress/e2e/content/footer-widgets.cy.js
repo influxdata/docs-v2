@@ -140,6 +140,16 @@ describe('Bottom-of-page widgets', () => {
     cy.get('.custom-timestamps').should('contain', '3.6742346141747673');
   });
 
+  it('anchors sample data on its own day when log output precedes it', () => {
+    cy.viewport(1280, 1024);
+    visitWithDate('/influxdb3/cloud-serverless/get-started/write/');
+    selectDay(12);
+    cy.contains('.custom-timestamps', 'Starting service inputs')
+      .should('contain', String(Date.parse('2025-02-12T12:40:00Z') / 1000))
+      .and('contain', '2024-01-11T20:09:08Z')
+      .and('not.contain', '1719924000');
+  });
+
   for (const edition of ['enterprise', 'core', 'cloud']) {
     it(`updates every precision tab on the ${edition} write API page`, () => {
       cy.viewport(1280, 1024);

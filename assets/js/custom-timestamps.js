@@ -3,13 +3,16 @@ import { Datepicker } from 'vanillajs-datepicker';
 import { toggleModal } from './modals.js';
 import * as localStorage from './services/local-storage.js';
 import {
+  sampleDay,
   shiftTimestampText,
   timestampDays,
 } from './custom-timestamp-values.js';
 
-// Formats a date as YYYY-MM-DD.
+const dateFormat = 'yyyy-mm-dd';
+
+// Formats a date as YYYY-MM-DD in local time.
 function formatDate(dateObj) {
-  return dateObj.toISOString().replace(/T.*$/, '');
+  return Datepicker.formatDate(dateObj, dateFormat);
 }
 
 // Returns yesterday's date.
@@ -60,15 +63,9 @@ function updateTimestamps(newStartDate) {
   document.querySelectorAll('.custom-timestamps').forEach((root) => {
     const nodes = timestampNodes(root);
     if (!nodes.length) return;
-    const days = nodes.flatMap(({ days }) => days);
-    const firstDay = days.reduce((earliest, day) =>
-      day < earliest ? day : earliest
-    );
+    const shift = selectedDay - sampleDay(nodes.flatMap(({ days }) => days));
     nodes.forEach(({ node }) => {
-      node.textContent = shiftTimestampText(
-        node.textContent,
-        selectedDay - firstDay
-      );
+      node.textContent = shiftTimestampText(node.textContent, shift);
     });
   });
 }
@@ -85,7 +82,7 @@ function CustomTimeTrigger({ component }) {
   const elem = datePickerEl[0];
   const datepicker = new Datepicker(elem, {
     defaultViewDate: startDate,
-    format: 'yyyy-mm-dd',
+    format: dateFormat,
     nextArrow: '>',
     prevArrow: '<',
   });
@@ -100,11 +97,9 @@ function CustomTimeTrigger({ component }) {
 
   // Applies and saves the selected date.
   $('#submit-custom-date').click(function () {
-    let newDate = datepicker.getDate();
+    const newDate = datepicker.getDate(dateFormat);
 
     if (newDate != undefined) {
-      newDate = formatDate(newDate);
-
       updateTimestamps(newDate);
       setStartDate(newDate);
       toggleModal('#influxdb-gs-date-select');
