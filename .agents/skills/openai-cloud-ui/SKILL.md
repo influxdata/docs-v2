@@ -11,8 +11,12 @@ checks for the actual source change.
 
 1. Read repository instructions and preserve the current checkout's changes.
 2. Source `tools/cloud-environment/openai/setup.sh` in each command shell that uses
-   its environment. Run `maintenance.sh` under agent permissions; it checks local
-   rendering and HTTPS trust. Classify any failure before claiming readiness.
+   its environment. Run `maintenance.sh` under agent permissions to check the
+   prepared environment's local rendering and HTTPS trust.
+   Sourcing setup and running maintenance install nothing.
+   If readiness fails, report the failed check and use the environment's
+   documented recovery procedure. Classify the failure before claiming readiness.
+   Provisioning commands belong to environment setup, not routine verification.
 3. Reuse a ready preview on port 1315, or start `preview.sh` and record its owned PID.
    Wait for the first build and HTTP 200 on the affected route before running tests.
    For API reference work, generate API content first and verify the target route
