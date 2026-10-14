@@ -25,6 +25,12 @@
 }
 
 // Right-side TOC (third column)
+// Entries animate only once the component has committed a highlight, so the
+// first paint and list rebuilds do not slide the active indicator into place.
+.api-toc.is-ready .api-toc-link {
+  transition: color 0.2s, padding 0.2s;
+}
+
 .api-toc {
   width: 260px;
   flex-shrink: 0;
@@ -67,11 +73,10 @@
 
     .api-toc-link {
       display: block;
-      // padding: 0.35rem 0;
+      padding: 0 0.5rem 0 0;
       font-size: 0.85rem;
       color: $nav-item;
       text-decoration: none;
-      transition: color 0.2s;
       line-height: 1.4;
 
       &:hover {
@@ -81,7 +86,7 @@
       &.is-active {
         color: $nav-active;
         font-weight: $medium;
-        padding-left: .5rem;
+        padding: 0 0 0 0.5rem;
         border-left: 2px solid $nav-active;
       }
     }
@@ -822,7 +827,7 @@
 // narrow window where the TOC is visible but space is tight.
 @media (min-width: 1281px) and (max-width: 1535px) {
   .api-toc {
-    width: 220px;
+    // width: 220px;
     border-left: none;
   }
 }

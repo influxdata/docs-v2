@@ -51,7 +51,7 @@ const TOGGLE = `
   </button>`;
 
 /** Eight tall sections under a fixed 50px header, with room to scroll past the last one. */
-const scrollFixture = (css = '') => `
+const scrollFixture = ({ css = '', nav = '' } = {}) => `
   <style>
     .topnav { position: fixed; top: 0; height: 50px; }
     h2 { height: 300px; }
@@ -64,7 +64,7 @@ const scrollFixture = (css = '') => `
       ${Array.from({ length: 8 }, (_, index) => `<h2 id="heading-${index}">Heading ${index}</h2>`).join('')}
       <div style="height: 1000px">Last section content</div>
     </article>
-    <aside data-page-rail>${TOGGLE}<nav class="api-toc-nav" id="page-toc-navigation"></nav></aside>
+    <aside class="api-toc" data-page-rail>${TOGGLE}<nav class="api-toc-nav" id="page-toc-navigation">${nav}</nav></aside>
   </div>`;
 
 /** Click a heading's link once the ToC is live; returns the scroll destination and the link. */
@@ -128,7 +128,7 @@ test('article navigation uses visible headings, literal labels, and real fragmen
         <div hidden><h2 id="hidden">Hidden tab</h2></div>
         <div class="feedback"><h2 id="feedback">Support and feedback</h2></div>
       </article>
-      <aside data-page-rail>${TOGGLE}<nav class="api-toc-nav" id="page-toc-navigation"></nav></aside>
+      <aside class="api-toc" data-page-rail>${TOGGLE}<nav class="api-toc-nav" id="page-toc-navigation"></nav></aside>
     </div>`);
   try {
     assert.deepEqual(
@@ -171,9 +171,9 @@ test('article navigation uses visible headings, literal labels, and real fragmen
 
 test('scrolling the article reveals its active link within the independently scrolling ToC', async () => {
   const page = await mount(
-    scrollFixture(
-      'aside { height: 100px; overflow: auto; } li { height: 30px; }'
-    ),
+    scrollFixture({
+      css: 'aside { height: 100px; overflow: auto; } li { height: 30px; }',
+    }),
     { width: 1280, height: 800 }
   );
   try {
@@ -317,6 +317,62 @@ test('the rail publishes nothing at desktop widths', async () => {
   const page = await mount(scrollFixture(), { width: 1280, height: 800 });
   try {
     assert.equal(await publishedScrollAt(page, 500), '');
+  } finally {
+    await page.close();
+  }
+});
+
+test('the first highlight does not animate, while later changes do', async () => {
+  const page = await mount(
+    scrollFixture({
+      css: '.api-toc.is-ready .api-toc-link { transition: padding-left 1s; } .api-toc-link.is-active { padding-left: 8px; }',
+      nav: Array.from(
+        { length: 8 },
+        (_, index) =>
+          `<a class="api-toc-link" href="#heading-${index}">Heading ${index}</a>`
+      ).join(''),
+    }),
+    { width: 1280, height: 800 }
+  );
+  try {
+    const transitions = (selector) =>
+      page.evaluate(
+        (target) =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() =>
+              resolve(
+                document
+                  .querySelector(target)
+                  .getAnimations()
+                  .map((animation) => animation.transitionProperty)
+              )
+            )
+          ),
+        selector
+      );
+    assert.ok(
+      await page.$eval('[data-page-rail]', (rail) =>
+        rail.classList.contains('is-ready')
+      ),
+      'rail never became ready'
+    );
+    assert.deepEqual(
+      await transitions(`${ACTIVE}[href="#heading-0"]`),
+      [],
+      'the first highlight animated'
+    );
+    // Chromium emits a resize after setContent, and the debounced refresh it
+    // schedules suppresses transitions by design; let it pass first.
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    await page.evaluate(() =>
+      window.scrollTo(0, document.getElementById('heading-3').offsetTop - 50)
+    );
+    await page.waitForSelector(`${ACTIVE}[href="#heading-3"]`);
+    assert.deepEqual(
+      await transitions(`${ACTIVE}[href="#heading-3"]`),
+      ['padding-left'],
+      'a later change should animate'
+    );
   } finally {
     await page.close();
   }

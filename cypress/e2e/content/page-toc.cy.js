@@ -39,13 +39,25 @@ describe('Article navigation', () => {
   it('does not animate the active entry indentation when the ToC initializes', () => {
     cy.viewport(1280, 1024);
     cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', { body: '' });
-    cy.visit('/influxdb3/core/get-started/write/');
-    dismissNotifications();
-    cy.get('[data-page-rail] a[aria-current="location"]').should(($link) => {
-      expect(getComputedStyle($link[0]).transitionProperty).not.to.include(
-        'padding'
-      );
+    cy.visit('/influxdb3/core/get-started/write/', {
+      onBeforeLoad(win) {
+        // Record every transition that starts on a ToC entry during load.
+        win.tocTransitions = [];
+        win.addEventListener(
+          'transitionrun',
+          (event) => {
+            if (event.target.matches('[data-page-rail] a')) {
+              win.tocTransitions.push(event.propertyName);
+            }
+          },
+          true
+        );
+      },
     });
+    dismissNotifications();
+    cy.get('[data-page-rail]').should('have.class', 'is-ready');
+    cy.get('[data-page-rail] a[aria-current="location"]').should('exist');
+    cy.window().its('tocTransitions').should('deep.equal', []);
   });
   it('collapses to a hamburger on phones and follows the scroll up to 2rem', () => {
     cy.viewport(500, 800);

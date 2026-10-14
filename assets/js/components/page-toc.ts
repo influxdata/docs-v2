@@ -193,6 +193,9 @@ function mount(
   }
 
   function refresh(): void {
+    // Entries animate between highlights the reader sees, not into the first
+    // one or a rebuilt list: hold transitions until this pass is committed.
+    component.classList.remove('is-ready');
     if (serverLinks.length) links = serverLinks;
     else {
       const list = document.createElement('ul');
@@ -224,6 +227,8 @@ function mount(
     shiftRail();
     highlight();
     present();
+    component.getBoundingClientRect();
+    component.classList.add('is-ready');
   }
 
   function scheduleRefresh(): void {
