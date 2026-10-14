@@ -44,6 +44,7 @@ Additional Enterprise-specific updates:
 - **Compactor replanned forever against a missing data file (upgraded storage engine)**: A run set whose data file is confirmed gone from object storage is now skipped after three failed compaction attempts, so planning moves on to other work. Previously, the compactor planned the same compaction on every pass, and it failed every time. Skipped run sets are counted in `influxdb3_compactor_skipped_run_sets` with `reason="auto_data_file_not_found"`. Compactions of new snapshots and imports aren't covered.
 - **Bulk import could stall object storage requests (upgraded storage engine)**: The server no longer leaves object storage requests unfinished while it checks the status of uploaded imports. Previously, during a credential refresh, one of those requests could hold the object store client's credential lock and never release it, so every other request on the node waited behind it: the server stayed up but stopped reading from and writing to object storage.
 - **Nodes without query mode built an unused file index (Parquet engine)**: Only nodes that run in `query` mode, including `all`, now load the compacted data file index at startup. Previously, compact and process nodes also loaded it, which used startup time and memory for an index they never read. A node that skips the index logs `compacted-data file index not loaded`.
+- **Ingest node refused to restart after an unclean stop (Parquet engine)**: An ingest node that stopped without a clean shutdown now starts again. Previously, if a snapshot covered all of its WAL or a forced snapshot ran during startup, the node could fail every start with an error that it was `still running in another process`, though no other process existed.
 - Other bug fixes and performance improvements
 
 ## v3.11.7 {date="2026-10-14"}
@@ -64,6 +65,11 @@ Additional Enterprise-specific updates:
 #### Features
 
 - **WAL flush wait metric (Parquet engine)**: The new `influxdb3_parquet_wal_flush_lock_wait_seconds` histogram reports how long a WAL flush waited for an earlier flush to finish. The `kind` label is `timed` for the regular flush interval and `forced` for a flush that forces a snapshot.
+
+#### Bug fixes
+
+- **Two processes with the same `--node-id` (upgraded storage engine)**: When two ingest-capable processes run with the same `--node-id`, the one that loses a snapshot write now logs `another process is writing under this node id` and exits, so only one writer survives.
+- **Ingest node refused to restart after an unclean stop (Parquet engine)**: An ingest node that stopped without a clean shutdown now starts again. Previously, if a snapshot covered all of its WAL or a forced snapshot ran during startup, the node could fail every start with an error that it was `still running in another process`, though no other process existed.
 
 ## v3.11.6 {date="2026-10-05"}
 
