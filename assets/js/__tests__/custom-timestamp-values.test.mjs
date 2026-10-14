@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
-  sampleDay,
+  earliestMostCommonDay,
   shiftTimestampText,
   timestampDays,
 } from '../custom-timestamp-values.js';
@@ -55,28 +55,37 @@ test('recognizes the same calendar day across timestamp precisions', () => {
   assert.ok(days.every((day) => day === days[0]));
 });
 
-// Mirrors the Telegraf tab on the Cloud Serverless get-started page:
-// log output from an earlier day precedes the sample data.
-const telegrafBlock =
-  '2023-05-31T20:09:08Z D! [agent] Starting service inputs\n' +
-  'home,room=Living\\ Room temp=21.1 1719924000\n' +
-  'home,room=Kitchen temp=21.0 1719924000\n' +
-  'home,room=Kitchen temp=22.7 1719967200';
+const telegrafLogLine =
+  '2023-05-31T20:09:08Z D! [agent] Starting service inputs';
+const telegrafSampleData = [
+  'home,room=Living\\ Room temp=21.1 1719924000',
+  'home,room=Kitchen temp=21.0 1719924000',
+  'home,room=Kitchen temp=22.7 1719967200',
+];
+const telegrafBlock = [telegrafLogLine, ...telegrafSampleData].join('\n');
 
 function shiftTo(text, isoDate) {
   const selectedDay = BigInt(Date.parse(`${isoDate}T00:00:00Z`)) / 86400000n;
-  return shiftTimestampText(text, selectedDay - sampleDay(timestampDays(text)));
+  return shiftTimestampText(
+    text,
+    selectedDay - earliestMostCommonDay(timestampDays(text))
+  );
 }
 
 test('anchors on the sample data, not an earlier unrelated date', () => {
   const seconds = (iso) => String(Date.parse(iso) / 1000);
+  const [shiftedLogLine, ...shiftedSampleData] = shiftTo(
+    telegrafBlock,
+    '2025-02-12'
+  ).split('\n');
+  assert.deepEqual(shiftedSampleData, [
+    `home,room=Living\\ Room temp=21.1 ${seconds('2025-02-12T12:40:00Z')}`,
+    `home,room=Kitchen temp=21.0 ${seconds('2025-02-12T12:40:00Z')}`,
+    `home,room=Kitchen temp=22.7 ${seconds('2025-02-13T00:40:00Z')}`,
+  ]);
   assert.equal(
-    shiftTo(telegrafBlock, '2025-02-12'),
-    // The log line keeps its distance from the data.
-    '2024-01-11T20:09:08Z D! [agent] Starting service inputs\n' +
-      `home,room=Living\\ Room temp=21.1 ${seconds('2025-02-12T12:40:00Z')}\n` +
-      `home,room=Kitchen temp=21.0 ${seconds('2025-02-12T12:40:00Z')}\n` +
-      `home,room=Kitchen temp=22.7 ${seconds('2025-02-13T00:40:00Z')}`
+    shiftedLogLine,
+    '2024-01-11T20:09:08Z D! [agent] Starting service inputs'
   );
 });
 

@@ -25,17 +25,12 @@ export function timestampDays(text) {
     .filter((day) => day !== undefined);
 }
 
-// Returns the most common day, so unrelated dates (such as log output) in a
-// block don't move the sample data. Ties resolve to the earliest day.
-export function sampleDay(days) {
+export function earliestMostCommonDay(days) {
   const counts = new Map();
   days.forEach((day) => counts.set(day, (counts.get(day) || 0) + 1));
-  let anchor;
-  counts.forEach((count, day) => {
-    const best = counts.get(anchor) || 0;
-    if (count > best || (count === best && day < anchor)) anchor = day;
-  });
-  return anchor;
+  return Array.from(counts)
+    .sort(([dayA], [dayB]) => (dayA < dayB ? -1 : dayA > dayB ? 1 : 0))
+    .reduce((best, entry) => (entry[1] > best[1] ? entry : best))[0];
 }
 
 export function shiftTimestampText(text, days) {
