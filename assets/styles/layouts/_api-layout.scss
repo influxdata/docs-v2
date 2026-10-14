@@ -34,7 +34,6 @@
   max-height: calc(100vh - 100px);
   overflow-y: auto;
   padding: 1rem;
-  border-left: 1px solid $nav-border;
 
   // Hidden state (used when a tab panel hides the TOC)
   &.is-hidden {
@@ -59,7 +58,7 @@
     }
 
     .api-toc-item {
-      margin: 0;
+      margin: 0.75rem 0;
 
       &--nested {
         padding-left: 0.75rem;
@@ -68,20 +67,22 @@
 
     .api-toc-link {
       display: block;
-      padding: 0.35rem 0;
+      // padding: 0.35rem 0;
       font-size: 0.85rem;
       color: $nav-item;
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.2s, padding 0.2s;
       line-height: 1.4;
 
       &:hover {
-        color: $nav-item-hover;
+        color: $nav-active;
       }
 
       &.is-active {
         color: $nav-active;
         font-weight: $medium;
+        padding-left: .5rem;
+        border-left: 2px solid $nav-active;
       }
     }
   }

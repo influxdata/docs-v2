@@ -28,10 +28,12 @@ function handleModalClick() {
 }
 
 function toggleModal(modalID = '') {
+  $('.modal, .modal-content').stop(true, true);
   if ($('.modal').hasClass('open')) {
     $('.modal').fadeOut(200).removeClass('open');
     $('.modal-content').delay(400).hide(0);
   } else {
+    $('.modal-content').hide();
     $('.modal').fadeIn(200).addClass('open');
     $(`${modalID}.modal-content`).show();
   }
