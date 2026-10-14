@@ -1,0 +1,40 @@
+name: Sample Data
+
+# Checks content, download files, and the date picker against
+# data/sample_data.yml.
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'data/sample_data.yml'
+      - 'static/downloads/**'
+      - 'assets/js/custom-timestamp*.js'
+      - 'assets/js/__tests__/custom-timestamp-values.test.mjs'
+      - 'assets/js/__tests__/sample-data.test.mjs'
+      - '.github/workflows/pr-sample-data.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-sample-data-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test sample data and custom timestamps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup docs environment
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      - name: Run sample data tests
+        run: yarn test:sample-data
