@@ -13,7 +13,7 @@ weight: 110
 ---
 
 Find the fix for a {{% product-name %}} sign-in problem by its symptom.
-Symptoms appear as messages on the **Sign in** page.
+Most symptoms appear as messages on the **Sign in** page.
 
 ## Find your symptom
 
@@ -149,8 +149,9 @@ The cause is one of the following:
 ### The server doesn't have a user for your identity
 
 The reported reason includes your identity.
-Ask an administrator to add a user with that identity as the OAuth ID--for
-example:
+Ask an administrator to add a user with that identity as the OAuth ID, either
+[in Explorer](/influxdb3/explorer/manage-users/add/#add-a-user-that-signs-in-with-sso)
+or with the `influxdb3` CLI--for example:
 
 ```bash { placeholders="SUBJECT|ROLE" }
 influxdb3 create user --oauth-id SUBJECT --role ROLE
