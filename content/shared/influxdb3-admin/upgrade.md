@@ -194,18 +194,19 @@ When upgrading multi-node clusters, you need to understand how nodes on differen
 ### Mixed-version clusters
 
 During a rolling upgrade, nodes on the old and new versions share the catalog and the files in object storage.
-How the cluster behaves depends on the version you upgrade to:
+How the cluster behaves depends on the versions you upgrade from and to:
 
-- **3.10 or later**: Nodes on the old version keep reading and writing the catalog until the last of them is upgraded.
+- **From 3.10 or later**: Nodes on the old version keep reading and writing the catalog until the last of them is upgraded.
   Features added by the new version stay unavailable until every running node is on it.
   The cluster then commits the new feature level, and binaries on the old version can no longer start against the catalog.
   The remaining risk is a node on the old version reading a file that an upgraded node wrote in a newer format, which the recommended upgrade order prevents.
-- **3.9 or earlier**: Some versions change the catalog format (3.1 and 3.4).
+- **To 3.9 or earlier**: Upgrades that cross a catalog format change (introduced in 3.1 and 3.4) block catalog modifications on the old version.
   Once a node on the new version starts, nodes on the old version can't modify the catalog until they're upgraded.
   Writes to existing tables, tags, and fields succeed; writes that add new ones fail.
-- **3.9 to 3.10**: Not a rolling upgrade.
-  The first 3.10 node migrates the catalog, and 3.9 nodes can't read the migrated catalog.
-  Stop the cluster, upgrade every node, and start it in the order for 3.10 or later.
+  Other upgrades to 3.9 or earlier don't affect the catalog.
+- **From 3.9 or earlier to 3.10 or later**: Not a rolling upgrade.
+  The first node on the new version migrates the catalog, and nodes on 3.9 or earlier can't read the migrated catalog.
+  Stop every node, upgrade them all, and then start the cluster.
   See [Upgrading to InfluxDB 3.10 is a one-way migration](#upgrading-to-influxdb-310-is-a-one-way-migration).
 
 ### Multi-node upgrade procedure
@@ -214,9 +215,9 @@ Follow these steps to upgrade your {{% product-name %}} deployment with minimal 
 
 #### Recommended node upgrade order
 
-The order depends on the version you upgrade to.
+The order depends on the versions you upgrade from and to.
 
-**Upgrading to 3.10 or later:**
+**Upgrading from 3.10 or later:**
 
 A node reads files written by its own version or older, but not files written in a format introduced by a newer version.
 Upgrade the nodes that read other nodes' output before the nodes that write it.
@@ -227,12 +228,14 @@ Upgrade the nodes that read other nodes' output before the nodes that write it.
 3. **Ingest nodes**: Read only the catalog, so upgrade them last.
    If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
 
-A node with a plugin directory configured runs in `process` mode in addition to its configured modes.
-Upgrade it according to its other modes.
+A node with a plugin directory configured also runs in `process` mode.
+A node that combines ingest mode with query or process mode both reads and writes files, so no position in the order protects it: another such node on the old version reads its output before being upgraded.
+Upgrade these nodes one after another without pausing between them, or stop them together if the release notes announce a file format change.
 
-**Upgrading to 3.9 or earlier:**
+**Upgrading to 3.9 or earlier across a catalog format change (3.1 or 3.4):**
 
 Nodes on the old version lose the ability to modify the catalog once a node on the new version starts, so upgrade the nodes that modify it most first.
+For other upgrades to 3.9 or earlier, the order doesn't matter.
 
 1. **Ingest nodes**: Add tables, tags, and fields to the catalog as they accept writes, so upgrade them first to restore those writes as quickly as possible.
 2. **Query nodes**: Modify the catalog less often, through API requests such as `influxdb3 create table`.
@@ -376,7 +379,7 @@ doesn't order rollouts across StatefulSets—so the upgrade doesn't follow the
 To control the order, freeze the modes you aren't upgrading yet with the
 `updateStrategy.rollingUpdate.partition` field, then release them one mode at a
 time.
-The steps below follow the order for upgrading to 3.10 or later.
+The steps below follow the order for upgrades from 3.10 or later.
 Setting `partition` to a value greater than or equal to a StatefulSet's replica
 count holds every pod in that StatefulSet at its current version.
 A partition lower than the replica count lets the pods at or above that ordinal
@@ -472,7 +475,7 @@ Replace the following:
 Drive the upgrade one node at a time with `serial: 1`, and order your plays by
 node mode to match the
 [recommended node upgrade order](#recommended-node-upgrade-order).
-The playbook below follows the order for upgrading to 3.10 or later.
+The playbook below follows the order for upgrades from 3.10 or later.
 
 ```yaml
 # Upgrade one host at a time, query nodes first.
@@ -549,14 +552,14 @@ When upgrading to 3.9 or earlier across a catalog format change (for example, fr
 - **Writes to existing measurements, tags, and fields**: Succeed on all nodes, regardless of version.
 - **Writes that add new measurements, tags, or fields**: Fail on nodes running the older version until those nodes are upgraded.
 
-When upgrading to 3.10 or later, writes on both versions are unaffected.
+When upgrading from 3.10 or later to a later version, writes on both versions are unaffected.
 Features introduced by the new version become available after the last node is upgraded.
 
 ### Troubleshooting cluster upgrades
 
 #### Writes fail during upgrade
 
-When upgrading to 3.9 or earlier, if writes fail during a rolling upgrade, verify that you're not attempting to add new measurements, tags, or fields to nodes running older versions.
+When upgrading to 3.9 or earlier across a catalog format change, if writes fail during a rolling upgrade, verify that you're not attempting to add new measurements, tags, or fields to nodes running older versions.
 
 1. **Check the write payload** to determine if it adds new measurements, tags, or fields
 2. **Verify the node version** that received the write
@@ -566,10 +569,10 @@ When upgrading to 3.9 or earlier, if writes fail during a rolling upgrade, verif
 
 If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order):
 
-- **3.10 or later**: A query or process node on the old version may encounter files in a format it can't read.
+- **From 3.10 or later**: A query or process node on the old version may encounter files in a format it can't read.
   It logs errors and keeps serving the data it already loaded; if it restarts, it fails to start.
   Upgrade the node to recover.
-- **3.9 or earlier**: Catalog modifications stay blocked for longer.
+- **To 3.9 or earlier across a catalog format change**: Catalog modifications stay blocked for longer.
 
 #### New features stay unavailable after the upgrade
 
