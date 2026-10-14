@@ -107,7 +107,7 @@ export function printPlan(result) {
       `Shared-content consumers: ${result.consumers.join(', ') || 'none found'}.`
     );
   console.log(
-    'Commit hooks cover formatting, Vale, source-path checks, and instruction linting; CI covers broader link and render checks.'
+    'Commit hooks cover formatting, prose lint, source-path checks, and instruction linting; CI covers broader link and render checks.'
   );
   if (result.unsupported.length)
     console.log(

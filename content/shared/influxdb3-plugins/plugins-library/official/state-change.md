@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The State Change Plugin provides comprehensive field monitoring and threshold detection for {{% product-name %}} data streams. Detect field value changes, monitor threshold conditions, and trigger notifications when specified criteria are met. Supports both scheduled batch monitoring and real-time data write monitoring with configurable stability checks and multi-channel alerts.
 
 ## Configuration
@@ -318,5 +318,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

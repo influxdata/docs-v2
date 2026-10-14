@@ -23,7 +23,7 @@
  *    #7079: placeholders, callouts, custom-timestamps, code-tabs,
  *    tab-content, and expand wrappers around fenced code blocks.
  *    These catch product-specific wiring bugs (site-specific layouts,
- *    `product-name` substitution, per-product Vale configs) that the
+ *    `product-name` substitution, per-product configs) that the
  *    example page can't.
  *
  * Each page is asserted against:

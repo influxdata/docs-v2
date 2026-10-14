@@ -78,5 +78,5 @@ mapping in
 - Rendered HTML appearance (Copilot handles this)
 - Code correctness inside code blocks (pytest handles this)
 - Link validity (link-checker workflow handles this)
-- Vale style linting (Vale handles this)
+- Prose style linting (the prose linter handles this)
 - Files outside the diff

@@ -80,9 +80,7 @@ To update or disable autoscaling for a cluster, [contact InfluxData support](htt
 
 If autoscaling is enabled, you can view the configured limits in the cluster card on the Admin UI **Overview** page.
 
-<!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-autoscaling.png" alt="Autoscaling enabled for cluster in Admin UI Cluster Overview page" />}}
-<!-- vale Vale.Terms = YES -->
 
 
 

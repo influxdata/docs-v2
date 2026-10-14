@@ -137,8 +137,3 @@ test('skips only the named rules', () => {
   ].join('\n');
   assert.deepEqual(ruleIds(markdown), ['Branding', 'Ordinal']);
 });
-
-test('honors vale off and on comments until they are migrated', () => {
-  const markdown = ['<!-- vale off -->', '', 'Start the compactor.'].join('\n');
-  assert.deepEqual(ruleIds(markdown), []);
-});

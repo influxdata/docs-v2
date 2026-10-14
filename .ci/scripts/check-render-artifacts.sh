@@ -28,7 +28,7 @@
 #   2  Target directory/file does not exist.
 #
 # Run this immediately after `npx hugo --quiet` in CI so that any
-# regression fails the build before downstream jobs (Cypress, Vale,
+# regression fails the build before downstream jobs (Cypress,
 # link-check) waste time.
 #
 # Known gaps / possible future additions:

@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The Value Counter Plugin counts how many times each unique value of one or more watched fields appears in a source table, then writes the result as a rollup measurement with field keys of the form `<field>_<value>=<count>i`. It is a direct port of the [Telegraf `valuecounter` aggregator](https://github.com/influxdata/telegraf/tree/master/plugins/aggregators/valuecounter) to the {{% product-name %}} Processing Engine. The plugin ships with two independent modes — a data-write (WAL) trigger that accumulates counts as rows arrive, and a scheduled trigger that queries the source table on every fire and aggregates the window since the previous successful fire.
 
 ## Configuration
@@ -262,5 +262,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

@@ -32,7 +32,7 @@ Both new tags and fields can be added later as your schema changes.
 [line protocol](/influxdb3/version/reference/syntax/line-protocol/) syntax.
 Line protocol consists of the following elements:
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 
 {{< req type="key" >}}
 
@@ -54,12 +54,12 @@ Line protocol consists of the following elements:
 
 - **timestamp**: [Unix timestamp](/influxdb3/clustered/reference/syntax/line-protocol/#unix-timestamp)
 associated with the data. InfluxDB supports up to nanosecond precision.
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 {{< expand-wrapper >}}
 {{% expand "How are InfluxDB line protocol elements parsed?" %}}
 
- <!-- vale InfluxDataDocs.v3Schema = YES -->
+ <!-- prose-lint on V3Terms -->
 
 - **table**: Everything before the _first unescaped comma before the first
   whitespace_.
@@ -69,7 +69,7 @@ associated with the data. InfluxDB supports up to nanosecond precision.
 - **timestamp**: Integer value after the _second unescaped whitespace_.
 - Lines are separated by the newline character (`\n`). Line protocol is
 whitespace sensitive.
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -85,7 +85,7 @@ _For schema design recommendations, see
 
 ## Construct line protocol
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 
 With a basic understanding of line protocol, you can now construct line protocol
 and write data to {{% product-name %}}.
@@ -101,7 +101,7 @@ To collect this data, use the following schema:
     - `hum`: percent humidity (float)
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
-  <!-- vale InfluxDataDocs.v3Schema = YES -->
+  <!-- prose-lint on V3Terms -->
 
 The following line protocol sample represents data collected hourly beginning at
 {{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.

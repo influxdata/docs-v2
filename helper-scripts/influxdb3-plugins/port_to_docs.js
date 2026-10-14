@@ -294,8 +294,8 @@ function normalizeListIndentation(content) {
   );
 }
 
-function exemptGeneratedContentFromVale(content) {
-  return `<!-- vale off -->\n${content.trim()}\n<!-- vale on -->`;
+function exemptGeneratedContentFromProseLint(content) {
+  return `<!-- prose-lint off -->\n${content.trim()}\n<!-- prose-lint on -->`;
 }
 
 const GENERATED_REGION_BEGIN = '<!-- BEGIN GENERATED PLUGIN CONTENT -->';
@@ -367,7 +367,7 @@ function transformContent(content, pluginName) {
   // Replace support section
   content = replaceSupportSection(content);
 
-  return exemptGeneratedContentFromVale(content);
+  return exemptGeneratedContentFromProseLint(content);
 }
 
 /**

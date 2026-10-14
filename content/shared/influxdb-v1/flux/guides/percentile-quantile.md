@@ -1,6 +1,6 @@
 
 <!-- Percentile ordinals (50th, 99th) are standard statistical terminology. -->
-<!-- vale Google.Ordinal = NO -->
+<!-- prose-lint off Ordinal -->
 
 Use the [`quantile()` function](/flux/v0/stdlib/universe/quantile/)
 to return a value representing the `q` quantile or percentile of input data.

@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The Earthquake Sampler Plugin ingests earthquake events from the USGS GeoJSON feeds on a schedule and writes normalized points for dashboards and alerting. It can also read from a custom JSON endpoint or from an existing InfluxDB table, and optionally writes directly into an existing canonical `quake` table using that table's column names (`write_quake_schema=true`). Events are deduplicated with a per-event update-marker cache, so reruns only write new or updated earthquakes.
 
 - **Zero authentication**: USGS feeds require no API keys or signup
@@ -281,5 +281,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->
