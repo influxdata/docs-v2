@@ -189,9 +189,9 @@ when the write request contains invalid line protocol or schema conflicts.
 For example, the following line protocol contains two points, each using a
 different datatype for the `temp` field, which causes a schema conflict:
 
-```
-home,room=Sunroom temp=96 1641024000
-home,room=Sunroom temp="hi" 1641027600
+```lp {lint="false"}
+home,room=Sunroom temp=96 1735545600
+home,room=Sunroom temp="hi" 1735549200
 ```
 
 ### Accept partial writes
@@ -209,7 +209,7 @@ With `accept_partial=true` (default), InfluxDB:
   "error": "partial write of line protocol occurred",
   "data": [
     {
-      "original_line": "home,room=Sunroom temp=hi 1641027600",
+      "original_line": "home,room=Sunroom temp=hi 1735549200",
       "line_number": 2,
       "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
     }
@@ -230,7 +230,7 @@ With `accept_partial=false`, InfluxDB:
 {
   "error": "parsing failed for write_lp endpoint",
   "data": {
-    "original_line": "home,room=Sunroom temp=hi 1641027600",
+    "original_line": "home,room=Sunroom temp=hi 1735549200",
     "line_number": 2,
     "error_message": "invalid column type for column 'temp', expected iox::column_type::field::float, got iox::column_type::field::string"
   }

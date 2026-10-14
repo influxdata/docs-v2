@@ -38,6 +38,16 @@ const timeBoundPattern = new RegExp(
   'g'
 );
 
+const intentionallyInvalidFence =
+  /^([ \t]*)(`{3,})[^\n]*lint="false"[^\n]*\n[\s\S]*?^\1\2[ \t]*$/gm;
+
+function checkedContent(file) {
+  return readFileSync(file, 'utf8').replace(
+    intentionallyInvalidFence,
+    (block) => block.replace(/[^\n]/g, '')
+  );
+}
+
 function epochSeconds(digits) {
   return Number(BigInt(digits) / 10n ** BigInt(digits.length - 10));
 }
@@ -171,7 +181,7 @@ test('home rows in content match the home sample data', () => {
   const mismatches = contentFiles
     .filter((file) => !homeRowExamplesOutsideSampleData.has(file))
     .flatMap((file) =>
-      Array.from(readFileSync(file, 'utf8').matchAll(homeRowPattern))
+      Array.from(checkedContent(file).matchAll(homeRowPattern))
         .filter(
           ([, room, temp, hum, co, digits]) =>
             !sampleRows.has(homeRow(room, epochSeconds(digits), temp, hum, co))
@@ -186,7 +196,7 @@ test('queries of sample tables overlap the sample time range', () => {
     contentFiles
       .filter((file) => !capturedQueryOutput.has(file))
       .flatMap((file) =>
-        queryWindows(readFileSync(file, 'utf8'), table)
+        queryWindows(checkedContent(file), table)
           .filter(
             ({ lower, upper }) =>
               lower > range.endSeconds || upper < range.startSeconds
@@ -199,7 +209,7 @@ test('queries of sample tables overlap the sample time range', () => {
 
 test('home queries start on a sample interval', () => {
   const offInterval = contentFiles.flatMap((file) =>
-    queryWindows(readFileSync(file, 'utf8'), home.table)
+    queryWindows(checkedContent(file), home.table)
       .filter(
         ({ lower }) =>
           lower !== undefined &&

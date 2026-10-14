@@ -219,7 +219,7 @@ Date-time strings should be formatted as string literals and wrapped in single q
 For example:
 
 {{% influxdb/custom-timestamps %}}
-```sql
+```sql {lint="false"}
 SELECT temp
 FROM home
 WHERE
