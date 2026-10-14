@@ -3,38 +3,31 @@ import { Datepicker } from 'vanillajs-datepicker';
 import { toggleModal } from './modals.js';
 import * as localStorage from './services/local-storage.js';
 import {
-  sampleDay,
+  earliestMostCommonDay,
   shiftTimestampText,
   timestampDays,
 } from './custom-timestamp-values.js';
 
 const dateFormat = 'yyyy-mm-dd';
 
-// Formats a date as YYYY-MM-DD in local time.
-function formatDate(dateObj) {
-  return Datepicker.formatDate(dateObj, dateFormat);
+function formatLocalDate(date) {
+  return Datepicker.formatDate(date, dateFormat);
 }
 
-// Returns yesterday's date.
 function yesterday() {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  return formatDate(yesterday);
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+  return formatLocalDate(date);
 }
 
-const prefID = 'sample_get_started_date';
+const samplePreference = 'sample_get_started_date';
 
-function setStartDate(setDate) {
-  localStorage.setPreference(prefID, setDate);
+function saveSampleDate(date) {
+  localStorage.setPreference(samplePreference, date);
 }
 
-function getStartDate() {
-  return localStorage.getPreference(prefID);
-}
-
-// Uses the saved date or defaults to yesterday.
-var startDate = getStartDate() || yesterday();
+const savedSampleDate = localStorage.getPreference(samplePreference);
+const sampleDate = savedSampleDate || yesterday();
 
 function timestampNodes(root) {
   const nodes = [];
@@ -56,56 +49,54 @@ function timestampNodes(root) {
   return nodes;
 }
 
-function updateTimestamps(newStartDate) {
-  const milliseconds = Date.parse(`${newStartDate}T00:00:00Z`);
+function shiftTimestampsTo(date) {
+  const milliseconds = Date.parse(`${date}T00:00:00Z`);
   if (!Number.isFinite(milliseconds)) return;
   const selectedDay = BigInt(milliseconds) / 86400000n;
   document.querySelectorAll('.custom-timestamps').forEach((root) => {
     const nodes = timestampNodes(root);
     if (!nodes.length) return;
-    const shift = selectedDay - sampleDay(nodes.flatMap(({ days }) => days));
+    const shift =
+      selectedDay - earliestMostCommonDay(nodes.flatMap(({ days }) => days));
     nodes.forEach(({ node }) => {
       node.textContent = shiftTimestampText(node.textContent, shift);
     });
   });
 }
 
-function CustomTimeTrigger({ component }) {
-  const $component = $(component);
-  $component
-    .find('a[data-action="open"]:first')
-    .on('click', () => toggleModal('#influxdb-gs-date-select'));
-
-  var datePickerEl = $('#custom-date-selector');
-
-  // Initializes the picker with the saved date.
-  const elem = datePickerEl[0];
-  const datepicker = new Datepicker(elem, {
-    defaultViewDate: startDate,
+function createDatePicker(element, date) {
+  const datepicker = new Datepicker(element, {
+    defaultViewDate: date,
     format: dateFormat,
     nextArrow: '>',
     prevArrow: '<',
   });
-  datepicker.setDate(startDate);
+  datepicker.setDate(date);
+  return datepicker;
+}
 
-  // Applies the sample date on page load.
-  updateTimestamps(startDate);
+function toggleDateModal() {
+  toggleModal('#influxdb-gs-date-select');
+}
 
-  if (startDate === yesterday()) {
-    setStartDate(startDate);
-  }
+function CustomTimeTrigger({ component }) {
+  $(component).find('a[data-action="open"]:first').on('click', toggleDateModal);
 
-  // Applies and saves the selected date.
-  $('#submit-custom-date').click(function () {
-    const newDate = datepicker.getDate(dateFormat);
+  const datepicker = createDatePicker(
+    document.getElementById('custom-date-selector'),
+    sampleDate
+  );
 
-    if (newDate != undefined) {
-      updateTimestamps(newDate);
-      setStartDate(newDate);
-      toggleModal('#influxdb-gs-date-select');
-    } else {
-      toggleModal('#influxdb-gs-date-select');
+  shiftTimestampsTo(sampleDate);
+  if (!savedSampleDate) saveSampleDate(sampleDate);
+
+  $('#submit-custom-date').click(function applySelectedDate() {
+    const selectedDate = datepicker.getDate(dateFormat);
+    if (selectedDate) {
+      shiftTimestampsTo(selectedDate);
+      saveSampleDate(selectedDate);
     }
+    toggleDateModal();
   });
 }
 
