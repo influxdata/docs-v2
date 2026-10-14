@@ -15,6 +15,9 @@ on:
       version:
         description: 'Version number (e.g., 3.2.1)'
         required: true
+      quay_tag:
+        description: 'Core/Enterprise only: release commit SHA used as the Quay image tag'
+        required: false
       release_type:
         description: 'Release type'
         required: true
@@ -81,11 +84,14 @@ jobs:
           EOF
 
       - name: Update product versions
+        env:
+          QUAY_TAG: ${{ inputs.quay_tag }}
         run: |
           # Script to update data/products.yml
           ./helper-scripts/common/update-product-version.sh \
             --product ${{ inputs.product }} \
-            --version ${{ inputs.version }}
+            --version ${{ inputs.version }} \
+            ${QUAY_TAG:+--quay-tag "$QUAY_TAG"}
 
       - name: Create release checklist issue
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0

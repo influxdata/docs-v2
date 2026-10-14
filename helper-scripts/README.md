@@ -56,8 +56,11 @@ Updates product version numbers in `data/products.yml` and related documentation
 **Usage:**
 
 ```bash
-./common/update-product-version.sh --product <product> --version <version>
+./common/update-product-version.sh --product <product> --version <version> [--quay-tag <sha>]
 ```
+
+For Core and Enterprise, `--quay-tag` sets `latest_quay_tag`, the release
+commit SHA that Quay uses as the image tag.
 
 **Example:**
 
