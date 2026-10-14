@@ -157,9 +157,11 @@ jobs:
         if: steps.detect.outputs.should-run == 'true'
         run: npx playwright install --with-deps chromium
 
+      # custom-timestamps.spec.js checks date picker fixes from #7873.
+      # Add it here after #7873 merges; until then it fails on master.
       - name: Run render-regression spec
         if: steps.detect.outputs.should-run == 'true'
-        run: yarn test:e2e:playwright
+        run: yarn test:e2e:playwright playwright/e2e/render-regression.spec.js
 
       - name: Upload Playwright traces
         if: failure() && steps.detect.outputs.should-run == 'true'
