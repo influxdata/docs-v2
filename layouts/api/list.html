@@ -10,7 +10,7 @@
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
 
-  <div class="content-wrapper api-content">
+  <div class="content-wrapper api-content page-content">
     <div class="api-main">
       <article class="article article--content api-reference" role="main">
         <header class="article--header">
@@ -70,31 +70,9 @@
     {{ $hasTag := isset .Params "tag" }}
     {{ $isConceptual := .Params.isConceptual | default false }}
     {{ if and $hasTag (not $isConceptual) }}
-    <aside class="api-toc" data-component="api-toc">
-      <h4 class="api-toc-header">ON THIS PAGE</h4>
-      <nav class="api-toc-nav">
-        {{ range $operations }}
-        {{ $anchor := printf "#operation/%s" .operationId }}
-        <a
-          href="{{ $anchor | safeURL }}"
-          class="api-toc-link api-toc-link--operation"
-        >
-          <span
-            class="api-method api-method--{{ lower .method }} api-method--small"
-            >{{ upper .method }}</span
-          >
-          <span class="api-toc-summary"
-            >{{ with .summary }}{{ . }}{{ else }}{{ .path }}{{ end }}</span
-          >
-        </a>
-        {{ end }}
-      </nav>
-    </aside>
+    {{ partial "article/page-toc.html" (dict "Page" . "Operations" $operations) }}
     {{ else }}
-    <aside class="api-toc" data-component="api-toc">
-      <h4 class="api-toc-header">ON THIS PAGE</h4>
-      <nav class="api-toc-nav"></nav>
-    </aside>
+    {{ partial "article/page-toc.html" (dict "Page" .) }}
     {{ end }}
   </div>
 </div>

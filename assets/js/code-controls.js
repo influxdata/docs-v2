@@ -259,7 +259,7 @@ function initialize() {
 
     // Delegate to the global ask-ai-open handler by synthesizing a click.
     // Use native .click() instead of jQuery .trigger() so the event
-    // reaches the native document.addEventListener in ask-ai-trigger.js.
+    // reaches the native document.addEventListener in the Ask AI controller.
     // No href — prevents scroll-to-top when the native click fires.
     var triggerEl = document.createElement('a');
     triggerEl.className = 'ask-ai-open';
