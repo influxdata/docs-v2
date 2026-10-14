@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
-import { dismissNotifications } from '../../support/page-fixtures';
-import { mockKapaWidget } from '../../support/kapa-widget';
+import { dismissNotifications } from '../../support/page-fixtures.js';
+import { mockKapaWidget } from '../../support/kapa-widget.js';
 
 describe('Article navigation', () => {
   it('opens a narrow-screen ToC and dismisses it after navigation', () => {

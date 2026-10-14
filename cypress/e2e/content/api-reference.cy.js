@@ -174,7 +174,7 @@ describe('API sidebar navigation (multi-spec)', () => {
 
           // Sub-section item for this spec must exist
           cy.get('@apiNav')
-            .find(`li.nav-item`)
+            .find('li.nav-item')
             .filter(`:contains("${label}")`)
             .as('specSection');
 

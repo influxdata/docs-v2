@@ -3,7 +3,7 @@
 describe('Stable version', function () {
   before(function () {
     // Track JavaScript errors
-    cy.on('uncaught:exception', (err, runnable) => {
+    cy.on('uncaught:exception', (err) => {
       // Log the error to the Cypress command log
       cy.log(`JavaScript error: ${err.message}`);
 

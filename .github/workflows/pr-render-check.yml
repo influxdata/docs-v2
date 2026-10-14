@@ -51,6 +51,11 @@ jobs:
           hugo-base-url: 'https://test2.docs.influxdata.com/pr-preview/pr-link-check/'
           hugo-quiet: 'true'
 
+      - name: Keep links within the preview
+        run: |
+          node --test .ci/scripts/__tests__/check-preview-links.test.mjs
+          node .ci/scripts/check-preview-links.mjs public https://test2.docs.influxdata.com/pr-preview/pr-link-check/ --rewrite
+
       - name: Scan built HTML for render artifacts
         run: .ci/scripts/check-render-artifacts.sh public
 
