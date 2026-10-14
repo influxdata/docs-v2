@@ -95,3 +95,21 @@ test('repeated selections land on the same dates as one selection', () => {
     shiftTo(telegrafBlock, '2025-03-01')
   );
 });
+
+test('shifts InfluxQL epoch literals with a unit suffix', () => {
+  const shiftedSeconds = (iso) => Date.parse(iso) / 1000;
+  assert.equal(
+    shiftTimestampText(
+      'WHERE time >= 1708976567s AND time <= 1708976567000ms + 8h',
+      dayShift
+    ),
+    `WHERE time >= ${shiftedSeconds('2025-02-12T19:42:47Z')}s AND time <= ` +
+      `${shiftedSeconds('2025-02-12T19:42:47Z') * 1000}ms + 8h`
+  );
+});
+
+test('leaves unsigned fields and suffixed durations unchanged', () => {
+  const text = 'tx_count=1721306050081621681u retention 1209600000000000ns';
+  assert.deepEqual(timestampDays(text), []);
+  assert.equal(shiftTimestampText(text, dayShift), text);
+});
