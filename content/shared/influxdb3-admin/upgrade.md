@@ -184,28 +184,29 @@ Start-Service influxdb3
 ## Upgrade a multi-node cluster
 
 Upgrade {{% product-name %}} instances to newer versions using rolling upgrades to minimize downtime.
-When upgrading multi-node clusters, you need to understand catalog version constraints and the recommended upgrade order for different node modes.
+When upgrading multi-node clusters, you need to understand how nodes on different versions interoperate and the recommended upgrade order for different node modes.
 
-- [Catalog version compatibility](#catalog-version-compatibility)
+- [Mixed-version clusters](#mixed-version-clusters)
 - [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
 - [Rolling upgrade constraints](#rolling-upgrade-constraints)
 - [Troubleshooting cluster upgrades](#troubleshooting-cluster-upgrades)
 
-### Catalog version compatibility
+### Mixed-version clusters
 
-{{% product-name %}} uses a catalog to track metadata about tables, tags, and fields.
-Some versions introduce catalog version updates that affect how nodes can interoperate during rolling upgrades.
+During a rolling upgrade, nodes on the old and new versions share the catalog and the files in object storage.
+How the cluster behaves depends on the version you upgrade to:
 
-> [!Important]
-> #### Important version transitions
-> 
-> - **3.4.x**: Introduced a catalog version update that requires all nodes to upgrade before catalog modifications can resume.
-> - **3.2.x to 3.5.x**: Nodes running 3.2.1 can temporarily coexist with nodes running 3.5.0, but catalog modifications are blocked until all nodes complete the upgrade.
-
-During a rolling upgrade across a catalog version boundary, nodes running older versions cannot modify the catalog.
-This affects writes that add new tables, tags, or fields, but allows writes to existing tables, tags, and fields.
-
-
+- **3.10 or later**: Nodes on the old version keep reading and writing the catalog until the last of them is upgraded.
+  Features added by the new version stay unavailable until every running node is on it.
+  The cluster then commits the new feature level, and binaries on the old version can no longer start against the catalog.
+  The remaining risk is a node on the old version reading a file that an upgraded node wrote in a newer format, which the recommended upgrade order prevents.
+- **3.9 or earlier**: Some versions change the catalog format (3.1 and 3.4).
+  Once a node on the new version starts, nodes on the old version can't modify the catalog until they're upgraded.
+  Writes to existing tables, tags, and fields succeed; writes that add new ones fail.
+- **3.9 to 3.10**: Not a rolling upgrade.
+  The first 3.10 node migrates the catalog, and 3.9 nodes can't read the migrated catalog.
+  Stop the cluster, upgrade every node, and start it in the order for 3.10 or later.
+  See [Upgrading to InfluxDB 3.10 is a one-way migration](#upgrading-to-influxdb-310-is-a-one-way-migration).
 
 ### Multi-node upgrade procedure
 
@@ -213,21 +214,30 @@ Follow these steps to upgrade your {{% product-name %}} deployment with minimal 
 
 #### Recommended node upgrade order
 
-The order in which you upgrade nodes affects the availability of catalog modifications during the upgrade.
-Different node modes have different impacts on catalog updates:
+The order depends on the version you upgrade to.
 
-- **Ingest nodes**: Primarily update the catalog when accepting writes that add new tables, tags, or fields via line protocol.
-- **Query nodes**: Can accept API requests that update the catalog (for example, `influxdb3 create table`), but less frequently than ingest nodes.
-- **Compactor nodes**: Rarely modify the catalog during normal operation.
-- **Process nodes**: Process data without modifying the catalog structure.
+**Upgrading to 3.10 or later:**
 
-**Recommended upgrade order:**
+A node reads files written by its own version or older, but not files written in a format introduced by a newer version.
+Upgrade the nodes that read other nodes' output before the nodes that write it.
 
-1. **Ingest nodes**: Upgrade ingest nodes first to restore catalog modification capability as quickly as possible.
+1. **Query nodes and process nodes**: Read the files that ingest and compactor nodes write, so upgrade them first.
+   A query node on the old version that encounters a newer compaction format keeps serving the data it already loaded until you upgrade it, and fails to start if it restarts.
+2. **Compactor nodes**: Read files that ingest nodes write.
+3. **Ingest nodes**: Read only the catalog, so upgrade them last.
    If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
-2. **Query nodes**: Upgrade query nodes after upgrading all ingest nodes.
-3. **Compactor nodes**: Upgrade compactor nodes last, as they have minimal impact on catalog modifications.
-4. **Process nodes**: Can be upgraded at any time, as they don't modify the catalog.
+
+A node with a plugin directory configured runs in `process` mode in addition to its configured modes.
+Upgrade it according to its other modes.
+
+**Upgrading to 3.9 or earlier:**
+
+Nodes on the old version lose the ability to modify the catalog once a node on the new version starts, so upgrade the nodes that modify it most first.
+
+1. **Ingest nodes**: Add tables, tags, and fields to the catalog as they accept writes, so upgrade them first to restore those writes as quickly as possible.
+2. **Query nodes**: Modify the catalog less often, through API requests such as `influxdb3 create table`.
+3. **Compactor nodes**: Rarely modify the catalog.
+4. **Process nodes**: Can be upgraded at any time.
 
 #### Perform a rolling upgrade
 
@@ -366,54 +376,54 @@ doesn't order rollouts across StatefulSets—so the upgrade doesn't follow the
 To control the order, freeze the modes you aren't upgrading yet with the
 `updateStrategy.rollingUpdate.partition` field, then release them one mode at a
 time.
+The steps below follow the order for upgrading to 3.10 or later.
 Setting `partition` to a value greater than or equal to a StatefulSet's replica
 count holds every pod in that StatefulSet at its current version.
 A partition lower than the replica count lets the pods at or above that ordinal
 update, so use a ceiling that your replica counts can't reach.
 
-<!-- Verified against influxdata/helm-charts influxdb3-enterprise 0.9.0
-     (InfluxDB 3.10.5, commit 7a3289b): the values keys (querier, compactor,
-     processingEngine) and the app.kubernetes.io/component label values
-     (ingester, querier) below are current. -->
+<!-- Verified against influxdata/helm-charts influxdb3-enterprise values.yaml
+     (master, 2026-10-14): the StatefulSet templates pass each mode's
+     updateStrategy value (ingester, querier, compactor, processingEngine)
+     through unchanged, so --set ...rollingUpdate.partition applies to all
+     four, and the app.kubernetes.io/component label values (ingester,
+     querier) below are current. -->
 
 ```bash { placeholders="RELEASE_NAME|NAMESPACE|VERSION" }
 # 1. Freeze the modes you upgrade later, then apply the new image tag.
 #    Any partition >= a StatefulSet's replica count holds all of its pods, so
-#    10000 is a ceiling no deployment reaches. Only ingesters roll.
+#    10000 is a ceiling no deployment reaches. Only queriers and the
+#    processing engine roll.
 helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
   --namespace NAMESPACE \
   --reuse-values \
   --set image.tag=VERSION-enterprise \
-  --set querier.updateStrategy.rollingUpdate.partition=10000 \
-  --set compactor.updateStrategy.rollingUpdate.partition=10000 \
-  --set processingEngine.updateStrategy.rollingUpdate.partition=10000
+  --set ingester.updateStrategy.rollingUpdate.partition=10000 \
+  --set compactor.updateStrategy.rollingUpdate.partition=10000
 
-# 2. Wait for the ingester pods to roll and become ready
-kubectl rollout status --namespace NAMESPACE \
-  "$(kubectl get statefulset --namespace NAMESPACE \
-    --selector app.kubernetes.io/component=ingester --output name)"
-
-# 3. Release queriers and wait for them to roll
-helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
-  --namespace NAMESPACE --reuse-values \
-  --set querier.updateStrategy.rollingUpdate.partition=0
-kubectl rollout status --namespace NAMESPACE \
-  "$(kubectl get statefulset --namespace NAMESPACE \
-    --selector app.kubernetes.io/component=querier --output name)"
-
-# 4. Release the compactor and the processing engine. Process nodes have no
-#    ordering requirement, so they can roll alongside the compactor.
-helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
-  --namespace NAMESPACE --reuse-values \
-  --set compactor.updateStrategy.rollingUpdate.partition=0 \
-  --set processingEngine.updateStrategy.rollingUpdate.partition=0
-
-# 5. Wait for the remaining StatefulSets to finish rolling before verifying
+# 2. Wait for the querier and processing engine pods to roll and become ready.
+#    A frozen StatefulSet reports its partitioned rollout as complete.
 for sts in $(kubectl get statefulset --namespace NAMESPACE --output name); do
   kubectl rollout status --namespace NAMESPACE "$sts"
 done
 
-# 6. Verify every node re-registered and reports running
+# 3. Release the compactor and wait for it to roll
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set compactor.updateStrategy.rollingUpdate.partition=0
+for sts in $(kubectl get statefulset --namespace NAMESPACE --output name); do
+  kubectl rollout status --namespace NAMESPACE "$sts"
+done
+
+# 4. Release the ingesters and wait for them to roll
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set ingester.updateStrategy.rollingUpdate.partition=0
+kubectl rollout status --namespace NAMESPACE \
+  "$(kubectl get statefulset --namespace NAMESPACE \
+    --selector app.kubernetes.io/component=ingester --output name)"
+
+# 5. Verify every node re-registered and reports running
 influxdb3 show nodes
 ```
 
@@ -462,10 +472,11 @@ Replace the following:
 Drive the upgrade one node at a time with `serial: 1`, and order your plays by
 node mode to match the
 [recommended node upgrade order](#recommended-node-upgrade-order).
+The playbook below follows the order for upgrading to 3.10 or later.
 
 ```yaml
-# Upgrade one host at a time, ingest nodes first.
-- hosts: influxdb3_ingest
+# Upgrade one host at a time, query nodes first.
+- hosts: influxdb3_query
   serial: 1
   vars:
     # Pin the target version so every host lands on the same build.
@@ -497,7 +508,7 @@ node mode to match the
       retries: 30
       delay: 10
 
-# Repeat for influxdb3_query, then influxdb3_compact, then influxdb3_process.
+# Repeat for influxdb3_process, then influxdb3_compact, then influxdb3_ingest.
 ```
 
 Because `systemd` escalates to `SIGKILL` after `TimeoutStopSec`, confirm your
@@ -531,33 +542,21 @@ Understand the constraints that apply during rolling upgrades to avoid unexpecte
 
 #### Writes during catalog version transitions
 
-When upgrading from v3.3.x (or earlier) to v3.4.x, nodes running older versions cannot modify the catalog during the rolling upgrade.
+When upgrading to 3.9 or earlier across a catalog format change (for example, from 3.3.x to 3.4.x), nodes running the older version can't modify the catalog once a node on the new version has started.
 
 **Behavior by write type:**
 
 - **Writes to existing measurements, tags, and fields**: Succeed on all nodes, regardless of version.
-- **Writes that add new measurements, tags, or fields**: Fail on nodes running older versions until those nodes are upgraded.
+- **Writes that add new measurements, tags, or fields**: Fail on nodes running the older version until those nodes are upgraded.
 
-For example, if you're upgrading from 3.2.1 to 3.5.0:
-
-- An ingest node running 3.2.1 can write data to existing measurements.
-- An ingest node running 3.2.1 cannot write data that adds new measurements, tags, or fields.
-- After upgrading the ingest node to 3.5.0, it can write data that adds new measurements, tags, or fields.
-
-When a node running an older version receives a write that attempts to add a new
-measurement, the write fails with an error similar to:
-
-<!--pytest-codeblocks:expected-output-->
-
-```
-Error: Catalog modification failed: node is running an older version
-```
+When upgrading to 3.10 or later, writes on both versions are unaffected.
+Features introduced by the new version become available after the last node is upgraded.
 
 ### Troubleshooting cluster upgrades
 
 #### Writes fail during upgrade
 
-If writes fail during a rolling upgrade, verify that you're not attempting to add new measurements, tags, or fields to nodes running older versions.
+When upgrading to 3.9 or earlier, if writes fail during a rolling upgrade, verify that you're not attempting to add new measurements, tags, or fields to nodes running older versions.
 
 1. **Check the write payload** to determine if it adds new measurements, tags, or fields
 2. **Verify the node version** that received the write
@@ -565,7 +564,18 @@ If writes fail during a rolling upgrade, verify that you're not attempting to ad
 
 #### Upgrade order issues
 
-If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order), you may experience longer periods where catalog modifications are blocked.
+If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order):
+
+- **3.10 or later**: A query or process node on the old version may encounter files in a format it can't read.
+  It logs errors and keeps serving the data it already loaded; if it restarts, it fails to start.
+  Upgrade the node to recover.
+- **3.9 or earlier**: Catalog modifications stay blocked for longer.
+
+#### New features stay unavailable after the upgrade
+
+The cluster commits a new feature level only when every running node is on the new version.
+Run `influxdb3 show nodes`; a node that stopped without a clean shutdown can still show as running and holds the feature level back.
+Restart that node on the new version.
 
 #### Nodes upgrade out of order in Helm deployments
 
@@ -603,13 +613,12 @@ If nodes fail to communicate after an upgrade, verify that all nodes are running
 
 #### Catalog version constraints
 
-Different version transitions may have different catalog version constraints.
-The v3.3.x → v3.4.x transition has specific constraints, but other version transitions may differ.
+Catalog behavior during an upgrade depends on the target version; see [Mixed-version clusters](#mixed-version-clusters).
 
 **Before upgrading**, review the [release notes](/influxdb3/enterprise/release-notes/) for your target version to understand:
 
-- Whether the upgrade crosses a catalog version boundary
-- How long catalog modifications may be blocked during the upgrade
+- Whether the upgrade changes the catalog format or is a one-way migration
+- Whether a rollback to the previous version remains possible
 - Any special upgrade procedures or constraints
 
 {{% /show-in %}}
