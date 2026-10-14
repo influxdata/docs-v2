@@ -46,7 +46,8 @@ Every user signs in with one of the following authentication methods:
   provider sends.
 - **Both**: The user signs in with either a password or SSO.
 
-An administrator selects the authentication method when adding a user.
+An administrator selects the authentication method when
+[adding a user](/influxdb3/explorer/manage-users/add/).
 **Password** is selected by default.
 You can't change the authentication method of a user later.
 
@@ -62,7 +63,7 @@ Each user has one of the following statuses:
 - **Change required**: The user must change their password the next time they
   sign in.
   See
-  [Change a required password](/influxdb3/explorer/manage-users/account/#change-a-required-password).
+  [Require a password change](/influxdb3/explorer/manage-users/update/#require-a-password-change).
 
 ## User roles
 
@@ -78,6 +79,8 @@ InfluxDB 3 Enterprise provides the following built-in roles:
 
 Of the built-in roles, only **Admin** can add, update, or delete users.
 **Member** and **Auditor** can view users.
+To assign roles, see
+[Change the roles of a user](/influxdb3/explorer/manage-users/update/#change-the-roles-of-a-user).
 
 For what each role allows, and for information about custom roles, see
 [Role-based access control (RBAC)](/influxdb3/enterprise/reference/internals/rbac/)

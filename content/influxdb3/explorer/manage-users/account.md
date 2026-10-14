@@ -26,6 +26,7 @@ The account menu displays your display name, your username, and the roles
 assigned to you.
 
 To change your display name or your roles, ask an administrator.
+See [Update users](/influxdb3/explorer/manage-users/update/).
 
 ## Change your password
 
@@ -67,8 +68,9 @@ After you change your password, Explorer opens the page that you requested.
 >
 > Only you can change your password, and you need your current password to
 > change it.
-> If you forget your password, ask an administrator to delete your user and
-> add it again.
+> If you forget your password, ask an administrator to
+> [delete your user](/influxdb3/explorer/manage-users/delete/) and
+> [add it again](/influxdb3/explorer/manage-users/add/).
 
 ## Sign out
 

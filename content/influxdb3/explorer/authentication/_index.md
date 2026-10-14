@@ -166,8 +166,9 @@ Before you sign in with SSO, an administrator does the following:
 - Configures the InfluxDB 3 Enterprise server to use your identity provider.
   See
   [Configure SSO for the Explorer UI](/influxdb3/enterprise/admin/explorer-ui/#configure-sso-for-the-explorer-ui).
-- Adds a user for you with an **OAuth ID** that matches the subject (`sub`)
-  that your identity provider sends.
+- [Adds a user](/influxdb3/explorer/manage-users/add/#add-a-user-that-signs-in-with-sso)
+  for you with an **OAuth ID** that matches the subject (`sub`) that your
+  identity provider sends.
 
 To sign in:
 
