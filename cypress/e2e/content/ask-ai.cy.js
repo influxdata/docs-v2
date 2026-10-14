@@ -258,9 +258,9 @@ describe('Ask AI Widget and Link', function () {
           const placeholder = $script.attr(
             'data-modal-ask-ai-input-placeholder'
           );
-          expect(placeholder).to.contain(
-            'Specify your version and product')
-            .and.to.contain("Core");
+          expect(placeholder)
+            .to.contain('Specify your version and product')
+            .and.to.contain('Core');
         });
       });
 
@@ -272,9 +272,9 @@ describe('Ask AI Widget and Link', function () {
           const placeholder = $script.attr(
             'data-modal-ask-ai-input-placeholder'
           );
-          expect(placeholder).to.contain(
-            'Specify your version and product')
-            .and.to.contain("v2");
+          expect(placeholder)
+            .to.contain('Specify your version and product')
+            .and.to.contain('v2');
         });
       });
 
@@ -286,9 +286,9 @@ describe('Ask AI Widget and Link', function () {
           const placeholder = $script.attr(
             'data-modal-ask-ai-input-placeholder'
           );
-          expect(placeholder).to.contain(
-            'Specify your version and product')
-            .and.to.contain("v1");
+          expect(placeholder)
+            .to.contain('Specify your version and product')
+            .and.to.contain('v1');
         });
       });
 
