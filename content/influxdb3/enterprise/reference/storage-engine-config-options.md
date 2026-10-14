@@ -257,7 +257,6 @@ Configure data file caching for query performance.
 > `RESOURCE_EXHAUSTED` error.
 > Before v3.12.1, JSON, JSON Lines, and CSV responses return `200` and end
 > early instead.
-> <!-- VERIFY: RC-2 source maps this error to HTTP 500 on the HTTP API; Flight RESOURCE_EXHAUSTED is correct. Confirm with engineering before changing the 429. -->
 > Retry the query after other queries finish.
 > Size the cache for your largest concurrent query workload, not just your
 > working set.
