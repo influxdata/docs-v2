@@ -1959,6 +1959,10 @@ full indexes to the object store for other nodes to use.
 Starting in v3.11.5, nodes that run only in ingest mode (`--mode ingest`) skip
 the index regardless of this option, because they don't prune files at query
 time.
+Starting in v3.12.1, only nodes that run in query mode (`--mode query` or
+`--mode all`) load the index.
+Every other node skips it regardless of this option and logs
+`compacted-data file index not loaded` at startup.
 
 This option isn't supported in the TOML configuration file; use the command
 option or environment variable.
@@ -2197,9 +2201,10 @@ budget.
 > `file access cache budget exhausted: ...` if the budget is already fully
 > in use, or `file larger than the file access cache budget: ...` if a
 > single file is larger than the entire cache.
-> In v3.11.6, the HTTP API returns a `429` response for `pretty` and
-> `parquet` output. JSON, JSON Lines, and CSV responses return `200` and end
-> early. Flight (gRPC) clients see a `RESOURCE_EXHAUSTED` error.
+> The HTTP API returns a `429` response; Flight (gRPC) clients see a
+> `RESOURCE_EXHAUSTED` error.
+> Before v3.12.1, JSON, JSON Lines, and CSV responses return `200` and end
+> early instead.
 > Retry the query after other queries finish.
 > Size the cache for your largest concurrent query workload, not just your
 > working set.

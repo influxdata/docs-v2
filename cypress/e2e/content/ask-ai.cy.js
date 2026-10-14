@@ -1,402 +1,147 @@
 /// <reference types="cypress" />
+import { dismissNotifications } from '../../support/page-fixtures.js';
+import { mockKapaWidget } from '../../support/kapa-widget.js';
 
-/**
- * Ask AI Widget E2E Test Suite
- *
- * Tests for the Kapa.ai Ask AI widget and ask-ai-link shortcode
- *
- * NOTE: Open the chat window sparingly.
- *
- * COMPREHENSIVE TEST SCENARIOS CHECKLIST:
- *
- * Widget Initialization:
- * ----------------------
- * - [x] Widget script loads without errors
- * - [x] window.Kapa object is available
- * - [x] Widget trigger button is visible
- * - [ ] Widget initializes with correct configuration
- * - [ ] No JavaScript console errors during initialization
- *
- * Widget Trigger Button:
- * ----------------------
- * - [x] Button exists in footer
- * - [x] Button has correct class (ask-ai-open)
- * - [x] Button opens widget when clicked
- * - [x] Widget modal becomes visible after click
- * - [ ] Widget overlay appears (if configured)
- *
- * Ask AI Link Shortcode:
- * ----------------------
- * - [x] Link renders correctly in content
- * - [x] Link has correct text (default or custom)
- * - [x] Link has ask-ai-open class
- * - [x] Link has onclick handler for analytics
- * - [x] Link has data-query attribute with query
- * - [x] Link includes gtag analytics in onclick
- * - [x] Link opens widget when clicked
- * - [x] Query is pre-filled without auto-submitting
- * - [x] Widget modal becomes visible after click
- * - [x] Widget overlay appears (if configured)
- *
- * Widget Functionality:
- * ---------------------
- * - [ ] Widget opens in modal/drawer
- * - [ ] Widget shows input field
- * - [ ] Widget shows example questions
- * - [ ] Widget accepts user input
- * - [ ] Widget submits queries to AI
- * - [ ] Widget displays AI responses
- * - [ ] Widget can be closed
- * - [ ] Widget reopens with history preserved
- *
- * Query Pre-population:
- * ---------------------
- * - [x] window.Kapa.open() accepts query parameter
- * - [x] Query appears in input field when pre-populated
- * - [x] Query is submitted automatically with submit: true
- * - [ ] Pre-populated query respects special characters
- * - [ ] Pre-populated query handles HTML entities correctly
- *
- * Analytics Tracking:
- * -------------------
- * - [ ] Link click fires gtag event
- * - [ ] Event includes correct custom_map fields
- * - [ ] Event includes query text
- * - [ ] Event includes section (pathname)
- * - [ ] Event includes interaction_type: 'inline_link'
- *
- * Error Handling:
- * ---------------
- * - [x] No console errors when widget loads
- * - [ ] Graceful handling if window.Kapa is undefined
- * - [ ] Graceful handling if widget script fails to load
- * - [ ] Error messages are user-friendly
- *
- * Accessibility:
- * --------------
- * - [ ] Widget trigger button is keyboard accessible
- * - [ ] Ask AI links are keyboard accessible
- * - [ ] Widget modal has proper focus management
- * - [ ] Widget has ARIA labels
- * - [ ] Screen reader announcements work
- *
- * Cross-browser:
- * --------------
- * - [ ] Works in Chrome
- * - [ ] Works in Firefox
- * - [ ] Works in Safari
- * - [ ] Works in Edge
- */
-
-function beforeTest() {
-  cy.viewport(1440, 900);
+function finishRender() {
+  cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
+  cy.window().then((win) => win.kapaHarness.finishRender());
+  cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
 }
 
-describe('Ask AI Widget and Link', function () {
-  describe('Widget Initialization', function () {
-    beforeEach(() => {
-      cy.visit('/influxdb3/core/admin/identify-version/');
-      beforeTest();
+describe('Ask AI entry points', () => {
+  beforeEach(() => mockKapaWidget());
+
+  it('prefills the existing version-help link without submitting and preserves its analytics', () => {
+    cy.visit('/influxdb3/core/admin/identify-version/');
+    cy.window().then((win) => {
+      win.gtag = cy.stub().as('analytics');
     });
-
-    it('should load widget script without JavaScript errors', function () {
-      cy.window().then((win) => {
-        const errors = [];
-        const originalError = win.console.error;
-
-        win.console.error = (...args) => {
-          errors.push(args.join(' '));
-          originalError.apply(win.console, args);
-        };
-
-        // Wait for widget to initialize
-        cy.wait(2000);
-
-        cy.then(() => {
-          // Filter for Kapa-related errors
-          const kapaErrors = errors.filter(
-            (log) =>
-              log.includes('kapa') ||
-              log.includes('Kapa') ||
-              log.includes('ask-ai')
-          );
-          expect(kapaErrors).to.have.length(0);
+    dismissNotifications();
+    cy.get('.article--content .ask-ai-open')
+      .first()
+      .then(($link) => {
+        const query = $link.attr('data-query');
+        cy.wrap($link).click();
+        finishRender();
+        cy.window().then((win) => {
+          expect(win.kapaHarness.requests).to.have.length(1);
+          expect(win.kapaHarness.requests[0]).to.include({
+            query,
+            submit: false,
+          });
+          expect(win.kapaHarness.requests[0].groups).not.to.be.empty;
         });
       });
-    });
-
-    it('should make window.Kapa available', function () {
-      cy.window().should('have.property', 'Kapa');
-      cy.window().then((win) => {
-        expect(win.Kapa).to.be.a('function');
-      });
-    });
-
-    it('should render widget trigger button in footer', function () {
-      cy.get('.ask-ai-trigger a.ask-ai-open').should('be.visible');
-      cy.get('.ask-ai-trigger').should('contain', 'Ask AI');
-    });
-
-    it('should have correct class for widget trigger', function () {
-      cy.get('.ask-ai-trigger a.ask-ai-open')
-        .should('have.class', 'ask-ai-open')
-        .and('be.visible');
-    });
+    cy.get('@analytics').should('have.been.calledWith', 'event');
+    cy.get('script[src*="kapa-widget"]')
+      .should('have.attr', 'data-modal-disclaimer')
+      .and('include', 'Privacy Policy');
+    cy.get('script[src*="kapa-widget"]').should(
+      'have.attr',
+      'data-user-analytics-fingerprint-enabled',
+      'true'
+    );
   });
 
-  describe('Widget Trigger Button', function () {
-    // ONLY test that opens widget via button - combines all button functionality tests
-    it('should open widget when trigger button is clicked', function () {
-      cy.visit('/influxdb3/core/admin/identify-version/');
-      beforeTest();
-
-      // Click the Ask AI button
-      cy.get('.ask-ai-trigger a.ask-ai-open').click();
-
-      // Wait for widget modal to appear
-      cy.get('#kapa-modal-content', {
-        includeShadowDom: true,
-        timeout: 1000,
-      }).should('be.visible');
-    });
-  });
-
-  describe('Ask AI Link Shortcode', function () {
-    beforeEach(() => {
-      cy.visit('/influxdb3/core/admin/identify-version/');
-      beforeTest();
-    });
-
-    it('should render ask-ai-link with correct attributes', function () {
-      // Validate DOM without clicking
-      cy.get('a.ask-ai-open')
-        .contains('Ask InfluxData AI')
-        .should('be.visible')
-        .should('have.class', 'ask-ai-open')
-        .should(
-          'have.attr',
-          'data-query',
-          'Help determine my InfluxDB version based on licensing, hosting, server age, and API.'
-        );
-    });
-
-    // This is the only test that opens the widget modal
-    it('should open widget with pre-filled query when ask-ai-link is clicked', function () {
-      cy.get('.article--content a.ask-ai-open')
-        .contains('Ask InfluxData AI')
-        .as('askAILink');
-      cy.get('@askAILink').click();
-      // Widget container MUST become visible
-      cy.get('#kapa-modal-content', { includeShadowDom: true, timeout: 1000 })
-        .should('be.visible', 'Widget must open when ask-ai-link is clicked')
-        // Verify query is pre-filled (validates pre-fill behavior)
-        .find('textarea, input[type="text"]')
-        .should(
-          'have.value',
-          'Help determine my InfluxDB version based on licensing, hosting, server age, and API.'
-        );
-    });
-  });
-
-  describe('Error Handling', function () {
-    beforeEach(() => {
-      cy.visit('/influxdb3/core/admin/identify-version/');
-      beforeTest();
-    });
-
-    it('should not throw console errors when link is clicked', function () {
-      cy.window().then((win) => {
-        const errors = [];
-        const originalError = win.console.error;
-
-        win.console.error = (...args) => {
-          errors.push(args.join(' '));
-          originalError.apply(win.console, args);
-        };
-
-        // Validate without actually clicking (DOM interaction only)
-        cy.get('a.ask-ai-open').contains('Ask InfluxData AI');
-
-        cy.wait(500);
-
-        cy.then(() => {
-          // Check for Kapa-related errors
-          const kapaErrors = errors.filter(
-            (log) =>
-              (log.includes('kapa') || log.includes('Kapa')) &&
-              !log.includes('Unknown method')
-          );
-          expect(kapaErrors).to.have.length(0);
-        });
-      });
-    });
-
-    it('should handle missing window.Kapa gracefully', function () {
-      cy.window().then((win) => {
-        // Temporarily remove Kapa
-        const originalKapa = win.Kapa;
-        delete win.Kapa;
-
-        // Validate link without opening widget
-        cy.get('a.ask-ai-open')
-          .contains('Ask InfluxData AI')
-          .should('have.attr', 'onclick');
-
-        // Restore Kapa
-        win.Kapa = originalKapa;
+  it('keeps only the header button and opens without submitting', () => {
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('.ask-ai-composer, #chat-assistant-textarea').should('not.exist');
+    cy.get('.ask-ai-button').should('be.visible').click();
+    cy.get('.ask-ai-button').should('have.attr', 'aria-disabled', 'true');
+    finishRender();
+    cy.window().then((win) => {
+      expect(win.kapaHarness.requests).to.have.length(1);
+      expect(win.kapaHarness.requests[0]).to.include({
+        query: '',
+        submit: false,
       });
     });
   });
 
-  describe('Ask AI Widget Configuration', function () {
-    describe('Input Placeholder', function () {
-      it('should have the version name in the placeholder on v3 pages', function () {
-        cy.visit('/influxdb3/core/');
-        beforeTest();
+  it('restores the expanded ToC after narrow chat closes', () => {
+    cy.viewport(1024, 768);
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('[data-page-rail] button').click();
+    cy.get('[data-page-rail] nav').should('be.visible');
+    cy.get('[data-ask-ai-action="open"]').click();
+    cy.get('[data-page-rail]').should('not.be.visible');
+    finishRender();
+    cy.get('#kapa-modal-content').should('have.attr', 'aria-modal', 'true');
+    cy.contains('button', 'Close chat').click();
+    cy.get('[data-page-rail] nav').should('be.visible');
+    cy.get('[data-ask-ai-action="open"]').should('be.focused');
+  });
 
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const placeholder = $script.attr(
-            'data-modal-ask-ai-input-placeholder'
-          );
-          expect(placeholder).to.contain(
-            'Specify your version and product')
-            .and.to.contain("Core");
-        });
+  it('restores keyboard focus after opening from the narrow ToC', () => {
+    cy.viewport(1024, 768);
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('[data-page-rail] button').click();
+    cy.get('[data-page-rail] nav a').first().as('origin').focus();
+    cy.get('@origin').trigger('keydown', { key: 'k', ctrlKey: true });
+    cy.get('.ask-ai-button').should('be.focused');
+    cy.get('.ask-ai-button').should('have.attr', 'aria-busy', 'true');
+    finishRender();
+    cy.contains('button', 'Close chat').click();
+    cy.get('@origin').should('be.focused');
+  });
+
+  it('restores navigation after script failure and allows button retry', () => {
+    cy.intercept(
+      { url: 'https://widget.kapa.ai/kapa-widget.bundle.js', times: 1 },
+      { statusCode: 503, body: 'Unavailable' }
+    );
+    cy.viewport(1024, 768);
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('[data-page-rail] button').click();
+    cy.get('.ask-ai-button').click();
+    cy.get('body').should('have.attr', 'data-ask-ai-state', 'error');
+    cy.get('#ask-ai-status').should('contain', 'Try again');
+    cy.get('.ask-ai-button').should('be.enabled').and('be.focused');
+    cy.get('[data-page-rail] nav').should('be.visible');
+    cy.get('.ask-ai-button').click();
+    finishRender();
+    cy.window().then((win) =>
+      expect(win.kapaHarness.requests).to.have.length(1)
+    );
+  });
+
+  it('provides homepage chat and excludes the launcher on 404', () => {
+    cy.visit('/');
+    cy.get('.ask-ai-button').should('be.visible');
+    cy.get('[data-page-rail]').should('not.exist');
+    cy.get('[data-ask-ai-action="open"]').click();
+    finishRender();
+    cy.request('/404.html')
+      .its('body')
+      .then((html) => {
+        const page = new DOMParser().parseFromString(html, 'text/html');
+        expect(
+          page.querySelector(
+            '#chat-assistant-textarea, [data-ask-ai-action="open"]'
+          )
+        ).to.eq(null);
       });
-
-      it('should have the version name in the placeholder on v2 pages', function () {
-        cy.visit('/influxdb/v2/');
-        beforeTest();
-
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const placeholder = $script.attr(
-            'data-modal-ask-ai-input-placeholder'
-          );
-          expect(placeholder).to.contain(
-            'Specify your version and product')
-            .and.to.contain("v2");
-        });
+  });
+  it('prefills the code-block entry point without submitting', () => {
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('.codeblock:visible')
+      .first()
+      .within(() => {
+        cy.get('.code-controls-toggle').click();
+        cy.get('.ask-ai-code').click();
       });
-
-      it('should have the version name in the placeholder on v1 pages', function () {
-        cy.visit('/influxdb/v1/');
-        beforeTest();
-
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const placeholder = $script.attr(
-            'data-modal-ask-ai-input-placeholder'
-          );
-          expect(placeholder).to.contain(
-            'Specify your version and product')
-            .and.to.contain("v1");
-        });
-      });
-
-      it('should have default placeholder when no product-specific one exists', function () {
-        cy.visit('/platform/');
-        beforeTest();
-
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const placeholder = $script.attr(
-            'data-modal-ask-ai-input-placeholder'
-          );
-          expect(placeholder).to.include('Ask questions about InfluxDB');
-          expect(placeholder).to.include('Specify your product and version');
-        });
-      });
+    finishRender();
+    cy.window().then((win) => {
+      expect(win.kapaHarness.requests).to.have.length(1);
+      expect(win.kapaHarness.requests[0].submit).to.eq(false);
+      expect(win.kapaHarness.requests[0].query).not.to.be.empty;
     });
-
-    describe('InfluxDB 3 Products', function () {
-      it('should configure Explorer-specific questions in Kapa widget', function () {
-        cy.visit('/influxdb3/explorer/');
-        beforeTest();
-
-        // Check the Kapa widget script tag has correct data-modal-example-questions attribute
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          expect(questions).to.include('visualize data using Explorer');
-        });
-      });
-
-      it('should configure Core-specific questions in Kapa widget', function () {
-        cy.visit('/influxdb3/core/');
-        beforeTest();
-
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          expect(questions).to.include(
-            'Python Processing engine using InfluxDB 3 Core'
-          );
-          // Should NOT have read replica question
-          expect(questions).to.not.include('replica');
-        });
-      });
-
-      it('should configure Enterprise-specific questions in Kapa widget', function () {
-        cy.visit('/influxdb3/enterprise/');
-        beforeTest();
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          expect(questions).to.include('install and run InfluxDB 3 Enterprise');
-        });
-      });
-    });
-
-    describe('InfluxDB v1 Products', function () {
-      it('should configure Enterprise v1-specific questions in Kapa widget', function () {
-        cy.visit('/enterprise_influxdb/v1/');
-        beforeTest();
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          expect(questions).to.include('configure InfluxDB Enterprise v1');
-        });
-      });
-    });
-
-    describe('InfluxDB OSS v2', function () {
-      it('should configure v2-specific questions with version name in Kapa widget', function () {
-        cy.visit('/influxdb/v2/get-started/');
-        beforeTest();
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          // Check for v2-specific questions
-          expect(questions).to.include(
-            'write and query data using InfluxDB OSS v2'
-          );
-          // Should NOT have v1-specific questions
-          expect(questions).to.not.include('retention policies');
-        });
-      });
-    });
-
-    describe('InfluxDB OSS v1', function () {
-      it('should configure v1-specific questions with version name in Kapa widget', function () {
-        cy.visit('/influxdb/v1/');
-        beforeTest();
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          // Check for v1-specific questions
-          expect(questions).to.include(
-            'query data with InfluxQL using InfluxDB OSS v1'
-          );
-          // Should NOT have v2-specific questions
-          expect(questions).to.not.include('auth tokens');
-        });
-      });
-    });
-
-    describe('InfluxDB Cloud (TSM)', function () {
-      it('should configure Cloud-specific questions with correct naming in Kapa widget', function () {
-        cy.visit('/influxdb/cloud/');
-        beforeTest();
-        cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
-          const questions = $script.attr('data-modal-example-questions');
-          // Check for Cloud-specific questions
-          expect(questions).to.include(
-            'write and query data using InfluxDB Cloud (TSM)'
-          );
-        });
-      });
-    });
+    cy.contains('button', 'Close chat').click();
+    cy.get('.ask-ai-button').should('be.focused');
   });
 });

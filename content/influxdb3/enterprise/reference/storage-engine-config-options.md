@@ -253,9 +253,10 @@ Configure data file caching for query performance.
 > size, with `file access cache budget exhausted: ...` if the budget is
 > already fully in use, or `file larger than the file access cache
 > budget: ...` if a single file is larger than the entire cache.
-> In v3.11.6, the HTTP API returns a `429` response for `pretty` and
-> `parquet` output. JSON, JSON Lines, and CSV responses return `200` and end
-> early. Flight (gRPC) clients see a `RESOURCE_EXHAUSTED` error.
+> The HTTP API returns a `429` response; Flight (gRPC) clients see a
+> `RESOURCE_EXHAUSTED` error.
+> Before v3.12.1, JSON, JSON Lines, and CSV responses return `200` and end
+> early instead.
 > Retry the query after other queries finish.
 > Size the cache for your largest concurrent query workload, not just your
 > working set.
@@ -349,6 +350,7 @@ through four compaction levels (L1 through L4).
 |:-------|:------------|:--------|
 | `--shard-count` | Target number of shards per compaction window. | `1` |
 | `--compactor-input-size-budget` | Maximum total input bytes across all active compaction jobs. Acts as an admission control budget for the compactor scheduler. | 50% of system memory at startup |
+| `--compactor-import-batch-size` | Largest batch of staged data that one bulk import merge reads at once. Still capped at one quarter of `--compactor-input-size-budget`. Available in v3.12.1 and later. | `4gb` |
 | `--final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `4h` (time-disjoint layout); `72h` (legacy layout) |
 | `--compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
 
