@@ -1898,7 +1898,7 @@ to delete files marked as needing deletion during that compaction run.
 On the legacy Parquet storage engine, compaction doesn't mark Gen1 files for
 deletion; see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
 
-**Default:** `10m`
+**Default:** `1h`
 
 | influxdb3 serve option      | Environment variable                           |
 | :-------------------------- | :--------------------------------------------- |
@@ -1959,6 +1959,13 @@ full indexes to the object store for other nodes to use.
 Starting in v3.11.5, nodes that run only in ingest mode (`--mode ingest`) skip
 the index regardless of this option, because they don't prune files at query
 time.
+In v3.12.1 and later, only nodes with query mode enabled load the index.
+This includes nodes started with `--mode query` or `--mode all`.
+Other nodes skip the index regardless of this option and log the following message at startup:
+
+```text
+compacted-data file index not loaded
+```
 
 This option isn't supported in the TOML configuration file; use the command
 option or environment variable.
@@ -2186,22 +2193,30 @@ is split 50/50 between the hybrid-query Parquet cache and the upgraded
 engine's file cache; otherwise, the single active cache receives the full
 budget.
 
-> \[!Note]
-> #### In v3.12+: hard limit on the upgraded storage engine
->
-> On the upgraded storage engine, `--file-cache-size` is a hard limit: the
-> budget also counts bytes held by data files that running queries
-> currently have open, not just cached files.
-> When a query's file access would exceed the budget, {{% product-name %}}
-> fails the query instead of exceeding the cache size, with
-> `file access cache budget exhausted: ...` if the budget is already fully
-> in use, or `file larger than the file access cache budget: ...` if a
-> single file is larger than the entire cache.
-> The HTTP API returns a `429` response; Flight (gRPC) clients see a
-> `RESOURCE_EXHAUSTED` error.
-> Retry the query after other queries finish.
-> Size the cache for your largest concurrent query workload, not just your
-> working set.
+> [!Note]
+> In v3.11.6 and later, the upgraded storage engine enforces a hard cache limit.
+> The budget includes cached files and files open in running queries.
+
+When file access would exceed the budget, {{% product-name %}} fails the query.
+The error identifies whether the budget is exhausted or a file exceeds the total budget:
+
+```text
+file access cache budget exhausted:
+```
+
+```text
+file larger than the file access cache budget:
+```
+
+Flight (gRPC) clients receive a `RESOURCE_EXHAUSTED` error.
+For HTTP queries in CSV, JSON, or JSON Lines format:
+
+- Before v3.12.1, the response returns HTTP 200 and ends early.
+- In v3.12.1 and later, a failure before the first row returns HTTP 429.
+  A failure after the response starts still ends the response early.
+
+Retry the query after other queries finish.
+Set the cache size to accommodate the files accessed by concurrent queries.
 {{% /show-in %}}
 
 **Default:** `20%`

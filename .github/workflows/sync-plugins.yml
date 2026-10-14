@@ -48,7 +48,7 @@ jobs:
             scripts/
 
       - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: docs-v2/.nvmrc
           cache: 'yarn'
@@ -67,15 +67,37 @@ jobs:
       # per-plugin skip, so one plugin failing template validation must not
       # block the other plugins from syncing.
       - name: Validate plugin READMEs
-        continue-on-error: true
         working-directory: .ext/influxdb3_plugins
         env:
           PLUGINS: ${{ inputs.plugins }}
         run: |
           if [ "$PLUGINS" = "all" ]; then
-            python scripts/validate_readme.py --errors-only
+            if validation_output=$(python scripts/validate_readme.py --errors-only 2>&1); then
+              validation_status=0
+            else
+              validation_status=$?
+            fi
           else
-            python scripts/validate_readme.py --plugins "$PLUGINS" --errors-only
+            if validation_output=$(python scripts/validate_readme.py --plugins "$PLUGINS" --errors-only 2>&1); then
+              validation_status=0
+            else
+              validation_status=$?
+            fi
+          fi
+
+          if [ "$validation_status" -eq 0 ]; then
+            printf '%s\n' "$validation_output"
+          else
+            error_count=$(printf '%s\n' "$validation_output" | sed -nE 's/^Errors found: ([0-9]+)$/\1/p' | tail -n 1)
+            echo "::group::README validation details"
+            printf '%s\n' "$validation_output"
+            echo "::endgroup::"
+
+            if [ -n "$error_count" ]; then
+              echo "::notice title=README validation::Found $error_count upstream README template errors; see the expanded step logs. Sync continues."
+            else
+              echo "::notice title=README validation::Validator exited with code $validation_status; see the expanded step logs. Sync continues."
+            fi
           fi
 
       - name: Sync plugin documentation

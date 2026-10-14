@@ -20,6 +20,10 @@ prepend: |
   > #### Works with InfluxDB OSS 2.x  
   > The `influx setup` command initiates the setup process for **InfluxDB OSS 2.x** instances.  
   > The command does not work with **InfluxDB Cloud**.
+  > Every InfluxDB Cloud account already has a user and an organization,
+  > so the Cloud [`GET /api/v2/setup` endpoint](/influxdb/cloud/api/setup/) always returns `{"allowed": false}`.
+  > The command checks that endpoint first,
+  > and then exits with the error `instance has already been set up`.
 source: /shared/influxdb-v2/reference/cli/influx/setup/_index.md
 ---
 

@@ -29,10 +29,10 @@ test('names excluded plugins instead of counting them as a gap', () => {
   assert.equal(coverage.axes.data.missing.length, 0);
 });
 
-test('names plugins without a source README outside coverage totals', () => {
+test('names retired plugins outside coverage totals', () => {
   const coverage = computeCoverage({
     plugins: [PLUGINS[0]],
-    unavailable: ['nori_regression'],
+    retired: ['nori_regression'],
     dataFileIds: ['notifier'],
     sharedPages: ['notifier'],
     coreStubs: ['notifier'],
@@ -43,7 +43,7 @@ test('names plugins without a source README outside coverage totals', () => {
   assert.deepEqual(coverage.axes.shared.missing, []);
   assert.match(
     formatCoverageTable(coverage),
-    /Source README missing: nori_regression/
+    /All registry versions yanked: nori_regression/
   );
 });
 

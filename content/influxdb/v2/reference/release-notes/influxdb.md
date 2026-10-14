@@ -946,7 +946,7 @@ This release includes the following bug fixes and updates:
 
 - Include `curl` as a dependency in `influxdb2` packages.
 
-#### Errors updates
+#### Error updates
 
 - Add message to set the Flux `content-type` when a query fails to parse as JSON.
 - Discard excessive errors over `DefaultMaxSavedErrors (100)` to prevent out-of-memory crashes.
@@ -1129,8 +1129,8 @@ The prefix used for Prometheus metrics from the query controller has changed fro
   - [Configure axis tick marks](/influxdb/v2/visualize-data/visualization-types/graph/#x-axis)
   - Upload CSV files through the InfluxDB UI
   - [Edit Telegraf configurations](/influxdb/v2/tools/telegraf-configs/update/#edit-the-configuration-file-directly-in-the-ui) in the InfluxDB UI
-  - [Legend orientation options](/influxdb/v2/visualize-data/visualization-types/graph/#legend)
-  - [Refresh a single dashboard cell](/influxdb/v2/visualize-data/dashboards/control-dashboard/#refresh-a-single-dashboard-cell)
+  - [Legend orientation options](/influxdb/v2/visualize-data/visualization-types/graph/#hover-legend)
+  - [Refresh a single dashboard cell](/influxdb/v2/visualize-data/dashboards/control-dashboard/#manually-refresh-a-single-dashboard-cell)
 - Upgrade to **Flux v0.113.0**.
 
 ### Bug Fixes
@@ -1197,7 +1197,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Promote schema and fill query optimizations to default behavior.
 
 #### Flux updates
-- Upgrade to [Flux v0.104.0](/flux/v0/release-notes/#v0-104-0).
+- Upgrade to [Flux v0.104.0](/flux/v0/release-notes/#v01040).
 - Upgrade to `flux-lsp-browser` v0.5.31.
 
 ### Bug Fixes
@@ -1265,7 +1265,7 @@ This release also defines v2-specific path defaults and provides [helper scripts
 - Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
 - Implement [delete with predicate](/influxdb/v2/write-data/delete-data/).
 - Improve ID-related error messages for `influx v1 dbrp` commands.
-- Update Flux to [v0.99.0](/flux/v0/release-notes/#v0-99-0).
+- Update Flux to [v0.99.0](/flux/v0/release-notes/#v0990).
 - Update `flux-lsp-browser` to v0.5.25.
 - Support for ARM64 preview build.
 
@@ -1295,7 +1295,7 @@ Previously, the database retention policy (DBRP) mapping API did not match the s
 - Improvements to upgrade from 1.x to 2.x:
   - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2/).
   - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
-- Upgrade to [Flux v0.95.0](/flux/v0/release-notes/#v0-95-0).
+- Upgrade to [Flux v0.95.0](/flux/v0/release-notes/#v0950).
 - Upgrade `flux-lsp-browser` to v.0.5.23.
 - Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2/reference/cli/influx/v1/dbrp/).
 - Filter task runs by time.

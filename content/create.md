@@ -51,7 +51,8 @@ Use `docs` scripts with AI agents to help you create and edit documentation loca
 > yarn hugo server
 > ```
 >
-> *To refresh shared content after making changes, `touch` or edit the frontmatter file, or stop the server (Ctrl+C) and restart it.*
+> *To refresh shared content in the running development server, touch each consuming stub or stop the server (Ctrl+C) and restart it.
+> Fresh builds, including CI builds and checks, don't require stub touches or frontmatter edits solely because a shared body changed.*
 >
 > To list all available scripts, run:
 >

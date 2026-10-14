@@ -6,8 +6,9 @@ into documentation in docs-v2.
 
 The sync runs from `.github/workflows/sync-plugins.yml` and opens one aggregate
 pull request per run. It never pushes to a documentation branch directly.
-When a registry plugin loses its source README, the sync prunes its published
-pages for review in that pull request.
+When every published version of a registry plugin has `yanked: true`, the sync
+prunes its published pages for review in that pull request. A missing README
+does not retire a plugin.
 
 Architecture decisions are recorded in
 [docs/adr/0004-plugin-sync-ownership-seam.md](../../docs/adr/0004-plugin-sync-ownership-seam.md).
@@ -56,12 +57,12 @@ Documentation uses the following, mapped from the registry index.
 Ownership splits three ways by file. This is the seam that lets a generator and
 a human writer share the same plugin page.
 
-| Artifact                                                      | Owner    | Rewritten                                            |
-| ------------------------------------------------------------- | -------- | ---------------------------------------------------- |
-| `data/influxdb3_plugins.yml`                                  | The sync | Fully, every run                                     |
-| Generated region of a shared page                             | The sync | Every run                                            |
-| Everything outside that region                                | A human  | Never                                                |
-| Product stubs under `content/influxdb3/{core,enterprise}/...` | A human  | Created once; pruned if the source README disappears |
+| Artifact                                                      | Owner    | Rewritten                                                  |
+| ------------------------------------------------------------- | -------- | ---------------------------------------------------------- |
+| `data/influxdb3_plugins.yml`                                  | The sync | Fully, every run                                           |
+| Generated region of a shared page                             | The sync | Every run                                                  |
+| Everything outside that region                                | A human  | Never                                                      |
+| Product stubs under `content/influxdb3/{core,enterprise}/...` | A human  | Created once; pruned when all registry versions are yanked |
 
 A shared page marks its generated region with HTML comments:
 
@@ -90,13 +91,15 @@ is the worked example.
 ## How a sync run works
 
 1. Fetch `index.json` from the `registry` release of `influxdb3_plugins` and
-   dedupe to the latest published version per plugin name. This is the plugin
-   list; there is no hand-maintained roster of plugins to keep current.
+   group all published versions by plugin name. This is the plugin list;
+   there is no hand-maintained roster of plugins to keep current.
    A plugin merged upstream but not yet published to the registry does not
    appear until it is published.
-2. Check each discovered plugin for a source README. When the upstream checkout
-   is present, omit plugins without one from generated data and prune their
-   shared page and product stubs. When the checkout is absent, skip pruning.
+2. Check all registry versions before deduplicating. Retire a plugin only when
+   every version explicitly has `yanked: true`. Keep the latest published
+   entry for each active plugin. Omit retired plugins from
+   generated data and prune their shared page and product stubs. A missing or
+   incomplete upstream checkout does not change the retirement decision.
 3. Write `data/influxdb3_plugins.yml` from the available registry entries. Output is
    deterministic, so an unchanged registry produces a byte-identical file and
    no pull request.
@@ -108,7 +111,7 @@ is the worked example.
 6. Report one row per plugin to the step summary, and set the
    `needs_attention` output.
 
-The README check and transform use `docs_mapping.yaml` for nonstandard paths.
+The transform and pruning use `docs_mapping.yaml` for nonstandard paths.
 Discovery still covers every official plugin in the registry.
 
 ## Statuses
@@ -122,7 +125,7 @@ run fails and whether the pull request body carries a warning.
 | `updated`    | The generated region was rewritten.                              | No            | No                     |
 | `scaffolded` | A new product stub was created.                                  | No            | Yes                    |
 | `skipped`    | No README the transform could read, or a registry fetch failure. | No            | Yes                    |
-| `pruned`     | A registry plugin lost its README; published pages were removed. | No            | Yes                    |
+| `pruned`     | All registry versions are yanked; published pages were removed.  | No            | Yes                    |
 | `removed`    | A shared page whose plugin is no longer in the registry.         | No            | Yes                    |
 | `error`      | A write failed, or a generated region was malformed.             | Yes           | Yes                    |
 
@@ -176,8 +179,8 @@ git clone --depth 1 https://github.com/influxdata/influxdb3_plugins.git \
 ```
 
 Without that checkout, discovery, the data file, and stub scaffolding still
-work; every mapped plugin reports `skipped` because its README is missing.
-The sync does not prune pages when the entire checkout is absent.
+work; active plugins report `skipped` because their READMEs are missing.
+Only registry-confirmed retirement can prune pages when the checkout is absent.
 
 | Command                       | Effect                                             |
 | ----------------------------- | -------------------------------------------------- |
@@ -189,13 +192,13 @@ The sync does not prune pages when the entire checkout is absent.
 
 ## Coverage
 
-`yarn verify-plugin-coverage` reconciles official plugins with available
-READMEs against what docs-v2 publishes. It checks four artifacts: a
+`yarn verify-plugin-coverage` reconciles active official registry plugins
+against what docs-v2 publishes. It checks four artifacts: a
 `data/influxdb3_plugins.yml` entry, a shared page, a Core stub, and an
 Enterprise stub. It names the missing plugins per artifact rather than printing
 one total, because a plugin can have a shared page and no Enterprise stub.
-If the upstream checkout is absent or incomplete, the check skips measurement
-instead of treating every plugin as missing.
+Retired plugins are listed outside coverage totals. Coverage uses the registry
+and published artifacts, so it does not require an upstream checkout.
 
 `coverage-baseline.json` records the gap the repository has accepted. The check
 fails when the gap grows past that baseline and names what grew; a gap that
