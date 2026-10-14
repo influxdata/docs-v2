@@ -204,7 +204,7 @@ The UI confirms that the data has been written successfully.
     **Provide the following**:
 
     - `-b, --bucket` or `--bucket-id` flag with the bucket name or ID to write do.
-    - `-p, --precision` flag with the [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision) (`s`).
+    - `-p, --precision` flag with the [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision) (`s`).
     - String-encoded line protocol.
     - [Connection and authentication credentials](/influxdb3/cloud-serverless/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
@@ -421,8 +421,8 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **db**: InfluxDB bucket name
-  - **precision**:[timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision) (default is `ns`)
-  - **rp**: [retention policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp) name (default is the default DBRP mapping, if it exists, for the namespace; otherwise, an [auto-generated DBRP mapping](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#retention-policy-and-dbrp-mapping)).
+  - **precision**:[timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision) (default is `ns`)
+  - **rp**: [retention policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp) name (default is the default DBRP mapping, if it exists, for the namespace; otherwise, an [auto-generated DBRP mapping](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets)).
 - **Request body**: Line protocol as plain text
 
 The following example uses cURL and the InfluxDB v1 API to write line protocol
@@ -485,7 +485,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
 a [token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient permissions
 to the specified bucket.
-_For InfluxDB to [auto-generate the DBRP mapping](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#retention-policy-and-dbrp-mapping), you must use an
+_For InfluxDB to [auto-generate the DBRP mapping](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets), you must use an
 [All-Access API token](/influxdb3/cloud-serverless/admin/tokens/#all-access-api-token) 
 in the write request_.
 
@@ -524,7 +524,7 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **bucket**: InfluxDB bucket name
-  - **precision**: [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision) (default is `ns`)
+  - **precision**: [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision) (default is `ns`)
 - **Request body**: Line protocol as plain text
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
@@ -727,7 +727,7 @@ dependencies to your current project.
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes the `write_precision='s'` option
         to set the
-        [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision)
         to seconds.**
 
 7.  To execute the module and write line protocol to your {{% product-name %}}
@@ -888,7 +888,7 @@ InfluxDB 3 [influxdb3-go client library package](https://github.com/InfluxCommun
               **Because the timestamps in the sample line protocol are in second
               precision, the example passes the `Precision: lineprotocol.Second`
               option to set the
-              [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision)
+              [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision)
               to seconds.**
 
         2.  Defines a deferred function that closes the client when the function
@@ -1076,7 +1076,7 @@ the failure message.
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes `s` as the `precision` value to set the
         write
-        [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision)
         to seconds.**
 
     5.  Calls `Promise.allSettled()` with the promises array to pause execution
@@ -1256,7 +1256,7 @@ the failure message.
 
           **Because the timestamps in the sample line protocol are in second
           precision, the example passes the [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/Client/Write/WritePrecision.cs)
-          to the `precision:` option to set the [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision) to seconds.**
+          to the `precision:` option to set the [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision) to seconds.**
 
 6.  In your editor, open the `Program.cs` file and replace its contents with the following:
 
@@ -1474,7 +1474,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         precision, the example passes the
         [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-java/blob/main/src/main/java/com/influxdb/v3/client/write/WritePrecision.java)
         as the `precision` argument to set the write
-        [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-serverless/reference/glossary/#precision)
         to seconds.**
 
 8.  In your editor, open the `App.java` file (created by Maven) and replace its
