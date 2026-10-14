@@ -23,6 +23,7 @@ Use the {{% product-name %}} Admin UI to manage users and control access to your
 - [Invite a user](#invite-a-user)
 - [Manage invitations](#manage-invitations)
 - [User roles and permissions](#user-roles-and-permissions)
+- [Manage users](#manage-users)
 - [Limitations](#limitations)
 
 ## Access the Users page
@@ -44,15 +45,17 @@ The **Users** page displays your account information and a table of existing use
 
 ## View existing users
 
-The Users page shows a comprehensive view of all users and pending invitations for your account:
+The **Users** tab lists users who have accepted the user agreement and have
+access to the account. It displays the following information:
 
-- **Invite ID**: Unique identifier for each user invitation
-- **Email**: Email address of the invited or existing user
-- **Invited At**: Date and time when the invitation was sent
-- **Status**: Current status of the invitation
-  - `accepted`: User has accepted the invitation and has access to the instance
-  - `expired`: Invitation has expired and is no longer valid
-  - `revoked`: Invitation has been manually revoked by an administrator
+- **First Name** and **Last Name**
+- **Email**
+- **Roles**
+- **Joined On**
+- An **Actions** menu for each user
+
+To view invitation IDs, invitation dates, and invitation statuses, select
+**Invitations**.
 
 Use the search functionality to quickly find specific users by email address or invitation details.
 
@@ -121,11 +124,29 @@ Click on any invitation in the table to view additional details, including:
 > [!Note]
 > #### Role assignment
 >
-> Admins assign a role when inviting a user and can update a user's role from
-> the Admin UI after the invitation is accepted.
+> Admins assign a role when inviting a user and can
+> [change a user's roles](#change-a-users-roles) after the invitation is accepted.
 
-<!-- TODO: Document the self-service steps to change a user's role and to
-remove a user from the account in the InfluxDB 3 Cloud console. -->
+## Manage users
+
+Only users with the **Admin** role can change roles or remove users.
+
+### Change a user's roles
+
+1. On the **Users** tab, locate the user.
+2. Click the **Actions** menu (three vertical dots) for that user.
+3. Select **Edit Roles**.
+4. In the **Roles** list, select one or more roles.
+   A user must have at least one role.
+5. Click **Save Changes**.
+
+### Remove a user
+
+1. On the **Users** tab, locate the user.
+2. Click the **Actions** menu (three vertical dots) for that user.
+3. Select **Remove User**.
+4. In the **Remove User** dialog, verify the displayed email address, and then
+   click **Remove User**.
 
 ## Limitations
 

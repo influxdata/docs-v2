@@ -304,7 +304,7 @@ describe('Cascade product shortcodes', function () {
           cy.get('[data-testid="token-link"]')
             .invoke('text')
             .should('contain', 'token')
-            .and('contain', `/admin/tokens/`);
+            .and('contain', '/admin/tokens/');
         });
 
         it('renders token-link "database" with blacklist', function () {

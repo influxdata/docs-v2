@@ -428,7 +428,8 @@ async function scaffoldMissingStubs(discoveredPlugins, dryRun = false) {
  * would leave only the last plugin's outcome visible to the workflow.
  */
 function selectPlugins(configPlugins, pluginArg) {
-  const normalized = typeof pluginArg === 'string' ? pluginArg.trim() : pluginArg;
+  const normalized =
+    typeof pluginArg === 'string' ? pluginArg.trim() : pluginArg;
   const entries = Object.entries(configPlugins);
 
   if (!normalized || normalized === 'all') {
@@ -494,6 +495,27 @@ async function findRemovedPlugins(discoveredPlugins) {
     return [];
   }
   return detectRemovedPlugins(discoveredPlugins, filenames);
+}
+
+/** Remove only the known shared page and product stubs for one plugin. */
+async function prunePlugin(pluginName, paths, dryRun = false) {
+  const removed = [];
+  for (const targetPath of paths) {
+    try {
+      await fs.stat(targetPath);
+      if (!dryRun) await fs.unlink(targetPath);
+      removed.push(targetPath);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
+  return {
+    plugin: pluginName,
+    status: removed.length ? 'pruned' : 'skipped',
+    detail: removed.length
+      ? `all registry versions yanked; ${dryRun ? 'would remove' : 'removed'} ${removed.join(', ')}`
+      : 'all registry versions yanked; no published pages to remove',
+  };
 }
 
 /**
@@ -704,6 +726,7 @@ async function main() {
   // entry. `main` collapses them to one row per plugin before reporting.
   const artifactResults = [];
   let discovered = null;
+  let retiredPlugins = [];
 
   if (shouldRunDiscovery(options.plugin)) {
     console.log('Discovering official plugins from the registry index...');
@@ -717,6 +740,7 @@ async function main() {
         exclude: config.exclude ?? [],
       });
       discovered = parsed.plugins;
+      retiredPlugins = parsed.retired;
 
       console.log(
         `Discovered ${discovered.length} official plugin(s) in the registry.`
@@ -773,12 +797,37 @@ async function main() {
       }
 
       artifactResults.push(
-        ...(await findRemovedPlugins(discovered)).map((slug) => ({
-          plugin: slug,
-          status: 'removed',
-          detail: 'shared page has no plugin in the registry index',
-        }))
+        ...(await findRemovedPlugins([...discovered, ...retiredPlugins])).map(
+          (slug) => ({
+            plugin: slug,
+            status: 'removed',
+            detail: 'shared page has no plugin in the registry index',
+          })
+        )
       );
+
+      for (const plugin of retiredPlugins) {
+        const mapping = mappingForDiscoveredPlugin(plugin, config.plugins);
+        try {
+          artifactResults.push(
+            await prunePlugin(
+              plugin.name,
+              [
+                mapping.target,
+                stubPath(plugin, 'core'),
+                stubPath(plugin, 'enterprise'),
+              ],
+              options.dryRun
+            )
+          );
+        } catch (error) {
+          artifactResults.push({
+            plugin: plugin.name,
+            status: 'error',
+            detail: `could not prune plugin pages: ${error.message}`,
+          });
+        }
+      }
     }
     console.log('');
   }
@@ -853,4 +902,5 @@ export {
   selectPlugins,
   shouldRunDiscovery,
   mappingForDiscoveredPlugin,
+  prunePlugin,
 };

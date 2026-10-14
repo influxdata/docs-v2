@@ -108,6 +108,8 @@ build_site() {
     node ./flux-build-scripts/inject-flux-stdlib-frontmatter.cjs
 
     info "Building Hugo site..."
+    HUGO_PARAMS_DEPLOYEDCOMMIT="$(git rev-parse HEAD)"
+    export HUGO_PARAMS_DEPLOYEDCOMMIT
     npx hugo --environment production --gc --destination "$PUBLIC_DIR"
 
     info "Generating AI discovery artifacts and Markdown twins..."

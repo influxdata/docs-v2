@@ -262,8 +262,7 @@ You can adjust compaction strategies to balance performance and resource usage:
 ```bash
 # Configure compaction strategy
 --compaction-multipliers=4,8,16 \
---compaction-max-num-files-per-plan=100 \
---compaction-cleanup-wait=10m
+--compaction-max-num-files-per-plan=100
 ```
 
 ### Distributed compaction
@@ -486,6 +485,12 @@ FROM system.parquet_files
 WHERE max_time > extract(epoch from now() - INTERVAL '5 minutes') * 1000000000
 GROUP BY table_name;
 ```
+
+> [!Note]
+> On the legacy Parquet storage engine, `system.parquet_files` lists only Gen1
+> files, including compacted Gen1 files that haven't been cleaned up.
+> It doesn't list compacted generations.
+> For more information, see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
 
 #### Query nodes
 

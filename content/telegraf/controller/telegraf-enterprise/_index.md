@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_controller:
     name: Telegraf Enterprise licensing
-weight: 10
+weight: 11
 cascade:
   metadata: [Telegraf Enterprise]
 ---

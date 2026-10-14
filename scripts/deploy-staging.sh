@@ -93,6 +93,8 @@ build_hugo() {
     fi
 
     info "Building Hugo site with staging config..."
+    HUGO_PARAMS_DEPLOYEDCOMMIT="$(git rev-parse HEAD)"
+    export HUGO_PARAMS_DEPLOYEDCOMMIT
     yarn hugo --environment staging --logLevel info --gc --destination public
     success "Hugo build complete"
 }
