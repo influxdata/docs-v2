@@ -1265,7 +1265,7 @@ storage_cache_latest_snapshot{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",p
 
 ### Cache writes with dropped points
 
-Cumulative number of [cached](/influxdb/v2/reference/internals/storage-engine/#cache) writes that had [rejected points](/influxdb/v2/reference/glossary/#rejected-point). Writes with rejected points also increment the [write errors counter (`storage_cache_writes_err`)](#cache-writes-failed).
+Cumulative number of [cached](/influxdb/v2/reference/internals/storage-engine/#cache) writes that had [rejected points](/influxdb/v2/reference/glossary/#rejected-points). Writes with rejected points also increment the [write errors counter (`storage_cache_writes_err`)](#cache-writes-failed).
 
 #### Example
 
@@ -1439,7 +1439,7 @@ storage_shard_write_count{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path=
 
 ### Shard dropped points
 
-Number of [rejected points](/influxdb/v2/reference/glossary/#rejected-point) in [shard writes](/influxdb/v2/reference/internals/shards/#shard-writes).
+Number of [rejected points](/influxdb/v2/reference/glossary/#rejected-points) in [shard writes](/influxdb/v2/reference/internals/shards/#shard-writes).
 
 #### Example
 

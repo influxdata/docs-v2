@@ -251,8 +251,8 @@ func InfluxQL() error {
 
     query := `SELECT *
         FROM home
-        WHERE time >= 1641124000s
-        AND time <= 1641124000s + 8h`
+        WHERE time >= 1641024000s
+        AND time <= 1641024000s + 8h`
 
     queryOptions := influxdb3.QueryOptions{
         QueryType: influxdb3.InfluxQL,
