@@ -34,8 +34,8 @@ Learn the relationships between buckets, shards, and shard groups.
 ## Shards
 A shard contains encoded and compressed time series data for a given time range
 defined by the [shard group duration](#shard-group-duration).
-All points in a [series](#series) within the specified shard group duration are stored in the same shard.
-A single shard contains multiple series, one or more [TSM files](#tsm-time-structured-merge-tree) on disk,
+All points in a [series](/influxdb/v2/reference/glossary/#series) within the specified shard group duration are stored in the same shard.
+A single shard contains multiple series, one or more [TSM files](/influxdb/v2/reference/glossary/#tsm-time-structured-merge-tree) on disk,
 and belongs to a [shard group](#shard-groups).
 
 ## Shard groups
@@ -62,7 +62,7 @@ of the bucket:
 
 ##### Shard group duration configuration options
 To configure a custom bucket shard group duration, use the `--shard-group-duration`
-flag with the [`influx bucket create`](/influxdb/v2/reference/cli/influx/bucket/create/#create-a-custom-shard-group-duration)
+flag with the [`influx bucket create`](/influxdb/v2/reference/cli/influx/bucket/create/#create-a-bucket-with-a-custom-shard-group-duration)
 and [`influx bucket update`](/influxdb/v2/reference/cli/influx/bucket/update//#update-the-shard-group-duration-of-a-bucket) commands.
 
 {{% note %}}
