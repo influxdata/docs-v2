@@ -101,6 +101,13 @@ pre-commit:
             { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
         fi
       stage_fixed: true
+    # Report prose style findings. Never blocks a commit.
+    lint-prose:
+      tags: lint
+      glob:
+        - "content/*.md"
+        - "{[A-Z]*.md,.agents/**/*.md,.github/**/*.md,.claude/**/*.md,api-docs/README.md,api-docs/AGENTS.md,assets/AGENTS.md,content/AGENTS.md,layouts/AGENTS.md}"
+      run: node scripts/ci/lint-prose.mjs {staged_files}
     # Lint instruction and repository documentation files with generic Vale config
     lint-instructions:
       tags: lint
