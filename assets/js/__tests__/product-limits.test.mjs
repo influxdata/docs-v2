@@ -15,6 +15,8 @@ const unrelatedNumbers = new Map([
     'describes annotated CSV tables, not the table limit',
   ],
 ]);
+const performanceTestFinding =
+  /InfluxData (?:has )?identified \d+ columns as the/;
 const expandTitle = /\{\{%\s*expand\s+"([^"]*)"/;
 const limitContext = /column|table|measurement/i;
 const typedNumber = /(?<![\w.,`-])(\d{3,4})(?![\w.,`])/g;
@@ -57,7 +59,10 @@ test('distributed product prose uses the influxdb3/limit shortcode', () => {
     return productPages(product).flatMap((file) =>
       proseLines(file)
         .filter(
-          ({ text }) => limitContext.test(text) && !expandTitle.test(text)
+          ({ text }) =>
+            limitContext.test(text) &&
+            !expandTitle.test(text) &&
+            !performanceTestFinding.test(text)
         )
         .filter(({ text }) =>
           Array.from(text.matchAll(typedNumber)).some(([number]) =>

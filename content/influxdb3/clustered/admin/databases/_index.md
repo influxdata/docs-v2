@@ -123,7 +123,7 @@ cluster in the following ways:
 
 When creating or updating a database, you can configure the table column limit to be
 lower than the default or up to 1000, based on your requirements.
-InfluxData identified {{% influxdb3/limit "column" %}} columns as the safe limit for maintaining system
+InfluxData identified 250 columns as the safe limit for maintaining system
 performance and stability.
 Exceeding this threshold can result in
 [wide schemas](/influxdb3/clustered/write-data/best-practices/schema-design/#avoid-wide-schemas),

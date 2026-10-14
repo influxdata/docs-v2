@@ -349,7 +349,7 @@ At query time, the InfluxDB query engine identifies what table contains the quer
 data and then evaluates each row in the table to match the conditions of the query.
 The more columns that are in each row, the longer it takes to evaluate each row.
 
-Through performance testing, InfluxData has identified {{% influxdb3/limit "column" %}} columns as the
+Through performance testing, InfluxData has identified 250 columns as the
 threshold beyond which query performance may be affected
 (depending on the shape of and data types in your schema).
 
