@@ -69,13 +69,22 @@ pre-commit:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}
       fail_text: "Debug helpers found! Remove debug imports and calls before committing."
+    # Formats instruction sources before building so adapters match the
+    # committed sources; lint-markdown-instructions excludes them to avoid a
+    # parallel write. --stage adds the generated adapters to the commit.
     build-agent-instructions:
       glob:
         - "AGENTS.md"
-        - ".agents/instructions/**/*.md"
+        - ".agents/instructions/*.md"
         - ".agents/skills/**/SKILL.md"
         - "data/products.yml"
-      run: yarn build:agent:instructions
+      run: |
+        sources=$(echo '{staged_files}' | tr ' ' '\n' | grep '^\.agents/instructions/' | tr '\n' ' ' | sed 's/ $//')
+        if [ -n "$sources" ]; then
+          .ci/remark/remark.sh $sources --output --quiet || \
+            echo "⚠️  Remark found formatting issues in instruction sources. Automatic formatting applied."
+        fi
+        yarn build:agent:instructions --stage
       stage_fixed: true
     # Auto-fix markdown formatting for instruction and README files (like prettier).
     # The wrapper at .ci/remark/remark.sh runs the local Node install when present
@@ -92,6 +101,8 @@ pre-commit:
         - "assets/AGENTS.md"
         - "content/AGENTS.md"
         - "layouts/AGENTS.md"
+      exclude:
+        - ".agents/instructions/*.md"
       run: |
         # Shortcode .md files contain Hugo template syntax that remark-lint would
         # escape, so filter content/ and layouts/ paths before running remark.
@@ -214,10 +225,10 @@ pre-push:
       tags: lint
       glob:
         - "AGENTS.md"
-        - ".agents/instructions/**/*.md"
+        - ".agents/instructions/*.md"
         - ".agents/skills/**/SKILL.md"
-        - ".github/instructions/**/*.md"
-        - ".claude/rules/**/*.md"
+        - ".github/instructions/*.md"
+        - ".claude/rules/*.md"
         - "api-docs/AGENTS.md"
         - "assets/AGENTS.md"
         - "content/AGENTS.md"
