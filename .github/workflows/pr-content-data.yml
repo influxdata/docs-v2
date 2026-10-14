@@ -1,29 +1,31 @@
-name: Sample Data
+name: Content Data
 
-# Checks content, download files, and the date picker against
-# data/sample_data.yml.
+# Checks content and download files against data/sample_data.yml and the
+# product limits in data/products.yml.
 
 on:
   pull_request:
     paths:
       - 'content/**/*.md'
       - 'data/sample_data.yml'
+      - 'data/products.yml'
       - 'static/downloads/**'
       - 'assets/js/custom-timestamp*.js'
       - 'assets/js/__tests__/custom-timestamp-values.test.mjs'
       - 'assets/js/__tests__/sample-data.test.mjs'
-      - '.github/workflows/pr-sample-data.yml'
+      - 'assets/js/__tests__/product-limits.test.mjs'
+      - '.github/workflows/pr-content-data.yml'
 
 permissions:
   contents: read
 
 concurrency:
-  group: pr-sample-data-${{ github.event.pull_request.number }}
+  group: pr-content-data-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
   test:
-    name: Test sample data and custom timestamps
+    name: Test content against data files
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -36,5 +38,5 @@ jobs:
           CYPRESS_INSTALL_BINARY: 0
         uses: ./.github/actions/setup-docs-env
 
-      - name: Run sample data tests
-        run: yarn test:sample-data
+      - name: Run content data tests
+        run: yarn test:content-data

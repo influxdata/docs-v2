@@ -293,7 +293,7 @@ configured using the following options:
 
 #### Table limit
 
-**Default maximum number of tables**: 500
+**Default maximum number of tables**: {{% influxdb3/limit "table" %}}
 
 Each measurement is represented by a table in a database.
 Your database's table limit can be raised beyond the default limit of 500.
@@ -336,7 +336,7 @@ operating cost of your cluster.
 
 #### Column limit
 
-**Default maximum number of columns**: 250
+**Default maximum number of columns**: {{% influxdb3/limit "column" %}}
 
 Time, fields, and tags are each represented by a column in a table.
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}
@@ -349,7 +349,7 @@ At query time, the InfluxDB query engine identifies what table contains the quer
 data and then evaluates each row in the table to match the conditions of the query.
 The more columns that are in each row, the longer it takes to evaluate each row.
 
-Through performance testing, InfluxData has identified 250 columns as the
+Through performance testing, InfluxData has identified {{% influxdb3/limit "column" %}} columns as the
 threshold beyond which query performance may be affected
 (depending on the shape of and data types in your schema).
 

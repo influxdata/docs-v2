@@ -173,6 +173,9 @@ influxdb3_cloud_serverless:
   scheme: https
   version_label: Cloud Serverless
   distributed_architecture: true
+  limits:
+    table: 500
+    column: 200
   detector_config:
     query_languages:
       SQL:
@@ -215,6 +218,10 @@ influxdb3_cloud_dedicated:
   scheme: https
   version_label: Cloud Dedicated
   distributed_architecture: true
+  limits:
+    table: 500
+    column: 250
+    column_max: 1000
   detector_config:
     query_languages:
       SQL:
@@ -252,6 +259,10 @@ influxdb3_clustered:
   scheme: https
   version_label: Clustered
   distributed_architecture: true
+  limits:
+    table: 500
+    column: 250
+    column_max: 1000
   detector_config:
     query_languages:
       SQL:

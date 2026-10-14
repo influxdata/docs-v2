@@ -92,7 +92,7 @@
     "validate:agent-instructions": "node ./helper-scripts/validate-agent-instructions.js",
     "verify:changed": "node scripts/verify-changed.mjs",
     "test:verify-changed": "node --test scripts/__tests__/verify-changed.test.mjs",
-    "test:sample-data": "node --test assets/js/__tests__/custom-timestamp-values.test.mjs assets/js/__tests__/sample-data.test.mjs",
+    "test:content-data": "node --test assets/js/__tests__/custom-timestamp-values.test.mjs assets/js/__tests__/sample-data.test.mjs assets/js/__tests__/product-limits.test.mjs",
     "test:agent-instruction-limits": "node --test helper-scripts/__tests__/agent-instruction-limits.test.mjs",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
     "build:ts:watch": "tsc --project tsconfig.json --outDir dist --watch",

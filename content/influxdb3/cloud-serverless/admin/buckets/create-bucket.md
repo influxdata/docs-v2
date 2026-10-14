@@ -48,8 +48,8 @@ In {{< product-name >}}, table (measurement) and column are limited per bucket.
 Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.
 
-**Maximum number of tables**: 500
-**Maximum number of columns**: 200
+**Maximum number of tables**: {{% influxdb3/limit "table" %}}
+**Maximum number of columns**: {{% influxdb3/limit "column" %}}
 
 ### Auto-generate buckets on write
 

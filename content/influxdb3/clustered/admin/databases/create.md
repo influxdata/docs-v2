@@ -32,8 +32,8 @@ to create a database in your {{< product-name omit=" Clustered" >}} cluster.
 
     - _Optional:_ Database [retention period](/influxdb3/clustered/admin/databases/#retention-periods)
       _(default is infinite)_
-    - _Optional_: Database table (measurement) limit _(default is 500)_
-    - _Optional_: Database column limit _(default is 250)_
+    - _Optional_: Database table (measurement) limit _(default is {{% influxdb3/limit "table" %}})_
+    - _Optional_: Database column limit _(default is {{% influxdb3/limit "column" %}})_
     - _Optional_: [InfluxDB tags](/influxdb3/clustered/reference/glossary/#tag)
       to use in the partition template
     - _Optional_: [InfluxDB tag buckets](/influxdb3/clustered/admin/custom-partitions/partition-templates/#tag-bucket-part-templates)
@@ -179,7 +179,7 @@ configured using the `--max-tables` and `--max-columns` flags.
 
 ### Table limit
 
-**Default maximum number of tables**: 500
+**Default maximum number of tables**: {{% influxdb3/limit "table" %}}
 
 Each measurement is represented by a table in a database.
 Your database's table limit can be raised beyond the default limit of 500.
@@ -232,7 +232,7 @@ operating cost of your cluster.
 
 ### Column limit
 
-**Default maximum number of columns**: 250
+**Default maximum number of columns**: {{% influxdb3/limit "column" %}}
 
 Time, fields, and tags are each represented by a column in a table.
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}
@@ -245,7 +245,7 @@ At query time, the InfluxDB query engine identifies what table contains the quer
 data and then evaluates each row in the table to match the conditions of the query.
 The more columns that are in each row, the longer it takes to evaluate each row.
 
-Through performance testing, InfluxData has identified 250 columns as the
+Through performance testing, InfluxData has identified {{% influxdb3/limit "column" %}} columns as the
 threshold beyond which query performance may be affected
 (depending on the shape of and data types in your schema).
 

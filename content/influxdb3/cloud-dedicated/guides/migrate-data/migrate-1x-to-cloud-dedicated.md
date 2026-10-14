@@ -41,7 +41,7 @@ are schema design practices supported by the TSM storage engine that are not
 supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields.
-- By default, measurements can contain up to 250 columns where each column
+- By default, measurements can contain up to {{% influxdb3/limit "column" %}} columns where each column
   represents time, a field, or a tag.
 
 _For more information, see [Schema restrictions](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#schema-restrictions)._
@@ -89,7 +89,7 @@ splitting groups of fields across multiple measurements.
 1.  [Create a new database](/influxdb/v1/query_language/manage-database/#create-database)
     to store the modified data.
 2.  Identify what fields could be grouped together in a measurement and not exceed
-    the 250 column limit.
+    the {{% influxdb3/limit "column" %}} column limit.
 3.  Query each group of fields from the existing database and write them into a
     unique measurement in the new database:
 
@@ -388,4 +388,4 @@ You would create the following InfluxDB {{< current-version >}} databases:
     > Don't use the `influx` CLI with InfluxDB Cloud Dedicated.
     > While it may coincidentally work, it isn't officially supported.
     > 
-    > For help finding the best workflow for your situation, [contact Support](https://support.influxdata.com/).
+    > For help finding the best workflow for your situation, [contact Support](https://support.influxdata.com).
