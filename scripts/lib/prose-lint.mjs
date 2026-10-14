@@ -217,17 +217,49 @@ function formatMessage(rule, matcher, match) {
     .replaceAll('{replacement}', matcher.replacements?.join("' or '") ?? '');
 }
 
+const SWITCH_COMMENT =
+  /^<!--\s*(?:prose-lint|vale)\s+(off|on)\b\s*([\w\s,]*?)\s*-->$/;
+
+function parseSwitch(node) {
+  const found = node.type === 'html' && node.value.trim().match(SWITCH_COMMENT);
+  if (!found) return null;
+  const [, state, names] = found;
+  const ruleIds = names.split(/[\s,]+/).filter(Boolean);
+  return { off: state === 'off', ruleIds };
+}
+
+function applySwitch(disabled, { off, ruleIds }) {
+  const targets = ruleIds.length ? ruleIds : ['*'];
+  if (!off && !ruleIds.length) return new Set();
+  const next = new Set(disabled);
+  for (const id of targets) {
+    if (off) next.add(id);
+    else next.delete(id);
+  }
+  return next;
+}
+
 function blocksOf(tree) {
   const blocks = [];
+  let disabled = new Set();
   const visit = (node) => {
+    const toggle = parseSwitch(node);
+    if (toggle) {
+      disabled = applySwitch(disabled, toggle);
+      return;
+    }
     if (BLOCK_TYPES.has(node.type)) {
-      blocks.push(node);
+      blocks.push({ node, disabled });
       return;
     }
     node.children?.forEach(visit);
   };
   visit(tree);
   return blocks;
+}
+
+function isEnabled(rule, disabled) {
+  return !disabled.has('*') && !disabled.has(rule.id);
 }
 
 /**
@@ -244,10 +276,11 @@ export function lintProse(markdown, { path, rules }) {
   const sourceLines = markdown.split('\n');
   const pathRules = rules.filter((rule) => appliesToPath(rule, path));
   const findings = [];
-  for (const block of blocksOf(parser.parse(markdown))) {
+  for (const { node: block, disabled } of blocksOf(parser.parse(markdown))) {
     const { text, segments } = blockText(block);
-    for (const rule of pathRules.filter((candidate) =>
-      appliesToBlock(candidate, block.type)
+    for (const rule of pathRules.filter(
+      (candidate) =>
+        isEnabled(candidate, disabled) && appliesToBlock(candidate, block.type)
     )) {
       for (const matcher of rule.matchers) {
         for (const found of text.matchAll(matcher.pattern)) {

@@ -5,6 +5,10 @@
 # and shortcodes are never checked. `{{% product-name %}}` is read as
 # "InfluxDB" so article rules work.
 #
+# To skip prose, put `<!-- prose-lint off -->` and `<!-- prose-lint on -->`
+# on their own lines. Add rule IDs to skip only those rules, for example
+# `<!-- prose-lint off Ordinal, RepeatedWords -->`.
+#
 # Fields:
 #   id          Rule name shown in output.
 #   level       warning or info. No rule blocks a commit or merge.

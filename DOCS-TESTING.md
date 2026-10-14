@@ -221,6 +221,16 @@ Findings are warnings or notices and never block a commit or merge.
 yarn lint:prose content/influxdb3/core/get-started/_index.md
 ```
 
+To skip prose that is wrong on purpose or copied from upstream, wrap it
+in comments on their own lines.
+Name rules to skip only those rules:
+
+```markdown
+<!-- prose-lint off -->
+<!-- prose-lint off Ordinal, RepeatedWords -->
+<!-- prose-lint on -->
+```
+
 To add a rule, add an entry with `flag` and `pass` examples to
 `rules.yml`, then run `yarn test:lint-prose`.
 The test fails if an example isn't flagged or passed as expected.
