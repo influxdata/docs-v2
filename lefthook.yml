@@ -196,7 +196,9 @@ pre-commit:
           git add {staged_files}
         }
     lint-js:
-      glob: "assets/js/*.{js,ts}"
+      glob:
+        - "assets/js/*.{js,ts}"
+        - "cypress/**/*.js"
       run: yarn eslint {staged_files}
       fail_text: "JavaScript linting failed. Fix errors before committing."
     shellcheck:
