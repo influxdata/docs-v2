@@ -430,7 +430,7 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **db**: InfluxDB database name
-  - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+  - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
     (default is `ns`)
 - **Request body**: Line protocol as plain text
 
@@ -496,7 +496,7 @@ fi
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-token) with
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with
   sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code; otherwise,
@@ -536,7 +536,7 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **bucket**: InfluxDB database name
-  - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+  - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
     (default is `ns`)
 - **Request body**: Line protocol as plain text
 <!-- vale InfluxDataDocs.v3Schema = YES -->
@@ -603,7 +603,7 @@ fi
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
-  [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with
   sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code; otherwise,
@@ -737,7 +737,7 @@ dependencies to your current project.
       - **`org`**: an empty or arbitrary string (InfluxDB ignores this
         parameter)
       - **`token`**: a
-        [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+        [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
         with write access to the specified database. _Store this in a secret
         store or environment variable to avoid exposing the raw token string._
       - **`database`**: the name of the {{% product-name %}} database to write
@@ -750,7 +750,7 @@ dependencies to your current project.
 
       **Because the timestamps in the sample line protocol are in second
       precision, the example passes the `write_precision='s'` option to set the
-      [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+      [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
       to seconds.**
 
 7. To execute the module and write line protocol to your {{% product-name %}}
@@ -909,7 +909,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB 3
             - **`Host`**: the {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: The name of your {{% product-name %}} database
             - **`Token`**: a
-              [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+              [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with _write_ access to the specified database. _Store this in a
               secret store or environment variable to avoid exposing the raw
               token string._
@@ -919,7 +919,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB 3
               **Because the timestamps in the sample line protocol are in second
               precision, the example passes the `Precision: lineprotocol.Second`
               option to set the
-              [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+              [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
               to seconds.**
 
         2.  Defines a deferred function that closes the client when the function
@@ -1085,7 +1085,7 @@ the failure message.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`token`**: a
-          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1105,7 +1105,7 @@ the failure message.
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes `s` as the `precision` value to set the
         write
-        [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
         to seconds.**
 
     5.  Calls `Promise.allSettled()` with the promises array to pause execution
@@ -1277,7 +1277,7 @@ the failure message.
         - **`database`**: the name of the {{% product-name %}} database to write
           to
         - **`token`**: a
-          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1293,7 +1293,7 @@ the failure message.
         precision, the example passes the
         [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/Client/Write/WritePrecision.cs)
         to the `precision:` option to set
-        the[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+        the[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
         to seconds.**
 
 6.  In your editor, open the `Program.cs` file and replace its contents with the
@@ -1502,7 +1502,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         - **`database`**: the name of the {{% product-name %}} database to write
           to
         - **`token`**: a
-          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1515,7 +1515,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         precision, the example passes the
         [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-java/blob/main/src/main/java/com/influxdb/v3/client/write/WritePrecision.java)
         as the `precision` argument to set the write
-        [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#timestamp-precision)
+        [timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
         to seconds.**
 
 8.  In your editor, open the `App.java` file (created by Maven) and replace its
