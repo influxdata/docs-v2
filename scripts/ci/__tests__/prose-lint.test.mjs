@@ -109,3 +109,36 @@ test('CLI reports findings as annotations without failing', () => {
     /::notice file=.*findings\.md,line=5,col=9,title=Cliches::/
   );
 });
+
+test('skips prose between off and on comments', () => {
+  const markdown = [
+    'Start the compactor.',
+    '',
+    '<!-- prose-lint off -->',
+    '',
+    'Start the compactor on the 1st day.',
+    '',
+    '<!-- prose-lint on -->',
+    '',
+    'Start the compactor.',
+  ].join('\n');
+  assert.deepEqual(ruleIds(markdown), ['Branding', 'Branding']);
+});
+
+test('skips only the named rules', () => {
+  const markdown = [
+    '<!-- prose-lint off Ordinal, RepeatedWords -->',
+    '',
+    'Start the compactor on the 1st day.',
+    '',
+    '<!-- prose-lint on Ordinal -->',
+    '',
+    'Run the 2nd step.',
+  ].join('\n');
+  assert.deepEqual(ruleIds(markdown), ['Branding', 'Ordinal']);
+});
+
+test('honors vale off and on comments until they are migrated', () => {
+  const markdown = ['<!-- vale off -->', '', 'Start the compactor.'].join('\n');
+  assert.deepEqual(ruleIds(markdown), []);
+});
