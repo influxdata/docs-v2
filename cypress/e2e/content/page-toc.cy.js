@@ -36,6 +36,17 @@ describe('Article navigation', () => {
     );
     cy.get('[data-page-rail]').should('not.contain', 'Support and feedback');
   });
+  it('does not animate the active entry indentation when the ToC initializes', () => {
+    cy.viewport(1280, 1024);
+    cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', { body: '' });
+    cy.visit('/influxdb3/core/get-started/write/');
+    dismissNotifications();
+    cy.get('[data-page-rail] a[aria-current="location"]').should(($link) => {
+      expect(getComputedStyle($link[0]).transitionProperty).not.to.include(
+        'padding'
+      );
+    });
+  });
   it('collapses to a hamburger on phones and follows the scroll up to 2rem', () => {
     cy.viewport(500, 800);
     cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', { body: '' });
