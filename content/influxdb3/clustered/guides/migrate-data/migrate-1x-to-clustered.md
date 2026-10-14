@@ -322,7 +322,7 @@ You would create the following InfluxDB {{< current-version >}} databases:
 
     - _(Optional)_ Database [retention period](/influxdb3/clustered/admin/databases/#retention-periods)
       (default is infinite)
-    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
+    - Database name _(see [Database naming restrictions](/influxdb3/clustered/reference/naming-restrictions/#database-names))_
 
     ```sh
     influxctl database create --retention-period 30d <DATABASE_NAME>

@@ -257,7 +257,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 <!-------------------------- BEGIN influxctl CONTENT -------------------------->
 
 Use the [`influxctl query` command](/influxdb3/clustered/reference/cli/influxctl/query/)
-to query the [home sensor sample data](#home-sensor-data-line-protocol) in your
+to query the [home sensor sample data](/influxdb3/clustered/get-started/write/#home-sensor-data-line-protocol) in your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
@@ -478,7 +478,7 @@ _If your project's virtual environment is already running, skip to step 3._
               tls_root_certs=cert))
       ```
   
-  For more information, see [`influxdb_client_3` query exceptions](/influxdb3/clustered/reference/client-libraries/v3/python/#query-exceptions).
+  For more information, see [`influxdb_client_3` query exceptions](/influxdb3/clustered/reference/client-libraries/v3/python/#exceptions).
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

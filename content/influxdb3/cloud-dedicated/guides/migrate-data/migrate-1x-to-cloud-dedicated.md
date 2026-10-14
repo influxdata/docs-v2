@@ -340,7 +340,7 @@ You would create the following InfluxDB {{< current-version >}} databases:
 
     - _(Optional)_ Database [retention period](/influxdb3/cloud-dedicated/admin/databases/#retention-periods)
       (default is infinite)
-    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
+    - Database name _(see [Database naming restrictions](/influxdb3/cloud-dedicated/reference/naming-restrictions/#database-names))_
 
 <!--Skip tests for dataase create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->

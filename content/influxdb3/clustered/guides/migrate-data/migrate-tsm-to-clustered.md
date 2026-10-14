@@ -177,8 +177,7 @@ data = () =>
     4.  [Create a task](/influxdb/cloud/process-data/manage-tasks/create-task/)
         using the provided [migration task](#migration-task).
         Update the necessary [migration configuration options](#configure-the-migration).
-    5.  _(Optional)_ Set up [migration monitoring](#monitor-the-migration-progress).
-    6.  Save the task.
+    5.  Save the task.
 
         > [!Note]
         > Newly-created tasks are enabled by default, so the data migration begins when you save the task.

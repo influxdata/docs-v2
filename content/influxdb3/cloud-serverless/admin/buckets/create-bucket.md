@@ -139,7 +139,7 @@ Retention rules specify the bucket retention period, the duration that data is s
 The retention period also defines the minimum timestamp that you can write to the bucket; the bucket rejects data older than the retention period.
 
 Use the `--retention` flag to specify a
-[retention period](/influxdb3/cloud-serverless/admin/databases/#retention-periods)
+[retention period](/influxdb3/cloud-serverless/admin/buckets/#retention-period)
 for the bucket.
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
@@ -238,7 +238,7 @@ If successful, the output is an HTTP `201: Created` status code and the bucket; 
 
 ## /api/v2 retentionRules syntax
 
-Retention rules specify the bucket [retention period](/influxdb3/cloud-serverless/admin/databases/#retention-periods).
+Retention rules specify the bucket [retention period](/influxdb3/cloud-serverless/admin/buckets/#retention-period).
 The retention period also defines the minimum timestamp that you can write to the bucket; the bucket rejects data older than the retention period.
 The default retention period is `infinite`--data won't expire.
 
