@@ -140,14 +140,20 @@ describe('Bottom-of-page widgets', () => {
     cy.get('.custom-timestamps').should('contain', '3.6742346141747673');
   });
 
-  it('anchors sample data on its own day when log output precedes it', () => {
+  it('moves every Serverless write example to the selected day', () => {
     cy.viewport(1280, 1024);
     visitWithDate('/influxdb3/cloud-serverless/get-started/write/');
     selectDay(12);
-    cy.contains('.custom-timestamps', 'Starting service inputs')
-      .should('contain', String(Date.parse('2025-02-12T12:40:00Z') / 1000))
-      .and('contain', '2024-01-11T20:09:08Z')
-      .and('not.contain', '1719924000');
+    const firstSample = String(Date.parse('2025-02-12T08:00:00Z') / 1000);
+    const lastSample = String(Date.parse('2025-02-12T20:00:00Z') / 1000);
+    cy.get('span.custom-timestamps').should('contain', '2025-02-12T08:00:00Z');
+    cy.get('.custom-timestamps')
+      .filter(':contains("home,room=Kitchen")')
+      .should('have.length.at.least', 7)
+      .each(($block) => {
+        expect($block.text()).to.contain(firstSample);
+        expect($block.text()).to.contain(lastSample);
+      });
   });
 
   for (const edition of ['enterprise', 'core', 'cloud']) {
