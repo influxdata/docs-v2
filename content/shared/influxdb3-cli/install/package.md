@@ -24,7 +24,7 @@ influxdb3 install package [OPTIONS] [PACKAGES]...
 | `--token <AUTH_TOKEN>`                          | The token for authentication with the {{< product-name >}} server   |                         | `INFLUXDB3_AUTH_TOKEN`      |
 | `--plugin-dir <PLUGIN_DIR>`                     | Location of the plugins directory                                   | `/plugins`              | `INFLUXDB3_PLUGIN_DIR`      |
 | `--virtual-env-location <VIRTUAL_ENV_LOCATION>` | Custom virtual environment location                                 |                         | `VIRTUAL_ENV`               |
-| `--package-manager <PACKAGE_MANAGER>`           | Package manager to use: `discover`, `pip`, `uv`, or `disabled`      | `discover`              | `INFLUXDB3_PACKAGE_MANAGER` |
+| `--package-manager <PACKAGE_MANAGER>`           | _Deprecated._ Has no effect; `pip` is always used                   |                         | `INFLUXDB3_PACKAGE_MANAGER` |
 | `--plugin-repo <PLUGIN_REPO>`                   | Plugin repository URL                                               |                         | `INFLUXDB3_PLUGIN_REPO`     |
 | `-r`, `--requirements <REQUIREMENTS>`           | Path to a `requirements.txt` file                                   |                         |                             |
 | `--tls-ca <CA_CERT>`                            | Path to a custom TLS certificate authority (for self-signed or internal certificates) |                         | `INFLUXDB3_TLS_CA`          |
@@ -63,14 +63,6 @@ influxdb3 install package \
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your {{% token-link "admin" %}} for your {{< product-name >}} instance.
 
-### Install packages with a specific package manager
-
-```bash
-influxdb3 install package \
-  --package-manager uv \
-  prophet adtk
-```
-
 ### Install packages with a custom CA certificate
 
 ```bash
@@ -81,12 +73,9 @@ influxdb3 install package \
 
 ## Package management
 
-### Package manager selection
+### Package manager
 
-By default (`--package-manager discover`), the CLI automatically detects and uses the best available package manager:
-
-1. **uv** (preferred): Faster package installation
-2. **pip** (fallback): Standard Python package manager
+{{< product-name >}} bundles Python and `pip`, and always uses `pip` to install plugin packages.
 
 ### Virtual environment
 
@@ -95,7 +84,7 @@ You can customize the virtual environment location with `--virtual-env-location`
 
 ### Security mode
 
-If your {{< product-name >}} server was started with [`--package-manager disabled`](/influxdb3/version/reference/config-options/#package-manager), the `influxdb3 install package` command is blocked for security and compliance requirements.
+If your {{< product-name >}} server was started with [`--disable-package-management`](/influxdb3/version/reference/config-options/#disable-package-management), the `influxdb3 install package` command is blocked for security and compliance requirements.
 
 When attempting to install packages with this command while the server has package installation disabled, the command fails with a `403 Forbidden` error:
 
@@ -103,7 +92,7 @@ When attempting to install packages with this command while the server has packa
 Package installation has been disabled. Contact your administrator for more information.
 ```
 
-The server's `--package-manager disabled` setting is designed for:
+The server's `--disable-package-management` option is designed for:
 
 - **Enterprise security requirements**: Prevent arbitrary package installation
 - **Compliance environments**: Control exactly which packages are available
@@ -112,7 +101,7 @@ The server's `--package-manager disabled` setting is designed for:
 
 In these environments, administrators must pre-install all required Python packages into the server's virtual environment before starting {{< product-name >}}.
 
-For more information, see the [`package-manager`](/influxdb3/version/reference/config-options/#package-manager) configuration option.
+For more information, see the [`disable-package-management`](/influxdb3/version/reference/config-options/#disable-package-management) configuration option.
 
 ### Troubleshooting
 
