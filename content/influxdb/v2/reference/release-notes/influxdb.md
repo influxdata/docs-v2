@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.10.0 {date="TBD"}
+## v2.10.0 {date="2026-10-15"}
 
 ### Features
 
@@ -35,11 +35,26 @@ weight: 101
 - Add the [`startup-error-linger`](/influxdb/v2/reference/config-options/#startup-error-linger) option
   to keep `/health` and `/ready` serving after a failed startup, so you can retrieve the error.
 - Add [`influxd` exit codes](/influxdb/v2/reference/cli/influxd/#exit-codes) that indicate whether restarting can fix a failed startup.
+- Set a `Strict-Transport-Security` header on responses when hardening is enabled.
+- Add partial results support to `SHOW MEASUREMENTS`. A query that hits a limit returns the measurements found so far instead of failing.
+- Split the `tsm1` `FileStore` lock into separate fast and slow locks to reduce contention during compaction.
 
 ### Bug Fixes
 
+- Release TSM cursor references once when a Flux query is canceled, instead of leaking them.
+- Prevent a compaction level regression when compacting TSM files at mixed levels.
+- Fix a race in shard loading.
+- Require check names to be unique and nonempty.
+- Remove a shard's per-shard Prometheus series when InfluxDB deletes the shard.
 - Report `http_write_request_bytes` for the legacy `/write` endpoint. Previously, the metric reported `0`.
 - Include the legacy `/query` endpoint in the `http_query_request_count`, `http_query_request_bytes`, and `http_query_response_bytes` metrics.
+
+### Maintenance
+
+- Upgrade Go to 1.26.9.
+- Upgrade Flux to v0.201.0.
+- Update the InfluxDB UI to v2.10.0.
+- Update containerd from 1.7.35 to 1.7.36.
 
 ## v2.9.1 {date="2026-05-11"}
 
