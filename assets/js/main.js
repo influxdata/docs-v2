@@ -28,7 +28,7 @@ import * as tcDownloads from './tc-downloads.js';
  *  - JavaScript: my-component.js
  * The JavaScript is ideally a single-purpose module that exports a single default function to initialize the component and handle any component interactions.
  */
-import AskAITrigger from './ask-ai-trigger.js';
+import AskAI from './components/ask-ai.ts';
 import CodePlaceholder from './code-placeholders.js';
 import { CustomTimeTrigger } from './custom-timestamps.js';
 import Diagram from './components/diagram.js';
@@ -49,7 +49,7 @@ import { SidebarToggle } from './sidebar-toggle.js';
 import TcSubstituteValues from './components/tc-substitute-values.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
-import ApiToc from './components/api-toc.ts';
+import PageToc from './components/page-toc.ts';
 
 /**
  * Component Registry
@@ -62,7 +62,7 @@ import ApiToc from './components/api-toc.ts';
  * 4. Simplified testing and debugging
  */
 const componentRegistry = {
-  'ask-ai-trigger': AskAITrigger,
+  'ask-ai': AskAI,
   'code-placeholder': CodePlaceholder,
   'custom-time-trigger': CustomTimeTrigger,
   diagram: Diagram,
@@ -83,7 +83,8 @@ const componentRegistry = {
   'tc-substitute-values': TcSubstituteValues,
   theme: Theme,
   'theme-switch': ThemeSwitch,
-  'api-toc': ApiToc,
+  'api-toc': PageToc,
+  'page-toc': PageToc,
 };
 
 /**

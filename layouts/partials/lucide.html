@@ -1,0 +1,36 @@
+{{- /*
+  Renders a Lucide icon (https://lucide.dev/icons) as inline SVG.
+
+  Shared by the lucide shortcode and by layouts that place an icon in markup.
+
+  Params (dict):
+    icon  Lucide icon name (kebab-case, exactly as listed at lucide.dev/icons).
+    size  Optional size modifier: "small" or "large". Defaults to 1em, sized
+          to the surrounding text.
+
+  Icons are decorative: they accompany the text that names the control, so they
+  are hidden from screen readers (aria-hidden) to avoid duplicate announcements.
+
+  Icons are read from the lucide-static package through the node_modules asset
+  mount. Lucide is ISC-licensed; see node_modules/lucide-static/LICENSE.
+*/ -}}
+{{- $name := .icon -}}
+{{- $size := .size | default "" -}}
+{{- with resources.Get (printf "node_modules/lucide-static/icons/%s.svg" $name) -}}
+  {{- $svg := .Content -}}
+  {{- /* Strip the license comment. */ -}}
+  {{- $svg = $svg | replaceRE `(?s)<!--.*?-->` "" -}}
+  {{- $svg = $svg | replaceRE `<svg` `<svg aria-hidden="true" focusable="false"` -}}
+  {{- /* Add the size modifier to the icon's existing class. */ -}}
+  {{- if ne $size "" -}}
+    {{- $svg = $svg | replaceRE `class="lucide ` (printf `class="lucide %s ` $size) -}}
+  {{- end -}}
+  {{- /* Collapse to a single line so the inline SVG renders as HTML in every
+         Markdown context (paragraphs, list items, bold text)---multi-line raw
+         HTML is escaped as text by Goldmark inline parsing. Size comes from CSS
+         (svg.lucide), which overrides the icon's width/height attributes. */ -}}
+  {{- $svg = $svg | replaceRE `\s*\n\s*` " " | strings.TrimSpace -}}
+  {{- $svg | safeHTML -}}
+{{- else -}}
+  {{- warnf "lucide icon: no icon named %q (see https://lucide.dev/icons)" $name -}}
+{{- end -}}
