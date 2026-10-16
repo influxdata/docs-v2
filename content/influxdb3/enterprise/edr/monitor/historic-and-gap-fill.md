@@ -12,6 +12,7 @@ weight: 1
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 1. [Historic fill](#historic-fill)
 2. [Gap fill](#gap-fill)
@@ -62,9 +63,11 @@ after the frontier; historic fill handles everything before it:
 1. **Snapshot manifests (`.ptsnap`)** are read to build a work list of
    [gen0](/influxdb3/enterprise/reference/storage-engine-config-options/#gen0)
    files, each carrying its WAL range and time range.
-2. **Gen0 files** on the work list are read and replicated, one file at a
-   time, at lower priority than live data (unless a priority rule claims
-   historic fill explicitly).
+2. **Gen0 files** on the work list are read and replicated at lower priority than live data unless a priority rule claims historic fill explicitly.
+   Historic-fill concurrency follows `concurrent_sends`.
+   With `concurrent_sends: 1`, fill processes one file at a time.
+   Higher values allow parallel backfill and require `idempotent_writes: true`.
+   The pipeline continues across snapshot boundaries.
 3. **cv2 files (compaction levels L1 and above)** are the primary medium
    for genuinely old data—data whose gen0 files and snapshot manifests
    have already been compacted away. cv2 candidates are enumerated by time
@@ -108,12 +111,16 @@ During a fill, the metrics API reports `historic_fill_active`,
 
 ## Gap fill
 
-Gap fill handles the live-replication analogue of the historic problem: a
-WAL file the replicator expected was deleted (snapshotted and evicted)
-before it could be sent—typically after a long outage with short WAL
-retention. The agent detects the missing WAL ID range, records it in a gap
-ledger, and recovers the data through the same tiered matching as historic
-fill: snapshot manifests, gen0 files, cv2 files.
+Gap fill recovers WAL ranges missed during live replication, including delivery failures, transient object-store reads, and server WAL eviction.
+The agent records each range in the gap ledger.
+Recovery first re-reads the exact raw WAL files if they still exist.
+A temporarily unreadable file causes recovery to wait briefly and retry the read.
+Only an evicted range falls back to snapshot manifests, gen0, and compacted cv2 files.
+`gapfill_files_from_wal_total` counts files recovered from raw WAL.
+
+An agent behind the retention floor records the whole evicted span as one gap and resumes live replication above that floor.
+Gap fill recovers the span in the background.
+If a channel is halted, `gapfill_blocked_on_halt` and the log identify the blocked recovery.
 
 Operationally:
 

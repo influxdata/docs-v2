@@ -12,6 +12,7 @@ weight: 206
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/compatibility.md, docs/external/edr-spec.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 EDR has two compatibility dimensions.
 
@@ -74,7 +75,7 @@ InfluxDB 3 Core is **not** supported as an EDR source or destination.
 InfluxDB Cloud Serverless, InfluxDB Cloud Dedicated, and InfluxDB Clustered
 are also not supported as an EDR source or destination.
 
-## EDR agent <-> EDR agent (wire protocol)
+## Compatibility between EDR agents (wire protocol)
 
 Directly connected agents negotiate a **protocol version** and a
 **capability set** on each hop. Negotiation never propagates along a relay
@@ -90,7 +91,7 @@ For the protocol version matrix, what each version changed, the capability
 registry, and what a refusal looks like on the wire, see
 [Protocol version negotiation](/influxdb3/enterprise/edr/reference/api/#protocol-version-negotiation).
 
-## EDR agent <-> InfluxDB 3 Enterprise (storage formats)
+## Compatibility between EDR and InfluxDB 3 Enterprise (storage formats)
 
 The sender agent reads the source server's object store directly—WAL
 files, snapshot manifests, compaction checkpoints, catalog. Compatibility
@@ -99,13 +100,26 @@ evidence: at startup the agent sniffs the newest artifacts and either
 starts, logging `storage compatibility: COMPATIBLE`, or refuses with the
 exact format mismatch and logs `storage compatibility: INCOMPATIBLE`.
 
-| EDR release | InfluxDB 3 Enterprise 3.10.x | 3.11.x | newer |
-|---|---|---|---|
-| **0.1.0 / 0.2.0** | COMPATIBLE (built against 3.10.0) | INCOMPATIBLE | INCOMPATIBLE |
-| **1.0.0-0.rc.1 and later** | COMPATIBLE | COMPATIBLE (built against 3.11.0) | INCOMPATIBLE until a release says otherwise |
+### Supported source server versions
 
-The dual support is real, validated both ways: the full test suite and
-chaos matrix run green against 3.10.5 and 3.11.0 stores. An out-of-matrix
+The compatibility table lists the InfluxDB 3 Enterprise source server versions supported by each EDR release.
+
+| EDR release | InfluxDB 3 Enterprise 3.10.x | 3.11.x | 3.12.x | Newer |
+|---|---|---|---|---|
+| 0.1.0 / 0.2.0 | Supported (built against 3.10.0) | Unsupported | Unsupported | Unsupported |
+| 1.0.0-0.rc.1 | Supported | Supported (built against 3.11.0) | Unsupported | Unsupported |
+| 1.0.0-0.rc.2 | Supported | Supported (built against 3.11.0) | Unsupported | Unsupported |
+| 1.0.0-0.rc.3 | Supported | Supported (built against 3.11.0) | Unsupported | Unsupported |
+| 1.0.0 GA | Unvalidated and unsupported | Supported | Supported (built against 3.12.0) | Unsupported |
+
+> [!Warning]
+> The GA binary's displayed server-line list still includes 3.10.x.
+> That display does not establish support: EDR 1.0.0 is validated and supported only with 3.11.x and 3.12.x sources.
+> EDR rc.3 is the last release validated with 3.10.x sources.
+
+The release validation covers 3.10.5 and 3.11.0 stores for rc.1 through rc.3.
+GA validation covers 3.11.x and 3.12.x, including historic fill through compacted data written by 3.11.
+An out-of-matrix
 pairing might *appear* to partly function—for example, 0.2.0
 live-replicating from a 3.11 store—but it is not a supported mode and
 recovery paths will fail.
@@ -119,25 +133,60 @@ during the halt is **owed work, not loss**: after upgrading EDR, the WAL
 tail drains normally and anything the source evicted meanwhile is
 recovered through the compacted files.
 
-**Upgrade order**: upgrade the **reader first**—EDR before the source
-server. A 1.0.0-0.rc.1 agent runs against 3.10 today and keeps running
-across the server's 3.10 to 3.11 upgrade; upgrading the server first (past
-the matrix) halts replication until EDR catches up.
+## Upgrade to EDR 1.0.0
 
-The formats behind the matrix, for operators who want the detail—see
+### Replace a release candidate
+
+For rc.1, rc.2, or rc.3 on a 3.11 source:
+
+1. Stop the agent.
+2. Replace the binary or container image with EDR 1.0.0.
+3. Start it with the same configuration, state location, and source data location.
+4. Check channel health and [outstanding work](/influxdb3/enterprise/edr/monitor/#outstanding-work-and-row-counts).
+
+No configuration change is required for rc-to-GA replacement.
+Keep the existing cursor and journals so the new agent resumes replication.
+If the source still runs 3.10, first follow [Upgrade a 3.10 source and a 0.2.0 agent](#upgrade-a-310-source-and-a-020-agent).
+
+### Upgrade a 3.10 source and a 0.2.0 agent
+
+Keep every intermediate agent/server pairing within the support matrix.
+See the [compatibility table](#supported-source-server-versions).
+
+1. Upgrade EDR to `1.0.0-0.rc.3`, preserving its configuration, state, and source data locations.
+   State migrates automatically from 0.2.0.
+   Review the rc.1 change to UTC bandwidth schedules in the [release notes](/influxdb3/enterprise/edr/release-notes/#v100-0rc1).
+2. Upgrade the source server from 3.10 to 3.11.
+   The rc.3 agent supports both lines.
+3. Replace rc.3 with EDR 1.0.0 using [Replace a release candidate](#replace-a-release-candidate).
+4. If required, upgrade the source from 3.11 to 3.12.
+   The GA agent supports both lines.
+
+Do not upgrade the source directly from 3.10 to 3.12 while rc.3 is reading it.
+Rc.3 does not support a 3.12 source.
+Likewise, do not start the GA agent against a 3.10 source.
+
+> [!Warning]
+> Earlier builds can mislabel field values in tables wider than 100 fields.
+> After upgrading from 0.2.0, rc.1, or rc.2, verify field-level values downstream or re-replicate affected tables.
+> Row counts cannot detect this defect.
+> See the [rc.3 release notes](/influxdb3/enterprise/edr/release-notes/#v100-0rc3).
+
+## Storage format details
+
+For details about the storage formats in the compatibility matrix, see
 [Storage engine terms](/influxdb3/enterprise/edr/reference/architecture/#storage-engine-terms)
 for what each one holds:
 
 | Format | What EDR uses it for | Stability |
 |---|---|---|
-| `.pt` WAL files | live replication (block shipping) | unchanged 3.10 to 3.11 |
-| `.ptsnap` snapshot manifests | snapshot boundary, historic planning | v3 across both lines |
-| [Compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction) checkpoints (`.ptv2chk`)—the cv2 tier | historic fill and gap recovery read compacted data once EDR's WAL replicator can no longer see it | **the moving part**: v9 (3.10) to v10 (3.11); newer versions are the usual cause of INCOMPATIBLE |
+| `.pt` WAL files | live replication (block shipping) | unchanged across 3.10, 3.11, and 3.12 |
+| `.ptsnap` snapshot manifests | snapshot boundary, historic planning | v3 across 3.10, 3.11, and 3.12 |
+| [Compaction](/influxdb3/enterprise/reference/internals/durability/#upgraded-storage-engine-compaction) checkpoints (`.ptv2chk`)—the cv2 tier | historic fill and gap recovery read compacted data once EDR's WAL replicator can no longer see it | Versioned state stamps: v9 on 3.10; 3.11 and 3.12 can use v12 or v13. Checkpoint versions alone do not distinguish 3.11 from 3.12. |
+| Run-set indexes (`.idx`) | Tracked by the compatibility matrix | 3.12 writes v3, which the 3.11 reader rejects; rc.3 does not support 3.12 sources. |
 | Catalog | schema for encoding | versioned; compatibility tracked per release |
 
-## Release <-> compatibility summary
+## Release compatibility summary
 
-Each entry in [Release notes](/influxdb3/enterprise/edr/release-notes/) states both
-lines for that release: the protocol version it speaks, and the InfluxDB
-server lines its storage matrix covers, with the influxdb_pro revision it
-was built against.
+Each entry in [Release notes](/influxdb3/enterprise/edr/release-notes/) lists the EDR protocol version and supported InfluxDB 3 Enterprise server versions for that release.
+It also identifies the Enterprise version and build revision used to build EDR.

@@ -13,6 +13,7 @@ weight: 202
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/configuration.md, docs/external/edr-spec.md, docs/external/operations.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 Configuration is a YAML file passed to the agent with `--config`. Tokens are
 referenced **by name** and resolved at runtime from a token store directory
@@ -43,7 +44,7 @@ task-oriented walkthrough, see [Get started with EDR](/influxdb3/enterprise/edr/
 be present. A node with both is a regional hub: it receives from
 edges and forwards on.
 
-## Downstream (source -> destination)
+## Downstream (source to destination)
 
 | Field | Type | Default |
 |---|---|---|
@@ -166,6 +167,19 @@ without the assertion:
 The assertion is about the *writers*, not about EDR: if any producer can
 ever rewrite a point with a different value, it is not idempotent—
 regardless of how rarely it happens.
+
+### Wide tables and overwritten points
+
+A table wider than 100 fields stores one logical row as several field-family rows.
+With strict-order delivery, the destination merges the families in order.
+If delivery reorders writes to an overwritten point, each family slice resolves last-write-wins separately.
+One family can retain the newer write while another retains the older write, producing a row that never existed at the source.
+A query can also temporarily see a partially delivered row before all families arrive.
+
+Append-only workloads avoid this overwrite problem.
+`idempotent_writes: true` asserts duplicate-safe writes; it does not make updates safe under reordering.
+This caveat is separate from the field-name defect fixed in rc.3, which affected earlier builds even without overwrites.
+See the [rc.3 warning](/influxdb3/enterprise/edr/release-notes/#v100-0rc3).
 
 ## Upstreams (destination receiving sources)
 

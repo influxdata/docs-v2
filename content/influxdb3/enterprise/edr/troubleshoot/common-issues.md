@@ -12,6 +12,7 @@ weight: 1
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/troubleshooting.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 When something looks wrong, start here. The quick index maps a symptom to
 the first tool to run; the sections below go deeper.
@@ -176,15 +177,22 @@ will fight over the cursor.
   not missing data. `edr-inspect state` (`lost(unrecoverable)`, pending
   gaps) is the authority on what—if anything—is actually unrecoverable.
   Confirm there before treating lag as an incident.
-- High `pending_bytes` -> the destination is slow or unreachable.
-- WAL files deleted before replication -> increase
+- High `pending_bytes` indicates that the destination is slow or unreachable.
+- If WAL files are deleted before replication, increase
   `--wal-snapshots-to-keep` on the source server. See
   [Size WAL retention](/influxdb3/enterprise/edr/size-wal-retention/). Gap fill
   will recover, but at a cost.
-- Slow WAL discovery -> lower `--poll-interval-ms` (more frequent object
-  store listing).
-- Constrained link -> check whether a `bandwidth_schedule` window is
+- If WAL discovery is slow, lower `--poll-interval-ms` to list the object store more frequently.
+- If the link is constrained, check whether a `bandwidth_schedule` window is
   active (`limited` or `silent` shows in the UI and logs).
+
+## Incorrect field values in wide tables
+
+If a table has more than 100 fields and was replicated by 0.2.0, rc.1, or rc.2, upgrade to rc.3 or GA on a supported server line.
+Earlier builds can silently assign values to the wrong field names when types match, or halt with a schema conflict when types differ.
+Verify field-level values at the destination or re-replicate affected tables after upgrading.
+Matching row counts do not prove that field values are correct.
+See the [rc.3 release warning](/influxdb3/enterprise/edr/release-notes/#v100-0rc3).
 
 ## Source WAL / disk growing
 
@@ -195,9 +203,8 @@ will fight over the cursor.
 - If the buildup of already-replicated WAL is a problem, enable EDR's
   opt-in `--wal-cleanup-enabled` so the agent prunes the replicated tail
   itself. See [Size WAL retention](/influxdb3/enterprise/edr/size-wal-retention/).
-  It only deletes below `min(cursor, snapshot boundary - margin,
-  historic-fill floor)`, so it cannot strand replication, source recovery,
-  or backfill.
+  High server WAL retention plus opt-in agent cleanup is the supported production pattern for EDR 1.0.0.
+  The sweep stays below all four floors: cursor, snapshot boundary minus margin, historic-fill floor, and queued or in-flight work plus unresolved gap ranges.
 - After enabling, confirm `gaps_pending` and `wal_files_lost_total`
   stay flat—a rise is not expected (cleanup is designed never to
   create gaps) and warrants a look. A sweep that prunes anything logs

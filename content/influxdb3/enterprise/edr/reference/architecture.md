@@ -71,12 +71,12 @@ to guarantee replication state persistence and at-least-once delivery.
 
 ### Deployment shapes
 
-```
-Edge -> Regional -> Central          (hierarchical, any depth)
-Edge -> Central                      (direct)
-Node A <-> Node B                    (peer-to-peer, bidirectional)
-Edge -> InfluxDB 3 (no agent)        (direct mode, plain v3 write API)
-```
+| Deployment | Data flow |
+|---|---|
+| Hierarchical, any depth | Edge nodes send to regional nodes, which forward to a central node. |
+| Direct | Edge nodes send directly to a central node. |
+| Peer-to-peer | Two nodes send data to each other. |
+| Direct mode | An edge agent writes to InfluxDB 3 through the v3 write API without a receiving agent. |
 
 - **Hierarchical**—a combined agent at the regional node receives from
   upstream edges and forwards onward. Each hop has its own independent

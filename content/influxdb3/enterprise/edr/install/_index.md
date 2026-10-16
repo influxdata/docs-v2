@@ -13,6 +13,7 @@ weight: 2
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/configuration.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 EDR ships as pre-built binaries. You don't build anything from source.
 
@@ -36,7 +37,8 @@ path in your service definitions. EDR has no other runtime dependencies.
 > [!Note]
 > #### EDR version support
 >
-> EDR requires InfluxDB 3 Enterprise 3.10.x or later. See
+> EDR 1.0.0 supports InfluxDB 3 Enterprise 3.11.x and 3.12.x.
+> InfluxDB 3 Enterprise 3.10.x is unvalidated and unsupported for GA. See
 > [Compatibility](/influxdb3/enterprise/edr/reference/compatibility/) for the
 > supported storage-format matrix.
 
@@ -44,8 +46,9 @@ path in your service definitions. EDR has no other runtime dependencies.
 
 The `influxdb3` server must run the
 [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)—the
-default for new clusters on 3.11+. On 3.10.x, pass `--upgrade-pacha-tree`
-to migrate the cluster. EDR reads the upgraded engine's object store
+default for new clusters on 3.11+.
+For an existing 3.10 deployment, follow the
+[staged upgrade](/influxdb3/enterprise/edr/reference/compatibility/#upgrade-a-310-source-and-a-020-agent) before installing EDR 1.0.0. EDR reads the upgraded engine's object store
 directly, so without it,
 [write-ahead log (WAL)](/influxdb3/enterprise/edr/reference/glossary/#wal-write-ahead-log)
 files are in a format EDR ignores.
@@ -93,5 +96,10 @@ complete config file schema, see
 The agent and `edr-inspect` also ship as a container image. For
 operating that image—ports, mounts, the environment contract, and triage
 through `docker exec`—see [Run EDR in Docker](/influxdb3/enterprise/edr/install/docker/).
+
+## Run EDR on Kubernetes
+
+Use the supported Helm chart to deploy a sender, receiver, or combined relay alongside an existing Enterprise release.
+See [Install EDR on Kubernetes](/influxdb3/enterprise/edr/install/kubernetes/).
 
 {{< page-nav next="/influxdb3/enterprise/edr/get-started/" nextText="Get started with EDR" >}}

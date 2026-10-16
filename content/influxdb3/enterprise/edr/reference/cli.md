@@ -12,6 +12,7 @@ weight: 203
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/configuration.md, docs/external/operations.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 ## `influxdb3-edr`
 
@@ -23,7 +24,7 @@ influxdb3-edr [OPTIONS]
 |---|---|---|
 | `--config <PATH>` | Yes | — |
 | `--data-dir <PATH>` | Yes | — |
-| `--token-store <PATH>` | Yes | — |
+| `--token-store <PATH>` | Yes, or set `INFLUXDB3_EDR_TOKEN_STORE` | — |
 | `--listen <ADDR:PORT>` | No | `0.0.0.0:9090` |
 | `--observability-listen <ADDR:PORT>` | No | `127.0.0.1:9091` |
 | `--listener-file-path <PATH>` | No | — |
@@ -39,6 +40,8 @@ influxdb3-edr [OPTIONS]
 - **`--config <PATH>`**—path to the replication config YAML file.
 - **`--data-dir <PATH>`**—InfluxDB data directory (shared object store).
 - **`--token-store <PATH>`**—path to the token store directory.
+  Accepts raw token files or server token JSON files containing a `token` field.
+  Env: `INFLUXDB3_EDR_TOKEN_STORE`. See [Manage tokens](/influxdb3/enterprise/edr/manage-tokens/).
 - **`--listen <ADDR:PORT>`**—network listener for the replication
   protocol (`/edr/v1/connect|data|report`) and `/health`. Must be
   reachable by upstreams. `0.0.0.0:0` for an OS-assigned port. Env:
@@ -60,7 +63,7 @@ influxdb3-edr [OPTIONS]
 - **`--object-store-type <TYPE>`**—override the object store type
   (`s3`, `google`, `azure`). Uses environment variables for
   credentials.
-- **`--wal-cleanup-enabled`**—**opt-in, temporary stop-gap.** Enables
+- **`--wal-cleanup-enabled`**—**opt-in.** With high server WAL retention, this is the supported production pattern. Enables
   agent-side deletion of already-replicated WAL files from the source
   object store, so they don't build up past the replicated journal.
   Off by default (deleting source WAL is destructive). See
@@ -82,8 +85,8 @@ influxdb3-edr [OPTIONS]
 - **`--benchmark <N>`**—run a bandwidth benchmark against up to N WAL
   files and exit.
 
-State and index files live wherever you point them—keep them on durable
-local storage. The state file holds the WAL cursor (what has been
+State and index files live wherever you point them.
+Use durable local storage or object storage for agent state. The state file holds the WAL cursor (what has been
 replicated); losing it forces re-replication from the snapshot boundary,
 which is safe but wasteful. The index file is an append-only
 change-tracking log.
@@ -92,6 +95,7 @@ change-tracking log.
 
 | Variable | Purpose |
 |-----|-----|
+| `INFLUXDB3_EDR_TOKEN_STORE` | Token store directory, as an alternative to `--token-store`. |
 | `EDR_WRITE_ENDPOINT` | Local InfluxDB write endpoint for the destination facet (default: `http://localhost:8181`). |
 | `RUST_LOG` | Log level filter (default: `info`). Example: `info,influxdb3_catalog=warn` |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_DEFAULT_REGION` | S3 credentials (with `--object-store-type s3`). |

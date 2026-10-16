@@ -54,13 +54,11 @@ discovers new files as they appear and ships them downstream.
 
 The upgraded storage engine promotes WAL data through compaction levels:
 
-```
-Write arrives
-  -> WAL file created
-  -> Snapshot creates gen0 PT file from WAL data (manifest: .ptsnap)
-  -> Compaction promotes gen0 -> cv2 (L1+) progressively
-  -> Eventually: retention expiry deletes the data
-```
+1. A write arrives.
+2. The storage engine creates a WAL file.
+3. A snapshot creates a gen0 PT file from the WAL data and records it in a `.ptsnap` manifest.
+4. Compaction progressively promotes gen0 data to cv2 files at level L1 and higher.
+5. Retention expiry eventually deletes the data.
 
 After a WAL file is snapshotted, it becomes eligible for deletion. If EDR
 was down or disconnected when that happened, the WAL file might be gone,

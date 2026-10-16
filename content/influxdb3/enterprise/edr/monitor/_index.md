@@ -12,6 +12,7 @@ weight: 6
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 1. [Embedded UI](#embedded-ui)
 2. [Endpoints](#endpoints)
@@ -46,6 +47,19 @@ The observability endpoints below are served on `--observability-listen`
 | `GET /edr/v1/node_info` | Node identity and health summary. |
 | `GET /edr/v1/events` | Server-Sent Events stream of real-time state changes. |
 | `GET /health` | Liveness. |
+
+## Outstanding work and row counts
+
+The Prometheus gauge `edr_owed_work` reports work still owed to each destination.
+A value of `0` means the agent has no outstanding replication work for that destination at that observation.
+Use it with channel health when waiting for a backlog to drain before maintenance.
+New source writes can create more work after the observation.
+GA fixes a transient false zero while gaps move from pending to in progress.
+
+`rows_sent` counts physical rows, not SQL `count(*)` results.
+Tables wider than 100 fields split a logical row across field families, so the counter can exceed the logical row count.
+For data validation, compare field-level values as well as counts.
+See [ordering and wide tables](/influxdb3/enterprise/edr/reference/config-file/#performance-vs-correctness).
 
 ## The halted state
 
