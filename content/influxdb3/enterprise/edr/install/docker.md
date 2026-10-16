@@ -131,7 +131,7 @@ the agent's `/metrics`, never the object store.
 | Container exits immediately | The default `CMD` is `--help`. Pass real flags (`--config ...`) or an env-templated command; the entrypoint prepends `influxdb3-edr`. Check `docker logs <CONTAINER>`. |
 | `edr-inspect` reports "no EDR agent reachable" | The observability address it derived doesn't match where the agent bound. Set `INFLUXDB3_EDR_OBSERVABILITY_LISTEN` (env) so both agree, or pass the address positionally. |
 | `edr-inspect state` errors "required argument" | Neither a positional nor `$INFLUXDB3_EDR_STATE_LOCATION` was set—set the env (it is by default in this image) or pass the path. |
-| Container -> host InfluxDB (EDR in Docker, InfluxDB native) | Reach the host as `host.docker.internal` (add `--add-host host.docker.internal:host-gateway` on Linux); set `EDR_WRITE_ENDPOINT` or the upstream address accordingly. |
+| Container connects to host InfluxDB (EDR in Docker, InfluxDB native) | Reach the host as `host.docker.internal` (add `--add-host host.docker.internal:host-gateway` on Linux); set `EDR_WRITE_ENDPOINT` or the upstream address accordingly. |
 | Replication uses a stale image | `docker pull` or `docker load` the new tag and recreate the container—a running container keeps its old image layers. |
 
 For non-Docker symptoms (config errors, data not flowing, replication lag,

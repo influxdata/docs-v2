@@ -11,6 +11,7 @@ weight: 7
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/operations.md, docs/external/edr-spec.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 Tokens are resolved from the token store **on every use—never cached**. To
 rotate a token, overwrite the file; the next operation uses the new value.
@@ -18,8 +19,22 @@ No restart required. If both ends rotate, update the destination first.
 
 ## Token store
 
-The file-based store is a directory of plain-text files: file name = token
-reference, content = secret (whitespace-trimmed). Keep files `chmod 600`.
+Set the directory with `--token-store` or `INFLUXDB3_EDR_TOKEN_STORE`.
+The file name is the token reference in the configuration.
+Each file can contain either a whitespace-trimmed raw token or an InfluxDB server token JSON object:
+
+```json
+{"token": "DESTINATION_TOKEN", "name": "destination-write"}
+```
+
+The store reads the `token` field.
+If `expiry_millis` is present and has passed, the agent warns once; the server still enforces token validity.
+Other fields, such as `name`, do not affect token resolution.
+For example, copy a server `admin-token.json` unchanged into the store and reference it with `write_token: admin-token.json`.
+The store does not select entries from a `permission-tokens.json` collection; provision the required token as its own file.
+Keep local token files `chmod 600`.
+The agent warns once per file if group or world permissions are present.
+Kubernetes Secret volumes can use `0440` with the container's group.
 Token names are validated against path traversal. Tokens are never logged.
 
 Each node's config file references two kinds of tokens by name:
@@ -58,6 +73,4 @@ preserved.
 
 ## Vault-backed token stores
 
-A Vault-backed store is planned behind the same `TokenStore` service
-provider interface (SPI). Until then, sync Vault secrets into the file
-store—for example, with Vault Agent templates.
+Sync Vault secrets into the file store, for example, with Vault Agent templates.

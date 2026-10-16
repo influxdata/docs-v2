@@ -9,10 +9,16 @@ menu:
   influxdb3_enterprise:
     name: Edge Data Replication
     identifier: edr
+metadata: [EDR 1.0.0]
+cascade:
+  metadata: [EDR 1.0.0]
+  edr_version: 1.0.0
+  edr_source_revision: fcdf286
 weight: 12
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/overview.md, docs/external/edr-spec.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 <!-- TODO(pm): confirm final disambiguation wording (title, lede, and
 callout below). -->

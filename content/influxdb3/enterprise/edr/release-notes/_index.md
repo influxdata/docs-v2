@@ -14,6 +14,7 @@ related:
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/releases.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 EDR follows [SemVer](https://semver.org). During the beta, the version stays
 below `1.0.0`; within that range, EDR bumps the minor number for each beta
@@ -29,6 +30,103 @@ connected edge is running.
 
 Each release is built against a pinned InfluxDB 3 Enterprise revision,
 encoded in the image tag (`edr:<VERSION>-pro<REVISION>-<ARCH>`).
+
+## v1.0.0 {date="2026-10-01"}
+
+General availability of EDR for InfluxDB 3 Enterprise.
+Built against Enterprise 3.12.0, revision `7dd361197e`.
+The image tags are `edr:1.0.0-pro7dd361197e-amd64` and `edr:1.0.0-pro7dd361197e-arm64`.
+
+### Compatibility and upgrade
+
+EDR 1.0.0 uses EDR replication protocol version 3 and accepts version 1 peers.
+Supported source server lines are **3.11.x and 3.12.x**.
+InfluxDB 3 Enterprise 3.10.x is unvalidated and unsupported for GA, even though the binary's displayed list includes it.
+
+For rc.1, rc.2, or rc.3 on a 3.11 source, stop the agent and start GA with the same configuration, state location, and source data location.
+No configuration changes are required.
+For 0.2.0 on a 3.10 source, upgrade the agent to rc.3, the server to 3.11, the agent to GA, and then the server to 3.12 if needed.
+Rc.3 cannot read a 3.12 source.
+See the [compatibility matrix and upgrade procedure](/influxdb3/enterprise/edr/reference/compatibility/#upgrade-to-edr-100).
+
+### Capabilities
+
+- [Kubernetes and Helm installation](/influxdb3/enterprise/edr/install/kubernetes/) supports sender, receiver, and combined roles alongside an unmodified Enterprise Helm release.
+  Agent state persists in object storage; tokens mount from Kubernetes Secrets.
+- S3, Google Cloud Storage, and Azure Blob Storage are supported for source reads and agent state.
+  State locations accept `s3://`, `gs://`, and `az://` URLs.
+- The token store accepts server token JSON files with a `token` field.
+  Set its location with `--token-store` or `INFLUXDB3_EDR_TOKEN_STORE`.
+  The agent warns once about group or world token-file permissions.
+  See [Manage tokens](/influxdb3/enterprise/edr/manage-tokens/).
+- High server WAL retention plus opt-in agent WAL cleanup is the supported production configuration.
+  Server-negotiated retention holds are not included in GA.
+  See [Size WAL retention](/influxdb3/enterprise/edr/size-wal-retention/).
+
+### Fixes
+
+- Failed-WAL skip receipts hold the cleanup floor until the gap ledger records the failure.
+  Cleanup cannot delete the file during that transition.
+- `edr_owed_work` no longer briefly reports zero while gaps move from pending to in progress.
+- The pending-gap counter no longer underflows.
+- Wire batches containing more than 65,535 schemas fail explicitly instead of truncating a schema index.
+
+For release artifacts and deployment coordination, [contact the InfluxData Sales team]({{< cta-link >}}).
+
+## v1.0.0-0.rc.3 {date="2026-09-22"}
+
+Third release candidate, built against Enterprise 3.11.0, revision `e5242f505d`.
+Supports 3.10.x and 3.11.x sources, EDR replication protocol version 3, and version 1 peers.
+It does not support 3.12.x sources.
+Upgrades from rc.2, rc.1, or 0.2.0 preserve configuration, state, and source data locations.
+
+> [!Warning]
+> #### Verify wide-table field values after upgrading
+>
+> All earlier builds, including 0.2.0, rc.1, and rc.2, can pair field values with the wrong field names in tables wider than 100 fields.
+> Different field types can cause a schema conflict and halt replication.
+> Matching types can silently store mislabeled values.
+> After upgrading, verify field-level values downstream or re-replicate affected tables.
+> Row counts alone cannot detect this defect.
+
+### Fixes and changes
+
+- Recovery records an entire evicted WAL span as one gap and resumes live replication above the retention floor.
+  Earlier builds could remain behind retention indefinitely without sending data.
+- Direct-mode liveness treats HTTP 404 or 405 as proof of life for InfluxDB 3 Cloud, which has no `/health` route.
+  Authentication failures and server errors still fail the probe.
+- Checkpoint versions 12 and 13 are correctly labeled as 3.11-line state stamps.
+  Version 13 includes bulk-import watermarks; these stamps do not establish 3.12 source support.
+- `gapfill_blocked_on_halt` and a log message identify recovery blocked by a halted channel.
+- The `historic_fill: { mode: none }` startup notice clarifies that all in-scope tables replicate from the startup boundary; only older history is skipped.
+- Historic-fill width follows `concurrent_sends`.
+  Gen0 processing no longer drains the pipeline at each snapshot boundary.
+  Strict-order `concurrent_sends: 1` processes one file at a time.
+- Signals demo host ports move to 18181–18184 and remain overridable in `.env`.
+
+## v1.0.0-0.rc.2 {date="2026-09-14"}
+
+Second release candidate, built against Enterprise 3.11.0, revision `e5242f505d`.
+Supports 3.10.x and 3.11.x sources, EDR replication protocol version 3, and version 1 peers.
+Upgrades from rc.1 or 0.2.0 require no configuration changes.
+Keep the same state and source data locations; 0.2.0 state migrates automatically into per-destination namespaces.
+
+### Fixes and changes
+
+- Gap recovery replays exact raw WAL files when available.
+  Transient read failures wait briefly and retry; evicted files fall back to compacted-file recovery.
+  `gapfill_files_from_wal_total` reports raw-WAL recovery.
+- Active recovery reports `gaps_in_progress`, discovery progress, and replication progress.
+  `gapfill_files_vanished_total` counts files removed by compaction during recovery.
+  Alert on stalled recovery rather than pending gaps alone.
+- `rows_sent` now counts delivered physical rows.
+  Wide tables split logical rows across field families, so this can exceed SQL row counts.
+- Dashboard health panels use stable numeric series and reflect channel changes within a scrape interval.
+  The Recovery row shows backlog, progress, and recovery medium.
+- Direct-mode liveness authenticates like the write path, allowing auth-gated `/health` endpoints.
+- `edr_owed_work` reports outstanding replication work per destination for drain checks.
+- High server WAL retention plus opt-in agent cleanup becomes the supported production pattern.
+  Server-negotiated retention holds are deferred beyond GA.
 
 ## v1.0.0-0.rc.1 {date="2026-09-01"}
 
@@ -87,8 +185,8 @@ example `Asia/Kolkata`) to keep them meaning what they meant.
 **Known limitation**: the source server's WAL retention
 (`wal-snapshots-to-keep`, un-prefixed spelling on 3.11) is the only hold on
 WAL files EDR has not yet replicated; size it generously on constrained or
-intermittently connected edges. A server-side retention hold negotiated by
-EDR is planned for GA.
+intermittently connected edges. Server-negotiated retention holds are not included in GA; use
+[high server retention and opt-in agent cleanup](/influxdb3/enterprise/edr/size-wal-retention/).
 
 ## v0.2.0 {date="2026-07-16"}
 

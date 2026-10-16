@@ -12,6 +12,7 @@ weight: 8
 ---
 
 <!-- ADAPTED_FROM: influxdata/influxdb3_edr@085be6c docs/external/overview.md, docs/external/configuration.md, docs/external/operations.md -->
+<!-- GA_REVIEW: EDR 1.0.0 at fcdf286; release-specific updates reconciled with docs/external at c2f088e. Existing VERIFIED corrections take precedence over upstream prose. -->
 
 [Write-ahead log (WAL)](/influxdb3/enterprise/edr/reference/glossary/#wal-write-ahead-log)
 retention on the source InfluxDB 3 Enterprise server determines whether
@@ -69,7 +70,7 @@ If you see gaps regularly (`gaps_pending` in metrics), increase
 `--wal-snapshots-to-keep` on the source InfluxDB—recovery from compacted
 files is a safety net, not the intended steady state.
 
-## WAL cleanup (optional stop-gap)
+## WAL cleanup for production
 
 Generous WAL retention also means WAL files linger on the source object
 store long after EDR has replicated them. The **source server** owns their
@@ -78,13 +79,10 @@ lifecycle and deletes them once they're rolled into gen0 (governed by
 replication window, WAL files can accumulate well past the point EDR has
 already replicated them.
 
-Leave `--wal-cleanup-enabled` off unless that buildup becomes an actual
-storage problem; sizing `--wal-snapshots-to-keep` appropriately is the
-first lever, and deleting source WAL is destructive. When buildup is a
-problem, `--wal-cleanup-enabled` turns on an **opt-in, in-agent** sweep
-that deletes already-replicated WAL files itself. It's a **temporary
-stop-gap** until the source server can honor a cleanup *hold* requested by
-EDR.
+For production, set server WAL retention high enough for your outage window and enable the opt-in `--wal-cleanup-enabled` sweep to bound the replicated tail's storage cost.
+The agent deletes already-replicated WAL below four safety floors.
+Cleanup is off by default because it deletes source WAL.
+Server-negotiated retention holds are not part of EDR 1.0.0.
 
 ```
 influxdb3-edr ... --wal-cleanup-enabled \
@@ -115,7 +113,7 @@ four floors**, so it can never strand anything that still needs them:
    nothing until historic fill's plan exists).
 4. **The agent's own pipeline floor**—the oldest WAL file still queued or
    in flight in the agent, plus any range still unresolved in the gap
-   ledger. The replication cursor alone is not a safe bound for the agent's
+   ledger. A failed WAL file's skip receipt holds this floor until the gap ledger records the failure. The replication cursor alone is not a safe bound for the agent's
    own input: skip receipts can advance it past still-queued files, and
    without this floor a sufficiently-lagged agent could delete its own
    unprocessed backlog—a silent, unrecoverable shortfall.
