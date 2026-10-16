@@ -21,6 +21,7 @@ const AXES = ['data', 'shared', 'core', 'enterprise'];
 export function computeCoverage({
   plugins,
   excluded = [],
+  retired = [],
   dataFileIds,
   sharedPages,
   coreStubs,
@@ -37,6 +38,7 @@ export function computeCoverage({
   return {
     total: plugins.length,
     excluded,
+    retired,
     axes: {
       data: axis(dataFileIds, 'stubSlug'),
       shared: axis(sharedPages, 'slug'),
@@ -107,7 +109,12 @@ export function formatCoverageTable(coverage) {
   ].join('\n');
 
   const excluded = coverage.excluded ?? [];
-  if (excluded.length === 0) return table;
-
-  return `${table}\n\nExcluded by \`docs_mapping.yaml\`: ${excluded.join(', ')}`;
+  const notes = [];
+  if (excluded.length > 0) {
+    notes.push(`Excluded by \`docs_mapping.yaml\`: ${excluded.join(', ')}`);
+  }
+  if (coverage.retired?.length > 0) {
+    notes.push(`All registry versions yanked: ${coverage.retired.join(', ')}`);
+  }
+  return notes.length ? `${table}\n\n${notes.join('\n\n')}` : table;
 }

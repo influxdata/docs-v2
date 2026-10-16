@@ -671,10 +671,11 @@ Include the following in your request:
   - `trigger_name` _(string, required)_: Trigger name
   - `plugin_filename` _(string, required)_: Plugin filename relative to the plugin directory
   - `trigger_specification` _(string, required)_: When the plugin runs (see [trigger types](#understand-trigger-types))
-  - `trigger_settings` _(object, required)_: Configuration for error handling and execution
+  - `trigger_settings` _(object, optional)_: Configuration for error handling and execution.
+    If you omit `trigger_settings` or any of its fields, each omitted field uses its default.
     - `run_async` _(boolean)_: Whether to run asynchronously (default: `false`)
-    - `error_behavior` _(string)_: How to handle errors: `Log`, `Retry`, or `Disable` (default: `Log`)
-  - `disabled` _(boolean, required)_: Whether the trigger is disabled
+    - `error_behavior` _(string)_: How to handle errors: `log`, `retry`, or `disable` (default: `log`)
+  - `disabled` _(boolean, optional)_: Whether the trigger is disabled (default: `false`)
   - `trigger_arguments` _(object, optional)_: Arguments passed to the plugin
 
 ```bash {placeholders="DATABASE_NAME|PLUGIN_FILE|TRIGGER_NAME|TRIGGER_SPEC|AUTH_TOKEN"}
@@ -689,7 +690,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "TRIGGER_SPEC",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -749,7 +750,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "table:sensor_data",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -765,7 +766,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "all_tables",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -869,7 +870,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "every:5m",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -886,7 +887,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "cron:0 0 8 * * *",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -935,7 +936,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "request:webhook",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -1004,7 +1005,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "every:1h",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "trigger_arguments": {
       "threshold": "90",
@@ -1072,7 +1073,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "table:metrics",
     "trigger_settings": {
       "run_async": true,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -1136,7 +1137,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "table:important_data",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Retry"
+      "error_behavior": "retry"
     },
     "disabled": false
   }'
@@ -1152,7 +1153,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "request:webhook",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Disable"
+      "error_behavior": "disable"
     },
     "disabled": false
   }'

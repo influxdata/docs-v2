@@ -29,6 +29,24 @@ test('names excluded plugins instead of counting them as a gap', () => {
   assert.equal(coverage.axes.data.missing.length, 0);
 });
 
+test('names retired plugins outside coverage totals', () => {
+  const coverage = computeCoverage({
+    plugins: [PLUGINS[0]],
+    retired: ['nori_regression'],
+    dataFileIds: ['notifier'],
+    sharedPages: ['notifier'],
+    coreStubs: ['notifier'],
+    enterpriseStubs: ['notifier'],
+  });
+
+  assert.equal(coverage.total, 1);
+  assert.deepEqual(coverage.axes.shared.missing, []);
+  assert.match(
+    formatCoverageTable(coverage),
+    /All registry versions yanked: nori_regression/
+  );
+});
+
 test('names what is missing on each axis, not just a total', () => {
   const coverage = computeCoverage({
     plugins: PLUGINS,

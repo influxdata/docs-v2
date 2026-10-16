@@ -59,6 +59,11 @@ Use `npx hugo --quiet` for a full build, `npx hugo server` for local serving,
 and `yarn test:codeblocks:all` only when runnable examples require it.
 See the [docs-testing skill](.agents/skills/docs-testing/SKILL.md) for routing.
 
+For docs-v2 browser verification, check for the configured Chromium executable
+at `$PUPPETEER_EXECUTABLE_PATH`, or `/usr/bin/chromium` if unset.
+If it exists, load the [cloud UI skill](.agents/skills/openai-cloud-ui/SKILL.md)
+before running browser commands.
+
 ## Content contract
 
 - Shared content files under `content/shared/` have no frontmatter; consuming

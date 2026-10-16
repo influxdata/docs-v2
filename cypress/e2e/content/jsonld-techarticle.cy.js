@@ -8,7 +8,7 @@ function ldByType(win$, doc, type) {
     .map((s) => {
       try {
         return JSON.parse(s.textContent);
-      } catch (e) {
+      } catch {
         return null;
       }
     })

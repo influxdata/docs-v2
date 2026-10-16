@@ -6,6 +6,120 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.12.1 {date="2026-10-14"}
+
+### Core
+
+#### Features
+
+- **Faster startup after large file removals**: At startup, the files that snapshots and checkpoints mark as removed are now dropped from each table's file list in one pass. Previously, every removed file scanned the table's whole file list, so startup slowed sharply after many files were removed from a large table. 
+
+#### Bug fixes
+
+- **Catalog failed to load after upgrading to v3.12.0**: The server now loads a catalog in which a table has more than one field family with the same automatically generated name. Core releases before v3.10.0 and Enterprise releases before v3.9.0 could write such names when fields were added to an existing table. v3.12.0 rejected them, so a node with an affected catalog failed to start.
+- **Acknowledged writes lost after a forced snapshot and a restart**: WAL flushes now run one at a time. Previously, a forced Parquet snapshot, triggered by write buffer memory or [`--force-snapshot-max-age`](/influxdb3/version/reference/config-options/#force-snapshot-max-age), could run while an earlier WAL file was still being written, and recorded that file as covered before its rows reached the buffer. If the node restarted before the next snapshot, it skipped that file and the acknowledged writes in it were lost.
+- **Overwrites lost across snapshots**: When two Parquet files hold the same time window because it was persisted across two snapshots, a point in the later file now wins over a point with the same series and timestamp in the earlier file. Previously, the earlier file could win, so a query returned the value from before the overwrite.
+- **Failed streaming queries returned `200`**: A query in CSV, JSON, or JSON Lines format that fails before it returns any rows, such as a sort that exceeds the memory limit, now returns the error status and message. Previously, the server sent `200` and then dropped the connection, so clients saw an empty body and a transport error. An error after the first rows still ends the response early.
+- **Writes near the maximum timestamp**: A line with a timestamp later than `2262-04-11T23:39:59.999999999Z` is now rejected with a `400` error. Previously, a timestamp that close to the maximum could panic the WAL flush when the server forced a snapshot.
+- **`system.parquet_files` listed files under the wrong tables**: A query on `system.parquet_files` without a `table_name` filter now lists only the tables in the current database. Previously, it could list the current database's files under the names of tables in other databases that had the same table ID.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Larger bulk import batches (upgraded storage engine)**: The new [`--compactor-import-batch-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor) option sets the largest batch of staged data that one bulk import merge reads at once. The default is `4gb` and is configurable up to one quarter of `--compactor-input-size-budget`.
+- **Faster ingest node startup with many snapshots (upgraded storage engine)**: An ingest node no longer reads every snapshot manifest in object storage at startup. Previously, it read them all, so startup time grew with the number of manifests. The first start on v3.12.1 still reads every manifest once. `system.pt_ingest_files` now lists the files from the newest manifest plus the snapshots taken since the node started.
+- **Faster compaction I/O (Parquet engine)**: The compactor now uploads a finished output file while it encodes the next one, and checks up to 8 input files at a time. Previously, it did both one file at a time.
+- **WAL flush wait metric (Parquet engine)**: The new `influxdb3_parquet_wal_flush_lock_wait_seconds` histogram reports how long a WAL flush waited for an earlier flush to finish. The `kind` label is `timed` for the regular flush interval and `forced` for a flush that forces a snapshot.
+
+#### Bug fixes
+
+- **Missing rows after changing a table's [file index](/influxdb3/enterprise/admin/file-index/) columns (Parquet engine)**: The file index now records which columns each compacted generation indexed. A query that filters on a column that only some generations indexed scans the other generations instead of skipping them. Previously, after you added or removed file index columns, such a query could return incomplete results from compacted data.
+- **Overwrites reverted to the older value (upgraded storage engine)**: When the ingest buffer merges new writes into data it already merged for the same time window, a later write now wins over an earlier write to the same series and timestamp. Previously, the earlier value could replace the later one.
+- **Storage engine upgrade failed with more than one compact node**: During an upgrade to the upgraded storage engine, only the compact node that holds the compactor lease now drives the upgrade. Previously, every compact node drove it at the same time, their progress updates conflicted, and the upgrade could be marked as failed.
+- **Compactor replanned forever against a missing data file (upgraded storage engine)**: A run set whose data file is confirmed gone from object storage is now skipped after three failed compaction attempts, so planning moves on to other work. Previously, the compactor planned the same compaction on every pass, and it failed every time. Skipped run sets are counted in `influxdb3_compactor_skipped_run_sets` with `reason="auto_data_file_not_found"`. Compactions of new snapshots and imports aren't covered.
+- **Bulk import could stall object storage requests (upgraded storage engine)**: The server no longer leaves object storage requests unfinished while it checks the status of uploaded imports. Previously, during a credential refresh, one of those requests could hold the object store client's credential lock and never release it, so every other request on the node waited behind it: the server stayed up but stopped reading from and writing to object storage.
+- **Nodes without query mode built an unused file index (Parquet engine)**: Only nodes that run in `query` mode, including `all`, now load the compacted data file index at startup. Previously, compact and process nodes also loaded it, which used startup time and memory for an index they never read. A node that skips the index logs `compacted-data file index not loaded`.
+- **Ingest node refused to restart after an unclean stop (Parquet engine)**: An ingest node that stopped without a clean shutdown now starts again. Previously, if a snapshot covered all of its WAL or a forced snapshot ran during startup, the node could fail every start with an error that it was `still running in another process`, though no other process existed.
+- Other bug fixes and performance improvements
+
+## v3.11.7 {date="2026-10-14"}
+
+### Core
+
+#### Bug fixes
+
+- **Catalog failed to load after upgrading to v3.11.6**: The server now loads a catalog in which a table has more than one field family with the same automatically generated name. Core releases before v3.10.0 and Enterprise releases before v3.9.0 could write such names when fields were added to an existing table. v3.11.6 rejected them, so a node with an affected catalog failed to start.
+- **Acknowledged writes lost after a forced snapshot and a restart**: WAL flushes now run one at a time. Previously, a forced Parquet snapshot, triggered by write buffer memory or [`--force-snapshot-max-age`](/influxdb3/version/reference/config-options/#force-snapshot-max-age), could run while an earlier WAL file was still being written, and recorded that file as covered before its rows reached the buffer. If the node restarted before the next snapshot, it skipped that file and the acknowledged writes in it were lost.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **WAL flush wait metric (Parquet engine)**: The new `influxdb3_parquet_wal_flush_lock_wait_seconds` histogram reports how long a WAL flush waited for an earlier flush to finish. The `kind` label is `timed` for the regular flush interval and `forced` for a flush that forces a snapshot.
+
+#### Bug fixes
+
+- **Two processes with the same `--node-id` (upgraded storage engine)**: When two ingest-capable processes run with the same `--node-id`, the one that loses a snapshot write now logs `another process is writing under this node id` and exits, so only one writer survives.
+- **Ingest node refused to restart after an unclean stop (Parquet engine)**: An ingest node that stopped without a clean shutdown now starts again. Previously, if a snapshot covered all of its WAL or a forced snapshot ran during startup, the node could fail every start with an error that it was `still running in another process`, though no other process existed.
+
+## v3.11.6 {date="2026-10-05"}
+
+### Core
+
+#### Features
+
+- **`influxdb3 debug catalog repair`**: This new offline command repairs a catalog that fails to load because two tables in a database hold the same name, or because a table or database ID was used twice. Without `--execute`, the command is a dry run that reports what it would change. Stop every node before you run it with `--execute`. For a duplicate name, the repair renames the earlier table to `<name>-orphaned-<table_id>`, so data under both tables stays reachable. It backs up the previous catalog snapshot first.
+- **Faster startup with many snapshots**: Snapshot manifests are parsed in parallel at startup, on up to half of the available cores. On Enterprise, this applies to the Parquet engine.
+- **Faster startup after large file removals**: At startup, the files that snapshots and checkpoints mark as removed are now dropped from each table's file list in one pass. Previously, every removed file scanned the table's whole file list, so startup slowed sharply after many files were removed from a large table. Writing a snapshot checkpoint has the same improvement. On Enterprise, this applies to the Parquet engine.
+
+#### Bug fixes
+
+- **Catalog recorded a name or ID twice**: The catalog now rejects a new resource whose name or ID is already in use. Previously, it could record a second table under an existing name, which could panic a later restart. A catalog that holds such records, including one that loaded on v3.11.5, now fails to load with an `already exists` error. To repair it, use `influxdb3 debug catalog repair`.
+- **Panic on an oversized distinct value cache `max_age`**: A distinct value cache with a `max_age` of more than about 349 years now keeps its values with no age limit. Previously, eviction panicked and stopped for every distinct value cache on the node until a restart, and queries against that cache failed.
+- **One query on a large Parquet file could run a node out of memory**: A query now fetches each Parquet file once per scan. Previously, every partition of the scan fetched and buffered its own copy of the whole file, so one query against a 4.4 GB file could use about 70 GB. To restore the old behavior, set `--datafusion-config iox.share_cached_parquet_loader_fetches:false`.
+- **Repeated downloads under Parquet cache pressure**: The Parquet cache no longer evicts files that are still downloading, and no longer starts a second download of a file that is already being fetched. Previously, a cache under sustained pressure could download the same file over and over.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Compaction cycle summaries (Parquet engine)**: After each compaction cycle, the compactor logs a `compaction cycle finished` line with the outcome, the duration, the number of plans that were planned, succeeded, and failed, and the number of files compacted and produced. The line is logged at `INFO` when every plan succeeds and at `WARN` otherwise.
+- **Stuck compaction warning only for growing backlogs (Parquet engine)**: The `compaction not planned` report added in v3.11.5 is now logged at `WARN` only when the table's backlog of uncompacted files grew since the last report. A backlog that isn't growing, such as a table that no longer receives writes, is reported at `DEBUG`.
+- **Startup phase details**: Startup phases now log what they loaded, such as file counts and bytes, and the server logs a `startup phase summary` line with per-phase durations when it becomes ready.
+- **Faster compaction I/O (Parquet engine)**: The compactor now uploads a finished output file while it encodes the next one, and checks up to 8 input files at a time. Previously, it did both one file at a time.
+
+#### Bug fixes
+
+- **Missing rows from `IN` filters against a [file index](/influxdb3/enterprise/admin/file-index/) (Parquet engine)**: A filter with an `IN` list of four or more values on a column the file index doesn't cover, such as a field, no longer skips every compacted file. Previously, such a query returned no rows from compacted data. An equality or `IN` filter could also skip every file after you narrowed a table's file index columns.
+- **Missing rows after changing a table's file index columns (Parquet engine)**: The file index now records which columns each compacted generation indexed. A query that filters on a column that only some generations indexed scans the other generations instead of skipping them. Previously, after you added or removed file index columns, such a query could return incomplete results from compacted data.
+- **Backfilled windows skipped by compaction (Parquet engine)**: The default for `--compaction-max-num-files-per-plan` is now `10000`. Previously, the default was `500`, and a compaction window with more input files than the limit was skipped on every cycle, so a table with a large backfill kept accumulating small files. A value you set explicitly still applies.
+- **Storage engine upgrade failed with more than one compact node**: During an upgrade to the upgraded storage engine, only the compact node that holds the compactor lease now drives the upgrade. Previously, every compact node drove it at the same time, their progress updates conflicted, and the upgrade could be marked as failed.
+- **Large compactions delayed new data (upgraded storage engine)**: One large background compaction is now held to about half of the compactor's task slots and memory budget, so compaction of newly written snapshots keeps running beside it. Previously, a large compaction could take every slot, and snapshot compaction waited until it finished.
+- **Row deletes could remove the rows they were meant to keep (upgraded storage engine)**: A rewrite that applies a row delete keeps the files the delete doesn't touch by their original ID. Previously, it also queued those files for deletion, so after the cleanup cooldown the rows the delete was meant to preserve were gone and later reads of the run set failed with `Object not found`. On the first start on v3.11.6, row-delete entries already in the persisted delete queue are dropped instead of replayed, and the objects they name stay in object storage.
+- **Rows lost when clearing the Parquet WAL after switching to the upgraded storage engine**: When a node starts on the upgraded storage engine with unflushed Parquet WAL, clearing that backlog no longer re-runs snapshots the previous process recorded but never persisted. Previously, a re-run could overwrite a manifest, and its Parquet file, so the rows it held were listed by no manifest.
+- **Backup and restore could hang (upgraded storage engine)**: The backup and restore copy loops now keep their in-flight copies running while they write progress. Previously, a copy that held the object store client's credential-refresh lock was left unpolled during a progress write, which blocked every request on that client and the backup or restore never finished.
+- **Future-dated data displaced current data in the cache (upgraded storage engine)**: Cache preloading no longer warms time windows that start more than one window length in the future. Previously, every future window was warm, so data timestamped far in the future could use the preload budget before the current window loaded.
+- **Login response time revealed valid usernames**: A username and password login now takes the same time whether or not the username exists. Previously, a login for an unknown username returned faster, which revealed whether a username existed. This affects deployments with `--user-auth-type basic`.
+- **Queries that exceed memory limits returned 500**: With `pretty` or `parquet` output, the HTTP query endpoints now return `429 Too Many Requests` when a query fails because the DataFusion memory pool or the data file cache budget is exhausted. Previously, a memory pool failure returned `500`. Other output formats still return `200` and end the response early. Flight already returned `RESOURCE_EXHAUSTED`.
+- Other bug fixes and performance improvements
+
+#### Breaking changes
+
+- **Data file cache is a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) now also counts data file bytes held by running queries and compactions. When the budget is used up, the query that needs more fails with a `file access cache budget exhausted` error instead of the node using memory beyond the budget. The new `influxdb3_file_cache_admission_rejected_total` metric counts fetches refused by the budget.
+
 ## v3.12.0 {date="2026-10-01"}
 
 <!-- Written from origin/3.12 through a171538943 (after v3.12.0-0.rc.2). -->
@@ -57,7 +171,7 @@ Before you upgrade, review [Upgrade InfluxDB](/influxdb3/version/admin/upgrade/)
 
 - **InfluxQL `SPREAD` with negative values**: `SPREAD` now returns the difference between the maximum and minimum when every value is negative. Previously, it returned the negated minimum.
 - **Packaged service failed to start on SELinux hosts**: On RHEL-family hosts with SELinux enforcing, the `systemd` unit from the `.deb` and `.rpm` packages exited with status `226`. No configuration change is needed.
-- **One query on a large Parquet file could run a node out of memory**: A query now fetches each Parquet file once per scan. Previously, every partition of the scan fetched and buffered its own copy of the whole file, so one query against a 4.4 GB file could use about 70 GB. To restore the old behavior, set `--datafusion-config iox.share_cached_parquet_loader_fetches=false`.
+- **One query on a large Parquet file could run a node out of memory**: A query now fetches each Parquet file once per scan. Previously, every partition of the scan fetched and buffered its own copy of the whole file, so one query against a 4.4 GB file could use about 70 GB. To restore the old behavior, set `--datafusion-config iox.share_cached_parquet_loader_fetches:false`.
 - **Repeated downloads under Parquet cache pressure**: The Parquet cache no longer evicts files that are still downloading, and no longer starts a second download of a file that is already being fetched. Previously, a cache under sustained pressure could download the same file over and over.
 - Other bug fixes and performance improvements
 
