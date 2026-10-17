@@ -3,7 +3,7 @@ title: Configure Telegraf to write to {{< product-name >}}
 seotitle: Configure Telegraf to write data to {{< product-name >}}
 description: >
   Update existing or create new Telegraf configurations to use the `influxdb_v3`
-  output plugin to write to {{< product-name >}}.
+  output plugin to write to InfluxDB 3 Enterprise.
   Start Telegraf using the custom configuration.
 menu:
   influxdb3_enterprise:

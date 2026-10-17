@@ -2,8 +2,8 @@
 title: Usage telemetry
 seotitle: InfluxDB 3 Enterprise usage telemetry
 description: >
-  InfluxData collects telemetry data to help improve the {{< product-name >}}.
-  Learn what data {{< product-name >}} collects and sends to InfluxData, how it's used, and
+  InfluxData collects telemetry data to help improve the InfluxDB 3 Enterprise.
+  Learn what data InfluxDB 3 Enterprise collects and sends to InfluxData, how it's used, and
   how you can opt out.
 menu:
   influxdb3_enterprise:

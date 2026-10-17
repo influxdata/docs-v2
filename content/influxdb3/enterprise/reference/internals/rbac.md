@@ -2,7 +2,7 @@
 title: Role-based access control (RBAC)
 seotitle: Role-based access control (RBAC) in InfluxDB 3 Enterprise
 description: >
-  How {{% product-name %}} role-based access control (RBAC) works: built-in
+  How InfluxDB 3 Enterprise role-based access control (RBAC) works: built-in
   roles and the permissions model for multi-user authentication.
 menu:
   influxdb3_enterprise:

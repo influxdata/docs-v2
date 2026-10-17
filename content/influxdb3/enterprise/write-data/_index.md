@@ -2,7 +2,7 @@
 title: Write data to {{< product-name >}}
 list_title: Write data
 description: >
-  Collect and write time series data to {{% product-name %}}.
+  Collect and write time series data to InfluxDB 3 Enterprise.
 weight: 3
 menu:
   influxdb3_enterprise:

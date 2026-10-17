@@ -2,7 +2,7 @@
 title: List resource tokens
 description: >
   Use the `influxdb3` CLI or the HTTP API to list resource tokens with fine-grained
-  access permissions in your {{% product-name %}} instance. 
+  access permissions in your InfluxDB 3 Enterprise instance.
   Use the  `influxdb3 show tokens` command to list all tokens or use SQL to query token
   metadata directly from the `system.tokens` table.
 menu:

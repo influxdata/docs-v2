@@ -1,7 +1,7 @@
 ---
 title: Use the v3 write_lp API to write data
 description: >
-  Use the `/api/v3/write_lp` HTTP API endpoint to write data to {{% product-name %}}.
+  Use the `/api/v3/write_lp` HTTP API endpoint to write data to InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Use the v3 write_lp API

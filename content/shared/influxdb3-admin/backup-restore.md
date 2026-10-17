@@ -38,8 +38,8 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | Location                                  | Description                                                                                   |
 | ----------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `<node_id>/`                              | Root directory for all node state                                                             |
-| `<node_id>/_catalog_checkpoint`           | Catalog state checkpoint file                                                                 |
-| `<node_id>/catalog/`                      | Catalog log files tracking catalog state changes                                              |
+| `<node_id>/_catalog_checkpoint`           | Legacy catalog file; present only on installations that started before 3.4                                   |
+| `<node_id>/catalog/`                      | Catalog snapshot (`catalog/v3/snapshot`) and log files (`catalog/v3/logs/`)                   |
 | `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                 |
 | `<node_id>/snapshots/`                    | Snapshot files summarizing persisted [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                            |
 | `<node_id>/dbs/<db>/<table>/<date>/`      | [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage) organized by [database](/influxdb3/version/admin/databases/), [table](/influxdb3/version/admin/tables/), and time |
@@ -51,8 +51,8 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | Location                                  | Description                                                                                                                                                                                           |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Cluster files**                         |                                                                                                                                                                                                       |
-| `<cluster_id>/_catalog_checkpoint`        | Catalog state checkpoint file                                                                                                                                                                         |
-| `<cluster_id>/catalog/`                   | Catalog log files tracking catalog state changes                                                                                                                                                      |
+| `<cluster_id>/_catalog_checkpoint`        | Legacy catalog file; present only on installations that started before 3.4                                                                                                                                           |
+| `<cluster_id>/catalog/`                   | Catalog snapshot (`catalog/v3/snapshot`) and log files (`catalog/v3/logs/`)                                                                                                                           |
 | `<cluster_id>/commercial_license`         | Commercial [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
 | `<cluster_id>/trial_or_home_license`      | Trial or home [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
 | `<cluster_id>/enterprise`                 | Enterprise configuration file                                                                                                                                                                         |

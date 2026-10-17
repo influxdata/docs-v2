@@ -167,7 +167,7 @@ To browse recent InfluxDB 3 image tags (Core and Enterprise), newest first, see
 [`influxdb` tags on Docker Hub](https://hub.docker.com/_/influxdb/tags?name=3.&ordering=last_updated).
 {{% /expand %}}
 <!-- Update the Quay tags below for each release: use the release commit SHA
-(influxdata/influxdb for Core, influxdata/influxdb_pro for Enterprise). -->
+(the Core release commit and the Enterprise release commit). -->
 {{% show-in "core" %}}
 {{% expand "Pull from an alternative registry (Quay)" %}}
 {{% product-name %}} images are also published to

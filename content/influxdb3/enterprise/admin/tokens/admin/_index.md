@@ -2,7 +2,7 @@
 title: Manage admin tokens
 seotitle: Manage admin tokens in {{< product-name >}} 
 description: >
-  Manage admin tokens in your {{< product-name >}} instance.
+  Manage admin tokens in your InfluxDB 3 Enterprise instance.
   An admin token grants
   access to all actions (CLI commands and API endpoints) for the server.
 menu:

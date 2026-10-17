@@ -1,7 +1,7 @@
 ---
 title: Sample data
 description: >
-  Sample datasets are used throughout the the {{< product-name >}} documentation
+  Sample datasets are used throughout the the InfluxDB 3 Enterprise documentation
   to demonstrate functionality.
   Use the following sample datasets to replicate provided examples.
 menu:

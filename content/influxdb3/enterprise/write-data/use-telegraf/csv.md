@@ -3,7 +3,7 @@ title: Use Telegraf to write CSV data
 description: >
   Use the Telegraf `file` input plugin to read and parse CSV data into
   [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/)
-  and write it to {{< product-name >}}.
+  and write it to InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Use Telegraf

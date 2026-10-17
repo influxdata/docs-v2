@@ -3,7 +3,7 @@ title: Harden the host and service
 seotitle: Harden the InfluxDB 3 Enterprise host and systemd service
 description: >
   Configure systemd sandboxing and host-level filesystem protections for
-  {{% product-name %}} on DEB/RPM installations.
+  InfluxDB 3 Enterprise on DEB/RPM installations.
 weight: 202
 menu:
   influxdb3_enterprise:

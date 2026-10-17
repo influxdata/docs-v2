@@ -1,7 +1,7 @@
 ---
 title: Use a preconfigured admin token
 description: >
-  Start {{% product-name %}} with a preconfigured "offline" admin token file.
+  Start InfluxDB 3 Enterprise with a preconfigured "offline" admin token file.
   If no admin tokens already exist, InfluxDB automatically creates an admin token
   using the provided admin token file.
 menu:

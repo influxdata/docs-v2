@@ -2,7 +2,7 @@
 title: Manage file indexes
 seotitle: Manage file indexes in {{< product-name >}}
 description: >
-  Customize the indexing strategy of a database or table in {{% product-name %}}
+  Customize the indexing strategy of a database or table in InfluxDB 3 Enterprise
   to optimize the performance of single-series queries.
 menu:
   influxdb3_enterprise:

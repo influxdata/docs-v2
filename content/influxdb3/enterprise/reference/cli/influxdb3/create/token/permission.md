@@ -2,7 +2,7 @@
 title: influxdb3 create token \--permission
 description: >
   The `influxdb3 create token` command with the `--permission` option creates a new authentication token
-  with fine-grained access permissions for specific resources in {{< product-name >}}.
+  with fine-grained access permissions for specific resources in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: influxdb3 create token

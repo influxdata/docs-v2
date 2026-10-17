@@ -2,7 +2,7 @@
 title: Manage the Last Value Cache
 seotitle: Manage the Last Value Cache in {{< product-name >}}
 description: >
-  The {{< product-name >}} Last Value Cache (LVC) lets you cache the most
+  The InfluxDB 3 Enterprise Last Value Cache (LVC) lets you cache the most
   recent values for specific fields in a table, improving the performance of
   queries that return the most recent value of a field for specific time series
   or the last N values of a field. 
