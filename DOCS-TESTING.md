@@ -217,6 +217,13 @@ Findings are warnings or notices and never block a commit or merge.
 yarn lint:prose content/influxdb3/core/get-started/_index.md
 ```
 
+The linter checks patterns only.
+For checks that need judgment, such as sentence-case headings, voice, and
+word choice, use the `gdd-style` skill from
+[influxdata/docs-skills](https://github.com/influxdata/docs-skills).
+`.claude/settings.json` enables it in Claude Code as `docs-skills:gdd-style`;
+other agents can install it with `npx skills add influxdata/docs-skills`.
+
 To skip prose that is wrong on purpose or copied from upstream, wrap it
 in comments on their own lines.
 Name rules to skip only those rules:
