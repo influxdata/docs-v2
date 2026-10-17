@@ -114,6 +114,13 @@ influxdb3 create table \
   TABLE_NAME
 ```
 
+{{% show-in "enterprise" %}}
+> [!Warning]
+> In {{% product-name %}} 3.12 with the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/),
+> a query on a table that has no fields returns HTTP `500`.
+> Include at least one field with `--fields`.
+{{% /show-in %}}
+
 ### Create a table with tag and field columns
 
 <!--pytest.mark.skip-->
