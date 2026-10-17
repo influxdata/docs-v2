@@ -40,6 +40,8 @@ package-lock.json
 /cypress/downloads/*
 /cypress/screenshots/*
 /cypress/videos/*
+/test-results/
+/playwright-report/
 .lycheecache
 test-results.xml
 /influxdb3cli-build-scripts/content
