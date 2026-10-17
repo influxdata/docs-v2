@@ -41,6 +41,13 @@ export function earliestMostCommonDay(days) {
     .reduce((best, entry) => (entry[1] > best[1] ? entry : best))[0];
 }
 
+export function sampleAnchorDay(days, configuredDays) {
+  const presentConfiguredDays = configuredDays
+    .filter((day) => days.includes(day))
+    .sort((dayA, dayB) => (dayA < dayB ? -1 : dayA > dayB ? 1 : 0));
+  return presentConfiguredDays[0] ?? earliestMostCommonDay(days);
+}
+
 export function shiftTimestampText(text, days) {
   return text.replace(timestampPattern, (token) => {
     const timestamp = timestampValue(token);

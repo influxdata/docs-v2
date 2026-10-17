@@ -48,8 +48,8 @@ In {{< product-name >}}, table (measurement) and column are limited per bucket.
 Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.
 
-**Maximum number of tables**: 500
-**Maximum number of columns**: 200
+**Maximum number of tables**: {{% influxdb3/limit "table" %}}
+**Maximum number of columns**: {{% influxdb3/limit "column" %}}
 
 ### Auto-generate buckets on write
 
@@ -139,7 +139,7 @@ Retention rules specify the bucket retention period, the duration that data is s
 The retention period also defines the minimum timestamp that you can write to the bucket; the bucket rejects data older than the retention period.
 
 Use the `--retention` flag to specify a
-[retention period](/influxdb3/cloud-serverless/admin/databases/#retention-periods)
+[retention period](/influxdb3/cloud-serverless/admin/buckets/#retention-period)
 for the bucket.
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
@@ -238,7 +238,7 @@ If successful, the output is an HTTP `201: Created` status code and the bucket; 
 
 ## /api/v2 retentionRules syntax
 
-Retention rules specify the bucket [retention period](/influxdb3/cloud-serverless/admin/databases/#retention-periods).
+Retention rules specify the bucket [retention period](/influxdb3/cloud-serverless/admin/buckets/#retention-period).
 The retention period also defines the minimum timestamp that you can write to the bucket; the bucket rejects data older than the retention period.
 The default retention period is `infinite`--data won't expire.
 
