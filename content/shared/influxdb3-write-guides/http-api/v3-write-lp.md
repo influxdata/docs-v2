@@ -42,6 +42,7 @@ The following examples show how to write data with different timestamp precision
 [Seconds](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
 
 ```bash
 # Auto precision (default) - timestamp magnitude determines precision
@@ -51,8 +52,10 @@ curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors" \
 ```
 
 The timestamp `1708976567` is automatically detected as seconds.
+{{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
 
 ```bash
 # Explicit nanosecond precision
@@ -61,8 +64,10 @@ curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=nanosecond"
   --data-raw "cpu,host=server1 usage=50.0 1708976567000000000"
 ```
 
+{{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
 
 ```bash
 # Millisecond precision
@@ -71,8 +76,10 @@ curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=millisecond
   --data-raw "cpu,host=server1 usage=50.0 1708976567000"
 ```
 
+{{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+{{% influxdb/custom-timestamps %}}
 
 ```bash
 # Second precision
@@ -81,6 +88,7 @@ curl "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=second" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567"
 ```
 
+{{% /influxdb/custom-timestamps %}}
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 

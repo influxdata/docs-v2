@@ -49,6 +49,7 @@ influxdb3_core:
       price_currency: "USD"
 
 influxdb3_enterprise:
+  link: 'https://www.influxdata.com/contact-sales/'
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
   namespace: influxdb3
@@ -302,9 +303,9 @@ influxdb:
     - v2
     - v1
   supports_flux: true
-  latest: v2.9
+  latest: v2.10
   latest_patches:
-    v2: 2.9.1
+    v2: 2.10.0
     v1: 1.13.0
   latest_cli:
     v2: 2.8.0
@@ -394,7 +395,7 @@ telegraf:
   versions: [v1]
   latest: v1.40
   latest_patches:
-    v1: 1.40.1
+    v1: 1.40.2
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -417,7 +418,7 @@ telegraf_controller:
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
   latest: 1.1
-  latest_patch: 1.1.1
+  latest_patch: 1.1.2
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
@@ -452,7 +453,7 @@ chronograf:
   has_support_contract: false
   latest: v1.11
   latest_patches:
-    v1: 1.11.5
+    v1: 1.11.6
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -480,7 +481,7 @@ kapacitor:
   has_support_contract: false
   latest: v1.8
   latest_patches:
-    v1: 1.8.7
+    v1: 1.8.8
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?

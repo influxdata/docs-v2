@@ -188,8 +188,17 @@
       }
     ]
   },
+  "extraKnownMarketplaces": {
+    "influxdata-docs": {
+      "source": {
+        "source": "github",
+        "repo": "influxdata/docs-skills"
+      }
+    }
+  },
   "enabledPlugins": {
-    "github@claude-plugins-official": true
+    "github@claude-plugins-official": true,
+    "docs-skills@influxdata-docs": true
   },
   "worktree": {
     "symlinkDirectories": ["node_modules", ".cache"]

@@ -6,7 +6,7 @@ description: >
 menu:
   telegraf_controller:
     name: Manage settings
-weight: 9
+weight: 10
 related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/authentication-authorization/
