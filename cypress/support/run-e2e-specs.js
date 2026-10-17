@@ -505,7 +505,7 @@ async function main() {
                   (test) => test.state === 'failed'
                 );
                 if (failedTests.length > 0) {
-                  console.warn(`     - Failed Tests:`);
+                  console.warn('     - Failed Tests:');
                   failedTests.forEach((test, idx) => {
                     if (idx < 3) {
                       // Limit to first 3 failed tests per spec
@@ -636,6 +636,7 @@ async function main() {
     cypressFailed = true;
     exitCode = 1;
   } finally {
+    let awaitingHugoShutdown = false;
     // Stop Hugo server only if we started it
     if (hugoProc && hugoStarted && typeof hugoProc.kill === 'function') {
       console.log(`Stopping Hugo server (fast shutdown: ${cypressFailed})...`);
@@ -673,8 +674,7 @@ async function main() {
             process.exit(exitCode);
           });
 
-          // Return to prevent immediate exit
-          return;
+          awaitingHugoShutdown = true;
         }
       } catch (shutdownErr) {
         console.error(
@@ -685,7 +685,7 @@ async function main() {
       console.log('Hugo process was started but is not available for cleanup');
     }
 
-    process.exit(exitCode);
+    if (!awaitingHugoShutdown) process.exit(exitCode);
   }
 }
 

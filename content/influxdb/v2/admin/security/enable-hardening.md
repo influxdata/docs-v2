@@ -23,6 +23,7 @@ when starting InfluxDB.
 ## Security features
 
 - [Private IP Validation](#private-ip-validation)
+- [Restricted health check details](#restricted-health-check-details)
 
 ### Private IP Validation
 
@@ -48,3 +49,25 @@ If your environment requires that these authenticated HTTP requests be made to p
 omit the use of `--hardening-enabled` and
 consider instead setting up egress firewalling to limit which hosts InfluxDB is allowed to connect.
 {{% /note %}}
+
+### Restricted health check details
+
+_Available in InfluxDB OSS v2.10 and later._
+
+The `/health` and `/ready` endpoints report check messages that can include
+file system paths, permission errors, and other configuration details.
+With hardening enabled, InfluxDB returns these details only to callers with operator permissions.
+Other callers receive check names and statuses only.
+
+The HTTP status code doesn't change, so liveness and readiness probes without credentials keep working.
+
+To control this behavior separately from other hardening features,
+use the [`health-auth-mode` configuration option](/influxdb/v2/reference/config-options/#health-auth-mode).
+For example, if your monitoring reads check messages from `/health`,
+keep full responses with hardening enabled:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxd --hardening-enabled --health-auth-mode=disabled
+```

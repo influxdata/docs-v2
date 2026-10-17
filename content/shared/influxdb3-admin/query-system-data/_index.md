@@ -264,6 +264,11 @@ SELECT * FROM system.pt_ingest_files;
 
 Columns: `file_id`, `node_id`, `node_name`, `generation`, `min_time`,
 `max_time`, `row_count`, `size_bytes`, `has_bloom_filter`.
+
+Starting in v3.12.1, after a restart this table lists the files from the
+node's newest snapshot manifest plus the snapshots taken since the node
+started.
+Files from older manifests aren't listed.
 Use this table to monitor file counts per generation, file sizes, and time
 ranges.
 
