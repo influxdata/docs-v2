@@ -14349,14 +14349,24 @@ components:
         - type
       type: object
     HealthCheck:
+      additionalProperties:
+        $ref: '#/components/schemas/HealthCheckMeasure'
+      description: |
+        A health check.
+        A check can also report measure groups, such as `progress` or `failures`.
+        Each key other than `name`, `status`, `message`, and `checks` whose value
+        is an object is a measure group.
       properties:
         checks:
           items:
             $ref: '#/components/schemas/HealthCheck'
           type: array
         commit:
+          description: Build commit. Returned only at the top level.
           type: string
         message:
+          description: |
+            Status detail. For a failing check, may contain the raw error text.
           type: string
         name:
           type: string
@@ -14366,10 +14376,28 @@ components:
             - fail
           type: string
         version:
+          description: Build version. Returned only at the top level.
           type: string
       required:
         - name
         - status
+      type: object
+    HealthCheckMeasure:
+      additionalProperties:
+        type: number
+      description: |
+        A measure group: one or more numeric values that share a unit.
+        Durations are float seconds with `unit: seconds`.
+      example:
+        completed: 94
+        total: 200
+        unit: shards
+      properties:
+        unit:
+          example: shards
+          type: string
+      required:
+        - unit
       type: object
     HeatmapViewProperties:
       properties:
@@ -16282,6 +16310,13 @@ components:
           type: object
     Ready:
       properties:
+        checks:
+          description: |
+            Ready gates that haven't passed.
+            Omitted when `status` is `ready`.
+          items:
+            $ref: '#/components/schemas/HealthCheck'
+          type: array
         started:
           example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
@@ -16289,10 +16324,15 @@ components:
         status:
           enum:
             - ready
+            - starting
           type: string
         up:
           example: 14m45.911966424s
           type: string
+        uptime:
+          allOf:
+            - $ref: '#/components/schemas/HealthCheckMeasure'
+          description: Time since `started`, in float seconds.
       type: object
     RegexpLiteral:
       description: Expressions begin and end with `/` and are regular expressions with syntax accepted by RE2
@@ -16482,10 +16522,19 @@ components:
         authorizations:
           format: uri
           type: string
+        backup:
+          format: uri
+          type: string
         buckets:
           format: uri
           type: string
+        checks:
+          format: uri
+          type: string
         dashboards:
+          format: uri
+          type: string
+        delete:
           format: uri
           type: string
         external:
@@ -16497,10 +16546,22 @@ components:
         flags:
           format: uri
           type: string
+        labels:
+          format: uri
+          type: string
         me:
           format: uri
           type: string
+        notificationEndpoints:
+          format: uri
+          type: string
+        notificationRules:
+          format: uri
+          type: string
         orgs:
+          format: uri
+          type: string
+        plugins:
           format: uri
           type: string
         query:
@@ -16518,6 +16579,12 @@ components:
               format: uri
               type: string
           type: object
+        restore:
+          format: uri
+          type: string
+        scrapers:
+          format: uri
+          type: string
         setup:
           format: uri
           type: string
@@ -16530,6 +16597,9 @@ components:
         sources:
           format: uri
           type: string
+        swagger:
+          format: uri
+          type: string
         system:
           properties:
             debug:
@@ -16539,6 +16609,9 @@ components:
               format: uri
               type: string
             metrics:
+              format: uri
+              type: string
+            ready:
               format: uri
               type: string
           type: object
@@ -17871,12 +17944,15 @@ components:
         properties:
           defaultValue:
             description: Default value that will be provided for the reference when no value is provided
-            nullable: true
             oneOf:
-              - type: string
-              - type: integer
-              - type: number
-              - type: boolean
+              - nullable: true
+                type: string
+              - nullable: true
+                type: integer
+              - nullable: true
+                type: number
+              - nullable: true
+                type: boolean
           envRefKey:
             description: Key identified as environment reference and is the key identified in the template
             type: string
@@ -17885,12 +17961,15 @@ components:
             type: string
           value:
             description: Value provided to fulfill reference
-            nullable: true
             oneOf:
-              - type: string
-              - type: integer
-              - type: number
-              - type: boolean
+              - nullable: true
+                type: string
+              - nullable: true
+                type: integer
+              - nullable: true
+                type: number
+              - nullable: true
+                type: boolean
         required:
           - resourceField
           - envRefKey

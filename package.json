@@ -92,6 +92,8 @@
     "validate:agent-instructions": "node ./helper-scripts/validate-agent-instructions.js",
     "verify:changed": "node scripts/verify-changed.mjs",
     "test:verify-changed": "node --test scripts/__tests__/verify-changed.test.mjs",
+    "test:lint-comments": "node --test scripts/__tests__/no-comments.test.mjs",
+    "test:custom-timestamps": "node --test assets/js/__tests__/custom-timestamp-values.test.mjs assets/js/__tests__/custom-timestamps-content.test.mjs",
     "test:agent-instruction-limits": "node --test helper-scripts/__tests__/agent-instruction-limits.test.mjs",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
     "build:ts:watch": "tsc --project tsconfig.json --outDir dist --watch",
@@ -136,6 +138,7 @@
     "test:cache:clear": "./test/scripts/manage-test-cache.sh clear",
     "test:cache:list": "./test/scripts/manage-test-cache.sh list",
     "test:lint-codeblocks": "node --test 'scripts/ci/__tests__/**/*.test.mjs'",
+    "lint:comments": "eslint --config eslint.comments.config.js",
     "lint-codeblocks": "node scripts/ci/lint-codeblocks.mjs",
     "lint:prose": "node scripts/ci/lint-prose.mjs",
     "test:lint-prose": "node --test scripts/ci/__tests__/prose-lint.test.mjs",
@@ -152,7 +155,8 @@
     "verify-plugin-coverage": "cd helper-scripts/influxdb3-plugins && node verify-coverage.js",
     "debug:browser": "node scripts/puppeteer/debug-browser.js",
     "debug:screenshot": "node scripts/puppeteer/screenshot.js",
-    "debug:inspect": "node scripts/puppeteer/inspect-page.js"
+    "debug:inspect": "node scripts/puppeteer/inspect-page.js",
+    "test:e2e:kapa-live": "cypress run --spec cypress/live/kapa-sidebar-live.cy.js"
   },
   "type": "module",
   "browserslist": [
