@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The Stock Portfolio Tracker plugin periodically fetches current stock, ETF, and mutual fund prices from Yahoo Finance and writes per-holding rows plus per-portfolio and per-category roll-up totals to {{% product-name %}}. Configure your holdings inline as trigger arguments or in a TOML file, group them into named portfolios (e.g. `401k`, `brokerage`) and user-defined categories (e.g. `Retirement`, `Investment`), and the plugin will track the value of each holding and each grouping over time. Built-in gating skips fetches during market closures (with a clear log line so dashboard gaps have a known cause), polls mutual funds only once per day after NAV close, and carries forward the last known price for skipped symbols so portfolio totals stay accurate.
 
 ### Scope
@@ -278,5 +278,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

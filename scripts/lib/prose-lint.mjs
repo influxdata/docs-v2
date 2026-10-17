@@ -218,7 +218,7 @@ function formatMessage(rule, matcher, match) {
 }
 
 const SWITCH_COMMENT =
-  /^<!--\s*(?:prose-lint|vale)\s+(off|on)\b\s*([\w\s,]*?)\s*-->$/;
+  /^<!--\s*prose-lint\s+(off|on)\b\s*([\w\s,]*?)\s*-->$/;
 
 function parseSwitch(node) {
   const found = node.type === 'html' && node.value.trim().match(SWITCH_COMMENT);

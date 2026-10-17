@@ -70,9 +70,9 @@ test('normalizes tabs used to indent Markdown list items', () => {
   assert.doesNotMatch(transformed, /^\s*\t/m);
 });
 
-test('exempts generated upstream prose from Vale', () => {
+test('exempts generated upstream prose from prose lint', () => {
   const transformed = transformContent('# Example', 'example');
 
-  assert.match(transformed, /^<!-- vale off -->$/m);
-  assert.match(transformed, /<!-- vale on -->$/);
+  assert.match(transformed, /^<!-- prose-lint off -->$/m);
+  assert.match(transformed, /<!-- prose-lint on -->$/);
 });

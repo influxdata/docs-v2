@@ -22,5 +22,5 @@ yarn verify:changed -- --staged
 ```
 
 Use `--run` only for checks not covered by hooks. Load the referenced material
-only for the category being changed. Use Cypress for runtime behavior, Vale for
+only for the category being changed. Use Cypress for runtime behavior, `yarn lint:prose` for
 style, and Hugo-template-dev for templates; this skill owns check selection.

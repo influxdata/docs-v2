@@ -1,6 +1,6 @@
 ---
 name: content-editing
-description: "Create, edit, and validate InfluxData documentation. Manages Hugo shared content across InfluxDB products, runs Vale style linting and Hugo builds, validates frontmatter and code blocks, and fact-checks via the documentation MCP server. Use when creating new doc pages, editing markdown .md files, managing shared content, running Vale or Hugo builds, or testing InfluxDB, Telegraf, or Flux documentation."
+description: "Create, edit, and validate InfluxData documentation. Manages Hugo shared content across InfluxDB products, runs prose linting and Hugo builds, validates frontmatter and code blocks, and fact-checks via the documentation MCP server. Use when creating new doc pages, editing markdown .md files, managing shared content, running the prose linter or Hugo builds, or testing InfluxDB, Telegraf, or Flux documentation."
 ---
 
 # Content editing
@@ -8,12 +8,12 @@ description: "Create, edit, and validate InfluxData documentation. Manages Hugo 
 Use this skill for Markdown content. It routes work; it does not replace the
 frontmatter, shortcode, or contributor references.
 
-| Situation               | Do this                                     | Load when needed                                             |
-| ----------------------- | ------------------------------------------- | ------------------------------------------------------------ |
-| New page or direct edit | Choose `docs` CLI or direct edit            | `../docs-cli-workflow/SKILL.md`                              |
+| Situation               | Do this                                                                   | Load when needed                                             |
+| ----------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| New page or direct edit | Choose `docs` CLI or direct edit                                          | `../docs-cli-workflow/SKILL.md`                              |
 | Shared source           | Identify and review every consumer; refresh the local preview when needed | [references/shared-content.md](references/shared-content.md) |
-| Technical claim         | Verify against the documentation search MCP | [references/fact-checking.md](references/fact-checking.md)   |
-| Validation              | Run the changed-file verifier               | `../docs-testing/SKILL.md`                                   |
+| Technical claim         | Verify against the documentation search MCP                               | [references/fact-checking.md](references/fact-checking.md)   |
+| Validation              | Run the changed-file verifier                                             | `../docs-testing/SKILL.md`                                   |
 
 Prerequisites: resolve the exact product key from `data/products.yml`; read
 applicable frontmatter and shortcode references; preserve semantic line feeds.

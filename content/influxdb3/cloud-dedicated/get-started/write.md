@@ -49,7 +49,7 @@ information, see the
 
 Each line of line protocol contains the following elements:
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 
 {{< req type="key" >}}
 
@@ -74,11 +74,11 @@ Each line of line protocol contains the following elements:
 associated with the data. InfluxDB supports up to nanosecond precision. _If
 the precision of the timestamp is not in nanoseconds, you must specify the
 precision when writing the data to InfluxDB._
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 #### Line protocol element parsing
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 
 - **measurement**: Everything before the _first unescaped comma before the first
   whitespace_.
@@ -89,7 +89,7 @@ precision when writing the data to InfluxDB._
 - **timestamp**: Integer value after the _second unescaped whitespace_.
 - Lines are separated by the newline character (`\n`). Line protocol is
 whitespace sensitive.
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 ---
 
@@ -102,7 +102,7 @@ _For schema design recommendations, see
 
 ## Construct line protocol
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 
 With a basic understanding of line protocol, you can now construct line protocol
 and write data to InfluxDB.
@@ -118,7 +118,7 @@ To collect this data, use the following schema:
     - `hum`: percent humidity (float)
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
-  <!-- vale InfluxDataDocs.v3Schema = YES -->
+  <!-- prose-lint on V3Terms -->
 
 The following line protocol sample represents data collected hourly beginning at
 {{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.
@@ -528,7 +528,7 @@ method="post" api-ref="/influxdb3/cloud-dedicated/api/data-api/write-data/" >}}
 
 Include the following with your request:
 
-<!-- vale InfluxDataDocs.v3Schema = NO -->
+<!-- prose-lint off V3Terms -->
 
 - **Headers**:
   - **Authorization**: Bearer <INFLUX_TOKEN>
@@ -539,7 +539,7 @@ Include the following with your request:
   - **precision**:[timestamp precision](/influxdb3/cloud-dedicated/reference/glossary/#precision)
     (default is `ns`)
 - **Request body**: Line protocol as plain text
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 > [!Note]
 > The {{% product-name %}} v2 API `/api/v2/write` endpoint supports

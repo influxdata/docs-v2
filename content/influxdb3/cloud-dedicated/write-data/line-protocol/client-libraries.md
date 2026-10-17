@@ -41,7 +41,7 @@ sensor collects temperature, humidity, and carbon monoxide readings.
 
 To collect this data, use the following schema:
 
-<!-- vale InfluxDataDocs.v3Schema = NO -->
+<!-- prose-lint off V3Terms -->
 
 - **measurement**: `home`
   - **tags**
@@ -52,7 +52,7 @@ To collect this data, use the following schema:
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
 
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 The following example shows how to construct and write points that follow the
 `home` schema.
@@ -460,7 +460,7 @@ points.
 
 The sample code does the following:
 
-<!-- vale InfluxDataDocs.v3Schema = NO -->
+<!-- prose-lint off V3Terms -->
 
 1. Instantiates a client configured with the InfluxDB URL and API token.
 1. Constructs `home`
@@ -471,4 +471,4 @@ The sample code does the following:
    the failure message and error details.
 1. Closes the client to release resources.
 
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
