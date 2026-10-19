@@ -172,7 +172,6 @@ It does not hide every operational characteristic.
 Timestamps, numeric and boolean values, schema shape, file counts, query
 cadence, query time ranges, and regular expression selectivity are preserved by
 design.
-Inspect a capture to confirm what it preserves.
 
 ### Download and list the archive
 
@@ -251,7 +250,7 @@ ls -lh loadcap-inspect/*.pt
 Each capture uses a random key that is unique to that capture.
 The same original name or value maps to the same anonymized value within one
 capture, but a different capture produces different values.
-The key is not included in the downloaded profile.
+The key is not included in the profile.
 
 Load capture anonymizes the following:
 
