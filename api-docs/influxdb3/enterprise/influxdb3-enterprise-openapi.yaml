@@ -2981,8 +2981,8 @@ paths:
       operationId: GetLoadcapProfiles
       summary: List load capture profiles
       description: >
-        Returns load capture profiles stored by a query-capable Enterprise node that has the performance upgrade preview
-        enabled and an explicit `--mode` setting that includes `query`.
+        Returns load capture profiles stored by a query-capable Enterprise node that has the upgraded storage engine
+        and an explicit `--mode` setting that includes `query`.
 
 
         This endpoint requires an admin token.
@@ -3001,7 +3001,7 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            Load capture is unavailable because this node does not use the upgraded storage engine with an explicit
             `--mode` setting that includes `query`.
       tags:
         - Load capture
@@ -3014,7 +3014,7 @@ paths:
       summary: Start a load capture
       description: >
         Starts a timed capture of write requests, query requests, or both on a query-capable Enterprise node that has
-        the performance upgrade preview enabled and an explicit `--mode` setting that includes `query`.
+        the upgraded storage engine and an explicit `--mode` setting that includes `query`.
 
 
         Only one capture can run at a time on a node. This endpoint requires an admin token.
@@ -3039,7 +3039,7 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            Load capture is unavailable because this node does not use the upgraded storage engine with an explicit
             `--mode` setting that includes `query`.
         "409":
           description: A load capture is already running on this node.
@@ -3073,8 +3073,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
@@ -3096,8 +3096,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
         "409":
           description: The profile is still capturing. Wait for it to finish (or its status to catch up to `complete`), then retry.
       tags:
@@ -3130,8 +3130,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
@@ -3166,8 +3166,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
