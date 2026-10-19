@@ -70,7 +70,7 @@ test('a routine run needs no attention and is not fatal', () => {
 });
 
 test('a new stub, a skip, or a removal needs attention but does not fail', () => {
-  for (const status of ['scaffolded', 'skipped', 'removed']) {
+  for (const status of ['scaffolded', 'skipped', 'pruned', 'removed']) {
     const results = [row('unchanged'), row(status)];
 
     assert.equal(needsAttention(results), true, `${status} needs attention`);

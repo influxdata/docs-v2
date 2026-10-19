@@ -112,7 +112,7 @@ Replace the following configuration values in the sample code:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with _read_ permission on the specified database
 
 {{% tabs-wrapper %}}
@@ -253,8 +253,8 @@ func InfluxQL() error {
 
     query := `SELECT *
         FROM home
-        WHERE time >= 1641124000s
-        AND time <= 1641124000s + 8h`
+        WHERE time >= 1641024000s
+        AND time <= 1641024000s + 8h`
 
     queryOptions := influxdb3.QueryOptions{
         QueryType: influxdb3.InfluxQL,

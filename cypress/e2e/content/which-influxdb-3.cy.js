@@ -183,7 +183,7 @@ describe('InfluxDB 3 hub landing', function () {
         .map((s) => {
           try {
             return JSON.parse(s.textContent);
-          } catch (e) {
+          } catch {
             return null;
           }
         })

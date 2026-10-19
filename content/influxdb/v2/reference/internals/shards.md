@@ -34,8 +34,8 @@ Learn the relationships between buckets, shards, and shard groups.
 ## Shards
 A shard contains encoded and compressed time series data for a given time range
 defined by the [shard group duration](#shard-group-duration).
-All points in a [series](#series) within the specified shard group duration are stored in the same shard.
-A single shard contains multiple series, one or more [TSM files](#tsm-time-structured-merge-tree) on disk,
+All points in a [series](/influxdb/v2/reference/glossary/#series) within the specified shard group duration are stored in the same shard.
+A single shard contains multiple series, one or more [TSM files](/influxdb/v2/reference/glossary/#tsm-time-structured-merge-tree) on disk,
 and belongs to a [shard group](#shard-groups).
 
 ## Shard groups
@@ -62,7 +62,7 @@ of the bucket:
 
 ##### Shard group duration configuration options
 To configure a custom bucket shard group duration, use the `--shard-group-duration`
-flag with the [`influx bucket create`](/influxdb/v2/reference/cli/influx/bucket/create/#create-a-custom-shard-group-duration)
+flag with the [`influx bucket create`](/influxdb/v2/reference/cli/influx/bucket/create/#create-a-bucket-with-a-custom-shard-group-duration)
 and [`influx bucket update`](/influxdb/v2/reference/cli/influx/bucket/update//#update-the-shard-group-duration-of-a-bucket) commands.
 
 {{% note %}}
@@ -130,13 +130,16 @@ InfluxDB schedules compactions preferentially, using the following guidelines:
 The following configuration settings are especially beneficial for systems with irregular loads, because they limit compactions during periods of high usage, and let compactions catch up during periods of lower load:
 
 - [`storage-compact-full-write-cold-duration`](/influxdb/v2/reference/config-options/#storage-compact-full-write-cold-duration)
+- [`storage-compact-throughput`](/influxdb/v2/reference/config-options/#storage-compact-throughput)
 - [`storage-compact-throughput-burst`](/influxdb/v2/reference/config-options/#storage-compact-throughput-burst)
 - [`storage-max-concurrent-compactions`](/influxdb/v2/reference/config-options/#storage-max-concurrent-compactions)
 - [`storage-max-index-log-file-size`](/influxdb/v2/reference/config-options/#storage-max-index-log-file-size)
 - [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
 
-In InfluxDB OSS v2, `storage-compact-throughput-burst` effectively controls both the sustained and burst compaction throughput.
-Use it to scale compaction write throughput as you scale CPU and disk.
+In InfluxDB OSS v2.10 and later, `storage-compact-throughput` sets the sustained compaction throughput and `storage-compact-throughput-burst` sets the burst compaction throughput.
+If the burst value is lower than the sustained value, InfluxDB raises the burst value to match.
+In earlier versions, `storage-compact-throughput-burst` controls both values.
+Use these settings to scale compaction write throughput as you scale CPU and disk.
 
 In systems with stable loads, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
 
