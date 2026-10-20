@@ -148,6 +148,11 @@ telegraf_controller --no-interactive
   - [audit-webhook-url](#audit-webhook-url)
   - [audit-webhook-auth-header](#audit-webhook-auth-header)
   - [audit-file-path](#audit-file-path)
+- [Security advisories](#security-advisories)
+  - [advisory-feed-url](#advisory-feed-url)
+  - [advisory-controller-feed-url](#advisory-controller-feed-url)
+  - [advisory-auto-check](#advisory-auto-check)
+  - [advisory-check-interval-minutes](#advisory-check-interval-minutes)
 - [EULA and setup](#eula-and-setup)
   - [eula-accept](#eula-accept)
   - [no-interactive](#no-interactive)
@@ -1286,6 +1291,80 @@ Pair it with a system log rotator if you keep the forwarder on long term.
 | Command flag        | Environment variable |
 | :------------------ | :------------------- |
 | `--audit-file-path` | `AUDIT_FILE_PATH`    |
+
+---
+
+### Security advisories
+
+Security advisories are a [Telegraf Enterprise](/telegraf/enterprise/)
+feature. All of the following options are read at startup only. Changes
+after startup require a restart. None of these options have a command-line
+flag. For a task-based walkthrough, see
+[Configure automatic advisory checks](/telegraf/controller/security-advisories/configure-checks/).
+
+- [advisory-feed-url](#advisory-feed-url)
+- [advisory-controller-feed-url](#advisory-controller-feed-url)
+- [advisory-auto-check](#advisory-auto-check)
+- [advisory-check-interval-minutes](#advisory-check-interval-minutes)
+
+#### advisory-feed-url
+
+URL of the signed Telegraf advisory file that {{% product-name %}} downloads
+during automatic checks and checks on demand. The URL must use `https://`.
+The detached signature is downloaded from the same URL with `.asc` appended.
+Set this option to an internal mirror when {{% product-name %}} can't reach
+InfluxData directly. An empty value falls back to the default.
+
+**Default:** `https://dl.influxdata.com/security-advisories/v1/telegraf.json`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `ADVISORY_FEED_URL`  |
+
+---
+
+#### advisory-controller-feed-url
+
+URL of the signed {{% product-name %}} advisory file. It follows the same
+rules as [advisory-feed-url](#advisory-feed-url): the URL must use
+`https://`, the signature is downloaded from the URL with `.asc` appended,
+and an empty value falls back to the default.
+
+**Default:** `https://dl.influxdata.com/security-advisories/v1/telegraf-controller.json`
+
+| Command flag | Environment variable           |
+| :----------- | :----------------------------- |
+| _(none)_     | `ADVISORY_CONTROLLER_FEED_URL` |
+
+---
+
+#### advisory-auto-check
+
+Enable scheduled advisory checks. Set to `false` to disable automatic checks,
+for example in air-gapped deployments. Any other value, including an unset
+variable, leaves automatic checks enabled. Checks on demand and manual
+imports remain available when automatic checks are disabled.
+
+**Default:** `true`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `ADVISORY_AUTO_CHECK` |
+
+---
+
+#### advisory-check-interval-minutes
+
+Minutes between automatic advisory checks, from `1` to `10080` (7 days).
+Values above the maximum are capped at the maximum. Values below `1`, and
+values that aren't numbers, fall back to the default. A failed check retries
+after 15 minutes, up to four times, before returning to this interval.
+
+**Default:** `360`
+
+| Command flag | Environment variable              |
+| :----------- | :-------------------------------- |
+| _(none)_     | `ADVISORY_CHECK_INTERVAL_MINUTES` |
 
 ---
 
