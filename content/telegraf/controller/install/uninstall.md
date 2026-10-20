@@ -19,6 +19,7 @@ method.
 [Linux](#)
 [macOS](#)
 [Windows](#)
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!-------------------------- BEGIN LINUX -------------------------->
@@ -136,5 +137,43 @@ To fully uninstall {{% product-name %}} from Windows:
     ```
 
 <!--------------------------- END WINDOWS --------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------- BEGIN DOCKER -------------------------->
+
+## Docker
+
+To fully remove a {{% product-name %}} Docker deployment:
+
+1.  **Stop and remove the container**:
+
+    ```bash
+    docker rm -f telegraf-controller
+    ```
+
+2.  **Remove the data volume**, which includes the EULA acceptance record
+    and the SQLite database if using SQLite:
+
+    > [!Caution]
+    > Removing the volume permanently deletes all {{% product-name %}} data.
+
+    ```bash
+    docker volume rm telegraf-controller
+    ```
+
+3.  **Remove the image**:
+
+    ```bash
+    docker image rm influxdata/telegraf-controller:{{< latest-patch >}}
+    ```
+
+4.  If using PostgreSQL, **delete the `telegraf_controller` database** from your
+    PostgreSQL instance:
+
+    ```sql
+    DROP DATABASE telegraf_controller;
+    ```
+
+<!--------------------------- END DOCKER --------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
