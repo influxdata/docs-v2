@@ -194,3 +194,17 @@ Only the **Owner** can apply, replace, or remove a license.
 Any authenticated user, including Viewers, can call
 `GET /api/license/entitlements` to read the current entitlements and usage.
 This endpoint is intended for monitoring and capacity-planning scripts.
+
+## Security advisories
+
+{{% product-name %}} exposes one permission resource for
+[security advisories](/telegraf/controller/security-advisories/), a
+[Telegraf Enterprise](/telegraf/enterprise/) feature:
+
+| Resource | Actions | Required role | Description |
+| :------- | :------ | :------------ | :---------- |
+| `security-advisories` | `read` | Any authenticated user | View advisories, fleet exposure, feed status, and affected agents. |
+| `security-advisories` | `write` | **Owner** or **Administrator** | Check for advisories, import advisory files, and acknowledge the advisory notification. |
+
+Without a valid license, every security advisory endpoint returns
+`403 Forbidden` regardless of role.

@@ -47,6 +47,10 @@ and demonstrate compliance with internal or external policies.
   updates (including membership changes), and deletion.
 - **Constants**: [global constant](/telegraf/controller/configs/constants/)
   creation, value updates, and deletion.
+- **Security advisories**:
+  [advisory file](/telegraf/controller/security-advisories/) updates applied
+  automatically or imported manually, rollbacks to an older advisory file,
+  and acknowledgements of the advisory notification.
 
 Each entry records:
 

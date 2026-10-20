@@ -28,6 +28,8 @@ without manually editing individual agents.
 - Monitor the overall health of your agent deployment
 - Roll out changes safely and verify agent status
 - Apply custom logic to agents to identify when they are considered "not reporting"
+- Identify agents running Telegraf versions affected by published security
+  advisories (Telegraf Enterprise)
 
 {{< img-hd src="/img/telegraf/controller-agents-list.png" alt="Telegraf Controller agent summary" />}}
 
