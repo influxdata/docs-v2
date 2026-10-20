@@ -2,12 +2,13 @@
 title: Install Telegraf Controller
 description: >
   Download and install Telegraf Controller on Linux, macOS, and Windows
-  operating systems.
+  operating systems, or run it as a Docker container.
 menu:
   telegraf_controller:
     name: Install Telegraf Controller
 weight: 2
 related:
+  - /telegraf/controller/install/docker/
   - /telegraf/controller/install/upgrade/
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/eula/
@@ -16,6 +17,10 @@ related:
 Telegraf Controller is a web-based configuration management system for Telegraf
 agents. It provides a user-friendly interface for managing Telegraf
 configurations, monitoring agents, and organizing plugins.
+
+This page covers installing the {{% product-name %}} executable directly on
+Linux, macOS, or Windows. To run {{% product-name %}} as a container instead,
+see [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
 
 - [System Requirements](#system-requirements)
 - [Review the EULA](#review-the-eula)

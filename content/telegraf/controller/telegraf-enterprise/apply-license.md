@@ -72,7 +72,7 @@ method is recommended for automated and infrastructure-as-code deployments.
 [systemd](#)
 [Shell](#)
 [Windows (Powershell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -113,23 +113,27 @@ $env:LICENSE_FILE_PATH="C:\ProgramData\telegraf-controller\license.jwt"
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published.
-     Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
 Pass the environment variable and mount the license file when starting the
 container:
 
-```bash
+```bash { placeholders="HOST_LICENSE_FILE" }
 docker run \
-  -e LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt \
-  -v /host/path/to/license.jwt:/etc/telegraf-controller/license.jwt:ro \
-  influxdata/telegraf-controller
+  --env LICENSE_FILE_PATH=/etc/telegraf-controller/license.jwt \
+  --volume HOST_LICENSE_FILE:/etc/telegraf-controller/license.jwt:ro \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+Replace {{% code-placeholder-key %}}`HOST_LICENSE_FILE`{{% /code-placeholder-key %}}
+with the path to the license file on the host.
+
+Make sure the license file on the host is readable by the container user
+(for example, `chmod 644`). Include your standard container options, such as
+EULA acceptance, published ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 3. **Start (or restart) {{% product-name %}}.**

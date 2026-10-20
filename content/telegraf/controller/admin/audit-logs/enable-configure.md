@@ -55,7 +55,7 @@ Set `AUDIT_ENABLED` to `true` before starting {{% product-name %}}.
 [systemd](#)
 [Shell](#)
 [Windows (Powershell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -103,21 +103,21 @@ $env:AUDIT_ENABLED="true"
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published.
-     Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
 Pass `AUDIT_ENABLED=true` when starting the container:
 
 ```bash
 docker run \
-  -e AUDIT_ENABLED=true \
-  influxdata/telegraf-controller
+  --env AUDIT_ENABLED=true \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+Include your standard container options, such as EULA acceptance, published
+ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts:

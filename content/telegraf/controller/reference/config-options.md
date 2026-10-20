@@ -78,6 +78,7 @@ telegraf_controller --no-interactive
   - [heartbeat-port](#heartbeat-port)
   - [ui-port](#ui-port)
   - [database](#database)
+  - [registration-channel](#registration-channel)
 - [Public URLs and CORS](#public-urls-and-cors)
   - [public-api-url](#public-api-url)
   - [public-api-port](#public-api-port)
@@ -167,6 +168,7 @@ telegraf_controller --no-interactive
 - [heartbeat-port](#heartbeat-port)
 - [ui-port](#ui-port)
 - [database](#database)
+- [registration-channel](#registration-channel)
 
 #### port
 
@@ -236,6 +238,20 @@ telegraf_controller --database="/path/to/database.db"
 | Command flag | Environment variable |
 | :----------- | :------------------- |
 | `--database` | `DATABASE_URL`       |
+
+---
+
+#### registration-channel
+
+The distribution channel for this installation. Packaged distributions set
+this automatically. For example, the official
+[Docker image](/telegraf/controller/install/docker/) sets it to `docker`.
+
+**Default:** Not set
+
+| Command flag | Environment variable   |
+| :----------- | :--------------------- |
+| _(none)_     | `REGISTRATION_CHANNEL` |
 
 ---
 
