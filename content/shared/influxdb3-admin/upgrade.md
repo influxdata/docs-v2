@@ -215,11 +215,12 @@ The order depends on the versions you upgrade from and to.
 **Upgrading from 3.10 or later:**
 
 Upgrade the nodes that read other nodes' output before the nodes that write it.
+Within a mode, upgrade one node at a time so the others keep serving.
 
 1. **Query nodes**
 2. **Process nodes**
 3. **Compactor nodes**
-4. **Ingest nodes**: If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
+4. **Ingest nodes**
 
 A node that runs ingest mode together with query or process mode (a plugin directory adds process mode) both reads and writes files.
 Upgrade such nodes back to back, or stop them together when the release notes announce a file format change.
