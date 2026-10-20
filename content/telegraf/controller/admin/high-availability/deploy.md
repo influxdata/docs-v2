@@ -83,7 +83,7 @@ next step.
 [systemd](#)
 [Shell](#)
 [Windows (PowerShell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -131,23 +131,23 @@ $env:SESSION_SECRET="SHARED_SECRET"
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published, which is on the
-     roadmap. Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
 Pass the high-availability variables to each container:
 
-```bash
+```bash { placeholders="POSTGRES_USER|POSTGRES_PASSWORD|POSTGRES_HOST|SHARED_SECRET" }
 docker run \
-  -e HA_ENABLED=true \
-  -e DATABASE_URL=postgresql://user:password@postgres.example.com:5432/telegraf_controller \
-  -e SESSION_SECRET=SHARED_SECRET \
-  influxdata/telegraf-controller
+  --env HA_ENABLED=true \
+  --env DATABASE_URL=postgresql://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_HOST:5432/telegraf_controller \
+  --env SESSION_SECRET=SHARED_SECRET \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+Include your standard container options, such as EULA acceptance, published
+ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 Replace the following:
