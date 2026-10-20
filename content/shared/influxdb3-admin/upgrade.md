@@ -222,10 +222,11 @@ The order depends on the versions you upgrade from and to.
 A node reads files written by its own version or older, but not files written in a format introduced by a newer version.
 Upgrade the nodes that read other nodes' output before the nodes that write it.
 
-1. **Query nodes and process nodes**: Read the files that ingest and compactor nodes write, so upgrade them first.
+1. **Query nodes**: Read the files that ingest and compactor nodes write, so upgrade them first.
    A query node on the old version that encounters a newer compaction format keeps serving the data it already loaded until you upgrade it, and fails to start if it restarts.
-2. **Compactor nodes**: Read files that ingest nodes write.
-3. **Ingest nodes**: Read only the catalog, so upgrade them last.
+2. **Process nodes**: Read the files that ingest nodes write; on the Parquet engine, they also read compacted data.
+3. **Compactor nodes**: Read the files that ingest nodes write.
+4. **Ingest nodes**: Read only the catalog, so upgrade them last.
    If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
 
 A node with a plugin directory configured also runs in `process` mode.
@@ -385,48 +386,51 @@ count holds every pod in that StatefulSet at its current version.
 A partition lower than the replica count lets the pods at or above that ordinal
 update, so use a ceiling that your replica counts can't reach.
 
-<!-- Verified against influxdata/helm-charts influxdb3-enterprise values.yaml
-     (master, 2026-10-14): the StatefulSet templates pass each mode's
-     updateStrategy value (ingester, querier, compactor, processingEngine)
-     through unchanged, so --set ...rollingUpdate.partition applies to all
-     four, and the app.kubernetes.io/component label values (ingester,
-     querier) below are current. -->
+<!-- Verified against influxdata/helm-charts influxdb3-enterprise templates
+     (master, 2026-10-20): each StatefulSet passes its mode's updateStrategy
+     value (ingester, querier, compactor, processingEngine) through unchanged,
+     so --set ...rollingUpdate.partition applies to all four, and the
+     app.kubernetes.io/component label values (querier, processor, compactor,
+     ingester) below are current. -->
 
 ```bash { placeholders="RELEASE_NAME|NAMESPACE|VERSION" }
 # 1. Freeze the modes you upgrade later, then apply the new image tag.
 #    Any partition >= a StatefulSet's replica count holds all of its pods, so
-#    10000 is a ceiling no deployment reaches. Only queriers and the
-#    processing engine roll.
+#    10000 is a ceiling no deployment reaches. Only queriers roll.
 helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
   --namespace NAMESPACE \
   --reuse-values \
   --set image.tag=VERSION-enterprise \
-  --set ingester.updateStrategy.rollingUpdate.partition=10000 \
-  --set compactor.updateStrategy.rollingUpdate.partition=10000
+  --set processingEngine.updateStrategy.rollingUpdate.partition=10000 \
+  --set compactor.updateStrategy.rollingUpdate.partition=10000 \
+  --set ingester.updateStrategy.rollingUpdate.partition=10000
 
-# 2. Wait for the querier and processing engine pods to roll and become ready.
-#    A frozen StatefulSet reports its partitioned rollout as complete.
-for sts in $(kubectl get statefulset --namespace NAMESPACE --output name); do
-  kubectl rollout status --namespace NAMESPACE "$sts"
-done
+# 2. Wait for the querier pods to roll and become ready
+kubectl rollout status statefulset --namespace NAMESPACE \
+  --selector app.kubernetes.io/component=querier
 
-# 3. Release the compactor and wait for it to roll
+# 3. Release the processing engine and wait for it to roll
+helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
+  --namespace NAMESPACE --reuse-values \
+  --set processingEngine.updateStrategy.rollingUpdate.partition=0
+kubectl rollout status statefulset --namespace NAMESPACE \
+  --selector app.kubernetes.io/component=processor
+
+# 4. Release the compactor and wait for it to roll
 helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
   --namespace NAMESPACE --reuse-values \
   --set compactor.updateStrategy.rollingUpdate.partition=0
-for sts in $(kubectl get statefulset --namespace NAMESPACE --output name); do
-  kubectl rollout status --namespace NAMESPACE "$sts"
-done
+kubectl rollout status statefulset --namespace NAMESPACE \
+  --selector app.kubernetes.io/component=compactor
 
-# 4. Release the ingesters and wait for them to roll
+# 5. Release the ingesters and wait for them to roll
 helm upgrade RELEASE_NAME influxdata/influxdb3-enterprise \
   --namespace NAMESPACE --reuse-values \
   --set ingester.updateStrategy.rollingUpdate.partition=0
-kubectl rollout status --namespace NAMESPACE \
-  "$(kubectl get statefulset --namespace NAMESPACE \
-    --selector app.kubernetes.io/component=ingester --output name)"
+kubectl rollout status statefulset --namespace NAMESPACE \
+  --selector app.kubernetes.io/component=ingester
 
-# 5. Verify every node re-registered and reports running
+# 6. Verify every node re-registered and reports running
 influxdb3 show nodes
 ```
 
