@@ -7,7 +7,6 @@ Upgrade your {{% product-name %}} version.
 {{% show-in "enterprise" %}}
 - [Upgrade a multi-node cluster](#upgrade-a-multi-node-cluster)
   - [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
-  - [Rolling upgrade constraints](#rolling-upgrade-constraints)
   - [Troubleshooting cluster upgrades](#troubleshooting-cluster-upgrades)
 {{% /show-in %}}
 
@@ -188,7 +187,6 @@ When upgrading multi-node clusters, you need to understand how nodes on differen
 
 - [Mixed-version clusters](#mixed-version-clusters)
 - [Multi-node upgrade procedure](#multi-node-upgrade-procedure)
-- [Rolling upgrade constraints](#rolling-upgrade-constraints)
 - [Troubleshooting cluster upgrades](#troubleshooting-cluster-upgrades)
 
 ### Mixed-version clusters
@@ -199,10 +197,7 @@ How the cluster behaves depends on the versions you upgrade from and to:
 - **From 3.10 or later**: Nodes on the old version keep reading and writing the catalog until the last of them is upgraded.
   Features added by the new version stay unavailable until every running node is on it.
   The cluster then commits the new feature level, and binaries on the old version can no longer start against the catalog.
-  The remaining risk is a node on the old version reading a file that an upgraded node wrote in a newer format, which the recommended upgrade order prevents.
-- **To 3.9 or earlier**: Upgrades that cross a catalog format change (introduced in 3.1 and 3.4) block catalog modifications on the old version.
-  Once a node on the new version starts, nodes on the old version can't modify the catalog until they're upgraded.
-  Writes to existing tables, tags, and fields succeed; writes that add new ones fail.
+- **To 3.9 or earlier**: Upgrades that cross the catalog format change in 3.1 or 3.4 block writes that add tables, tags, or fields on nodes on the old version until they're upgraded.
   Other upgrades to 3.9 or earlier don't affect the catalog.
 - **From 3.9 or earlier to 3.10 or later**: Not a rolling upgrade.
   The first node on the new version migrates the catalog, and nodes on 3.9 or earlier can't read the migrated catalog.
@@ -219,29 +214,20 @@ The order depends on the versions you upgrade from and to.
 
 **Upgrading from 3.10 or later:**
 
-A node reads files written by its own version or older, but not files written in a format introduced by a newer version.
 Upgrade the nodes that read other nodes' output before the nodes that write it.
 
-1. **Query nodes**: Read the files that ingest and compactor nodes write, so upgrade them first.
-   A query node on the old version that encounters a newer compaction format keeps serving the data it already loaded until you upgrade it, and fails to start if it restarts.
-2. **Process nodes**: Read the files that ingest nodes write; on the Parquet engine, they also read compacted data.
-3. **Compactor nodes**: Read the files that ingest nodes write.
-4. **Ingest nodes**: Read only the catalog, so upgrade them last.
-   If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
+1. **Query nodes**
+2. **Process nodes**
+3. **Compactor nodes**
+4. **Ingest nodes**: If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
 
-A node with a plugin directory configured also runs in `process` mode.
-A node that combines ingest mode with query or process mode both reads and writes files, so no position in the order protects it: another such node on the old version reads its output before being upgraded.
-Upgrade these nodes one after another without pausing between them, or stop them together if the release notes announce a file format change.
+A node that runs ingest mode together with query or process mode (a plugin directory adds process mode) both reads and writes files.
+Upgrade such nodes back to back, or stop them together when the release notes announce a file format change.
 
-**Upgrading to 3.9 or earlier across a catalog format change (3.1 or 3.4):**
+**Upgrading to 3.9 or earlier across the catalog format change in 3.1 or 3.4:**
 
-Nodes on the old version lose the ability to modify the catalog once a node on the new version starts, so upgrade the nodes that modify it most first.
+Upgrade ingest nodes first to restore writes that add tables, tags, or fields, then query, compactor, and process nodes.
 For other upgrades to 3.9 or earlier, the order doesn't matter.
-
-1. **Ingest nodes**: Add tables, tags, and fields to the catalog as they accept writes, so upgrade them first to restore those writes as quickly as possible.
-2. **Query nodes**: Modify the catalog less often, through API requests such as `influxdb3 create table`.
-3. **Compactor nodes**: Rarely modify the catalog.
-4. **Process nodes**: Can be upgraded at any time.
 
 #### Perform a rolling upgrade
 
@@ -543,40 +529,13 @@ TimeoutStopSec=300
 
 **Repeat these steps** for each remaining node in the recommended order.
 
-### Rolling upgrade constraints
-
-Understand the constraints that apply during rolling upgrades to avoid unexpected write failures.
-
-#### Writes during catalog version transitions
-
-When upgrading to 3.9 or earlier across a catalog format change (for example, from 3.3.x to 3.4.x), nodes running the older version can't modify the catalog once a node on the new version has started.
-
-**Behavior by write type:**
-
-- **Writes to existing measurements, tags, and fields**: Succeed on all nodes, regardless of version.
-- **Writes that add new measurements, tags, or fields**: Fail on nodes running the older version until those nodes are upgraded.
-
-When upgrading from 3.10 or later to a later version, writes on both versions are unaffected.
-Features introduced by the new version become available after the last node is upgraded.
-
 ### Troubleshooting cluster upgrades
-
-#### Writes fail during upgrade
-
-When upgrading to 3.9 or earlier across a catalog format change, if writes fail during a rolling upgrade, verify that you're not attempting to add new measurements, tags, or fields to nodes running older versions.
-
-1. **Check the write payload** to determine if it adds new measurements, tags, or fields
-2. **Verify the node version** that received the write
-3. **Route writes to upgraded nodes** or wait until all nodes complete the upgrade before adding new measurements, tags, or fields
 
 #### Upgrade order issues
 
-If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order):
-
-- **From 3.10 or later**: A query or process node on the old version may encounter files in a format it can't read.
-  It logs errors and keeps serving the data it already loaded; if it restarts, it fails to start.
-  Upgrade the node to recover.
-- **To 3.9 or earlier across a catalog format change**: Catalog modifications stay blocked for longer.
+If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-order), a query or process node on the old version may encounter files in a format it can't read.
+It logs errors and keeps serving the data it already loaded; if it restarts, it fails to start.
+Upgrade the node to recover.
 
 #### New features stay unavailable after the upgrade
 
@@ -617,15 +576,5 @@ If nodes fail to communicate after an upgrade, verify that all nodes are running
 
 1. **Connect to each node** and [verify the version](#verify-your-current-version)
 2. Review the [release notes](/influxdb3/enterprise/release-notes/) for your target version to identify any breaking changes or compatibility requirements.
-
-#### Catalog version constraints
-
-Catalog behavior during an upgrade depends on the target version; see [Mixed-version clusters](#mixed-version-clusters).
-
-**Before upgrading**, review the [release notes](/influxdb3/enterprise/release-notes/) for your target version to understand:
-
-- Whether the upgrade changes the catalog format or is a one-way migration
-- Whether a rollback to the previous version remains possible
-- Any special upgrade procedures or constraints
 
 {{% /show-in %}}
