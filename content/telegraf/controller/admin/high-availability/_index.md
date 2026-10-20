@@ -110,6 +110,10 @@ runs the following only on the leader:
   heartbeats resume, and applies reporting-rule retention.
 - **Usage telemetry**: the cluster reports anonymous usage once, from the leader
   only, so the cluster counts as a single instance.
+- **Security advisory checks**: the scheduled retrieval of InfluxData
+  [security advisory](/telegraf/controller/security-advisories/) files.
+  Checks on demand and manual imports work from any node, and the applied
+  advisories are visible on every node.
 
 Every node, leader or standby, continues to:
 

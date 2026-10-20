@@ -78,6 +78,7 @@ A valid Telegraf Enterprise license unlocks the following features:
 - [High availability](/telegraf/controller/admin/high-availability/)
 - [LDAP authentication](/telegraf/controller/authentication/ldap/)
 - [OIDC authentication](/telegraf/controller/authentication/oidc/)
+- [Security advisories](/telegraf/controller/security-advisories/)
 
 API endpoints that require an enterprise feature return `403 Forbidden` when
 called on a free-tier instance:

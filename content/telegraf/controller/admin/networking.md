@@ -117,6 +117,9 @@ networks may need to allow:
 - **Audit log forwarding**: your syslog or webhook destinations, when
   [audit log forwarding](/telegraf/controller/admin/audit-logs/enable-configure/)
   is configured.
+- **Security advisory feeds**: `dl.influxdata.com` over HTTPS, when
+  [automatic advisory checks](/telegraf/controller/security-advisories/configure-checks/)
+  are enabled, or your internal mirror if you configure one.
 
 <!-- TODO: document analytics/telemetry outbound connections here alongside
   the planned telemetry pipeline update. Details in PLAN.md. -->

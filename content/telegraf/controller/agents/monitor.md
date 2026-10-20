@@ -13,6 +13,7 @@ related:
   - /telegraf/controller/agents/heartbeat-data/
   - /telegraf/controller/agents/status/
   - /telegraf/controller/agents/reporting-rules/
+  - /telegraf/controller/security-advisories/
 ---
 
 The **Agents** page summarizes the health of your Telegraf fleet at a glance
@@ -68,6 +69,12 @@ Use the controls above the agent list to filter it:
 - **Status**: show only agents in the selected status.
 - **Configuration**: show only agents assigned a specific configuration.
 - **Reporting rule**: show only agents assigned a specific reporting rule.
+- **Advisory exposure**: show only agents that are **Affected**,
+  **Unknown**, or **Not affected** by security advisories, or only agents
+  whose highest matching severity is **Critical**, **High**, **Medium**, or
+  **Low**. This filter and the **Advisories** column require a Telegraf
+  Enterprise license.
+  See [Find affected agents on the Agents page](/telegraf/controller/security-advisories/view/#find-affected-agents-on-the-agents-page).
 
 Active filters appear as chips above the list, for example,
 **Status: Not reporting** or **Config: web-servers**. Click the
