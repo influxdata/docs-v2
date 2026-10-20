@@ -191,9 +191,11 @@
       position: relative;
 
       &[state] {
-        &::after {
-          content: attr(state);
-          margin-left: .1rem;
+        --item-state: attr(state);
+
+        & > a.link-label::after {
+          content: var(--item-state);
+          margin-left: .4rem;
           font-size: .9em;
           color: rgba($nav-item, .6);
           font-style: italic;
@@ -201,7 +203,7 @@
       }
 
       &[state~='alpha' i], &[state~='beta' i] {
-        &::after {
+        & > a.link-label::after {
           padding: .1em .5em;
           font-size: .55em;
           font-weight: 500;
@@ -215,7 +217,7 @@
         }
       }
       &[state~='new' i] {
-        &::after {
+        & > a.link-label::after {
           padding: .1em .5em;
           font-size: .55em;
           font-weight: 500;
