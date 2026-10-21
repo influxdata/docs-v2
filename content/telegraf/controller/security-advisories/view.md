@@ -51,6 +51,8 @@ The overview card at the top of the page shows:
   where it came from.
   See [View feed status](/telegraf/controller/security-advisories/configure-checks/#view-feed-status).
 
+{{< img-hd src="/img/telegraf/controller-advisory-list.png" alt="Telegraf Controller security advisories list" />}}
+
 Users with write permission also see the
 **{{% lucide "upload" %}} Import advisory file** and
 **{{% lucide "refresh-cw" %}} Check for advisories** buttons.
