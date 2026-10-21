@@ -38,6 +38,9 @@ select **{{% lucide "eye" %}} View Details**. The page shows:
 
 - **Heartbeat Data**: the agent's status, when it last reported, its Telegraf
   version, and its recent [heartbeat statistics](#heartbeat-statistics).
+- **Security Advisories**: with a Telegraf Enterprise license, the
+  [security advisories](/telegraf/controller/security-advisories/) that
+  affect the agent's Telegraf version, or a note that none do.
 - **Agent Metadata**: labels, creation time, hostname, and reported IP
   address.
 - **Reporting Rule**: the assigned

@@ -85,13 +85,11 @@ Advisories that InfluxData withdraws are removed from the list and no longer
 count toward exposure.
 
 Advisories for {{% product-name %}} itself aren't matched against agents.
-{{% product-name %}} compares them with the version you are running and shows
-a message when the running version is affected.
-
-<!-- TODO: the Controller self-version comparison is being added to Telegraf
-  Controller (PR #890 follow-up). Verify the message wording and where it
-  appears once it ships, and add it to view.md under "The Security page at a
-  glance". -->
+Instead, {{% product-name %}} compares them with the version it is running.
+If the running version is affected, users with write permission see a banner
+on every page until {{% product-name %}} is upgraded, and the advisory's page
+reports whether this installation is affected.
+See [Check your Telegraf Controller version](/telegraf/controller/security-advisories/view/#check-your-telegraf-controller-version).
 
 ## Where advisories appear
 
@@ -101,9 +99,13 @@ a message when the running version is affected.
 - **Agents page**: an **Advisories** column shows each agent's exposure, and
   an **Advisory exposure** filter narrows the list to affected agents or to a
   severity.
-- **Notification banner**: when a newly applied advisory file matches agents
+- **Agent detail page**: a **Security Advisories** card lists the advisories
+  that affect the agent.
+- **Notification banners**: when a newly applied advisory file matches agents
   in your fleet, a banner appears on every page until a user with write
   permission acknowledges it.
+  A separate banner appears when the running {{% product-name %}} version is
+  affected by an advisory.
 
 See [Review advisories and affected agents](/telegraf/controller/security-advisories/view/).
 

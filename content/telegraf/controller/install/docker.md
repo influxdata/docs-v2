@@ -87,21 +87,23 @@ acceptance has no additional effect.
 ## Persist your data
 
 The container stores all of its state in `/var/lib/telegraf-controller`:
-the EULA acceptance record, the embedded SQLite database, and instance
-identity. Mount a volume at that path, as every example in this guide does.
+the EULA acceptance record, the embedded SQLite database, the
+[audit log](/telegraf/controller/admin/audit-logs/), and instance identity.
+Mount a volume at that path, as every example in this guide does.
 
 > [!Important]
 > Without a volume mounted at `/var/lib/telegraf-controller`, the container
 > is ephemeral. All data is lost when the container is removed.
 
-Named volumes (for example,
-`--volume telegraf-controller:/var/lib/telegraf-controller`) work without
-additional setup. If you bind-mount a host directory instead, make sure the
-directory is writable by the container user. The image runs as a non-root
-user, and you can find its UID with the following command:
+The container runs as the unprivileged user `telegraf-controller` (UID and
+GID `10001`). Named volumes (for example,
+`--volume telegraf-controller:/var/lib/telegraf-controller`) get the right
+ownership automatically. If you bind-mount a host directory instead, make
+the directory writable by that user first:
 
 ```bash
-docker run --rm --entrypoint id influxdata/telegraf-controller:{{< latest-patch >}} -u
+mkdir -p ./telegraf-controller-data
+sudo chown 10001:10001 ./telegraf-controller-data
 ```
 
 ## Configure the container
@@ -123,6 +125,12 @@ heartbeats). If you publish a different host port or serve
 {{% product-name %}} behind a reverse proxy, set the
 [public URL options](/telegraf/controller/reference/config-options/#public-urls-and-cors)
 so links and CORS checks use the external address.
+
+{{% product-name %}} secures login sessions with a secret that is generated
+at random on each start, so users are signed out whenever the container
+restarts. To keep sessions valid across restarts, set `SESSION_SECRET` to a
+long random value and pass the same value on every start.
+See [session-secret](/telegraf/controller/reference/config-options/#session-secret).
 
 ### Enable TLS
 
@@ -150,6 +158,10 @@ private key (`server.key`).
 > Make sure the certificate and key files on the host are readable by the
 > container user. If the container cannot read the files,
 > {{% product-name %}} logs a warning and serves plain HTTP.
+
+The built-in container health check uses plain HTTP, so override it when you
+serve HTTPS.
+See [Container health checks](#container-health-checks).
 
 To make agents trust the certificate, see
 [Secure agent connections with TLS](/telegraf/controller/admin/secure-tls/).
@@ -273,19 +285,26 @@ To use the embedded SQLite database instead, remove the `db` service, the
 
 ## Container health checks
 
-The image includes a built-in Docker health check that polls the readiness
-endpoint. Check the container's health state with the following command:
+The image includes a built-in Docker health check that requests
+`http://localhost:${APP_PORT}/health/ready` every 30 seconds, with a
+5-second timeout and a 30-second start period. Check the container's health
+state with the following command:
 
 ```bash
 docker inspect --format '{{.State.Health.Status}}' telegraf-controller
 ```
 
+> [!Note]
+> The built-in health check uses plain HTTP on the port set by `APP_PORT`.
+> If you serve HTTPS, or change the port with the `--port` flag instead of
+> `APP_PORT`, override the check with `--health-cmd` or disable it with
+> `--no-healthcheck`.
+
 For orchestrators and load balancers, {{% product-name %}} exposes two
 unauthenticated endpoints on the API port:
 
-- `GET /api/health/live`: the process is up.
-- `GET /api/health/ready`: dependencies, including the database, are
-  reachable.
+- `GET /health/live`: the process is up.
+- `GET /health/ready`: dependencies, including the database, are reachable.
 
 ## Next steps
 
