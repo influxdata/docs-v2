@@ -54,7 +54,7 @@ select **{{% lucide "eye" %}} View Details**. The page shows:
 Click **{{% lucide "refresh-ccw" %}} Refresh** in the page header to reload
 all of it.
 
-<!-- TODO: screenshot of the agent detail page showing the Heartbeat Data card with sparklines and the Reported Logs section expanded. Save to /static/img/telegraf/controller-agent-heartbeat-data.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-agent-heartbeat-data.png" alt="Telegraf Controller agent detail page with heartbeat data and reported logs" />}} -->
+{{< img-hd src="/img/telegraf/controller-agent-heartbeat-data.png" alt="Telegraf Controller agent detail page with heartbeat data and reported logs" />}}
 
 ## Heartbeat statistics
 

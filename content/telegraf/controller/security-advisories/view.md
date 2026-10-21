@@ -57,12 +57,6 @@ Users with write permission also see the
 See [Import an advisory file](/telegraf/controller/security-advisories/import/)
 and [Check for advisories on demand](/telegraf/controller/security-advisories/configure-checks/#check-for-advisories-on-demand).
 
-<!-- TODO: screenshot of the Security page with the overview card (Advisories
-  count, Fleet Exposure bar, Feed status) and the advisory list below it. Save
-  to /static/img/telegraf/controller-security-advisories.png and replace this
-  comment with:
-  {{< img-hd src="/img/telegraf/controller-security-advisories.png" alt="Security advisories page in Telegraf Controller" />}} -->
-
 ## Filter, search, and sort advisories
 
 The list below the overview shows every active advisory.
@@ -116,11 +110,7 @@ The same link is available from the row menu in the advisory list.
 If InfluxData withdraws an advisory after you open it, the page reports
 **Advisory Not Found**.
 
-<!-- TODO: screenshot of an advisory detail page showing the Advisory Details
-  card and the Affected Agents card. Save to
-  /static/img/telegraf/controller-security-advisory-details.png and replace
-  this comment with:
-  {{< img-hd src="/img/telegraf/controller-security-advisory-details.png" alt="Advisory details and affected agents in Telegraf Controller" />}} -->
+{{< img-hd src="/img/telegraf/controller-security-advisory-details.png" alt="Advisory details and affected agents in Telegraf Controller" />}}
 
 ## View affected agents
 
@@ -168,12 +158,6 @@ advisory.
 When no advisory applies, the card reports that no known advisories affect
 the agent, or that the agent's exposure is unknown.
 See [The agent detail page](/telegraf/controller/agents/heartbeat-data/#the-agent-detail-page).
-
-<!-- TODO: screenshot of the Agents page with the Advisories column visible
-  and the Advisory exposure filter set. Save to
-  /static/img/telegraf/controller-agents-advisory-exposure.png and replace
-  this comment with:
-  {{< img-hd src="/img/telegraf/controller-agents-advisory-exposure.png" alt="Agents page filtered by advisory exposure in Telegraf Controller" />}} -->
 
 ## Check your Telegraf Controller version
 
@@ -227,12 +211,6 @@ agents.
 
 When [audit logging](/telegraf/controller/admin/audit-logs/) is enabled, each
 acknowledgement is recorded as `advisory.feed.acknowledged`.
-
-<!-- TODO: screenshot of the "New advisories affect your fleet" banner with
-  the Acknowledge button. Save to
-  /static/img/telegraf/controller-security-advisory-banner.png and replace
-  this comment with:
-  {{< img-hd src="/img/telegraf/controller-security-advisory-banner.png" alt="New advisories banner in Telegraf Controller" />}} -->
 
 To acknowledge from the API, send the `feedTimestamp` reported in
 `banner.feedTimestamp` by the overview endpoint:
