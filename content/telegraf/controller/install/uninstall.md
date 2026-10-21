@@ -151,8 +151,8 @@ To fully remove a {{% product-name %}} Docker deployment:
     docker rm -f telegraf-controller
     ```
 
-2.  **Remove the data volume**, which includes the EULA acceptance record
-    and the SQLite database if using SQLite:
+2.  **Remove the data volume**, which includes the EULA acceptance record,
+    the audit log, and the SQLite database if using SQLite:
 
     > [!Caution]
     > Removing the volume permanently deletes all {{% product-name %}} data.

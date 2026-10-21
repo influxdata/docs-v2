@@ -72,6 +72,7 @@ platform-specific data directory:
 | Linux    | `$XDG_STATE_HOME/telegraf-controller/` (typically `~/.local/state/telegraf-controller/`) |
 | macOS    | `~/Library/Logs/telegraf-controller/`                                                    |
 | Windows  | `%LOCALAPPDATA%\telegraf-controller\Log`                                                 |
+| Docker   | `/var/lib/telegraf-controller/.local/state/telegraf-controller/`, inside the [data volume](/telegraf/controller/install/docker/#persist-your-data) |
 
 Files are named `audit-YYYY-MM.log`, one per calendar month.
 Each file is a SQLite database that enforces immutability through a database

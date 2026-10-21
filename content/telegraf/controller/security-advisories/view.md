@@ -29,6 +29,7 @@ and confirm that exposure drops to zero after a rollout.
 - [View advisory details](#view-advisory-details)
 - [View affected agents](#view-affected-agents)
 - [Find affected agents on the Agents page](#find-affected-agents-on-the-agents-page)
+- [Check your Telegraf Controller version](#check-your-telegraf-controller-version)
 - [Acknowledge new advisories](#acknowledge-new-advisories)
 - [Query advisories with the API](#query-advisories-with-the-api)
 
@@ -77,8 +78,9 @@ Use the controls above the list to narrow it:
 - **Product**: **All products**, **Telegraf**, or **Telegraf Controller**.
 - **Severity**: **All severities**, **Critical**, **High**, **Medium**, or
   **Low**.
-- **Affecting**: **All advisories**, **Affecting agents** (at least one
-  affected agent), or **Not affecting agents**.
+- **Affecting**: **All advisories**, **Affecting** (advisories with at least
+  one affected agent, or a {{% product-name %}} advisory that affects this
+  installation), or **Not affecting**.
 
 Click the **Severity** or **Published** column header to sort by that column.
 Click it again to reverse the order.
@@ -86,11 +88,15 @@ By default, the list is sorted by publication date, newest first.
 
 Advisories for {{% product-name %}} aren't matched against agents, so their
 agent counts show `—`.
+Instead, they are compared with the version of {{% product-name %}} you are
+running.
+See [Check your Telegraf Controller version](#check-your-telegraf-controller-version).
 
 ## View advisory details
 
-Click the **More button ({{% lucide "ellipsis-vertical" %}})** on a row and
-select **{{% lucide "eye" %}} View Details**.
+Click an advisory's title, or click the
+**More button ({{% lucide "ellipsis-vertical" %}})** on its row and select
+**{{% lucide "eye" %}} View Details**.
 The advisory page shows:
 
 - **Product**, **Severity** (with the CVSS version and score), **Published**,
@@ -156,11 +162,45 @@ The **Affected by** chip appears when you arrive from an advisory page.
 Click the {{% lucide "x" %}} icon on a chip to remove that filter.
 See [Filter the agent list](/telegraf/controller/agents/monitor/#filter-the-agent-list).
 
+On an agent's detail page, the **Security Advisories** card lists each
+advisory that affects the agent, with its severity and a link to the
+advisory.
+When no advisory applies, the card reports that no known advisories affect
+the agent, or that the agent's exposure is unknown.
+See [The agent detail page](/telegraf/controller/agents/heartbeat-data/#the-agent-detail-page).
+
 <!-- TODO: screenshot of the Agents page with the Advisories column visible
   and the Advisory exposure filter set. Save to
   /static/img/telegraf/controller-agents-advisory-exposure.png and replace
   this comment with:
   {{< img-hd src="/img/telegraf/controller-agents-advisory-exposure.png" alt="Agents page filtered by advisory exposure in Telegraf Controller" />}} -->
+
+## Check your Telegraf Controller version
+
+{{% product-name %}} compares the advisories published for
+{{% product-name %}} with the version it is running.
+If the running version falls inside an affected range, users with write
+permission for security advisories see a banner
+({{% lucide "shield-alert" %}}) at the top of every page:
+**This Telegraf Controller is affected.**
+The banner names the running version, the number of matching advisories, and
+the highest severity, for example
+**Version 1.2.0 matches 1 security advisory (highest severity: High). Upgrade Telegraf Controller to a fixed version.**
+Click **View advisory** to open the advisory, or **View advisories** when
+more than one matches.
+
+The banner can't be dismissed.
+It disappears after you [upgrade](/telegraf/controller/install/upgrade/) to a
+version that no advisory affects.
+
+The detail page of a {{% product-name %}} advisory includes a
+**Telegraf Controller** card that reports whether this installation is
+**Affected**, with the version to upgrade to, **Not affected**, or
+**Unknown** when the running version can't be determined.
+
+From the API, the `controller` object in the overview response reports the
+running version and its exposure.
+See [Query advisories with the API](#query-advisories-with-the-api).
 
 ## Acknowledge new advisories
 
@@ -219,13 +259,14 @@ Checking, importing, and acknowledging require write permission.
 | Endpoint | Description |
 | :------- | :---------- |
 | `GET /api/security-advisories` | List active advisories with their affected-agent counts. |
-| `GET /api/security-advisories/overview` | Fleet exposure, feed status, and banner state. |
+| `GET /api/security-advisories/overview` | Fleet exposure, the running {{% product-name %}} version and its exposure, feed status, and banner state. |
 | `GET /api/security-advisories/{advisoryId}` | One advisory, including its description, affected ranges, and CWEs. |
 | `GET /api/security-advisories/{advisoryId}/agents` | Agents affected by an advisory or with unknown exposure. |
 | `POST /api/security-advisories/feed/check` | [Check for advisories on demand](/telegraf/controller/security-advisories/configure-checks/#check-for-advisories-on-demand). |
 | `POST /api/security-advisories/feed/import` | [Import an advisory file](/telegraf/controller/security-advisories/import/#import-from-the-api). |
 | `POST /api/security-advisories/acknowledge` | [Acknowledge new advisories](#acknowledge-new-advisories). |
 | `GET /api/agents` | Each agent includes an `advisoryExposure` object, and the `advisoryExposure` and `advisory` query parameters filter the list. |
+| `GET /api/agents/{id}` | The agent's details include its `advisoryExposure` object. |
 
 The list endpoint accepts the following query parameters:
 
@@ -292,8 +333,25 @@ Each agent in the response includes an `advisoryExposure` object:
     "highestSeverity": "high",
     "count": 2,
     "advisories": [
-      { "advisoryId": "GHSA-xxxx-xxxx-xxxx", "summary": "Credential exposure in inputs.http debug logs" },
-      { "advisoryId": "GHSA-yyyy-yyyy-yyyy", "summary": "Denial of service in inputs.statsd" }
+      { "advisoryId": "GHSA-xxxx-xxxx-xxxx", "summary": "Credential exposure in inputs.http debug logs", "severity": "high" },
+      { "advisoryId": "GHSA-yyyy-yyyy-yyyy", "summary": "Denial of service in inputs.statsd", "severity": "medium" }
+    ]
+  }
+}
+```
+
+The overview response includes a `controller` object with the running
+{{% product-name %}} version and its exposure, in the same shape:
+
+```json
+{
+  "controller": {
+    "version": "1.2.0",
+    "state": "affected",
+    "highestSeverity": "high",
+    "count": 1,
+    "advisories": [
+      { "advisoryId": "GHSA-zzzz-zzzz-zzzz", "summary": "Example Telegraf Controller advisory", "severity": "high" }
     ]
   }
 }
