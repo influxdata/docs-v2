@@ -76,10 +76,7 @@ To download the files from a terminal instead, use the `curl` commands in
     file.
 4.  Click **Import**.
 
-<!-- TODO: screenshot of the Import advisory file dialog with both files
-  selected. Save to /static/img/telegraf/controller-advisories-import-dialog.png
-  and replace this comment with:
-  {{< img-hd src="/img/telegraf/controller-advisories-import-dialog.png" alt="Import advisory file dialog in Telegraf Controller" />}} -->
+{{< img-hd src="/img/telegraf/controller-advisories-import-dialog.png" alt="Import advisory file dialog in Telegraf Controller" />}}
 
 {{% product-name %}} verifies the signature, parses the file, and compares
 its timestamp with the file already applied:

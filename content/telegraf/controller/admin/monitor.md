@@ -57,11 +57,7 @@ the service is unhealthy, not only whether it responds.
 The heartbeat service health indicator appears near the bottom of the left
 navigation.
 
-<!-- TODO: screenshot of the heartbeat service health indicator near the
-  bottom of the left navigation, showing the healthy state. Save to
-  /static/img/telegraf/controller-admin-monitor-heartbeat-health-indicator.png
-  and replace this comment with:
-  {{< img-hd src="/img/telegraf/controller-admin-monitor-heartbeat-health-indicator.png" alt="Heartbeat service health indicator in the left navigation" />}} -->
+{{< img-hd src="/img/telegraf/controller-admin-monitor-heartbeat-health-indicator.png" alt="Heartbeat service health indicator in the left navigation" />}}
 
 | Status  | Indicator message                                                                                                 | Action                                                                                                                                                     |
 | :------ | :---------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |

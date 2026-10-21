@@ -58,7 +58,7 @@ visualizations:
 The summary reflects the current filters, so you can inspect the health of a
 subset of the fleet, for example, all agents using one configuration.
 
-<!-- TODO: screenshot of the Agents page with the More details section expanded, showing the Fleet Health tiles, Telegraf Versions donut, and Last Reported histogram. Save to /static/img/telegraf/controller-agents-summary.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-agents-summary.png" alt="Telegraf Controller agents page with the fleet summary expanded" />}} -->
+{{< img-hd src="/img/telegraf/controller-agents-summary.png" alt="Telegraf Controller agents page with the fleet summary expanded" />}}
 
 ## Filter the agent list
 
