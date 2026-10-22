@@ -2,8 +2,8 @@
 title: Monitor agents
 list_title: Monitor agents
 description: >
-  Use the Agents page summary visualizations, filters, and the fleet summary
-  API to monitor the health of your Telegraf fleet.
+  Use the Agents page summary visualizations, search, filters, and the fleet
+  summary API to monitor the health of your Telegraf fleet.
 menu:
   telegraf_controller:
     name: Monitor agents
@@ -17,14 +17,15 @@ related:
 ---
 
 The **Agents** page summarizes the health of your Telegraf fleet at a glance
-and lets you filter the agent list by status, configuration, and reporting
-rule. The same data is available from the fleet summary API for dashboards and
-automation.
+and lets you search the agent list and filter it by status, configuration, and
+reporting rule. The same data is available from the fleet summary API for
+dashboards and automation.
 
 <!-- TOC -->
 - [The Agents page at a glance](#the-agents-page-at-a-glance)
 - [View fleet summary details](#view-fleet-summary-details)
 - [Filter the agent list](#filter-the-agent-list)
+- [Search the agent list](#search-the-agent-list)
 - [Refresh the list](#refresh-the-list)
 - [Query the fleet summary API](#query-the-fleet-summary-api)
 <!-- /TOC -->
@@ -64,8 +65,10 @@ subset of the fleet, for example, all agents using one configuration.
 
 Use the controls above the agent list to filter it:
 
-- **Search** ({{% lucide "search" %}}): matches the agent's hostname, its
-  agent ID when no hostname was reported, or its IP address.
+- **Search** ({{% lucide "search" %}}): matches the agent's ID, hostname, IP
+  address, or Telegraf version. Toggles inside the search box switch on
+  regular expression and case-sensitive matching.
+  See [Search the agent list](#search-the-agent-list).
 - **Status**: show only agents in the selected status.
 - **Configuration**: show only agents assigned a specific configuration.
 - **Reporting rule**: show only agents assigned a specific reporting rule.
@@ -79,6 +82,49 @@ Use the controls above the agent list to filter it:
 Active filters appear as chips above the list, for example,
 **Status: Not reporting** or **Config: web-servers**. Click the
 {{% lucide "x" %}} icon on a chip to remove that filter.
+
+## Search the agent list
+
+Type in the search box above the agent list to find agents.
+The search matches the agent's ID, hostname, IP address, or Telegraf version.
+By default, the search finds the text anywhere in those fields and ignores
+case. For example, `prod` matches the hostnames `prod-web-01` and `PROD-DB-02`.
+
+Two toggles inside the search box change how the search matches:
+
+- **Use regular expression** ({{< lucide icon="regex" bordered="true" >}}):
+  treat the search text as a regular expression instead of plain text.
+  For example, `^web-0[1-3]$` matches the hostnames `web-01`, `web-02`, and
+  `web-03`, but not `web-04` or `prod-web-01`.
+  A pattern can be up to 512 characters long.
+  If the pattern is invalid, {{% product-name %}} shows the error below the
+  search box.
+- **Match case** ({{< lucide icon="case-sensitive" bordered="true" >}}):
+  match uppercase and lowercase letters exactly as typed.
+  For example, `Web` matches `Web-01` but not `web-01`.
+
+A toggle is highlighted while it's on.
+Turn both toggles off to return to the default plain-text search that ignores
+case.
+
+<!-- TODO: screenshot of the Agents page search box with "Use regular expression" turned on and a pattern entered. Save to /static/img/telegraf/controller-agents-search-modes.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-agents-search-modes.png" alt="Telegraf Controller agent search with the regular expression toggle enabled" />}} -->
+
+> [!Note]
+> #### Regular expression syntax depends on the database
+>
+> {{% product-name %}} evaluates the pattern in its database, so the supported
+> syntax depends on which database your instance uses:
+>
+> - **PostgreSQL**: [POSIX regular expressions](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP)
+> - **SQLite**: [Rust regular expression syntax](https://docs.rs/regex/latest/regex/#syntax)
+>
+> Common constructs such as anchors, character classes, alternation, and
+> quantifiers behave the same in both.
+
+The search text and both toggles are part of the page URL, so you can bookmark
+or share a filtered view of the agent list.
+The same search is available on the **Agents** tab of a configuration or a
+[configuration group](/telegraf/controller/config-groups/use/#view-agents-using-a-group).
 
 ## Refresh the list
 
@@ -97,10 +143,15 @@ All query parameters are optional:
 | Parameter       | Description                                              |
 | :-------------- | :------------------------------------------------------- |
 | `status`        | Agent status code to filter by                           |
-| `search`        | Matches hostname, agent ID (when no hostname), or IP address |
+| `search`        | Text to match against the agent ID, hostname, IP address, or Telegraf version |
+| `regex`         | `true` to treat `search` as a regular expression         |
+| `caseSensitive` | `true` to match `search` case-sensitively                |
 | `config`        | Configuration ID or [alias](/telegraf/controller/configs/aliases/) |
 | `group`         | Configuration group ID or alias                          |
 | `reportingRule` | Reporting rule ID                                        |
+
+The `GET /api/agents` endpoint that lists agents accepts the same `search`,
+`regex`, and `caseSensitive` parameters.
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="API_TOKEN" }
