@@ -38,7 +38,7 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | Location                                  | Description                                                                                   |
 | ----------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `<node_id>/`                              | Root directory for all node state                                                             |
-| `<node_id>/_catalog_checkpoint`           | Catalog state checkpoint file                                                                 |
+| `<node_id>/_catalog_checkpoint`           | Legacy catalog file; present only on installations that started before 3.4                                                                 |
 | `<node_id>/catalog/`                      | Catalog log files tracking catalog state changes                                              |
 | `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                 |
 | `<node_id>/snapshots/`                    | Snapshot files summarizing persisted [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                            |
@@ -51,7 +51,7 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | Location                                  | Description                                                                                                                                                                                           |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Cluster files**                         |                                                                                                                                                                                                       |
-| `<cluster_id>/_catalog_checkpoint`        | Catalog state checkpoint file                                                                                                                                                                         |
+| `<cluster_id>/_catalog_checkpoint`        | Legacy catalog file; present only on installations that started before 3.4                                                                                                                                                                         |
 | `<cluster_id>/catalog/`                   | Catalog log files tracking catalog state changes                                                                                                                                                      |
 | `<cluster_id>/commercial_license`         | Commercial [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
 | `<cluster_id>/trial_or_home_license`      | Trial or home [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
@@ -258,7 +258,7 @@ It copies object storage files in a specific order to ensure consistency.
 2. Database (dbs) directory
 3. WAL directory
 4. Catalog directory
-5. Catalog checkpoint file
+5. Catalog checkpoint file (only on installations that started before 3.4)
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -281,7 +281,11 @@ cp -r $DATA_DIR/${NODE_ID}/snapshots "$BACKUP_DIR/"
 cp -r $DATA_DIR/${NODE_ID}/dbs "$BACKUP_DIR/"
 cp -r $DATA_DIR/${NODE_ID}/wal "$BACKUP_DIR/"
 cp -r $DATA_DIR/${NODE_ID}/catalog "$BACKUP_DIR/"
-cp $DATA_DIR/${NODE_ID}/_catalog_checkpoint "$BACKUP_DIR/"
+# Present only on installations that started before 3.4
+if [ -f $DATA_DIR/${NODE_ID}/_catalog_checkpoint ]; then
+  cp $DATA_DIR/${NODE_ID}/_catalog_checkpoint \
+    "$BACKUP_DIR/"
+fi
 
 echo "Backup completed to $BACKUP_DIR"
 ```
@@ -316,8 +320,10 @@ aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/wal \
 aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/catalog \
   s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/catalog/
 
-aws s3 cp s3://${SOURCE_BUCKET}/${NODE_ID}/_catalog_checkpoint \
-  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/
+# Present only on installations that started before 3.4
+aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/ \
+  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/ \
+  --exclude "*" --include "_catalog_checkpoint"
 
 echo "Backup completed to s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}"
 ```
@@ -337,7 +343,7 @@ Replace the following:
 **Recommended backup order:**
 1. Compactor node directories (cs, cd, c)
 2. All nodes' snapshots, dbs, wal directories
-3. Cluster catalog and checkpoint
+3. Cluster catalog and, if present, the legacy catalog checkpoint file
 4. License files
 
 {{< tabs-wrapper >}}
@@ -387,8 +393,10 @@ echo "Backing up cluster catalog..."
 aws s3 sync s3://${SOURCE_BUCKET}/${CLUSTER_ID}/catalog \
   s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/catalog/
 
-aws s3 cp s3://${SOURCE_BUCKET}/${CLUSTER_ID}/_catalog_checkpoint \
-  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/
+# Present only on installations that started before 3.4
+aws s3 sync s3://${SOURCE_BUCKET}/${CLUSTER_ID}/ \
+  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/ \
+  --exclude "*" --include "_catalog_checkpoint"
 
 aws s3 cp s3://${SOURCE_BUCKET}/${CLUSTER_ID}/enterprise \
   s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/
@@ -445,7 +453,11 @@ done
 echo "Backing up cluster catalog..."
 mkdir -p "$BACKUP_DIR/${CLUSTER_ID}"
 cp -r $DATA_DIR/${CLUSTER_ID}/catalog "$BACKUP_DIR/${CLUSTER_ID}/"
-cp $DATA_DIR/${CLUSTER_ID}/_catalog_checkpoint "$BACKUP_DIR/${CLUSTER_ID}/"
+# Present only on installations that started before 3.4
+if [ -f $DATA_DIR/${CLUSTER_ID}/_catalog_checkpoint ]; then
+  cp $DATA_DIR/${CLUSTER_ID}/_catalog_checkpoint \
+    "$BACKUP_DIR/${CLUSTER_ID}/"
+fi
 cp $DATA_DIR/${CLUSTER_ID}/enterprise "$BACKUP_DIR/${CLUSTER_ID}/"
 
 # 4. Backup license files (if they exist)
@@ -480,7 +492,7 @@ that started on 3.10 or earlier that have not run the storage engine upgrade
 {{% show-in "core" %}}
 
 **Recommended restore order:**
-1. Catalog checkpoint file
+1. Catalog checkpoint file (only on installations that started before 3.4)
 2. Catalog directory
 3. WAL directory
 4. Database (dbs) directory
@@ -502,7 +514,11 @@ rm -rf ${DATA_DIR}/${NODE_ID}/*
 
 # 3. Restore in reverse order of backup
 mkdir -p ${DATA_DIR}/${NODE_ID}
-cp ${BACKUP_DIR}/_catalog_checkpoint ${DATA_DIR}/${NODE_ID}/
+# Present only on installations that started before 3.4
+if [ -f ${BACKUP_DIR}/_catalog_checkpoint ]; then
+  cp ${BACKUP_DIR}/_catalog_checkpoint \
+    ${DATA_DIR}/${NODE_ID}/
+fi
 cp -r ${BACKUP_DIR}/catalog ${DATA_DIR}/${NODE_ID}/
 cp -r ${BACKUP_DIR}/wal ${DATA_DIR}/${NODE_ID}/
 cp -r ${BACKUP_DIR}/dbs ${DATA_DIR}/${NODE_ID}/
@@ -552,7 +568,7 @@ Replace the following:
 {{% show-in "enterprise" %}}
 
 **Recommended restore order:**
-1. Cluster catalog and checkpoint
+1. Cluster catalog and, if present, the legacy catalog checkpoint file
 2. License files
 3. All nodes' snapshots, dbs, wal directories
 4. Compactor node directories (cs, cd, c)
@@ -573,8 +589,10 @@ TARGET_BUCKET="TARGET_BUCKET"
 # Implementation depends on your orchestration
 
 # 2. Restore cluster catalog and license first
-aws s3 cp s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/_catalog_checkpoint \
-  s3://${TARGET_BUCKET}/${CLUSTER_ID}/
+# Present only on installations that started before 3.4
+aws s3 sync s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/ \
+  s3://${TARGET_BUCKET}/${CLUSTER_ID}/ \
+  --exclude "*" --include "_catalog_checkpoint"
 
 aws s3 sync s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/catalog \
   s3://${TARGET_BUCKET}/${CLUSTER_ID}/catalog/
@@ -631,7 +649,11 @@ rm -rf ${DATA_DIR}/${CLUSTER_ID}/*
 
 # 3. Restore cluster catalog and license
 mkdir -p ${DATA_DIR}/${CLUSTER_ID}
-cp ${BACKUP_DIR}/${CLUSTER_ID}/_catalog_checkpoint ${DATA_DIR}/${CLUSTER_ID}/
+# Present only on installations that started before 3.4
+if [ -f ${BACKUP_DIR}/${CLUSTER_ID}/_catalog_checkpoint ]; then
+  cp ${BACKUP_DIR}/${CLUSTER_ID}/_catalog_checkpoint \
+    ${DATA_DIR}/${CLUSTER_ID}/
+fi
 cp -r ${BACKUP_DIR}/${CLUSTER_ID}/catalog ${DATA_DIR}/${CLUSTER_ID}/
 cp ${BACKUP_DIR}/${CLUSTER_ID}/enterprise ${DATA_DIR}/${CLUSTER_ID}/
 
