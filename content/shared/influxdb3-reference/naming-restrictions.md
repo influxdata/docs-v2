@@ -37,20 +37,22 @@ webserver123
 ```
 
 **Invalid database names:**
+{{% show-in "core,enterprise" %}}
 ```text
 my database        # Contains whitespace
 sensor.data        # Contains period
 app@server         # Contains special character
-_internal          # Starts with underscore (not recommended)
-```
-{{% show-in "core,enterprise" %}}
-```text
+_internal          # Starts with underscore
 /mydb              # Starts with a slash
 mydb/rp/extra      # Contains more than one slash
 ```
 {{% /show-in %}}
 {{% hide-in "core,enterprise" %}}
 ```text
+my database        # Contains whitespace
+sensor.data        # Contains period
+app@server         # Contains special character
+_internal          # Starts with underscore (not recommended)
 very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
 ```
 {{% /hide-in %}}
