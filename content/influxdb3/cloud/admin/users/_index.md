@@ -41,8 +41,8 @@ A user can belong to the following groups, each with predefined privileges:
   Members can't view or create admin tokens and can only view users and instances.
   Members can't use the console **Tokens** page, which requires the **Admin** role.
   To create database tokens, members use the `influxdb3` CLI or the HTTP API.
-- **Auditor**: View permission on users, instances, management tokens,
-  invitations, and query logs, and describe permission on databases.
+- **Auditor**: View permission on users, instances, and invitations,
+  and describe permission on databases.
   Auditors can see databases and schemas and view database tokens,
   but can't query or write data or modify resources.
 
