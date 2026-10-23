@@ -1,22 +1,22 @@
 ---
-title: Use the console to query data
-list_title: Use the console
+title: Use the Admin UI to query data
+list_title: Use the Admin UI
 description: >
-  Use the Query page in the {{% product-name %}} console to run SQL queries,
+  Use the Query page in the {{% product-name %}} Admin UI to run SQL queries,
   browse your database schema, and export results as CSV.
 weight: 300
 menu:
   influxdb3_cloud:
     parent: Execute queries
-    name: Use the console
-influxdb3/cloud/tags: [query, sql, console]
+    name: Use the Admin UI
+influxdb3/cloud/tags: [query, sql, admin ui]
 related:
   - /influxdb3/cloud/reference/sql/
   - /influxdb3/cloud/query-data/execute-queries/influxdb3-cli/
   - /influxdb3/cloud/query-data/execute-queries/influxdb-v3-api/
 ---
 
-Use the **Query** page in the {{% product-name %}} console to run SQL queries
+Use the **Query** page in the {{% product-name %}} Admin UI to run SQL queries
 against your databases without installing a client.
 The page includes a SQL editor, a schema browser, and a result preview.
 
@@ -28,7 +28,7 @@ The page includes a SQL editor, a schema browser, and a result preview.
 
 ## Open the Query page
 
-In the console, select your instance, and then select **Query**
+In the Admin UI, select your instance, and then select **Query**
 in the left navigation.
 
 The Query page is SQL-only.
@@ -86,11 +86,11 @@ For SQL syntax and functions, see the [SQL reference](/influxdb3/cloud/reference
 
 To save the results, select **Export _N_ rows** in the **Result preview**
 section.
-The console downloads the results as a CSV file.
+The Admin UI downloads the results as a CSV file.
 
 ## Query limits and access
 
-- The console returns at most 10,000 rows.
+- The Admin UI returns at most 10,000 rows.
   If a query returns more, the page shows
   "Showing the first 10,000 rows. Add a LIMIT or narrow the query to see the rest."
 - The databases in the **Database** list are the databases your account can access.
