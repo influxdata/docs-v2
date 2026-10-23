@@ -33,7 +33,7 @@ Access the {{% product-name %}} Admin UI at
 If you don't have login credentials,
 [contact InfluxData support](https://support.influxdata.com).
 
-<!-- TODO: Add an InfluxDB 3 Cloud Admin UI Users page screenshot. -->
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-users.png" alt="InfluxDB 3 Cloud Admin UI Users page" />}}
 
 The **Users** page displays your account information and a table of existing users and invitations. Use it to manage access to your InfluxDB account:
 
@@ -63,6 +63,8 @@ The **Invitations** tab displays the following information:
 - **Invitation Expires**
 - An **Actions** menu for each invitation
 
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-invitations.png" alt="InfluxDB 3 Cloud Admin UI Invitations tab" />}}
+
 ## Invite a user
 
 Only users with the **Admin** role can send new invitations.
@@ -76,6 +78,8 @@ Only users with the **Admin** role can send new invitations.
      - **Member**: Database access and database token management
      - **Auditor**: Read-only access to account resources
 3. Click **Send Invitation**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-invite-user.png" alt="Invite User dialog with the Roles list open" />}}
 
 An invitation email with an activation link is sent to the specified email address.
 The user must accept the invitation to gain access to your {{% product-name %}} instance.
@@ -100,6 +104,8 @@ You can revoke pending invitations that haven't been accepted yet:
 2. Locate the invitation you want to revoke.
 3. Click the **Actions** menu (three vertical dots) for that invitation.
 4. Select **Revoke Invitation**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-revoke-invitation.png" alt="Invitation Actions menu with Revoke Invitation" />}}
 
 The revocation takes effect immediately, without a confirmation prompt.
 Revoked invitations can no longer be used to access your instance.
@@ -146,6 +152,9 @@ Only users with the **Admin** role can change roles or remove users.
 1. On the **Users** tab, locate the user.
 2. Click the **Actions** menu (three vertical dots) for that user.
 3. Select **Edit Roles**.
+
+   {{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-user-actions-menu.png" alt="User Actions menu with Edit Roles and Remove User" />}}
+
 4. In the **Roles** list, select one or more roles.
    A user must have at least one role.
 5. Click **Save Changes**.
