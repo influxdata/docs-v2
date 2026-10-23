@@ -8,10 +8,21 @@ and avoids naming conflicts.
 
 Database names must follow these restrictions:
 
+{{% show-in "core,enterprise" %}}
+- **Length**: Maximum 511 ASCII characters
+- **Allowed characters**: ASCII alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), and dash (`-`).
+  Multibyte (non-ASCII) characters are not allowed.
+- **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
+  The slash can't be the first or last character.
+- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Starting character**: Must start with an ASCII letter or number
+{{% /show-in %}}
+{{% hide-in "core,enterprise" %}}
 - **Length**: Maximum 64 characters
-- **Allowed characters**: Only alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
 - **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
 - **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+{{% /hide-in %}}
 - **Case sensitivity**: Database names are case-sensitive
 
 ### Examples
@@ -26,6 +37,17 @@ webserver123
 ```
 
 **Invalid database names:**
+{{% show-in "core,enterprise" %}}
+```text
+my database        # Contains whitespace
+sensor.data        # Contains period
+app@server         # Contains special character
+_internal          # Starts with underscore
+/mydb              # Starts with a slash
+mydb/rp/extra      # Contains more than one slash
+```
+{{% /show-in %}}
+{{% hide-in "core,enterprise" %}}
 ```text
 my database        # Contains whitespace
 sensor.data        # Contains period
@@ -33,6 +55,7 @@ app@server         # Contains special character
 _internal          # Starts with underscore (not recommended)
 very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
 ```
+{{% /hide-in %}}
 
 ## Table (measurement) names
 
