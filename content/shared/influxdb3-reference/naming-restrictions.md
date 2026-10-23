@@ -130,7 +130,7 @@ When using SQL to query {{% product-name %}}:
 - **Unquoted identifiers**: Must start with letter or underscore, contain only letters, digits, or underscores
 - **Quoted identifiers**: Use double quotes (`"`) for names with special characters, whitespace, or to preserve case
 - **Case sensitivity**: Unquoted identifiers are case-insensitive, quoted identifiers are case-sensitive
-- **Reserved keywords**: [SQL keywords](/influxdb3/clustered/reference/sql/#keywords) must be quoted when used as identifiers
+- **Reserved keywords**: [SQL keywords](/influxdb3/version/reference/sql/#keywords) must be quoted when used as identifiers
 
 ### InfluxQL identifiers
 
@@ -139,7 +139,7 @@ When using InfluxQL to query {{% product-name %}}:
 - **Unquoted identifiers**: Must start with ASCII letter or underscore, contain only ASCII letters, digits, or underscores
 - **Quoted identifiers**: Use double quotes (`"`) for names with special characters or whitespace
 - **Case sensitivity**: All identifiers are case-sensitive
-- **Reserved keywords**: [InfluxQL keywords](/influxdb3/clustered/reference/influxql/#keywords) must be quoted when used as identifiers
+- **Reserved keywords**: [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords) must be quoted when used as identifiers
 - **Character encoding**: UTF-8 encoding supported
 
 ## Reserved namespaces
@@ -175,8 +175,8 @@ Avoid using these common reserved keywords as identifiers without quoting:
 - `LIMIT`, `OFFSET`, `SLIMIT`, `SOFFSET`
 
 For complete lists, see:
-- [SQL keywords](/influxdb3/clustered/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb3/clustered/reference/influxql/#keywords)
+- [SQL keywords](/influxdb3/version/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
 
 ## Best practices
 
