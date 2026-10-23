@@ -16,7 +16,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 3. Ingests or rejects data from the batch and returns one of the following HTTP status codes:
 
    - `204 No Content`: All of the data is ingested and queryable.
-   - `400 Bad Request`: Some {{% show-in "cloud-dedicated,clustered" %}}(_when **partial writes** are configured for the cluster_){{% /show-in %}} or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
+   - `400 Bad Request`: Some or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
 
    The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
