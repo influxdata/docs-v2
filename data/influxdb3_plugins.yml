@@ -29,7 +29,7 @@
   tags:
     - scheduled
     - HTTP request
-  introduced: v0.1.0
+  introduced: v0.1.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/chronos_forecasting
 - name: downsampler
@@ -80,7 +80,7 @@
   description: Enables seamless data import from InfluxDB v1, v2, or v3 instances to InfluxDB 3 Core/Enterprise
   tags:
     - HTTP request
-  introduced: v0.3.0
+  introduced: v0.5.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/import
 - name: influxdb_to_iceberg

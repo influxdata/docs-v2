@@ -15,7 +15,7 @@ Supports both scheduled batch forecasting and on-demand HTTP-triggered forecasts
 - **Model flexibility**: Supports Chronos-2 (group attention multivariate), Chronos-Bolt (fast), and original Chronos-T5
 - **Multivariate support**: Chronos-2 models accept covariate fields for multivariate forecasting; `covariate_mode` selects whether they are used as auxiliary `past_covariates` or as jointly forecast target series
 - **Prediction intervals**: Returns 50% and 80% prediction intervals alongside median forecasts
-- **Model caching**: Downloaded models are cached on disk (HuggingFace cache) for fast reloads
+- **Model caching**: Downloaded models are cached on disk (HuggingFace cache), and a loaded model is kept in memory and shared by later runs
 
 ## Configuration
 
@@ -193,8 +193,9 @@ curl -X POST "http://localhost:8181/api/v3/engine/forecast_series" \
   Queries historical data, runs inference, and returns JSON with historical context and forecast points including confidence intervals.
 - **`process_scheduled_call(influxdb3_local, call_time: datetime, args: dict | None = None)`**: Scheduled entry point for recurring forecasts.
   Reads config from trigger args or TOML, queries with `date_bin` aggregation, runs inference, and writes results back via `LineBuilder`.
-- **`_load_model(model_id, influxdb3_local, task_id)`**: Loads Chronos models from HuggingFace.
-  The plugin module is reloaded on every trigger run, so there is no in-process model cache; reloads are served from the on-disk HuggingFace cache (`HF_HOME`).
+- **`_load_model(model_id, influxdb3_local, task_id)`**: Loads a Chronos model from HuggingFace once and keeps it for later runs (the two most recently used models).
+  The module is reloaded on every trigger run, so the loaded models and a load lock live in a module registered in `sys.modules`.
+  Loads are serialized: transformers' `from_pretrained` swaps process-wide functions while it builds a model, and overlapping loads could leave weight tying switched off for good, failing every later forecast with `Tensor.item() cannot be called on meta tensors` until a restart.
 - **`_build_query_simple(table, fields, where_clause, context_limit)` / `_build_query_aggregated(measurement, fields, window, agg_interval, tag_values, context_limit)`**: Build the SQL that selects the target and any covariate fields in a single query, so every row stays time-aligned (covariates are aligned to the target by bin/row, not by length).
 - **`_query_aligned_series(influxdb3_local, sql, aliases, time_col, reverse=False)` / `_fill_nulls(seq)`**: Execute the query, drop rows with a null target, keep covariate columns row-aligned, and forward/back-fill covariate gaps.
 - **`_build_model_input(target_vals, covariates, model_id, covariate_mode)`**: Builds the model input appropriate to the model type.
@@ -258,7 +259,13 @@ Forecast results (scheduled mode) are written to the target measurement with the
 
 - `chronos-bolt-tiny` (~8M params) provides near-instant CPU inference.
 - `amazon/chronos-2` is significantly slower on CPU (1-3 seconds per forecast).
-- The first invocation downloads the model; subsequent calls reload it from the on-disk HuggingFace cache (`HF_HOME`). There is no in-process model cache, since the plugin module is reloaded on every trigger run.
+- The first invocation downloads the model and loads it; later calls reuse the loaded model, so only the first run after a restart pays for loading.
+
+**`Inference failed: Tensor.item() cannot be called on meta tensors`**
+
+- Versions before 0.1.1 loaded the model on every run, and two runs loading at once could break the transformers library for every later run until InfluxDB restarted.
+  Update the plugin and restart InfluxDB once.
+- From 0.1.1 the plugin can still report a model that loaded with weights missing if another plugin loads a transformers model at the same moment; restart InfluxDB.
 
 **Multivariate mode not engaging**
 
