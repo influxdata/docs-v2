@@ -126,7 +126,7 @@ The invitation status changes to `Revoked`.
   (after `influxdb3 auth login --oauth`) or the HTTP API.
 
 ### Auditor
-- Can view users, instances, management tokens, invitations, and query logs
+- Can view users, instances, and invitations
 - Can describe databases to see databases and schemas, but cannot query or write data
 - Can view database (resource) tokens, but has no access to admin tokens
 - Cannot send or revoke invitations or modify any resources
