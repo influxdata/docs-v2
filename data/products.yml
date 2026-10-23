@@ -14,6 +14,9 @@ influxdb3_core:
   search_includes_resources: false
   latest: core
   latest_patch: 3.12.0
+  # Quay image tag (release commit SHA in influxdata/influxdb) for latest_patch.
+  # Update together with latest_patch.
+  latest_quay_tag: 3ba97c65f1ee4e1f127a8266517d4d2083b7ea39
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -61,6 +64,9 @@ influxdb3_enterprise:
   search_includes_resources: false
   latest: enterprise
   latest_patch: 3.12.0
+  # Quay image tag (release commit SHA in influxdata/influxdb_pro) for latest_patch.
+  # Update together with latest_patch.
+  latest_quay_tag: 7dd361197ee2834eaa56089b67ffe59ad02e349a
   placeholder_host: localhost:8181
   scheme: http
   limits:

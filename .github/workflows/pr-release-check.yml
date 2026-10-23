@@ -16,7 +16,12 @@ name: Release Version Check
 #      rendered download/install URLs are verified (non-blocking) by
 #      pr-link-check.yml, which checks those pages on any data/products.yml change.
 #
-# Neither job blocks merge.
+#   3. quay-tag — fails when an InfluxDB 3 product's latest_patch changes but its
+#      latest_quay_tag doesn't. Quay tags images by release commit SHA, and the
+#      install page renders the version and tag together, so a stale tag pairs
+#      the new version with the previous release's image.
+#
+# Jobs 1 and 2 don't block merge. Job 3 fails the check.
 
 on:
   pull_request:
@@ -27,6 +32,8 @@ on:
       - 'content/shared/v3-core-enterprise-release-notes/**'
       - 'data/products.yml'
       - '.ci/scripts/check-release-notes-version.js'
+      - '.ci/scripts/check-quay-tag.js'
+      - '.ci/scripts/check-quay-tag.test.js'
       - '.github/workflows/pr-release-check.yml'
 
 permissions:
@@ -164,3 +171,37 @@ jobs:
               echo "No \`latest_patch\`/\`latest_patches\` change detected — nothing to remind."
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+
+  quay-tag:
+    name: Quay tag check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      - name: Test the check
+        run: node --test .ci/scripts/check-quay-tag.test.js
+
+      # Compare the PARSED latest_patch and latest_quay_tag values between base
+      # and head; fail when a version bump leaves the Quay tag unchanged.
+      - name: Check latest_quay_tag against latest_patch
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git show "$BASE_SHA:data/products.yml" > /tmp/products-old.yml \
+            2>/dev/null || echo '{}' > /tmp/products-old.yml
+          node .ci/scripts/check-quay-tag.js \
+            /tmp/products-old.yml data/products.yml

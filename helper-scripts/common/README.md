@@ -11,8 +11,15 @@ Updates product version information in documentation configuration files.
 **Usage:**
 
 ```bash
-./update-product-version.sh --product <product> --version <version>
+./update-product-version.sh --product <product> --version <version> [--quay-tag <sha>]
 ```
+
+For `core` and `enterprise`, pass `--quay-tag` with the release commit SHA
+(`influxdata/influxdb` for Core, `influxdata/influxdb_pro` for Enterprise).
+Quay tags images by that SHA, and the install page renders it from
+`latest_quay_tag` in `data/products.yml`.
+The **Quay tag check** in `pr-release-check.yml` fails when `latest_patch`
+changes and `latest_quay_tag` doesn't.
 
 **Supported Products:**
 
@@ -26,7 +33,8 @@ Updates product version information in documentation configuration files.
 
 ```bash
 # Update Core to version 3.2.1
-./update-product-version.sh --product core --version 3.2.1
+./update-product-version.sh --product core --version 3.2.1 \
+  --quay-tag <release-commit-sha>
 
 # Update Clustered to version 2024.1
 ./update-product-version.sh --product clustered --version 2024.1
