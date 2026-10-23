@@ -1,6 +1,6 @@
 
 Use the [`influxdb3 delete database` command](/influxdb3/version/reference/cli/influxdb3/delete/database/),
-the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}} to delete a database from {{< product-name >}}.
+the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}{{% show-in "cloud" %}}, or the Admin UI{{% /show-in %}} to delete a database from {{< product-name >}}.
 
 > [!Caution]
 > #### Deleting a database cannot be undone
@@ -10,7 +10,7 @@ the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 
 
 - [Delete a database using the influxdb3 CLI](#delete-a-database-using-the-influxdb3-cli)
 - [Delete a database using the HTTP API](#delete-a-database-using-the-http-api)
-{{% hide-in "cloud" %}}- [Delete a database using InfluxDB 3 Explorer](#delete-a-database-using-influxdb-3-explorer){{% /hide-in %}}
+{{% hide-in "cloud" %}}- [Delete a database using InfluxDB 3 Explorer](#delete-a-database-using-influxdb-3-explorer){{% /hide-in %}}{{% show-in "cloud" %}}- [Delete a database using the Admin UI](#delete-a-database-using-the-admin-ui){{% /show-in %}}
 {{% show-in "enterprise" %}}- [Delete data only (preserve schema and resources)](#delete-data-only-preserve-schema-and-resources){{% /show-in %}}
 
 ## Delete a database using the influxdb3 CLI
@@ -74,6 +74,23 @@ You can also delete databases using the [InfluxDB 3 Explorer](/influxdb3/explore
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
 {{% /hide-in %}}
+{{% show-in "cloud" %}}
+## Delete a database using the Admin UI
+
+Use the {{< product-name >}} Admin UI to delete a database:
+
+1. In the Admin UI, select your instance, and then click **Databases**.
+2. In the row for the database you want to delete, click the options menu (**&vellip;**)
+   and select **Delete Database**.
+3. In the **Delete Database** dialog, read the warning.
+4. Select **I understand the risk of this action**.
+5. In **Enter Database Name to Delete**, enter the name of the database.
+6. Click **Delete Database**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-databases-row-menu.png" alt="The options menu for a database row with Set Retention Period and Delete Database" />}}
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-databases-delete.png" alt="The Delete Database confirmation dialog" />}}
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 ## Delete data only (preserve schema and resources)
