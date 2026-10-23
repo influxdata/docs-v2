@@ -134,7 +134,7 @@ The `query_log` table in `_internal` includes the following columns:
 | **trace_id** | string | Trace ID for debugging and monitoring |
 | **success** | string | Query execution status (`'true'` or `'false'` as string) |
 | **running** | string | Indicates if query is currently running (`'true'` or `'false'` as string) |
-| **phase** | string | Current query phase (for example, `received`, `planned`, `permit`, `success`, `fail`, `cancel`) |
+| **phase** | string | Current query phase (see [Query phases](#query-phases)) |
 | **query_issue_time_ns** | int64 | Time when the query was issued (nanoseconds) |
 | **permit_duration_ns** | int64 | Time spent waiting for query permit (nanoseconds) |
 | **plan_duration_ns** | int64 | Time spent planning the query (nanoseconds) |
@@ -145,6 +145,19 @@ The `query_log` table in `_internal` includes the following columns:
 | **parquet_file_count** | int64 | Number of Parquet files read |
 | **max_memory_bytes** | int64 | Maximum memory used during query execution (bytes) |
 
+#### Query phases
+
+The `phase` column contains one of the following values:
+
+- `received`: The server received the query (initial state).
+- `logically_planned`: Logical planning is complete.
+- `physically_planned`: Physical planning is complete and the query is waiting for an execution permit.
+- `execution_permit`: The query has an execution permit and is likely running.
+- `success`: The query finished successfully (terminal state).
+- `fail`: The query failed with an error (terminal state).
+- `cancel`: The query was canceled, likely by the user or a downstream component (terminal state).
+
+Phase names are current as of the InfluxDB IOx source in April 2026.
 
 > [!Note]
 > #### Use string literals for status columns
