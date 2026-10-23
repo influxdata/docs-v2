@@ -174,7 +174,7 @@ paths:
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
            - `204 No Content`: All data in the batch is ingested.
-           - `400 Bad Request`: Some (_when **partial writes** are configured for the cluster_) or all of the data has been rejected. Data that has not been rejected is ingested and queryable.
+           - `400 Bad Request`: Some or all of the data has been rejected. For a partial write, data that has not been rejected is ingested and queryable, and the response includes the `influxdata-partial-write: true` header.
 
         The response body contains error details about [rejected points](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
@@ -305,24 +305,21 @@ paths:
                `Content-Encoding: gzip` header.
         required: true
       responses:
-        '201':
-          description: |
-            Success ("Created"). Some points in the batch are written and queryable, and some points are rejected. The response body contains details about the [rejected points](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
-          content:
-            application/json:
-              examples:
-                partialWriteErrorWithRejectedPoints:
-                  summary: Partial write rejects points with syntax errors
-                  value:
-                    code: invalid
-                    line: 2
-                    message: 'failed to parse line protocol: errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
-              schema:
-                $ref: '#/components/schemas/LineProtocolError'
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
         '400':
-          description: All data in body was rejected and not written.
+          description: |
+            Some or all data in the batch was rejected.
+            For a partial write, points that are not rejected are written and queryable, and the response includes the `influxdata-partial-write: true` header.
+            The response body contains details about the [rejected points](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+          headers:
+            influxdata-partial-write:
+              description: |
+                Present with the value `true` only when a partial write occurred (some points were written and some were rejected).
+              schema:
+                type: string
+                enum:
+                  - 'true'
           content:
             application/json:
               examples:
@@ -331,7 +328,13 @@ paths:
                   value:
                     code: invalid
                     line: 2
-                    message: 'failed to parse line protocol: errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                    message: 'no data written, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
+                partialWriteErrorWithRejectedPoints:
+                  summary: Partial write rejects some points
+                  value:
+                    code: invalid
+                    line: 2
+                    message: 'partial write has occurred, errors encountered on line(s): error message for first rejected point</n> error message for second rejected point</n> error message for Nth rejected point (up to 100 rejected points)'
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
         '401':
@@ -502,8 +505,8 @@ paths:
         3. Ingests or rejects data in the batch and returns one of the following HTTP status codes:
 
            - `204 No Content`: all data in the batch is ingested
-           - `201 Created` (_If the cluster is configured to allow **partial writes**_): some points in the batch are ingested and queryable, and some points are rejected
-           - `400 Bad Request`: all data is rejected
+           - `400 Bad Request`: some or all of the data in the batch is rejected.
+             For a partial write, points that are not rejected are ingested and queryable, and the response includes the `influxdata-partial-write: true` header.
 
         The response body contains error details about [rejected points](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
 
@@ -573,10 +576,18 @@ paths:
           description: Success ("No Content"). All data in the batch is written and queryable.
         '400':
           description: |
-            Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
-            If a partial write occurred, then some points from the batch are written and queryable. 
+            Some or all data in the batch was rejected. The response body indicates if a partial write occurred or all data was rejected.
+            If a partial write occurred, then some points from the batch are written and queryable, and the response includes the `influxdata-partial-write: true` header.
 
             The response body contains details about the [rejected points](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
+          headers:
+            influxdata-partial-write:
+              description: |
+                Present with the value `true` only when a partial write occurred (some points were written and some were rejected).
+              schema:
+                type: string
+                enum:
+                  - 'true'
           content:
             application/json:
               examples:
