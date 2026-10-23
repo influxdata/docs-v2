@@ -97,7 +97,7 @@ influxdb3_cloud:
   altname: InfluxDB 3 Cloud
   namespace: influxdb3
   content_path: influxdb3/cloud
-  label_group: v3-distributed
+  label_group: v3-cloud
   menu_category: managed
   versions: [cloud]
   list_order: 1
