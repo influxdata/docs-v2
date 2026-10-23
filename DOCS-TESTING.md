@@ -10,6 +10,7 @@ For agent-specific guidance, see the [docs-testing skill](.agents/skills/docs-te
 | **Codeblock lint**       | `yarn lint-codeblocks <files>`                        | Any content change             |
 | **Code block execution** | `yarn test:codeblocks:<product>`                      | After adding runnable examples |
 | **Link validation**      | `link-checker map <path> \| xargs link-checker check` | After adding/changing links    |
+| **Prose linting**        | `yarn lint:prose <files>`                             | Any content change             |
 | **Style linting**        | `.ci/vale/vale.sh content/**/*.md`                    | Any content change             |
 | **E2E tests**            | `node cypress/support/run-e2e-specs.js <file>`        | Template or UI changes         |
 | **Shortcode examples**   | `yarn test:shortcode-examples`                        | Shortcode changes              |
@@ -25,6 +26,7 @@ When you run `git commit`, these checks run against staged files:
 | `deprecated-markdown-patterns` | `content/**/*.md`                                              | Banned shortcodes, `py` instead of `python` |
 | `check-support-links`          | `content/**/*.md`                                              | Non-standard support.influxdata.com links   |
 | `check-source-paths`           | `content/**/*.md`                                              | `source:` values must start with `/shared/` |
+| `lint-prose`                   | `content/**/*.md`, instruction files                           | Prose style findings (never blocks)         |
 | Vale per-product               | `content/**/*.md`                                              | Style, branding, vocabulary                 |
 | `lint-markdown-instructions`   | `README.md`, `[A-Z]*.md`, `.github/**/*.md`, `.claude/**/*.md` | Remark formatting (auto-fixed)              |
 | `lint-instructions`            | Same as above                                                  | Vale (instructions config)                  |
@@ -51,6 +53,7 @@ LEFTHOOK=0 git push
 
 ### CI checks on every PR
 
+- **Prose lint** (`.github/workflows/pr-prose-lint.yml`) — annotates style findings; never blocks merge
 - **Vale** (`.github/workflows/pr-vale-check.yml`) — errors block merge
 - **Link checker** (`.github/workflows/pr-link-check.yml`) — checks changed pages
 - **Codeblock lint** (`.github/workflows/test.yml`) — parse/compile check; JSON/YAML/TOML failures block merge
@@ -204,6 +207,33 @@ link-checker check \
 ```
 
 Local checks resolve relative links to the local filesystem. CI checks resolve them to the production site.
+
+## Prose Linting
+
+`scripts/ci/lint-prose.mjs` checks Markdown prose against the rules in
+`scripts/ci/prose-lint/rules.yml`: InfluxData terms, product names,
+Google developer documentation style rules, repeated words, and clichés.
+It parses Markdown, so it never checks code, front matter, URLs, paths,
+or shortcodes.
+Findings are warnings or notices and never block a commit or merge.
+
+```sh
+yarn lint:prose content/influxdb3/core/get-started/_index.md
+```
+
+To skip prose that is wrong on purpose or copied from upstream, wrap it
+in comments on their own lines.
+Name rules to skip only those rules:
+
+```markdown
+<!-- prose-lint off -->
+<!-- prose-lint off Ordinal, RepeatedWords -->
+<!-- prose-lint on -->
+```
+
+To add a rule, add an entry with `flag` and `pass` examples to
+`rules.yml`, then run `yarn test:lint-prose`.
+The test fails if an example isn't flagged or passed as expected.
 
 ## Style Linting (Vale)
 
