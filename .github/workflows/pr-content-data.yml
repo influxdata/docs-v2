@@ -1,0 +1,42 @@
+name: Content Data
+
+# Checks content and download files against data/sample_data.yml and the
+# product limits in data/products.yml.
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'data/sample_data.yml'
+      - 'data/products.yml'
+      - 'static/downloads/**'
+      - 'assets/js/custom-timestamp*.js'
+      - 'assets/js/__tests__/custom-timestamp-values.test.mjs'
+      - 'assets/js/__tests__/sample-data.test.mjs'
+      - 'assets/js/__tests__/product-limits.test.mjs'
+      - '.github/workflows/pr-content-data.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-content-data-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test content against data files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup docs environment
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      - name: Run content data tests
+        run: yarn test:content-data
