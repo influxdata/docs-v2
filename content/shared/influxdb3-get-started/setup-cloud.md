@@ -54,7 +54,7 @@ script:
 
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh enterprise --version 3.10.0
+&& sh install_influxdb3.sh enterprise --version {{% latest-patch product="influxdb3_enterprise" %}}
 ```
 
 The installer script defaults to an older version of the CLI.
