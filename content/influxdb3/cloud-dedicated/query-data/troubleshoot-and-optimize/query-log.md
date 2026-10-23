@@ -157,8 +157,6 @@ The `phase` column contains one of the following values:
 - `fail`: The query failed with an error (terminal state).
 - `cancel`: The query was canceled, likely by the user or a downstream component (terminal state).
 
-Phase names are current as of the InfluxDB IOx source in April 2026.
-
 > [!Note]
 > #### Use string literals for status columns
 >
