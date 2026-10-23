@@ -70,7 +70,7 @@ label:review:needs-human is:pr is:open
 label:agent-ready is:issue is:open -label:waiting:engineering -label:waiting:product
 
 # All InfluxDB 3 issues
-label:product:v3-monolith,product:v3-distributed is:issue is:open
+label:product:v3-monolith,product:v3-distributed,product:v3-cloud is:issue is:open
 
 # Blocked issues
 label:waiting:engineering,waiting:product is:issue is:open
