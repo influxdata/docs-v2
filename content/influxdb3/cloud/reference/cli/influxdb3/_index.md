@@ -61,7 +61,7 @@ The following commands don't work or don't apply:
 | `influxdb3 stop node`, `influxdb3 remove node` | InfluxData manages cluster nodes. |
 | `influxdb3 create user`, `influxdb3 update user`, `influxdb3 update user-roles`, `influxdb3 delete user`, `influxdb3 show users` | [Manage users and roles in the Admin UI](/influxdb3/cloud/admin/users/admin-ui/). |
 | `influxdb3 install package` | Package installation is disabled. |
-| `influxdb3 create trigger` with `--upload`, `--plugin-filename`, or `--path` for your own plugin | You can't upload custom plugins. Use the preinstalled plugins. |
+| `influxdb3 create trigger` with `--upload`, or with a `gh:` plugin path | You can't upload plugins or fetch them from a plugin repository. Use `--path` with the filename of a preinstalled plugin. |
 | `influxdb3 create trigger` with a `table:`, `all_tables`, or `request:` trigger spec | Only `every:` and `cron:` (schedule) triggers are allowed. |
 | `influxdb3 create file_index`, `influxdb3 delete file_index` | The file index API isn't available. |
 | `influxdb3 create query_group`, `influxdb3 update query_group`, `influxdb3 delete query_group`, `influxdb3 show query_groups` | The query group API isn't available. |
