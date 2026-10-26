@@ -25,6 +25,13 @@ labels, and lifecycle from the group detail page.
     **Configurations > Config Groups** in the navigation bar.
 2.  Click **{{% lucide "plus" %}} Add Config Group**.
 3.  Enter a group name and optional description.
+    Names are unique among configuration groups, matched exactly including
+    case, and can be up to 255 characters.
+    If the name is already taken, {{% product-name %}} reports
+    `Configuration group "<name>" already exists` and the dialog stays open.
+    Through the API, the create request returns `409 Conflict` with
+    `"error": "config_group_name_taken"`.
+    A configuration group and a configuration can share a name.
 4.  _(Optional)_ To assign
     [aliases](/telegraf/controller/config-groups/aliases/) to the group,
     click **{{% lucide "plus" %}} Add Alias** and enter an alias that
@@ -83,6 +90,9 @@ issues in the merged output are listed above the preview.
 
 On the group detail page, click the group name or description, enter a new
 value, and confirm.
+Names are unique among configuration groups and can be up to 255 characters.
+If another group already has the new name, the field stays open and shows
+`Configuration group "<name>" already exists`.
 
 ## Manage group labels
 
