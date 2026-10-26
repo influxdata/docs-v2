@@ -188,6 +188,10 @@ interface and API traffic:
 | Unlicensed                       |        No        |   No leader elected  |    No (returns 503)   |
 
 Agent heartbeats are always accepted on every node, regardless of license state.
+Scale limits apply to the cluster as a whole: before a node registers a new
+agent, it checks the agent limit against the shared database, so a cluster
+admits no more agents than a single node would.
+See [Scale limits](/telegraf/controller/telegraf-enterprise/license-enforcement/#scale-limits).
 
 Licensing is checked when a node tries to acquire the lock, not continuously. A
 node that is already the leader when its license expires keeps the lock, but no
