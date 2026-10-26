@@ -16546,6 +16546,9 @@ components:
         flags:
           format: uri
           type: string
+        invocableScripts:
+          format: uri
+          type: string
         labels:
           format: uri
           type: string
@@ -16618,6 +16621,12 @@ components:
         tasks:
           format: uri
           type: string
+        telegraf:
+          properties:
+            plugins:
+              format: uri
+              type: string
+          type: object
         telegrafs:
           format: uri
           type: string
