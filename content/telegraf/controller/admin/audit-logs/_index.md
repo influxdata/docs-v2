@@ -60,7 +60,8 @@ Each entry records:
 - **Source**: IP address and user-agent of the request, where applicable.
 - **Outcome**: `Success`, `Failure`, or `Denied`.
 - **Timestamp**: when the event occurred, in UTC.
-- **Sequence number, hash, and previous hash**: used to detect tampering.
+- **Sequence number, hash, previous hash, and key fingerprint**: used to
+  detect tampering.
 
 ## Where audit logs are stored
 
@@ -89,10 +90,38 @@ See [Audit logs in a cluster](/telegraf/controller/admin/high-availability/#audi
 
 ## Tamper detection
 
-Each entry includes a SHA-256 hash that incorporates the entry's contents
-and the hash of the previous entry, forming a chain.
+Each entry includes an HMAC-SHA256 hash that incorporates the entry's
+contents and the hash of the previous entry, forming a chain.
+{{% product-name %}} computes the hash with a signing key that you configure
+at startup and records a fingerprint of that key (the first 16 hexadecimal
+characters of the key's SHA-256 digest) in the entry's `secretId` field.
 Sequence numbers are contiguous within and across monthly files.
-Any modification, deletion, or out-of-order insertion breaks the chain.
+Any modification, deletion, or out-of-order insertion breaks the chain, and
+an entry re-sealed with a different key fails signature verification.
+
+{{% product-name %}} verifies the current month's chain when audit logging
+starts and logs the result.
+The `GET /api/audit-logger/verify` endpoint verifies every retained monthly
+file on demand.
+See [Verify integrity](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
+
+> [!Important]
+> #### The signing key is the trust boundary
+>
+> Anyone who can read the signing key can alter entries and re-sign the
+> chain.
+> Keep the key outside the audit log data directory, restrict who can read
+> it, and forward audit events to an external destination that the
+> {{% product-name %}} host cannot modify.
+> See [Forward audit events](/telegraf/controller/admin/audit-logs/enable-configure/#forward-audit-events).
+
+Entries written by {{% product-name %}} 1.1 and earlier were signed with a
+built-in key and carry the key fingerprint `123`.
+Upgrading does not rewrite them.
+The first entry signed with your key links to the last of those entries, so
+the chain stays continuous, but verification reports them separately as
+legacy entries because their signatures cannot prove that they were not
+altered before the upgrade.
 
 In a high-availability cluster, each node maintains its own hash chain and
 sequence numbers, so events from different nodes merged into a single stream do
@@ -107,11 +136,13 @@ Audit logging is part of [Telegraf Enterprise](/telegraf/enterprise/)
 and is unavailable in the free tier.
 With a valid license:
 
-- Audit logging is **enabled at startup only** by setting `AUDIT_ENABLED`.
+- Audit logging is **enabled at startup only** by setting `AUDIT_ENABLED`
+  and configuring a signing key.
   See [Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 - Only the retention period is modifiable at runtime, from the **Settings**
   page.
-- Only the **Owner** and **Administrator** roles can read audit log entries.
+- Reading audit log entries requires the `audit:read` permission, which the
+  **Owner** and **Administrator** roles hold.
   See [View audit logs](/telegraf/controller/admin/audit-logs/view/).
 
 {{< children hlevel="h2" >}}

@@ -142,6 +142,8 @@ telegraf_controller --no-interactive
   - [ha-poll-interval-ms](#ha-poll-interval-ms)
 - [Audit logging](#audit-logging)
   - [audit-enabled](#audit-enabled)
+  - [audit-hmac-key](#audit-hmac-key)
+  - [audit-hmac-key-file](#audit-hmac-key-file)
   - [audit-log-retention](#audit-log-retention)
   - [audit-syslog-host](#audit-syslog-host)
   - [audit-syslog-port](#audit-syslog-port)
@@ -1194,6 +1196,8 @@ after startup require a restart. For a task-based walkthrough, see
 [Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 
 - [audit-enabled](#audit-enabled)
+- [audit-hmac-key](#audit-hmac-key)
+- [audit-hmac-key-file](#audit-hmac-key-file)
 - [audit-log-retention](#audit-log-retention)
 - [audit-syslog-host](#audit-syslog-host)
 - [audit-syslog-port](#audit-syslog-port)
@@ -1205,13 +1209,44 @@ after startup require a restart. For a task-based walkthrough, see
 #### audit-enabled
 
 Enable audit logging on startup. Audit logging requires a Telegraf
-Enterprise license to take effect.
+Enterprise license and a signing key ([`audit-hmac-key`](#audit-hmac-key)
+or [`audit-hmac-key-file`](#audit-hmac-key-file)) to take effect.
 
 **Default:** `false`
 
 | Command flag      | Environment variable    |
 | :---------------- | :---------------------- |
 | `--audit-enabled` | `AUDIT_ENABLED` |
+
+---
+
+#### audit-hmac-key
+
+Key that signs each audit entry, at least 32 characters.
+Audit logging stays disabled until a key is configured, even when
+[`audit-enabled`](#audit-enabled) is set.
+Takes precedence over [`audit-hmac-key-file`](#audit-hmac-key-file).
+{{% product-name %}} never writes the key to disk or to the database.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUDIT_HMAC_KEY`     |
+
+---
+
+#### audit-hmac-key-file
+
+Path to a file that holds the key that signs each audit entry
+(at least 32 characters; surrounding whitespace is trimmed).
+Audit logging stays disabled until a key is configured, even when
+[`audit-enabled`](#audit-enabled) is set.
+When the executable starts in a terminal without
+[`--no-interactive`](#no-interactive) and no key is configured,
+{{% product-name %}} prompts for the key at startup.
+
+| Command flag            | Environment variable  |
+| :---------------------- | :-------------------- |
+| `--audit-hmac-key-file` | `AUDIT_HMAC_KEY_FILE` |
 
 ---
 
