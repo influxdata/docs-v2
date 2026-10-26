@@ -168,7 +168,7 @@
 
     [Run Telegraf Controller in Docker](/telegraf/controller/install/docker/)  
     [Release notes](/telegraf/controller/reference/release-notes/#v120)  
-    [Read the announcement](https://www.influxdata.com/blog/telegraf-controller-1-2/)
+    [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-controller-1-2/)
 
 
 - id: influxdb-v1-13-release
