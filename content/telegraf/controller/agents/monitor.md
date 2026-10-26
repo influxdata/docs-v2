@@ -40,6 +40,32 @@ agents are hidden from the bar.
 For what each status means and how statuses are set, see
 [Set agent statuses](/telegraf/controller/agents/status/).
 
+### Agent list columns
+
+The agent list has the following columns:
+
+- **Agent Details**: the agent's instance ID, or its hostname when the agent
+  did not report an instance ID.
+  Click **Show labels** above the list to show each agent's labels beside
+  its ID.
+- **Telegraf Version**: the Telegraf version the agent reported.
+- **Advisories**: the agent's security advisory exposure.
+  Requires a Telegraf Enterprise license.
+  See [Find affected agents on the Agents page](/telegraf/controller/security-advisories/view/#find-affected-agents-on-the-agents-page).
+- **Status**: the agent's current status.
+- **Last Reported**: when the agent last sent a heartbeat.
+
+Switch between two row layouts with the toggle above the list:
+
+- **Compact View** ({{% lucide "layout-grid" %}}) shows the version number
+  and the status as a colored dot.
+- **Detailed View** ({{% lucide "layout-list" %}}) adds the agent's IP
+  address under its ID, shows the full version string the agent reported,
+  and shows the status as a labeled chip.
+
+Sort the list by **Agent Details**, **Status**, or **Last Reported** by
+clicking a column header. Click the header again to reverse the sort order.
+
 ## View fleet summary details
 
 Expand **More details** below the status bar to show three summary
