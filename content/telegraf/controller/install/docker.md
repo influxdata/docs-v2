@@ -236,7 +236,7 @@ record and instance identity live in the data directory.
 The following `docker-compose.yml` runs {{% product-name %}} with a
 PostgreSQL database:
 
-```yaml
+```yaml { placeholders="postgres_user|postgres_password" }
 services:
   telegraf-controller:
     image: influxdata/telegraf-controller:{{< latest-patch >}}
@@ -246,7 +246,7 @@ services:
       - "8000:8000"
     environment:
       TELEGRAF_CONTROLLER_EULA: accept
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/telegraf_controller
+      DATABASE_URL: postgresql://postgres_user:postgres_password@db:5432/telegraf_controller
     volumes:
       - telegraf-controller:/var/lib/telegraf-controller
     restart: unless-stopped
@@ -257,13 +257,13 @@ services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: telegraf_controller
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres_user"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -273,6 +273,14 @@ volumes:
   telegraf-controller:
   postgres-data:
 ```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`postgres_user`{{% /code-placeholder-key %}} and
+  {{% code-placeholder-key %}}`postgres_password`{{% /code-placeholder-key %}}:
+  the username and password for the PostgreSQL `db` service.
+  The same values appear in `DATABASE_URL` so {{% product-name %}} can
+  connect to the database.
 
 Start the services:
 
