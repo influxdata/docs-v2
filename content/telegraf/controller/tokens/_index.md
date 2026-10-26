@@ -57,6 +57,12 @@ access below your full role permissions.
 This lets you issue narrowly scoped tokens for specific tasks, such as a token
 that can only register agents or a token limited to read-only access.
 
+Requested permissions are clamped to your role.
+A wildcard such as `*:*` or `license:*` expands to the permissions your role
+holds, so an Administrator who requests `license:*` receives `license:read`.
+A request authenticated with an API token cannot create a token with
+permissions beyond its own.
+
 ## Token states
 
 Tokens exist in one of two states:
@@ -70,17 +76,21 @@ Any agent or client using a revoked token immediately loses access.
 
 ## Token visibility
 
-Your role determines which tokens you can view and manage:
+Your role and how you authenticate determine which tokens you can view and
+manage:
 
-| Role              | Token visibility                  |
-|:------------------|:----------------------------------|
-| **Owner**         | All tokens across all users       |
-| **Administrator** | All tokens across all users       |
-| **Manager**       | Only their own tokens             |
-| **Viewer**        | Cannot manage tokens              |
+| Role              | Signed in with a session    | Authenticated with an API token |
+|:------------------|:----------------------------|:--------------------------------|
+| **Owner**         | All tokens across all users | Only their own tokens           |
+| **Administrator** | All tokens across all users | Only their own tokens           |
+| **Manager**       | Only their own tokens       | Only their own tokens           |
+| **Viewer**        | Cannot manage tokens        | Cannot manage tokens            |
 
 > [!Note]
-> **Owner** and **Administrator** users can revoke any token in the organization,
+> **Owner** and **Administrator** users signed in to the web interface can
+> list, revoke, delete, and reassign any token in the organization,
 > including tokens belonging to other users.
+> A request authenticated with an API token manages only the tokens of the
+> user it belongs to, whatever its permissions, and cannot reassign tokens.
 
 {{< children hlevel="h2" >}}
