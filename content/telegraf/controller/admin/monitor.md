@@ -133,4 +133,8 @@ Each entry links to the page that explains how to fix the problem.
   See [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
 - **License errors**.
   See [Troubleshoot licensing](/telegraf/controller/telegraf-enterprise/troubleshoot/).
+- **Audit chain errors**, such as
+  `Audit chain 2026-05 is broken at seq 1203: signature does not match`,
+  which mean an audit file was altered.
+  See [Verify integrity](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
 
