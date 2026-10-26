@@ -204,6 +204,14 @@ chain, and forwards events to whatever destination that node is configured to
 use. Querying a node's [audit log API](/telegraf/controller/admin/audit-logs/view/)
 returns only that node's events.
 
+Configure a [signing key](/telegraf/controller/admin/audit-logs/enable-configure/#enable-audit-logging)
+on every node.
+Each node signs its own entries with its own key, so the nodes can share one
+key or use different keys.
+If a node's key changes, entries signed with the previous key are reported
+as unverified, not broken, when that node
+[verifies its files](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
+
 To review activity across the whole cluster, forward each node's audit events to
 a shared destination, such as syslog or a webhook, and aggregate them there. See
 [Forward audit events](/telegraf/controller/admin/audit-logs/enable-configure/#forward-audit-events).
