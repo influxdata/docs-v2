@@ -126,26 +126,28 @@ the `include` option. Optionally tune the sample with the
 
 ## Retrieve heartbeat data with the API
 
-Both endpoints identify the agent by its reported agent ID (the heartbeat
-plugin's `instance_id`) and require an API token with **read** permission on
-the **Heartbeat** API.
+Both endpoints identify the agent by its {{% product-name %}} agent `id`,
+the identifier returned by `GET /api/agents`, not by the agent ID the
+heartbeat plugin reports.
+They require an API token with **read** permission on the **Agents** API and
+return `404` for an unknown `id`.
 
 ### Latest heartbeat
 
-`GET /api/heartbeat/agent/:agentId/latest-heartbeat` returns the most recent
+`GET /api/agents/:id/heartbeat/latest` returns the most recent
 heartbeat snapshot, or `null` if none exists: when it was received, the
 reported statistics, how many log entries the agent reported and
 {{% product-name %}} stored, and the stored entries themselves.
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="API_TOKEN|AGENT_ID" }
-curl "https://telegraf-controller.example.com/api/heartbeat/agent/AGENT_ID/latest-heartbeat" \
+curl "https://telegraf-controller.example.com/api/agents/AGENT_ID/heartbeat/latest" \
   -H "Authorization: Bearer API_TOKEN"
 ```
 
 ### Statistics history
 
-`GET /api/heartbeat/agent/:agentId/logs` returns the per-heartbeat statistics
+`GET /api/agents/:id/heartbeat/logs` returns the per-heartbeat statistics
 series that backs the detail page's bar charts, oldest first. Each record
 carries a timestamp and the error, warning, and metric counts for that
 heartbeat.
@@ -158,16 +160,16 @@ heartbeat.
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="API_TOKEN|AGENT_ID" }
-curl "https://telegraf-controller.example.com/api/heartbeat/agent/AGENT_ID/logs?limit=500" \
+curl "https://telegraf-controller.example.com/api/agents/AGENT_ID/heartbeat/logs?limit=500" \
   -H "Authorization: Bearer API_TOKEN"
 ```
 
 Replace the following:
 
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an
-  API token with read permission on the Heartbeat API
+  API token with read permission on the Agents API
 - {{% code-placeholder-key %}}`AGENT_ID`{{% /code-placeholder-key %}}: the
-  agent's reported agent ID
+  agent's `id` in {{% product-name %}}, as returned by `GET /api/agents`
 
 > [!Note]
 > Despite its path, the statistics history endpoint returns per-heartbeat
