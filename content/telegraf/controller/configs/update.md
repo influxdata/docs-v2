@@ -40,6 +40,9 @@ compare, roll back, or prune versions, see
 3.  Under **Configuration Information**, click the text under **Name** or
     **Description**. The name or description will load into a form field.
 4.  Provide a new name or description and click **{{% lucide "check" %}}**.
+    Names are unique among configurations and can be up to 255 characters.
+    If another configuration already has the new name, the field stays open
+    and shows `Configuration "<name>" already exists`.
 
 Name and description changes do not create a new configuration version.
 
