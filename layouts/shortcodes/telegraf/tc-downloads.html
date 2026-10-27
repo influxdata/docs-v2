@@ -12,7 +12,7 @@
     with its own .asc.
 */}}
 {{- $product := index .Site.Data.products "telegraf_controller" -}}
-{{- $baseURL := "https://telegraf-controller-artifacts.s3.us-east-1.amazonaws.com" -}}
+{{- $baseURL := "https://dl.influxdata.com/telegraf-controller/releases" -}}
 {{- $version := $product.latest_patch -}}
 {{- $versionDir := printf "v%s" $version -}}
 
