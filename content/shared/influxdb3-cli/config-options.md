@@ -835,16 +835,21 @@ OAuth scopes to request during device-code login (comma-separated).
 
 #### rbac-authoring-disabled {#rbac-authoring-disabled metadata="v3.10+"}
 
-Disables RBAC authoring (creating or modifying custom roles).
+Disables RBAC authoring endpoints and CLI commands.
+When `true`, {{% product-name %}} doesn't expose endpoints or commands that
+create roles, change role permissions, look up roles by name, or read role
+permissions.
+Listing roles and assigning roles to users remain available.
 Accepts `true` or `false`.
 
-<!-- TODO: Confirm the environment variable name and default value.
-This flag is recognized by the server but is not listed in
-`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
+This option has no effect when user authentication is disabled
+(see [`--user-auth-type`](#user-auth-type)).
 
-| influxdb3 serve option      | Environment variable |
-| :-------------------------- | :------------------- |
-| `--rbac-authoring-disabled` |                      |
+**Default:** `true`
+
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--rbac-authoring-disabled` | `INFLUXDB3_RBAC_AUTHORING_DISABLED` |
 
 ***
 
