@@ -7,7 +7,7 @@
  *   1. Gated state  — no localStorage key → button visible, links hidden
  *   2. Ungated state — localStorage key present → links rendered, button hidden
  *   3. Query param  — ?ref=tc visit → key set, downloads shown
- *   4. SHA copy button — present when downloads are rendered
+ *   4. Signature links — one per build, plus the signed digests file
  *
  * Marketo form submission is NOT tested (external dependency).
  */
@@ -58,8 +58,10 @@ describe('Telegraf Controller gated downloads', () => {
       cy.get('.tc-download-link').should('have.length.at.least', 1);
     });
 
-    it('renders SHA copy buttons for each build', () => {
-      cy.get('.tc-copy-sha').should('have.length.at.least', 1);
+    it('renders a signature link for each build', () => {
+      cy.get('.tc-build-row').each(($row) => {
+        cy.wrap($row).find('.tc-signature-link').should('have.length', 1);
+      });
     });
   });
 
@@ -84,7 +86,7 @@ describe('Telegraf Controller gated downloads', () => {
     });
   });
 
-  describe('SHA copy button', () => {
+  describe('Signature and digests links', () => {
     beforeEach(() => {
       cy.clearLocalStorage();
       cy.visit(PAGE_URL, {
@@ -94,10 +96,21 @@ describe('Telegraf Controller gated downloads', () => {
       });
     });
 
-    it('each copy button carries a data-sha attribute', () => {
-      cy.get('.tc-copy-sha').each(($btn) => {
-        expect($btn.attr('data-sha')).to.be.a('string').and.not.be.empty;
+    it('each build signature link points at the executable\'s .asc file', () => {
+      cy.get('.tc-build-row').each(($row) => {
+        const binary = $row.find('.tc-download-link').attr('href');
+        const signature = $row.find('.tc-signature-link').attr('href');
+        expect(signature).to.equal(`${binary}.asc`);
       });
+    });
+
+    it('renders the digests file and its signature', () => {
+      cy.get('.tc-digests .tc-download-link')
+        .should('have.attr', 'href')
+        .and('match', /telegraf_controller-[0-9.]+\.digests$/);
+      cy.get('.tc-digests .tc-signature-link')
+        .should('have.attr', 'href')
+        .and('match', /\.digests\.asc$/);
     });
   });
 });
