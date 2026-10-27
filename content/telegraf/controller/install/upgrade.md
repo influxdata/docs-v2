@@ -59,6 +59,9 @@ For complete backup and restore procedures, see
     > assumes you rename the file to `telegraf_controller`, matching the
     > [install instructions](/telegraf/controller/install/#download-and-install-telegraf-controller).
 
+    Verify the download before you replace the executable.
+    See [Verify the download](/telegraf/controller/install/#verify-the-download-recommended).
+
 2.  **Replace the installed executable and restart {{% product-name %}}.**
 
     {{< tabs-wrapper >}}
