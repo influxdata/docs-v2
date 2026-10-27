@@ -96,7 +96,7 @@ describe('Telegraf Controller gated downloads', () => {
       });
     });
 
-    it('each build signature link points at the executable\'s .asc file', () => {
+    it("each build signature link points at the executable's .asc file", () => {
       cy.get('.tc-build-row').each(($row) => {
         const binary = $row.find('.tc-download-link').attr('href');
         const signature = $row.find('.tc-signature-link').attr('href');
