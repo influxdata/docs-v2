@@ -40,8 +40,8 @@ webserver123
 {{% show-in "core,enterprise" %}}
 ```text
 my database        # Contains whitespace
-sensor.data        # Contains period
-app@server         # Contains special character
+sensor.data        # Contains a period
+app@server         # Contains a special character
 _internal          # Starts with underscore
 /mydb              # Starts with a slash
 mydb/rp/extra      # Contains more than one slash
@@ -50,8 +50,8 @@ mydb/rp/extra      # Contains more than one slash
 {{% hide-in "core,enterprise" %}}
 ```text
 my database        # Contains whitespace
-sensor.data        # Contains period
-app@server         # Contains special character
+sensor.data        # Contains a period
+app@server         # Contains a special character
 _internal          # Starts with underscore (not recommended)
 very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
 ```
