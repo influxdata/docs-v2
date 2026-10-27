@@ -2,7 +2,7 @@
 title: Transfer ownership
 description: >
   Transfer the Telegraf Controller owner role to another administrator.
-  The owner requests the transfer and the administrator accepts it.
+  The owner sends a request and the administrator accepts it.
 menu:
   telegraf_controller:
     name: Transfer ownership
@@ -10,6 +10,7 @@ menu:
 weight: 104
 related:
   - /telegraf/controller/reference/authentication-authorization/
+  - /telegraf/controller/admin/audit-logs/
   - /telegraf/controller/reference/api/
 ---
 
@@ -18,8 +19,8 @@ including the ability to manage all users, tokens, and settings. Only one owner
 can exist at a time. The current owner can transfer ownership to any active
 administrator.
 
-An ownership transfer is a two-step handoff: the owner requests the transfer,
-and the target administrator accepts it. Nothing changes until the target
+An ownership transfer is a two-step handoff: the owner sends a request, and
+the target administrator accepts it. Nothing changes until the target
 accepts.
 
 - [Prerequisites and restrictions](#prerequisites-and-restrictions)
@@ -28,6 +29,7 @@ accepts.
 - [Accept the transfer](#accept-the-transfer)
 - [Decline or cancel a request](#decline-or-cancel-a-request)
 - [What happens when the transfer is accepted](#what-happens-when-the-transfer-is-accepted)
+- [Use the API](#use-the-api)
 
 ## Prerequisites and restrictions
 
@@ -45,9 +47,9 @@ accepts.
 
 ## How a transfer works
 
-1. The owner requests a transfer to an administrator.
-   The request is **pending** and expires after 72 hours by default.
-   Only one request can be pending at a time; a new request cancels the
+1. The owner sends a transfer request to an administrator.
+   The request is **pending** and expires after three days.
+   Only one request can be pending at a time. A new request replaces the
    previous one.
 2. The target administrator accepts or declines the request, or the owner
    cancels it.
@@ -55,16 +57,11 @@ accepts.
 3. When the target accepts, the roles swap in a single operation.
    See [What happens when the transfer is accepted](#what-happens-when-the-transfer-is-accepted).
 
-> [!Important]
-> #### The web interface does not show pending requests
->
-> In {{% product-name %}} 1.2, the web interface can only request a
-> transfer. After you confirm the request, the dialog reports the transfer as
-> complete and returns you to the sign-in page, but you remain the owner until
-> the target accepts.
-> The target accepts, declines, and the owner cancels through the
-> [{{% product-name %}} API](/telegraf/controller/reference/api/), as
-> described below.
+Both sides can see the request in the web interface while it is pending:
+the owner on the **Users** page, and the target in a banner on every page and
+on their **Account** page.
+With [audit logging](/telegraf/controller/admin/audit-logs/) enabled,
+{{% product-name %}} records each step.
 
 ## Request the transfer
 
@@ -72,83 +69,65 @@ accepts.
 2.  Choose the target **Administrator** from the list (if not already selected).
 3.  Select the **{{% lucide "shield" %}} Make Owner** option. If on the user detail page, select the
     **Manage** tab to reveal the **Make Owner** option.
-4.  Confirm the username of the user you want to transfer ownership to and click
-    **Transfer Ownership**.
+4.  Review what the request does, type the username of the user you want to
+    transfer ownership to, and click **Transfer Ownership**.
 
 {{< img-hd src="/img/telegraf/controller-transfer-ownership.png" alt="Telegraf Controller transfer ownership confirmation" />}}
 
-{{% product-name %}} records the request and returns you to the sign-in page.
-Sign in again if you need to keep working; your role has not changed yet.
-Tell the target administrator that a request is waiting for them.
-
-To set a different expiry, request the transfer from the API instead.
-`POST /api/users/transfer-owner` accepts the target's user ID and an optional
-`expiresInHours` from `1` to `168`:
-
-```json
-{
-  "targetUserId": "01HZ8R5T4VX9YQK0M2N3P4Q5R6",
-  "expiresInHours": 24
-}
-```
+The dialog confirms that the request was sent and when it expires.
+You remain the owner until the target accepts.
+While the request is pending, the **Users** page shows a
+**Pending Ownership Transfer** section with the target's name and the expiry
+time, and the target's **Make Owner** option becomes **Cancel Request**.
 
 ## Accept the transfer
 
-The target administrator accepts the request through the API from their own
-signed-in session.
-The easiest way is the
-[interactive API reference](/telegraf/controller/reference/api/#explore-the-interactive-api-reference),
-which sends requests with your browser session.
+While a request is waiting for you, every page shows a banner that names the
+owner who sent it and when it expires.
 
-1.  Sign in to {{% product-name %}} as the target administrator and open
-    `/api/docs`.
-2.  Send `GET /api/users/transfer-owner/pending` to see the waiting request.
-    A `404` response means no request is pending for your account.
+1.  Sign in to {{% product-name %}} as the target administrator.
+2.  Click **Review request** in the banner, or open your **Account** page
+    from the account menu.
+3.  In the **Pending ownership transfer** card, click **Accept**.
+4.  In the **Accept Ownership** dialog, confirm the handoff.
+    If your account signs in through LDAP or OIDC and has no local password,
+    the dialog also asks for a recovery password: enter it in
+    **Recovery password** and **Confirm recovery password**.
+    The password must meet the
+    [password complexity requirements](/telegraf/controller/settings/#password-complexity-requirements).
+5.  Click **Accept Ownership**.
 
-    ```json
-    {
-      "id": "6f1c2a9e-3b4d-4c5e-8f70-1a2b3c4d5e6f",
-      "fromUserId": "01HZ8R5T4VX9YQK0M2N3P4Q5R6",
-      "fromUsername": "alice",
-      "toUserId": "01J0ABCDEF1234567890GHJKLM",
-      "expiresAt": "2026-05-30T18:42:11.512Z",
-      "createdAt": "2026-05-27T18:42:11.512Z",
-      "requiresRecoveryPassword": true
-    }
-    ```
+{{< img-hd src="/img/telegraf/controller-account-pending-ownership-transfer.png" alt="Telegraf Controller Account page with a pending ownership transfer" />}}
 
-3.  Send `POST /api/users/transfer-owner/accept`.
-    If `requiresRecoveryPassword` is `true`, your account signs in through
-    LDAP or OIDC and has no local password, so the request body must include a
-    recovery password that meets the
-    [password complexity requirements](/telegraf/controller/settings/#password-complexity-requirements):
+You are now the owner. The change applies immediately: your **Account** page
+shows the **Owner** role and the navigation updates without signing in again.
 
-    ```json { placeholders="RECOVERY_PASSWORD" }
-    { "recoveryPassword": "RECOVERY_PASSWORD" }
-    ```
+> [!Note]
+> #### Why a recovery password is required
+>
+> The owner account always keeps a local password so that it can sign in
+> when an external identity provider is unreachable.
+> The recovery password you set becomes that local password.
+> See [Owner account behavior](/telegraf/controller/reference/authentication-authorization/#owner-account-behavior).
 
-    Replace {{% code-placeholder-key %}}`RECOVERY_PASSWORD`{{% /code-placeholder-key %}}
-    with the password to use if your identity provider becomes unavailable.
-    If `requiresRecoveryPassword` is `false`, send an empty JSON object.
-
-    A `204` response means the transfer is complete.
-
-4.  Sign out and sign in again so that your session reflects the **Owner**
-    role.
-
-The owner account always keeps a local password so that it can sign in when
-an external provider is unreachable.
-See [Owner account behavior](/telegraf/controller/reference/authentication-authorization/#owner-account-behavior).
+If the request was cancelled, expired, or the sender is no longer the owner
+when you accept, the dialog shows the error and nothing changes.
 
 ## Decline or cancel a request
 
-- **Target administrator**: send `POST /api/users/transfer-owner/decline`
-  from your signed-in session to decline the request.
-- **Owner**: send `DELETE /api/users/transfer-owner/pending` from your
-  signed-in session to cancel the request you made.
+- **Target administrator**: on your **Account** page, click **Decline** in the
+  **Pending ownership transfer** card and confirm.
+  The owner can send a new request later.
+- **Owner**: cancel the request from any of the following places, then
+  confirm with **Cancel request**:
+  - The **Pending Ownership Transfer** section on the **Users** page.
+  - The **{{% lucide "ban" %}} Cancel Request** button on the target user's
+    **Manage** tab.
+  - The **{{% lucide "shield-off" %}} Cancel Ownership Request** option in
+    the target user's row menu.
 
-Both return `204`. A declined, cancelled, or expired request cannot be
-accepted; the owner must make a new request.
+A declined, cancelled, or expired request cannot be accepted; the owner must
+send a new request.
 
 ## What happens when the transfer is accepted
 
@@ -163,15 +142,44 @@ that updates both accounts together:
   role's permissions.
 - The operation is atomic: all changes succeed together or none takes effect.
 
+Nobody is signed out.
+The new owner's browser updates as soon as the request is accepted, and the
+former owner's browser picks up the new role within a minute.
+
 > [!Tip]
 > #### Coordinate ownership transfers
 >
-> Coordinate with the target user before requesting a transfer.
-> The request expires if it is not accepted in time, and both of you should
-> sign in again once it completes.
+> Coordinate with the target user before sending a request.
+> The request expires after three days if it is not accepted.
 
 > [!Warning]
 > #### You cannot reclaim the Owner role yourself
 >
 > Once the transfer is accepted, you cannot reclaim the **Owner** role
 > yourself. The new owner must transfer it back to you.
+
+## Use the API
+
+The same operations are available from the API for scripted use.
+Every route requires a signed-in session, not an API token.
+
+| Route | Who | Description |
+| :---- | :-- | :---------- |
+| `POST /api/users/transfer-owner` | Owner | Send a request. The body takes `targetUserId` and an optional `expiresInHours` from `1` to `168` (default `72`). Returns the request `id`, `expiresAt`, and `status`. |
+| `GET /api/users/transfer-owner/pending` | Owner or target | Return the pending request that involves you, including `fromUsername`, `toUsername`, `expiresAt`, and `requiresRecoveryPassword`. Returns `404` when nothing is pending. |
+| `POST /api/users/transfer-owner/accept` | Target | Accept the request. Include `recoveryPassword` in the body when `requiresRecoveryPassword` is `true`. |
+| `POST /api/users/transfer-owner/decline` | Target | Decline the request. |
+| `DELETE /api/users/transfer-owner/pending` | Owner | Cancel the request. |
+
+For example, to send a request that expires in 24 hours:
+
+```json
+{
+  "targetUserId": "01HZ8R5T4VX9YQK0M2N3P4Q5R6",
+  "expiresInHours": 24
+}
+```
+
+The [interactive API reference](/telegraf/controller/reference/api/#explore-the-interactive-api-reference)
+sends requests with your browser session, so you can use it for any of these
+routes.

@@ -88,17 +88,6 @@ The affected endpoints are listed under [API changes](#api-changes).
   records its source (system-generated, user-provided, or env/flag-provided).
   Operators can [disable pre-shared tokens](/telegraf/controller/tokens/preshared/#disable-pre-shared-tokens)
   at startup.
-- Add [bootstrap owner tokens](/telegraf/controller/tokens/bootstrap/):
-  provision an all-access token at startup with `OWNER_TOKEN` or
-  `--owner-token` for infrastructure-as-code workflows. The token is
-  idempotent across restarts and rotates its predecessor when the value
-  changes.
-- Sign audit entries with a configured key and verify the chain
-  (Telegraf Enterprise): each entry records the fingerprint of the key that
-  signed it, {{% product-name %}} verifies the current month's chain at
-  startup, and `GET /api/audit-logger/verify` checks every retained monthly
-  file on demand.
-  See [Verify integrity](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
 - Redesign the [Agents page](/telegraf/controller/agents/monitor/): a fleet
   status bar with **Fleet Health**, **Telegraf Versions**, and
   **Last Reported** summaries, removable filter chips, a **Telegraf Version**
@@ -112,6 +101,24 @@ The affected endpoints are listed under [API changes](#api-changes).
 - Add a [heartbeat service health](/telegraf/controller/admin/monitor/#heartbeat-service-health)
   indicator to the navigation and `GET /api/heartbeat/health`, which report
   why the heartbeat service is unhealthy, not only whether it responds.
+- Add [bootstrap owner tokens](/telegraf/controller/tokens/bootstrap/):
+  provision an all-access token at startup with `OWNER_TOKEN` or
+  `--owner-token` for infrastructure-as-code workflows. The token is
+  idempotent across restarts and rotates its predecessor when the value
+  changes.
+- Transfer ownership from the web interface with a request that the target
+  administrator accepts. The owner sends the request from the **Users** page
+  and can cancel it while it is pending; the target sees a banner on every
+  page and accepts or declines from their **Account** page, setting a
+  recovery password when their account has no local one. Audit logging
+  records each step.
+  See [Transfer ownership](/telegraf/controller/users/transfer-ownership/).
+- Sign audit entries with a configured key and verify the chain
+  (Telegraf Enterprise): each entry records the fingerprint of the key that
+  signed it, {{% product-name %}} verifies the current month's chain at
+  startup, and `GET /api/audit-logger/verify` checks every retained monthly
+  file on demand.
+  See [Verify integrity](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
 - Include log entries in the default heartbeat output template.
   New configurations ship with `"logs"` in the plugin's `include` list and a
   limit of 50 entries per heartbeat.

@@ -47,6 +47,9 @@ and demonstrate compliance with internal or external policies.
   updates (including membership changes), and deletion.
 - **Constants**: [global constant](/telegraf/controller/configs/constants/)
   creation, value updates, and deletion.
+- **Ownership transfers**:
+  [ownership transfer](/telegraf/controller/users/transfer-ownership/)
+  requests sent, accepted, declined, cancelled, and expired.
 - **Security advisories**:
   [advisory file](/telegraf/controller/security-advisories/) updates applied
   automatically or imported manually, rollbacks to an older advisory file,
