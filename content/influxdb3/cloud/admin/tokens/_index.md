@@ -112,8 +112,11 @@ Creating tokens in the Admin UI requires the account **Admin** role.
     {{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-tokens-create-admin-token.png" alt="Create Admin Token dialog with a warning and a Token Name field" />}}
 
 2.  Enter a **Token Name**.
-    Admin tokens have full access to the instance.
-    Use them carefully and don't share them publicly.
+
+    > [!Important]
+    > Admin tokens have full access to the instance.
+    > Use them carefully and don't share them publicly.
+
 3.  Click **Create Admin Token**.
 
 #### Save the token secret
@@ -190,7 +193,7 @@ Token secrets aren't shown.
 
 - To find a token, enter text in the **Search** box.
 - Expired tokens are hidden by default.
-  To include them, turn on **Show Expired Tokens**.
+  To include them, enable **Show Expired Tokens**.
 - To view a token's permissions, click its row.
   The **Token Details** dialog shows the token's status, **Token Name**,
   **Token ID**, **Created** and **Expiration** times, and each **Resource**
