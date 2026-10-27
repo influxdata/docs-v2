@@ -182,6 +182,9 @@ The affected endpoints are listed under [API changes](#api-changes).
   the OpenAPI document, and align the `GET /api/agents` query parameters
   with what the API accepts.
 - Keep the caret in place while editing the agent search text.
+- Build invite links and password reset links from the **User Interface
+  URL** public endpoint, falling back to the browser's address, instead of
+  the API host.
 
 ---
 
