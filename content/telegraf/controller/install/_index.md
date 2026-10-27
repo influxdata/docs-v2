@@ -90,6 +90,95 @@ $env:TELEGRAF_CONTROLLER_EULA="accept"
 
     {{< telegraf/tc-downloads >}}
 
+    {{< expand-wrapper >}}
+    {{% expand "Verify the download <span class='req'>Recommended</span>" %}}
+
+Every release ships a detached signature (`.asc`) for each executable,
+and a `telegraf_controller-{{< latest-patch >}}.digests` file that lists
+the SHA-256 checksum of each executable and is signed as
+`telegraf_controller-{{< latest-patch >}}.digests.asc`.
+All signatures are made with the InfluxData package signing key.
+Download the signature for your executable and the two digests files
+from the download list above, then verify them before you install.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Linux/macOS](#)
+[Windows](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!---------------------------- BEGIN LINUX/MACOS ----------------------------->
+
+1.  Import the InfluxData package signing key:
+
+    ```bash
+    curl -fsSL https://repos.influxdata.com/influxdata-archive.key | gpg --import
+    ```
+
+2.  Verify the signatures of the executable and of the digests file.
+    Replace `linux-x64` with the platform you downloaded.
+
+    ```bash
+    gpg --verify telegraf_controller-linux-x64.asc telegraf_controller-linux-x64
+    gpg --verify telegraf_controller-{{< latest-patch >}}.digests.asc telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    Both commands must report a good signature from the InfluxData Package
+    Signing Key.
+
+3.  Check the executable's checksum against the digests file:
+
+    ```bash
+    sha256sum -c --ignore-missing telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    The output lists the executable with `OK`.
+    On macOS, use `shasum -a 256 -c --ignore-missing` if `sha256sum` is not
+    installed.
+
+<!----------------------------- END LINUX/MACOS ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------ BEGIN WINDOWS ------------------------------->
+
+Signature verification requires GnuPG, for example
+[Gpg4win](https://www.gpg4win.org/).
+
+1.  Import the InfluxData package signing key:
+
+    ```powershell
+    Invoke-WebRequest https://repos.influxdata.com/influxdata-archive.key -OutFile influxdata-archive.key
+    gpg --import influxdata-archive.key
+    ```
+
+2.  Verify the signatures of the executable and of the digests file:
+
+    ```powershell
+    gpg --verify telegraf_controller-win-x64.exe.asc telegraf_controller-win-x64.exe
+    gpg --verify telegraf_controller-{{< latest-patch >}}.digests.asc telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    Both commands must report a good signature from the InfluxData Package
+    Signing Key.
+
+3.  Compare the executable's checksum with the entry in the digests file:
+
+    ```powershell
+    (Get-FileHash telegraf_controller-win-x64.exe -Algorithm SHA256).Hash.ToLower()
+    Select-String telegraf_controller-win-x64.exe telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    The two values must match.
+    The executable is also signed with an Authenticode certificate, which
+    Windows shows under **Properties > Digital Signatures**.
+
+<!------------------------------- END WINDOWS -------------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+    {{% /expand %}}
+    {{< /expand-wrapper >}}
+
 2.  **Install {{% product-name %}}**.
 
     > [!Important]
