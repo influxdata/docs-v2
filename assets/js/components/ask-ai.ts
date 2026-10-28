@@ -57,7 +57,6 @@ function layoutAttributes(): Record<string, string> {
   return {
     modalSize: innerWidth > 1440 ? '386px' : '360px',
     modalFullScreenOnMobile: String(innerWidth <= 600),
-    modalTitleAskAi: innerWidth <= 600 ? 'Ask AI' : 'InfluxDB Ask AI',
     modalInnerPointerEvents: innerWidth >= 1280 ? 'none' : 'auto',
   };
 }
