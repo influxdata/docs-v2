@@ -20,7 +20,7 @@ In a cluster, we recommend running the Processing Engine on a standalone process
 The process node runs triggers; plugin queries go to query nodes, and plugin writes go to ingest nodes.
 Pin each trigger to the process node with [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options).
 
-For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 {{% /show-in %}}
 
 ### Default behavior by deployment type
