@@ -31,7 +31,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 - [Manage plugin dependencies](#manage-plugin-dependencies)
 - [Plugin security](#plugin-security)
 {{% show-in "enterprise" %}}
-- [Distributed cluster considerations](#distributed-cluster-considerations)
+- [Run plugins in a cluster](#run-plugins-in-a-cluster)
 {{% /show-in %}}
 
 ## Set up the Processing Engine
