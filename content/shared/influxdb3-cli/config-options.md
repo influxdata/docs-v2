@@ -259,7 +259,7 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/), which runs plugins for triggers. A node in `process` mode alone doesn't accept writes or answer data queries. Setting [`--plugin-dir`](#plugin-dir) adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a cluster, run `process` alone on a dedicated node. See [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/). A node running only `process` mode doesn't accept writes or answer data queries. Setting [`--plugin-dir`](#plugin-dir) automatically enables `process` mode, so you don't need to add `process` to `--mode`. To run only the Processing Engine, set `--mode=process` and `--plugin-dir`. In a cluster, we recommend a standalone process node. See [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 - `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/admin/explorer-ui/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret). Set [`--plugin-dir`](#plugin-dir) as well to use the plugin features in Explorer.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).

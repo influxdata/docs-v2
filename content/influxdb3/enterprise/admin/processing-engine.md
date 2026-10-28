@@ -36,7 +36,7 @@ For an overview of process node architectures, see [Configure a process node](/i
 > [!Important]
 > #### Requires {{% product-name %}} 3.12.0 or later
 >
-> Before 3.12.0, a process node can't read WAL files from other nodes, so WAL triggers on a process node never run.
+> Before 3.12.0, a standalone process node can't read WAL files from other nodes, so its WAL triggers never run.
 > The trigger is accepted, and the node logs `Ingest mode not configured; processing engine will not run wal flush triggers.`
 
 - [How a process node runs plugins](#how-a-process-node-runs-plugins)
@@ -47,6 +47,7 @@ For an overview of process node architectures, see [Configure a process node](/i
 - [Create triggers](#create-triggers)
 - [Send each request to the right node](#send-each-request-to-the-right-node)
 - [Manage triggers](#manage-triggers)
+- [Migrate to a standalone process node](#migrate-to-a-standalone-process-node)
 - [Stop and restart the process node](#stop-and-restart-the-process-node)
 - [Troubleshoot](#troubleshoot)
 
@@ -208,7 +209,7 @@ Packages are installed only on the node that receives the request.
 
 1. Create the database on any node.
 2. Create the trigger on the process node.
-   Set `--node-spec` to the process node's ID.
+   Set `--node-spec` to `nodes:process0`.
    Other nodes reject the request with `405 Current node mode does not use the processing engine`.
 
 ```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILE|TABLE_NAME|TRIGGER_NAME" }
@@ -223,7 +224,7 @@ influxdb3 create trigger \
 ```
 
 Always set `--node-spec`.
-The default, `all`, makes every node that runs the Processing Engine own the trigger.
+With the default `--node-spec all`, every process node schedules the trigger independently.
 You can't change a trigger's `--node-spec` after you create it.
 
 If you use `--upload` to send a local plugin file, the file is stored on the process node.
@@ -284,6 +285,35 @@ influxdb3 show system \
   table processing_engine_triggers
 ```
 
+## Migrate to a standalone process node
+
+In {{% product-name %}} 3.12 and later, a process node can run WAL triggers for writes sent to any ingest node.
+We recommend moving plugins from mixed nodes to a standalone process node when you upgrade a cluster.
+First, follow [Upgrade a multi-node cluster](/influxdb3/enterprise/admin/upgrade/#upgrade-a-multi-node-cluster) to upgrade the nodes.
+
+A new process node starts reading each ingest node's WAL from the current position.
+It doesn't process earlier writes.
+If your WAL plugins must process every write, pause writes during the migration and verify the new process node before resuming writes.
+
+1. Record each trigger's name, database, plugin path, trigger specification, arguments, and error behavior.
+   Disable the triggers before moving them.
+   See [Manage triggers](#manage-triggers).
+2. Start a standalone process node with `--mode=process` and `--plugin-dir`.
+   Use the existing cluster ID and object store, and a unique node ID.
+   Configure internode connections, copy the plugin files, and install their Python dependencies.
+   See [Start the nodes](#start-the-nodes) and [Add plugins and packages](#add-plugins-and-packages).
+3. Remove `--plugin-dir` and `INFLUXDB3_PLUGIN_DIR` from nodes that no longer run plugins, then restart those nodes with their intended modes.
+   Remove `process` from their `--mode` lists and don't use `all`.
+   For Docker, unset the inherited variable with `-e INFLUXDB3_UNSET_VARS=INFLUXDB3_PLUGIN_DIR`.
+4. Delete each disabled trigger and recreate it on the new process node with its recorded settings and `--node-spec nodes:PROCESS_NODE_ID`.
+   Replace `PROCESS_NODE_ID` with the new process node's ID.
+   You can't change an existing trigger's `--node-spec`.
+5. Send request trigger calls and package installation requests to the new process node.
+   Keep data queries on query nodes and writes on ingest nodes.
+6. Verify the node's mode and internode addresses with [Verify the cluster](#verify-the-cluster).
+   Test your triggers and check both `system.processing_engine_logs` on a query node and the process node's server log.
+   Resume writes after verifying WAL trigger execution.
+
 ## Stop and restart the process node
 
 Stop the process node with [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/) from any node:
@@ -301,7 +331,8 @@ The process node saves its trigger state to `<cluster-id>/<node-id>/processing_e
 It saves the state every [`--processing-engine-restart-state-snapshot-interval`](/influxdb3/enterprise/reference/config-options/#processing-engine-restart-state-snapshot-interval) (default `1s`) and at shutdown.
 After a restart, the process node does the following:
 
-- **WAL triggers**: Resumes reading each ingest node's WAL where it stopped, so it processes writes that arrived while it was down.
+- **WAL triggers**: Resumes reading each ingest node's WAL where it stopped, if the required WAL files are still available.
+  For limitations after a long outage, see [Known issues](/influxdb3/enterprise/release-notes/#known-issues).
 - **Schedule triggers**: Runs each scheduled call that came due while it was down.
 - **Request triggers**: Doesn't replay requests.
   During a graceful shutdown, in-progress requests return `503` with `{"error": "server is shutting down"}`.
@@ -351,8 +382,9 @@ For Docker, see [Start the nodes](#start-the-nodes).
 #### The process node doesn't start after a crash
 
 If `restart-state.postcard` is corrupt, the process node doesn't start.
-Move the file out of the way and start the node.
-The node starts with no saved trigger state: queued runs, pending retries, and its position in each WAL are lost.
+Restarting without this file discards queued runs, pending retries, and the saved position in each WAL.
+Before you restart, back up the object at `<cluster-id>/<node-id>/processing_engine/restart-state.postcard`.
+Remove the original object from object storage, then start the node.
 
 ### Plugin query and write errors
 

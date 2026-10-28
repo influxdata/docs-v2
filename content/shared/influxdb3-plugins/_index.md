@@ -39,7 +39,8 @@ Once you have all the prerequisites in place, follow these steps to implement th
 The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is configured.
 {{% show-in "enterprise" %}}
 In a cluster, this automatically adds `process` mode to the node.
-We recommend running the Processing Engine on a standalone process node, see [Run plugins in a cluster](#run-plugins-in-a-cluster).
+We recommend running the Processing Engine on a standalone process node.
+See [Run plugins in a cluster](#run-plugins-in-a-cluster).
 {{% /show-in %}}
 
 ### Default behavior by deployment type
@@ -1350,11 +1351,12 @@ For every trigger type, plugins reach data through other nodes over the internod
 `influxdb3_local.query()` runs on a query node, and `influxdb3_local.write()` and plugin log messages go to an ingest node.
 Start every ingest node and every query node with `--internode-bind-addr`.
 
-For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 
 ### Pin triggers to the process node
 
-Create each trigger on the process node, and set [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) to the process node's ID:
+Create each trigger on the process node with [`--node-spec nodes:PROCESS_NODE_ID`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options).
+Replace `PROCESS_NODE_ID` with the process node's ID:
 
 ```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
@@ -1367,7 +1369,7 @@ influxdb3 create trigger \
   hourly_rollup
 ```
 
-The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
+With the default `--node-spec all`, every process node schedules the trigger independently.
 
 ### Route requests to the right node
 
