@@ -21,6 +21,9 @@ function luminance(color) {
 
 function expectCloseControl(width) {
   const widget = () => cy.get('#kapa-widget-container').shadow();
+  widget()
+    .find('.mantine-Modal-header h4')
+    .should('have.text', width <= 600 ? 'Ask AI' : 'InfluxDB Ask AI');
   widget().find(mobileClose).should('have.length', 1);
   if (width > 600) {
     widget().find(mobileClose).should('not.be.visible');
