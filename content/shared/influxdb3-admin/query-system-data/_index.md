@@ -335,11 +335,11 @@ The `conversion_*` and `import_*` columns report conversion and import
 progress.
 These columns are null on `ingest` rows.
 
-Starting in v3.11.8 and v3.12.2, an `ingest` row reads `failed` when a Parquet
-file failed every conversion attempt, and `last_message` names the file and
-its error.
-Fix the cause, restart the node, then run
-[`influxdb3 manage retry-upgrade-to-pacha-tree`](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/).
+Starting in v3.11.8 and v3.12.2, if a Parquet file fails every conversion attempt,
+the `status` column of the node's `ingest` row is `failed`.
+The `last_message` column identifies the file and its error.
+To resume the upgrade, follow the
+[retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure).
 
 **Query telemetry** — the query telemetry endpoint provides detailed
 execution statistics for analyzing query performance:
