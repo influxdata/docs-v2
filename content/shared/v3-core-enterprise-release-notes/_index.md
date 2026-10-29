@@ -8,7 +8,7 @@
 
 ## v3.12.2 {date="2026-10-29"}
 
-<!-- Reviewed against the selected influxdb_pro release candidate 3aeb9c30e9 (after v3.12.1). Confirm the final tag and any additional release commits before publication. -->
+<!-- Reviewed against influxdb_pro v3.12.2 at f1972a0ff7 (after v3.12.1). The final tag adds only the pulldown-cmark lockfile update to the selected release candidate 3aeb9c30e9. -->
 
 ### Core
 
@@ -19,7 +19,7 @@
 
 #### Bug fixes
 
-- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now return `429 Too Many Requests` when a query exhausts the DataFusion memory pool. Previously, they returned `500`. For CSV, JSON, and JSON Lines output, this applies when the query fails before it returns any rows. An error after the first rows still ends the HTTP `200` response early. Enterprise already mapped resource-exhaustion errors to `429`.
+- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now return `429 Too Many Requests` when a query exhausts the DataFusion memory pool. Previously, they returned `500`. For CSV, JSON, and JSON Lines output, this applies when the query fails before it returns any rows. An error after the first rows still ends the HTTP `200` response early. Some Core queries still return `500`, such as a query on a table that runs out of memory while deduplicating data. Enterprise already mapped resource-exhaustion errors to `429`.
 - **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once. Previously, a catalog change that arrived between its two reads could deadlock the catalog.
 - **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
 - Other bug fixes and performance improvements
@@ -62,7 +62,7 @@ Additional Enterprise-specific updates:
 
 #### Bug fixes
 
-- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now map DataFusion memory-pool exhaustion to `429 Too Many Requests` instead of `500`. If the error occurs during query execution, `pretty` and `parquet` output return `429`. For CSV, JSON, and JSON Lines output, execution errors still end the HTTP `200` response early, even before the first rows. Enterprise already mapped resource-exhaustion errors to `429`.
+- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now map DataFusion memory-pool exhaustion to `429 Too Many Requests` instead of `500`. If the error occurs during query execution, `pretty` and `parquet` output return `429`. For CSV, JSON, and JSON Lines output, execution errors still end the HTTP `200` response early, even before the first rows. Some Core queries still return `500`, such as a query on a table that runs out of memory while deduplicating data. Enterprise already mapped resource-exhaustion errors to `429`.
 - **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once. Previously, a catalog change that arrived between its two reads could deadlock the catalog.
 - **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
 - Other bug fixes and performance improvements
