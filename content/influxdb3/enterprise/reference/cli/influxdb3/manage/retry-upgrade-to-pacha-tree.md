@@ -26,6 +26,11 @@ The command re-checks every previously failed upgrade source against the catalog
 The reset itself only changes durable state.
 The migration resumes the next time a compactor node starts with `--upgrade-pacha-tree`.
 
+Starting in v3.11.8 and v3.12.2, the command refuses to run while an ingest
+node lists Parquet files it couldn't convert.
+Fix the cause and restart the node, which retries the files, before you run
+the command.
+
 ## Usage
 
 <!--pytest.mark.skip-->
