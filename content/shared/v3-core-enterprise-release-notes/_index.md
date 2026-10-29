@@ -14,23 +14,14 @@
 
 #### Features
 
-- **`influxdb3 debug catalog repair`**: This offline command, added in v3.11.6, is now available on 3.12.
-  It repairs a catalog that fails to load because of a duplicate table name or a reused table or database ID.
-  Stop every node before you run it with `--execute`.
-- **Processing engine Python updated to 3.13.18**: The processing engine now uses Python 3.13.18.
-  This includes the security fixes released since Python 3.13.15.
+- **`influxdb3 debug catalog repair`**: This offline command, added in v3.11.6, is now available on 3.12. It repairs a catalog that fails to load because of a duplicate table name or a reused table or database ID. Stop every node before you run it with `--execute`.
+- **Processing engine Python updated to 3.13.18**: Picks up the security fixes released since 3.13.15.
 
 #### Bug fixes
 
-- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now return `429 Too Many Requests` when a query exhausts the DataFusion memory pool.
-  Previously, they returned `500`.
-  For CSV, JSON, and JSON Lines output, this applies when the query fails before it returns any rows.
-  An error after the first rows still ends the HTTP `200` response early.
-  Enterprise already mapped resource-exhaustion errors to `429`.
-- **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once.
-  Previously, a catalog change that arrived between its two reads could deadlock the catalog.
-- **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch.
-  Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
+- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now return `429 Too Many Requests` when a query exhausts the DataFusion memory pool. Previously, they returned `500`. For CSV, JSON, and JSON Lines output, this applies when the query fails before it returns any rows. An error after the first rows still ends the HTTP `200` response early. Enterprise already mapped resource-exhaustion errors to `429`.
+- **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once. Previously, a catalog change that arrived between its two reads could deadlock the catalog.
+- **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
 - Other bug fixes and performance improvements
 
 ### Enterprise
@@ -40,38 +31,23 @@ Additional Enterprise-specific updates:
 
 #### Features
 
-- **Faster [file index](/influxdb3/enterprise/admin/file-index/) loading (Parquet engine)**: Loading a table's file index, including during a storage engine upgrade, now sorts each posting list once.
-  Previously, every generation re-sorted each list it touched, so a table with many generations loaded slowly and used more memory.
-- **Faster reads of compaction metadata (Parquet engine)**: Compaction and snapshot metadata files are now parsed in one pass, including during a storage engine upgrade.
-  Previously, each was parsed twice.
+- **Faster [file index](/influxdb3/enterprise/admin/file-index/) loading (Parquet engine)**: Loading a table's file index, including during a storage engine upgrade, now sorts each posting list once. Previously, every generation re-sorted each list it touched, so a table with many generations loaded slowly and used more memory.
+- **Faster reads of compaction metadata (Parquet engine)**: Compaction and snapshot metadata files are now parsed in one pass, including during a storage engine upgrade. Previously, each was parsed twice.
 - **Table index cache starts once the server is ready (Parquet engine)**: On ingest nodes, the table index cache now starts its background work when the server reports ready, instead of at the beginning of startup.
-- **Fewer file downloads per query (upgraded storage engine)**: A query now downloads only the run set files whose key range covers the queried field family.
-  Previously, it also downloaded files that held only the table's other field families.
+- **Fewer file downloads per query (upgraded storage engine)**: A query now downloads only the run set files whose key range covers the queried field family. Previously, it also downloaded files that held only the table's other field families.
 - **Faster merging of overlapping files (upgraded storage engine)**: When a query merges rows from several files, each output column is now built in one vectorized step instead of row by row.
 
 #### Bug fixes
 
-- **Storage engine upgrade completed with unconverted Parquet files**: If a Parquet file fails every conversion attempt, the ingest node now reports `failed` in `system.upgrade_parquet_node`.
-  The `last_message` column identifies the file and its error.
-  The cluster upgrade also fails.
-  To resume the upgrade, follow the [retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure).
-  Previously, the node dropped the file and reported its upgrade as complete.
-- **Storage engine upgrade stalled after an ingest node was removed**: The upgrade now drops a removed ingest node from its roster once its Parquet files are converted or absorbed.
-  Previously, a removed ingest node held the cluster at `upgrading` forever.
-- **Overwrites lost after a query node restart (upgraded storage engine)**: After a restart, a query node now reads gen0 files in the order they were written, so the latest write to a series and timestamp wins.
-  Previously, a query could return the value from before an overwrite until compaction.
-- **Query node could miss writes from a stopping ingest node (upgraded storage engine)**: A query node now keeps following an ingest node that is [`stopping`](/influxdb3/enterprise/admin/node-lifecycle/) and fetches its remaining WAL files after it acknowledges the stop.
-  Previously, the query node could stop fetching before the node flushed its last writes.
-- **Trailing WAL fetch could stop responding after an ingest node stopped (upgraded storage engine)**: A query node's fetch of a stopped ingest node's remaining WAL files now completes.
-  Previously, it could wait forever on files its workers had already fetched.
-- **Nodes stopped applying compaction updates after falling behind (Parquet engine)**: A node that refreshes its view of compacted data no longer reads the detail of each generation the compaction removed.
-  Previously, a node more than [`--compaction-cleanup-wait`](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait) behind the compactor failed every refresh with `generation detail not found` until it restarted.
-- **Retention stopped after Gen1 file cleanup deleted a snapshot (Parquet engine)**: The table index cache now skips a snapshot that [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/) already deleted.
-  Previously, the missing snapshot failed the cache initialization, and retention didn't run until the next restart.
-- **Restarted node listed as stopped by its previous process**: A process that is shutting down no longer marks its node stopped once another process has registered under the same `--node-id`.
-  Previously, a slow shutdown could mark the running replacement as stopped, and on the upgraded storage engine query nodes stopped following its WAL.
-- **Schema changes lost when upgrading a Core node to Enterprise**: [Upgrading from Core](/influxdb3/enterprise/admin/upgrade-from-core/) now promotes the node's live catalog.
-  Previously, if the Core node had first run a release before 3.10, the upgrade promoted a stale catalog checkpoint, so schema changes made since then were missing.
+- **Storage engine upgrade completed with unconverted Parquet files**: If a Parquet file fails every conversion attempt, the ingest node now reports `failed` in `system.upgrade_parquet_node`. The `last_message` column identifies the file and its error. The cluster upgrade also fails. To resume the upgrade, follow the [retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure). Previously, the node dropped the file and reported its upgrade as complete.
+- **Storage engine upgrade stalled after an ingest node was removed**: The upgrade now drops a removed ingest node from its roster once its Parquet files are converted or absorbed. Previously, a removed ingest node held the cluster at `upgrading` forever.
+- **Overwrites lost after a query node restart (upgraded storage engine)**: After a restart, a query node now reads gen0 files in the order they were written, so the latest write to a series and timestamp wins. Previously, a query could return the value from before an overwrite until compaction.
+- **Query node could miss writes from a stopping ingest node (upgraded storage engine)**: A query node now keeps following an ingest node that is [`stopping`](/influxdb3/enterprise/admin/node-lifecycle/) and fetches its remaining WAL files after it acknowledges the stop. Previously, the query node could stop fetching before the node flushed its last writes.
+- **Trailing WAL fetch could hang after an ingest node stopped (upgraded storage engine)**: A query node's fetch of a stopped ingest node's remaining WAL files now completes. Previously, it could wait forever on files its workers had already fetched.
+- **Nodes stopped applying compaction updates after falling behind (Parquet engine)**: A node that refreshes its view of compacted data no longer reads the detail of each generation the compaction removed. Previously, a node more than [`--compaction-cleanup-wait`](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait) behind the compactor failed every refresh with `generation detail not found` until it restarted.
+- **Retention stopped after Gen1 file cleanup deleted a snapshot (Parquet engine)**: The table index cache now skips a snapshot that [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/) already deleted. Previously, the missing snapshot failed the cache initialization, and retention didn't run until the next restart.
+- **Restarted node listed as stopped by its previous process**: A process that is shutting down no longer marks its node stopped once another process has registered under the same `--node-id`. Previously, a slow shutdown could mark the running replacement as stopped, and on the upgraded storage engine query nodes stopped following its WAL.
+- **Schema changes lost when upgrading a Core node to Enterprise**: [Upgrading from Core](/influxdb3/enterprise/admin/upgrade-from-core/) now promotes the node's live catalog. Previously, if the Core node had first run a release before 3.10, the upgrade promoted a stale catalog checkpoint, so schema changes made since then were missing.
 - Other bug fixes and performance improvements
 
 ## v3.11.8 {date="2026-10-29"}
@@ -82,19 +58,13 @@ Additional Enterprise-specific updates:
 
 #### Features
 
-- **Processing engine Python updated to 3.13.18**: The processing engine now uses Python 3.13.18.
-  This includes the security fixes released since Python 3.13.15.
+- **Processing engine Python updated to 3.13.18**: Picks up the security fixes released since 3.13.15.
 
 #### Bug fixes
 
-- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now map DataFusion memory-pool exhaustion to `429 Too Many Requests` instead of `500`.
-  If the error occurs during query execution, `pretty` and `parquet` output return `429`.
-  For CSV, JSON, and JSON Lines output, execution errors still end the HTTP `200` response early, even before the first rows.
-  Enterprise already mapped resource-exhaustion errors to `429`.
-- **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once.
-  Previously, a catalog change that arrived between its two reads could deadlock the catalog.
-- **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch.
-  Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
+- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now map DataFusion memory-pool exhaustion to `429 Too Many Requests` instead of `500`. If the error occurs during query execution, `pretty` and `parquet` output return `429`. For CSV, JSON, and JSON Lines output, execution errors still end the HTTP `200` response early, even before the first rows. Enterprise already mapped resource-exhaustion errors to `429`.
+- **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once. Previously, a catalog change that arrived between its two reads could deadlock the catalog.
+- **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
 - Other bug fixes and performance improvements
 
 ### Enterprise
@@ -104,29 +74,18 @@ Additional Enterprise-specific updates:
 
 #### Features
 
-- **Faster [file index](/influxdb3/enterprise/admin/file-index/) loading (Parquet engine)**: Loading a table's file index, including during a storage engine upgrade, now sorts each posting list once.
-  Previously, every generation re-sorted each list it touched, so a table with many generations loaded slowly and used more memory.
-- **Faster reads of compaction metadata (Parquet engine)**: Compaction and snapshot metadata files are now parsed in one pass, including during a storage engine upgrade.
-  Previously, each was parsed twice.
+- **Faster [file index](/influxdb3/enterprise/admin/file-index/) loading (Parquet engine)**: Loading a table's file index, including during a storage engine upgrade, now sorts each posting list once. Previously, every generation re-sorted each list it touched, so a table with many generations loaded slowly and used more memory.
+- **Faster reads of compaction metadata (Parquet engine)**: Compaction and snapshot metadata files are now parsed in one pass, including during a storage engine upgrade. Previously, each was parsed twice.
 - **Table index cache starts once the server is ready (Parquet engine)**: On ingest nodes, the table index cache now starts its background work when the server reports ready, instead of at the beginning of startup.
 
 #### Bug fixes
 
-- **Storage engine upgrade completed with unconverted Parquet files**: If a Parquet file fails every conversion attempt, the ingest node now reports `failed` in `system.upgrade_parquet_node`.
-  The `last_message` column identifies the file and its error.
-  The cluster upgrade also fails.
-  To resume the upgrade, follow the [retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure).
-  Previously, the node dropped the file and reported its upgrade as complete.
-- **Storage engine upgrade stalled after an ingest node was removed**: The upgrade now drops a removed ingest node from its roster once its Parquet files are converted or absorbed.
-  Previously, a removed ingest node held the cluster at `upgrading` forever.
-- **Overwrites lost after a query node restart (upgraded storage engine)**: After a restart, a query node now reads gen0 files in the order they were written, so the latest write to a series and timestamp wins.
-  Previously, a query could return the value from before an overwrite until compaction.
-- **Nodes stopped applying compaction updates after falling behind (Parquet engine)**: A node that refreshes its view of compacted data no longer reads the detail of each generation the compaction removed.
-  Previously, a node more than [`--compaction-cleanup-wait`](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait) behind the compactor failed every refresh with `generation detail not found` until it restarted.
-- **Retention stopped after Gen1 file cleanup deleted a snapshot (Parquet engine)**: The table index cache now skips a snapshot that [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/) already deleted.
-  Previously, the missing snapshot failed the cache initialization, and retention didn't run until the next restart.
-- **Restarted node listed as stopped by its previous process**: A process that is shutting down no longer marks its node stopped once another process has registered under the same `--node-id`.
-  Previously, a slow shutdown could mark the running replacement as stopped, and on the upgraded storage engine query nodes stopped following its WAL.
+- **Storage engine upgrade completed with unconverted Parquet files**: If a Parquet file fails every conversion attempt, the ingest node now reports `failed` in `system.upgrade_parquet_node`. The `last_message` column identifies the file and its error. The cluster upgrade also fails. To resume the upgrade, follow the [retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure). Previously, the node dropped the file and reported its upgrade as complete.
+- **Storage engine upgrade stalled after an ingest node was removed**: The upgrade now drops a removed ingest node from its roster once its Parquet files are converted or absorbed. Previously, a removed ingest node held the cluster at `upgrading` forever.
+- **Overwrites lost after a query node restart (upgraded storage engine)**: After a restart, a query node now reads gen0 files in the order they were written, so the latest write to a series and timestamp wins. Previously, a query could return the value from before an overwrite until compaction.
+- **Nodes stopped applying compaction updates after falling behind (Parquet engine)**: A node that refreshes its view of compacted data no longer reads the detail of each generation the compaction removed. Previously, a node more than [`--compaction-cleanup-wait`](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait) behind the compactor failed every refresh with `generation detail not found` until it restarted.
+- **Retention stopped after Gen1 file cleanup deleted a snapshot (Parquet engine)**: The table index cache now skips a snapshot that [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/) already deleted. Previously, the missing snapshot failed the cache initialization, and retention didn't run until the next restart.
+- **Restarted node listed as stopped by its previous process**: A process that is shutting down no longer marks its node stopped once another process has registered under the same `--node-id`. Previously, a slow shutdown could mark the running replacement as stopped, and on the upgraded storage engine query nodes stopped following its WAL.
 - Other bug fixes and performance improvements
 
 ## v3.12.1 {date="2026-10-14"}
