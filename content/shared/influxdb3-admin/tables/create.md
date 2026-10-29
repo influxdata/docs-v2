@@ -17,7 +17,7 @@ However, you can manually create tables to define a custom schema or apply custo
 - [Table naming restrictions](#table-naming-restrictions)
 
 {{% show-in "enterprise" %}}
-> [!Warning]
+> [!Important]
 > #### Tables with no fields can't be queried
 > In {{% product-name %}} 3.12, a query on a table that has tags but no fields returns HTTP `500` with `field_family_projections is required`.
 > This applies to the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/), the default for new clusters.
@@ -25,7 +25,7 @@ However, you can manually create tables to define a custom schema or apply custo
 {{% /show-in %}}
 
 {{% show-in "cloud" %}}
-> [!Warning]
+> [!Important]
 > #### Tables with no fields can't be queried
 > A query on a table that has tags but no fields returns HTTP `500` with `field_family_projections is required`.
 > Define at least one field when you create a table.

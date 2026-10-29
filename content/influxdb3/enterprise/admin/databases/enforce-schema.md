@@ -137,7 +137,7 @@ Explicit mode only changes what happens when a write later references a
 table or column that isn't declared.
 A declared table always gets its `time` column automatically.
 
-> [!Warning]
+> [!Important]
 > In {{% product-name %}} 3.12 with the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/),
 > a query on a table that has no fields returns HTTP `500`.
 > In an explicit database, a write can't add a field to a declared table.

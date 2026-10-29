@@ -115,14 +115,14 @@ influxdb3 create table \
 ```
 
 {{% show-in "enterprise" %}}
-> [!Warning]
+> [!Important]
 > In {{% product-name %}} 3.12 with the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/),
 > a query on a table that has no fields returns HTTP `500`.
 > Include at least one field with `--fields`.
 {{% /show-in %}}
 
 {{% show-in "cloud" %}}
-> [!Warning]
+> [!Important]
 > A query on a table that has no fields returns HTTP `500`.
 > Include at least one field with `--fields`.
 {{% /show-in %}}
