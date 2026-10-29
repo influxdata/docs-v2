@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.12.0
+  latest_patch: 3.12.2
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -60,7 +60,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.12.0
+  latest_patch: 3.12.2
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -97,7 +97,7 @@ influxdb3_cloud:
   altname: InfluxDB 3 Cloud
   namespace: influxdb3
   content_path: influxdb3/cloud
-  label_group: v3-distributed
+  label_group: v3-cloud
   menu_category: managed
   versions: [cloud]
   list_order: 1
@@ -211,7 +211,7 @@ influxdb3_cloud_dedicated:
   search_includes_resources: false
   latest: cloud-dedicated
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
-  latest_cli: 2.12.1
+  latest_cli: 2.12.2
   placeholder_host: cluster-id.a.influxdb.io
   scheme: https
   version_label: Cloud Dedicated
