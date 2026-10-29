@@ -14,7 +14,6 @@ menu:
 related:
   - /influxdb3/enterprise/api/load-capture/
   - /influxdb3/enterprise/admin/tokens/admin/
-  - /influxdb3/enterprise/performance-preview/
   - /influxdb3/enterprise/admin/performance-tuning/
   - /influxdb3/enterprise/reference/config-options/#mode
   - /influxdb3/enterprise/admin/clustering/
@@ -27,20 +26,22 @@ or query performance while limiting exposure to the identifiers and values that
 load capture anonymizes.
 
 A capture anonymizes database names, table names, tag keys, tag values, field
-names, string and binary field values, and non-time query literals before
+names, string and binary field values, and string query literals before
 writing them to object storage.
 You can preview, download, and inspect a capture locally, then share it with
 InfluxData support through your support channel.
 
 > [!Important]
-> #### Load capture requires the performance preview and a query-mode node
+> #### Load capture requires the upgraded storage engine and a query-mode node
 >
 > Load capture requires the
-> [performance upgrade preview](/influxdb3/enterprise/performance-preview/),
-> which uses the storage engine upgrade.
-> Enable the preview with `--use-pacha-tree` and send `loadcap` requests to a
-> node with an explicit `--mode` setting that includes `query`---for example,
-> `--mode query` or `--mode ingest --mode query --mode compact`.
+> [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/),
+> the default for new clusters.
+> Clusters that started on 3.10 or earlier can migrate with
+> [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree).
+> Send `loadcap` requests to a node with an explicit `--mode` setting that
+> includes `query`---for example, `--mode query` or
+> `--mode ingest --mode query --mode compact`.
 >
 > A node using the default `--mode all` configuration returns
 > `404 loadcap not available`, even though it includes query mode.
@@ -82,12 +83,6 @@ Constraints:
 - Identify a node in your cluster running query mode.
 - Load capture requires an
   [admin token](/influxdb3/enterprise/admin/tokens/admin/).
-
-> [!Note]
-> Load capture requires the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)—the default for new clusters.
-> On clusters that started on 3.10 or earlier, first run the [storage engine upgrade](/influxdb3/enterprise/reference/config-options/#upgrade-pacha-tree) (`--upgrade-pacha-tree`).
-> Send requests to a node with an explicit `--mode` setting that includes `query`, for example, `--mode query` or `--mode ingest --mode query --mode compact`.
-> Load capture isn't available on a node that uses the default `--mode all` configuration.
 
 Set connection environment variables to target the query node:
 
@@ -177,7 +172,6 @@ It does not hide every operational characteristic.
 Timestamps, numeric and boolean values, schema shape, file counts, query
 cadence, query time ranges, and regular expression selectivity are preserved by
 design.
-Inspect a capture before you share it.
 
 ### Download and list the archive
 
@@ -256,18 +250,19 @@ ls -lh loadcap-inspect/*.pt
 Each capture uses a random key that is unique to that capture.
 The same original name or value maps to the same anonymized value within one
 capture, but a different capture produces different values.
-The key is not included in the downloaded profile.
+The key is not included in the profile.
 
 Load capture anonymizes the following:
 
 - Database, table, tag, field family, and field names, replaced with
   deterministic identifiers such as `1-0Dcc2PQ9o7zG`.
 - Tag values, string field values, and binary field values in WAL files.
-- Identifiers and non-time literals in SQL, InfluxQL, and Flight SQL queries.
+- Identifiers and string literals in SQL, InfluxQL, and Flight SQL queries.
 
 Load capture preserves the following:
 
-- Timestamps, numeric field values, and boolean field values.
+- Timestamps, and numeric and boolean values in both captured write data and
+  query literals.
 - Query structure, operators, function names, and time-range literals.
 - The InfluxQL `time` identifier and regular expression structure (anchors,
   character classes, and repetition), so query selectivity stays close to

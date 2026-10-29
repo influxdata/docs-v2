@@ -34,6 +34,7 @@ This page is the reference for both. For task-based instructions, see
 - [Identity model](#identity-model)
 - [User roles](#user-roles)
 - [API tokens](#api-tokens)
+- [Session-only endpoints](#session-only-endpoints)
 - [Endpoint authentication](#endpoint-authentication)
 - [License management](#license-management)
 
@@ -116,7 +117,7 @@ additional administrative capabilities.
 | Role            | Description                                                                                                          |
 | :-------------- | :------------------------------------------------------------------------------------------------------------------- |
 | **Owner**       | Full system access. Manages users, tokens, settings, and authentication providers. Only one owner exists at a time. Created during initial setup. |
-| **Administrator** | Full system access. Same capabilities as the owner except cannot transfer ownership or modify LDAP/OIDC settings.   |
+| **Administrator** | Full system access. Same capabilities as the owner except cannot transfer ownership, modify LDAP/OIDC settings, or manage the license. Reads the audit log. |
 | **Manager**     | Manages configurations, agents, labels, and reporting rules. Manages own API tokens. Cannot manage users or settings.  |
 | **Viewer**      | Read-only access to configurations, agents, labels, and reporting rules. Cannot manage tokens, users, or settings.     |
 
@@ -137,9 +138,22 @@ connections to {{% product-name %}}.
 Each token is scoped to the user who created it.
 The token's effective permissions are restricted to the creating user's
 role. A token cannot exceed the permissions of its owner.
+When a token is created, the requested permissions are clamped to the
+user's role: a wildcard such as `*:*` or `license:*` expands to the
+permissions the role holds, and a request authenticated with a token cannot
+create a token broader than itself.
 If a user's role changes to a role with less permissions, all of that
 user's existing tokens are automatically updated with restricted
 permissions or revoked to match the new role.
+After an [ownership transfer](/telegraf/controller/users/transfer-ownership/),
+the former owner's tokens are re-clamped to the **Administrator** role.
+
+Token management also depends on how the request is authenticated.
+Owners and Administrators signed in with a session can list, revoke,
+delete, and reassign any user's tokens.
+A request authenticated with an API token manages only the tokens of the
+user it belongs to, whatever its permissions, and cannot reassign tokens.
+See [Token visibility](/telegraf/controller/tokens/#token-visibility).
 
 Tokens use the `tc-apiv1_` prefix, making them easy to identify in
 configuration files and scripts.
@@ -151,6 +165,20 @@ configuration files and scripts.
 API tokens are independent of the authentication provider that created the
 underlying user account. An LDAP user, an OIDC user, and a local user all
 issue tokens the same way.
+
+## Session-only endpoints
+
+Endpoints that act on the signed-in user's own account or on instance
+ownership accept only an interactive session, never an API token.
+A request to one of these endpoints with an API token returns
+`403 Forbidden` with the message `This endpoint requires an interactive
+session`, even when the token holds the matching permissions.
+
+| Endpoint                                                          | Purpose                                      |
+| :---------------------------------------------------------------- | :------------------------------------------- |
+| `PATCH /api/users/me`                                             | Update the signed-in user's own profile      |
+| `PATCH /api/users/me/password`                                    | Change the signed-in user's own password     |
+| `/api/users/transfer-owner` and its `pending`, `accept`, and `decline` routes | [Transfer ownership](/telegraf/controller/users/transfer-ownership/) |
 
 ## Endpoint authentication
 
@@ -194,3 +222,17 @@ Only the **Owner** can apply, replace, or remove a license.
 Any authenticated user, including Viewers, can call
 `GET /api/license/entitlements` to read the current entitlements and usage.
 This endpoint is intended for monitoring and capacity-planning scripts.
+
+## Security advisories
+
+{{% product-name %}} exposes one permission resource for
+[security advisories](/telegraf/controller/security-advisories/), a
+[Telegraf Enterprise](/telegraf/enterprise/) feature:
+
+| Resource | Actions | Required role | Description |
+| :------- | :------ | :------------ | :---------- |
+| `security-advisories` | `read` | Any authenticated user | View advisories, fleet exposure, feed status, and affected agents. |
+| `security-advisories` | `write` | **Owner** or **Administrator** | Check for advisories, import advisory files, and acknowledge the advisory notification. |
+
+Without a valid license, every security advisory endpoint returns
+`403 Forbidden` regardless of role.

@@ -660,12 +660,14 @@ SVG, so only the icons you reference are included in the build.
 
 Because Hugo doesn't allow mixing positional and named parameters in a single
 shortcode call, use the positional form for a bare icon and the named form
-when you add a size:
+when you add a size or a border:
 
 ```md
 Click {{< lucide "circle-plus" >}} to add a plugin.
 
 Status {{< lucide icon="circle-check" size="large" >}} indicates success.
+
+Turn on **Use regular expression** ({{< lucide icon="regex" bordered="true" >}}).
 ```
 
 Parameters:
@@ -674,6 +676,9 @@ Parameters:
   kebab-case, exactly as listed at lucide.dev/icons.
 - **size**: `small` or `large`. Defaults to the surrounding text size (1em).
   Named form only.
+- **bordered**: `true` draws a 1px rounded square around the icon in the
+  current text color, to mirror icon buttons in a product UI (for example, the
+  search toggles in Telegraf Controller). Named form only.
 
 Icons are decorative (hidden from screen readers with `aria-hidden`), so pair
 each icon with the text that names the control. Icons inherit the surrounding

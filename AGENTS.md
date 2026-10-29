@@ -98,6 +98,10 @@ before running browser commands.
 
 ## Detailed references
 
+- For EDR release reviews, documentation drift, and publication, load the
+  [shared EDR workflow](https://github.com/influxdata/docs-tooling/blob/main/.agents/skills/edr-docs-review/SKILL.md)
+  from the configured docs-tooling checkout or installed skill mount. If it is
+  unavailable, identify the missing workflow and request an authorized handoff.
 - [Content rules](content/AGENTS.md), [layouts](layouts/AGENTS.md),
   [assets](assets/AGENTS.md), and [API docs](api-docs/AGENTS.md).
 - [DOCS-CONTRIBUTING.md](DOCS-CONTRIBUTING.md),

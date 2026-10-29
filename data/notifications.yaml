@@ -136,7 +136,7 @@
     [Release notes](/influxdb3/enterprise/release-notes/) |
     [Announcement](https://www.influxdata.com/blog/influxdb-3-12/)
 
-- id: telegraf-controller-1-1
+- id: telegraf-controller-1-2
   level: note
   scope:
     - /
@@ -149,27 +149,27 @@
     - /influxdb3/
     - /influxdb/
     - /flux/
-  title: Telegraf Controller 1.1 now available
+  title: Telegraf Enterprise & Controller 1.2 now available
   slug: |
-    Telegraf Controller 1.1 adds high availability _(Telegraf Enterprise)_,
-    global constants, configuration groups, configuration aliases, and
-    configuration versioning.
+    Security advisory scanning _(Telegraf Enterprise)_, agent-level metrics
+    and logs, fleet health summaries, automated deployment tokens, and an
+    official Docker image.
   message: |
-    Telegraf Controller 1.1 lets teams make fleet-wide configuration changes
-    with a single edit using
-    [global constants](/telegraf/controller/configs/constants/),
-    [configuration groups](/telegraf/controller/config-groups/), and
-    [configuration aliases](/telegraf/controller/configs/aliases/).
-    [Configuration versioning](/telegraf/controller/configs/versions/) makes
-    every change traceable, comparable, and reversible.
-    [High availability](/telegraf/controller/high-availability/), available with
-    Telegraf Enterprise, automatically fails over between Controller instances
-    so agents can continue pulling configurations and reporting health if an
-    instance goes down.
+    - **[Security advisories](/telegraf/controller/security-advisories/)**
+      _(Telegraf Enterprise)_: see which agents run an affected Telegraf version.
+    - **[Agent heartbeat data](/telegraf/controller/agents/heartbeat-data/)**:
+      errors, warnings, and logs on the agent detail page.
+    - **[Fleet summary](/telegraf/controller/agents/monitor/)** and
+      **[heartbeat service health](/telegraf/controller/admin/monitor/#heartbeat-service-health)**
+      at a glance.
+    - **[Bootstrap](/telegraf/controller/tokens/bootstrap/)** and
+      **[pre-shared](/telegraf/controller/tokens/preshared/)** API tokens for
+      automated deployments.
 
-    - [Read the announcement](https://influxdata.com/blog/telegraf-controller-1-1/)
-    - [See the release notes](/telegraf/controller/reference/release-notes/#v110)
-    - [Download and install Telegraf Controller 1.1](/telegraf/controller/install/)
+    [Run Telegraf Controller in Docker](/telegraf/controller/install/docker/)  
+    [Release notes](/telegraf/controller/reference/release-notes/#v120)  
+    [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-controller-1-2/)
+
 
 - id: influxdb-v1-13-release
   level: note
@@ -193,28 +193,24 @@
     For details, see the
     [InfluxDB OSS 1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130).
 
-# ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4.
-# Restore this notification when Enterprise v1.13.x ships.
-# - id: enterprise-influxdb-v1-13-release
-#   level: note
-#   scope:
-#     - /enterprise_influxdb/v1/
-#   title: 'InfluxDB Enterprise 1.13.0 is now available'
-#   slug: |
-#     InfluxDB Enterprise 1.13.0 adds mTLS support and changes the default
-#     replication factor from 3 to 2.
-#
-#     [View InfluxDB Enterprise 1.13.0 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1130)
-#   message: |
-#     **Key updates in InfluxDB Enterprise 1.13.0:**
-#
-#     - **Default replication factor changed to 2** (previously 3) for new
-#       databases and retention policies. Existing ones aren't affected.
-#     - **mTLS support** for Enterprise data and meta nodes.
-#     - All InfluxDB OSS 1.13.0 updates apply to Enterprise too.
-#
-#     For details, see the
-#     [InfluxDB Enterprise 1.13.0 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1130).
+- id: enterprise-influxdb-v1-13-release
+  level: note
+  scope:
+    - /enterprise_influxdb/v1/
+  title: 'InfluxDB Enterprise 1.13.1 is now available'
+  slug: |
+    InfluxDB Enterprise 1.13.1 adds mTLS support and includes the InfluxDB OSS
+    1.13.0 updates.
+
+    [View InfluxDB Enterprise 1.13.1 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1131)
+  message: |
+    **Key updates in InfluxDB Enterprise 1.13.1:**
+
+    - **mTLS support** for Enterprise data and meta nodes.
+    - All InfluxDB OSS 1.13.0 updates apply to Enterprise too.
+
+    For details, see the
+    [InfluxDB Enterprise 1.13.1 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1131).
 
 # - id: influxdb3.8-explorer-1.6
 #   level: note

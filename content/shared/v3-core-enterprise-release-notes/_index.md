@@ -253,6 +253,19 @@ Additional Enterprise-specific updates:
 - **`--compaction-max-num-files-per-plan` has no effect (Parquet engine)**: The compactor no longer limits plans by input file count. Setting the option logs a deprecation warning.
 - **Metric changes**: The unused `influxdb3_memory_pool_evictions`, `influxdb3_memory_pool_rejections`, `influxdb3_memory_pool_eviction_bytes`, `influxdb3_memory_pool_eviction_size_bytes`, and `influxdb3_memory_pool_eviction_duration_seconds` metrics are removed. `influxdb3_compaction_plans_skipped` (Parquet engine) now reports `reason="memory_exhaustion"` with no `phase` label, instead of `reason="file_limit"`.
 
+#### Known issues
+
+The following issues affect the Processing Engine. For setup guidance, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
+
+- **Queued WAL trigger runs can fail**: If a WAL trigger's queued runs fall behind and an ingest node deletes a WAL file before its run starts, the run fails with `WAL object ... is no longer available`. The error appears only in the process node's log.
+- **WAL triggers can stop after a long outage**: If the process node is down longer than the ingest nodes keep their WAL files, its WAL triggers don't process new writes after it restarts, and the node logs nothing. To detect it, check that `influxdb3_processing_engine_wal_processed_watermark` in the process node's `/metrics` output increases. Workaround: restart the process node again.
+- **Docker Desktop containers exit with code 133**: On a new Docker Desktop installation, a node with a bind-mounted data directory can exit with code 133 because of a conflict in the Processing Engine's restart state.
+- **`influxdb3 show plugins` is empty on a process node**: The command returns no plugins even when plugin files exist, and querying `system.plugin_files` on the process node returns `400 table 'public.system.plugin_files' not found`. Workaround: list the files in the plugin directory.
+- **`system.processing_engine_triggers` doesn't show `--node-spec`**: You can't query which node owns a trigger. Workaround: check the `node_id` column in `system.processing_engine_logs` or the process node's log.
+- **Plugins can't read string columns from `system.nodes`**: The string columns use the `Utf8View` type, which the plugin API can't convert (`unsupported Arrow type for Python conversion: Utf8View`), and `CAST(... AS VARCHAR)` doesn't help. Workaround: query with `database="_internal"` and convert each string column with `arrow_cast(<column>, 'Utf8')`.
+- **Configuration template shows the wrong virtual environment path**: The `.conf` template names the virtual environment `<plugin-dir>/venv`. The actual path is `<plugin-dir>/.venv`.
+- **Some options are missing from `influxdb3 serve --help`**: `--trigger-work-silence-timeout`, `--processing-engine-restart-state-snapshot-interval`, `--plugin-repo`, and the internode options appear only in `influxdb3 serve --help-all`.
+
 ---
 
 ### Known issues

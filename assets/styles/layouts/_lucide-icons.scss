@@ -23,6 +23,21 @@ svg.lucide {
     width: 1.25em;
     height: 1.25em;
   }
+
+  // Mirrors icon buttons in product UIs (for example, the search toggles in
+  // Telegraf Controller): a smaller icon inside a 1px rounded square in the
+  // current text color, so the border follows the theme with the icon. Side
+  // margins keep the frame from touching neighboring text.
+  &.bordered {
+    box-sizing: content-box;
+    width: .85em;
+    height: .85em;
+    margin: 0 .15em;
+    padding: .15em;
+    border: 1px solid currentColor;
+    border-radius: .25em;
+    vertical-align: -.25em;
+  }
 }
 
 strong svg.lucide {

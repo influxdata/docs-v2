@@ -16,8 +16,10 @@ external clients using the token.
 > [!Important]
 > #### Required permissions
 > 
-> To reassign an API token, you must have the **Owner** or **Administrator**
-> role in {{% product-name %}}.
+> To reassign an API token, you must be signed in to {{% product-name %}}
+> with the **Owner** or **Administrator** role.
+> Requests authenticated with an API token cannot reassign tokens and
+> receive a `403 Forbidden` response.
 
 ## Reassign a token
 

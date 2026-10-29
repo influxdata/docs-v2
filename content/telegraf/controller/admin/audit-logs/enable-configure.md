@@ -2,9 +2,9 @@
 title: Enable and configure audit logging
 list_title: Enable and configure audit logging
 description: >
-  Enable audit logging in Telegraf Controller at startup, configure the
-  retention period, and optionally forward audit events to syslog, a
-  webhook, or a file.
+  Enable audit logging in Telegraf Controller at startup with a signing key,
+  configure the retention period, and optionally forward audit events to
+  syslog, a webhook, or a file.
 aliases:
   - /telegraf/controller/audit-logs/enable-configure/
 menu:
@@ -17,9 +17,9 @@ related:
   - /telegraf/controller/telegraf-enterprise/apply-license/
 ---
 
-Enable audit logging in {{% product-name %}} at startup, change the
-retention period as needed, and optionally forward events to external
-destinations for long-term storage or SIEM integration.
+Enable audit logging in {{% product-name %}} at startup with a signing key,
+change the retention period as needed, and optionally forward events to
+external destinations for long-term storage or SIEM integration.
 
 {{< telegraf/enterprise-feature "Audit logging" >}}
 
@@ -33,6 +33,8 @@ destinations for long-term storage or SIEM integration.
 
 - A valid [Telegraf Enterprise license](/telegraf/enterprise/)
   applied to your {{% product-name %}} instance.
+- A signing key of at least 32 characters.
+  See [Generate a signing key](#generate-a-signing-key).
 - Permission to modify the {{% product-name %}} startup environment (for
   example, the systemd unit file or startup environment).
 - The **Owner** or **Administrator** role to change the retention period
@@ -43,28 +45,75 @@ destinations for long-term storage or SIEM integration.
 >
 > Per {{% product-name %}}'s security policy, settings that change the
 > application's security boundary, including whether audit logging is
-> enabled and where audit events are forwarded, can only be changed at startup.
+> enabled, the signing key, and where audit events are forwarded, can only be
+> changed at startup.
 > Retention is the only audit setting that can be modified at runtime.
 
 ## Enable audit logging
 
-Set `AUDIT_ENABLED` to `true` before starting {{% product-name %}}.
+Audit logging requires two settings at startup: `AUDIT_ENABLED` set to
+`true`, and a signing key of at least 32 characters that {{% product-name %}}
+uses to sign each audit entry.
+Provide the key in one of the following ways:
+
+- The `AUDIT_HMAC_KEY` environment variable, which holds the key itself.
+- The `AUDIT_HMAC_KEY_FILE` environment variable or the
+  `--audit-hmac-key-file` command flag, which name a file that holds the key.
+  {{% product-name %}} trims surrounding whitespace, so a trailing newline
+  in the file is fine.
+
+If both are set, `AUDIT_HMAC_KEY` takes precedence.
+{{% product-name %}} never writes the key to disk or to the database.
+
+### Generate a signing key
+
+Any random string of at least 32 characters works as a key.
+To generate one and store it in a file:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux/macOS](#)
+[Windows (PowerShell)](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```bash
+openssl rand -base64 48 > /etc/telegraf-controller/audit-key
+chmod 600 /etc/telegraf-controller/audit-key
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```powershell
+-join ((48..57 + 65..90 + 97..122) | Get-Random -Count 48 | ForEach-Object { [char]$_ }) |
+  Set-Content -NoNewline "C:\ProgramData\TelegrafController\audit-key"
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Store the file outside the audit log data directory and restrict read
+access to the account that runs {{% product-name %}}.
+
+### Start {{% product-name %}} with audit logging enabled
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [systemd](#)
 [Shell](#)
 [Windows (Powershell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
-Add `AUDIT_ENABLED=true` to your systemd unit file (typically
-`/etc/systemd/system/telegraf-controller.service`):
+Add `AUDIT_ENABLED=true` and the key file path to your systemd unit file
+(typically `/etc/systemd/system/telegraf-controller.service`):
 
 ```ini
 [Service]
 Environment=AUDIT_ENABLED=true
+Environment=AUDIT_HMAC_KEY_FILE=/etc/telegraf-controller/audit-key
 ```
 
 Reload systemd and restart the service:
@@ -77,47 +126,60 @@ sudo systemctl restart telegraf-controller
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Set the variable, or pass `--audit-enabled` on the command line:
+Set the variables, or pass `--audit-enabled` and `--audit-hmac-key-file`
+on the command line:
 
 ```bash
 export AUDIT_ENABLED=true
+export AUDIT_HMAC_KEY_FILE=/etc/telegraf-controller/audit-key
 telegraf_controller --no-interactive
 ```
 
 ```bash
-telegraf_controller --audit-enabled --no-interactive
+telegraf_controller --audit-enabled \
+  --audit-hmac-key-file=/etc/telegraf-controller/audit-key \
+  --no-interactive
 ```
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Set the variable in PowerShell, or pass `--audit-enabled` on the command line:
+Set the variables in PowerShell, or pass `--audit-enabled` and
+`--audit-hmac-key-file` on the command line:
 
 ```powershell
 $env:AUDIT_ENABLED="true"
+$env:AUDIT_HMAC_KEY_FILE="C:\ProgramData\TelegrafController\audit-key"
 ./telegraf_controller.exe --no-interactive
 ```
 
 ```powershell
-./telegraf_controller.exe --audit-enabled --no-interactive
+./telegraf_controller.exe --audit-enabled `
+  --audit-hmac-key-file="C:\ProgramData\TelegrafController\audit-key" `
+  --no-interactive
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published.
-     Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
-Pass `AUDIT_ENABLED=true` when starting the container:
+Pass `AUDIT_ENABLED=true` and mount the key file read-only when starting
+the container:
 
 ```bash
 docker run \
-  -e AUDIT_ENABLED=true \
-  influxdata/telegraf-controller
+  --env AUDIT_ENABLED=true \
+  --env AUDIT_HMAC_KEY_FILE=/run/secrets/audit-key \
+  --volume /etc/telegraf-controller/audit-key:/run/secrets/audit-key:ro \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+The container runs as the `telegraf-controller` user (UID `10001`), so the
+key file must be readable by that user.
+Include your standard container options, such as EULA acceptance, published
+ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts:
@@ -125,8 +187,33 @@ After {{% product-name %}} starts:
 - The **Settings > Audit Logging** section displays as enabled.
 - Audit entries begin appearing in the platform data directory described in
   [Where audit logs are stored](/telegraf/controller/admin/audit-logs/#where-audit-logs-are-stored).
+- The server log reports the result of the startup chain check.
+  See [Verify integrity](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
 
 {{< img-hd src="/img/telegraf/controller-settings-audit-retention.png" alt="Telegraf Controller audit log retention dropdown" />}}
+
+### Start without a key
+
+If `AUDIT_ENABLED` is `true` but no signing key is configured, or the key is
+shorter than 32 characters, {{% product-name %}} starts with audit logging
+disabled and logs the reason, for example:
+
+```
+Audit HMAC key is not configured: set AUDIT_HMAC_KEY or pass --audit-hmac-key-file; audit logging stays disabled
+```
+
+The **Settings > Audit Logging** section displays as disabled until you
+restart with a key.
+
+When you start the executable in a terminal without `--no-interactive` and
+no key is configured, {{% product-name %}} prompts for the key instead:
+
+```
+Audit log signing key (at least 32 characters, empty to start without audit logging):
+```
+
+Input is hidden, and the key applies to that run only.
+Press Enter without a key to start with audit logging disabled.
 
 ## Configure retention
 
@@ -175,6 +262,12 @@ export AUDIT_LOG_RETENTION=8760
 destinations in addition to writing it to local storage.
 Forwarders are configured **at startup only** and run independently, which lets
 you enable any combination of syslog, webhook, and file forwarders.
+
+Every audit event is forwarded, including sign-in, sign-out, constant, and
+agent-deletion events.
+If a forwarder fails, {{% product-name %}} logs `Audit forward failed` with a
+running failure count and keeps running.
+The entry is still written to local storage.
 
 ### Forward to syslog
 
@@ -229,6 +322,7 @@ term.
 
 To turn audit logging off, remove `AUDIT_ENABLED` (or set it to a value
 other than `true`) and restart {{% product-name %}}.
+Starting without a signing key has the same effect.
 The startup-only policy applies in both directions: audit logging cannot be
 disabled from the UI.
 

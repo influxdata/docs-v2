@@ -31,7 +31,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 - [Manage plugin dependencies](#manage-plugin-dependencies)
 - [Plugin security](#plugin-security)
 {{% show-in "enterprise" %}}
-- [Distributed cluster considerations](#distributed-cluster-considerations)
+- [Run plugins in a cluster](#run-plugins-in-a-cluster)
 {{% /show-in %}}
 
 ## Set up the Processing Engine
@@ -39,6 +39,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is configured.
 {{% show-in "enterprise" %}}
 In a cluster, this automatically adds `process` mode to the node.
+We recommend running the Processing Engine on a standalone process node, see [Run plugins in a cluster](#run-plugins-in-a-cluster).
 {{% /show-in %}}
 
 ### Default behavior by deployment type
@@ -90,25 +91,11 @@ In the example above, replace the following:
 > To use a custom repository, add the `--plugin-repo` flag when starting the server.
 > See [Use a custom plugin repository](#option-3-use-a-custom-plugin-repository) for details.
 
-### Configure distributed environments
-
-When running {{% product-name %}} in a distributed setup, follow these steps to configure the Processing Engine:
-
-1. Decide where each plugin should run
-   - Data processing plugins, such as WAL plugins, run on ingester nodes
-   - HTTP-triggered plugins run on nodes handling API requests
-   - Scheduled plugins can run on any configured node
-2. Enable plugins on the correct instance
-3. Maintain identical plugin files across all instances where plugins run
-   - Use shared storage or file synchronization tools to keep plugins consistent
-
-> [!Note]
-> #### Provide plugins to nodes that run them
->
-> Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
-
 {{% show-in "enterprise" %}}
-For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
+### Configure a cluster
+
+In a cluster, run the Processing Engine on a standalone process node.
+See [Run plugins in a cluster](#run-plugins-in-a-cluster).
 {{% /show-in %}}
 
 ## Add a Processing Engine plugin
@@ -1348,78 +1335,45 @@ For more security configuration options, see [Configuration options](/influxdb3/
 
 {{% show-in "enterprise" %}}
 
-## Distributed cluster considerations
+## Run plugins in a cluster
 
-When you deploy {{% product-name %}} as a multi-node cluster, plugin execution depends on which nodes have `--plugin-dir` configured (process nodes), which process nodes the trigger pins to with `--node-spec`, and what each trigger type requires of the node that runs it.
+In a cluster, we recommend running the Processing Engine on a standalone process node: a node started with `--mode=process` and `--plugin-dir`.
+The process node doesn't store writes or answer data queries.
 
-> [!Note]
-> #### End-to-end cluster reference
->
-> For a complete worked example of the patterns described in this section, see [`influxdata/influxdb3-ref-network-telemetry`](https://github.com/influxdata/influxdb3-ref-network-telemetry), a 5-node Enterprise cluster that ships WAL-free schedule and request triggers with cross-node write-back.
+The process node starts each trigger type differently:
 
-### Configure `--plugin-dir` on every process node
+- **WAL triggers** (`table:` or `all_tables`): The process node reads each ingest node's WAL files from object storage and passes new rows to `process_writes()`.
+- **Schedule triggers** (`every:` or `cron:`): The process node calls `process_scheduled_call()` on the schedule.
+- **Request triggers** (`request:`): The process node serves `/api/v3/engine/<path>` and calls `process_request()` for each request.
 
-Each process node follows every ingest node's WAL through object storage, and a trigger's `--node-spec` selects which process nodes' schedulers own it, by default `all`, every process node.
-Each owning scheduler spreads its runs across itself and the other running process nodes that advertise an internode address (`--internode-bind-addr`).
-A candidate node that doesn't have the trigger's plugin file in its own `--plugin-dir` declines the run, and the scheduler tries another node.
+For every trigger type, plugins reach data through other nodes over the internode protocol:
+`influxdb3_local.query()` runs on a query node, and `influxdb3_local.write()` and plugin log messages go to an ingest node.
+Start every ingest node and every query node with `--internode-bind-addr`.
 
-Configure `--plugin-dir` on every process node and make the same plugin files available to each one (for example, by mounting a shared directory in your container or pod spec), so any of them can pick up a run.
-Use `--node-spec` on each trigger to control which nodes' schedulers own it, see [Pin triggers to specific nodes](#pin-triggers-to-specific-nodes).
-For the full trigger execution model, including scheduler state persistence and restart behavior, see [Run the Processing Engine in a cluster](/influxdb3/enterprise/admin/processing-engine-cluster/).
+For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
-### Match plugin types to the correct node
+### Pin triggers to the process node
 
-| Plugin type   | Trigger spec             | Pin to                                            | Notes                                                                                          |
-|---------------|--------------------------|---------------------------------------------------|------------------------------------------------------------------------------------------------|
-| WAL rows      | `table:` or `all_tables` | A single process node                             | Every process node follows every ingester's WAL; pinning to one node avoids running once per process node for each WAL flush. |
-| Scheduled     | `every:` or `cron:`      | A node with `process` mode (typically `process,query`) | The plugin can call `influxdb3_local.query()` locally; `influxdb3_local.write()` goes over the internode protocol to an ingest node that sets `--internode-bind-addr`. |
-| HTTP request  | `request:`               | A node with `query` mode (the host-exposed port)  | The route exists only on the pinned node(s). Other process nodes return `404 not found`; nodes without a Processing Engine return `405 Method Not Allowed`. |
+Create each trigger on the process node, and set [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) to the process node's ID:
 
-#### WAL triggers follow every ingester
-
-Every process node follows the WAL of every ingest node through object storage, starting from when it comes up, not from earlier history.
-A WAL trigger owned by more than one process node, the default `--node-spec all` on a cluster with more than one process node, fires once per owning node for each WAL flush.
-Pin the trigger to a single process node with `--node-spec nodes:<node-id>` to run it once per flush, or write the plugin so a repeated run is safe.
-
-Many production clusters avoid WAL triggers entirely and use the schedule + request pattern instead, where one node pulls aggregated state on a schedule and an HTTP endpoint serves point queries.
-
-#### Schedule triggers write back to an ingest node
-
-A schedule trigger pinned to a node without `ingest` mode can't write results locally.
-`influxdb3_local.write()` sends the write over the internode protocol to a running ingest node that advertises an internode address (`--internode-bind-addr`); if none is available, the call fails with `no remote write client found`.
-Alternatively, the plugin can POST line protocol via HTTP to an ingest node.
-For a worked example, see the reference architecture's [`plugins/_writeback.py`](https://github.com/influxdata/influxdb3-ref-network-telemetry/blob/main/plugins/_writeback.py) helper, which round-robins writes across configured ingest URLs with a fallback hop on connection error.
-
-#### Request triggers don't route across nodes
-
-The `/api/v3/engine/<trigger_name>` route exists only on the node(s) the trigger is pinned to.
-A client that hits a process node where the trigger isn't pinned receives `HTTP 404 {error: "not found"}`; a node without a Processing Engine returns `405 Method Not Allowed`.
-Pin request triggers to your query-serving node(s) and route external clients to those nodes.
-
-### Pin triggers to specific nodes
-
-Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) when creating a trigger to control which node(s) execute it:
-
-```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
+```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
-  --database DATABASE_NAME \
+  --host http://PROCESS_HOST:8181 \
   --token AUTH_TOKEN \
+  --database DATABASE_NAME \
   --path schedule_rollup.py \
   --trigger-spec "every:5s" \
-  --node-spec "nodes:NODE_ID" \
+  --node-spec "nodes:PROCESS_NODE_ID" \
   hourly_rollup
 ```
 
-The default is `--node-spec all`, which makes every process node's scheduler own the trigger and schedule it independently, appropriate for single-node deployments, but causes duplicate execution for schedule and WAL triggers in a cluster with more than one process node.
+The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
 
-### Route third-party clients to query nodes
+### Route requests to the right node
 
-External tools — such as Grafana, custom dashboards, or REST clients — must connect to query nodes in your InfluxDB Enterprise deployment.
-
-#### Examples
-
-- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a query node URL, such as:
-  `https://query.example.com:8086`
-- **REST clients**: Applications using `POST /api/v3/query/sql` or `POST /api/v3/engine/<trigger>` must target a query node.
+- Send `/api/v3/engine/<path>` requests for request triggers to the process node.
+  Other nodes return `404` or `405`.
+- Connect external query tools, such as Grafana, to query nodes, for example `https://query.example.com:8181`.
+- Send writes to ingest nodes.
 
 {{% /show-in %}}

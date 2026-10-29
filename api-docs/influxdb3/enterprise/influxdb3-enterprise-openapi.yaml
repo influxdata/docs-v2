@@ -2981,8 +2981,8 @@ paths:
       operationId: GetLoadcapProfiles
       summary: List load capture profiles
       description: >
-        Returns load capture profiles stored by a query-capable Enterprise node that has the performance upgrade preview
-        enabled and an explicit `--mode` setting that includes `query`.
+        Returns load capture profiles stored by a query-capable Enterprise node that has the upgraded storage engine
+        and an explicit `--mode` setting that includes `query`.
 
 
         This endpoint requires an admin token.
@@ -3001,7 +3001,7 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            Load capture is unavailable because this node does not use the upgraded storage engine with an explicit
             `--mode` setting that includes `query`.
       tags:
         - Load capture
@@ -3014,7 +3014,7 @@ paths:
       summary: Start a load capture
       description: >
         Starts a timed capture of write requests, query requests, or both on a query-capable Enterprise node that has
-        the performance upgrade preview enabled and an explicit `--mode` setting that includes `query`.
+        the upgraded storage engine and an explicit `--mode` setting that includes `query`.
 
 
         Only one capture can run at a time on a node. This endpoint requires an admin token.
@@ -3039,7 +3039,7 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            Load capture is unavailable because this node does not use the performance upgrade preview with an explicit
+            Load capture is unavailable because this node does not use the upgraded storage engine with an explicit
             `--mode` setting that includes `query`.
         "409":
           description: A load capture is already running on this node.
@@ -3073,8 +3073,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
@@ -3096,8 +3096,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
         "409":
           description: The profile is still capturing. Wait for it to finish (or its status to catch up to `complete`), then retry.
       tags:
@@ -3130,8 +3130,8 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
@@ -3166,8 +3166,82 @@ paths:
           description: Forbidden. An admin token is required.
         "404":
           description: >-
-            The profile does not exist, or load capture is unavailable because this node does not use the performance
-            upgrade preview with an explicit `--mode` setting that includes `query`.
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/files:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+    get:
+      operationId: GetLoadcapProfileFiles
+      summary: List files in a load capture profile
+      description: >
+        Returns the name, size, and type of each file stored in a load capture profile.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: Files in the load capture profile.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LoadCaptureFile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile does not exist, or load capture is unavailable because this node does not use the upgraded
+            storage engine with an explicit `--mode` setting that includes `query`.
+      tags:
+        - Load capture
+        - Enterprise
+      x-enterprise-only: true
+      x-influxdb-introduced-in: v3.10.0
+  /api/v3/loadcap/profiles/{profile_id}/files/{filename}:
+    parameters:
+      - $ref: "#/components/parameters/LoadCaptureProfileId"
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the file to download, as returned by the files list endpoint.
+    get:
+      operationId: GetLoadcapProfileFile
+      summary: Download a single file from a load capture profile
+      description: >
+        Downloads one anonymized file from a load capture profile---for example, `catalog.json`,
+        `queries.json.zst`, or a `.pt` write-ahead log file.
+
+
+        This endpoint requires an admin token.
+      responses:
+        "200":
+          description: >-
+            The file contents. The response `Content-Type` is `application/octet-stream` and `Content-Disposition`
+            provides the filename.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Forbidden. An admin token is required.
+        "404":
+          description: >-
+            The profile or file does not exist, or load capture is unavailable because this node does not use the
+            upgraded storage engine with an explicit `--mode` setting that includes `query`.
       tags:
         - Load capture
         - Enterprise
@@ -5850,6 +5924,25 @@ components:
           description: >-
             Anonymized catalog snapshot taken when the capture started, including databases, tables, columns, and node
             metadata. Null for `query`-only captures.
+    LoadCaptureFile:
+      type: object
+      description: Metadata for a single file stored in a load capture profile.
+      properties:
+        name:
+          type: string
+          description: File name, for example `catalog.json`, `queries.json.zst`, or `0-00000001.pt`.
+        size_bytes:
+          type: integer
+          minimum: 0
+          description: File size, in bytes.
+        type:
+          type: string
+          enum:
+            - catalog
+            - wal
+            - queries
+            - unknown
+          description: The kind of file.
     LicenseResponse:
       type: object
       properties:

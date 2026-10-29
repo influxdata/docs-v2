@@ -213,12 +213,13 @@ influxdb3 serve \
   --mode compact
 ```
 
-#### Configure a node to handle queries and run the processing engine 
+#### Configure a node to only run the Processing Engine
 <!-- pytest.mark.skip -->
 ```bash
 influxdb3 serve \
   # ...
-  --mode query,process
+  --mode process \
+  --plugin-dir /path/to/plugins
 ```
 
 > [!Important]
@@ -226,6 +227,9 @@ influxdb3 serve \
 > the Python plugin environment. Without this flag, starting a node with `process`
 > mode will fail with an error. See the [plugin-dir configuration option](/influxdb3/enterprise/reference/config-options/#plugin-dir)
 > for more information.
+>
+> We recommend running `process` alone on a dedicated node.
+> For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
 ## Cluster configuration examples
 
