@@ -67,7 +67,7 @@ Starting in v3.11.8 and v3.12.2, an ingest node reports exhausted conversion
 attempts in `system.upgrade_parquet_node`.
 The cluster upgrade remains `failed` until you reset it with this command.
 
-To reset the failed upgrade and resume the migration:
+To reset the failed upgrade and resume the migration, follow these steps:
 
 1. [Query `system.upgrade_parquet_node`](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables)
    and check `last_message` for the file and error.
