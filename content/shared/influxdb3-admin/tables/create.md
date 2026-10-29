@@ -24,6 +24,13 @@ However, you can manually create tables to define a custom schema or apply custo
 > Define at least one field when you create a table.
 {{% /show-in %}}
 
+{{% show-in "cloud" %}}
+> [!Warning]
+> #### Tables with no fields can't be queried
+> A query on a table that has tags but no fields returns HTTP `500` with `field_family_projections is required`.
+> Define at least one field when you create a table.
+{{% /show-in %}}
+
 ## Create a table using the influxdb3 CLI
 
 Use the `influxdb3 create table` command and provide the following:

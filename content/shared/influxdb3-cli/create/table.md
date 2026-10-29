@@ -121,6 +121,12 @@ influxdb3 create table \
 > Include at least one field with `--fields`.
 {{% /show-in %}}
 
+{{% show-in "cloud" %}}
+> [!Warning]
+> A query on a table that has no fields returns HTTP `500`.
+> Include at least one field with `--fields`.
+{{% /show-in %}}
+
 ### Create a table with tag and field columns
 
 <!--pytest.mark.skip-->
