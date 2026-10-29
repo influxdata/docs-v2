@@ -72,8 +72,7 @@ selected database and the tables themselves.
    ```
 
 3. _(Optional)_ Select **Format** to reformat the query.
-4. Select **Run query** or press <kbd>Cmd</kbd>+<kbd>Enter</kbd> (macOS) or
-   <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (Windows and Linux).
+4. Select **Run query** or press {{< keybind mac="⌘↩" other="Ctrl+Enter" >}}.
 
 **Result preview** shows the number of rows returned and the round-trip time
 for the query, followed by a table of results.
