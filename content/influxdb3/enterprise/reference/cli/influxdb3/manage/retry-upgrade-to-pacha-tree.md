@@ -26,10 +26,10 @@ The command re-checks every previously failed upgrade source against the catalog
 The reset itself only changes durable state.
 The migration resumes the next time a compactor node starts with `--upgrade-pacha-tree`.
 
-Starting in v3.11.8 and v3.12.2, the command refuses to run while an ingest
-node lists Parquet files it couldn't convert.
-Fix the cause and restart the node, which retries the files, before you run
-the command.
+Starting in v3.11.8 and v3.12.2, the command refuses to run while any ingest node
+in the upgrade lists Parquet files it couldn't convert.
+Follow the [retry procedure](#retry-after-an-ingest-conversion-failure) to resolve
+these failures before you run the command.
 
 ## Usage
 
@@ -60,3 +60,20 @@ influxdb3 manage retry-upgrade-to-pacha-tree \
 ```
 
 If any sources are left unresolved, run the command again to re-attempt them.
+
+## Retry after an ingest conversion failure
+
+Starting in v3.11.8 and v3.12.2, an ingest node reports exhausted conversion
+attempts in `system.upgrade_parquet_node`.
+The cluster upgrade remains `failed` until you reset it with this command.
+
+1. [Query `system.upgrade_parquet_node`](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables)
+   and check `last_message` for the file and error.
+2. Fix the cause of the conversion failure.
+3. Restart each affected ingest node to retry its files.
+4. Run `influxdb3 manage retry-upgrade-to-pacha-tree` as shown in the [example](#example).
+   If the command reports that an ingest node still lists unconverted files,
+   resolve that node's failure and retry.
+5. Restart a compactor node with
+   [`--upgrade-pacha-tree`](/influxdb3/enterprise/reference/internals/storage-engine/#upgrade-from-parquet)
+   to resume the migration.
