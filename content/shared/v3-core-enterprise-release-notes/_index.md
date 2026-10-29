@@ -8,7 +8,7 @@
 
 ## v3.12.2 {date="2026-10-29"}
 
-<!-- Reviewed against the selected influxdb_pro release candidate 3aeb9c30e9 (after v3.12.1). Confirm the final tag and any additional release commits before publication. -->
+<!-- Reviewed against influxdb_pro v3.12.2 at f1972a0ff7 (after v3.12.1). The final tag adds only the pulldown-cmark lockfile update to the selected release candidate 3aeb9c30e9. -->
 
 ### Core
 
