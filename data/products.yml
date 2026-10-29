@@ -174,6 +174,7 @@ influxdb3_cloud_serverless:
   scheme: https
   version_label: Cloud Serverless
   distributed_architecture: true
+  home_sample_data_anchor: get-started-home-sensor-data
   detector_config:
     query_languages:
       SQL:
@@ -216,6 +217,7 @@ influxdb3_cloud_dedicated:
   scheme: https
   version_label: Cloud Dedicated
   distributed_architecture: true
+  home_sample_data_anchor: get-started-home-sensor-data
   detector_config:
     query_languages:
       SQL:
@@ -253,6 +255,7 @@ influxdb3_clustered:
   scheme: https
   version_label: Clustered
   distributed_architecture: true
+  home_sample_data_anchor: get-started-home-sensor-data
   detector_config:
     query_languages:
       SQL:
