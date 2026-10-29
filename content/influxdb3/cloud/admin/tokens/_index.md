@@ -41,7 +41,7 @@ authorize actions in your instance.
     - Never expires
     - Cannot be edited or deleted
   - **Named admin tokens**: Additional admin tokens that you create and manage.
-    - Can be created, edited, and deleted
+    - Can be created and deleted
     - Long-lived by default and expire only if you set an expiration
     - Cannot modify or remove the operator token
 - **Database tokens**: Grant scoped read and write access to specific
@@ -49,6 +49,13 @@ authorize actions in your instance.
   data.
   - Grant `read`, `write`, or both to one or more databases
   - Cannot perform administrative actions
+
+> [!Important]
+> #### Management tokens aren't admin tokens
+>
+> The Admin UI also lists **Management Tokens** under **Account**.
+> Management tokens are account-level tokens.
+> They're separate from the instance admin and database tokens on this page.
 
 > [!Note]
 > #### Store secure tokens in a secret store
@@ -258,7 +265,8 @@ influxdb3 delete token --token-name "TOKEN_NAME"
 
 ---
 
-Because {{% product-name %}} runs the same InfluxDB 3 engine as
-InfluxDB 3 Enterprise, token management works the same way.
-For more details, see
-[Manage tokens in InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/tokens/).
+For all command options, see the
+[`influxdb3 create token`](/influxdb3/cloud/reference/cli/influxdb3/create/token/),
+[`influxdb3 show tokens`](/influxdb3/cloud/reference/cli/influxdb3/show/tokens/),
+and [`influxdb3 delete token`](/influxdb3/cloud/reference/cli/influxdb3/delete/token/)
+CLI reference.
