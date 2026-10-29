@@ -35,6 +35,25 @@ rules, and deletion behavior, see
 [Data retention in {{< product-name >}}](/influxdb3/version/reference/internals/data-retention/).
 {{% /show-in %}}
 
+{{% show-in "cloud" %}}
+### Set a retention period
+
+To set or change the retention period of an existing database in the {{< product-name >}} Admin UI:
+
+1. In the Admin UI, select your instance, and then click **Databases**.
+2. In the row for the database, click the options menu (**&vellip;**)
+   and select **Set Retention Period**.
+3. In the **Set Retention Period** dialog, do one of the following:
+
+   - To keep data indefinitely, turn on **Retain Forever**.
+   - To delete data after a set time, leave **Retain Forever** off.
+     Under **Delete After**, enter an **Amount** and select the **Units**
+     (**Weeks**, **Days**, **Hours**, or **Minutes**).
+4. Click **Set Retention Period**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-databases-set-retention.png" alt="The Set Retention Period dialog for the spice_harvest database with a 90-day retention period" />}}
+{{% /show-in %}}
+
 {{% show-in "core" %}}
 ## Retention periods
 
