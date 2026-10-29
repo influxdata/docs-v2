@@ -14,7 +14,7 @@
 
 #### Features
 
-- **`influxdb3 debug catalog repair`**: This offline command, added in v3.11.6, is now available on 3.12. It repairs a catalog that fails to load because of a duplicate table name or a reused table or database ID. Stop every node before you run it with `--execute`.
+- **`influxdb3 debug catalog repair`**: This offline command, added in v3.11.6, is now also available on 3.12.2. It repairs a catalog that fails to load because of a duplicate table name or a reused table or database ID. Stop every node before you run it with `--execute`.
 - **Processing engine Python updated to 3.13.18**: Picks up the security fixes released since 3.13.15.
 
 #### Bug fixes
