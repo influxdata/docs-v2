@@ -211,7 +211,7 @@ influxdb3_cloud_dedicated:
   search_includes_resources: false
   latest: cloud-dedicated
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
-  latest_cli: 2.12.1
+  latest_cli: 2.12.2
   placeholder_host: cluster-id.a.influxdb.io
   scheme: https
   version_label: Cloud Dedicated
