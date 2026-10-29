@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.12.0
+  latest_patch: 3.12.1
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -49,6 +49,7 @@ influxdb3_core:
       price_currency: "USD"
 
 influxdb3_enterprise:
+  link: 'https://www.influxdata.com/contact-sales/'
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
   namespace: influxdb3
@@ -59,7 +60,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.12.0
+  latest_patch: 3.12.1
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -96,7 +97,7 @@ influxdb3_cloud:
   altname: InfluxDB 3 Cloud
   namespace: influxdb3
   content_path: influxdb3/cloud
-  label_group: v3-distributed
+  label_group: v3-cloud
   menu_category: managed
   versions: [cloud]
   list_order: 1
@@ -313,9 +314,9 @@ influxdb:
     - v2
     - v1
   supports_flux: true
-  latest: v2.9
+  latest: v2.10
   latest_patches:
-    v2: 2.9.1
+    v2: 2.10.0
     v1: 1.13.0
   latest_cli:
     v2: 2.8.0
@@ -427,8 +428,8 @@ telegraf_controller:
   menu_category: other
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
-  latest: 1.1
-  latest_patch: 1.1.2
+  latest: 1.2
+  latest_patch: 1.2.0
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"
@@ -463,7 +464,7 @@ chronograf:
   has_support_contract: false
   latest: v1.11
   latest_patches:
-    v1: 1.11.5
+    v1: 1.11.6
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -513,9 +514,9 @@ enterprise_influxdb:
   list_order: 5
   versions: [v1]
   supports_flux: true
-  latest: v1.12
+  latest: v1.13
   latest_patches:
-    v1: 1.12.4
+    v1: 1.13.1
   detector_config:
     query_languages:
       InfluxQL:

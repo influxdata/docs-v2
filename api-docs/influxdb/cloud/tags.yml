@@ -240,9 +240,18 @@ tags:
   Security and access endpoints:
     description: |
       Endpoints for managing authentication and access control in InfluxDB Cloud.
+  # GET /api/v2/setup returns {"allowed": false} on Cloud 2 (verified
+  # 2026-10-08), so the endpoints stay documented with this caveat.
   Setup:
     description: |
-      Configure an initial InfluxDB Cloud instance, including creating the initial user, organization, and bucket.
+      Check whether an InfluxDB instance allows initial setup.
+
+      InfluxDB Cloud doesn't support initial setup.
+      Every InfluxDB Cloud account already has a user and an organization,
+      so `GET /api/v2/setup` always returns `{"allowed": false}`,
+      and the `POST` setup endpoints don't apply to InfluxDB Cloud.
+      To set up an InfluxDB OSS 2.x instance, see the
+      [InfluxDB OSS v2 setup endpoints](/influxdb/v2/api/setup/).
   Signin:
     description: |
       Create a user session by signing in with username and password credentials.

@@ -138,16 +138,11 @@ function mount(
     highlight();
   }
 
-  /** Distance from the selected target, or from as close as the page can get. */
   function remaining(top: number): number {
     const limit = document.documentElement.scrollHeight - window.innerHeight;
     return Math.abs(window.scrollY - Math.max(0, Math.min(top, limit)));
   }
 
-  /**
-   * Release the selected link once scrolling stops. Re-evaluate the active
-   * entry only when the page stopped short of the selected target.
-   */
   function settle(): void {
     window.clearTimeout(settleTimer);
     settleTimer = window.setTimeout(() => {
@@ -157,10 +152,6 @@ function mount(
     }, 150);
   }
 
-  /**
-   * Below the desktop layout, publish the scroll offset so the stylesheet can
-   * carry the rail up from its breakpoint start to its floor.
-   */
   function shiftRail(): void {
     if (desktop.matches) return;
     component.style.setProperty(
@@ -193,6 +184,7 @@ function mount(
   }
 
   function refresh(): void {
+    component.classList.remove('is-ready');
     if (serverLinks.length) links = serverLinks;
     else {
       const list = document.createElement('ul');
@@ -224,6 +216,8 @@ function mount(
     shiftRail();
     highlight();
     present();
+    component.getBoundingClientRect();
+    component.classList.add('is-ready');
   }
 
   function scheduleRefresh(): void {
@@ -267,10 +261,9 @@ function mount(
     'scroll',
     () => {
       if (pinned) {
-        // A programmatic scroll only closes in on its target. Anything that
-        // moves the page away from it has taken over, so drop the selection.
         const distance = remaining(pinned.top);
-        if (distance <= pinned.distance + 1) {
+        const continuesTowardTarget = distance <= pinned.distance + 1;
+        if (continuesTowardTarget) {
           pinned.distance = distance;
           settle();
         } else unpin();

@@ -11,6 +11,32 @@ function finishRender() {
 }
 
 describe('Ask AI button lifecycle', () => {
+  for (const width of [390, 600, 601]) {
+    it(`closes and reopens the conversation at ${width}px`, () => {
+      cy.viewport(width, 844);
+      mockKapaWidget();
+      cy.visit(page);
+      dismissNotifications();
+      cy.get(launcher).click();
+      finishRender();
+      cy.get('#kapa-modal-content textarea').type(
+        'Keep this conversation{enter}'
+      );
+      cy.get('.docs-ask-ai-close').should('have.length', 1);
+      if (width <= 600) {
+        cy.get('.mantine-Modal-close').should('not.be.visible');
+        cy.get('.docs-ask-ai-close').should('be.visible').click();
+      } else {
+        cy.get('.docs-ask-ai-close').should('not.be.visible');
+        cy.get('.mantine-Modal-close').should('be.visible').click();
+      }
+      cy.get('body').should('have.attr', 'data-ask-ai-state', 'ready');
+      cy.get('.article--content').should('be.visible');
+      cy.get(launcher).should('be.focused').click();
+      cy.get('#kapa-modal-content').should('contain', 'Keep this conversation');
+    });
+  }
+
   it('opens once, keeps navigation usable, and reopens vendor conversation history', () => {
     cy.viewport(1280, 1024);
     mockKapaWidget();

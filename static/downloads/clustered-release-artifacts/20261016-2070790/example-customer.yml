@@ -15,7 +15,7 @@ spec:
     # This determines the version of all of the individual components.
     # When a new version of the product is released, this version should be updated and any
     # new config options should be updated below.
-    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20261001-2067247
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20261016-2070790
     apiVersion: influxdata.com/v1alpha1
     spec:
       # # Provides a way to pass down hosting environment specific configuration, such as an role ARN when using EKS IRSA.

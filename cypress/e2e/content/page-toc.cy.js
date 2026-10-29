@@ -36,6 +36,28 @@ describe('Article navigation', () => {
     );
     cy.get('[data-page-rail]').should('not.contain', 'Support and feedback');
   });
+  it('does not animate the active entry indentation when the ToC initializes', () => {
+    cy.viewport(1280, 1024);
+    cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', { body: '' });
+    cy.visit('/influxdb3/core/get-started/write/', {
+      onBeforeLoad(win) {
+        win.tocTransitions = [];
+        win.addEventListener(
+          'transitionrun',
+          (event) => {
+            if (event.target.matches('[data-page-rail] a')) {
+              win.tocTransitions.push(event.propertyName);
+            }
+          },
+          true
+        );
+      },
+    });
+    dismissNotifications();
+    cy.get('[data-page-rail]').should('have.class', 'is-ready');
+    cy.get('[data-page-rail] a[aria-current="location"]').should('exist');
+    cy.window().its('tocTransitions').should('deep.equal', []);
+  });
   it('collapses to a hamburger on phones and follows the scroll up to 2rem', () => {
     cy.viewport(500, 800);
     cy.intercept('https://widget.kapa.ai/kapa-widget.bundle.js', { body: '' });
@@ -71,6 +93,27 @@ describe('Article navigation', () => {
 });
 
 describe('API article navigation', () => {
+  it('keeps vertical padding on the active operation link', () => {
+    cy.viewport(1280, 1024);
+    cy.visit('/influxdb3/core/api/write-data/');
+    dismissNotifications();
+    cy.get('[data-page-rail] a.api-toc-link--operation').then(($links) => {
+      const active = [...$links].find((link) =>
+        link.hasAttribute('aria-current')
+      );
+      const inactive = [...$links].find(
+        (link) => !link.hasAttribute('aria-current')
+      );
+      expect(active, 'active operation link').to.exist;
+      expect(inactive, 'inactive operation link').to.exist;
+      const activeStyle = getComputedStyle(active);
+      const inactiveStyle = getComputedStyle(inactive);
+      expect(activeStyle.paddingTop).to.equal(inactiveStyle.paddingTop);
+      expect(activeStyle.paddingBottom).to.equal(inactiveStyle.paddingBottom);
+      expect(activeStyle.paddingLeft).to.equal(inactiveStyle.paddingRight);
+      expect(activeStyle.paddingRight).to.equal('0px');
+    });
+  });
   it('keeps operation links and method badges in a narrow drawer', () => {
     cy.viewport(1024, 768);
     cy.visit('/influxdb3/core/api/write-data/');

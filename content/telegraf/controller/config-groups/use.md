@@ -88,3 +88,5 @@ configuration on their next check.
 
 On the group detail page, select the **Agents** tab to see the agents
 reporting with this group.
+The tab supports the same search and filters as the **Agents** page.
+See [Search the agent list](/telegraf/controller/agents/monitor/#search-the-agent-list).

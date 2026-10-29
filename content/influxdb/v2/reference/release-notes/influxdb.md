@@ -8,6 +8,54 @@ menu:
 weight: 101
 ---
 
+<!-- ## v2.10.0 {date="2026-10-15"}
+
+### Features
+
+- Add the [`influxql-max-time-range`](/influxdb/v2/reference/config-options/#influxql-max-time-range) option to limit the time range of InfluxQL `SELECT` and `EXPLAIN` statements.
+  A statement that exceeds the limit returns a `max-time-range limit exceeded` error in `results[].error` with an HTTP `200` response.
+  The default (`0`) disables the limit.
+  The limit doesn't apply to Flux queries.
+  `influxd upgrade` maps the 1.x `coordinator.max-time-range` option to this option.
+- Add the [`http-user-write-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-write-bytes-enabled) option.
+  When enabled, the `/metrics` endpoint exposes the `http_write_user_request_bytes` counter with the `user_id` and `endpoint` labels.
+  InfluxDB doesn't count requests that don't have a valid user ID.
+- Add the [`http-user-query-bytes-enabled`](/influxdb/v2/reference/config-options/#http-user-query-bytes-enabled) option.
+  When enabled, the `/metrics` endpoint exposes the `http_query_user_response_bytes` counter with the `user_id` and `endpoint` labels.
+- Add the [`--storage-compact-throughput`](/influxdb/v2/reference/config-options/#storage-compact-throughput) flag.
+  Sustained and burst compaction throughput are now independent.
+  If the burst value is lower than the sustained value, InfluxDB raises the burst value to match.
+- Add adaptive sizing and statistics to the TSI tag-value series ID cache.
+- Update the `/health` and `/ready` endpoints.
+  During startup, `/ready` returns `503` with the readiness checks that haven't passed.
+  Both endpoints report an `uptime` value and more detail for each check.
+- Add the [`health-auth-mode`](/influxdb/v2/reference/config-options/#health-auth-mode) option
+  to restrict `/health` and `/ready` check details to callers with operator permissions.
+  [`hardening-enabled`](/influxdb/v2/reference/config-options/#hardening-enabled) now also restricts these details.
+- Add the [`startup-error-linger`](/influxdb/v2/reference/config-options/#startup-error-linger) option
+  to keep `/health` and `/ready` serving after a failed startup, so you can retrieve the error.
+- Add [`influxd` exit codes](/influxdb/v2/reference/cli/influxd/#exit-codes) that indicate whether restarting can fix a failed startup.
+- Set a `Strict-Transport-Security` header on responses when hardening is enabled.
+- Add partial results support to `SHOW MEASUREMENTS`. A query that hits a limit returns the measurements found so far instead of failing.
+- Split the `tsm1` `FileStore` lock into separate fast and slow locks to reduce contention during compaction.
+
+### Bug Fixes
+
+- Release TSM cursor references once when a Flux query is canceled, instead of leaking them.
+- Prevent a compaction level regression when compacting TSM files at mixed levels.
+- Fix a race in shard loading.
+- Require check names to be unique and nonempty.
+- Remove a shard's per-shard Prometheus series when InfluxDB deletes the shard.
+- Report `http_write_request_bytes` for the legacy `/write` endpoint. Previously, the metric reported `0`.
+- Include the legacy `/query` endpoint in the `http_query_request_count`, `http_query_request_bytes`, and `http_query_response_bytes` metrics.
+
+### Maintenance
+
+- Upgrade Go to 1.26.9.
+- Upgrade Flux to v0.201.0.
+- Update the InfluxDB UI to v2.10.0.
+- Update containerd from 1.7.35 to 1.7.36. -->
+
 ## v2.9.1 {date="2026-05-11"}
 
 ### Bug Fixes
@@ -913,7 +961,7 @@ This release includes the following bug fixes and updates:
 
 - Include `curl` as a dependency in `influxdb2` packages.
 
-#### Errors updates
+#### Error updates
 
 - Add message to set the Flux `content-type` when a query fails to parse as JSON.
 - Discard excessive errors over `DefaultMaxSavedErrors (100)` to prevent out-of-memory crashes.
@@ -1096,8 +1144,8 @@ The prefix used for Prometheus metrics from the query controller has changed fro
   - [Configure axis tick marks](/influxdb/v2/visualize-data/visualization-types/graph/#x-axis)
   - Upload CSV files through the InfluxDB UI
   - [Edit Telegraf configurations](/influxdb/v2/tools/telegraf-configs/update/#edit-the-configuration-file-directly-in-the-ui) in the InfluxDB UI
-  - [Legend orientation options](/influxdb/v2/visualize-data/visualization-types/graph/#legend)
-  - [Refresh a single dashboard cell](/influxdb/v2/visualize-data/dashboards/control-dashboard/#refresh-a-single-dashboard-cell)
+  - [Legend orientation options](/influxdb/v2/visualize-data/visualization-types/graph/#hover-legend)
+  - [Refresh a single dashboard cell](/influxdb/v2/visualize-data/dashboards/control-dashboard/#manually-refresh-a-single-dashboard-cell)
 - Upgrade to **Flux v0.113.0**.
 
 ### Bug Fixes
@@ -1164,7 +1212,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Promote schema and fill query optimizations to default behavior.
 
 #### Flux updates
-- Upgrade to [Flux v0.104.0](/flux/v0/release-notes/#v0-104-0).
+- Upgrade to [Flux v0.104.0](/flux/v0/release-notes/#v01040).
 - Upgrade to `flux-lsp-browser` v0.5.31.
 
 ### Bug Fixes
@@ -1232,7 +1280,7 @@ This release also defines v2-specific path defaults and provides [helper scripts
 - Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
 - Implement [delete with predicate](/influxdb/v2/write-data/delete-data/).
 - Improve ID-related error messages for `influx v1 dbrp` commands.
-- Update Flux to [v0.99.0](/flux/v0/release-notes/#v0-99-0).
+- Update Flux to [v0.99.0](/flux/v0/release-notes/#v0990).
 - Update `flux-lsp-browser` to v0.5.25.
 - Support for ARM64 preview build.
 
@@ -1262,7 +1310,7 @@ Previously, the database retention policy (DBRP) mapping API did not match the s
 - Improvements to upgrade from 1.x to 2.x:
   - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2/).
   - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
-- Upgrade to [Flux v0.95.0](/flux/v0/release-notes/#v0-95-0).
+- Upgrade to [Flux v0.95.0](/flux/v0/release-notes/#v0950).
 - Upgrade `flux-lsp-browser` to v.0.5.23.
 - Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2/reference/cli/influx/v1/dbrp/).
 - Filter task runs by time.

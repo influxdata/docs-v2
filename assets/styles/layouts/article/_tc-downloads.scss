@@ -8,7 +8,6 @@
   }
 
   .tc-version {
-    font-size: 1rem;
     color: rgba($article-text, .6);
     margin-bottom: .5rem;
   }
@@ -19,8 +18,7 @@
   
 
   .tc-build-row {
-    display: flex;
-    align-items: center;
+    padding: .5rem 0;
     border-bottom: 1px solid $article-hr;
 
     &:first-child {
@@ -28,9 +26,14 @@
     }
   }
 
+  .tc-build-download,
+  .tc-build-signature {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   .tc-build-download {
-    flex: 1 1 auto;
-    margin-right: 1rem;
+    margin-right: .75rem;
   }
 
   .tc-download-link {
@@ -39,38 +42,31 @@
     white-space: nowrap;
   }
 
-  .tc-build-sha {
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: flex-end;
-    gap: .1rem;
-    min-width: 0;
-    max-width: 25rem;
+  // Outlined counterpart of the download button: transparent background,
+  // 1px border and text in the button blue. The hover color comes from the
+  // theme (darker in the light theme, lighter in the dark theme).
+  .tc-signature-link {
+    display: inline-block;
+    padding: .35rem 1rem;
+    border: 1px solid $article-btn-outline;
+    border-radius: $radius;
+    font-size: 1rem;
+    white-space: nowrap;
+    color: $article-btn-outline;
+    background: transparent;
+    transition: color .2s, border-color .2s;
 
-    code {
-      font-size: .8rem;
-      padding: .15rem .65rem;
-      color: $article-code;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    &:hover {
+      color: $article-btn-outline-hover;
+      border-color: $article-btn-outline-hover;
     }
+  }
 
-    .tc-copy-sha {
-      flex-shrink: 0;
-      background: $article-code-bg;
-      border: none;
-      border-radius: $radius;
-      padding: .2rem .6rem;
-      font-family: 'icomoon-v4';
-      font-size: .9rem;
-      color: rgba($article-code, .85);
-      cursor: pointer;
-      transition: color .2s;
+  .tc-digests {
+    margin-top: 1.5rem;
 
-      &:hover {
-        color: $article-code-link-hover;
-      }
+    p {
+      margin-bottom: .75rem;
     }
   }
 }
@@ -79,15 +75,9 @@
 
 @include media(small) {
   #tc-downloads-area {
-    .tc-build-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: .5rem;
-    }
-
     .tc-build-download {
+      display: block;
       margin-right: 0;
-      width: 100%;
     }
 
     .tc-download-link {
@@ -95,9 +85,7 @@
       text-align: center;
     }
 
-    .tc-build-sha {
-      width: 100%;
-      max-width: 100%;
+    .tc-build-signature {
       margin-bottom: .5rem;
     }
   }

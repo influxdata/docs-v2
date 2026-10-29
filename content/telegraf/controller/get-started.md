@@ -96,10 +96,13 @@ stdout and reports agent health back to {{% product-name %}}.
   url = "http://localhost:8000/agents/heartbeat"
   instance_id = "&{agent_id}"
   interval = "1m"
-  include = ["hostname", "statistics", "configs", "status"]
+  include = ["hostname", "statistics", "configs", "status", "logs"]
   # Include to authorize with Telegraf Controller
   # Note: If using Telegraf 1.38.x or earlier, use INFLUX_TOKEN
   token = "${TELEGRAF_CONTROLLER_TOKEN}"
+
+  [outputs.heartbeat.logs]
+    limit = 50
 
   [outputs.heartbeat.status]
     default = "ok"
@@ -127,10 +130,13 @@ stdout and reports agent health back to {{% product-name %}}.
   url = "http://localhost:8000/agents/heartbeat"
   instance_id = "&{agent_id}"
   interval = "1m"
-  include = ["hostname", "statistics", "configs", "status"]
+  include = ["hostname", "statistics", "configs", "status", "logs"]
   # Include to authorize with Telegraf Controller
   # Note: If using Telegraf 1.38.x or earlier, use INFLUX_TOKEN
   token = "${TELEGRAF_CONTROLLER_TOKEN}"
+
+  [outputs.heartbeat.logs]
+    limit = 50
 
   [outputs.heartbeat.status]
     default = "ok"

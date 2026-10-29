@@ -154,7 +154,7 @@
     "debug:browser": "node scripts/puppeteer/debug-browser.js",
     "debug:screenshot": "node scripts/puppeteer/screenshot.js",
     "debug:inspect": "node scripts/puppeteer/inspect-page.js",
-    "test:e2e:kapa-live": "cypress run --spec cypress/live/kapa-sidebar-live.cy.js"
+    "test:e2e:kapa-live": "cypress run --config 'specPattern=cypress/live/kapa*-live.cy.js'"
   },
   "type": "module",
   "browserslist": [

@@ -30,7 +30,7 @@
       {{ if $isApiParent }}
         {{/* API Reference: render custom API nav children instead of standard menu children */}}
         <a href="#" class="children-toggle" role="button" aria-label="Toggle {{ .Name }} nested items"></a>
-        <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
+        <a class="category-label" href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
         <ul class="children">
           {{/* Pass the original (baseURL-prefixed) URL: api-menu-items.html
                builds hrefs by concatenating onto it directly, and separately
@@ -40,7 +40,7 @@
       {{ else }}
         {{/* Standard menu rendering */}}
         {{ if .HasChildren }}<a href="#" class="children-toggle" role="button" aria-label="Toggle {{ .Name }} nested items"></a>{{ end }}
-        <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
+        <a class="link-label" href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
         {{ if .HasChildren }}
           <ul class="children">
           {{ template "recursiveMenu" (dict "menu" .Children "siteData" $siteData "pathOffset" $pathOffset "depth" $depth) }}

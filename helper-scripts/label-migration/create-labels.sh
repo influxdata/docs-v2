@@ -45,6 +45,7 @@ echo
 echo "Product labels:"
 create_label "product:v3-monolith"    "FFA500" "InfluxDB 3 Core and Enterprise (single-node / clusterable)"
 create_label "product:v3-distributed" "FFA500" "InfluxDB 3 Cloud Serverless, Cloud Dedicated, Clustered"
+create_label "product:v3-cloud"       "FFA500" "InfluxDB 3 Cloud (hosted Enterprise)"
 create_label "product:v2"             "FFA500" "InfluxDB v2 (Cloud TSM, OSS)"
 create_label "product:v1"             "FFA500" "InfluxDB v1 OSS"
 create_label "product:v1-enterprise"  "FFA500" "InfluxDB Enterprise v1"

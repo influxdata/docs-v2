@@ -277,6 +277,7 @@ Default: {{< lucide "circle-plus" >}}
 Settings: {{< lucide "settings" >}}
 Large: {{< lucide icon="circle-check" size="large" >}}
 Small: {{< lucide icon="circle-check" size="small" >}}
+Bordered: {{< lucide icon="regex" bordered="true" >}} {{< lucide icon="case-sensitive" bordered="true" >}}
 
 Inline usage inside a list item and bold text:
 
@@ -1791,6 +1792,15 @@ green and red tints.
          limits:
            memory: 2Gi
 ```
+
+## Diagram shortcode
+
+This centered top-down diagram uses the `medium` width option:
+
+{{< diagram medium center >}}
+flowchart TB
+  Source --> Destination
+{{< /diagram >}}
 
 ## influxdb/host and influxdb/host-url shortcodes
 
