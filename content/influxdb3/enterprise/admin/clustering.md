@@ -80,10 +80,11 @@ Available modes:
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
 - `process`: Runs Processing Engine plugins in response to triggers.
-  Requires [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir), which automatically enables `process` mode.
-  You don't need to add `process` to `--mode` when `--plugin-dir` is set.
-  To run only the Processing Engine, set `--mode=process` and `--plugin-dir`.
-  See [Configure a process node](#configure-a-process-node).
+  Requires [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir).
+  In a cluster, we recommend a [standalone process node](#standalone-process-node-recommended).
+  Start it with `--mode=process` and `--plugin-dir`.
+  Setting `--plugin-dir` enables `process` mode on any node, even if `--mode` doesn't list `process`.
+  Don't set `--plugin-dir` on nodes that shouldn't run plugins.
 
 > [!Note]
 > #### Nodes without query mode refuse data queries (Parquet engine)
