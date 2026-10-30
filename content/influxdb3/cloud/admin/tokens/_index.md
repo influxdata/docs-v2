@@ -41,7 +41,7 @@ authorize actions in your instance.
     - Never expires
     - Cannot be edited or deleted
   - **Named admin tokens**: Additional admin tokens that you create and manage.
-    - Can be created, edited, and deleted
+    - Can be created and deleted
     - Long-lived by default and expire only if you set an expiration
     - Cannot modify or remove the operator token
 - **Database tokens**: Grant scoped read and write access to specific
@@ -49,6 +49,13 @@ authorize actions in your instance.
   data.
   - Grant `read`, `write`, or both to one or more databases
   - Cannot perform administrative actions
+
+> [!Important]
+> #### Management tokens aren't admin tokens
+>
+> The Admin UI also lists **Management Tokens** under **Account**.
+> Management tokens are account-level tokens.
+> They're separate from the instance admin and database tokens on this page.
 
 > [!Note]
 > #### Store secure tokens in a secret store
@@ -82,7 +89,9 @@ Creating tokens in the Admin UI requires the account **Admin** role.
 2.  Click **Create New**, and then select the type of token to create:
     **Resource token** (a database token) or **Admin token**.
 
-#### Create a database (resource) token
+After you create either type of token, [save the token secret](#save-the-token-secret).
+
+### Create a database (resource) token
 
 1.  Select **Resource token**.
     The **Create Resource Token** dialog opens.
@@ -104,7 +113,7 @@ Creating tokens in the Admin UI requires the account **Admin** role.
     You can't combine **All Databases** with other databases in the same token.
 7.  Click **Create Token**.
 
-#### Create an admin token
+### Create an admin token
 
 1.  Select **Admin token**.
     The **Create Admin Token** dialog opens.
@@ -119,7 +128,7 @@ Creating tokens in the Admin UI requires the account **Admin** role.
 
 3.  Click **Create Admin Token**.
 
-#### Save the token secret
+### Save the token secret
 
 After you create a token, the **Token Created** dialog displays the
 **Token Name** and **Token Secret**.
@@ -226,6 +235,10 @@ influxdb3 show tokens
 {{% tab-content %}}
 <!------------------------------- BEGIN ADMIN UI ------------------------------->
 
+> [!Warning]
+> Deleting a token stops applications and services that use it to authenticate.
+> You can't undo the deletion.
+
 1.  In the Admin UI, select your instance and then select **Tokens**.
 2.  Delete the token in one of the following ways:
     - In the token's row, open the **Actions** (&vellip;) menu and select
@@ -234,8 +247,6 @@ influxdb3 show tokens
       **Delete**.
 3.  In the **Delete Token** dialog, select **I understand the risk of this
     action**, and then click **Delete Token**.
-    Anything that references the token stops working, and you can't undo the
-    deletion.
 
 The Actions menu also includes **Copy Token ID**.
 
@@ -254,7 +265,8 @@ influxdb3 delete token --token-name "TOKEN_NAME"
 
 ---
 
-Because {{% product-name %}} runs the same InfluxDB 3 engine as
-InfluxDB 3 Enterprise, token management works the same way.
-For more details, see
-[Manage tokens in InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/tokens/).
+For all command options, see the
+[`influxdb3 create token`](/influxdb3/cloud/reference/cli/influxdb3/create/token/),
+[`influxdb3 show tokens`](/influxdb3/cloud/reference/cli/influxdb3/show/tokens/),
+and [`influxdb3 delete token`](/influxdb3/cloud/reference/cli/influxdb3/delete/token/)
+CLI references.
