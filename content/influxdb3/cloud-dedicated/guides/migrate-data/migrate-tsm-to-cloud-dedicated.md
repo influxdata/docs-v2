@@ -47,7 +47,7 @@ are schema design practices supported by the TSM storage engine that are not
 supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields
-- By default, measurements can contain up to 250 columns where each column
+- By default, measurements can contain up to {{% influxdb3/limit "column" %}} columns where each column
   represents time, a field, or a tag.
 
 _For more information, see [Schema restrictions](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#schema-restrictions)._
@@ -180,8 +180,7 @@ data = () =>
     4.  [Create a task](/influxdb/cloud/process-data/manage-tasks/create-task/)
         using the provided [migration task](#migration-task).
         Update the necessary [migration configuration options](#configure-the-migration).
-    5.  _(Optional)_ Set up [migration monitoring](#monitor-the-migration-progress).
-    6.  Save the task.
+    5.  Save the task.
 
         > [!Note]
         > Newly-created tasks are enabled by default, so the data migration
