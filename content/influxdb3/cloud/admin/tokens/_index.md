@@ -269,4 +269,4 @@ For all command options, see the
 [`influxdb3 create token`](/influxdb3/cloud/reference/cli/influxdb3/create/token/),
 [`influxdb3 show tokens`](/influxdb3/cloud/reference/cli/influxdb3/show/tokens/),
 and [`influxdb3 delete token`](/influxdb3/cloud/reference/cli/influxdb3/delete/token/)
-CLI reference.
+CLI references.
