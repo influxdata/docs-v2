@@ -30,22 +30,6 @@ by configuring specialized nodes in distributed deployments.
 Assign specific modes and thread allocations to nodes to maximize
 cluster efficiency.
 
-- [Specialize nodes for specific workloads](#specialize-nodes-for-specific-workloads)
-- [Configure node modes](#configure-node-modes)
-- [Allocate threads by node type](#allocate-threads-by-node-type)
-- [Configure ingest nodes](#configure-ingest-nodes)
-- [Configure query nodes](#configure-query-nodes)
-- [Configure compactor nodes](#configure-compactor-nodes)
-- [Configure a process node](#configure-a-process-node)
-- [Multi-mode configurations](#multi-mode-configurations)
-- [Cluster architecture examples](#cluster-architecture-examples)
-- [Scale your cluster](#scale-your-cluster)
-- [Monitor performance](#monitor-performance)
-- [Troubleshoot node configurations](#troubleshoot-node-configurations)
-- [Best practices](#best-practices)
-- [Migrate to specialized nodes](#migrate-to-specialized-nodes)
-- [Manage configurations](#manage-configurations)
-
 ## Specialize nodes for specific workloads
 
 In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
