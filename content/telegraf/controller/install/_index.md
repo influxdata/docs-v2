@@ -351,8 +351,12 @@ The application will automatically run migrations on first startup.
 #### Connect to PostgreSQL over TLS
 
 To encrypt the connection to a PostgreSQL or PostgreSQL-compatible server,
-add the `sslmode` query parameter to the database URL. To verify the server
-certificate, use `sslmode=verify-full` and provide a CA certificate with
+add the `sslmode` query parameter to the database URL.
+Use `sslmode=verify-full` in production.
+`sslmode=require` encrypts the connection, but the heartbeat service does not
+verify the server certificate in that mode.
+If the server certificate is not issued by a public CA (for example, Amazon
+RDS, Google Cloud SQL, or a corporate CA), provide the CA certificate with
 `sslrootcert`:
 
 ```sh { callout="sslmode=verify-full|sslrootcert=/etc/ssl/certs/ca.pem" callout-color="orange" }
@@ -360,8 +364,10 @@ certificate, use `sslmode=verify-full` and provide a CA certificate with
   --database="postgresql://user:password@db.example.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
 ```
 
-For all PostgreSQL TLS options, including supported `sslmode` values and the
-`DATABASE_CA_CERT` and `DATABASE_SSL_NO_VERIFY` environment variables, see
+The host in the database URL must match a name in the server certificate.
+Provide the CA certificate with `sslrootcert` rather than with an environment
+variable, so that both the API server and the heartbeat service trust it.
+For all PostgreSQL TLS options, including supported `sslmode` values, see
 [Database TLS](/telegraf/controller/reference/config-options/#database-tls).
 
 ## Configure {{% product-name %}}
