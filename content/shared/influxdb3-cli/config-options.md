@@ -241,6 +241,17 @@ This value must be different than the [`--node-id`](#node-id) value.
 For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
 Required when using the `file` [object store](#object-store).
 
+Use a separate `--data-dir` for each `influxdb3 serve` process.
+Writes to a `file` object store are durable after a power loss only when one server process uses the directory.
+
+{{% show-in "enterprise" %}}
+
+Don't point several nodes of a cluster at one local data directory.
+For a multi-node cluster, we recommend an object store such as Amazon S3, Azure Blob Storage, or Google Cloud Storage.
+See [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/).
+
+{{% /show-in %}}
+
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
 | `--data-dir`           | `INFLUXDB3_DATA_DIR`<br>`INFLUXDB3_DB_DIR` ([pre-3.11 name](#name-changes-in-3-11)) |
