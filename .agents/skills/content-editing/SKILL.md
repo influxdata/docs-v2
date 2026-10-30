@@ -29,3 +29,21 @@ yarn verify:changed -- <changed-content-files>
 Load `references/shared-content.md` only for shared sources. Load
 `references/fact-checking.md` only when verifying a technical claim. For full
 human guidance, see [DOCS-CONTRIBUTING.md](../../../DOCS-CONTRIBUTING.md).
+
+## Examples that continue across sections
+
+Review each continuing section as if the reader arrived from search or an anchor link.
+When it reuses values from an earlier example, make its first sentence name the
+example and link to the section that defines it.
+For example: "The following steps create a trigger in the example cluster from
+[Start the nodes](#start-the-nodes)."
+
+Describe what the reader must supply before giving the example value.
+Specify the entire input format, including prefixes and separators.
+For example: "Set `--node-spec` to `nodes:` followed by the process node's ID.
+In the example cluster, use `nodes:process0`."
+In a checklist, use "The process node (`process0` in the example) has mode
+`[process]`" instead of using the example ID as the only description.
+
+Before finishing, check that every reused example value has enough context to
+adapt it to another setup and that each setup link resolves to its defining section.
