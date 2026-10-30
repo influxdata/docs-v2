@@ -145,6 +145,11 @@ To prevent wide schema issues, limit the number of tags and fields stored in a m
 If you need to store more than the [maximum number of columns](/influxdb3/cloud-serverless/admin/buckets/),
 consider segmenting your fields into separate measurements.
 
+If you collect Prometheus metrics with Telegraf, use metric version `1`.
+Metric version `2` writes every Prometheus metric name as a field in a single
+measurement, which creates a wide, sparse schema.
+See [Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version).
+
 #### Avoid too many tags
 
 In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb3/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb3/cloud-serverless/reference/glossary/#tag-value) on the point.

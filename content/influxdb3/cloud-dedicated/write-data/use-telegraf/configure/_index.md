@@ -35,6 +35,7 @@ and then start Telegraf using the custom configuration file.
 
 - [Configure Telegraf input and output plugins](#configure-telegraf-input-and-output-plugins)
   - [Add Telegraf plugins](#add-telegraf-plugins)
+  - [Collect Prometheus metrics](#collect-prometheus-metrics)
   - [Enable and configure the InfluxDB v2 output plugin](#enable-and-configure-the-influxdb-v2-output-plugin)
       - [urls](#urls)
       - [token](#token)
@@ -63,6 +64,45 @@ To add any of the available [Telegraf plugins](/telegraf/v1/plugins/), follow th
     For example, view the [MQTT plugin GitHub page](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/mqtt_consumer/README.md).
 3.  Copy and paste the example configuration into your Telegraf configuration file
     (typically named `telegraf.conf`).
+
+### Collect Prometheus metrics
+
+If you collect Prometheus metrics with the
+[`prometheus` input plugin](/telegraf/v1/input-plugins/prometheus/), set
+`metric_version = 1`.
+If you accept pushed Prometheus data with a listener plugin, such as
+[`http_listener_v2`](/telegraf/v1/input-plugins/http_listener_v2/), set
+`prometheus_metric_version = 1` for the `prometheus` and
+`prometheusremotewrite` data formats, or `openmetrics_metric_version = 1`
+for the `openmetrics` data format.
+These data formats default to version `2`.
+
+```toml
+[[inputs.prometheus]]
+  urls = ["http://localhost:9100/metrics"]
+  metric_version = 1
+
+[[inputs.http_listener_v2]]
+  service_address = ":1234"
+  paths = ["/receive"]
+  data_format = "prometheusremotewrite"
+  prometheus_metric_version = 1
+```
+
+Metric version `2` writes every Prometheus metric name as a separate field in
+a single table.
+In {{% product-name %}}, that produces a
+[wide](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#avoid-wide-schemas),
+[sparse](/influxdb3/cloud-dedicated/write-data/best-practices/schema-design/#avoid-sparse-schemas)
+table that slows persistence and queries.
+Metric version `1` writes each Prometheus metric to its own table.
+For details, see
+[Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version)
+in the Telegraf documentation.
+
+<!-- TODO: InfluxDB 3 Enterprise with PachaTree storage may handle the
+metric version 2 layout better than Parquet-backed storage. Document a
+recommendation here after that evaluation is complete. -->
 
 ### Enable and configure the InfluxDB v2 output plugin
 
