@@ -391,32 +391,49 @@ SQLite.
 Set `sslmode` as a query parameter in the PostgreSQL
 [`database`](#database) connection URL to control whether {{% product-name %}}
 uses TLS and whether it verifies the server certificate.
+Use `verify-full` in production.
 
 ```bash { callout="sslmode=verify-full" callout-color="orange"}
 telegraf_controller \
-  --database="postgresql://user:password@localhost:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
+  --database="postgresql://user:password@db.example.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
 ```
 
 {{% product-name %}} supports the following `sslmode` values:
 
-| `sslmode`     | Connection behavior                                              |
-| :------------ | :-------------------------------------------------------------- |
-| `disable`     | Connect without TLS.                                            |
-| `allow`       | Use TLS if the server supports it. Equivalent to `prefer`.      |
+| `sslmode`     | Connection behavior |
+| :------------ | :------------------ |
+| `disable`     | Connect without TLS. |
+| `allow`       | Use TLS if the server supports it. Equivalent to `prefer`. |
 | `prefer`      | Use TLS if the server supports it, otherwise connect without it. |
-| `require`     | Require TLS, but do not verify the server certificate unless you also provide a CA certificate. |
-| `verify-ca`   | Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate. |
-| `verify-full` | Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate. |
+| `require`     | Require TLS. The API server verifies the server certificate. The heartbeat service verifies it only if you provide a CA certificate, and otherwise logs a warning. |
+| `verify-ca`   | Require TLS and verify the server certificate and host name. Equivalent to `verify-full`. |
+| `verify-full` | Require TLS and verify the server certificate and host name. |
 
-To verify the server certificate, provide a CA certificate with
-[`sslrootcert`](#sslrootcert), [`database-ca-cert`](#database-ca-cert), or
-`PGSSLROOTCERT`. If you request verification but do not provide a CA
-certificate, {{% product-name %}} verifies against a bundled set of public
-root certificates (the Mozilla root store). Certificates issued by a private
-CA, including Amazon RDS, fail verification unless you provide the CA
-certificate. If database certificate verification fails, agent heartbeats are
-rejected. See
-[Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
+With `require`, the heartbeat service's connection is encrypted but not
+protected against a host on the network path that impersonates the database
+server.
+Use `verify-full` in production.
+
+{{% product-name %}} connects to PostgreSQL from two components, the API
+server and the heartbeat service.
+Unless you provide a CA certificate, both verify the server certificate
+against a bundled set of public root certificates (the Mozilla root store).
+Certificates issued by a private CA, including Amazon RDS, Google Cloud SQL,
+and corporate CAs, fail verification until you provide the CA certificate.
+Provide it with [`sslrootcert`](#sslrootcert) in the connection URL, which
+both components read.
+The [`database-ca-cert`](#database-ca-cert) and `PGSSLROOTCERT` environment
+variables reach only the heartbeat service, and the Node.js
+`NODE_EXTRA_CA_CERTS` environment variable reaches only the API server.
+If only the API server trusts the certificate, the web interface works but
+agent heartbeats are rejected.
+See [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
+
+> [!Important]
+> #### The host must match the server certificate
+>
+> The host in the connection URL must match a name in the server certificate.
+> For Amazon RDS, use the instance endpoint, not an IP address.
 
 > [!Note]
 > #### Client certificate authentication is not supported
@@ -431,19 +448,22 @@ rejected. See
 
 Path to a PEM-encoded CA certificate used to verify the PostgreSQL server's
 certificate. Set `sslrootcert` as a query parameter in the
-[`database`](#database) connection URL. This is equivalent to setting
-[`database-ca-cert`](#database-ca-cert). When you provide a CA certificate,
-{{% product-name %}} verifies the server certificate even if
-[`database-ssl-no-verify`](#database-ssl-no-verify) is set.
+[`database`](#database) connection URL. Both the API server and the heartbeat
+service read it, so it is the recommended way to provide a CA certificate.
+When you provide a CA certificate, the heartbeat service verifies the server
+certificate even if [`database-ssl-no-verify`](#database-ssl-no-verify) is
+set.
 
 ---
 
 #### database-ca-cert
 
-Path to a PEM-encoded CA certificate used to verify the PostgreSQL server's
-certificate. Use this environment variable as an alternative to the
-[`sslrootcert`](#sslrootcert) connection parameter. {{% product-name %}} also
-accepts the standard `PGSSLROOTCERT` environment variable for the same purpose.
+Path to a PEM-encoded CA certificate that the heartbeat service uses to
+verify the PostgreSQL server's certificate. The heartbeat service also accepts
+the standard `PGSSLROOTCERT` environment variable for the same purpose.
+Neither variable reaches the API server, so prefer
+[`sslrootcert`](#sslrootcert) in the connection URL, which both components
+read.
 
 | Command flag | Environment variable |
 | :----------- | :------------------- |
@@ -453,10 +473,11 @@ accepts the standard `PGSSLROOTCERT` environment variable for the same purpose.
 
 #### database-ssl-no-verify
 
-When set to `1`, `true`, or `yes`, {{% product-name %}} encrypts the
-PostgreSQL connection but does not verify the server certificate.
-Use this only for development or troubleshooting. If you also provide a CA
-certificate, {{% product-name %}} verifies the server certificate and ignores
+When set to `1`, `true`, or `yes`, the heartbeat service encrypts its
+PostgreSQL connection but does not verify the server certificate, and logs a
+warning. This setting does not affect the API server. Use it only to diagnose
+a connection problem, never in production. If you also provide a CA
+certificate, the heartbeat service verifies the server certificate and ignores
 this setting.
 
 **Default:** `false`

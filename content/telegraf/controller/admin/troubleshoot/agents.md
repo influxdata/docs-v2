@@ -90,15 +90,20 @@ until you provide the CA certificate:
      -O /opt/telegraf-controller/rds-global-bundle.pem
    ```
 
-2. Point {{% product-name %}} at the CA certificate using the
-   [`DATABASE_CA_CERT` or `PGSSLROOTCERT`](/telegraf/controller/reference/config-options/#database-ca-cert)
-   environment variable, or the
+2. Point {{% product-name %}} at the CA certificate with the
    [`sslrootcert`](/telegraf/controller/reference/config-options/#sslrootcert)
    parameter in the database URL:
 
    ```sh
-   DATABASE_CA_CERT=/opt/telegraf-controller/rds-global-bundle.pem
+   DATABASE_URL="postgresql://user:password@mydb.abc123.us-east-1.rds.amazonaws.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/opt/telegraf-controller/rds-global-bundle.pem"
    ```
+
+   Both the API server and the heartbeat service read `sslrootcert`.
+   The [`DATABASE_CA_CERT` and `PGSSLROOTCERT`](/telegraf/controller/reference/config-options/#database-ca-cert)
+   environment variables reach only the heartbeat service, and the Node.js
+   `NODE_EXTRA_CA_CERTS` environment variable reaches only the API server.
+   If the web interface works but heartbeats fail, the API server trusts the
+   certificate and the heartbeat service does not.
 
 3. Restart the service and confirm the logs show
    `Token cache refreshed: N tokens loaded` with a nonzero count.
@@ -112,8 +117,9 @@ until you provide the CA certificate:
 > [`sslmode=require`](/telegraf/controller/reference/config-options/#sslmode)
 > in the database URL, or set
 > [`DATABASE_SSL_NO_VERIFY=1`](/telegraf/controller/reference/config-options/#database-ssl-no-verify).
-> Use these options for troubleshooting only; provide a CA certificate for
-> production deployments.
+> The heartbeat service logs a warning while the connection is unverified.
+> Use these options for troubleshooting only, and provide a CA certificate
+> for production deployments.
 
 ### Other causes of heartbeat 401 responses
 

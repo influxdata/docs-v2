@@ -9,10 +9,57 @@ menu:
 weight: 101
 ---
 
-## v1.2.0 {date="2026-10-27"}
+## v1.2.1 {date="2026-11-02"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.2.0](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.2.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Before you upgrade
+
+> [!Warning]
+> #### Some root certificates are no longer trusted
+>
+> {{% product-name %}} v1.2.1 ships updated root certificate stores that no
+> longer include the following root certificates:
+>
+> - emSign ECC Root CA - G3
+> - emSign Root CA - C1
+> - emSign ECC Root CA - C3
+> - Entrust Root Certification Authority
+> - SecureSign Root CA12
+> - ePKI Root Certification Authority
+> - Atos TrustedRoot 2011
+>
+> After the upgrade, {{% product-name %}} no longer trusts an LDAPS, OIDC,
+> audit webhook, or PostgreSQL server whose certificate chain ends at one of
+> these roots. If one of your servers is affected, give {{% product-name %}}
+> a CA certificate to trust instead: `AUTH_LDAP_CA_CERT_PATH` for an LDAP
+> server, `sslrootcert` in the database URL for PostgreSQL, and the Node.js
+> `NODE_EXTRA_CA_CERTS` environment variable for any other server.
+
+### Security
+
+- Update the root certificate stores in the {{% product-name %}} binaries
+  and Docker images. The embedded Node.js runtime moves to
+  [24.22.1](https://nodejs.org/en/blog/release/v24.22.1), whose root store is
+  NSS 3.131.1, and the heartbeat service moves to `webpki-roots` 1.0.11.
+  Both stores drop the emSign roots that eight eMudhra intermediate
+  certificate authorities with compromised keys chain to
+  ([CVE-2026-111943](https://www.cve.org/CVERecord?id=CVE-2026-111943),
+  [RUSTSEC-2026-0381](https://rustsec.org/advisories/RUSTSEC-2026-0381.html)).
+  Previously, an attacker with one of those keys could impersonate a TLS
+  server to {{% product-name %}}.
+- Warn when the heartbeat service connects to PostgreSQL over TLS without
+  verifying the server certificate. With `sslmode=require` and no CA
+  certificate, or with `DATABASE_SSL_NO_VERIFY` set, the log now states why
+  the server is not verified and what to set instead. Use
+  `sslmode=verify-full`, with `sslrootcert` if the server certificate is not
+  issued by a public CA.
+  See [Database TLS](/telegraf/controller/reference/config-options/#database-tls).
+
+---
+
+## v1.2.0 {date="2026-10-27"}
 
 ### Before you upgrade
 
