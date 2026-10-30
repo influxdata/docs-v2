@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.10.0 {date="2026-10-15"}
+<!-- ## v2.10.0 {date="2026-10-15"}
 
 ### Features
 
@@ -54,7 +54,7 @@ weight: 101
 - Upgrade Go to 1.26.9.
 - Upgrade Flux to v0.201.0.
 - Update the InfluxDB UI to v2.10.0.
-- Update containerd from 1.7.35 to 1.7.36.
+- Update containerd from 1.7.35 to 1.7.36. -->
 
 ## v2.9.1 {date="2026-05-11"}
 

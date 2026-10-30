@@ -166,7 +166,7 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
                 rollback(new Error('Widget container changed'));
                 return;
               }
-              disposeAdapter = adaptKapaSidebar(host, fail);
+              disposeAdapter = adaptKapaSidebar(host, () => api.close(), fail);
               rendered = api;
               resolve(api);
             },

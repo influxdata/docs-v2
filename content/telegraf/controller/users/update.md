@@ -32,6 +32,9 @@ generate a time-limited reset link for them.
 3. Set the link expiration. The default is 24 hours, but you can configure it from 1 to 720 hours.
 4. Click **Generate Link** to create the reset link.
 5. Copy the generated reset link and share it with the user through a secure channel.
+   The link uses the **User Interface URL** from
+   [Public endpoints](/telegraf/controller/settings/#public-endpoints) when
+   one is set, and the address in your browser otherwise.
 
 ### Complete a password reset
 

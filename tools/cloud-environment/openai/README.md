@@ -8,13 +8,13 @@ For the agent workflow, see [openai-cloud-ui](../../../.agents/skills/openai-clo
 
 ## Installation and startup
 
-Provide Node 22 or later, Corepack, Chromium, and the Linux libraries required by Cypress in the base environment.
+Provide Node 22 or later, Corepack, Chromium, Xvfb, xauth, and the Linux libraries required by Cypress in the base environment.
 Use `PUPPETEER_EXECUTABLE_PATH` to select Chromium.
 The default is `/usr/bin/chromium`.
 
 When you execute `setup.sh`, it performs these steps:
 
-1. Enables the pinned Yarn through Corepack.
+1. Checks for Xvfb and enables the pinned Yarn through Corepack.
 2. Installs locked dependencies.
 3. Installs and verifies the package's Cypress binary.
 4. Runs readiness checks.
@@ -35,7 +35,35 @@ The default HTTPS resource is the Google reCAPTCHA bootstrap script.
 To use another allowed HTTPS resource, set `DOCS_BROWSER_HTTPS_URL`.
 Caches default to `/workspace/.cache`.
 Artifacts default to `/workspace/environment-artifacts/docs-v2`.
+`XDG_CONFIG_HOME` defaults to `$DOCS_CACHE_ROOT/config`, so Cypress can write its configuration without access to the home directory.
+An explicit `XDG_CONFIG_HOME` remains unchanged and must be writable.
 For another writable environment, override `DOCS_CACHE_ROOT` and `DOCS_ENVIRONMENT_ARTIFACTS`.
+
+### Edit Environment session
+
+Apply the system dependencies in the base environment, with administrator privileges.
+On Debian or Ubuntu:
+
+```bash
+apt-get update
+apt-get install -y xvfb xauth
+```
+
+Use the repository version containing these startup changes, then run:
+
+```bash
+bash tools/cloud-environment/openai/setup.sh
+source tools/cloud-environment/openai/setup.sh
+bash tools/cloud-environment/openai/maintenance.sh
+```
+
+Preserve the configured proxy and CA settings.
+If maintenance reports that the existing NSS database is read-only, grant browser commands scoped write access to that database as described below.
+Shell exports cannot grant sandbox permissions.
+Do not change `HOME`, disable TLS verification, or add the session's temporary Xvfb extraction directory to the saved startup configuration.
+
+After readiness and the browser checks pass, publish the prepared environment and verify restoration in a new session.
+Repository commits do not update a published environment automatically.
 
 ## Browser trust and network access
 
@@ -114,6 +142,28 @@ Across viewport changes, compare conversation content instead of all visible dia
 Narrow layouts can hide controls, such as **Use MCP**, without losing the conversation.
 Record submission acknowledgment, answer completion, and retained conversation history as separate results.
 An acknowledged question doesn't establish a completed answer.
+Use headed Chromium for live answer verification in the cloud environment:
+
+```bash
+bash tools/cloud-environment/openai/kapa-live.sh
+```
+
+The runner checks readiness and uses `xvfb-run -a` to create and clean up its own display.
+It does not depend on a display left running by a previous command.
+To run only the mobile close spec:
+
+```bash
+bash tools/cloud-environment/openai/kapa-live.sh --spec cypress/live/kapa-mobile-close-live.cy.js
+```
+
+The general `yarn test:e2e:kapa-live` command also discovers live specs correctly outside the cloud environment.
+Only the cloud wrapper selects headed Chromium and a virtual display.
+Headless requests returned `Captcha token is invalid` during diagnosis; headed Chromium and the headed Cypress mobile suite completed answers.
+Headed mode does not guarantee CAPTCHA acceptance in every session.
+
+The strict page smoke check reports every failed resource, including optional telemetry.
+The current network policy blocks `analytics.google.com` and `stats.g.doubleclick.net`.
+These failures are separate from widget and CAPTCHA resource loading; do not treat a page smoke failure alone as an answer failure.
 If a required host is denied, finish independent checks and record the blocked criterion, host, policy revision, and rerun command.
 
 ## Snapshot qualification

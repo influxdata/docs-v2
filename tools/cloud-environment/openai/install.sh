@@ -2,7 +2,11 @@
 set -euo pipefail
 source "$(dirname -- "${BASH_SOURCE[0]}")/setup.sh"
 cd -- "$DOCS_WORKTREE"
-mkdir -p "$DOCS_CACHE_ROOT/bin" "$DOCS_ENVIRONMENT_ARTIFACTS" "$HUGO_RESOURCEDIR"
+mkdir -p "$DOCS_CACHE_ROOT/bin" "$DOCS_ENVIRONMENT_ARTIFACTS" "$HUGO_RESOURCEDIR" "$XDG_CONFIG_HOME"
+if ! command -v Xvfb >/dev/null; then
+  echo "Install xvfb and xauth in the base environment through Edit Environment before running setup." >&2
+  exit 1
+fi
 command -v corepack >/dev/null
 corepack enable --install-directory "$DOCS_CACHE_ROOT/bin"
 # Installs dependencies with the pinned package manager.

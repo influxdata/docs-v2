@@ -35,21 +35,24 @@ deleting [databases](/influxdb3/cloud/admin/databases/) and provisioning
 A user can belong to the following groups, each with predefined privileges:
 
 - **Admin**: Read and write permissions on all resources.
-- **Member**: Read permission on certain resources and create permission for
-  database tokens; members can't delete or create databases or admin tokens.
-- **Auditor**: Read permission on all resources; auditors can't modify resources.
+- **Member**: Create, describe, read, write, and delete permissions on
+  databases, and view, create, and delete permissions on database
+  (resource) tokens.
+  Members can't view or create admin tokens and can only view users and instances.
+  Members can't use the console **Tokens** page, which requires the **Admin** role.
+  To create database tokens, members use the `influxdb3` CLI or the HTTP API.
+- **Auditor**: View permission on users, instances, and invitations,
+  and describe permission on databases.
+  Auditors can see databases and schemas and view database tokens,
+  but can't query or write data or modify resources.
 
-> [!Note]
-> #### Users are Admin by default
->
-> All users in your account are initially assigned to the Admin group,
-> retaining full access to resources in your instance.
+When you invite a user, you choose one or more roles for them.
 
 ## User management methods
 
 Admin users can use the Admin UI to perform the following user management tasks:
 
-- **View users and invitations** - View existing users, invite status, invite ID, and invitation date
+- **View users and invitations** - View existing users, and view each invitation's recipient, status, sent date, and expiration date
 - **Invite new users** - Send invitations with role assignment (Admin, Member, Auditor)
 - **Revoke pending invitations** - Cancel invitations that haven't been accepted
 

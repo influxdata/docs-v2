@@ -54,13 +54,22 @@ script:
 
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh enterprise
+&& sh install_influxdb3.sh enterprise --version {{% latest-patch product="influxdb3_enterprise" %}}
 ```
 
-> [!Note]
-> The installer also sets up a local InfluxDB 3 server.
-> For {{% product-name %}}, you only need the CLI, so you can skip the prompts
-> to start a server.
+The installer script defaults to an older version of the CLI.
+Use the `--version` option to install version 3.10.0 or later.
+{{% product-name %}} requires `influxdb3` 3.10.0 or later because
+`influxdb3 auth login`, which you use to authenticate, was introduced in 3.10.0.
+
+When the installer prompts you, make the following choices:
+
+- At **Select Installation Type**, enter `2` (**Simple Download**).
+  Don't choose `1` (**Docker Image**), which pulls an image but doesn't install the CLI on your host.
+- Skip the prompts to start a server.
+  {{% product-name %}} is fully managed, so you only need the CLI.
+
+To verify the installed version, run `influxdb3 --version`.
 
 For Windows binaries and other CLI installation options,
 see [Install the influxdb3 CLI for InfluxDB 3 Cloud](/influxdb3/cloud/install/).

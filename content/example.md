@@ -277,6 +277,7 @@ Default: {{< lucide "circle-plus" >}}
 Settings: {{< lucide "settings" >}}
 Large: {{< lucide icon="circle-check" size="large" >}}
 Small: {{< lucide icon="circle-check" size="small" >}}
+Bordered: {{< lucide icon="regex" bordered="true" >}} {{< lucide icon="case-sensitive" bordered="true" >}}
 
 Inline usage inside a list item and bold text:
 

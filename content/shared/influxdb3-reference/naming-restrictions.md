@@ -8,10 +8,21 @@ and avoids naming conflicts.
 
 Database names must follow these restrictions:
 
+{{% show-in "core,enterprise" %}}
+- **Length**: Maximum 511 ASCII characters
+- **Allowed characters**: ASCII alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), and dash (`-`).
+  Multibyte (non-ASCII) characters are not allowed.
+- **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
+  The slash can't be the first or last character.
+- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Starting character**: Must start with an ASCII letter or number
+{{% /show-in %}}
+{{% hide-in "core,enterprise" %}}
 - **Length**: Maximum 64 characters
-- **Allowed characters**: Only alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
 - **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
 - **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+{{% /hide-in %}}
 - **Case sensitivity**: Database names are case-sensitive
 
 ### Examples
@@ -26,13 +37,25 @@ webserver123
 ```
 
 **Invalid database names:**
+{{% show-in "core,enterprise" %}}
 ```text
 my database        # Contains whitespace
-sensor.data        # Contains period
-app@server         # Contains special character
+sensor.data        # Contains a period
+app@server         # Contains a special character
+_internal          # Starts with underscore
+/mydb              # Starts with a slash
+mydb/rp/extra      # Contains more than one slash
+```
+{{% /show-in %}}
+{{% hide-in "core,enterprise" %}}
+```text
+my database        # Contains whitespace
+sensor.data        # Contains a period
+app@server         # Contains a special character
 _internal          # Starts with underscore (not recommended)
 very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
 ```
+{{% /hide-in %}}
 
 ## Table (measurement) names
 
@@ -130,7 +153,7 @@ When using SQL to query {{% product-name %}}:
 - **Unquoted identifiers**: Must start with letter or underscore, contain only letters, digits, or underscores
 - **Quoted identifiers**: Use double quotes (`"`) for names with special characters, whitespace, or to preserve case
 - **Case sensitivity**: Unquoted identifiers are case-insensitive, quoted identifiers are case-sensitive
-- **Reserved keywords**: [SQL keywords](/influxdb3/clustered/reference/sql/#keywords) must be quoted when used as identifiers
+- **Reserved keywords**: [SQL keywords](/influxdb3/version/reference/sql/#keywords) must be quoted when used as identifiers
 
 ### InfluxQL identifiers
 
@@ -139,7 +162,7 @@ When using InfluxQL to query {{% product-name %}}:
 - **Unquoted identifiers**: Must start with ASCII letter or underscore, contain only ASCII letters, digits, or underscores
 - **Quoted identifiers**: Use double quotes (`"`) for names with special characters or whitespace
 - **Case sensitivity**: All identifiers are case-sensitive
-- **Reserved keywords**: [InfluxQL keywords](/influxdb3/clustered/reference/influxql/#keywords) must be quoted when used as identifiers
+- **Reserved keywords**: [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords) must be quoted when used as identifiers
 - **Character encoding**: UTF-8 encoding supported
 
 ## Reserved namespaces
@@ -175,8 +198,8 @@ Avoid using these common reserved keywords as identifiers without quoting:
 - `LIMIT`, `OFFSET`, `SLIMIT`, `SOFFSET`
 
 For complete lists, see:
-- [SQL keywords](/influxdb3/clustered/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb3/clustered/reference/influxql/#keywords)
+- [SQL keywords](/influxdb3/version/reference/sql/#keywords)
+- [InfluxQL keywords](/influxdb3/version/reference/influxql/#keywords)
 
 ## Best practices
 

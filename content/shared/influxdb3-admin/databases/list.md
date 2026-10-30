@@ -1,10 +1,10 @@
 
 Use the [`influxdb3 show databases` command](/influxdb3/version/reference/cli/influxdb3/show/databases/),
-the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint{{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}} to list databases in {{< product-name >}}.
+the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint{{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}{{% show-in "cloud" %}}, or the Admin UI{{% /show-in %}} to list databases in {{< product-name >}}.
 
 - [List databases using the influxdb3 CLI](#list-databases-using-the-influxdb3-cli)
 - [List databases using the HTTP API](#list-databases-using-the-http-api)
-{{% hide-in "cloud" %}}- [List databases using InfluxDB 3 Explorer](#list-databases-using-influxdb-3-explorer){{% /hide-in %}}
+{{% hide-in "cloud" %}}- [List databases using InfluxDB 3 Explorer](#list-databases-using-influxdb-3-explorer){{% /hide-in %}}{{% show-in "cloud" %}}- [List databases using the Admin UI](#list-databases-using-the-admin-ui){{% /show-in %}}
 
 ## List databases using the influxdb3 CLI
 
@@ -228,3 +228,20 @@ You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explo
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
 {{% /hide-in %}}
+{{% show-in "cloud" %}}
+## List databases using the Admin UI
+
+To view databases in the {{< product-name >}} Admin UI,
+select your instance, and then click **Databases**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-databases-list.png" alt="The Databases page listing the spice_harvest, sandworm_sightings, and sietch_water databases" />}}
+
+The **Databases** page lists each database with the following columns:
+
+- **Name**
+- **Status**
+- **Table Count**
+
+To find a database, enter text in the **Search** box.
+To include deleted databases in the list, turn on **Show Deleted Databases**.
+{{% /show-in %}}

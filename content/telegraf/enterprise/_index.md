@@ -2,9 +2,9 @@
 title: Telegraf Enterprise
 description: >
   Telegraf Enterprise combines Telegraf and Telegraf Controller with higher
-  scale limits, high availability, enterprise authentication and audit logging,
-  and an enterprise support contract from InfluxData for organizations running
-  Telegraf at scale.
+  scale limits, high availability, security advisories, enterprise
+  authentication and audit logging, and an enterprise support contract from
+  InfluxData for organizations running Telegraf at scale.
 menu:
   telegraf_enterprise:
     name: Telegraf Enterprise
@@ -16,8 +16,9 @@ cascade:
 **Telegraf Enterprise** is the commercial package for organizations running
 [Telegraf](/telegraf/v1/) and [Telegraf Controller](/telegraf/controller/) at
 scale. It combines higher Telegraf Controller limits, high availability,
-enterprise authentication and audit logging, and an enterprise support contract
-from InfluxData covering both the Telegraf agent and Telegraf Controller.
+security advisories, enterprise authentication and audit logging, and an
+enterprise support contract from InfluxData covering both the Telegraf agent
+and Telegraf Controller.
 
 <a href="{{% cta-link %}}" class="btn magenta large">Purchase Telegraf Enterprise</a>
 
@@ -58,6 +59,9 @@ Telegraf Controller:
   against an LDAP directory.
 - **OIDC authentication**: Single sign-on through OpenID Connect
   providers such as Okta, Auth0, and Microsoft Entra ID.
+- **Security advisories**: Signed InfluxData security advisories retrieved
+  automatically or imported offline, matched against the Telegraf version
+  each agent reports to identify affected agents.
 
 ## Free tier and Enterprise comparison
 
@@ -72,6 +76,7 @@ deployments when no license is applied.
 | High availability | --- | Included |
 | LDAP authentication | --- | Included |
 | OIDC authentication | --- | Included |
+| Security advisories | --- | Included |
 | Local authentication and API tokens | Included | Included |
 | User management (RBAC) | Included | Included |
 | Support | Community | Enterprise support contract |
