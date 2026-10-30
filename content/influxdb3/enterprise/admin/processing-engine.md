@@ -39,18 +39,6 @@ For an overview of process node architectures, see [Configure a process node](/i
 > Before 3.12.0, a standalone process node can't read WAL files from other nodes, so its WAL triggers never run.
 > The trigger is accepted, and the node logs `Ingest mode not configured; processing engine will not run wal flush triggers.`
 
-- [How a process node runs plugins](#how-a-process-node-runs-plugins)
-- [Plan the cluster](#plan-the-cluster)
-- [Start the nodes](#start-the-nodes)
-- [Verify the cluster](#verify-the-cluster)
-- [Add plugins and packages](#add-plugins-and-packages)
-- [Create triggers](#create-triggers)
-- [Send each request to the right node](#send-each-request-to-the-right-node)
-- [Manage triggers](#manage-triggers)
-- [Migrate to a standalone process node](#migrate-to-a-standalone-process-node)
-- [Stop and restart the process node](#stop-and-restart-the-process-node)
-- [Troubleshoot](#troubleshoot)
-
 ## How a process node runs plugins
 
 The process node starts each trigger type differently:
