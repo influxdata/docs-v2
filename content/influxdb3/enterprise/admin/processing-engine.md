@@ -174,6 +174,8 @@ On first start, the process node creates a Python virtual environment at `PLUGIN
 
 ## Verify the cluster
 
+The following steps verify the example cluster from [Start the nodes](#start-the-nodes).
+
 Query `system.nodes` on a query node:
 
 ```bash { placeholders="QUERY_HOST|AUTH_TOKEN" }
@@ -186,7 +188,7 @@ influxdb3 query \
 
 Check the following:
 
-- `process0` has `mode` `[process]` and `state` `running`.
+- The process node (`process0` in the example) has `mode` `[process]` and `state` `running`.
 - Each ingest and query node has a `conn_info` that the process node can reach.
 
 ## Add plugins and packages
@@ -207,9 +209,12 @@ Packages are installed only on the node that receives the request.
 
 ## Create triggers
 
+The following steps create a trigger in the example cluster from [Start the nodes](#start-the-nodes).
+
 1. Create the database on any node.
 2. Create the trigger on the process node.
-   Set `--node-spec` to `nodes:process0`.
+   Set `--node-spec` to `nodes:` followed by the process node's ID.
+   In the example cluster, use `nodes:process0`.
    Other nodes reject the request with `405 Current node mode does not use the processing engine`.
 
 ```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILE|TABLE_NAME|TRIGGER_NAME" }
