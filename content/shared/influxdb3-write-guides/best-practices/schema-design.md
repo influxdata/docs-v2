@@ -179,6 +179,11 @@ To prevent wide schema issues, limit the number of tags and fields stored in a t
 If you need to store more than the [maximum number of columns](/influxdb3/version/admin/databases/#column-limit),
 consider segmenting your fields into separate tables.
 
+If you collect Prometheus metrics with Telegraf, use metric version `1`.
+Metric version `2` writes every Prometheus metric name as a field in a single
+table, which creates a wide, sparse schema.
+See [Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version).
+
 #### Avoid too many tags
 
 In {{% product-name %}}, the primary key for a row is the combination of the
