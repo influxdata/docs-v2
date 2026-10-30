@@ -21,8 +21,9 @@ To configure how users sign in to {{% product-name %}}, see
 
 ## Token format
 
-All API tokens use the `tc-apiv1_` prefix, making them easy to identify in
-configuration files and scripts.
+All API tokens use the `tc-apiv1_` prefix followed by 64 lowercase
+hexadecimal characters, making them easy to identify in configuration files
+and scripts.
 
 The full token value is displayed only once at the time of creation and cannot be retrieved later.
 Copy and store the token in a secure location immediately after creating it.
@@ -32,6 +33,18 @@ Copy and store the token in a secure location immediately after creating it.
 >
 > Tokens are stored as a cryptographic hash. The original value is never saved.
 > If you lose a token, you must revoke it and create a new one.
+
+## Token sources
+
+Every token records where its value came from:
+
+| Source      | UI label         | Origin                                     |
+| :---------- | :--------------- | :----------------------------------------- |
+| `system`    | System-generated | {{% product-name %}} generated the value. This is the default. |
+| `user`      | User-provided    | A client supplied the raw value. See [Use pre-shared tokens](/telegraf/controller/tokens/preshared/). |
+| `bootstrap` | Env/flag-provided | Provisioned from `OWNER_TOKEN` or `--owner-token` at startup. See [Bootstrap an owner token](/telegraf/controller/tokens/bootstrap/). |
+
+The source is set at creation and never changes.
 
 ## Token permissions
 
@@ -43,6 +56,12 @@ When you create a token, you can set custom permissions to restrict the token's
 access below your full role permissions.
 This lets you issue narrowly scoped tokens for specific tasks, such as a token
 that can only register agents or a token limited to read-only access.
+
+Requested permissions are clamped to your role.
+A wildcard such as `*:*` or `license:*` expands to the permissions your role
+holds, so an Administrator who requests `license:*` receives `license:read`.
+A request authenticated with an API token cannot create a token with
+permissions beyond its own.
 
 ## Token states
 
@@ -57,17 +76,21 @@ Any agent or client using a revoked token immediately loses access.
 
 ## Token visibility
 
-Your role determines which tokens you can view and manage:
+Your role and how you authenticate determine which tokens you can view and
+manage:
 
-| Role              | Token visibility                  |
-|:------------------|:----------------------------------|
-| **Owner**         | All tokens across all users       |
-| **Administrator** | All tokens across all users       |
-| **Manager**       | Only their own tokens             |
-| **Viewer**        | Cannot manage tokens              |
+| Role              | Signed in with a session    | Authenticated with an API token |
+|:------------------|:----------------------------|:--------------------------------|
+| **Owner**         | All tokens across all users | Only their own tokens           |
+| **Administrator** | All tokens across all users | Only their own tokens           |
+| **Manager**       | Only their own tokens       | Only their own tokens           |
+| **Viewer**        | Cannot manage tokens        | Cannot manage tokens            |
 
 > [!Note]
-> **Owner** and **Administrator** users can revoke any token in the organization,
+> **Owner** and **Administrator** users signed in to the web interface can
+> list, revoke, delete, and reassign any token in the organization,
 > including tokens belonging to other users.
+> A request authenticated with an API token manages only the tokens of the
+> user it belongs to, whatever its permissions, and cannot reassign tokens.
 
 {{< children hlevel="h2" >}}

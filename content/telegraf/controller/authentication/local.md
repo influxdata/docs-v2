@@ -181,7 +181,7 @@ Set `AUTH_LOCAL_ENABLED` to `false` and restart {{% product-name %}}.
 [systemd](#)
 [Shell](#)
 [Windows (Powershell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -221,23 +221,25 @@ $env:AUTH_LOCAL_ENABLED="false"
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published.
-     Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
 Pass the variable when starting the container:
 
 ```bash
 docker run \
-  -e AUTH_LOCAL_ENABLED=false \
-  -e AUTH_OIDC_ENABLED=true \
-  -e AUTH_OIDC_ISSUER=https://idp.example.com \
-  influxdata/telegraf-controller
+  --env AUTH_LOCAL_ENABLED=false \
+  --env AUTH_OIDC_ENABLED=true \
+  --env AUTH_OIDC_ISSUER=https://idp.example.com \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+A container receives its entire environment on every run, so the example
+includes the external provider variables alongside `AUTH_LOCAL_ENABLED`.
+Include your standard container options, such as EULA acceptance, published
+ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 After restart:

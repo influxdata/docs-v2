@@ -86,3 +86,8 @@ Telegraf Controller displays each agent's status and marks agents that stop
 reporting.
 To configure status evaluation, see
 [Configure agent statuses](/telegraf/v1/administer/agent-status/).
+
+With a [Telegraf Enterprise](/telegraf/v1/enterprise/) license, Telegraf
+Controller also compares InfluxData security advisories with each agent's
+reported Telegraf version and flags affected agents.
+See [Security advisories](/telegraf/controller/security-advisories/).

@@ -49,7 +49,7 @@ Additional {{% product-name %}} option:
 
 | Option |               | Description                                                                                                                                                                 |
 | :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        | `--node-spec` | Which process nodes' schedulers own the trigger. Two value formats are supported: `all` (default) - every process node (a node with `--plugin-dir` configured) owns the trigger and schedules it independently, or `nodes:<node-id>[,<node-id>..]` - only the schedulers on the listed nodes own the trigger |
+|        | `--node-spec` | Which nodes own the trigger. Two value formats are supported: `all` (default) - every node that runs the Processing Engine (a node with `--plugin-dir` configured) owns the trigger, or `nodes:<node-id>[,<node-id>...]` - only the listed nodes own the trigger. In a cluster, set this to your process node, see [Pin a trigger to the process node](#pin-a-trigger-to-the-process-node) |
 {{% /show-in %}}
 
 ### Reference a plugin from GitHub
@@ -333,49 +333,33 @@ influxdb3 create trigger \
 
 {{% show-in "enterprise" %}}
 
-### Pin a trigger to specific nodes in a cluster
+### Pin a trigger to the process node
 
-In a multi-node {{% product-name %}} cluster, `--node-spec` selects which process nodes' schedulers own the trigger.
-A process node is any node whose `--mode` includes `process` or `all`; setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) adds `process` mode automatically.
+In a cluster, we recommend running the Processing Engine on a standalone process node.
+Create the trigger on the process node, and set `--node-spec` to the process node's ID:
 
-With the default `--node-spec all`, every process node owns the trigger and schedules it independently.
-For schedule triggers, this causes duplicate execution on every process node.
-For WAL triggers, every process node follows every ingester's WAL through object storage, so the trigger fires once per process node for each WAL flush.
-For request triggers, the route exists only on the owning node(s); other process nodes return `404 not found`, and nodes without a Processing Engine return `405 Method Not Allowed`, since there's no internal cross-node routing for the route itself.
-
-To pin a trigger to specific node(s), pass `--node-spec nodes:<node-id>[,<node-id>...]`:
-
-```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
-# Pin a schedule trigger to a process-capable node
+```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
-  --database DATABASE_NAME \
+  --host http://PROCESS_HOST:8181 \
   --token AUTH_TOKEN \
+  --database DATABASE_NAME \
   --path schedule_rollup.py \
   --trigger-spec "every:5s" \
-  --node-spec "nodes:NODE_ID" \
+  --node-spec "nodes:PROCESS_NODE_ID" \
   hourly_rollup
-
-# Pin a request trigger to a query-capable node (the node that serves HTTP)
-influxdb3 create trigger \
-  --database DATABASE_NAME \
-  --token AUTH_TOKEN \
-  --path request_top_n.py \
-  --trigger-spec "request:top_n" \
-  --node-spec "nodes:NODE_ID" \
-  top_n
 ```
 
-The cluster validates the node IDs in `--node-spec` against current cluster membership at create time.
-A typo or unknown node ID is rejected with an `invalid node name (<id>)` error.
+The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
 
-The cluster doesn't validate the trigger type against the pinned node's mode at create time.
-Pinning a trigger to a node without `--plugin-dir` configured succeeds, but the trigger doesn't run there: a node that isn't a process node has no Processing Engine, and a `--mode all` node without `--plugin-dir` logs an error when the trigger starts and fails every run placed on its own worker with `Node not configured with plugin directory`.
-Pin triggers only to nodes that set `--plugin-dir`.
-Choose the pinned node by what the trigger needs at execution:
+The node in `--node-spec` must exist and run `process` mode:
 
-- **Schedule trigger**: Pin to a node with `process,query` mode if the plugin reads with `influxdb3_local.query()`; otherwise the call goes over the internode protocol to a query node that advertises an internode address (`--internode-bind-addr`).
-- **Request trigger**: Pin to the node(s) you want to serve external HTTP traffic. The `/api/v3/engine/<trigger_name>` route only exists on pinned nodes; other process nodes return `404 not found`, and nodes without a Processing Engine return `405 Method Not Allowed`.
+- An unknown node ID returns `invalid node name (<id>)`.
+- A node that doesn't run `process` mode returns `Node doesn't have proper mode, expect process`.
 
-For the full trigger execution model in a cluster, including scheduler state persistence and restart behavior, see [Run the Processing Engine in a cluster](/influxdb3/enterprise/admin/processing-engine-cluster/).
+You can't change `--node-spec` after you create the trigger.
+To move a trigger to another node, delete the trigger and create it again.
+
+For request triggers, send `/api/v3/engine/<path>` requests to the node in `--node-spec`.
+For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
 {{% /show-in %}}

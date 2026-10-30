@@ -36,7 +36,10 @@ them.
 ## Scale limits
 
 {{% product-name %}} enforces a maximum number of configurations and a
-maximum number of reporting agents per instance.
+maximum number of reporting agents per installation.
+In a [high-availability cluster](/telegraf/controller/admin/high-availability/),
+the limits apply to the cluster as a whole: every node counts against the
+same database, so a cluster admits no more agents than a single node would.
 
 | Resource | Free tier | Telegraf Enterprise |
 | :------- | :-------: | :------------------ |
@@ -66,6 +69,23 @@ cannot be overridden.
   and shows a tooltip explaining the limit.
 - The response includes an `X-Entitlement-Warning` header (see
   [Response headers](#response-headers)).
+- The heartbeat endpoint returns `402 Payment Required` to an agent that is
+  not yet registered when the agent limit is reached.
+  Agents that are already registered keep reporting, and deleting agents
+  frees their slots immediately.
+  The response body identifies the limit:
+
+  ```json
+  {
+    "success": false,
+    "error": "Agent entitlement limit reached (100/100). Upgrade to Telegraf Enterprise for higher limits.",
+    "error_type": "entitlement_limit_reached"
+  }
+  ```
+
+  An agent refused at the limit is remembered for 60 seconds, so its
+  retries are answered without a database lookup.
+  The **Agents** page shows the current agent count against the limit.
 
 A warning banner appears in the UI when usage reaches 80% of a limit so
 operators have advance notice before requests start being rejected.
@@ -78,6 +98,7 @@ A valid Telegraf Enterprise license unlocks the following features:
 - [High availability](/telegraf/controller/admin/high-availability/)
 - [LDAP authentication](/telegraf/controller/authentication/ldap/)
 - [OIDC authentication](/telegraf/controller/authentication/oidc/)
+- [Security advisories](/telegraf/controller/security-advisories/)
 
 API endpoints that require an enterprise feature return `403 Forbidden` when
 called on a free-tier instance:

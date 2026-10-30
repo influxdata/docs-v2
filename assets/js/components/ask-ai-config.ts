@@ -40,6 +40,7 @@ export function widgetAttributes(): Record<string, string> {
     modalHeaderPadding: '.5rem',
     modalHeaderBgColor: 'linear-gradient(90deg, #d30971 0%, #9b2aff 100%)',
     modalHeaderBorderBottom: 'none',
+    modalTitleAskAi: 'Ask AI',
     modalTitleColor: '#fff',
     modalTitleFontSize: '1.25rem',
     modalDisclaimer:

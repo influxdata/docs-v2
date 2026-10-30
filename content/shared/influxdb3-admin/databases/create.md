@@ -1,11 +1,11 @@
 
 Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/),
-the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}
+the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}{{% show-in "cloud" %}}, or the Admin UI{{% /show-in %}}
 to create a database in {{< product-name >}}.
 
 - [Create a database using the influxdb3 CLI](#create-a-database-using-the-influxdb3-cli)
 - [Create a database using the HTTP API](#create-a-database-using-the-http-api)
-{{% hide-in "cloud" %}}- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer){{% /hide-in %}}
+{{% hide-in "cloud" %}}- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer){{% /hide-in %}}{{% show-in "cloud" %}}- [Create a database using the Admin UI](#create-a-database-using-the-admin-ui){{% /show-in %}}
 - [Retention period](#retention-period)
 - [Schema mode](#schema-mode)
 - [Database naming restrictions](#database-naming-restrictions)
@@ -160,6 +160,30 @@ Use the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface to create a da
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
 {{% /hide-in %}}
+{{% show-in "cloud" %}}
+## Create a database using the Admin UI
+
+Use the {{< product-name >}} Admin UI to create a database:
+
+1. In the Admin UI, select your instance, and then click **Databases**.
+2. Click **Add Database**.
+3. In the **Create Database** dialog, enter a **Database Name**.
+   To view the naming rules, hover over the help icon next to the field.
+   For more information, see [Database naming restrictions](#database-naming-restrictions).
+4. Under **Retention Period**, do one of the following:
+
+   - To keep data indefinitely, turn on **Retain Forever**.
+   - To delete data after a set time, leave **Retain Forever** off.
+     Under **Delete After**, enter an **Amount** and select the **Units**
+     (**Weeks**, **Days**, **Hours**, or **Minutes**).
+
+   For more information, see [Retention period](#retention-period).
+5. Click **Create Database**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-databases-create.png" alt="The Create Database dialog with a database name and a 30-day retention period" />}}
+
+The new database appears in the **Databases** list.
+{{% /show-in %}}
 
 - [Retention period](#retention-period)
 - [Schema mode](#schema-mode)
@@ -255,10 +279,13 @@ declared schema, see
 
 Database names must adhere to the following naming restrictions:
 
-- **Length**: Maximum 64 characters
-- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Length**: Maximum 511 ASCII characters
+- **Allowed characters**: ASCII alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), and dash (`-`).
+  Multibyte (non-ASCII) characters are not allowed.
+- **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
+  The slash can't be the first or last character.
 - **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
-- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Starting character**: Must start with an ASCII letter or number
 - **Case sensitivity**: Database names are case-sensitive
 
 > [!Caution]

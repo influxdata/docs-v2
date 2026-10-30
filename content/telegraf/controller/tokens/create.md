@@ -24,12 +24,16 @@ Tokens let you grant scoped access to external tools, scripts, and services with
 2.  Click **{{% lucide "plus" %}} Create API Token**.
 3.  Enter a **Description** for the token that identifies where or how the token
     will be used.
-4.  _(Optional)_ Set an **Expiration** date.
+4.  _(Optional)_ To supply your own token value instead of generating one,
+    expand **Provide your own token string** and enter a value that meets the
+    [token requirements](/telegraf/controller/tokens/preshared/#token-requirements).
+    See [Use pre-shared tokens](/telegraf/controller/tokens/preshared/).
+5.  _(Optional)_ Set an **Expiration** date.
     Tokens without an expiration date remain active indefinitely.
-5.  _(Optional)_ Set **Custom permissions** to restrict the token's access below
+6.  _(Optional)_ Set **Custom permissions** to restrict the token's access below
     your role's full permissions.
     See [Custom permissions](#custom-permissions) for details.
-6.  Click **Create**.
+7.  Click **Create**.
 
 {{< img-hd src="/img/telegraf/controller-create-token.png" alt="Telegraf Controller create token form" />}}
 

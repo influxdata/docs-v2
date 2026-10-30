@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Set agent statuses
     parent: Manage agents
-weight: 104
+weight: 105
 related:
   - /telegraf/controller/reference/agent-status-eval/, Agent status evaluation reference
   - /telegraf/controller/agents/reporting-rules/
