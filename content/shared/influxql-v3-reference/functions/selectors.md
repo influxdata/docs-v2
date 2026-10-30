@@ -5,15 +5,6 @@ InfluxQL group.
 _Examples use the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
 
-- [BOTTOM()](#bottom)
-- [FIRST()](#first)
-- [LAST()](#last)
-- [MAX()](#max)
-- [MIN()](#min)
-- [PERCENTILE()](#percentile)
-- [TOP()](#top)
-- [Notable behaviors of selector functions](#notable-behaviors-of-selector-functions)
-
 <!-- - [SAMPLE()](#sample) -->
 
 > [!Important]
@@ -953,9 +944,6 @@ Notice that when grouping by time, `TOP()`
 {{< /expand-wrapper >}}
 
 ## Notable behaviors of selector functions
-
-- [Timestamps when grouping by time](#timestamps-when-grouping-by-time)
-- [Selector functions may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected)
 
 ### Timestamps when grouping by time
 

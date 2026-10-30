@@ -1,11 +1,5 @@
 Use InfluxQL `SHOW` statements to query schema information from a database.
 
-- [SHOW RETENTION POLICIES](#show-retention-policies)
-- [SHOW MEASUREMENTS](#show-measurements)
-- [SHOW FIELD KEYS](#show-field-keys)
-- [SHOW TAG KEYS](#show-tag-keys)
-- [SHOW TAG VALUES](#show-tag-values)
-
 ## SHOW RETENTION POLICIES
 
 Use the `SHOW RETENTION POLICIES` statement to list retention policies associated

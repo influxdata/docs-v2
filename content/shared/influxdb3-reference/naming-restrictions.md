@@ -8,19 +8,19 @@ and avoids naming conflicts.
 
 Database names must follow these restrictions:
 
-{{% show-in "core,enterprise" %}}
+{{% show-in "core,enterprise,cloud" %}}
 - **Length**: Maximum 511 ASCII characters
 - **Allowed characters**: ASCII alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), and dash (`-`).
   Multibyte (non-ASCII) characters are not allowed.
 - **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
   The slash can't be the first or last character.
-- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Prohibited characters**: Whitespace and characters other than those listed above
 - **Starting character**: Must start with an ASCII letter or number
 {{% /show-in %}}
-{{% hide-in "core,enterprise" %}}
+{{% hide-in "core,enterprise,cloud" %}}
 - **Length**: Maximum 64 characters
 - **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
-- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Prohibited characters**: Whitespace and characters other than those listed above
 - **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
 {{% /hide-in %}}
 - **Case sensitivity**: Database names are case-sensitive
@@ -37,7 +37,7 @@ webserver123
 ```
 
 **Invalid database names:**
-{{% show-in "core,enterprise" %}}
+{{% show-in "core,enterprise,cloud" %}}
 ```text
 my database        # Contains whitespace
 sensor.data        # Contains a period
@@ -47,13 +47,13 @@ _internal          # Starts with underscore
 mydb/rp/extra      # Contains more than one slash
 ```
 {{% /show-in %}}
-{{% hide-in "core,enterprise" %}}
+{{% hide-in "core,enterprise,cloud" %}}
 ```text
 my database        # Contains whitespace
 sensor.data        # Contains a period
 app@server         # Contains a special character
 _internal          # Starts with underscore (not recommended)
-very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
+very_long_database_name_that_exceeds_the_sixty_four_character_limit  # Too long
 ```
 {{% /hide-in %}}
 

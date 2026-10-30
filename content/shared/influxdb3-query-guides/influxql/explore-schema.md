@@ -128,7 +128,7 @@ name: home
 
 ## List tag keys in a measurement
 
-Use [`SHOW TAG KEYS`](/influxdb3/version/reference/influxql/show/#show-field-keys)
+Use [`SHOW TAG KEYS`](/influxdb3/version/reference/influxql/show/#show-tag-keys)
 to return all tag keys in a measurement.
 Include a `FROM` clause to specify the measurement.
 If no measurement is specified, the query returns all tag keys in the database.
@@ -188,7 +188,7 @@ name: home_actions
 
 ## List tag values for a specific tag key
 
-Use [`SHOW TAG VALUES`](/influxdb3/version/reference/influxql/show/#show-field-values)
+Use [`SHOW TAG VALUES`](/influxdb3/version/reference/influxql/show/#show-tag-values)
 to return all values for specific tags in a measurement.
 
 - Include a `FROM` clause to specify one or more measurements to query.

@@ -3,17 +3,6 @@ Use the `WHERE` clause to filter data based on
 [tag values](/influxdb/version/reference/glossary/#tag), and
 [timestamps](/influxdb/version/reference/glossary/#timestamp).
 
-- [Syntax](#syntax)
-- [Operators](#comparison-operators)
-  - [Comparison operators](#comparison-operators)
-  - [Logical operators](#logical-operators)
-- [Time ranges](#time-ranges)
-- [Regular expressions](#regular-expressions)
-- [WHERE clause examples](#where-clause-examples)
-- [Notable behaviors](#notable-behaviors)
-  - [Single and double quotes](#single-and-double-quotes)
-  - [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
-
 ## Syntax
 
 ```sql
@@ -303,9 +292,6 @@ name: home
 {{< /expand-wrapper >}}
 
 ## Notable behaviors
-
-- [Single and double quotes](#single-and-double-quotes)
-- [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
 
 ### Single and double quotes
 

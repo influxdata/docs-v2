@@ -1,13 +1,6 @@
 Learn about the implementation of InfluxQL to understand how
 results are processed and how to create efficient queries:
 
-- [Query life cycle](#query-life-cycle)
-- [Understanding iterators](#understanding-iterators)
-- [Cursors](#cursors)
-- [Auxiliary fields](#auxiliary-fields)
-- [Built-in iterators](#built-in-iterators)
-- [Call iterators](#call-iterators)
-
 ## Query life cycle
 
 1. InfluxQL query string is tokenized and then parsed into an abstract syntax

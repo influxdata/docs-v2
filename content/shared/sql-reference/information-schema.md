@@ -10,13 +10,6 @@ is represented as a table. Time, [tags](/influxdb/version/reference/glossary/#ta
 and [fields](/influxdb/version/reference/glossary/#field) are each represented
 by columns in a table.
 
-- [SHOW TABLES](#show-tables)
-  - [Example SHOW TABLES output](#example-show-tables-output)
-- [SHOW COLUMNS](#show-columns)
-  - [Example SHOW COLUMNS output](#example-show-columns-output)
-- [SHOW ALL](#show-all)
-  - [Example SHOW ALL output](#view-show-all-example-output)
-
 ## SHOW TABLES
 
 Returns information about tables (measurements) in an InfluxDB bucket.
