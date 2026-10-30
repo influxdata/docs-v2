@@ -1,6 +1,6 @@
 ---
 title: InfluxQL math operators
-descriptions: >
+description: >
   Use InfluxQL mathematical operators to perform mathematical operations in
   InfluxQL queries.
 menu:

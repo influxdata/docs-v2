@@ -3,7 +3,7 @@
 {{% product-name %}} uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
 
 - [Identifiers](#identifiers)  
-- [Quoting and case sensitivity](#quoting-and-case-sensitivity)    
+- [Quoting and case sensitivity](#quoting)
 - [Literals](#literals)  
 - [Duration units](#duration-units)  
 - [Operators](#operators)  
@@ -588,7 +588,7 @@ Window functions let you calculate running totals, moving averages, or other
 aggregate-like results without collapsing rows into groups
 (unlike non-window aggregate functions).
 
-Window aggregate functions include **all [aggregate functions](#aggregate-functions/)**
+Window aggregate functions include **all [aggregate functions](#aggregate-functions)**
 and the [ranking functions](#ranking-functions).
 The SQL `OVER` clause syntactically distinguishes a window  
 function from a non-window or aggregate function and defines how to group and

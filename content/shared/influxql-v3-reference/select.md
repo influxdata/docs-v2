@@ -25,7 +25,7 @@ It requires one or more **field expressions** and optional **tag expressions**.
 - **field_expression**: Expression to identify one or more fields to return in query results.
   Can be a [field key](/influxdb/version/reference/glossary/#field-key),
   constant, [regular expression](/influxdb/version/reference/influxql/regular-expressions/),
-  [wildcard (`*`)](#wildcard-expressions-in-select-clauses), or
+  [wildcard (`*`)](#wildcard-expressions), or
   [function expression](/influxdb/version/reference/influxql/functions/) and any
   combination of arithmetic operators.
 - **tag_expression**: Expression to identify one or more tags to return in query results.
@@ -198,7 +198,7 @@ is truncated at the decimal point. No rounding is performed.
 
 The examples below use the following sample data sets:
 
-- [Get started home sensor data](/influxdb/version/reference/sample-data/#home-sensor-data)
+- {{< influxdb3/home-sample-link >}}
 - [NOAA Bay Area weather data](/influxdb/version/reference/sample-data/#noaa-bay-area-weather-data)
 
 {{< expand-wrapper >}}
