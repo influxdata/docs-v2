@@ -1,0 +1,65 @@
+name: Prose Lint
+
+# Checks changed Markdown prose against scripts/ci/prose-lint/rules.yml.
+# Findings appear as warning and notice annotations and never fail the job.
+# The job fails only if the linter's own tests fail.
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'README.md'
+      - 'DOCS-*.md'
+      - '**/AGENTS.md'
+      - '**/CLAUDE.md'
+      - '.github/**/*.md'
+      - '.claude/**/*.md'
+      - '.agents/**/*.md'
+      - 'scripts/ci/lint-prose.mjs'
+      - 'scripts/ci/prose-lint/**'
+      - 'scripts/ci/__tests__/prose-lint.test.mjs'
+      - 'scripts/ci/__tests__/fixtures/prose-lint/**'
+      - 'scripts/lib/prose-lint.mjs'
+      - '.github/workflows/pr-prose-lint.yml'
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  prose-lint:
+    name: Prose lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
+
+      - name: Test the prose linter
+        run: yarn test:lint-prose
+
+      - name: Lint changed prose
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mapfile -t files < <(
+            git diff --name-only --diff-filter=d "$BASE_SHA...$HEAD_SHA" |
+              grep -E '^(content/.*\.md|README\.md|DOCS-.*\.md|(.*/)?AGENTS\.md|(.*/)?CLAUDE\.md|\.github/.*\.md|\.claude/.*\.md|\.agents/.*\.md)$' || true
+          )
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No changed Markdown prose to lint."
+            exit 0
+          fi
+          node scripts/ci/lint-prose.mjs --format=github "${files[@]}"
