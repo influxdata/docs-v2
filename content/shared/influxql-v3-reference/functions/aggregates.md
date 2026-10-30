@@ -4,16 +4,6 @@ Aggregate functions return one row containing the aggregate values from each Inf
 _Examples use the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/version/get-started/write/#construct-line-protocol)._
 
-- [COUNT()](#count)
-- [DISTINCT()](#distinct)
-- [INTEGRAL()](#integral)
-- [MEAN()](#mean)
-- [MEDIAN()](#median)
-- [MODE()](#mode)
-- [SPREAD()](#spread)
-- [STDDEV()](#stddev)
-- [SUM()](#sum)
-
 ## COUNT()
 
 Returns the number of non-null [field values](/influxdb/version/reference/glossary/#field-value).
@@ -464,7 +454,6 @@ name: home
 {{% /expand %}}
 
 {{% expand "Calculate the median value of fields where the field key matches a regular expression" %}}
-
 
 ```sql
 SELECT MEDIAN(/^[th]/) FROM home

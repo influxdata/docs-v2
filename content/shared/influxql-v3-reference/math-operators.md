@@ -3,17 +3,6 @@ Mathematical operators follow the [standard order of operations](https://golang.
 Parentheses take precedence to division and multiplication, which takes precedence to addition and subtraction.
 For example `5 / 2 + 3 * 2 =  (5 / 2) + (3 * 2)` and `5 + 2 * 3 - 2 = 5 + (2 * 3) - 2`.
 
-- [Addition](#addition)
-- [Subtraction](#subtraction)
-- [Multiplication](#multiplication)
-- [Division](#division)
-- [Modulo](#modulo)
-- [Bitwise AND](#bitwise-and)
-- [Bitwise OR](#bitwise-or)
-- [Bitwise Exclusive-OR](#bitwise-exclusive-or)
-- [Unsupported Operators](#unsupported-operators)
-- [Notable behaviors of mathematical operators](#notable-behaviors-of-mathematical-operators)
-
 ## Addition
 
 Add two numeric operands. Operands may be an identifier, constant, or literal
@@ -206,9 +195,6 @@ SELECT A ^ 4294967295 FROM example
 In each case, the constant you need can be calculated as `(2 ** width) - 1`.
 
 ## Notable behaviors of mathematical operators
-
-- [Mathematical operators with wildcards and regular expressions](#mathematical-operators-with-wildcards-and-regular-expressions)
-- [Mathematical operators with functions](#mathematical-operators-with-functions)
 
 ### Mathematical operators with wildcards and regular expressions
 

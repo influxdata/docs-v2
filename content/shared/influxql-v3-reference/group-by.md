@@ -6,28 +6,6 @@ function in the `SELECT` statement.
 
 <!-- TOC -->
 
-- [Syntax](#syntax)
-- [GROUP BY clause behaviors](#group-by-clause-behaviors)
-- [GROUP BY tags](#group-by-tags)
-  - [GROUP BY tags examples](#group-by-tags-examples)
-- [GROUP BY time](#group-by-time)
-  - [GROUP by time and fill gaps](#group-by-time-and-fill-gaps)
-  - [GROUP BY time examples](#group-by-time-examples)
-        - [GROUP BY time with offset](#group-by-time-with-offset)
-        - [GROUP BY time and fill gaps](#group-by-time-and-fill-gaps)
-- [Result set](#result-set)
-  - [Default time range](#default-time-range)
-- [Notable behaviors of the GROUP BY clause](#notable-behaviors-of-the-group-by-clause)
-  - [Cannot group by fields](#cannot-group-by-fields)
-  - [Tag order does not matter](#tag-order-does-not-matter)
-  - [Grouping by tag and no time range returns unexpected timestamps](#grouping-by-tag-and-no-time-range-returns-unexpected-timestamps)
-  - [Data grouped by time may return unexpected timestamps](#data-grouped-by-time-may-return-unexpected-timestamps)
-    - [Example data](#example-data)
-    - [Query results](#query-results)
-  - [Fill with no data in the queried time range](#fill-with-no-data-in-the-queried-time-range)
-  - [Fill with previous if no previous value exists](#fill-with-previous-if-no-previous-value-exists)
-  - [Fill with linear interpolation if there are not two values to interpolate between](#fill-with-linear-interpolation-if-there-are-not-two-values-to-interpolate-between)
-
 <!-- /TOC -->
 
 ## Syntax
@@ -277,7 +255,6 @@ name: bitcoin
 | 2023-05-01T03:00:00Z | 23875.211349999998 |
 | 2023-05-01T04:00:00Z |         23855.6441 |
 | ...                  |                ... |
-
 
 {{% /expand %}}
 

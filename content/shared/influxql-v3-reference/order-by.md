@@ -1,9 +1,6 @@
 Use the `ORDER BY` clause to sort data by time in ascending or descending order.
 InfluxQL only supports sorting data by `time`.
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 ## Syntax
 
 ```sql

@@ -1,9 +1,6 @@
 Use the `SELECT` statement to query data from an InfluxDB measurement.
 The `SELECT` clause is required when querying data in SQL.
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 ### Syntax
 
 ```sql

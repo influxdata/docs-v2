@@ -2,75 +2,9 @@ SQL aggregate functions aggregate values in a specified column for each
 group or SQL partition and return a single row per group containing the
 aggregate value.
 
-- [General aggregate functions](#general-aggregate-functions)
-  - [array_agg](#array_agg)
-  - [avg](#avg)
-  - [bit_and](#bit_and)
-  - [bit_or](#bit_or)
-  - [bit_xor](#bit_xor)
-  - [bool_and](#bool_and)
-  - [bool_or](#bool_or)
-  - [count](#count)
-  - [first_value](#first_value)
-  - [grouping](#grouping)
-  - [last_value](#last_value)
-  - [max](#max)
-  - [mean](#mean)
-  - [median](#median)
-  - [min](#min)
-  - [nth_value](#nth_value)
-  - [string_agg](#string_agg)
-  - [sum](#sum)
-- [Statistical aggregate functions](#statistical-aggregate-functions)
-  - [corr](#corr)
-  - [covar](#covar)
-  - [covar_pop](#covar_pop)
-  - [covar_samp](#covar_samp)
-  - [regr_avgx](#regr_avgx)
-  - [regr_avgy](#regr_avgy)
-  - [regr_count](#regr_count)
-  - [regr_intercept](#regr_intercept)
-  - [regr_r2](#regr_r2)
-  - [regr_slope](#regr_slope)
-  - [regr_sxx](#regr_sxx)
-  - [regr_syy](#regr_syy)
-  - [regr_sxy](#regr_sxy)
-  - [stddev](#stddev)
-  - [stddev_pop](#stddev_pop)
-  - [stddev_samp](#stddev_samp)
-  - [var](#var)
-  - [var_pop](#var_pop)
-  - [var_population](#var_population)
-  - [var_samp](#var_samp)
-  - [var_sample](#var_sample)
-- [Approximate aggregate functions](#approximate-aggregate-functions)
-  - [approx_distinct](#approx_distinct)
-  - [approx_median](#approx_median)
-  - [approx_percentile_cont](#approx_percentile_cont)
-  - [approx_percentile_cont_with_weight](#approx_percentile_cont_with_weight)
-
 ---
 
 ## General aggregate functions
-
-- [array_agg](#array_agg)
-- [avg](#avg)
-- [bit_and](#bit_and)
-- [bit_or](#bit_or)
-- [bit_xor](#bit_xor)
-- [bool_and](#bool_and)
-- [bool_or](#bool_or)
-- [count](#count)
-- [first_value](#first_value)
-- [grouping](#grouping)
-- [last_value](#last_value)
-- [max](#max)
-- [mean](#mean)
-- [median](#median)
-- [min](#min)
-- [nth_value](#nth_value)
-- [string_agg](#string_agg)
-- [sum](#sum)
 
 ### array_agg
 
@@ -718,30 +652,7 @@ GROUP BY location
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
 ## Statistical aggregate functions
-
-- [corr](#corr)
-- [covar](#covar)
-- [covar_pop](#covar_pop)
-- [covar_samp](#covar_samp)
-- [regr_avgx](#regr_avgx)
-- [regr_avgy](#regr_avgy)
-- [regr_count](#regr_count)
-- [regr_intercept](#regr_intercept)
-- [regr_r2](#regr_r2)
-- [regr_slope](#regr_slope)
-- [regr_sxx](#regr_sxx)
-- [regr_syy](#regr_syy)
-- [regr_sxy](#regr_sxy)
-- [stddev](#stddev)
-- [stddev_pop](#stddev_pop)
-- [stddev_samp](#stddev_samp)
-- [var](#var)
-- [var_pop](#var_pop)
-- [var_population](#var_population)
-- [var_samp](#var_samp)
-- [var_sample](#var_sample)
 
 ### corr
 
@@ -1448,11 +1359,6 @@ GROUP BY room
 _Alias of [var_samp](#var_samp)._
 
 ## Approximate aggregate functions
-
-- [approx_distinct](#approx_distinct)
-- [approx_median](#approx_median)
-- [approx_percentile_cont](#approx_percentile_cont)
-- [approx_percentile_cont_with_weight](#approx_percentile_cont_with_weight)
 
 ### approx_distinct
 

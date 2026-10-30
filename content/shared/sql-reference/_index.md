@@ -2,17 +2,6 @@
 
 {{% product-name %}} uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
 
-- [Identifiers](#identifiers)  
-- [Quoting and case sensitivity](#quoting)
-- [Literals](#literals)  
-- [Duration units](#duration-units)  
-- [Operators](#operators)  
-- [Keywords](#keywords)  
-- [Conditional expressions](#conditional-expressions)
-- [Statements and clauses](#statements-and-clauses)  
-- [Comments](#comments)  
-- [Functions](#functions)
-
 ## Identifiers
 
 An identifier is a token which refers to the name of an InfluxDB database object, such as a **measurement** or a column name (**time**, **tag keys**, or **field keys**).
@@ -695,7 +684,6 @@ GROUP BY time
 | APPROX_PERCENTILE_CONT             | Returns the approximate percentile of input values.                                           |
 | APPROX_PERCENTILE_CONT_WITH_WEIGHT | Returns the approximate percentile of input values with weight.                               |
 
-
 ### Math functions
 
 | Function | Description                                                                      |
@@ -726,7 +714,6 @@ GROUP BY time
 | :------- | :--------------------------------------------------------------------------------------------------------- |
 | COALESCE | Returns the first argument that is not null. If all arguments are null, then `COALESCE` will return nulls. |
 | NULLIF   | Returns a null value if value1 equals value2, otherwise returns value1.                                    |
-
 
 ### Regular expression functions
 

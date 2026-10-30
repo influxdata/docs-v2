@@ -2,18 +2,6 @@ Use technical analysis functions to apply algorithms to your time series data.
 Many of these algorithms are often used to analyze financial and investment data,
 but have application in other use cases as well.
 
-- [Predictive analysis](#predictive-analysis):
-  - [HOLT_WINTERS()](#holt_winters)
-- [Technical analysis](#technical-analysis-functions):
-  - [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
-  - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
-  - [EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)
-  - [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)
-  - [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)
-  - [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
-  - [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple_exponential_moving_average)
-  - [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
-
 ## Predictive analysis
 
 Predictive analysis functions are a type of technical analysis algorithms that
@@ -197,16 +185,6 @@ name: weather
 Technical analysis functions apply widely used algorithms to your data.
 While they are primarily used in finance and investing, they have
 application in other industries.
-
-- [Notable behaviors of technical analysis functions](#notable-behaviors-of-technical-analysis-functions)
-- [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
-- [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
-- [EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)
-- [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)
-- [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)
-- [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
-- [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple_exponential_moving_average)
-- [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
 
 ### Notable behaviors of technical analysis functions
 

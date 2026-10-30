@@ -9,20 +9,6 @@ with InfluxDB and work with times series data.
 > For information about the current implementation status of InfluxQL features,
 > see [InfluxQL feature support](/influxdb/version/reference/influxql/feature-support/).
 
-- [Notation](#notation)
-- [Query representation](#query-representation)
-  - [Characters](#characters)
-  - [Letters and digits](#letters-and-digits)
-  - [Identifiers](#identifiers)
-  - [Keywords](#keywords)
-  - [Literals](#literals)
-- [Queries](#queries)
-- [Statements](#statements)
-- [Clauses](#clauses)
-- [Expressions](#expressions)
-- [Comments](#comments)
-- [Other](#other)
-
 <!-- To learn more about InfluxQL, browse the following topics:
 
 - [Explore your data with InfluxQL](/influxdb/v2/query-data/influxql/explore-data/)

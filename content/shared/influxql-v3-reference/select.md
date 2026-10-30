@@ -3,14 +3,6 @@ Use the `SELECT` statement to query data from one or more
 The `SELECT` statement **requires** a [`SELECT` clause](#select-clause) and a
 [`FROM` clause](#from-clause).
 
-- [Syntax](#syntax)
-  - [SELECT clause](#select-clause)
-  - [FROM clause](#from-clause)
-- [Notable SELECT statement behaviors](#notable-select-statement-behaviors)
-- [Data types and casting operations](#data-types-and-casting-operations)
-- [SELECT statement examples](#select-statement-examples)
-<!-- - [Multiple statements](#multiple-statements) -->
-
 ## Syntax
 
 ```sql
@@ -101,10 +93,6 @@ The outer query queries results returned by the inner query (subquery).
 For more information, see [InfluxQL subqueries](/influxdb/version/reference/influxql/subqueries/).
 
 ## Notable SELECT statement behaviors
-
-- [Must query at least one field](#must-query-at-least-one-field)
-- [Wildcard expressions](#wildcard-expressions)
-- [Cannot include both aggregate and non-aggregate field expressions](#cannot-include-both-aggregate-and-non-aggregate-field-expressions)
 
 ### Must query at least one field
 

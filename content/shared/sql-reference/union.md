@@ -3,9 +3,6 @@ a single result set.
 By default, `UNION` only keeps unique rows.
 To keep all rows, including duplicates, use `UNION ALL`.
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 **When using the `UNION` clause**:
 
 - The number of columns in each result set must be the same.
@@ -22,10 +19,6 @@ FROM measurement_2
 ```
 
 ## Examples
-
-- [Union results from different measurements](#union-results-from-different-measurements)
-- [Return the highest and lowest three results in a single result set](#return-the-highest-and-lowest-three-results-in-a-single-result-set)
-- [Union query results with custom data](#union-query-results-with-custom-data)
 
 ### Union results from different measurements
 
