@@ -23,6 +23,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 Writes are synchronous. A `204` response means all data was ingested and is queryable.
 A `5xx` response means the write didn't complete, but some or all of the data may have been ingested.
 To make sure data is stored and consistent in query results, retry the write with the same data.
+Include explicit timestamps; InfluxDB assigns the server time to points without one, so retrying them creates additional points.
 
 To ensure that InfluxDB handles writes in the order you request them,
 wait for the response before you send the next request.

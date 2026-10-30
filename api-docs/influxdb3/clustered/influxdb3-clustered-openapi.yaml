@@ -346,13 +346,13 @@ paths:
             Service unavailable.
 
             - Returns this error if the server is temporarily unavailable to accept writes due to concurrent request limits or insufficient healthy ingesters.
-            - Some or all of the data may have been ingested. Retrying the write with the same data is safe and recommended.
+            - Some or all of the data may have been ingested. If all points include explicit timestamps, retrying the write with the same data is safe and recommended.
         '504':
           description: |
             Gateway timeout.
 
             - Returns this error if the write timed out before the server finished processing it.
-            - Some or all of the data may have been ingested. Retrying the write with the same data is safe and recommended.
+            - Some or all of the data may have been ingested. If all points include explicit timestamps, retrying the write with the same data is safe and recommended.
         default:
           $ref: '#/components/responses/GeneralServerError'
       summary: Write data using the InfluxDB v2 HTTP API
@@ -590,11 +590,11 @@ paths:
         '503':
           description: |
             Server is temporarily unavailable to accept writes due to too many concurrent requests or insufficient healthy ingesters.
-            Some or all of the data may have been ingested. Retrying the write with the same data is safe and recommended.
+            Some or all of the data may have been ingested. If all points include explicit timestamps, retrying the write with the same data is safe and recommended.
         '504':
           description: |
             The write timed out before the server finished processing it.
-            Some or all of the data may have been ingested. Retrying the write with the same data is safe and recommended.
+            Some or all of the data may have been ingested. If all points include explicit timestamps, retrying the write with the same data is safe and recommended.
         default:
           content:
             application/json:
