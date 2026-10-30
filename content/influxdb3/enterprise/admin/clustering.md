@@ -30,22 +30,6 @@ by configuring specialized nodes in distributed deployments.
 Assign specific modes and thread allocations to nodes to maximize
 cluster efficiency.
 
-- [Specialize nodes for specific workloads](#specialize-nodes-for-specific-workloads)
-- [Configure node modes](#configure-node-modes)
-- [Allocate threads by node type](#allocate-threads-by-node-type)
-- [Configure ingest nodes](#configure-ingest-nodes)
-- [Configure query nodes](#configure-query-nodes)
-- [Configure compactor nodes](#configure-compactor-nodes)
-- [Configure a process node](#configure-a-process-node)
-- [Multi-mode configurations](#multi-mode-configurations)
-- [Cluster architecture examples](#cluster-architecture-examples)
-- [Scale your cluster](#scale-your-cluster)
-- [Monitor performance](#monitor-performance)
-- [Troubleshoot node configurations](#troubleshoot-node-configurations)
-- [Best practices](#best-practices)
-- [Migrate to specialized nodes](#migrate-to-specialized-nodes)
-- [Manage configurations](#manage-configurations)
-
 ## Specialize nodes for specific workloads
 
 In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
@@ -53,8 +37,16 @@ In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
 - **Ingest nodes**: Optimized for high-throughput data ingestion
 - **Query nodes**: Maximized for complex analytical queries
 - **Compactor nodes**: Dedicated to data compaction and optimization
-- **Process node**: Runs only the Processing Engine. We recommend a standalone process node, which runs only the Processing Engine. See [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
-- **All-in-one nodes**: Balanced for mixed workloads (single-node deployments only)
+- **Process nodes**: Run Processing Engine plugins.
+  We recommend a standalone process node.
+  See [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
+
+> [!Note]
+> #### Single-node deployments don't use specialized nodes
+>
+> A single-node deployment runs every mode on one node with `--mode=all`, the default.
+> To set up a single node, see [Set up {{% product-name %}}](/influxdb3/enterprise/get-started/setup/).
+> To grow a single node into a cluster, see [From single-node to specialized cluster](#from-single-node-to-specialized-cluster).
 
 ## Configure node modes
 
@@ -77,7 +69,12 @@ Available modes:
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
-- `process`: Runs the Processing Engine, which runs plugins for triggers. Requires [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir). Setting `--plugin-dir` adds `process` mode to a node, whatever its `--mode`. In a cluster, run `process` alone on a dedicated node, see [Configure a process node](#configure-a-process-node).
+- `process`: Runs Processing Engine plugins in response to triggers.
+  Requires [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir).
+  In a cluster, we recommend a [standalone process node](#standalone-process-node-recommended).
+  Start it with `--mode=process` and `--plugin-dir`.
+  Setting `--plugin-dir` enables `process` mode on any node, even if `--mode` doesn't list `process`.
+  Don't set `--plugin-dir` on nodes that shouldn't run plugins.
 
 > [!Note]
 > #### Nodes without query mode refuse data queries (Parquet engine)
@@ -273,7 +270,7 @@ For setup and tuning guidance, see [Distributed compaction](/influxdb3/enterpris
 ## Configure a process node
 
 A _process node_ is a node that runs the Processing Engine (`process` mode).
-It runs plugins for triggers.
+It runs plugins in response to triggers.
 You can run the Processing Engine in one of two architectures:
 
 | Architecture                                                        | Process node `--mode`                              | Recommendation      |
@@ -300,7 +297,7 @@ The following rules apply to every architecture:
   `--mode` with `process` and no [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) fails at startup.
   Put your plugin files in that directory.
 - **Don't set `--plugin-dir` on other nodes**:
-  Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` adds `process` mode to a node, whatever its `--mode`.
+  Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` adds `process` mode to a node, regardless of its `--mode` setting.
   The official Docker image sets `INFLUXDB3_PLUGIN_DIR=/plugins`; on containers that shouldn't run the Processing Engine, unset it with `-e INFLUXDB3_UNSET_VARS=INFLUXDB3_PLUGIN_DIR`.
 - **Don't use `all` mode**: In a cluster, list the process node's modes explicitly.
 - **Set `--internode-bind-addr` on the nodes that plugins reach**:
@@ -318,7 +315,7 @@ The following rules apply to every architecture:
 
 A standalone process node runs only in `process` mode.
 It doesn't store writes or answer data queries.
-**Use this architecture for every cluster.**
+We recommend this architecture for clusters.
 
 - Start the process node with `--mode=process` and `--plugin-dir`.
 - Start every ingest node and every query node with `--internode-bind-addr`.
@@ -341,16 +338,20 @@ A mixed process node runs `process` mode together with one or more of `ingest`, 
 > [!Warning]
 > #### Use a standalone process node instead
 >
-> On a mixed process node, plugins share CPU and memory with ingest, query, or compaction work, so a plugin that uses a lot of CPU or memory slows that work.
-> When you restart the node, you also interrupt its ingest, query, or compaction work.
-> Use a [standalone process node](#standalone-process-node-recommended) unless you can't add a node to the cluster.
+> On a mixed process node, plugins compete with ingest, query, or compaction for CPU and memory.
+> Restarting the node interrupts all of these workloads.
+> We recommend a standalone process node unless you can't add a node to the cluster.
+> See [Standalone process node](#standalone-process-node-recommended).
 
 If you run a mixed process node, follow the [requirements for every process node](#requirements-for-every-process-node), and:
 
 1. Add `process` to the node's `--mode` list and set `--plugin-dir`.
 2. If the node doesn't run `query`, restart every query node with `--internode-bind-addr`.
 3. If the node doesn't run `ingest`, restart every ingest node with `--internode-bind-addr`.
-4. Create each trigger on the mixed process node, and set `--node-spec` to its node ID.
+4. Create each trigger on the mixed process node with `--node-spec nodes:PROCESS_NODE_ID`.
+   Replace `PROCESS_NODE_ID` with the mixed process node's ID.
+
+For an example of writing plugin results to ingest nodes over HTTP, see the reference architecture's [`plugins/_writeback.py` helper](https://github.com/influxdata/influxdb3-ref-network-telemetry/blob/main/plugins/_writeback.py).
 
 ## Multi-mode configurations
 

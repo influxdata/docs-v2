@@ -259,7 +259,7 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/), which runs plugins for triggers. A node in `process` mode alone doesn't accept writes or answer data queries. Setting [`--plugin-dir`](#plugin-dir) adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a cluster, run `process` alone on a dedicated node. See [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/). A node running only `process` mode doesn't accept writes or answer data queries. Requires [`--plugin-dir`](#plugin-dir). In a cluster, we recommend a [standalone process node](/influxdb3/enterprise/admin/processing-engine/). Start it with `--mode=process` and `--plugin-dir`. Setting `--plugin-dir` enables `process` mode on any node, even if `--mode` doesn't list `process`. Don't set `--plugin-dir` on nodes that shouldn't run plugins.
 - `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/admin/explorer-ui/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret). Set [`--plugin-dir`](#plugin-dir) as well to use the plugin features in Explorer.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
@@ -2448,6 +2448,11 @@ the following side-effects:
 #### plugin-dir
 
 Specifies the local directory that contains Python plugins and their test files.
+
+{{% show-in "enterprise" %}}
+Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` enables [`process` mode](#mode) on any node, even if `--mode` doesn't list `process`.
+Don't set it on nodes that shouldn't run plugins.
+{{% /show-in %}}
 
 | influxdb3 serve option | Environment variable   |
 | :--------------------- | :--------------------- |

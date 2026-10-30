@@ -229,7 +229,7 @@ influxdb3 serve \
 > for more information.
 >
 > We recommend running `process` alone on a dedicated node.
-> For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+> For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 
 ## Cluster configuration examples
 
