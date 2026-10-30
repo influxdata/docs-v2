@@ -308,7 +308,7 @@ influxdb:
     v2: 2.10.0
     v1: 1.13.0
   latest_cli:
-    v2: 2.8.0
+    v2: 2.9.1
   detector_config:
     query_languages:
       InfluxQL:

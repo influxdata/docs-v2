@@ -1,6 +1,6 @@
 ## v2.9.1 {date="2026-10-29"}
 
-## Maintenance
+### Maintenance
 
 - chore: update to go 1.27.3
 
