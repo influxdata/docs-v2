@@ -2,7 +2,7 @@
 
 ### Maintenance
 
-- chore: update to go 1.27.3
+- Update to go 1.27.3
 
 ## v2.8.0 {date="2026-04-22"}
 
