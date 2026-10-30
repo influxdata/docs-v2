@@ -118,3 +118,56 @@ jobs:
             --spec "cypress/e2e/content/render-regression.cy.js" \
             --spec "cypress/e2e/content/canonical.cy.js" \
             --no-mapping
+
+  playwright-render:
+    name: Playwright render-regression spec (trial)
+    runs-on: ubuntu-latest
+    # Runs beside cypress-render during the Playwright trial so both
+    # frameworks check the same pages on the same PRs.
+    if: |
+      github.event_name == 'pull_request' &&
+      (contains(github.event.pull_request.labels.*.name, 'render-regression') ||
+       github.event.pull_request.draft == false)
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Detect layout/asset changes
+        id: detect
+        run: |
+          CHANGED=$(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
+
+          if echo "$CHANGED" | grep -qE '^(layouts/|assets/|playwright/|playwright\.config\.js$|\.github/workflows/pr-render-check\.yml$)'; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-run=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  No layout/asset/Playwright file changed — skipping Playwright"
+          fi
+
+      - name: Setup docs environment
+        if: steps.detect.outputs.should-run == 'true'
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      - name: Install Chromium for Playwright
+        if: steps.detect.outputs.should-run == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Run render-regression and custom-timestamps specs
+        if: steps.detect.outputs.should-run == 'true'
+        run: |
+          yarn test:e2e:playwright \
+            playwright/e2e/render-regression.spec.js \
+            playwright/e2e/custom-timestamps.spec.js
+
+      - name: Upload Playwright traces
+        if: failure() && steps.detect.outputs.should-run == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
