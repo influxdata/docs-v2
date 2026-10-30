@@ -40,7 +40,13 @@ In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
 - **Process nodes**: Run Processing Engine plugins.
   We recommend a standalone process node.
   See [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
-- **All-in-one nodes**: Balanced for mixed workloads (single-node deployments only)
+
+> [!Note]
+> #### Single-node deployments don't use specialized nodes
+>
+> A single-node deployment runs every mode on one node with `--mode=all`, the default.
+> To set up a single node, see [Set up {{% product-name %}}](/influxdb3/enterprise/get-started/setup/).
+> To grow a single node into a cluster, see [From single-node to specialized cluster](#from-single-node-to-specialized-cluster).
 
 ## Configure node modes
 
