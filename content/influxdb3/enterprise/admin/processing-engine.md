@@ -380,7 +380,7 @@ Add `--plugin-dir`.
 
 #### A node runs the Processing Engine unexpectedly
 
-`--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` adds `process` mode to a node, whatever its `--mode`.
+Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` enables `process` mode on any node, even if `--mode` doesn't list `process`.
 Remove the option or variable from every node except the process node.
 For Docker, see [Start the nodes](#start-the-nodes).
 
