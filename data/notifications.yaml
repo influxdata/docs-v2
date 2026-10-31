@@ -171,27 +171,23 @@
     [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-controller-1-2/)
 
 
-- id: influxdb-v1-13-release
+- id: influxdb-v1-13-2-release
   level: note
   scope:
     - /influxdb/v1/
-  title: 'InfluxDB OSS 1.13.1 is now available'
+  title: 'InfluxDB OSS 1.13.2 is now available'
   slug: |
-    InfluxDB OSS 1.13.1 adds mTLS support, adaptive TSI cache sizing, and
-    a hardening option to mitigate SSRF.
+    InfluxDB OSS 1.13.2 includes a bug fix and a Go version update.
 
-    [View InfluxDB OSS 1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131)
+    [View InfluxDB OSS 1.13.2 release notes](/influxdb/v1/about_the_project/release-notes/#v1132)
   message: |
-    **Key updates in InfluxDB OSS 1.13.1:**
+    **Key updates in InfluxDB OSS 1.13.2:**
 
-    - **mTLS support** for the HTTP, OpenTSDB, and subscriber services.
-    - **Adaptive TSI cache sizing**—the series ID set cache can grow and
-      shrink based on measured query hit rate.
-    - **`hardening-enabled`** option to mitigate server-side request
-      forgery (SSRF) in Flux HTTP requests.
+    - Resolve an unimplemented interface member.
+    - Update Go to version 1.26.10.
 
     For details, see the
-    [InfluxDB OSS 1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131).
+    [InfluxDB OSS 1.13.2 release notes](/influxdb/v1/about_the_project/release-notes/#v1132).
 
 - id: enterprise-influxdb-v1-13-release
   level: note
