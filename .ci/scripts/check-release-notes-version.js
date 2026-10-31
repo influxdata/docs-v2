@@ -260,7 +260,74 @@ export function evaluate(products, changed, lookup = documentedVersion) {
   return results;
 }
 
+/** Check explicit patch availability announcements for the products in scope.
+ * Minor-series campaigns and historical advisories retain their own versions.
+ * Match product ownership through release-note links, not incidental prose.
+ */
+export function evaluateNotifications(
+  products,
+  notifications,
+  checkedProducts
+) {
+  const results = [];
+  for (const notification of notifications) {
+    const announced = notification.title?.match(
+      /\bv?(\d+\.\d+\.\d+(?:-[\w.-]+)?)\s+(?:is\s+)?now\s+available\b/i
+    )?.[1];
+    if (!announced) continue;
+    const links = new Set(
+      [
+        ...`${notification.slug || ''}\n${notification.message || ''}`.matchAll(
+          /\]\((\/[^\s)#]+)(?:#[^\s)]*)?\)/g
+        ),
+      ].map((match) => match[1])
+    );
+    for (const entry of RELEASE_NOTES) {
+      const selector = selectorLabel(entry.selector);
+      if (
+        !checkedProducts.some(
+          (r) => r.product === entry.product && r.selector === selector
+        )
+      )
+        continue;
+      const paths =
+        entry.notesFile === V3_SHARED_NOTES
+          ? entry.triggerPaths
+          : [entry.notesFile];
+      const matchesProduct = paths.some((path) => {
+        if (path.startsWith('content/shared/')) return false;
+        const url = path
+          .replace(/^content/, '')
+          .replace(/(?:\/_index)?\.md$/, '/');
+        return links.has(url);
+      });
+      if (!matchesProduct) continue;
+      const current = readSelector(products[entry.product], entry.selector);
+      if (current == null) continue;
+      results.push({
+        product: entry.product,
+        selector,
+        notificationId: notification.id,
+        announced,
+        current,
+        status:
+          announced === String(current).replace(/^v/, '')
+            ? 'ok'
+            : 'notification-drift',
+      });
+    }
+  }
+  return results;
+}
+
 export function emitWarnings(results, write = console.error) {
+  for (const r of results.filter((x) => x.status === 'notification-drift')) {
+    write(
+      `::warning file=data/notifications.yaml::Notification ${r.notificationId} ` +
+        `announces v${r.announced}, but data/products.yml ${r.selector} for ` +
+        `${r.product} is ${r.current}. Reconcile the latest-patch announcement.`
+    );
+  }
   for (const r of results.filter((x) => x.status === 'drift')) {
     write(
       `::warning file=${r.notesFile}::Release notes show v${r.documented} but ` +
@@ -284,7 +351,7 @@ const BADGE_REMINDER = [
   'which read the value from `data/products.yml` so it stays correct automatically.',
 ].join('\n');
 
-function buildReport(results) {
+export function buildReport(results, notifications = []) {
   const lines = ['## Release version check', ''];
 
   if (results.length === 0) {
@@ -328,6 +395,20 @@ function buildReport(results) {
     }
   }
 
+  if (notifications.length) {
+    lines.push('### Latest-patch notifications', '');
+    lines.push(
+      '| Notification | Product | Announced | data/products.yml | Status |'
+    );
+    lines.push('| --- | --- | --- | --- | --- |');
+    for (const r of notifications) {
+      lines.push(
+        `| \`${r.notificationId}\` | \`${r.product}\` | ${r.announced} | ${r.current} | ` +
+          `${r.status === 'ok' ? '✅ in sync' : '⚠️ **announcement mismatch**'} |`
+      );
+    }
+    lines.push('');
+  }
   lines.push(BADGE_REMINDER);
   return lines.join('\n');
 }
@@ -337,10 +418,17 @@ function main() {
   const changed = args.length ? new Set(args) : null;
   const products = yaml.load(readFileSync(PRODUCTS_YAML, 'utf8'));
   const results = evaluate(products, changed);
+  const notifications = evaluateNotifications(
+    products,
+    yaml.load(
+      readFileSync(join(REPO_ROOT, 'data', 'notifications.yaml'), 'utf8')
+    ),
+    results
+  );
 
-  emitWarnings(results);
+  emitWarnings([...results, ...notifications]);
 
-  const report = buildReport(results);
+  const report = buildReport(results, notifications);
   console.log(report);
 
   if (process.env.GITHUB_STEP_SUMMARY) {

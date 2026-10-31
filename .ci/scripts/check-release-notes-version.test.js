@@ -13,6 +13,8 @@ import yaml from 'js-yaml';
 import {
   emitWarnings,
   evaluate,
+  evaluateNotifications,
+  buildReport,
   parseEditionVersions,
 } from './check-release-notes-version.js';
 
@@ -40,6 +42,110 @@ const V3 = 'content/shared/v3-core-enterprise-release-notes/_index.md';
 const OSS_V1 = 'content/influxdb/v1/about_the_project/release-notes.md';
 const ENTERPRISE_V1 =
   'content/enterprise_influxdb/v1/about-the-project/release-notes.md';
+
+const patchNotification = {
+  id: 'oss-release',
+  title: 'InfluxDB OSS 1.13.1 is now available',
+  message:
+    '[Release notes](/influxdb/v1/about_the_project/release-notes/#v1131)',
+};
+
+test('latest-patch notification mismatch is reported even when release notes and product data agree', () => {
+  const current = { influxdb: { latest_patches: { v1: '1.13.2' } } };
+  const checked = evaluate(current, new Set([OSS_V1]), () => '1.13.2');
+  const results = evaluateNotifications(current, [patchNotification], checked);
+  assert.strictEqual(results.length, 1);
+  assert.strictEqual(results[0].status, 'notification-drift');
+  assert.strictEqual(results[0].announced, '1.13.1');
+  assert.strictEqual(results[0].current, '1.13.2');
+  const warnings = [];
+  emitWarnings(results, (warning) => warnings.push(warning));
+  assert.ok(warnings[0].includes('file=data/notifications.yaml'));
+  assert.ok(warnings[0].includes('oss-release'));
+  assert.ok(buildReport(checked, results).includes('1.13.1'));
+});
+
+test('matching patch announcement reports in sync', () => {
+  const checked = evaluate(products, new Set([OSS_V1]), () => '1.12.4');
+  const results = evaluateNotifications(
+    products,
+    [
+      {
+        ...patchNotification,
+        title: 'InfluxDB OSS 1.12.4 is now available',
+      },
+    ],
+    checked
+  );
+  assert.strictEqual(results[0].status, 'ok');
+});
+
+test('minor-release announcements and historical advisory notifications are excluded', () => {
+  const checked = evaluate(products, null, () => null);
+  const results = evaluateNotifications(
+    products,
+    [
+      { ...patchNotification, title: 'InfluxDB OSS 1.13 is now available' },
+      {
+        ...patchNotification,
+        title: 'InfluxDB OSS 1.13.1: API tokens are hashed by default',
+      },
+    ],
+    checked
+  );
+  assert.deepStrictEqual(results, []);
+});
+
+test('notification product comes from its release-notes link, not related product mentions', () => {
+  const current = {
+    influxdb: { latest_patches: { v1: '1.13.2' } },
+    enterprise_influxdb: { latest_patches: { v1: '1.13.1' } },
+  };
+  const checked = evaluate(current, new Set([ENTERPRISE_V1]), () => null);
+  const results = evaluateNotifications(
+    current,
+    [
+      {
+        id: 'enterprise-release',
+        title: 'InfluxDB Enterprise 1.13.1 is now available',
+        slug: 'Includes OSS 1.13.0 updates.',
+        message:
+          '[Release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1131)',
+      },
+    ],
+    checked
+  );
+  assert.strictEqual(results.length, 1);
+  assert.strictEqual(results[0].product, 'enterprise_influxdb');
+  assert.strictEqual(results[0].status, 'ok');
+});
+
+test('unrelated product edits do not report OSS notification mismatches', () => {
+  const checked = evaluate(products, new Set([V3]), () => '3.10.3');
+  assert.deepStrictEqual(
+    evaluateNotifications(products, [patchNotification], checked),
+    []
+  );
+});
+
+test('Core and Enterprise patch announcements use their own product versions', () => {
+  const current = {
+    influxdb3_core: { latest_patch: '3.12.2' },
+    influxdb3_enterprise: { latest_patch: '3.12.3' },
+  };
+  const checked = evaluate(current, new Set([V3]), () => null);
+  const notifications = ['core', 'enterprise'].map((edition) => ({
+    id: `${edition}-patch`,
+    title: `InfluxDB 3 ${edition} 3.12.2 is now available`,
+    slug: `[Release notes](/influxdb3/${edition}/release-notes/#v3122)`,
+  }));
+  const results = evaluateNotifications(current, notifications, checked);
+  assert.strictEqual(results.length, 2);
+  assert.strictEqual(results[0].product, 'influxdb3_core');
+  assert.strictEqual(results[0].status, 'ok');
+  assert.strictEqual(results[1].product, 'influxdb3_enterprise');
+  assert.strictEqual(results[1].status, 'notification-drift');
+});
 
 // Injected lookup: a `notesFile#edition` key wins over a bare `notesFile` key,
 // mirroring the edition-aware default reader.
