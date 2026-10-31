@@ -25,11 +25,11 @@
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/bird_data_simulator
 - name: chronos_forecasting
   id: chronos-forecasting
-  description: Enables zero-shot time-series forecasting with Amazon Chronos models from HuggingFace, supporting scheduled batch forecasts and on-demand HTTP forecasts.
+  description: 'Zero-shot forecasting with Amazon Chronos models: on-demand HTTP and scheduled forecasts of a measurement field or any SQL query, per series, with prediction intervals.'
   tags:
     - scheduled
     - HTTP request
-  introduced: v0.1.0
+  introduced: v1.0.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/chronos_forecasting
 - name: downsampler
@@ -80,7 +80,7 @@
   description: Enables seamless data import from InfluxDB v1, v2, or v3 instances to InfluxDB 3 Core/Enterprise
   tags:
     - HTTP request
-  introduced: v0.3.0
+  introduced: v0.5.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/import
 - name: influxdb_to_iceberg
@@ -108,6 +108,24 @@
   introduced: v1.3.0
   database_version: '>=3.0.0'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mad_check
+- name: mqtt_publisher
+  id: mqtt-publisher
+  description: Publishes InfluxDB 3 rows to an MQTT broker on write, on a schedule, or over HTTP for a backfill. JSON, line protocol or template payloads; per-row, per-field or batch; filtering, TLS, buffered queue.
+  tags:
+    - data-write
+    - scheduled
+    - HTTP request
+  introduced: v0.1.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mqtt_publisher
+- name: mqtt_sparkplug_publisher
+  id: mqtt-sparkplug-publisher
+  description: 'Publishes InfluxDB 3 rows to an MQTT broker as a Sparkplug B Edge Node on write: spBv1.0 topics, Protobuf payloads, NBIRTH/NDATA/NDEATH, bdSeq/seq, aliases, rebirth, STATE and store-and-forward.'
+  tags:
+    - data-write
+  introduced: v0.1.0
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mqtt_sparkplug_publisher
 - name: mqtt_subscriber
   id: mqtt-subscriber
   description: Enables real-time ingestion of MQTT messages into InfluxDB 3. Subscribe to MQTT topics and transform messages into time-series data with support for JSON, Line Protocol, and custom text formats.
@@ -137,7 +155,7 @@
   description: Enables periodic ingestion of OPC UA node values into InfluxDB 3. Connect to OPC UA servers and read current values with auto-discovery browse mode, data type detection, and namespace resolution.
   tags:
     - scheduled
-  introduced: v0.3.0
+  introduced: v0.4.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/opcua
 - name: prophet_forecasting
@@ -162,7 +180,7 @@
   description: Detects time-series anomalies on writes using River ML models, combining rolling statistics with HalfSpaceTrees for per-series anomaly scoring and optional auto-tuning from River Auto Profiler output.
   tags:
     - data-write
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/river_anomaly_detector
 - name: river_auto_profiler
@@ -194,7 +212,7 @@
   description: Validates incoming line protocol data against a JSON schema.
   tags:
     - data-write
-  introduced: v0.3.0
+  introduced: v0.4.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/schema_validator
 - name: signal_filter
