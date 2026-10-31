@@ -120,13 +120,13 @@ The invitation status changes to `Revoked`.
 - Can create and delete databases, tables, and tokens
 - Can send and revoke user invitations
 - Can manage all aspects of instance administration
-- Can use the **Tokens** page in the console
+- Can use the **Tokens** page in the Admin UI
 
 ### Member
 - Can create, describe, read, write, and delete databases
 - Can view, create, and delete database (resource) tokens, but has no access to admin tokens
 - Can view users and instances, but cannot manage other users or send invitations
-- Cannot use the console **Tokens** page, which requires the **Admin** role.
+- Cannot use the Admin UI **Tokens** page, which requires the **Admin** role.
   Members create database tokens with the
   [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/)
   (after `influxdb3 auth login --oauth`) or the HTTP API.
