@@ -175,14 +175,14 @@
   level: note
   scope:
     - /influxdb/v1/
-  title: 'InfluxDB OSS 1.13.0 is now available'
+  title: 'InfluxDB OSS 1.13.1 is now available'
   slug: |
-    InfluxDB OSS 1.13.0 adds mTLS support, adaptive TSI cache sizing, and
+    InfluxDB OSS 1.13.1 adds mTLS support, adaptive TSI cache sizing, and
     a hardening option to mitigate SSRF.
 
-    [View InfluxDB OSS 1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130)
+    [View InfluxDB OSS 1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131)
   message: |
-    **Key updates in InfluxDB OSS 1.13.0:**
+    **Key updates in InfluxDB OSS 1.13.1:**
 
     - **mTLS support** for the HTTP, OpenTSDB, and subscriber services.
     - **Adaptive TSI cache sizing**—the series ID set cache can grow and
@@ -191,7 +191,7 @@
       forgery (SSRF) in Flux HTTP requests.
 
     For details, see the
-    [InfluxDB OSS 1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130).
+    [InfluxDB OSS 1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131).
 
 - id: enterprise-influxdb-v1-13-release
   level: note
@@ -200,14 +200,14 @@
   title: 'InfluxDB Enterprise 1.13.1 is now available'
   slug: |
     InfluxDB Enterprise 1.13.1 adds mTLS support and includes the InfluxDB OSS
-    1.13.0 updates.
+    1.13.1 updates.
 
     [View InfluxDB Enterprise 1.13.1 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1131)
   message: |
     **Key updates in InfluxDB Enterprise 1.13.1:**
 
     - **mTLS support** for Enterprise data and meta nodes.
-    - All InfluxDB OSS 1.13.0 updates apply to Enterprise too.
+    - All InfluxDB OSS 1.13.1 updates apply to Enterprise too.
 
     For details, see the
     [InfluxDB Enterprise 1.13.1 release notes](/enterprise_influxdb/v1/about-the-project/release-notes/#v1131).
