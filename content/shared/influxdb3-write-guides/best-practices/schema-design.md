@@ -124,7 +124,7 @@ InfluxData identified the
 as the safe limit for maintaining system performance and stability.
 Exceeding this threshold can result in
 [wide schemas](#avoid-wide-schemas), which can negatively impact performance
-and resource use, [depending on your queries](#avoid-non-specific-queries),
+and resource use, depending on your queries,
 the shape of your schema, and data types in the schema.
 
 ---

@@ -55,7 +55,7 @@ tags and fields.
         Field values may be null, but at least one field value is not null on any given row.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
-        In InfluxDB, a timestamp is a nanosecond-scale [Unix timestamp](#unix-timestamp) in UTC.
+        In InfluxDB, a timestamp is a nanosecond-scale [Unix timestamp](/influxdb3/cloud-serverless/reference/glossary/#unix-timestamp) in UTC.
         A timestamp is never null.
 
 ### Primary keys
@@ -107,7 +107,7 @@ the write fails due to a column conflict.
 
 ### Maximum number of columns per measurement
 
-A measurement has a [maximum number of columns](/influxdb3/cloud-serverless/admin/buckets/#column-limit).
+A measurement has a [maximum number of columns](/influxdb3/cloud-serverless/admin/buckets/#table-and-column-limits).
 Each row must include a time column.
 As a result, a measurement can have the following:
 
