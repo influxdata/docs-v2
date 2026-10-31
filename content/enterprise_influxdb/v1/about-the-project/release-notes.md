@@ -19,7 +19,7 @@ alt_links:
 > #### InfluxDB OSS and Enterprise v1 relationship
 >
 > InfluxDB Enterprise v1 is a superset of InfluxDB OSS v1. All updates in the
-> [OSS v1.13.0 release notes](/influxdb/v1/about_the_project/release-notes/#v1130)
+> [OSS v1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131)
 > are included in this release. This page lists Enterprise-specific updates
 > only.
 
@@ -44,8 +44,8 @@ alt_links:
 - Fixed deadlocks in the meta store, including one on raft listener close.
 - Fixed read timeouts while waiting for RPC connection reuse.
 
-All OSS v1.13.0 updates, including the
-[adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1130)
+All OSS v1.13.1 updates, including the
+[adaptive TSI cache sizing](/influxdb/v1/about_the_project/release-notes/#v1131)
 and the TSM file-store lock fix, apply to Enterprise v1.13.1 too.
 
 > [!Important]
