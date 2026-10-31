@@ -8,6 +8,8 @@
  * with fixture text, so they don't touch disk.
  */
 import assert from 'node:assert';
+import { readFileSync } from 'node:fs';
+import yaml from 'js-yaml';
 import {
   emitWarnings,
   evaluate,
@@ -35,6 +37,9 @@ const products = {
 };
 
 const V3 = 'content/shared/v3-core-enterprise-release-notes/_index.md';
+const OSS_V1 = 'content/influxdb/v1/about_the_project/release-notes.md';
+const ENTERPRISE_V1 =
+  'content/enterprise_influxdb/v1/about-the-project/release-notes.md';
 
 // Injected lookup: a `notesFile#edition` key wins over a bare `notesFile` key,
 // mirroring the edition-aware default reader.
@@ -139,6 +144,66 @@ test('products.yml ahead of notes → ahead status', () => {
 test('null changed set checks everything', () => {
   const r = evaluate(products, null, lookup({ [V3]: '3.10.3' }));
   assert.ok(r.length > 1);
+});
+
+for (const file of ['data/products.yml', 'data/notifications.yaml']) {
+  test(`${file} checks every tracked product`, () => {
+    const versions = lookup({ [OSS_V1]: '1.13.2' });
+    const results = evaluate(products, new Set([file]), versions);
+    assert.deepStrictEqual(results, evaluate(products, null, versions));
+    const oss = results.find(
+      (r) => r.product === 'influxdb' && r.selector === 'latest_patches.v1'
+    );
+    assert.strictEqual(oss.status, 'drift');
+    assert.strictEqual(oss.documented, '1.13.2');
+  });
+}
+
+test('Enterprise v1 link correction also detects inherited OSS version drift', () => {
+  const results = evaluate(
+    { ...products, enterprise_influxdb: { latest_patches: { v1: '1.13.1' } } },
+    new Set([ENTERPRISE_V1]),
+    lookup({ [OSS_V1]: '1.13.2', [ENTERPRISE_V1]: '1.13.1' })
+  );
+  assert.strictEqual(
+    results.find((r) => r.product === 'enterprise_influxdb').status,
+    'ok'
+  );
+  assert.strictEqual(
+    results.find((r) => r.product === 'influxdb').status,
+    'drift'
+  );
+  assert.ok(!results.some((r) => r.product === 'influxdb3_core'));
+});
+
+test('OSS v1 release edits also check Enterprise without assuming equal versions', () => {
+  const results = evaluate(
+    { ...products, enterprise_influxdb: { latest_patches: { v1: '1.13.1' } } },
+    new Set([OSS_V1]),
+    lookup({ [OSS_V1]: '1.12.4', [ENTERPRISE_V1]: '1.13.1' })
+  );
+  assert.strictEqual(results.length, 2);
+  assert.ok(results.every((r) => r.status === 'ok'));
+});
+
+test('workflow triggers on notifications, product data, and checker tests', () => {
+  const workflow = yaml.load(
+    readFileSync(
+      new URL('../../.github/workflows/pr-release-check.yml', import.meta.url),
+      'utf8'
+    )
+  );
+  for (const path of [
+    'data/notifications.yaml',
+    'data/products.yml',
+    '.ci/scripts/check-release-notes-version.test.js',
+  ])
+    assert.ok(workflow.on.pull_request.paths.includes(path), path);
+  assert.ok(
+    workflow.jobs['version-reminder'].steps.some((step) =>
+      step.run?.includes('node .ci/scripts/check-release-notes-version.test.js')
+    )
+  );
 });
 
 test('parseEditionVersions: commented-out Core section is ignored', () => {

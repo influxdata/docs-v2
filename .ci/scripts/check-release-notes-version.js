@@ -21,6 +21,8 @@
  * Output: a Markdown report on stdout (the workflow posts it as a PR comment and
  * to the step summary), plus GitHub Actions ::warning:: annotations for drift.
  *
+ * Product-data and notification edits check all tracked products. OSS and
+ * Enterprise v1 release-note edits check both editions against their own notes.
  * Exit code: always 0. This is a reminder, not a gate.
  *
  * Usage: node .ci/scripts/check-release-notes-version.js [changed-file ...]
@@ -36,6 +38,9 @@ const PRODUCTS_YAML = join(REPO_ROOT, 'data', 'products.yml');
 
 const V3_SHARED_NOTES =
   'content/shared/v3-core-enterprise-release-notes/_index.md';
+const OSS_V1_NOTES = 'content/influxdb/v1/about_the_project/release-notes.md';
+const ENTERPRISE_V1_NOTES =
+  'content/enterprise_influxdb/v1/about-the-project/release-notes.md';
 
 /**
  * Authoritative release-notes source for each product that tracks a patch
@@ -99,8 +104,8 @@ const RELEASE_NOTES = [
   {
     product: 'enterprise_influxdb',
     selector: ['latest_patches', 'v1'],
-    notesFile:
-      'content/enterprise_influxdb/v1/about-the-project/release-notes.md',
+    notesFile: ENTERPRISE_V1_NOTES,
+    triggerPaths: [OSS_V1_NOTES, ENTERPRISE_V1_NOTES],
   },
   {
     product: 'influxdb',
@@ -110,7 +115,8 @@ const RELEASE_NOTES = [
   {
     product: 'influxdb',
     selector: ['latest_patches', 'v1'],
-    notesFile: 'content/influxdb/v1/about_the_project/release-notes.md',
+    notesFile: OSS_V1_NOTES,
+    triggerPaths: [OSS_V1_NOTES, ENTERPRISE_V1_NOTES],
   },
 ];
 
@@ -205,9 +211,14 @@ function compareVersions(a, b) {
  */
 export function evaluate(products, changed, lookup = documentedVersion) {
   const results = [];
+  // Shared product data and announcements can expose drift in any product.
+  const checkAll =
+    changed === null ||
+    changed.has('data/products.yml') ||
+    changed.has('data/notifications.yaml');
   for (const entry of RELEASE_NOTES) {
     const triggers = entry.triggerPaths || [entry.notesFile];
-    const inScope = changed === null || triggers.some((p) => changed.has(p));
+    const inScope = checkAll || triggers.some((p) => changed.has(p));
     if (!inScope) continue;
 
     const product = products[entry.product];
@@ -278,7 +289,7 @@ function buildReport(results) {
 
   if (results.length === 0) {
     lines.push(
-      'No release-notes pages with a tracked version changed in this PR.'
+      'No tracked release notes, product data, or notifications changed in this PR.'
     );
   } else {
     lines.push('| Product | Release notes | data/products.yml | Status |');

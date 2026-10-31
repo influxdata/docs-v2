@@ -9,6 +9,8 @@ name: Release Version Check
 #      so a missed bump silently points the docs at the previous release.
 #      Every product is checked and reported (Telegraf included — it normally
 #      reports success because its internal automation keeps the value in sync).
+#      Product-data and notification edits check all tracked products; OSS and
+#      Enterprise v1 release-note edits check both editions against their own notes.
 #
 #   2. release-readiness — when a PR actually bumps a latest_patch/latest_patches
 #      value, remind the author to confirm the new version's download artifacts
@@ -26,7 +28,9 @@ on:
       - 'content/**/release-notes/**'
       - 'content/shared/v3-core-enterprise-release-notes/**'
       - 'data/products.yml'
+      - 'data/notifications.yaml'
       - '.ci/scripts/check-release-notes-version.js'
+      - '.ci/scripts/check-release-notes-version.test.js'
       - '.github/workflows/pr-release-check.yml'
 
 permissions:
@@ -65,6 +69,9 @@ jobs:
             > changed.txt
           echo "Changed files:"
           cat changed.txt
+
+      - name: Test release version check
+        run: node .ci/scripts/check-release-notes-version.test.js
 
       - name: Run release version check
         run: |
