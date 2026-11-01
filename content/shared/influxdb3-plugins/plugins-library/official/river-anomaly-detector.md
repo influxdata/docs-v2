@@ -99,7 +99,7 @@ The plugin classifies each column in incoming data:
    - Filtered by `include_fields` (if set, only listed fields are monitored)
    - Filtered by `exclude_fields` (excluded fields are skipped)
 
-NaN and infinity values are skipped with a warning. Column types are inferred from the first row of each batch.
+NaN and infinity values are skipped with a warning. An anomaly whose tag value cannot be written as line protocol (empty, containing a newline or tab, or ending with a backslash) is skipped with a warning. Column types are inferred from the first row of each batch.
 
 ## Table Filtering
 
