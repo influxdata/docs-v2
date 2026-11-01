@@ -36,12 +36,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup docs environment
         env:
           CYPRESS_INSTALL_BINARY: 0
         uses: ./.github/actions/setup-docs-env
+        with:
+          skip-markdown-converter: 'true'
 
       - name: Build Hugo site
         uses: ./.github/actions/build-docs-site
@@ -77,7 +79,7 @@ jobs:
        github.event.pull_request.draft == false)
     steps:
       - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
@@ -110,6 +112,8 @@ jobs:
       - name: Setup docs environment
         if: steps.detect.outputs.should-run == 'true'
         uses: ./.github/actions/setup-docs-env
+        with:
+          skip-markdown-converter: 'true'
 
       - name: Run render-regression and canonical specs
         if: steps.detect.outputs.should-run == 'true'

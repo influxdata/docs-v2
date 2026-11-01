@@ -3,6 +3,13 @@
  * Build the Rust markdown converter napi module when a Rust toolchain is
  * present. Skips with a clear message otherwise so `yarn install` never fails
  * on machines without Rust. CI builds it explicitly (see .circleci/config.yml).
+ *
+ * Set DOCS_SKIP_MARKDOWN_CONVERTER=true to skip this step entirely — no
+ * download, no require(), no cargo build. Use it in CI jobs that never call
+ * `yarn build:md` / `yarn build:ai-artifacts` (the only consumers of this
+ * module), so they don't fetch or load a native binary they never use. This
+ * is independent of `yarn install --ignore-scripts`, which would also skip
+ * hugo-extended's own postinstall and break `npx hugo`.
  */
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -15,6 +22,13 @@ import {
   writeFileSync,
 } from 'node:fs';
 import path from 'node:path';
+
+if (process.env.DOCS_SKIP_MARKDOWN_CONVERTER === 'true') {
+  console.log(
+    'ℹ Skipping Rust markdown converter (DOCS_SKIP_MARKDOWN_CONVERTER=true)'
+  );
+  process.exit(0);
+}
 
 const pkgDir = path.resolve('scripts/rust-markdown-converter');
 const require = createRequire(import.meta.url);

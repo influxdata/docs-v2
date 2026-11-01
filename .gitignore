@@ -10,6 +10,12 @@ package-lock.json
 /resources
 .hugo_build.lock
 
+# Yarn Berry artifacts. This repo uses Yarn Classic (yarn@1.22.22, see
+# package.json "packageManager"); Yarn 1 reads .yarnrc, not .yarnrc.yml, so
+# these are inert leftovers of an abandoned Berry migration attempt.
+.yarn/
+.yarnrc.yml
+
 # Content generation
 /content/influxdb*/**/api/**/*.html
 /content/influxdb*/**/api/**/*.md
