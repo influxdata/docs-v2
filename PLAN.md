@@ -240,37 +240,75 @@ This is a correctness bug, so it ships in Phase 1 instead of waiting for H.
 Acceptance: a PR that touches more than 30 files maps every changed content
 file.
 
-### 1.6 Restrict CircleCI's AWS credentials to the deploy job (Part 1b)
+### 1.6 Keep deploy credentials away from dependency code (Part 1b)
 
-The stored config answers most of this.
-`.circleci/config.yml` has no `context:` on any job.
-A job can read a context's variables only if the config names that context,
-so whatever credentials `s3deploy` uses come from project-level environment
-variables.
-Every job in the project can read those, including `build`.
+Confirmed 2026-11-02 from CircleCI and GitHub settings.
+
+**CircleCI (production).**
+`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are long-lived keys stored as
+project environment variables.
+`.circleci/config.yml` names no `context:`, so every job can read them,
+including `build`.
 `build` runs `yarn install`, which runs the `postinstall` script of every
-package in `yarn.lock`, and then produces the archive that `deploy` publishes.
+package in `yarn.lock`, and then produces the archive that `deploy`
+publishes.
+A compromised package can read the production keys and keep them, because
+they don't expire.
 
-What the config can't show, so check it in CircleCI project settings:
+**GitHub Actions (staging).**
+PR Preview already uses short-lived credentials: it assumes
+`AWS_PR_PREVIEW_ROLE_ARN` through OIDC.
+But the `preview` job sets `id-token: write` for the whole job, and the same
+job runs `setup-docs-env` (`yarn install`) and the Hugo build before
+`configure-aws-credentials`.
+With `id-token: write`, the runner gives every step
+`ACTIONS_ID_TOKEN_REQUEST_URL` and `ACTIONS_ID_TOKEN_REQUEST_TOKEN`, so any
+`postinstall` script can request a token and assume the role.
+Exposure is limited to the staging bucket and CloudFront distribution, if the
+role's policy is scoped to them, and to the length of one run.
+Fork PRs don't get the role.
 
-- The names of the AWS variables. `s3deploy` reads the standard
-  `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` variables.
-  `$BUCKET`, `$REGION`, `$CF_DISTRIBUTION_ID`, and `$SLACK_DOCS_WEBHOOK_URL`
-  are set the same way.
-- Whether an organization context already exists that could hold them.
+Fix, production first:
 
-Fix:
+1. **Replace CircleCI's static keys with OIDC.**
+   1. In AWS, add an IAM OIDC provider for CircleCI
+      (`oidc.circleci.com/org/<org-id>`) and a deploy role.
+      In the trust policy, require the docs-v2 project ID and the deploy
+      context ID (claim `oidc.circleci.com/context-ids`).
+      Grant only `s3` on the production bucket and
+      `cloudfront:CreateInvalidation` on the distribution.
+   2. In CircleCI, create a `docs-deploy` context restricted to a security
+      group.
+      Move `BUCKET`, `REGION`, `CF_DISTRIBUTION_ID`, and
+      `SLACK_DOCS_WEBHOOK_URL` into it, and add `AWS_ROLE_ARN`.
+      CircleCI issues `$CIRCLE_OIDC_TOKEN` only to jobs that use a context.
+   3. In `.circleci/config.yml`, add `context: docs-deploy` to `deploy`.
+      Before `s3deploy` runs, write `$CIRCLE_OIDC_TOKEN` to a file and export
+      `AWS_WEB_IDENTITY_TOKEN_FILE` and `AWS_ROLE_ARN`.
+      `s3deploy` uses the AWS SDK for Go, whose default credential chain
+      reads those two variables, so the `cimg/go` image doesn't need the
+      AWS CLI.
+      Confirm that on the first deploy.
+   4. Delete the two project variables, then deactivate and delete the IAM
+      user's access keys.
+      Every `build` job has been able to read them, so treat them as exposed.
+   5. Record the setup in `DOCS-DEPLOYING.md`.
 
-1. A CircleCI organization admin creates a context, for example `docs-deploy`,
-   restricted to a security group of people allowed to deploy.
-2. Move the AWS variables, and `$SLACK_DOCS_WEBHOOK_URL`, from the project
-   into the context.
-3. Add `context: docs-deploy` to the `deploy` job in the `workflows` section.
-4. Record the setup in `DOCS-DEPLOYING.md`.
+   Interim fallback, if OIDC takes time: move the static keys into the
+   restricted context as is. That alone removes them from `build`.
+   Merge the config change in the same window as the variable move, or the
+   next `master` deploy fails.
 
-This is the highest-value security change in this plan.
-Steps 1 and 2 need CircleCI access, and step 3 must merge at the same time
-(or the next master deploy fails).
+2. **Split PR Preview into build and deploy jobs.**
+   The build job installs dependencies and runs Hugo without `id-token`, and
+   uploads `public/`.
+   The deploy job has `id-token: write`, downloads `public/`, installs
+   `s3deploy` (checksum-verified), and runs no repository or dependency code.
+   Apply the same split to `cleanup` if it ever installs dependencies; today it
+   doesn't.
+   This is the first slice of A: the deploy job becomes A's `preview-deploy`
+   consumer.
+   Measure the artifact transfer time; A needs that number anyway.
 
 ### 1.7 Commit the analysis scripts
 
@@ -360,9 +398,9 @@ Phases:
     replaces or removes dead external links.
   - It edits `content/shared/` instead of product stubs.
   - It never touches pending links.
-  - Engine: Copilot (decided). It needs no new secrets. Use gh-aw
-    `engine: copilot`, or reuse the `copilot:fix` label from
-    `assign-copilot-on-label.yml`.
+  - Engine: Copilot (decided). Use gh-aw `engine: copilot`, as
+    `weekly-repo-status.md` does. The `COPILOT_GITHUB_TOKEN` repository
+    secret already exists, so no new secret is needed.
 - **L5. Pending links (the original G).** Add a `pending_links` frontmatter
   key with a `url` and an `until` date. The PR check and the sweep downgrade
   listed URLs to warnings until that date. Document the key in
@@ -436,8 +474,8 @@ Write one shared upsert helper for both instead of two copies.
    recommendation is the `pr-release-check.yml` comment (1.4).
 2. Delete `influxdb3-release.yml` and `trigger-on-release.yml`? Check whether
    `trigger-on-release.yml` has ever run (1.4).
-3. Part 1b in CircleCI settings: the AWS variable names and whether a context
-   exists (1.6).
+3. Who in AWS and CircleCI can make the OIDC change in 1.6? It needs an
+   IAM admin and a CircleCI organization admin.
 4. Why does `pr-preview.yml` prefetch the converter?
 5. Weekly sweep cadence and scope: the link-check plan proposes weekly,
    internal and external. Revisit after L0.
@@ -448,3 +486,5 @@ Write one shared upsert helper for both instead of two copies.
 - 2026-11-02: The link-fix agent (L4) runs on Copilot.
 - 2026-11-02: Remove `prepare-release.yml`. Nobody uses it, and it never ran.
 - 2026-11-02: Only Core and Enterprise get a release checklist. No Quay item.
+- 2026-11-02: Confirmed CircleCI stores static AWS keys as project variables.
+  PR Preview uses OIDC (`AWS_PR_PREVIEW_ROLE_ARN`).
