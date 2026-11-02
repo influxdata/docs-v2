@@ -6,12 +6,14 @@ this branch merges.
 
 Branch: `claude/great-ramanujan-t7p7t2`, based on `master` at `e80ae76`.
 
-This plan replaces three sources:
+This plan replaces four sources:
 
 - The CI optimization analysis of 2026-11-01 (1,000 `pull_request` runs,
   2026-10-26 to 2026-11-01). Its recommendations keep their letters A–I.
 - `PLAN.md` on `claude/hugo-dependency-management-h7v86e` (dependency and
   install-surface hardening). Its parts keep their numbers 1–4.
+- `PLAN.md` on `ccr-ed7ae69a-bs2fua` (link-check failures, commit
+  `fcec40f`). Its phases appear here as L0–L5.
 - `HANDOVER.md` on this branch (broken `prepare-release.yml`).
 
 ## Branch and PR inventory
@@ -28,7 +30,7 @@ No pair of branches has a textual merge conflict, on its own or on top of
 | [influxdata/docs-v2#7916](https://github.com/influxdata/docs-v2/pull/7916) remove Vale | Stacked on #7903 (base `chore/prose-lint`). | **Merge third.** Retarget to `master` after #7903 merges, then merge `master`. |
 | [influxdata/docs-v2#7898](https://github.com/influxdata/docs-v2/pull/7898) Playwright trial | Blocked on review. 143 behind. | **Merge last, after #7897.** See "Playwright trial" below. |
 | `claude/hugo-dependency-management-h7v86e` | Code cherry-picked to this branch (`016f63f`, `f931d31`). Plan merged into this file. | **Delete the branch.** It carries ~10,700 commits of pre-rewrite history that `master` doesn't have. Never merge it. |
-| `ccr-ed7ae69a-bs2fua` link checker | Not in docs-v2. This session can't read `docs-tooling` or `link-checker`. | **Find it.** It probably belongs with recommendation G. |
+| `ccr-ed7ae69a-bs2fua` link-check plan | One commit on `master` (`e80ae76`) that adds only `PLAN.md`. Merged into this file as L0–L5. | **Delete the branch.** |
 | This branch | Converter hardening (Part 1a, 1c, 1e) and this plan. | Becomes the Phase 1 PR after `PLAN.md` is removed. |
 
 ### Interactions between the PRs
@@ -73,8 +75,10 @@ to list the custom-timestamps spec.
   median, 231 s p90) costs as much as its build.
 - `yarn install` costs 16–30 s on a cache hit. Small check jobs spend 30 s
   installing to run a 1 s script.
-- Link check fails 24% of runs. Every sampled failure was a deliberate forward
-  reference.
+- Link check fails 24% of runs (20 of 85). The analysis attributes every
+  sampled failure to a deliberate forward reference. The link-check plan
+  questions that: `production.lycherc.toml` sets `include_fragments = false`,
+  so an internal anchor alone shouldn't fail. L0 settles it.
 - About 253 runner-minutes a day.
 - Only `check-artifacts` and `Lint code blocks` are required checks.
 
@@ -90,7 +94,8 @@ Phase 1.
 3. Retarget #7916 to `master`, merge `master` into it, and merge it.
 4. Decide on #7898. If you keep it, merge `master` into it, regenerate
    `yarn.lock`, rerun CI, and merge.
-5. Delete `claude/hugo-dependency-management-h7v86e` and the merged PR branches.
+5. Delete `claude/hugo-dependency-management-h7v86e`, `ccr-ed7ae69a-bs2fua`,
+   and the merged PR branches.
 6. Rerun the analysis to record a new baseline. The workflow set changes:
    Vale goes away, and Prose Lint, Content Data, and possibly Playwright arrive.
 
@@ -216,7 +221,18 @@ Before you delete it, answer these:
    Add the Quay checklist item only once they exist.
 4. Do Cloud Serverless, Cloud Dedicated, and Clustered need a checklist?
 
-### 1.5 Commit the analysis scripts
+### 1.5 Fix the link check's 30-file silent skip (L1, part of H)
+
+`pr-link-check.yml` lists changed files with the unpaginated
+`/pulls/{n}/files` API, which returns at most 30.
+Content files after the 30th aren't checked, and the job still passes.
+Replace the call with `git diff --name-only base.sha...head.sha`, which the
+same workflow already uses for `data/products.yml`.
+This is a correctness bug, so it ships in Phase 1 instead of waiting for H.
+Acceptance: a PR that touches more than 30 files maps every changed content
+file.
+
+### 1.6 Commit the analysis scripts
 
 Add the four analysis scripts under `scripts/ci/analysis/` so every phase
 can measure its result.
@@ -249,18 +265,70 @@ can measure its result.
 - **H. Test the skip logic.** Add a fixture test for each change detector:
   `detect-test-products.js`, `detect-preview-pages.js`, and the detect steps
   in `pr-render-check` and `pr-link-check`.
-  Move the link-check detector from the `/pulls/{n}/files` API, which caps at
-  30 files, to `git diff base...head`.
+  The link-check detector fix moved to Phase 1 (1.5).
   This failure mode already exists: on #7903, the required
   `Lint code blocks` check reported **skipped**, which branch protection
   treats as passing.
 
 ## Phase 4: independent work
 
-- **G. Pending links.** 24% of link-check runs fail on forward references.
-  Add a `pending-link` convention that `link-check-classify.js` downgrades to
-  a warning.
-  The link-checker branch `ccr-ed7ae69a-bs2fua` probably belongs here.
+### G. Make link-check failures mean something (L0, L2–L5)
+
+Goal: a failing PR link check means the PR added a broken link.
+A weekly sweep finds and tracks everything else, and an agent proposes fixes.
+The current failures have four possible causes:
+
+- Inherited breakage: the check validates every link on a touched page, not
+  only the links the PR changed.
+- Forward references to pages or anchors that exist only after a release.
+- External URLs that broke since the last PR.
+- The 30-file skip, fixed in 1.5.
+
+Reuse what exists:
+
+- `link-check-classify.js` promotes `Cannot find file` to an error and
+  downgrades URLs found in open `area:links` issues to warnings.
+  A rolling issue that lists every broken URL therefore downgrades all of
+  them, with no change to the classifier.
+- `fetch-known-link-issues.js`, `link-check-comment.js`, and the
+  `broken-link.yml` issue template.
+- `weekly-repo-status.md` (gh-aw) as the pattern for an agentic workflow.
+
+Phases:
+
+- **L0. Measure the failure causes.** Sort the errors from the 20 failed runs
+  into inherited, introduced by the PR, forward reference, and external.
+  Reorder L2–L5 if inherited breakage isn't the largest group.
+- **L2. Weekly sweep.** Add `link-sweep.yml` on a weekly schedule (jittered
+  minute) and `workflow_dispatch`, with `contents: read` and `issues: write`.
+  It builds the site, checks all of `public/` with `production.lycherc.toml`,
+  and updates one `Link sweep: broken links` issue labeled `area:links` and
+  `automation`.
+  - Group the issue body by source file. If it exceeds 65,536 characters,
+    list URLs only and attach the details as an artifact.
+  - Close the issue when the sweep finds nothing.
+  - Put the logic in `.github/scripts/link-sweep-issue.js`, with a unit test.
+  - Measure the first run against `max_execution_time_minutes = 10`.
+- **L3. Fail only on links the PR introduces.** Extract links from the base
+  and head versions of each touched file. An error whose file and URL pair
+  already existed at the base becomes `info`, marked `inherited`.
+  Start with Markdown source extraction (`scripts/link-extractor.js`).
+  Rendering the base revision would add a Hugo build, which works against A.
+- **L4. Agent fix workflow.** Add a gh-aw workflow `link-fix.md`, triggered by
+  sweep results, that opens at most one draft `[link-fix]` PR.
+  - It fixes internal 404s using `aliases:` and `git log --follow`, and
+    replaces or removes dead external links.
+  - It edits `content/shared/` instead of product stubs.
+  - It never touches pending links.
+  - Engine to be decided: Copilot needs no secrets, Claude needs
+    `ANTHROPIC_API_KEY`.
+- **L5. Pending links (the original G).** Add a `pending_links` frontmatter
+  key with a `url` and an `until` date. The PR check and the sweep downgrade
+  listed URLs to warnings until that date. Document the key in
+  `DOCS-FRONTMATTER.md`.
+
+L2 and Part 2 below both maintain one long-lived issue.
+Write one shared upsert helper for both instead of two copies.
 - **Part 2. Monthly dependency audit.** Add
   `.github/workflows/dependency-audit.yml` and
   `scripts/ci/dependency-report.mjs`. Report only, never bump. Use
@@ -326,8 +394,10 @@ can measure its result.
 
 ## Open questions
 
-1. Where is `ccr-ed7ae69a-bs2fua`, and what does it contain?
-2. Do you still want the Playwright trial (#7898)?
-3. The `prepare-release.yml` questions in 1.4.
-4. Who can answer Part 1b in CircleCI?
-5. Why does `pr-preview.yml` prefetch the converter?
+1. Do you still want the Playwright trial (#7898)?
+2. The `prepare-release.yml` questions in 1.4.
+3. Who can answer Part 1b in CircleCI?
+4. Why does `pr-preview.yml` prefetch the converter?
+5. Which engine should the link-fix agent (L4) use: Copilot or Claude?
+6. Weekly sweep cadence and scope: the link-check plan proposes weekly,
+   internal and external. Revisit after L0.
