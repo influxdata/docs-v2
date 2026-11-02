@@ -141,7 +141,7 @@ InfluxData identified the
 as the safe limit for maintaining system performance and stability.
 Exceeding this threshold can result in
 [wide schemas](#avoid-wide-schemas), which can negatively impact performance
-and resource use, [depending on your queries](#avoid-non-specific-queries),
+and resource use, [depending on your queries](/influxdb3/clustered/query-data/troubleshoot-and-optimize/optimize-queries/#query-only-the-data-you-need),
 the shape of your schema, and data types in the schema.
 
 ---
@@ -172,6 +172,11 @@ Wide schemas can lead to the following issues:
 To prevent wide schema issues, limit the number of tags and fields stored in a table.
 If you need to store more than the [maximum number of columns](/influxdb3/clustered/admin/databases/),
 consider segmenting your fields into separate tables.
+
+If you collect Prometheus metrics with Telegraf, use metric version `1`.
+Metric version `2` writes every Prometheus metric name as a field in a single
+table, which creates a wide, sparse schema.
+See [Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version).
 
 #### Avoid too many tags
 
