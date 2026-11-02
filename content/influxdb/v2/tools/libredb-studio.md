@@ -66,9 +66,11 @@ Run the LibreDB Studio Docker image:
 docker run --name libredb-studio -p 3000:3000 ghcr.io/libredb/libredb-studio:latest
 ```
 
-On first start, LibreDB Studio prints a generated admin email and password to the container log.
+On first start, LibreDB Studio prints the admin email and a generated password to the container log.
 To view them, run `docker logs libredb-studio`.
-Open `http://localhost:3000` and sign in with those credentials.
+
+1. Open `http://localhost:3000`.
+2. Sign in with those credentials.
 
 The host name you enter in the next section must resolve from inside the LibreDB Studio container,
 where `localhost` is the container itself:
@@ -80,6 +82,13 @@ where `localhost` is the container itself:
 
 ## Connect to InfluxDB
 
+Use the InfluxQL database name from the bucket's database and retention policy (DBRP) mapping.
+[List DBRP mappings](/influxdb/v2/query-data/influxql/dbrp/#list-dbrp-mappings) to find the database name and retention policy for the bucket you want to query.
+For the `get-started` bucket from [Get started writing data](/influxdb/v2/get-started/write/),
+the virtual mapping uses `get-started` as the database name and `autogen` as the default retention policy.
+A bucket named `db/rp` instead maps to database `db` and retention policy `rp`.
+Explicit DBRP mappings can override virtual mappings, so verify the mapping before connecting.
+
 1. In the LibreDB Studio sidebar, click **+** to add a connection.
 2. Select **InfluxDB (InfluxQL)**.
 3. Enter the following:
@@ -88,12 +97,13 @@ where `localhost` is the container itself:
    - **Port**: `8086`
    - **Username**: leave empty
    - **Password or token**: the read-only token you created
-   - **Database Name**: the bucket name, for example `get-started`
+   - **Database Name**: the mapped InfluxQL database name, for example `get-started` when using the virtual mapping
 
 4. If the host isn't `localhost` and InfluxDB doesn't use TLS,
    LibreDB Studio refuses to send the token in cleartext.
    Configure **SSL / TLS**, use an **SSH Tunnel**, or select **Send the password without TLS** to accept that risk.
-5. Click **Test Connection**, and then click **Establish Connection**.
+5. Click **Test Connection**.
+6. Click **Establish Connection**.
 
 {{< img-hd src="/img/influxdb/2-0-tools-libredb-studio-connect.png" alt="LibreDB Studio InfluxDB connection dialog" />}}
 
@@ -102,7 +112,9 @@ where `localhost` is the container itself:
 The sidebar lists the bucket and its measurements.
 Click a measurement to open a query tab with a starter `SELECT` statement.
 
-Enter an [InfluxQL](/influxdb/v2/query-data/influxql/) query and click **Run**.
+1. Enter an [InfluxQL](/influxdb/v2/query-data/influxql/) query.
+2. Click **Run**.
+
 For example, the following query returns the hourly mean temperature and maximum carbon monoxide
 reading in the kitchen from the sample data:
 
@@ -116,13 +128,20 @@ GROUP BY time(1h)
 
 {{< img-hd src="/img/influxdb/2-0-tools-libredb-studio-query.png" alt="InfluxQL query results in LibreDB Studio" />}}
 
-To query a bucket other than the one in **Database Name**,
-name it in the query as `"BUCKET_NAME".."MEASUREMENT"`.
+To query another mapped database using its default retention policy,
+use `"DATABASE".."MEASUREMENT"` in the `FROM` clause.
+To query a non-default retention policy, use `"DATABASE"."RETENTION_POLICY"."MEASUREMENT"`.
+Replace `DATABASE` and `RETENTION_POLICY` with the names from the bucket's
+[DBRP mapping](/influxdb/v2/query-data/influxql/dbrp/#list-dbrp-mappings),
+and replace `MEASUREMENT` with the measurement name.
+Your token must have read access to the mapped bucket.
 
 ## Chart query results
 
 1. Run a query.
 2. Select the **Charts** tab.
-3. Select a chart type, and then set **X-Axis** to `time` and **Y-Axis** to a field.
+3. Select a chart type.
+4. Set **X-Axis** to `time`.
+5. Set **Y-Axis** to a field.
 
 {{< img-hd src="/img/influxdb/2-0-tools-libredb-studio-chart.png" alt="Line chart of query results in LibreDB Studio" />}}
