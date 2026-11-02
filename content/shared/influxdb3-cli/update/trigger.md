@@ -107,7 +107,7 @@ influxdb3 update trigger \
   --token AUTH_TOKEN
 ```
 
-The command transfers local files to the server's plugin directory without an additional upload flag.
+The command transfers local files to the server's plugin directory.
 
 ### Update a gh: trigger
 
