@@ -23,21 +23,21 @@ All PR check runs on the current heads are green.
 No pair of branches has a textual merge conflict, on its own or on top of
 `master`.
 
-| Item | State | Recommendation |
-|---|---|---|
-| [influxdata/docs-v2#7897](https://github.com/influxdata/docs-v2/pull/7897) sample data and distributed limits | Mergeable. 35 commits behind `master`. Approved on `1af50de`; the head is now `931232a`. | **Merge first.** Re-request approval if the ruleset dismisses stale reviews. |
-| [influxdata/docs-v2#7903](https://github.com/influxdata/docs-v2/pull/7903) prose linter beside Vale | Blocked on review. No reviews. 6 behind. | **Merge second**, after review. |
-| [influxdata/docs-v2#7916](https://github.com/influxdata/docs-v2/pull/7916) remove Vale | Stacked on #7903 (base `chore/prose-lint`). | **Merge third.** Retarget to `master` after #7903 merges, then merge `master`. |
-| [influxdata/docs-v2#7898](https://github.com/influxdata/docs-v2/pull/7898) Playwright trial | Blocked on review. 143 behind. Trial approved 2026-11-02. | **Merge last, after #7897.** See "Playwright trial" below. |
-| `claude/hugo-dependency-management-h7v86e` | Code cherry-picked to this branch (`016f63f`, `f931d31`). Plan merged into this file. | **Delete the branch.** It carries ~10,700 commits of pre-rewrite history that `master` doesn't have. Never merge it. |
-| `ccr-ed7ae69a-bs2fua` link-check plan | One commit on `master` (`e80ae76`) that adds only `PLAN.md`. Merged into this file as L0–L5. | **Delete the branch.** |
-| This branch | Converter hardening (Part 1a, 1c, 1e), the `prepare-release.yml` removal (1.4), and this plan. | Becomes the Phase 1 PR after `PLAN.md` is removed. |
+| Item                                                                                                          | State                                                                                          | Recommendation                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [influxdata/docs-v2#7897](https://github.com/influxdata/docs-v2/pull/7897) sample data and distributed limits | Mergeable. 35 commits behind `master`. Approved on `1af50de`; the head is now `931232a`.       | **Merge first.** Re-request approval if the ruleset dismisses stale reviews.                                          |
+| [influxdata/docs-v2#7903](https://github.com/influxdata/docs-v2/pull/7903) prose linter beside Vale           | Blocked on review. No reviews. 6 behind.                                                       | **Merge second**, after review.                                                                                       |
+| [influxdata/docs-v2#7916](https://github.com/influxdata/docs-v2/pull/7916) remove Vale                        | Stacked on #7903 (base `chore/prose-lint`).                                                    | **Merge third.** Retarget to `master` after #7903 merges, then merge `master`.                                        |
+| [influxdata/docs-v2#7898](https://github.com/influxdata/docs-v2/pull/7898) Playwright trial                   | Blocked on review. 143 behind. Trial approved 2026-11-02.                                      | **Merge last, after #7897.** See "Playwright trial" below.                                                            |
+| `claude/hugo-dependency-management-h7v86e`                                                                    | Code cherry-picked to this branch (`016f63f`, `f931d31`). Plan merged into this file.          | **Delete the branch.** It carries \~10,700 commits of pre-rewrite history that `master` doesn't have. Never merge it. |
+| `ccr-ed7ae69a-bs2fua` link-check plan                                                                         | One commit on `master` (`e80ae76`) that adds only `PLAN.md`. Merged into this file as L0–L5.   | **Delete the branch.**                                                                                                |
+| This branch                                                                                                   | Converter hardening (Part 1a, 1c, 1e), the `prepare-release.yml` removal (1.4), and this plan. | Becomes the Phase 1 PR after `PLAN.md` is removed.                                                                    |
 
 ### Interactions between the PRs
 
 - **#7897 and #7898 both touch custom timestamps.**
-  #7897 changes how `assets/js/custom-timestamps.js` anchors dates.
-  #7898 adds `playwright/e2e/custom-timestamps.spec.js`, which its PR body
+  \#7897 changes how `assets/js/custom-timestamps.js` anchors dates.
+  \#7898 adds `playwright/e2e/custom-timestamps.spec.js`, which its PR body
   doesn't mention.
   Merge #7897 first, then merge `master` into #7898 and rerun its spec.
 - **#7898 changes `yarn.lock` from a base 143 commits old.**
@@ -47,10 +47,10 @@ No pair of branches has a textual merge conflict, on its own or on top of
   Part 2 below used it as the template for the audit workflow.
   Use `pr-lockfile-lint.yml` instead.
 - **New workflows add install cost.**
-  #7903 adds Prose Lint with an inline `setup-node` and `yarn install`.
-  #7897 adds Content Data through `setup-docs-env`.
-  #7898 adds a job that runs an uncached `npx playwright install --with-deps chromium`.
-  #7916 removes Vale, which cost 13 s.
+  \#7903 adds Prose Lint with an inline `setup-node` and `yarn install`.
+  \#7897 adds Content Data through `setup-docs-env`.
+  \#7898 adds a job that runs an uncached `npx playwright install --with-deps chromium`.
+  \#7916 removes Vale, which cost 13 s.
   Phase 1 (B) moves all of them onto the cached setup action.
 
 ### Playwright trial (#7898)
@@ -272,9 +272,11 @@ Fix, production first:
 
 1. **Replace CircleCI's static keys with OIDC.**
    Use the V3 token (`$CIRCLE_OIDC_TOKEN_V3`, CircleCI Cloud only).
+
    1. **AWS identity provider.** Provider URL
       `https://oidc.circleci.com/org/<ORG_ID>`, audience `<ORG_ID>`.
    2. **AWS deploy role.** Trust policy conditions:
+
       - `StringEquals` `oidc.circleci.com/org/<ORG_ID>:aud` = `<ORG_ID>`
       - `StringEquals`
         `oidc.circleci.com/org/<ORG_ID>:oidc.circleci.com/project-id` =
@@ -284,9 +286,14 @@ Fix, production first:
 
       AWS can't evaluate `context-ids` or `ssh-rerun`, so CircleCI enforces the
       context restriction, not AWS.
-      Permissions: `s3:PutObject`, `s3:DeleteObject`, and `s3:ListBucket` on
-      the production bucket, and `cloudfront:CreateInvalidation` on the
-      distribution.
+      Permissions: copy the `giveaccesstoupdatedocsbuckets` policy from
+      `DocsCircleCIDeployUser` in `deploy/docs-website.yml`, which works today:
+      `s3:ListBucket` and `s3:GetBucketLocation` on the bucket;
+      `s3:PutObject`, `s3:PutObjectAcl`, and `s3:DeleteObject` on its objects;
+      `cloudfront:GetDistribution` and `cloudfront:CreateInvalidation`.
+      Narrow the CloudFront resource from `*` to the distribution ARN.
+      Created 2026-11-02 in the console:
+      `arn:aws:iam::056065491910:role/circleci-docs-v2-deploy`.
    3. **CircleCI context.** Create `docs-deploy`, restricted to a security
       group.
       Move `SLACK_DOCS_WEBHOOK_URL` into it.
@@ -294,7 +301,8 @@ Fix, production first:
       secret; they can stay project variables or move into `config.yml`.
       Restrict SSH reruns on the project: an SSH rerun of `deploy` gets a valid
       token.
-   4. **`deploy` job.** `s3deploy` v2.11.0 does **not** read
+   4. **`deploy` job (done on this branch; don't merge before step 3).**
+      `s3deploy` v2.11.0 does **not** read
       `AWS_WEB_IDENTITY_TOKEN_FILE`. Its `lib/session.go` builds static
       credentials from `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and
       `AWS_SESSION_TOKEN`. If those aren't set, it passes `nil` credentials
@@ -339,8 +347,18 @@ Fix, production first:
       Do this before step 6. Until then, the old keys still work if OIDC
       fails.
    6. **Revoke.** Delete the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
-      project variables, then deactivate and delete the IAM user's keys.
-      Every `build` job could read them, so treat them as exposed.
+      project variables.
+      Then remove `DocsCircleCIDeployUser`, `DocsCircleCIDeployAccessKey`, and
+      the two `DocsCircleCIDeploy*` outputs from `deploy/docs-website.yml`,
+      and update the stack. Updating the stack deletes the user and key.
+      Don't delete them in the console: the stack would drift, and the next
+      stack update would recreate both.
+      The template also publishes the secret key as a stack output, so anyone
+      with `cloudformation:DescribeStacks` can read it.
+      Treat the key as exposed.
+      Optionally, add the OIDC provider and role to the template and import the
+      console-created role (`aws cloudformation` resource import) so IAM stays
+      in one place.
    7. Record the setup in `DOCS-DEPLOYING.md`.
 
    Interim fallback, if OIDC takes time: move the static keys into the
@@ -465,6 +483,7 @@ Write one shared upsert helper for both instead of two copies.
   `scripts/ci/dependency-report.mjs`. Report only, never bump. Use
   `pr-lockfile-lint.yml` as the template, because #7916 deletes
   `check-pinned-deps.yml`. Report sections:
+
   1. Shipped versus build-only packages, derived from the import graph of
      `assets/js/main.js` and `assets/js/diagram-renderer.js`. Expected shipped
      set: `jquery`, `mermaid`, `vanillajs-datepicker`.
@@ -509,13 +528,13 @@ Write one shared upsert helper for both instead of two copies.
 
 ## Expected result after Phase 3
 
-| Metric | Baseline | Target |
-|---|---|---|
-| Hugo builds per content commit | 4–5 | 1–2 |
-| Runner-minutes per day | ~253 | ~110–130 |
-| Preview URL available, median | ~4.2 min | ~2.5 min with D, ~3.5 min without |
-| Required checks green, median | ~2.1 min | ~1.2 min |
-| Setup time per Node job | 30–45 s | 10–15 s |
+| Metric                         | Baseline  | Target                              |
+| ------------------------------ | --------- | ----------------------------------- |
+| Hugo builds per content commit | 4–5       | 1–2                                 |
+| Runner-minutes per day         | \~253     | \~110–130                           |
+| Preview URL available, median  | \~4.2 min | \~2.5 min with D, \~3.5 min without |
+| Required checks green, median  | \~2.1 min | \~1.2 min                           |
+| Setup time per Node job        | 30–45 s   | 10–15 s                             |
 
 ## Open questions
 

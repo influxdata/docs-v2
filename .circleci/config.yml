@@ -208,11 +208,15 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/go:1.22.2
+      # cimg/aws provides the AWS CLI for the OIDC credential exchange below.
+      - image: cimg/aws:2026.09.1
         environment:
           S3DEPLOY_VERSION: "2.11.0"
           # From https://github.com/bep/s3deploy/releases
           S3DEPLOY_VERSION_HASH: "d3566a6a56735ea5710cf22c35f8f411164e6efc22ded98743a1d7a5a21c740e"
+          # Not secret. The role's trust policy accepts only CircleCI OIDC
+          # tokens for this project with checkout and config from master.
+          AWS_DEPLOY_ROLE_ARN: "arn:aws:iam::056065491910:role/circleci-docs-v2-deploy"
     steps:
       - checkout
       - restore_cache:
@@ -240,6 +244,31 @@ jobs:
       - run:
           name: Extract build archive
           command: tar -xzf workspace/archive/public.tar.gz -C workspace/
+      # s3deploy reads only AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and
+      # AWS_SESSION_TOKEN; it ignores AWS_WEB_IDENTITY_TOKEN_FILE. Exchange the
+      # OIDC token for temporary keys. CircleCI issues the token only to jobs
+      # that use a context (docs-deploy, in workflows below).
+      - run:
+          name: Assume the deploy role with OIDC
+          command: |
+            CREDS=$(aws sts assume-role-with-web-identity \
+              --region "$REGION" \
+              --role-arn "$AWS_DEPLOY_ROLE_ARN" \
+              --role-session-name "docs-v2-deploy-${CIRCLE_BUILD_NUM}" \
+              --web-identity-token "$CIRCLE_OIDC_TOKEN_V3" \
+              --duration-seconds 3600 \
+              --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' \
+              --output text)
+            read -r AK SK ST \<<< "$CREDS"
+            if [ -z "$ST" ]; then
+              echo "OIDC role exchange returned no credentials" >&2
+              exit 1
+            fi
+            {
+              echo "export AWS_ACCESS_KEY_ID=$AK"
+              echo "export AWS_SECRET_ACCESS_KEY=$SK"
+              echo "export AWS_SESSION_TOKEN=$ST"
+            } >> "$BASH_ENV"
       - run:
           name: Deploy to S3
           command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION -distribution-id=$CF_DISTRIBUTION_ID
@@ -267,7 +296,10 @@ workflows:
             branches:
               only:
                 - master
+      # Only deploy uses a context, so only deploy gets an OIDC token.
+      # The docs-deploy context is restricted to a security group.
       - deploy:
+          context: docs-deploy
           requires:
             - build
           filters:
