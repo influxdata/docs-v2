@@ -4,40 +4,8 @@ This directory contains scripts that are shared across all InfluxDB documentatio
 
 ## Scripts
 
-### update-product-version.sh
-
-Updates product version information in documentation configuration files.
-
-**Usage:**
-
-```bash
-./update-product-version.sh --product <product> --version <version>
-```
-
-**Supported Products:**
-
-- `core` - InfluxDB 3 Core
-- `enterprise` - InfluxDB 3 Enterprise
-- `clustered` - InfluxDB 3 Clustered
-- `cloud-dedicated` - InfluxDB 3 Cloud Dedicated
-- `cloud-serverless` - InfluxDB Cloud Serverless
-
-**Example:**
-
-```bash
-# Update Core to version 3.2.1
-./update-product-version.sh --product core --version 3.2.1
-
-# Update Clustered to version 2024.1
-./update-product-version.sh --product clustered --version 2024.1
-```
-
-**What it updates:**
-
-- `data/products.yml` - Main product version configuration
-- Docker Compose example files
-- Installation instructions
-- Download links
+No scripts are shared at the top level of this directory.
+To update a product version, edit `latest_patch` in `data/products.yml`.
 
 ## Library Functions
 

@@ -49,22 +49,6 @@ npx docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterpr
 npx docs release-notes v3.1.0 v3.2.0 --repos ~/repos/influxdb,~/repos/enterprise
 ```
 
-### `common/update-product-version.sh`
-
-Updates product version numbers in `data/products.yml` and related documentation files.
-
-**Usage:**
-
-```bash
-./common/update-product-version.sh --product <product> --version <version>
-```
-
-**Example:**
-
-```bash
-./common/update-product-version.sh --product core --version 3.2.1
-```
-
 ## Product-Specific Scripts
 
 ### InfluxDB 3 Monolith (Core & Enterprise)
@@ -100,8 +84,8 @@ output/
 
 These scripts are integrated with GitHub Actions workflows:
 
-- **Workflow**: `.github/workflows/prepare-release.yml`
-- **Uses**: `docs release-notes` (unified CLI), `update-product-version.sh`
+- **Workflow**: `.github/workflows/influxdb3-release.yml`
+- **Uses**: `influxdb3-monolith/audit-cli-documentation.js`
 
 ## Quick Start
 

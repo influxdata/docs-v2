@@ -28,10 +28,10 @@ No pair of branches has a textual merge conflict, on its own or on top of
 | [influxdata/docs-v2#7897](https://github.com/influxdata/docs-v2/pull/7897) sample data and distributed limits | Mergeable. 35 commits behind `master`. Approved on `1af50de`; the head is now `931232a`. | **Merge first.** Re-request approval if the ruleset dismisses stale reviews. |
 | [influxdata/docs-v2#7903](https://github.com/influxdata/docs-v2/pull/7903) prose linter beside Vale | Blocked on review. No reviews. 6 behind. | **Merge second**, after review. |
 | [influxdata/docs-v2#7916](https://github.com/influxdata/docs-v2/pull/7916) remove Vale | Stacked on #7903 (base `chore/prose-lint`). | **Merge third.** Retarget to `master` after #7903 merges, then merge `master`. |
-| [influxdata/docs-v2#7898](https://github.com/influxdata/docs-v2/pull/7898) Playwright trial | Blocked on review. 143 behind. | **Merge last, after #7897.** See "Playwright trial" below. |
+| [influxdata/docs-v2#7898](https://github.com/influxdata/docs-v2/pull/7898) Playwright trial | Blocked on review. 143 behind. Trial approved 2026-11-02. | **Merge last, after #7897.** See "Playwright trial" below. |
 | `claude/hugo-dependency-management-h7v86e` | Code cherry-picked to this branch (`016f63f`, `f931d31`). Plan merged into this file. | **Delete the branch.** It carries ~10,700 commits of pre-rewrite history that `master` doesn't have. Never merge it. |
 | `ccr-ed7ae69a-bs2fua` link-check plan | One commit on `master` (`e80ae76`) that adds only `PLAN.md`. Merged into this file as L0–L5. | **Delete the branch.** |
-| This branch | Converter hardening (Part 1a, 1c, 1e) and this plan. | Becomes the Phase 1 PR after `PLAN.md` is removed. |
+| This branch | Converter hardening (Part 1a, 1c, 1e), the `prepare-release.yml` removal (1.4), and this plan. | Becomes the Phase 1 PR after `PLAN.md` is removed. |
 
 ### Interactions between the PRs
 
@@ -55,14 +55,16 @@ No pair of branches has a textual merge conflict, on its own or on top of
 
 ### Playwright trial (#7898)
 
+Decided: run the trial.
 The two-week trial described in the PR hasn't started, because the PR never
-merged.
-Running it adds a second Hugo server and a browser install to every PR that
-touches `layouts/` or `assets/`, which works against A.
-Merge it only if you still want to replace Cypress.
-The case for it: Cypress can't run in cloud agent sessions, and Playwright can.
-If you merge it, start the trial clock at the merge date and update the PR body
-to list the custom-timestamps spec.
+merged, so start the clock at the merge date.
+Before merging, update the PR body to list the custom-timestamps spec.
+
+Cost: the trial adds a second Hugo server and a browser install to every PR
+that touches `layouts/` or `assets/`.
+Phase 1 (1.2) caches the browser.
+If Playwright replaces Cypress, A drops the Cypress job and the Playwright job
+reads the shared build.
 
 ## Baseline (from the CI analysis)
 
@@ -92,8 +94,8 @@ Phase 1.
 1. Merge #7897.
 2. Review and merge #7903.
 3. Retarget #7916 to `master`, merge `master` into it, and merge it.
-4. Decide on #7898. If you keep it, merge `master` into it, regenerate
-   `yarn.lock`, rerun CI, and merge.
+4. Merge `master` into #7898, regenerate `yarn.lock`, rerun CI, and merge.
+   Start the two-week trial.
 5. Delete `claude/hugo-dependency-management-h7v86e`, `ccr-ed7ae69a-bs2fua`,
    and the merged PR branches.
 6. Rerun the analysis to record a new baseline. The workflow set changes:
@@ -142,7 +144,7 @@ In `.github/actions/setup-docs-env/action.yml`:
   output files to the cache paths.
   Check what `setup-local-bin.js` writes before you choose.
 - Set `PUPPETEER_SKIP_DOWNLOAD=1`. No workflow uses Puppeteer's Chrome.
-- If #7898 merged, cache `~/.cache/ms-playwright` keyed on the Playwright version.
+- Cache `~/.cache/ms-playwright` keyed on the Playwright version (#7898).
 
 Move these inline installs to `setup-docs-env`, and set
 `skip-markdown-converter: 'true'` on each one:
@@ -156,7 +158,7 @@ Move these inline installs to `setup-docs-env`, and set
 - `sync-openapi-oss-v2-spec.yml`
 - `sync-openapi-cloud-v2-spec.yml`
 - `sync-plugins.yml`
-- `influxdb3-release.yml`
+- `influxdb3-release.yml`, unless 1.4 deletes it
 
 Before you edit each one, grep it for `build:md`, `build:ai-artifacts`, and
 `RUST_MARKDOWN_CONVERTER`.
@@ -182,44 +184,50 @@ pins v6.3.0 and the inline steps pin v7.x. This branch moves
 - `Lint code blocks` and `Agent Instructions`: no change beyond 1.2. Measure
   them afterward.
 
-### 1.4 Decide what to do with `prepare-release.yml`
+### 1.4 Remove `prepare-release.yml` (done on this branch)
 
-From the handover.
-The workflow has never worked:
+The workflow never ran (its Actions page has no runs), and nobody uses it or
+its `release_type` input.
+It couldn't have worked:
 
-- Its last step requires `.github/scripts/release-checklist.js`, which doesn't
-  exist.
-- It fails before that step:
+- Its last step required `.github/scripts/release-checklist.js`, which
+  doesn't exist.
+- It failed before that step:
   `helper-scripts/common/update-product-version.sh` runs
   `find compose-examples/` under `set -e`, and that directory doesn't exist.
-- It never commits or pushes, so its edits are lost.
-- It has no `permissions:` block for `issues: write`.
-- For the cloud products it writes `influxdb3_cloud-serverless.latest_patch`.
-  The real key is `influxdb3_cloud_serverless`, and only Core, Enterprise, and
-  Explorer have a top-level `latest_patch`.
+- It never committed or pushed, so its edits would have been lost.
+- It had no `permissions:` block for `issues: write`.
 
-`influxdb3-release.yml` already generates release notes, runs a CLI audit,
-and opens a draft PR with a checklist for Core and Enterprise.
-Recent releases bumped `latest_patch` by hand (`a75dd63`, `62c9b77`).
+Done: deleted `prepare-release.yml` and `update-product-version.sh`, and
+updated both `helper-scripts` READMEs.
 
-Recommendation: delete `prepare-release.yml` and `update-product-version.sh`
-(update both `helper-scripts` READMEs), and replace "Version updates" in the
-`influxdb3-release.yml` PR checklist with specific items:
+Decided:
 
-- Bump `latest_patch` in `data/products.yml`.
-- Add release notes to
+- Only Core and Enterprise need a release checklist. Cloud Serverless, Cloud
+  Dedicated, and Clustered don't.
+- Leave out the Quay item. Nobody knows where `latest_quay_tag` or a "Quay tag
+  check" job came from, and neither exists.
+
+Still open: where the Core and Enterprise checklist lives.
+`influxdb3-release.yml` has never run either, and its release-notes step is a
+placeholder: the `npx docs release-notes` call is commented out.
+Releases happen through hand-made PRs that bump `latest_patch`
+(`a75dd63`, `62c9b77`).
+
+Recommendation: add the checklist to the sticky comment that
+`pr-release-check.yml` already posts on those PRs, because it runs on every
+change to `data/products.yml` or the release notes.
+For a Core or Enterprise `latest_patch` bump, the comment lists:
+
+- [ ] `latest_patch` bumped for both `influxdb3_core` and `influxdb3_enterprise`.
+- [ ] Release notes added to
   `content/shared/v3-core-enterprise-release-notes/_index.md`.
-- Confirm the downloads at `dl.influxdata.com` are live.
+- [ ] Downloads live at `dl.influxdata.com`.
 
-Before you delete it, answer these:
-
-1. Does anyone use `prepare-release.yml` or its `release_type` input?
-2. Has `influxdb3-release.yml` ever run with `dry_run: false`? Check the
-   Actions history.
-3. Where do `latest_quay_tag` and the "Quay tag check" job come from?
-   Neither exists on `master` or in any open PR.
-   Add the Quay checklist item only once they exist.
-4. Do Cloud Serverless, Cloud Dedicated, and Clustered need a checklist?
+Then decide whether to delete `influxdb3-release.yml` and
+`trigger-on-release.yml`, which exists only to start it.
+Check `trigger-on-release.yml`'s run history first: an external release
+pipeline may send it `repository_dispatch` events.
 
 ### 1.5 Fix the link check's 30-file silent skip (L1, part of H)
 
@@ -232,7 +240,39 @@ This is a correctness bug, so it ships in Phase 1 instead of waiting for H.
 Acceptance: a PR that touches more than 30 files maps every changed content
 file.
 
-### 1.6 Commit the analysis scripts
+### 1.6 Restrict CircleCI's AWS credentials to the deploy job (Part 1b)
+
+The stored config answers most of this.
+`.circleci/config.yml` has no `context:` on any job.
+A job can read a context's variables only if the config names that context,
+so whatever credentials `s3deploy` uses come from project-level environment
+variables.
+Every job in the project can read those, including `build`.
+`build` runs `yarn install`, which runs the `postinstall` script of every
+package in `yarn.lock`, and then produces the archive that `deploy` publishes.
+
+What the config can't show, so check it in CircleCI project settings:
+
+- The names of the AWS variables. `s3deploy` reads the standard
+  `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` variables.
+  `$BUCKET`, `$REGION`, `$CF_DISTRIBUTION_ID`, and `$SLACK_DOCS_WEBHOOK_URL`
+  are set the same way.
+- Whether an organization context already exists that could hold them.
+
+Fix:
+
+1. A CircleCI organization admin creates a context, for example `docs-deploy`,
+   restricted to a security group of people allowed to deploy.
+2. Move the AWS variables, and `$SLACK_DOCS_WEBHOOK_URL`, from the project
+   into the context.
+3. Add `context: docs-deploy` to the `deploy` job in the `workflows` section.
+4. Record the setup in `DOCS-DEPLOYING.md`.
+
+This is the highest-value security change in this plan.
+Steps 1 and 2 need CircleCI access, and step 3 must merge at the same time
+(or the next master deploy fails).
+
+### 1.7 Commit the analysis scripts
 
 Add the four analysis scripts under `scripts/ci/analysis/` so every phase
 can measure its result.
@@ -249,7 +289,7 @@ can measure its result.
 
 - **A. One build, many consumers.** Add a `build` job that uploads `public/`,
   then run `render-check`, `link-check`, `ai-artifacts`, `feedback-links`,
-  `preview-deploy`, and the Playwright job (if #7898 merged) as `needs: build`
+  `preview-deploy`, and the Playwright job (#7898) as `needs: build`
   jobs.
   - The builds differ in `baseURL` and environment. Start with two builds
     (preview and production) instead of one.
@@ -320,8 +360,9 @@ Phases:
     replaces or removes dead external links.
   - It edits `content/shared/` instead of product stubs.
   - It never touches pending links.
-  - Engine to be decided: Copilot needs no secrets, Claude needs
-    `ANTHROPIC_API_KEY`.
+  - Engine: Copilot (decided). It needs no new secrets. Use gh-aw
+    `engine: copilot`, or reuse the `copilot:fix` label from
+    `assign-copilot-on-label.yml`.
 - **L5. Pending links (the original G).** Add a `pending_links` frontmatter
   key with a `url` and an `until` date. The PR check and the sweep downgrade
   listed URLs to warnings until that date. Document the key in
@@ -329,6 +370,9 @@ Phases:
 
 L2 and Part 2 below both maintain one long-lived issue.
 Write one shared upsert helper for both instead of two copies.
+
+### Dependencies
+
 - **Part 2. Monthly dependency audit.** Add
   `.github/workflows/dependency-audit.yml` and
   `scripts/ci/dependency-report.mjs`. Report only, never bump. Use
@@ -360,12 +404,6 @@ Write one shared upsert helper for both instead of two copies.
   import it. Resolve this blocker first: `layouts/404.html` runs `$(...)`
   inline and depends on the deferred bundle having set `window.$`.
   Re-verify the inventory before you write the analysis.
-- **Part 1b. CircleCI credentials (needs a person).** Check whether the AWS
-  deploy credentials are project-level variables or a context restricted to
-  the `deploy` job. If they're project-level, the `build` job runs every
-  package's `postinstall` with access to production credentials. Moving them
-  into a `deploy`-only context is the highest-value security change in this
-  plan. Record the answer in `DOCS-DEPLOYING.md`.
 
 ## Decisions already made
 
@@ -394,10 +432,19 @@ Write one shared upsert helper for both instead of two copies.
 
 ## Open questions
 
-1. Do you still want the Playwright trial (#7898)?
-2. The `prepare-release.yml` questions in 1.4.
-3. Who can answer Part 1b in CircleCI?
+1. Where should the Core and Enterprise release checklist live? The
+   recommendation is the `pr-release-check.yml` comment (1.4).
+2. Delete `influxdb3-release.yml` and `trigger-on-release.yml`? Check whether
+   `trigger-on-release.yml` has ever run (1.4).
+3. Part 1b in CircleCI settings: the AWS variable names and whether a context
+   exists (1.6).
 4. Why does `pr-preview.yml` prefetch the converter?
-5. Which engine should the link-fix agent (L4) use: Copilot or Claude?
-6. Weekly sweep cadence and scope: the link-check plan proposes weekly,
+5. Weekly sweep cadence and scope: the link-check plan proposes weekly,
    internal and external. Revisit after L0.
+
+## Decision log
+
+- 2026-11-02: Run the Playwright trial (#7898).
+- 2026-11-02: The link-fix agent (L4) runs on Copilot.
+- 2026-11-02: Remove `prepare-release.yml`. Nobody uses it, and it never ran.
+- 2026-11-02: Only Core and Enterprise get a release checklist. No Quay item.
