@@ -271,28 +271,77 @@ Fork PRs don't get the role.
 Fix, production first:
 
 1. **Replace CircleCI's static keys with OIDC.**
-   1. In AWS, add an IAM OIDC provider for CircleCI
-      (`oidc.circleci.com/org/<org-id>`) and a deploy role.
-      In the trust policy, require the docs-v2 project ID and the deploy
-      context ID (claim `oidc.circleci.com/context-ids`).
-      Grant only `s3` on the production bucket and
-      `cloudfront:CreateInvalidation` on the distribution.
-   2. In CircleCI, create a `docs-deploy` context restricted to a security
+   Use the V3 token (`$CIRCLE_OIDC_TOKEN_V3`, CircleCI Cloud only).
+   1. **AWS identity provider.** Provider URL
+      `https://oidc.circleci.com/org/<ORG_ID>`, audience `<ORG_ID>`.
+   2. **AWS deploy role.** Trust policy conditions:
+      - `StringEquals` `oidc.circleci.com/org/<ORG_ID>:aud` = `<ORG_ID>`
+      - `StringEquals`
+        `oidc.circleci.com/org/<ORG_ID>:oidc.circleci.com/project-id` =
+        `<PROJECT_ID>`
+      - `StringLike` `oidc.circleci.com/org/<ORG_ID>:sub` =
+        `org:<ORG_ID>:project:<PROJECT_ID>:user:*:checkout-source:github.com/influxdata/docs-v2:checkout-ref:refs/heads/master:config-source:github.com/influxdata/docs-v2:config-ref:refs/heads/master`
+
+      AWS can't evaluate `context-ids` or `ssh-rerun`, so CircleCI enforces the
+      context restriction, not AWS.
+      Permissions: `s3:PutObject`, `s3:DeleteObject`, and `s3:ListBucket` on
+      the production bucket, and `cloudfront:CreateInvalidation` on the
+      distribution.
+   3. **CircleCI context.** Create `docs-deploy`, restricted to a security
       group.
-      Move `BUCKET`, `REGION`, `CF_DISTRIBUTION_ID`, and
-      `SLACK_DOCS_WEBHOOK_URL` into it, and add `AWS_ROLE_ARN`.
-      CircleCI issues `$CIRCLE_OIDC_TOKEN` only to jobs that use a context.
-   3. In `.circleci/config.yml`, add `context: docs-deploy` to `deploy`.
-      Before `s3deploy` runs, write `$CIRCLE_OIDC_TOKEN` to a file and export
-      `AWS_WEB_IDENTITY_TOKEN_FILE` and `AWS_ROLE_ARN`.
-      `s3deploy` uses the AWS SDK for Go, whose default credential chain
-      reads those two variables, so the `cimg/go` image doesn't need the
-      AWS CLI.
-      Confirm that on the first deploy.
-   4. Delete the two project variables, then deactivate and delete the IAM
-      user's access keys.
-      Every `build` job has been able to read them, so treat them as exposed.
-   5. Record the setup in `DOCS-DEPLOYING.md`.
+      Move `SLACK_DOCS_WEBHOOK_URL` into it.
+      `BUCKET`, `REGION`, `CF_DISTRIBUTION_ID`, and the role ARN aren't
+      secret; they can stay project variables or move into `config.yml`.
+      Restrict SSH reruns on the project: an SSH rerun of `deploy` gets a valid
+      token.
+   4. **`deploy` job.** `s3deploy` v2.11.0 does **not** read
+      `AWS_WEB_IDENTITY_TOKEN_FILE`. Its `lib/session.go` builds static
+      credentials from `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and
+      `AWS_SESSION_TOKEN`. If those aren't set, it passes `nil` credentials
+      instead of using the SDK's default chain, and the requests go out
+      unsigned.
+      So exchange the token for temporary keys first. That's what PR Preview
+      already does through `configure-aws-credentials`.
+      `AssumeRoleWithWebIdentity` needs no existing credentials.
+      The `cimg/go` image has no AWS CLI, so switch `deploy` to a pinned
+      `cimg/aws` tag. `ci-install-s3deploy.sh` needs only `wget`,
+      `sha256sum`, and `tar`.
+
+      ```yaml
+      - run:
+          name: Assume the deploy role with OIDC
+          command: |
+            read -r AK SK ST < <(aws sts assume-role-with-web-identity \
+              --region "$REGION" \
+              --role-arn "$AWS_DEPLOY_ROLE_ARN" \
+              --role-session-name "docs-v2-deploy-${CIRCLE_BUILD_NUM}" \
+              --web-identity-token "$CIRCLE_OIDC_TOKEN_V3" \
+              --duration-seconds 3600 \
+              --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' \
+              --output text)
+            {
+              echo "export AWS_ACCESS_KEY_ID=$AK"
+              echo "export AWS_SECRET_ACCESS_KEY=$SK"
+              echo "export AWS_SESSION_TOKEN=$ST"
+            } >> "$BASH_ENV"
+      ```
+
+      In `workflows`, add `context: docs-deploy` to `deploy` only.
+      Keep both jobs' `master`-only filters. Don't adopt a draft that drops
+      `build`'s filter: the config comment explains why `build` is
+      `master`-only.
+      Don't use the `circleci/aws-cli` orb. It can be pinned only to a version
+      tag, not a commit SHA, and it's unclear which token version it presents.
+   5. **Verify.** Deploy from `master` and confirm the upload succeeds.
+      Then, on a throwaway branch, remove `deploy`'s branch filter, replace
+      the deploy step with `aws sts get-caller-identity`, and confirm
+      `AssumeRoleWithWebIdentity` returns `AccessDenied`.
+      Do this before step 6. Until then, the old keys still work if OIDC
+      fails.
+   6. **Revoke.** Delete the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+      project variables, then deactivate and delete the IAM user's keys.
+      Every `build` job could read them, so treat them as exposed.
+   7. Record the setup in `DOCS-DEPLOYING.md`.
 
    Interim fallback, if OIDC takes time: move the static keys into the
    restricted context as is. That alone removes them from `build`.
@@ -488,3 +537,6 @@ Write one shared upsert helper for both instead of two copies.
 - 2026-11-02: Only Core and Enterprise get a release checklist. No Quay item.
 - 2026-11-02: Confirmed CircleCI stores static AWS keys as project variables.
   PR Preview uses OIDC (`AWS_PR_PREVIEW_ROLE_ARN`).
+- 2026-11-02: CircleCI OIDC uses the V3 token and an explicit
+  `assume-role-with-web-identity` step, because `s3deploy` ignores the
+  web-identity variables.
