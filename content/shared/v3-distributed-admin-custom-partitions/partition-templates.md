@@ -99,10 +99,10 @@ Tag bucket part templates consist of a [_tag key_](/influxdb3/cloud-dedicated/re
 _number of "buckets" to partition tag values into_--for example:
 
 ```
-customerID,500
+customerID,100
 ```
 
-Values of the `customerID` tag are bucketed into 500 distinct "buckets." 
+Values of the `customerID` tag are bucketed into 100 distinct "buckets." 
 Each bucket is identified by the remainder of the tag value hashed into a 32-bit
 integer divided by the specified number of buckets:
 
@@ -115,9 +115,20 @@ each partition.
 
 **Supported number of tag buckets**: 1-1,000
 
+**Recommended number of tag buckets**: Consider values between 20 and 400.
+Higher values can introduce ingest inefficiency.
+
+The number of buckets multiplies the number of partitions.
+Each time interval can have up to one partition per bucket for each combination
+of values from other tag parts in the template.
+More partitions hold less data each and increase the work for the Ingester,
+Catalog, and Compactor.
+Use the fewest buckets that meet your query performance requirements and
+[check partition sizes](/influxdb/version/admin/custom-partitions/best-practices/#check-partition-sizes).
+
 > [!Note]
-> Tag buckets should be used to partition by high cardinality tags or tags with an
-> unknown number of distinct values.
+> Use tag buckets to partition on high-cardinality tags or tags with an unknown
+> number of distinct values.
 
 A partition template may include a given tag key only once in template parts 
 that operate on tags (tag value and tag bucket)--for example,

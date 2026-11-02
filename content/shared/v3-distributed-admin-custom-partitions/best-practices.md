@@ -39,6 +39,7 @@ As you plan your partitioning strategy, keep in mind that over-partitioning your
 - Balance the partition time interval with the actual amount of data written during each interval. If a single interval doesn't contain a lot of data, partition by larger time intervals.
 - Avoid partitioning by tags that you typically don't use in your query workload.
 - Avoid partitioning by distinct values of high-cardinality tags. Instead, [use tag buckets](#use-tag-buckets-for-high-cardinality-tags) to partition by these tags.
+- For the number of [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates), consider values between 20 and 400. Higher values can introduce ingest inefficiency.
 
 ### Check partition sizes
 
