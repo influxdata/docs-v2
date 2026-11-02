@@ -36,11 +36,40 @@ jobs:
               exit 1
             fi
             echo "PASS: AWS rejected the non-master branch with AccessDenied."
+  verify-no-context-tokens:
+    docker:
+      - image: cimg/aws:2026.09.1
+    steps:
+      - run:
+          name: Verify a context-free job receives no OIDC tokens
+          command: |
+            set +x
+            set -eu
+            unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+            if [ -n "${CIRCLE_OIDC_TOKEN:-}${CIRCLE_OIDC_TOKEN_V2:-}${CIRCLE_OIDC_TOKEN_V3:-}" ]; then
+              echo "FAIL: a job without a context received an OIDC token" >&2
+              exit 1
+            fi
+            echo "PASS: a job without a context receives no OIDC token variables."
+            if command -v circleci > /dev/null 2>&1; then
+              if circleci run oidc get --v3 > /dev/null 2> /tmp/docs-oidc-no-context-error; then
+                echo "FAIL: a job without a context minted a V3 OIDC token" >&2
+                exit 1
+              fi
+              echo "INFO: CircleCI CLI could not mint a V3 token without a context."
+            else
+              echo "INFO: CircleCI CLI is not installed; CLI minting was not checked."
+            fi
 workflows:
   oidc-branch-denial:
     jobs:
       - verify-branch-denial:
           context: docs-deploy
+          filters:
+            branches:
+              only:
+                - test/circleci-oidc-denial-20261102
+      - verify-no-context-tokens:
           filters:
             branches:
               only:
