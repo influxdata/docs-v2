@@ -51,8 +51,8 @@ weight: 101
   server to {{% product-name %}}.
 - Warn when the heartbeat service connects to PostgreSQL over TLS without
   verifying the server certificate. With `sslmode=require` and no CA
-  certificate, or with `DATABASE_SSL_NO_VERIFY` set, the log now states why
-  the server is not verified and what to set instead. Use
+  certificate, or with `DATABASE_SSL_NO_VERIFY` set and no CA certificate,
+  the log now states why the server is not verified and what to set instead. Use
   `sslmode=verify-full`, with `sslrootcert` if the server certificate is not
   issued by a public CA.
   See [Database TLS](/telegraf/controller/reference/config-options/#database-tls).
