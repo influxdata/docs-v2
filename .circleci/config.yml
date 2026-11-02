@@ -46,6 +46,13 @@ jobs:
             set +x
             set -eu
             unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+            for token_name in CIRCLE_OIDC_TOKEN CIRCLE_OIDC_TOKEN_V2 CIRCLE_OIDC_TOKEN_V3; do
+              if [ -n "${!token_name:-}" ]; then
+                echo "INFO: $token_name is present"
+              else
+                echo "INFO: $token_name is absent"
+              fi
+            done
             if [ -n "${CIRCLE_OIDC_TOKEN:-}${CIRCLE_OIDC_TOKEN_V2:-}${CIRCLE_OIDC_TOKEN_V3:-}" ]; then
               echo "FAIL: a job without a context received an OIDC token" >&2
               exit 1
