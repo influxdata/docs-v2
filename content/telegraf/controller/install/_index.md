@@ -353,8 +353,8 @@ The application will automatically run migrations on first startup.
 To encrypt the connection to a PostgreSQL or PostgreSQL-compatible server,
 add the `sslmode` query parameter to the database URL.
 Use `sslmode=verify-full` in production.
-`sslmode=require` encrypts the connection, but the heartbeat service does not
-verify the server certificate in that mode.
+With `sslmode=require` and no CA certificate, the heartbeat service encrypts
+the connection without verifying the server certificate.
 If the server certificate is not issued by a public CA (for example, Amazon
 RDS, Google Cloud SQL, or a corporate CA), provide the CA certificate with
 `sslrootcert`:
