@@ -270,6 +270,9 @@ jobs:
               echo "export AWS_SESSION_TOKEN=$ST"
             } >> "$BASH_ENV"
       - run:
+          name: Verify deploy role identity
+          command: aws sts get-caller-identity --region "$REGION"
+      - run:
           name: Deploy to S3
           command: $HOME/bin/s3deploy -source=workspace/public/ -bucket=$BUCKET -region=$REGION -distribution-id=$CF_DISTRIBUTION_ID
       - run:
