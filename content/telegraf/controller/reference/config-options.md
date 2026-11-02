@@ -403,21 +403,23 @@ telegraf_controller \
 | `sslmode`     | Connection behavior |
 | :------------ | :------------------ |
 | `disable`     | Connect without TLS. |
-| `allow`       | Use TLS if the server supports it. Equivalent to `prefer`. |
-| `prefer`      | Use TLS if the server supports it, otherwise connect without it. |
+| `allow`       | The heartbeat service uses TLS if the server supports it, otherwise connects without it. The API server requires TLS and verifies the server certificate. |
+| `prefer`      | Equivalent to `allow`. |
 | `require`     | Require TLS. The API server verifies the server certificate. The heartbeat service verifies it only if you provide a CA certificate, and otherwise logs a warning. |
 | `verify-ca`   | Require TLS and verify the server certificate and host name. Equivalent to `verify-full`. |
 | `verify-full` | Require TLS and verify the server certificate and host name. |
 
-With `require`, the heartbeat service's connection is encrypted but not
-protected against a host on the network path that impersonates the database
-server.
+With `require` and no CA certificate, the heartbeat service's connection is
+encrypted but not protected against a host on the network path that
+impersonates the database server.
 Use `verify-full` in production.
 
 {{% product-name %}} connects to PostgreSQL from two components, the API
 server and the heartbeat service.
-Unless you provide a CA certificate, both verify the server certificate
-against a bundled set of public root certificates (the Mozilla root store).
+With `verify-ca` or `verify-full` and no CA certificate, both components verify
+the server certificate against their bundled public root certificates
+(the Mozilla root store), unless you set `DATABASE_SSL_NO_VERIFY` for the heartbeat service.
+With `require` and no CA certificate, only the API server verifies the server certificate.
 Certificates issued by a private CA, including Amazon RDS, Google Cloud SQL,
 and corporate CAs, fail verification until you provide the CA certificate.
 Provide it with [`sslrootcert`](#sslrootcert) in the connection URL, which
@@ -425,14 +427,15 @@ both components read.
 The [`database-ca-cert`](#database-ca-cert) and `PGSSLROOTCERT` environment
 variables reach only the heartbeat service, and the Node.js
 `NODE_EXTRA_CA_CERTS` environment variable reaches only the API server.
-If only the API server trusts the certificate, the web interface works but
-agent heartbeats are rejected.
+If heartbeat certificate verification is enabled but only the API server trusts
+the certificate, the web interface works but agent heartbeats are rejected.
 See [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
 
 > [!Important]
 > #### The host must match the server certificate
 >
-> The host in the connection URL must match a name in the server certificate.
+> When certificate verification is enabled, the host in the connection URL must
+> match a name in the server certificate.
 > For Amazon RDS, use the instance endpoint, not an IP address.
 
 > [!Note]
