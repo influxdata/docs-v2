@@ -1,0 +1,417 @@
+# Prose rules for scripts/ci/lint-prose.mjs.
+#
+# Rules check Markdown prose only: paragraphs, headings, and table cells.
+# Code blocks, inline code, HTML, front matter, link targets, URLs, paths,
+# and shortcodes are never checked. `{{% product-name %}}` is read as
+# "InfluxDB" so article rules work.
+#
+# To skip prose, put `<!-- prose-lint off -->` and `<!-- prose-lint on -->`
+# on their own lines. Add rule IDs to skip only those rules, for example
+# `<!-- prose-lint off Ordinal, RepeatedWords -->`.
+#
+# Fields:
+#   id          Rule name shown in output.
+#   level       warning or info. No rule blocks a commit or merge.
+#   message     {match} is the flagged text; {replacement} is the swap value.
+#   link        Style guide reference.
+#   tokens      Regular expressions (JavaScript syntax) to flag.
+#   swap        Map of regular expression to preferred text. Alternatives in
+#               the preferred text are separated by `|`. A match equal to one
+#               of them isn't flagged.
+#   phrases_file  Literal phrases to flag, one per line, relative to this file.
+#   ignorecase  Match without case. Default: false.
+#   nonword     Don't add word boundaries around patterns. Default: false.
+#   paths       Check only files under these prefixes. Shared content under
+#               content/shared/ belongs to several products, so path-scoped
+#               rules never apply to it.
+#   allow       Regular expressions for matches that aren't flagged.
+#   only        Check only these block types: heading, paragraph, tableCell.
+#   skip        Don't check these block types.
+#   examples    flag: text that must be flagged; pass: text that must not.
+#               scripts/ci/__tests__/prose-lint.test.mjs runs every example.
+
+# --- InfluxData terms ---
+
+- id: Branding
+  level: warning
+  message: "Use '{replacement}' instead of '{match}'."
+  swap:
+    the compactor: the Compactor
+    the ingester: the Ingester
+    the querier: the Querier
+    dedupe: deduplicate
+    SQL Alchemy: SQLAlchemy
+    telegraph: Telegraf
+  examples:
+    flag: ['Restart the compactor.', 'Use dedupe to drop rows.']
+    pass: ['Restart the Compactor.', 'Run `dedupe` in a shell.']
+
+- id: BrandingCase
+  level: warning
+  message: "Use '{replacement}' instead of '{match}'."
+  ignorecase: true
+  swap:
+    influxdata: InfluxData
+    influxdb: InfluxDB
+    iox: v3
+    vscode: VSCode
+  examples:
+    flag: ['Install Influxdb.', 'Contact influxdata support.', 'The IOx engine.']
+    pass:
+      - 'Install InfluxDB.'
+      - 'Install InfluxDB 3 Core with influxdb3.'
+      - 'See [the repo](https://github.com/influxdata/influxdb).'
+      - 'Clone influxdata/influxdb or install @influxdata/influxdb-client.'
+      - 'Install influxdb-client-go.'
+
+- id: ProductNameArticle
+  level: warning
+  message: "Use 'an' before a product name that starts with InfluxDB."
+  tokens: ['a InfluxDB']
+  examples:
+    flag: ['Create a {{% product-name %}} database.', 'Deploy a InfluxDB cluster.']
+    pass: ['Create an {{% product-name %}} database.']
+
+# --- Cross-product terms ---
+
+- id: CloudDedicatedBranding
+  level: warning
+  message: "Did you mean '{replacement}' instead of '{match}'?"
+  paths: [content/influxdb3/cloud-dedicated/]
+  swap:
+    cloud-serverless|clustered: cloud-dedicated
+    Cloud Serverless|Clustered: Cloud Dedicated
+  examples:
+    flag: ['Use the Cloud Serverless UI.']
+    pass: ['Use the Cloud Dedicated UI.']
+
+- id: ClusteredBranding
+  level: warning
+  message: "Did you mean '{replacement}' instead of '{match}'?"
+  paths: [content/influxdb3/clustered/]
+  swap:
+    cloud-serverless|cloud-dedicated: clustered
+    Cloud Serverless|Cloud Dedicated: Clustered
+  examples:
+    flag: ['Use the Cloud Dedicated UI.']
+    pass: ['Deploy InfluxDB Clustered.']
+
+- id: CloudServerlessBranding
+  level: warning
+  message: "Did you mean '{replacement}' instead of '{match}'?"
+  paths: [content/influxdb3/cloud-serverless/]
+  swap:
+    cloud-dedicated|clustered: cloud-serverless
+    Cloud Dedicated|Clustered: Cloud Serverless
+  examples:
+    flag: ['Upgrade to Cloud Dedicated.']
+    pass: ['Sign in to Cloud Serverless.']
+
+- id: CoreBranding
+  level: warning
+  message: "Did you mean '{replacement}' instead of '{match}'?"
+  paths: [content/influxdb3/core/]
+  swap:
+    cloud-serverless|cloud-dedicated|clustered: core
+    Cloud Serverless|Cloud Dedicated|Clustered: Core
+  examples:
+    flag: ['Unlike Clustered, this runs on one node.']
+    pass: ['Start Core.']
+
+- id: V3Terms
+  level: info
+  message: "InfluxDB 3 uses '{replacement}'. Did you mean it instead of '{match}'?"
+  paths:
+    - content/influxdb3/cloud-dedicated/
+    - content/influxdb3/clustered/
+    - content/influxdb3/core/
+  ignorecase: true
+  swap:
+    buckets?: database
+    measurements?: table
+    API token: database token
+  examples:
+    flag: ['Write to a bucket.']
+    pass: ['Write to a database.']
+
+- id: ServerlessTerms
+  level: info
+  message: "Cloud Serverless uses '{replacement}'. Did you mean it instead of '{match}'?"
+  paths: [content/influxdb3/cloud-serverless/]
+  ignorecase: true
+  swap:
+    database token|management token: API token
+  examples:
+    flag: ['Create a database token.']
+    pass: ['Create an API token.']
+
+# --- Google developer documentation style ---
+
+- id: DateFormat
+  level: warning
+  message: "Use the 'July 31, 2016' format, not '{match}'."
+  link: https://developers.google.com/style/dates-times
+  ignorecase: true
+  skip: [tableCell]
+  tokens:
+    - '\d{1,2}[./]\d{1,2}[./]\d{4}'
+    - '\d{1,2} (?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?) \d{4}'
+  examples:
+    flag: ['Released 07/31/2016.', 'Released 31 July 2016.']
+    pass: ['Released July 31, 2016.', 'Released 2016-07-31.']
+
+- id: AMPM
+  level: warning
+  message: "Use 'AM' or 'PM' after a space."
+  link: https://developers.google.com/style/word-list
+  nonword: true
+  tokens:
+    - '\b\d{1,2}[AP]M\b'
+    - '\b\d{1,2} ?[ap]m\b'
+    - '\b\d{1,2} ?[aApP]\.[mM]\.'
+  examples:
+    flag: ['Runs at 9AM.', 'Runs at 9 p.m. daily.']
+    pass: ['Runs at 9 AM.']
+
+- id: Dashes
+  level: warning
+  message: "Don't put spaces around a dash."
+  link: https://developers.google.com/style/dashes
+  nonword: true
+  tokens: ['\s[—–]\s']
+  examples:
+    flag: ['Fast — and small.']
+    pass: ['Fast—and small.']
+
+- id: Exclamation
+  level: warning
+  message: "Don't use exclamation points in text."
+  link: https://developers.google.com/style/exclamation-points
+  nonword: true
+  tokens: ['\w!(?=\s|$)']
+  examples:
+    flag: ['It works!']
+    pass: ['Use the `!=` operator.']
+
+- id: Ellipses
+  level: warning
+  message: "Avoid ellipses."
+  link: https://developers.google.com/style/ellipses
+  nonword: true
+  skip: [tableCell]
+  tokens: ['\.\.\.', '…']
+  examples:
+    flag: ['Wait for it...']
+    pass: ['Wait for it.']
+
+- id: Latin
+  level: warning
+  message: "Use '{replacement}' instead of '{match}'."
+  link: https://developers.google.com/style/abbreviations
+  ignorecase: true
+  nonword: true
+  swap:
+    '\b(?:eg|e\.g\.)(?=[\s,;])': for example
+    '\b(?:ie|i\.e\.)(?=[\s,;])': that is
+  examples:
+    flag: ['Use a tag, e.g. host.', 'Use one, i.e., the first.']
+    pass: ['Use a tag—for example, host.']
+
+- id: LyHyphens
+  level: warning
+  message: "'{match}' doesn't need a hyphen."
+  link: https://developers.google.com/style/hyphens
+  tokens: ['[a-z]+ly-\w+']
+  allow: ['(?:fami|ear|on|supp|app|rep|multip|friend|assemb|anomal)ly-\w+']
+  examples:
+    flag: ['A highly-available cluster.']
+    pass: ['A highly available cluster.', 'A family-owned shop.']
+
+- id: OptionalPlurals
+  level: warning
+  message: "Don't use plurals in parentheses, such as '{match}'."
+  link: https://developers.google.com/style/plurals-parentheses
+  nonword: true
+  tokens: ['\b\w+\(s\)']
+  examples:
+    flag: ['Select the database(s).']
+    pass: ['Select one or more databases.']
+
+- id: Ordinal
+  level: warning
+  message: "Spell out ordinal numbers, such as '{match}'."
+  link: https://developers.google.com/style/numbers
+  tokens: ['\d+(?:st|nd|rd|th)']
+  examples:
+    flag: ['The 1st step.']
+    pass: ['The first step.']
+
+- id: Periods
+  level: warning
+  message: "Don't use periods in acronyms, such as '{match}'."
+  link: https://developers.google.com/style/abbreviations
+  nonword: true
+  tokens: ['\b(?:[A-Z]\.){3,}']
+  examples:
+    flag: ['Made in the U.S.A. today.']
+    pass: ['Made in the USA today.']
+
+- id: Spacing
+  level: warning
+  message: "Use one space between sentences in '{match}'."
+  link: https://developers.google.com/style/sentence-spacing
+  nonword: true
+  tokens: ['[a-z][.?!] {2,}[A-Z]']
+  examples:
+    flag: ['It runs.  Then it stops.']
+    pass: ['It runs. Then it stops.', 'Install InfluxDB.Client.Net.']
+
+- id: Units
+  level: warning
+  message: "Put a space between the number and the unit in '{match}'."
+  link: https://developers.google.com/style/units-of-measure
+  tokens: ['\d+(?:B|kB|MB|GB|TB|PB)']
+  examples:
+    flag: ['Allocate 10GB of memory.']
+    pass: ['Allocate 10 GB of memory.', 'Set `--max-size=10GB`.']
+
+- id: Quotes
+  level: warning
+  message: "Put commas and periods inside quotation marks."
+  link: https://developers.google.com/style/quotation-marks
+  nonword: true
+  tokens: ['"[^"]+"[.,?]']
+  examples:
+    flag: ['Set it to "on".']
+    pass: ['Set it to "on."']
+
+- id: Ranges
+  level: warning
+  message: "Don't use 'from' or 'between' with a hyphenated range."
+  link: https://developers.google.com/style/hyphens
+  nonword: true
+  tokens: ['\b(?:from|between)\s\d+\s?-\s?\d+']
+  examples:
+    flag: ['Choose from 1-10.']
+    pass: ['Choose 1-10.']
+
+- id: HeadingPunctuation
+  level: warning
+  message: "Don't end a heading with a period."
+  link: https://developers.google.com/style/capitalization#capitalization-in-titles-and-headings
+  nonword: true
+  only: [heading]
+  tokens: ['[a-zA-Z0-9]\.\s*$']
+  examples:
+    flag: ['## Install the tool.']
+    pass: ['## Install the tool', 'Install the tool.']
+
+- id: Gender
+  level: warning
+  message: "Don't use '{match}' as a gender-neutral pronoun."
+  link: https://developers.google.com/style/pronouns#gender-neutral-pronouns
+  ignorecase: true
+  nonword: true
+  tokens: ['\bhe/she\b', '\bs/he\b', '\(s\)he\b']
+  examples:
+    flag: ['Tell the user what he/she needs.']
+    pass: ['Tell users what they need.']
+
+- id: GenderBias
+  level: warning
+  message: "Consider '{replacement}' instead of '{match}'."
+  link: https://developers.google.com/style/inclusive-documentation
+  ignorecase: true
+  swap:
+    (?:alumna|alumnus): graduate
+    (?:alumnae|alumni): graduates
+    authoress: author
+    chair(?:m[ae]n|wom[ae]n): chair(s)
+    lady lawyer: lawyer
+    mankind: humanity
+    manmade: manufactured
+    manpower: personnel
+    middle(?:m[ae]n|wom[ae]n): intermediary
+    poetess: poet
+    repair(?:m[ae]n|wom[ae]n): technician(s)
+    sales(?:m[ae]n|wom[ae]n): salesperson or sales people
+    steward(?:ess)?: flight attendant
+    waitress: waiter
+    work(?:m[ae]n|wom[ae]n): worker(s)
+  examples:
+    flag: ['It saves manpower.']
+    pass: ['It saves staff time.']
+
+- id: Slang
+  level: warning
+  message: "Don't use internet slang, such as '{match}'."
+  link: https://developers.google.com/style/abbreviations
+  ignorecase: true
+  tokens: ['tl;dr', 'ymmv', 'rtfm', 'imo', 'fwiw']
+  examples:
+    flag: ['FWIW, it works.']
+    pass: ['It works.']
+
+- id: WordList
+  level: warning
+  message: "Use '{replacement}' instead of '{match}'."
+  link: https://developers.google.com/style/word-list
+  skip: [tableCell]
+  swap:
+    (?:API Console|dev|developer) key: API key
+    (?:e-mail|E-mail): email
+    (?:file ?path|path ?name): path
+    (?:OAuth ?2|Oauth): OAuth 2.0
+    (?:ok|Okay): OK|okay
+    (?:WiFi|wifi): Wi-Fi
+    a\.k\.a\.?|aka: or|also known as
+    above: preceding
+    approx\.: approximately
+    authN: authentication
+    authZ: authorization
+    autoupdate: automatically update
+    check box: checkbox
+    click on: click|click in
+    data are: data is
+    fewer data: less data
+    file name: filename
+    functionality: capability|feature
+    grayed-out: unavailable
+    HTTPs: HTTPS
+    in order to: to
+    k8s: Kubernetes
+    open-source: open source
+    regex: regular expression
+    SHA1: SHA-1
+    SHA256: SHA-256
+    SHA512: SHA-512
+    sign into: sign in to
+    stylesheet: style sheet
+    synch: sync
+    tablename: table name
+    vs\.: versus
+  examples:
+    flag: ['See the example above.', 'Use a regex in order to match.', 'Then click on Save.']
+    pass: ['See the preceding example.', 'Send an email.', 'Use a regular expression.']
+
+# --- Writing quality ---
+
+- id: RepeatedWords
+  level: warning
+  message: "'{match}' repeats a word."
+  ignorecase: true
+  skip: [tableCell]
+  tokens: ['([a-z]+)\s+\1']
+  allow: ['had\s+had', 'that\s+that']
+  examples:
+    flag: ['Write the the data.', "Write the\nthe data."]
+    pass: ['Write the data.', 'It had had an effect.']
+
+- id: Cliches
+  level: info
+  message: "Avoid clichés such as '{match}'."
+  ignorecase: true
+  phrases_file: cliches.txt
+  examples:
+    flag: ['This is a clean slate.']
+    pass: ['This is a new start.']

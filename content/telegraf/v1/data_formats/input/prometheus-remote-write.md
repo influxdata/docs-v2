@@ -35,6 +35,7 @@ receive metrics pushed by Prometheus.
   data_format = "prometheusremotewrite"
 
   ## Metric layout to produce (see below).
+  ## Use 1 when writing to InfluxDB 3.
   # prometheus_metric_version = 2
 ```
 
@@ -48,8 +49,20 @@ Controls how Prometheus samples translate to Telegraf metrics.
 - `2`: each sample becomes a Telegraf metric named
   `prometheus_remote_write`, labels become tags, and the field name is the
   Prometheus metric name.
+  All samples share one measurement, with a field for each Prometheus metric
+  name.
 - `1`: the Prometheus metric name becomes the Telegraf metric name, labels
   become tags, and the field is named `value`.
+  Each Prometheus metric gets its own measurement.
+  Requires Telegraf 1.34 or later.
+
+The right version depends on the destination you write to.
+Use `1` when writing to InfluxDB 3, where the version 2 layout produces a
+single wide, sparse `prometheus_remote_write` table with a column for every
+metric name that Prometheus sends.
+InfluxDB v2 and InfluxDB Cloud (TSM) accept either layout.
+Use `2` to match the layout that Flux `prometheus.scrape()` produces.
+See [Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version).
 
 ## Example Input
 

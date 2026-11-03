@@ -119,3 +119,10 @@ Products defined in [data/products.yml](../data/products.yml):
   `weight`, long CLI options not used
 - **INFO**: Suggestions, code block missing language identifier, opportunities
   to use shared content
+
+
+## Release updates
+
+For release notes, product patch versions, and notifications, use the
+[content-editing skill](../.agents/skills/content-editing/SKILL.md) and its
+[release-update workflow](../.agents/skills/content-editing/references/release-updates.md).
