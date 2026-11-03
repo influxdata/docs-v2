@@ -1,6 +1,9 @@
 # Stage GitHub production deployment with isolated jobs
 
-**Status:** In progress.
+**Status:** Merged 2026-11-03 through [#7991](https://github.com/influxdata/docs-v2/pull/7991)
+and [#7992](https://github.com/influxdata/docs-v2/pull/7992).
+Production cutover is verified.
+[Credential retirement](2026-11-03-retire-circleci-credentials.md) remains in progress.
 
 ## Goal
 
@@ -57,3 +60,14 @@ Use the cutover runbook in `DOCS-DEPLOYING.md` before any real upload.
 Reconsider CircleCI if GitHub performance and uptime become unsatisfactory
 and CircleCI fully supports the required GitHub workflow syntax outside Preview.
 Revalidate the credential boundary before switching.
+
+## Production cutover evidence
+
+The [master verification](https://github.com/influxdata/docs-v2/actions/runs/41694815009),
+[first live deployment](https://github.com/influxdata/docs-v2/actions/runs/41702740868),
+and [automatic deployment after merge](https://github.com/influxdata/docs-v2/actions/runs/41720785914)
+passed.
+The automatic deployment served commit `2933470` on the live site.
+Its restored notification appeared in `#team-docs`.
+Automatic mode is enabled, and CircleCI is blocked from new work.
+The separate retirement record tracks the old IAM user and replacement-key drift.
