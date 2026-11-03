@@ -1,9 +1,33 @@
 ---
 name: collaborative-pr-review
-description: Review or propose edits to existing docs-v2 pull requests, including CODEOWNERS' and contributors' PRs, or prepare a successor PR for an external contribution. Use before publishing PR corrections or submitting approval.
+description: Write docs-v2 PR descriptions, review or propose edits to existing pull requests, or prepare a successor PR for an external contribution. Use before creating a PR, publishing PR corrections, or submitting approval.
 ---
 
-# Review collaborative pull requests
+# Write and review collaborative pull requests
+
+## Write the PR description
+
+Before creating a PR through the GitHub UI, CLI, or API, read the applicable
+repository template.
+Use [the general template](../../../.github/pull_request_template/general.md)
+unless a task-specific template applies.
+Start the body from that template, including when supplying a complete body
+through a connector or `--body-file`, which can bypass template insertion.
+
+Keep the template's sections and checklist.
+Fill in what changed, why, reader impact, verification, and preview pages with
+the expected result for each affected page.
+For sections or checks that do not apply, say why; check a box only when the
+requirement is satisfied.
+Include closing issue references only when the PR resolves those issues.
+
+When a generated-content completion record is required, place it under
+**Verification** alongside the checks that ran.
+Use the applicable workflow's record fields and distinguish completed checks
+from pending source corrections, regeneration, or runtime verification.
+The record supplements the PR template.
+
+## Choose the publication route
 
 Preserve the PR author's control over substantive corrections.
 Identify the invoking user's GitHub account, the authenticated account, the
