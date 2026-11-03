@@ -1,0 +1,237 @@
+name: Production deployment
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/deploy-production.yml
+      - .github/actions/build-docs-site/**
+      - .github/actions/setup-docs-env/**
+      - deploy/verify-production-artifact.py
+      - deploy/tests/**
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Verify the build and role, or upload after cutover is enabled
+        type: choice
+        options: [verify, deploy]
+        default: verify
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.event_name != 'push' || vars.DOCS_PRODUCTION_DEPLOYMENT_MODE == 'automatic'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: none
+    env:
+      CYPRESS_INSTALL_BINARY: '0'
+      PUPPETEER_SKIP_DOWNLOAD: '1'
+    steps:
+      - name: Verify build credential isolation
+        shell: bash
+        run: |
+          set +x
+          for variable in ACTIONS_ID_TOKEN_REQUEST_URL ACTIONS_ID_TOKEN_REQUEST_TOKEN AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN; do
+            if [ -n "${!variable:-}" ]; then
+              printf 'Build job received deployment capability: %s\n' "$variable" >&2
+              exit 1
+            fi
+          done
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup docs environment
+        uses: ./.github/actions/setup-docs-env
+      - name: Install API documentation dependencies
+        run: yarn --cwd api-docs install --frozen-lockfile --non-interactive --prefer-offline
+      - name: Build API documentation scripts
+        run: yarn build:api-docs:scripts
+      - name: Cache Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.rustup
+            scripts/rust-markdown-converter/target
+          key: production-rust-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml', 'scripts/rust-markdown-converter/Cargo.lock') }}
+      - name: Build production site
+        uses: ./.github/actions/build-docs-site
+        env:
+          RUST_MARKDOWN_CONVERTER_SOURCE: 'true'
+        with:
+          build-rust: 'true'
+          hugo-environment: production
+          hugo-destination: workspace/public
+          hugo-gc: 'true'
+          hugo-log-level: info
+      - name: Generate AI discovery artifacts and Markdown
+        run: |
+          yarn build:ai-artifacts --public-dir workspace/public
+          yarn build:md --public-dir workspace/public
+          yarn build:llms-full --public-dir workspace/public
+          yarn check:md-coherence --public-dir workspace/public
+      - name: Archive and verify production output
+        run: |
+          mkdir -p workspace/archive
+          tar -czf workspace/archive/public.tar.gz -C workspace public
+          (cd workspace/archive && sha256sum public.tar.gz > public.SHA256SUMS)
+          jq --null-input \
+            --arg commit "$GITHUB_SHA" \
+            --arg ref "$GITHUB_REF" \
+            --arg branch "$GITHUB_REF_NAME" \
+            --arg node "$(node --version)" \
+            --arg hugo "$(yarn --silent hugo version)" \
+            --arg run "$GITHUB_RUN_ID" \
+            --arg rust "$(sed -n 's/^channel = "\([^"]*\)"/\1/p' scripts/rust-markdown-converter/rust-toolchain.toml)" \
+            --arg yarn_lock "$(sha256sum yarn.lock | cut -d' ' -f1)" \
+            --arg api_lock "$(sha256sum api-docs/yarn.lock | cut -d' ' -f1)" \
+            --arg cargo_lock "$(sha256sum scripts/rust-markdown-converter/Cargo.lock | cut -d' ' -f1)" \
+            '{commit:$commit, ref:$ref, branch:$branch, node_version:$node, hugo_version:$hugo, run_id:$run, rust_channel:$rust, yarn_lock_sha256:$yarn_lock, api_docs_yarn_lock_sha256:$api_lock, cargo_lock_sha256:$cargo_lock}' \
+            > workspace/archive/build-manifest.json
+          python3 deploy/verify-production-artifact.py \
+            --artifact-dir workspace/archive \
+            --destination "$RUNNER_TEMP/build-site-check" \
+            --expected-commit "$GITHUB_SHA" \
+            --expected-ref "$GITHUB_REF"
+      - name: Upload production artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: production-site
+          path: workspace/archive/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+
+  verify-artifact:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: none
+    steps:
+      - name: Checkout verification code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run archive boundary tests
+        run: python3 -m unittest discover --start-directory deploy/tests --verbose
+      - name: Download production artifact
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: production-site
+          path: ${{ runner.temp }}/production-artifact
+      - name: Verify the transferred archive
+        run: |
+          python3 deploy/verify-production-artifact.py \
+            --artifact-dir "$RUNNER_TEMP/production-artifact" \
+            --destination "$RUNNER_TEMP/verified-site" \
+            --expected-commit "$GITHUB_SHA" \
+            --expected-ref "$GITHUB_REF"
+
+  deploy:
+    if: github.ref == 'refs/heads/master' && (github.event_name == 'workflow_dispatch' || vars.DOCS_PRODUCTION_DEPLOYMENT_MODE == 'automatic')
+    needs: [build, verify-artifact]
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: docs-production-upload
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      BUCKET: ${{ vars.BUCKET }}
+      REGION: ${{ vars.REGION }}
+      CF_DISTRIBUTION_ID: ${{ vars.CF_DISTRIBUTION_ID }}
+      AWS_PAGER: ''
+    steps:
+      - name: Check cutover mode
+        id: cutover
+        env:
+          OPERATION: ${{ inputs.operation }}
+          EVENT_NAME: ${{ github.event_name }}
+          MODE: ${{ vars.DOCS_PRODUCTION_DEPLOYMENT_MODE }}
+        run: |
+          if [ "$OPERATION" = deploy ] || [ "$EVENT_NAME" = push ]; then
+            case "$MODE" in
+              manual|automatic) ;;
+              *) echo "Uploads are disabled. Complete the CircleCI cutover before setting deployment mode to manual." >&2; exit 1 ;;
+            esac
+          fi
+          test -n "$BUCKET"
+          test -n "$REGION"
+          test -n "$CF_DISTRIBUTION_ID"
+      - name: Checkout trusted deployment code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Download production artifact
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: production-site
+          path: ${{ runner.temp }}/production-artifact
+      - name: Verify and extract before authentication
+        run: |
+          python3 deploy/verify-production-artifact.py \
+            --artifact-dir "$RUNNER_TEMP/production-artifact" \
+            --destination "$RUNNER_TEMP/deployment-site" \
+            --expected-commit "$GITHUB_SHA" \
+            --expected-ref "$GITHUB_REF"
+      - name: Install the pinned uploader
+        env:
+          S3DEPLOY_VERSION: '2.11.0'
+          S3DEPLOY_VERSION_HASH: d3566a6a56735ea5710cf22c35f8f411164e6efc22ded98743a1d7a5a21c740e
+        run: |
+          mkdir -p "$HOME/bin"
+          bash deploy/ci-install-s3deploy.sh
+      - name: Configure temporary AWS credentials
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.REGION }}
+          allowed-account-ids: '056065491910'
+          role-session-name: docs-github-deploy-${{ github.run_id }}-${{ github.run_attempt }}
+          role-duration-seconds: 3600
+          unset-current-credentials: true
+      - name: Verify production role identity
+        run: |
+          identity=$(aws sts get-caller-identity --query Arn --output text)
+          case "$identity" in
+            arn:aws:sts::056065491910:assumed-role/github-docs-deploy/*) printf '%s\n' "$identity" ;;
+            *) printf 'Unexpected AWS identity: %s\n' "$identity" >&2; exit 1 ;;
+          esac
+      - name: Upload and invalidate production
+        id: upload
+        if: github.event_name == 'push' || inputs.operation == 'deploy'
+        run: |
+          "$HOME/bin/s3deploy" \
+            -source="$RUNNER_TEMP/deployment-site/public/" \
+            -config="$GITHUB_WORKSPACE/.s3deploy.yml" \
+            -bucket="$BUCKET" \
+            -region="$REGION" \
+            -distribution-id="$CF_DISTRIBUTION_ID"
+      - name: Report verification
+        if: github.event_name == 'workflow_dispatch' && inputs.operation == 'verify'
+        run: echo "Production artifact and role verified; no content uploaded." >> "$GITHUB_STEP_SUMMARY"
+      - name: Notify Slack
+        if: always() && steps.cutover.outcome == 'success' && (github.event_name == 'push' || inputs.operation == 'deploy')
+        env:
+          SLACK_DOCS_WEBHOOK_URL: ${{ secrets.SLACK_DOCS_WEBHOOK_URL }}
+          DEPLOY_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          test -n "$SLACK_DOCS_WEBHOOK_URL"
+          jq --null-input --arg status "$DEPLOY_STATUS" --arg sha "$GITHUB_SHA" --arg url "$RUN_URL" \
+            '{text:("Docs production deployment " + $status + "\nCommit: " + $sha + "\n" + $url)}' \
+            | curl --fail --silent --show-error \
+              --header 'Content-Type: application/json' \
+              --data-binary @- "$SLACK_DOCS_WEBHOOK_URL"
