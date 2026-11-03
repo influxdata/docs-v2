@@ -1,6 +1,6 @@
 # Retire CircleCI deployment credentials after the GitHub cutover
 
-**Status:** In review.
+**Status:** In review, PR [#7993](https://github.com/influxdata/docs-v2/pull/7993).
 
 ## Goal
 
