@@ -279,10 +279,13 @@ declared schema, see
 
 Database names must adhere to the following naming restrictions:
 
-- **Length**: Maximum 64 characters
-- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Length**: Maximum 511 ASCII characters
+- **Allowed characters**: ASCII alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), and dash (`-`).
+  Multibyte (non-ASCII) characters are not allowed.
+- **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
+  The slash can't be the first or last character.
 - **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
-- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Starting character**: Must start with an ASCII letter or number
 - **Case sensitivity**: Database names are case-sensitive
 
 > [!Caution]

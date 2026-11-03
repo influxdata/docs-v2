@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.12.1
+  latest_patch: 3.12.2
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -60,7 +60,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.12.1
+  latest_patch: 3.12.2
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -214,7 +214,7 @@ influxdb3_cloud_dedicated:
   search_includes_resources: false
   latest: cloud-dedicated
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
-  latest_cli: 2.12.1
+  latest_cli: 2.12.2
   placeholder_host: cluster-id.a.influxdb.io
   scheme: https
   version_label: Cloud Dedicated
@@ -317,9 +317,9 @@ influxdb:
   latest: v2.10
   latest_patches:
     v2: 2.10.0
-    v1: 1.13.0
+    v1: 1.13.2
   latest_cli:
-    v2: 2.8.0
+    v2: 2.9.1
   detector_config:
     query_languages:
       InfluxQL:
@@ -406,7 +406,7 @@ telegraf:
   versions: [v1]
   latest: v1.40
   latest_patches:
-    v1: 1.40.2
+    v1: 1.40.3
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -429,7 +429,7 @@ telegraf_controller:
   link: 'https://influxdata.com/contact-sales-telegraf-enterprise/?utm_source=website&utm_medium=direct&utm_campaign=Telegraf-Enterprise'
   versions: [v1]
   latest: 1.2
-  latest_patch: 1.2.0
+  latest_patch: 1.2.1
   schema:
     operating_system: "Docker"
     application_category: "DeveloperApplication"

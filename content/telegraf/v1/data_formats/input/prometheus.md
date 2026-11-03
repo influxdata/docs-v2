@@ -38,6 +38,7 @@ pushed Prometheus metrics in the style of a Pushgateway.
   # prometheus_ignore_timestamp = false
 
   ## Metric layout to produce (see below).
+  ## Use 1 when writing to InfluxDB 3.
   # prometheus_metric_version = 2
 ```
 
@@ -58,13 +59,20 @@ Controls how Prometheus metrics translate to Telegraf metrics.
 
 - `2`: each Prometheus sample becomes a Telegraf metric named `prometheus`,
   labels become tags, and the field name is the Prometheus metric name.
-  Produces sparse metrics that work well with column-oriented destinations.
+  All metrics share one measurement, with a field for each Prometheus metric
+  name.
 - `1`: the Prometheus metric name becomes the Telegraf metric name, labels
   become tags, and values become fields named after the sample type.
-  Produces dense metrics that work well with row-oriented destinations.
+  Each Prometheus metric gets its own measurement.
+
+The right version depends on the destination you write to.
+Use `1` when writing to InfluxDB 3, where the version 2 layout produces a
+wide, sparse table.
+InfluxDB v2 and InfluxDB Cloud (TSM) accept either layout.
+Use `2` to match the layout that Flux `prometheus.scrape()` produces, or when
+round-tripping metrics back out of Telegraf with the
+[Prometheus output data format](/telegraf/v1/data_formats/output/prometheus/).
+See [Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version).
 
 The [OpenMetrics input data format](/telegraf/v1/data_formats/input/openmetrics/)
 shows a worked example of both layouts.
-For round-tripping metrics back out of Telegraf in Prometheus format, use
-`metric_version = 2` with the
-[Prometheus output data format](/telegraf/v1/data_formats/output/prometheus/).
