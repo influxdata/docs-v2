@@ -232,8 +232,34 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           test -n "$SLACK_DOCS_WEBHOOK_URL"
-          jq --null-input --arg status "$DEPLOY_STATUS" --arg sha "$GITHUB_SHA" --arg url "$RUN_URL" \
-            '{text:("Docs production deployment " + $status + "\nCommit: " + $sha + "\n" + $url)}' \
+          commit_subject=$(git log -1 --format=%s "$GITHUB_SHA")
+          commit_body=$(git log -1 --format=%b "$GITHUB_SHA")
+          commit_author=$(git log -1 --format=%an "$GITHUB_SHA")
+          commit_short=$(git rev-parse --short=7 "$GITHUB_SHA")
+          jq --null-input \
+            --arg status "$DEPLOY_STATUS" \
+            --arg subject "$commit_subject" \
+            --arg body "$commit_body" \
+            --arg author "$commit_author" \
+            --arg short "$commit_short" \
+            --arg commit_url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA" \
+            --arg run_url "$RUN_URL" \
+            '
+            def slack_text: gsub("&"; "&amp;") | gsub("<"; "&lt;") | gsub(">"; "&gt;");
+            ($subject | slack_text) as $subject |
+            ($body | slack_text) as $body |
+            ($author | slack_text) as $author |
+            (if $status == "success" then "The docs successfully deployed! :greeny_peeny:"
+             elif $status == "cancelled" then ":warning: Docs deploy cancelled."
+             else ":red_circle: Docs deploy FAILED! :greeny_peeny:"
+             end) as $heading |
+            {text: (
+              $heading + "\n\n> " + $subject +
+              (if $status == "success" and $body != "" then "\n> " + ($body | gsub("\n"; "\n> ")) else "" end) +
+              "\n\n_<" + $commit_url + "|Commit " + $short + "> - by " + $author + "_" +
+              "\n<" + $run_url + "|View GitHub Actions deployment>"
+            )}
+            ' \
             | curl --fail --silent --show-error \
               --header 'Content-Type: application/json' \
               --data-binary @- "$SLACK_DOCS_WEBHOOK_URL"
