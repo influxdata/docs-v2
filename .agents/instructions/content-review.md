@@ -11,6 +11,9 @@ Review documentation changes against these rules.
 Only flag issues you are confident about.
 Reference the linked docs for detailed rules.
 
+Before publishing corrections or approving an existing PR, follow the
+[collaborative PR review skill](../skills/collaborative-pr-review/SKILL.md).
+
 ## Frontmatter
 
 Rules: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
