@@ -25,6 +25,9 @@ yarn validate:agent-instructions
 
 - Preserve unrelated working-tree changes.
 
+- Before publishing corrections or approving an existing PR, load the
+  [collaborative PR review skill](.agents/skills/collaborative-pr-review/SKILL.md).
+
 - Check `git log` before you treat the staged diff as the whole change. If the
   branch carries a commit you didn't make, tell the user instead of squashing
   or amending it.
