@@ -46,8 +46,10 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           persist-credentials: false
+      - name: Fetch history for the build commit
+        run: git fetch --no-tags --unshallow origin "$GITHUB_SHA"
       - name: Setup docs environment
         uses: ./.github/actions/setup-docs-env
       - name: Install API documentation dependencies
