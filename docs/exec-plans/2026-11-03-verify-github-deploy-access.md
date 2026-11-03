@@ -1,6 +1,6 @@
 # Verify GitHub production deployment access
 
-**Status:** In progress.
+**Status:** In review, [PR #7990](https://github.com/influxdata/docs-v2/pull/7990).
 
 ## Goal
 
@@ -46,7 +46,10 @@ Revalidate credential isolation before switching.
 ## Verification
 
 Run `actionlint .github/workflows/verify-production-access.yml`.
-Push the workflow to `ci/github-docs-deploy` and inspect the build-isolation and denial checks.
+The [initial branch run](https://github.com/influxdata/docs-v2/actions/runs/41684498445)
+passed the build-isolation and denial checks on 2026-11-03.
+The logs confirm absent build credentials and AWS `AccessDenied` outside production.
+The authorized role identity check remains pending.
 After review and merge, manually run `Verify production deployment access` on `master`.
 The authorized check must report an assumed-role ARN for `github-docs-deploy` in account `056065491910`.
 No check uploads, deletes, or invalidates production content.
