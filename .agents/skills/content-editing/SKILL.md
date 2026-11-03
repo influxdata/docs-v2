@@ -13,8 +13,8 @@ frontmatter, shortcode, or contributor references.
 | New page or direct edit | Choose `docs` CLI or direct edit            | `../docs-cli-workflow/SKILL.md`                              |
 | Release notes, notifications, or product patch versions | Reconcile the release update as one change | [references/release-updates.md](references/release-updates.md) |
 | Shared source           | Identify and review every consumer; refresh the local preview when needed | [references/shared-content.md](references/shared-content.md) |
-| Technical claim         | Verify against the documentation search MCP | [references/fact-checking.md](references/fact-checking.md)   |
-| Validation              | Run the changed-file verifier               | `../docs-testing/SKILL.md`                                   |
+| Technical claim         | Verify against the documentation search MCP                               | [references/fact-checking.md](references/fact-checking.md)   |
+| Validation              | Run the changed-file verifier                                             | `../docs-testing/SKILL.md`                                   |
 
 Prerequisites: resolve the exact product key from `data/products.yml`; read
 applicable frontmatter and shortcode references; preserve semantic line feeds.
