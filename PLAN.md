@@ -242,140 +242,140 @@ file.
 
 ### 1.6 Keep deploy credentials away from dependency code (Part 1b)
 
-Confirmed 2026-11-02 from CircleCI and GitHub settings.
+**Decision, 2026-11-03: use GitHub Actions for build, checks, and deployment.**
+Keep GitHub-hosted standard runners for now.
+Reconsider CircleCI if GitHub performance and uptime become unsatisfactory
+and CircleCI fully supports the GitHub workflow syntax this repository uses
+outside Preview.
+A future CircleCI trial must also verify credential isolation;
+workflow syntax compatibility alone does not establish equivalent permissions.
 
-**CircleCI (production).**
-`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are long-lived keys stored as
-project environment variables.
-`.circleci/config.yml` names no `context:`, so every job can read them,
-including `build`.
-`build` runs `yarn install`, which runs the `postinstall` script of every
-package in `yarn.lock`, and then produces the archive that `deploy`
-publishes.
-A compromised package can read the production keys and keep them, because
-they don't expire.
+#### Evidence that changes the original CircleCI proposal
 
-**GitHub Actions (staging).**
-PR Preview already uses short-lived credentials: it assumes
-`AWS_PR_PREVIEW_ROLE_ARN` through OIDC.
-But the `preview` job sets `id-token: write` for the whole job, and the same
-job runs `setup-docs-env` (`yarn install`) and the Hugo build before
-`configure-aws-credentials`.
-With `id-token: write`, the runner gives every step
-`ACTIONS_ID_TOKEN_REQUEST_URL` and `ACTIONS_ID_TOKEN_REQUEST_TOKEN`, so any
-`postinstall` script can request a token and assume the role.
-Exposure is limited to the staging bucket and CloudFront distribution, if the
-role's policy is scoped to them, and to the length of one run.
-Fork PRs don't get the role.
+CircleCI production still uses permanent project-level AWS keys.
+Its production build runs dependency installation and Hugo before deployment.
+The proposed `docs-deploy` context does not isolate AWS role access from that build:
 
-Fix, production first:
+- [Job 27034](https://circleci.com/gh/influxdata/docs-v2/27034) confirmed that
+  AWS rejects a V3 token from a non-`master` branch.
+- [Job 27037](https://circleci.com/gh/influxdata/docs-v2/27037) confirmed that
+  a job without a context receives all three OIDC token versions, including V3.
+  This disproves the assumption that only `deploy` receives a token.
+- The existing trust policy checks the organization, project, repository,
+  checkout ref, and config ref.
+  It does not distinguish `build` from `deploy` on `master`.
+- `docs-deploy` contains the new Slack webhook.
+  Security groups remain `All members`; project restrictions require an administrator.
+  Context restrictions do not repair the AWS boundary demonstrated by the test.
 
-1. **Replace CircleCI's static keys with OIDC.**
-   Use the V3 token (`$CIRCLE_OIDC_TOKEN_V3`, CircleCI Cloud only).
+The console-created CircleCI role is
+`arn:aws:iam::056065491910:role/circleci-docs-v2-deploy`.
+The branch's CircleCI OIDC deployment changes are superseded by this decision.
+Do not merge them as the final deployment design.
 
-   1. **AWS identity provider.** Provider URL
-      `https://oidc.circleci.com/org/<ORG_ID>`, audience `<ORG_ID>`.
-   2. **AWS deploy role.** Trust policy conditions:
+PR Preview has the same dependency-exposure problem on GitHub:
+its `preview` job grants `id-token: write` before dependency installation.
+Temporary credentials alone do not meet this section's goal.
 
-      - `StringEquals` `oidc.circleci.com/org/<ORG_ID>:aud` = `<ORG_ID>`
-      - `StringEquals`
-        `oidc.circleci.com/org/<ORG_ID>:oidc.circleci.com/project-id` =
-        `<PROJECT_ID>`
-      - `StringLike` `oidc.circleci.com/org/<ORG_ID>:sub` =
-        `org:<ORG_ID>:project:<PROJECT_ID>:user:*:checkout-source:github.com/influxdata/docs-v2:checkout-ref:refs/heads/master:config-source:github.com/influxdata/docs-v2:config-ref:refs/heads/master`
+#### GitHub build and deploy boundary
 
-      AWS can't evaluate `context-ids` or `ssh-rerun`, so CircleCI enforces the
-      context restriction, not AWS.
-      Permissions: copy the `giveaccesstoupdatedocsbuckets` policy from
-      `DocsCircleCIDeployUser` in `deploy/docs-website.yml`, which works today:
-      `s3:ListBucket` and `s3:GetBucketLocation` on the bucket;
-      `s3:PutObject`, `s3:PutObjectAcl`, and `s3:DeleteObject` on its objects;
-      `cloudfront:GetDistribution` and `cloudfront:CreateInvalidation`.
-      Narrow the CloudFront resource from `*` to the distribution ARN.
-      Created 2026-11-02 in the console:
-      `arn:aws:iam::056065491910:role/circleci-docs-v2-deploy`.
-   3. **CircleCI context.** Create `docs-deploy`, restricted to a security
-      group.
-      Move `SLACK_DOCS_WEBHOOK_URL` into it.
-      `BUCKET`, `REGION`, `CF_DISTRIBUTION_ID`, and the role ARN aren't
-      secret; they can stay project variables or move into `config.yml`.
-      Restrict SSH reruns on the project: an SSH rerun of `deploy` gets a valid
-      token.
-   4. **`deploy` job (done on this branch; don't merge before step 3).**
-      `s3deploy` v2.11.0 does **not** read
-      `AWS_WEB_IDENTITY_TOKEN_FILE`. Its `lib/session.go` builds static
-      credentials from `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and
-      `AWS_SESSION_TOKEN`. If those aren't set, it passes `nil` credentials
-      instead of using the SDK's default chain, and the requests go out
-      unsigned.
-      So exchange the token for temporary keys first. That's what PR Preview
-      already does through `configure-aws-credentials`.
-      `AssumeRoleWithWebIdentity` needs no existing credentials.
-      The `cimg/go` image has no AWS CLI, so switch `deploy` to a pinned
-      `cimg/aws` tag. `ci-install-s3deploy.sh` needs only `wget`,
-      `sha256sum`, and `tar`.
+Use separate jobs on fresh GitHub-hosted runners:
 
-      ```yaml
-      - run:
-          name: Assume the deploy role with OIDC
-          command: |
-            read -r AK SK ST < <(aws sts assume-role-with-web-identity \
-              --region "$REGION" \
-              --role-arn "$AWS_DEPLOY_ROLE_ARN" \
-              --role-session-name "docs-v2-deploy-${CIRCLE_BUILD_NUM}" \
-              --web-identity-token "$CIRCLE_OIDC_TOKEN_V3" \
-              --duration-seconds 3600 \
-              --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' \
-              --output text)
-            {
-              echo "export AWS_ACCESS_KEY_ID=$AK"
-              echo "export AWS_SECRET_ACCESS_KEY=$SK"
-              echo "export AWS_SESSION_TOKEN=$ST"
-            } >> "$BASH_ENV"
-      ```
+1. **Build and validate.**
+   Grant read-only repository access and no OIDC permission.
+   Install dependencies, run the complete production build, and preserve the
+   existing page-count, sitemap, Markdown-coherence, archive, and manifest checks.
+   Upload the deployable archive as an artifact.
+   Reuse `build-docs-site` where applicable without dropping production build steps.
+2. **Deploy the artifact.**
+   Depend on the successful build.
+   Download the artifact from that same trusted `master` workflow run.
+   Verify it before requesting deployment credentials.
+   Grant `id-token: write` only to this job.
+   Run the trusted, checksum-verified uploader without dependency installation
+   or build scripts.
+   Preserve S3 deployment, CloudFront invalidation, and Slack notification behavior.
+3. **Apply the same separation to PR Preview.**
+   Its build job must not receive `id-token: write`.
+   Keep the staging role and resources separate from production.
+   Keep fork behavior unchanged.
 
-      In `workflows`, add `context: docs-deploy` to `deploy` only.
-      Keep both jobs' `master`-only filters. Don't adopt a draft that drops
-      `build`'s filter: the config comment explains why `build` is
-      `master`-only.
-      Don't use the `circleci/aws-cli` orb. It can be pinned only to a version
-      tag, not a commit SHA, and it's unclear which token version it presents.
-   5. **Verify.** Deploy from `master` and confirm the upload succeeds.
-      Then, on a throwaway branch, remove `deploy`'s branch filter, replace
-      the deploy step with `aws sts get-caller-identity`, and confirm
-      `AssumeRoleWithWebIdentity` returns `AccessDenied`.
-      Do this before step 6. Until then, the old keys still work if OIDC
-      fails.
-   6. **Revoke.** Delete the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
-      project variables.
-      Then remove `DocsCircleCIDeployUser`, `DocsCircleCIDeployAccessKey`, and
-      the two `DocsCircleCIDeploy*` outputs from `deploy/docs-website.yml`,
-      and update the stack. Updating the stack deletes the user and key.
-      Don't delete them in the console: the stack would drift, and the next
-      stack update would recreate both.
-      The template also publishes the secret key as a stack output, so anyone
-      with `cloudformation:DescribeStacks` can read it.
-      Treat the key as exposed.
-      Optionally, add the OIDC provider and role to the template and import the
-      console-created role (`aws cloudformation` resource import) so IAM stays
-      in one place.
-   7. Record the setup in `DOCS-DEPLOYING.md`.
+Use a dedicated GitHub production role and the GitHub OIDC provider.
+Do not reuse the staging role or broaden the CircleCI role's trust as a shortcut.
+The provider URL is `https://token.actions.githubusercontent.com`;
+the audience for `aws-actions/configure-aws-credentials` is `sts.amazonaws.com`.
+Use a GitHub `production` environment restricted to `master`.
+Scope the role's subject to this repository and environment,
+using the actual subject format issued for this repository.
+See [GitHub's AWS OIDC setup](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws).
 
-   Interim fallback, if OIDC takes time: move the static keys into the
-   restricted context as is. That alone removes them from `build`.
-   Merge the config change in the same window as the variable move, or the
-   next `master` deploy fails.
+Keep production permissions scoped to the existing resources:
 
-2. **Split PR Preview into build and deploy jobs.**
-   The build job installs dependencies and runs Hugo without `id-token`, and
-   uploads `public/`.
-   The deploy job has `id-token: write`, downloads `public/`, installs
-   `s3deploy` (checksum-verified), and runs no repository or dependency code.
-   Apply the same split to `cleanup` if it ever installs dependencies; today it
-   doesn't.
-   This is the first slice of A: the deploy job becomes A's `preview-deploy`
-   consumer.
-   Measure the artifact transfer time; A needs that number anyway.
+- S3 bucket `docs-prod1-docsbucket-bydtaqrf1y0a`:
+  `s3:ListBucket` on the bucket;
+  `s3:PutObject`, `s3:PutObjectAcl`, and `s3:DeleteObject` on its objects.
+- CloudFront distribution `EOKTCBCMTW666` in account `056065491910`:
+  `cloudfront:GetDistribution` and `cloudfront:CreateInvalidation`.
+
+The pinned `s3deploy` v2.11.0 uploader reads
+`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN`.
+Configure temporary credentials before invoking it.
+
+#### Cutover and acceptance
+
+1. Prepare the GitHub workflow, production role, environment variables, and
+   Slack secret before changing live deployment.
+   Pin third-party actions by full commit SHA.
+   Keep the existing production build and output safety checks.
+2. Verify that the build job has no OIDC request capability or production credentials.
+   Verify that an unauthorized branch cannot assume the production role.
+   Verify that the authorized deploy job reports the expected account and assumed role.
+3. During the cutover, disable CircleCI production deployment before allowing
+   GitHub production uploads.
+   Do not let both systems deploy concurrently.
+   Run the first GitHub production deployment from `master` under manual control.
+   Confirm the upload, invalidation, live-site checks, and Slack notification.
+   An authentication failure stops the job; old keys are not an automatic fallback.
+4. After a successful GitHub deployment, enable the intended automatic `master`
+   deployment trigger.
+   Remove CircleCI's project-level AWS keys and obsolete webhook variable.
+   Remove `DocsCircleCIDeployUser`, `DocsCircleCIDeployAccessKey`, and their two
+   outputs from `deploy/docs-website.yml`, then update the CloudFormation stack.
+   Do not delete stack-managed resources only in the console.
+   The template exposes the permanent secret key in a stack output,
+   so retire the AWS key itself as well as its CircleCI copies.
+5. Update `DOCS-DEPLOYING.md` and retain a durable decision record before removing
+   this ephemeral plan for merge.
+   Record build duration, queue wait, failure and retry rates, and time to deployment.
+   Use those observations when reconsidering CircleCI.
+
+Keep the old production configuration and keys until a controlled cutover can verify
+GitHub deployment and provide a deliberate rollback path.
+Do not revoke credentials during preparation.
+
+#### Runner placement and future CircleCI review
+
+The SRE cost advice was directed at the private `support-team` repository.
+`docs-v2` is public, and its standard GitHub-hosted runner compute is
+[free](https://docs.github.com/en/billing/concepts/product-billing/github-actions).
+Long link-check and E2E jobs remain candidates for a measured performance trial,
+but do not change them to `group: self-hosted` without an approved isolated pool.
+SRE [declined public-repository access](https://influxdata.slack.com/archives/C0781297K18/p1792176830150159)
+to the existing pool on 2026-10-16.
+[Internal discussions](https://influxdata.slack.com/archives/CEPEF2FGX/p1783620991283229)
+also describe long-lived GitHub runners.
+
+Self-hosted GitHub runners still depend on GitHub Actions job dispatch.
+The [2026-08-06 outage thread](https://influxdata.slack.com/archives/CF8RKRSTE/p1786036205806099)
+reports that the company runners could not fetch jobs during an Actions outage.
+Moving compute does not remove that availability dependency.
+
+CircleCI's [GitHub Actions workflow support](https://circleci.com/docs/guides/orchestrate/use-a-github-actions-workflow-file-as-your-pipeline-configuration/)
+is currently in Preview with a compatibility matrix.
+Reconsider it only after the platform conditions above are met.
+Before switching, verify artifact transfer, action support, job permissions,
+AWS trust, required-check names, and rollback behavior against the actual workflow.
+Do not assume a future switch is only a `runs-on` change.
 
 ### 1.7 Commit the analysis scripts
 
@@ -542,8 +542,8 @@ Write one shared upsert helper for both instead of two copies.
    recommendation is the `pr-release-check.yml` comment (1.4).
 2. Delete `influxdb3-release.yml` and `trigger-on-release.yml`? Check whether
    `trigger-on-release.yml` has ever run (1.4).
-3. Who in AWS and CircleCI can make the OIDC change in 1.6? It needs an
-   IAM admin and a CircleCI organization admin.
+3. Who can configure the GitHub production environment and AWS production role
+   for the cutover in 1.6? It needs GitHub repository administration and IAM access.
 4. Why does `pr-preview.yml` prefetch the converter?
 5. Weekly sweep cadence and scope: the link-check plan proposes weekly,
    internal and external. Revisit after L0.
@@ -559,3 +559,12 @@ Write one shared upsert helper for both instead of two copies.
 - 2026-11-02: CircleCI OIDC uses the V3 token and an explicit
   `assume-role-with-web-identity` step, because `s3deploy` ignores the
   web-identity variables.
+  Superseded by the 2026-11-03 GitHub deployment decision.
+- 2026-11-03: Use GitHub Actions for build, checks, and deployment.
+  Separate build and deploy jobs; only deploy receives production OIDC permission.
+  Keep standard GitHub-hosted runners until an approved public-repository runner
+  option justifies a measured trial.
+- 2026-11-03: Reconsider CircleCI if GitHub performance and uptime become
+  unsatisfactory and CircleCI fully supports the required GitHub workflow syntax
+  outside Preview.
+  Revalidate credential isolation before any future switch.
