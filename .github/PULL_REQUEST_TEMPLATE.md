@@ -49,6 +49,12 @@ Based on files changed, consider requesting review from:
 | Cloud Serverless | —                              | mavarius, garylfowler       |
 | Explorer         | —                              | mavarius, peterbarnett03    |
 
+**Release-gated content:** if this PR bumps the Core or Enterprise
+`latest_patch` in `data/products.yml`, add `release:pending` and
+`waiting:product`, and note who you are waiting on and for what signal.
+Only `@influxdata/influxdb3-monolith-release-approvers` swaps the label for
+`release:ready`. See [Release-gated PRs](LABEL_GUIDE.md#release-gated-prs).
+
 ### InfluxDB v2 / v1 / Enterprise v1
 
 | Content           | Engineering     | Product               |

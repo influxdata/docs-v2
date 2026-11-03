@@ -18,8 +18,6 @@
  *   - When `latest` is a MAJOR.MINOR label (v1.13, 2.9), the patch version
  *     for that major starts with MAJOR.MINOR. Catches a patch bump that
  *     forgot `latest`, or the reverse.
- *   - Every gate in .ci/release-gates.yml points at a product and field that
- *     exist and hold a version. A gate on a missing field would never fire.
  *
  * Output: one line per problem, plus a GitHub Actions ::error annotation for
  * each when running in CI. Exit 1 on any problem, 2 if a file cannot be read.
@@ -40,7 +38,6 @@ const DEFAULT_SCHEMA = join(
   'schemas',
   'products.schema.json'
 );
-const DEFAULT_GATES = join(REPO_ROOT, '.ci', 'release-gates.yml');
 
 const PER_VERSION_FIELDS = [
   'latest_patches',
@@ -48,14 +45,6 @@ const PER_VERSION_FIELDS = [
   'latest_cli',
   'label_group',
 ];
-
-/** Read a dotted path such as `latest_patches.v1` from an object. */
-function getPath(obj, dotted) {
-  return dotted.split('.').reduce((acc, key) => {
-    if (acc == null || typeof acc !== 'object') return undefined;
-    return acc[key];
-  }, obj);
-}
 
 function isPlainObject(v) {
   return v != null && typeof v === 'object' && !Array.isArray(v);
@@ -102,7 +91,7 @@ export function schemaErrors(products, schema) {
  * Cross-field rules. Returns an array of message strings.
  * Assumes the schema passed, so field types are as declared.
  */
-export function semanticErrors(products, gates = {}) {
+export function semanticErrors(products) {
   const errors = [];
 
   for (const [key, p] of Object.entries(products)) {
@@ -156,47 +145,24 @@ export function semanticErrors(products, gates = {}) {
     }
   }
 
-  // Release gates must point at something real.
-  for (const [product, gate] of Object.entries(gates || {})) {
-    if (!isPlainObject(gate) || !gate.field) continue;
-    if (!isPlainObject(products[product])) {
-      errors.push(
-        `.ci/release-gates.yml: gated product "${product}" is not in products.yml`
-      );
-      continue;
-    }
-    const value = getPath(products[product], gate.field);
-    if (
-      value == null ||
-      typeof value === 'object' ||
-      String(value).trim() === ''
-    ) {
-      errors.push(
-        `.ci/release-gates.yml: "${product}.${gate.field}" is not set in products.yml; the gate would never fire`
-      );
-    }
-  }
-
   return errors;
 }
 
 /** Full check on parsed inputs. Returns all messages, schema first. */
-export function check(products, schema, gates) {
+export function check(products, schema) {
   const errors = schemaErrors(products, schema);
   // Semantic rules assume declared types; skip them when the shape is wrong.
   if (errors.length) return errors;
-  return semanticErrors(products, gates);
+  return semanticErrors(products);
 }
 
 function main() {
   const productsPath = process.argv[2] || DEFAULT_PRODUCTS;
   let products;
   let schema;
-  let gates;
   try {
     products = readYaml(productsPath);
     schema = readJson(DEFAULT_SCHEMA);
-    gates = readYaml(DEFAULT_GATES) || {};
   } catch (e) {
     console.error(`::error::${e.message}`);
     process.exit(2);
@@ -206,7 +172,7 @@ function main() {
     process.exit(2);
   }
 
-  const errors = check(products, schema, gates);
+  const errors = check(products, schema);
   const rel = productsPath.startsWith(REPO_ROOT)
     ? productsPath.slice(REPO_ROOT.length + 1)
     : productsPath;

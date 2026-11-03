@@ -1,0 +1,46 @@
+name: Products Schema
+
+# Validate data/products.yml against scripts/schemas/products.schema.json,
+# plus the cross-field rules in .ci/scripts/check-products-schema.js.
+# The same check runs as a pre-commit hook (lefthook.yml); this is the
+# backstop for commits made with --no-verify or from the GitHub UI.
+
+on:
+  pull_request:
+    paths:
+      - 'data/products.yml'
+      - 'scripts/schemas/products.schema.json'
+      - 'scripts/lib/file-operations.js'
+      - '.ci/scripts/check-products-schema.js'
+      - '.ci/scripts/check-products-schema.test.js'
+      - '.github/workflows/pr-products-schema.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  products-schema:
+    name: Validate products.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      - name: Verify the checker itself
+        run: node --test .ci/scripts/check-products-schema.test.js
+
+      - name: Validate products.yml
+        run: node .ci/scripts/check-products-schema.js

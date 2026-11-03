@@ -439,43 +439,20 @@ Write the body to inform, not to impress, as described under
 [Documentation style](AGENTS.md#documentation-style).
 State each finding directly rather than building up to it.
 
-### Release version gates
+### Release-gated version bumps
 
 Some version bumps in `data/products.yml` publish a release: the value feeds
 the `{{< latest-patch >}}` shortcode, which builds download URLs, install
 commands, and version strings across the docs.
-For products listed in [`.ci/release-gates.yml`](.ci/release-gates.yml), the
-**Release gate** check blocks merge until a member of the named GitHub team
-has an approving review on the pull request.
+Keep these PRs labeled `release:pending` until the release owner confirms GA.
+See [Release-gated PRs](.github/LABEL_GUIDE.md#release-gated-prs) for the
+labels, owners, and what does not count as GA.
 
-| Product                | Field                                   | Approving team                                     |
-| ---------------------- | --------------------------------------- | -------------------------------------------------- |
-| InfluxDB Enterprise v1 | `enterprise_influxdb.latest_patches.v1` | `@influxdata/influxdb-v1-release-owners`           |
-| InfluxDB 3 Core        | `influxdb3_core.latest_patch`           | `@influxdata/influxdb3-monolith-release-approvers` |
-| InfluxDB 3 Enterprise  | `influxdb3_enterprise.latest_patch`     | `@influxdata/influxdb3-monolith-release-approvers` |
+### Validate products.yml
 
-Core and Enterprise share an approver team, so a PR that bumps both needs one
-approving review from that team.
-
-The team's approval is the greenlight.
-Earlier signals such as a release candidate sent to specific customers, a
-published Docker image, a git tag, or a Cloud deployment are not.
-When the gate is closed on a branch in this repository, the check posts a
-comment on the PR with what it needs.
-It does not request the review for you.
-Keep release content in a draft PR until the team says the release is ready,
-then request the team's review yourself.
-
-The gate applies to pull requests from forks as well, but the check cannot
-comment on those.
-Look at the check's summary for the reason instead.
-
-To gate another product, add an entry to `.ci/release-gates.yml`.
-The check is implemented in `.ci/scripts/check-release-gate.js` and runs from
-`.github/workflows/pr-release-gate.yml`.
-
-The same workflow, and the pre-commit hook, validate `data/products.yml`
-against [`scripts/schemas/products.schema.json`](scripts/schemas/products.schema.json).
+The pre-commit hook and the `pr-products-schema.yml` workflow validate
+`data/products.yml` against
+[`scripts/schemas/products.schema.json`](scripts/schemas/products.schema.json).
 Version values must be quoted `MAJOR.MINOR.PATCH` strings, per-version maps
 must use keys from `versions`, `latest` must agree with the patch version, and
 unknown fields are rejected.

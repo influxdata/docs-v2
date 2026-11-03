@@ -18,7 +18,6 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const schema = JSON.parse(
   readFileSync(join(ROOT, 'scripts', 'schemas', 'products.schema.json'), 'utf8')
 );
-const gates = yaml.load(readFileSync(join(ROOT, '.ci', 'release-gates.yml')));
 
 /** Minimal valid product; tests mutate a clone of this. */
 const good = () => ({
@@ -48,7 +47,7 @@ test('the real data/products.yml passes schema and semantic checks', () => {
   const products = yaml.load(
     readFileSync(join(ROOT, 'data', 'products.yml'), 'utf8')
   );
-  assert.deepEqual(check(products, schema, gates), []);
+  assert.deepEqual(check(products, schema), []);
 });
 
 test('minimal fixture passes', () => {
@@ -157,18 +156,6 @@ test('non-numeric latest labels are not checked against the patch', () => {
   const p = good();
   p.influxdb3_core.latest = 'core';
   assert.deepEqual(semanticErrors(p, {}), []);
-});
-
-test('a release gate on a missing product or field is reported', () => {
-  const p = good();
-  const errs = semanticErrors(p, {
-    nope: { field: 'latest_patch', team: 'influxdata/x' },
-    influxdb: { field: 'latest_patches.v3', team: 'influxdata/x' },
-    influxdb3_core: { field: 'latest_patch', team: 'influxdata/x' },
-  });
-  assert.equal(errs.length, 2);
-  assert.match(errs[0], /gated product "nope" is not in products\.yml/);
-  assert.match(errs[1], /"influxdb\.latest_patches\.v3" is not set/);
 });
 
 test('semantic checks are skipped while the schema fails', () => {

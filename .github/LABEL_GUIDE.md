@@ -79,6 +79,44 @@ label:waiting:engineering,waiting:product is:issue is:open
 label:skip-review is:pr
 ```
 
+## Release-gated PRs
+
+Some `data/products.yml` bumps publish a release: download URLs, install
+commands, and version strings across the docs switch to the new version.
+Two labels show where such a PR stands:
+
+- `release:pending`: the product release is not GA yet. Do not merge.
+  Only the release owner removes it.
+- `release:ready`: the release owner confirmed GA for all customers.
+  OK to merge.
+
+Pair `release:pending` with `waiting:product` and fill in the
+**Release status** block in the PR description: who you are waiting on, for
+what signal, and when you last checked.
+
+| Product                | Release owner                                      |
+| ---------------------- | -------------------------------------------------- |
+| InfluxDB Enterprise v1 | `@influxdata/influxdb-v1-release-owners`           |
+| InfluxDB 3 Core        | `@influxdata/influxdb3-monolith-release-approvers` |
+| InfluxDB 3 Enterprise  | `@influxdata/influxdb3-monolith-release-approvers` |
+
+These are not GA: a release candidate sent to specific customers, a published
+Docker image, a git tag, or a Cloud deployment.
+
+Labels are a visible cue, not an enforced check. Anyone can change them, so
+override only with the release owner's written OK on the PR, and link it in
+the Release status block.
+
+Saved searches, one per column:
+
+```
+# Waiting on the release owner
+is:pr is:open label:release:pending label:waiting:product
+
+# Ready to merge
+is:pr is:open label:release:ready
+```
+
 ## Auto-labeling Behavior
 
 The [auto-label workflow](workflows/auto-label.yml) runs on

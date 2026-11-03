@@ -63,7 +63,6 @@ pre-commit:
       glob:
         - "data/products.yml"
         - "scripts/schemas/products.schema.json"
-        - ".ci/release-gates.yml"
       run: node .ci/scripts/check-products-schema.js
       fail_text: "data/products.yml does not match scripts/schemas/products.schema.json. Version values must be quoted MAJOR.MINOR.PATCH strings, per-version maps must use keys from `versions`, and `latest` must agree with the patch version. Unknown fields are rejected: add new fields to the schema."
     check-feedback-links:

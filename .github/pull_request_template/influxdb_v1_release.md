@@ -12,23 +12,26 @@
 ### Description
 Brief description of the release and documentation changes.
 
-### Pre-merge Gate (Enterprise only)
+### Release status
 
 Bumping `enterprise_influxdb > latest_patches > v1` in `data/products.yml`
 publishes this release to all Enterprise customers: download URLs, install
 commands, and version strings across the docs switch to it.
 
-The **Release gate** check blocks merge until a member of
-[`@influxdata/influxdb-v1-release-owners`](https://github.com/orgs/influxdata/teams/influxdb-v1-release-owners) has an
-approving review on this PR. Their approval is the greenlight. Request their
-review when the release is ready; do not infer readiness yourself.
+- Release owner: @influxdata/influxdb-v1-release-owners
+- Waiting on: <person or team>, for <signal, such as "GA to all Enterprise customers">
+- Last checked: <date>, <what you saw>
+- Labels: keep `release:pending` and `waiting:product` until the owner says GA.
+  The owner swaps them for `release:ready`. Do not remove them yourself.
+- Override: only with the owner's written OK on this PR. Link it here.
 
-These are **not** the greenlight:
+These are **not** GA:
 - A release candidate delivered to specific customers
 - A Docker image published
+- A git tag
 - A Cloud 1 deployment (the shake-out period starts there; it does not end there)
 
-- [ ] **Release gate check is green** (approved by an `@influxdata/influxdb-v1-release-owners` member)
+- [ ] **Release owner confirmed GA on this PR, and `release:ready` is applied**
 - [ ] **Confirm release artifact is GA in the InfluxData portal**
 
 ### Release Documentation Checklist

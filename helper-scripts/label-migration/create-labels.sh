@@ -67,7 +67,7 @@ echo
 # --- Waiting states (2) — orange ---
 echo "Waiting state labels:"
 create_label "waiting:engineering"    "FF8C00" "Waiting for engineer confirmation"
-create_label "waiting:product"        "FF8C00" "Waiting for product/PM decision"
+create_label "waiting:product"        "FF8C00" "Waiting for product or PM decision. Name who in the PR's Release status block."
 echo
 
 # --- Workflow states (2) — green/blue ---
@@ -91,7 +91,8 @@ echo
 
 # --- Ensure existing workflow labels exist ---
 echo "Existing labels (ensure present):"
-create_label "release:pending"        "FEF2C0" "Waiting for product release before merging"
+create_label "release:pending"        "FEF2C0" "Product release not GA yet. Do not merge. Only the release owner removes this."
+create_label "release:ready"          "0E8A16" "Release owner confirmed GA for all customers. OK to merge."
 echo
 
-echo "Done. Total: 24 new + 1 existing = 25 labels."
+echo "Done. Total: 24 new + 2 existing = 26 labels."

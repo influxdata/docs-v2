@@ -31,7 +31,7 @@ waiting:
   labels:
     waiting:engineering: Waiting for engineer confirmation
     waiting:pr: Blocked on another PR merging first
-    waiting:product: Waiting for product or PM decision
+    waiting:product: Waiting for product or PM decision. Name who in the PR's Release status block.
 
 workflow:
   description: Control automation behavior.
@@ -60,10 +60,10 @@ release:
   labels:
     release:pending:
       color: "#FEF2C0"
-      description: Waiting for product release before merging
+      description: Product release not GA yet. Do not merge. Only the release owner removes this.
     release:ready:
       color: "#0E8A16"
-      description: Product released, docs ready for review/merge
+      description: Release owner confirmed GA for all customers. OK to merge.
 
 onboarding:
   description: Contributor onboarding.
