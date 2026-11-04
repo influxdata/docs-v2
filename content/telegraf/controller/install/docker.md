@@ -231,6 +231,40 @@ record and instance identity live in the data directory.
 > automatically. On Linux Docker Engine, add
 > `--add-host=host.docker.internal:host-gateway` to the `docker run` command.
 
+### Connect to PostgreSQL over TLS
+
+Use `sslmode=verify-full` in production.
+If the database certificate is not issued by a public CA (for example, Amazon
+RDS, Google Cloud SQL, or a corporate CA), mount the CA certificate into the
+container and pass it with `sslrootcert`:
+
+```bash { placeholders="POSTGRES_USER|POSTGRES_PASSWORD|POSTGRES_HOST|HOST_CA_FILE" }
+docker run --detach \
+  --name telegraf-controller \
+  --publish 8888:8888 \
+  --publish 8000:8000 \
+  --env TELEGRAF_CONTROLLER_EULA=accept \
+  --env DATABASE_URL="postgresql://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_HOST:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/telegraf-controller/db-ca.pem" \
+  --volume HOST_CA_FILE:/etc/telegraf-controller/db-ca.pem:ro \
+  --volume telegraf-controller:/var/lib/telegraf-controller \
+  influxdata/telegraf-controller:{{< latest-patch >}}
+```
+
+Replace {{% code-placeholder-key %}}`HOST_CA_FILE`{{% /code-placeholder-key %}}
+with the path to the CA certificate on the Docker host.
+
+- The container runs as UID `10001`, so the CA file must be readable by that
+  user.
+- {{% code-placeholder-key %}}`POSTGRES_HOST`{{% /code-placeholder-key %}} must
+  match a name in the server certificate. For Amazon RDS, use the instance
+  endpoint, not an IP address.
+- Pass the CA certificate with `sslrootcert` in `DATABASE_URL`. Both the API
+  server and the heartbeat service read it there. `DATABASE_CA_CERT` and
+  `NODE_EXTRA_CA_CERTS` each reach only one of them.
+
+For all PostgreSQL TLS options, see
+[Database TLS](/telegraf/controller/reference/config-options/#database-tls).
+
 ## Use Docker Compose
 
 The following `docker-compose.yml` runs {{% product-name %}} with a

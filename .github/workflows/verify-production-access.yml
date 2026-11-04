@@ -1,0 +1,115 @@
+name: Verify production deployment access
+
+on:
+  push:
+    branches:
+      - ci/github-docs-deploy
+    paths:
+      - .github/workflows/verify-production-access.yml
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: verify-production-access-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-build-boundary:
+    name: Verify build credential isolation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: none
+    steps:
+      - name: Verify the build job receives no deployment credentials
+        shell: bash
+        run: |
+          set +x
+          set -euo pipefail
+          for variable in ACTIONS_ID_TOKEN_REQUEST_URL ACTIONS_ID_TOKEN_REQUEST_TOKEN AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_WEB_IDENTITY_TOKEN_FILE; do
+            if [ -n "${!variable:-}" ]; then
+              printf 'FAIL: build job received %s\n' "$variable" >&2
+              exit 1
+            fi
+          done
+          echo "PASS: the build job has no OIDC request access or AWS credentials."
+
+  deny-without-production-environment:
+    name: Verify access requires the production environment
+    if: github.ref != 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    env:
+      AWS_DEPLOY_ROLE_ARN: arn:aws:iam::056065491910:role/github-docs-deploy
+      AWS_REGION: us-east-1
+      AWS_PAGER: ''
+    steps:
+      - name: Verify AWS rejects a token without the production environment
+        shell: bash
+        run: |
+          set +x
+          set -euo pipefail
+          unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+          oidc_token=$(curl --fail --silent --show-error \
+            --header "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+            | jq --exit-status --raw-output '.value | strings | select(length > 0)')
+          printf '::add-mask::%s\n' "$oidc_token"
+          sts_error=$(mktemp "$RUNNER_TEMP/docs-oidc-denial.XXXXXX")
+          trap 'rm -f "$sts_error"' EXIT
+          if aws sts assume-role-with-web-identity \
+            --region "$AWS_REGION" \
+            --role-arn "$AWS_DEPLOY_ROLE_ARN" \
+            --role-session-name "docs-github-denial-${GITHUB_RUN_ID}" \
+            --web-identity-token "$oidc_token" \
+            --duration-seconds 900 \
+            --output json > /dev/null 2> "$sts_error"; then
+            echo "FAIL: a job outside production assumed the production role" >&2
+            exit 1
+          fi
+          if ! grep --fixed-strings --quiet '(AccessDenied)' "$sts_error"; then
+            cat "$sts_error" >&2
+            echo "FAIL: expected AccessDenied, received a different error" >&2
+            exit 1
+          fi
+          echo "PASS: AWS rejected the token without the production environment."
+
+  verify-production-role:
+    name: Verify production role identity
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
+    needs: verify-build-boundary
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      id-token: write
+    steps:
+      - name: Configure temporary AWS credentials
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.REGION }}
+          allowed-account-ids: '056065491910'
+          role-session-name: docs-github-verify-${{ github.run_id }}-${{ github.run_attempt }}
+          role-duration-seconds: 900
+          retry-max-attempts: 2
+          unset-current-credentials: true
+
+      - name: Verify the assumed production role
+        shell: bash
+        env:
+          AWS_PAGER: ''
+        run: |
+          set +x
+          set -euo pipefail
+          identity=$(aws sts get-caller-identity --query Arn --output text)
+          case "$identity" in
+            arn:aws:sts::056065491910:assumed-role/github-docs-deploy/*)
+              printf 'PASS: production authentication uses %s\n' "$identity"
+              ;;
+            *)
+              printf 'FAIL: unexpected AWS identity %s\n' "$identity" >&2
+              exit 1
+              ;;
+          esac
