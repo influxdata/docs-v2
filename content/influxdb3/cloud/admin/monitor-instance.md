@@ -61,7 +61,9 @@ The **Instance Details** card lists the following properties:
 - **Category**: The instance category, such as **Contract** or **POC**.
 - **Created On**: The date the instance was created.
 - **Region**: The cloud provider region where the instance runs.
-- **Availability Zones**: The availability zones that the instance uses.
+- **Availability Zones**: The
+  [availability zones](/influxdb3/cloud/admin/availability-zones/) that the
+  instance uses.
 - **Instance ID**: The unique identifier of the instance.
   Click the copy icon to copy it.
 - **Instance URL**: The URL of the instance.
