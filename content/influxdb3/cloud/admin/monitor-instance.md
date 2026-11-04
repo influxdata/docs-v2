@@ -184,8 +184,11 @@ Use the charts to understand how your workload uses the instance:
 
 ## View storage and usage
 
-The **Storage & Usage** section charts storage used by data files and object
-storage request counts over time.
+The **Storage & Usage** section charts the following over time:
+
+- Storage used by data files
+- Object storage request counts
+
 Each chart has its own time range menu with the following options:
 **1 Week**, **30 Days**, **60 Days**, **90 Days**, and **1 Year**.
 The default is **30 Days**.
