@@ -1471,6 +1471,13 @@ paths:
         resolves the trigger's `plugin_filename` and overwrites that file
         with the provided `content`.
 
+        This endpoint does not update triggers whose `plugin_filename` uses
+        the `gh:` prefix. To fetch updated code from the configured plugin
+        source, disable the trigger with
+        `POST /api/v3/configure/processing_engine_trigger/disable`, then
+        re-enable it with
+        `POST /api/v3/configure/processing_engine_trigger/enable`.
+
         To upload a new plugin file before creating a trigger, use
         `POST /api/v3/plugins/files` instead. To update a multi-file
         plugin directory, use `PUT /api/v3/plugins/directory`.

@@ -113,7 +113,7 @@ For the full description of each variable, including defaults, see
 [systemd](#)
 [Shell](#)
 [Windows (Powershell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -170,26 +170,26 @@ $env:AUTH_OIDC_DISPLAY_NAME="Example IdP"
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published.
-     Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
 Pass the variables when starting the container:
 
 ```bash
 docker run \
-  -e AUTH_OIDC_ENABLED=true \
-  -e AUTH_OIDC_ISSUER=https://idp.example.com \
-  -e AUTH_OIDC_CLIENT_ID=telegraf-controller \
-  -e AUTH_OIDC_CLIENT_SECRET='<client-secret>' \
-  -e AUTH_OIDC_REDIRECT_URI=https://controller.example.com/api/auth/oidc/callback \
-  -e AUTH_OIDC_DISPLAY_NAME='Example IdP' \
-  influxdata/telegraf-controller
+  --env AUTH_OIDC_ENABLED=true \
+  --env AUTH_OIDC_ISSUER=https://idp.example.com \
+  --env AUTH_OIDC_CLIENT_ID=telegraf-controller \
+  --env AUTH_OIDC_CLIENT_SECRET='<client-secret>' \
+  --env AUTH_OIDC_REDIRECT_URI=https://controller.example.com/api/auth/oidc/callback \
+  --env AUTH_OIDC_DISPLAY_NAME='Example IdP' \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+Include your standard container options, such as EULA acceptance, published
+ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts, sign in as an owner and confirm:

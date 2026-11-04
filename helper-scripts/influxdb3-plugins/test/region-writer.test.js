@@ -76,3 +76,19 @@ test('exempts generated upstream prose from Vale', () => {
   assert.match(transformed, /^<!-- vale off -->$/m);
   assert.match(transformed, /<!-- vale on -->$/);
 });
+
+test('wraps a JSON property fragment in a complete object', () => {
+  const transformed = transformContent(
+    '# Example\n\n```json\n"backtest": {\n  "points": 11\n}\n```',
+    'example'
+  );
+  const body = transformed.match(/```json\n([\s\S]*?)```/)[1];
+  assert.deepEqual(JSON.parse(body), { backtest: { points: 11 } });
+  assert.doesNotMatch(transformed, /lint="false"/);
+});
+
+test('leaves malformed JSON property fragments subject to validation', () => {
+  const fragment = '```json\n"backtest": {"points": }\n```';
+  const transformed = transformContent(`# Example\n\n${fragment}`, 'example');
+  assert.ok(transformed.includes(fragment));
+});

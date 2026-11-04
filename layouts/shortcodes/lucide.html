@@ -4,6 +4,7 @@
   Usage:
     {{< lucide "circle-plus" >}}
     {{< lucide icon="circle-check" size="large" >}}
+    {{< lucide icon="regex" bordered="true" >}}
 
   Params (Hugo forbids mixing positional and named params in one call, so use
   the positional form for a bare icon and the named form when adding a size):
@@ -11,15 +12,21 @@
               lucide.dev/icons).
     size      Optional size modifier: "small" or "large". Defaults to 1em,
               sized to the surrounding text. Named form only.
+    bordered  Optional. "true" draws a 1px rounded square around the icon in
+              the current text color, to mirror UI icon buttons. Named form
+              only.
 
   Rendering lives in the lucide partial so layouts can place the same icons.
 */ -}}
 {{- $name := "" -}}
 {{- $size := "" -}}
+{{- $bordered := false -}}
 {{- if .IsNamedParams -}}
   {{- $name = .Get "icon" -}}
-  {{- $size = .Get "size" -}}
+  {{- $size = .Get "size" | default "" -}}
+  {{- $borderedParam := .Get "bordered" | default "" -}}
+  {{- $bordered = and (ne $borderedParam "") (ne $borderedParam "false") -}}
 {{- else -}}
   {{- $name = .Get 0 -}}
 {{- end -}}
-{{- partialCached "lucide.html" (dict "icon" $name "size" $size) $name $size -}}
+{{- partialCached "lucide.html" (dict "icon" $name "size" $size "bordered" $bordered) $name $size $bordered -}}

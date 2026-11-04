@@ -6,6 +6,88 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.12.2 {date="2026-10-29"}
+
+<!-- Reviewed against influxdb_pro v3.12.2 at f1972a0ff7 (after v3.12.1). The final tag adds only the pulldown-cmark lockfile update to the selected release candidate 3aeb9c30e9. -->
+
+### Core
+
+#### Features
+
+- **`influxdb3 debug catalog repair`**: This offline command, added in v3.11.6, is now also available on 3.12.2. It repairs a catalog that fails to load because of a duplicate table name or a reused table or database ID. Stop every node before you run it with `--execute`.
+- **Processing engine Python updated to 3.13.18**: Picks up the security fixes released since 3.13.15.
+
+#### Bug fixes
+
+- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now return `429 Too Many Requests` when a query exhausts the DataFusion memory pool. Previously, they returned `500`. For CSV, JSON, and JSON Lines output, this applies when the query fails before it returns any rows. An error after the first rows still ends the HTTP `200` response early. Some Core queries still return `500`, such as a query on a table that runs out of memory while deduplicating data. Enterprise already mapped resource-exhaustion errors to `429`.
+- **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once. Previously, a catalog change that arrived between its two reads could deadlock the catalog.
+- **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Faster [file index](/influxdb3/enterprise/admin/file-index/) loading (Parquet engine)**: Loading a table's file index, including during a storage engine upgrade, now sorts each posting list once. Previously, every generation re-sorted each list it touched, so a table with many generations loaded slowly and used more memory.
+- **Faster reads of compaction metadata (Parquet engine)**: Compaction and snapshot metadata files are now parsed in one pass, including during a storage engine upgrade. Previously, each was parsed twice.
+- **Table index cache starts once the server is ready (Parquet engine)**: On ingest nodes, the table index cache now starts its background work when the server reports ready, instead of at the beginning of startup.
+- **Fewer file downloads per query (upgraded storage engine)**: A query now downloads only the run set files whose key range covers the queried field family. Previously, it also downloaded files that held only the table's other field families.
+- **Faster merging of overlapping files (upgraded storage engine)**: When a query merges rows from several files, each output column is now built in one vectorized step instead of row by row.
+
+#### Bug fixes
+
+- **Storage engine upgrade completed with unconverted Parquet files**: If a Parquet file fails every conversion attempt, the ingest node now reports `failed` in `system.upgrade_parquet_node`. The `last_message` column identifies the file and its error. The cluster upgrade also fails. To resume the upgrade, follow the [retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure). Previously, the node dropped the file and reported its upgrade as complete.
+- **Storage engine upgrade stalled after an ingest node was removed**: The upgrade now drops a removed ingest node from its roster once its Parquet files are converted or absorbed. Previously, a removed ingest node held the cluster at `upgrading` forever.
+- **Overwrites lost after a query node restart (upgraded storage engine)**: After a restart, a query node now reads gen0 files in the order they were written, so the latest write to a series and timestamp wins. Previously, a query could return the value from before an overwrite until compaction.
+- **Query node could miss writes from a stopping ingest node (upgraded storage engine)**: A query node now keeps following an ingest node that is [`stopping`](/influxdb3/enterprise/admin/node-lifecycle/) and fetches its remaining WAL files after it acknowledges the stop. Previously, the query node could stop fetching before the node flushed its last writes.
+- **Trailing WAL fetch could hang after an ingest node stopped (upgraded storage engine)**: A query node's fetch of a stopped ingest node's remaining WAL files now completes. Previously, it could wait forever on files its workers had already fetched.
+- **Nodes stopped applying compaction updates after falling behind (Parquet engine)**: A node that refreshes its view of compacted data no longer reads the detail of each generation the compaction removed. Previously, a node more than [`--compaction-cleanup-wait`](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait) behind the compactor failed every refresh with `generation detail not found` until it restarted.
+- **Retention stopped after Gen1 file cleanup deleted a snapshot (Parquet engine)**: The table index cache now skips a snapshot that [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/) already deleted. Previously, the missing snapshot failed the cache initialization, and retention didn't run until the next restart.
+- **Restarted node listed as stopped by its previous process**: A process that is shutting down no longer marks its node stopped once another process has registered under the same `--node-id`. Previously, a slow shutdown could mark the running replacement as stopped, and on the upgraded storage engine query nodes stopped following its WAL.
+- **Schema changes lost when upgrading a Core node to Enterprise**: [Upgrading from Core](/influxdb3/enterprise/admin/upgrade-from-core/) now promotes the node's live catalog. Previously, if the Core node had first run a release before 3.10, the upgrade promoted a stale catalog checkpoint, so schema changes made since then were missing.
+- Other bug fixes and performance improvements
+
+## v3.11.8 {date="2026-10-29"}
+
+<!-- Reviewed against the selected influxdb_pro release candidate 69f7263bcb (after v3.11.7). Confirm the final tag and any additional release commits before publication. -->
+
+### Core
+
+#### Features
+
+- **Processing engine Python updated to 3.13.18**: Picks up the security fixes released since 3.13.15.
+
+#### Bug fixes
+
+- **Queries that exceed memory limits returned `500`**: The HTTP query endpoints now map DataFusion memory-pool exhaustion to `429 Too Many Requests` instead of `500`. If the error occurs during query execution, `pretty` and `parquet` output return `429`. For CSV, JSON, and JSON Lines output, execution errors still end the HTTP `200` response early, even before the first rows. Some Core queries still return `500`, such as a query on a table that runs out of memory while deduplicating data. Enterprise already mapped resource-exhaustion errors to `429`.
+- **Catalog deadlock when checking a deleted table**: Checking whether a table is deleted now takes the catalog lock once. Previously, a catalog change that arrived between its two reads could deadlock the catalog.
+- **WAL plugins received values under the wrong column names**: Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Faster [file index](/influxdb3/enterprise/admin/file-index/) loading (Parquet engine)**: Loading a table's file index, including during a storage engine upgrade, now sorts each posting list once. Previously, every generation re-sorted each list it touched, so a table with many generations loaded slowly and used more memory.
+- **Faster reads of compaction metadata (Parquet engine)**: Compaction and snapshot metadata files are now parsed in one pass, including during a storage engine upgrade. Previously, each was parsed twice.
+- **Table index cache starts once the server is ready (Parquet engine)**: On ingest nodes, the table index cache now starts its background work when the server reports ready, instead of at the beginning of startup.
+
+#### Bug fixes
+
+- **Storage engine upgrade completed with unconverted Parquet files**: If a Parquet file fails every conversion attempt, the ingest node now reports `failed` in `system.upgrade_parquet_node`. The `last_message` column identifies the file and its error. The cluster upgrade also fails. To resume the upgrade, follow the [retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure). Previously, the node dropped the file and reported its upgrade as complete.
+- **Storage engine upgrade stalled after an ingest node was removed**: The upgrade now drops a removed ingest node from its roster once its Parquet files are converted or absorbed. Previously, a removed ingest node held the cluster at `upgrading` forever.
+- **Overwrites lost after a query node restart (upgraded storage engine)**: After a restart, a query node now reads gen0 files in the order they were written, so the latest write to a series and timestamp wins. Previously, a query could return the value from before an overwrite until compaction.
+- **Nodes stopped applying compaction updates after falling behind (Parquet engine)**: A node that refreshes its view of compacted data no longer reads the detail of each generation the compaction removed. Previously, a node more than [`--compaction-cleanup-wait`](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait) behind the compactor failed every refresh with `generation detail not found` until it restarted.
+- **Retention stopped after Gen1 file cleanup deleted a snapshot (Parquet engine)**: The table index cache now skips a snapshot that [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/) already deleted. Previously, the missing snapshot failed the cache initialization, and retention didn't run until the next restart.
+- **Restarted node listed as stopped by its previous process**: A process that is shutting down no longer marks its node stopped once another process has registered under the same `--node-id`. Previously, a slow shutdown could mark the running replacement as stopped, and on the upgraded storage engine query nodes stopped following its WAL.
+- Other bug fixes and performance improvements
+
 ## v3.12.1 {date="2026-10-14"}
 
 ### Core
@@ -252,6 +334,57 @@ Additional Enterprise-specific updates:
 - **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password now must carry the cluster's catalog UUID as the `aud` claim. Access tokens issued before v3.12 are rejected. Refresh the token or sign in again. API tokens aren't affected.
 - **`--compaction-max-num-files-per-plan` has no effect (Parquet engine)**: The compactor no longer limits plans by input file count. Setting the option logs a deprecation warning.
 - **Metric changes**: The unused `influxdb3_memory_pool_evictions`, `influxdb3_memory_pool_rejections`, `influxdb3_memory_pool_eviction_bytes`, `influxdb3_memory_pool_eviction_size_bytes`, and `influxdb3_memory_pool_eviction_duration_seconds` metrics are removed. `influxdb3_compaction_plans_skipped` (Parquet engine) now reports `reason="memory_exhaustion"` with no `phase` label, instead of `reason="file_limit"`.
+
+#### Known issues
+
+The following issues affect the Processing Engine. For setup guidance, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
+
+- **Queued WAL trigger runs can fail**: If a WAL trigger's queued runs fall behind and an ingest node deletes a WAL file before its run starts, the run fails with `WAL object ... is no longer available`. The error appears only in the process node's log.
+- **WAL triggers can stop after a long outage**: If the process node is down longer than the ingest nodes keep their WAL files, its WAL triggers don't process new writes after it restarts, and the node logs nothing. To detect it, check that `influxdb3_processing_engine_wal_processed_watermark` in the process node's `/metrics` output increases. Workaround: restart the process node again.
+- **Docker Desktop containers exit with code 133**: On a new Docker Desktop installation, a node with a bind-mounted data directory can exit with code 133 because of a conflict in the Processing Engine's restart state.
+- **`influxdb3 show plugins` is empty on a process node**: The command returns no plugins even when plugin files exist, and querying `system.plugin_files` on the process node returns `400 table 'public.system.plugin_files' not found`. Workaround: list the files in the plugin directory.
+- **`system.processing_engine_triggers` doesn't show `--node-spec`**: You can't query which node owns a trigger. Workaround: check the `node_id` column in `system.processing_engine_logs` or the process node's log.
+- **Plugins can't read string columns from `system.nodes`**: The string columns use the `Utf8View` type, which the plugin API can't convert (`unsupported Arrow type for Python conversion: Utf8View`), and `CAST(... AS VARCHAR)` doesn't help. Workaround: query with `database="_internal"` and convert each string column with `arrow_cast(<column>, 'Utf8')`.
+- **Configuration template shows the wrong virtual environment path**: The `.conf` template names the virtual environment `<plugin-dir>/venv`. The actual path is `<plugin-dir>/.venv`.
+- **Some options are missing from `influxdb3 serve --help`**: `--trigger-work-silence-timeout`, `--processing-engine-restart-state-snapshot-interval`, `--plugin-repo`, and the internode options appear only in `influxdb3 serve --help-all`.
+
+---
+
+### Known issues
+
+The query-error note below also describes v3.12.1 behavior.
+
+#### Core
+
+- **Failed package installs return success (Core)**: In Core, the package install API can return `200` and `influxdb3 install package` can report success when `pip` exits with an error.
+  Enterprise returns an error.
+  Workaround: after you install a package, run a trigger that imports it to confirm the install.
+- **Memory-limit query errors depend on the edition, output format, and version**: In v3.12.0, memory-limit errors in `pretty` or `parquet` output return `500` on Core and `429 Too Many Requests` on Enterprise.
+  CSV, JSON, and JSON Lines responses can instead return `200` and end early.
+  In v3.12.1, a memory-limit error before the first rows returns `500` on Core or `429` on Enterprise in all output formats.
+  An error after streaming starts still ends the response early.
+  Workaround: handle query errors and incomplete responses, and narrow a query that exhausts memory before you retry.
+- **Creating a table over HTTP requires `fields`**: `POST /api/v3/configure/table` returns `400` with ``missing field `fields` `` when the request body has no `fields` key. Workaround: send `"fields": []` for a table with no fields. See [Create a table](/influxdb3/version/admin/tables/create/).
+
+#### Enterprise
+
+- **Tables with no fields can't be queried (upgraded storage engine)**: A query on a table that has tags but no fields returns `500` with `field_family_projections is required`. Workaround: define at least one field when you create a table.
+- **`PUT /api/v3/configure/table` doesn't add columns**: `PUT` ignores `tags` and `fields` in the request body and still returns `200`. Workaround: use `PATCH /api/v3/configure/table` to add columns. See [Update a table](/influxdb3/enterprise/admin/tables/update/).
+- **Bulk import catalog rejections return 500**: An import that adds an undeclared column to an explicit schema, or infers a type incompatible with an existing column, can return `500` with `Could not modify catalog` and create no import job.
+  Compatible new columns can be added in an implicit database.
+  Column-mapping validation errors can return `400`.
+  Workaround: fix the column mapping or declare the missing columns, then import again.
+  Retrying the same rejected request doesn't resolve the catalog error.
+- **Generic Parquet imports don't infer tags from the target table**: For generic Parquet files, the importer infers an unmapped string column as a field, even when the target table declares that column as a tag.
+  The import then fails.
+  IOx Parquet files preserve their tag metadata.
+  Workaround: for generic Parquet files, map every string tag column, for example `--column host=tag` or `"column_metadata": {"column_mapping": {"host": "tag"}}`.
+  See [Import data](/influxdb3/enterprise/admin/import-data/).
+- **Bulk import jobs can report a time range of 0**: If a source Parquet file has no usable time-column minimum and maximum statistics, the import job can report `min_timestamp_ns` and `max_timestamp_ns` as `0`.
+  A job can complete with that metadata.
+  An error while reading the statistics instead returns `400`.
+- **Queued imports can run after their database is soft-deleted**: An import job that is queued when you soft-delete its database can still run and complete.
+  Workaround: wait for a database's import jobs to finish before you delete the database.
 
 ## v3.11.5 {date="2026-09-17"}
 

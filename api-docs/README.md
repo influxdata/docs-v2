@@ -317,12 +317,13 @@ in each product's `api-docs/` directory.
 Each product directory can contain overlay files that the `post-process-specs.ts`
 script applies to the bundled spec before article generation:
 
-| Overlay               | Location                        | Behavior                                                                                 |
-| --------------------- | ------------------------------- | ---------------------------------------------------------------------------------------- |
-| `content/info.yml`    | `{product}/content/info.yml`    | Merges each field into `spec.info`, preserving fields not in the overlay                 |
-| `content/servers.yml` | `{product}/content/servers.yml` | Replaces `spec.servers` entirely                                                         |
-| `content/page.yml`    | `{product}/content/page.yml`    | Sets the API landing page `description` and optional `body_extra` (e.g., callout blocks) |
-| `tags.yml`            | Colocated with spec             | Renames tags, sets descriptions and `x-related`, drops unsupported tags                  |
+| Overlay               | Location                        | Behavior                                                                                                                                                            |
+| --------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `content/info.yml`    | `{product}/content/info.yml`    | Merges each field into `spec.info`, preserving fields not in the overlay                                                                                            |
+| `content/servers.yml` | `{product}/content/servers.yml` | Replaces `spec.servers` entirely                                                                                                                                    |
+| `content/page.yml`    | `{product}/content/page.yml`    | Sets the API landing page `description` and optional `body_extra` (e.g., callout blocks)                                                                            |
+| `content/exclude.yml` | `{product}/content/exclude.yml` | Removes schema properties the product doesn't return (`schemaProperties: {Schema: [prop, ...]}`). Denylist: list only properties verified absent on a live instance |
+| `tags.yml`            | Colocated with spec             | Renames tags, sets descriptions and `x-related`, drops unsupported tags                                                                                             |
 
 For example, to customize the Info section for the Cloud Serverless API reference, edit
 `influxdb3/cloud-serverless/content/info.yml`.
@@ -468,11 +469,12 @@ The post-processor looks for content files in two locations, in order:
 For products with multiple APIs (e.g., Cloud Dedicated has both data and
 management APIs), the spec-specific directory takes precedence.
 
-| Overlay       | Behavior                                                                                 |
-| ------------- | ---------------------------------------------------------------------------------------- |
-| `info.yml`    | Merges each field into `spec.info`, preserving fields not in the overlay                 |
-| `servers.yml` | Replaces `spec.servers` entirely                                                         |
-| `tags.yml`    | Colocated with spec (not in `content/`). Renames tags, sets descriptions and `x-related` |
+| Overlay       | Behavior                                                                                    |
+| ------------- | ------------------------------------------------------------------------------------------- |
+| `info.yml`    | Merges each field into `spec.info`, preserving fields not in the overlay                    |
+| `servers.yml` | Replaces `spec.servers` entirely                                                            |
+| `exclude.yml` | Removes listed schema properties. To remove whole endpoints, use `drop: true` in `tags.yml` |
+| `tags.yml`    | Colocated with spec (not in `content/`). Renames tags, sets descriptions and `x-related`    |
 
 #### Reviewing tags across products
 

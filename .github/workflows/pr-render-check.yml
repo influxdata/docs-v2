@@ -62,6 +62,11 @@ jobs:
       - name: Assert no test fixtures shipped to production
         run: .ci/scripts/check-no-test-fixtures.sh public
 
+      - name: Reject Cloud stopgap aliases that collide with real pages
+        run: |
+          node --test .ci/scripts/__tests__/check-cloud-aliases.test.mjs
+          node .ci/scripts/check-cloud-aliases.mjs public
+
       - name: Check homepage product links match the product selector
         run: node .ci/scripts/check-product-selector-links.mjs public/index.html
 

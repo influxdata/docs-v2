@@ -66,6 +66,9 @@ For provider setup, see
 ## Share the invite link
 
 After creating the invite, {{% product-name %}} displays a unique invite link.
+The link uses the **User Interface URL** from
+[Public endpoints](/telegraf/controller/settings/#public-endpoints) when one
+is set, and the address in your browser otherwise.
 Copy the link and share it with the user through your preferred communication
 channel (email, chat, etc.).
 

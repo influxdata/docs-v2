@@ -10,11 +10,15 @@ export function installKapaWidget(settings) {
   panel.style.cssText =
     'position:fixed;right:0;top:0;height:100vh;width:var(--ask-ai-rail-width);background:#fff;z-index:200;box-sizing:border-box;padding:16px';
   const close = document.createElement('button');
+  close.className = 'mantine-Modal-close';
   close.textContent = 'Close chat';
+  const header = document.createElement('header');
+  header.className = 'mantine-Modal-header';
+  header.append(close);
   const history = document.createElement('div');
   const input = document.createElement('textarea');
   input.setAttribute('aria-label', 'Ask the docs agent');
-  panel.append(close, history, input);
+  panel.append(header, history, input);
   const host = document.createElement('div');
   host.id = 'kapa-widget-container';
   host.append(panel);

@@ -276,11 +276,17 @@ Last-Modified: Mon, 05 Jan 2025 07:28:00 GMT
 ## Reporting Rules
 
 {{% product-name %}} uses reporting rules to determine when agents should be
-marked as not reporting:
+marked as not reporting and when not reporting agents are deleted:
 
-- **Default Rule**: Created automatically on first run
-- **Heartbeat Interval**: Expected frequency of agent heartbeats (default: 60s)
-- **Threshold Multiplier**: How many intervals to wait before marking not_reporting (default: 3x)
+- **Default rule**: Created automatically on first run (one-hour threshold,
+  no auto-delete) and assigned to newly registered agents. Exactly one rule
+  is the default at any time.
+- **Not reporting threshold**: Seconds since the last heartbeat before an
+  agent is marked not reporting.
+- **Auto-delete threshold**: Optional additional seconds after which a not
+  reporting agent is deleted.
+- **Status check**: The heartbeat service evaluates every rule once a minute.
+  `POST /api/agents/status-check` runs the evaluation on demand.
 
 Access reporting rules via:
 

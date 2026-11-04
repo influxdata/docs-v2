@@ -2,7 +2,7 @@
 /**
  * check-release-notes-version.js
  *
- * Non-blocking reminder check that guards against version drift between a
+ * Blocking check that guards against version drift between a
  * product's release notes page and the version number in data/products.yml.
  *
  * Why this exists:
@@ -12,16 +12,19 @@
  *   install/code examples. When a release notes page gains a new
  *   `## vX.Y.Z {date="…"}` heading but products.yml is not bumped, the docs keep
  *   advertising the previous release everywhere, silently. This check compares
- *   the two and prints a reminder when they disagree.
+ *   the two and fails when the documented release is newer than product data.
  *
  * Telegraf is checked and reported like every other product (no special-casing).
  * Its internal release automation keeps products.yml in sync, so it normally
  * reports success — and a mismatch would surface a regression in that automation.
  *
  * Output: a Markdown report on stdout (the workflow posts it as a PR comment and
- * to the step summary), plus GitHub Actions ::warning:: annotations for drift.
+ * to the step summary), plus GitHub Actions ::error:: annotations for drift.
  *
- * Exit code: always 0. This is a reminder, not a gate.
+ * Product-data and notification edits check all tracked products. OSS and
+ * Enterprise v1 release-note edits check both editions against their own notes.
+ * Exit code: 1 for release-note or latest-patch notification drift, otherwise 0.
+ * Product data ahead of release notes remains informational.
  *
  * Usage: node .ci/scripts/check-release-notes-version.js [changed-file ...]
  */
@@ -36,6 +39,9 @@ const PRODUCTS_YAML = join(REPO_ROOT, 'data', 'products.yml');
 
 const V3_SHARED_NOTES =
   'content/shared/v3-core-enterprise-release-notes/_index.md';
+const OSS_V1_NOTES = 'content/influxdb/v1/about_the_project/release-notes.md';
+const ENTERPRISE_V1_NOTES =
+  'content/enterprise_influxdb/v1/about-the-project/release-notes.md';
 
 /**
  * Authoritative release-notes source for each product that tracks a patch
@@ -99,8 +105,8 @@ const RELEASE_NOTES = [
   {
     product: 'enterprise_influxdb',
     selector: ['latest_patches', 'v1'],
-    notesFile:
-      'content/enterprise_influxdb/v1/about-the-project/release-notes.md',
+    notesFile: ENTERPRISE_V1_NOTES,
+    triggerPaths: [OSS_V1_NOTES, ENTERPRISE_V1_NOTES],
   },
   {
     product: 'influxdb',
@@ -110,7 +116,8 @@ const RELEASE_NOTES = [
   {
     product: 'influxdb',
     selector: ['latest_patches', 'v1'],
-    notesFile: 'content/influxdb/v1/about_the_project/release-notes.md',
+    notesFile: OSS_V1_NOTES,
+    triggerPaths: [OSS_V1_NOTES, ENTERPRISE_V1_NOTES],
   },
 ];
 
@@ -205,9 +212,14 @@ function compareVersions(a, b) {
  */
 export function evaluate(products, changed, lookup = documentedVersion) {
   const results = [];
+  // Shared product data and announcements can expose drift in any product.
+  const checkAll =
+    changed === null ||
+    changed.has('data/products.yml') ||
+    changed.has('data/notifications.yaml');
   for (const entry of RELEASE_NOTES) {
     const triggers = entry.triggerPaths || [entry.notesFile];
-    const inScope = changed === null || triggers.some((p) => changed.has(p));
+    const inScope = checkAll || triggers.some((p) => changed.has(p));
     if (!inScope) continue;
 
     const product = products[entry.product];
@@ -249,10 +261,85 @@ export function evaluate(products, changed, lookup = documentedVersion) {
   return results;
 }
 
-export function emitWarnings(results, write = console.error) {
+/** Check explicit patch availability announcements for the products in scope.
+ * Minor-series campaigns and historical advisories retain their own versions.
+ * Match product ownership through release-note links, not incidental prose.
+ */
+export function evaluateNotifications(
+  products,
+  notifications,
+  checkedProducts
+) {
+  const results = [];
+  for (const notification of notifications) {
+    const announced = notification.title?.match(
+      /\bv?(\d+\.\d+\.\d+(?:-[\w.-]+)?)\s+(?:is\s+)?now\s+available\b/i
+    )?.[1];
+    if (!announced) continue;
+    const links = new Set(
+      [
+        ...`${notification.slug || ''}\n${notification.message || ''}`.matchAll(
+          /\]\((\/[^\s)#]+)(?:#[^\s)]*)?\)/g
+        ),
+      ].map((match) => match[1])
+    );
+    for (const entry of RELEASE_NOTES) {
+      const selector = selectorLabel(entry.selector);
+      if (
+        !checkedProducts.some(
+          (r) => r.product === entry.product && r.selector === selector
+        )
+      )
+        continue;
+      const paths =
+        entry.notesFile === V3_SHARED_NOTES
+          ? entry.triggerPaths
+          : [entry.notesFile];
+      const matchesProduct = paths.some((path) => {
+        if (path.startsWith('content/shared/')) return false;
+        const url = path
+          .replace(/^content/, '')
+          .replace(/(?:\/_index)?\.md$/, '/');
+        return links.has(url);
+      });
+      if (!matchesProduct) continue;
+      const current = readSelector(products[entry.product], entry.selector);
+      if (current == null) continue;
+      results.push({
+        product: entry.product,
+        selector,
+        notificationId: notification.id,
+        announced,
+        current,
+        status:
+          announced === String(current).replace(/^v/, '')
+            ? 'ok'
+            : 'notification-drift',
+      });
+    }
+  }
+  return results;
+}
+
+export function checkExitCode(results) {
+  return results.some(
+    (r) => r.status === 'drift' || r.status === 'notification-drift'
+  )
+    ? 1
+    : 0;
+}
+
+export function emitErrors(results, write = console.error) {
+  for (const r of results.filter((x) => x.status === 'notification-drift')) {
+    write(
+      `::error file=data/notifications.yaml::Notification ${r.notificationId} ` +
+        `announces v${r.announced}, but data/products.yml ${r.selector} for ` +
+        `${r.product} is ${r.current}. Reconcile the latest-patch announcement.`
+    );
+  }
   for (const r of results.filter((x) => x.status === 'drift')) {
     write(
-      `::warning file=${r.notesFile}::Release notes show v${r.documented} but ` +
+      `::error file=${r.notesFile}::Release notes show v${r.documented} but ` +
         `data/products.yml ${r.selector} for ${r.product} is ${r.current} — bump products.yml.`
     );
   }
@@ -273,12 +360,12 @@ const BADGE_REMINDER = [
   'which read the value from `data/products.yml` so it stays correct automatically.',
 ].join('\n');
 
-function buildReport(results) {
+export function buildReport(results, notifications = []) {
   const lines = ['## Release version check', ''];
 
   if (results.length === 0) {
     lines.push(
-      'No release-notes pages with a tracked version changed in this PR.'
+      'No tracked release notes, product data, or notifications changed in this PR.'
     );
   } else {
     lines.push('| Product | Release notes | data/products.yml | Status |');
@@ -290,7 +377,7 @@ function buildReport(results) {
         );
       } else if (r.status === 'drift') {
         lines.push(
-          `| \`${r.label}\` | ${r.documented} | ${r.current} | ⚠️ **bump needed** |`
+          `| \`${r.label}\` | ${r.documented} | ${r.current} | ❌ **bump needed** |`
         );
       } else if (r.status === 'ahead') {
         lines.push(
@@ -317,6 +404,20 @@ function buildReport(results) {
     }
   }
 
+  if (notifications.length) {
+    lines.push('### Latest-patch notifications', '');
+    lines.push(
+      '| Notification | Product | Announced | data/products.yml | Status |'
+    );
+    lines.push('| --- | --- | --- | --- | --- |');
+    for (const r of notifications) {
+      lines.push(
+        `| \`${r.notificationId}\` | \`${r.product}\` | ${r.announced} | ${r.current} | ` +
+          `${r.status === 'ok' ? '✅ in sync' : '❌ **announcement mismatch**'} |`
+      );
+    }
+    lines.push('');
+  }
   lines.push(BADGE_REMINDER);
   return lines.join('\n');
 }
@@ -326,10 +427,18 @@ function main() {
   const changed = args.length ? new Set(args) : null;
   const products = yaml.load(readFileSync(PRODUCTS_YAML, 'utf8'));
   const results = evaluate(products, changed);
+  const notifications = evaluateNotifications(
+    products,
+    yaml.load(
+      readFileSync(join(REPO_ROOT, 'data', 'notifications.yaml'), 'utf8')
+    ),
+    results
+  );
 
-  emitWarnings(results);
+  const checks = [...results, ...notifications];
+  emitErrors(checks);
 
-  const report = buildReport(results);
+  const report = buildReport(results, notifications);
   console.log(report);
 
   if (process.env.GITHUB_STEP_SUMMARY) {
@@ -340,8 +449,7 @@ function main() {
     }
   }
 
-  // Never fail — this is a reminder, not a gate.
-  process.exit(0);
+  process.exitCode = checkExitCode(checks);
 }
 
 // Only run main() when invoked directly, so the test file can import evaluate().

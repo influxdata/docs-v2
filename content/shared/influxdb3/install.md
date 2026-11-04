@@ -215,7 +215,7 @@ Use `apt-get` to install {{< product-name >}} from the InfluxData repository:
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
-| grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
+| grep -q '^fpr::*24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && cat influxdata-archive.key \
 | gpg --dearmor \
 | sudo tee /usr/share/keyrings/influxdata-archive.gpg > /dev/null \
@@ -232,7 +232,7 @@ Use `yum` to install {{< product-name >}} from the InfluxData repository:
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 test -d /usr/share/influxdata-archive-keyring/keyrings || sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
-| grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
+| grep -q '^fpr::*24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && sudo cp ./influxdata-archive.key /usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc \
 && cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
 [influxdata]

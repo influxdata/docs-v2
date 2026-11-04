@@ -139,14 +139,18 @@ To configure InfluxDB, use the following configuration options when starting the
 - [feature-flags](#feature-flags)
 - [flux-log-enabled](#flux-log-enabled)
 - [hardening-enabled](#hardening-enabled)
+- [health-auth-mode](#health-auth-mode)
 - [http-bind-address](#http-bind-address)
 - [http-idle-timeout](#http-idle-timeout)
 - [http-read-header-timeout](#http-read-header-timeout)
 - [http-read-timeout](#http-read-timeout)
+- [http-user-query-bytes-enabled](#http-user-query-bytes-enabled)
+- [http-user-write-bytes-enabled](#http-user-write-bytes-enabled)
 - [http-write-timeout](#http-write-timeout)
 - [influxql-max-select-buckets](#influxql-max-select-buckets)
 - [influxql-max-select-point](#influxql-max-select-point)
 - [influxql-max-select-series](#influxql-max-select-series)
+- [influxql-max-time-range](#influxql-max-time-range)
 - [instance-id](#instance-id)
 - [log-level](#log-level)
 - [metrics-disabled](#metrics-disabled)
@@ -166,6 +170,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
 - [sqlite-path](#sqlite-path)
+- [startup-error-linger](#startup-error-linger)
 - [storage-cache-max-memory-size](#storage-cache-max-memory-size)
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
@@ -543,7 +548,14 @@ flux-log-enabled = "true"
 
 Enable [additional security features](/influxdb/v2/admin/security/enable-hardening/)
 in InfluxDB.
+
+In InfluxDB OSS v2.10 and later, hardening also restricts the detail that the
+`/health` and `/ready` endpoints return to callers without operator permissions.
+To keep full `/health` and `/ready` responses with hardening enabled,
+set [`health-auth-mode`](#health-auth-mode) to `disabled`.
+
 **Default:** `false`
+
 | influxd flag          | Environment variable        | Configuration key   |
 | :-------------------- | :-------------------------- | :------------------ |
 | `--hardening-enabled` | `INFLUXD_HARDENING_ENABLED` | `hardening-enabled` |
@@ -581,6 +593,79 @@ hardening-enabled = true
 ```json
 {
   "hardening-enabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### health-auth-mode
+_Available in InfluxDB OSS v2.10 and later._
+
+Controls whether the `/health` and `/ready` endpoints require operator permissions
+to return check details.
+
+By default, `/health` and `/ready` don't require authentication and return full check details.
+After a failed startup, check messages contain the raw error text,
+which can include file system paths and other configuration details.
+To hide these details from callers without operator permissions, set this option to `required`.
+
+This option never changes the HTTP status code,
+so liveness and readiness probes without credentials keep working.
+A caller without operator permissions receives a reduced response body:
+check names and statuses, without messages or build information.
+If startup fails before InfluxDB can verify tokens,
+every caller receives the reduced response body.
+
+Valid values:
+
+- `auto`: Restrict details only when [`hardening-enabled`](#hardening-enabled) is `true`.
+- `required`: Always restrict details.
+- `disabled`: Never restrict details, even when `hardening-enabled` is `true`.
+
+Write the value explicitly, for example `--health-auth-mode=required`.
+`true` and `false` aren't valid values.
+
+**Default:** `auto`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--health-auth-mode` | `INFLUXD_HEALTH_AUTH_MODE` | `health-auth-mode` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --health-auth-mode=required
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HEALTH_AUTH_MODE=required
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+health-auth-mode: required
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+health-auth-mode = "required"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "health-auth-mode": "required"
 }
 ```
 {{% /code-tab-content %}}
@@ -789,6 +874,115 @@ http-read-timeout = "10s"
 ```json
 {
   "http-read-timeout": "10s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-user-query-bytes-enabled
+_Available in InfluxDB OSS v2.10 and later._
+
+Enable per-user query response byte counting.
+When enabled, the `/metrics` endpoint exposes the `http_query_user_response_bytes` counter with the `user_id` and `endpoint` labels.
+For more information, see [HTTP API statistics](/influxdb/v2/reference/internals/metrics/#http-api-statistics).
+
+**Default:** `false`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--http-user-query-bytes-enabled` | `INFLUXD_HTTP_USER_QUERY_BYTES_ENABLED` | `http-user-query-bytes-enabled` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --http-user-query-bytes-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_USER_QUERY_BYTES_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-user-query-bytes-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-user-query-bytes-enabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-user-query-bytes-enabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-user-write-bytes-enabled
+_Available in InfluxDB OSS v2.10 and later._
+
+Enable per-user write request byte counting.
+When enabled, the `/metrics` endpoint exposes the `http_write_user_request_bytes` counter with the `user_id` and `endpoint` labels.
+For more information, see [HTTP API statistics](/influxdb/v2/reference/internals/metrics/#http-api-statistics).
+
+InfluxDB doesn't count requests that don't have a valid user ID.
+In InfluxDB 1.x, these requests are counted as `(anonymous)`.
+
+**Default:** `false`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--http-user-write-bytes-enabled` | `INFLUXD_HTTP_USER_WRITE_BYTES_ENABLED` | `http-user-write-bytes-enabled` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --http-user-write-bytes-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_USER_WRITE_BYTES_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-user-write-bytes-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-user-write-bytes-enabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-user-write-bytes-enabled": true
 }
 ```
 {{% /code-tab-content %}}
@@ -1017,6 +1211,74 @@ influxql-max-select-series = 0
 ```json
 {
   "influxql-max-select-series": 0
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### influxql-max-time-range
+_Available in InfluxDB OSS v2.10 and later._
+
+Maximum time range, as a duration, that an InfluxQL `SELECT` or `EXPLAIN` statement can query.
+`0` disables the limit.
+This option doesn't apply to Flux queries.
+
+A query with no upper time bound is measured up to `now()`.
+A query with no lower time bound covers all time, so it exceeds any non-zero limit.
+
+If a statement exceeds the limit, InfluxDB returns an HTTP `200` response
+and reports the error for that statement in `results[].error`:
+
+```json
+{"results":[{"statement_id":0,"error":"max-time-range limit exceeded: (1h59m59.999999999s/1h0m0s)"}]}
+```
+
+The error has the format `max-time-range limit exceeded: (<range>/<limit>)`.
+Check `results[].error` in your client--the HTTP status code doesn't indicate the error.
+
+The `influxd upgrade` command maps the InfluxDB 1.x `coordinator.max-time-range` option to this option.
+
+**Default:** `0`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--influxql-max-time-range` | `INFLUXD_INFLUXQL_MAX_TIME_RANGE` | `influxql-max-time-range` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --influxql-max-time-range=72h
+```
+
+###### Environment variable
+```sh
+export INFLUXD_INFLUXQL_MAX_TIME_RANGE=72h
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+influxql-max-time-range: 72h
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+influxql-max-time-range = "72h"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "influxql-max-time-range": "72h"
 }
 ```
 {{% /code-tab-content %}}
@@ -1992,6 +2254,71 @@ sqlite-path = "~/.influxdbv2/influxd.sqlite"
 
 ---
 
+### startup-error-linger
+_Available in InfluxDB OSS v2.10 and later._
+
+Duration to keep the `/health` and `/ready` endpoints serving after a failed startup
+before `influxd` exits.
+Use this window to retrieve the startup error from `/health` or `/ready`,
+for example, when a container orchestrator restarts `influxd` before you can read its logs.
+
+During the window, `/health` and `/ready` return `503` with the failing checks,
+and every other path returns `503` with `{"status":"starting"}`.
+After the window, `influxd` exits with the [exit code](/influxdb/v2/reference/cli/influxd/#exit-codes)
+for the failure.
+
+`0` exits immediately.
+The maximum is `30m`.
+
+Check messages can include file system paths and other configuration details.
+To restrict them to callers with operator permissions, see [`health-auth-mode`](#health-auth-mode).
+
+**Default:** `0`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| `--startup-error-linger` | `INFLUXD_STARTUP_ERROR_LINGER` | `startup-error-linger` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --startup-error-linger=5m
+```
+
+###### Environment variable
+```sh
+export INFLUXD_STARTUP_ERROR_LINGER=5m
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+startup-error-linger: 5m
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+startup-error-linger = "5m"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "startup-error-linger": "5m"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
 
@@ -2194,21 +2521,25 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 ### storage-compact-throughput
 Sustained rate limit (in bytes per second) that TSM compactions can write to disk.
 
-InfluxDB also supports a separate burst limit (`storage-compact-throughput-burst`).
-In InfluxDB OSS v2, the sustained and burst compaction throughput values are currently the same.
-To tune compaction write throughput, set `storage-compact-throughput-burst` and verify the effective values in the `Compaction settings` log entry at startup.
+In InfluxDB OSS v2.10 and later, this setting is independent of the burst limit ([`storage-compact-throughput-burst`](#storage-compact-throughput-burst)).
+If the burst limit is lower than the sustained limit, InfluxDB raises the burst limit to match the sustained limit.
+To verify the effective values, check the `Compaction settings` log entry at startup.
 
-Example log entry:
-
-```text
-Compaction settings {"max_concurrent_compactions": 7, "throughput_bytes_per_second": 50331648, "throughput_bytes_per_second_burst": 50331648}
-```
+In earlier versions, you can't set this option with a flag, and the sustained and burst limits use the same value.
+To tune compaction write throughput in earlier versions, set `storage-compact-throughput-burst`.
 
 **Default:** `50331648`
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |
-| _Not available_ | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+| `--storage-compact-throughput` | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --storage-compact-throughput=50331648
+```
 
 ###### Environment variable
 ```sh
@@ -2246,7 +2577,8 @@ storage-compact-throughput = 50331648
 ### storage-compact-throughput-burst
 Maximum rate limit (in bytes per second) that TSM compactions can write to disk.
 
-In InfluxDB OSS v2, this setting also effectively controls the sustained compaction throughput.
+In InfluxDB OSS v2.10 and later, this setting is independent of the sustained limit ([`storage-compact-throughput`](#storage-compact-throughput)).
+In earlier versions, this setting also controls the sustained compaction throughput.
 
 #### Scale compaction throughput
 

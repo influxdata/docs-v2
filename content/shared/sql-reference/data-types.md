@@ -28,18 +28,6 @@ during query execution and returned in query results.
 >   '2019-09-18T00:00:00Z'::timestamp
 > ```
 
-- [String types](#string-types)
-- [Numeric types](#numeric-types)
-  - [Integers](#integers)
-  - [Unsigned integers](#unsigned-integers)
-  - [Floats](#floats)
-- [Date and time data types](#date-and-time-data-types)
-  - [Timestamp](#timestamp)
-  - [Interval](#interval)
-- [Boolean types](#boolean-types)
-- [Unsupported SQL types](#unsupported-sql-types)
-- [Data types compatible with parameters](#data-types-compatible-with-parameters)
-
 ## String types
 
 | SQL data type | Arrow data type | Description                       |

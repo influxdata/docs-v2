@@ -8,7 +8,7 @@ menu:
   telegraf_controller:
     name: Define reporting rules
     parent: Manage agents
-weight: 103
+weight: 104
 ---
 
 Reporting rules define how long an agent can go without sending a heartbeat
@@ -16,14 +16,17 @@ before {{% product-name %}} changes its status to **Not Reporting**. They can
 also automatically delete agents that haven't reported in a specified amount of
 time.
 
-{{% product-name %}} requires a default reporting rule. Newly created agents
-are automatically assigned to the current default reporting rule.
+{{% product-name %}} requires exactly one default reporting rule. Newly
+created agents are automatically assigned to the current default reporting
+rule. On first run, {{% product-name %}} creates a default rule with a
+one-hour not reporting threshold and auto-delete turned off.
 
 Manage reporting rules in the **Reporting Rules** section of
 {{% product-name "short" %}}, then assign them to agents from either the agent
 list or an agent details page.
 
 <!-- TOC -->
+- [How reporting rules work](#how-reporting-rules-work)
 - [Create a reporting rule](#create-a-reporting-rule)
 - [Update a reporting rule](#update-a-reporting-rule)
 - [Delete a reporting rule](#delete-a-reporting-rule)
@@ -33,7 +36,29 @@ list or an agent details page.
 - [Assign a reporting rule to agents](#assign-a-reporting-rule-to-agents)
   - [From the agent list](#from-the-agent-list)
   - [From an agent details page](#from-an-agent-details-page)
+- [Run a status check](#run-a-status-check)
   <!-- /TOC -->
+
+## How reporting rules work
+
+A reporting rule has two thresholds, both measured from the agent's last
+heartbeat:
+
+- **Not reporting threshold**: how long an agent can go without a heartbeat
+  before {{% product-name %}} marks it **Not Reporting**.
+- **Auto-delete threshold** (optional): how much longer a **Not Reporting**
+  agent is kept.
+  {{% product-name %}} deletes the agent once its last heartbeat is older
+  than the two thresholds combined.
+
+{{% product-name %}} evaluates every rule once a minute. An agent that
+resumes sending heartbeats returns to its reported status on the next
+evaluation.
+
+Thresholds are stored as whole seconds from `1` to `2147483647`.
+The web interface accepts durations such as `12h`, `7d`, or `3h 30m` and
+converts them. The API rejects any other value, including `0`, with
+`400 Bad Request`.
 
 ## Create a reporting rule
 
@@ -43,10 +68,12 @@ list or an agent details page.
     - **Description**: Reporting rule description
     - **Not Reporting Threshold**: The maximum time an agent can go without
       reporting before {{% product-name "short" %}} assigns the "Not Reporting"
-      status.
+      status, as a duration such as `12h` or `7d`.
     - **Auto-delete agents**: Enable to automatically delete agents that haven't
-      reported in the defined auto-delete threshold.
+      reported in the defined **Auto-delete threshold**, counted from the end
+      of the not reporting threshold.
     - **Default Rule**: Enable to make the rule the default reporting rule.
+      The previous default rule stops being the default.
 4. Save the rule.
 
 ## Update a reporting rule
@@ -78,6 +105,13 @@ list or an agent details page.
 
 ## Set a default reporting rule
 
+Exactly one rule is the default at any time.
+Making another rule the default moves the default to that rule in one step.
+You cannot turn **Default Rule** off on the current default rule; make
+another rule the default instead.
+Changing the default does not reassign agents that already have a rule; only
+agents registered after the change receive the new default.
+
 ### From the reporting rules list
 
 1.  In **Reporting Rules**, click the **More button ({{% lucide "ellipsis-vertical" %}})**
@@ -106,3 +140,12 @@ list or an agent details page.
    agent and select **{{% lucide "eye" %}} View Details**.
 2. In the **Reporting Rule** section, select **Change**.
 3. Choose a rule and apply it.
+
+## Run a status check
+
+{{% product-name %}} evaluates reporting rules once a minute. To evaluate
+them immediately, for example after changing a threshold, select
+**{{% lucide "clock" %}} Run status check** on the **Reporting Rules** page.
+
+The same check is available from the API as `POST /api/agents/status-check`,
+which requires the `agents:write` permission.

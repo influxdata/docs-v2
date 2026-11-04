@@ -91,7 +91,7 @@ For the full description of each variable, including defaults, see
 [systemd](#)
 [Shell](#)
 [Windows (Powershell)](#)
-<!-- [Docker](#) -->
+[Docker](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -148,26 +148,26 @@ $env:AUTH_LDAP_USER_SEARCH_FILTER="(uid={{username}})"
 ```
 
 {{% /tab-content %}}
-<!-- {{% tab-content %}} -->
-<!-- BEGIN Docker example — hidden until an official
-     influxdata/telegraf-controller Docker image is published.
-     Restore this tab (and its button above) when the image ships.
+{{% tab-content %}}
 
 Pass the variables when starting the container:
 
 ```bash
 docker run \
-  -e AUTH_LDAP_ENABLED=true \
-  -e AUTH_LDAP_URL=ldaps://ldap.example.com:636 \
-  -e AUTH_LDAP_BIND_DN='cn=svc-controller,ou=services,dc=example,dc=com' \
-  -e AUTH_LDAP_BIND_PASSWORD=changeme \
-  -e AUTH_LDAP_USER_SEARCH_BASE='ou=people,dc=example,dc=com' \
-  -e AUTH_LDAP_USER_SEARCH_FILTER='(uid={{username}})' \
-  influxdata/telegraf-controller
+  --env AUTH_LDAP_ENABLED=true \
+  --env AUTH_LDAP_URL=ldaps://ldap.example.com:636 \
+  --env AUTH_LDAP_BIND_DN='cn=svc-controller,ou=services,dc=example,dc=com' \
+  --env AUTH_LDAP_BIND_PASSWORD=changeme \
+  --env AUTH_LDAP_USER_SEARCH_BASE='ou=people,dc=example,dc=com' \
+  --env AUTH_LDAP_USER_SEARCH_FILTER='(uid={{username}})' \
+  influxdata/telegraf-controller:{{< latest-patch >}}
 ```
 
-END Docker example -->
-<!-- {{% /tab-content %}} -->
+Include your standard container options, such as EULA acceptance, published
+ports, and the data volume.
+See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 After {{% product-name %}} starts, sign in as an owner and confirm:

@@ -110,6 +110,10 @@ runs the following only on the leader:
   heartbeats resume, and applies reporting-rule retention.
 - **Usage telemetry**: the cluster reports anonymous usage once, from the leader
   only, so the cluster counts as a single instance.
+- **Security advisory checks**: the scheduled retrieval of InfluxData
+  [security advisory](/telegraf/controller/security-advisories/) files.
+  Checks on demand and manual imports work from any node, and the applied
+  advisories are visible on every node.
 
 Every node, leader or standby, continues to:
 
@@ -184,6 +188,10 @@ interface and API traffic:
 | Unlicensed                       |        No        |   No leader elected  |    No (returns 503)   |
 
 Agent heartbeats are always accepted on every node, regardless of license state.
+Scale limits apply to the cluster as a whole: before a node registers a new
+agent, it checks the agent limit against the shared database, so a cluster
+admits no more agents than a single node would.
+See [Scale limits](/telegraf/controller/telegraf-enterprise/license-enforcement/#scale-limits).
 
 Licensing is checked when a node tries to acquire the lock, not continuously. A
 node that is already the leader when its license expires keeps the lock, but no
@@ -199,6 +207,14 @@ Each node writes its own tamper-evident audit files, maintains its own hash
 chain, and forwards events to whatever destination that node is configured to
 use. Querying a node's [audit log API](/telegraf/controller/admin/audit-logs/view/)
 returns only that node's events.
+
+Configure a [signing key](/telegraf/controller/admin/audit-logs/enable-configure/#enable-audit-logging)
+on every node.
+Each node signs its own entries with its own key, so the nodes can share one
+key or use different keys.
+If a node's key changes, entries signed with the previous key are reported
+as unverified, not broken, when that node
+[verifies its files](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
 
 To review activity across the whole cluster, forward each node's audit events to
 a shared destination, such as syslog or a webhook, and aggregate them there. See
