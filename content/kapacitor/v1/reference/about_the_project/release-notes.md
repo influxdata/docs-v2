@@ -9,6 +9,19 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.8.9 {date="2026-11-04"}
+
+### Security
+
+- Reject bearer authentication requests when the shared secret is empty.
+
+### Dependency updates
+
+- Upgrade Go to 1.26.10.
+- Upgrade `github.com/klauspost/compress` from 1.17.9 to 1.18.7.
+- Upgrade Flux from 0.191.0 to 0.201.0 and use the `flux_nosqlite` build tag.
+- Upgrade `github.com/go-jose/go-jose/v4` from 4.1.4 to 4.1.6, which includes a fix for [GHSA-mgcc-cww5-fp2q](https://github.com/go-jose/go-jose/security/advisories/GHSA-mgcc-cww5-fp2q).
+
 ## v1.8.8 {date="2026-10-14"}
 
 ### Dependency updates
