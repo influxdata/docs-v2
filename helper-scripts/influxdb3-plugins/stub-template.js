@@ -2,6 +2,8 @@
  * Scaffold a per-product stub for an official plugin that has none yet.
  */
 
+import { dump } from 'js-yaml';
+
 const PRODUCTS = {
   core: { menuKey: 'influxdb3_core', tagPrefix: 'influxdb3/core' },
   enterprise: {
@@ -32,10 +34,14 @@ export function renderStub(plugin, product) {
   const { menuKey, tagPrefix } = PRODUCTS[product];
   const label = sentenceCase(plugin.name);
   const title = label.endsWith(' plugin') ? label : `${label} plugin`;
+  const description = dump(
+    { description: plugin.description },
+    { lineWidth: -1 }
+  ).trimEnd();
 
   return `---
 title: ${title}
-description: ${plugin.description}
+${description}
 menu:
   ${menuKey}:
     name: ${label}

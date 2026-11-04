@@ -1,6 +1,6 @@
 ---
 title: Mqtt sparkplug publisher plugin
-description: Publishes InfluxDB 3 rows to an MQTT broker as a Sparkplug B Edge Node on write: spBv1.0 topics, Protobuf payloads, NBIRTH/NDATA/NDEATH, bdSeq/seq, aliases, rebirth, STATE and store-and-forward.
+description: 'Publishes InfluxDB 3 rows to an MQTT broker as a Sparkplug B Edge Node on write: spBv1.0 topics, Protobuf payloads, NBIRTH/NDATA/NDEATH, bdSeq/seq, aliases, rebirth, STATE and store-and-forward.'
 menu:
   influxdb3_enterprise:
     name: Mqtt sparkplug publisher
