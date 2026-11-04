@@ -1,6 +1,6 @@
 # Isolate PR Preview deployment credentials
 
-**Status:** Ready for review; GitHub verification pending.
+**Status:** In review, [PR #8000](https://github.com/influxdata/docs-v2/pull/8000); GitHub verification pending.
 
 ## Goal
 
