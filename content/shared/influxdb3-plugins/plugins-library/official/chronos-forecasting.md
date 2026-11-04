@@ -428,13 +428,15 @@ and history length, and compares.
 Each successful result then carries `backtest`:
 
 ```json
-"backtest": {
-  "points": 11,
-  "coverage": {
-    "50": 0.545,
-    "80": 0.818
-  },
-  "mae": 2.21
+{
+  "backtest": {
+    "points": 11,
+    "coverage": {
+      "50": 0.545,
+      "80": 0.818
+    },
+    "mae": 2.21
+  }
 }
 ```
 - `points`: the measured points compared; an empty bucket is skipped.
