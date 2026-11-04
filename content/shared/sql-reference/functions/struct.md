@@ -1,9 +1,4 @@
-
 Use struct functions to create Arrow structs in SQL queries.
-
-- [named_struct](#named_struct)
-- [row](#row)
-- [struct](#struct)
 
 ## named_struct
 
