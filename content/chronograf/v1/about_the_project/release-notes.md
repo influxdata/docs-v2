@@ -10,6 +10,13 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.11.7 {date="2026-11-04"}
+
+### Maintenance updates
+
+- Upgrade Go to 1.26.10.
+- Upgrade Flux to 0.201.0 and build with the `flux_nosqlite` flag.
+
 ## v1.11.6 {date="2026-10-15"}
 
 ### Maintenance updates

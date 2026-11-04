@@ -219,12 +219,12 @@ Date-time strings should be formatted as string literals and wrapped in single q
 For example:
 
 {{% influxdb/custom-timestamps %}}
-```sql
+```sql {lint="false"}
 SELECT temp
 FROM home
 WHERE
   time >= "2022-01-01T08:00:00Z"
-  AND time <= "2022-01-01T00:20:00Z"
+  AND time <= "2022-01-01T20:00:00Z"
 ```
 {{% /influxdb/custom-timestamps %}}
 
@@ -244,7 +244,7 @@ SELECT temp
 FROM home
 WHERE
   time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T00:20:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
 ```
 {{% /influxdb/custom-timestamps %}}
 
