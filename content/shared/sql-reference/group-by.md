@@ -16,9 +16,6 @@ or in aggregate expressions.
 >   in the `GROUP BY` clause to group by transformed values and maintain the
 >   alias identifier.
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 ## Syntax
 
 ```sql

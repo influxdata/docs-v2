@@ -3,15 +3,6 @@ to skip in each InfluxQL group before returning results.
 Use `SOFFSET` to specify the number of [series](/influxdb/version/reference/glossary/#series)
 to skip before returning results.
 
-  - [OFFSET clause](#offset-clause)
-     - [Syntax](#offset-syntax)
-     - [Notable OFFSET clause behaviors](#notable-offset-clause-behaviors)
-     - [Examples](#offset-examples)
-  - [SOFFSET clause](#soffset-clause)
-     <!-- - [Syntax](#soffset-syntax) -->
-     <!-- - [Notable SOFFSET clause behaviors](#notable-soffset-clause-behaviors) -->
-     <!-- - [Examples](#soffset-examples) -->
-
 ## `OFFSET` clause
 
 The `OFFSET` clause skips `N` rows in each InfluxQL group before returning results.

@@ -206,9 +206,7 @@ describe('Cascade product shortcodes', function () {
 
       if (isInfluxdb3) {
         it('renders influxdb3/home-sample-link', function () {
-          const anchor = product.distributed_architecture
-            ? '#get-started-home-sensor-data'
-            : '#home-sensor-data';
+          const anchor = `#${product.home_sample_data_anchor || 'home-sensor-data'}`;
           cy.get('[data-testid="home-sample-link"] a').should(
             'have.attr',
             'href',

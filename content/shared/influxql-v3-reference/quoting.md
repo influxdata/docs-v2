@@ -1,9 +1,6 @@
 InfluxQL supports both single and double quotation marks, but they each function
 differently and serve different purposes.
 
-- [Single quotes](#single-quotes)
-- [Double quotes](#double-quotes)
-
 ## Single quotes
 
 Use single quotation marks (`'`) in the

@@ -293,7 +293,7 @@ configured using the following options:
 
 #### Table limit
 
-**Default maximum number of tables**: 500
+**Default maximum number of tables**: {{% influxdb3/limit "table" %}}
 
 Each measurement is represented by a table in a database.
 Your database's table limit can be raised beyond the default limit of 500.
@@ -336,7 +336,7 @@ operating cost of your cluster.
 
 #### Column limit
 
-**Default maximum number of columns**: 250
+**Default maximum number of columns**: {{% influxdb3/limit "column" %}}
 
 Time, fields, and tags are each represented by a column in a table.
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}

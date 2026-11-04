@@ -480,6 +480,10 @@ Modify plugin code for running triggers without recreating them. This allows you
 - [Update a plugin using the influxdb3 CLI](#update-a-plugin-using-the-influxdb3-cli)
 - [Update a plugin using the HTTP API](#update-a-plugin-using-the-http-api)
 
+> [!Important]
+> Plugin updates through the CLI and HTTP API do not update triggers that reference plugins using the `gh:` prefix.
+> To fetch updated code for a `gh:` trigger, disable and re-enable the trigger with [`influxdb3 disable trigger`](/influxdb3/version/reference/cli/influxdb3/disable/trigger/) and [`influxdb3 enable trigger`](/influxdb3/version/reference/cli/influxdb3/enable/trigger/).
+
 #### Update a plugin using the influxdb3 CLI
 
 Use the `influxdb3 update trigger` command:
