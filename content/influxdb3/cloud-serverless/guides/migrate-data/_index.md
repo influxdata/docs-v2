@@ -84,7 +84,7 @@ are schema design practices supported by the TSM storage engine that are not
 supported in the InfluxDB 3 storage engine. Specifically, InfluxDB 3 enforces the following schema restrictions:
 
 - You can't use duplicate names for tags and fields
-- Measurements can contain up to 200 columns where each column represents time,
+- Measurements can contain up to {{% influxdb3/limit "column" %}} columns where each column represents time,
   a field, or a tag.
 
 _For more information, see [Schema restrictions](/influxdb3/cloud-serverless/write-data/best-practices/schema-design/#schema-restrictions)._

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   earliestMostCommonDay,
+  sampleAnchorDay,
   shiftTimestampText,
   timestampDays,
 } from '../custom-timestamp-values.js';
@@ -112,4 +113,19 @@ test('leaves unsigned fields and suffixed durations unchanged', () => {
   const text = 'tx_count=1721306050081621681u retention 1209600000000000ns';
   assert.deepEqual(timestampDays(text), []);
   assert.equal(shiftTimestampText(text, dayShift), text);
+});
+
+test('anchors on a configured sample day when the block contains it', () => {
+  const configuredDay = timestampDays('2022-01-01')[0];
+  const tiedDays = timestampDays('2021-12-31 2022-01-01');
+  assert.equal(sampleAnchorDay(tiedDays, [configuredDay]), configuredDay);
+});
+
+test('falls back to the most common day without a configured day', () => {
+  const configuredDay = timestampDays('2022-01-01')[0];
+  const days = timestampDays('2024-02-26 2024-02-26 2024-02-27');
+  assert.equal(
+    sampleAnchorDay(days, [configuredDay]),
+    earliestMostCommonDay(days)
+  );
 });
