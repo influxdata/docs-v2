@@ -42,6 +42,20 @@ Use GitHub-flavored Markdown blockquotes with special alert types:
 > Insert tip markdown content here.
 ```
 
+### Callouts with a heading
+
+To give a callout its own heading, follow the alert type with a Markdown
+heading line, then a blank blockquote line (`>`) before the body text.
+Without the blank line, Markdown treats the heading and the body as a single
+paragraph and doesn't render the heading as a heading:
+
+```md
+> [!Note]
+> #### Heading text
+>
+> Body text starts here.
+```
+
 ## Required Elements
 
 Use the `{{< req >}}` shortcode to identify required elements in documentation with orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but you can customize the text by passing a string argument with the shortcode.
@@ -112,6 +126,28 @@ Display the short version name (part of the key used in `products.yml`) from the
 ```md
 {{% product-key %}}
 ```
+
+### Product limits
+
+Display a limit from the `limits` entry for the current page's product in
+`data/products.yml`.
+Pass the limit key as the first argument and an optional offset as the
+second.
+Use this in prose instead of typing the number;
+`yarn test:content-data` fails when InfluxDB 3 distributed product prose types
+a configured limit.
+
+```md
+{{% influxdb3/limit "table" %}}
+{{% influxdb3/limit "column" %}}
+{{% influxdb3/limit "column" -1 %}}
+```
+
+Keys: `database` (Core and Enterprise), `table`, `column`, and `column_max`
+(Cloud Dedicated and Clustered).
+Shortcodes don't render inside code blocks or shortcode arguments, such as
+`expand` titles, so type those values; the tests check them against the data
+file where they can.
 
 ## Version Information
 
@@ -496,6 +532,9 @@ The shortcode accepts optional parameters that adjust how the diagram renders:
 - `natural-size`: Render the diagram at Mermaid's natural size.
   By default, diagrams scale up to fill the article column (up to 680px wide),
   which can blow up narrow diagrams such as top-down flowcharts.
+- `medium`: Render the diagram up to 400px wide. Use this for a narrow diagram
+  that needs more room than its natural size but should not fill the article
+  column.
 - `center`: Center the diagram in the article column.
   By default, diagrams are left-aligned.
 
@@ -643,12 +682,14 @@ SVG, so only the icons you reference are included in the build.
 
 Because Hugo doesn't allow mixing positional and named parameters in a single
 shortcode call, use the positional form for a bare icon and the named form
-when you add a size:
+when you add a size or a border:
 
 ```md
 Click {{< lucide "circle-plus" >}} to add a plugin.
 
 Status {{< lucide icon="circle-check" size="large" >}} indicates success.
+
+Turn on **Use regular expression** ({{< lucide icon="regex" bordered="true" >}}).
 ```
 
 Parameters:
@@ -657,6 +698,9 @@ Parameters:
   kebab-case, exactly as listed at lucide.dev/icons.
 - **size**: `small` or `large`. Defaults to the surrounding text size (1em).
   Named form only.
+- **bordered**: `true` draws a 1px rounded square around the icon in the
+  current text color, to mirror icon buttons in a product UI (for example, the
+  search toggles in Telegraf Controller). Named form only.
 
 Icons are decorative (hidden from screen readers with `aria-hidden`), so pair
 each icon with the text that names the control. Icons inherit the surrounding
@@ -942,6 +986,29 @@ Replace the following:
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 
 ## Data and Samples
+
+### Sample datasets and custom timestamps
+
+`data/sample_data.yml` defines each sample dataset's table, time range, and
+download files.
+Content keeps literal values so code blocks stay copyable and testable;
+`yarn test:content-data` checks that sample rows, download files, and query
+time ranges agree with the data file.
+
+Wrap sample data that readers can move to their own date in
+`{{% influxdb/custom-timestamps %}}` (blocks) or
+`{{% influxdb/custom-timestamps-span %}}` (inline).
+The date picker shifts every date and Unix timestamp in the block, anchoring on
+the start date of a `customizable` dataset when the block contains it.
+
+````md
+{{% influxdb/custom-timestamps %}}
+```sql
+SELECT * FROM home
+WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+```
+{{% /influxdb/custom-timestamps %}}
+````
 
 ### Flux sample data tables
 

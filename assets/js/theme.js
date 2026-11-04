@@ -24,6 +24,7 @@ function switchStyle({ styles_element, css_title }) {
     `link[rel*="stylesheet"][title="${css_title}"]`
   );
   link && (link.disabled = false);
+  document.body.dataset.theme = css_title === 'dark-theme' ? 'dark' : 'light';
 
   setPreference(PROPS.style_preference_name, css_title.replace(/-theme/, ''));
 }

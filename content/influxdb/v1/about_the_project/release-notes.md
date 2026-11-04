@@ -13,8 +13,15 @@ alt_links:
   enterprise_v1: /enterprise_influxdb/v1/about-the-project/release-notes/
 ---
 
+## v1.13.2 {date="2026-10-30"}
 
-## v1.13.0 {date="2026-07-23"}
+### Bug fixes
+- Resolve unimplemented interface member ([#27715](https://github.com/influxdata/influxdb/pull/27716))
+
+### Maintenance
+- Update go version to 1.26.10 ([#27730](https://github.com/influxdata/influxdb/pull/27730))
+
+## v1.13.1 {date="2026-07-23"}
 
 ### Features
 

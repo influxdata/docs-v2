@@ -1,0 +1,24 @@
+{
+  "purpose": "Reference for manual environment configuration review. Setup and startup scripts cannot apply this file or grant network access.",
+  "network": {
+    "allowed_domains": [
+      "api.github.com",
+      "api.kapa.ai",
+      "cdn.cypress.io",
+      "docs.influxdata.com",
+      "download.cypress.io",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com",
+      "influxdata-research-ext.mcp.kapa.ai",
+      "metrics.kapa.ai",
+      "proxy.kapa.ai",
+      "widget.kapa.ai",
+      "www.google.com",
+      "www.googletagmanager.com",
+      "www.gstatic.com",
+      "recaptcha.google.com",
+      "kapa-widget-proxy-la7dkmplpq-uc.a.run.app"
+    ]
+  },
+  "activation": "Review and save in environment settings, publish, then start a new session. Verify that session independently."
+}

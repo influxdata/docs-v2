@@ -59,6 +59,27 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20261016-2070790 {date="2026-10-16"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20261016-2070790
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20261016-2070790/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20261016-2070790/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Security and Bug Fixes
+
+- Fixed an issue with parquet retention
+- Fixed compactor panic when split times don't split L0 files
+- Dependency updates and miscellaneous security fixes
+
 ## 20260421-2022186 {date="2026-04-21"}
 
 ### Quickstart

@@ -20,7 +20,7 @@ options.
 2.  Click the name of the configuration you want to edit or click the
     **More button ({{% lucide "ellipsis-vertical" %}})** and select
     **{{% lucide "eye" %}} View/Edit**.
-3.  Update global settings, labels, parameters, and plugin settings as needed.
+3.  Update global settings, [labels](/telegraf/controller/labels/assign/), parameters, and plugin settings as needed.
 4.  Review the TOML preview and resolve any validation errors.
 5.  Click **Save**.
 
@@ -40,6 +40,9 @@ compare, roll back, or prune versions, see
 3.  Under **Configuration Information**, click the text under **Name** or
     **Description**. The name or description will load into a form field.
 4.  Provide a new name or description and click **{{% lucide "check" %}}**.
+    Names are unique among configurations and can be up to 255 characters.
+    If another configuration already has the new name, the field stays open
+    and shows `Configuration "<name>" already exists`.
 
 Name and description changes do not create a new configuration version.
 

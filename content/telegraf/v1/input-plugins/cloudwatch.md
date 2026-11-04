@@ -166,9 +166,6 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   #    value = "p-example"
 ```
 
-Please note, the `namespace` option is deprecated in favor of the `namespaces`
-list option.
-
 ## Requirements and Terminology
 
 Plugin Configuration utilizes [CloudWatch concepts](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html) and access

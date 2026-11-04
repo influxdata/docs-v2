@@ -1,13 +1,6 @@
 The {{< product-name >}} SQL implementation supports the following miscellaneous functions
 for performing a variety of operations:
 
-- [arrow_cast](#arrow_cast)
-- [arrow_typeof](#arrow_typeof)
-- [get_field](#get_field)
-- [interpolate](#interpolate)
-- [locf](#locf)
-- [version](#version)
-
 ## arrow_cast
 
 Casts a value to a specific Arrow data type.

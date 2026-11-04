@@ -263,6 +263,10 @@ jobs:
           hugo-log-level: info
           hugo-base-url: ${{ env.PREVIEW_BASE_URL }}
 
+      - name: Keep links within the PR preview
+        # Root-relative links in content and templates bypass Hugo's baseURL.
+        run: node .ci/scripts/check-preview-links.mjs public "$PREVIEW_BASE_URL" --rewrite
+
       - name: Record build time
         id: build
         run: |
@@ -270,7 +274,7 @@ jobs:
           echo "build-time=${DURATION}s" >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@cbe3b392738ccf3f987d68400dafcf4b0624a56c # v6.2.4
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
           role-to-assume: ${{ secrets.AWS_PR_PREVIEW_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
@@ -340,7 +344,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@cbe3b392738ccf3f987d68400dafcf4b0624a56c # v6.2.4
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
           role-to-assume: ${{ secrets.AWS_PR_PREVIEW_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}

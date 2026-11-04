@@ -31,7 +31,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 - [Manage plugin dependencies](#manage-plugin-dependencies)
 - [Plugin security](#plugin-security)
 {{% show-in "enterprise" %}}
-- [Distributed cluster considerations](#distributed-cluster-considerations)
+- [Run plugins in a cluster](#run-plugins-in-a-cluster)
 {{% /show-in %}}
 
 ## Set up the Processing Engine
@@ -39,6 +39,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is configured.
 {{% show-in "enterprise" %}}
 In a cluster, this automatically adds `process` mode to the node.
+We recommend running the Processing Engine on a standalone process node, see [Run plugins in a cluster](#run-plugins-in-a-cluster).
 {{% /show-in %}}
 
 ### Default behavior by deployment type
@@ -90,25 +91,11 @@ In the example above, replace the following:
 > To use a custom repository, add the `--plugin-repo` flag when starting the server.
 > See [Use a custom plugin repository](#option-3-use-a-custom-plugin-repository) for details.
 
-### Configure distributed environments
-
-When running {{% product-name %}} in a distributed setup, follow these steps to configure the Processing Engine:
-
-1. Decide where each plugin should run
-   - Data processing plugins, such as WAL plugins, run on ingester nodes
-   - HTTP-triggered plugins run on nodes handling API requests
-   - Scheduled plugins can run on any configured node
-2. Enable plugins on the correct instance
-3. Maintain identical plugin files across all instances where plugins run
-   - Use shared storage or file synchronization tools to keep plugins consistent
-
-> [!Note]
-> #### Provide plugins to nodes that run them
->
-> Configure your plugin directory on the same system as the nodes that run the triggers and plugins.
-
 {{% show-in "enterprise" %}}
-For more information about configuring distributed environments, see the [Distributed cluster considerations](#distributed-cluster-considerations) section.
+### Configure a cluster
+
+In a cluster, run the Processing Engine on a standalone process node.
+See [Run plugins in a cluster](#run-plugins-in-a-cluster).
 {{% /show-in %}}
 
 ## Add a Processing Engine plugin
@@ -442,24 +429,35 @@ For more information, see the [`influxdb3 create trigger` CLI reference](/influx
 
 #### Upload a plugin using the HTTP API
 
-To upload a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
+To create a plugin file using the HTTP API, send a `POST` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host-url >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host-url >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PostPluginsFiles" %}}
 
 Include the following in your request:
 
 - **Headers**:
   - `Authorization: Bearer` with your admin token
-  - `Content-Type: application/octet-stream`
-- **Query parameters**:
-  - `path` _(string, required)_: Path to the plugin file relative to the plugin directory
+  - `Content-Type: application/json`
+- **Request body** (JSON):
+  - `plugin_name` _(string, required)_: Name of the plugin file to create, for example, `plugin.py`
+  - `content` _(string, required)_: Source code of the plugin file
+
+The endpoint doesn't require an existing trigger.
+Create the file first, then create a trigger that references it.
+
+The endpoint rejects a request with `Content-Type: application/octet-stream` and returns HTTP status `415`.
+To build the JSON body from a local file, use `jq`:
 
 ```bash{placeholders="AUTH_TOKEN"}
-# Upload a single-file plugin
-curl -X PUT "{{< influxdb/host-url >}}/api/v3/plugins/files?path=plugin.py" \
+# Create a single-file plugin
+jq --null-input \
+  --arg plugin_name "plugin.py" \
+  --rawfile content "/local/path/to/plugin.py" \
+  '{plugin_name: $plugin_name, content: $content}' |
+curl --request POST "{{< influxdb/host-url >}}/api/v3/plugins/files" \
   --header "Authorization: Bearer AUTH_TOKEN" \
-  --header "Content-Type: application/octet-stream" \
-  --data-binary "@/local/path/to/plugin.py"
+  --header "Content-Type: application/json" \
+  --data @-
 ```
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
@@ -481,6 +479,10 @@ Modify plugin code for running triggers without recreating them. This allows you
 
 - [Update a plugin using the influxdb3 CLI](#update-a-plugin-using-the-influxdb3-cli)
 - [Update a plugin using the HTTP API](#update-a-plugin-using-the-http-api)
+
+> [!Important]
+> Plugin updates through the CLI and HTTP API do not update triggers that reference plugins using the `gh:` prefix.
+> To fetch updated code for a `gh:` trigger, disable and re-enable the trigger with [`influxdb3 disable trigger`](/influxdb3/version/reference/cli/influxdb3/disable/trigger/) and [`influxdb3 enable trigger`](/influxdb3/version/reference/cli/influxdb3/enable/trigger/).
 
 #### Update a plugin using the influxdb3 CLI
 
@@ -512,19 +514,33 @@ Include the following in your request:
 
 - **Headers**:
   - `Authorization: Bearer` with your admin token
-  - `Content-Type: application/octet-stream`
-- **Query parameters**:
-  - `path` _(string, required)_: Path to the plugin file relative to the plugin directory
+  - `Content-Type: application/json`
+- **Request body** (JSON):
+  - `plugin_name` _(string, required)_: Name of the existing trigger whose plugin file you want to update
+  - `content` _(string, required)_: Updated source code of the plugin file
 
-```bash{placeholders="AUTH_TOKEN"}
+The server resolves the trigger's plugin file from `plugin_name` and overwrites that file.
+If `plugin_name` doesn't match a registered trigger, the request returns HTTP status `500`.
+To add a plugin file before you create a trigger, [create a plugin file](#upload-a-plugin-using-the-http-api) instead.
+
+```bash{placeholders="AUTH_TOKEN|TRIGGER_NAME"}
 # Update a plugin file
-curl -X PUT "{{< influxdb/host-url >}}/api/v3/plugins/files?path=plugin.py" \
+jq --null-input \
+  --arg plugin_name "TRIGGER_NAME" \
+  --rawfile content "/path/to/updated/plugin.py" \
+  '{plugin_name: $plugin_name, content: $content}' |
+curl --request PUT "{{< influxdb/host-url >}}/api/v3/plugins/files" \
   --header "Authorization: Bearer AUTH_TOKEN" \
-  --header "Content-Type: application/octet-stream" \
-  --data-binary "@/path/to/updated/plugin.py"
+  --header "Content-Type: application/json" \
+  --data @-
 ```
 
-Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
+Replace the following:
+
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: the name of the trigger that uses the plugin file
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): PUT with Content-Type application/octet-stream returns 415 "expected: application/json"; POST with a JSON body returns 200 and a trigger then used the file. Source is the same at 3.11.5. The jq example was not run. -->
 
 **The update operation:**
 - Replaces plugin files immediately
@@ -646,10 +662,11 @@ Include the following in your request:
   - `trigger_name` _(string, required)_: Trigger name
   - `plugin_filename` _(string, required)_: Plugin filename relative to the plugin directory
   - `trigger_specification` _(string, required)_: When the plugin runs (see [trigger types](#understand-trigger-types))
-  - `trigger_settings` _(object, required)_: Configuration for error handling and execution
+  - `trigger_settings` _(object, optional)_: Configuration for error handling and execution.
+    If you omit `trigger_settings` or any of its fields, each omitted field uses its default.
     - `run_async` _(boolean)_: Whether to run asynchronously (default: `false`)
-    - `error_behavior` _(string)_: How to handle errors: `Log`, `Retry`, or `Disable` (default: `Log`)
-  - `disabled` _(boolean, required)_: Whether the trigger is disabled
+    - `error_behavior` _(string)_: How to handle errors: `log`, `retry`, or `disable` (default: `log`)
+  - `disabled` _(boolean, optional)_: Whether the trigger is disabled (default: `false`)
   - `trigger_arguments` _(object, optional)_: Arguments passed to the plugin
 
 ```bash {placeholders="DATABASE_NAME|PLUGIN_FILE|TRIGGER_NAME|TRIGGER_SPEC|AUTH_TOKEN"}
@@ -664,7 +681,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "TRIGGER_SPEC",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -724,7 +741,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "table:sensor_data",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -740,7 +757,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "all_tables",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -844,7 +861,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "every:5m",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -861,7 +878,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "cron:0 0 8 * * *",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -910,7 +927,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "request:webhook",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -979,7 +996,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "every:1h",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "trigger_arguments": {
       "threshold": "90",
@@ -1047,7 +1064,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "table:metrics",
     "trigger_settings": {
       "run_async": true,
-      "error_behavior": "Log"
+      "error_behavior": "log"
     },
     "disabled": false
   }'
@@ -1111,7 +1128,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "table:important_data",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Retry"
+      "error_behavior": "retry"
     },
     "disabled": false
   }'
@@ -1127,7 +1144,7 @@ curl -X POST "{{< influxdb/host-url >}}/api/v3/configure/processing_engine_trigg
     "trigger_specification": "request:webhook",
     "trigger_settings": {
       "run_async": false,
-      "error_behavior": "Disable"
+      "error_behavior": "disable"
     },
     "disabled": false
   }'
@@ -1322,76 +1339,45 @@ For more security configuration options, see [Configuration options](/influxdb3/
 
 {{% show-in "enterprise" %}}
 
-## Distributed cluster considerations
+## Run plugins in a cluster
 
-When you deploy {{% product-name %}} as a multi-node cluster, plugin execution depends on three independent factors: which nodes have `--plugin-dir` configured, which nodes the trigger pins to with `--node-spec`, and what each trigger type requires of its host node.
+In a cluster, we recommend running the Processing Engine on a standalone process node: a node started with `--mode=process` and `--plugin-dir`.
+The process node doesn't store writes or answer data queries.
 
-> [!Note]
-> #### End-to-end cluster reference
->
-> For a complete worked example of the patterns described in this section, see [`influxdata/influxdb3-ref-network-telemetry`](https://github.com/influxdata/influxdb3-ref-network-telemetry) — a 5-node Enterprise cluster that ships WAL-free schedule and request triggers with cross-node write-back.
+The process node starts each trigger type differently:
 
-### Configure `--plugin-dir` on every node
+- **WAL triggers** (`table:` or `all_tables`): The process node reads each ingest node's WAL files from object storage and passes new rows to `process_writes()`.
+- **Schedule triggers** (`every:` or `cron:`): The process node calls `process_scheduled_call()` on the schedule.
+- **Request triggers** (`request:`): The process node serves `/api/v3/engine/<path>` and calls `process_request()` for each request.
 
-The Enterprise catalog registers triggers cluster-wide.
-Every node validates the registered triggers at startup, even nodes that don't execute them.
-If the plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
+For every trigger type, plugins reach data through other nodes over the internode protocol:
+`influxdb3_local.query()` runs on a query node, and `influxdb3_local.write()` and plugin log messages go to an ingest node.
+Start every ingest node and every query node with `--internode-bind-addr`.
 
-Configure `--plugin-dir` on every node and make the same plugin files available to each one (for example, by mounting a shared directory in your container or pod spec).
-Use `--node-spec` on each trigger to control which nodes actually execute it — see [Pin triggers to specific nodes](#pin-triggers-to-specific-nodes).
+For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
-### Match plugin types to the correct node
+### Pin triggers to the process node
 
-| Plugin type   | Trigger spec             | Pin to                                            | Notes                                                                                          |
-|---------------|--------------------------|---------------------------------------------------|------------------------------------------------------------------------------------------------|
-| WAL rows      | `table:` or `all_tables` | An ingest-capable node                            | Each ingester owns its own WAL — the trigger fires per-ingester on only that node's writes.    |
-| Scheduled     | `every:` or `cron:`      | A node with `process` mode (typically `process,query`) | The plugin can call `influxdb3_local.query()` locally; results write back to an ingester via HTTP. |
-| HTTP request  | `request:`               | A node with `query` mode (the host-exposed port)  | The route exists only on the pinned node(s). Other nodes return `404 not found`.               |
+Create each trigger on the process node, and set [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) to the process node's ID:
 
-#### WAL triggers fan out per ingester
-
-Each ingester owns its own WAL.
-A WAL trigger pinned to one ingester fires only on writes that arrived at that ingester.
-A WAL trigger pinned to all ingesters (`--node-spec all` or multiple `nodes:`) fires once per ingester per write — the plugin must be idempotent.
-
-Many production clusters avoid WAL triggers entirely and use the schedule + request pattern instead, where one node pulls aggregated state on a schedule and an HTTP endpoint serves point queries.
-
-#### Schedule triggers write back via HTTP
-
-A schedule trigger pinned to a node without `ingest` mode can't write results to the cluster locally.
-Instead, the plugin should POST line protocol via HTTP to an ingest node.
-For a worked example, see the reference architecture's [`plugins/_writeback.py`](https://github.com/influxdata/influxdb3-ref-network-telemetry/blob/main/plugins/_writeback.py) helper, which round-robins writes across configured ingest URLs with a fallback hop on connection error.
-
-#### Request triggers don't route across nodes
-
-The `/api/v3/engine/<trigger_name>` route exists only on the node(s) the trigger is pinned to.
-A client that hits a node where the trigger isn't pinned receives `HTTP 404 {error: "not found"}`.
-Pin request triggers to your query-serving node(s) and route external clients to those nodes.
-
-### Pin triggers to specific nodes
-
-Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) when creating a trigger to control which node(s) execute it:
-
-```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
+```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
-  --database DATABASE_NAME \
+  --host http://PROCESS_HOST:8181 \
   --token AUTH_TOKEN \
+  --database DATABASE_NAME \
   --path schedule_rollup.py \
   --trigger-spec "every:5s" \
-  --node-spec "nodes:NODE_ID" \
+  --node-spec "nodes:PROCESS_NODE_ID" \
   hourly_rollup
 ```
 
-The default is `--node-spec all`, which makes every plugin-capable node try to execute the trigger — appropriate for single-node deployments, but causes duplicate execution for schedule triggers in a cluster.
+The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
 
-### Route third-party clients to query nodes
+### Route requests to the right node
 
-External tools — such as Grafana, custom dashboards, or REST clients — must connect to query nodes in your InfluxDB Enterprise deployment.
-
-#### Examples
-
-- **Grafana**: When adding InfluxDB 3 as a Grafana data source, use a query node URL, such as:
-  `https://query.example.com:8086`
-- **REST clients**: Applications using `POST /api/v3/query/sql` or `POST /api/v3/engine/<trigger>` must target a query node.
+- Send `/api/v3/engine/<path>` requests for request triggers to the process node.
+  Other nodes return `404` or `405`.
+- Connect external query tools, such as Grafana, to query nodes, for example `https://query.example.com:8181`.
+- Send writes to ingest nodes.
 
 {{% /show-in %}}

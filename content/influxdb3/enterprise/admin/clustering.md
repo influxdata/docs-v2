@@ -36,7 +36,7 @@ cluster efficiency.
 - [Configure ingest nodes](#configure-ingest-nodes)
 - [Configure query nodes](#configure-query-nodes)
 - [Configure compactor nodes](#configure-compactor-nodes)
-- [Configure process-capable nodes](#configure-process-capable-nodes)
+- [Configure a process node](#configure-a-process-node)
 - [Multi-mode configurations](#multi-mode-configurations)
 - [Cluster architecture examples](#cluster-architecture-examples)
 - [Scale your cluster](#scale-your-cluster)
@@ -53,7 +53,7 @@ In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
 - **Ingest nodes**: Optimized for high-throughput data ingestion
 - **Query nodes**: Maximized for complex analytical queries
 - **Compactor nodes**: Dedicated to data compaction and optimization
-- **Process-capable nodes**: Any node with `--plugin-dir` configured can execute Processing Engine plugins. Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) when creating a trigger to pin its execution to specific nodes.
+- **Process node**: Runs only the Processing Engine. We recommend a standalone process node, which runs only the Processing Engine. See [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 - **All-in-one nodes**: Balanced for mixed workloads (single-node deployments only)
 
 ## Configure node modes
@@ -77,14 +77,23 @@ Available modes:
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
-- `process`: Activates the Processing Engine. `process` has no API surface of its own — it activates the Python virtual machine that runs trigger plugins. Setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) implies `process` mode, so you rarely need to set `process` explicitly. In a multi-node cluster, combine `process` with another mode (typically `query`, so plugins can call `influxdb3_local.query()` against the local engine) — see [Configure process-capable nodes](#configure-process-capable-nodes).
+- `process`: Runs the Processing Engine, which runs plugins for triggers. Requires [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir). Setting `--plugin-dir` adds `process` mode to a node, whatever its `--mode`. In a cluster, run `process` alone on a dedicated node, see [Configure a process node](#configure-a-process-node).
+
+> [!Note]
+> #### Nodes without query mode refuse data queries (Parquet engine)
+>
+> A node that doesn't run `query` mode returns `405 Method Not Allowed` for data queries.
+> System table queries still work.
+> The upgraded storage engine already behaves this way.
 
 > [!Warning]
 > #### Don't use all mode in a multi-node cluster
 >
 > Use `all` mode for **single-node** Enterprise deployments only.
 > Some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
-> In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
+> In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`).
+> With the Parquet engine, assign `compact` to exactly one node.
+> With the upgraded storage engine, one compact node at a time holds the compactor lease, and with [distributed compaction](/influxdb3/enterprise/admin/distributed-compaction/) the other compact nodes can run compaction jobs.
 
 ## Allocate threads by node type
 
@@ -253,62 +262,95 @@ You can adjust compaction strategies to balance performance and resource usage:
 ```bash
 # Configure compaction strategy
 --compaction-multipliers=4,8,16 \
---compaction-max-num-files-per-plan=100 \
---compaction-cleanup-wait=10m
+--compaction-max-num-files-per-plan=100
 ```
 
-## Configure process-capable nodes
+### Distributed compaction
 
-Any node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured can execute Processing Engine plugins.
-Setting `--plugin-dir` implicitly adds `process` mode regardless of the node's other modes; explicit `--mode=process` requires `--plugin-dir` to be set.
+On the upgraded storage engine, you can spread compaction work across every compact node in the cluster instead of running it only on the lease holder.
+For setup and tuning guidance, see [Distributed compaction](/influxdb3/enterprise/admin/distributed-compaction/).
+
+## Configure a process node
+
+A _process node_ is a node that runs the Processing Engine (`process` mode).
+It runs plugins for triggers.
+You can run the Processing Engine in one of two architectures:
+
+| Architecture                                                        | Process node `--mode`                              | Recommendation      |
+| :------------------------------------------------------------------ | :------------------------------------------------- | :------------------ |
+| [Standalone process node](#standalone-process-node-recommended)     | `process`                                          | **Recommended**     |
+| [Mixed process node](#mixed-process-node-not-recommended)           | `process` and one or more of `ingest`, `query`, `compact` | Not recommended |
 
 > [!Important]
-> #### Configure `--plugin-dir` on every cluster node
+> #### Use a standalone process node
 >
-> The Enterprise catalog registers triggers cluster-wide.
-> Every node validates the registered triggers at startup, even nodes that don't execute them — for example, ingest-only and compact-only nodes.
-> If a plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
->
-> Configure `--plugin-dir` on every node and make the same plugin files available to each one (for example, by mounting a shared directory in your container or pod spec).
-> Use [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) on each trigger to control which nodes actually execute it.
+> We recommend a standalone process node for every cluster.
+> A standalone process node runs only the Processing Engine, so plugins don't compete with ingest, query, or compaction for CPU and memory.
+> You can also restart the process node, or limit its resources, without affecting the other nodes.
 
-### Enable the Processing Engine on any node
+- [Requirements for every process node](#requirements-for-every-process-node)
+- [Standalone process node (recommended)](#standalone-process-node-recommended)
+- [Mixed process node (not recommended)](#mixed-process-node-not-recommended)
+
+### Requirements for every process node
+
+The following rules apply to every architecture:
+
+- **Set `--plugin-dir` on the process node**:
+  `--mode` with `process` and no [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) fails at startup.
+  Put your plugin files in that directory.
+- **Don't set `--plugin-dir` on other nodes**:
+  Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` adds `process` mode to a node, whatever its `--mode`.
+  The official Docker image sets `INFLUXDB3_PLUGIN_DIR=/plugins`; on containers that shouldn't run the Processing Engine, unset it with `-e INFLUXDB3_UNSET_VARS=INFLUXDB3_PLUGIN_DIR`.
+- **Don't use `all` mode**: In a cluster, list the process node's modes explicitly.
+- **Set `--internode-bind-addr` on the nodes that plugins reach**:
+  A plugin's `influxdb3_local.query()` call runs on a node with `query` mode.
+  Its `influxdb3_local.write()` calls and log messages go to a node with `ingest` mode.
+  If the process node doesn't run one of those modes itself, it reaches another node over the internode protocol, and every node with that mode needs `--internode-bind-addr`.
+  If a node binds to a wildcard address such as `0.0.0.0`, set [`--conn-info`](/influxdb3/enterprise/reference/config-options/#conn-info) to an address that the process node can reach.
+- **Create triggers on the process node and pin them to it**:
+  Set `--node-spec nodes:<process-node-id>` on every trigger.
+- **Send Processing Engine requests to the process node**:
+  Send trigger creation, package installation, and request trigger calls (`/api/v3/engine/<path>`) to the process node.
+  Other nodes return `405 Current node mode does not use the processing engine`.
+
+### Standalone process node (recommended)
+
+A standalone process node runs only in `process` mode.
+It doesn't store writes or answer data queries.
+**Use this architecture for every cluster.**
+
+- Start the process node with `--mode=process` and `--plugin-dir`.
+- Start every ingest node and every query node with `--internode-bind-addr`.
+- Use {{% product-name %}} 3.12.0 or later. On earlier versions, WAL triggers on a standalone process node never run.
 
 ```bash
-influxdb3 \
-  --num-io-threads=4 \
-  serve \
-  --num-cores=16 \
-  --datafusion-num-threads=12 \
+influxdb3 serve \
   --plugin-dir=/path/to/plugins \
-  --node-id=hybrid-01 \
+  --mode=process \
+  --node-id=process0 \
   --cluster-id=prod-cluster
 ```
 
-### Process + query node (16 cores)
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 
-The recommended pattern for a node that hosts schedule plugins.
-Combining `process` with `query` lets plugins call `influxdb3_local.query()` against the local engine without an extra network hop:
+### Mixed process node (not recommended)
 
-```bash
-influxdb3 \
-  --num-io-threads=4 \
-  serve \
-  --num-cores=16 \
-  --datafusion-num-threads=12 \
-  --plugin-dir=/path/to/plugins \
-  --mode=process,query \
-  --node-id=processor-01 \
-  --cluster-id=prod-cluster
-```
+A mixed process node runs `process` mode together with one or more of `ingest`, `query`, or `compact`.
 
-A node in `process,query` mode doesn't accept writes locally.
-Schedule plugins running on it that need to write results back to the cluster must POST line protocol to an ingest node.
-
-> [!Note]
-> #### Cross-node write-back example
+> [!Warning]
+> #### Use a standalone process node instead
 >
-> The [`influxdb3-ref-network-telemetry`](https://github.com/influxdata/influxdb3-ref-network-telemetry) reference architecture's [`plugins/_writeback.py`](https://github.com/influxdata/influxdb3-ref-network-telemetry/blob/main/plugins/_writeback.py) helper round-robins writes across configured ingest URLs with one fallback hop on connection error.
+> On a mixed process node, plugins share CPU and memory with ingest, query, or compaction work, so a plugin that uses a lot of CPU or memory slows that work.
+> When you restart the node, you also interrupt its ingest, query, or compaction work.
+> Use a [standalone process node](#standalone-process-node-recommended) unless you can't add a node to the cluster.
+
+If you run a mixed process node, follow the [requirements for every process node](#requirements-for-every-process-node), and:
+
+1. Add `process` to the node's `--mode` list and set `--plugin-dir`.
+2. If the node doesn't run `query`, restart every query node with `--internode-bind-addr`.
+3. If the node doesn't run `ingest`, restart every ingest node with `--internode-bind-addr`.
+4. Create each trigger on the mixed process node, and set `--node-spec` to its node ID.
 
 ## Multi-mode configurations
 
@@ -395,7 +437,7 @@ io_threads: 4
 datafusion_threads: 28
 ```
 
-### Large cluster (12+ nodes)
+### Large cluster (10+ nodes)
 
 ```yaml
 # Nodes 1-4: High-throughput ingesters
@@ -416,7 +458,7 @@ cores: 32
 io_threads: 2
 datafusion_threads: 30
 ---
-# Nodes 10-12: Process nodes
+# Node 10: Process node
 mode: process
 cores: 32
 io_threads: 6
@@ -470,6 +512,12 @@ FROM system.parquet_files
 WHERE max_time > extract(epoch from now() - INTERVAL '5 minutes') * 1000000000
 GROUP BY table_name;
 ```
+
+> [!Note]
+> On the legacy Parquet storage engine, `system.parquet_files` lists only Gen1
+> files, including compacted Gen1 files that haven't been cleaned up.
+> It doesn't list compacted generations.
+> For more information, see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
 
 #### Query nodes
 

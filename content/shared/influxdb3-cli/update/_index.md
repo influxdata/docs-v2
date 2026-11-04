@@ -27,6 +27,7 @@ influxdb3 update <SUBCOMMAND>
 | Subcommand                                                         | Description            |
 | :----------------------------------------------------------------- | :--------------------- |
 | [database](/influxdb3/version/reference/cli/influxdb3/update/database/) | Update a database      |
+| [table](/influxdb3/version/reference/cli/influxdb3/update/table/)     | Update a table         |
 | [trigger](/influxdb3/version/reference/cli/influxdb3/update/trigger/)   | Update a trigger       |
 | help                                                               | Print command help or the help of a subcommand |
 {{% /show-in %}}

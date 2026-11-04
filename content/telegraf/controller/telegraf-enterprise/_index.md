@@ -2,12 +2,12 @@
 title: Telegraf Enterprise licensing
 description: >
   Apply and manage Telegraf Enterprise licenses in Telegraf Controller to
-  unlock higher limits, audit logging, high availability, and enterprise
-  authentication.
+  unlock higher limits, audit logging, high availability, enterprise
+  authentication, and security advisories.
 menu:
   telegraf_controller:
     name: Telegraf Enterprise licensing
-weight: 10
+weight: 11
 cascade:
   metadata: [Telegraf Enterprise]
 ---

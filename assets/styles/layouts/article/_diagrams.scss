@@ -21,9 +21,14 @@
   // Narrow diagrams (e.g. a top-down flowchart) scale up far past that
   // intent -- 236px natural rendered at 680px is a 2.9x blow-up -- so
   // {{< diagram natural-size >}} opts a diagram out and keeps Mermaid's
-  // natural size.
+  // natural size. {{< diagram medium >}} provides an intermediate 400px
+  // ceiling for diagrams that need more room without using the full column.
   // Avoid CSS min() here -- Sass evaluates it and fails on mixed units.
-  &:not(.natural-size) svg {
+  &.medium svg {
+    max-width: 400px !important;
+  }
+
+  &:not(.natural-size):not(.medium) svg {
     max-width: 680px !important;
   }
 

@@ -7,13 +7,12 @@ import * as localStorage from './services/local-storage.js';
 
 // *** TO BE CUSTOMISED ***
 var sidebar_state_preference_name = 'sidebar_state';
-var sidebar_state_duration = 30;
-var style_domain = 'docs.influxdata.com';
 
 // *** END OF CUSTOMISABLE SECTION ***
 // You do not need to customise anything below this line
 
 function toggleSidebar(toggle_state) {
+  document.body.dataset.sidebarState = toggle_state.replace(/sidebar-/, '');
   // You may use this script on your site free of charge provided
   // you do not remove this notice or the URL below. Script from
   // http://www.thesitewizard.com/javascripts/change-style-sheets.shtml

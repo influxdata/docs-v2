@@ -58,6 +58,8 @@ To activate the processing engine, include the `--plugin-dir <PLUGIN_DIR>` optio
 `PLUGIN_DIR` is your file system location for storing [plugin](#plugin) files for the processing engine to run.
 {{% show-in "enterprise" %}}
 In a cluster, `--plugin-dir` automatically adds `process` mode to the node.
+In a cluster, we recommend running the processing engine on a standalone process node.
+See [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 {{% /show-in %}}
 
 > [!Note]

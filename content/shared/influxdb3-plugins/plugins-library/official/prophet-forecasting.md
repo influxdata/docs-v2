@@ -35,7 +35,7 @@ Set these parameters with `--trigger-arguments` when creating a scheduled trigge
 
 ### HTTP request parameters
 
-Send these parameters as JSON in the HTTP POST request body. Trigger arguments are not used by the HTTP endpoint; a JSON `null` means "not set", so the default applies.
+Send these parameters as JSON in the HTTP POST request body, which must be a JSON object of at most 10 MB. A request carries three layers of its own — the body, then the headers, then the query string, each overriding the one before — and all three override what the trigger holds: the [environment](#environment-variables), the trigger arguments, then the [TOML file](#toml-configuration) they name. A trigger created without arguments is configured by the request alone; one created with them holds the defaults each request overrides only where it names them. A value that arrives empty — a JSON `null` or a blank string — counts as not set, so the trigger's value or the default applies. A key outside the tables below is refused and named in the response, as is `config_file_path` whatever its value, so a misspelling is reported rather than silently dropped.
 
 | Parameter            | Type          | Default  | Description                                                                                        |
 |----------------------|---------------|----------|----------------------------------------------------------------------------------------------------|
@@ -48,6 +48,19 @@ Send these parameters as JSON in the HTTP POST request body. Trigger arguments a
 | `start_time`         | string        | required | Historical window start, ISO 8601 with timezone                                                    |
 | `end_time`           | string        | required | Historical window end, ISO 8601 with timezone. Forecast points are written from this moment onward |
 | `save_mode`          | boolean       | false    | When true, load the saved model for `unique_suffix`, or train and save it when no file exists      |
+
+#### Headers and query parameters
+
+The same names reach the plugin as headers, spelled `X-Influxdb3-Prophet-Forecasting-<PARAMETER>` with underscores written as hyphens (`X-Influxdb3-Prophet-Forecasting-Start-Time` sets `start_time`), and as query-string parameters, spelled exactly like the parameter (`?save_mode=true`). Header names are matched regardless of casing, which RFC 9110 makes meaningless.
+
+```bash
+curl -X POST "http://localhost:8181/api/v3/engine/forecast?save_mode=true" \
+  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "X-Influxdb3-Prophet-Forecasting-Unique-Suffix: v2" \
+  -d '{"start_time": "2026-08-01T00:00:00Z", "end_time": "2026-08-29T00:00:00Z"}'
+```
+A header the plugin does not ask for is ignored, since a client sends headers of its own on every request; an unknown query parameter is refused and named in the response, like an unknown body field. Neither layer can name `config_file_path`, for the reason the body cannot.
 
 ### Advanced parameters
 
@@ -83,15 +96,19 @@ Scheduled triggers only:
 
 Each channel listed in `senders` needs its own keys (`slack_webhook_url`, `discord_webhook_url`, `http_webhook_url`, `twilio_sid`, `twilio_token`, `twilio_from_number`, `twilio_to_number`, and the optional `*_headers`). See the [influxdata/notifier plugin](/influxdb3/version/plugins/library/official/notifier/).
 
+### Environment variables
+
+Every parameter can also come from an environment variable named `INFLUXDB3_PROPHET_FORECASTING_<PARAMETER>` in upper case — for example, `INFLUXDB3_PROPHET_FORECASTING_MEASUREMENT` sets `measurement`, and `INFLUXDB3_PROPHET_FORECASTING_TWILIO_TOKEN` keeps a channel credential out of the trigger. `influxdb3_auth_token` keeps its own variable, `INFLUXDB3_AUTH_TOKEN`. The environment is the lowest layer: a trigger argument overrides it, the TOML file overrides both, and on the HTTP trigger the request — its body, its headers and its query string — overrides them all. `INFLUXDB3_PROPHET_FORECASTING_CONFIG_FILE_PATH` names the TOML file when the trigger doesn't carry a `config_file_path` argument.
+
 ### TOML configuration
 
 | Parameter          | Type   | Default | Description                                                                      |
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
-| `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
+| `config_file_path` | string | none    | `.toml` file, relative to `PLUGIN_DIR` or absolute. A trigger argument on either trigger |
 
 *To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}. Relative paths are resolved against the first directory that is set: `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of `VIRTUAL_ENV`. Only that directory is used — the file is not looked up in the remaining ones.
 
-When `config_file_path` is set, the TOML file provides the whole configuration and inline trigger arguments are ignored. `INFLUXDB3_AUTH_TOKEN` from the environment still applies when `influxdb3_auth_token` is not set in the file. In TOML, `tag_values`, `senders`, `changepoints`, `holiday_date_list`, `holiday_names` and `holiday_country_names` can use native structures (a table or a list) instead of the inline string formats, though the inline strings are also accepted. The HTTP endpoint ignores `config_file_path`.
+The file's values override the other trigger arguments, and on the HTTP trigger the request overrides the file; an argument the file does not set still applies. `INFLUXDB3_AUTH_TOKEN` from the environment applies when `influxdb3_auth_token` is set neither as an argument nor in the file. In TOML, `tag_values`, `senders`, `changepoints`, `holiday_date_list`, `holiday_names` and `holiday_country_names` can use native structures (a table or a list) instead of the inline string formats, though the inline strings are also accepted. The path is never read from a request — not from its body, its headers or its query string. It names a layer rather than setting a value: a request that could choose which file the trigger reads would take the trigger's configuration out of the operator's hands, so the body and the query string refuse it and a header spelling it is dropped.
 
 #### Example TOML configuration
 
@@ -103,7 +120,7 @@ For more information on using TOML configuration files, see the Using TOML Confi
 
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Python packages**:
-  - `influxdata-plugin-utils>=0.3.0` (configuration loading, parsing, and writing)
+  - `influxdata-plugin-utils>=0.4.0` (configuration loading, parsing, and writing)
   - `pandas` (for data manipulation; 2.x and 3.x are both supported)
   - `requests` (for HTTP requests)
   - `prophet` (for time series forecasting)
@@ -146,13 +163,23 @@ influxdb3 create trigger \
 ```
 ### HTTP trigger
 
-Create a trigger for on-demand forecasting:
+Create a trigger for on-demand forecasting. Without trigger arguments the request body carries the whole configuration; with them, they are the defaults the body overrides. See [TOML configuration](#toml-configuration) for naming a file on the trigger.
 
 ```bash
 influxdb3 create trigger \
   --database mydb \
   --path "gh:influxdata/prophet_forecasting/prophet_forecasting.py" \
   --trigger-spec "request:forecast" \
+  prophet_forecast_http_trigger
+```
+A trigger that fixes the source and destination leaves each request to name only its window and model version:
+
+```bash
+influxdb3 create trigger \
+  --database mydb \
+  --path "gh:influxdata/prophet_forecasting/prophet_forecasting.py" \
+  --trigger-spec "request:forecast" \
+  --trigger-arguments "measurement=temperature,field=value,forecast_horizont=7d,tag_values=region:us-west,target_measurement=temperature_forecast,target_database=mydb" \
   prophet_forecast_http_trigger
 ```
 ### Enable triggers
@@ -324,7 +351,7 @@ Handles on-demand forecasts over an explicit window. The training window is `sta
 
 #### Issue: HTTP trigger issues
 
-**Solution**: Verify the JSON request body matches the expected schema. Check authentication tokens and database permissions. Ensure `start_time` and `end_time` are valid ISO 8601 values with a timezone.
+**Solution**: Verify the JSON request body matches the expected schema. The response message names the key or value that was refused. Check authentication tokens and database permissions. Ensure `start_time` and `end_time` are valid ISO 8601 values with a timezone.
 
 #### Issue: Forecast results are not in the expected database
 

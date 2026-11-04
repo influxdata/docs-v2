@@ -166,6 +166,34 @@ docker pull influxdb:3.10-{{< product-key >}}
 To browse recent InfluxDB 3 image tags (Core and Enterprise), newest first, see
 [`influxdb` tags on Docker Hub](https://hub.docker.com/_/influxdb/tags?name=3.&ordering=last_updated).
 {{% /expand %}}
+<!-- Update the Quay tags below for each release: use the release commit SHA
+(influxdata/influxdb for Core, influxdata/influxdb_pro for Enterprise). -->
+{{% show-in "core" %}}
+{{% expand "Pull from an alternative registry (Quay)" %}}
+{{% product-name %}} images are also published to
+[Quay](https://quay.io/repository/influxdb/influxdb3-core?tab=tags),
+tagged by release commit.
+For example, to pull the 3.12.0 image:
+
+<!--pytest.mark.skip-->
+```bash
+docker pull quay.io/influxdb/influxdb3-core:3ba97c65f1ee4e1f127a8266517d4d2083b7ea39
+```
+{{% /expand %}}
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+{{% expand "Pull from an alternative registry (Quay)" %}}
+{{% product-name %}} images are also published to
+[Quay](https://quay.io/repository/influxdb/influxdb3-enterprise?tab=tags),
+tagged by release commit.
+For example, to pull the 3.12.0 image:
+
+<!--pytest.mark.skip-->
+```bash
+docker pull quay.io/influxdb/influxdb3-enterprise:7dd361197ee2834eaa56089b67ffe59ad02e349a
+```
+{{% /expand %}}
+{{% /show-in %}}
 {{< /expand-wrapper >}}
 
 
@@ -187,7 +215,7 @@ Use `apt-get` to install {{< product-name >}} from the InfluxData repository:
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
-| grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
+| grep -q '^fpr::*24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && cat influxdata-archive.key \
 | gpg --dearmor \
 | sudo tee /usr/share/keyrings/influxdata-archive.gpg > /dev/null \
@@ -204,7 +232,7 @@ Use `yum` to install {{< product-name >}} from the InfluxData repository:
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 test -d /usr/share/influxdata-archive-keyring/keyrings || sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
-| grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
+| grep -q '^fpr::*24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && sudo cp ./influxdata-archive.key /usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc \
 && cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
 [influxdata]

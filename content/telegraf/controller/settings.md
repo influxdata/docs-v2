@@ -6,12 +6,12 @@ description: >
 menu:
   telegraf_controller:
     name: Manage settings
-weight: 9
+weight: 10
 related:
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/authentication-authorization/
   - /telegraf/controller/authentication/
-  - /telegraf/controller/audit-logs/
+  - /telegraf/controller/admin/audit-logs/
 ---
 
 Owners and administrators can configure public endpoints, login security, and
@@ -32,7 +32,7 @@ use the auto-detected URL.
 
 | Setting                | Description                                                                                                                                        | Auto-detected fallback                                                                                 |
 | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
-| **User Interface URL** | Base URL used to access the {{% product-name %}} web interface. Used to build [user invite links](/telegraf/controller/users/invite/).            | Browser origin                                                                                        |
+| **User Interface URL** | Base URL used to access the {{% product-name %}} web interface. Used to build [user invite links](/telegraf/controller/users/invite/) and [password reset links](/telegraf/controller/users/update/#generate-a-password-reset-link). | Browser origin                                                                                        |
 | **API URL**            | Base URL used to access the {{% product-name %}} API. Shown in the configuration builder and agent commands.                                      | Browser origin                                                                                        |
 | **Heartbeat URL**      | Base URL Telegraf agents use to send heartbeats to the {{% product-name %}} heartbeat server. Applied when you add a heartbeat output to a config. | Host address with the [heartbeat port](/telegraf/controller/reference/config-options/#heartbeat-port) |
 
@@ -208,7 +208,7 @@ from 30 days to 2 years or infinite.
 > Audit logging itself is enabled at startup only and requires a
 > [Telegraf Enterprise](/telegraf/enterprise/) license.
 > For details, see
-> [Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+> [Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 
 To change the audit log retention period:
 

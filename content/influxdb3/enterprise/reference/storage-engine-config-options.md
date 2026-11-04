@@ -18,6 +18,7 @@ related:
   - /influxdb3/enterprise/admin/query-system-data/
   - /influxdb3/enterprise/reference/config-options/
   - /influxdb3/enterprise/admin/performance-tuning/
+  - /influxdb3/enterprise/admin/distributed-compaction/
 ---
 
 For background on the upgraded storage engine, see
@@ -148,6 +149,25 @@ influxdb3 serve \
   --wal-flush-concurrency 8
 ```
 
+### Write timestamp bounds
+
+Reject writes with explicit point timestamps outside an acceptable window
+around the time the server receives the request.
+Lines without an explicit timestamp are exempt, and the bounds don't apply
+to the `_internal` database.
+
+| Option | Description | Default |
+|:-------|:------------|:--------|
+| [`--write-timestamp-max-past`](/influxdb3/enterprise/reference/config-options/#write-timestamp-max-past) | Reject explicit point timestamps older than this duration relative to the time the write request was received. | _Not set (disabled)_ |
+| [`--write-timestamp-max-future`](/influxdb3/enterprise/reference/config-options/#write-timestamp-max-future) | Reject explicit point timestamps newer than this duration relative to the time the write request was received. | _Not set (disabled)_ |
+
+```bash
+influxdb3 serve \
+  # ...
+  --write-timestamp-max-past 24h \
+  --write-timestamp-max-future 10m
+```
+
 ## Snapshot
 
 Configure snapshot buffer behavior, which controls how WAL files are merged
@@ -221,6 +241,33 @@ Configure data file caching for query performance.
 > These options must be explicitly set—they are not applied automatically when
 > `--mode ingest` is used.
 > See [Disable caching on ingest nodes](#disable-caching-on-ingest-nodes) for an example.
+
+> [!Important]
+> #### In v3.11.6+: `--file-cache-size` is a hard limit
+>
+> In v3.11.6 and later, the upgraded storage engine enforces a hard cache limit.
+> The budget includes cached files and files open in running queries.
+
+When file access would exceed the budget, {{% product-name %}} fails the query.
+The error identifies whether the budget is exhausted or a file exceeds the total budget:
+
+```text
+file access cache budget exhausted:
+```
+
+```text
+file larger than the file access cache budget:
+```
+
+Flight (gRPC) clients receive a `RESOURCE_EXHAUSTED` error.
+For HTTP queries in CSV, JSON, or JSON Lines format:
+
+- Before v3.12.1, the response returns HTTP 200 and ends early.
+- In v3.12.1 and later, a failure before the first row returns HTTP 429.
+  A failure after the response starts still ends the response early.
+
+Retry the query after other queries finish.
+Set the cache size to accommodate the files accessed by concurrent queries.
 
 ### File cache size
 
@@ -311,12 +358,52 @@ through four compaction levels (L1 through L4).
 |:-------|:------------|:--------|
 | `--shard-count` | Target number of shards per compaction window. | `1` |
 | `--compactor-input-size-budget` | Maximum total input bytes across all active compaction jobs. Acts as an admission control budget for the compactor scheduler. | 50% of system memory at startup |
+| `--compactor-import-batch-size` | Largest batch of staged data that one bulk import merge reads at once. Still capped at one quarter of `--compactor-input-size-budget`. Available in v3.12.1 and later. | `4gb` |
 | `--final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `4h` (time-disjoint layout); `72h` (legacy layout) |
 | `--compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
 
 > [!Note]
 > **InfluxDB 3.10**: The `--pt-partition-count` option was renamed to
 > `--pt-shard-count`; the option is now named `--shard-count`.
+
+### Distributed compaction
+
+{{% product-name %}} 3.12 adds beta support for running compaction across
+multiple nodes instead of only on the compactor primary.
+For an overview of the primary/worker model and how to enable it, see
+[Distributed compaction](/influxdb3/enterprise/admin/distributed-compaction/).
+
+| Option | Description | Default |
+|:-------|:------------|:--------|
+| [`--compactor-dispatch-target`](/influxdb3/enterprise/reference/config-options/#compactor-dispatch-target) | Where compactions run: `local` (the primary only), `remote` (other `compact`-mode nodes only), or `all` (both). Beta. | `local` |
+| [`--compactor-dispatch-ack-timeout`](/influxdb3/enterprise/reference/config-options/#compactor-dispatch-ack-timeout) | How long a remote output-group dispatch can sit unacknowledged before the worker is declared unresponsive and its work redispatches elsewhere. | `5s` |
+
+Workers are nodes running in `compact` mode that advertise an internode
+address with `--internode-bind-addr` (and [`--conn-info`](/influxdb3/enterprise/reference/config-options/#conn-info)
+if needed).
+Set `--compactor-dispatch-target` to the same value on every compact node;
+the primary reads its own value to decide where work goes.
+
+```bash
+influxdb3 serve \
+  # ...
+  --mode compact \
+  --compactor-dispatch-target remote
+```
+
+### Orphan sweep
+
+The compactor's primary node periodically sweeps its output prefixes for
+orphaned files (objects that no published state references) and records
+them in a durable audit trail.
+
+| Option | Description | Default |
+|:-------|:------------|:--------|
+| [`--compactor-sweep-interval`](/influxdb3/enterprise/reference/config-options/#compactor-sweep-interval) | Orphan-sweep cadence. Set to `off` to disable the scheduled sweep. | `7d` |
+| [`--compactor-sweep-mode`](/influxdb3/enterprise/reference/config-options/#compactor-sweep-mode) | `armed` enqueues confirmed orphans for deletion; `dry-run` only records them in the audit trail. | `armed` |
+| [`--compactor-sweep-grace`](/influxdb3/enterprise/reference/config-options/#compactor-sweep-grace) | Objects modified within this window before a pass's capture instant are never deletion candidates. Values below `6h` are raised to `6h`. | `24h` |
+| [`--compactor-sweep-auto-resume`](/influxdb3/enterprise/reference/config-options/#compactor-sweep-auto-resume) | Resume an unfinished scheduled sweep pass after a restart instead of waiting a full interval. | `true` |
+| [`--compactor-sweep-audit-retention`](/influxdb3/enterprise/reference/config-options/#compactor-sweep-audit-retention) | Retention for the sweep's audit-trail objects, expired at the start of each pass. | `7d` |
 
 > [!Warning]
 > #### Keep `--shard-count` at 1

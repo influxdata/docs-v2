@@ -10,9 +10,7 @@
 
 import {
   validateMarkdown,
-  validateFrontmatter,
   validateTable,
-  containsText,
   doesNotContainText,
 } from '../../support/markdown-validator.js';
 

@@ -71,7 +71,8 @@ export function generatePreviewComment(options) {
         }
         body += `\n</details>\n\n`;
       }
-      body += `---\n<sub>Preview auto-deploys on push. Will be cleaned up when PR closes.</sub>`;
+      body += `---\n<sub>Preview auto-deploys on push. Will be cleaned up when PR closes.</sub>\n`;
+      body += `<sub>The preview's \`deployed-commit\` meta tag names GitHub's temporary merge commit for this PR, not a commit on the PR branch.</sub>`;
       break;
 
     case 'pending':

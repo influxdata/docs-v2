@@ -8,6 +8,7 @@ import path from 'path';
 import process from 'process';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
+import { execFileSync } from 'child_process';
 import { pathToFileURL } from 'url';
 
 export {
@@ -47,6 +48,13 @@ const SCOPED_AGENTS = [
   { dir: 'content', title: 'Documentation Content' },
   { dir: 'layouts', title: 'Hugo Layouts and Shortcodes' },
 ];
+const GENERATED_PATHS = [
+  'PLATFORM_REFERENCE.md',
+  '.github/instructions',
+  '.claude/rules',
+  '.claude/skills',
+  ...SCOPED_AGENTS.map(({ dir }) => `${dir}/AGENTS.md`),
+];
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   (async () => {
@@ -54,11 +62,20 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
       await buildPlatformReference();
       await buildAgentInstructionAdapters();
       ensureClaudeSkillsSymlink();
+      if (process.argv.includes('--stage')) stageGeneratedFiles();
     } catch (error) {
       console.error('Error generating agent instructions:', error);
       process.exitCode = 1;
     }
   })();
+}
+
+function stageGeneratedFiles() {
+  const existingPaths = GENERATED_PATHS.filter((generatedPath) =>
+    fs.existsSync(path.join(PROJECT_ROOT, generatedPath))
+  );
+  execFileSync('git', ['add', '--', ...existingPaths], { cwd: PROJECT_ROOT });
+  console.log('✅ Staged generated agent instruction files');
 }
 
 async function buildAgentInstructionAdapters() {

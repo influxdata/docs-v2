@@ -27,6 +27,14 @@ After your instance is provisioned, InfluxData provides your instance
 You authenticate with your InfluxData account in the following steps.
 You don't copy or store a token for interactive use.
 
+You can also manage your instance in the {{% product-name %}} Admin UI at
+[console.influxdata.com](https://console.influxdata.com).
+Sign in with the same InfluxData account to view your instance.
+Depending on your role, you can manage databases,
+[tokens](/influxdb3/cloud/admin/tokens/), and
+[users](/influxdb3/cloud/admin/users/admin-ui/).
+This guide uses the `influxdb3` CLI.
+
 ## Configure the influxdb3 CLI
 
 The [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/) lets you
@@ -46,13 +54,22 @@ script:
 
 ```bash
 curl -O https://www.influxdata.com/d/install_influxdb3.sh \
-&& sh install_influxdb3.sh enterprise
+&& sh install_influxdb3.sh enterprise --version {{% latest-patch product="influxdb3_enterprise" %}}
 ```
 
-> [!Note]
-> The installer also sets up a local InfluxDB 3 server.
-> For {{% product-name %}}, you only need the CLI, so you can skip the prompts
-> to start a server.
+The installer script defaults to an older version of the CLI.
+Use the `--version` option to install version 3.10.0 or later.
+{{% product-name %}} requires `influxdb3` 3.10.0 or later because
+`influxdb3 auth login`, which you use to authenticate, was introduced in 3.10.0.
+
+When the installer prompts you, make the following choices:
+
+- At **Select Installation Type**, enter `2` (**Simple Download**).
+  Don't choose `1` (**Docker Image**), which pulls an image but doesn't install the CLI on your host.
+- Skip the prompts to start a server.
+  {{% product-name %}} is fully managed, so you only need the CLI.
+
+To verify the installed version, run `influxdb3 --version`.
 
 For Windows binaries and other CLI installation options,
 see [Install the influxdb3 CLI for InfluxDB 3 Cloud](/influxdb3/cloud/install/).
@@ -211,7 +228,8 @@ Applications can authenticate with the token by setting the
 >
 > For interactive use, you authenticate as a user with
 > `influxdb3 auth login --oauth` — no token required.
-> For applications, create and manage tokens with the `influxdb3` CLI:
+> For applications, create and manage tokens in the Admin UI, with the
+> `influxdb3` CLI, or through the HTTP API. This guide uses the CLI:
 >
 > - **Database tokens**: Grant scoped read and/or write access to specific
 >   databases.

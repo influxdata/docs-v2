@@ -73,7 +73,7 @@
   data-section-download-url="{{ $sectionDownloadUrl }}"
   {{- end }}
   {{- /* Documentation MCP server URL - link to product-specific setup docs */ -}}
-  data-mcp-docs-url="{{ $mcpDocsUrl }}"
+  data-mcp-docs-url="{{ strings.TrimPrefix "/" $mcpDocsUrl | relURL }}"
 >
   {{/* Button triggers dropdown */}}
   <button

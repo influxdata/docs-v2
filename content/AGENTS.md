@@ -24,7 +24,11 @@ the `docs` CLI or direct editing.
   examples.
 - Do not hardcode production docs URLs when a relative link or `relref` works.
 - Shared files have no frontmatter. A stub's `source:` must begin `/shared/`.
-  Direct shared edits require touching every source stub; `docs edit` finds them.
+  Identify every consumer before editing shared content. When previewing changes
+  with a running `hugo server`, touch each consuming stub or restart the server
+  because the watcher doesn't rebuild consumers automatically after shared-source
+  changes. Fresh builds, including CI builds and checks, don't require touching
+  consumer stubs. Edit stub content only when its frontmatter needs to change.
 - Use resource-ownership language for import/write/load guidance and write
   recommendations in InfluxData's first-person plural voice.
 
@@ -56,6 +60,8 @@ Rules: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md)
 - Closing tags match opening tags
 - Required parameters are present
 - Callouts use GitHub-style syntax: `> [!Note]`, `> [!Warning]`, etc.
+- Conditional shortcodes wrap complete callouts, blockquotes, lists, or tables;
+  shortcode boundaries don't split Markdown containers
 
 ### Heading Hierarchy
 
@@ -75,6 +81,8 @@ Products defined in [data/products.yml](../data/products.yml):
 
 - Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
   "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
+- Treat "Cloud" alone as ambiguous; require the exact product or edition rather
+  than inferring Cloud Dedicated
 - Don't mix v2/v3 terminology (e.g., "bucket" in v3 Core docs)
 - Version references match the content path
 
@@ -98,6 +106,10 @@ Products defined in [data/products.yml](../data/products.yml):
 - `source:` frontmatter points to an existing shared file
 - Shared files don't contain frontmatter (only content)
 - Changes to shared content affect multiple products — flag if unintentional
+- Claims and links match every consuming product's supported surface and sibling
+  navigation; flag missing product targets as blocking mismatches
+- Conditional shared content renders as intact containers for every consumer;
+  verify the content and layout in a browser
 
 ### Severity
 
@@ -107,3 +119,10 @@ Products defined in [data/products.yml](../data/products.yml):
   `weight`, long CLI options not used
 - **INFO**: Suggestions, code block missing language identifier, opportunities
   to use shared content
+
+
+## Release updates
+
+For release notes, product patch versions, and notifications, use the
+[content-editing skill](../.agents/skills/content-editing/SKILL.md) and its
+[release-update workflow](../.agents/skills/content-editing/references/release-updates.md).

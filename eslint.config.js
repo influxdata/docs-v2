@@ -118,6 +118,18 @@ export default [
     },
   },
 
+  {
+    files: ['cypress/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.mocha,
+        ...globals.chai,
+        cy: 'readonly',
+        Cypress: 'readonly',
+      },
+    },
+  },
+
   // Configuration for specific file patterns
   {
     files: ['**/*.js'],

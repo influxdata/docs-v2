@@ -1,0 +1,55 @@
+name: Agent Instructions
+
+# Fails when generated agent instruction adapters don't match their
+# .agents/ sources. The commit hook regenerates and stages them, but
+# --no-verify, web edits, and missing hooks bypass it.
+
+on:
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - '.agents/**'
+      - '.claude/rules/**'
+      - '.claude/skills'
+      - '.github/instructions/**'
+      - 'api-docs/AGENTS.md'
+      - 'assets/AGENTS.md'
+      - 'content/AGENTS.md'
+      - 'layouts/AGENTS.md'
+      - 'PLATFORM_REFERENCE.md'
+      - 'data/products.yml'
+      - 'helper-scripts/build-agent-instructions.js'
+      - 'helper-scripts/validate-agent-instructions.js'
+      - 'helper-scripts/agent-instruction-limits.js'
+      - '.github/workflows/pr-agent-instructions.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-agent-instructions-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate generated agent instructions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup docs environment
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      - name: Validate agent instructions and generated adapters
+        run: |
+          if ! yarn validate:agent-instructions; then
+            echo '::error::Agent instruction adapters are out of date or invalid. Run yarn build:agent:instructions and commit the result.'
+            git status --short
+            git diff --stat
+            exit 1
+          fi

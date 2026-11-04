@@ -12,18 +12,15 @@ Setting `--plugin-dir` automatically adds `process` mode to any node, regardless
 You don't need to explicitly set `--mode=process` when `--plugin-dir` is configured.
 
 Conversely, if you explicitly set `--mode=process`, you **must** also set `--plugin-dir`.
-A node with `--mode=process` but no `--plugin-dir` won't function correctly.
+A node with `--mode=process` but no `--plugin-dir` doesn't start.
 
-#### Cluster behavior
+#### Run the Processing Engine in a cluster
 
-In a multi-node cluster, configure `--plugin-dir` on **every** node, regardless of the node's other modes.
-The Enterprise catalog registers triggers cluster-wide and every node validates them at startup; if the plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
+In a cluster, we recommend running the Processing Engine on a standalone process node, a node started with `--mode=process` and `--plugin-dir`.
+The process node runs triggers; plugin queries go to query nodes, and plugin writes go to ingest nodes.
+Pin each trigger to the process node with [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options).
 
-`--mode` does not gate trigger execution.
-A trigger executes on the node(s) that match its [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) — by default, every node with `--plugin-dir` configured.
-For schedule and request triggers in a cluster, pin execution explicitly with `--node-spec nodes:<node-id>` so that only one node runs the trigger.
-
-For cluster node configuration examples, see [Configure process-capable nodes](/influxdb3/enterprise/admin/clustering/#configure-process-capable-nodes).
+For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 {{% /show-in %}}
 
 ### Default behavior by deployment type

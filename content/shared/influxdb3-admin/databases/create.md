@@ -1,12 +1,13 @@
 
 Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/),
-the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}
+the [HTTP API](/influxdb3/version/api/v3/){{% hide-in "cloud" %}}, or [InfluxDB 3 Explorer](/influxdb3/explorer/){{% /hide-in %}}{{% show-in "cloud" %}}, or the Admin UI{{% /show-in %}}
 to create a database in {{< product-name >}}.
 
 - [Create a database using the influxdb3 CLI](#create-a-database-using-the-influxdb3-cli)
 - [Create a database using the HTTP API](#create-a-database-using-the-http-api)
-{{% hide-in "cloud" %}}- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer){{% /hide-in %}}
+{{% hide-in "cloud" %}}- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer){{% /hide-in %}}{{% show-in "cloud" %}}- [Create a database using the Admin UI](#create-a-database-using-the-admin-ui){{% /show-in %}}
 - [Retention period](#retention-period)
+- [Schema mode](#schema-mode)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Database limit](#database-limit)
@@ -19,6 +20,7 @@ to create a database. Provide the following:
 - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 - {{< product-name >}} {{% token-link "admin" "admin" %}}
 - _(Optional)_ [Retention period](#retention-period). If omitted, data doesn't expire.
+- _(Optional)_ [Schema mode](#schema-mode). If omitted, the database uses `implicit` schema mode.
 
 {{% show-in "core" %}}
 > [!Important]
@@ -45,6 +47,15 @@ influxdb3 create database \
 influxdb3 create database DATABASE_NAME
 ```
 
+{{% show-in "enterprise" %}}
+<!--pytest.mark.skip-->
+
+```sh{placeholders="DATABASE_NAME"}
+# Create a database with explicit schema mode
+influxdb3 create database --schema-mode explicit DATABASE_NAME
+```
+{{% /show-in %}}
+
 Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
@@ -63,6 +74,7 @@ Include the following in your request:
 - **Request body** (JSON object):
   - `db` _(string, required)_: Database name
   - `retention_period` _(string, optional)_: [Retention period](#retention-period). If omitted, data doesn't expire.
+  - `schema_mode` _(string, optional)_: [Schema mode](#schema-mode){{% show-in "enterprise" %}}: `implicit` or `explicit`{{% /show-in %}}{{% show-in "core" %}}: only `implicit` is supported{{% /show-in %}}. Defaults to `implicit`.
 
 {{% show-in "core" %}}
 > [!Important]
@@ -101,6 +113,19 @@ curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
   }'
 ```
 
+{{% show-in "enterprise" %}}
+```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
+# Create a database with explicit schema mode
+curl --request POST "{{< influxdb/host-url >}}/api/v3/configure/database" \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "schema_mode": "explicit"
+  }'
+```
+{{% /show-in %}}
+
 Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
@@ -135,8 +160,33 @@ Use the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface to create a da
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
 {{% /hide-in %}}
+{{% show-in "cloud" %}}
+## Create a database using the Admin UI
+
+Use the {{< product-name >}} Admin UI to create a database:
+
+1. In the Admin UI, select your instance, and then click **Databases**.
+2. Click **Add Database**.
+3. In the **Create Database** dialog, enter a **Database Name**.
+   To view the naming rules, hover over the help icon next to the field.
+   For more information, see [Database naming restrictions](#database-naming-restrictions).
+4. Under **Retention Period**, do one of the following:
+
+   - To keep data indefinitely, turn on **Retain Forever**.
+   - To delete data after a set time, leave **Retain Forever** off.
+     Under **Delete After**, enter an **Amount** and select the **Units**
+     (**Weeks**, **Days**, **Hours**, or **Minutes**).
+
+   For more information, see [Retention period](#retention-period).
+5. Click **Create Database**.
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-databases-create.png" alt="The Create Database dialog with a database name and a 30-day retention period" />}}
+
+The new database appears in the **Databases** list.
+{{% /show-in %}}
 
 - [Retention period](#retention-period)
+- [Schema mode](#schema-mode)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Database limit](#database-limit)
@@ -195,23 +245,48 @@ For more information about retention periods, see [Data retention](/influxdb3/ve
 > For more information, see [Retention period precedence](/influxdb3/enterprise/reference/internals/data-retention/#retention-period-precedence).
 {{% /show-in %}}
 
+## Schema mode
+
+{{% show-in "core" %}}
+{{< product-name >}} databases use `implicit` schema mode: tables and columns
+are created automatically from the line protocol you write.
+A request to create a database with `explicit` schema mode fails with an error.
+
+For explicit schema enforcement, consider upgrading to
+[InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/databases/enforce-schema/).
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+Every database has a _schema mode_ that controls where table and column
+definitions come from:
+
+- **`implicit`** _(default)_: Tables and columns are created automatically
+  from the line protocol you write.
+- **`explicit`**: Tables and columns must be declared with the
+  [`influxdb3 create table` command](/influxdb3/version/reference/cli/influxdb3/create/table/)
+  or the `POST /api/v3/configure/table` API before you can write to them.
+  A write that names an undeclared table or column is rejected.
+
+Schema mode is set when you create the database and can't be changed afterward.
+If you need a different schema mode, create a new database and migrate your data.
+
+For more information, including how writes are rejected and how to evolve a
+declared schema, see
+[Enforce a schema](/influxdb3/enterprise/admin/databases/enforce-schema/).
+{{% /show-in %}}
+
 ## Database naming restrictions
 
 Database names must adhere to the following naming restrictions:
 
-- **Length**: Maximum 64 characters
-- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
-- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
-- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Length**: Maximum 511 ASCII characters
+- **Allowed characters**: ASCII alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), and dash (`-`).
+  Multibyte (non-ASCII) characters are not allowed.
+- **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
+  The slash can't be the first or last character.
+- **Prohibited characters**: Whitespace and characters other than those listed above
+- **Starting character**: Must start with an ASCII letter or number
 - **Case sensitivity**: Database names are case-sensitive
-
-> [!Caution]
-> #### Underscore prefix reserved for system use
->
-> Names starting with an underscore (`_`) may be reserved for InfluxDB system use.
-> While {{% product-name %}} might not explicitly reject these names, using them risks
-> conflicts with current or future system features and may result in
-> unexpected behavior or data loss.
 
 ### Valid database name examples
 
@@ -229,8 +304,9 @@ webserver123
 my database        # Contains whitespace
 sensor.data        # Contains period
 app@server         # Contains special character
-_internal          # Starts with underscore (reserved)
-very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
+_internal          # Starts with underscore
+/mydb              # Starts with a slash
+mydb/rp/extra      # Contains more than one slash
 ```
 
 For comprehensive information about naming restrictions for all InfluxDB identifiers, 
@@ -253,7 +329,7 @@ naming convention to automatically map v1 DBRP combinations to an {{% product-na
 database_name/retention_policy_name
 ```
 
-##### Database naming examples
+### Database naming examples
 
 | v1 Database name | v1 Retention Policy name | New database name         |
 | :--------------- | :----------------------- | :------------------------ |

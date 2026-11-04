@@ -26,6 +26,13 @@ plugins.
     navigation bar. 
 2.  Click **{{% lucide "plus" %}} Add Config**.
 3.  Enter a configuration name and optional description.
+    Names are unique among configurations, matched exactly including case,
+    and can be up to 255 characters.
+    If the name is already taken, {{% product-name %}} reports
+    `Configuration "<name>" already exists` and the dialog stays open.
+    Through the API, the create request returns `409 Conflict` with
+    `"error": "config_name_taken"`.
+    A configuration and a configuration group can share a name.
 4.  _(Optional)_ To assign
     [aliases](/telegraf/controller/configs/aliases/) to the configuration,
     click **{{% lucide "plus" %}} Add Alias** and enter an alias that
@@ -46,7 +53,7 @@ The {{% product-name %}} **Code Editor** is an in-browser TOML editor that lets
 you upload or manually write Telegraf configuration TOML.
 
 _For detailed information about using the Code Editor, see
-[Use the Code Editor](/telegraf/controller/configs/ui/code-editor)._
+[Use the Code Editor](/telegraf/controller/configs/ui/code-editor/)._
 
 {{< img-hd src="/img/telegraf/controller-code-editor.png" alt="Telegraf Controller Code Editor" />}}
 
@@ -57,7 +64,7 @@ Telegraf plugins in a Telegraf configuration. The Telegraf Builder is
 currently a beta feature.
 
 _For detailed information about using the Telegraf Builder, see
-[Use the Telegraf Builder](/telegraf/controller/configs/ui/telegraf-builder)._
+[Use the Telegraf Builder](/telegraf/controller/configs/ui/telegraf-builder/)._
 
 {{< img-hd src="/img/telegraf/controller-telegraf-builder.png" alt="Telegraf Builder in Telegraf Controller" />}}
 

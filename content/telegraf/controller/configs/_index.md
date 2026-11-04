@@ -23,7 +23,7 @@ This displays a list of all existing configurations.
 The **Configurations** page displays all configurations with:
 
 - Search bar for filtering by name or description
-- Label filters for organization
+- [Label filters](/telegraf/controller/labels/assign/#filter-lists-by-label) for organization
 - Sort options
 
 ### Configuration details
@@ -39,7 +39,7 @@ update the configuration.
 - Use descriptive names that indicate purpose
 - Add detailed descriptions for complex configurations
 - Apply consistent labeling schemes
-- Group related configurations with labels
+- Group related configurations with [labels](/telegraf/controller/labels/)
 
 ### Performance
 - Set appropriate collection intervals based on metric importance

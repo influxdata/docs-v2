@@ -8,7 +8,7 @@ For tag pages (with 'tag' param), Hugo uses list.html instead.
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
 
-  <div class="content-wrapper api-content">
+  <div class="content-wrapper api-content page-content">
     <div class="api-main">
       <article class="article article--content api-reference" role="main">
         <header class="article--header">
@@ -29,10 +29,7 @@ For tag pages (with 'tag' param), Hugo uses list.html instead.
       </article>
     </div>
 
-    <aside class="api-toc" data-component="api-toc">
-      <h4 class="api-toc-header">ON THIS PAGE</h4>
-      <nav class="api-toc-nav"></nav>
-    </aside>
+    {{ partial "article/page-toc.html" (dict "Page" .) }}
   </div>
 </div>
 

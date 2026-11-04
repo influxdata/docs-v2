@@ -61,10 +61,10 @@ async function main() {
   }
 
   const dataFile = yaml.load(await fs.readFile(DATA_FILE, 'utf8')) ?? [];
-
   const coverage = computeCoverage({
     plugins: parsed.plugins,
     excluded: parsed.excluded,
+    retired: parsed.retired.map((plugin) => plugin.name),
     dataFileIds: dataFile.map((entry) => entry.id),
     sharedPages: await pageNames(SHARED_DIR),
     coreStubs: await pageNames(stubDir('core')),

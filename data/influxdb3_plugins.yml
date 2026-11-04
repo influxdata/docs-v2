@@ -80,7 +80,7 @@
   description: Enables seamless data import from InfluxDB v1, v2, or v3 instances to InfluxDB 3 Core/Enterprise
   tags:
     - HTTP request
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/import
 - name: influxdb_to_iceberg
@@ -116,15 +116,6 @@
   introduced: v0.2.1
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/mqtt_subscriber
-- name: nori_regression
-  id: nori-regression
-  description: Predict a numeric InfluxDB 3 field from other columns with Synthefy's Nori in-context tabular regression model, via the Synthefy inference gateway. Imputes rows where the target field is null.
-  tags:
-    - scheduled
-    - HTTP request
-  introduced: v0.1.1
-  database_version: '>=3.8.2'
-  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/nori_regression
 - name: notifier
   id: notifier
   description: Notification dispatcher that sends notifications through various channels (Slack, Discord, HTTP, SMS, WhatsApp) based on incoming HTTP requests. Features retry logic and environment variable support.
@@ -155,7 +146,7 @@
   tags:
     - scheduled
     - HTTP request
-  introduced: v1.5.0
+  introduced: v1.6.0
   database_version: '>=3.0.0'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/prophet_forecasting
 - name: resampler
@@ -203,7 +194,7 @@
   description: Validates incoming line protocol data against a JSON schema.
   tags:
     - data-write
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/schema_validator
 - name: signal_filter
@@ -211,7 +202,7 @@
   description: Applies streaming digital IIR filters to numeric fields
   tags:
     - data-write
-  introduced: v0.2.0
+  introduced: v0.3.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/signal_filter
 - name: signal_generator
@@ -264,12 +255,21 @@
   introduced: v0.2.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/synthefy_forecasting
+- name: synthefy_nori_regression
+  id: synthefy-nori-regression
+  description: Predict a numeric InfluxDB 3 field from other columns with Synthefy's Nori in-context tabular regression model, via the Synthefy inference gateway. Imputes rows where the target field is null.
+  tags:
+    - scheduled
+    - HTTP request
+  introduced: v0.1.1
+  database_version: '>=3.8.2'
+  repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/synthefy_nori_regression
 - name: system_metrics
   id: system-metrics
   description: Collects system-level metrics (CPU, memory, disk, and network) using psutil and writes them to InfluxDB. Designed to run on a schedule and provide observability into host-level performance.
   tags:
     - scheduled
-  introduced: v1.2.0
+  introduced: v1.3.0
   database_version: '>=3.0.0'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/system_metrics
 - name: threshold_deadman_checks

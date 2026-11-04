@@ -165,7 +165,7 @@ After removal:
 - **Enterprise features are disabled**: audit logging, LDAP authentication,
   and OIDC authentication stop accepting new requests. High-availability
   leadership election also stops; see
-  [How licensing affects high availability](/telegraf/controller/high-availability/#how-licensing-affects-high-availability).
+  [How licensing affects high availability](/telegraf/controller/admin/high-availability/#how-licensing-affects-high-availability).
 - **Existing resources above the free-tier limit are preserved** but cannot
   grow. Create requests for configurations or agent registrations are
   rejected with `402 Payment Required` until usage drops below the free-tier

@@ -12,7 +12,7 @@ menu:
 weight: 101
 related:
   - /telegraf/controller/install/
-  - /telegraf/controller/high-availability/
+  - /telegraf/controller/admin/high-availability/
   - /telegraf/controller/reference/release-notes/
 ---
 
@@ -27,7 +27,7 @@ version between your current version and the target version.
 
 - [Back up your database](#back-up-your-database)
 - [Upgrade {{% product-name %}}](#upgrade-telegraf-controller)
-- [Verify the upgrade](#verify-the-upgrade)
+- [Upgrade a Docker deployment](#upgrade-a-docker-deployment)
 - [Upgrade a high-availability cluster](#upgrade-a-high-availability-cluster)
 
 ## Back up your database
@@ -42,6 +42,9 @@ fails:
 - **PostgreSQL**: use your database or provider backup tooling, for example
   `pg_dump`.
 
+For complete backup and restore procedures, see
+[Back up and restore the database](/telegraf/controller/admin/database/back-up-and-restore/).
+
 ## Upgrade {{% product-name %}}
 
 1.  **Download the new {{% product-name %}} executable.**
@@ -55,6 +58,9 @@ fails:
     > platform-specific information in the file name. This documentation
     > assumes you rename the file to `telegraf_controller`, matching the
     > [install instructions](/telegraf/controller/install/#download-and-install-telegraf-controller).
+
+    Verify the download before you replace the executable.
+    See [Verify the download](/telegraf/controller/install/#verify-the-download-recommended).
 
 2.  **Replace the installed executable and restart {{% product-name %}}.**
 
@@ -167,7 +173,7 @@ nssm start TelegrafController
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Verify the upgrade
+### Verify the upgrade
 
 1.  Confirm the installed executable reports the new version:
 
@@ -200,11 +206,58 @@ telegraf_controller --version
 
 If {{% product-name %}} fails to start after an upgrade, check the service
 logs for migration errors and see
-[Troubleshoot installation](/telegraf/controller/install/troubleshoot/).
+[Troubleshoot {{% product-name %}}](/telegraf/controller/admin/troubleshoot/).
+
+## Upgrade a Docker deployment
+
+Upgrade a [Docker deployment](/telegraf/controller/install/docker/) by
+pulling the new image version and recreating the container. The mounted
+volume carries your data forward, and migrations apply at startup the same
+way they do for an executable upgrade.
+
+1.  **Pull the new image:**
+
+    ```bash
+    docker pull influxdata/telegraf-controller:{{< latest-patch >}}
+    ```
+
+2.  **Stop and remove the existing container:**
+
+    ```bash
+    docker rm -f telegraf-controller
+    ```
+
+    This removes only the container. Data in the mounted volume is preserved.
+
+3.  **Start a new container from the new image** with the same options you
+    used before, including the volume mount.
+
+4.  **Confirm the new version is running.** The running version is displayed
+    in the {{% product-name %}} web interface, at the bottom of the
+    navigation menu, or run the following command:
+
+    ```bash
+    docker exec telegraf-controller /telegraf-controller --version
+    ```
+
+If you use Docker Compose, update the image tag in `docker-compose.yml`,
+then pull and recreate in place:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+> [!Note]
+> If a new release updates the EULA, the release notes call it out, and the
+> container requires `TELEGRAF_CONTROLLER_EULA=accept` to start again. The
+> examples in
+> [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/)
+> keep the variable set, which makes EULA updates transparent.
 
 ## Upgrade a high-availability cluster
 
-Upgrade a [high-availability](/telegraf/controller/high-availability/)
+Upgrade a [high-availability](/telegraf/controller/admin/high-availability/)
 cluster by upgrading one node at a time. The cluster keeps serving
 throughout: when you stop a node, any leadership it holds transfers to a
 standby within a few seconds, and the remaining nodes continue to accept
@@ -221,7 +274,7 @@ agent heartbeats and serve the web interface and API.
 1.  On one node, stop {{% product-name %}}, replace the executable, and
     restart it, following the [steps above](#upgrade-telegraf-controller).
 2.  Wait for the node to report healthy through your load balancer's
-    [health checks](/telegraf/controller/high-availability/load-balancing/),
+    [health checks](/telegraf/controller/admin/high-availability/load-balancing/),
     and confirm the new version with `telegraf_controller --version`.
 3.  Repeat for each remaining node.
 

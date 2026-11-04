@@ -51,4 +51,4 @@ new one.
 
 > [!Note]
 > Your new password must meet the password complexity requirements configured by your administrator.
-> For more information, see [Password requirements](/telegraf/controller/settings/#password-requirements).
+> For more information, see [Password requirements](/telegraf/controller/settings/#password-complexity-requirements).

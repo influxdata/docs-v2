@@ -33,8 +33,19 @@ influxdb3 import <SUBCOMMAND>
 | Subcommand | Description |
 | :--------- | :---------- |
 | [upload](/influxdb3/enterprise/reference/cli/influxdb3/import/upload/) | Upload Parquet files into a database and table |
+| [from-object-store](/influxdb3/enterprise/reference/cli/influxdb3/import/from-object-store/) | Import Parquet files directly from object storage, without streaming file bytes through the client |
 | [list](/influxdb3/enterprise/reference/cli/influxdb3/import/list/) | List import jobs |
 | help | Print command help or the help of a subcommand |
+
+## Permissions
+
+- `upload` and `from-object-store` need the `write` action on the target
+  database.
+- `list` needs the `describe` action on at least one database, and only
+  returns import jobs for databases your token can describe.
+
+For details, see [Permissions](/influxdb3/enterprise/admin/import-data/#permissions)
+in the bulk import guide.
 
 ## Options
 

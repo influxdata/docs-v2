@@ -22,7 +22,7 @@ Verify the identity of clients and users that connect to {{% product-name %}}.
 - [Manage tokens](/influxdb3/enterprise/admin/tokens/): Authenticate API and CLI
   requests with `apiv3_` tokens.
 - [Manage users and authentication](/influxdb3/enterprise/admin/security/manage-users/):
-  Enable multi-user authentication (preview) so users log in with individual
+  Enable multi-user authentication so users log in with individual
   credentials.
 
 ## Authorization

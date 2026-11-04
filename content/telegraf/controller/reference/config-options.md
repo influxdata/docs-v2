@@ -78,6 +78,7 @@ telegraf_controller --no-interactive
   - [heartbeat-port](#heartbeat-port)
   - [ui-port](#ui-port)
   - [database](#database)
+  - [registration-channel](#registration-channel)
 - [Public URLs and CORS](#public-urls-and-cors)
   - [public-api-url](#public-api-url)
   - [public-api-port](#public-api-port)
@@ -98,9 +99,11 @@ telegraf_controller --no-interactive
   - [reset-owner-password](#reset-owner-password)
   - [owner-auth-provider](#owner-auth-provider)
   - [owner-external-id](#owner-external-id)
+  - [owner-token](#owner-token)
 - [Authentication and security](#authentication-and-security)
   - [session-secret](#session-secret)
   - [disable-auth-endpoints](#disable-auth-endpoints)
+  - [disable-preshared-tokens](#disable-preshared-tokens)
   - [Local authentication](#local-authentication)
     - [auth-local-enabled](#auth-local-enabled)
     - [login-lockout-attempts](#login-lockout-attempts)
@@ -134,12 +137,13 @@ telegraf_controller --no-interactive
     - [auth-oidc-allow-insecure](#auth-oidc-allow-insecure)
 - [Logging](#logging)
   - [rust-log](#rust-log)
-  - [logs-dir](#logs-dir)
 - [High availability](#high-availability)
   - [ha-enabled](#ha-enabled)
   - [ha-poll-interval-ms](#ha-poll-interval-ms)
 - [Audit logging](#audit-logging)
   - [audit-enabled](#audit-enabled)
+  - [audit-hmac-key](#audit-hmac-key)
+  - [audit-hmac-key-file](#audit-hmac-key-file)
   - [audit-log-retention](#audit-log-retention)
   - [audit-syslog-host](#audit-syslog-host)
   - [audit-syslog-port](#audit-syslog-port)
@@ -147,6 +151,11 @@ telegraf_controller --no-interactive
   - [audit-webhook-url](#audit-webhook-url)
   - [audit-webhook-auth-header](#audit-webhook-auth-header)
   - [audit-file-path](#audit-file-path)
+- [Security advisories](#security-advisories)
+  - [advisory-feed-url](#advisory-feed-url)
+  - [advisory-controller-feed-url](#advisory-controller-feed-url)
+  - [advisory-auto-check](#advisory-auto-check)
+  - [advisory-check-interval-minutes](#advisory-check-interval-minutes)
 - [EULA and setup](#eula-and-setup)
   - [eula-accept](#eula-accept)
   - [no-interactive](#no-interactive)
@@ -161,6 +170,7 @@ telegraf_controller --no-interactive
 - [heartbeat-port](#heartbeat-port)
 - [ui-port](#ui-port)
 - [database](#database)
+- [registration-channel](#registration-channel)
 
 #### port
 
@@ -230,6 +240,20 @@ telegraf_controller --database="/path/to/database.db"
 | Command flag | Environment variable |
 | :----------- | :------------------- |
 | `--database` | `DATABASE_URL`       |
+
+---
+
+#### registration-channel
+
+The distribution channel for this installation. Packaged distributions set
+this automatically. For example, the official
+[Docker image](/telegraf/controller/install/docker/) sets it to `docker`.
+
+**Default:** Not set
+
+| Command flag | Environment variable   |
+| :----------- | :--------------------- |
+| _(none)_     | `REGISTRATION_CHANNEL` |
 
 ---
 
@@ -315,7 +339,7 @@ certificate and key.
 - [ssl-key-path](#ssl-key-path)
 
 For a full walkthrough that includes configuring agents to trust the certificate,
-see [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+see [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/).
 
 > [!Note]
 > #### Provide both the certificate and the key
@@ -367,32 +391,52 @@ SQLite.
 Set `sslmode` as a query parameter in the PostgreSQL
 [`database`](#database) connection URL to control whether {{% product-name %}}
 uses TLS and whether it verifies the server certificate.
+Use `verify-full` in production.
 
 ```bash { callout="sslmode=verify-full" callout-color="orange"}
 telegraf_controller \
-  --database="postgresql://user:password@localhost:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
+  --database="postgresql://user:password@db.example.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
 ```
 
 {{% product-name %}} supports the following `sslmode` values:
 
-| `sslmode`     | Connection behavior                                              |
-| :------------ | :-------------------------------------------------------------- |
-| `disable`     | Connect without TLS.                                            |
-| `allow`       | Use TLS if the server supports it. Equivalent to `prefer`.      |
-| `prefer`      | Use TLS if the server supports it, otherwise connect without it. |
-| `require`     | Require TLS, but do not verify the server certificate unless you also provide a CA certificate. |
-| `verify-ca`   | Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate. |
-| `verify-full` | Require TLS and verify the server certificate against a CA certificate. Requires a CA certificate. |
+| `sslmode`     | Connection behavior |
+| :------------ | :------------------ |
+| `disable`     | Connect without TLS. |
+| `allow`       | The heartbeat service uses TLS if the server supports it, otherwise connects without it. The API server requires TLS and verifies the server certificate. |
+| `prefer`      | Equivalent to `allow`. |
+| `require`     | Require TLS. The API server verifies the server certificate. The heartbeat service verifies it only if you provide a CA certificate, and otherwise logs a warning. |
+| `verify-ca`   | Require TLS and verify the server certificate and host name. Equivalent to `verify-full`. |
+| `verify-full` | Require TLS and verify the server certificate and host name. |
 
-To verify the server certificate, provide a CA certificate with
-[`sslrootcert`](#sslrootcert), [`database-ca-cert`](#database-ca-cert), or
-`PGSSLROOTCERT`. If you request verification but do not provide a CA
-certificate, {{% product-name %}} verifies against a bundled set of public
-root certificates (the Mozilla root store). Certificates issued by a private
-CA, including Amazon RDS, fail verification unless you provide the CA
-certificate. If database certificate verification fails, agent heartbeats are
-rejected; see
-[Agent heartbeats return 401 Invalid token](/telegraf/controller/install/troubleshoot/#agent-heartbeats-return-401-invalid-token).
+With `require` and no CA certificate, the heartbeat service's connection is
+encrypted but not protected against a host on the network path that
+impersonates the database server.
+Use `verify-full` in production.
+
+{{% product-name %}} connects to PostgreSQL from two components, the API
+server and the heartbeat service.
+With `verify-ca` or `verify-full` and no CA certificate, both components verify
+the server certificate against their bundled public root certificates
+(the Mozilla root store), unless you set `DATABASE_SSL_NO_VERIFY` for the heartbeat service.
+With `require` and no CA certificate, only the API server verifies the server certificate.
+Certificates issued by a private CA, including Amazon RDS, Google Cloud SQL,
+and corporate CAs, fail verification until you provide the CA certificate.
+Provide it with [`sslrootcert`](#sslrootcert) in the connection URL, which
+both components read.
+The [`database-ca-cert`](#database-ca-cert) and `PGSSLROOTCERT` environment
+variables reach only the heartbeat service, and the Node.js
+`NODE_EXTRA_CA_CERTS` environment variable reaches only the API server.
+If heartbeat certificate verification is enabled but only the API server trusts
+the certificate, the web interface works but agent heartbeats are rejected.
+See [Agent heartbeats return 401 Invalid token](/telegraf/controller/admin/troubleshoot/agents/#agent-heartbeats-return-401-invalid-token).
+
+> [!Important]
+> #### The host must match the server certificate
+>
+> When certificate verification is enabled, the host in the connection URL must
+> match a name in the server certificate.
+> For Amazon RDS, use the instance endpoint, not an IP address.
 
 > [!Note]
 > #### Client certificate authentication is not supported
@@ -407,19 +451,22 @@ rejected; see
 
 Path to a PEM-encoded CA certificate used to verify the PostgreSQL server's
 certificate. Set `sslrootcert` as a query parameter in the
-[`database`](#database) connection URL. This is equivalent to setting
-[`database-ca-cert`](#database-ca-cert). When you provide a CA certificate,
-{{% product-name %}} verifies the server certificate even if
-[`database-ssl-no-verify`](#database-ssl-no-verify) is set.
+[`database`](#database) connection URL. Both the API server and the heartbeat
+service read it, so it is the recommended way to provide a CA certificate.
+When you provide a CA certificate, the heartbeat service verifies the server
+certificate even if [`database-ssl-no-verify`](#database-ssl-no-verify) is
+set.
 
 ---
 
 #### database-ca-cert
 
-Path to a PEM-encoded CA certificate used to verify the PostgreSQL server's
-certificate. Use this environment variable as an alternative to the
-[`sslrootcert`](#sslrootcert) connection parameter. {{% product-name %}} also
-accepts the standard `PGSSLROOTCERT` environment variable for the same purpose.
+Path to a PEM-encoded CA certificate that the heartbeat service uses to
+verify the PostgreSQL server's certificate. The heartbeat service also accepts
+the standard `PGSSLROOTCERT` environment variable for the same purpose.
+Neither variable reaches the API server, so prefer
+[`sslrootcert`](#sslrootcert) in the connection URL, which both components
+read.
 
 | Command flag | Environment variable |
 | :----------- | :------------------- |
@@ -429,10 +476,11 @@ accepts the standard `PGSSLROOTCERT` environment variable for the same purpose.
 
 #### database-ssl-no-verify
 
-When set to `1`, `true`, or `yes`, {{% product-name %}} encrypts the
-PostgreSQL connection but does not verify the server certificate.
-Use this only for development or troubleshooting. If you also provide a CA
-certificate, {{% product-name %}} verifies the server certificate and ignores
+When set to `1`, `true`, or `yes`, the heartbeat service encrypts its
+PostgreSQL connection but does not verify the server certificate, and logs a
+warning. This setting does not affect the API server. Use it only to diagnose
+a connection problem, never in production. If you also provide a CA
+certificate, the heartbeat service verifies the server certificate and ignores
 this setting.
 
 **Default:** `false`
@@ -455,6 +503,7 @@ administrative access to {{% product-name %}}.
 - [reset-owner-password](#reset-owner-password)
 - [owner-auth-provider](#owner-auth-provider)
 - [owner-external-id](#owner-external-id)
+- [owner-token](#owner-token)
 
 > [!Note]
 > #### Bootstrap-only settings
@@ -547,10 +596,31 @@ external authentication provider. Required when
 
 ---
 
+#### owner-token
+
+API token value to provision at startup as an all-access, non-expiring token
+owned by the owner account. The value must meet the
+[token requirements](/telegraf/controller/tokens/preshared/#token-requirements).
+If both the flag and the environment variable are set, the flag takes
+precedence.
+
+Unlike the other owner account settings, {{% product-name %}} re-evaluates
+this value on every startup. Changing the value provisions a new bootstrap
+token and revokes the previous one.
+For provisioning behavior and lifecycle details, see
+[Bootstrap an owner token](/telegraf/controller/tokens/bootstrap/).
+
+| Command flag    | Environment variable |
+| :-------------- | :------------------- |
+| `--owner-token` | `OWNER_TOKEN`        |
+
+---
+
 ### Authentication and security
 
 - [session-secret](#session-secret)
 - [disable-auth-endpoints](#disable-auth-endpoints)
+- [disable-preshared-tokens](#disable-preshared-tokens)
 
 - [Local authentication](#local-authentication)
   - [auth-local-enabled](#auth-local-enabled)
@@ -631,6 +701,30 @@ telegraf_controller --disable-auth-endpoints="*"
 | Command flag               | Environment variable      |
 | :------------------------- | :------------------------ |
 | `--disable-auth-endpoints` | `DISABLED_AUTH_ENDPOINTS` |
+
+---
+
+#### disable-preshared-tokens
+
+Refuse client-supplied token values. Set the environment variable to `true`
+or pass the flag without a value. When set, `POST /api/tokens` requests that
+include a `rawToken` field return `403 Forbidden`, and the UI hides the
+**Provide your own token string** field. Requests without the field are
+unaffected.
+For details, see
+[Use pre-shared tokens](/telegraf/controller/tokens/preshared/#disable-pre-shared-tokens).
+
+**Default:** Not set. Pre-shared tokens are enabled.
+
+> [!Note]
+> {{% product-name %}} reads this value once at startup; the value is
+> immutable at runtime. This option does not restrict
+> [`owner-token`](#owner-token). Bootstrap provisioning keeps working on an
+> instance where pre-shared tokens are disabled.
+
+| Command flag                 | Environment variable        |
+| :--------------------------- | :-------------------------- |
+| `--disable-preshared-tokens` | `DISABLE_PRESHARED_TOKENS`  |
 
 ---
 
@@ -1061,7 +1155,6 @@ this is enabled.
 ### Logging
 
 - [rust-log](#rust-log)
-- [logs-dir](#logs-dir)
 
 #### rust-log
 
@@ -1076,18 +1169,6 @@ Tracing level for the Rust heartbeat server. Supports `trace`, `debug`,
 
 ---
 
-#### logs-dir
-
-Absolute path for heartbeat agent logs.
-
-**Default:** System temp directory
-
-| Command flag | Environment variable |
-| :----------- | :------------------- |
-| `--logs-dir` | `LOGS_DIR`           |
-
----
-
 ### High availability
 
 High availability is a [Telegraf Enterprise](/telegraf/enterprise/) feature that
@@ -1095,7 +1176,7 @@ lets you run multiple {{% product-name %}} nodes against a shared PostgreSQL
 database, with one node elected leader. These options are read at startup only.
 High availability requires PostgreSQL; setting `HA_ENABLED=true` with a SQLite
 [`database`](#database) stops startup with an error. For a full walkthrough, see
-[Deploy a highly available cluster](/telegraf/controller/high-availability/deploy/).
+[Deploy a highly available cluster](/telegraf/controller/admin/high-availability/deploy/).
 
 - [ha-enabled](#ha-enabled)
 - [ha-poll-interval-ms](#ha-poll-interval-ms)
@@ -1136,9 +1217,11 @@ only when [`ha-enabled`](#ha-enabled) is `true`.
 Audit logging is a [Telegraf Enterprise](/telegraf/enterprise/)
 feature. All of the following options are read at startup only; changes
 after startup require a restart. For a task-based walkthrough, see
-[Enable and configure audit logging](/telegraf/controller/audit-logs/enable-configure/).
+[Enable and configure audit logging](/telegraf/controller/admin/audit-logs/enable-configure/).
 
 - [audit-enabled](#audit-enabled)
+- [audit-hmac-key](#audit-hmac-key)
+- [audit-hmac-key-file](#audit-hmac-key-file)
 - [audit-log-retention](#audit-log-retention)
 - [audit-syslog-host](#audit-syslog-host)
 - [audit-syslog-port](#audit-syslog-port)
@@ -1150,13 +1233,44 @@ after startup require a restart. For a task-based walkthrough, see
 #### audit-enabled
 
 Enable audit logging on startup. Audit logging requires a Telegraf
-Enterprise license to take effect.
+Enterprise license and a signing key ([`audit-hmac-key`](#audit-hmac-key)
+or [`audit-hmac-key-file`](#audit-hmac-key-file)) to take effect.
 
 **Default:** `false`
 
 | Command flag      | Environment variable    |
 | :---------------- | :---------------------- |
 | `--audit-enabled` | `AUDIT_ENABLED` |
+
+---
+
+#### audit-hmac-key
+
+Key that signs each audit entry, at least 32 characters.
+Audit logging stays disabled until a key is configured, even when
+[`audit-enabled`](#audit-enabled) is set.
+Takes precedence over [`audit-hmac-key-file`](#audit-hmac-key-file).
+{{% product-name %}} never writes the key to disk or to the database.
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `AUDIT_HMAC_KEY`     |
+
+---
+
+#### audit-hmac-key-file
+
+Path to a file that holds the key that signs each audit entry
+(at least 32 characters; surrounding whitespace is trimmed).
+Audit logging stays disabled until a key is configured, even when
+[`audit-enabled`](#audit-enabled) is set.
+When the executable starts in a terminal without
+[`--no-interactive`](#no-interactive) and no key is configured,
+{{% product-name %}} prompts for the key at startup.
+
+| Command flag            | Environment variable  |
+| :---------------------- | :-------------------- |
+| `--audit-hmac-key-file` | `AUDIT_HMAC_KEY_FILE` |
 
 ---
 
@@ -1252,6 +1366,80 @@ Pair it with a system log rotator if you keep the forwarder on long term.
 | Command flag        | Environment variable |
 | :------------------ | :------------------- |
 | `--audit-file-path` | `AUDIT_FILE_PATH`    |
+
+---
+
+### Security advisories
+
+Security advisories are a [Telegraf Enterprise](/telegraf/enterprise/)
+feature. All of the following options are read at startup only. Changes
+after startup require a restart. None of these options have a command-line
+flag. For a task-based walkthrough, see
+[Configure automatic advisory checks](/telegraf/controller/security-advisories/configure-checks/).
+
+- [advisory-feed-url](#advisory-feed-url)
+- [advisory-controller-feed-url](#advisory-controller-feed-url)
+- [advisory-auto-check](#advisory-auto-check)
+- [advisory-check-interval-minutes](#advisory-check-interval-minutes)
+
+#### advisory-feed-url
+
+URL of the signed Telegraf advisory file that {{% product-name %}} downloads
+during automatic checks and checks on demand. The URL must use `https://`.
+The detached signature is downloaded from the same URL with `.asc` appended.
+Set this option to an internal mirror when {{% product-name %}} can't reach
+InfluxData directly. An empty value falls back to the default.
+
+**Default:** `https://dl.influxdata.com/security-advisories/v1/telegraf.json`
+
+| Command flag | Environment variable |
+| :----------- | :------------------- |
+| _(none)_     | `ADVISORY_FEED_URL`  |
+
+---
+
+#### advisory-controller-feed-url
+
+URL of the signed {{% product-name %}} advisory file. It follows the same
+rules as [advisory-feed-url](#advisory-feed-url): the URL must use
+`https://`, the signature is downloaded from the URL with `.asc` appended,
+and an empty value falls back to the default.
+
+**Default:** `https://dl.influxdata.com/security-advisories/v1/telegraf-controller.json`
+
+| Command flag | Environment variable           |
+| :----------- | :----------------------------- |
+| _(none)_     | `ADVISORY_CONTROLLER_FEED_URL` |
+
+---
+
+#### advisory-auto-check
+
+Enable scheduled advisory checks. Set to `false` to disable automatic checks,
+for example in air-gapped deployments. Any other value, including an unset
+variable, leaves automatic checks enabled. Checks on demand and manual
+imports remain available when automatic checks are disabled.
+
+**Default:** `true`
+
+| Command flag | Environment variable  |
+| :----------- | :-------------------- |
+| _(none)_     | `ADVISORY_AUTO_CHECK` |
+
+---
+
+#### advisory-check-interval-minutes
+
+Minutes between automatic advisory checks, from `1` to `10080` (7 days).
+Values above the maximum are capped at the maximum. Values below `1`, and
+values that aren't numbers, fall back to the default. A failed check retries
+after 15 minutes, up to four times, before returning to this interval.
+
+**Default:** `360`
+
+| Command flag | Environment variable              |
+| :----------- | :-------------------------------- |
+| _(none)_     | `ADVISORY_CHECK_INTERVAL_MINUTES` |
 
 ---
 

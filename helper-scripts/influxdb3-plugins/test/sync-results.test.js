@@ -8,6 +8,7 @@ import {
   selectPlugins,
   shouldRunDiscovery,
   mappingForDiscoveredPlugin,
+  prunePlugin,
 } from '../port_to_docs.js';
 
 const CONFIG_PLUGINS = {
@@ -88,6 +89,26 @@ test('uses an explicit mapping when a plugin needs nonstandard paths', () => {
   );
 
   assert.equal(mapping, customMapping);
+});
+
+test("prunes only a retired plugin's known pages and previews a dry run", async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'plugin-prune-'));
+  const paths = ['shared.md', 'core.md', 'enterprise.md'].map((name) =>
+    join(dir, name)
+  );
+  for (const file of paths) writeFileSync(file, 'old docs', 'utf8');
+  const unrelated = join(dir, 'another-plugin.md');
+  writeFileSync(unrelated, 'keep', 'utf8');
+
+  const preview = await prunePlugin('nori_regression', paths, true);
+  assert.equal(preview.status, 'pruned');
+  assert.match(preview.detail, /would remove/);
+  assert.equal(paths.every(existsSync), true);
+
+  const result = await prunePlugin('nori_regression', paths);
+  assert.equal(result.status, 'pruned');
+  assert.equal(paths.some(existsSync), false);
+  assert.equal(readFileSync(unrelated, 'utf8'), 'keep');
 });
 
 test('ignores empty entries from a trailing or doubled comma', () => {

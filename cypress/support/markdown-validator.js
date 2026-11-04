@@ -57,7 +57,7 @@ export function validateMarkdown(markdown) {
   });
 
   // Check for lists
-  visit(ast, 'list', (node) => {
+  visit(ast, 'list', () => {
     results.info.hasLists = true;
   });
 
@@ -82,7 +82,7 @@ export function validateMarkdown(markdown) {
     }
 
     // Extract all cell content
-    node.children.forEach((row, rowIndex) => {
+    node.children.forEach((row) => {
       const rowCells = [];
       row.children.forEach((cell) => {
         rowCells.push(extractText(cell));

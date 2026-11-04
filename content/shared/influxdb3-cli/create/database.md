@@ -28,6 +28,7 @@ You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environme
 | :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
 |        | `--retention-period` | Database [retention period](/influxdb3/version/reference/glossary/#retention-period) ([duration](/influxdb3/version/reference/glossary/#duration) value, for example: `30d`, `24h`, `1h`) |
+|        | `--schema-mode`      | [Schema mode](#schema-mode) for tables in the database: `implicit` (default) or `explicit`. Fixed when the database is created |
 |        | `--token`            | Authentication token                                                                                                                             |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for self-signed or internal certificates)                                                            |
 |        | `--tls-no-verify`    | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                        |
@@ -129,6 +130,33 @@ Creates a database with a retention period of 30 days and 12 hours.
 influxdb3 create database --retention-period 30d12h DATABASE_NAME
 ```
 
+### Create a database with explicit schema mode
+
+{{% show-in "enterprise" %}}
+Creates a database that rejects writes to tables or columns that you haven't
+declared with the `influxdb3 create table` command or the
+`/api/v3/configure/table` API.
+{{% /show-in %}}
+{{% show-in "core" %}}
+`explicit` schema mode requires InfluxDB 3 Enterprise.
+{{< product-name >}} accepts only `implicit` (the default) and rejects a
+request for `explicit` schema mode with an error.
+{{% /show-in %}}
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="DATABASE_NAME" }
+influxdb3 create database --schema-mode explicit DATABASE_NAME
+```
+
+{{% show-in "core" %}}
+{{< product-name >}} returns the following error and doesn't create the database:
+
+```text
+explicit schema mode is only available in InfluxDB 3 Enterprise
+```
+{{% /show-in %}}
+
 ## Retention period duration formats
 
 Retention periods are specified as [duration](/influxdb3/version/reference/glossary/#duration)
@@ -172,3 +200,33 @@ You can combine units: `30d12h` (30.5 days), `1y6mo` (545 days)
 
 For complete details about retention periods, see
 [Data retention in {{< product-name >}}](/influxdb3/version/reference/internals/data-retention/).
+
+## Schema mode
+
+The `--schema-mode` option controls where table and column definitions come from:
+
+- **`implicit`** _(default)_: Tables and columns are created automatically from
+  the line protocol you write.
+- **`explicit`**: Tables and columns must be declared with the
+  [`influxdb3 create table` command](/influxdb3/version/reference/cli/influxdb3/create/table/)
+  or the `/api/v3/configure/table` API before you can write to them.
+  A write that names an undeclared table or column is rejected.
+
+Schema mode applies to every table in the database and is fixed when you
+create the database.
+You can't change a database's schema mode afterward.
+
+{{% show-in "enterprise" %}}
+> [!Note]
+> Explicit schema mode is available in {{< product-name >}} only.
+>
+> For more information, see
+> [Enforce a schema](/influxdb3/version/admin/databases/enforce-schema/).
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+> [!Note]
+> Explicit schema mode requires InfluxDB 3 Enterprise.
+> {{< product-name >}} databases always use implicit schema mode:
+> tables and columns are created automatically from the data you write.
+{{% /show-in %}}

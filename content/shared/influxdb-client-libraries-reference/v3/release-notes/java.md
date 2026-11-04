@@ -2,6 +2,15 @@
 
 ## v1.11.0 {date="2026-08-27"}
 
+### Bug Fixes
+
+1. [#425](https://github.com/InfluxCommunity/influxdb3-java/pull/425):
+      - Only throws `InfluxDBPartialWriteException` when:
+         - Error response status code is `400`.
+         - Error response format `{"error":"...","data":[{"error_message":"...","line_number":2,"original_line": "..."}]}` is returned with `data` must be an array.
+         - `accept_partial` is set to `true`.
+         - Write endpoint must be `api/v3/write_lp`.
+
 ### Breaking Changes
 
 1. [#407](https://github.com/InfluxCommunity/influxdb3-java/pull/407): Upgrade minimum JDK requirement to version 17.

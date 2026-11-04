@@ -740,19 +740,17 @@ lifecycle-relevant columns:
 ```
 
 Other nodes observe a state change after their catalog sync interval
-(default 10 seconds), so allow for that delay when scripting checks.
+(default 1 second, set with `--catalog-sync-interval`),
+so allow for that delay when scripting checks.
 
-<!-- VERIFY (live instance): Two things in this section.
-     1. The catalog sync interval default of 10 seconds is carried over from
-        the published `stop node` CLI page -- confirm it against the current
-        config options, and name the setting here if it is user-tunable.
-     2. Confirm `system.nodes` is reachable via `--database _internal` and that
-        the columns node_id, mode, state, and updated_at exist under those
-        names. Real `show nodes` output also includes node_catalog_id,
-        instance_id, core_count, conn_info, and cli_params; if system.nodes
-        exposes the same set, consider selecting instance_id here too, since it
-        is what the re-registration rules turn on. Same check applies to the
-        Core copy of this query below. -->
+<!-- VERIFY (live instance): Confirm `system.nodes` is reachable via
+     `--database _internal` and that
+     the columns node_id, mode, state, and updated_at exist under those
+     names. Real `show nodes` output also includes node_catalog_id,
+     instance_id, core_count, conn_info, and cli_params; if system.nodes
+     exposes the same set, consider selecting instance_id here too, since it
+     is what the re-registration rules turn on. Same check applies to the
+     Core copy of this query below. -->
 
 You can also query the `system.nodes` table in the `_internal` database:
 

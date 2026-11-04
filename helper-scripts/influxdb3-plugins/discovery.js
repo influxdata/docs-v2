@@ -25,7 +25,10 @@ export function parseRegistryIndex(
   const { overrides, exclude } = mappingConfig;
 
   const latestByName = new Map();
+  const activeNames = new Set();
   for (const entry of indexJson.plugins) {
+    // Retirement requires explicit confirmation from every published version.
+    if (entry.yanked !== true) activeNames.add(entry.name);
     const existing = latestByName.get(entry.name);
     if (!existing || entry.published_at > existing.published_at) {
       latestByName.set(entry.name, entry);
@@ -36,7 +39,7 @@ export function parseRegistryIndex(
     exclude.includes(name)
   );
 
-  const plugins = [...latestByName.values()]
+  const discovered = [...latestByName.values()]
     .filter((entry) => !exclude.includes(entry.name))
     .map((entry) => {
       const slug = entry.name.replaceAll('_', '-');
@@ -44,7 +47,11 @@ export function parseRegistryIndex(
       return { ...entry, slug, stubSlug };
     });
 
-  return { plugins, excluded };
+  return {
+    plugins: discovered.filter((plugin) => activeNames.has(plugin.name)),
+    retired: discovered.filter((plugin) => !activeNames.has(plugin.name)),
+    excluded,
+  };
 }
 
 export function partitionDiscoveredPlugins(discoveredPlugins, mappedNames) {

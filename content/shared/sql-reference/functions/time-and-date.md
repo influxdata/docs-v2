@@ -1,34 +1,6 @@
 The {{< product-name >}} SQL implementation supports time and date functions
 that are useful when working with time series data. 
 
-- [current_date](#current_date)
-- [current_time](#current_time)
-- [current_timestamp](#current_timestamp)
-- [date_bin](#date_bin)
-- [date_bin_gapfill](#date_bin_gapfill)
-- [date_bin_wallclock](#date_bin_wallclock)
-- [date_bin_wallclock_gapfill](#date_bin_wallclock_gapfill)
-- [date_trunc](#date_trunc)
-- [datetrunc](#datetrunc)
-- [date_format](#date_format)
-- [date_part](#date_part)
-- [datepart](#datepart)
-- [extract](#extract)
-- [from_unixtime](#from_unixtime)
-- [make_date](#make_date)
-- [now](#now)
-- [today](#today)
-- [to_char](#to_char)
-- [to_date](#to_date)
-- [to_local_time](#to_local_time)
-- [to_timestamp](#to_timestamp)
-- [to_timestamp_micros](#to_timestamp_micros)
-- [to_timestamp_millis](#to_timestamp_millis)
-- [to_timestamp_nanos](#to_timestamp_nanos)
-- [to_timestamp_seconds](#to_timestamp_seconds)
-- [to_unixtime](#to_unixtime)
-- [tz](#tz)
-
 ## current_date
 
 Returns the current UTC date.
@@ -1403,7 +1375,6 @@ SELECT
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
 
 ## tz
 

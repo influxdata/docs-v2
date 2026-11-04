@@ -1,0 +1,20 @@
+# Schema properties that the upstream influxdata/openapi contract lists for
+# InfluxDB Cloud, but that Cloud doesn't return. post-process-specs.ts removes
+# them from the published spec. This is a denylist: list only properties
+# verified absent on a live Cloud instance.
+#
+# To remove a whole endpoint, set `drop: true` on its tag in ../tags.yml.
+
+schemaProperties:
+  # GET /api/v2 on Cloud 2 (verified 2026-10-08) doesn't return these keys.
+  # backup, restore, plugins, scrapers, and swagger arrive with
+  # influxdata/openapi#658; Cloud serves telegraf plugins as telegraf.plugins.
+  Routes:
+    - backup
+    - plugins
+    - restore
+    - scrapers
+    - setup
+    - sources
+    - swagger
+    - system

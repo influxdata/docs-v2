@@ -2,86 +2,81 @@
 <!-- vale off -->
 > **Note:** This plugin requires {{% product-name %}}.8.2 or later.
 
-An {{% product-name %}} Processing Engine plugin that validates incoming line protocol data against a user-defined JSON schema. Only data that conforms to the schema is written to a target database or table, enabling a clean data pipeline pattern.
 
-## Use Case
+The Schema Validator Plugin validates incoming line protocol against a user-defined JSON schema and forwards only conforming rows to a target database or table. It runs on every WAL flush of the tables named by its trigger specification: each row is checked against the measurement whitelist, the required tags and their allowed values, and the required fields, their types and their allowed values. Valid rows are stripped down to the schema-defined tags and fields and written to the target; rejected rows are optionally logged and recorded in a `_schema_rejections` measurement.
 
-You have data coming into a "raw" database (for example, `raw_db`) from various sources. You want to ensure only properly-structured, validated data makes it into your "clean" database (for example, `clean_db`). This plugin sits on the WAL flush trigger and validates every incoming row against your schema definition before writing it to the target.
+Typical pipelines:
 
-**Common patterns:**
-- `raw_db` -> validate -> `clean_db` (cross-database)
-- `raw_table` -> validate -> `validated_table` (same database, different table)
-- `source_table` -> validate -> `source_table_clean` (same database, with suffix)
+- `raw_db` → validate → `clean_db` (cross-database)
+- `raw_table` → validate → `validated_table` (same database, different table)
+- `source_table` → validate → `source_table_clean` (same database, with a suffix)
 
-This is a **single-file plugin** (`schema_validator.py`) and can be loaded from GitHub via `gh:` trigger paths or created in InfluxDB Explorer.
+This is a single-file plugin (`schema_validator.py`) and can be loaded from GitHub via `gh:` trigger paths or created in InfluxDB 3 Explorer.
 
-> **Note:** The JSON schema configuration file (`schema_validator_config.json`) must be manually uploaded to the plugin directory on the server. There is currently no API for uploading non-plugin files, so Explorer cannot upload it for you. You can use `scp`, `rsync`, or any other file transfer method to place the schema file in the plugin directory alongside the plugin.
+> **Note:** The JSON schema file must be placed in the plugin directory on the server by hand — there is no API for uploading non-plugin files, so Explorer cannot upload it for you. Use `scp`, `rsync`, or any other file transfer method.
 
 ## Features
 
-- **Measurement validation**: Define a whitelist of allowed measurement/table names
-- **Tag validation**: Required/optional tags, allowed tag values
-- **Field validation**: Required/optional fields, type checking (float, integer, string, boolean, uint64), allowed field values
-- **Field stripping**: Extra tags/fields not defined in the schema are automatically stripped from the output
-- **Flexible targeting**: Write to a different database, different table name, or add prefix/suffix
-- **Per-table schemas**: Define different validation rules for each measurement
-- **Rejection logging**: Optionally log rejected rows and/or write rejection details to a measurement
-- **Cached config**: Schema file is cached for 5 minutes to avoid repeated file reads
+- **Measurement whitelist**: `allowed_measurements` names the tables that are processed; a table outside the list is skipped
+- **Tag validation**: each tag is required or optional and may carry a list of allowed values
+- **Field validation**: each field is required or optional, is checked against its declared or inferred type, and may carry a list of allowed values
+- **Field stripping**: tags and fields the schema does not define are dropped from the written row
+- **Flexible targeting**: write to another database, to the name a table's `target_table` gives, or to the source name with a prefix or suffix
+- **Per-table schemas**: every measurement carries its own tags, fields and target
+- **Rejection logging**: a rejected row is logged with its reason and, optionally, recorded in the `_schema_rejections` measurement
+- **Cached schema**: the JSON file is re-read at most once every five minutes
 
-## Quick Start
+## Configuration
 
-### 1. Deploy the plugin files
+Plugin parameters may be specified as key-value pairs in the `--trigger-arguments` flag (CLI) or in the `trigger_arguments` field (API) when creating a trigger. Some plugins support TOML configuration files, which can be specified using the plugin's `config_file_path` parameter.
 
-The plugin code can be deployed via the InfluxDB CLI, Explorer, or GitHub (`gh:`) trigger paths. However, the **schema JSON configuration file must be manually placed** in the plugin directory on the server since there is no API for uploading non-plugin files.
+### Plugin metadata
 
-- `schema_validator.py` - the plugin code (can be uploaded via CLI/Explorer/GitHub)
-- `schema_validator_config.json` - your schema definition (must be manually copied to the plugin directory)
+This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
-### 2. Create a trigger
+### Required parameters
 
-**Cross-database validation (raw_db -> clean_db):**
-```bash
-influxdb3 create trigger \
-  --database raw_db \
-  --plugin-filename schema_validator.py \
-  --trigger-spec "all_tables" \
-  --trigger-arguments schema_file=schema_validator_config.json,target_database=clean_db \
-  schema_validator_trigger
-```
-**Same database, different table (with suffix):**
-```bash
-influxdb3 create trigger \
-  --database mydb \
-  --plugin-filename schema_validator.py \
-  --trigger-spec "table:weather" \
-  --trigger-arguments schema_file=schema_validator_config.json,target_table_suffix=_clean \
-  schema_validator_weather
-```
-**Using a TOML config file:**
-```bash
-influxdb3 create trigger \
-  --database raw_db \
-  --plugin-filename schema_validator.py \
-  --trigger-spec "all_tables" \
-  --trigger-arguments config_file_path=schema_validator_trigger_config.toml \
-  schema_validator_trigger
-```
-### 3. Write data normally
+| Parameter     | Type   | Default  | Description                                                                 |
+|---------------|--------|----------|-----------------------------------------------------------------------------|
+| `schema_file` | string | required | Path to the JSON schema file, absolute or relative to the plugin directory. Must end in `.json` |
 
-Write to your raw database as usual. The plugin will automatically validate and forward conforming data.
+### Data write trigger parameters
 
-```bash
-# This row has all required fields -> will be written to clean_db
-influxdb3 write --database raw_db \
-  "weather,location=us-east,station_id=ST001 temperature=72.5,humidity=45.2"
+| Parameter             | Type    | Default          | Description                                                                                                                                        |
+|-----------------------|---------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `target_database`     | string  | trigger's own DB | Database that validated rows and the rejection log are written to                                                                                  |
+| `target_table_prefix` | string  | `""`             | Prefix added to the source measurement name in the target. Ignored for tables that define `target_table`                                           |
+| `target_table_suffix` | string  | `""`             | Suffix added to the source measurement name in the target. Ignored for tables that define `target_table`                                           |
+| `log_rejected`        | boolean | `true`           | Log one warning per rejected row, plus one message per skipped table. Accepts `true`/`false`, `1`/`0`, `yes`/`no`, `on`/`off`                      |
+| `log_accepted`        | boolean | `false`          | Log one message per accepted row — noisy, use for debugging. Accepts `true`/`false`, `1`/`0`, `yes`/`no`, `on`/`off`                               |
+| `write_rejection_log` | boolean | `false`          | Write rejected row details to the `_schema_rejections` measurement in the target database. Accepts `true`/`false`, `1`/`0`, `yes`/`no`, `on`/`off` |
 
-# This row is missing required tag 'station_id' -> will be rejected
-influxdb3 write --database raw_db \
-  "weather,location=us-east temperature=72.5,humidity=45.2"
-```
-## Schema Configuration (JSON)
+### Environment variables
 
-The schema is defined in a JSON file. Here is the full structure:
+Every parameter can also come from an environment variable named
+`INFLUXDB3_SCHEMA_VALIDATOR_<PARAMETER>` in upper case — for example,
+`INFLUXDB3_SCHEMA_VALIDATOR_SCHEMA_FILE` sets `schema_file`. The environment is
+the lowest layer: a trigger argument overrides it, and the TOML file overrides
+both. `INFLUXDB3_SCHEMA_VALIDATOR_CONFIG_FILE_PATH` names the TOML file when the
+trigger doesn't carry a `config_file_path` argument.
+
+### TOML configuration
+
+| Parameter          | Type   | Default | Description                                                                      |
+|--------------------|--------|---------|----------------------------------------------------------------------------------|
+| `config_file_path` | string | none    | Path to a TOML config file, absolute or relative to the plugin directory         |
+
+To use a TOML configuration file, name it in `config_file_path` in the trigger arguments. A relative path — `config_file_path` and `schema_file` alike — is resolved against the plugin directory: `PLUGIN_DIR` when it is set, otherwise `INFLUXDB3_PLUGIN_DIR`, which the processing engine sets from `--plugin-dir`, otherwise the parent of `VIRTUAL_ENV`. An absolute path is used as written.
+
+The file accepts the same keys as inline arguments, and its values override them. A key outside the tables above is refused and named in the error, in the trigger arguments and in the TOML file alike, so a misspelling is reported rather than silently dropped.
+
+#### Example TOML configuration
+
+- [schema_validator_trigger_config.toml](https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/schema_validator/schema_validator_trigger_config.toml)
+
+For more information on using TOML configuration files, see the Using TOML Configuration Files section in the [influxdb3_plugins/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md).
+
+## Schema configuration (JSON)
 
 ```json
 {
@@ -95,22 +90,12 @@ The schema is defined in a JSON file. Here is the full structure:
                     "required": true,
                     "allowed_values": ["us-east", "us-west", "eu-west"]
                 },
-                "station_id": {
-                    "required": true
-                },
-                "region": {
-                    "required": false
-                }
+                "station_id": { "required": true },
+                "region": { "required": false }
             },
             "fields": {
-                "temperature": {
-                    "required": true,
-                    "type": "float"
-                },
-                "humidity": {
-                    "required": true,
-                    "type": "float"
-                },
+                "temperature": { "required": true, "type": "float" },
+                "humidity": { "required": true, "type": "float" },
                 "condition": {
                     "required": false,
                     "type": "string",
@@ -121,151 +106,231 @@ The schema is defined in a JSON file. Here is the full structure:
     }
 }
 ```
-### Schema Fields Reference
+### Top-level
 
-#### Top-level
+| Field                  | Type                   | Description                                                                                                                                     |
+|------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `allowed_measurements` | `list[str]` (optional) | Whitelist of measurement names. When omitted or empty, no measurement filter is applied and all measurements fall through to the `tables` rules |
+| `tables`               | `dict` (required)      | Map of measurement name -> table definition. Must contain at least one entry; measurements without an entry are skipped                         |
 
-| Field | Type | Description |
-|---|---|---|
-| `allowed_measurements` | `list[str]` (optional) | Whitelist of allowed measurement/table names. If omitted or empty (`[]`), no measurement filter is applied — all measurements fall through to the `tables` rules. |
-| `tables` | `dict` (required) | Map of measurement name -> table schema definition. Must contain at least one entry. Only measurements with an entry here will be validated and written to the target. |
+### Table definition
 
-#### Table Schema
+| Field          | Type              | Description                                                                                  |
+|----------------|-------------------|----------------------------------------------------------------------------------------------|
+| `target_table` | `str` (optional)  | Target measurement name for this table. Takes precedence over `target_table_prefix`/`suffix` |
+| `tags`         | `dict` (optional) | Map of tag name -> tag definition                                                            |
+| `fields`       | `dict` (required) | Map of field name -> field definition. Must contain at least one entry                       |
 
-| Field | Type | Description |
-|---|---|---|
-| `target_table` | `str` (optional) | Override the target measurement name. Takes precedence over prefix/suffix args. |
-| `tags` | `dict` | Map of tag name -> tag definition. |
-| `fields` | `dict` | Map of field name -> field definition. |
-#### Tag Definition
+### Tag definition
 
-| Field | Type | Description |
-|---|---|---|
-| `required` | `bool` | If `true`, the tag must be present on every row. |
-| `allowed_values` | `list` (optional) | Whitelist of allowed values for this tag. |
+| Field            | Type              | Description                                   |
+|------------------|-------------------|-----------------------------------------------|
+| `required`       | `bool`            | When `true`, the tag must be present on a row |
+| `allowed_values` | `list` (optional) | Whitelist of values, compared as strings      |
 
-#### Field Definition
+### Field definition
 
-| Field | Type | Description |
-|---|---|---|
-| `required` | `bool` | If `true`, the field must be present on every row. |
-| `type` | `str` (optional) | Expected data type: `"float"`, `"integer"`, `"string"`, `"boolean"`, `"uint64"`. |
-| `allowed_values` | `list` (optional) | Whitelist of allowed values for this field. |
+| Field            | Type              | Description                                                      |
+|------------------|-------------------|------------------------------------------------------------------|
+| `required`       | `bool`            | When `true`, the field must be present on a row                  |
+| `type`           | `str` (optional)  | Expected type. When omitted, the type is inferred from the value |
+| `allowed_values` | `list` (optional) | Whitelist of values, compared by value and as strings            |
 
-## Trigger Arguments
+A tag or field written as a bare name instead of a definition object is treated as required with no value whitelist.
 
-These can be passed via `--trigger-arguments` or in a TOML config file.
+### Field types
 
-| Argument | Required | Default | Description |
-|---|---|---|---|
-| `schema_file` | Yes | - | Path to the JSON schema file (relative to PLUGIN_DIR). |
-| `target_database` | No | (same db) | Database to write validated data to. |
-| `target_table_prefix` | No | `""` | Prefix added to measurement names in the target. |
-| `target_table_suffix` | No | `""` | Suffix added to measurement names in the target. |
-| `log_rejected` | No | `"true"` | Log info about rejected rows. |
-| `log_accepted` | No | `"false"` | Log info about accepted rows. |
-| `write_rejection_log` | No | `"false"` | Write rejection details to `_schema_rejections` measurement. |
-| `config_file_path` | No | - | Path to TOML config file to override these arguments. |
+| `type`                       | Accepted values                                                    |
+|------------------------------|--------------------------------------------------------------------|
+| `float`, `float64`, `double` | Integers and floats, excluding booleans; must be finite            |
+| `integer`, `int`, `int64`    | Integers, excluding booleans; must fit into `int64`                |
+| `uint64`, `unsigned`, `uint` | Non-negative integers, excluding booleans; must fit into `uint64`  |
+| `string`, `str`              | Strings                                                            |
+| `boolean`, `bool`            | Booleans                                                           |
 
-## Validation Logic
+An unknown type name in the schema is reported as an error and the plugin does not run. When a field definition has no `type`, the type is inferred from the value: booleans become `boolean`, integers `integer`, floats `float`, everything else `string`.
 
-For each incoming row, the plugin checks (in order):
+## Validation logic
 
-1. **Measurement name**: Is the table name in `allowed_measurements`? (if defined)
-2. **Table schema exists**: Is there a schema definition for this table in `tables`? If not, the table is skipped.
-3. **Required tags**: Are all required tags present?
-4. **Tag values**: Are tag values in the `allowed_values` list? (if defined)
-5. **Required fields**: Are all required fields present?
-6. **Field types**: Do field values match the expected type? (if defined)
-7. **Field values**: Are field values in the `allowed_values` list? (if defined)
-8. **Field stripping**: Any extra tags/fields not defined in the schema are stripped from the output.
+For each row, in order:
 
-If **any** check fails, the row is rejected and not written to the target.
+1. **Required tags** — every tag marked `required` must be present.
+2. **Tag values** — a tag with `allowed_values` must carry one of them.
+3. **Required fields** — every field marked `required` must be present.
+4. **Field types** — a present field must match its declared or inferred type.
+5. **Field values** — a field with `allowed_values` must carry one of them.
 
-## Examples
+If any check fails, the row is rejected and nothing is written for it. A row is also rejected when it carries no schema-defined field, or when a value cannot be written as its type (a non-finite float, an integer outside the `int64`/`uint64` range).
 
-### IoT Sensor Validation
+Tags and fields absent from the schema are stripped from the output. Tables absent from a non-empty `allowed_measurements` list are skipped, as are tables with no `tables` entry.
 
-Ensure sensor readings always have a device_id, valid sensor type, and a numeric value:
+## Target resolution
 
-```json
-{
-    "allowed_measurements": ["sensor_readings"],
-    "tables": {
-        "sensor_readings": {
-            "target_table": "sensors_validated",
-            "tags": {
-                "device_id": { "required": true },
-                "sensor_type": {
-                    "required": true,
-                    "allowed_values": ["temperature", "pressure", "humidity"]
-                }
-            },
-            "fields": {
-                "value": { "required": true, "type": "float" },
-                "status": {
-                    "required": false,
-                    "type": "string",
-                    "allowed_values": ["ok", "warning", "critical"]
-                }
-            }
-        }
-    }
-}
-```
-### Multi-table with Cross-database
+Validated rows of a table are written to:
 
-Validate weather and cpu data from raw_db, writing clean data to clean_db:
+1. the table's `target_table`, when set; otherwise
+2. `<target_table_prefix><source_table><target_table_suffix>`.
+
+When `target_database` is not set, rows go back into the trigger's own database, so a table must resolve to a measurement name other than its own — otherwise the trigger would feed itself. A flush carrying such a table is rejected, naming the offending table; tables that the trigger never receives are not checked. Set `target_database`, a prefix, a suffix, or a per-table `target_table`.
+
+The schema file is cached for 5 minutes; edits are picked up within that window.
+
+## Rejection log
+
+With `write_rejection_log` enabled, every rejected row adds one point to `_schema_rejections` in the target database:
+
+| Column         | Kind      | Description                                                |
+|----------------|-----------|------------------------------------------------------------|
+| `source_table` | tag       | Table the rejected row arrived on                          |
+| `reason`       | field     | Rejection reason                                           |
+| `row_data`     | field     | The row rendered as a string, truncated to 1024 characters |
+| `time`         | timestamp | Time of validation                                         |
+
+Entries are batched per table and written in one call.
+
+## Software Requirements
+
+- **{{% product-name %}}**: with the Processing Engine enabled
+- **Python packages**: `influxdata-plugin-utils>=0.4.0`
+
+## Installation steps
+
+1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`):
+
+   ```bash
+   influxdb3 serve \
+     --node-id node0 \
+     --object-store file \
+     --data-dir ~/.influxdb3 \
+     --plugin-dir ~/.plugins
+   ```
+2. Install required Python packages:
+
+   ```bash
+   influxdb3 install package "influxdata-plugin-utils>=0.4.0"
+   ```
+3. Copy the JSON schema file into the plugin directory:
+
+   ```bash
+   scp schema_validator_config.json user@server:~/.plugins/
+   ```
+## Trigger setup
+
+Cross-database validation (`raw_db` -> `clean_db`):
 
 ```bash
 influxdb3 create trigger \
   --database raw_db \
-  --plugin-filename schema_validator.py \
+  --path "gh:influxdata/schema_validator/schema_validator.py" \
   --trigger-spec "all_tables" \
-  --trigger-arguments schema_file=schema_validator_config.json,target_database=clean_db,write_rejection_log=true \
+  --trigger-arguments "schema_file=schema_validator_config.json,target_database=clean_db" \
+  --error-behavior log \
+  schema_validator_trigger
+```
+Same database, different table:
+
+```bash
+influxdb3 create trigger \
+  --database mydb \
+  --path "gh:influxdata/schema_validator/schema_validator.py" \
+  --trigger-spec "table:weather" \
+  --trigger-arguments "schema_file=schema_validator_config.json,target_table_suffix=_clean" \
+  --error-behavior log \
+  schema_validator_weather
+```
+Using a TOML config file:
+
+```bash
+influxdb3 create trigger \
+  --database raw_db \
+  --path "gh:influxdata/schema_validator/schema_validator.py" \
+  --trigger-spec "all_tables" \
+  --trigger-arguments "config_file_path=schema_validator_trigger_config.toml" \
+  --error-behavior log \
+  schema_validator_trigger
+```
+### Enable triggers
+
+```bash
+influxdb3 enable trigger --database raw_db schema_validator_trigger
+```
+## Example usage
+
+### Example 1: Cross-database validation
+
+```bash
+# This row has all required tags and fields -> written to clean_db
+influxdb3 write --database raw_db \
+  "weather,location=us-east,station_id=ST001 temperature=72.5,humidity=45.2"
+
+# This row is missing the required tag 'station_id' -> rejected
+influxdb3 write --database raw_db \
+  "weather,location=us-east temperature=72.5,humidity=45.2"
+
+# Query the validated data
+influxdb3 query --database clean_db "SELECT * FROM weather_clean ORDER BY time DESC LIMIT 10"
+```
+### Example 2: Monitoring rejections
+
+```bash
+influxdb3 create trigger \
+  --database raw_db \
+  --path "gh:influxdata/schema_validator/schema_validator.py" \
+  --trigger-spec "all_tables" \
+  --trigger-arguments "schema_file=schema_validator_config.json,target_database=clean_db,write_rejection_log=true" \
+  --error-behavior log \
   schema_validator_all
 ```
-### Monitoring Rejections
-
-Query the rejection log to see what data is being rejected and why:
-
 ```sql
-SELECT * FROM _schema_rejections
+SELECT source_table, reason, row_data
+FROM _schema_rejections
 WHERE time > now() - INTERVAL '1 hour'
 ORDER BY time DESC
 ```
-## File Structure
+## Code overview
 
-```
-schema_validator/
-  schema_validator.py                       # Main plugin code
-  schema_validator_config.json              # Example schema definition
-  schema_validator_trigger_config.toml      # Example TOML trigger config
-  README.md                                 # This file
-```
-## Notes
+### Files
 
-- The schema JSON file is cached for 5 minutes. To force a reload, restart the trigger or wait for the cache to expire.
-- Extra tags/fields not defined in the schema are silently stripped from the output (not written to the target).
-- Measurements without an entry in `tables` are skipped entirely (no data written).
-- The `target_table` property in a table schema takes precedence over `target_table_prefix`/`target_table_suffix`.
-- The `_schema_rejections` table (if `write_rejection_log=true`) is written to the target database.
-- Uses `write_sync` / `write_sync_to_db` with `no_sync=True` for optimal memory performance.
-- Valid rows are batched per table and written in a single call for efficiency.
+- `schema_validator.py`: The main plugin code containing `process_writes`
+- `schema_validator_config.json`: Example JSON schema definition
+- `schema_validator_trigger_config.toml`: Example TOML trigger configuration
+- `test_schema_validator.py`: Pytest suite (55 tests, runs without a live {{% product-name %}} server)
+- `requirements.txt`: Runtime dependencies (`influxdata-plugin-utils>=0.4.0`)
 
-## Logging
+### Logging
 
-Logs are stored in the `_internal` database (or the database where the trigger is created) in the `system.processing_engine_logs` table. To view logs:
+Logs are stored in the trigger's database in the `system.processing_engine_logs` table. To view logs:
 
 ```bash
-influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
+influxdb3 query --database YOUR_DATABASE "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
 ```
+Every log line is prefixed with a per-fire `task_id` (eight hex characters) so records from a single trigger fire can be correlated.
 
-Log columns:
-- **event_time**: Timestamp of the log event
-- **trigger_name**: Name of the trigger that generated the log
-- **log_level**: Severity level (INFO, WARN, ERROR)
-- **log_text**: Message describing the action or error
+### Main functions
+
+#### `process_writes(influxdb3_local, table_batches, args)`
+
+Loads the configuration and the cached schema, then processes each table batch independently: rows are validated, valid ones are collected as line protocol and written with `write_sync` (or `write_sync_to_db` when `target_database` is set), and rejection log entries are written in a second batch. Writes are not retried, so a WAL flush is never held by backoff; a failing write is reported with the number of rows that did not land, those rows are counted as dropped in the closing summary instead of accepted, and the remaining tables are still processed.
+
+## Troubleshooting
+
+### Common issues
+
+#### Issue: No data appears in the target
+
+**Solution**: Only measurements with an entry in `tables` are forwarded, and a non-empty `allowed_measurements` list filters them further. Check `system.processing_engine_logs` for `No schema defined for table` and `not in allowed_measurements` messages.
+
+#### Issue: Trigger reports "would be written back into itself"
+
+**Solution**: With no `target_database`, the target measurement name must differ from the source. Set `target_database`, `target_table_prefix`, `target_table_suffix`, or the table's `target_table`.
+
+#### Issue: Every row of a table is rejected
+
+**Solution**: Read the rejection reason in the logs or in `_schema_rejections`. Common causes are a `required` tag that arrives as a field in the source data (or the reverse), an `allowed_values` list that does not cover production values, and a `type` that does not match what is written (for example, `integer` against a value written as `72.5`).
+
+#### Issue: Schema edits do not take effect
+
+**Solution**: The schema file is cached for 5 minutes. Wait for the cache to expire or restart the trigger.
 
 ## Report an issue
 

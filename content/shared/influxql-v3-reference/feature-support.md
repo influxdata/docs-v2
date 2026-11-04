@@ -3,16 +3,6 @@ This process is ongoing and some InfluxQL features are still being implemented.
 This page provides information about the current implementation status of
 InfluxQL features.
 
-- [In-progress features](#in-progress-features)
-  - [SLIMIT clause](#slimit-clause)
-  - [SOFFSET clause](#soffset-clause)
-  - [Metaqueries](#metaqueries)
-- [Function support](#function-support)
-  - [Aggregate functions](#aggregate-functions)
-  - [Selector functions](#selector-functions)
-  - [Transformations](#transformations)
-  - [Technical and predictive analysis](#technical-and-predictive-analysis)
-
 ## In-progress features
 
 ### SLIMIT clause

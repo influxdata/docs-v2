@@ -17,6 +17,8 @@ related:
   - /influxdb3/enterprise/install/
   - /influxdb3/enterprise/reference/config-options/
   - /influxdb3/enterprise/admin/databases/
+  - /influxdb3/enterprise/admin/distributed-compaction/
+  - /influxdb3/enterprise/admin/orphaned-file-cleanup/
 source: /shared/influxdb3-admin/upgrade.md
 ---
 

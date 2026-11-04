@@ -79,7 +79,7 @@ your {{% product-name %}} instance.
 
 In your terminal, enter `influxdb3 create token` and provide the following:
 
-- `--permission`: Token permissions (read, write) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+- `--permission`: Token permissions (read, write, describe) in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format, for example:
 
   ```
   db:DATABASE1,DATABASE2:read,write
@@ -128,11 +128,11 @@ Provide the following request headers:
 In the request body, provide the following parameters:
 
 - `token_name`: a description of the token, unique within the instance
-- `resource_type`: the resource type for the token, which is always `db`
-- `resource_names`: an array of database names to grant permissions to
-  - The `resource_names` field supports the `*` wildcard, which grants read or write
-    permissions to all databases.
-- `permissions`: an array of token permission actions (`"read"`, `"write"`) for the database
+- `permissions`: an array of permission objects, each with:
+  - `resource_type`: the resource type for the token, which is always `db`
+  - `resource_names`: an array of database names to grant permissions to.
+    Supports the `*` wildcard, which grants the actions on all databases.
+  - `actions`: an array of actions (`"read"`, `"write"`, `"create"`, `"describe"`, `"delete"`)
 - `expiry_secs`: Specify the token expiration time in seconds.
 
 The following example shows how to use the HTTP API to create a database token:
@@ -174,6 +174,7 @@ token string in plain text.
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
 - [Create a token that expires in seven days](#create-a-token-that-expires-in-seven-days)
+- [Create a token for bulk import](#create-a-token-for-bulk-import)
 
 In the examples below, replace the following:
 
@@ -368,6 +369,47 @@ curl \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+#### Create a token for bulk import
+
+[Bulk import](/influxdb3/enterprise/admin/import-data/) needs the `write`
+action to create an import, and the `describe` action to list import jobs.
+Grant both actions on the target database to use the same token for both:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+influxdb3 create token \
+  --permission "db:DATABASE_NAME:describe,write" \
+  --name "Bulk import token for DATABASE_NAME"
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+curl \
+  "http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data '{
+    "token_name": "Bulk import token for DATABASE_NAME",
+    "permissions": [{
+      "resource_type": "db",
+      "resource_names": ["DATABASE_NAME"],
+      "actions": ["describe","write"]
+    }]
+  }'
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 ## Create a system token
 
 System tokens have the `system` resource type and allow for read-only access
@@ -378,6 +420,16 @@ You can create system tokens for the following system resources:
 - `health`: system health information from the `/health` HTTP API endpoint
 - `metrics`: system metrics information from the `/metrics` HTTP API endpoint
 - `ping`: system ping information from the `/ping` HTTP API endpoint
+
+> [!Note]
+> #### Database tokens can't call /ping or /health
+>
+> A database token with the `read` action, for example, `db:DATABASE_NAME:read`,
+> gets an HTTP `403` response from the `/ping` and `/health` endpoints.
+> A health check that reuses an application's database token reports the
+> server as unavailable.
+
+<!-- VERIFIED against live Enterprise 3.12.0-0.rc.2 (2026-09-30): a db:<name>:read token got 403 from /ping and /health. A db write token was not probed. VERIFY: no test confirms that system:health:read or system:ping:read (or an admin token) is the fix. Add a recommendation after engineering or a live test confirms it. -->
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -398,7 +450,7 @@ In your terminal, run the `influxdb3 create token --permission` command and prov
   - _Options_, for example:
     -  `--expiry`: The token expiration time as a duration.
      If an expiration isn't set, the token does not expire until revoked.
-  - Token permissions in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format--for example:
+  - Token permissions in the `RESOURCE_TYPE:RESOURCE_NAMES:ACTIONS` format, for example:
 
     ```
     system:health:read

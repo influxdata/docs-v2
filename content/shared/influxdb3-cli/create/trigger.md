@@ -36,8 +36,8 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--plugin-filename` | _(Deprecated: use `--path` instead)_ Name of the file, stored in the server's `plugin-dir`, that contains the Python plugin code to run     |
 |        | `--trigger-spec`    | Trigger specification: `table:<TABLE_NAME>`, `all_tables`, `every:<DURATION>`, `cron:<EXPRESSION>`, or `request:<REQUEST_PATH>`                             |
 |        | `--trigger-arguments` | Additional arguments for the trigger, in the format `key=value`, separated by commas (for example, `arg1=val1,arg2=val2`) |
-|        | `--disabled`        | Create the trigger in disabled state                                                                     |
-|        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` |
+|        | `--disabled`        | Create the trigger in disabled state (default: enabled)                                                  |
+|        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` (default: `log`) |
 |        | `--run-asynchronous` | Run the trigger asynchronously, allowing multiple triggers to run simultaneously (default is synchronous)                                                 |
 |        | `--tls-ca`          | Path to a custom TLS certificate authority (for self-signed or internal certificates)                    |
 |        | `--tls-no-verify`   | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
@@ -49,7 +49,7 @@ Additional {{% product-name %}} option:
 
 | Option |               | Description                                                                                                                                                                 |
 | :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        | `--node-spec` | Which node(s) the trigger should be configured on. Two value formats are supported: `all` (default) - applies to all nodes, or `nodes:<node-id>[,<node-id>..]` - applies only to specified comma-separated list of nodes |
+|        | `--node-spec` | Which nodes own the trigger. Two value formats are supported: `all` (default) - every node that runs the Processing Engine (a node with `--plugin-dir` configured) owns the trigger, or `nodes:<node-id>[,<node-id>...]` - only the listed nodes own the trigger. In a cluster, set this to your process node, see [Pin a trigger to the process node](#pin-a-trigger-to-the-process-node) |
 {{% /show-in %}}
 
 ### Reference a plugin from GitHub
@@ -333,42 +333,33 @@ influxdb3 create trigger \
 
 {{% show-in "enterprise" %}}
 
-### Pin a trigger to specific nodes in a cluster
+### Pin a trigger to the process node
 
-In a multi-node {{% product-name %}} cluster, the default `--node-spec all` makes every node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured try to execute the trigger.
-For schedule triggers, this causes duplicate execution on every plugin-capable node.
-For request triggers, the route exists only on the node receiving the HTTP request, and other nodes return `404 not found` — there's no internal cross-node routing.
+In a cluster, we recommend running the Processing Engine on a standalone process node.
+Create the trigger on the process node, and set `--node-spec` to the process node's ID:
 
-To pin a trigger to specific node(s), pass `--node-spec nodes:<node-id>[,<node-id>...]`:
-
-```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|NODE_ID" }
-# Pin a schedule trigger to a process-capable node
+```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
-  --database DATABASE_NAME \
+  --host http://PROCESS_HOST:8181 \
   --token AUTH_TOKEN \
+  --database DATABASE_NAME \
   --path schedule_rollup.py \
   --trigger-spec "every:5s" \
-  --node-spec "nodes:NODE_ID" \
+  --node-spec "nodes:PROCESS_NODE_ID" \
   hourly_rollup
-
-# Pin a request trigger to a query-capable node (the node that serves HTTP)
-influxdb3 create trigger \
-  --database DATABASE_NAME \
-  --token AUTH_TOKEN \
-  --path request_top_n.py \
-  --trigger-spec "request:top_n" \
-  --node-spec "nodes:NODE_ID" \
-  top_n
 ```
 
-The cluster validates the node IDs in `--node-spec` against current cluster membership at create time.
-A typo or unknown node ID is rejected with `HTTP 500: invalid node name (<id>)`.
+The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
 
-The cluster doesn't validate the trigger type against the pinned node's mode at create time.
-Pinning a schedule trigger to a `compact`-only node, or a request trigger to an `ingest`-only node, succeeds — but the trigger fails or returns `404` at execution time.
-Choose the pinned node by what the trigger needs at execution:
+The node in `--node-spec` must exist and run `process` mode:
 
-- **Schedule trigger** — pin to a node with `process,query` mode if the plugin reads with `influxdb3_local.query()`; otherwise the call HTTP-hops to another query node.
-- **Request trigger** — pin to the node(s) you want to serve external HTTP traffic. The `/api/v3/engine/<trigger_name>` route only exists on pinned nodes; clients hitting any other node receive `404 not found`.
+- An unknown node ID returns `invalid node name (<id>)`.
+- A node that doesn't run `process` mode returns `Node doesn't have proper mode, expect process`.
+
+You can't change `--node-spec` after you create the trigger.
+To move a trigger to another node, delete the trigger and create it again.
+
+For request triggers, send `/api/v3/engine/<path>` requests to the node in `--node-spec`.
+For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
 {{% /show-in %}}

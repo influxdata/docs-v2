@@ -286,6 +286,11 @@ GROUP BY
 
 ## Other tools for executing queries
 
+{{% show-in "cloud" %}}
+To run SQL queries in your browser, use the **Query** page in the Admin UI.
+For more information, see [Use the Admin UI to query data](/influxdb3/cloud/query-data/execute-queries/admin-ui/).
+
+{{% /show-in %}}
 Other tools are available for querying data in {{% product-name %}}, including
 the following:
 

@@ -264,6 +264,11 @@ SELECT * FROM system.pt_ingest_files;
 
 Columns: `file_id`, `node_id`, `node_name`, `generation`, `min_time`,
 `max_time`, `row_count`, `size_bytes`, `has_bloom_filter`.
+
+Starting in v3.12.1, after a restart this table lists the files from the
+node's newest snapshot manifest plus the snapshots taken since the node
+started.
+Files from older manifests aren't listed.
 Use this table to monitor file counts per generation, file sizes, and time
 ranges.
 
@@ -329,6 +334,12 @@ for how many times the compactor restarted during the upgrade.
 The `conversion_*` and `import_*` columns report conversion and import
 progress.
 These columns are null on `ingest` rows.
+
+Starting in v3.11.8 and v3.12.2, if a Parquet file fails every conversion attempt,
+the `status` column of the node's `ingest` row is `failed`.
+The `last_message` column identifies the file and its error.
+To resume the upgrade, follow the
+[retry procedure](/influxdb3/enterprise/reference/cli/influxdb3/manage/retry-upgrade-to-pacha-tree/#retry-after-an-ingest-conversion-failure).
 
 **Query telemetry** — the query telemetry endpoint provides detailed
 execution statistics for analyzing query performance:

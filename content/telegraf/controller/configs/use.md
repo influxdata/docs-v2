@@ -56,7 +56,7 @@ and then starts the `telegraf` process using the loaded configuration.
 > [!Note]
 > If {{% product-name %}} serves over HTTPS, use an `https://` configuration URL
 > and make sure the agent trusts the certificate. For details, see
-> [Secure {{% product-name %}} with TLS](/telegraf/controller/install/secure-tls/).
+> [Secure {{% product-name %}} with TLS](/telegraf/controller/admin/secure-tls/).
 
 ### Retrieve a configuration with authorization enabled
 
