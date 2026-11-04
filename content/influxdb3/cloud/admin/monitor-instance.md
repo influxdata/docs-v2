@@ -4,7 +4,7 @@ seotitle: Monitor your {{< product-name >}} instance in the Admin UI
 description: >
   Use the instance Overview page in the {{< product-name >}} Admin UI to view
   instance details, size, CPU and memory metrics, ingest and query rates,
-  storage, and object storage request usage.
+  storage used, and object storage request counts.
 menu:
   influxdb3_cloud:
     parent: Administer InfluxDB
@@ -21,8 +21,8 @@ related:
 Use the instance **Overview** page in the {{% product-name %}} Admin UI to
 monitor the health, size, and usage of your instance.
 The page shows instance details, the compute resources allocated to each
-component, CPU and memory metrics, ingest and query rates, and storage and
-object storage request history.
+component, CPU and memory metrics, ingest and query rates, storage used,
+and object storage request counts.
 
 - [Open the Overview page](#open-the-overview-page)
 - [View instance details](#view-instance-details)
@@ -184,19 +184,17 @@ Use the charts to understand how your workload uses the instance:
 
 ## View storage and usage
 
-The **Storage & Usage** section charts storage and object storage requests
-over time.
+The **Storage & Usage** section charts storage used by data files and object
+storage request counts over time.
 Each chart has its own time range menu with the following options:
 **1 Week**, **30 Days**, **60 Days**, **90 Days**, and **1 Year**.
 The default is **30 Days**.
 
-- **Total Instance File Size**: The total size of the data files that the
-  instance stores.
-- **API Calls**: A bar chart of object storage requests, with a series for
-  **Tier 1** and a series for **Tier 2**.
-  Turn on **Show Total** to add a series that combines both tiers.
-  As described in [View instance details](#view-instance-details), these
-  figures count object storage requests, not InfluxDB HTTP API calls.
+- **Total Instance File Size**: The total storage used by the instance's data files.
+- **API Calls**: The number of requests the instance makes to object storage,
+  shown separately for **Tier 1** and **Tier 2**.
+  Turn on **Show Total** to display their combined count.
+  These counts exclude InfluxDB HTTP API requests, such as write and query requests.
 
 ## Backups
 
