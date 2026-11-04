@@ -194,9 +194,9 @@ Each chart has its own time range menu with the following options:
 The default is **30 Days**.
 
 - **Total Instance File Size**: The total storage used by the instance's data files.
-- **API Calls**: The number of requests the instance makes to object storage,
-  shown separately for **Tier 1** and **Tier 2**.
-  Turn on **Show Total** to display their combined count.
+- **API Calls**: A bar chart of the number of requests the instance makes to
+  object storage, with a series for **Tier 1** and a series for **Tier 2**.
+  Turn on **Show Total** to add a series with their combined count.
   These counts exclude InfluxDB HTTP API requests, such as write and query requests.
 
 ## Backups
