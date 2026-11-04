@@ -174,6 +174,7 @@ influxdb3_cloud_serverless:
   scheme: https
   version_label: Cloud Serverless
   distributed_architecture: true
+  home_sample_data_anchor: get-started-home-sensor-data
   limits:
     table: 500
     column: 200
@@ -219,6 +220,7 @@ influxdb3_cloud_dedicated:
   scheme: https
   version_label: Cloud Dedicated
   distributed_architecture: true
+  home_sample_data_anchor: get-started-home-sensor-data
   limits:
     table: 500
     column: 250
@@ -260,6 +262,7 @@ influxdb3_clustered:
   scheme: https
   version_label: Clustered
   distributed_architecture: true
+  home_sample_data_anchor: get-started-home-sensor-data
   limits:
     table: 500
     column: 250
@@ -464,7 +467,7 @@ chronograf:
   has_support_contract: false
   latest: v1.11
   latest_patches:
-    v1: 1.11.6
+    v1: 1.11.7
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -492,7 +495,7 @@ kapacitor:
   has_support_contract: false
   latest: v1.8
   latest_patches:
-    v1: 1.8.8
+    v1: 1.8.9
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?

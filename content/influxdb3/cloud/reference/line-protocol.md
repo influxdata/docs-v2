@@ -11,6 +11,8 @@ weight: 101
 influxdb3/cloud/tags: [write, line protocol, syntax]
 related:
   - /influxdb3/cloud/write-data/
+aliases:
+  - /influxdb3/cloud/reference/syntax/line-protocol/
 source: /shared/v3-line-protocol.md
 ---
 

@@ -1,4 +1,3 @@
-
 Window functions let you calculate running totals, moving averages, or other aggregate-like results without collapsing rows into groups.
 They perform their calculations over a “window” of rows, which you can partition and order in various ways, and return a calculated value for each row in the set.
 
@@ -34,29 +33,6 @@ ORDER BY
 | 2022-01-01T09:00:00 | Living Room | 21.4 |         21.25 |
 
 {{% /influxdb/custom-timestamps %}}
-
-- [Window frames](#window-frames)
-  - [OVER clause](#over-clause)
-  - [PARTITION BY clause](#partition-by-clause)
-  - [ORDER BY clause](#order-by-clause)
-  - [Frame clause](#frame-clause)
-    - [Frame units](#frame-units)
-    - [Frame boundaries](#frame-boundaries)
-  - [WINDOW clause](#window-clause)
-- [Aggregate functions](#aggregate-functions)
-- [Ranking Functions](#ranking-functions)
-  - [cume_dist](#cume_dist)
-  - [dense_rank](#dense_rank)
-  - [ntile](#ntile)
-  - [percent_rank](#percent_rank)
-  - [rank](#rank)
-  - [row_number](#row_number)
-- [Analytical Functions](#analytical-functions)
-  - [first_value](#first_value)
-  - [lag](#lag)
-  - [last_value](#last_value)
-  - [lead](#lead)
-  - [nth_value](#nth_value)
 
 ## Window frames
 
@@ -163,24 +139,9 @@ The _frame clause_ defines window frame boundaries and can be one of the followi
 { RANGE | ROWS | GROUPS } BETWEEN frame_start AND frame_end
 ```
 
-- [Frame units](#frame-units)
-  - [RANGE](#range)
-  - [ROWS](#rows)
-  - [GROUPS](#groups)
-- [Frame boundaries](#frame-boundaries)
-  - [UNBOUNDED PRECEDING](#unbounded-preceding)
-  - [offset PRECEDING](#offset-preceding)
-  - [CURRENT ROW](#current-row)
-  - [offset FOLLOWING](#offset-following)
-  - [UNBOUNDED FOLLOWING](#unbounded-following)
-
 #### Frame units
 
 When defining window frames, you can use one of the following frame units:
-
-- [RANGE](#range)
-- [ROWS](#rows)
-- [GROUPS](#groups)
 
 ##### RANGE
 
@@ -327,12 +288,6 @@ The window function uses all rows in the current row group and the two preceding
 Frame boundaries (**frame_start** and **frame_end**) define the boundaries of
 each frame that the window function operates on.  
 
-- [UNBOUNDED PRECEDING](#unbounded-preceding)
-- [offset PRECEDING](#offset-preceding)
-- [CURRENT_ROW](#current-row)
-- [offset FOLLOWING](#offset-following)
-- [UNBOUNDED FOLLOWING](#unbounded-following)
-
 ##### UNBOUNDED PRECEDING
 
 Starts at the first row of the partition and ends at the current row.
@@ -400,13 +355,6 @@ All [aggregate functions](/influxdb3/cloud-dedicated/reference/sql/functions/agg
 can be used as window functions.
 
 ## Ranking Functions
-
-- [cume_dist](#cume_dist)
-- [dense_rank](#dense_rank)
-- [ntile](#ntile)
-- [percent_rank](#percent_rank)
-- [rank](#rank)
-- [row_number](#row_number)
 
 ### cume_dist
 
@@ -795,12 +743,6 @@ Key differences:
 {{< /expand-wrapper >}}
 
 ## Analytical Functions
-
-- [first_value](#first_value)
-- [lag](#lag)
-- [last_value](#last_value)
-- [lead](#lead)
-- [nth_value](#nth_value)
 
 ### first_value
 

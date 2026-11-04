@@ -9,21 +9,6 @@ with InfluxDB and work with times series data.
 > For information about the current implementation status of InfluxQL features,
 > see [InfluxQL feature support](/influxdb/version/reference/influxql/feature-support/).
 
-- [Notation](#notation)
-- [Query representation](#query-representation)
-  - [Characters](#characters)
-  - [Letters and digits](#letters-and-digits)
-  - [Identifiers](#identifiers)
-  - [Keywords](#keywords)
-  - [Literals](#literals)
-- [Queries](#queries)
-- [Statements](#statements)
-- [Clauses](#clauses)
-- [Expressions](#expressions)
-- [Comments](#comments)
-- [Other](#other)
-- [Result set](#result-set)
-
 <!-- To learn more about InfluxQL, browse the following topics:
 
 - [Explore your data with InfluxQL](/influxdb/v2/query-data/influxql/explore-data/)
@@ -287,6 +272,9 @@ statement           = explain_stmt |
 
 ## Statements
 
+<!-- Legacy TSM query-plan guidance is not verified for InfluxDB 3 Cloud. -->
+{{% hide-in "influxdb3_cloud" %}}
+
 ### EXPLAIN
 
 Parses and plans the query, and then prints a summary of estimated costs.
@@ -326,7 +314,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified `SELECT` statement and returns data about the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified `SELECT` statement and returns data about the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, if you execute the following statement:
 
@@ -398,7 +386,7 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 - `create_iterator` node represents work done by the local influxd instance──a complex composition of nested iterators combined and merged to produce the final query output.
 - (InfluxDB Enterprise only) `remote_iterator` node represents work done on remote machines.
 
-For more information about iterators, see [Understanding iterators](#understanding-iterators).
+For more information about iterators, see [Understanding iterators](/influxdb/version/reference/influxql/internals/#understanding-iterators).
 
 ##### cursor type
 
@@ -408,7 +396,7 @@ For more information about iterators, see [Understanding iterators](#understandi
 - cursor_aux:	Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, `SELECT foo FROM m` or `SELECT foo+bar FROM m`, where `foo` and `bar` are fields.
 - cursor_cond: Condition cursor created for fields referenced in a `WHERE` clause.
 
-For more information about cursors, see [Understanding cursors](#understanding-cursors).
+For more information about cursors, see [Understanding cursors](/influxdb/version/reference/influxql/internals/#cursors).
 
 ##### block types
 
@@ -422,6 +410,8 @@ blocks decoded and their size (in bytes) on disk. The following block types are 
 | `unsigned` | 64-bit unsigned integer               |
 | `boolean`  | 1-bit, LSB encoded                    |
 | `string`   | UTF-8 string                          |
+
+{{% /hide-in %}}
 
 ### SELECT
 

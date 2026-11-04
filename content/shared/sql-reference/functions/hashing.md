@@ -1,13 +1,5 @@
-
 Use hashing functions to hash string values in SQL queries using established
 hashing algorithms.
-
-- [digest](#digest)
-- [md5](#md5)
-- [sha224](#sha224)
-- [sha256](#sha256)
-- [sha384](#sha384)
-- [sha512](#sha512)
 
 ## digest
 

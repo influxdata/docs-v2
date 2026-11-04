@@ -1,9 +1,5 @@
 Use InfluxQL date and time functions to perform time-related operations.
 
-- [now()](#now)
-- [time()](#time)
-- [tz()](#tz)
-
 ## now()
 
 Returns the current system time (UTC).
