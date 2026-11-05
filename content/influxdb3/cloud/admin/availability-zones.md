@@ -43,10 +43,13 @@ For more information, see
 ## Single-zone and multi-zone instances
 
 - **Single-zone instance**: All of the instance's components run in one zone.
-  A failure in that zone can make the instance unavailable, and traffic can't
-  fail over to another zone.
+  A failure in that zone can make the instance unavailable, and the instance
+  doesn't fail over to another zone.
 - **Multi-zone instance**: The instance's components are spread across multiple
   zones, which improves resilience to a zone failure.
+
+If **Availability Zones** shows a dash (—), the instance isn't restricted to
+specific zones.
 
 > [!Important]
 > #### Connect using the instance URL
