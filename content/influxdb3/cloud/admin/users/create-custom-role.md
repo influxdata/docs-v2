@@ -46,7 +46,7 @@ The **Admin** role includes this permission.
 
 5.  Click **Create role**.
 
-<!-- TODO: screenshot of the Create role dialog -->
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-roles-create-role.png" alt="Create role dialog with the Spice analyst role name and description" />}}
 
 The role's page opens.
 It shows the role's **Account permissions**, **Instance permissions**, and
@@ -59,7 +59,7 @@ For a description of each permission, see the
 [permissions reference](/influxdb3/cloud/admin/users/permissions/).
 
 1.  Click **Edit**.
-2.  Under **Instance permissions**, expand the instance that contains the
+2.  Under **Instance permissions**, find the instance that contains the
     `arrakis` database.
 3.  Under **Database permissions**, in the **Add Databases** field, select
     `arrakis`.
@@ -68,7 +68,7 @@ For a description of each permission, see the
     **Read** lets users query the database.
     **Describe** lets them list the database and view its schema.
 
-    <!-- TODO: screenshot of Database permissions with arrakis selected -->
+    {{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-roles-database-permissions.png" alt="Database permissions with Read and Describe selected for the arrakis database" />}}
 
 5.  Click **Save changes**.
 6.  Review the summary of changes, and then click **Save changes** to confirm.
@@ -93,8 +93,8 @@ To let its users see other users or instances in the account, grant **View** on
     To remove the role from a user, clear the selection for that user.
 3.  Click **Save users**.
 
-Changes to a role's users apply immediately, separately from any unsaved
-permission changes.
+Changes to a role's users apply as soon as you save them.
+If you're editing the role's permissions, save or discard those changes first.
 
 You can also assign roles when you [invite a user](/influxdb3/cloud/admin/users/admin-ui/#invite-a-user)
 or [change a user's roles](/influxdb3/cloud/admin/users/admin-ui/#change-a-users-roles)
