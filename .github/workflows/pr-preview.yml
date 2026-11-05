@@ -10,6 +10,10 @@ on:
       - 'data/**'
       - 'api-docs/**'
       - 'openapi/**'
+      # Scoped agent instructions do not change the published site.
+      # Keep exclusions after positive patterns so mixed content PRs still run.
+      - '!**/AGENTS.md'
+      - '!**/CLAUDE.md'
 
 permissions:
   contents: read
