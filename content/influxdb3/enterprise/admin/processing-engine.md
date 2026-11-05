@@ -289,7 +289,10 @@ It doesn't process earlier writes.
 If your WAL plugins must process every write, pause writes during the migration and verify the new process node before resuming writes.
 
 1. Record each trigger's name, database, plugin path, trigger specification, arguments, and error behavior.
-   Disable the triggers before moving them.
+   Also record whether each trigger is disabled and whether it runs asynchronously.
+   `system.processing_engine_triggers` shows the `disabled` state, but not the asynchronous setting.
+   Get the asynchronous setting from the command or deployment configuration that created the trigger: look for `--run-asynchronous`.
+   After you record both settings, disable the triggers.
    See [Manage triggers](#manage-triggers).
 2. Start a standalone process node with `--mode=process` and `--plugin-dir`.
    Use the existing cluster ID and object store, and a unique node ID.
@@ -298,13 +301,19 @@ If your WAL plugins must process every write, pause writes during the migration 
 3. Remove `--plugin-dir` and `INFLUXDB3_PLUGIN_DIR` from nodes that no longer run plugins, then restart those nodes with their intended modes.
    Remove `process` from their `--mode` lists and don't use `all`.
    For Docker, unset the inherited variable with `-e INFLUXDB3_UNSET_VARS=INFLUXDB3_PLUGIN_DIR`.
-4. Delete each disabled trigger and recreate it on the new process node with its recorded settings and `--node-spec nodes:PROCESS_NODE_ID`.
+4. Delete each disabled trigger.
+   Recreate it on the new process node with its recorded settings, `--node-spec nodes:PROCESS_NODE_ID`, and `--disabled`.
+   If the original trigger ran asynchronously, include `--run-asynchronous`.
+   Without it, the recreated trigger runs one call at a time.
    Replace `PROCESS_NODE_ID` with the new process node's ID.
    You can't change an existing trigger's `--node-spec`.
+   If the new process node returns `409 Conflict`, it hasn't loaded the deletion yet.
+   Wait for the next [catalog sync](/influxdb3/enterprise/reference/config-options/#catalog-sync-interval) (default `1s`), then retry.
 5. Send request trigger calls and package installation requests to the new process node.
    Keep data queries on query nodes and writes on ingest nodes.
 6. Verify the node's mode and internode addresses with [Verify the cluster](#verify-the-cluster).
-   Test your triggers and check both `system.processing_engine_logs` on a query node and the process node's server log.
+   Enable only the triggers that were enabled before the migration.
+   Test those triggers and check both `system.processing_engine_logs` on a query node and the process node's server log.
    Resume writes after verifying WAL trigger execution.
 
 ## Stop and restart the process node
