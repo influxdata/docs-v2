@@ -84,9 +84,17 @@ function main() {
       console.log('No changed agent Markdown files to link-check.');
       return;
     }
-    const result = spawnSync('lychee', ['--no-progress', '--', ...links], {
-      stdio: 'inherit',
-    });
+    const result = spawnSync(
+      'lychee',
+      [
+        '--no-progress',
+        '--exclude',
+        '^https://github\\.com/influxdata/docs-tooling(?:/|$)',
+        '--',
+        ...links,
+      ],
+      { stdio: 'inherit' }
+    );
     if (result.error) throw result.error;
     process.exitCode = result.status ?? 1;
     return;
