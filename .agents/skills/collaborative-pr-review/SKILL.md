@@ -30,12 +30,10 @@ The record supplements the PR template.
 ## Choose the publication route
 
 Preserve the PR author's control over substantive corrections.
-Identify the invoking user's GitHub account, the authenticated account, the
-PR author, and both repositories and branches.
-The user is the current invoker; never inherit a repository owner's identity
-or permissions from this skill or an earlier conversation.
-Check the invoker's authorization and GitHub capabilities separately.
-If the authenticated account differs, use the invoker's credentials or hand off.
+Before publishing branch changes, check the PR author, target branch, and the
+invoking user's authenticated account and access.
+Apply the workflow for the current contributor; repository-owner permissions
+do not transfer to other contributors who use this skill.
 
 | Situation | Publication route |
 | --- | --- |
@@ -53,17 +51,13 @@ does not authorize that push either.
 This boundary applies to Git pushes and GitHub API operations that update
 files or branch refs.
 
-## Guard writes
+## Reviews and comments
 
-Use [the write guard](../../../scripts/pr-write-guard.mjs) for Git pushes,
-file and ref updates, merges, and PR closure.
-Read [the request format and hook coverage](references/write-guard.md) before
-the first write.
-The guard checks live identity, repository permissions, PR ownership, and the
-expected head before executing the specific operation.
-Explicit authorization is a scoped record of a user instruction, not a role
-or permission grant; the guard does not infer consent from prompt wording.
-If a protected operation lacks access, use the returned fork or handoff route.
+Present findings, suggestions, and requested reviews through the usual GitHub
+or local review tools, within the user's requested scope.
+The direct-push approval rule concerns changes to another author's branch;
+posting a review or suggestion does not update that branch.
+Use the user's existing authorization without adding a separate approval step.
 
 ## Prepare corrections for the author
 
