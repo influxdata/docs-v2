@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { load } from 'js-yaml';
 import { renderStub, stubPath, scaffoldStub } from '../stub-template.js';
 
 const BASIC_TRANSFORMATION = {
@@ -120,4 +121,26 @@ test('scaffoldStub skips a plugin that already has a stub, never rewriting it', 
 
   assert.equal(result.skipped, true);
   assert.equal(result.content, undefined);
+});
+
+test('preserves YAML-sensitive registry descriptions in both product stubs', () => {
+  const descriptions = [
+    'Publishes rows on write: spBv1.0 topics and Protobuf payloads.',
+    'Preserve this # literal hash and everything after it.',
+    'First line.\nSecond line: detail.\n',
+    'true',
+    '[one, two]',
+    '"Quoted" text with a backslash \\ and an apostrophe\'s suffix.',
+    '',
+  ];
+  for (const product of ['core', 'enterprise']) {
+    for (const description of descriptions) {
+      const content = renderStub(
+        { ...BASIC_TRANSFORMATION, description },
+        product
+      );
+      const frontmatter = content.slice(4, content.indexOf('\n---\n', 4));
+      assert.equal(load(frontmatter).description, description);
+    }
+  }
 });

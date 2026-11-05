@@ -135,8 +135,8 @@ Returns the following:
 ```go
 query := `SELECT *
   FROM home
-  WHERE time >= '2022-01-02T08:00:00Z'
-  AND time <= '2022-01-02T20:00:00Z'`
+  WHERE time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'`
 
 iterator, err := client.Query(context.Background(), query)
 ```

@@ -1,17 +1,6 @@
 InfluxQL is designed for working with time series data and includes features specifically for working with time.
 You can review the following ways to work with time and timestamps in your InfluxQL queries:
 
-- [Time syntax](#time-syntax)
-  - [Add and subtract time values](#add-and-subtract-time-values)
-- [Query time range](#query-time-range)
-  - [Supported operators](#supported-operators)
-- [Query examples](#query-examples)
-- [Time zone clause](#time-zone-clause)
-- [Notable behaviors](#notable-behaviors)
-  - [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
-  - [Querying future data with a `GROUP BY time()` clause](#querying-future-data-with-a-group-by-time-clause)
-  - [Cannot use parameters for durations](#cannot-use-parameters-for-durations)
-
 ## Time syntax
 
 InfluxQL supports the following timestamp literal syntaxes:
@@ -314,10 +303,6 @@ name: home
 {{< /expand-wrapper >}}
 
 ## Notable behaviors
-
-- [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
-- [Querying future data with a `GROUP BY time()` clause](#querying-future-data-with-a-group-by-time-clause)
-- [Cannot use parameters for durations](#cannot-use-parameters-for-durations)
 
 ### Cannot query multiple time ranges
 

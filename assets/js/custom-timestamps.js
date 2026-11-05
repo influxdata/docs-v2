@@ -3,7 +3,7 @@ import { Datepicker } from 'vanillajs-datepicker';
 import { toggleModal } from './modals.js';
 import * as localStorage from './services/local-storage.js';
 import {
-  earliestMostCommonDay,
+  sampleAnchorDay,
   shiftTimestampText,
   timestampDays,
 } from './custom-timestamp-values.js';
@@ -49,15 +49,15 @@ function timestampNodes(root) {
   return nodes;
 }
 
-function shiftTimestampsTo(date) {
+function shiftTimestampsTo(date, sampleStartDays) {
   const milliseconds = Date.parse(`${date}T00:00:00Z`);
   if (!Number.isFinite(milliseconds)) return;
   const selectedDay = BigInt(milliseconds) / 86400000n;
   document.querySelectorAll('.custom-timestamps').forEach((root) => {
     const nodes = timestampNodes(root);
     if (!nodes.length) return;
-    const shift =
-      selectedDay - earliestMostCommonDay(nodes.flatMap(({ days }) => days));
+    const days = nodes.flatMap(({ days }) => days);
+    const shift = selectedDay - sampleAnchorDay(days, sampleStartDays);
     nodes.forEach(({ node }) => {
       node.textContent = shiftTimestampText(node.textContent, shift);
     });
@@ -79,21 +79,27 @@ function toggleDateModal() {
   toggleModal('#influxdb-gs-date-select');
 }
 
+function configuredSampleStartDays(component) {
+  const startDates = JSON.parse(component.dataset.sampleStartDates || '[]');
+  return startDates.flatMap((startDate) => timestampDays(startDate));
+}
+
 function CustomTimeTrigger({ component }) {
   $(component).find('a[data-action="open"]:first').on('click', toggleDateModal);
+  const sampleStartDays = configuredSampleStartDays(component);
 
   const datepicker = createDatePicker(
     document.getElementById('custom-date-selector'),
     sampleDate
   );
 
-  shiftTimestampsTo(sampleDate);
+  shiftTimestampsTo(sampleDate, sampleStartDays);
   if (!savedSampleDate) saveSampleDate(sampleDate);
 
   $('#submit-custom-date').click(function applySelectedDate() {
     const selectedDate = datepicker.getDate(dateFormat);
     if (selectedDate) {
-      shiftTimestampsTo(selectedDate);
+      shiftTimestampsTo(selectedDate, sampleStartDays);
       saveSampleDate(selectedDate);
     }
     toggleDateModal();

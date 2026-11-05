@@ -1,7 +1,12 @@
+{{- /*
+  Link to the home sensor dataset on the product's sample data page.
+  Products whose page lists the "Get started" dataset set
+  home_sample_data_anchor in data/products.yml.
+*/ -}}
 {{- $productData := partial "product/get-data.html" . -}}
 {{- $version := .Page.Params.version -}}
-{{- if $productData.distributed_architecture -}}
-<a href="/influxdb3/{{ $version }}/reference/sample-data/#get-started-home-sensor-data">Get started home sensor sample data</a>
+{{- with $productData.home_sample_data_anchor -}}
+<a href="/influxdb3/{{ $version }}/reference/sample-data/#{{ . }}">Get started home sensor sample data</a>
 {{- else -}}
 <a href="/influxdb3/{{ $version }}/reference/sample-data/#home-sensor-data">Home sensor sample data</a>
 {{- end -}}
