@@ -30,6 +30,9 @@ depend on your cloud provider:
 These agreements cover the cloud provider's infrastructure, not
 {{% product-name %}}.
 
+Not all cloud provider regions are available for {{% product-name %}}.
+To request a region, contact your InfluxData representative.
+
 - [View your instance's availability zones](#view-your-instances-availability-zones)
 - [Single-zone and multi-zone instances](#single-zone-and-multi-zone-instances)
 
