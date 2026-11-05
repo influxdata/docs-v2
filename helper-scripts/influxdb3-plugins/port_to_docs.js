@@ -268,6 +268,26 @@ function fixCodeBlockFormatting(content) {
   return content;
 }
 
+function completeJsonObjectFragments(content) {
+  return content.replace(
+    /^```json([^\n]*)\n([\s\S]*?)^```/gm,
+    (match, attributes, body) => {
+      if (!/^\s*"[^"\n]+"\s*:/.test(body)) return match;
+      try {
+        JSON.parse(`{${body}}`);
+      } catch {
+        return match;
+      }
+      const indented = body
+        .trim()
+        .split('\n')
+        .map((line) => `  ${line}`)
+        .join('\n');
+      return `\`\`\`json${attributes}\n{\n${indented}\n}\n\`\`\``;
+    }
+  );
+}
+
 /**
  * Upstream READMEs use ellipses in abbreviated JSON request and response
  * examples. They are deliberately not parseable JSON, so exempt only those
@@ -358,6 +378,7 @@ function transformContent(content, pluginName) {
   content = enhanceOpeningParagraph(content);
   content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
+  content = completeJsonObjectFragments(content);
   content = exemptAbbreviatedJsonExamples(content);
   content = normalizeListIndentation(content);
 

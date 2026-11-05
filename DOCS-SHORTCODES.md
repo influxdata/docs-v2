@@ -127,6 +127,28 @@ Display the short version name (part of the key used in `products.yml`) from the
 {{% product-key %}}
 ```
 
+### Product limits
+
+Display a limit from the `limits` entry for the current page's product in
+`data/products.yml`.
+Pass the limit key as the first argument and an optional offset as the
+second.
+Use this in prose instead of typing the number;
+`yarn test:content-data` fails when InfluxDB 3 distributed product prose types
+a configured limit.
+
+```md
+{{% influxdb3/limit "table" %}}
+{{% influxdb3/limit "column" %}}
+{{% influxdb3/limit "column" -1 %}}
+```
+
+Keys: `database` (Core and Enterprise), `table`, `column`, and `column_max`
+(Cloud Dedicated and Clustered).
+Shortcodes don't render inside code blocks or shortcode arguments, such as
+`expand` titles, so type those values; the tests check them against the data
+file where they can.
+
 ## Version Information
 
 ### Latest patch version
@@ -964,6 +986,29 @@ Replace the following:
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
 
 ## Data and Samples
+
+### Sample datasets and custom timestamps
+
+`data/sample_data.yml` defines each sample dataset's table, time range, and
+download files.
+Content keeps literal values so code blocks stay copyable and testable;
+`yarn test:content-data` checks that sample rows, download files, and query
+time ranges agree with the data file.
+
+Wrap sample data that readers can move to their own date in
+`{{% influxdb/custom-timestamps %}}` (blocks) or
+`{{% influxdb/custom-timestamps-span %}}` (inline).
+The date picker shifts every date and Unix timestamp in the block, anchoring on
+the start date of a `customizable` dataset when the block contains it.
+
+````md
+{{% influxdb/custom-timestamps %}}
+```sql
+SELECT * FROM home
+WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+```
+{{% /influxdb/custom-timestamps %}}
+````
 
 ### Flux sample data tables
 

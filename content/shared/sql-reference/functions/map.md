@@ -1,13 +1,4 @@
-
 Use map functions to create and operate on Arrow maps in SQL queries.
-
-- [element_at](#element_at)
-- [make_map](#make_map)
-- [map](#map)
-- [map_extract](#map_extract)
-- [map_keys](#map_keys)
-- [map_values](#map_values)
-<!-- - [map_entries](#map_entries) -->
 
 ## element_at
 
@@ -107,7 +98,6 @@ SELECT
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
 
 <!-- ## map_entries
 

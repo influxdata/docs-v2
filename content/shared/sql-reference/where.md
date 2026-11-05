@@ -1,8 +1,5 @@
 Use the `WHERE` clause to filter results based on fields, tags, or timestamps.
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 ## Syntax
 
 ```sql
@@ -42,7 +39,6 @@ that are greater than or equal to 9.78.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
 
 ### Filter data based on specific tag and field values
 

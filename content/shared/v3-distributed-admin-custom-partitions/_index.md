@@ -1,4 +1,4 @@
-When writing data to {{< product-name >}}, the InfluxDB 3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store). Each Parquet file represents a _partition_--a logical grouping of data.
+When writing data to {{< product-name >}}, the InfluxDB 3 storage engine stores data in [Apache Parquet](https://parquet.apache.org/) format in the [Object store](/influxdb/version/reference/internals/storage-engine/#object-store). InfluxDB groups data into _partitions_--logical groupings of data--and stores each partition's data in one or more Parquet files.
 By default, InfluxDB partitions each table _by day_.
 If this default strategy yields unsatisfactory performance for single-series queries,
 you can define a custom partitioning strategy by specifying tag values and different time intervals to optimize query performance for your specific schema and workload.
@@ -53,7 +53,7 @@ but you can scale each part individually to address the added load.
   as more references to partition Parquet file locations are stored and queried.
 - **Increased load on the [Compactor](/influxdb/version/reference/internals/storage-engine/#compactor)**
   as it needs to compact more partition Parquet files.
-- **Increased costs associated with [Object storage](/influxdb/version/reference/internals/storage-engine/#object-storage)**
+- **Increased costs associated with [Object storage](/influxdb/version/reference/internals/storage-engine/#object-store)**
   as more partition Parquet files are created and stored.
 - **Increased latency**. The amount of time for InfluxDB to process a query and return results increases linearly, although slightly, with the total partition count for a table.
 - **Risk of decreased performance for queries that don't use tags in the WHERE clause**.
@@ -76,7 +76,7 @@ custom partitioning, use the guides in this section to:
 2. Follow [best practices](/influxdb/version/admin/custom-partitions/best-practices/) for defining partitions and managing partition
    growth
 3. [Define custom partitions](/influxdb/version/admin/custom-partitions/define-custom-partitions/) for your data
-4. Take steps to [limit the number of partition files](/influxdb/version/admin/custom-partitions/best-practices/#limit-the-number-of-partition-files)
+4. Take steps to [limit the number of partitions](/influxdb/version/admin/custom-partitions/best-practices/#limit-the-number-of-partitions)
 
 ## How partitioning works
 
