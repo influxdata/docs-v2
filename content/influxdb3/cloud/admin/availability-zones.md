@@ -16,9 +16,19 @@ related:
 
 Each {{% product-name %}} instance runs in one or more availability zones of
 its cloud provider region.
-An availability zone is an isolated location within a region.
 The number of zones that your instance uses affects its resilience to a zone
 failure.
+
+What an availability zone is, and the uptime commitments that apply to it,
+depend on your cloud provider:
+
+- **AWS**: [Availability Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones)
+  and the [Amazon Compute Service Level Agreement](https://aws.amazon.com/compute/sla/)
+- **Azure**: [Azure availability zones](https://learn.microsoft.com/azure/reliability/availability-zones-overview)
+  and the [Azure service level agreements](https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services)
+
+These agreements cover the cloud provider's infrastructure, not
+{{% product-name %}}.
 
 - [View your instance's availability zones](#view-your-instances-availability-zones)
 - [Single-zone and multi-zone instances](#single-zone-and-multi-zone-instances)
@@ -33,8 +43,8 @@ For more information, see
 ## Single-zone and multi-zone instances
 
 - **Single-zone instance**: All of the instance's components run in one zone.
-  That zone is a single point of failure, so a failure in the zone can make the
-  instance unavailable, and traffic can't fail over to another zone.
+  A failure in that zone can make the instance unavailable, and traffic can't
+  fail over to another zone.
 - **Multi-zone instance**: The instance's components are spread across multiple
   zones, which improves resilience to a zone failure.
 
