@@ -7,7 +7,6 @@ const agentScripts = new Set([
   'build:agent:instructions',
   'validate:agent-instructions',
   'test:agent-instruction-limits',
-  'test:pr-write-guard',
 ]);
 
 export function isAgentMarkdown(path) {
@@ -28,8 +27,6 @@ export function isAgentFile(path) {
       path
     ) ||
     path === 'helper-scripts/__tests__/agent-instruction-limits.test.mjs' ||
-    path === 'scripts/pr-write-guard.mjs' ||
-    path === 'scripts/__tests__/pr-write-guard.test.mjs' ||
     path === '.github/workflows/pr-agent-instructions.yml'
   );
 }

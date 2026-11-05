@@ -17,7 +17,7 @@ import {
   needsSiteBuild,
 } from './site-change-scope.mjs';
 
-test('agent instructions and guard implementation do not require a site build', () => {
+test('agent instructions and tooling do not require a site build', () => {
   const files = [
     'AGENTS.md',
     'content/AGENTS.md',
@@ -28,8 +28,6 @@ test('agent instructions and guard implementation do not require a site build', 
     '.codex/hooks.json',
     '.github/instructions/content-review.instructions.md',
     '.github/workflows/pr-agent-instructions.yml',
-    'scripts/pr-write-guard.mjs',
-    'scripts/__tests__/pr-write-guard.test.mjs',
     'helper-scripts/build-agent-instructions.js',
   ];
   assert.equal(needsSiteBuild(files), false);
@@ -54,7 +52,8 @@ test('only agent package commands can bypass the build', () => {
     dependencies: { a: '1' },
   };
   const after = structuredClone(before);
-  after.scripts['test:pr-write-guard'] = 'node --test guard.test.mjs';
+  after.scripts['test:agent-instruction-limits'] =
+    'node --test limits.test.mjs';
   assert.equal(agentPackageChange(before, after), true);
   assert.equal(
     needsSiteBuild(['package.json', 'content/AGENTS.md'], true),
@@ -123,7 +122,9 @@ test('CLI checks complete Git ranges and excludes only private repository links'
     writeFileSync(join(directory, 'content/AGENTS.md'), 'Instructions');
     writeFileSync(
       join(directory, 'package.json'),
-      JSON.stringify({ scripts: { 'test:pr-write-guard': 'node test.js' } })
+      JSON.stringify({
+        scripts: { 'test:agent-instruction-limits': 'node test.js' },
+      })
     );
     git('add', '.');
     git('commit', '-qm', 'agent');
