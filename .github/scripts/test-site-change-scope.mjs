@@ -6,9 +6,10 @@ import {
   writeFileSync,
   readFileSync,
   rmSync,
+  chmodSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import test from 'node:test';
 import {
   agentPackageChange,
@@ -87,7 +88,7 @@ test('link inputs include source skills and adapters but not product pages', () 
   }
 });
 
-test('CLI compares complete Git ranges and notices deletions and renamed site files', () => {
+test('CLI checks complete Git ranges and excludes only private repository links', () => {
   const directory = mkdtempSync(join(tmpdir(), 'site-scope-'));
   const git = (...args) =>
     execFileSync('git', args, { cwd: directory, encoding: 'utf8' }).trim();
@@ -128,6 +129,46 @@ test('CLI compares complete Git ranges and notices deletions and renamed site fi
     git('commit', '-qm', 'agent');
     const agent = git('rev-parse', 'HEAD');
     assert.equal(run(base, agent), 'site=false\n');
+    const bin = join(directory, 'bin');
+    mkdirSync(bin);
+    const lychee = join(bin, 'lychee');
+    writeFileSync(
+      lychee,
+      `#!${process.execPath}\nrequire('node:fs').writeFileSync(process.env.LYCHEE_ARGS, JSON.stringify(process.argv.slice(2)));\n`
+    );
+    chmodSync(lychee, 0o755);
+    execFileSync(process.execPath, [cli.pathname, '--links'], {
+      cwd: directory,
+      env: {
+        ...process.env,
+        BASE_SHA: base,
+        HEAD_SHA: agent,
+        PATH: `${bin}${delimiter}${process.env.PATH}`,
+        LYCHEE_ARGS: output,
+      },
+    });
+    const args = JSON.parse(readFileSync(output, 'utf8'));
+    const excludeIndex = args.indexOf('--exclude');
+    assert.notEqual(excludeIndex, -1);
+    const excluded = new RegExp(args[excludeIndex + 1]);
+    assert.equal(
+      excluded.test(
+        'https://github.com/influxdata/docs-tooling/blob/main/.agents/skills/edr-docs-review/SKILL.md'
+      ),
+      true
+    );
+    assert.equal(
+      excluded.test(
+        'https://github.com/influxdata/docs-v2/blob/master/AGENTS.md'
+      ),
+      false
+    );
+    assert.equal(
+      excluded.test('https://github.com/influxdata/docs-tooling-public'),
+      false
+    );
+    assert.equal(excluded.test('file:///missing.md'), false);
+    assert.deepEqual(args.slice(args.indexOf('--') + 1), ['content/AGENTS.md']);
     git('mv', 'content/page.md', 'content/CLAUDE.md');
     git('commit', '-qm', 'rename published page');
     const renamed = git('rev-parse', 'HEAD');
