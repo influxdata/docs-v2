@@ -2,6 +2,10 @@ The `influxdb3 update trigger` command updates an existing trigger in your {{< p
 
 Use this command to update trigger plugin code, configuration, or behavior without recreating the trigger. This preserves trigger history and configuration while allowing you to iterate on plugin development.
 
+> [!Important]
+> `influxdb3 update trigger` does not work with triggers that reference plugins using the `gh:` prefix.
+> To fetch updated code for a `gh:` trigger, [disable and re-enable the trigger](#update-a-gh-trigger).
+
 ## Usage
 
 <!--pytest.mark.skip-->
@@ -24,8 +28,7 @@ influxdb3 update trigger [OPTIONS] \
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
 | `-d`   | `--database`         | _({{< req >}})_ Name of the database containing the trigger                                                                                       |
 |        | `--trigger-name`     | _({{< req >}})_ Name of the trigger to update                                                                                                     |
-| `-p`   | `--path`             | Path to plugin file or directory (single `.py` file or directory containing `__init__.py` for multifile plugins). Can be local path (with `--upload`) or server path. |
-|        | `--upload`           | Upload local plugin files to the server. Requires admin token. Use with `--path` to specify local files.                                         |
+| `-p`   | `--path`             | Local path to a plugin file or directory (single `.py` file or directory containing `__init__.py` for multifile plugins). |
 |        | `--trigger-arguments`| Additional arguments for the trigger, in the format `key=value`, separated by commas (for example, `arg1=val1,arg2=val2`)                        |
 |        | `--disabled`         | Set the trigger state to disabled                                                                                                                 |
 |        | `--enabled`          | Set the trigger state to enabled                                                                                                                  |
@@ -54,6 +57,7 @@ The following examples show how to update triggers in different scenarios.
 
 - [Update trigger plugin code](#update-trigger-plugin-code)
 - [Upload and update with a local plugin](#upload-and-update-with-a-local-plugin)
+- [Update a gh: trigger](#update-a-gh-trigger)
 - [Update trigger arguments](#update-trigger-arguments)
 - [Enable or disable a trigger](#enable-or-disable-a-trigger)
 - [Update error handling behavior](#update-error-handling-behavior)
@@ -68,7 +72,8 @@ Replace the following placeholders with your values:
 
 ### Update trigger plugin code
 
-Update a trigger to use modified plugin code from the server's plugin directory.
+Update a trigger with modified plugin code from a local file.
+The command transfers the file to the server and requires an admin token.
 
 <!--pytest.mark.skip-->
 
@@ -92,7 +97,6 @@ influxdb3 update trigger \
   --database DATABASE_NAME \
   --trigger-name TRIGGER_NAME \
   --path "/local/path/to/updated_plugin.py" \
-  --upload \
   --token AUTH_TOKEN
 
 # Upload multifile plugin directory
@@ -100,11 +104,29 @@ influxdb3 update trigger \
   --database DATABASE_NAME \
   --trigger-name TRIGGER_NAME \
   --path "/local/path/to/plugin_directory" \
-  --upload \
   --token AUTH_TOKEN
 ```
 
-The `--upload` flag transfers local files to the server's plugin directory, making it easy to iterate on plugin development without manual file copying.
+The command transfers local files to the server's plugin directory.
+
+### Update a gh: trigger
+
+For a trigger that references a plugin with the `gh:` prefix, publish your changes at the configured plugin source, then disable and re-enable the trigger to fetch the updated code.
+Use the dedicated `disable trigger` and `enable trigger` commands.
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
+influxdb3 disable trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  TRIGGER_NAME
+
+influxdb3 enable trigger \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  TRIGGER_NAME
+```
 
 ### Update trigger arguments
 

@@ -7,6 +7,10 @@ description: Testing decision guide for agents working in docs-v2. Maps changed 
 
 `git commit` runs staged-file hooks. Do not run `yarn lint` before committing
 unless diagnosing a hook failure. Start with `yarn verify:changed`.
+After hooks finish, inspect both staged and unstaged diffs for hook-generated edits.
+Include intended edits in the commit before pushing.
+After an authorized push, compare the remote branch SHA with local `HEAD` and report
+the final working-tree status.
 
 | Changed files              | Manual check                           | Reference                                                            |
 | -------------------------- | -------------------------------------- | -------------------------------------------------------------------- |

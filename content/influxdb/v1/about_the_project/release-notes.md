@@ -13,8 +13,15 @@ alt_links:
   enterprise_v1: /enterprise_influxdb/v1/about-the-project/release-notes/
 ---
 
+## v1.13.2 {date="2026-10-30"}
 
-## v1.13.0 {date="2026-07-23"}
+### Bug fixes
+- Resolve unimplemented interface member ([#27715](https://github.com/influxdata/influxdb/pull/27716))
+
+### Maintenance
+- Update go version to 1.26.10 ([#27730](https://github.com/influxdata/influxdb/pull/27730))
+
+## v1.13.1 {date="2026-07-23"}
 
 ### Features
 
@@ -481,8 +488,12 @@ reporting an earlier error.
 
 - Use latest version of InfluxQL package.
 - Add `-lponly` flag to [`influx export`](/influxdb/v2/reference/cli/influx/export/) sub-command.
-- Add the ability to [track number of values](/influxdb/v1/administration/monitor/measurements-internal/#valueswrittenok) written via the [`/debug/vars` HTTP endpoint](/influxdb/v1/api/debug/).
+- Add the ability to track number of values written via the [`/debug/vars` HTTP endpoint](/influxdb/v1/api/debug/).
 - Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
+
+> [!Note]
+> The `valuesWrittenOK` stat was never emitted and was removed in InfluxDB
+> 1.9.0.
 
 ### Bug fixes
 

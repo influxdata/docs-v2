@@ -28,6 +28,7 @@ const PRODUCT_NAME_TEXT = 'InfluxDB';
 const URL = /https?:\/\/[^\s)\]>"]+/g;
 const SLASHED_TOKEN = /[\w.@~:-]*\/[\w./@~:-]*/g;
 
+const commonMarkParser = unified().use(remarkParse);
 const parser = unified()
   .use(remarkParse)
   .use(remarkGfm)
@@ -124,6 +125,7 @@ function isAutolink(link) {
 
 function collectSegments(node, segments) {
   for (const child of node.children ?? []) {
+    if (!child.position) return null;
     if (child.type === 'text') {
       segments.push({ value: child.value, position: child.position.start });
     } else if (child.type === 'break') {
@@ -132,7 +134,7 @@ function collectSegments(node, segments) {
       child.children &&
       !(child.type === 'link' && isAutolink(child))
     ) {
-      collectSegments(child, segments);
+      if (!collectSegments(child, segments)) return null;
     } else {
       segments.push({ value: BREAK, position: child.position.start });
     }
@@ -168,8 +170,20 @@ function maskUncheckedText(text) {
     );
 }
 
-function blockText(block) {
-  const segments = collectSegments(block, []);
+function blockText(block, markdown) {
+  let segments = collectSegments(block, []);
+  if (!segments) {
+    const { start, end } = block.position;
+    const source = markdown.slice(start.offset, end.offset);
+    segments = collectSegments(commonMarkParser.parse(source), []);
+    for (const segment of segments) {
+      const { line, column } = segment.position;
+      segment.position = {
+        line: start.line + line - 1,
+        column: column + (line === 1 ? start.column - 1 : 0),
+      };
+    }
+  }
   let text = '';
   for (const segment of segments) {
     segment.start = text.length;
@@ -217,8 +231,7 @@ function formatMessage(rule, matcher, match) {
     .replaceAll('{replacement}', matcher.replacements?.join("' or '") ?? '');
 }
 
-const SWITCH_COMMENT =
-  /^<!--\s*prose-lint\s+(off|on)\b\s*([\w\s,]*?)\s*-->$/;
+const SWITCH_COMMENT = /^<!--\s*prose-lint\s+(off|on)\b\s*([\w\s,]*?)\s*-->$/;
 
 function parseSwitch(node) {
   const found = node.type === 'html' && node.value.trim().match(SWITCH_COMMENT);
@@ -277,7 +290,7 @@ export function lintProse(markdown, { path, rules }) {
   const pathRules = rules.filter((rule) => appliesToPath(rule, path));
   const findings = [];
   for (const { node: block, disabled } of blocksOf(parser.parse(markdown))) {
-    const { text, segments } = blockText(block);
+    const { text, segments } = blockText(block, markdown);
     for (const rule of pathRules.filter(
       (candidate) =>
         isEnabled(candidate, disabled) && appliesToBlock(candidate, block.type)

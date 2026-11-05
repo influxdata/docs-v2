@@ -11,6 +11,9 @@ description: "Hugo template development for InfluxData docs-v2, enforcing build 
 | Product-specific behavior | Data-driven product context, no magic values  | [references/product-data.md](references/product-data.md)       |
 | New shortcode             | example page, docs, and Cypress behavior test | [references/shortcodes.md](references/shortcodes.md)           |
 
+Before adding UI assets, search existing icons, components, styles, and tokens.
+Record the assets and patterns you will reuse, or the gap that requires a new asset.
+
 Prerequisites: inspect nearby patterns and the page cascade. Never branch on a
 hardcoded product name, version, or URL segment when `data/products.yml` and
 the product context partial provide the fact. A build does not prove runtime

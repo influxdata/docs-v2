@@ -13,7 +13,7 @@ in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, req
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 > [!Note]
-> Code samples in this page use the [Get started home sensor sample data](/influxdb3/version/reference/sample-data/#get-started-home-sensor-data).
+> Code samples in this page use the {{< influxdb3/home-sample-link >}}.
 
 - [Installation](#installation)
 - [Importing the module](#importing-the-module)

@@ -75,40 +75,100 @@ export SKIP_DEPLOY=true
 SKIP_DEPLOY=true ./scripts/deploy-staging.sh
 ```
 
-## Production Deployment
+## Production deployment
 
-Production deployments are **automatic** via CircleCI when merging to `master`.
+The GitHub `Production deployment` workflow builds and verifies the complete
+production site without giving its build job AWS credentials or OIDC permission.
+A separate job downloads and validates the archive before authenticating to AWS.
+The deploy job runs no dependency installation or site build scripts.
 
-### Workflow
+During migration, CircleCI remains the active deployer until you complete the cutover.
+GitHub uploads default to disabled.
+Running the GitHub workflow with its default `verify` operation does not upload,
+delete, or invalidate production content.
 
-1. **Build Job** (`.circleci/config.yml`):
-   - Installs dependencies
-   - Builds Hugo site with production config
-   - Generates LLM-friendly Markdown (`yarn build:md`)
-   - Persists workspace for deploy job
+### Production configuration
 
-2. **Deploy Job**:
-   - Attaches workspace
-   - Uploads to S3 using s3deploy
-   - Invalidates CloudFront cache
-   - Posts success notification to Slack
+Configure these variables in the GitHub `production` environment:
 
-### Environment Variables (CircleCI)
+| Variable              | Purpose                              |
+| --------------------- | ------------------------------------ |
+| `AWS_DEPLOY_ROLE_ARN` | Dedicated GitHub production role ARN |
+| `BUCKET`              | Production S3 bucket                 |
+| `REGION`              | AWS region                           |
+| `CF_DISTRIBUTION_ID`  | Production CloudFront distribution   |
 
-Production deployment requires the following environment variables set in CircleCI:
+Store `SLACK_DOCS_WEBHOOK_URL` as an environment secret.
+Allow only the `master` branch to use this environment.
+The AWS role trusts GitHub's OIDC provider and the subject
+`repo:influxdata/docs-v2:environment:production`.
+Keep staging permissions separate.
 
-- `BUCKET` - Production S3 bucket name
-- `REGION` - AWS region
-- `CF_DISTRIBUTION_ID` - CloudFront distribution ID
-- `SLACK_WEBHOOK_URL` - Slack notification webhook
+The repository variable `DOCS_PRODUCTION_DEPLOYMENT_MODE` controls uploads:
 
-### Trigger Production Deploy
+| Value                 | Behavior                                                                |
+| --------------------- | ----------------------------------------------------------------------- |
+| Missing or `disabled` | Verification only; uploads stop before AWS authentication               |
+| `manual`              | Explicit manual deployments are allowed; pushes do not deploy           |
+| `automatic`           | Pushes to `master` build and deploy; manual operations remain available |
+
+Use fresh GitHub-hosted runners.
+The archive verifier requires Python 3.12 or later.
+Do not move build and deployment onto a shared persistent runner.
+
+### Verify without deploying
+
+After the workflow is merged, run:
 
 ```bash
-git push origin master
+gh workflow run deploy-production.yml \
+  --repo influxdata/docs-v2 --ref master --field operation=verify
 ```
 
-CircleCI will automatically build and deploy.
+The workflow installs dependencies and builds API documentation, Flux frontmatter,
+the production Hugo site, Markdown twins, and AI discovery artifacts.
+It compiles the pinned Rust converter from source.
+Like the existing manual fallback, it uses the committed
+`data/flux_influxdb_versions.yml` instead of refreshing it from the private
+`plutonium` repository during a build.
+
+A fresh job verifies the transferred archive's checksum, commit, ref, safe paths,
+page-count floor, and sitemap size.
+The protected production job repeats verification before requesting AWS credentials.
+It reports the assumed role identity without uploading in `verify` mode.
+
+### Cut over from CircleCI
+
+Complete the following steps before enabling automatic GitHub uploads:
+
+1. Run GitHub verification on `master` and inspect its artifact and role checks.
+
+2. Disable CircleCI's production trigger.
+   Wait for all in-flight CircleCI production workflows to finish.
+   Do not cancel Hugo builds.
+
+3. Set the repository variable `DOCS_PRODUCTION_DEPLOYMENT_MODE` to `manual`.
+   Run the first upload explicitly:
+
+   ```bash
+   gh workflow run deploy-production.yml \
+     --repo influxdata/docs-v2 --ref master --field operation=deploy
+   ```
+
+4. Confirm the upload, CloudFront invalidation, live-site content, and Slack notification.
+   Then set `DOCS_PRODUCTION_DEPLOYMENT_MODE` to `automatic`.
+
+5. Retire the CircleCI project AWS variables and obsolete webhook variable.
+   Remove the stack-managed IAM user, access key, and their outputs from
+   `deploy/docs-website.yml`, and apply the reviewed CloudFormation update.
+   Deleting a CircleCI variable does not revoke the AWS key.
+
+Keep the old configuration and keys until the controlled deployment succeeds.
+An OIDC failure stops the GitHub job; it does not fall back to permanent keys.
+
+For rollback before key retirement, set the GitHub mode to `disabled`.
+Wait for all in-flight GitHub production workflows to finish before re-enabling CircleCI.
+The `scripts/deploy-production.sh` script remains the manual emergency fallback.
 
 ## LLM Markdown Generation
 
@@ -241,13 +301,13 @@ so excluding those fixtures from the preview build doesn't affect them.
 
 #### Workflow Files
 
-| File                                            | Purpose                                       |
-| ------------------------------------------------ | ------------------------------------------------ |
-| `.github/scripts/parse-pr-urls.js`              | Extract docs URLs from PR description         |
-| `.github/scripts/detect-preview-pages.js`       | Generate deep links for the sticky PR comment |
-| `.github/scripts/preview-comment.js`            | Manage sticky PR comments                     |
-| `.github/workflows/pr-preview.yml`              | Main preview workflow                         |
-| `.github/workflows/cleanup-stale-previews.yml`  | Weekly orphan cleanup                         |
+| File                                           | Purpose                                       |
+| ---------------------------------------------- | --------------------------------------------- |
+| `.github/scripts/parse-pr-urls.js`             | Extract docs URLs from PR description         |
+| `.github/scripts/detect-preview-pages.js`      | Generate deep links for the sticky PR comment |
+| `.github/scripts/preview-comment.js`           | Manage sticky PR comments                     |
+| `.github/workflows/pr-preview.yml`             | Main preview workflow                         |
+| `.github/workflows/cleanup-stale-previews.yml` | Weekly orphan cleanup                         |
 
 #### Key Design Decisions
 
@@ -293,7 +353,7 @@ AWS keys in Actions). This requires, before the workflow can run:
 3. Repo secrets/variables: `AWS_PR_PREVIEW_ROLE_ARN`, `STAGING_BUCKET`,
    `STAGING_CF_DISTRIBUTION_ID`, `AWS_REGION`.
 4. The updated `deploy/edge.js` (see its top-of-file comments) deployed to
-   the **staging** distribution's Lambda@Edge association -- this fixes two
+   the **staging** distribution's Lambda\@Edge association -- this fixes two
    bugs that would otherwise break previews: a trailing-slash redirect
    hardcoded to `docs.influxdata.com`, and unanchored archive/version
    redirects that would hijack `/pr-preview/pr-{number}/...` subpaths.

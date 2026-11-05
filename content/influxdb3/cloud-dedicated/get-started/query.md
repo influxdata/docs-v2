@@ -208,32 +208,32 @@ curl --silent \
   --header "Content-type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1719907200
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1719907200
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1719910800
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1719910800
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1719914400
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1719914400
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1719918000
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1719918000
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1719921600
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1719921600
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1719925200
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1719925200
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1719928800
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1719928800
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1719932400
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1719932400
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1719936000
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1719936000
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1719939600
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1719939600
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1719943200
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1719943200
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1719946800
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1719946800
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1719950400
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
 -->
@@ -257,7 +257,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1719950400
 <!-------------------------- BEGIN influxctl CONTENT -------------------------->
 
 Use the [`influxctl query` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/query/)
-to query the [home sensor sample data](#home-sensor-data-line-protocol) in your
+to query the [home sensor sample data](/influxdb3/cloud-dedicated/get-started/write/#home-sensor-data-line-protocol) in your
 {{< product-name omit=" Clustered" >}} cluster.
 Provide the following:
 
@@ -344,7 +344,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     Replace the following:
 
-    - **`DATABASE_TOKEN`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+    - **`DATABASE_TOKEN`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
       with read access to the **get-started** database
     - **`ORG_ID`**: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
 
@@ -484,7 +484,7 @@ _If your project's virtual environment is already running, skip to step 3._
               tls_root_certs=cert))
       ```
   
-  For more information, see [`influxdb_client_3` query exceptions](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
+  For more information, see [`influxdb_client_3` query exceptions](/influxdb3/cloud-dedicated/reference/client-libraries/v3/python/#exceptions).
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -497,7 +497,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
       - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL
         (without `https://` protocol or trailing slash)
-      - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+      - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
         with read access to the specified database.
         _Store this in a secret store or environment variable to avoid exposing
         the raw token string._
@@ -659,7 +659,7 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: the name of your {{% product-name %}} database
-            - **`Token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`Token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid
               exposing the raw token string._
@@ -777,7 +777,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-        - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+        - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with read permission on the database you want to query.
           _Store this in a secret store or environment variable to avoid exposing
           the raw token string._
@@ -904,7 +904,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL.
             - **`database`**: the name of the {{% product-name %}} database to query
-            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable for the SQL query.
@@ -1033,7 +1033,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`database`**: the name of the {{% product-name %}} database to write to
-            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable (`sql`) for the SQL query.

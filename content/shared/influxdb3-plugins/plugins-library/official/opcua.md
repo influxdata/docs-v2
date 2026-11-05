@@ -150,7 +150,7 @@ quality_filter = ["good", "uncertain"]
 The plugin supports two ways to attach tags to every written data point:
 
 - **Static tags** (`default_tags`): Fixed key-value pairs defined at configuration time. Do not change between trigger calls.
-- **Dynamic tags** (`tag_nodes`): Values read from OPC UA nodes on each trigger execution, then converted to strings and used as tag values. Useful for identifiers stored on the device itself — serial number, model name, firmware version, or any other variable property.
+- **Dynamic tags** (`tag_nodes`): Values read from OPC UA nodes on each trigger execution, then converted to strings and used as tag values. A node whose value is an empty string adds no tag. Useful for identifiers stored on the device itself — serial number, model name, firmware version, or any other variable property.
 
 Dynamic tags are merged with static tags before writing. If a key appears in both, the dynamic value takes precedence.
 
@@ -178,7 +178,7 @@ serial = "ns=2;s=SerialNumber"
 ```
 ### Browse tags
 
-In browse mode, some discovered variables may represent identifiers (room name, zone, asset ID) rather than measurements. Use `browse_tags` to store them as InfluxDB tags instead of fields.
+In browse mode, some discovered variables may represent identifiers (room name, zone, asset ID) rather than measurements. Use `browse_tags` to store them as InfluxDB tags instead of fields. A variable whose value is an empty string adds no tag.
 
 **CLI format:**
 
@@ -664,12 +664,12 @@ Node read errors, type conversion failures, and quality filter rejections are lo
 
 ### opcua_exceptions Table
 
-| Field                | Type   | Description                                                              |
-|----------------------|--------|--------------------------------------------------------------------------|
-| `node_id` (tag)      | tag    | OPC UA node ID that failed                                               |
-| `field_name` (tag)   | tag    | Configured field name for this node                                      |
-| `error_type` (tag)   | tag    | Error type: `NodeReadError`, `TypeConversionError`, `QualityFilterError` |
-| `error_message`      | string | Detailed error message                                                   |
+| Field                | Type   | Description                                                                                   |
+|----------------------|--------|-----------------------------------------------------------------------------------------------|
+| `node_id` (tag)      | tag    | OPC UA node ID that failed                                                                    |
+| `field_name` (tag)   | tag    | Configured field name for this node                                                           |
+| `error_type` (tag)   | tag    | Error type: `NodeReadError`, `TypeConversionError`, `InvalidFieldError`, `QualityFilterError` |
+| `error_message`      | string | Detailed error message                                                                        |
 
 ### Checking for Errors
 
