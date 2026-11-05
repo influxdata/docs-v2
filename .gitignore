@@ -105,3 +105,7 @@ pnpm-workspace.yaml
 # *.old, so the contents are rebuilt on every install. lefthook.yml is the
 # source of truth and stays tracked.
 .husky/
+
+# Downloaded InfluxDB 3 installers
+/install-influxdb3-core.sh
+/install_influxdb3.sh
