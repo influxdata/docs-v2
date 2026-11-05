@@ -53,7 +53,7 @@ authorize actions in your instance.
 > [!Important]
 > #### Management tokens aren't admin tokens
 >
-> If your account also has InfluxDB 3 Cloud Dedicated clusters, the Admin UI
+> If your account also has InfluxDB Cloud Dedicated clusters, the Admin UI
 > lists **Management Tokens** under **Account**.
 > Management tokens are account-level tokens.
 > They're separate from the instance admin and database tokens on this page.
