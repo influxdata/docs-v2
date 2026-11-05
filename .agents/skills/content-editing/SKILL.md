@@ -8,13 +8,14 @@ description: "Create, edit, and validate InfluxData documentation. Use for relea
 Use this skill for Markdown content and release updates. It routes work; it does not replace the
 frontmatter, shortcode, or contributor references.
 
-| Situation                                               | Do this                                                                   | Load when needed                                               |
-| ------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| New page or direct edit                                 | Choose `docs` CLI or direct edit                                          | `../docs-cli-workflow/SKILL.md`                                |
-| Release notes, notifications, or product patch versions | Reconcile the release update as one change                                | [references/release-updates.md](references/release-updates.md) |
-| Shared source                                           | Identify and review every consumer; refresh the local preview when needed | [references/shared-content.md](references/shared-content.md)   |
-| Technical claim                                         | Verify against the documentation search MCP                               | [references/fact-checking.md](references/fact-checking.md)     |
-| Validation                                              | Run the changed-file verifier                                             | `../docs-testing/SKILL.md`                                     |
+| Situation               | Do this                                     | Load when needed                                             |
+| ----------------------- | ------------------------------------------- | ------------------------------------------------------------ |
+| Edit an existing PR | Choose the publication route before publishing corrections | [Collaborative PR review](../collaborative-pr-review/SKILL.md) |
+| New page or direct edit | Choose `docs` CLI or direct edit            | `../docs-cli-workflow/SKILL.md`                              |
+| Release notes, notifications, or product patch versions | Reconcile the release update as one change | [references/release-updates.md](references/release-updates.md) |
+| Shared source           | Identify and review every consumer; refresh the local preview when needed | [references/shared-content.md](references/shared-content.md) |
+| Technical claim         | Verify against the documentation search MCP                               | [references/fact-checking.md](references/fact-checking.md)   |
+| Validation              | Run the changed-file verifier                                             | `../docs-testing/SKILL.md`                                   |
 
 Prerequisites: resolve the exact product key from `data/products.yml`; read
 applicable frontmatter and shortcode references; preserve semantic line feeds.
