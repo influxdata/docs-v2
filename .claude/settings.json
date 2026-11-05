@@ -108,6 +108,17 @@
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Bash|mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/scripts/pr-write-guard.mjs\" --hook",
+            "timeout": 5,
+            "statusMessage": "Checking collaborative PR write routing"
+          }
+        ]
+      },
+      {
         "matcher": "Read|Glob|Grep",
         "hooks": [
           {

@@ -16,6 +16,10 @@ on:
       - '.github/actions/build-docs-site/**'
       - '.github/actions/setup-docs-env/**'
       - '.s3deploy.yml'
+      # Scoped agent instructions do not change the published site.
+      # Keep exclusions after positive patterns so mixed content PRs still run.
+      - '!**/AGENTS.md'
+      - '!**/CLAUDE.md'
 
 permissions: {}
 
