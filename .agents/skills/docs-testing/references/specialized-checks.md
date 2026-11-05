@@ -1,7 +1,10 @@
 # Specialized checks
 
 Layouts require Hugo and Cypress runtime coverage. Assets require their scoped
-build or lint. API specs require `yarn build:api-docs`. Shell, workflows, and
+build or lint. For UI changes, also follow
+[rendered UI verification](../../cypress-e2e-testing/references/ui-verification.md),
+including asset reuse, component widths, and shadow-root fonts.
+API specs require `yarn build:api-docs`. Shell, workflows, and
 other deferred paths need a deliberate review until verifier support expands.
 
 A Hugo build that exits 0 but renders only a few pages is a build artifact, not

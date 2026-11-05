@@ -15,5 +15,10 @@ Prerequisites: use this after selecting E2E coverage in docs-testing. The runner
 manages its Hugo server; do not start a competing server. Add a failing behavior
 test before changing templates or interactive UI.
 
+For UI changes, load [rendered UI verification](references/ui-verification.md).
+For conversation history tests, compare stable questions and completed answers
+separately from progress labels such as "Thinking...", timers, tooltips, and
+other changing metadata. Verify transient UI in separate assertions when required.
+
 Load only the reference matching the task. See [DOCS-TESTING.md](../../../DOCS-TESTING.md)
 for suite-wide contributor guidance.
