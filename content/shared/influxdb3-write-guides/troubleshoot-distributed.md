@@ -20,7 +20,10 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 
    The response body contains error details about [rejected points](#troubleshoot-rejected-points), up to 100 points.
 
-Writes are synchronous--the response status indicates the final status of the write and all ingested data is queryable.
+Writes are synchronous. A `204` response means all data was ingested and is queryable.
+A `5xx` response means the write didn't complete, but some or all of the data may have been ingested.
+To make sure data is stored and consistent in query results, retry the write with the same data.
+Include explicit timestamps; InfluxDB assigns the server time to points without one, so retrying them creates additional points.
 
 To ensure that InfluxDB handles writes in the order you request them,
 wait for the response before you send the next request.
@@ -42,8 +45,8 @@ The `message` property of the response body may contain additional details about
 | `413 "Request too large"`       | Empty | The request body exceeds the maximum allowed size. Split the data into smaller batches. |
 | `429 "Too many requests"`       | Empty | The server is rejecting writes because too much request data is in flight or the server is under memory pressure. Retry after a delay. [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy). |
 | `500 "Internal server error"`   | Empty                                                                                                                              | Default status for an error |
-| `503 "Service unavailable"`     | Empty                                                                                                                              | The server is temporarily unavailable, is resource constrained, or can't verify your token with the authorization service. [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy). |
-| `504 "Gateway timeout"`         | Empty | The write timed out before the server finished processing it. Retry the write. [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy). |
+| `503 "Service unavailable"`     | JSON or plain text, depending on origin | The server is temporarily unavailable, is resource constrained, has too few healthy ingesters, or can't reach the authorization service. Some or all of the data may have been ingested. [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy). |
+| `504 "Gateway timeout"`         | JSON or plain text, depending on origin | The write timed out before the server finished processing it. Some or all of the data may have been ingested. [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy). |
 {{% /show-in %}}
 
 {{% show-in "cloud-serverless" %}}
@@ -57,7 +60,7 @@ The `message` property of the response body may contain additional details about
 | `422 "Unprocessable Entity"`    | `message` contains details about the error                                                                                     | The data isn't allowed (for example, falls outside of the database's retention period). |
 | `429 "Too many requests"`       | Empty                                                                                                                              | The number of requests exceeds the [adjustable service quota](/influxdb3/cloud-serverless/admin/billing/limits/#adjustable-service-quotas). The `Retry-After` header contains the number of seconds to wait before trying the write again. |
 | `500 "Internal server error"`   | Empty                                                                                                                              | Default status for an error |
-| `503 "Service unavailable"`     | Empty                                                                                                                              | The server is temporarily unavailable to accept writes. The `Retry-After` header contains the number of seconds to wait before trying the write again. |
+| `503 "Service unavailable"`     | Empty                                                                                                                              | The server is temporarily unavailable to accept writes. Some or all of the data may have been ingested. The `Retry-After` header contains the number of seconds to wait before trying the write again. |
 {{% /show-in %}}
 
 The `message` property of the response body may contain additional details about the error.
@@ -351,7 +354,7 @@ This comprehensive information will help InfluxData engineers identify root caus
 {{% show-in "cloud-dedicated,clustered" %}}
 ## Implement an exponential backoff strategy
 
-Use exponential backoff with jitter for retrying requests that return `429` or `503`.
+Use exponential backoff with jitter for retrying requests that return `429`, `503`, or `504`.
 This reduces load spikes and avoids thundering-herd problems.
 
 **Recommended parameters**:
@@ -385,7 +388,7 @@ for attempt in $(seq 0 $max_retries); do
     break
   fi
 
-  if [ "$resp_code" -ne 429 ] && [ "$resp_code" -ne 503 ]; then
+  if [ "$resp_code" -ne 429 ] && [ "$resp_code" -ne 503 ] && [ "$resp_code" -ne 504 ]; then
     echo "Non-retryable response: $resp_code"
     break
   fi
@@ -415,7 +418,7 @@ for attempt in range(max_retries + 1):
     r = requests.post(url, headers=headers, data=body, timeout=10)
     if r.status_code == 204:
         break
-    if r.status_code not in (429, 503):
+    if r.status_code not in (429, 503, 504):
         raise RuntimeError(f"Non-retryable: {r.status_code} {r.text}")
 
     # exponential backoff with full jitter
@@ -441,7 +444,7 @@ async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 for (let attempt = 0; attempt <= maxRetries; attempt++) {
   const res = await fetch(url, { method: 'POST', body });
   if (res.status === 204) break;
-  if (![429, 503].includes(res.status)) throw new Error(`Non-retryable ${res.status}`);
+  if (![429, 503, 504].includes(res.status)) throw new Error(`Non-retryable ${res.status}`);
 
   let delay = base * 2 ** attempt;
   delay = Math.min(delay, maxDelay);
@@ -457,7 +460,14 @@ for (let attempt = 0; attempt <= maxRetries; attempt++) {
 ### Exponential backoff best practices
 
 - Only retry on idempotent or safe request semantics your client supports.
-- Retry only for `429` (Too Many Requests) and `503` (Service Unavailable).
+- Retry with the same data. InfluxDB merges points with the same table, tag set,
+  and timestamp, so a retried point replaces itself.
+  See [Duplicate points](/influxdb3/version/reference/syntax/line-protocol/#duplicate-points).
+- Include explicit timestamps. InfluxDB assigns the server time to points without
+  a timestamp, so a retry of such a point creates a second point.
+- Don't change field values between retries. If duplicate points set the same
+  field to different values, InfluxDB doesn't guarantee which value is kept.
+- Retry only for `429` (Too Many Requests), `503` (Service Unavailable), and `504` (Gateway Timeout).
 - Do not retry on client errors like `400`, `401`, `404`, `422`.
 - Cap the delay with `max_delay` to avoid excessively long waits.
 - Limit total retries to avoid infinite loops and provide meaningful errors.
