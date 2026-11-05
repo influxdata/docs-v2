@@ -1,8 +1,6 @@
 Use InfluxQL miscellaneous functions to perform different operations in
 InfluxQL queries.
 
-- [fill()](#fill)
-
 ## fill()
 
 Fills _null_ field values returned from empty time windows in `GROUP BY time()`
@@ -175,7 +173,6 @@ name: bitcoin
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
-
 
 <!-- ## tz()
 

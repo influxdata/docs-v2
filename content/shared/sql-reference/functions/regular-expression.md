@@ -4,11 +4,6 @@ regular expression [syntax](https://docs.rs/regex/latest/regex/#syntax)
 (excluding some features such as look-around and back-references) and supports
 the following regular expression functions:
 
-- [regexp_count](#regexp_count)
-- [regexp_like](#regexp_like)
-- [regexp_match](#regexp_match)
-- [regexp_replace](#regexp_replace)
-
 ## regexp_count
 
 Returns the number of matches that a regular expression has in a string.

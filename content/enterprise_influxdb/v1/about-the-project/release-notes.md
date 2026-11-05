@@ -11,17 +11,17 @@ alt_links:
   v1: /influxdb/v1/about_the_project/release-notes/
 ---
 
-<span id="v1.13.x"></span>
-
-## v1.13.1
-
 > [!Note]
 > #### InfluxDB OSS and Enterprise v1 relationship
 >
-> InfluxDB Enterprise v1 is a superset of InfluxDB OSS v1. All updates in the
-> [OSS v1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131)
-> are included in this release. This page lists Enterprise-specific updates
-> only.
+> InfluxDB Enterprise v1 is a superset of InfluxDB OSS v1.
+> See the [OSS v1 release notes](/influxdb/v1/about_the_project/release-notes/)
+> for OSS updates.
+> This page lists Enterprise-specific updates only.
+
+<span id="v1.13.x"></span>
+
+## v1.13.1
 
 ### Features
 

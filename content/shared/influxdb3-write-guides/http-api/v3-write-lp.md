@@ -133,32 +133,32 @@ the {{< influxdb3/home-sample-link >}}, but you can use any HTTP client.*
 
 ```bash
 curl -v "{{< influxdb/host-url >}}/api/v3/write_lp?db=sensors&precision=second" \
-  --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
-home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
-home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1735549200
-home,room=Kitchen temp=23.0,hum=36.2,co=0i 1735549200
-home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1735552800
-home,room=Kitchen temp=22.7,hum=36.1,co=0i 1735552800
-home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1735556400
-home,room=Kitchen temp=22.4,hum=36.0,co=0i 1735556400
-home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1735560000
-home,room=Kitchen temp=22.5,hum=36.0,co=0i 1735560000
-home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1735563600
-home,room=Kitchen temp=22.8,hum=36.5,co=1i 1735563600
-home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1735567200
-home,room=Kitchen temp=22.8,hum=36.3,co=1i 1735567200
-home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1735570800
-home,room=Kitchen temp=22.7,hum=36.2,co=3i 1735570800
-home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1735574400
-home,room=Kitchen temp=22.4,hum=36.0,co=7i 1735574400
-home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1735578000
-home,room=Kitchen temp=22.7,hum=36.0,co=9i 1735578000
-home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1735581600
-home,room=Kitchen temp=23.3,hum=36.9,co=18i 1735581600
-home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1735585200
-home,room=Kitchen temp=23.1,hum=36.6,co=22i 1735585200
-home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1735588800
-home,room=Kitchen temp=22.7,hum=36.5,co=26i 1735588800"
+  --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
 ```
 
 {{% /influxdb/custom-timestamps %}}
@@ -189,7 +189,7 @@ when the write request contains invalid line protocol or schema conflicts.
 For example, the following line protocol contains two points, each using a
 different datatype for the `temp` field, which causes a schema conflict:
 
-```
+```lp {lint="false"}
 home,room=Sunroom temp=96 1735545600
 home,room=Sunroom temp="hi" 1735549200
 ```
