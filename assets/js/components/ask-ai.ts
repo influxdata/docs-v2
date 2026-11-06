@@ -70,14 +70,14 @@ function updateLayout(api: KapaWidget): void {
   api.updateConfig(attributes);
 }
 
-/** Opens one widget through the page entry points. */
 export default function AskAI({ component }: { component: HTMLElement }): void {
   const button = document.querySelector<HTMLButtonElement>('.ask-ai-button');
   if (!button) return;
   const launcher = button;
-  const footerStack = launcher.closest<HTMLElement>('.footer-widgets');
+  const stack = launcher.closest<HTMLElement>('.footer-widgets');
+  if (!stack) return;
+  const footerStack = stack;
   function measureFooter(): void {
-    if (!footerStack) return;
     const inset = parseFloat(getComputedStyle(footerStack).bottom);
     document.body.style.setProperty(
       '--footer-controls-clearance',
@@ -85,24 +85,22 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     );
   }
   const footerObserver = new ResizeObserver(measureFooter);
-  if (footerStack) footerObserver.observe(footerStack);
+  footerObserver.observe(footerStack);
   window.addEventListener('resize', measureFooter);
   measureFooter();
-  // Existing modal backdrops block pointers; inert also excludes keyboard access.
-  function syncModalAvailability(): void {
-    if (footerStack)
-      footerStack.inert = Boolean(
-        document.querySelector('.modal.open, #v3-wayfinding-modal.open')
-      );
+  function syncFooterInertState(): void {
+    footerStack.inert = Boolean(
+      document.querySelector('.modal.open, #v3-wayfinding-modal.open')
+    );
   }
-  const modalObserver = new MutationObserver(syncModalAvailability);
+  const modalObserver = new MutationObserver(syncFooterInertState);
   document.querySelectorAll('.modal, #v3-wayfinding-modal').forEach((modal) => {
     modalObserver.observe(modal, {
       attributes: true,
       attributeFilter: ['class'],
     });
   });
-  syncModalAvailability();
+  syncFooterInertState();
   const announcement = component;
   let state: State = { kind: 'ready' };
   let rendered: KapaWidget | null = null;
@@ -166,10 +164,11 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
         script.remove();
         reject(new Error('Widget script failed'));
       };
-      function initialize(): void {
-        // Loading the bundle precedes its asynchronous API initialization.
+      function initializeWhenBootstrapAvailable(): void {
         if (!isBootstrap(window.Kapa)) {
-          readinessFrame = requestAnimationFrame(initialize);
+          readinessFrame = requestAnimationFrame(
+            initializeWhenBootstrapAvailable
+          );
           return;
         }
         const api = window.Kapa;
@@ -202,9 +201,9 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
           rollback(error);
         }
       }
-      if (bootstrap) initialize();
+      if (bootstrap) initializeWhenBootstrapAvailable();
       else {
-        script.onload = initialize;
+        script.onload = initializeWhenBootstrapAvailable;
         document.head.append(script);
       }
     }).catch((error) => {
@@ -214,7 +213,7 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     return readiness;
   }
   async function requestOpen(request: Request): Promise<void> {
-    if (footerStack?.inert) return;
+    if (footerStack.inert) return;
     if (
       state.kind === 'loading' ||
       state.kind === 'opening' ||
@@ -236,6 +235,11 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
       ]);
       clearTimeout(pendingTimer);
       if (state.kind !== 'loading' || state.request !== request) return;
+      if (footerStack.inert) {
+        state = { kind: 'ready' };
+        present();
+        return;
+      }
       updateLayout(api);
       api.setSourceGroupIDs(request.groups);
       state = { kind: 'opening', request };
@@ -290,17 +294,14 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
           ?.focus({ preventScroll: true });
     }
   });
-  window.addEventListener(
-    'pagehide',
-    () => {
-      clearTimeout(pendingTimer);
-      cancelAnimationFrame(readinessFrame);
-      disposeAdapter();
-      footerObserver.disconnect();
-      modalObserver.disconnect();
-      window.removeEventListener('resize', measureFooter);
-    },
-    { once: true }
-  );
+  window.addEventListener('pagehide', (event) => {
+    if (event.persisted) return;
+    clearTimeout(pendingTimer);
+    cancelAnimationFrame(readinessFrame);
+    disposeAdapter();
+    footerObserver.disconnect();
+    modalObserver.disconnect();
+    window.removeEventListener('resize', measureFooter);
+  });
   present();
 }

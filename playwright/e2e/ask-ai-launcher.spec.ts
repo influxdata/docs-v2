@@ -1,8 +1,11 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+import type {
+  ContextualAskAiLink,
+  DocsDatePickerElement,
+} from '../support/widget-harness';
 import { installKapaWidget } from '../../cypress/support/kapa-widget.js';
 
 test.beforeEach(async ({ page }) => {
-  // Rebuilds must not replace the document during widget interactions.
   await page.route('**/livereload.js*', (route) => route.abort());
   await page.addInitScript(() =>
     localStorage.setItem(
@@ -16,9 +19,18 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-const artifacts = '/workspace/environment-artifacts';
 const article = '/influxdb3/cloud-serverless/get-started/write/';
-async function mockWidget(page, settings = {}) {
+function elementBounds(
+  element: Element
+): Pick<DOMRectReadOnly, 'x' | 'y' | 'width' | 'height'> {
+  const { x, y, width, height } = element.getBoundingClientRect();
+  return { x, y, width, height };
+}
+
+async function mockWidget(
+  page: Page,
+  settings: { openFailures?: number } = {}
+) {
   await page.route('https://widget.kapa.ai/kapa-widget.bundle.js', (route) =>
     route.fulfill({
       contentType: 'application/javascript',
@@ -26,17 +38,22 @@ async function mockWidget(page, settings = {}) {
     })
   );
 }
-async function finishRender(page) {
-  await expect
-    .poll(() => page.evaluate(() => typeof window.kapaHarness?.finishRender))
-    .toBe('function');
-  await page.evaluate(() => window.kapaHarness.finishRender());
+async function completeWidgetRender(page: Page): Promise<void> {
+  await page.waitForFunction(() => window.kapaHarness?.finishRender);
+  await page.evaluate(() => {
+    const render = window.kapaHarness.finishRender;
+    if (!render) throw new Error('Widget has not received a render request');
+    render();
+  });
+}
+async function finishRender(page: Page): Promise<void> {
+  await completeWidgetRender(page);
   await expect(page.locator('body')).toHaveAttribute(
     'data-ask-ai-state',
     'open'
   );
 }
-async function closeChat(page) {
+async function closeChat(page: Page) {
   await page.locator('#kapa-modal-content button:visible').first().click();
   await expect(page.locator('.ask-ai-button')).toBeVisible();
 }
@@ -44,7 +61,7 @@ async function closeChat(page) {
 for (const width of [320, 390, 600, 601, 1280, 1440, 1920]) {
   test(`viewport placement and drawer restoration at ${width}px`, async ({
     page,
-  }) => {
+  }, testInfo) => {
     await page.setViewportSize({ width, height: 800 });
     await mockWidget(page);
     await page.goto(article);
@@ -67,18 +84,20 @@ for (const width of [320, 390, 600, 601, 1280, 1440, 1920]) {
           ),
         fraction
       );
-      const box = await launcher.boundingBox();
+      const box = await launcher.evaluate(elementBounds);
       expect(Math.abs(width - box.x - box.width - inset)).toBeLessThan(1);
       expect(Math.abs(800 - box.y - box.height - inset)).toBeLessThan(1);
       expect(box.width).toBeGreaterThanOrEqual(width <= 600 ? 112 : 128);
       expect(box.height).toBeGreaterThanOrEqual(width <= 600 ? 44 : 48);
       if (width === 390 || width === 1440)
         await page.screenshot({
-          path: `${artifacts}/launcher-${width}-scroll-${fraction}.png`,
+          path: testInfo.outputPath(`launcher-${width}-scroll-${fraction}.png`),
         });
     }
-    const timestamp = await page.locator('.custom-time-trigger').boundingBox();
-    const box = await launcher.boundingBox();
+    const timestamp = await page
+      .locator('.custom-time-trigger')
+      .evaluate(elementBounds);
+    const box = await launcher.evaluate(elementBounds);
     expect(Math.abs(box.y - timestamp.y - timestamp.height - 12)).toBeLessThan(
       1
     );
@@ -117,7 +136,7 @@ for (const width of [320, 390, 600, 601, 1280, 1440, 1920]) {
     );
     await closeChat(page);
     await page.screenshot({
-      path: `${artifacts}/launcher-${width}-end.png`,
+      path: testInfo.outputPath(`launcher-${width}-end.png`),
     });
   });
 }
@@ -152,10 +171,7 @@ test('script and open failures allow retry with one widget', async ({
   await expect(page.locator('#ask-ai-status')).toContainText('Try again');
   await expect(launcher).toBeFocused();
   await launcher.click();
-  await expect
-    .poll(() => page.evaluate(() => typeof window.kapaHarness?.finishRender))
-    .toBe('function');
-  await page.evaluate(() => window.kapaHarness.finishRender());
+  await completeWidgetRender(page);
   await expect(page.locator('body')).toHaveAttribute(
     'data-ask-ai-state',
     'error'
@@ -172,7 +188,9 @@ test('contextual prefill and focus restoration', async ({ page }) => {
   await mockWidget(page);
   await page.goto('/influxdb3/core/admin/identify-version/');
   const origin = page.locator('.article--content .ask-ai-open').first();
-  const query = await origin.getAttribute('data-query');
+  const query = await origin.evaluate(
+    (link: ContextualAskAiLink) => link.dataset.query
+  );
   await origin.click();
   await finishRender(page);
   await expect(page.locator('#kapa-modal-content textarea')).toHaveValue(query);
@@ -185,7 +203,7 @@ test('contextual prefill and focus restoration', async ({ page }) => {
 
 test('scaled text, short landscape, themes, print, and 404', async ({
   page,
-}) => {
+}, testInfo) => {
   await page.setViewportSize({ width: 601, height: 320 });
   await page.goto(article);
   for (const close of await page
@@ -196,9 +214,11 @@ test('scaled text, short landscape, themes, print, and 404', async ({
   for (const theme of ['light', 'dark']) {
     await page.locator('body').evaluate((body, value) => {
       body.dataset.theme = value;
-      document.querySelectorAll('link[title$="-theme"]').forEach((link) => {
-        link.disabled = link.title !== `${value}-theme`;
-      });
+      document
+        .querySelectorAll<HTMLLinkElement>('link[title$="-theme"]')
+        .forEach((link) => {
+          link.disabled = link.title !== `${value}-theme`;
+        });
     }, theme);
     await page.locator('.ask-ai-button').focus();
     await expect(page.locator('.ask-ai-button')).toBeInViewport();
@@ -223,10 +243,10 @@ test('scaled text, short landscape, themes, print, and 404', async ({
         document.body.style.getPropertyValue('--footer-controls-clearance')
       )
     );
-    const stack = await page.locator('.footer-widgets').boundingBox();
+    const stack = await page.locator('.footer-widgets').evaluate(elementBounds);
     expect(clearance).toBeGreaterThanOrEqual(stack.height + 24 + 8);
     await page.screenshot({
-      path: `${artifacts}/launcher-scaled-${theme}.png`,
+      path: testInfo.outputPath(`launcher-scaled-${theme}.png`),
     });
   }
   await page.emulateMedia({ media: 'print' });
@@ -236,30 +256,34 @@ test('scaled text, short landscape, themes, print, and 404', async ({
   await expect(page.locator('.ask-ai-button')).toHaveCount(0);
 });
 
-test('final feedback actions scroll clear of the stack', async ({ page }) => {
+test('final feedback actions scroll clear of the stack', async ({
+  page,
+}, testInfo) => {
   await page.goto(article);
   await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
-  const stack = await page.locator('.footer-widgets').boundingBox();
+  const stack = await page.locator('.footer-widgets').evaluate(elementBounds);
   const feedback = page.locator('.feedback').last();
   await expect(feedback).toBeVisible();
-  const box = await feedback.boundingBox();
+  const box = await feedback.evaluate(elementBounds);
   expect(box.y + box.height).toBeLessThanOrEqual(stack.y - 8);
   await page.screenshot({
-    path: '/workspace/environment-artifacts/launcher-final-actions.png',
+    path: testInfo.outputPath('launcher-final-actions.png'),
   });
 });
 
-test('API reference launcher and content clearance', async ({ page }) => {
+test('API reference launcher and content clearance', async ({
+  page,
+}, testInfo) => {
   await page.setViewportSize({ width: 390, height: 800 });
   const response = await page.goto('/influxdb3/core/api/write-data/');
-  expect(response.status()).toBe(200);
+  expect(response?.status()).toBe(200);
   await expect(page.locator('.ask-ai-button')).toBeVisible();
   await expect(page.locator('h1')).toContainText('Write');
   await page.evaluate(() =>
     scrollTo(0, document.documentElement.scrollHeight / 2)
   );
   await page.screenshot({
-    path: '/workspace/environment-artifacts/launcher-api-middle.png',
+    path: testInfo.outputPath('launcher-api-middle.png'),
   });
 });
 
@@ -289,3 +313,120 @@ test('touch activation opens the existing composer', async ({ browser }) => {
   await expect(page.locator('#kapa-modal-content textarea')).toBeFocused();
   await context.close();
 });
+
+test('loading chat yields to a modal opened before readiness', async ({
+  page,
+}) => {
+  await mockWidget(page);
+  await page.goto(article);
+  await page.locator('.ask-ai-button').click();
+  await page.locator('.custom-time-trigger a').click();
+  await expect(page.locator('.footer-widgets')).toHaveJSProperty('inert', true);
+  await completeWidgetRender(page);
+  await expect(page.locator('body')).toHaveAttribute(
+    'data-ask-ai-state',
+    'ready'
+  );
+  await expect(page.locator('#kapa-modal-content')).toBeHidden();
+  await page.locator('#modal-close').click();
+  await page.locator('.ask-ai-button').click();
+  await expect(page.locator('#kapa-modal-content')).toBeVisible();
+});
+
+test('persisted pagehide preserves modal and clearance subscriptions', async ({
+  page,
+}) => {
+  await page.goto(article);
+  await page.locator('.custom-time-trigger a').click();
+  await expect(page.locator('.footer-widgets')).toHaveJSProperty('inert', true);
+  await page.evaluate(() => {
+    dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true }));
+    dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }));
+  });
+  await page.locator('#modal-close').click();
+  await expect(page.locator('.footer-widgets')).toHaveJSProperty(
+    'inert',
+    false
+  );
+  const before = await page.evaluate(() =>
+    parseFloat(
+      document.body.style.getPropertyValue('--footer-controls-clearance')
+    )
+  );
+  await page
+    .locator('.ask-ai-button')
+    .evaluate((button) => (button.style.minHeight = '100px'));
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        parseFloat(
+          document.body.style.getPropertyValue('--footer-controls-clearance')
+        )
+      )
+    )
+    .toBeGreaterThan(before);
+  await page.locator('.custom-time-trigger a').click();
+  await expect(page.locator('.footer-widgets')).toHaveJSProperty('inert', true);
+});
+
+for (const theme of ['light', 'dark']) {
+  test(`footer controls and dates across chat resize in ${theme}`, async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      (theme) =>
+        localStorage.setItem(
+          'influxdata_docs_preferences',
+          JSON.stringify({
+            theme,
+            sidebar_state: 'open',
+            v3_wayfinding_show: false,
+            sample_get_started_date: '2025-02-10',
+          })
+        ),
+      theme
+    );
+    await page.setViewportSize({ width: 375, height: 812 });
+    await mockWidget(page);
+    await page.goto(article);
+    const timestamp = page.locator('.custom-time-trigger a');
+    await expect(page.locator('.ask-ai-button')).toBeVisible();
+    await expect(page.locator('.footer-widgets')).toBeInViewport({ ratio: 1 });
+    await expect(
+      page.locator('.ask-ai-composer, #chat-assistant-textarea')
+    ).toHaveCount(0);
+    await timestamp.click();
+    await page
+      .locator('#custom-date-selector')
+      .evaluate((picker: DocsDatePickerElement) =>
+        picker.datepicker.setDate('2025-02-12')
+      );
+    await page.locator('#submit-custom-date').click();
+    await expect(page.locator('span.custom-timestamps').first()).toContainText(
+      '2025-02-12T08:00:00Z'
+    );
+    await page.locator('.ask-ai-button').click();
+    await expect(timestamp).toBeVisible();
+    await finishRender(page);
+    await expect(page.locator('.footer-widgets')).toBeHidden();
+    await page.setViewportSize({ width: 1280, height: 1024 });
+    await expect(page.locator('.footer-widgets')).toBeHidden();
+    await closeChat(page);
+    await timestamp.click();
+    await expect(page.locator('#influxdb-gs-date-select')).toBeVisible();
+    await expect(
+      page.locator('#custom-date-selector .datepicker-cell.selected')
+    ).toHaveText('12');
+    await page.locator('#modal-close').click();
+    for (const width of [601, 600, 375]) {
+      await page.setViewportSize({ width, height: 812 });
+      await expect(timestamp).toBeVisible();
+      await expect(page.locator('.ask-ai-button')).toBeVisible();
+    }
+    await page.evaluate(() =>
+      scrollTo(0, document.documentElement.scrollHeight)
+    );
+    await timestamp.click();
+    await expect(page.locator('#influxdb-gs-date-select')).toBeVisible();
+  });
+}
