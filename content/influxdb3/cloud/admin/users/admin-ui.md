@@ -67,12 +67,14 @@ The **Invitations** tab displays the following information:
 
 ## Invite a user
 
-Only users with the **Admin** role can send new invitations.
+To send invitations, you need the **Manage** permission on **Invitations**.
+The **Admin** role includes this permission.
 
 1. On the Users page, click **{{< icon "plus" >}} Invite Users**.
 2. In the **Invite User** dialog:
    - Enter the **email address** of the user you want to invite
-   - In the **Roles** list, select one or more roles.
+   - In the **Roles** list, select one or more roles, including any
+     [custom roles](/influxdb3/cloud/admin/users/create-custom-role/).
      You must select at least one role to send the invitation.
      - **Admin**: Full management of account resources and users
      - **Member**: Database access and database token management
@@ -113,39 +115,31 @@ The invitation status changes to `Revoked`.
 
 ## User roles and permissions
 
-{{% product-name %}} uses role-based access control to manage user permissions for the following roles:
+{{% product-name %}} uses role-based access control to manage user permissions.
+Every account starts with the **Admin**, **Member**, and **Auditor** roles, and
+you can create custom roles.
 
-### Admin
-- Full read and write permissions on all instance resources
-- Can create and delete databases, tables, and tokens
-- Can send and revoke user invitations
-- Can manage all aspects of instance administration
-- Can use the **Tokens** page in the Admin UI
+- To learn how roles work, see [Understand roles](/influxdb3/cloud/admin/users/roles/).
+- For each permission and what the default roles include, see the
+  [permissions reference](/influxdb3/cloud/admin/users/permissions/).
+- To create a role, see [Create a custom role](/influxdb3/cloud/admin/users/create-custom-role/).
 
-### Member
-- Can create, describe, read, write, and delete databases
-- Can view, create, and delete database (resource) tokens, but has no access to admin tokens
-- Can view users and instances, but cannot manage other users or send invitations
-- Cannot use the Admin UI **Tokens** page, which requires the **Admin** role.
-  Members create database tokens with the
-  [`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/)
-  (after `influxdb3 auth login --oauth`) or the HTTP API.
-
-### Auditor
-- Can view users, instances, and invitations
-- Can describe databases to see databases and schemas, but cannot query or write data
-- Can view database (resource) tokens, but has no access to admin tokens
-- Cannot send or revoke invitations or modify any resources
+The **Tokens** page in the Admin UI requires the **Admin** role.
+Other users create database tokens with the
+[`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/)
+(after `influxdb3 auth login --oauth`) or the HTTP API, if their role allows it.
 
 > [!Note]
 > #### Role assignment
 >
-> Admins assign a role when inviting a user and can
+> Assign a role when inviting a user, and
 > [change a user's roles](#change-a-users-roles) after the invitation is accepted.
 
 ## Manage users
 
-Only users with the **Admin** role can change roles or remove users.
+To change a user's roles, you need the **Update** permission on **Account Users**.
+To remove a user, you need the **Delete** permission on **Account Users**.
+The **Admin** role includes both permissions.
 
 ### Change a user's roles
 
