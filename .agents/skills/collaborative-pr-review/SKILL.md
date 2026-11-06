@@ -131,3 +131,8 @@ After the author accepts the corrections, inspect the resulting PR head and
 verify its relevant checks before approving.
 A successful check on the proposal alone does not resolve a finding in the
 original PR.
+
+## Respond to review feedback on your PR
+
+To wait for Copilot reviews, reply to review comments, and fix links the
+link checker reports, see [references/review-feedback.md](references/review-feedback.md).
