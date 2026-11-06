@@ -13,7 +13,7 @@ Related to [PR #7873](https://github.com/influxdata/docs-v2/pull/7873),
 - Give navigation and chat separate columns at widths of at least 1280px, preserving at least 400px of article text.
   Chat is 360px through 1440px and 386px at wider widths.
   Narrow layouts allow one right-side overlay; chat becomes full-screen at 600px or less.
-- Retain one Kapa Website Widget instance and a header button. The widget owns question entry.
+- Retain one Kapa Website Widget instance and a labeled fixed corner launcher. The widget owns question entry.
   One controller owns readiness, source filters, and opening.
   Avoid duplicate opens on retry or resize.
 - Isolate the desktop focus adapter in `kapa-sidebar.ts`.
@@ -39,3 +39,15 @@ The user later chose the header button without a bottom composer in [PR #7889](h
 The adapter depends on vendor shadow DOM and needs live regression checks when the widget changes.
 Final acceptance requires a completed answer and retained history after close, reopen, and resize.
 Cross-page history and a Chat SDK migration remain outside this change.
+
+## Corner launcher revision, 2026-11-06
+
+Move the global Ask AI button from the header to the shared footer control stack.
+Keep timestamps above it with a 12px gap; hide the entire stack while chat is open at every width.
+Use the shared burningDusk gradient at −45 degrees, a nominal 128 × 48px button, and safe-area-aware 24px desktop or 20px mobile insets.
+Measure the actual stack to provide scrollable page-end clearance, including text scaling.
+Keep the existing widget ownership, drawer widths, responsive modes, and focus adapter.
+Restore the originating available control or the launcher without scrolling on close.
+
+Mobile review reduced the launcher to a nominal 112 × 44px at or below 600px, with 8px vertical and 12px horizontal padding and a 6px icon gap.
+Keep the 1rem label and desktop geometry unchanged; desktop discoverability drove the larger original size.

@@ -1,5 +1,18 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      'influxdata_docs_preferences',
+      JSON.stringify({
+        theme: 'light',
+        sidebar_state: 'open',
+        v3_wayfinding_show: false,
+      })
+    )
+  );
+});
+
 const serverlessWritePage = '/influxdb3/cloud-serverless/get-started/write/';
 const preferencesKey = 'influxdata_docs_preferences';
 

@@ -72,10 +72,37 @@ function updateLayout(api: KapaWidget): void {
 
 /** Opens one widget through the page entry points. */
 export default function AskAI({ component }: { component: HTMLElement }): void {
-  const headerButton =
-    document.querySelector<HTMLButtonElement>('.ask-ai-button');
-  if (!headerButton) return;
-  const launcher = headerButton;
+  const button = document.querySelector<HTMLButtonElement>('.ask-ai-button');
+  if (!button) return;
+  const launcher = button;
+  const footerStack = launcher.closest<HTMLElement>('.footer-widgets');
+  function measureFooter(): void {
+    if (!footerStack) return;
+    const inset = parseFloat(getComputedStyle(footerStack).bottom);
+    document.body.style.setProperty(
+      '--footer-controls-clearance',
+      `${footerStack.getBoundingClientRect().height + inset + 8}px`
+    );
+  }
+  const footerObserver = new ResizeObserver(measureFooter);
+  if (footerStack) footerObserver.observe(footerStack);
+  window.addEventListener('resize', measureFooter);
+  measureFooter();
+  // Existing modal backdrops block pointers; inert also excludes keyboard access.
+  function syncModalAvailability(): void {
+    if (footerStack)
+      footerStack.inert = Boolean(
+        document.querySelector('.modal.open, #v3-wayfinding-modal.open')
+      );
+  }
+  const modalObserver = new MutationObserver(syncModalAvailability);
+  document.querySelectorAll('.modal, #v3-wayfinding-modal').forEach((modal) => {
+    modalObserver.observe(modal, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+  });
+  syncModalAvailability();
   const announcement = component;
   let state: State = { kind: 'ready' };
   let rendered: KapaWidget | null = null;
@@ -187,6 +214,7 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
     return readiness;
   }
   async function requestOpen(request: Request): Promise<void> {
+    if (footerStack?.inert) return;
     if (
       state.kind === 'loading' ||
       state.kind === 'opening' ||
@@ -268,6 +296,9 @@ export default function AskAI({ component }: { component: HTMLElement }): void {
       clearTimeout(pendingTimer);
       cancelAnimationFrame(readinessFrame);
       disposeAdapter();
+      footerObserver.disconnect();
+      modalObserver.disconnect();
+      window.removeEventListener('resize', measureFooter);
     },
     { once: true }
   );
