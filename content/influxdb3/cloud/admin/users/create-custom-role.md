@@ -2,8 +2,8 @@
 title: Create a custom role
 seotitle: Create a custom role in {{< product-name >}}
 description: >
-  Follow this walkthrough to create a custom role in the {{< product-name >}}
-  Admin UI, grant it permissions, assign it to users, and then edit or delete it.
+  Create a custom role in the {{< product-name >}} Admin UI, grant it
+  permissions, assign it to users, and edit or delete it.
 menu:
   influxdb3_cloud:
     parent: Manage users
@@ -18,39 +18,42 @@ related:
 
 Use the Admin UI to create a custom role, grant it permissions, and assign it to
 users.
-This walkthrough creates a **Spice analyst** role that can only query the
-`arrakis` database on one instance.
 
 To create and edit roles, you need the **Manage** permission on **Roles**.
 The **Admin** role includes this permission.
 
-- [Create the role](#create-the-role)
+- [Create a role](#create-a-role)
 - [Grant permissions](#grant-permissions)
-- [Assign the role to users](#assign-the-role-to-users)
-- [Verify the role](#verify-the-role)
+- [Assign a role to users](#assign-a-role-to-users)
 - [Edit a role](#edit-a-role)
 - [Delete a role](#delete-a-role)
 
-## Create the role
+## Create a role
 
 1.  Go to [console.influxdata.com](https://console.influxdata.com) and sign in.
 2.  In the navigation, under **Account**, select **Roles**.
 3.  Click **Create role**.
 4.  In the **Create role** dialog, enter the following:
 
-    - **Role name**: `Spice analyst`
-    - **Description**: `Can query the arrakis database`
+    - **Role name**: A name that's unique in the account.
+    - **Description**: What the role is for.
     - **Copy permissions from**: _Optional._ To start from an existing role's
       permissions, including its access on each instance, select that role.
-      For this example, select **None**.
+      Otherwise, select **None**.
 
 5.  Click **Create role**.
-
-{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-roles-create-role.png" alt="Create role dialog with the Spice analyst role name and description" />}}
 
 The role's page opens.
 It shows the role's **Account permissions**, **Instance permissions**, and
 **Users**.
+
+For example, the following dialog creates a role for users who query the
+`arrakis` database:
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-roles-create-role.png" alt="Create role dialog with the Spice analyst role name and description" />}}
+
+For name and description limits, see
+[Role limits](/influxdb3/cloud/admin/users/roles/#role-limits).
 
 ## Grant permissions
 
@@ -58,35 +61,36 @@ A new role starts with no permissions unless you copied them from another role.
 For a description of each permission, see the
 [permissions reference](/influxdb3/cloud/admin/users/permissions/).
 
-1.  Click **Edit**.
-2.  Under **Instance permissions**, find the instance that contains the
-    `arrakis` database.
-3.  Under **Database permissions**, in the **Add Databases** field, select
-    `arrakis`.
-4.  In the `arrakis` row, select **Read** and **Describe**.
+1.  On the role's page, click **Edit**.
+2.  Under **Account permissions**, select the permissions that apply to the whole
+    account.
+3.  Under **Instance permissions**, find the instance you want to grant access to.
+4.  Under **Instance-wide**, select the token and system endpoint permissions.
+5.  Under **Database permissions**, do one or both of the following:
 
-    **Read** lets users query the database.
-    **Describe** lets them list the database and view its schema.
+    - To grant access to every database on the instance, including databases
+      created later, select permissions in the **All databases** row.
+    - To grant access to specific databases, select each database in the
+      **Add Databases** field, and then select permissions in its row.
 
-    {{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-roles-database-permissions.png" alt="Database permissions with Read and Describe selected for the arrakis database" />}}
-
-5.  Click **Save changes**.
-6.  Review the summary of changes, and then click **Save changes** to confirm.
+6.  Click **Save changes**.
+7.  Review the summary of changes, and then click **Save changes** to confirm.
     To go back without saving, click **Keep editing**.
 
-This role doesn't need any **Account permissions** to query the database.
-To let its users see other users or instances in the account, grant **View** on
-**Account Users** or **Instances**.
+For example, the following permissions let users query the `arrakis` database.
+**Read** lets them query the database, and **Describe** lets them list the
+database and view its schema:
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-roles-database-permissions.png" alt="Database permissions with Read and Describe selected for the arrakis database" />}}
 
 > [!Warning]
 > #### Token permissions can exceed a role's database access
 >
-> This example doesn't grant token permissions.
 > A user who can create resource tokens can create a token with broader database
 > access than their role grants.
 > Only grant **Create** on **Resource tokens** to users you trust with that access.
 
-## Assign the role to users
+## Assign a role to users
 
 1.  On the role's page, in the **Users** section, click **Edit users**.
 2.  Select the users to give this role.
@@ -103,22 +107,6 @@ on the **Users** page.
 > [!Note]
 > A user must hold at least one role.
 > To remove a user's only role, give them another role first.
-
-## Verify the role
-
-Sign in as a user who holds only this role, and then do the following:
-
-1.  Select the instance.
-2.  In the navigation, select **Query**.
-3.  In the **Database** list, check that `arrakis` is the only database.
-4.  Run a query, such as the following:
-
-    ```sql
-    SELECT * FROM spice_harvest LIMIT 10
-    ```
-
-For more information, see
-[Execute queries in the Admin UI](/influxdb3/cloud/query-data/execute-queries/admin-ui/).
 
 ## Edit a role
 
