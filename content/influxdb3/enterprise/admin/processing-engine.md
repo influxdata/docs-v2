@@ -108,8 +108,9 @@ A process node isn't a security boundary: it needs the same credentials as the o
 Start each node with `influxdb3 serve`.
 The following examples start the four-node cluster from [Plan the cluster](#plan-the-cluster), with each node on its own host.
 To keep the commands short, they use a `file` object store in a directory that every host can reach.
+Writes to a `file` object store are durable after a power loss only when one server process uses the directory, so use this layout for testing only.
 In production, use an object store such as Amazon S3.
-See [Connect to your object store](/influxdb3/enterprise/get-started/multi-server/#connect-to-your-object-store).
+See [Connect to your object store](/influxdb3/enterprise/get-started/multi-server/#connect-to-your-object-store) and [`--data-dir`](/influxdb3/enterprise/reference/config-options/#data-dir).
 
 ```bash { placeholders="CLUSTER_ID|DATA_DIR|PLUGIN_DIR|INGEST_HOST|QUERY_HOST" }
 # Ingest node
