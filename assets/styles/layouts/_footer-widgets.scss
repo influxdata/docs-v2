@@ -100,7 +100,6 @@
 
 ///////////////////////////////// ASK AI WIDGET ////////////////////////////////
 
-// Keep the timestamp widget's square dimensions independent of the launcher.
 .ask-ai-button {
   box-sizing: border-box;
   display: flex;
@@ -129,7 +128,6 @@
   }
 }
 
-// A scrollable tail lets final article and footer actions clear the whole stack.
 body::after {
   content: "";
   display: block;
