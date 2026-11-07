@@ -53,7 +53,6 @@ The table lists each query with its status, query text, database, query type, du
 You can use the column headers to sort (for example by duration or time).
 
 
-<!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-query-log-list-view.png" alt="Query History list view in the Admin UI with search, filters, and table" />}}
 
 
@@ -61,7 +60,6 @@ You can use the column headers to sort (for example by duration or time).
 You can also expand a row to see more details about that execution.
 
 
-<!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-query-log-detail-view.png" alt="Query History detail view in the Admin UI" />}}
 
 {{% /tab-content %}}

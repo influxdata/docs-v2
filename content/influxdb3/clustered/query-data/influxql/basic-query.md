@@ -34,10 +34,10 @@ following clauses:
   [Notable SELECT statement behaviors](/influxdb3/clustered/reference/influxql/select/#notable-select-statement-behaviors).
 - {{< req "\*">}} `FROM`: Specify the
   [table](/influxdb3/clustered/reference/glossary/#table) to query from.
-    <!-- vale InfluxDataDocs.v3Schema = NO -->
+    <!-- prose-lint off V3Terms -->
   It requires one or more comma-delimited
   [measurement expressions](/influxdb3/clustered/reference/influxql/select/#measurement_expression).
-    <!-- vale InfluxDataDocs.v3Schema = YES -->
+    <!-- prose-lint on V3Terms -->
 - `WHERE`: Filter data based on
   [field values](/influxdb3/clustered/reference/glossary/#field),
   [tag values](/influxdb3/clustered/reference/glossary/#tag), or

@@ -12,8 +12,6 @@
     "yaml.schemas": {
         "./.frontmatter-schema.json": "${workspaceFolder}/content/**/*.md"
     },
-    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
-    "vale.valeCLI.minAlertLevel": "warning",
     "cSpell.words": [
       "influxctl",
       "preconfigured"
