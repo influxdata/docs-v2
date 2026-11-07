@@ -49,7 +49,7 @@ Additional {{% product-name %}} option:
 
 | Option |               | Description                                                                                                                                                                 |
 | :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        | `--node-spec` | Which nodes own the trigger. Two value formats are supported: `all` (default) - every node that runs the Processing Engine (a node with `--plugin-dir` configured) owns the trigger, or `nodes:<node-id>[,<node-id>...]` - only the listed nodes own the trigger. In a cluster, set this to your process node, see [Pin a trigger to the process node](#pin-a-trigger-to-the-process-node) |
+|        | `--node-spec` | Selects the process nodes that schedule the trigger. `all` (default) selects every process node. `nodes:<node-id>[,<node-id>...]` selects the listed nodes. In a cluster, use `nodes:<process-node-id>`. See [Pin a trigger to the process node](#pin-a-trigger-to-the-process-node) |
 {{% /show-in %}}
 
 ### Reference a plugin from GitHub
@@ -336,7 +336,8 @@ influxdb3 create trigger \
 ### Pin a trigger to the process node
 
 In a cluster, we recommend running the Processing Engine on a standalone process node.
-Create the trigger on the process node, and set `--node-spec` to the process node's ID:
+Create the trigger on the process node with `--node-spec nodes:PROCESS_NODE_ID`.
+Replace `PROCESS_NODE_ID` with the process node's ID:
 
 ```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
@@ -349,7 +350,7 @@ influxdb3 create trigger \
   hourly_rollup
 ```
 
-The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
+With the default `--node-spec all`, every process node schedules the trigger independently.
 
 The node in `--node-spec` must exist and run `process` mode:
 
@@ -360,6 +361,6 @@ You can't change `--node-spec` after you create the trigger.
 To move a trigger to another node, delete the trigger and create it again.
 
 For request triggers, send `/api/v3/engine/<path>` requests to the node in `--node-spec`.
-For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 
 {{% /show-in %}}

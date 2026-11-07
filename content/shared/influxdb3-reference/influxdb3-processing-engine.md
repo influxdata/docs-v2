@@ -8,8 +8,8 @@ When not configured, the Python environment and PyO3 bindings aren't initialized
 {{% show-in "enterprise" %}}
 ### Process mode and `--plugin-dir`
 
-Setting `--plugin-dir` automatically adds `process` mode to any node, regardless of the [`--mode`](/influxdb3/enterprise/reference/config-options/#mode) setting.
-You don't need to explicitly set `--mode=process` when `--plugin-dir` is configured.
+Setting `--plugin-dir` enables `process` mode on any node, even if [`--mode`](/influxdb3/enterprise/reference/config-options/#mode) doesn't list `process`.
+Don't set `--plugin-dir` on nodes that shouldn't run plugins.
 
 Conversely, if you explicitly set `--mode=process`, you **must** also set `--plugin-dir`.
 A node with `--mode=process` but no `--plugin-dir` doesn't start.
@@ -20,7 +20,7 @@ In a cluster, we recommend running the Processing Engine on a standalone process
 The process node runs triggers; plugin queries go to query nodes, and plugin writes go to ingest nodes.
 Pin each trigger to the process node with [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options).
 
-For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 {{% /show-in %}}
 
 ### Default behavior by deployment type
