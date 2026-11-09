@@ -20,20 +20,28 @@ Each instance runs on one cloud provider, in one
 [region](/influxdb3/cloud/reference/regions/).
 
 - [Object storage](#object-storage)
-- [Private connectivity and encryption keys](#private-connectivity-and-encryption-keys)
+- [Private Link and customer-managed keys](#private-link-and-customer-managed-keys)
 - [Pricing](#pricing)
 
 ## Object storage
 
 Each instance stores its data in its cloud provider's object storage service:
 
-- **AWS**: Amazon S3
+- **AWS**: An Amazon S3 bucket
 - **Azure**: Azure Blob Storage
 
-## Private connectivity and encryption keys
+The object storage is in the same region as the instance, and is owned by
+InfluxData's cloud account, not yours.
 
-Private Link and customer-managed encryption keys are available on both cloud
-providers.
+## Private Link and customer-managed keys
+
+The following are available for instances on each cloud provider:
+
+| | AWS | Azure |
+| :-- | :-- | :-- |
+| **Private connections from your network** | AWS PrivateLink | Azure Private Link |
+| **Customer-managed encryption keys** | AWS Key Management Service (KMS) | Azure Key Vault |
+
 To set up either one, contact your InfluxData representative.
 
 ## Pricing
