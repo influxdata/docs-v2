@@ -85,8 +85,6 @@ description, and **Preview**, which shows how {{% product-name %}} renders it.
 A counter under the field shows the length of the description against the
 1,000-character limit.
 
-<!-- TODO: screenshot of the Add Config page description editor with the Preview tab selected, showing a rendered Markdown description and the character counter. Save to /static/img/telegraf/controller-config-description-markdown.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-config-description-markdown.png" alt="Telegraf Controller description editor with Write and Preview tabs" />}} -->
-
 {{% product-name %}} renders standard Markdown without extensions:
 
 - Headings, paragraphs, and blockquotes
