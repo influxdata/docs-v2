@@ -32,6 +32,9 @@ labels, and lifecycle from the group detail page.
     Through the API, the create request returns `409 Conflict` with
     `"error": "config_group_name_taken"`.
     A configuration group and a configuration can share a name.
+    Descriptions can be up to 1,000 characters and support the same Markdown
+    as configuration descriptions.
+    See [Format a description with Markdown](/telegraf/controller/configs/create/#format-a-description-with-markdown).
 4.  _(Optional)_ To assign
     [aliases](/telegraf/controller/config-groups/aliases/) to the group,
     click **{{% lucide "plus" %}} Add Alias** and enter an alias that
@@ -93,6 +96,9 @@ value, and confirm.
 Names are unique among configuration groups and can be up to 255 characters.
 If another group already has the new name, the field stays open and shows
 `Configuration group "<name>" already exists`.
+The description field has **Write** and **Preview** tabs and supports the
+same Markdown as configuration descriptions, up to 1,000 characters.
+See [Format a description with Markdown](/telegraf/controller/configs/create/#format-a-description-with-markdown).
 
 ## Manage group labels
 
