@@ -3,7 +3,7 @@ title: Customer-managed encryption keys
 seotitle: Customer-managed encryption keys for {{< product-name >}}
 description: >
   Learn how to encrypt your {{< product-name >}} instance's object storage with
-  a key that you own, on AWS or Azure.
+  a key that you own in AWS Key Management Service (KMS) or Azure Key Vault.
 menu:
   influxdb3_cloud:
     parent: Administer InfluxDB
@@ -13,7 +13,11 @@ influxdb3/cloud/tags: [encryption, security]
 ---
 
 Use a customer-managed key to encrypt your instance's object storage with a key
-that you own.
+that you own:
+
+- **AWS**: A key in AWS Key Management Service (KMS)
+- **Azure**: A key in Azure Key Vault
+
 You can revoke InfluxData's access to the data at any time.
 
 To set up a customer-managed key, contact your InfluxData representative.
