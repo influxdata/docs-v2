@@ -31,15 +31,15 @@ docker pull influxdata/influxdb3-ui
 
 #### Features
 
-- **Cloud queries over Arrow Flight**: Explorer runs queries against cloud servers over Arrow Flight.
-- **Confirm AI actions**: Ask AI asks you to confirm before it runs an action that changes data or settings.
+- **Cloud Serverless, Cloud Dedicated, and Clustered queries**: Explorer runs queries against InfluxDB Cloud Serverless, InfluxDB Cloud Dedicated, and InfluxDB Clustered over Arrow Flight.
+- **Confirm Ask AI actions**: Ask AI asks you to confirm before it creates or deletes a database, creates a token, or writes data.
 - **More sample data**: Generate the new Home Sensor, EU Wind, and Random Numbers sample datasets.
   After writing sample data, Explorer reports how many rows it wrote.
-- **Anthropic model**: Update the model Explorer uses for the Anthropic AI provider.
+- **Anthropic model**: Use Claude Haiku 5.5 as the default model for the Anthropic AI provider.
 
 #### Bug fixes
 
-- **Upgrades**: Restore Query Tool tabs saved by Explorer 1.10.x and earlier, and bring System Overview dashboards carried over from Explorer 1.8 up to date.
+- **Upgrades**: Restore Query Tool tabs saved by Explorer 1.10.x and earlier, and update stock System Overview dashboards migrated from Explorer 1.10.x or earlier.
 - **Sign-in and sessions**: Keep your session while InfluxDB is unreachable, tell an expired SSO sign-in apart from a rejected one, explain a missing SSO button, and return to the sign-in page when an SSO sign-in fails to start.
 - **Queries**: Fix how the SQL time range is applied to subqueries, CTEs, joins, and last value cache queries; keep both values of same-named `JOIN` columns; and count every `GROUP BY time()` bucket in InfluxQL results.
 - **Query Tool**: Complete column names after a lowercase `WHERE` and after `AND`/`OR`, quote cache columns and names picked from the schema, and show the reason a chart request or export failed.
@@ -52,7 +52,7 @@ docker pull influxdata/influxdb3-ui
 - **Transform Data**: Keep a stopped transformation stopped when it's edited, chain value operations on the same column, and find source tables beyond the first 64.
 - **Import**: Write imported timestamps as nanoseconds, import All Time by default, report tables the destination refused, and size CSV parts to fit the InfluxDB 3 Enterprise request size limit.
 - **Write data**: Give each Kafka subscription its own consumer group and each MQTT subscription its own client ID, and send the SASL mechanism shown in the Kafka form.
-- **Databases and tables**: Refuse to delete the `_internal` database, reject a zero retention period, leave soft-deleted tables out of counts, and set retention and export Parquet on InfluxDB 3 Cloud Enterprise.
+- **Databases and tables**: Refuse to delete the `_internal` database, reject a zero retention period, leave soft-deleted tables out of counts, and support database and table retention periods and Parquet export in InfluxDB 3 Cloud.
 - **Tokens**: Add a copy button to the Token Created dialog, and mask plaintext tokens on the Setup page and in Ask AI.
 - **System overview**: Count each Parquet file once, leave `_internal` out of Total Databases, and give the monitoring dashboard its own time range.
 - **Command line builder**: Hide Enterprise-only flags on InfluxDB 3 Core, and build commands InfluxDB 3 accepts for MinIO, Google Cloud Storage, and Azure.
