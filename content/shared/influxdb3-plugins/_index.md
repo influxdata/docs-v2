@@ -1373,7 +1373,8 @@ influxdb3 create trigger \
   hourly_rollup
 ```
 
-With the default `--node-spec all`, every process node schedules the trigger independently.
+The default `--node-spec all` selects every process node.
+If you select multiple process nodes, WAL and schedule triggers can run more than once for the same event.
 
 ### Route requests to the right node
 

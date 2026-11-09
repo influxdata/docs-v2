@@ -49,7 +49,7 @@ Additional {{% product-name %}} option:
 
 | Option |               | Description                                                                                                                                                                 |
 | :----- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        | `--node-spec` | Selects the process nodes that schedule the trigger. `all` (default) selects every process node. `nodes:<node-id>[,<node-id>...]` selects the listed nodes. In a cluster, use `nodes:<process-node-id>`. See [Pin a trigger to the process node](#pin-a-trigger-to-the-process-node) |
+|        | `--node-spec` | Selects the process nodes that run the trigger. `all` (default) selects every process node. `nodes:<node-id>[,<node-id>...]` selects the listed nodes. In a cluster, use `nodes:<process-node-id>`. See [Pin a trigger to the process node](#pin-a-trigger-to-the-process-node) |
 {{% /show-in %}}
 
 ### Reference a plugin from GitHub
@@ -350,7 +350,8 @@ influxdb3 create trigger \
   hourly_rollup
 ```
 
-With the default `--node-spec all`, every process node schedules the trigger independently.
+The default `--node-spec all` selects every process node.
+If you select multiple process nodes, WAL and schedule triggers can run more than once for the same event.
 
 The node in `--node-spec` must exist and run `process` mode:
 

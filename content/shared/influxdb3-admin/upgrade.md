@@ -59,7 +59,7 @@ Also review these {{% product-name %}} changes:
 - **Data file cache is now a hard limit (upgraded storage engine)**: [`--file-cache-size`](/influxdb3/version/reference/config-options/#file-cache-size) now also counts bytes held by running queries. A query that needs more than the remaining budget fails instead of the node using memory beyond the configured limit.
 - **Nodes without `query` mode refuse data queries (Parquet engine)**: A node that doesn't run `query` mode now returns `405 Method Not Allowed` for data queries instead of serving them. System table queries still work.
 - **Processing Engine in a cluster**: WAL triggers can now process writes from every ingest node.
-  With the default `--node-spec all`, every process node schedules the trigger independently.
+  The default `--node-spec all` selects every process node.
   We recommend migrating plugins to a standalone process node.
   See [Migrate to a standalone process node](/influxdb3/version/admin/processing-engine/#migrate-to-a-standalone-process-node).
 - **Username and password sessions must be renewed**: Access tokens issued to users who sign in with a username and password must now carry the cluster's catalog UUID. Tokens issued before 3.12 are rejected: refresh the token or sign in again. API tokens aren't affected.

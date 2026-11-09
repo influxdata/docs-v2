@@ -217,7 +217,8 @@ influxdb3 create trigger \
 ```
 
 Always set `--node-spec`.
-With the default `--node-spec all`, every process node schedules the trigger independently.
+The default `--node-spec all` selects every process node.
+If you select multiple process nodes, WAL and schedule triggers can run more than once for the same event.
 You can't change a trigger's `--node-spec` after you create it.
 
 If you use `--upload` to send a local plugin file, the file is stored on the process node.
