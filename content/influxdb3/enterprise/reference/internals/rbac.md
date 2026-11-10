@@ -12,6 +12,7 @@ weight: 108
 related:
   - /influxdb3/enterprise/admin/security/manage-users/
   - /influxdb3/enterprise/reference/internals/authentication/
+  - /influxdb3/explorer/manage-users/, Manage users with InfluxDB 3 Explorer
 ---
 
 <!-- GA status per 3.12 product release notes; confirm with product before publishing. -->

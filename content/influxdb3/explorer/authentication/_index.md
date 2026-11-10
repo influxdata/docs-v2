@@ -9,6 +9,8 @@ menu:
   influxdb3_explorer:
     name: Authentication
 weight: 7
+alt_links:
+  enterprise: /influxdb3/enterprise/admin/explorer-ui/
 cascade:
   metadata: [Explorer v1.11+, InfluxDB 3 Enterprise v3.12+]
   related:
