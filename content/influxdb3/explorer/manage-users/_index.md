@@ -9,6 +9,8 @@ menu:
   influxdb3_explorer:
     name: Manage users
 weight: 6
+alt_links:
+  enterprise: /influxdb3/enterprise/admin/security/manage-users/
 cascade:
   metadata: [Explorer v1.11+, InfluxDB 3 Enterprise v3.12+]
   related:
