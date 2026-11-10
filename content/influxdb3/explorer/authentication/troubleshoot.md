@@ -44,6 +44,10 @@ Most symptoms appear as messages on the **Sign in** page.
 - **`This server signs people in through an identity provider, but this
   application is not configured for it`**: Explorer can't start SSO.
   See [Sign in with SSO isn't available](#sign-in-with-sso-isnt-available).
+- **Explorer's data belongs to another deployment**: Explorer's stored data
+  came from a different cluster.
+  See
+  [Resolve "Explorer's data belongs to another deployment"](/influxdb3/explorer/install/upgrade/#resolve-explorers-data-belongs-to-another-deployment).
 
 ## Explorer doesn't require sign-in
 
