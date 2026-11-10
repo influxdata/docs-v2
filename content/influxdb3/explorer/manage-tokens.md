@@ -54,7 +54,7 @@ For more information about InfluxDB tokens, see:
 
 To create an _admin_ token:
 
-1.  On the **Manage Tokens** page, click **+ Create New**.
+1.  On the **Manage Tokens** page, click **Create New**.
 2.  Select **Admin Token** to create an admin token.
 3.  Provide a **Token Name**.
 4.  Click **Create Admin Token**.
@@ -69,7 +69,7 @@ To create an _admin_ token:
 
 To create a _resource_ token with read or write permissions for specific databases:
 
-1.  On the **Manage Tokens** page, click **+ Create New**.
+1.  On the **Manage Tokens** page, click **Create New**.
 2.  Select **Resource Token** to create a resource token _(InfluxDB 3 Enterprise only)_.
 3.  Provide a **Token Name**.
 4.  _(Optional)_ Select an **Expiry**.

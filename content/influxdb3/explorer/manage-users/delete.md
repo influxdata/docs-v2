@@ -24,14 +24,17 @@ weight: 104
 When you delete a user:
 
 - The user loses access immediately.
-- Explorer keeps the dashboards and the history of the user.
+- Explorer deletes the dashboards, connections, and query history of the
+  user.
 
 ## Delete a user
 
 1.  Navigate to **Security** > **Manage Users**.
 2.  In the **Actions** column, click the menu for the user, and then select
     **Delete user**.
-3.  In the confirmation dialog, confirm the deletion.
+3.  In the confirmation dialog, click the **Delete** button that names the
+    user--for example, **Delete Jane Smith**.
+    To cancel, click **Keep User**.
 
 ## Restrictions
 

@@ -27,7 +27,9 @@ Most symptoms appear as messages on the **Sign in** page.
   InfluxDB 3 server.
   See [Explorer can't reach the server](#explorer-cant-reach-the-server).
 - **`This deployment has user authentication enabled but cannot issue
-  credentials`**: the server doesn't have a way to sign users in.
+  credentials`** or **`This server has user authentication enabled but offers
+  no sign-in method this application can use`**: the server doesn't have a way
+  to sign users in.
   See [The server can't sign users in](#the-server-cant-sign-users-in).
 - **`This deployment has already been set up`**: someone created the first
   user.
@@ -81,16 +83,26 @@ Could not reach this server to check how to sign in. Check that it is running, t
 Could not reach this server to sign you in. Check that it is running, then try again.
 ```
 
+On the setup page, the message is the following:
+
+```text
+Could not reach this server. Waiting for it to come back.
+```
+
 Check that the InfluxDB 3 server is running and that Explorer can connect to
 it.
 Explorer continues to require sign-in while it can't reach the server.
 
 ## The server can't sign users in
 
-Explorer displays the following message:
+Explorer displays one of the following messages:
 
 ```text
 This deployment has user authentication enabled but cannot issue credentials, so nobody can sign in.
+```
+
+```text
+This server has user authentication enabled but offers no sign-in method this application can use.
 ```
 
 The server has user authentication turned on, but doesn't have a key to sign

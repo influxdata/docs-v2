@@ -31,7 +31,8 @@ instead of the setup page.
     Explorer opens the **Set up InfluxDB 3 Explorer** page.
 2.  Enter the following:
 
-    - **Username**
+    - **Username**: 3 to 64 characters: letters, numbers, underscores, and
+      hyphens.
     - **Display name (optional)**: The name that Explorer displays for the
       user.
     - **Password**: 10 to 64 characters.
@@ -45,6 +46,9 @@ instead of the setup page.
 5.  Select **I have saved this token somewhere safe**, and then click
     **Continue to Explorer**.
 
+If Explorer opens the **Sign in** page instead, sign in with the username and
+password that you created.
+
 > [!Important]
 > #### Explorer displays the operator token only once
 >
@@ -56,6 +60,7 @@ instead of the setup page.
 
 If the setup page displays **This deployment cannot sign anyone in**, see
 [The server can't sign users in](/influxdb3/explorer/authentication/troubleshoot/#the-server-cant-sign-users-in).
+After you fix the server configuration, the setup page continues on its own.
 
 ## influxdb3 CLI
 
@@ -68,6 +73,8 @@ the setup page or the setup page can't create the user:
   Explorer opens the **Sign in** page instead of the setup page.
 - **The server signs users in only through an identity provider.**
   The setup page can't create a user without a password.
+  It displays **The first user needs a provider identity** and the
+  `influxdb3 manage init-admin --oauth-id` command to run instead.
 
 For the commands, see
 [Bootstrap the initial admin](/influxdb3/enterprise/admin/security/manage-users/#bootstrap-the-initial-admin)
