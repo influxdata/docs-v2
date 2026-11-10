@@ -24,8 +24,8 @@ weight: 104
 When you delete a user:
 
 - The user loses access immediately.
-- Explorer deletes the dashboards, connections, and query history of the
-  user.
+- The dashboards, connections, and query history of the user are no longer
+  available in Explorer.
 
 ## Delete a user
 
