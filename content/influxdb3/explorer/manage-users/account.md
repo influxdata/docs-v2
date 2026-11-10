@@ -40,6 +40,8 @@ the new one.
 5.  In the **Confirm new password** field, re-enter the new password.
 6.  Click **Change password**.
 
+Explorer displays **Password changed**.
+
 > [!Note]
 > Your new password must be 10 to 64 characters and different from your
 > current password.
@@ -53,6 +55,7 @@ An administrator can require you to change your password the next time you
 sign in.
 When you sign in, Explorer opens the **Change your password** page.
 You can't use Explorer until you change your password.
+The **Username** field displays your username.
 
 1.  In the **Current password** field, enter your existing password.
 2.  In the **New password** field, enter your new password.

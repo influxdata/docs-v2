@@ -36,7 +36,8 @@ The user can sign in as soon as you add them.
     [Authentication methods](/influxdb3/explorer/manage-users/#authentication-methods).
 4.  For **Password** or **Both**, enter the following:
 
-    - **Username**: At least 2 characters.
+    - **Username**: 3 to 64 characters: letters, numbers, underscores, and
+      hyphens.
     - **Password**: 10 to 64 characters.
     - **Display name** _(optional)_: The name that Explorer displays for the
       user.
@@ -49,6 +50,7 @@ The user can sign in as soon as you add them.
     See
     [Add a user that signs in with SSO](#add-a-user-that-signs-in-with-sso).
 6.  Under **Roles**, select the roles to assign to the user.
+    Each role displays its description from the server.
 7.  Click **Create Account**.
 
 Explorer adds the user to the **Manage Users** page.
@@ -91,7 +93,12 @@ To assign roles later, see
 ## Authentication methods that the server doesn't allow
 
 If you select an authentication method that the server doesn't have turned
-on, Explorer displays a warning.
+on, Explorer displays a warning--for example:
+
+```text
+This server isn't running with SSO sign-in enabled. The account will be created, but this person can't sign in with it until the server is restarted with --user-auth-type including oauth.
+```
+
 Explorer still adds the user, but the user can't sign in until you restart
 the server with that method turned on.
 

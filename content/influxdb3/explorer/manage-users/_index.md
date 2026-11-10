@@ -51,6 +51,10 @@ An administrator selects the authentication method when
 **Password** is selected by default.
 You can't change the authentication method of a user later.
 
+The **Auth method** column on the **Manage Users** page displays **SSO** for
+any user with an **OAuth ID**, including a user that also has a password, and
+**Password** for every other user.
+
 For more information about how users sign in, see
 [Authentication](/influxdb3/explorer/authentication/).
 
