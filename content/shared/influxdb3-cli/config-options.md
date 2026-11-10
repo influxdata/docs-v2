@@ -242,7 +242,6 @@ For the `file` object store, defines the location {{< product-name >}} uses to s
 Required when using the `file` [object store](#object-store).
 
 Use a separate `--data-dir` for each `influxdb3 serve` process.
-Writes to a `file` object store are durable after a power loss only when one server process uses the directory.
 
 {{% show-in "enterprise" %}}
 
