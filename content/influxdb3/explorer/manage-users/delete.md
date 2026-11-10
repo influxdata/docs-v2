@@ -24,8 +24,18 @@ weight: 104
 When you delete a user:
 
 - The user loses access immediately.
-- The dashboards, connections, and query history of the user are no longer
-  available in Explorer.
+  Any session that the user has open stops working.
+- Explorer deletes the dashboards, connections, saved queries, and query
+  history of the user.
+  Other users, including administrators, can't open them.
+
+If you add a user with the same username again, the new user starts without
+any Explorer data.
+
+> [!Note]
+> In Explorer v1.11.0, the confirmation dialog says that the dashboards and
+> history of the user are kept.
+> Explorer deletes them in every v1.11 release.
 
 ## Delete a user
 
