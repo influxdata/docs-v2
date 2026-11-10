@@ -127,6 +127,9 @@ In Explorer, you manage the following:
   See [Manage users](/influxdb3/explorer/manage-users/).
 - The session secret of the Explorer Docker container.
   See [Sessions](#sessions).
+- The SSO settings of the Explorer Docker container.
+  See
+  [Configure single sign-on](/influxdb3/explorer/install/docker/#configure-single-sign-on).
 
 ## What changes when users sign in
 
@@ -168,6 +171,10 @@ Before you sign in with SSO, an administrator does the following:
 - Configures the InfluxDB 3 Enterprise server to use your identity provider.
   See
   [Configure SSO for the Explorer UI](/influxdb3/enterprise/admin/explorer-ui/#configure-sso-for-the-explorer-ui).
+  For the Explorer Docker container, the administrator also configures the
+  container.
+  See
+  [Configure single sign-on](/influxdb3/explorer/install/docker/#configure-single-sign-on).
 - [Adds a user](/influxdb3/explorer/manage-users/add/#add-a-user-that-signs-in-with-sso)
   for you with an **OAuth ID** that matches the subject (`sub`) that your
   identity provider sends.

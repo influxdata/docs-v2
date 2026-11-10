@@ -43,6 +43,7 @@ if you run Enterprise v3.11 or later and don't need a separate container.
   - [Network exposure and access control](#network-exposure-and-access-control)
   - [Persist data across restarts](#persist-data-across-restarts)
   - [Pre-configure InfluxDB connections](#pre-configure-influxdb-connections)
+  - [Configure single sign-on](#configure-single-sign-on)
   - [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
     - [TLS and certificate verification options](#tls-and-certificate-verification-options)
     - [Use self-signed certificates](#use-self-signed-certificates)
@@ -355,6 +356,8 @@ Instead of configuring connections through the UI, you can pre-define connection
    >
    > To keep users signed in across container restarts, set
    > [`SESSION_SECRET_KEY`](#environment-variables).
+   > To offer sign-in through an identity provider, see
+   > [Configure single sign-on](#configure-single-sign-on).
 
    > [!Note]
    > #### When to use `host.docker.internal`
@@ -413,6 +416,75 @@ Instead of configuring connections through the UI, you can pre-define connection
    ```
    {{% /code-tab-content %}}
    {{< /code-tabs-wrapper >}}
+
+### Configure single sign-on
+
+If the InfluxDB 3 Enterprise server in `DEFAULT_INFLUX_SERVER` signs users in
+through an OpenID Connect (OIDC) identity provider, configure the container to
+offer **Sign in with SSO**.
+Explorer reads the issuer of the identity provider from the server, so the
+container must be able to reach the identity provider at the issuer address.
+
+1.  Register Explorer with your identity provider as a client.
+    Add the following redirect URI, using the address that users open
+    Explorer at:
+
+    ```text
+    https://explorer.example.com/auth/callback
+    ```
+
+2.  Start the container with the following environment variables:
+
+    - `EXPLORER_OAUTH_CID`: the client ID of Explorer in your identity
+      provider
+    - `EXPLORER_OAUTH_REDIRECT_URI`: the redirect URI that you registered
+
+    ```bash { placeholders="CLIENT_ID|EXPLORER_URL" }
+    docker run --detach \
+      --name influxdb3-explorer \
+      --publish 127.0.0.1:8888:8080 \
+      --volume $(pwd)/config:/app-root/config:ro \
+      --volume $(pwd)/db:/db:rw \
+      --env SESSION_SECRET_KEY=$(openssl rand -hex 32) \
+      --env EXPLORER_OAUTH_CID=CLIENT_ID \
+      --env EXPLORER_OAUTH_REDIRECT_URI=EXPLORER_URL/auth/callback \
+      influxdata/influxdb3-ui:{{% latest-patch %}} \
+      --mode=admin
+    ```
+
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`CLIENT_ID`{{% /code-placeholder-key %}}:
+      the client ID of Explorer in your identity provider
+    - {{% code-placeholder-key %}}`EXPLORER_URL`{{% /code-placeholder-key %}}:
+      the address that users open Explorer at--for example,
+      `https://explorer.example.com`
+
+Explorer requires both variables.
+Without `EXPLORER_OAUTH_CID`, the **Sign in** page doesn't display
+**Sign in with SSO**.
+Without `EXPLORER_OAUTH_REDIRECT_URI`, SSO sign-in fails.
+
+Set the following variables if your identity provider needs them:
+
+- `EXPLORER_OAUTH_SECRET`: the client secret, if your identity provider
+  registered Explorer as a confidential client.
+- `EXPLORER_OAUTH_PROMPT`: the `prompt` value that Explorer sends to the
+  identity provider: `none`, `login`, `consent`, or `select_account`.
+  By default, Explorer sends `select_account` if the identity provider
+  supports it.
+  An empty value sends no prompt.
+- `EXPLORER_POST_LOGOUT_REDIRECT_URI`: where the identity provider returns
+  users after they sign out.
+  By default, Explorer uses the redirect URI with `/auth/callback` replaced by
+  `/login`.
+  Register this address with your identity provider.
+
+To set up the server side, see
+[Authenticate with OAuth/OIDC](/influxdb3/enterprise/admin/security/manage-users/#optional-authenticate-with-oauthoidc)
+in the InfluxDB 3 Enterprise documentation.
+To add a user who signs in with SSO, see
+[Add a user that signs in with SSO](/influxdb3/explorer/manage-users/add/#add-a-user-that-signs-in-with-sso).
 
 ### Enable TLS/SSL (HTTPS)
 
@@ -632,12 +704,18 @@ services:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `SESSION_SECRET_KEY` | _(random)_ | Secret key for session management. **Set this in production to persist sessions across restarts.** With [user authentication](/influxdb3/explorer/authentication/), a new key signs out every user. Keep the same key when you [upgrade](/influxdb3/explorer/install/upgrade/). |
+| `SESSION_SECRET_KEY` | _(random)_ | Secret key for session management. **Set this in production to persist sessions across restarts.** With [user authentication](/influxdb3/explorer/authentication/), users stay signed in across restarts only if this is set, and a new key signs out every user. Keep the same key when you [upgrade](/influxdb3/explorer/install/upgrade/). |
 | `DATABASE_URL` | `/db/sqlite.db` | Path to SQLite database inside container |
 | `SSL_CERT_PATH` | `/etc/nginx/ssl/cert.pem` | Path to SSL certificate file |
 | `SSL_KEY_PATH` | `/etc/nginx/ssl/key.pem` | Path to SSL private key file |
 | `NODE_EXTRA_CA_CERTS` | _(none)_ | Path to custom CA certificate file (PEM format) for trusting self-signed or internal CA certificates |
 | `CA_CERT_PATH` | _(none)_ | Alias for `NODE_EXTRA_CA_CERTS` |
+| `COOKIE_SECURE` | `true` with TLS, otherwise `false` | Set to `true` to send the session cookie only over HTTPS. Set it when a reverse proxy terminates TLS in front of Explorer. |
+| `EXPLORER_OAUTH_CID` | _(none)_ | Client ID for [single sign-on](#configure-single-sign-on) |
+| `EXPLORER_OAUTH_REDIRECT_URI` | _(none)_ | Redirect URI for [single sign-on](#configure-single-sign-on) |
+| `EXPLORER_OAUTH_SECRET` | _(none)_ | Client secret for [single sign-on](#configure-single-sign-on) with a confidential client |
+| `EXPLORER_OAUTH_PROMPT` | `select_account` | `prompt` value for [single sign-on](#configure-single-sign-on) |
+| `EXPLORER_POST_LOGOUT_REDIRECT_URI` | _(derived)_ | Where the identity provider returns users after [sign-out](#configure-single-sign-on) |
 
 > [!Important]
 > Always set `SESSION_SECRET_KEY` in production to persist user sessions across container restarts.

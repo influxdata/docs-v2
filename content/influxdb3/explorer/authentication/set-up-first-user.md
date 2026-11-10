@@ -46,9 +46,6 @@ instead of the setup page.
 5.  Select **I have saved this token somewhere safe**, and then click
     **Continue to Explorer**.
 
-If Explorer opens the **Sign in** page instead, sign in with the username and
-password that you created.
-
 > [!Important]
 > #### Explorer displays the operator token only once
 >

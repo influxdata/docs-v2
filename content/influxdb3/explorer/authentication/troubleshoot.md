@@ -160,6 +160,7 @@ Could not sign you in with your identity provider.
 The cause is one of the following:
 
 - [The server doesn't have a user for your identity](#the-server-doesnt-have-a-user-for-your-identity)
+- [The Explorer Docker container is missing an SSO setting](#the-explorer-docker-container-is-missing-an-sso-setting)
 - [The server doesn't accept tokens from your identity provider](#the-server-doesnt-accept-tokens-from-your-identity-provider)
 
 ### The server doesn't have a user for your identity
@@ -180,6 +181,20 @@ Replace the following:
 - {{% code-placeholder-key %}}`ROLE`{{% /code-placeholder-key %}}:
   the role to assign to the user
 
+### The Explorer Docker container is missing an SSO setting
+
+If you run the Explorer Docker container, the reported reason can name a
+problem with the container's SSO settings:
+
+- `Requested resource is unavailable`: `EXPLORER_OAUTH_REDIRECT_URI` isn't
+  set.
+- `The identity provider refused the sign-in: unauthorized_client`: your
+  identity provider expects a client secret.
+  Set `EXPLORER_OAUTH_SECRET`.
+
+See
+[Configure single sign-on](/influxdb3/explorer/install/docker/#configure-single-sign-on).
+
 ### The server doesn't accept tokens from your identity provider
 
 The issuer or audience that the server expects is different from the one that
@@ -197,10 +212,17 @@ Explorer displays the following message:
 This server signs people in through an identity provider, but this application is not configured for it.
 ```
 
-The server uses an identity provider, but Explorer doesn't have the address
-that your identity provider uses to return you to Explorer.
-For the integrated Explorer UI, start the server with `--webui-public-uri` set
-to the URL that you use to open Explorer.
-See
-[Configure SSO for the Explorer UI](/influxdb3/enterprise/admin/explorer-ui/#configure-sso-for-the-explorer-ui)
-in the InfluxDB 3 Enterprise documentation.
+The server uses an identity provider, but Explorer isn't configured to start
+SSO.
+
+- For the integrated Explorer UI, start the server with `--webui-public-uri`
+  set to the URL that you use to open Explorer.
+  See
+  [Configure SSO for the Explorer UI](/influxdb3/enterprise/admin/explorer-ui/#configure-sso-for-the-explorer-ui)
+  in the InfluxDB 3 Enterprise documentation.
+- For the Explorer Docker container, set `EXPLORER_OAUTH_CID` and
+  `EXPLORER_OAUTH_REDIRECT_URI`.
+  The message names `--webui-public-uri` in the container too, but that
+  option doesn't apply to it.
+  See
+  [Configure single sign-on](/influxdb3/explorer/install/docker/#configure-single-sign-on).
