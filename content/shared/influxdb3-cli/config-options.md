@@ -2237,7 +2237,7 @@ This can look like:
 - On query nodes, queries fail with `file access cache budget exhausted`.
 - On compactor nodes, compaction falls behind.
 
-If queries fail with cache budget errors, adress in the following
+If queries fail with cache budget errors, address in the following
 order:
 
 1. **Check compactor health.**
