@@ -40,7 +40,7 @@ docker pull influxdata/influxdb3-ui
 #### Bug fixes
 
 - **Upgrades**: Restore Query Tool tabs saved by Explorer 1.10.x and earlier, and update stock System Overview dashboards migrated from Explorer 1.10.x or earlier.
-- **Sign-in and sessions**: Keep your session while InfluxDB is unreachable, tell an expired SSO sign-in apart from a rejected one, explain a missing SSO button, and return to the sign-in page when an SSO sign-in fails to start.
+- **Sign-in and sessions**: Keep your session while InfluxDB is unreachable, tell an expired SSO sign-in apart from a rejected one, [explain a missing SSO button](/influxdb3/explorer/authentication/troubleshoot/#sign-in-with-sso-isnt-available), and return to the sign-in page when an SSO sign-in fails to start.
 - **Queries**: Fix how the SQL time range is applied to subqueries, CTEs, joins, and last value cache queries; keep both values of same-named `JOIN` columns; and count every `GROUP BY time()` bucket in InfluxQL results.
 - **Query Tool**: Complete column names after a lowercase `WHERE` and after `AND`/`OR`, quote cache columns and names picked from the schema, and show the reason a chart request or export failed.
 - **Export**: Keep every column in CSV exports, and return a file with headers for an empty result.
