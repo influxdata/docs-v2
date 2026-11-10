@@ -9,10 +9,13 @@ menu:
     name: Role-based access control
     parent: Enterprise internals
 weight: 108
+alt_links:
+  explorer: /influxdb3/explorer/manage-users/roles/
 related:
   - /influxdb3/enterprise/admin/security/manage-users/
   - /influxdb3/enterprise/reference/internals/authentication/
   - /influxdb3/explorer/manage-users/, Manage users with InfluxDB 3 Explorer
+  - /influxdb3/explorer/manage-users/roles/, User roles and access in InfluxDB 3 Explorer
 ---
 
 <!-- GA status per 3.12 product release notes; confirm with product before publishing. -->
