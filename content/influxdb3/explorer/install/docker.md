@@ -24,6 +24,9 @@ if you run Enterprise v3.11 or later and don't need a separate container.
 >
 > Anyone who can reach the Explorer port can use the InfluxDB connection that
 > you configure in Explorer, with that token's permissions.
+> If the InfluxDB 3 Enterprise server requires users to
+> [sign in](/influxdb3/explorer/authentication/), users sign in before they
+> reach Explorer, and their roles decide what they can do.
 > By default, Docker publishes a container port on all network interfaces
 > (`0.0.0.0`) and adds its own firewall rules, which can take effect even when
 > a host firewall (such as `ufw` or `firewalld`) is set to block the port.
@@ -226,6 +229,11 @@ Use the following practices to control access:
 - **Prefer least-privilege tokens.** The token you configure in Explorer
   determines what anyone with access to Explorer can do. Use a token scoped to
   what the task requires.
+- **Use user authentication where it's available.** If Explorer connects to an
+  InfluxDB 3 Enterprise server that requires users to
+  [sign in](/influxdb3/explorer/authentication/), Explorer doesn't use a
+  stored token. Each user signs in and works with the access of their own
+  roles. Use TLS for remote access.
 
 ### Persist data across restarts
 
@@ -334,6 +342,19 @@ Instead of configuring connections through the UI, you can pre-define connection
    - **`DEFAULT_INFLUX_DATABASE`**: the name of your [InfluxDB 3 Core](/influxdb3/core/admin/databases/) or [Enterprise](/influxdb3/enterprise/admin/databases/) database
    - **`DEFAULT_API_TOKEN`**: your [InfluxDB 3 Core](/influxdb3/core/admin/tokens/) or [Enterprise](/influxdb3/enterprise/admin/tokens/) authorization token with the necessary permissions to access your server
    - **`DEFAULT_SERVER_NAME`**: a display name (only used by Explorer) for your [InfluxDB 3 Core](/influxdb3/core/get-started/setup/#start-influxdb) or [Enterprise](/influxdb3/enterprise/get-started/setup/#start-influxdb) server
+
+   > [!Note]
+   > #### Servers that require sign-in
+   >
+   > In Explorer v1.11 and later, Explorer checks the server in `DEFAULT_INFLUX_SERVER` to decide whether
+   > users must [sign in](/influxdb3/explorer/authentication/).
+   > If the server requires sign-in, `DEFAULT_INFLUX_SERVER` is the server that
+   > users sign in to, and Explorer uses each user's own credentials instead of
+   > `DEFAULT_API_TOKEN`.
+   > Without `DEFAULT_INFLUX_SERVER`, Explorer doesn't require sign-in.
+   >
+   > To keep users signed in across container restarts, set
+   > [`SESSION_SECRET_KEY`](#environment-variables).
 
    > [!Note]
    > #### When to use `host.docker.internal`
@@ -553,6 +574,12 @@ services:
 - **Query mode** (default): Read-only UI for querying data
 - **Admin mode**: Full UI with administrative capabilities
 
+To [manage users](/influxdb3/explorer/manage-users/) or
+[manage tokens](/influxdb3/explorer/manage-tokens/), run Explorer in admin
+mode.
+The mode doesn't turn [sign-in](/influxdb3/explorer/authentication/) on or
+off.
+
 Set the mode using the `--mode` parameter:
 
 {{< code-tabs-wrapper >}}
@@ -605,7 +632,7 @@ services:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `SESSION_SECRET_KEY` | _(random)_ | Secret key for session management. **Set this in production to persist sessions across restarts.** |
+| `SESSION_SECRET_KEY` | _(random)_ | Secret key for session management. **Set this in production to persist sessions across restarts.** With [user authentication](/influxdb3/explorer/authentication/), a new key signs out every user. Keep the same key when you [upgrade](/influxdb3/explorer/install/upgrade/). |
 | `DATABASE_URL` | `/db/sqlite.db` | Path to SQLite database inside container |
 | `SSL_CERT_PATH` | `/etc/nginx/ssl/cert.pem` | Path to SSL certificate file |
 | `SSL_KEY_PATH` | `/etc/nginx/ssl/key.pem` | Path to SSL private key file |

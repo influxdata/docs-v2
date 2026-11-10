@@ -83,7 +83,7 @@ docker pull influxdata/influxdb3-ui
   On first run, [create the administrator account](/influxdb3/explorer/authentication/set-up-first-user/) and save the operator token.
 - **Single sign-on**: [Sign in through an OpenID Connect (OIDC) provider](/influxdb3/explorer/authentication/#sign-in-with-sso).
 - **Role-based access**: Explorer shows the pages and actions your [role](/influxdb3/explorer/manage-users/roles/) allows.
-  After upgrading, [choose whether to keep your existing dashboards and saved queries](/influxdb3/enterprise/admin/explorer-ui/#migrate-data-from-the-311-ui); stored keys and tokens are not carried over.
+  After upgrading, [choose whether to keep your existing dashboards and saved queries](/influxdb3/explorer/install/upgrade/#bring-your-earlier-work-across); stored keys and tokens are not carried over.
 - **Manage Users**: Add users with password, SSO, or both; assign roles; require a password reset; and delete users from the new [**Manage Users**](/influxdb3/explorer/manage-users/) page.
   [Change your own password](/influxdb3/explorer/manage-users/account/#change-your-password) from the account menu.
 - **Security navigation section**: Find [**Manage Tokens**](/influxdb3/explorer/manage-tokens/) and [**Manage Users**](/influxdb3/explorer/manage-users/) under a new **Security** section in the navigation.
