@@ -98,6 +98,12 @@ page.
 Nobody can sign in until a user with the **Admin** role decides what happens
 to the data.
 
+If the current cluster doesn't have any users yet, Explorer opens the setup
+page instead, and creating the first user there resets the data without
+asking.
+To keep the data, create the first user with the `influxdb3` CLI first.
+See [Set up the first user](/influxdb3/explorer/authentication/set-up-first-user/).
+
 1.  Select one of the following:
 
     - **Keep the data**: The current cluster was restored from the previous

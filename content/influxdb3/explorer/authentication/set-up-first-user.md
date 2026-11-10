@@ -27,6 +27,24 @@ instead of the setup page.
 
 ## Explorer setup page
 
+> [!Warning]
+> #### The setup page deletes Explorer data from another cluster
+>
+> If Explorer was used with a different InfluxDB 3 cluster that required
+> sign-in, creating the first user on the setup page deletes all of
+> Explorer's data, for every user, without asking:
+> dashboards, saved queries and query history, connections, AI and Grafana
+> settings, chat history, and the users and sessions that Explorer stored.
+> The data on the InfluxDB 3 server isn't affected.
+>
+> To keep that data, don't use the setup page.
+> [Create the first user with the `influxdb3` CLI](#influxdb3-cli) instead,
+> sign in to Explorer as that user, and then select **Keep the data**.
+> See
+> [Resolve "Explorer's data belongs to another deployment"](/influxdb3/explorer/install/upgrade/#resolve-explorers-data-belongs-to-another-deployment).
+> For the Explorer Docker container, you can also back up the mounted `/db`
+> directory first.
+
 1.  Open Explorer in your browser.
     Explorer opens the **Set up InfluxDB 3 Explorer** page.
 2.  Enter the following:
@@ -72,6 +90,9 @@ the setup page or the setup page can't create the user:
   The setup page can't create a user without a password.
   It displays **The first user needs a provider identity** and the
   `influxdb3 manage init-admin --oauth-id` command to run instead.
+- **Explorer holds data from another cluster that you want to keep.**
+  The setup page would delete it.
+  After you create the user, sign in and select **Keep the data**.
 
 For the commands, see
 [Bootstrap the initial admin](/influxdb3/enterprise/admin/security/manage-users/#bootstrap-the-initial-admin)

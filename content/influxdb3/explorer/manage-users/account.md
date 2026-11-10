@@ -83,3 +83,12 @@ After you change your password, Explorer opens the page that you requested.
 Explorer opens the **Sign in** page.
 If you signed in with SSO and your identity provider supports sign-out,
 Explorer sends you to your identity provider to sign out.
+
+> [!Note]
+> Signing out ends your Explorer session but does **not** revoke the
+> credential that the InfluxDB 3 Enterprise server issued for it.
+> The credential remains valid until it expires--for password sign-in, one
+> hour after it was issued.
+> For the same behavior in the `influxdb3` CLI, see
+> [Log in and out](/influxdb3/enterprise/admin/security/manage-users/#log-in-and-out)
+> in the InfluxDB 3 Enterprise documentation.
