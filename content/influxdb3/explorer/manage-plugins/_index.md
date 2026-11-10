@@ -32,6 +32,11 @@ plugin code. This enables real-time data processing, enrichment, or alerting
 without manual intervention.
 Use the InfluxDB 3 Explorer UI to enable, disable, or configure triggers for each plugin.
 
+If the InfluxDB 3 Enterprise server requires users to
+[sign in](/influxdb3/explorer/authentication/), you must have the **Admin**
+role to manage plugins.
+See [User roles and access](/influxdb3/explorer/manage-users/roles/).
+
 <!-- TOC -->
 
 - [View installed plugins](#view-installed-plugins)

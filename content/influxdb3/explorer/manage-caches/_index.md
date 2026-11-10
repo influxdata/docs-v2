@@ -18,4 +18,9 @@ related:
 Use InfluxDB 3 Explorer to manage Last Value Caches and Distinct Value Caches
 in an InfluxDB 3 instance or cluster.
 
+If the InfluxDB 3 Enterprise server requires users to
+[sign in](/influxdb3/explorer/authentication/), you must have the **Admin**
+role to manage caches.
+See [User roles and access](/influxdb3/explorer/manage-users/roles/).
+
 {{< children >}}

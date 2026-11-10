@@ -79,12 +79,15 @@ The access of a user is the combination of all roles assigned to the user.
 
 InfluxDB 3 Enterprise provides the following built-in roles:
 
-- **Admin**
-- **Member**
-- **Auditor**
+| Role        | In Explorer, the role can                                                                 |
+| :---------- | :---------------------------------------------------------------------------------------- |
+| **Admin**   | Use every page and action, including managing users and tokens                            |
+| **Member**  | Query and write data, use dashboards, create databases, and view users                    |
+| **Auditor** | View databases and users. Can't query or write data                                       |
 
 Of the built-in roles, only **Admin** can add, update, or delete users.
-**Member** and **Auditor** can view users.
+For the pages and actions each role allows, see
+[User roles and access](/influxdb3/explorer/manage-users/roles/).
 To assign roles, see
 [Change the roles of a user](/influxdb3/explorer/manage-users/update/#change-the-roles-of-a-user).
 
