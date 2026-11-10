@@ -107,18 +107,18 @@ A process node isn't a security boundary: it needs the same credentials as the o
 
 Start each node with `influxdb3 serve`.
 The following examples start the four-node cluster from [Plan the cluster](#plan-the-cluster), with each node on its own host.
-To keep the commands short, they use a `file` object store in a directory that every host can reach.
-In production, use an object store such as Amazon S3.
+A multi-node cluster requires a shared object store such as Amazon S3.
+To keep the commands short, the examples use an S3 bucket and omit the credential options.
 See [Connect to your object store](/influxdb3/enterprise/get-started/multi-server/#connect-to-your-object-store).
 
-```bash { placeholders="CLUSTER_ID|DATA_DIR|PLUGIN_DIR|INGEST_HOST|QUERY_HOST" }
+```bash { placeholders="CLUSTER_ID|BUCKET|PLUGIN_DIR|INGEST_HOST|QUERY_HOST" }
 # Ingest node
 influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id ingest0 \
   --mode ingest \
-  --object-store file \
-  --data-dir DATA_DIR \
+  --object-store s3 \
+  --bucket BUCKET \
   --internode-bind-addr 0.0.0.0:8083 \
   --conn-info INGEST_HOST:8083
 
@@ -127,8 +127,8 @@ influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id query0 \
   --mode query \
-  --object-store file \
-  --data-dir DATA_DIR \
+  --object-store s3 \
+  --bucket BUCKET \
   --internode-bind-addr 0.0.0.0:8083 \
   --conn-info QUERY_HOST:8083
 
@@ -137,23 +137,23 @@ influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id compact0 \
   --mode compact \
-  --object-store file \
-  --data-dir DATA_DIR
+  --object-store s3 \
+  --bucket BUCKET
 
 # Process node
 influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id process0 \
   --mode process \
-  --object-store file \
-  --data-dir DATA_DIR \
+  --object-store s3 \
+  --bucket BUCKET \
   --plugin-dir PLUGIN_DIR
 ```
 
 Replace the following:
 
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the same cluster ID on every node
-- {{% code-placeholder-key %}}`DATA_DIR`{{% /code-placeholder-key %}}: the shared data directory
+- {{% code-placeholder-key %}}`BUCKET`{{% /code-placeholder-key %}}: the S3 bucket that every node uses
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: the directory on the process node that holds your plugin files
 - {{% code-placeholder-key %}}`INGEST_HOST`{{% /code-placeholder-key %}}, {{% code-placeholder-key %}}`QUERY_HOST`{{% /code-placeholder-key %}}: the host name or IP address that the process node uses to reach the ingest or query node
 
