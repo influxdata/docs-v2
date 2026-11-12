@@ -27,13 +27,15 @@ determine which pages and actions Explorer displays.
 
 ## How Explorer decides what to display
 
-The InfluxDB 3 Enterprise server decides what each user can do.
-When a user signs in, Explorer asks the server which actions the user's roles
-allow, and hides the pages and actions that the server would refuse.
+Explorer uses your server permissions and its own page and action restrictions
+to determine what to display.
+Opening a restricted Explorer page directly doesn't grant access.
+InfluxDB independently checks each API request.
 
-Hiding a page doesn't grant or remove access.
-The server checks every request, so a user can't get around a hidden page by
-opening its URL or by calling the API.
+An action hidden in Explorer can still be available through the CLI or API
+if your server permissions allow it.
+For example, Members can manage resource tokens through the CLI or API,
+but Explorer restricts token management to administrators.
 
 The access of a user is the combination of all roles assigned to the user.
 

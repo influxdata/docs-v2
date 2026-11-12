@@ -101,19 +101,9 @@ to the data.
 If the current cluster doesn't have any users yet, Explorer opens the setup
 page instead, and creating the first user there resets the data without
 asking.
-To keep the data, create the first user with the `influxdb3` CLI first.
+For a restored cluster whose user IDs identify the same people, create the
+first user with the `influxdb3` CLI to keep the data.
 See [Set up the first user](/influxdb3/explorer/authentication/set-up-first-user/).
-
-1.  Select one of the following:
-
-    - **Keep the data**: The current cluster was restored from the previous
-      one, and its users are the same people.
-    - **Reset the data**: This is a different cluster.
-      Explorer starts empty for everyone.
-
-2.  Enter the **Username** and **Password** of a user with the **Admin** role.
-3.  Click **Continue**.
-    If you selected **Reset the data**, click **Reset data** to confirm.
 
 > [!Warning]
 > #### Reset deletes every user's Explorer data
@@ -121,6 +111,19 @@ See [Set up the first user](/influxdb3/explorer/authentication/set-up-first-user
 > **Reset the data** deletes the query history, dashboards, connections,
 > AI and Grafana settings, and chat history of every user.
 > You can't undo a reset.
+
+To resolve the deployment mismatch:
+
+1.  Select one of the following:
+
+    - **Keep the data**: the current cluster was restored from the previous
+      one, and its user IDs identify the same people.
+    - **Reset the data**: this is a different cluster.
+      Explorer starts empty for everyone.
+
+2.  Enter the **Username** and **Password** of a user with the **Admin** role.
+3.  Click **Continue**.
+    If you selected **Reset the data**, click **Reset data** to confirm.
 
 The decision requires a username and password.
 A server that signs users in only through an identity provider can't complete
