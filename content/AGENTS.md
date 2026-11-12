@@ -24,7 +24,11 @@ the `docs` CLI or direct editing.
   examples.
 - Do not hardcode production docs URLs when a relative link or `relref` works.
 - Shared files have no frontmatter. A stub's `source:` must begin `/shared/`.
-  Direct shared edits require touching every source stub; `docs edit` finds them.
+  Identify every consumer before editing shared content. When previewing changes
+  with a running `hugo server`, touch each consuming stub or restart the server
+  because the watcher doesn't rebuild consumers automatically after shared-source
+  changes. Fresh builds, including CI builds and checks, don't require touching
+  consumer stubs. Edit stub content only when its frontmatter needs to change.
 - Use resource-ownership language for import/write/load guidance and write
   recommendations in InfluxData's first-person plural voice.
 
@@ -37,6 +41,9 @@ Run `yarn verify:changed -- <files>` to select manual checks. See
 Review documentation changes against these rules.
 Only flag issues you are confident about.
 Reference the linked docs for detailed rules.
+
+Before publishing corrections or approving an existing PR, follow the
+[collaborative PR review skill](../.agents/skills/collaborative-pr-review/SKILL.md).
 
 ### Frontmatter
 
@@ -115,3 +122,10 @@ Products defined in [data/products.yml](../data/products.yml):
   `weight`, long CLI options not used
 - **INFO**: Suggestions, code block missing language identifier, opportunities
   to use shared content
+
+
+## Release updates
+
+For release notes, product patch versions, and notifications, use the
+[content-editing skill](../.agents/skills/content-editing/SKILL.md) and its
+[release-update workflow](../.agents/skills/content-editing/references/release-updates.md).

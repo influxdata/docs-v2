@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 import { toggleModal } from './modals.js';
+import { scrollToAnchor } from './content-interactions.js';
 
 const STORAGE_KEY = 'influxdata_docs_tc_dl';
 const QUERY_PARAM = 'ref';
@@ -60,15 +61,23 @@ function stripRefParam() {
 function renderDownloadLinks(container, data) {
   const version = data.version;
   const platforms = data.platforms;
+  const digests = data.digests;
 
   let html = '<div class="tc-downloads-container">';
+  html +=
+    '<p class="tc-intro">Each platform lists the executable and its' +
+    ' detached PGP signature (<code>.asc</code>). The checksums file below' +
+    ' lists the SHA-256 checksum of every executable and is signed as' +
+    ' well. Use them to verify a download before you install it. See' +
+    ' <a href="/telegraf/controller/install/#verify-the-download-recommended">' +
+    'Verify the download</a>.</p>';
+  html +=
+    '<p class="tc-version">' +
+    `<em>Telegraf Controller v${version}</em>` +
+    '</p>';
 
   platforms.forEach((platform) => {
     html += `<h3>${platform.name}</h3>`;
-    html +=
-      '<p class="tc-version">' +
-      `<em>Telegraf Controller v${version}</em>` +
-      '</p>';
     html += '<div class="tc-build-table">';
 
     platform.builds.forEach((build) => {
@@ -77,51 +86,46 @@ function renderDownloadLinks(container, data) {
         ' class="btn tc-download-link download"' +
         ` download>${platform.name}` +
         ` (${build.arch})</a>`;
-      const sha =
-        `<code>sha256:${build.sha256}</code>` +
-        '<button class="tc-copy-sha"' +
-        ` data-sha="${build.sha256}">` +
-        '&#59693;</button>';
+      const signature =
+        `<a href="${build.signatureUrl}"` +
+        ' class="tc-signature-link"' +
+        ' download>Signature (.asc)</a>';
       html +=
         '<div class="tc-build-row">' +
         `<div class="tc-build-download">${link}</div>` +
-        `<div class="tc-build-sha">${sha}</div>` +
+        `<div class="tc-build-signature">${signature}</div>` +
         '</div>';
     });
 
     html += '</div>';
   });
 
-  container.innerHTML = html;
-}
-
-// ─── Clipboard copy ─────────────────────────────────────────────────────────
-
-function copyToClipboard(sha, button) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(sha).then(() => {
-      showCopiedFeedback(button);
-    });
-  } else {
-    // Fallback for older browsers
-    const textArea = document.createElement('textarea');
-    textArea.value = sha;
-    textArea.style.position = 'fixed';
-    textArea.style.opacity = '0';
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    showCopiedFeedback(button);
+  if (digests) {
+    html +=
+      '<div class="tc-digests">' +
+      '<h3>Checksums</h3>' +
+      '<p>SHA-256 checksums for every executable above, signed with the' +
+      ' InfluxData package signing key.</p>' +
+      '<div class="tc-build-table">' +
+      '<div class="tc-build-row">' +
+      '<div class="tc-build-download">' +
+      `<a href="${digests.url}"` +
+      ' class="btn tc-download-link download"' +
+      ` download>${digests.filename}</a>` +
+      '</div>' +
+      '<div class="tc-build-signature">' +
+      `<a href="${digests.signatureUrl}"` +
+      ' class="tc-signature-link"' +
+      ' download>Signature (.asc)</a>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>';
   }
-}
 
-function showCopiedFeedback(button) {
-  const original = button.innerHTML;
-  button.innerHTML = '&#59671;';
-  setTimeout(() => {
-    button.innerHTML = original;
-  }, 2000);
+  html += '</div>';
+
+  container.innerHTML = html;
 }
 
 // ─── Marketo form ───────────────────────────────────────────────────────────
@@ -182,6 +186,18 @@ function showDownloads(area) {
   // Render download links and show the container
   renderDownloadLinks(linksContainer, data);
   linksContainer.style.display = 'block';
+
+  // The rendered links push everything below them further down the page,
+  // after the browser has already scrolled to any URL hash, so scroll again.
+  restoreHashScroll();
+}
+
+function restoreHashScroll() {
+  const hash = window.location.hash.split('?')[0];
+  if (!hash || hash === '#') return;
+  if (document.getElementById(hash.slice(1))) {
+    scrollToAnchor(hash);
+  }
 }
 
 // ─── Initialize ─────────────────────────────────────────────────────────────
@@ -204,13 +220,17 @@ function initialize() {
   // 3. Initialize Marketo form
   initMarketoForm();
 
-  // 4. Delegated click handler for SHA copy buttons
+  // 4. Links rendered inside the block that point at an anchor on this page:
+  //    scroll to the target and open it when it is an expand block, like the
+  //    site does for in-page links that exist at load time.
   area.addEventListener('click', function (e) {
-    const copyBtn = e.target.closest('.tc-copy-sha');
-    if (copyBtn) {
-      const sha = copyBtn.getAttribute('data-sha');
-      if (sha) copyToClipboard(sha, copyBtn);
-    }
+    const link = e.target.closest('a[href*="#"]');
+    if (!link) return;
+    const url = new URL(link.getAttribute('href'), window.location.href);
+    if (url.pathname !== window.location.pathname || !url.hash) return;
+    if (!document.getElementById(url.hash.slice(1))) return;
+    e.preventDefault();
+    scrollToAnchor(url.hash);
   });
 }
 

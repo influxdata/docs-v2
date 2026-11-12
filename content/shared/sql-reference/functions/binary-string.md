@@ -1,9 +1,5 @@
-
 Use binary string functions to encode and decode binary string values in
 SQL queries.
-
-- [decode](#decode)
-- [encode](#encode)
 
 ## decode
 

@@ -8,7 +8,7 @@ name: Render Regression Check
 # Two layers:
 #
 #   1. check-artifacts: Site-wide grep of built HTML. Cheap, runs on
-#      every PR, catches regressions anywhere in the site even on pages
+#      PRs affecting the site, catches regressions anywhere in the site even on pages
 #      nobody is thinking about. This is the backstop.
 #
 #   2. cypress-render: Cypress specs against content/example.md and a
@@ -37,13 +37,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Detect site changes
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          node --test .github/scripts/test-site-change-scope.mjs
+          node .github/scripts/site-change-scope.mjs
 
       - name: Setup docs environment
+        if: steps.scope.outputs.site == 'true'
         env:
           CYPRESS_INSTALL_BINARY: 0
         uses: ./.github/actions/setup-docs-env
 
       - name: Build Hugo site
+        if: steps.scope.outputs.site == 'true'
         uses: ./.github/actions/build-docs-site
         with:
           build-rust: 'false'
@@ -51,13 +64,28 @@ jobs:
           hugo-base-url: 'https://test2.docs.influxdata.com/pr-preview/pr-link-check/'
           hugo-quiet: 'true'
 
+      - name: Keep links within the preview
+        if: steps.scope.outputs.site == 'true'
+        run: |
+          node --test .ci/scripts/__tests__/check-preview-links.test.mjs
+          node .ci/scripts/check-preview-links.mjs public https://test2.docs.influxdata.com/pr-preview/pr-link-check/ --rewrite
+
       - name: Scan built HTML for render artifacts
+        if: steps.scope.outputs.site == 'true'
         run: .ci/scripts/check-render-artifacts.sh public
 
       - name: Assert no test fixtures shipped to production
+        if: steps.scope.outputs.site == 'true'
         run: .ci/scripts/check-no-test-fixtures.sh public
 
+      - name: Reject Cloud stopgap aliases that collide with real pages
+        if: steps.scope.outputs.site == 'true'
+        run: |
+          node --test .ci/scripts/__tests__/check-cloud-aliases.test.mjs
+          node .ci/scripts/check-cloud-aliases.mjs public
+
       - name: Check homepage product links match the product selector
+        if: steps.scope.outputs.site == 'true'
         run: node .ci/scripts/check-product-selector-links.mjs public/index.html
 
   cypress-render:
@@ -90,6 +118,7 @@ jobs:
           # failed the whole job during API hiccups.
           CHANGED=$(git diff --name-only \
             "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
+          CHANGED=$(printf '%s\n' "$CHANGED" | grep -vE '(^|/)(AGENTS|CLAUDE)\.md$' || true)
 
           echo "Changed files:"
           echo "$CHANGED"
@@ -113,3 +142,56 @@ jobs:
             --spec "cypress/e2e/content/render-regression.cy.js" \
             --spec "cypress/e2e/content/canonical.cy.js" \
             --no-mapping
+
+  playwright-render:
+    name: Playwright render-regression spec (trial)
+    runs-on: ubuntu-latest
+    # Runs beside cypress-render during the Playwright trial so both
+    # frameworks check the same pages on the same PRs.
+    if: |
+      github.event_name == 'pull_request' &&
+      (contains(github.event.pull_request.labels.*.name, 'render-regression') ||
+       github.event.pull_request.draft == false)
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Detect layout/asset changes
+        id: detect
+        run: |
+          CHANGED=$(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}")
+
+          if echo "$CHANGED" | grep -qE '^(layouts/|assets/|playwright/|playwright\.config\.js$|\.github/workflows/pr-render-check\.yml$)'; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-run=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  No layout/asset/Playwright file changed — skipping Playwright"
+          fi
+
+      - name: Setup docs environment
+        if: steps.detect.outputs.should-run == 'true'
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        uses: ./.github/actions/setup-docs-env
+
+      - name: Install Chromium for Playwright
+        if: steps.detect.outputs.should-run == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Run render-regression and custom-timestamps specs
+        if: steps.detect.outputs.should-run == 'true'
+        run: |
+          yarn test:e2e:playwright \
+            playwright/e2e/render-regression.spec.js \
+            playwright/e2e/custom-timestamps.spec.js
+
+      - name: Upload Playwright traces
+        if: failure() && steps.detect.outputs.should-run == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7

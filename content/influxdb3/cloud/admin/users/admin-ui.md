@@ -23,6 +23,7 @@ Use the {{% product-name %}} Admin UI to manage users and control access to your
 - [Invite a user](#invite-a-user)
 - [Manage invitations](#manage-invitations)
 - [User roles and permissions](#user-roles-and-permissions)
+- [Manage users](#manage-users)
 - [Limitations](#limitations)
 
 ## Access the Users page
@@ -32,7 +33,7 @@ Access the {{% product-name %}} Admin UI at
 If you don't have login credentials,
 [contact InfluxData support](https://support.influxdata.com).
 
-<!-- TODO: Add an InfluxDB 3 Cloud Admin UI Users page screenshot. -->
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-users.png" alt="InfluxDB 3 Cloud Admin UI Users page" />}}
 
 The **Users** page displays your account information and a table of existing users and invitations. Use it to manage access to your InfluxDB account:
 
@@ -44,36 +45,55 @@ The **Users** page displays your account information and a table of existing use
 
 ## View existing users
 
-The Users page shows a comprehensive view of all users and pending invitations for your account:
+The **Users** tab lists users who have accepted the user agreement and have
+access to the account. It displays the following information:
 
-- **Invite ID**: Unique identifier for each user invitation
-- **Email**: Email address of the invited or existing user
-- **Invited At**: Date and time when the invitation was sent
-- **Status**: Current status of the invitation
-  - `accepted`: User has accepted the invitation and has access to the instance
-  - `expired`: Invitation has expired and is no longer valid
-  - `revoked`: Invitation has been manually revoked by an administrator
+- **First Name** and **Last Name**
+- **Email**
+- **Roles**
+- **Joined On**
+- An **Actions** menu for each user
 
-Use the search functionality to quickly find specific users by email address or invitation details.
+To view invitations, select **Invitations**.
+The **Invitations** tab displays the following information:
+
+- **Recipient**
+- **Status** (`Pending`, `Accepted`, `Revoked`, or `Expired`)
+- **Invitation Sent**
+- **Invitation Expires**
+- An **Actions** menu for each invitation
+
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-invitations.png" alt="InfluxDB 3 Cloud Admin UI Invitations tab" />}}
 
 ## Invite a user
 
-Only users with the **Admin** role can send new invitations.
+To send invitations, you need the **Manage** permission on **Invitations**.
+The **Admin** role includes this permission.
 
 1. On the Users page, click **{{< icon "plus" >}} Invite Users**.
 2. In the **Invite User** dialog:
    - Enter the **email address** of the user you want to invite
-   - Select the appropriate **role** from the dropdown menu:
-     - **Admin**: Full read and write permissions on all resources
-     - **Member**: Read permission on certain resources and create permission for database tokens
-     - **Auditor**: Read permission on all resources without modification capabilities
+   - In the **Roles** list, select one or more roles, including any
+     [custom roles](/influxdb3/cloud/admin/users/create-custom-role/).
+     You must select at least one role to send the invitation.
+     - **Admin**: Full management of account resources and users
+     - **Member**: Database access and database token management
+     - **Auditor**: Read-only access to account resources
 3. Click **Send Invitation**.
 
-An invitation email with an activation link is sent to the specified email address. The user must accept the invitation to gain access to your {{% product-name %}} instance.
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-invite-user.png" alt="Invite User dialog with the Roles list open" />}}
+
+An invitation email with an activation link is sent to the specified email address.
+The user must accept the invitation to gain access to your {{% product-name %}} instance.
+
+To accept, the invitee signs in or signs up with the invited email address,
+enters a **First Name** and **Last Name**,
+accepts the subscription terms, and then selects **Join Account**.
 
 {{% note %}}
 #### Invitation expiration
-Invitations expire after a set period. If an invitation expires, you'll need to send a new invitation to the user.
+Invitations expire after 7 days.
+If an invitation expires, send a new invitation to the user.
 {{% /note %}}
 
 ## Manage invitations
@@ -82,50 +102,64 @@ Invitations expire after a set period. If an invitation expires, you'll need to 
 
 You can revoke pending invitations that haven't been accepted yet:
 
-1. In the Users table, locate the invitation you want to revoke.
-2. Click the **Actions** menu (three vertical dots) for that invitation.
-3. Select **Revoke Invitation**.
-4. Confirm the revocation when prompted.
+1. Select the **Invitations** tab.
+2. Locate the invitation you want to revoke.
+3. Click the **Actions** menu (three vertical dots) for that invitation.
+4. Select **Revoke Invitation**.
 
-Revoked invitations can no longer be used to access your instance. The invitation status will change to `revoked`.
+{{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-revoke-invitation.png" alt="Invitation Actions menu with Revoke Invitation" />}}
 
-### View invitation details
-
-Click on any invitation in the table to view additional details, including:
-- Complete invitation ID
-- Exact timestamp of invitation creation
-- Current status and any status changes
+The revocation takes effect immediately, without a confirmation prompt.
+Revoked invitations can no longer be used to access your instance.
+The invitation status changes to `Revoked`.
 
 ## User roles and permissions
 
-{{% product-name %}} uses role-based access control to manage user permissions for the following roles:
+{{% product-name %}} uses role-based access control to manage user permissions.
+Every account starts with the **Admin**, **Member**, and **Auditor** roles, and
+you can create custom roles.
 
-### Admin
-- Full read and write permissions on all instance resources
-- Can create and delete databases, tables, and tokens
-- Can send and revoke user invitations
-- Can manage all aspects of instance administration
+- To learn how roles work, see [Understand roles](/influxdb3/cloud/admin/users/roles/).
+- For each permission and what the default roles include, see the
+  [permissions reference](/influxdb3/cloud/admin/users/permissions/).
+- To create a role, see [Create a custom role](/influxdb3/cloud/admin/users/create-custom-role/).
 
-### Member
-- Read permission on databases and certain instance resources
-- Can create database tokens for data access
-- Cannot delete or create databases
-- Cannot manage other users or send invitations
-
-### Auditor
-- Read-only access to all instance resources
-- Can view databases, tables, and configuration
-- Can see user invitations but cannot create or revoke them
-- Cannot modify any resources or create tokens
+The **Tokens** page in the Admin UI requires the **Admin** role.
+Other users create database tokens with the
+[`influxdb3` CLI](/influxdb3/cloud/reference/cli/influxdb3/)
+(after `influxdb3 auth login --oauth`) or the HTTP API, if their role allows it.
 
 > [!Note]
 > #### Role assignment
 >
-> Admins assign a role when inviting a user and can update a user's role from
-> the Admin UI after the invitation is accepted.
+> Assign a role when inviting a user, and
+> [change a user's roles](#change-a-users-roles) after the invitation is accepted.
 
-<!-- TODO: Document the self-service steps to change a user's role and to
-remove a user from the account in the InfluxDB 3 Cloud console. -->
+## Manage users
+
+To change a user's roles, you need the **Update** permission on **Account Users**.
+To remove a user, you need the **Delete** permission on **Account Users**.
+The **Admin** role includes both permissions.
+
+### Change a user's roles
+
+1. On the **Users** tab, locate the user.
+2. Click the **Actions** menu (three vertical dots) for that user.
+3. Select **Edit Roles**.
+
+   {{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-user-actions-menu.png" alt="User Actions menu with Edit Roles and Remove User" />}}
+
+4. In the **Roles** list, select one or more roles.
+   A user must have at least one role.
+5. Click **Save Changes**.
+
+### Remove a user
+
+1. On the **Users** tab, locate the user.
+2. Click the **Actions** menu (three vertical dots) for that user.
+3. Select **Remove User**.
+4. In the **Remove User** dialog, verify the displayed email address, and then
+   click **Remove User**.
 
 ## Limitations
 

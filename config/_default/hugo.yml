@@ -106,6 +106,8 @@ module:
 params:
   env: development
   environment: development
+  # Deployment builds set HUGO_PARAMS_DEPLOYEDCOMMIT to the checkout's full SHA.
+  deployedCommit: ''
 
 # Configure the server for development
 server:

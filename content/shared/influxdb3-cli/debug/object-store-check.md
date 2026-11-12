@@ -5,6 +5,8 @@ any compatibility violations.
 This command connects directly to the object store and does not require a running
 {{< product-name >}} server.
 
+The command is available in {{< product-name >}} 3.10.0 and later.
+
 ## Usage
 
 <!--pytest.mark.skip-->

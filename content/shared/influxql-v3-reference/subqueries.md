@@ -1,10 +1,6 @@
 An InfluxQL subquery is a query nested in the `FROM` clause of an InfluxQL query.
 The outer query queries results returned by the inner query (subquery).
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-- [Notable subquery behaviors](#notable-subquery-behaviors)
-
 > [!Important]
 > InfluxQL does not support a `HAVING` clause, however InfluxQL subqueries offer
 > functionality similar to the [SQL `HAVING` clause](/influxdb/version/reference/sql/having/). 
@@ -164,9 +160,6 @@ Table: home
 
 ## Notable subquery behaviors
 
-- [Apply time bounds to the outer query to improve performance](#apply-time-bounds-to-the-outer-query-to-improve-performance)
-- [Cannot use multiple SELECT statements in a subquery](#cannot-use-multiple-select-statements-in-a-subquery)
-
 ### Apply time bounds to the outer query to improve performance
 
 To improve the performance of InfluxQL queries that use subqueries and a
@@ -203,7 +196,7 @@ FROM
     SELECT
       raw_value as inner_value
     WHERE
-      time >= '2022-07-19T08:00:00Z'
+      time >= '2022-01-01T08:00:00Z'
       AND time <= '2022-01-01T20:00:00Z'
   )
 ```

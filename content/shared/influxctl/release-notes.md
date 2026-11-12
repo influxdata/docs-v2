@@ -1,3 +1,34 @@
+## 2.12.2 {date="2026-10-29"}
+
+### Dependency updates
+- Update Go to 1.27.3
+- update `github.com/apache/arrow-go/v18` from 18.6.0 to 18.7.0
+- update `github.com/apache/arrow-go/v18` from 18.7.0 to 18.8.0
+- update `github.com/containerd/containerd` from 1.7.33 to 1.7.35
+- update `github.com/containerd/containerd` from 1.7.35 to 1.7.36
+- update `github.com/dustin/go-humanize` from 1.0.1 to 1.1.0
+- update `github.com/go-git/go-git/v5` from 5.19.1 to 5.19.2
+- update `github.com/go-git/go-git/v5` from 5.19.2 to 5.19.3
+- update `github.com/google/go-containerregistry` from 0.21.6 to 0.21.9
+- update `github.com/google/go-containerregistry` from 0.21.9 to 0.22.0
+- update `github.com/google/go-containerregistry` from 0.22.0 to 0.22.1
+- update `github.com/jedib0t/go-pretty/v6` from 6.8.1 to 6.8.3
+- update `github.com/kubecfg/kubecfg` from 0.37.0 to 0.39.0
+- update `github.com/ovechkin-dm/mockio/v2` from 2.0.4 to 2.0.5
+- update `github.com/pelletier/go-toml/v2` from 2.4.2 to 2.4.3
+- update `github.com/stretchr/testify` from 1.11.1 to 1.12.1
+- update `golang.org/x/mod` from 0.39.0 to 0.40.0
+- update `golang.org/x/mod` from 0.40.0 to 0.41.0
+- update `golang.org/x/mod` from 0.41.0 to 0.42.0
+- update `golang.org/x/oauth2` from 0.36.0 to 0.37.0
+- update `google.golang.org/grpc` from 1.81.1 to 1.83.0
+- update `google.golang.org/grpc` from 1.83.0 to 1.83.2
+- update `google.golang.org/grpc` from 1.83.2 to 1.84.0
+- update `google.golang.org/protobuf` from 1.36.11 to 1.36.12
+- update `oras.land/oras-go/v2` from 2.6.0 to 2.6.2
+
+---
+
 ## 2.12.0 {date="2025-12-09"}
 
 ### Features

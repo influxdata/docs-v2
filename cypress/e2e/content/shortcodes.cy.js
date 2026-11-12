@@ -206,9 +206,7 @@ describe('Cascade product shortcodes', function () {
 
       if (isInfluxdb3) {
         it('renders influxdb3/home-sample-link', function () {
-          const anchor = product.distributed_architecture
-            ? '#get-started-home-sensor-data'
-            : '#home-sensor-data';
+          const anchor = `#${product.home_sample_data_anchor || 'home-sensor-data'}`;
           cy.get('[data-testid="home-sample-link"] a').should(
             'have.attr',
             'href',
@@ -304,7 +302,7 @@ describe('Cascade product shortcodes', function () {
           cy.get('[data-testid="token-link"]')
             .invoke('text')
             .should('contain', 'token')
-            .and('contain', `/admin/tokens/`);
+            .and('contain', '/admin/tokens/');
         });
 
         it('renders token-link "database" with blacklist', function () {

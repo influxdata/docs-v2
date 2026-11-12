@@ -74,7 +74,7 @@ Convert a timestamp to unix timestamp:
 
 ```toml
 [[processors.timestamp]]
-  source_timestamp_field = "timestamp"
+  field = "timestamp"
   source_timestamp_format = "2006-01-02T15:04:05.999999999Z"
   destination_timestamp_format = "unix"
 ```
@@ -88,7 +88,7 @@ Convert the same timestamp to a nanosecond unix timestamp:
 
 ```toml
 [[processors.timestamp]]
-  source_timestamp_field = "timestamp"
+  field = "timestamp"
   source_timestamp_format = "2006-01-02T15:04:05.999999999Z"
   destination_timestamp_format = "unix_ns"
 ```
@@ -102,7 +102,7 @@ Convert the timestamp to another timestamp format:
 
 ```toml
 [[processors.timestamp]]
-  source_timestamp_field = "timestamp"
+  field = "timestamp"
   source_timestamp_format = "2006-01-02T15:04:05.999999999Z"
   destination_timestamp_format = "2006-01-02T15:04"
 ```

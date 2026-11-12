@@ -17,10 +17,7 @@ Enabling HTTPS over TLS encrypts the communication between clients and the Influ
 When configured with a signed certificate, HTTPS over TLS can also verify the authenticity of the InfluxDB Enterprise server to connecting clients.
 
 This pages outlines how to set up HTTPS with InfluxDB Enterprise using either a signed or self-signed certificate.
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this sentence when Enterprise v1.13.x ships.
 It also describes how to enable [mutual TLS (mTLS)](#enable-mutual-tls-mtls) so that both ends of each connection authenticate each other.
--->
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB Enterprise over a network.
@@ -256,10 +253,7 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
 
     That's it! You've successfully set up HTTPS with InfluxDB Enterprise.
 
-<!-- ROLLBACK-v1.13.0: Enterprise v1.13.0 was rolled back to v1.12.4. Restore
-     this section when Enterprise v1.13.x ships.
-
-## Enable mutual TLS (mTLS) {metadata="v1.13.0+"}
+## Enable mutual TLS (mTLS) {metadata="v1.13.1+"}
 
 With standard HTTPS, only the server presents a certificate and the client verifies it.
 **Mutual TLS (mTLS)** additionally requires the _client_ to present a certificate that the _server_ verifies, so both ends of every connection authenticate each other.
@@ -270,7 +264,7 @@ In an InfluxDB Enterprise cluster, you can require mTLS on:
 - **HTTP API connections**: clients such as the [`influx` CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/), `influxd-ctl`, and Telegraf connecting to the data node or meta node API.
 
 > [!Note]
-> mTLS options require **InfluxDB Enterprise v1.13.0+** and build on the HTTPS
+> mTLS options require **InfluxDB Enterprise v1.13.1+** and build on the HTTPS
 > configuration described above.
 > Complete [Set up HTTPS](#set-up-https-in-an-influxdb-enterprise-cluster) before
 > enabling mTLS.
@@ -466,7 +460,6 @@ influx -ssl -host <domain_name>.com \
 
 You can also set the `INFLUX_CERT` and `INFLUX_KEY` environment variables instead
 of the `-cert` and `-key` flags.
--->
 
 ## Connect Telegraf to a secured InfluxDB Enterprise instance
 

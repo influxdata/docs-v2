@@ -21,6 +21,8 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 The [Router](/influxdb3/version/reference/internals/storage-engine/#router) validates incoming data to prevent malformed or unsupported data from entering the system.
 {{% product-name %}} writes accepted data to multiple write-ahead log (WAL) files on [Ingester](/influxdb3/version/reference/internals/storage-engine/#ingester) pods' local storage (default is 2 for redundancy) before acknowledging the write request.
+If fewer ingesters than required acknowledge the write, the Router returns a `5xx` error.
+Data acknowledged by only a single ingester is retained and appears in query results, but only consistently once persisted to object storage.
 The Ingester holds the data in memory to ensure leading-edge data is available for querying.
 
 ### Write-ahead log (WAL) persistence 

@@ -279,9 +279,24 @@ influxdb3 serve \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01 \
   --cluster-id my-cluster-01 \
-  --plugin-dir ~/.influxdb3/plugins \
-  --mode ingest,query,process
+  --mode ingest,query
 ```
+
+### Run a server specifically for the Processing Engine
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="my-host-01|my-cluster-01" }
+influxdb3 serve \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --node-id my-host-01 \
+  --cluster-id my-cluster-01 \
+  --plugin-dir ~/.influxdb3/plugins \
+  --mode process
+```
+
+For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
 ### Run a server specifically for compacting data
 

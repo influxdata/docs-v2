@@ -25,6 +25,9 @@ yarn validate:agent-instructions
 
 - Preserve unrelated working-tree changes.
 
+- Before creating a PR, publishing corrections, or approving an existing PR, load the
+  [collaborative PR review skill](.agents/skills/collaborative-pr-review/SKILL.md).
+
 - Check `git log` before you treat the staged diff as the whole change. If the
   branch carries a commit you didn't make, tell the user instead of squashing
   or amending it.
@@ -58,6 +61,11 @@ yarn verify:changed -- --run <path> [<path> ...]
 Use `npx hugo --quiet` for a full build, `npx hugo server` for local serving,
 and `yarn test:codeblocks:all` only when runnable examples require it.
 See the [docs-testing skill](.agents/skills/docs-testing/SKILL.md) for routing.
+
+For docs-v2 browser verification, check for the configured Chromium executable
+at `$PUPPETEER_EXECUTABLE_PATH`, or `/usr/bin/chromium` if unset.
+If it exists, load the [cloud UI skill](.agents/skills/openai-cloud-ui/SKILL.md)
+before running browser commands.
 
 ## Content contract
 
@@ -93,6 +101,10 @@ See the [docs-testing skill](.agents/skills/docs-testing/SKILL.md) for routing.
 
 ## Detailed references
 
+- For EDR release reviews, documentation drift, and publication, load the
+  [shared EDR workflow](https://github.com/influxdata/docs-tooling/blob/main/.agents/skills/edr-docs-review/SKILL.md)
+  from the configured docs-tooling checkout or installed skill mount. If it is
+  unavailable, identify the missing workflow and request an authorized handoff.
 - [Content rules](content/AGENTS.md), [layouts](layouts/AGENTS.md),
   [assets](assets/AGENTS.md), and [API docs](api-docs/AGENTS.md).
 - [DOCS-CONTRIBUTING.md](DOCS-CONTRIBUTING.md),

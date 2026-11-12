@@ -1,0 +1,4 @@
+{{/* Build identity is site-wide; .GitInfo identifies a page's last edit. */}}
+{{- with site.Params.deployedCommit -}}
+<meta name="deployed-commit" content="{{ . }}">
+{{- end -}}

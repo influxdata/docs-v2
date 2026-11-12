@@ -1,3 +1,9 @@
+## v2.9.1 {date="2026-10-29"}
+
+### Maintenance
+
+- Update to go 1.27.3
+
 ## v2.8.0 {date="2026-04-22"}
 
 ### Bug Fixes

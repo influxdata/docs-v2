@@ -118,6 +118,18 @@ export default [
     },
   },
 
+  {
+    files: ['cypress/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.mocha,
+        ...globals.chai,
+        cy: 'readonly',
+        Cypress: 'readonly',
+      },
+    },
+  },
+
   // Configuration for specific file patterns
   {
     files: ['**/*.js'],
@@ -166,7 +178,7 @@ export default [
       parserOptions: {
         ecmaVersion: 2022,
         sourceType: 'module',
-        project: './tsconfig.json',
+        project: ['./tsconfig.json', './playwright/tsconfig.json'],
       },
     },
     rules: {

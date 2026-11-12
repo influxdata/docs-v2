@@ -58,6 +58,8 @@ license-gated enhancements:
 - **LDAP authentication** against your directory
 - **OIDC authentication** for SSO through Okta, Auth0, Microsoft Entra ID,
   and other providers
+- **Security advisories** that identify agents running Telegraf versions
+  affected by published vulnerabilities
 
 For details on these features, see
 [Telegraf Controller documentation](/telegraf/controller/) and the

@@ -1,5 +1,6 @@
 #v3-wayfinding-modal {
   display: flex;
+  visibility: hidden;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -11,6 +12,7 @@
   transition: top .75s ease-in-out;
 
   &.open {
+    visibility: visible;
     top: 0;
   }
 

@@ -40,8 +40,8 @@ list_code_example: |
 
         query := `SELECT *
             FROM home
-            WHERE time >= '2022-01-02T08:00:00Z'
-            AND time <= '2022-01-02T20:00:00Z'`
+            WHERE time >= '2022-01-01T08:00:00Z'
+            AND time <= '2022-01-01T20:00:00Z'`
 
         iterator, err := client.Query(context.Background(), query)
         ...
@@ -157,8 +157,8 @@ func Query() error {
 
     query := `SELECT *
         FROM home
-        WHERE time >= '2022-01-02T08:00:00Z'
-        AND time <= '2022-01-02T20:00:00Z'`
+        WHERE time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'`
 
     // Example 1: Query data and then read the schema and all data in the result stream.
     iterator, err := client.Query(context.Background(), query)
@@ -251,8 +251,8 @@ func InfluxQL() error {
 
     query := `SELECT *
         FROM home
-        WHERE time >= 1641124000s
-        AND time <= 1641124000s + 8h`
+        WHERE time >= 1641024000s
+        AND time <= 1641024000s + 8h`
 
     queryOptions := influxdb3.QueryOptions{
         QueryType: influxdb3.InfluxQL,

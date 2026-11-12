@@ -80,11 +80,14 @@ Learn how to set up a multi-node cluster for different use cases, including high
 With the {{% product-name %}} diskless architecture, all data is stored in a common object store.
 In a multi-node cluster, you connect all nodes to the same object store.
 
-Enterprise supports the following object stores:
+A multi-node cluster requires one of the following object stores:
 
-- AWS S3 (or S3-compatible)
+- AWS S3 (or S3-compatible, such as [MinIO](/influxdb3/enterprise/admin/object-storage/minio/))
 - Azure Blob Storage
 - Google Cloud Storage
+
+The `file` object store supports a single node only.
+Don't share a [`--data-dir`](/influxdb3/enterprise/reference/config-options/#data-dir) between nodes, including over a network file system.
 
 > [!Note]
 > Refer to your object storage provider's documentation for 
@@ -213,12 +216,13 @@ influxdb3 serve \
   --mode compact
 ```
 
-#### Configure a node to handle queries and run the processing engine 
+#### Configure a node to only run the Processing Engine
 <!-- pytest.mark.skip -->
 ```bash
 influxdb3 serve \
   # ...
-  --mode query,process
+  --mode process \
+  --plugin-dir /path/to/plugins
 ```
 
 > [!Important]
@@ -226,6 +230,9 @@ influxdb3 serve \
 > the Python plugin environment. Without this flag, starting a node with `process`
 > mode will fail with an error. See the [plugin-dir configuration option](/influxdb3/enterprise/reference/config-options/#plugin-dir)
 > for more information.
+>
+> We recommend running `process` alone on a dedicated node.
+> For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 
 ## Cluster configuration examples
 

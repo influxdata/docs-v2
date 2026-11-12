@@ -19,7 +19,6 @@ import {
   formatCoverageTable,
 } from './coverage.js';
 import { writeStepOutputs, writeStepSummary } from './reporting.js';
-import { partitionPluginsByReadme } from './port_to_docs.js';
 
 const MAPPING_CONFIG = 'docs_mapping.yaml';
 const BASELINE_FILE = 'coverage-baseline.json';
@@ -62,20 +61,10 @@ async function main() {
   }
 
   const dataFile = yaml.load(await fs.readFile(DATA_FILE, 'utf8')) ?? [];
-  const readmes = await partitionPluginsByReadme(
-    parsed.plugins,
-    config.plugins
-  );
-  if (!readmes) {
-    console.warn('⚠️  Upstream plugin READMEs are unavailable.');
-    console.warn('   Coverage was not measured on this run.');
-    process.exit(0);
-  }
-
   const coverage = computeCoverage({
-    plugins: readmes.available,
+    plugins: parsed.plugins,
     excluded: parsed.excluded,
-    unavailable: readmes.missing.map((plugin) => plugin.name),
+    retired: parsed.retired.map((plugin) => plugin.name),
     dataFileIds: dataFile.map((entry) => entry.id),
     sharedPages: await pageNames(SHARED_DIR),
     coreStubs: await pageNames(stubDir('core')),

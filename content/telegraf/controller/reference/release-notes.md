@@ -9,10 +9,320 @@ menu:
 weight: 101
 ---
 
-## v1.1.2 {date="2026-10-06"}
+## v1.2.2 {date="2026-11-10"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.1.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.2.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Before you upgrade
+
+> [!Warning]
+> #### Upgrade to fix an unauthenticated denial of service
+>
+> {{% product-name %}} v1.2.2 fixes a denial of service in the request body
+> parsing of the web interface and API listener
+> ([CVE-2026-111181](https://www.cve.org/CVERecord?id=CVE-2026-111181)).
+> Anyone with network access to the web interface and API port can stop the
+> {{% product-name %}} process with one HTTP request, without credentials,
+> because request bodies are parsed before authentication. The web interface
+> and the API stay unavailable until the process is restarted.
+> All earlier release binaries and container images are affected, and no
+> configuration setting prevents it.
+>
+> Upgrade as soon as possible. Until you do, restrict the web interface and
+> API port to the networks that need it.
+> See [Expose the right ports](/telegraf/controller/admin/networking/#expose-the-right-ports).
+
+#### API changes
+
+- Token endpoints no longer return the `tokenHash` field.
+  `GET /api/tokens`, `GET /api/tokens/:id`, `PATCH /api/tokens/:id/revoke`,
+  and `PATCH /api/tokens/:id/reassign` return the token's `id`, `name`,
+  `status`, `permissions`, `source`, `userId`, and timestamps.
+  `POST /api/tokens` still returns the token value once, in `rawToken`.
+- `limit=0` on a paginated list endpoint returns every item.
+  Previously, it returned an empty list, or one item on `GET /api/agents`.
+  A `limit` that is not a whole number of zero or more now returns
+  `400 Bad Request`.
+  See [Paginate list results](/telegraf/controller/reference/api/#paginate-list-results).
+- `PUT` and `DELETE /api/agents/:id/labels/:labelId` return
+  `application/json`.
+- The OpenAPI document now matches the responses the API sends.
+  `GET /api/labels` is a paginated object, agent `status` is a number,
+  `POST /api/configs/duplicate` returns `{ "count": n }`,
+  `DELETE /api/labels` returns `204`, `DELETE /api/agents/:id` returns `200`,
+  `POST /api/config-groups/:id/members` returns `201`, and
+  `DELETE /api/configs/bulk` takes the ids in the request body only.
+  The document also lists the `order` and `returnTo` query parameters and
+  the `400`, `403`, and `404` responses that were missing.
+  If you generate an API client, regenerate it from the
+  [OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document)
+  of your upgraded instance.
+
+### Features
+
+- Render configuration and configuration group descriptions as Markdown.
+  The description editor on the create pages and the detail pages has
+  **Write** and **Preview** tabs, and a counter shows the length of the
+  description against the 1,000-character limit while you type.
+  See [Format a description with Markdown](/telegraf/controller/configs/create/#format-a-description-with-markdown).
+
+### Bug fixes
+
+- Stop the browser tab from freezing after a save in the label dialogs, the
+  label assignment dialogs for agents and configurations, the version detail
+  dialog, and the duplicate and merge dialogs. These dialogs could close
+  themselves repeatedly after a save and block the page.
+- Fix **Make Default** on the **Reporting Rules** page, which logged an
+  error on every click even though the rule became the default.
+- Keep a label name typed right after the **Create New Label** dialog opens.
+  Previously, the form could reset and report the name as required.
+- Hide the product registration prompt when a Telegraf Enterprise license is
+  loaded.
+
+### Security
+
+- Update both bundled copies of `body-parser`, which parses API request
+  bodies, to 2.4.0 and 1.20.9 to fix a denial of service
+  ([CVE-2026-111181](https://www.cve.org/CVERecord?id=CVE-2026-111181)).
+- Update `rustls`, the TLS library in the heartbeat service, to 0.23.46.
+  The update stops session debug output from exposing TLS master secrets and
+  resumption keys
+  ([GHSA-c8m5-c952-6cm4](https://github.com/advisories/GHSA-c8m5-c952-6cm4))
+  and fixes three low-severity handshake issues
+  ([GHSA-vp88-798v-h67f](https://github.com/advisories/GHSA-vp88-798v-h67f),
+  [GHSA-w44r-93j7-qv28](https://github.com/advisories/GHSA-w44r-93j7-qv28),
+  [GHSA-h2v8-394m-p7vv](https://github.com/advisories/GHSA-h2v8-394m-p7vv)).
+- Update `undici` to 7.30.1. Previously, TLS 1.2 renegotiation with a
+  changed certificate could cause a denial of service
+  ([CVE-2026-87018](https://www.cve.org/CVERecord?id=CVE-2026-87018)).
+
+---
+
+## v1.2.1 {date="2026-11-02"}
+
+### Before you upgrade
+
+> [!Warning]
+> #### Some root certificates are no longer trusted
+>
+> {{% product-name %}} v1.2.1 ships updated root certificate stores that no
+> longer include the following root certificates:
+>
+> - emSign ECC Root CA - G3
+> - emSign Root CA - C1
+> - emSign ECC Root CA - C3
+> - Entrust Root Certification Authority
+> - SecureSign Root CA12
+> - ePKI Root Certification Authority
+> - Atos TrustedRoot 2011
+>
+> After the upgrade, {{% product-name %}} no longer trusts an LDAPS, OIDC,
+> audit webhook, or PostgreSQL server whose certificate chain ends at one of
+> these roots. If one of your servers is affected, give {{% product-name %}}
+> a CA certificate to trust instead: `AUTH_LDAP_CA_CERT_PATH` for an LDAP
+> server, `sslrootcert` in the database URL for PostgreSQL, and the Node.js
+> `NODE_EXTRA_CA_CERTS` environment variable for any other server.
+
+### Security
+
+- Update the root certificate stores in the {{% product-name %}} binaries
+  and Docker images. The embedded Node.js runtime moves to
+  [24.22.1](https://nodejs.org/en/blog/release/v24.22.1), whose root store is
+  NSS 3.131.1, and the heartbeat service moves to `webpki-roots` 1.0.11.
+  Both stores drop the emSign roots that eight eMudhra intermediate
+  certificate authorities with compromised keys chain to
+  ([CVE-2026-111943](https://www.cve.org/CVERecord?id=CVE-2026-111943),
+  [RUSTSEC-2026-0381](https://rustsec.org/advisories/RUSTSEC-2026-0381.html)).
+  Previously, an attacker with one of those keys could impersonate a TLS
+  server to {{% product-name %}}.
+- Warn when the heartbeat service connects to PostgreSQL over TLS without
+  verifying the server certificate. With `sslmode=require` and no CA
+  certificate, or with `DATABASE_SSL_NO_VERIFY` set and no CA certificate,
+  the log now states why the server is not verified and what to set instead. Use
+  `sslmode=verify-full`, with `sslrootcert` if the server certificate is not
+  issued by a public CA.
+  See [Database TLS](/telegraf/controller/reference/config-options/#database-tls).
+
+---
+
+## v1.2.0 {date="2026-10-27"}
+
+### Before you upgrade
+
+#### Audit logging changes
+
+> [!Important]
+> #### Audit logging stops until you configure a signing key
+>
+> Starting in v1.2.0, {{% product-name %}} signs each audit entry with a
+> key that you configure, and audit logging stays disabled until a key is
+> set. Installations that run with `AUDIT_ENABLED=true` stop writing audit
+> entries after the upgrade until you set `AUDIT_HMAC_KEY`,
+> `AUDIT_HMAC_KEY_FILE`, or `--audit-hmac-key-file`. Existing audit files
+> remain readable.
+> See [Enable audit logging](/telegraf/controller/admin/audit-logs/enable-configure/#enable-audit-logging).
+
+**Reading the audit log requires the new `audit:read` permission.**
+Administrator API tokens created before v1.2.0 do not include it.
+Create a new token to read the audit log with a token.
+Owner tokens with full access are unaffected.
+
+#### Duplicate configuration and group names are renamed
+
+Configuration and configuration group names are now unique.
+On the first start after the upgrade, {{% product-name %}} renames existing
+duplicates: the oldest keeps its name and later ones get ` (2)`, ` (3)`,
+and so on.
+Agents reference configurations by ID or alias, so renamed configurations
+keep serving the same agents.
+See [Create a configuration](/telegraf/controller/configs/create/#create-a-configuration).
+
+#### API token access changes
+
+**Some API tokens lose access they had before.**
+A request authenticated with an API token now manages only its own user's
+tokens and cannot reassign tokens, and account self-service and ownership
+transfer routes accept only a signed-in session.
+Review scripts that use API tokens for these operations.
+The affected endpoints are listed under [API changes](#api-changes).
+
+#### API changes
+
+- `GET /api/heartbeat/agent/:agentId/latest-heartbeat` and
+  `GET /api/heartbeat/agent/:agentId/logs` moved to
+  `GET /api/agents/:id/heartbeat/latest` and
+  `GET /api/agents/:id/heartbeat/logs`. They identify the agent by its
+  {{% product-name %}} `id` and require `agents:read`.
+  See [Retrieve heartbeat data with the API](/telegraf/controller/agents/heartbeat-data/#retrieve-heartbeat-data-with-the-api).
+- `GET /api/heartbeat/agent-status-check` is now
+  `POST /api/agents/status-check` and requires `agents:write`.
+- `PATCH /api/users/me`, `PATCH /api/users/me/password`, and the
+  `/api/users/transfer-owner` routes return `403` to API tokens.
+  See [Session-only endpoints](/telegraf/controller/reference/authentication-authorization/#session-only-endpoints).
+- Token management over an API token is limited to the token owner's own
+  tokens, and reassignment requires an Owner or Administrator session.
+  See [Token visibility](/telegraf/controller/tokens/#token-visibility).
+- `GET /api/password-resets` no longer returns the reset `code`.
+- Reporting rule thresholds must be whole seconds from `1` to
+  `2147483647`. Other values return `400`.
+
+### Features
+
+- Add [security advisories](/telegraf/controller/security-advisories/)
+  (Telegraf Enterprise): {{% product-name %}} downloads the signed
+  InfluxData advisory feed, or imports it offline, matches advisories to
+  the Telegraf version each agent reports, and shows affected agents on the
+  **Security** page, the **Agents** page, and agent detail pages. It also
+  checks its own version against Controller advisories and notifies you
+  when new advisories arrive.
+- Add [pre-shared tokens](/telegraf/controller/tokens/preshared/): supply
+  your own token value when creating a token so one credential can be
+  installed on several {{% product-name %}} instances. Every token now
+  records its source (system-generated, user-provided, or env/flag-provided).
+  Operators can [disable pre-shared tokens](/telegraf/controller/tokens/preshared/#disable-pre-shared-tokens)
+  at startup.
+- Redesign the [Agents page](/telegraf/controller/agents/monitor/): a fleet
+  status bar with **Fleet Health**, **Telegraf Versions**, and
+  **Last Reported** summaries, removable filter chips, a **Telegraf Version**
+  column, and compact and detailed row layouts. Search now matches the
+  agent's ID, hostname, IP address, or Telegraf version, with
+  [regular expression and match-case toggles](/telegraf/controller/agents/monitor/#search-the-agent-list).
+- Redesign the agent detail page around
+  [heartbeat data](/telegraf/controller/agents/heartbeat-data/): per-heartbeat
+  statistics charts and the log entries reported with the latest heartbeat,
+  with auto-refresh and relative last-reported times.
+- Add a [heartbeat service health](/telegraf/controller/admin/monitor/#heartbeat-service-health)
+  indicator to the navigation and `GET /api/heartbeat/health`, which report
+  why the heartbeat service is unhealthy, not only whether it responds.
+- Add [bootstrap owner tokens](/telegraf/controller/tokens/bootstrap/):
+  provision an all-access token at startup with `OWNER_TOKEN` or
+  `--owner-token` for infrastructure-as-code workflows. The token is
+  idempotent across restarts and rotates its predecessor when the value
+  changes.
+- Transfer ownership from the web interface with a request that the target
+  administrator accepts. The owner sends the request from the **Users** page
+  and can cancel it while it is pending; the target sees a banner on every
+  page and accepts or declines from their **Account** page, setting a
+  recovery password when their account has no local one. Audit logging
+  records each step.
+  See [Transfer ownership](/telegraf/controller/users/transfer-ownership/).
+- Sign audit entries with a configured key and verify the chain
+  (Telegraf Enterprise): each entry records the fingerprint of the key that
+  signed it, {{% product-name %}} verifies the current month's chain at
+  startup, and `GET /api/audit-logger/verify` checks every retained monthly
+  file on demand.
+  See [Verify integrity](/telegraf/controller/admin/audit-logs/view/#verify-integrity).
+- Include log entries in the default heartbeat output template.
+  New configurations ship with `"logs"` in the plugin's `include` list and a
+  limit of 50 entries per heartbeat.
+  See [Include logs with heartbeats](/telegraf/controller/agents/heartbeat-data/#include-logs-with-heartbeats).
+- Report an agent's real IP address from behind a proxy with the
+  `Telegraf-Agent-IP` heartbeat header.
+  See [Report the agent IP address from behind a proxy](/telegraf/controller/agents/create/#report-the-agent-ip-address-from-behind-a-proxy).
+- Publish {{% product-name %}} as a Docker image on Docker Hub
+  (`influxdata/telegraf-controller`). The image is built for both x86-64
+  and ARM64, so it runs on Intel, AMD, and ARM hosts, including Apple
+  silicon.
+  See [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
+- Ship a signed SHA-256 digests file with every release so you can verify
+  downloaded binaries.
+- Add plugin support to the Telegraf Builder UI:
+  - Google Cloud Secret Manager (`secretstores.googlecloud`)
+
+### Bug fixes
+
+- Stop SQLite database corruption under concurrent agent heartbeats and API
+  or web interface use. The heartbeat service now shares one SQLite library
+  with the rest of {{% product-name %}} instead of linking its own.
+- Enforce the agent limit across a whole
+  [high-availability cluster](/telegraf/controller/admin/high-availability/)
+  instead of per node, and free an agent's slot as soon as it is deleted
+  instead of at the next restart.
+- Keep status checks working with reporting rules of about 25 days or more
+  on PostgreSQL. Previously, one such rule stopped every status check with an
+  integer overflow, so no agent was marked **Not Reporting** or auto-deleted.
+- Reject reporting rule thresholds of zero, negative, or fractional seconds,
+  and ignore rules already stored with a non-positive threshold, which marked
+  live agents **Not Reporting** or deleted them.
+- Keep exactly one default reporting rule. Turning **Default Rule** off on
+  the default rule now returns an error instead of leaving new agents
+  without a rule, and making another rule the default moves the flag in one
+  step.
+- Enforce unique configuration and configuration group names and keep
+  generated names, such as duplicates, within 255 characters. Previously, an
+  overlong generated name broke the configuration list with a `500`
+  response.
+- Limit API tokens to their own permissions: a wildcard such as `*:*` or
+  `license:*` now expands to the permissions the role holds, tokens cannot
+  manage other users' tokens, and the former owner's tokens are re-clamped
+  after an ownership transfer.
+- Forward sign-in, sign-out, constant, and agent-deletion audit events to
+  syslog, webhook, and file destinations like every other event, write
+  nothing while audit logging is disabled, and keep running when a forwarder
+  fails. Previously, disabling audit logging with a syslog forwarder
+  configured could stop the process.
+- Stop one malformed heartbeat from dropping the rest of its batch: reject
+  control characters in `hostname` and `version` with `400`, accept an agent
+  that references the same configuration by ID and by alias, and skip an
+  oversized log entry instead of discarding all entries.
+- Write every acknowledged heartbeat to the database before shutting down.
+- Reject sign-in `returnTo` values that resolve to another origin.
+- Show an error on the **Agents** page when the list fails to load instead
+  of reporting that there are no agents.
+- Flush heartbeat statistics every 5 seconds instead of every 60, so agent
+  detail pages update sooner.
+- Document date fields, read-only arrays, and nullable values correctly in
+  the OpenAPI document, and align the `GET /api/agents` query parameters
+  with what the API accepts.
+- Keep the caret in place while editing the agent search text.
+- Build invite links and password reset links from the **User Interface
+  URL** public endpoint, falling back to the browser's address, instead of
+  the API host.
+
+---
+
+## v1.1.2 {date="2026-10-06"}
 
 > [!Important]
 > #### Heartbeat requests now require Heartbeat write permission

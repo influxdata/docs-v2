@@ -2,16 +2,6 @@ Use `LIMIT` to limit the number of **rows** returned per InfluxQL group.
 Use `SLIMIT` to limit the number of [series](/influxdb/version/reference/glossary/#series)
 returned in query results.
 
-- [LIMIT clause](#limit-clause)  
-  - [Syntax](#limit-syntax)
-  - [Examples](#limit-examples)
-- [SLIMIT clause](#slimit-clause)  
-  <!-- - [Syntax](#slimit-syntax) -->
-  <!-- - [Examples](#slimit-examples) -->
-<!-- - [Use LIMIT and SLIMIT together](#use-limit-and-slimit-together) -->
-  <!-- - [Syntax](#limit-slimit-syntax) -->
-  <!-- - [Examples](#limit-slimit-examples) -->
-
 ## LIMIT clause
 
 The `LIMIT` clause limits the number of rows to return from each InfluxQL group.

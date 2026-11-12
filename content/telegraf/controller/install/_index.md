@@ -2,12 +2,13 @@
 title: Install Telegraf Controller
 description: >
   Download and install Telegraf Controller on Linux, macOS, and Windows
-  operating systems.
+  operating systems, or run it as a Docker container.
 menu:
   telegraf_controller:
     name: Install Telegraf Controller
 weight: 2
 related:
+  - /telegraf/controller/install/docker/
   - /telegraf/controller/install/upgrade/
   - /telegraf/controller/reference/config-options/
   - /telegraf/controller/reference/eula/
@@ -16,6 +17,10 @@ related:
 Telegraf Controller is a web-based configuration management system for Telegraf
 agents. It provides a user-friendly interface for managing Telegraf
 configurations, monitoring agents, and organizing plugins.
+
+This page covers installing the {{% product-name %}} executable directly on
+Linux, macOS, or Windows. To run {{% product-name %}} as a container instead,
+see [Run {{% product-name %}} in Docker](/telegraf/controller/install/docker/).
 
 - [System Requirements](#system-requirements)
 - [Review the EULA](#review-the-eula)
@@ -84,6 +89,95 @@ $env:TELEGRAF_CONTROLLER_EULA="accept"
 1.  **Download the {{% product-name %}} executable.**
 
     {{< telegraf/tc-downloads >}}
+
+    {{< expand-wrapper >}}
+    {{% expand "Verify the download <span class='req'>Recommended</span>" %}}
+
+Every release ships a detached signature (`.asc`) for each executable,
+and a `telegraf_controller-{{< latest-patch >}}.digests` file that lists
+the SHA-256 checksum of each executable and is signed as
+`telegraf_controller-{{< latest-patch >}}.digests.asc`.
+All signatures are made with the InfluxData package signing key.
+Download the signature for your executable and the two digests files
+from the download list above, then verify them before you install.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Linux/macOS](#)
+[Windows](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!---------------------------- BEGIN LINUX/MACOS ----------------------------->
+
+1.  Import the InfluxData package signing key:
+
+    ```bash
+    curl -fsSL https://repos.influxdata.com/influxdata-archive.key | gpg --import
+    ```
+
+2.  Verify the signatures of the executable and of the digests file.
+    Replace `linux-x64` with the platform you downloaded.
+
+    ```bash
+    gpg --verify telegraf_controller-linux-x64.asc telegraf_controller-linux-x64
+    gpg --verify telegraf_controller-{{< latest-patch >}}.digests.asc telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    Both commands must report a good signature from the InfluxData Package
+    Signing Key.
+
+3.  Check the executable's checksum against the digests file:
+
+    ```bash
+    sha256sum -c --ignore-missing telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    The output lists the executable with `OK`.
+    On macOS, use `shasum -a 256 -c --ignore-missing` if `sha256sum` is not
+    installed.
+
+<!----------------------------- END LINUX/MACOS ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------ BEGIN WINDOWS ------------------------------->
+
+Signature verification requires GnuPG, for example
+[Gpg4win](https://www.gpg4win.org/).
+
+1.  Import the InfluxData package signing key:
+
+    ```powershell
+    Invoke-WebRequest https://repos.influxdata.com/influxdata-archive.key -OutFile influxdata-archive.key
+    gpg --import influxdata-archive.key
+    ```
+
+2.  Verify the signatures of the executable and of the digests file:
+
+    ```powershell
+    gpg --verify telegraf_controller-win-x64.exe.asc telegraf_controller-win-x64.exe
+    gpg --verify telegraf_controller-{{< latest-patch >}}.digests.asc telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    Both commands must report a good signature from the InfluxData Package
+    Signing Key.
+
+3.  Compare the executable's checksum with the entry in the digests file:
+
+    ```powershell
+    (Get-FileHash telegraf_controller-win-x64.exe -Algorithm SHA256).Hash.ToLower()
+    Select-String telegraf_controller-win-x64.exe telegraf_controller-{{< latest-patch >}}.digests
+    ```
+
+    The two values must match.
+    The executable is also signed with an Authenticode certificate, which
+    Windows shows under **Properties > Digital Signatures**.
+
+<!------------------------------- END WINDOWS -------------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+    {{% /expand %}}
+    {{< /expand-wrapper >}}
 
 2.  **Install {{% product-name %}}**.
 
@@ -257,8 +351,12 @@ The application will automatically run migrations on first startup.
 #### Connect to PostgreSQL over TLS
 
 To encrypt the connection to a PostgreSQL or PostgreSQL-compatible server,
-add the `sslmode` query parameter to the database URL. To verify the server
-certificate, use `sslmode=verify-full` and provide a CA certificate with
+add the `sslmode` query parameter to the database URL.
+Use `sslmode=verify-full` in production.
+With `sslmode=require` and no CA certificate, the heartbeat service encrypts
+the connection without verifying the server certificate.
+If the server certificate is not issued by a public CA (for example, Amazon
+RDS, Google Cloud SQL, or a corporate CA), provide the CA certificate with
 `sslrootcert`:
 
 ```sh { callout="sslmode=verify-full|sslrootcert=/etc/ssl/certs/ca.pem" callout-color="orange" }
@@ -266,8 +364,10 @@ certificate, use `sslmode=verify-full` and provide a CA certificate with
   --database="postgresql://user:password@db.example.com:5432/telegraf_controller?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca.pem"
 ```
 
-For all PostgreSQL TLS options, including supported `sslmode` values and the
-`DATABASE_CA_CERT` and `DATABASE_SSL_NO_VERIFY` environment variables, see
+The host in the database URL must match a name in the server certificate.
+Provide the CA certificate with `sslrootcert` rather than with an environment
+variable, so that both the API server and the heartbeat service trust it.
+For all PostgreSQL TLS options, including supported `sslmode` values, see
 [Database TLS](/telegraf/controller/reference/config-options/#database-tls).
 
 ## Configure {{% product-name %}}

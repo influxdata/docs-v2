@@ -241,6 +241,15 @@ This value must be different than the [`--node-id`](#node-id) value.
 For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
 Required when using the `file` [object store](#object-store).
 
+Use a separate `--data-dir` for each `influxdb3 serve` process.
+
+{{% show-in "enterprise" %}}
+
+A multi-node cluster requires a shared object store such as Amazon S3; don't use the `file` object store.
+See [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/#create-an-object-store).
+
+{{% /show-in %}}
+
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
 | `--data-dir`           | `INFLUXDB3_DATA_DIR`<br>`INFLUXDB3_DB_DIR` ([pre-3.11 name](#name-changes-in-3-11)) |
@@ -259,7 +268,7 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `process`: Activates the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/) so the node can execute trigger plugins. `process` has no API surface of its own — it doesn't accept writes or serve queries. Setting [`--plugin-dir`](#plugin-dir) implicitly adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a multi-node cluster, combine `process` with another mode (typically `query`) so plugins can call `influxdb3_local.query()` locally.
+- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/), which runs plugins for triggers. A node in `process` mode alone doesn't accept writes or answer data queries. Setting [`--plugin-dir`](#plugin-dir) adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a cluster, run `process` alone on a dedicated node. See [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
 - `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/admin/explorer-ui/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret). Set [`--plugin-dir`](#plugin-dir) as well to use the plugin features in Explorer.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
@@ -826,16 +835,21 @@ OAuth scopes to request during device-code login (comma-separated).
 
 #### rbac-authoring-disabled {#rbac-authoring-disabled metadata="v3.10+"}
 
-Disables RBAC authoring (creating or modifying custom roles).
+Disables RBAC authoring endpoints and CLI commands.
+When `true`, {{% product-name %}} doesn't expose endpoints or commands that
+create roles, change role permissions, look up roles by name, or read role
+permissions.
+Listing roles and assigning roles to users remain available.
 Accepts `true` or `false`.
 
-<!-- TODO: Confirm the environment variable name and default value.
-This flag is recognized by the server but is not listed in
-`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
+This option has no effect when user authentication is disabled
+(see [`--user-auth-type`](#user-auth-type)).
 
-| influxdb3 serve option      | Environment variable |
-| :-------------------------- | :------------------- |
-| `--rbac-authoring-disabled` |                      |
+**Default:** `true`
+
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--rbac-authoring-disabled` | `INFLUXDB3_RBAC_AUTHORING_DISABLED` |
 
 ***
 
@@ -1895,8 +1909,10 @@ compaction levels. The first element specifies the duration of the first level
 
 Specifies the amount of time that the compactor waits after finishing a compaction run
 to delete files marked as needing deletion during that compaction run.
+On the legacy Parquet storage engine, compaction doesn't mark Gen1 files for
+deletion; see [Gen1 file cleanup](/influxdb3/enterprise/admin/gen1-file-cleanup/).
 
-**Default:** `10m`
+**Default:** `1h`
 
 | influxdb3 serve option      | Environment variable                           |
 | :-------------------------- | :--------------------------------------------- |
@@ -1957,6 +1973,13 @@ full indexes to the object store for other nodes to use.
 Starting in v3.11.5, nodes that run only in ingest mode (`--mode ingest`) skip
 the index regardless of this option, because they don't prune files at query
 time.
+In v3.12.1 and later, only nodes with query mode enabled load the index.
+This includes nodes started with `--mode query` or `--mode all`.
+Other nodes skip the index regardless of this option and log the following message at startup:
+
+```text
+compacted-data file index not loaded
+```
 
 This option isn't supported in the TOML configuration file; use the command
 option or environment variable.
@@ -2184,22 +2207,84 @@ is split 50/50 between the hybrid-query Parquet cache and the upgraded
 engine's file cache; otherwise, the single active cache receives the full
 budget.
 
-> \[!Note]
-> #### In v3.12+: hard limit on the upgraded storage engine
->
-> On the upgraded storage engine, `--file-cache-size` is a hard limit: the
-> budget also counts bytes held by data files that running queries
-> currently have open, not just cached files.
-> When a query's file access would exceed the budget, {{% product-name %}}
-> fails the query instead of exceeding the cache size, with
-> `file access cache budget exhausted: ...` if the budget is already fully
-> in use, or `file larger than the file access cache budget: ...` if a
-> single file is larger than the entire cache.
-> The HTTP API returns a `429` response; Flight (gRPC) clients see a
-> `RESOURCE_EXHAUSTED` error.
-> Retry the query after other queries finish.
-> Size the cache for your largest concurrent query workload, not just your
-> working set.
+> [!Note]
+> In v3.11.6 and later, the upgraded storage engine enforces a hard cache limit.
+> The budget includes cached files and files open in running queries.
+
+When file access would exceed the budget, {{% product-name %}} fails the query.
+The error identifies whether the budget is exhausted or a file exceeds the total budget:
+
+```text
+file access cache budget exhausted:
+```
+
+```text
+file larger than the file access cache budget:
+```
+
+Flight (gRPC) clients receive a `RESOURCE_EXHAUSTED` error.
+For HTTP queries in CSV, JSON, or JSON Lines format:
+
+- Before v3.12.1, the response returns HTTP 200 and ends early.
+- In v3.12.1 and later, a failure before the first row returns HTTP 429.
+  A failure after the response starts still ends the response early.
+
+Retry the query after other queries finish.
+Set the cache size to accommodate the files accessed by concurrent queries.
+
+##### Adjusting the file cache size
+
+Because the cache limit is a hard limit, a cache that's too small causes
+failures even when the node has free memory.
+
+This can look like:
+
+- On query nodes, queries fail with `file access cache budget exhausted`.
+- On compactor nodes, compaction falls behind.
+
+If queries fail with cache budget errors, address in the following
+order:
+
+1. **Check compactor health.**
+   When compaction falls behind, queries read more uncompacted files, which
+   uses more of the query node cache.
+   Signs that compaction is falling behind include the following:
+
+   - Compactor logs contain `File cache budget exhausted` or
+     `non-admitting run set index read failure, skipping plan this pass`.
+   - The number of L1 run sets in `system.pt_compaction_run_sets` keeps
+     growing.
+   - `deferred_snapshot_count` in `system.pt_compaction_ingest_nodes` is
+     greater than zero.
+
+   ```sql
+   SELECT level, count(*) AS run_sets
+   FROM system.pt_compaction_run_sets
+   GROUP BY level
+   ORDER BY level
+   ```
+
+   For more information, see
+   [Query storage engine tables](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables).
+
+2. **If compaction is falling behind, increase the compactor cache.**
+   Increase `--file-cache-size` on the compactor node, and consider adding
+   memory to the compactor node.
+
+3. **If compaction keeps up and queries still fail, increase the query node
+   cache.**
+   Increase `--file-cache-size` on query nodes only after compaction keeps
+   up with ingest and has no backlog.
+   Query nodes reserve memory for three budgets:
+
+   - [`--exec-mem-pool-size`](#exec-mem-pool-size) (default `20%`)
+   - `--file-cache-size` (default `20%`)
+   - [`--replica-max-buffer-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#replica-buffer-size)
+     (default 50%)
+
+   When you increase `--file-cache-size`, lower `--exec-mem-pool-size` or
+   `--replica-max-buffer-size` by the same amount to keep the total
+   unchanged.
 {{% /show-in %}}
 
 **Default:** `20%`

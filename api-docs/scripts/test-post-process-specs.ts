@@ -505,6 +505,73 @@ function testServersOverlay(): void {
   }
 }
 
+// 16. Exclude overlay removes listed schema properties
+function testExcludeOverlay(): void {
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
+  try {
+    writeYaml(
+      specPath,
+      makeSpec([], [], {
+        components: {
+          schemas: {
+            Routes: {
+              properties: {
+                buckets: { type: 'string' },
+                backup: { type: 'string' },
+                system: { type: 'object' },
+              },
+              required: ['buckets', 'backup'],
+            },
+          },
+        },
+      })
+    );
+
+    const contentDir = path.join(specDir, 'content');
+    fs.mkdirSync(contentDir, { recursive: true });
+    writeYaml(path.join(contentDir, 'exclude.yml'), {
+      schemaProperties: {
+        Routes: ['backup', 'system', 'notInSpec'],
+        Missing: ['anything'],
+      },
+    });
+
+    const { stderr } = runScript(root, 'influxdb3/core');
+
+    const spec = readYaml<{
+      components: {
+        schemas: Record<
+          string,
+          { properties: Record<string, unknown>; required?: string[] }
+        >;
+      };
+    }>(buildSpecPath);
+    const routes = spec.components.schemas.Routes!;
+    assert(
+      '16b. listed properties removed',
+      !('backup' in routes.properties) && !('system' in routes.properties),
+      `properties: ${Object.keys(routes.properties).join(', ')}`
+    );
+    assert(
+      '16c. unlisted properties kept',
+      'buckets' in routes.properties,
+      'buckets missing'
+    );
+    assert(
+      '16d. removed properties dropped from required',
+      JSON.stringify(routes.required) === JSON.stringify(['buckets']),
+      `required: ${JSON.stringify(routes.required)}`
+    );
+    assert(
+      '16e. warns on missing schema',
+      stderr.includes("exclude.yml schema 'Missing' not found"),
+      'no warning for missing schema'
+    );
+  } finally {
+    cleanup(root);
+  }
+}
+
 // 11. Info overlay preserves fields not in overlay
 function testInfoOverlayPreservesFields(): void {
   const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
@@ -812,6 +879,7 @@ const tests: Array<[string, () => void]> = [
   ['13. Combined: info + servers + tags', testCombinedOverlaysAndTags],
   ['14. Mirror-product presentation transforms', testMirrorProductTransforms],
   ['15. Non-mirror product unaffected', testNonMirrorProductUnaffected],
+  ['16. Exclude overlay removes schema properties', testExcludeOverlay],
 ];
 
 console.log('\npost-process-specs tests\n');

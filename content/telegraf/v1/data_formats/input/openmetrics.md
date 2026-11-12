@@ -37,6 +37,7 @@ pushed OpenMetrics data in the style of a Pushgateway.
   # openmetrics_ignore_timestamp = false
 
   ## Metric layout to produce (see below).
+  ## Use 1 when writing to InfluxDB 3.
   # openmetrics_metric_version = 2
 ```
 
@@ -81,8 +82,10 @@ prometheus go_goroutines=69
 prometheus,unit=seconds process_cpu_seconds=4200722.46
 ```
 
-The resulting metrics are sparse, but often easier to process and query for
-destinations that are more efficient with column-oriented data.
+All metrics share one measurement, with a field for each OpenMetrics metric
+name.
+InfluxDB v2 and InfluxDB Cloud (TSM) accept either layout.
+This one matches the layout that Flux `prometheus.scrape()` produces.
 To change the `prometheus` metric name, use the `name_override` plugin
 option.
 To produce multiple metric names, use multiple instances of the input
@@ -102,5 +105,7 @@ go_goroutines gauge=69
 process_cpu_seconds,unit=seconds counter=4200722.46
 ```
 
-The resulting metrics are dense, which is efficient for destinations with
-row-oriented data models.
+Each metric family gets its own measurement.
+Use this layout when writing to InfluxDB 3, where the version 2 layout
+produces a wide, sparse table.
+See [Choose a metric version](/telegraf/v1/examples/scrape-prometheus/#choose-a-metric-version).

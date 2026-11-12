@@ -11,8 +11,12 @@ menu:
     parent: Administer InfluxDB
 weight: 208
 metadata: [InfluxDB 3 Enterprise v3.11+]
+alt_links:
+  explorer: /influxdb3/explorer/install/
 related:
   - /influxdb3/explorer/
+  - /influxdb3/explorer/authentication/, Authentication in InfluxDB 3 Explorer
+  - /influxdb3/explorer/manage-users/, Manage users with InfluxDB 3 Explorer
   - /influxdb3/enterprise/admin/security/manage-users/
   - /influxdb3/enterprise/reference/internals/rbac/
   - /influxdb3/enterprise/admin/tokens/
@@ -135,6 +139,13 @@ See
 for the equivalent CLI-only workflow.
 
 After you sign in, Explorer configures the default connection for you.
+
+For the setup page, signing in, and managing users in the Explorer UI, see
+the InfluxDB 3 Explorer documentation:
+
+- [Set up the first user](/influxdb3/explorer/authentication/set-up-first-user/)
+- [Authentication](/influxdb3/explorer/authentication/)
+- [Manage users with InfluxDB 3 Explorer](/influxdb3/explorer/manage-users/)
 
 ## Default connections and query routing
 

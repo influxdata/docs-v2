@@ -109,6 +109,8 @@ runs:
     - name: Build Hugo site
       shell: bash
       run: |
+        HUGO_PARAMS_DEPLOYEDCOMMIT="$(git rev-parse HEAD)"
+        export HUGO_PARAMS_DEPLOYEDCOMMIT
         HUGO_ARGS="--environment ${{ inputs.hugo-environment }}"
         HUGO_ARGS="$HUGO_ARGS --destination ${{ inputs.hugo-destination }}"
         if [ -n "${{ inputs.hugo-base-url }}" ]; then

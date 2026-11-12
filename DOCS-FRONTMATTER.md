@@ -330,6 +330,18 @@ When building shared content, use the `show-in` and `hide-in` shortcodes to show
 or hide blocks of content based on the current InfluxDB product/version.
 For more information, see [show-in](DOCS-SHORTCODES.md#show-in) and [hide-in](DOCS-SHORTCODES.md#hide-in).
 
+#### Local previews of shared content
+
+When you edit `content/shared/` while `hugo server` is running, Hugo's watcher doesn't automatically rebuild the consuming pages.
+To refresh the local preview, touch each consuming stub or stop and restart the server.
+Fresh builds, including CI builds and checks, read the shared source and don't require stub touches.
+Affected-page detection is separate from the development watcher.
+
+Edit a consuming stub only when its frontmatter needs to change.
+A shared body edit alone doesn't require a committed stub diff.
+A filesystem `touch` changes timestamps and ordinarily produces no Git diff; don't make artificial frontmatter edits to carry that timestamp into CI.
+Continue identifying and reviewing every consumer for product support, sibling navigation, links, conditional content, and rendering.
+
 #### Links in shared content
 
 When creating links in shared content files, you can use the `version` keyword, which gets replaced during the build process with the appropriate product version.

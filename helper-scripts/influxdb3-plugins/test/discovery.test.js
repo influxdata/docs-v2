@@ -162,3 +162,52 @@ test('partitions discovered plugins by whether docs_mapping.yaml already maps th
     ['stock_plugin']
   );
 });
+
+for (const statuses of [
+  [true, true],
+  [false, true],
+  [true, false],
+  [true, undefined],
+  [true, 'true'],
+]) {
+  test(`retires only plugins with every version explicitly yanked: ${JSON.stringify(statuses)}`, () => {
+    const entries = statuses.map((yanked, i) => ({
+      name: 'nori_regression',
+      version: `0.1.${i}`,
+      published_at: `2026-09-0${i + 1}T00:00:00Z`,
+      yanked,
+    }));
+    for (const plugins of [entries, [...entries].reverse()]) {
+      const parsed = parseRegistryIndex({ plugins });
+      const retired = statuses.every((status) => status === true);
+      assert.deepEqual(
+        parsed.plugins.map((p) => p.name),
+        retired ? [] : ['nori_regression']
+      );
+      assert.deepEqual(
+        parsed.retired.map((p) => p.name),
+        retired ? ['nori_regression'] : []
+      );
+      assert.equal([...parsed.plugins, ...parsed.retired][0].version, '0.1.1');
+    }
+  });
+}
+
+test('exclusions and path overrides also apply to retired plugins', () => {
+  const parsed = parseRegistryIndex(
+    {
+      plugins: [
+        { name: 'retired_plugin', yanked: true },
+        { name: 'excluded_plugin', yanked: true },
+      ],
+    },
+    {
+      overrides: { retired_plugin: { stub_slug: 'custom-stub' } },
+      exclude: ['excluded_plugin'],
+    }
+  );
+  assert.deepEqual(parsed.plugins, []);
+  assert.deepEqual(parsed.excluded, ['excluded_plugin']);
+  assert.equal(parsed.retired[0].slug, 'retired-plugin');
+  assert.equal(parsed.retired[0].stubSlug, 'custom-stub');
+});

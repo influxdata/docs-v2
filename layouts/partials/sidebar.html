@@ -98,12 +98,12 @@
   {{ end }}
 
   <!-- Feature Board link for supported products -->
-  {{ $featureBoardWhitelist := slice "influxdb3_core" "influxdb3_enterprise" }}
+  <!-- {{ $featureBoardWhitelist := slice "influxdb3_core" "influxdb3_enterprise" }}
   {{ if in $featureBoardWhitelist (print $product "_" $currentVersion) }}
     <li class="feature-board-item">
       {{ partial "sidebar/feature-board.html" (dict "product" $product "version" $currentVersion "productName" $productData.name) }}
     </li>
-  {{ end }}
+  {{ end }} -->
 
   <!-- Platform menu for 1.x docs -->
   {{ $platformWhitelist := (slice "chronograf_v1" "kapacitor_v1" "enterprise_influxdb_v1" "influxdb_v1") }}
