@@ -433,7 +433,9 @@ container must be able to reach the identity provider at the issuer address.
     https://explorer.example.com/auth/callback
     ```
 
-2.  Start the container with the following environment variables:
+2.  For an existing deployment, reuse its session secret.
+    Export `SESSION_SECRET_KEY` from your secret store into your shell environment.
+    Start the container with the following environment variables:
 
     - `EXPLORER_OAUTH_CID`: the client ID of Explorer in your identity
       provider
@@ -445,7 +447,7 @@ container must be able to reach the identity provider at the issuer address.
       --publish 127.0.0.1:8888:8080 \
       --volume $(pwd)/config:/app-root/config:ro \
       --volume $(pwd)/db:/db:rw \
-      --env SESSION_SECRET_KEY=$(openssl rand -hex 32) \
+      --env SESSION_SECRET_KEY \
       --env EXPLORER_OAUTH_CID=CLIENT_ID \
       --env EXPLORER_OAUTH_REDIRECT_URI=EXPLORER_URL/auth/callback \
       influxdata/influxdb3-ui:{{% latest-patch %}} \
