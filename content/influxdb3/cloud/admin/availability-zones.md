@@ -12,6 +12,7 @@ weight: 106
 influxdb3/cloud/tags: [availability zones, resilience, admin ui]
 related:
   - /influxdb3/cloud/admin/monitor-instance/
+  - /influxdb3/cloud/reference/regions/
 ---
 
 Each {{% product-name %}} instance runs in one or more availability zones of
@@ -31,7 +32,8 @@ These agreements cover the cloud provider's infrastructure, not
 {{% product-name %}}.
 
 Not all cloud provider regions are available for {{% product-name %}}.
-To request a region, contact your InfluxData representative.
+For the available regions and how to request one, see
+[Supported regions](/influxdb3/cloud/reference/regions/).
 
 - [View your instance's availability zones](#view-your-instances-availability-zones)
 - [Single-zone and multi-zone instances](#single-zone-and-multi-zone-instances)

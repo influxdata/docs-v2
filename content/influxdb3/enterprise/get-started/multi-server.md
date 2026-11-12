@@ -80,11 +80,14 @@ Learn how to set up a multi-node cluster for different use cases, including high
 With the {{% product-name %}} diskless architecture, all data is stored in a common object store.
 In a multi-node cluster, you connect all nodes to the same object store.
 
-Enterprise supports the following object stores:
+A multi-node cluster requires one of the following object stores:
 
-- AWS S3 (or S3-compatible)
+- AWS S3 (or S3-compatible, such as [MinIO](/influxdb3/enterprise/admin/object-storage/minio/))
 - Azure Blob Storage
 - Google Cloud Storage
+
+The `file` object store supports a single node only.
+Don't share a [`--data-dir`](/influxdb3/enterprise/reference/config-options/#data-dir) between nodes, including over a network file system.
 
 > [!Note]
 > Refer to your object storage provider's documentation for 

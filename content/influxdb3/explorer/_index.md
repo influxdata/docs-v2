@@ -30,6 +30,7 @@ Explorer provides an intuitive interface for interacting with your time series d
 Use InfluxDB 3 Explorer for:
 
 - **Database management**: Create and manage InfluxDB 3 instances, databases, tokens, plugins, and more
+- **User management**: [Sign in](/influxdb3/explorer/authentication/) with your own account and [manage users](/influxdb3/explorer/manage-users/) and their roles with InfluxDB 3 Enterprise
 - **Data visualization and analysis**: Query data with a built-in visualizer for enhanced data insights  
 - **Data ingestion**: Write new data and setup Telegraf configurations
 
