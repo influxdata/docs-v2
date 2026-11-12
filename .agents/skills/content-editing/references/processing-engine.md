@@ -9,7 +9,7 @@ so *schedule* belongs to the scheduler.
   *scheduled call*.
 - The `ProcessingEngineScheduling` prose-lint rule in
   `scripts/ci/prose-lint/rules.yml` flags phrasings such as "process nodes that
-  schedule the trigger".
+  schedule the trigger" in prose.
 
 This wording is interim. Revisit it, and the lint rule, when the docs describe
 separate scheduler and worker roles.
