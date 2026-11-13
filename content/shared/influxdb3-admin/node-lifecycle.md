@@ -370,6 +370,34 @@ paths.
 Repeating a remove request for a node that's already `removing` succeeds
 without changing state (HTTP `200 OK`).
 
+### Removal on the Parquet engine completes after the storage engine upgrade
+
+On a cluster that still runs the Parquet engine, `remove node` marks the node
+`removing`, but nothing completes the removal.
+The node stays `removing`, its node ID can't register again, and its files stay
+in object storage.
+Only the compactor of the
+[upgraded storage engine](/influxdb3/version/reference/internals/storage-engine/)
+completes removals.
+
+- **If you plan to upgrade the storage engine**, remove the ingest nodes you've
+  retired before you start the
+  [upgrade](/influxdb3/version/reference/internals/storage-engine/#upgrade-from-parquet).
+  The removals complete shortly after the compactor first starts with
+  `--upgrade-pacha-tree`.
+  Run v3.12.2 or later, or v3.11.8 or later on 3.11, for the upgrade—in
+  earlier versions, a removed ingest node holds the upgrade at `upgrading`.
+- **If you don't plan to upgrade**, leave the nodes you've retired `stopped`
+  instead of removing them.
+  A `stopped` node can register again under the same node ID; a `removing`
+  node can't.
+
+Removal on the Parquet engine doesn't delete the node's Parquet files.
+After the upgrade,
+[`influxdb3 manage cleanup-parquet`](/influxdb3/version/reference/cli/influxdb3/manage/cleanup-parquet/)
+deletes Parquet data only for nodes still in the catalog, so a removed node's
+Parquet files stay in object storage.
+
 ### Removal completes on the compactor's schedule
 
 `removing` isn't instantaneous, and you can't force it to finish.
@@ -830,7 +858,12 @@ Restart the node, stop it gracefully, and then remove it.
 
 ### A node stays in removing
 
-Removal waits on the compactor, so a healthy cluster with a compaction backlog
+On the Parquet engine, removal doesn't complete until you upgrade the storage
+engine.
+See [Removal on the Parquet engine completes after the storage engine upgrade](#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
+
+On the upgraded storage engine, removal waits on the compactor, so a healthy
+cluster with a compaction backlog
 clears `removing` nodes slowly rather than never.
 See [Removal completes on the compactor's schedule](#removal-completes-on-the-compactors-schedule)
 for how to measure the remaining gap.
