@@ -241,6 +241,15 @@ This value must be different than the [`--node-id`](#node-id) value.
 For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
 Required when using the `file` [object store](#object-store).
 
+Use a separate `--data-dir` for each `influxdb3 serve` process.
+
+{{% show-in "enterprise" %}}
+
+A multi-node cluster requires a shared object store such as Amazon S3; don't use the `file` object store.
+See [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/#create-an-object-store).
+
+{{% /show-in %}}
+
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
 | `--data-dir`           | `INFLUXDB3_DATA_DIR`<br>`INFLUXDB3_DB_DIR` ([pre-3.11 name](#name-changes-in-3-11)) |
@@ -826,16 +835,21 @@ OAuth scopes to request during device-code login (comma-separated).
 
 #### rbac-authoring-disabled {#rbac-authoring-disabled metadata="v3.10+"}
 
-Disables RBAC authoring (creating or modifying custom roles).
+Disables RBAC authoring endpoints and CLI commands.
+When `true`, {{% product-name %}} doesn't expose endpoints or commands that
+create roles, change role permissions, look up roles by name, or read role
+permissions.
+Listing roles and assigning roles to users remain available.
 Accepts `true` or `false`.
 
-<!-- TODO: Confirm the environment variable name and default value.
-This flag is recognized by the server but is not listed in
-`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
+This option has no effect when user authentication is disabled
+(see [`--user-auth-type`](#user-auth-type)).
 
-| influxdb3 serve option      | Environment variable |
-| :-------------------------- | :------------------- |
-| `--rbac-authoring-disabled` |                      |
+**Default:** `true`
+
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--rbac-authoring-disabled` | `INFLUXDB3_RBAC_AUTHORING_DISABLED` |
 
 ***
 
@@ -2217,6 +2231,60 @@ For HTTP queries in CSV, JSON, or JSON Lines format:
 
 Retry the query after other queries finish.
 Set the cache size to accommodate the files accessed by concurrent queries.
+
+##### Adjusting the file cache size
+
+Because the cache limit is a hard limit, a cache that's too small causes
+failures even when the node has free memory.
+
+This can look like:
+
+- On query nodes, queries fail with `file access cache budget exhausted`.
+- On compactor nodes, compaction falls behind.
+
+If queries fail with cache budget errors, address in the following
+order:
+
+1. **Check compactor health.**
+   When compaction falls behind, queries read more uncompacted files, which
+   uses more of the query node cache.
+   Signs that compaction is falling behind include the following:
+
+   - Compactor logs contain `File cache budget exhausted` or
+     `non-admitting run set index read failure, skipping plan this pass`.
+   - The number of L1 run sets in `system.pt_compaction_run_sets` keeps
+     growing.
+   - `deferred_snapshot_count` in `system.pt_compaction_ingest_nodes` is
+     greater than zero.
+
+   ```sql
+   SELECT level, count(*) AS run_sets
+   FROM system.pt_compaction_run_sets
+   GROUP BY level
+   ORDER BY level
+   ```
+
+   For more information, see
+   [Query storage engine tables](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables).
+
+2. **If compaction is falling behind, increase the compactor cache.**
+   Increase `--file-cache-size` on the compactor node, and consider adding
+   memory to the compactor node.
+
+3. **If compaction keeps up and queries still fail, increase the query node
+   cache.**
+   Increase `--file-cache-size` on query nodes only after compaction keeps
+   up with ingest and has no backlog.
+   Query nodes reserve memory for three budgets:
+
+   - [`--exec-mem-pool-size`](#exec-mem-pool-size) (default `20%`)
+   - `--file-cache-size` (default `20%`)
+   - [`--replica-max-buffer-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#replica-buffer-size)
+     (default 50%)
+
+   When you increase `--file-cache-size`, lower `--exec-mem-pool-size` or
+   `--replica-max-buffer-size` by the same amount to keep the total
+   unchanged.
 {{% /show-in %}}
 
 **Default:** `20%`

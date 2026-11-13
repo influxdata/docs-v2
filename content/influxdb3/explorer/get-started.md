@@ -42,6 +42,14 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 > [Administer InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/admin/) or
 > [Administer InfluxDB 3 Cloud](/influxdb3/cloud/admin/).
 
+> [!Note]
+> #### Servers that require sign-in
+>
+> If your InfluxDB 3 Enterprise server has user authentication turned on,
+> Explorer asks you to sign in and then configures the connection for you.
+> You don't add a server or a token.
+> See [Authentication](/influxdb3/explorer/authentication/).
+
 1.  Navigate to **Configure** > **Servers**.
 2.  Click **+ Connect Your First Server**.
 3.  Provide the following InfluxDB 3 server information:
@@ -90,7 +98,8 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
       > anyone with access to this Explorer instance can do. Use a token scoped
       > to what you need, and control who can reach Explorer.
       > With user authentication on an InfluxDB 3 Enterprise v3.12 or later
-      > server, users sign in first and their role determines what they can do.
+      > server, users [sign in](/influxdb3/explorer/authentication/) first and
+      > their role determines what they can do.
       > If you're running the
       > [Docker container](/influxdb3/explorer/install/docker/), see
       > [Network exposure and access control](/influxdb3/explorer/install/docker/#network-exposure-and-access-control).

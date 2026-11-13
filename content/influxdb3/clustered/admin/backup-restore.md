@@ -155,7 +155,7 @@ INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 
 Enable a snapshot check when deleting files to ensure the Garbage Collector does
 not remove Parquet files from the object store that are associated with existing
-snapshots. The default is `'false'`. Set to `'true'`:
+snapshots. The default is `'true'`. If snapshots were previously disabled, set this to `'true'`:
 
 ```yaml
 INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
@@ -169,7 +169,7 @@ INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'true'
 > storage space and costs you incur.
 
 > [!Caution]
-> If set to `false` (the default), the Garbage Collector may delete Parquet
+> If set to `false`, the Garbage Collector may delete Parquet
 > files needed for snapshot restoration, making recovery points unusable.
 
 #### INFLUXDB_IOX_KEEP_HOURLY_CATALOG_BACKUP_FILE_LISTS

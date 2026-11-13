@@ -91,6 +91,53 @@ Replace the following:
 - {{% code-placeholder-key %}}`TELEGRAF_CONTROLLER_TOKEN`{{% /code-placeholder-key %}}:
   your {{% product-name %}} API token
 
+## Paginate list results
+
+List endpoints return one page of items at a time, with the items in `data`
+and the paging values in `total`, `page`, and `limit`.
+Use the `page` and `limit` query parameters to choose the page:
+
+- `page`: the page number, starting at `1`. Default: `1`.
+- `limit`: the number of items per page. Default: `10`. There is no maximum.
+  `limit=0` returns every item in one response.
+
+A `limit` that is not a whole number of zero or more, such as `-1`, `1.5`,
+or `all`, returns `400 Bad Request` with the message
+`limit must be a non-negative integer`.
+
+The following endpoints are paginated:
+
+- `GET /api/agents`
+- `GET /api/configs`
+- `GET /api/config-groups`
+- `GET /api/labels`
+- `GET /api/reporting-rules`
+- `GET /api/tokens`
+
+The following example retrieves every label in one request:
+
+<!--pytest.mark.skip-->
+```bash { placeholders="TELEGRAF_CONTROLLER_HOST|TELEGRAF_CONTROLLER_TOKEN" }
+curl --request GET \
+  "https://TELEGRAF_CONTROLLER_HOST/api/labels?limit=0" \
+  --header "Authorization: Bearer TELEGRAF_CONTROLLER_TOKEN"
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`TELEGRAF_CONTROLLER_HOST`{{% /code-placeholder-key %}}:
+  the host and port of your {{% product-name %}} instance
+- {{% code-placeholder-key %}}`TELEGRAF_CONTROLLER_TOKEN`{{% /code-placeholder-key %}}:
+  your {{% product-name %}} API token
+
+> [!Note]
+> `limit=0` returns the whole collection in one response.
+> On a large fleet, page through agents and configurations with `page` and
+> `limit` instead.
+
+`GET /api/security-advisories` (Telegraf Enterprise) uses its own range:
+`limit` accepts `1` to `100` and defaults to `25`.
+
 ## Explore the interactive API reference
 
 Each {{% product-name %}} instance serves a complete, interactive API reference

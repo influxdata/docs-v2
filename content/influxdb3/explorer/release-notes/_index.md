@@ -27,18 +27,66 @@ docker pull influxdata/influxdb3-ui
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## v1.11.2 {date="2026-10-27"}
+
+#### Features
+
+- **Cloud Serverless, Cloud Dedicated, and Clustered queries**: Explorer runs queries against InfluxDB Cloud Serverless, InfluxDB Cloud Dedicated, and InfluxDB Clustered over Arrow Flight.
+- **Confirm Ask AI actions**: Ask AI asks you to confirm before it creates or deletes a database, creates a token, or writes data.
+- **More sample data**: Generate the new Home Sensor, EU Wind, and Random Numbers sample datasets.
+  After writing sample data, Explorer reports how many rows it wrote.
+- **Anthropic model**: Use Claude Haiku 5.5 as the default model for the Anthropic AI provider.
+
+#### Bug fixes
+
+- **Upgrades**: Restore Query Tool tabs saved by Explorer 1.10.x and earlier, and update stock System Overview dashboards migrated from Explorer 1.10.x or earlier.
+- **Sign-in and sessions**: Keep your session while InfluxDB is unreachable, tell an expired SSO sign-in apart from a rejected one, [explain a missing SSO button](/influxdb3/explorer/authentication/troubleshoot/#sign-in-with-sso-isnt-available), and return to the sign-in page when an SSO sign-in fails to start.
+- **Queries**: Fix how the SQL time range is applied to subqueries, CTEs, joins, and last value cache queries; keep both values of same-named `JOIN` columns; and count every `GROUP BY time()` bucket in InfluxQL results.
+- **Query Tool**: Complete column names after a lowercase `WHERE` and after `AND`/`OR`, quote cache columns and names picked from the schema, and show the reason a chart request or export failed.
+- **Export**: Keep every column in CSV exports, and return a file with headers for an empty result.
+- **Charts**: Show the latest value in Single Stat and Gauge charts, and read an aliased date-time column as time.
+- **Dashboards**: Re-run cells only on refresh or when the cell changes, open dashboards with a cell that has no layout, and accept an uppercase `.JSON` extension on import.
+- **Grafana**: Page through dashboard search, follow Grafana's time picker in exported SQL panels, and keep the sign-in session token out of Grafana.
+- **Ask AI**: Sanitize HTML in answers, show every column of a query result, lock the message input until an AI provider is configured, and explain token limits and cut-off answers.
+- **Plugins and triggers**: List every plugin version in the Plugin Library, install multi-file plugins into their own directory, validate cron triggers the way InfluxDB parses them, ask for confirmation before deleting a trigger or transformation, and require an admin token for the plugins API.
+- **Transform Data**: Keep a stopped transformation stopped when it's edited, chain value operations on the same column, and find source tables beyond the first 64.
+- **Import**: Write imported timestamps as nanoseconds, import All Time by default, report tables the destination refused, and size CSV parts to fit the InfluxDB 3 Enterprise request size limit.
+- **Write data**: Give each Kafka subscription its own consumer group and each MQTT subscription its own client ID, and send the SASL mechanism shown in the Kafka form.
+- **Databases and tables**: Refuse to delete the `_internal` database, reject a zero retention period, leave soft-deleted tables out of counts, and support database and table retention periods and Parquet export in InfluxDB 3 Cloud.
+- **Tokens**: Add a copy button to the Token Created dialog, and mask plaintext tokens on the Setup page and in Ask AI.
+- **System overview**: Count each Parquet file once, leave `_internal` out of Total Databases, and give the monitoring dashboard its own time range.
+- **Command line builder**: Hide Enterprise-only flags on InfluxDB 3 Core, and build commands InfluxDB 3 accepts for MinIO, Google Cloud Storage, and Azure.
+- **Standalone Docker image**: Accept `LOG_LEVEL` in any case, require a host in the InfluxDB address, and stop gracefully on `SIGTERM` and `SIGINT`.
+- **Display**: Show dashboard dates, query history, and subscription errors in local time.
+- **Security**: Update dependency versions.
+
+## v1.11.1 {date="2026-10-13"}
+
+#### Bug fixes
+
+- **Write data**: Write large CSV and JSON imports in batches, and keep each column's type across batches.
+- **Queries**: Insert the SQL time range in the right place, apply it to every part of a set operation, keep `OR` filters intact, and page InfluxQL results within the query's own `LIMIT` and `OFFSET`.
+- **Dashboards**: Read and import custom time ranges, span the chart time axis over the dashboard time range, keep a cell's visualization through **Configure Query** and **Save**, and restore the language of InfluxQL cells saved without one.
+- **Grafana**: Export and import native panels, time range, refresh, and layout; find the panel database anywhere in its description; and import relative ranges that match an Explorer preset.
+- **Charts**: Explain why a chart has nothing to draw, and keep rotated axis labels inside the chart.
+- **Ask AI**: Send each message to the AI provider once, stop showing the latest answer twice, send custom and admin AI instructions with chat requests, and show "API key is required" for an empty API key.
+- **Standalone Docker image**: Stop trying to reach an unreachable server after 5 seconds, open the SQLite file named by `DATABASE_URL`, forward AI provider base URLs, and stop when Explorer's database can't be written or migrated.
+- **Caches**: List a table's caches instead of failing.
+- **Navigation**: Redirect `/writeData` and `/configure` to their first page, and hide caches and integrations in query mode.
+- **Security**: Update dependency versions.
+
 ## v1.11.0 {date="2026-09-30"}
 
 #### Features
 
-- **Password sign-in**: Sign in with a username and password when connected to an InfluxDB 3 Enterprise server that uses [user authentication](/influxdb3/enterprise/admin/security/manage-users/).
-  On first run, create the administrator account and save the operator token.
-- **Single sign-on**: Sign in through an OpenID Connect (OIDC) provider.
-- **Role-based access**: Explorer shows the pages and actions your role allows.
-  After upgrading, choose whether to keep your existing dashboards and saved queries; stored keys and tokens are not carried over.
-- **Manage Users**: Add users with password, SSO, or both; assign roles; require a password reset; and delete users from the new **Manage Users** page.
-  Change your own password from the profile menu.
-- **Security navigation section**: Find **Tokens** and **Users** under a new **Security** section in the navigation.
+- **Password sign-in**: [Sign in with a username and password](/influxdb3/explorer/authentication/#sign-in-with-a-username-and-password) when connected to an InfluxDB 3 Enterprise server that uses [user authentication](/influxdb3/enterprise/admin/security/manage-users/).
+  On first run, [create the administrator account](/influxdb3/explorer/authentication/set-up-first-user/) and save the operator token.
+- **Single sign-on**: [Sign in through an OpenID Connect (OIDC) provider](/influxdb3/explorer/authentication/#sign-in-with-sso).
+- **Role-based access**: Explorer shows the pages and actions your [role](/influxdb3/explorer/manage-users/roles/) allows.
+  After upgrading, [choose whether to keep your existing dashboards and saved queries](/influxdb3/explorer/install/upgrade/#bring-your-earlier-work-across); stored keys and tokens are not carried over.
+- **Manage Users**: Add users with password, SSO, or both; assign roles; require a password reset; and delete users from the new [**Manage Users**](/influxdb3/explorer/manage-users/) page.
+  [Change your own password](/influxdb3/explorer/manage-users/account/#change-your-password) from the account menu.
+- **Security navigation section**: Find [**Manage Tokens**](/influxdb3/explorer/manage-tokens/) and [**Manage Users**](/influxdb3/explorer/manage-users/) under a new **Security** section in the navigation.
 - **New visualization types**: Visualize query results as Area, Single Stat, Gauge, Pie, Scatter, and Ranking charts in the Data Explorer and in dashboard cells.
 - **EXPLAIN in SQL**: Run `EXPLAIN` and `EXPLAIN ANALYZE` statements in the SQL editor to view query plans.
 - **Flux to SQL feedback**: Rate a conversion and add an optional comment.

@@ -33,6 +33,8 @@ plugins.
     Through the API, the create request returns `409 Conflict` with
     `"error": "config_name_taken"`.
     A configuration and a configuration group can share a name.
+    Descriptions can be up to 1,000 characters and support Markdown.
+    See [Format a description with Markdown](#format-a-description-with-markdown).
 4.  _(Optional)_ To assign
     [aliases](/telegraf/controller/configs/aliases/) to the configuration,
     click **{{% lucide "plus" %}} Add Alias** and enter an alias that
@@ -74,6 +76,34 @@ _For detailed information about using the Telegraf Builder, see
 > We are in the process of adding support for more Telegraf plugins in the
 > Telegraf Builder. You can use plugins that are not currently supported by the
 > builder, but you must add and edit them with the Code Editor.
+
+### Format a description with Markdown
+
+Configuration descriptions support Markdown.
+The description editor has two tabs: **Write**, where you type the
+description, and **Preview**, which shows how {{% product-name %}} renders it.
+A counter under the field shows the length of the description against the
+1,000-character limit.
+
+{{% product-name %}} renders standard Markdown without extensions:
+
+- Headings, paragraphs, and blockquotes
+- Bulleted and numbered lists
+- Bold, italic, and inline code
+- Fenced code blocks
+- Links, which open in a new browser tab
+
+A single line break in the editor renders as a line break.
+Tables, task lists, and strikethrough are not supported.
+Raw HTML appears as literal text, images are replaced with their alternative
+text, and links with unsafe URL schemes such as `javascript:` are removed.
+
+The configuration detail page renders the full description.
+Where a description appears on a single line, only bold, italic, and inline
+code formatting is kept, and headings, lists, and links are shown as plain
+text. Single-line descriptions appear in the configuration list, in page
+headers, in the **Agent Configurations** card on an agent detail page, and in
+the dialogs for adding configurations to a group.
 
 ## Heartbeat output plugin {note="Telegraf 1.37+"}
 
