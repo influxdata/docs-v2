@@ -62,6 +62,15 @@ Any acknowledged writes that were **not** covered by the node's final
 snapshot are deleted with them.
 That is why the node must complete a graceful stop first.
 
+> [!Important]
+> #### On the Parquet engine, removal completes after the storage engine upgrade
+>
+> On a cluster that still runs the Parquet engine, steps 2 and 3 don't run
+> until you upgrade the storage engine.
+> The node stays `removing`, and its node ID can't register again.
+> See
+> [Removal on the Parquet engine completes after the storage engine upgrade](/influxdb3/version/admin/node-lifecycle/#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
+
 ### Removal is refused if unsnapshotted WAL remains (upgraded engine) {#removal-is-refused-if-unsnapshotted-wal-remains-upgraded-engine metadata="v3.11+"}
 
 On clusters that have fully adopted the upgraded storage engine (the default
