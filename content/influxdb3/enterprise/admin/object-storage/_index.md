@@ -1,7 +1,7 @@
 ---
 title: Configure object storage
 description: |
-  Configure {{% product-name %}} to connect to and use different object storage
+  Configure InfluxDB 3 Enterprise to connect to and use different object storage
   providers.
 menu:
   influxdb3_enterprise:

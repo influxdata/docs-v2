@@ -3,7 +3,7 @@ title: Use Telegraf to write data
 seotitle: Use the Telegraf agent to collect and write data
 weight: 102
 description: >
-  Use Telegraf to collect and write data to {{< product-name >}}.
+  Use Telegraf to collect and write data to InfluxDB 3 Enterprise.
 aliases:
   - /influxdb3/enterprise/collect-data/advanced-telegraf
   - /influxdb3/enterprise/collect-data/use-telegraf

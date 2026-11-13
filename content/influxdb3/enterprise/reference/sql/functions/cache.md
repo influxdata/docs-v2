@@ -2,7 +2,7 @@
 title: SQL cache functions
 list_title: Cache functions
 description: >
-  Retrieve cached data from {{< product-name >}} caches.
+  Retrieve cached data from InfluxDB 3 Enterprise caches.
 menu:
   influxdb3_enterprise:
     name: Cache

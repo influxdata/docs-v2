@@ -2,7 +2,7 @@
 title: Query data in {{% product-name %}}
 seotitle: Query data | Get started with {{% product-name %}}
 description: >
-  Learn how to get started querying data in {{% product-name %}} using native
+  Learn how to get started querying data in InfluxDB 3 Enterprise using native
   SQL or InfluxQL with the `influxdb3` CLI and other tools.
 menu:
   influxdb3_enterprise:

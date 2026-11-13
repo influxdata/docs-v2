@@ -1,7 +1,7 @@
 ---
 title: influxdb3 show system
 description: >
-  The `influxdb3 show system` command displays data from {{< product-name >}}
+  The `influxdb3 show system` command displays data from InfluxDB 3 Enterprise
   system tables.
 menu:
   influxdb3_enterprise:

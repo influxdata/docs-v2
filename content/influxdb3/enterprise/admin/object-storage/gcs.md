@@ -3,7 +3,7 @@ title: Use Google Cloud Storage for object storage
 list_title: Google Cloud Storage
 description: |
   Use [Google Cloud Storage](https://cloud.google.com/storage) as the object
-  store for your {{% product-name %}} instance.
+  store for your InfluxDB 3 Enterprise instance.
 menu:
   influxdb3_enterprise:
     name: Google Cloud Storage

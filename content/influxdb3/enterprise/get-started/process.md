@@ -2,7 +2,7 @@
 title: Process data in {{% product-name %}}
 seotitle: Process data | Get started with {{% product-name %}}
 description: >
-  Learn how to use the {{% product-name %}} Processing Engine to process data and
+  Learn how to use the InfluxDB 3 Enterprise Processing Engine to process data and
   perform various tasks like downsampling, alerting, forecasting, data
   normalization, and more.
 menu:

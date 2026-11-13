@@ -3,7 +3,7 @@ title: Use the integrated InfluxDB 3 Explorer UI
 list_title: InfluxDB 3 Explorer
 description: >
   Serve the InfluxDB 3 Explorer web UI directly from your
-  {{< product-name >}} server. Starting with v3.11, Explorer ships inside the
+  InfluxDB 3 Enterprise server. Starting with v3.11, Explorer ships inside the
   Enterprise binary as a WebAssembly (WASM) guest, so you don't run a separate
   container.
 menu:

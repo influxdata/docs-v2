@@ -2,7 +2,7 @@
 title: Manage databases
 seotitle: Manage databases in {{< product-name >}}
 description: >
-  An {{< product-name >}} database is a named location where time series data is
+  An InfluxDB 3 Enterprise database is a named location where time series data is
   stored. Each database can contain multiple tables.
 menu:
   influxdb3_enterprise:

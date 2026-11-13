@@ -2,7 +2,7 @@
 title: Delete a database
 description: >
   Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to delete a database
-  from {{< product-name >}}.
+  from InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Manage databases

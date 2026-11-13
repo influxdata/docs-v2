@@ -3,7 +3,7 @@ title: Use Superset to visualize data
 list_title: Superset
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
-  to query and visualize data from {{< product-name >}}.
+  to query and visualize data from InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Visualize data

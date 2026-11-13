@@ -4,7 +4,7 @@ seotitle: Capture anonymized workload data with InfluxDB 3 Enterprise load captu
 introduced: v3.10.0
 description: >
   Use load capture to record an anonymized profile of write and query traffic
-  on an {{% product-name %}} query node, inspect it, and share it with
+  on an InfluxDB 3 Enterprise query node, inspect it, and share it with
   InfluxData to troubleshoot performance.
 weight: 207
 menu:

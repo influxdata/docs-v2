@@ -2,7 +2,7 @@
 title: Manage users and authentication
 seotitle: Manage users and authentication in InfluxDB 3 Enterprise
 description: >
-  Enable multi-user authentication in {{% product-name %}}, bootstrap the
+  Enable multi-user authentication in InfluxDB 3 Enterprise, bootstrap the
   initial admin, and manage user login.
 menu:
   influxdb3_enterprise:
