@@ -1,3 +1,7 @@
+{{- $level := .Get "level" | default 2 | int -}}
+{{- if not (in (slice 2 3 4) $level) -}}
+  {{- errorf "faq shortcode: level must be 2, 3, or 4 (page %s)" .Page.RelPermalink -}}
+{{- end -}}
 {{- $key := .Page.Params.faq_data -}}
 {{- if not $key -}}
   {{- errorf "faq shortcode requires faq_data frontmatter on the page (%s)" .Page.RelPermalink -}}
@@ -7,7 +11,7 @@
   {{- errorf "faq shortcode: no data file at data/faqs/%s.yml (page %s)" $key .Page.RelPermalink -}}
 {{- end -}}
 {{- range $faqs }}
-<h2 id="{{ .question | anchorize }}">{{ .question }}</h2>
+<h{{ $level }} id="{{ .question | anchorize }}">{{ .question }}</h{{ $level }}>
 <div class="faq-answer">
 {{ $.Page.RenderString (dict "display" "block") .answer }}
 </div>
