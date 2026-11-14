@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The Bird Tracking Simulator Plugin generates a stream of synthetic bird telemetry for demos, testing, and sample-data workflows.
 On its first run, it creates a persistent flock of named birds, assigns each bird a species, natural range, starting location, heading, and healthy body temperature, then stores that flock in the Processing Engine cache.
 Each scheduled call advances the flock with sinusoidal flight speed, gentle heading changes, latitude and longitude updates, and temperature jitter.
@@ -167,5 +167,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

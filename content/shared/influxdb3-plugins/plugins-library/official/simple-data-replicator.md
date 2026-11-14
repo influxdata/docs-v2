@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The Simple Data Replicator Plugin replicates data from a local {{% product-name %}} instance to a remote {{% product-name %}} instance over HTTP. It supports table and field filtering, table and field renaming, and runs either on a schedule (pulling a time window from a source measurement) or on every write (replicating committed WAL batches). Data is buffered in a compressed JSONL queue file and delivered with automatic retries, so it survives transient remote failures.
 
 ## Configuration
@@ -253,5 +253,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

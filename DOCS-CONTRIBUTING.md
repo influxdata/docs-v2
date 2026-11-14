@@ -8,7 +8,7 @@ Ready to contribute?
 
 1. [Sign the InfluxData CLA](#sign-the-influxdata-cla) (for substantial changes)
 2. [Fork and clone](#fork-and-clone-influxdata-documentation-repository) this repository
-3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Vale; Docker for code block tests / optional Vale fallback)
+3. [Install dependencies](#development-environment-setup) (Node.js, Yarn; Docker for code block tests)
 4. Make your changes following [style guidelines](#making-changes)
 5. [Test your changes](DOCS-TESTING.md) (pre-commit and pre-push hooks run automatically)
 6. [Submit a pull request](#submission-process)
@@ -50,7 +50,7 @@ docs-v2 automatically runs format (Markdown, JS, and CSS) linting and code block
 For the linting and tests to run, you need to install:
 
 - **Node.js and Yarn**: For managing dependencies and running build scripts
-- **Docker**: For running Vale linter and code block tests
+- **Docker**: For running code block tests
 - **VS Code extensions** (optional): For enhanced editing experience
 
 \_**Note:**
@@ -81,14 +81,6 @@ Dev dependencies include:
   manages git pre-commit and pre-push hooks for linting and testing Markdown content.
 - [prettier](https://prettier.io/docs/en/): formats code, including Markdown, according to style rules for consistency
 - \[Cypress]: e2e testing for UI elements and URLs in content
-
-### Install Vale (style linting)
-
-The `.ci/vale/vale.sh` wrapper runs Vale for style linting.
-It uses a local `vale` binary if available, otherwise falls back to Docker.
-
-1. **Option A — Install locally (recommended):** `brew install vale` (or see [Vale installation guide](https://vale.sh/docs/install/))
-2. **Option B — Use Docker:** Install [Docker](https://docs.docker.com/get-docker/). The wrapper pulls a pinned Vale image automatically.
 
 ### Install Docker (code block testing)
 
@@ -129,7 +121,6 @@ to help you navigate, check, and edit files.
 docs-v2 contains a `./.vscode/settings.json` that configures the following extensions:
 
 - Comment Anchors: recognizes tags (for example, `//SOURCE`) and makes links and filepaths clickable in comments.
-- Vale: shows linter errors and suggestions in the editor.
 - YAML Schemas: validates frontmatter attributes.
 
 ***
@@ -394,7 +385,7 @@ For more information about editing and generating InfluxDB API documentation, se
 
 ## Testing & Quality Assurance
 
-Pre-commit hooks run automatically when you commit changes, testing your staged files with Vale, Prettier, Cypress, and Pytest. To skip hooks if needed:
+Pre-commit hooks run automatically when you commit changes, testing your staged files with the prose linter, Prettier, Cypress, and Pytest. To skip hooks if needed:
 
 ```sh
 git commit -m "<COMMIT_MESSAGE>" --no-verify
@@ -409,8 +400,8 @@ yarn test:codeblocks:all
 # Test links (build first; see DOCS-TESTING.md)
 link-checker map content/influxdb3/core/**/*.md | xargs link-checker check
 
-# Run style linting
-.ci/vale/vale.sh content/**/*.md
+# Run the prose linter
+yarn lint:prose content/influxdb3/core/get-started/_index.md
 ```
 
 For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[DOCS-TESTING.md](DOCS-TESTING.md)**.
@@ -440,7 +431,7 @@ When creating commits, follow these guidelines:
 fix(enterprise): correct Docker environment variable name for license email
 fix(influxdb3): correct Docker environment variable and compose examples for monolith
 feat(telegraf): add new plugin documentation
-chore(ci): update Vale configuration
+chore(ci): update prose lint rules
 ```
 
 #### Commit message body
@@ -489,32 +480,11 @@ For detailed reference documentation, see:
 
 ### Advanced Configuration
 
-#### Vale style linting configuration
+#### Prose lint rules
 
-Run Vale with `.ci/vale/vale.sh`:
-
-1. Lint specific files: `.ci/vale/vale.sh content/influxdb3/core/**/*.md`
-2. Use a product config: `.ci/vale/vale.sh --config=content/influxdb3/cloud-dedicated/.vale.ini content/path/`
-3. Set alert level: `.ci/vale/vale.sh --minAlertLevel=error content/path/`
-
-Vale raises the following alert levels:
-
-- **Error**:
-  - Problems that can cause content to render incorrectly
-  - Violations of branding guidelines or trademark guidelines
-  - Rejected vocabulary terms
-- **Warning**: General style guide rules and best practices
-- **Suggestion**: Style preferences that may require refactoring or updates to an exceptions list
-
-#### Configure style rules
-
-`<docs-v2>/.ci/vale/styles/` contains configuration files for the custom `InfluxDataDocs` style.
-
-The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/config/vocabularies`.
-
-To add accepted/rejected terms for specific products, configure a style for the product and include a `Branding.yml` configuration. As an example, see `content/influxdb3/cloud-dedicated/.vale.ini` and `.ci/vale/styles/Cloud-Dedicated/Branding.yml`.
-
-To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
+`scripts/ci/prose-lint/rules.yml` defines the prose lint rules.
+Each rule has examples that `yarn test:lint-prose` checks.
+For details, see "Prose Linting" in [DOCS-TESTING.md](DOCS-TESTING.md).
 
 <!-- agent:instruct: condense -->
 

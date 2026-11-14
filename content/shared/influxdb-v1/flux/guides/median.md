@@ -1,8 +1,8 @@
 
 Use the [`median()` function](/flux/v0/stdlib/universe/median/)
-<!-- vale Google.Ordinal = NO -->
+<!-- prose-lint off Ordinal -->
 to return a value representing the `0.5` quantile (50th percentile) or median of input data.
-<!-- vale Google.Ordinal = YES -->
+<!-- prose-lint on Ordinal -->
 
 ## Select a method for calculating the median
 Select one of the following methods to calculate the median:
@@ -90,9 +90,9 @@ The examples below use the [example data variable](/product/version/flux/guides/
 
 ## Find the value that represents the median
 Use the default method, `"estimate_tdigest"`, to return all rows in a table that
-<!-- vale Google.Ordinal = NO -->
+<!-- prose-lint off Ordinal -->
 contain values in the 50th percentile of data in the table.
-<!-- vale Google.Ordinal = YES -->
+<!-- prose-lint on Ordinal -->
 
 ```js
 data
