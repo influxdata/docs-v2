@@ -67,7 +67,7 @@ Each line of line protocol contains the following elements:
 
 #### Line protocol element parsing
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 - **measurement**: Everything before the _first unescaped comma before the first
 whitespace_.
 - **tag set**: Key-value pairs between the _first unescaped comma_ and the _first
@@ -76,7 +76,7 @@ unescaped whitespace_.
 - **timestamp**: Integer value after the _second unescaped whitespace_.
 - Lines are separated by the newline character (`\n`). Line protocol is
 whitespace sensitive.
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 ---
 
@@ -89,7 +89,7 @@ _For schema design recommendations, see
 
 ## Construct line protocol
 
- <!-- vale InfluxDataDocs.v3Schema = NO -->
+ <!-- prose-lint off V3Terms -->
 With a basic understanding of line protocol, you can now construct line protocol
 and write data to InfluxDB.
 Consider a use case where you collect data from sensors in your home.
@@ -104,7 +104,7 @@ To collect this data, use the following schema:
     - `hum`: percent humidity (float)
     - `co`: carbon monoxide in parts per million (integer)
   - **timestamp**: Unix timestamp in _second_ precision
-  <!-- vale InfluxDataDocs.v3Schema = YES -->
+  <!-- prose-lint on V3Terms -->
 
 The following line protocol sample represents data collected hourly beginning at
 {{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.

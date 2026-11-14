@@ -1,7 +1,7 @@
 The following dashboards provide visualizations of performance metrics for
 InfluxDB open source (OSS), InfluxDB Enterprise, and Kapacitor.
 
-<!-- vale Google.Ordinal = NO -->
+<!-- prose-lint off Ordinal -->
 ## Prebuilt dashboards
 Chronograf provides prebuilt monitoring dashboards that use data from specific
 Telegraf input plugins. To view prebuilt dashboards:
@@ -60,7 +60,7 @@ This dashboard contains the following cells:
 - Hinted HandOff Queue Size
 - Anti-Entropy Errors & Jobs
 
-<!-- vale Google.Ordinal = YES -->
+<!-- prose-lint on Ordinal -->
 
 ### Monitor Kapacitor
 Use the Kapacitor Monitor dashboard to monitor Kapacitor in Chronograf.

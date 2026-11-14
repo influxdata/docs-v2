@@ -91,12 +91,12 @@ delete, or invalidate production content.
 
 Configure these variables in the GitHub `production` environment:
 
-| Variable | Purpose |
-| --- | --- |
+| Variable              | Purpose                              |
+| --------------------- | ------------------------------------ |
 | `AWS_DEPLOY_ROLE_ARN` | Dedicated GitHub production role ARN |
-| `BUCKET` | Production S3 bucket |
-| `REGION` | AWS region |
-| `CF_DISTRIBUTION_ID` | Production CloudFront distribution |
+| `BUCKET`              | Production S3 bucket                 |
+| `REGION`              | AWS region                           |
+| `CF_DISTRIBUTION_ID`  | Production CloudFront distribution   |
 
 Store `SLACK_DOCS_WEBHOOK_URL` as an environment secret.
 Allow only the `master` branch to use this environment.
@@ -106,11 +106,11 @@ Keep staging permissions separate.
 
 The repository variable `DOCS_PRODUCTION_DEPLOYMENT_MODE` controls uploads:
 
-| Value | Behavior |
-| --- | --- |
-| Missing or `disabled` | Verification only; uploads stop before AWS authentication |
-| `manual` | Explicit manual deployments are allowed; pushes do not deploy |
-| `automatic` | Pushes to `master` build and deploy; manual operations remain available |
+| Value                 | Behavior                                                                |
+| --------------------- | ----------------------------------------------------------------------- |
+| Missing or `disabled` | Verification only; uploads stop before AWS authentication               |
+| `manual`              | Explicit manual deployments are allowed; pushes do not deploy           |
+| `automatic`           | Pushes to `master` build and deploy; manual operations remain available |
 
 Use fresh GitHub-hosted runners.
 The archive verifier requires Python 3.12 or later.
@@ -142,9 +142,11 @@ It reports the assumed role identity without uploading in `verify` mode.
 Complete the following steps before enabling automatic GitHub uploads:
 
 1. Run GitHub verification on `master` and inspect its artifact and role checks.
+
 2. Disable CircleCI's production trigger.
    Wait for all in-flight CircleCI production workflows to finish.
    Do not cancel Hugo builds.
+
 3. Set the repository variable `DOCS_PRODUCTION_DEPLOYMENT_MODE` to `manual`.
    Run the first upload explicitly:
 
@@ -155,6 +157,7 @@ Complete the following steps before enabling automatic GitHub uploads:
 
 4. Confirm the upload, CloudFront invalidation, live-site content, and Slack notification.
    Then set `DOCS_PRODUCTION_DEPLOYMENT_MODE` to `automatic`.
+
 5. Retire the CircleCI project AWS variables and obsolete webhook variable.
    Remove the stack-managed IAM user, access key, and their outputs from
    `deploy/docs-website.yml`, and apply the reviewed CloudFormation update.
@@ -298,13 +301,13 @@ so excluding those fixtures from the preview build doesn't affect them.
 
 #### Workflow Files
 
-| File                                            | Purpose                                       |
-| ------------------------------------------------ | ------------------------------------------------ |
-| `.github/scripts/parse-pr-urls.js`              | Extract docs URLs from PR description         |
-| `.github/scripts/detect-preview-pages.js`       | Generate deep links for the sticky PR comment |
-| `.github/scripts/preview-comment.js`            | Manage sticky PR comments                     |
-| `.github/workflows/pr-preview.yml`              | Main preview workflow                         |
-| `.github/workflows/cleanup-stale-previews.yml`  | Weekly orphan cleanup                         |
+| File                                           | Purpose                                       |
+| ---------------------------------------------- | --------------------------------------------- |
+| `.github/scripts/parse-pr-urls.js`             | Extract docs URLs from PR description         |
+| `.github/scripts/detect-preview-pages.js`      | Generate deep links for the sticky PR comment |
+| `.github/scripts/preview-comment.js`           | Manage sticky PR comments                     |
+| `.github/workflows/pr-preview.yml`             | Main preview workflow                         |
+| `.github/workflows/cleanup-stale-previews.yml` | Weekly orphan cleanup                         |
 
 #### Key Design Decisions
 
@@ -350,7 +353,7 @@ AWS keys in Actions). This requires, before the workflow can run:
 3. Repo secrets/variables: `AWS_PR_PREVIEW_ROLE_ARN`, `STAGING_BUCKET`,
    `STAGING_CF_DISTRIBUTION_ID`, `AWS_REGION`.
 4. The updated `deploy/edge.js` (see its top-of-file comments) deployed to
-   the **staging** distribution's Lambda@Edge association -- this fixes two
+   the **staging** distribution's Lambda\@Edge association -- this fixes two
    bugs that would otherwise break previews: a trailing-slash redirect
    hardcoded to `docs.influxdata.com`, and unanchored archive/version
    redirects that would hijack `/pr-preview/pr-{number}/...` subpaths.

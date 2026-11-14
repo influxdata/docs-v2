@@ -36,7 +36,7 @@ After setting up {{< product-name >}} and your project, you should have the foll
 
 Create a project directory and initialize it for your programming language.
 
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -226,7 +226,7 @@ sensor collects temperature, humidity, and carbon monoxide readings.
 
 To collect this data, use the following schema:
 
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 - **table**: `home`
   - **tags**
@@ -493,7 +493,7 @@ To collect this data, use the following schema:
 
 The sample code does the following:
 
-<!-- vale InfluxDataDocs.v3Schema = NO -->
+<!-- prose-lint off V3Terms -->
 
 1.  Instantiates a client configured with the InfluxDB URL and API token.
 2.  Constructs `home`table `Point` objects.
@@ -502,4 +502,4 @@ The sample code does the following:
     the failure message and error details.
 5.  Closes the client to release resources.
 
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
