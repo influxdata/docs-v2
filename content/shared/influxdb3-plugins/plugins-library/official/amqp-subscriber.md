@@ -1,9 +1,10 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later.
 
 
-The AMQP Subscriber Plugin enables real-time ingestion of AMQP messages (RabbitMQ and other AMQP-compatible brokers) into {{% product-name %}}. Subscribe to queues and automatically transform messages into time-series data with support for JSON, Line Protocol, and custom text formats. The plugin provides flexible message acknowledgement policies and comprehensive error tracking with statistics.
+The AMQP Subscriber Plugin enables real-time ingestion of AMQP messages (RabbitMQ and other AMQP-compatible brokers) into InfluxDB 3. Subscribe to queues and automatically transform messages into time-series data with support for JSON, Line Protocol, and custom text formats. The plugin provides flexible message acknowledgement policies and comprehensive error tracking with statistics.
 
 ## Configuration
 

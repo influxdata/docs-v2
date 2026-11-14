@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later (uses the synchronous write API).
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later (uses the synchronous write API).
 
 
 The Gapfill Plugin detects gaps in time series (spacing between consecutive
@@ -202,10 +203,10 @@ influxdb3 create trigger \
   gapfill_backfill
 influxdb3 enable trigger --database mydb gapfill_backfill
 
-curl -X POST "http://localhost:8181/api/v3/engine/gapfill" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/engine/gapfill" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "source_measurement": "sensors",
     "interval": "15s",
     "method": "pchip",

@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later, `paho-mqtt>=2.1,<3`, `protobuf>=5` and
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later, `paho-mqtt>=2.1,<3`, `protobuf>=5` and
 > `influxdata-plugin-utils>=0.5.0`.
 
 

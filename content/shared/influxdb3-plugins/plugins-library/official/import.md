@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later.
 
 
 The InfluxDB Import Plugin enables seamless data import from InfluxDB v1, v2, or v3 instances to {{% product-name %}}
@@ -60,10 +61,10 @@ Credentials are passed via HTTP headers on each request.
 Use the `Source-Token` header for token-based authentication:
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
-  -H "Content-Type: application/json" \
-  -H "Source-Token: my-secret-token" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/import?action=start \
+  --header "Content-Type: application/json" \
+  --header "Source-Token: my-secret-token" \
+  --data '{
     "source_url": "http://localhost:8086",
     "influxdb_version": 2,
     "source_database": "telegraf"
@@ -74,11 +75,11 @@ curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
 Use the `Source-Username` and `Source-Password` headers for basic authentication:
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
-  -H "Content-Type: application/json" \
-  -H "Source-Username: admin" \
-  -H "Source-Password: my-password" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/import?action=start \
+  --header "Content-Type: application/json" \
+  --header "Source-Username: admin" \
+  --header "Source-Password: my-password" \
+  --data '{
     "source_url": "http://localhost:8086",
     "influxdb_version": 1,
     "source_database": "telegraf"
@@ -183,7 +184,7 @@ The import plugin provides the following type of requests:
 
 ### Start Import
 
-Start a new import from source InfluxDB to {{% product-name %}}.
+Start a new import from source InfluxDB to InfluxDB 3.
 
 **Request**: `POST /api/v3/engine/import?action=start`
 
@@ -378,10 +379,10 @@ influxdb3 create trigger \
 influxdb3 enable trigger --database mydb import_trigger
 
 # Start import via HTTP
-curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
-  -H "Source-Token: my-super-secret-token" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/import?action=start \
+  --header "Source-Token: my-super-secret-token" \
+  --header "Content-Type: application/json" \
+  --data '{
     "source_url": "http://localhost:8086",
     "influxdb_version": 1,
     "source_database": "telegraf",
@@ -402,11 +403,11 @@ Import specific tables within a date range:
 
 ```bash
 # Start import with time range and table filter
-curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
-  -H "Source-Username: admin" \
-  -H "Source-Password: my-password" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/import?action=start \
+  --header "Source-Username: admin" \
+  --header "Source-Password: my-password" \
+  --header "Content-Type: application/json" \
+  --data '{
     "source_url": "http://influxdb-source.example.com:8086",
     "influxdb_version": 1,
     "source_database": "telegraf",
@@ -431,10 +432,10 @@ Monitor and control a long-running import:
 
 ```bash
 # Start import (logs import_id, does not return it immediately)
-curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
-  -H "Source-Token: my-token" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/import?action=start \
+  --header "Source-Token: my-token" \
+  --header "Content-Type: application/json" \
+  --data '{
     "source_url": "http://localhost:8086",
     "influxdb_version": 2,
     "source_database": "large_database",
@@ -448,14 +449,14 @@ influxdb3 query --database _internal "SELECT log_text FROM system.processing_eng
 IMPORT_ID="<import_id_from_logs>"
 
 # Pause import (for example, during high-traffic hours)
-curl -X POST "http://localhost:8181/api/v3/engine/import?action=pause&import_id=$IMPORT_ID"
+curl --request POST "http://localhost:8181/api/v3/engine/import?action=pause&import_id=$IMPORT_ID"
 
 # Check status after import completion (paused, cancelled, or completed)
 curl "http://localhost:8181/api/v3/engine/import?action=status&import_id=$IMPORT_ID"
 
 # Resume later
-curl -X POST "http://localhost:8181/api/v3/engine/import?action=resume&import_id=$IMPORT_ID" \
-  -H "Source-Token: my-token"
+curl --request POST "http://localhost:8181/api/v3/engine/import?action=resume&import_id=$IMPORT_ID" \
+  --header "Source-Token: my-token"
 ```
 ### Expected results
 
@@ -468,10 +469,10 @@ curl -X POST "http://localhost:8181/api/v3/engine/import?action=resume&import_id
 ### Example 4: Dry run for import plan
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/import?action=start \
-  -H "Source-Token: my-token" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/import?action=start \
+  --header "Source-Token: my-token" \
+  --header "Content-Type: application/json" \
+  --data '{
     "source_url": "http://localhost:8086",
     "influxdb_version": 1,
     "source_database": "telegraf",
@@ -615,7 +616,7 @@ This plugin supports using TOML configuration files to specify all plugin argume
 5. **Start import via HTTP** (config from TOML file will be used as defaults, can be overridden in request body):
 
    ```bash
-   curl -X POST http://localhost:8181/api/v3/engine/import?action=start
+   curl --request POST http://localhost:8181/api/v3/engine/import?action=start
    ```
 ## Configuration Priority and Loading
 
@@ -699,7 +700,7 @@ Every parameter except `config_file_path` can come from the query string of an
 a query parameter is matched case-sensitively, so `Source_Url` is refused:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/engine/import?action=start&source_url=http://localhost:8086&source_database=telegraf&influxdb_version=1"
+curl --request POST "http://localhost:8181/api/v3/engine/import?action=start&source_url=http://localhost:8086&source_database=telegraf&influxdb_version=1"
 ```
 Each action accepts only the parameters it reads, and an unknown one is refused
 and named along with what that action accepts — `?action=status&import_ids=abc`
@@ -1052,8 +1053,8 @@ influxdb3 create trigger \
 1. Wait at least 5 minutes after the crash — the plugin uses a 5-minute stale import threshold
 2. Call the resume endpoint with credentials:
    ```bash
-   curl -X POST "http://localhost:8181/api/v3/engine/import?action=resume&import_id=$IMPORT_ID" \
-     -H "Source-Token: my-token"
+   curl --request POST "http://localhost:8181/api/v3/engine/import?action=resume&import_id=$IMPORT_ID" \
+     --header "Source-Token: my-token"
    ```
 3. The plugin detects the stale state and resumes from the last checkpoint (or restarts from the beginning if no
    checkpoint exists)
