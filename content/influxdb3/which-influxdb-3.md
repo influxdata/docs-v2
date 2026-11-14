@@ -6,4 +6,5 @@ description: >
 source: /shared/influxdb3/which-influxdb-3.md
 faq_data: which-influxdb-3
 faq_canonical: true
+toc_depth: 3
 ---
