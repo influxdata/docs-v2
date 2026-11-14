@@ -1,9 +1,10 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later.
 
 
-The MQTT Subscriber Plugin enables real-time ingestion of MQTT messages into {{% product-name %}}. Subscribe to MQTT broker topics and automatically transform messages into time-series data with support for JSON, Line Protocol, and custom text formats. The plugin uses persistent MQTT sessions (`clean_session=False`) to support message delivery between executions and provides comprehensive error tracking and statistics. Delivery is at least once: if the broker misses an acknowledgment during disconnect, it can redeliver a message and the plugin can write that message twice. Map `timestamp_field` from the payload to make redeliveries idempotent.
+The MQTT Subscriber Plugin enables real-time ingestion of MQTT messages into InfluxDB 3. Subscribe to MQTT broker topics and automatically transform messages into time-series data with support for JSON, Line Protocol, and custom text formats. The plugin uses persistent MQTT sessions (`clean_session=False`) to support message delivery between executions and provides comprehensive error tracking and statistics. Delivery is at least once: if the broker misses an acknowledgment during disconnect, it can redeliver a message and the plugin can write that message twice. Map `timestamp_field` from the payload to make redeliveries idempotent.
 
 ## Configuration
 

@@ -38,7 +38,7 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
 
 #### Example TOML configuration
 
@@ -198,9 +198,9 @@ influxdb3 create trigger \
 influxdb3 enable trigger --database metrics iceberg_backfill
 
 # Request backfill via HTTP
-curl -X POST http://localhost:8181/api/v3/engine/replicate \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/replicate \
+  --header "Authorization: Bearer YOUR_TOKEN" \
+  --data '{
     "measurement": "temperature",
     "catalog_configs": {
       "type": "sql",

@@ -238,7 +238,7 @@ influxdb3 show summary --database quakes --token YOUR_TOKEN
 influxdb3 query --database quakes "SELECT event_time, log_level, log_text FROM system.processing_engine_logs WHERE log_text LIKE '%Earthquake%' ORDER BY event_time DESC LIMIT 10"
 
 # Verify the feed is reachable
-curl -H "User-Agent: test" https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson
+curl --header "User-Agent: test" https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson
 ```
 #### Issue: `Invalid configuration` error in logs
 

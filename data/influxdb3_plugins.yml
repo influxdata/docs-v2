@@ -29,7 +29,7 @@
   tags:
     - scheduled
     - HTTP request
-  introduced: v1.0.0
+  introduced: v1.1.0
   database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/chronos_forecasting
 - name: downsampler
@@ -160,12 +160,12 @@
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/opcua
 - name: prophet_forecasting
   id: prophet-forecasting
-  description: Provides time series forecasting capabilities for InfluxDB 3 data using the Prophet library.
+  description: 'Time series forecasting with Prophet: on-demand HTTP and scheduled forecasts of a measurement field or any SQL query, per series, with prediction intervals and optional validation.'
   tags:
     - scheduled
     - HTTP request
-  introduced: v1.6.0
-  database_version: '>=3.0.0'
+  introduced: v2.0.0
+  database_version: '>=3.8.2'
   repository: https://github.com/influxdata/influxdb3_plugins/tree/main/influxdata/prophet_forecasting
 - name: resampler
   id: resampler

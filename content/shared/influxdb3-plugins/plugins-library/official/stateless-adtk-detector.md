@@ -63,7 +63,7 @@ Points that have no value for `field` are dropped before detection and reported 
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
 
 When a config file is given, it replaces the inline trigger arguments entirely. In TOML, `detectors` and `senders` accept either a list (`["QuantileAD", "PersistAD"]`) or a dot-separated string, and detector parameters may be given as a `[detector_params]` table or as a base64-encoded JSON string.
 

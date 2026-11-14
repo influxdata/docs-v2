@@ -3,7 +3,7 @@
 The Signal Filter Plugin applies streaming digital IIR filters (Butterworth,
 Chebyshev I, Bessel — lowpass/highpass/bandpass/bandstop — or manually supplied
 second-order sections) to numeric time-series fields as they are written to
-{{% product-name %}}. Filtering is causal and per series: each tag combination gets its own
+InfluxDB 3. Filtering is causal and per series: each tag combination gets its own
 filter whose delay-line state persists in the trigger cache across WAL commits, so
 output over a stream of small writes is identical to filtering the whole signal at
 once. It pairs naturally with the
@@ -140,10 +140,10 @@ for an annotated template.
    or via the HTTP API:
 
    ```bash
-   curl -X POST "http://localhost:8181/api/v3/configure/plugin_environment/install_packages" \
-     -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-     -H "Content-Type: application/json" \
-     -d '{"packages": ["numpy", "scipy", "influxdata-plugin-utils"]}'
+   curl --request POST "http://localhost:8181/api/v3/configure/plugin_environment/install_packages" \
+     --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+     --header "Content-Type: application/json" \
+     --data '{"packages": ["numpy", "scipy", "influxdata-plugin-utils"]}'
    ```
 3. Copy `signal_filter.py` into your plugin directory (or upload it with
    `POST /api/v3/plugins/files`).
@@ -168,10 +168,10 @@ influxdb3 create trigger \
 or via the HTTP API:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "mydb",
     "plugin_filename": "signal_filter.py",
     "trigger_name": "signal_lowpass",
@@ -197,10 +197,10 @@ Use the WAL plugin test endpoint. Passing a fixed `cache_name` across calls
 exercises cross-commit state continuity:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/plugin_test/wal" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/plugin_test/wal" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "filename": "signal_filter.py",
     "database": "mydb",
     "input_lp": "signal,host=a value=1.0 1717000000000000000\nsignal,host=a value=2.0 1717000000100000000",
@@ -258,10 +258,10 @@ per tag combination present in `sensors`.
 Apply coefficients you designed elsewhere, routed to a separate measurement:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "mydb",
     "plugin_filename": "signal_filter.py",
     "trigger_name": "manual_sos",
