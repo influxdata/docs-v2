@@ -168,6 +168,25 @@ function downloadPrebuilt() {
 // verify converter output set this when the source changed.
 const buildFromSource = process.env.RUST_MARKDOWN_CONVERTER_SOURCE === 'true';
 
+// Set RUST_MARKDOWN_CONVERTER_SKIP=true to install without the converter, in
+// environments that can neither download the prebuilt binary nor build it
+// (for example, a sandbox whose network allows only package registries).
+// Only the LLM markdown build (scripts/build-llm-markdown.js) needs it.
+if (process.env.RUST_MARKDOWN_CONVERTER_SKIP === 'true') {
+  if (buildFromSource) {
+    console.error(
+      '✗ RUST_MARKDOWN_CONVERTER_SKIP=true conflicts with ' +
+        'RUST_MARKDOWN_CONVERTER_SOURCE=true. Unset one.'
+    );
+    process.exit(1);
+  }
+  console.log(
+    'ℹ Skipping Rust converter: RUST_MARKDOWN_CONVERTER_SKIP=true. ' +
+      'The LLM markdown build needs it; the Hugo build does not.'
+  );
+  process.exit(0);
+}
+
 if (
   !buildFromSource &&
   process.env.RUST_MARKDOWN_CONVERTER_PREBUILT === 'true'
