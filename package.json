@@ -31,6 +31,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@evilmartians/lefthook": "^1.7.1",
+    "@playwright/test": "1.63.0",
     "@types/js-yaml": "^4.0.9",
     "autoprefixer": ">=10.2.5",
     "cypress": "^15.17.0",
