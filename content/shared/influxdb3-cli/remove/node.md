@@ -65,11 +65,15 @@ That is why the node must complete a graceful stop first.
 > [!Important]
 > #### On the Parquet engine, removal completes after the storage engine upgrade
 >
-> On a cluster that still runs the Parquet engine, steps 2 and 3 don't run
-> until you upgrade the storage engine.
-> The node stays `removing`, and its node ID can't register again.
+> On the Parquet engine, the node stays `removing` until the upgraded
+> storage engine's compactor starts.
+> While the node is `removing`, it can't register again under the same node ID.
+> The upgraded compactor removes the catalog entry, but leaves the node's
+> Parquet files in object storage.
+> After catalog removal, `influxdb3 manage cleanup-parquet` also leaves
+> those files in place.
 > See
-> [Removal on the Parquet engine completes after the storage engine upgrade](/influxdb3/version/admin/node-lifecycle/#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
+> [Node removal on the Parquet engine](/influxdb3/version/admin/node-lifecycle/#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
 
 ### Removal is refused if unsnapshotted WAL remains (upgraded engine) {#removal-is-refused-if-unsnapshotted-wal-remains-upgraded-engine metadata="v3.11+"}
 

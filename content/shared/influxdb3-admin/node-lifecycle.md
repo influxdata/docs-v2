@@ -370,10 +370,10 @@ paths.
 Repeating a remove request for a node that's already `removing` succeeds
 without changing state (HTTP `200 OK`).
 
-### Removal on the Parquet engine completes after the storage engine upgrade
+### Node removal on the Parquet engine {#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade}
 
 On a cluster that still runs the Parquet engine, `remove node` marks the node
-`removing`, but nothing completes the removal.
+`removing`, but the Parquet compactor doesn't complete the removal.
 The node stays `removing`, its node ID can't register again, and its files stay
 in object storage.
 Only the compactor of the
@@ -383,10 +383,16 @@ completes removals.
 - **If you plan to upgrade the storage engine**, remove the ingest nodes you've
   retired before you start the
   [upgrade](/influxdb3/version/reference/internals/storage-engine/#upgrade-from-parquet).
-  The removals complete shortly after the compactor first starts with
+  Remove a node only after the compactor has absorbed its Parquet files.
+  The upgraded compactor completes the removals after it first starts with
   `--upgrade-pacha-tree`.
-  Run v3.12.2 or later, or v3.11.8 or later on 3.11, for the upgrade—in
-  earlier versions, a removed ingest node holds the upgrade at `upgrading`.
+  For the upgrade, use the latest 3.11.x or 3.12.x release.
+  Starting with v3.11.8 and v3.12.2, the upgrade drops a removed ingest node
+  from its roster only after the node's Parquet files are converted or absorbed.
+  A removed node with files the compactor hasn't absorbed holds the upgrade at
+  `upgrading`, and the compactor logs
+  `ingest node removed from catalog with Parquet files not yet converted; upgrade cannot complete`.
+  In earlier releases, any removed ingest node holds the upgrade at `upgrading`.
 - **If you don't plan to upgrade**, leave the nodes you've retired `stopped`
   instead of removing them.
   A `stopped` node can register again under the same node ID; a `removing`
@@ -860,7 +866,7 @@ Restart the node, stop it gracefully, and then remove it.
 
 On the Parquet engine, removal doesn't complete until you upgrade the storage
 engine.
-See [Removal on the Parquet engine completes after the storage engine upgrade](#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
+See [Node removal on the Parquet engine](#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
 
 On the upgraded storage engine, removal waits on the compactor, so a healthy
 cluster with a compaction backlog
