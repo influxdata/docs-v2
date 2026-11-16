@@ -173,3 +173,44 @@ To determine `cardinality_of_partitioned_tag`, use these rules:
   values for each part.
   The actual count is lower if not every combination of values occurs in your data.
 - To estimate the count for a database, add the counts for each table.
+
+#### Measure the partition count with a trial ingest
+
+Use the [trial ingest](#check-partition-sizes) to measure the partition count
+and compare it with your estimate:
+
+1. **Write representative data** with timestamps that span whole partition time
+   intervals--for example, full calendar days for `%Y-%m-%d`--and include
+   the full range of values for each partitioned tag.
+   Data that starts or ends partway through an interval creates partitions for
+   that interval too.
+2. **Count the partitions in the table**:
+
+   ```sql { placeholders="TABLE_NAME" }
+   SELECT
+     COUNT(*) AS partition_count
+   FROM
+     system.partitions
+   WHERE
+     table_name = 'TABLE_NAME'
+   ```
+
+   Replace {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}
+   with the name of the table.
+
+3. **Extrapolate over the lifespan of the data**.
+   Divide `partition_count` by the number of time intervals the trial data
+   spans to get `partitions_per_interval`, and then use it in place of
+   `cardinality_of_partitioned_tag`:
+
+   ```text
+   total_partition_count = partitions_per_interval * (data_lifespan / partition_duration)
+   ```
+
+4. **Repeat for each table** and add the results to get the count for the
+   database.
+   To count partitions for several tables in one query, see
+   [View the number of partitions per table](/influxdb/version/admin/custom-partitions/view-partitions/#view-the-number-of-partitions-per-table).
+
+If your production data has tag values that the trial data doesn't,
+production writes can create more partitions than the trial.
