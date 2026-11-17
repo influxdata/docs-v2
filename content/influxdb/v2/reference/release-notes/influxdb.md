@@ -10,11 +10,6 @@ weight: 101
 
 ## v2.10.1 {date="2026-11-17"}
 
-### Security
-
-- Enforce bucket ownership and organization boundaries across write, delete, query, replication, scraper, and database and retention policy (DBRP) mapping APIs.
-- Reject API token permissions that reference a bucket outside the specified organization or grant permissions broader than the caller holds.
-
 ### Features
 
 - Add the [`influxql-max-time-range`](/influxdb/v2/reference/config-options/#influxql-max-time-range) option to limit the time range of InfluxQL `SELECT` and `EXPLAIN` statements.

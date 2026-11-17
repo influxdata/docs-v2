@@ -58,7 +58,6 @@
     When upgrading from 2.8.x or earlier, save any API tokens you need.
     Token hashing is enabled by default since 2.9.0; migrated token strings can't be recovered.
   message: |
-    - Stricter bucket and organization permission checks.
     - Improved `/health` and `/ready` startup diagnostics.
 
     [Release notes](/influxdb/v2/reference/release-notes/influxdb/#v2101) |
