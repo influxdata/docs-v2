@@ -3308,7 +3308,7 @@ Maximum amount of time a write request to the WAL directory will wait when the
 [maximum number of concurrent active writes to the WAL directory](#storage-wal-max-concurrent-writes)
 has been met. Set to `0` to disable the timeout.
 
-**Default:** `10m`
+**Default:** `1h`
 
 | influxd flag                    | Environment variable                  | Configuration key             |
 | :------------------------------ | :------------------------------------ | :---------------------------- |
@@ -3318,12 +3318,12 @@ has been met. Set to `0` to disable the timeout.
 <!--pytest.mark.skip-->
 
 ```sh
-influxd --storage-wal-max-write-delay=10m
+influxd --storage-wal-max-write-delay=1h
 ```
 
 ###### Environment variable
 ```sh
-export INFLUXD_STORAGE_WAL_MAX_WRITE_DELAY=10m
+export INFLUXD_STORAGE_WAL_MAX_WRITE_DELAY=1h
 ```
 
 ###### Configuration file
@@ -3335,18 +3335,18 @@ export INFLUXD_STORAGE_WAL_MAX_WRITE_DELAY=10m
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-storage-wal-max-write-delay: 10m
+storage-wal-max-write-delay: 1h
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-storage-wal-max-write-delay = "10m"
+storage-wal-max-write-delay = "1h"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "storage-wal-max-write-delay": "10m"
+  "storage-wal-max-write-delay": "1h"
 }
 ```
 {{% /code-tab-content %}}
