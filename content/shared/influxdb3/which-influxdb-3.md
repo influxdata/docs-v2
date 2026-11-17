@@ -92,7 +92,7 @@ Flux is now in maintenance mode. For more information, see [The future of Flux](
 
 ## Frequently asked questions
 
-{{< faq >}}
+{{< faq level="3" >}}
 
 ## Related links {#related-links}
 
