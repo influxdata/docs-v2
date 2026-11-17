@@ -319,7 +319,7 @@ influxdb:
   supports_flux: true
   latest: v2.10
   latest_patches:
-    v2: 2.10.0
+    v2: 2.10.1
     v1: 1.13.2
   latest_cli:
     v2: 2.9.1

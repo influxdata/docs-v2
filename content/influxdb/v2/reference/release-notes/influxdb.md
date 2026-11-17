@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-<!-- ## v2.10.0 {date="2026-10-15"}
+## v2.10.1 {date="2026-11-17"}
 
 ### Features
 
@@ -39,8 +39,10 @@ weight: 101
 - Add partial results support to `SHOW MEASUREMENTS`. A query that hits a limit returns the measurements found so far instead of failing.
 - Split the `tsm1` `FileStore` lock into separate fast and slow locks to reduce contention during compaction.
 
-### Bug Fixes
+### Bug fixes
 
+- Keep series index files open while query results still reference their memory-mapped data.
+  This prevents queries from accessing unmapped data after the underlying series ID iterators close.
 - Release TSM cursor references once when a Flux query is canceled, instead of leaking them.
 - Prevent a compaction level regression when compacting TSM files at mixed levels.
 - Fix a race in shard loading.
@@ -51,10 +53,12 @@ weight: 101
 
 ### Maintenance
 
-- Upgrade Go to 1.26.9.
+- Upgrade Go to 1.26.11.
 - Upgrade Flux to v0.201.0.
 - Update the InfluxDB UI to v2.10.0.
-- Update containerd from 1.7.35 to 1.7.36. -->
+- Update containerd from 1.7.35 to 1.7.36.
+- Upgrade `github.com/klauspost/compress` from 1.18.0 to 1.18.7.
+- Upgrade `github.com/go-jose/go-jose/v4` from 4.1.4 to 4.1.6.
 
 ## v2.9.1 {date="2026-05-11"}
 
