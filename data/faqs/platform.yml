@@ -58,14 +58,33 @@
     license and is free to download and run with no license key. InfluxDB 3
     Enterprise is a commercial product built on the same engine; it offers a
     30-day free trial and a free at-home license for non-commercial use.
-    The earlier InfluxDB 1 and InfluxDB 2 open source releases remain
-    available under open source licenses. For new projects, use InfluxDB 3.
+    InfluxDB 1 OSS and InfluxDB 2 OSS also remain available under open source
+    licenses. InfluxDB 1 OSS is a free download.
 
 - question: "Which version of InfluxDB should I use?"
   answer: |
-    For new projects, use InfluxDB 3. For new production workloads, use
-    InfluxDB 3 Enterprise; use InfluxDB 3 Core for free, open source,
-    single-node deployments. See
+    It depends on your workload. For new production workloads that need
+    InfluxDB 3 capabilities, use InfluxDB 3 Enterprise; use InfluxDB 3 Core for
+    free, open source, single-node deployments. InfluxDB 1 remains available
+    and actively supported. See [InfluxDB 1](/platform/#influxdb-1x) and
     [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a full
-    decision guide across InfluxDB 3 products and for migrating from
-    InfluxDB 1 or InfluxDB 2.
+    decision guide across InfluxDB 3 products and for moving from InfluxDB 1 or
+    InfluxDB 2.
+
+- question: "Is InfluxDB 1 still available?"
+  answer: |
+    Yes. InfluxDB 1 is available and actively supported. InfluxDB 1 OSS is a
+    free download. InfluxDB 1 Enterprise, a commercial self-hosted cluster, and
+    InfluxDB 1 Cloud, a managed service based on InfluxDB 1 Enterprise and
+    hosted on AWS, are available to new customers through Sales.
+    See [InfluxDB 1](/platform/#influxdb-1x), or
+    [contact Sales](https://influxdata.com/contact-sales/).
+
+- question: "Should I choose InfluxDB 1 or InfluxDB 3?"
+  answer: |
+    Choose InfluxDB 1 for InfluxQL-native workloads, Kapacitor alerting, or an
+    established InfluxDB 1 deployment that meets your needs. Choose InfluxDB 3
+    when you need SQL, object storage, or unlimited series cardinality.
+    Staying on InfluxDB 1 doesn't require a migration. See
+    [InfluxDB 1](/platform/#influxdb-1x) and
+    [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/).

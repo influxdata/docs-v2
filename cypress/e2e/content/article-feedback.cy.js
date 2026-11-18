@@ -25,7 +25,7 @@ const ossCases = [
   },
   {
     url: '/influxdb/v1/introduction/',
-    productLabel: 'Submit InfluxDB OSS v1 issue',
+    productLabel: 'Submit InfluxDB 1 OSS issue',
     productHref: 'https://github.com/influxdata/influxdb/issues/new/choose/',
   },
   {

@@ -21,7 +21,7 @@ authenticate requests to the Kapacitor HTTP API.
 
 ## How authentication works
 The process of using InfluxDB Enterprise authorizations to authenticate with Kapacitor
-involves three components of the enterprise [TICK stack](/platform/#influxdata-1x-tick-stack):
+involves three components of the enterprise [TICK stack](/platform/#influxdb-1x):
 
 - [InfluxDB Enterprise](/enterprise_influxdb/v1/) meta nodes
 - [Kapacitor](/kapacitor/v1/)

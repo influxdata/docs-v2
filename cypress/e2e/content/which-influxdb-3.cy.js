@@ -66,7 +66,9 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     cy.get('h2#frequently-asked-questions').should('exist');
     cy.get('article.article--content h2').then(($h2s) => {
       const ids = [...$h2s].map((h) => h.id);
-      expect(ids).to.not.include('whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3');
+      expect(ids).to.not.include(
+        'whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3'
+      );
     });
     cy.get('div.faq-answer').each(($div) => {
       cy.wrap($div).prevAll('h2, h3').first().should('match', 'h3');
@@ -74,8 +76,14 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
   });
 
   it('lists FAQ questions in the "On this page" sidebar', function () {
-    cy.get('[data-component="page-toc"]').should('have.attr', 'data-toc-depth', '3');
-    cy.get('[data-component="page-toc"] a[href="#where-does-influxdb-3-explorer-fit"]').should('exist');
+    cy.get('[data-component="page-toc"]').should(
+      'have.attr',
+      'data-toc-depth',
+      '3'
+    );
+    cy.get(
+      '[data-component="page-toc"] a[href="#where-does-influxdb-3-explorer-fit"]'
+    ).should('exist');
   });
 
   it('keeps the JSON-LD questions identical to the visible H3 questions', function () {
@@ -122,7 +130,9 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       'Multi-tenant, self-service cloud for smaller workloads',
       'Managed single-tenant cloud',
       'Kubernetes',
-      'Running InfluxDB 1 or InfluxDB 2 today',
+      'InfluxQL-native workloads, Kapacitor alerting, or an established 1.x cluster',
+      'Running InfluxDB 1 today',
+      'Running InfluxDB 2 today',
     ].forEach((row) => cy.contains('td', row).should('exist'));
   });
 
@@ -194,6 +204,18 @@ describe('InfluxDB 3 hub landing', function () {
       .and('contain.text', 'new time series workloads');
   });
 
+  it('routes to InfluxDB 1 without obscuring the v3 recommendation', function () {
+    cy.get('article.article--content')
+      .should('contain.text', 'recommended platform')
+      .and(
+        'contain.text',
+        'InfluxDB 1 remains available and actively supported'
+      );
+    cy.get('article.article--content a[href="/platform/#influxdb-1x"]').should(
+      'exist'
+    );
+  });
+
   it('renders a callout link to the decision page', function () {
     cy.get('a[href="/influxdb3/which-influxdb-3/"]').should('exist');
   });
@@ -246,5 +268,57 @@ describe('Cross-link callouts to the decision page', function () {
     cy.visit('/platform/faq/');
     cy.get('h2#which-version-of-influxdb-should-i-use').should('exist');
     cy.get('a[href="/influxdb3/which-influxdb-3/"]').should('exist');
+  });
+});
+
+describe('Platform page InfluxDB 1 section', function () {
+  beforeEach(() => cy.visit('/platform/'));
+
+  it('keeps the anchors that inbound links use', function () {
+    ['influxdb-1x', 'influxdb-cloud-1', 'migrate-to-influxdb-3'].forEach(
+      (id) => {
+        cy.get(`[id="${id}"]`).should('have.length', 1);
+      }
+    );
+  });
+
+  it('uses the confirmed InfluxDB 1 flavor names in the comparison table', function () {
+    ['InfluxDB 1 OSS', 'InfluxDB 1 Enterprise', 'InfluxDB 1 Cloud'].forEach(
+      (name) => cy.contains('table td strong a', name).should('exist')
+    );
+  });
+
+  it('presents InfluxDB 1 Cloud as available through Sales', function () {
+    cy.get('#influxdb-cloud-1')
+      .next()
+      .should('contain.text', 'available to new customers through Sales');
+    cy.get('article.article--content').should(
+      'not.contain.text',
+      'New signups are no longer available for InfluxDB 1'
+    );
+    cy.get('a[href="https://help.influxcloud.net"]').should('exist');
+  });
+
+  it('leaves the InfluxDB Cloud (TSM) lifecycle notice unchanged', function () {
+    cy.get('article.article--content')
+      .should(
+        'contain.text',
+        'InfluxDB Cloud (TSM) is a legacy managed service'
+      )
+      .and('contain.text', 'New signups are no longer available');
+  });
+});
+
+describe('Cloud 1 note', function () {
+  ['/enterprise_influxdb/v1/', '/influxdb/v1/'].forEach((url) => {
+    it(`${url} links to an existing platform heading`, function () {
+      cy.visit(url);
+      cy.contains('.note.block h4', 'InfluxDB 1 Cloud users').should('exist');
+      cy.get('.note.block a[href="/platform/#migrate-to-influxdb-3"]').should(
+        'exist'
+      );
+      cy.visit('/platform/');
+      cy.get('#migrate-to-influxdb-3').should('have.length', 1);
+    });
   });
 });
