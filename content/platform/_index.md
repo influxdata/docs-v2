@@ -56,9 +56,9 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 | **[InfluxDB Cloud Dedicated](#influxdb-3)** | v3 (InfluxDB 3) | Paid | Managed cloud (single-tenant) | SQL, InfluxQL | Unlimited | v2, v1 |
 | **[InfluxDB OSS v2](#influxdb-2x)** | v2 (TSM) | Open Source | Self-managed (single-node) | Flux, InfluxQL | Limited | v2, v1 |
 | **[InfluxDB Cloud (TSM)](#influxdb-2x)** | v2 (TSM) | Free & Paid | Managed cloud | Flux, InfluxQL | Limited | v2, v1 |
-| **[InfluxDB OSS v1](#influxdb-1x)** | v1 (TSM) | Open Source | Self-managed (single-node) | InfluxQL | Limited | v2, v1 |
-| **[InfluxDB Enterprise v1](#influxdb-1x)** | v1 (TSM) | Commercial | Self-managed (cluster) | InfluxQL, Flux (via compat) | Limited | v2, v1 |
-| **[InfluxDB Cloud 1](#influxdb-1x)** | v1 (TSM) | Paid | Managed cloud | InfluxQL | Limited | v2, v1 |
+| **[InfluxDB 1 OSS](#influxdb-1x)** | v1 (TSM) | Open Source | Self-managed (single-node) | InfluxQL, Flux (when enabled) | Limited | v2, v1 |
+| **[InfluxDB 1 Enterprise](#influxdb-1x)** | v1 (TSM) | Commercial | Self-managed (cluster) | InfluxQL, Flux (when enabled) | Limited | v2, v1 |
+| **[InfluxDB 1 Cloud](#influxdb-cloud-1)** | v1 (TSM) | Paid | Managed cloud | InfluxQL, Flux (varies by deployment) | Limited | v2, v1 |
 
 **Storage engine notes:**
 
@@ -69,18 +69,20 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 - **InfluxDB 3 Cloud**: Early access; [request access](https://www.influxdata.com/products/influxdb3-cloud/)
 - **InfluxDB Cloud (TSM)**: Legacy managed v2 product; new signups are directed to InfluxDB Cloud Serverless (v3)
-- **InfluxDB Cloud 1**: Legacy managed v1 product; new signups are no longer available; existing customers only
+- **InfluxDB 1 OSS**: Free download
+- **InfluxDB 1 Enterprise**: Commercial license; [contact Sales](https://influxdata.com/contact-sales/)
+- **InfluxDB 1 Cloud**: Managed service based on InfluxDB 1 Enterprise and hosted on AWS; available to new customers through [Sales](https://influxdata.com/contact-sales/)
 
 **API compatibility:**
 
 - **v3 API**: Latest API in InfluxDB 3 Core, Enterprise, and Cloud (`/api/v3` endpoints) with database-based data model
 - **v2 API**: Used in InfluxDB v2 with token authentication and bucket-based data model; InfluxDB 3 products support `/api/v2/write` compatibility endpoint
-- **v1 HTTP API**: Legacy API with `/write` and `/query` endpoints; InfluxDB 3 products provide v1 compatibility for easier migration from v1 products
+- **v1 HTTP API**: API with `/write` and `/query` endpoints, used by InfluxDB 1 and supported by compatibility endpoints in InfluxDB 3 products
 {{% /expand %}}
 
 - [InfluxDB 3](#influxdb-3)
 - [InfluxDB 2.x](#influxdb-2x)
-- [InfluxDB 1.x](#influxdb-1x)
+- [InfluxDB 1](#influxdb-1x)
 - [Migrate to InfluxDB 3](#migrate-to-influxdb-3)
 - [Monitoring](#monitoring)
 
@@ -134,50 +136,92 @@ The **InfluxDB 2 platform** consolidates InfluxDB, Chronograf, and Kapacitor fro
 > - Query data in InfluxDB Enterprise using `api/v2/query` and Flux.
 > - Write data to InfluxDB Enterprise using `api/v2/write` (compatible with InfluxDB 2.0 client libraries).
 
-## InfluxDB 1.x
+## InfluxDB 1 {#influxdb-1x}
 
-The **InfluxDB 1.x platform** provides time series data storage with the TICK stack (Telegraf, InfluxDB, Chronograf, Kapacitor).
+**InfluxDB 1** is the family of InfluxDB products built on the InfluxDB 1.x engine.
+InfluxDB 1 is available and actively supported.
+It uses the TSM storage engine, a database and retention policy data model,
+and the InfluxQL query language.
+In the TICK stack, Telegraf collects data, Chronograf provides visualization,
+and Kapacitor processes data and generates alerts.
+
+InfluxDB 1 OSS, InfluxDB 1 Enterprise, and InfluxDB 1 Cloud were previously labeled
+InfluxDB OSS v1, InfluxDB Enterprise v1, and InfluxDB Cloud 1.
 
 **Products**:
 
-- **[InfluxDB OSS v1](/influxdb/v1/)**: Open source, self-hosted time series database
-- **[InfluxDB Enterprise v1](/enterprise_influxdb/v1/)**: Commercial, self-hosted cluster with HA and advanced features
-- **[InfluxDB Cloud 1](#influxdb-cloud-1)**: Legacy managed cloud service (new signups unavailable)
+- **[InfluxDB 1 OSS](/influxdb/v1/)**: Open source, self-hosted time series database. Free to download.
+- **[InfluxDB 1 Enterprise](/enterprise_influxdb/v1/)**: Commercial, self-hosted cluster with high availability and advanced features. Commercial license; [contact Sales](https://influxdata.com/contact-sales/).
+- **[InfluxDB 1 Cloud](#influxdb-cloud-1)**: Managed service based on InfluxDB 1 Enterprise and hosted on AWS. Available through [Sales](https://influxdata.com/contact-sales/).
 - **[Telegraf](/telegraf/v1/)**: Data collection agent
 - **[Chronograf](/chronograf/v1/)**: Visualization and dashboarding
 - **[Kapacitor](/kapacitor/v1/)**: Data processing and alerting
 
-### InfluxDB Cloud 1
+### When to choose InfluxDB 1
 
-> [!Important]
-> #### Legacy product - New InfluxDB Cloud signups use InfluxDB 3
->
-> InfluxDB Cloud 1 (also known as InfluxCloud 1.x) is a **legacy managed service** based on InfluxDB Enterprise v1.
-> **New signups are no longer available**.
-> New InfluxDB Cloud signups are directed to [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) (powered by InfluxDB 3).
->
-> Existing InfluxDB Cloud 1 customers should consider [migrating to InfluxDB 3](#migrate-to-influxdb-3).
-> If you are looking to use InfluxDB v1, consider self-hosting [InfluxDB OSS v1](/influxdb/v1/).
+Choose InfluxDB 1 when:
 
-InfluxDB Cloud 1 was a **Database as a Service (DBaaS)** offering that provided fully managed, production-ready InfluxDB Enterprise v1 clusters hosted on AWS. It was designed to collect, store, and process time series data without the operational overhead of managing infrastructure.
+- Your workloads are built on InfluxQL
+- You use Kapacitor for alerting and data processing
+- You run an established InfluxDB 1 deployment, including a cluster, and don't need features only available in InfluxDB 3
+
+Evaluate InfluxDB 3 when you need SQL, object storage, or unlimited series cardinality.
+For a comparison, see [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/).
+
+### Query languages
+
+InfluxDB 1 supports InfluxQL.
+InfluxDB OSS v1.8 and later and InfluxDB Enterprise v1.8 and later also support Flux when enabled.
+Flux availability in [InfluxDB 1 Cloud](#influxdb-cloud-1) varies by deployment.
+
+Kapacitor v1.6.0 and later can schedule and run Flux tasks against InfluxDB and other data sources.
+To enable and use Flux tasks, see [Use Flux tasks with Kapacitor](/kapacitor/v1/working/flux/).
+
+### High availability and FIPS builds
+
+InfluxDB 1 Enterprise adds clustering to InfluxDB 1 OSS.
+A cluster of meta nodes and data nodes provides high availability and eliminates a single point of failure across the cluster.
+For details, see [InfluxDB Enterprise v1 clustering features](/enterprise_influxdb/v1/features/clustering-features/).
+
+FIPS-compliant builds are available for self-managed InfluxDB Enterprise v1.11.1 and later.
+See [FIPS-compliant InfluxDB Enterprise v1 builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
+
+### Move from InfluxDB 1 OSS to InfluxDB 1 Enterprise
+
+To move a running InfluxDB 1 OSS instance to an InfluxDB 1 Enterprise cluster,
+see [Migrate InfluxDB OSS instances to InfluxDB Enterprise v1 clusters](/enterprise_influxdb/v1/guides/migration/).
+
+### InfluxDB 1 Cloud {#influxdb-cloud-1}
+
+InfluxDB 1 Cloud (also known as InfluxCloud 1.x) is a managed service based on InfluxDB 1 Enterprise.
+It is available to new customers through Sales.
+To get started, [contact Sales](https://influxdata.com/contact-sales/).
+
+InfluxDB 1 Cloud is a **Database as a Service (DBaaS)** offering that provides fully managed, production-ready InfluxDB 1 Enterprise clusters hosted on AWS.
+It is designed to collect, store, and process time series data without the operational overhead of managing infrastructure.
 
 #### Key characteristics
 
 - **Managed infrastructure**: Production-ready clusters with multiple data and meta nodes managed by InfluxData
 - **TICK stack support**: Full support for Telegraf, InfluxDB, Chronograf, and Kapacitor
 - **Database and retention policy data model**: Uses databases and retention policies
-- **InfluxQL query language**: Primary query language for Cloud 1
+- **Query languages**: InfluxQL and Flux; Flux availability varies by deployment
 - **Optional add-ons**: Managed Grafana available for rich visualization and dashboarding
+
+InfluxDB 1 Cloud deployments can have Flux enabled or disabled.
+To check Flux availability for your deployment, contact [InfluxDB 1 Cloud support](https://help.influxcloud.net).
 
 #### Documentation and support
 
-- **Technical documentation**: InfluxDB Cloud 1 users should refer to [InfluxDB Enterprise v1 documentation](/enterprise_influxdb/v1/), as InfluxDB Cloud 1 is based on Enterprise v1
-- **InfluxDB Cloud 1 support portal**: For account, billing, and service questions, visit [help.influxcloud.net](https://help.influxcloud.net)
-- **API compatibility**: InfluxDB Cloud 1 uses the same APIs and tools as InfluxDB Enterprise v1
+- **Technical documentation**: InfluxDB 1 Cloud users should refer to [InfluxDB 1 Enterprise documentation](/enterprise_influxdb/v1/), as InfluxDB 1 Cloud is based on InfluxDB 1 Enterprise
+- **InfluxDB 1 Cloud support portal**: For account, billing, and service questions, visit [help.influxcloud.net](https://help.influxcloud.net)
+- **API compatibility**: InfluxDB 1 Cloud uses the same APIs and tools as InfluxDB 1 Enterprise
 
 ## Migrate to InfluxDB 3
 
-InfluxDB Enterprise, Cloud 1, and Cloud (TSM) customers can migrate to modern InfluxDB 3 products with improved performance, scalability, and features.
+InfluxDB 1 users can move to InfluxDB 3 when they need its capabilities, such as SQL, object storage, and unlimited series cardinality.
+Migration is optional: InfluxDB 1 remains available and actively supported.
+InfluxDB Cloud (TSM) customers can migrate to modern InfluxDB 3 products with improved performance, scalability, and features.
 Migration options include:
 
 - **[InfluxDB 3 Enterprise](/influxdb3/enterprise/)**: Self-hosted with clustering, high availability, and advanced security

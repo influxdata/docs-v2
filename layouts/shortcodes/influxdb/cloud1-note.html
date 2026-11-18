@@ -2,40 +2,37 @@
 {{ $type := .Get "type" | default "enterprise" }}
 
 <div class="note block">
-  <h4>InfluxDB Cloud 1 users</h4>
+  <h4>InfluxDB 1 Cloud users</h4>
   {{ if eq $type "oss" }}
   <p>
-    <strong>InfluxDB Cloud 1</strong> (InfluxCloud 1.x) is based on InfluxDB
-    Enterprise v1. Use the
-    <a href="/enterprise_influxdb/v1/">Enterprise v1 documentation</a> instead.
+    <strong>InfluxDB 1 Cloud</strong> (InfluxCloud 1.x) is based on InfluxDB 1
+    Enterprise. Use the
+    <a href="/enterprise_influxdb/v1/">InfluxDB 1 Enterprise documentation</a>
+    instead.
   </p>
   <ul>
     <li>
-      <strong>InfluxDB Cloud 1 Support</strong>:
+      <strong>InfluxDB 1 Cloud Support</strong>:
       <a href="https://help.influxcloud.net">help.influxcloud.net</a>
     </li>
     <li>
-      <strong>Migrate</strong>: Consider
-      <a href="/platform/#migration-to-influxdb-3">migrating to InfluxDB 3</a>
-      (Enterprise, Cloud Serverless, or Cloud Dedicated) with v1 API
-      compatibility
+      Comparing with InfluxDB 3? See
+      <a href="/platform/#migrate-to-influxdb-3">Migrate to InfluxDB 3</a>
     </li>
   </ul>
   {{ else }}
   <p>
-    <strong>InfluxDB Cloud 1</strong> (InfluxCloud 1.x) is based on InfluxDB
-    Enterprise v1. This is the correct documentation.
+    <strong>InfluxDB 1 Cloud</strong> (InfluxCloud 1.x) is based on InfluxDB 1
+    Enterprise. This is the correct documentation.
   </p>
   <ul>
     <li>
-      <strong>InfluxDB Cloud 1 Support</strong>:
+      <strong>InfluxDB 1 Cloud Support</strong>:
       <a href="https://help.influxcloud.net">help.influxcloud.net</a>
     </li>
     <li>
-      <strong>Migrate</strong>: Consider
-      <a href="/platform/#migration-to-influxdb-3">migrating to InfluxDB 3</a>
-      (Enterprise, Cloud Serverless, or Cloud Dedicated) with v1 API
-      compatibility
+      Comparing with InfluxDB 3? See
+      <a href="/platform/#migrate-to-influxdb-3">Migrate to InfluxDB 3</a>
     </li>
   </ul>
   {{ end }}

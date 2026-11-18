@@ -17,7 +17,7 @@ To get started with **InfluxDB 3**:
 
 3. Install [Telegraf](/telegraf/v1/get_started/) to collect and send data to your InfluxDB 3 instance.
 
-## Other versions of InfluxDB
+## Get started with InfluxDB 1 (TICK stack) {#other-versions-of-influxdb}
 
 To get started with the **InfluxData 1.x** platform, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/), and then follow the steps below.
 

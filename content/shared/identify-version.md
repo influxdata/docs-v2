@@ -17,7 +17,7 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 | `*.a.influxdb.io`                          | InfluxDB Cloud Dedicated                      |
 | `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
 | `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
-| `*.influxcloud.net`                        | [InfluxDB Cloud 1](/platform/#influxdb-cloud-1) (legacy) |
+| `*.influxcloud.net`                        | [InfluxDB 1 Cloud](/platform/#influxdb-cloud-1) |
 | Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)                          |
 
 ### By default port
@@ -25,7 +25,7 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 Different InfluxDB products use different default ports:
 
 - **Port 8181**: InfluxDB 3 (Core or Enterprise)
-- **Port 8086**: InfluxDB v1 or v2
+- **Port 8086**: InfluxDB 1.x or 2.x
 
 ### By HTTP headers
 
@@ -424,15 +424,15 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |
 | **InfluxDB OSS v2**           | Free      | Self-hosted              | InfluxQL, Flux      | 8086         |
 | **InfluxDB Cloud (TSM)**      | Free/Paid | Cloud                    | InfluxQL, Flux      | N/A          |
-| **InfluxDB OSS v1**           | Free      | Self-hosted              | InfluxQL            | 8086         |
-| **InfluxDB Enterprise v1**    | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
-| **[InfluxDB Cloud 1](/platform/#influxdb-cloud-1)**          | Paid      | Cloud (legacy)           | InfluxQL            | N/A          |
+| **InfluxDB 1 OSS**            | Free      | Self-hosted              | InfluxQL            | 8086         |
+| **InfluxDB 1 Enterprise**     | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
+| **[InfluxDB 1 Cloud](/platform/#influxdb-cloud-1)**          | Paid      | Cloud                    | InfluxQL            | N/A          |
 
 ### Key characteristics
 
 - **InfluxDB 3** products use SQL and InfluxQL, run on port 8181 (self-hosted), and provide improved performance and scalability
-- **InfluxDB v2** products use InfluxQL and Flux, run on port 8086 (self-hosted), and use a bucket-based data model
-- **InfluxDB v1** products use InfluxQL, run on port 8086 (self-hosted), and use a database-based data model
+- **InfluxDB 2.x** products use InfluxQL and Flux, run on port 8086 (self-hosted), and use a bucket-based data model
+- **InfluxDB 1.x** products use InfluxQL, run on port 8086 (self-hosted), and use a database-based data model
 
 {{% /hide-in %}}
 
