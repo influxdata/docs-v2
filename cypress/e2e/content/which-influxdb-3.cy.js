@@ -24,7 +24,7 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     cy.get('h1').should('contain.text', 'Which InfluxDB 3 should I use');
   });
 
-  it('renders all 7 FAQ questions as H2s with stable anchors', function () {
+  it('renders all 7 FAQ questions as H3s under the H2 section with stable anchors', function () {
     const questions = [
       {
         text: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?",
@@ -58,7 +58,37 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       },
     ];
     questions.forEach(({ text, anchor }) => {
-      cy.get(`h2#${anchor}`).should('contain.text', text);
+      cy.get(`h3#${anchor}`).should('contain.text', text);
+    });
+  });
+
+  it('nests FAQ questions under a single "Frequently asked questions" H2', function () {
+    cy.get('h2#frequently-asked-questions').should('exist');
+    cy.get('article.article--content h2').then(($h2s) => {
+      const ids = [...$h2s].map((h) => h.id);
+      expect(ids).to.not.include('whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3');
+    });
+    cy.get('div.faq-answer').each(($div) => {
+      cy.wrap($div).prevAll('h2, h3').first().should('match', 'h3');
+    });
+  });
+
+  it('lists FAQ questions in the "On this page" sidebar', function () {
+    cy.get('[data-component="page-toc"]').should('have.attr', 'data-toc-depth', '3');
+    cy.get('[data-component="page-toc"] a[href="#where-does-influxdb-3-explorer-fit"]').should('exist');
+  });
+
+  it('keeps the JSON-LD questions identical to the visible H3 questions', function () {
+    cy.get('div.faq-answer').then(() => {
+      const visible = [...Cypress.$('article.article--content h3')]
+        .filter((h) => Cypress.$(h).next('div.faq-answer').length)
+        .map((h) => h.textContent.trim());
+      cy.get('script[type="application/ld+json"]').then(($scripts) => {
+        const faq = [...$scripts]
+          .map((s) => JSON.parse(s.textContent))
+          .find((j) => j['@type'] === 'FAQPage');
+        expect(faq.mainEntity.map((q) => q.name)).to.deep.equal(visible);
+      });
     });
   });
 
