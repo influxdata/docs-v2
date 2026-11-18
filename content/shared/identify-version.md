@@ -424,15 +424,15 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |
 | **InfluxDB OSS v2**           | Free      | Self-hosted              | InfluxQL, Flux      | 8086         |
 | **InfluxDB Cloud (TSM)**      | Free/Paid | Cloud                    | InfluxQL, Flux      | N/A          |
-| **InfluxDB 1 OSS**            | Free      | Self-hosted              | InfluxQL            | 8086         |
-| **InfluxDB 1 Enterprise**     | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
-| **[InfluxDB 1 Cloud](/platform/#influxdb-cloud-1)**          | Paid      | Cloud                    | InfluxQL            | N/A          |
+| **InfluxDB 1 OSS**            | Free      | Self-hosted              | InfluxQL, Flux (when enabled) | 8086 |
+| **InfluxDB 1 Enterprise**     | Paid      | Self-hosted              | InfluxQL, Flux (when enabled) | 8086 |
+| **[InfluxDB 1 Cloud](/platform/#influxdb-cloud-1)** | Paid | Cloud | InfluxQL, Flux (varies by deployment) | N/A |
 
 ### Key characteristics
 
 - **InfluxDB 3** products use SQL and InfluxQL, run on port 8181 (self-hosted), and provide improved performance and scalability
 - **InfluxDB 2.x** products use InfluxQL and Flux, run on port 8086 (self-hosted), and use a bucket-based data model
-- **InfluxDB 1.x** products use InfluxQL, run on port 8086 (self-hosted), and use a database-based data model
+- **InfluxDB 1.x** products use InfluxQL, run on port 8086 (self-hosted), and use a database-based data model. Flux is also available in some versions and deployments; see [InfluxDB 1 query languages](/platform/#query-languages).
 
 {{% /hide-in %}}
 
