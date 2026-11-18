@@ -6,7 +6,8 @@ How you back up and restore that data depends on your storage engine:
 - **Enterprise on the upgraded storage engine** (the default for new
   clusters, or after running the storage engine upgrade with
   `--upgrade-pacha-tree`): use the
-  built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli).
+  built-in [`influxdb3` backup and restore commands](#back-up-and-restore-with-the-influxdb3-cli)
+  or [HTTP API](#back-up-and-restore-with-the-http-api).
   This is the recommended path on the upgraded engine.
 - **Enterprise on the Parquet engine** (clusters that started on 3.10 or
   earlier that have not run the storage engine upgrade): use the
@@ -93,6 +94,8 @@ The backup and restore subcommands map to the
 `/api/v3/enterprise/backup[/{name}]` and `/api/v3/enterprise/restore[/{id}]` HTTP
 API endpoints. For complete command syntax and flags, see the
 [`influxdb3` CLI reference](/influxdb3/version/reference/cli/influxdb3/).
+For HTTP requests, see the
+[HTTP API examples](#back-up-and-restore-with-the-http-api).
 
 ### Create a backup
 
@@ -237,6 +240,145 @@ restored state still references.
 To recover into a new object store, copy the backup directory
 `{cluster_id}/backups/{name}/` into an empty object store that uses the **same
 cluster ID and node ID** as the original deployment, then restart the node(s).
+
+## Back up and restore with the HTTP API
+
+Use the Enterprise HTTP API to script these operations against a compactor node.
+The [CLI requirements](#back-up-and-restore-with-the-influxdb3-cli) for the
+storage engine, node role, and authentication also apply to these endpoints.
+In the following examples, set `HOST_URL` to the compactor node URL and
+`AUTH_TOKEN` to an admin token:
+
+```bash
+export HOST_URL="http://localhost:8181"
+export AUTH_TOKEN="YOUR_ADMIN_TOKEN"
+```
+
+### Create and inspect backups with the API
+
+Send `type: full` to create a full backup.
+The request returns HTTP `202` immediately with the resolved backup name and
+`in_progress` status:
+
+```bash
+curl --request POST "$HOST_URL/api/v3/enterprise/backup" \
+  --header "Authorization: Bearer $AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{"type":"full","name":"base"}'
+```
+
+```json
+{"backup_name":"base","status":"in_progress"}
+```
+
+Poll the backup by name until its `status` is `completed` before using it as
+an incremental backup's parent:
+
+```bash
+curl --request GET "$HOST_URL/api/v3/enterprise/backup/base" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+```
+
+When the full backup finishes, the response has `status: completed`:
+
+```json
+{
+  "name": "base",
+  "type": "full",
+  "status": "completed",
+  "created_at": "2026-10-03T10:00:00Z",
+  "completed_at": "2026-10-03T10:02:00Z",
+  "total_files": 128,
+  "total_size_bytes": 524288000,
+  "incrementals": []
+}
+```
+
+Create an incremental backup with `type: incremental` and the completed
+parent's name:
+
+```bash
+curl --request POST "$HOST_URL/api/v3/enterprise/backup" \
+  --header "Authorization: Bearer $AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{"type":"incremental","name":"inc-1","parent":"base"}'
+```
+
+To inspect the incremental backup, request
+`GET /api/v3/enterprise/backup/inc-1`.
+To list all full backups and their incremental chains, request the collection:
+
+```bash
+curl --request GET "$HOST_URL/api/v3/enterprise/backup" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+```
+
+### Delete or cancel backups with the API
+
+Delete a completed backup by name:
+
+```bash
+curl --request DELETE "$HOST_URL/api/v3/enterprise/backup/base" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+```
+
+To delete an incremental backup, add `?incremental=true`.
+This also deletes all of its descendant incremental backups:
+
+```bash
+curl --request DELETE \
+  "$HOST_URL/api/v3/enterprise/backup/inc-1?incremental=true" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+```
+
+To cancel an in-progress backup, send its name in the JSON body of
+`DELETE /api/v3/enterprise/backup`:
+
+```bash
+curl --request DELETE "$HOST_URL/api/v3/enterprise/backup" \
+  --header "Authorization: Bearer $AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{"name":"inc-1"}'
+```
+
+### Restore and inspect restores with the API
+
+Pass a completed full or incremental backup name to start a restore.
+The request returns HTTP `202` with a `restore_id` for status checks:
+
+```bash
+curl --request POST "$HOST_URL/api/v3/enterprise/restore" \
+  --header "Authorization: Bearer $AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{"backup_name":"inc-1"}'
+```
+
+```json
+{"restore_id":"01J8X9Z0ABCDEF","status":"in_progress"}
+```
+
+Use the returned `restore_id` to check status or cancel the in-progress restore:
+
+```bash
+curl --request GET \
+  "$HOST_URL/api/v3/enterprise/restore/01J8X9Z0ABCDEF" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+
+curl --request DELETE \
+  "$HOST_URL/api/v3/enterprise/restore/01J8X9Z0ABCDEF" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+```
+
+The status response reports the source `backup_name`, progress counts, and
+`in_progress`, `completed`, or `failed` status.
+The cancel request returns HTTP `204` with no body.
+
+To list restores, request the restore collection:
+
+```bash
+curl --request GET "$HOST_URL/api/v3/enterprise/restore" \
+  --header "Authorization: Bearer $AUTH_TOKEN"
+```
 
 {{% /show-in %}}
 
