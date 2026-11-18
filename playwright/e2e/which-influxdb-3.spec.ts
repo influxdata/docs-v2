@@ -100,6 +100,13 @@ test.describe('Which InfluxDB 3 decision page (canonical)', () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/influxdb3/which-influxdb-3/');
+    const notifications = page.locator('#docs-notifications > .notification:visible');
+    while (await notifications.count()) {
+      const id = await notifications.first().getAttribute('id');
+      const notification = page.locator(`#docs-notifications > [id="${id}"]`);
+      await notification.locator('.close-notification').click();
+      await expect(notification).toBeHidden();
+    }
     const toc = page.locator('[data-component="page-toc"]');
     await toc.locator('.page-toc-toggle').click();
     await expect(
