@@ -100,7 +100,9 @@ test.describe('Which InfluxDB 3 decision page (canonical)', () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/influxdb3/which-influxdb-3/');
-    const notifications = page.locator('#docs-notifications > .notification:visible');
+    const notifications = page.locator(
+      '#docs-notifications > .notification:visible'
+    );
     while (await notifications.count()) {
       const id = await notifications.first().getAttribute('id');
       const notification = page.locator(`#docs-notifications > [id="${id}"]`);
