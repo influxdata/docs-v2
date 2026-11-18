@@ -78,7 +78,11 @@ Follow instructions to install `kubectl` on your local machine:
     in the cluster and a mechanism to obtain a valid TLS certificate
     (for example: [cert-manager](https://cert-manager.io/) or provide the
     certificate PEM manually out of band).
-    To use the InfluxDB-specific ingress controller, install [Ingress NGINX](https://github.com/kubernetes/ingress-nginx).
+    To use the InfluxDB-defined ingress, install [Istio](https://istio.io/latest/docs/setup/)
+    with an ingress gateway.
+    InfluxDB Clustered also supports [Ingress NGINX](https://github.com/kubernetes/ingress-nginx),
+    which is deprecated and requires an explicit
+    [`Ingress` template](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/#configure-ingress).
 
 5.  Ensure your Kubernetes cluster can access the InfluxDB container registry,
     or, if running in an air-gapped environment, a local container registry to
@@ -203,8 +207,24 @@ kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.22
 routes HTTP/S requests to services within the cluster and requires deploying an
 [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
 You can provide your own ingress or you can install
-[Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx) to use
+[Istio](https://istio.io/latest/docs/setup/) with an ingress gateway to use
 the InfluxDB-defined ingress.
+By default, InfluxDB Clustered creates an Istio `Gateway` and `VirtualService`.
+
+> [!Important]
+> #### Breaking change: the default ingress is now Istio Gateway
+>
+> Starting with release `20261030-2076753`, the default ingress type is Istio
+> Gateway instead of Ingress (Ingress NGINX).
+> Upgrading an existing cluster without installing Istio or setting the
+> `Ingress` template breaks the cluster.
+> Ingress NGINX is deprecated.
+> InfluxDB Clustered still supports Ingress NGINX, but you must opt in with the
+> [`ingress.template`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/#configure-ingress)
+> setting with `apiVersion: networking.k8s.io/v1` and `kind: Ingress`.
+> See the [release notes](/influxdb3/clustered/reference/release-notes/clustered/#20261030-2076753).
+> If you upgrade an existing cluster that uses Ingress NGINX, see
+> [Ingress changes in release 20261030-2076753](/influxdb3/clustered/admin/upgrade/#ingress-changes-in-release-20261030-2076753).
 
 > [!Important]
 > #### Allow gRPC/HTTP2
