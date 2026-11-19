@@ -59,7 +59,7 @@
     Enterprise is a commercial product built on the same engine; it offers a
     30-day free trial and a free at-home license for non-commercial use.
     InfluxDB 1 OSS and InfluxDB 2 OSS also remain available under open source
-    licenses. InfluxDB 1 OSS is a free download.
+    licenses.
 
 - question: "Which version of InfluxDB should I use?"
   answer: |

@@ -5,8 +5,8 @@
     InfluxQL. Flux is not officially supported on any InfluxDB 3 product.
     InfluxDB 1 is actively supported: it uses the TSM storage engine and
     supports InfluxQL. InfluxDB OSS v1.8 and later and InfluxDB Enterprise
-    v1.8 and later also support Flux when enabled. Flux availability in
-    InfluxDB 1 Cloud varies by deployment; see the
+    v1.8 and later also support Flux when enabled. InfluxDB 1 Cloud supports
+    Flux; see the
     [InfluxDB 1 Cloud overview](/platform/#influxdb-cloud-1). InfluxDB 2 OSS
     remains supported and adds a new API surface; it also supports InfluxQL and Flux.
     Choose InfluxDB 3 for new workloads that need v3 features, and see the

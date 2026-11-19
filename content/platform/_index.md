@@ -58,7 +58,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 | **[InfluxDB Cloud (TSM)](#influxdb-2x)** | v2 (TSM) | Free & Paid | Managed cloud | Flux, InfluxQL | Limited | v2, v1 |
 | **[InfluxDB 1 OSS](#influxdb-1x)** | v1 (TSM) | Open Source | Self-managed (single-node) | InfluxQL, Flux (when enabled) | Limited | v2, v1 |
 | **[InfluxDB 1 Enterprise](#influxdb-1x)** | v1 (TSM) | Commercial | Self-managed (cluster) | InfluxQL, Flux (when enabled) | Limited | v2, v1 |
-| **[InfluxDB 1 Cloud](#influxdb-cloud-1)** | v1 (TSM) | Paid | Managed cloud | InfluxQL, Flux (varies by deployment) | Limited | v2, v1 |
+| **[InfluxDB 1 Cloud](#influxdb-cloud-1)** | v1 (TSM) | Paid | Managed cloud | InfluxQL, Flux | Limited | v2, v1 |
 
 **Storage engine notes:**
 
@@ -172,7 +172,7 @@ For a comparison, see [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb
 
 InfluxDB 1 supports InfluxQL.
 InfluxDB OSS v1.8 and later and InfluxDB Enterprise v1.8 and later also support Flux when enabled.
-Flux availability in [InfluxDB 1 Cloud](#influxdb-cloud-1) varies by deployment.
+[InfluxDB 1 Cloud](#influxdb-cloud-1) also supports Flux.
 
 Kapacitor v1.6.0 and later can schedule and run Flux tasks against InfluxDB and other data sources.
 To enable and use Flux tasks, see [Use Flux tasks with Kapacitor](/kapacitor/v1/working/flux/).
@@ -205,11 +205,8 @@ It is designed to collect, store, and process time series data without the opera
 - **Managed infrastructure**: Production-ready clusters with multiple data and meta nodes managed by InfluxData
 - **TICK stack support**: Full support for Telegraf, InfluxDB, Chronograf, and Kapacitor
 - **Database and retention policy data model**: Uses databases and retention policies
-- **Query languages**: InfluxQL and Flux; Flux availability varies by deployment
+- **Query languages**: InfluxQL and Flux
 - **Optional add-ons**: Managed Grafana available for rich visualization and dashboarding
-
-InfluxDB 1 Cloud deployments can have Flux enabled or disabled.
-To check Flux availability for your deployment, contact [InfluxDB 1 Cloud support](https://help.influxcloud.net).
 
 #### Documentation and support
 
