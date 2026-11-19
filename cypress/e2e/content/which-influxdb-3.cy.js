@@ -49,7 +49,7 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
           'whats-the-difference-between-influxdb-3-cloud-and-influxdb-cloud-serverless',
       },
       {
-        text: 'Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?',
+        text: 'Is InfluxDB Cloud Serverless the same as InfluxDB 3 Enterprise?',
         anchor:
           'is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise',
       },

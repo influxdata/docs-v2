@@ -18,7 +18,7 @@ const FAQ_QUESTIONS = [
     anchor: 'i-run-influxdb-1-today--should-i-migrate-to-influxdb-3',
   },
   {
-    text: 'Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?',
+    text: 'Is InfluxDB Cloud Serverless the same as InfluxDB 3 Enterprise?',
     anchor: 'is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise',
   },
   {

@@ -51,7 +51,8 @@
     write endpoints and has no native v3 write API. Both support SQL and
     InfluxQL.
 
-- question: "Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?"
+- question: "Is InfluxDB Cloud Serverless the same as InfluxDB 3 Enterprise?"
+  anchor: is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise
   answer: |
     No. Cloud Serverless runs on the v3 storage engine but has a different
     API surface: it uses v1/v2-compatible write endpoints (no native v3

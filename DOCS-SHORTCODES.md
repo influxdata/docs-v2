@@ -205,7 +205,10 @@ selects `data/faqs/platform.yml`.
 
 By default, questions render as H2 headings. Set the optional `level` parameter
 to `2`, `3`, or `4` to choose a heading level that fits the page hierarchy.
-Question IDs are generated from the question text regardless of heading level.
+By default, the shortcode generates each heading ID from the question text.
+To preserve an existing link when you rename a question, set its optional
+`anchor` field in the FAQ YAML to the existing ID without the leading `#`.
+The visible heading and FAQPage structured data both use the current question text.
 
 ```md
 {{< faq level="3" >}}
