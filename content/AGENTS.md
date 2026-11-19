@@ -84,10 +84,17 @@ Products defined in [data/products.yml](../data/products.yml):
 
 - Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
   "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
-- Treat "Cloud" alone as ambiguous; require the exact product or edition rather
-  than inferring Cloud Dedicated
-- Don't mix v2/v3 terminology (e.g., "bucket" in v3 Core docs)
-- Version references match the content path
+- Use the exact cloud product name. Resolve bare "Cloud" or "InfluxDB Cloud"
+  from the docs path, hostname, or context. Ask which product the author means
+  if the context is inconclusive.
+- InfluxCloud and Cloud 1 mean **InfluxDB 1 Cloud**, based on InfluxDB 1
+  Enterprise. **InfluxDB Cloud (TSM)** means the managed InfluxDB 2 product.
+  Both services use TSM.
+- **InfluxDB 3 Cloud** is managed InfluxDB 3 Enterprise.
+  **InfluxDB Cloud Serverless** is the multi-tenant, self-service v3 offering.
+  See [InfluxDB cloud product names](../DOCS-CONTRIBUTING.md#influxdb-cloud-product-names)
+  for naming and documentation paths.
+- Match terminology and version references to the product and content path.
 
 ### Links
 

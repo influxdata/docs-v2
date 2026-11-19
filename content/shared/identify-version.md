@@ -17,7 +17,7 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 | `*.a.influxdb.io`                          | InfluxDB Cloud Dedicated                      |
 | `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
 | `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
-| `*.influxcloud.net`                        | [InfluxDB 1 Cloud](/platform/#influxdb-cloud-1) |
+| `*.influxcloud.net`                        | [InfluxDB 1 Cloud (InfluxCloud)](/platform/#influxdb-cloud-1) |
 | Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)                          |
 
 ### By default port
@@ -191,7 +191,7 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 
 **InfluxDB Cloud (TSM)** can be identified by:
 
-**URL patterns** (regional cloud2.influxdata.com URLs, excluding Serverless regions):
+**URL patterns** (regional `cloud2.influxdata.com` URLs, excluding InfluxDB Cloud Serverless regions):
 
 - `us-west-2-1.aws.cloud2.influxdata.com`
 - `us-west-2-2.aws.cloud2.influxdata.com`
@@ -200,7 +200,7 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 - `westeurope-1.azure.cloud2.influxdata.com`
 - `eastus-1.azure.cloud2.influxdata.com`
 
-**Account settings**: Check your InfluxDB Cloud account dashboard for product details.
+**Account settings**: Check your InfluxDB Cloud (TSM) account dashboard for product details.
 
 **HTTP headers**: API responses include version information in response headers.
 
@@ -365,9 +365,9 @@ The InfluxDB UI displays the version:
 
 For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/reference/faq/#administration-1)
 
-### InfluxDB Cloud products
+### InfluxDB cloud products
 
-For InfluxDB Cloud products, check the version information:
+To identify which InfluxDB cloud product you use, check the following:
 
 - **Account settings**: Version details appear in your account dashboard
 - **UI footer**: The version may be displayed at the bottom of the web interface

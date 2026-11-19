@@ -70,7 +70,7 @@
     language across all InfluxDB 3 products.
 
     Flux is not officially supported on any InfluxDB 3 product. Flux might
-    still work on InfluxDB 3 Cloud Serverless, but it isn't officially
+    still work on InfluxDB Cloud Serverless, but it isn't officially
     supported or optimized for InfluxDB 3. Flux is in maintenance mode —
     see [The future of Flux](/flux/v0/future-of-flux/). Migrate Flux
     queries to SQL or InfluxQL.

@@ -112,12 +112,16 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 ## InfluxDB 2.x
 
+InfluxDB Cloud (TSM) is based on InfluxDB 2.
+[InfluxDB 1 Cloud](#influxdb-cloud-1) is based on InfluxDB 1 Enterprise.
+Both services use the TSM storage engine.
+
 > [!Important]
-> #### Legacy product - New InfluxDB Cloud signups use InfluxDB 3
+> #### InfluxDB Cloud (TSM) signup availability {#legacy-product---new-influxdb-cloud-signups-use-influxdb-3}
 >
 > InfluxDB Cloud (TSM) is a **legacy managed service** based on InfluxDB v2.x.
 > **New signups are no longer available**.
-> New InfluxDB Cloud signups are directed to [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) (powered by InfluxDB 3).
+> New signups for InfluxDB Cloud (TSM) are directed to [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) (powered by InfluxDB 3).
 >
 > Existing InfluxDB Cloud (TSM) customers should consider [migrating to InfluxDB 3](#migrate-to-influxdb-3).
 > If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdb/v2/).
@@ -131,7 +135,7 @@ The **InfluxDB 2 platform** consolidates InfluxDB, Chronograf, and Kapacitor fro
 > [!Note]
 > #### Integrate InfluxDB 2.0 applications with InfluxDB Enterprise 1.8+
 >
-> Use [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1/api/buckets-v2-compatible/) to integrate applications built on InfluxDB 2.0 or InfluxDB Cloud with InfluxDB Enterprise 1.8+:
+> Use [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1/api/buckets-v2-compatible/) to integrate applications built on InfluxDB 2.0 or InfluxDB Cloud (TSM) with InfluxDB Enterprise 1.8+:
 >
 > - Query data in InfluxDB Enterprise using `api/v2/query` and Flux.
 > - Write data to InfluxDB Enterprise using `api/v2/write` (compatible with InfluxDB 2.0 client libraries).
@@ -193,7 +197,9 @@ see [Migrate InfluxDB OSS instances to InfluxDB Enterprise v1 clusters](/enterpr
 
 ### InfluxDB 1 Cloud {#influxdb-cloud-1}
 
-InfluxDB 1 Cloud (also known as InfluxCloud 1.x) is a managed service based on InfluxDB 1 Enterprise.
+InfluxDB 1 Cloud is a managed service based on InfluxDB 1 Enterprise.
+The [original help site](https://help.influxcloud.net/getting_started/) calls this service **InfluxCloud**.
+You might also see it called **Cloud 1**.
 It is available to new customers through Sales.
 To get started, [contact Sales](https://influxdata.com/contact-sales/).
 

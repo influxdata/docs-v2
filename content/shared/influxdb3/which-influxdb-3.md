@@ -7,7 +7,7 @@ of InfluxDB 3 Enterprise that InfluxData operates for you.
 **InfluxDB 3 Core** is the free, open-source, single-node release of the v3
 engine. Choose Core for non-production, edge, or single-node deployments.
 
-Choose **InfluxDB 3 Cloud Serverless** for a multi-tenant, self-service
+Choose **InfluxDB Cloud Serverless** for a multi-tenant, self-service
 cloud — pay for what you use — or to continue from InfluxDB Cloud (TSM).
 
 InfluxDB 3 is the current generation of InfluxDB.
@@ -23,7 +23,7 @@ to decide whether to stay on InfluxDB 1 or move to InfluxDB 3.
 | New production deployment | [InfluxDB 3 Enterprise](/influxdb3/enterprise/) (Trial or Home license for evaluation) |
 | Fully managed InfluxDB 3 Enterprise, single-tenant | [InfluxDB 3 Cloud](/influxdb3/cloud/) ([start a trial](https://www.influxdata.com/influxdb3-cloud-signup/)) |
 | Free, open source, single-node | [InfluxDB 3 Core](/influxdb3/core/) |
-| Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | [InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/) |
+| Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) |
 | Existing InfluxDB Cloud Dedicated deployments | [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) |
 | Kubernetes | [InfluxDB Clustered](/influxdb3/clustered/) |
 | InfluxQL-native workloads, Kapacitor alerting, or an established 1.x cluster | [InfluxDB 1](/platform/#influxdb-1x) |
@@ -80,9 +80,9 @@ Upgrade from Core to Enterprise when you need those features in production.
 
 [Get started with InfluxDB 3 Core](/influxdb3/core/get-started/)
 
-## InfluxDB 3 Cloud Serverless—multi-tenant, self-service cloud
+## InfluxDB Cloud Serverless for multi-tenant, self-service workloads {#influxdb-3-cloud-serverlessmulti-tenant-self-service-cloud}
 
-InfluxDB 3 Cloud Serverless is a multi-tenant, self-service cloud for
+InfluxDB Cloud Serverless is a multi-tenant, self-service cloud for
 smaller workloads — pay for what you use. It runs on the v3 storage engine
 but exposes a different API surface than Core and Enterprise:
 
@@ -97,7 +97,7 @@ Choose Cloud Serverless when:
 - Your workload is small enough for a multi-tenant environment
 - You do not need the native v3 API surface or the Processing Engine
 
-[Get started with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/get-started/)
+[Get started with InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/get-started/)
 
 ## Coming from InfluxDB 1 or InfluxDB 2?
 
