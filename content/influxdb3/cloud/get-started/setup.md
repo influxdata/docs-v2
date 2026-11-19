@@ -3,8 +3,8 @@ title: Set up {{% product-name %}}
 seotitle: Set up InfluxDB | Get started with {{% product-name %}}
 list_title: Set up InfluxDB
 description: >
-  Request access to {{% product-name %}}, connect the `influxdb3` CLI to your
-  managed cluster, and set up a database and token.
+  Sign up for a {{% product-name %}} trial, confirm your signup, and connect to
+  your provisioned instance to create a database and resource token.
 menu:
   influxdb3_cloud:
     name: Set up InfluxDB

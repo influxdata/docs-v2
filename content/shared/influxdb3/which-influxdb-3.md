@@ -1,6 +1,9 @@
 For new production workloads, use **InfluxDB 3 Enterprise**.
 A Trial or Home license lets you evaluate Enterprise before purchasing.
 
+For a fully managed service, use **InfluxDB 3 Cloud**, the cloud-hosted version
+of InfluxDB 3 Enterprise that InfluxData operates for you.
+
 **InfluxDB 3 Core** is the free, open-source, single-node release of the v3
 engine. Choose Core for non-production, edge, or single-node deployments.
 
@@ -18,9 +21,10 @@ to decide whether to stay on InfluxDB 1 or move to InfluxDB 3.
 | Your situation | Use this |
 |---|---|
 | New production deployment | [InfluxDB 3 Enterprise](/influxdb3/enterprise/) (Trial or Home license for evaluation) |
+| Fully managed InfluxDB 3 Enterprise, single-tenant | [InfluxDB 3 Cloud](/influxdb3/cloud/) ([start a trial](https://www.influxdata.com/influxdb3-cloud-signup/)) |
 | Free, open source, single-node | [InfluxDB 3 Core](/influxdb3/core/) |
 | Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | [InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/) |
-| Managed single-tenant cloud | [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) |
+| Existing InfluxDB Cloud Dedicated deployments | [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) |
 | Kubernetes | [InfluxDB Clustered](/influxdb3/clustered/) |
 | InfluxQL-native workloads, Kapacitor alerting, or an established 1.x cluster | [InfluxDB 1](/platform/#influxdb-1x) |
 | Running InfluxDB 1 today | Stay on [InfluxDB 1](/platform/#influxdb-1x), or [evaluate InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/) when you need SQL or unlimited cardinality |
@@ -40,6 +44,23 @@ Choose Enterprise when you need:
 - Commercial support
 
 [Get started with InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/)
+
+## InfluxDB 3 Cloud—fully managed InfluxDB 3 Enterprise
+
+InfluxDB 3 Cloud is the fully managed, cloud-hosted version of InfluxDB 3
+Enterprise.
+InfluxData provisions and operates a single-tenant instance for you, so you
+don't install, run, or scale servers yourself.
+It provides the native v3 write and query APIs and supports SQL and InfluxQL.
+
+Choose InfluxDB 3 Cloud when:
+
+- You want InfluxDB 3 Enterprise without operating your own infrastructure
+- You need a single-tenant instance
+- You want to use the native v3 write and query APIs in a managed service
+
+[Start an InfluxDB 3 Cloud trial](https://www.influxdata.com/influxdb3-cloud-signup/)
+or [get started with InfluxDB 3 Cloud](/influxdb3/cloud/get-started/).
 
 ## InfluxDB 3 Core—open source, single-node
 

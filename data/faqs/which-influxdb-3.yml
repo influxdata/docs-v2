@@ -42,6 +42,15 @@
     Migration guides cover InfluxDB 1 OSS and InfluxDB 1 Enterprise
     to InfluxDB 3 Enterprise.
 
+- question: "What's the difference between InfluxDB 3 Cloud and InfluxDB Cloud Serverless?"
+  answer: |
+    InfluxDB 3 Cloud is the fully managed, cloud-hosted version of InfluxDB 3
+    Enterprise. Each instance is single-tenant and provides the native v3
+    write and query APIs. InfluxDB Cloud Serverless is a multi-tenant,
+    self-service cloud with usage-based pricing. It uses v1/v2-compatible
+    write endpoints and has no native v3 write API. Both support SQL and
+    InfluxQL.
+
 - question: "Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?"
   answer: |
     No. Cloud Serverless runs on the v3 storage engine but has a different
@@ -56,8 +65,8 @@
 
 - question: "Which query languages does InfluxDB 3 support?"
   answer: |
-    SQL and InfluxQL on all InfluxDB 3 products — Core, Enterprise, Cloud
-    Serverless, Cloud Dedicated, and Clustered. SQL is the primary query
+    SQL and InfluxQL on all InfluxDB 3 products — Core, Enterprise, Cloud,
+    Cloud Serverless, Cloud Dedicated, and Clustered. SQL is the primary query
     language across all InfluxDB 3 products.
 
     Flux is not officially supported on any InfluxDB 3 product. Flux might

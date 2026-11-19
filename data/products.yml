@@ -102,7 +102,7 @@ influxdb3_cloud:
   versions: [cloud]
   list_order: 1
   latest: cloud
-  link: 'https://www.influxdata.com/contact-sales/'
+  link: 'https://www.influxdata.com/influxdb3-cloud-signup/'
   placeholder_host: instance-id.enterprise.influxdb.io
   scheme: https
   version_label: Cloud
@@ -320,7 +320,7 @@ influxdb:
   supports_flux: true
   latest: v2.10
   latest_patches:
-    v2: 2.10.0
+    v2: 2.10.1
     v1: 1.13.2
   latest_cli:
     v2: 2.9.1

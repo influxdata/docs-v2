@@ -1,3 +1,4 @@
+{{ $influxdb3Cloud := .Site.Data.products.influxdb3_cloud }}
 {{ $influxdb3CoreVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_core.latest_patch }}
 {{ $influxdb3EnterpriseVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_enterprise.latest_patch }}
 {{ $influxdb3ExplorerVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_explorer.latest_patch }}
@@ -83,11 +84,22 @@
             </div>
           </div>
         </div>
-        <div class="category two-thirds">
+        <div class="category full">
           <div class="category-head">
             <h4>Fully-Managed</h4>
           </div>
           <div class="products">
+            <div class="product">
+              <div class="product-info">
+                <h3 state="New"><a data-product-link-scope="homepage" data-product-path="{{ $influxdb3Cloud.content_path }}" href="{{ $homeURL }}{{ $influxdb3Cloud.content_path }}/">{{ $influxdb3Cloud.name }}</a></h3>
+                <p>The fully managed, cloud-hosted version of InfluxDB 3 Enterprise.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="{{ $influxdb3Cloud.link }}">Sign up for a trial</a></li>
+                <li><a href="{{ $homeURL }}{{ $influxdb3Cloud.content_path }}/get-started/">Get started with {{ $influxdb3Cloud.name }}</a></li>
+                <li><a href="{{ $homeURL }}{{ $influxdb3Cloud.content_path }}/">View documentation</a></li>
+              </ul>
+            </div>
             <div class="product">
               <div class="product-info">
                 <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/cloud-serverless" href="{{ $homeURL }}influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
@@ -110,7 +122,7 @@
             </div>
           </div>
         </div>
-        <div class="category one-third">
+        <div class="category full compact">
           <div class="category-head">
             <h4>Tools</h4>
           </div>

@@ -25,7 +25,13 @@ aliases:
   - /influxdb3/cloud/write-data/best-practices/schema-design/
 ---
 
-To request more information about {{% product-name %}},
+[Sign up for a {{% product-name %}} trial](https://www.influxdata.com/influxdb3-cloud-signup/).
+Check your signup email for instructions to confirm and start your trial.
+
+For questions or problems during your trial, follow the instructions in your signup email
+or contact [influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
+
+For other support requests about {{% product-name %}},
 [contact InfluxData support](https://support.influxdata.com).
 
 <!--
