@@ -265,8 +265,6 @@
     - /platform/
     - /resources/
     - /shared/
-    - /example/
-    - /create/
   title: 'InfluxDB 3 Cloud trials are now available'
   slug: |
     Try fully managed InfluxDB 3.

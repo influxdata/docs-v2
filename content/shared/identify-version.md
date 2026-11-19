@@ -13,7 +13,7 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 
 | URL Pattern                                | Product                                       |
 | ------------------------------------------ | --------------------------------------------- |
-| `*.enterprise.influxdb.io`                 | InfluxDB 3 Cloud ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) |
+| `*.enterprise.influxdb.io`                 | InfluxDB 3 Cloud                              |
 | `*.a.influxdb.io`                          | InfluxDB Cloud Dedicated                      |
 | `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
 | `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
@@ -223,8 +223,8 @@ The following command reports the installed CLI version:
 influxdb3 --version
 ```
 
-InfluxDB 3 Cloud is in early access.
-[Request access](https://www.influxdata.com/products/influxdb3-cloud/).
+To start an InfluxDB 3 Cloud trial, see
+[Get your instance](/influxdb3/cloud/get-started/setup/#get-your-instance).
 
 {{% /show-in %}}
 
@@ -418,7 +418,7 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | ----------------------------- | --------- | ------------------------ | ------------------- | ------------ |
 | **InfluxDB 3 Core**           | Free      | Self-hosted              | SQL, InfluxQL       | 8181         |
 | **InfluxDB 3 Enterprise**     | Paid      | Self-hosted              | SQL, InfluxQL       | 8181         |
-| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) | Paid | Cloud | SQL, InfluxQL | N/A |
+| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** | Paid | Cloud | SQL, InfluxQL | N/A |
 | **InfluxDB Cloud Serverless** | Free/Paid | Cloud                    | SQL, InfluxQL, Flux | N/A          |
 | **InfluxDB Cloud Dedicated**  | Paid      | Cloud                    | SQL, InfluxQL       | N/A          |
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |
