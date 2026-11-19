@@ -22,7 +22,7 @@ for migration guidance.
 | Fully managed InfluxDB 3 Enterprise, single-tenant | [InfluxDB 3 Cloud](/influxdb3/cloud/) ([start a trial](https://www.influxdata.com/contact-sales/)) |
 | Free, open source, single-node | [InfluxDB 3 Core](/influxdb3/core/) |
 | Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | [InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/) |
-| Managed single-tenant cluster with the v1 and v2 APIs | [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) |
+| Existing InfluxDB Cloud Dedicated deployments | [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) |
 | Kubernetes | [InfluxDB Clustered](/influxdb3/clustered/) |
 | Running InfluxDB 1 or InfluxDB 2 today | [Plan migration to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/) |
 
