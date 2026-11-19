@@ -4,8 +4,8 @@
 [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
 InfluxData provisions and operates the InfluxDB 3 servers for you, so you don't
 install, run, or scale servers yourself.
-To get started, get your instance host from InfluxData, configure the
-`influxdb3` CLI, log in, and then create a database.
+To get started, sign up for a trial, find your instance URL in the Admin UI,
+configure the `influxdb3` CLI, log in, and then create a database.
 
 - [Get your instance](#get-your-instance)
 - [Trial expiration](#trial-expiration)
@@ -33,8 +33,15 @@ or continue with the CLI steps below.
 For questions or problems during your trial, follow the instructions in your signup email
 or contact [influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
 
-After your instance is provisioned, InfluxData provides your instance
-**host URL**, which is the endpoint you connect to.
+After your instance is provisioned, find your instance **host URL**, which is the endpoint you connect to:
+
+1.  Go to [console.influxdata.com](https://console.influxdata.com) and sign in.
+2.  Select your instance.
+3.  In the navigation, select **Overview**.
+4.  In the **Instance Details** card, copy the **Instance URL**.
+
+For more information, see [Monitor your instance](/influxdb3/cloud/admin/monitor-instance/#view-instance-details).
+
 You authenticate with your InfluxData account in the following steps.
 You don't copy or store a token for interactive use.
 
@@ -49,6 +56,7 @@ This guide uses the `influxdb3` CLI.
 ## Trial expiration
 
 When your trial expires, your instance is deprovisioned within one hour and you lose access to it.
+InfluxData retains your data for 15 days after your trial expires.
 Export any data you want to keep before your trial ends.
 For questions about your trial, contact
 [influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
