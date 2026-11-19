@@ -9,7 +9,7 @@ cloud — pay for what you use — or to continue from InfluxDB Cloud (TSM).
 
 InfluxDB 3 is the current generation of InfluxDB.
 [**InfluxDB 1**](/platform/#influxdb-1x) remains available and actively supported.
-**InfluxDB 2** is in maintenance.
+InfluxDB 2 OSS remains supported for workloads that use its capabilities, including Flux.
 See [Coming from InfluxDB 1 or InfluxDB 2?](#coming-from-influxdb-1-or-influxdb-2)
 to decide whether to stay on InfluxDB 1 or move to InfluxDB 3.
 
@@ -24,7 +24,7 @@ to decide whether to stay on InfluxDB 1 or move to InfluxDB 3.
 | Kubernetes | [InfluxDB Clustered](/influxdb3/clustered/) |
 | InfluxQL-native workloads, Kapacitor alerting, or an established 1.x cluster | [InfluxDB 1](/platform/#influxdb-1x) |
 | Running InfluxDB 1 today | Stay on [InfluxDB 1](/platform/#influxdb-1x), or [evaluate InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/) when you need SQL or unlimited cardinality |
-| Running InfluxDB 2 today | [Plan migration to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/) |
+| Running InfluxDB 2 today | Continue using InfluxDB 2, or [evaluate migration to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/) when you need v3 features |
 
 ## InfluxDB 3 Enterprise—the production answer
 
@@ -86,11 +86,10 @@ For the options and when to choose each, see [InfluxDB 1](/platform/#influxdb-1x
 Evaluate InfluxDB 3 Enterprise when you need features only available in v3
 (SQL, object storage, unlimited cardinality, Processing Engine).
 
-**InfluxDB 2** is in maintenance and doesn't receive InfluxDB 3 features.
-For new projects and for production workloads that need v3 features,
-plan a migration to InfluxDB 3 Enterprise.
+**InfluxDB 2 OSS** remains supported for workloads that use its capabilities, including Flux.
+If you need InfluxDB 3 features, evaluate whether migration to InfluxDB 3 Enterprise fits your workload.
 
-If you rely on **Flux** queries today, you'll need to migrate them to SQL or InfluxQL.
+If you migrate to InfluxDB 3 and rely on **Flux** queries, you'll need to migrate them to SQL or InfluxQL.
 InfluxDB Cloud Serverless and other InfluxDB 3 products don’t support Flux.
 Although Flux might still work with InfluxDB Cloud Serverless, it isn’t officially supported or optimized for InfluxDB 3.
 

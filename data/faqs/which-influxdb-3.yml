@@ -7,8 +7,8 @@
     supports InfluxQL. InfluxDB OSS v1.8 and later and InfluxDB Enterprise
     v1.8 and later also support Flux when enabled. InfluxDB 1 Cloud supports
     Flux; see the
-    [InfluxDB 1 Cloud overview](/platform/#influxdb-cloud-1). InfluxDB 2 is in maintenance:
-    it adds a new API surface and also supports InfluxQL and Flux.
+    [InfluxDB 1 Cloud overview](/platform/#influxdb-cloud-1). InfluxDB 2 OSS
+    remains supported and adds a new API surface; it also supports InfluxQL and Flux.
     Choose InfluxDB 3 for new workloads that need v3 features, and see the
     [InfluxDB 1 overview](/platform/#influxdb-1x) for when InfluxDB 1 is the
     better fit.
@@ -19,16 +19,17 @@
     suits InfluxQL-native workloads, Kapacitor alerting, and established 1.x
     clusters. InfluxDB 1 OSS is a free download. InfluxDB 1 Enterprise and
     InfluxDB 1 Cloud are available through Sales.
-    For InfluxDB 2, no. InfluxDB 2 is in maintenance and doesn't receive
-    v3 features, so start new projects on InfluxDB 3.
+    For InfluxDB 2, choose it when its capabilities fit your workload,
+    including workloads that use Flux. For workloads that need v3 features,
+    evaluate InfluxDB 3.
     InfluxDB 3 Enterprise is the recommended target for production workloads
     that need v3 features.
 
 - question: "I run InfluxDB 2 today — should I migrate to InfluxDB 3?"
   answer: |
-    Plan a migration when you need features only available in v3 (SQL,
-    object storage, unlimited cardinality, the Processing Engine), or
-    when v2's maintenance status becomes a constraint. Migration paths exist
+    Not necessarily. InfluxDB 2 OSS remains supported. Evaluate migration when you
+    need features only available in v3 (SQL, object storage, unlimited
+    cardinality, the Processing Engine). Migration paths exist
     from both InfluxDB 2 OSS and InfluxDB Cloud (TSM) to InfluxDB 3 Enterprise.
 
 - question: "I run InfluxDB 1 today — should I migrate to InfluxDB 3?"
