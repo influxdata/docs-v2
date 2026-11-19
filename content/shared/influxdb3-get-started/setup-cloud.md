@@ -40,6 +40,9 @@ After your instance is provisioned, find your instance **host URL**, which is th
 3.  In the navigation, select **Overview**.
 4.  In the **Instance Details** card, copy the **Instance URL**.
 
+The Admin UI URL, `https://console.influxdata.com`, isn't your instance host URL.
+If you use it as the host, `influxdb3 auth login --oauth` fails with a JSON parsing error.
+
 For more information, see [Monitor your instance](/influxdb3/cloud/admin/monitor-instance/#view-instance-details).
 
 You authenticate with your InfluxData account in the following steps.
