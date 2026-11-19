@@ -23,7 +23,7 @@ InfluxDB OSS v2:
 - URL contains hints: localhost:8086
 - Ping header hints: `x-influxdb-build=OSS`, `x-influxdb-version=^(1|2)\.`
 
-InfluxDB OSS v1:
+InfluxDB 1 OSS:
 
 - Aliases: InfluxDB OSS, v1
 - Content path: `influxdb/v1`
