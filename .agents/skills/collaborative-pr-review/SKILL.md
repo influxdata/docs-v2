@@ -35,14 +35,21 @@ invoking user's authenticated account and access.
 Apply the workflow for the current contributor; repository-owner permissions
 do not transfer to other contributors who use this skill.
 
-| Situation | Publication route |
-| --- | --- |
-| The user owns the PR and can push to its head branch | Direct pushes are allowed within the authorized task. |
-| The user explicitly approves a direct push and has target access | Push only the authorized changes. |
-| The user lacks upstream write access | Publish proposed changes from a branch in the user's fork. |
-| The user requests a successor PR for an external contribution | Merge the fork branch into a new branch, preserve authorship, and follow the successor workflow below. |
-| Another contributor or CODEOWNER owns the PR, without direct-push approval | Propose corrections as inline suggestions or a separate PR targeting the author's head branch. |
-| Ownership or authorization is unclear | Prepare and verify the corrections locally; use the proposal route. |
+For an existing or stacked PR, read the current GitHub state, base, head branch,
+and head commit before pushing. If the named PR has merged, follow its merge
+destination to find the open PR that now carries the changes. Preserve its
+current head and verify the resulting diff before pushing.
+Report local commits as local changes. After a push, verify the head on GitHub
+and name the PR that actually received the update.
+
+| Situation                                                                  | Publication route                                                                                      |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| The user owns the PR and can push to its head branch                       | Direct pushes are allowed within the authorized task.                                                  |
+| The user explicitly approves a direct push and has target access           | Push only the authorized changes.                                                                      |
+| The user lacks upstream write access                                       | Publish proposed changes from a branch in the user's fork.                                             |
+| The user requests a successor PR for an external contribution              | Merge the fork branch into a new branch, preserve authorship, and follow the successor workflow below. |
+| Another contributor or CODEOWNER owns the PR, without direct-push approval | Propose corrections as inline suggestions or a separate PR targeting the author's head branch.         |
+| Ownership or authorization is unclear                                      | Prepare and verify the corrections locally; use the proposal route.                                    |
 
 Repository write access, `maintainer_can_modify`, CODEOWNERS status, and a
 review request do not authorize a direct push to another contributor's PR.
