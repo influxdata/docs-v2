@@ -119,6 +119,9 @@ If the card can't retrieve component information, it displays
 The Instance Size card is read-only.
 To change the size of your instance, [contact InfluxData support](https://support.influxdata.com).
 
+For instance sizing or performance questions during your trial, contact
+[influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
+
 ## View instance metrics
 
 The **Instance Metrics** panel charts CPU, memory, and request metrics for the
