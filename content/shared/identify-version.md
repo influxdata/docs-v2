@@ -20,6 +20,13 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 | `*.influxcloud.net`                        | [InfluxDB 1 Cloud (InfluxCloud)](/platform/#influxdb-cloud-1) |
 | Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)                          |
 
+InfluxDB Cloud (TSM) and InfluxDB Cloud Serverless share the
+`cloud2.influxdata.com` domain. Use the full regional hostname as a clue.
+To confirm which service you use, open your organization homepage and find
+the **InfluxDB Cloud powered by** label in the version information.
+**TSM Storage Engine Version 2** identifies InfluxDB Cloud (TSM).
+**InfluxDB Cloud Serverless** followed by a version number identifies InfluxDB Cloud Serverless.
+
 ### By default port
 
 Different InfluxDB products use different default ports:
@@ -126,7 +133,8 @@ influxctl cluster list
 - `us-east-1-1.aws.cloud2.influxdata.com`
 - `eu-central-1-1.aws.cloud2.influxdata.com`
 
-**Account settings**: Check your InfluxDB Cloud account dashboard for product and version details.
+**Storage engine**: On your organization homepage, find the **InfluxDB Cloud powered by** label.
+For this service, it shows **InfluxDB Cloud Serverless** followed by a version number.
 
 **HTTP headers**: API responses include version information in response headers.
 
@@ -200,7 +208,8 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 - `westeurope-1.azure.cloud2.influxdata.com`
 - `eastus-1.azure.cloud2.influxdata.com`
 
-**Account settings**: Check your InfluxDB Cloud (TSM) account dashboard for product details.
+**Storage engine**: On your organization homepage, find the **InfluxDB Cloud powered by** label.
+For this service, it shows **TSM Storage Engine Version 2**.
 
 **HTTP headers**: API responses include version information in response headers.
 

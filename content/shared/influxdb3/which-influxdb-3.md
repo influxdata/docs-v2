@@ -8,7 +8,9 @@ of InfluxDB 3 Enterprise that InfluxData operates for you.
 engine. Choose Core for non-production, edge, or single-node deployments.
 
 Choose **InfluxDB Cloud Serverless** for a multi-tenant, self-service
-cloud — pay for what you use — or to continue from InfluxDB Cloud (TSM).
+InfluxDB 3 offering with usage-based pricing.
+If you use **InfluxDB Cloud (TSM)**, the managed service based on InfluxDB 2,
+consider InfluxDB Cloud Serverless when you need InfluxDB 3 features.
 
 InfluxDB 3 is the current generation of InfluxDB.
 [**InfluxDB 1**](/platform/#influxdb-1x) remains available and actively supported.

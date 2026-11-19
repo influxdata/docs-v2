@@ -112,14 +112,14 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 ## InfluxDB 2.x
 
-InfluxDB Cloud (TSM) is based on InfluxDB 2.
+**InfluxDB Cloud (TSM)** is a managed service based on InfluxDB 2.
 [InfluxDB 1 Cloud](#influxdb-cloud-1) is based on InfluxDB 1 Enterprise.
 Both services use the TSM storage engine.
 
 > [!Important]
 > #### InfluxDB Cloud (TSM) signup availability {#legacy-product---new-influxdb-cloud-signups-use-influxdb-3}
 >
-> InfluxDB Cloud (TSM) is a **legacy managed service** based on InfluxDB v2.x.
+> InfluxDB Cloud (TSM) is a **legacy managed service**.
 > **New signups are no longer available**.
 > New signups for InfluxDB Cloud (TSM) are directed to [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/) (powered by InfluxDB 3).
 >
