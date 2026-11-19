@@ -256,7 +256,7 @@ LDAP server, do the following:
 Performing the following process on a production cluster may have unintended consequences.
 Moving to a new LDAP server constitutes and infrastructure change and may better
 be handled through a cluster migration.
-For assistance, reach out to [InfluxData support](https://support.influxdata.com/s/contactsupport).
+For assistance, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 {{% /warn %}}
 
 1.  On each meta node, update the `auth-enabled` setting to `false` in your

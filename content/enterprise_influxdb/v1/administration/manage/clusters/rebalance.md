@@ -53,7 +53,7 @@ all meta nodes.
 > Truncating shards that contain data with future timestamps (such as forecast or prediction data)
 > can lead to overlapping shards and data duplication.
 > For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
-> or [contact InfluxData support](https://support.influxdata.com/s/).
+> or [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 ## Rebalance Procedure 1: Rebalance a cluster to create space
 
@@ -82,7 +82,7 @@ cluster which requires manual intervention from the user.
 > Truncating shards that contain data with future timestamps (such as forecast or prediction data)
 > can lead to overlapping shards and data duplication.
 > For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
-> or [contact InfluxData support](https://support.influxdata.com/s/).
+> or [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 To prevent data inconsistency, truncate shards before moving any shards
 across data nodes.
@@ -319,7 +319,7 @@ cluster which requires manual intervention from the user.
 > Truncating shards that contain data with future timestamps (such as forecast or prediction data)
 > can lead to overlapping shards and data duplication.
 > For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
-> or [contact InfluxData support](https://support.influxdata.com/s/).
+> or [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 To prevent data inconsistency, truncate shards before copying any shards
 to the new data node.

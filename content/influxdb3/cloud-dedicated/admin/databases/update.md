@@ -58,7 +58,7 @@ managing databases.
    <a href="https://console.influxdata.com">https://console.influxdata.com</a>
    </pre>
 2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com/s/).
+   If you don't have login credentials, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
    After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
    and lists all clusters associated with your account.

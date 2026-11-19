@@ -60,7 +60,7 @@ While the cluster runs at or below the baseline configuration, usage is covered 
 
 ## Enable autoscaling for a cluster
 
-[Contact InfluxData support](https://support.influxdata.com/s/) to enable autoscaling for your cluster.
+[Contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to enable autoscaling for your cluster.
 Provide your autoscaling requirements so the support team can configure appropriate limits.
 
 ## Update or disable autoscaling
@@ -68,7 +68,7 @@ Provide your autoscaling requirements so the support team can configure appropri
 Autoscaling settings can be adjusted at any time after enablement.
 For example, you might raise the upper limit for querier CPU, lower the limit for ingester CPU, or turn autoscaling off entirely.
 
-To update or disable autoscaling for a cluster, [contact InfluxData support](https://support.influxdata.com/s/) and provide:
+To update or disable autoscaling for a cluster, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) and provide:
 
 - Cloud Dedicated [account ID](/influxdb3/cloud-dedicated/admin/account/) and [cluster ID](/influxdb3/cloud-dedicated/admin/clusters/).
 - Whether you want to:

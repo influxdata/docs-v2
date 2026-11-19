@@ -194,7 +194,7 @@ storage architecture.
 > [!Note]
 > 
 > For information about scaling your {{< product-name >}} infrastructure,
-> [contact InfluxData support](https://support.influxdata.com/s/).
+> [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 ### Vertical scaling
 

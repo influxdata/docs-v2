@@ -718,7 +718,7 @@ License binding varies by cloud provider:
 For disaster recovery planning:
 
 - **Pre-provision a DR license**: Request a license for your DR storage configuration before an incident occurs.
-- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData support](https://support.influxdata.com/s/) to obtain a new license.
+- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to obtain a new license.
 {{% /show-in %}}
 
 ## Containerized deployments

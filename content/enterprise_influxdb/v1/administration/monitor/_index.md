@@ -25,7 +25,7 @@ covers two different things:
 > [!Note]
 > For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
 >
-> To apply for this service, please [contact InfluxData support](https://support.influxdata.com/s/).
+> To apply for this service, please [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 ## Monitor InfluxDB itself
 

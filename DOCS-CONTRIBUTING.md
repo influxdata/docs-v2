@@ -194,18 +194,32 @@ Search for the feature's own page and restate what it says.
 
 #### InfluxData Support links
 
-When linking to InfluxData Support, use one of these URLs:
+When you tell readers to contact InfluxData Support, use exactly this link.
+It opens the support request form, which prompts for login.
+Capitalize `Contact` at the start of a sentence.
 
 ```markdown
-[InfluxData support](https://support.influxdata.com/s/)
-[contact InfluxData support](https://support.influxdata.com/s/contactsupport)
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport)
 ```
 
-- Use `/s/contactsupport` (the support request form, which prompts for login)
-  when the text addresses customers with a support contract, subscription, or
-  commercial license.
-- Use `/s/` (the support portal home) for general references to InfluxData
-  Support.
+Put the verb inside the link, and reword the sentence to fit:
+
+```markdown
+<!-- Do -->
+To enable autoscaling, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
+[Contact InfluxData Support](https://support.influxdata.com/s/contactsupport) with your updated certificate.
+
+<!-- Don't -->
+To enable autoscaling, contact [InfluxData Support](https://support.influxdata.com/s/contactsupport).
+Provide your updated certificate to [InfluxData support](https://support.influxdata.com/s/).
+```
+
+Only when the text names InfluxData Support without asking the reader to
+contact it, link to the support portal home:
+
+```markdown
+[InfluxData Support](https://support.influxdata.com/s/)
+```
 
 **Do not use**:
 
