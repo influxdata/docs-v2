@@ -72,7 +72,7 @@ If you've followed steps to [optimize](#why-is-my-query-slow) and
 [troubleshoot a query](/influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/troubleshoot/),
 but it still doesn't meet performance requirements, request help troubleshooting.
 Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/)
-can [contact InfluxData Support](https://support.influxdata.com/) for assistance.
+can [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) for assistance.
 
 > [!Note]
 >
@@ -85,4 +85,4 @@ can [contact InfluxData Support](https://support.influxdata.com/) for assistance
 > [troubleshoot a query](/influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/troubleshoot/),
 > but it still doesn't meet performance requirements, request help troubleshooting.
 > Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/)
-> can [contact InfluxData Support](https://support.influxdata.com/) for assistance.
+> can [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) for assistance.

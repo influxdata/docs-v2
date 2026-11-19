@@ -42,7 +42,7 @@ to increase your write throughput and latency.
 The default values provide a good starting point for testing.
 Once you have your cluster up and running and are looking for scaling
 recommendations for your anticipated workload, please
-[contact the InfluxData Support team](https://support.influxdata.com) to help you
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to help you
 identify appropriate scale settings based on
 your anticipated workload.
 

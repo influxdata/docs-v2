@@ -135,6 +135,29 @@ docs-v2 contains a `./.vscode/settings.json` that configures the following exten
 
 Content follows Google Developer Documentation Style Guide and YouTube API documentation patterns with a few InfluxData-specific adaptations.
 
+#### InfluxDB cloud product names
+
+Use the full product name on first mention and wherever you compare products or
+describe product-specific behavior. Match the product to its documentation
+path before reusing instructions.
+
+Write **InfluxDB Cloud Serverless**, **InfluxDB Cloud Dedicated**, and
+**InfluxDB Clustered** without a generation number in their names.
+Use **InfluxDB 3** separately to describe their generation.
+
+| Product name                  | Meaning and documentation                                                                                                                                                                                                             |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **InfluxDB 1 Cloud**          | The managed service based on InfluxDB 1 Enterprise. The [original help site](https://help.influxcloud.net/getting_started/) calls it **InfluxCloud**. **Cloud 1** also refers to this service. Use **InfluxDB 1 Cloud** in new prose. |
+| **InfluxDB Cloud (TSM)**      | The managed service based on InfluxDB 2. Its docs are under `/influxdb/cloud/`. InfluxDB 1 Cloud also uses the TSM storage engine.                                                                                                    |
+| **InfluxDB 3 Cloud**          | The managed, single-tenant service based on InfluxDB 3 Enterprise. Its docs are under `/influxdb3/cloud/`.                                                                                                                            |
+| **InfluxDB Cloud Serverless** | The multi-tenant, self-service InfluxDB 3 offering. Its docs are under `/influxdb3/cloud-serverless/`. Use this spelling in new prose.                                                                                                |
+| **InfluxDB Cloud Dedicated**  | A separate single-tenant InfluxDB 3 offering documented under `/influxdb3/cloud-dedicated/`.                                                                                                                                          |
+
+In older material, use the linked docs, service hostname, or surrounding
+context to identify what a bare “Cloud” or “InfluxDB Cloud” refers to.
+If the context is inconclusive, confirm the product before editing or
+recommending product-specific steps.
+
 #### Markdown
 
 Most docs-v2 documentation content uses [Markdown](https://en.wikipedia.org/wiki/Markdown).
@@ -194,16 +217,36 @@ Search for the feature's own page and restate what it says.
 
 #### InfluxData Support links
 
-When linking to InfluxData Support, use one of these URLs:
+When you tell readers to contact InfluxData Support, use exactly this link.
+It opens the support request form, which prompts for login.
+Capitalize `Contact` at the start of a sentence.
 
 ```markdown
-[InfluxData support](https://support.influxdata.com)
-[contact InfluxData support](https://support.influxdata.com/s/contactsupport)
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport)
+```
+
+Put the verb inside the link, and reword the sentence to fit:
+
+```markdown
+<!-- Do -->
+To enable autoscaling, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
+[Contact InfluxData Support](https://support.influxdata.com/s/contactsupport) with your updated certificate.
+
+<!-- Don't -->
+To enable autoscaling, contact [InfluxData Support](https://support.influxdata.com/s/contactsupport).
+Provide your updated certificate to [InfluxData support](https://support.influxdata.com/s/).
+```
+
+Only when the text names InfluxData Support without asking the reader to
+contact it, link to the support portal home:
+
+```markdown
+[InfluxData Support](https://support.influxdata.com/s/)
 ```
 
 **Do not use**:
 
-- `https://support.influxdata.com/` (trailing slash)
+- `https://support.influxdata.com` or `https://support.influxdata.com/` (redirects to `/s/`)
 - `https://support.influxdata.com/s/login/?ec=302&startURL=%2Fs%2Fcontactsupport` (login redirect)
 - Any other `support.influxdata.com` path
 

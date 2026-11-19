@@ -274,8 +274,37 @@
       width: calc(100% + 2rem);
 
       .category {
+        &.full,
         &.full-width {
           width: 100%;
+        }
+        // Keep links aligned to the card bottom, with a tight minimum gap
+        .product {
+          .product-info p { margin-bottom: 0; }
+          ul.product-links { margin-top: .75rem; }
+        }
+        // One product per line: name, description, and links in a row
+        &.compact .product {
+          flex: 1 1 100%;
+          max-width: 100%;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: flex-start;
+          gap: .5rem 2rem;
+
+          .product-info { display: contents; }
+          h3 { margin: 0; }
+          p { flex: 1 1 360px; margin: 0; }
+
+          ul.product-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem 1.5rem;
+            margin: 0;
+
+            li:not(:last-child) { margin-bottom: 0; }
+          }
         }
         &.two-thirds {
           width: 66.66%;
