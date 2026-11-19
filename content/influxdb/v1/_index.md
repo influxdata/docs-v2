@@ -3,7 +3,7 @@ title: InfluxDB OSS v1 documentation
 description: Overview of documentation available for InfluxDB.
 menu:
   influxdb_v1:
-    name: InfluxDB OSS v1
+    name: InfluxDB 1 OSS
 weight: 1
 cascade:
   product: influxdb
@@ -40,7 +40,7 @@ It compiles into a single binary with no external dependencies.
 - Retention policies efficiently auto-expire stale data.
 - Continuous queries automatically compute aggregate data to make frequent queries more efficient.
 
-InfluxDB OSS v1 runs on a single node.
+InfluxDB 1 OSS runs on a single node.
 If you require high availability to eliminate a single point of failure, consider [InfluxDB 3 Enterprise](/influxdb3/enterprise/),
 InfluxDB's next generation that supports multi-node clustering, allows infinite series cardinality without impact on overall database performance, and
 brings native SQL support and improved InfluxQL performance.

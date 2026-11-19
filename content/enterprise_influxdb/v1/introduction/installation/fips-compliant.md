@@ -1,7 +1,7 @@
 ---
 title: FIPS-compliant InfluxDB Enterprise v1 builds
 description: >
-  InfluxDB Enterprise v1.11+ provides builds that are compliant with 
+  InfluxDB Enterprise v1.11.1 and later provides builds that are compliant with
   [Federal Information Processing Standards (FIPS)](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips).
 menu:
   enterprise_influxdb_v1:
@@ -10,7 +10,7 @@ menu:
 weight: 101
 ---
 
-InfluxDB Enterprise 1.11+ provides builds that are compliant with 
+InfluxDB Enterprise v1.11.1 and later provides builds that are compliant with
 [Federal Information Processing Standards (FIPS)](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips).
 This page provides information on installing and using FIPS-compliant builds of
 InfluxDB Enterprise.

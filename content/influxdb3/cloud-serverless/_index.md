@@ -26,7 +26,7 @@ cascade:
 > [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
 
 > [!Tip]
-> Comparing InfluxDB 3 Cloud Serverless to other InfluxDB 3 products?
+> Comparing InfluxDB Cloud Serverless to other InfluxDB 3 products?
 > See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) —
 > Cloud Serverless has a different API surface than InfluxDB 3 Enterprise.
 > If your organization is using InfluxDB 3, you'll see
