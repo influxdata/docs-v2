@@ -158,6 +158,26 @@ context to identify what a bare “Cloud” or “InfluxDB Cloud” refers to.
 If the context is inconclusive, confirm the product before editing or
 recommending product-specific steps.
 
+InfluxDB Cloud (TSM) and InfluxDB Cloud Serverless share the
+`cloud2.influxdata.com` domain. For identification guidance, use the full
+regional hostname as a clue and direct readers to the **InfluxDB Cloud powered
+by** label on their organization homepage to confirm the engine.
+
+#### Capability and lifecycle claims
+
+Check claims against the exact offering, deployment, and release they describe.
+For managed services, verify availability, default settings, and the customer
+support path with current product documentation or the service owner.
+Treat historical rollout records and self-managed feature documentation as
+leads to verify. Scope lifecycle and migration advice to the named product and
+the customer's needs.
+
+#### Stable section links
+
+Keep the existing fragment when renaming a heading that has inbound links.
+For FAQ questions, use the optional `anchor` field and check that the visible
+question matches FAQPage structured data. See [FAQ shortcode](DOCS-SHORTCODES.md#faq).
+
 #### Markdown
 
 Most docs-v2 documentation content uses [Markdown](https://en.wikipedia.org/wiki/Markdown).
@@ -509,6 +529,14 @@ State each finding directly rather than building up to it.
 ### Submit a pull request
 
 Push your changes up to your forked repository, then [create a new pull request](https://help.github.com/articles/creating-a-pull-request/).
+
+When updating a stacked PR, check where each PR merged and which open PR now
+contains the changes. Verify the updated head on GitHub before reporting that
+the PR includes your commits.
+
+Use `Closes` or `Fixes` when the PR satisfies the issue's requested outcome.
+Link partial work and follow-ups as related. If the default branch already
+satisfies an issue, verify that separately before closing it.
 
 ***
 
