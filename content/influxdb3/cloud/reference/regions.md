@@ -24,6 +24,11 @@ Use this page to see where {{% product-name %}} is available.
 - [Find your instance's region](#find-your-instances-region)
 - [Pricing](#pricing)
 
+> [!Note]
+> #### Trial object storage
+>
+> New trial signups currently use AWS object storage in the United States.
+
 ## Available regions
 
 {{% product-name %}} is available in the following regions.
