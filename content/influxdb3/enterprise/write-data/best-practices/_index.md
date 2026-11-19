@@ -2,7 +2,7 @@
 title: Best practices for writing data
 seotitle: Best practices for writing data to {{< product-name >}}
 description: >
-  Learn about the recommendations and best practices for writing data to {{< product-name >}}.
+  Learn about the recommendations and best practices for writing data to InfluxDB 3 Enterprise.
 weight: 205
 menu:
   influxdb3_enterprise:

@@ -3,7 +3,7 @@ title: Add columns to a table
 description: >
   Use the [`influxdb3 update table` command](/influxdb3/enterprise/reference/cli/influxdb3/update/table/)
   or the [HTTP API](/influxdb3/enterprise/api/v3/) to add tag and field columns to
-  an existing table in {{< product-name >}}.
+  an existing table in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Manage tables

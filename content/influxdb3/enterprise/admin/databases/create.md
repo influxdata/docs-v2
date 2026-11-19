@@ -2,7 +2,7 @@
 title: Create a database
 description: >
   Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to create a new database
-  in {{< product-name >}}.
+  in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Manage databases

@@ -1,7 +1,7 @@
 ---
 title: Deploy InfluxDB 3 Enterprise on Kubernetes
 description: >
-  Use the official Helm chart to deploy {{% product-name %}} on Kubernetes
+  Use the official Helm chart to deploy InfluxDB 3 Enterprise on Kubernetes
   for predictable, repeatable deployments aligned with production best practices.
 menu:
   influxdb3_enterprise:

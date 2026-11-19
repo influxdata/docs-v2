@@ -1,7 +1,7 @@
 ---
 title: Administer {{< product-name >}}
 description: >
-  Perform administrative tasks in {{< product-name >}} such as creating and
+  Perform administrative tasks in InfluxDB 3 Enterprise such as creating and
   managing databases and tokens.
 menu:
   influxdb3_enterprise:

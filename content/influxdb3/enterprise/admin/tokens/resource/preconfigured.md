@@ -1,7 +1,7 @@
 ---
 title: Use a preconfigured permission (resource) tokens
 description: >
-  Start {{% product-name %}} with a preconfigured "offline" permission (resource) tokens file.
+  Start InfluxDB 3 Enterprise with a preconfigured "offline" permission (resource) tokens file.
   If no tokens already exist, InfluxDB automatically creates resource tokens
   specified in the provided permissions (resource) tokens file.
 menu:

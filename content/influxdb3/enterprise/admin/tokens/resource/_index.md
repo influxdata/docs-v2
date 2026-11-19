@@ -2,9 +2,9 @@
 title: Manage resource tokens
 seotitle: Manage resource tokens in {{< product-name >}} 
 description: >
-  Manage resource tokens in your {{< product-name >}} instance.
+  Manage resource tokens in your InfluxDB 3 Enterprise instance.
   Resource tokens grant permissions on specific resources, such as databases
-  and system information endpoints in your {{< product-name >}} instance.
+  and system information endpoints in your InfluxDB 3 Enterprise instance.
   Database resource tokens allow for actions like writing and querying data.
 menu:
   influxdb3_enterprise:

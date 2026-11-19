@@ -2,7 +2,7 @@
 title: Processing engine and Python plugins
 description: |
   Use the InfluxDB 3 Processing engine with Python to trigger and execute custom
-  code on different events in an {{< product-name >}} instance.
+  code on different events in an InfluxDB 3 Enterprise instance.
 menu:
   influxdb3_enterprise:
     name: Processing engine and Python plugins

@@ -2,7 +2,7 @@
 title: Security
 seotitle: Secure InfluxDB 3 Enterprise
 description: >
-  Secure {{% product-name %}}: authenticate clients with tokens, enable
+  Secure InfluxDB 3 Enterprise: authenticate clients with tokens, enable
   multi-user authentication and role-based access control (RBAC), and harden the
   host.
 menu:

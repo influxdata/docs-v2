@@ -2,7 +2,7 @@
 title: Use compatibility APIs and client libraries to write data
 description: >
   Use HTTP API endpoints compatible with InfluxDB v2 and v1 clients to write
-  points as line protocol data to {{% product-name %}}.
+  points as line protocol data to InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Use v1 and v2 compatibility APIs

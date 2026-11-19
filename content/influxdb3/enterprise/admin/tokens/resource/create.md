@@ -4,7 +4,7 @@ description: >
   Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
   or the [HTTP API](/influxdb3/enterprise/api/v3/)
   to create fine-grained permissions tokens that grant access to resources such as databases and system information.
-  Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
+  Database tokens allow for reading and writing data in your InfluxDB 3 Enterprise instance.
   System tokens allow for reading system information and metrics for your server.
 menu:
   influxdb3_enterprise:

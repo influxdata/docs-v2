@@ -3,7 +3,7 @@ title: Use Azure Blob Storage for object storage
 list_title: Azure Blob Storage
 description: |
   Use [Azure Blob Storage](https://azure.microsoft.com/products/storage/blobs)
-  as the object store for your {{% product-name %}} instance.
+  as the object store for your InfluxDB 3 Enterprise instance.
 menu:
   influxdb3_enterprise:
     name: Azure Blob Storage
