@@ -296,7 +296,7 @@ influxdb3 serve \
   --mode process
 ```
 
-For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 
 ### Run a server specifically for compacting data
 
