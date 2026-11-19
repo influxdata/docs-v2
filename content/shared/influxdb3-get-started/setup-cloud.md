@@ -265,8 +265,9 @@ Applications can authenticate with the token by setting the
 > [!Note]
 > #### Authentication in {{% product-name %}}
 >
-> For interactive use, you authenticate as a user with
-> `influxdb3 auth login --oauth` — no token required.
+> For interactive use, authenticate as a user with
+> `influxdb3 auth login --oauth`.
+> You don't need a token.
 > For applications, create and manage tokens in the Admin UI, with the
 > `influxdb3` CLI, or through the HTTP API. This guide uses the CLI:
 >
