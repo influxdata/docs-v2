@@ -392,7 +392,10 @@ Remove the original object from object storage, then start the node.
 ### Plugin query and write errors
 
 `influxdb3_local.query()`, `write_sync()`, and `write_sync_to_db()` raise these errors in the plugin.
-`write()` and `write_to_db()` don't: they queue rows until the plugin returns, so a failed write loses the rows and the error appears only in the process node's log.
+`write()` and `write_to_db()` queue rows until the plugin returns.
+If the queued write fails, the engine discards those rows and the plugin can't catch the error.
+For a failed queued write, check the server log on the node that ran the plugin.
+The error can also appear in `system.processing_engine_logs` if the Processing Engine persists the log entry.
 We recommend `write_sync()` or `write_sync_to_db()` so that your plugin can detect and handle failed writes.
 
 #### `Cannot query: no remote query client found`
