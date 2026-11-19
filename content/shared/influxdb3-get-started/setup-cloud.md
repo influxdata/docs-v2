@@ -18,8 +18,7 @@ configure the `influxdb3` CLI, log in, and then create a database.
 
 ## Get your instance
 
-To sign up for a {{% product-name %}} trial, visit
-[Contact Sales](https://www.influxdata.com/contact-sales/).
+[Sign up for a {{% product-name %}} trial](https://www.influxdata.com/influxdb3-cloud-signup/).
 Check the email address you used to sign up for onboarding instructions and your trial terms.
 
 > [!Note]

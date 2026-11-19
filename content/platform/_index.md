@@ -67,7 +67,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 **Product availability:**
 
-- **InfluxDB 3 Cloud**: Trials available; [sign up through Contact Sales](https://www.influxdata.com/contact-sales/)
+- **InfluxDB 3 Cloud**: Trials available; [sign up for a trial](https://www.influxdata.com/influxdb3-cloud-signup/)
 - **InfluxDB Cloud (TSM)**: Legacy managed v2 product; new signups are directed to InfluxDB Cloud Serverless (v3)
 - **InfluxDB Cloud 1**: Legacy managed v1 product; new signups are no longer available; existing customers only
 

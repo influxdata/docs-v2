@@ -19,7 +19,7 @@ for migration guidance.
 | Your situation | Use this |
 |---|---|
 | New production deployment | [InfluxDB 3 Enterprise](/influxdb3/enterprise/) (Trial or Home license for evaluation) |
-| Fully managed InfluxDB 3 Enterprise, single-tenant | [InfluxDB 3 Cloud](/influxdb3/cloud/) ([start a trial](https://www.influxdata.com/contact-sales/)) |
+| Fully managed InfluxDB 3 Enterprise, single-tenant | [InfluxDB 3 Cloud](/influxdb3/cloud/) ([start a trial](https://www.influxdata.com/influxdb3-cloud-signup/)) |
 | Free, open source, single-node | [InfluxDB 3 Core](/influxdb3/core/) |
 | Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | [InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/) |
 | Existing InfluxDB Cloud Dedicated deployments | [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) |
@@ -55,7 +55,7 @@ Choose InfluxDB 3 Cloud when:
 - You need a single-tenant instance
 - You want to use the native v3 write and query APIs in a managed service
 
-[Start an InfluxDB 3 Cloud trial](https://www.influxdata.com/contact-sales/)
+[Start an InfluxDB 3 Cloud trial](https://www.influxdata.com/influxdb3-cloud-signup/)
 or [get started with InfluxDB 3 Cloud](/influxdb3/cloud/get-started/).
 
 ## InfluxDB 3 Core—open source, single-node

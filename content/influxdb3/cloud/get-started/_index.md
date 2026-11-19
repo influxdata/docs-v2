@@ -27,7 +27,7 @@ This guide walks through the basic steps of getting started with
 > [!Note]
 > #### Start your trial
 >
-> [Sign up through Contact Sales](https://www.influxdata.com/contact-sales/), then check your signup email for instructions.
+> [Sign up for a trial](https://www.influxdata.com/influxdb3-cloud-signup/), then check your signup email for instructions.
 > After you confirm that you want to start your trial, you're redirected to the Admin UI to log in.
 > Your instance can take up to one hour to provision after confirmation.
 > Once it's ready, follow this guide to create a database and resource token, write data, and run queries.

@@ -25,8 +25,7 @@ without provisioning or operating your own infrastructure.
 > [!Note]
 > #### Start a trial
 >
-> To sign up for an InfluxDB 3 Cloud trial, visit
-> [Contact Sales](https://www.influxdata.com/contact-sales/).
+> [Sign up for an InfluxDB 3 Cloud trial](https://www.influxdata.com/influxdb3-cloud-signup/).
 > Check the email address you used to sign up for instructions to confirm and start your trial.
 > For provisioning, support, and trial expiration details, see
 > [Get your instance](/influxdb3/cloud/get-started/setup/#get-your-instance).
