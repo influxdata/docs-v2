@@ -424,9 +424,9 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |
 | **InfluxDB OSS v2**           | Free      | Self-hosted              | InfluxQL, Flux      | 8086         |
 | **InfluxDB Cloud (TSM)**      | Free/Paid | Cloud                    | InfluxQL, Flux      | N/A          |
-| **InfluxDB 1 OSS**            | Free      | Self-hosted              | InfluxQL            | 8086         |
-| **InfluxDB 1 Enterprise**     | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
-| **[InfluxDB 1 Cloud](/platform/#influxdb-cloud-1)**          | Paid      | Cloud                    | InfluxQL            | N/A          |
+| **InfluxDB 1 OSS**            | Free      | Self-hosted              | InfluxQL, Flux (when enabled) | 8086 |
+| **InfluxDB 1 Enterprise**     | Paid      | Self-hosted              | InfluxQL, Flux (when enabled) | 8086 |
+| **[InfluxDB 1 Cloud](/platform/#influxdb-cloud-1)** | Paid | Cloud | InfluxQL, Flux | N/A |
 
 ### Key characteristics
 
