@@ -214,7 +214,7 @@ to the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-eng
   <em class="op50">(lines)</em>
 - [LP Ingest (at router)](#lp-ingest-at-router-bytes)
   <em class="op50">(bytes)</em>
-- [HTTP request error rate (server's POV at Router)](#http-request-error-rate-server's-pov-at-router)
+- [HTTP request error rate (server's POV at Router)](#http-request-error-rate-servers-pov-at-router)
 - [Healthy Upstream Ingesters per Router](#healthy-upstream-ingesters-per-router)
 - [Persist Queue Depth](#persist-queue-depth)
 - [Persist Task Queue Duration](#persist-task-queue-duration)
