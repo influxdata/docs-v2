@@ -201,6 +201,12 @@ When linking to InfluxData Support, use one of these URLs:
 [contact InfluxData support](https://support.influxdata.com/s/contactsupport)
 ```
 
+- Use `/s/contactsupport` (the support request form, which prompts for login)
+  when the text addresses customers with a support contract, subscription, or
+  commercial license.
+- Use `/s/` (the support portal home) for general references to InfluxData
+  Support.
+
 **Do not use**:
 
 - `https://support.influxdata.com` or `https://support.influxdata.com/` (redirects to `/s/`)
