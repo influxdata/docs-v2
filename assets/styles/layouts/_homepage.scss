@@ -274,6 +274,7 @@
       width: calc(100% + 2rem);
 
       .category {
+        &.full,
         &.full-width {
           width: 100%;
         }
