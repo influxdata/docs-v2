@@ -34,7 +34,7 @@ To use LDAP with an InfluxDB Enterprise cluster, do the following:
 1. [Configure data nodes](#configure-data-nodes)
 2. [Configure meta nodes](#configure-meta-nodes)
 3. [Create, verify, and upload the LDAP configuration file](#create-verify-and-upload-the-ldap-configuration-file)
-4. [Restart meta and data nodes](#restart-meta-and-data-nodes)
+4. [Restart meta and data nodes](#create-verify-and-upload-the-ldap-configuration-file)
 
 ### Configure data nodes
 
@@ -256,7 +256,7 @@ LDAP server, do the following:
 Performing the following process on a production cluster may have unintended consequences.
 Moving to a new LDAP server constitutes and infrastructure change and may better
 be handled through a cluster migration.
-For assistance, reach out to [InfluxData support](https://support.influxdata.com/s/contactsupport).
+For assistance, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 {{% /warn %}}
 
 1.  On each meta node, update the `auth-enabled` setting to `false` in your

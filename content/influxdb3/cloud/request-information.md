@@ -32,7 +32,7 @@ For questions or problems during your trial, follow the instructions in your sig
 or contact [influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
 
 For other support requests about {{% product-name %}},
-[contact InfluxData support](https://support.influxdata.com).
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 <!--
 Links from shared content point to not-yet-published Cloud reference/API pages.

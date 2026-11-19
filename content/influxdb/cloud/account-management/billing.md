@@ -23,7 +23,7 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
 - [Access billing details](#access-billing-details):
   - [Add or update your payment method](#add-or-update-your-payment-method)
   - [Add or update your contact information](#add-or-update-your-contact-information)
-  - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount#send-notifications-when-usage-exceeds-an-amount)
+  - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
   - [View Usage-based Plan information](#view-usage-based-plan-information)
   - [View Free Plan information](#view-free-plan-information)
 - [Review and resolve plan limit overages](#review-and-resolve-plan-limit-overages)
@@ -125,5 +125,5 @@ Billing occurs on the first day of the month for the previous month. For example
 |:----------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | **Initial declined payment**| We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment. |
 | **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |
-| **10-14 days later**        | Account completely disabled. During this period, you must contact [InfluxData Support](https://support.influxdata.com/) to process your payment and enable your account. |
-| **21 days later**           | Account suspended. Contact [InfluxData Support](https://support.influxdata.com/) to settle your final bill and discuss options for resuming service.|
+| **10-14 days later**        | Account completely disabled. During this period, you must [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to process your payment and enable your account. |
+| **21 days later**           | Account suspended. [Contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to settle your final bill and discuss options for resuming service.|

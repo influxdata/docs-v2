@@ -103,11 +103,11 @@ Query plans provide runtime metrics, such as the number of files scanned, that m
 > [troubleshoot a query](/influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/troubleshoot/),
 > but it still doesn't meet performance requirements, request help troubleshooting.
 > Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/)
-> can [contact InfluxData Support](https://support.influxdata.com/) for assistance.
+> can [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) for assistance.
 > 
 > #### Query trace logging
 >
-> Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can [contact InfluxData Support](https://support.influxdata.com/) to enable tracing for queries.
+> Customers with an {{% product-name %}} [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to enable tracing for queries.
 > With tracing enabled, InfluxData Support can analyze system processes and logs for specific query instances. 
 >
 > The tracing system uses the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model to provide observability into requests and identify performance bottlenecks.

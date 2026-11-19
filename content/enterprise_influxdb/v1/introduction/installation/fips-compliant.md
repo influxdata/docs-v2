@@ -54,8 +54,9 @@ InfluxDB Enterprise.
   - Follow the process to upgrade a cluster, except use the FIPS-compliant packages.
 
 {{% note %}}
-Please report any errors encountered when upgrading from a non-FIPS-compliant
-InfluxDB Enterprise build to FIPS-compliant build to [InfluxData support](https://support.influxdata.com).
+If you encounter errors when upgrading from a non-FIPS-compliant
+InfluxDB Enterprise build to a FIPS-compliant build,
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 {{% /note %}}
 
 ## Caveats and known issues
@@ -69,7 +70,7 @@ InfluxDB Enterprise build to FIPS-compliant build to [InfluxData support](https:
 
 When using a FIPS-compliant build of InfluxDB Enterprise,
 **you must use a local license file**. License keys do not work in FIPS mode.
-[Contact InfluxData support](https://support.influxdata.com) to request the
+[Contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to request the
 license file.
 The `[enterprise]` section of your data and meta node configuration files
 contains the settings that registered each node with the InfluxDB Enterprise
