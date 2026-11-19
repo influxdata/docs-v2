@@ -432,7 +432,7 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 
 - **InfluxDB 3** products use SQL and InfluxQL, run on port 8181 (self-hosted), and provide improved performance and scalability
 - **InfluxDB 2.x** products use InfluxQL and Flux, run on port 8086 (self-hosted), and use a bucket-based data model
-- **InfluxDB 1.x** products use InfluxQL, run on port 8086 (self-hosted), and use a database-based data model
+- **InfluxDB 1.x** products use InfluxQL and can also use Flux. They use a database-based data model and, when self-managed, run on port 8086. See [InfluxDB 1 query languages](/platform/#query-languages) for version and configuration details.
 
 {{% /hide-in %}}
 

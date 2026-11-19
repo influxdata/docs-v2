@@ -39,7 +39,7 @@ For details about the configuration file, see [Get started with Telegraf](/teleg
 
 As reviewed above, Telegraf is sending system data, including CPU usage, to InfluxDB. There are two ways you can query your InfluxDB data:
 
-* [In Chronograf with the Data  Explorer.](/chronograf/v1/guides/create-a-dashboard/#step-3-create-your-query) Use the builder to select from your existing data and allow Chronograf to format the query for you. Alternatively, manually enter and edit a query. You can move between using the builder and manually editing the query.
+* [Using Chronograf](/chronograf/v1/introduction/getting-started/). Use the builder to select from your existing data and allow Chronograf to format the query for you. Alternatively, manually enter and edit a query. You can move between using the builder and manually editing the query.
 * [Using the command line interface.](/influxdb/v1/query_language/explore-data/)
 
 
