@@ -104,7 +104,9 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
 
   it('links to InfluxDB 3 Cloud and its trial signup', function () {
     cy.get('a[href="/influxdb3/cloud/"]').should('exist');
-    cy.get('a[href="https://www.influxdata.com/contact-sales/"]').should('exist');
+    cy.get('a[href="https://www.influxdata.com/contact-sales/"]').should(
+      'exist'
+    );
   });
 
   it('links to verified migration guide URLs', function () {
