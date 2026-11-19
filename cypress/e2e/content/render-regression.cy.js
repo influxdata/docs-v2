@@ -245,7 +245,7 @@ describe('Cloud trial discovery on the docs homepage', () => {
             .should('be.visible');
           cy.contains('a', 'Sign up for a trial')
             .should('be.visible')
-            .and('have.attr', 'href', 'https://www.influxdata.com/contact-sales/');
+            .and('have.attr', 'href', 'https://www.influxdata.com/influxdb3-cloud-signup/');
           cy.contains('a', 'Get started with InfluxDB 3 Cloud')
             .should('have.attr', 'href', '/influxdb3/cloud/get-started/')
             .click();
