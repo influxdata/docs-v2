@@ -203,8 +203,7 @@ When linking to InfluxData Support, use one of these URLs:
 
 - Use `/s/contactsupport` (the support request form, which prompts for login)
   when the text addresses customers with a support contract, subscription, or
-  commercial license. Say that they log in, for example:
-  `Customers with an annual or support contract can log in to the [support portal](https://support.influxdata.com/s/contactsupport) to request assistance.`
+  commercial license.
 - Use `/s/` (the support portal home) for general references to InfluxData
   Support.
 
