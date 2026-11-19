@@ -256,7 +256,6 @@
     - /
     - /influxdb3/
   exclude:
-    - /influxdb3/cloud/
     - /influxdb/
     - /enterprise_influxdb/
     - /telegraf/
@@ -273,7 +272,15 @@
     Try fully managed InfluxDB 3.
     [Sign up for a trial](https://www.influxdata.com/contact-sales/).
   message: |
-    - Check your signup email to confirm and start your trial.
-    - Provisioning can take up to one hour after confirmation.
+    **InfluxDB 3 Cloud** brings InfluxDB 3 to a fully managed, single-tenant
+    service. InfluxData runs the cluster; you write, query, and administer
+    your data.
 
-    [Get started with InfluxDB 3 Cloud](/influxdb3/cloud/get-started/setup/)
+    **Highlights:**
+
+    - Fully managed and single-tenant
+    - SQL and InfluxQL support
+    - Native v3 write and query APIs
+
+    For more information, see the
+    [InfluxDB 3 Cloud documentation](/influxdb3/cloud/).
