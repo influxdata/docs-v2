@@ -120,6 +120,11 @@ bash tools/cloud-environment/openai/preview.sh
 ```
 
 Keep the preview running between edits.
+Use one Hugo process per checkout and finish API generation before starting it.
+Hugo builds share the checkout's build lock and generated output; another port does not isolate them.
+Record the owned server PID and stop it after its build finishes before starting a replacement.
+Run Playwright invocations sequentially when they share the default output directory; use distinct output directories for independent runs.
+Wait for the final rebuild before testing, and disable live reload during interactions so a rebuild cannot replace the document midway through a test.
 Allow at least 180 seconds for its first build.
 Wait for HTTP 200 on the affected route.
 Never cancel an active build.
@@ -165,6 +170,21 @@ The strict page smoke check reports every failed resource, including optional te
 The current network policy blocks `analytics.google.com` and `stats.g.doubleclick.net`.
 These failures are separate from widget and CAPTCHA resource loading; do not treat a page smoke failure alone as an answer failure.
 If a required host is denied, finish independent checks and record the blocked criterion, host, policy revision, and rerun command.
+
+## Showing a preview to the user
+
+A successful loopback request proves reachability inside the cloud workspace only.
+Before sharing a preview URL, verify that the user's browser has a supported route to it.
+Opening a Codex browser panel does not establish port forwarding.
+Use a verified deployed preview URL or a supported forwarding mechanism for an interactive preview; provide a screenshot when neither is available.
+Check the repository's preview workflow before choosing draft status, because drafts may skip deployment.
+
+The managed Tailscale integration provides outbound access, not an inbound route to the executor's loopback server.
+Enabling it alone does not make a local preview reachable from the user's browser.
+
+In device emulation, compare the emulated height with the visible browser area before diagnosing a missing fixed control.
+At 100% emulation scale, a tall tablet viewport can extend below the visible window.
+Use Fit to window and inspect the control's bounds against the full viewport.
 
 ## Snapshot qualification
 

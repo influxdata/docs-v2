@@ -6,6 +6,21 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.11.9 {date="2026-11-11"}
+
+<!-- Written from the influxdb_pro v3.11.9 tag (9ffe42535f), v3.11.8..v3.11.9. -->
+
+### Core
+
+No adjustments in this release.
+Core remains on v3.11.8.
+
+### Enterprise
+
+#### Bug fixes
+
+- **WAL plugins received values under the wrong column names**: This release brings the v3.12.2 fix to Enterprise 3.11. Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
+
 ## v3.12.2 {date="2026-10-29"}
 
 <!-- Reviewed against influxdb_pro v3.12.2 at f1972a0ff7 (after v3.12.1). The final tag adds only the pulldown-cmark lockfile update to the selected release candidate 3aeb9c30e9. -->

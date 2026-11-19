@@ -180,6 +180,19 @@ storage layers.
 If there is a conflict (same series key and timestamp), the upgraded data
 takes precedence.
 
+Each ingest node on the upgrade roster must complete its migration.
+An ingest node that remains `stopped` without completing its migration
+blocks the cluster upgrade.
+
+Before you start the upgrade, remove the ingest nodes you've retired, after
+the compactor has absorbed their Parquet files.
+See [Node removal on the Parquet engine](/influxdb3/enterprise/admin/node-lifecycle/#removal-on-the-parquet-engine-completes-after-the-storage-engine-upgrade).
+
+For the upgrade, use the latest 3.11.x or 3.12.x release.
+Starting with v3.11.8 and v3.12.2, the upgrade drops a removed ingest node
+from its roster only after the node's Parquet files are converted or absorbed.
+In earlier releases, a removed ingest node holds the upgrade at `upgrading`.
+
 After the upgrade completes, Parquet engine options remaining in your configuration—including options you may have relied on long before the upgrade—no longer have any effect.
 On the next server start following completion of the upgrade, each one
 logs a warning indicating it can be removed.

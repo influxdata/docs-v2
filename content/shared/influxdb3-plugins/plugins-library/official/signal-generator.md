@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The Signal Generator Plugin lets new users produce realistic time-series data for testing {{% product-name %}} functionality and downstream plugins without needing an external data source. Generate configurable waveform signals on a schedule to test alerts, anomaly detection, threshold checks, and dashboards from the moment you start.
 
 - **Zero dependencies**: Uses Python standard library only — no packages to install
@@ -555,5 +555,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

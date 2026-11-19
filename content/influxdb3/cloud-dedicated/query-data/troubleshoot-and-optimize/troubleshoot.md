@@ -76,7 +76,7 @@ Some bottlenecks may result from suboptimal query [execution plans](/influxdb3/c
 If you've followed steps to [optimize](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/optimize-queries/)
 and [troubleshoot a query](#why-doesnt-my-query-return-data),
 but it still doesn't meet performance requirements,
-contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport) for assistance.
 
 > [!Note]
 >
@@ -85,4 +85,4 @@ contact the [InfluxData Support team](https://support.influxdata.com) for assist
 > Currently, customers cannot enable trace logging for {{% product-name omit="Clustered" %}} clusters.
 > InfluxData engineers can use query plans and trace logging to help pinpoint performance bottlenecks in a query.
 >
-> For help troubleshooting a query, contact the [InfluxData Support team](https://support.influxdata.com).
+> For help troubleshooting a query, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).

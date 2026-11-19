@@ -40,7 +40,7 @@ into your {{< product-name >}} cluster components and performance.
 > #### Not available for all clusters
 >
 > {{< product-name >}} operational dashboards are not available for all clusters.
-> For questions about availability, [contact InfluxData support](https://support.influxdata.com).
+> For questions about availability, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 - [Access Grafana operational dashboards](#access-grafana-operational-dashboards)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)
@@ -55,7 +55,7 @@ To access your {{< product-name >}} Grafana operational dashboard, visit the
 </pre>
 
 Use the credentials provided by InfluxData to log into your cluster operational dashboard.
-If you do not have login credentials, [contact InfluxData support](https://support.influxdata.com).
+If you do not have login credentials, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated Grafana operational dashboard" />}}
 
@@ -214,7 +214,7 @@ to the [Object store](/influxdb3/cloud-dedicated/reference/internals/storage-eng
   <em class="op50">(lines)</em>
 - [LP Ingest (at router)](#lp-ingest-at-router-bytes)
   <em class="op50">(bytes)</em>
-- [HTTP request error rate (server's POV at Router)](#http-request-error-rate-server's-pov-at-router)
+- [HTTP request error rate (server's POV at Router)](#http-request-error-rate-servers-pov-at-router)
 - [Healthy Upstream Ingesters per Router](#healthy-upstream-ingesters-per-router)
 - [Persist Queue Depth](#persist-queue-depth)
 - [Persist Task Queue Duration](#persist-task-queue-duration)

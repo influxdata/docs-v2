@@ -59,6 +59,62 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20261030-2076753 {date="2026-10-30"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20261030-2076753
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20261030-2076753/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20261030-2076753/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Highlights
+
+This release contains a breaking change to the ingress subsystem that requires manual
+intervention. The default ingress type has changed from Ingress (ingress-nginx) to
+Istio Gateway. See the Upgrade Notes for more details.
+
+### Upgrade notes
+
+If you intend on using Istio Gateway, ensure that you have Istio Gateway installed into
+your cluster before upgrading. Since the default ingress is now Istio Gateway, only the
+ingress `host` field is required:
+
+```yaml
+spec:
+  package:
+    spec:
+      ingress:
+        hosts:
+          - <cluster domain name>
+```
+
+Otherwise, if you want to keep using ingress-nginx, set the ingress `template` in your
+cluster configuration:
+
+```yaml
+spec:
+  package:
+    spec:
+      ingress:
+        template:
+          apiVersion: 'networking.k8s.io/v1'
+          kind: 'Ingress'
+        hosts:
+          - <cluster domain name>
+```
+
+### Security and Bug Fixes
+
+- Updated images to resolve a vulnerability related to the compromised eMudhra certificates
+- Dependency updates and miscellaneous security fixes
+
 ## 20261016-2070790 {date="2026-10-16"}
 
 ### Quickstart

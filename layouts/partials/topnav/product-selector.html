@@ -17,7 +17,7 @@ Identify products by their product path. Dictionary schema:
     - 0: Product name
     - 1: Frontmatter alt_link key for explicit declarations of alternate links
 -->
-{{ $influxdbOSSv1 := dict "influxdb/v1" (slice "InfluxDB OSS v1" "v1") }}
+{{ $influxdbOSSv1 := dict "influxdb/v1" (slice $.Site.Data.products.influxdb.name__v1 "v1") }}
 {{ $influxdbOSSv2 := dict "influxdb/v2" (slice "InfluxDB OSS v2" "v2") }}
 {{ $influxdbCloud := dict "influxdb/cloud" (slice $.Site.Data.products.influxdb_cloud.name "cloud") }}
 {{ $influxdb3Core := dict "influxdb3/core" (slice $.Site.Data.products.influxdb3_core.name "core") }}
@@ -36,7 +36,7 @@ Identify products by their product path. Dictionary schema:
 {{ $chronograf := dict "chronograf/v1" (slice "Chronograf" "chronograf") }}
 {{ $kapacitor := dict "kapacitor/v1" (slice "Kapacitor" "kapacitor") }}
 {{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
-{{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
+{{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice $.Site.Data.products.enterprise_influxdb.name__v1 "enterprise_v1") }}
 {{ $influxdbCloud1 := dict "influxcloud/v1" (slice $.Site.Data.products.influxdb_cloud1.name "v1") }}
 {{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3Cloud $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $telegrafEnterprise $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb $influxdbCloud1 }}
 

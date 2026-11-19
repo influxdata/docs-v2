@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: Manage InfluxDB plugins
-weight: 5
+weight: 8
 cascade:
   related:
     - /influxdb3/core/plugins/, InfluxDB 3 Core Processing engine plugins
@@ -31,6 +31,11 @@ When a trigger condition is met, InfluxDB 3 automatically runs the associated
 plugin code. This enables real-time data processing, enrichment, or alerting
 without manual intervention.
 Use the InfluxDB 3 Explorer UI to enable, disable, or configure triggers for each plugin.
+
+If the InfluxDB 3 Enterprise server requires users to
+[sign in](/influxdb3/explorer/authentication/), you must have the **Admin**
+role to manage plugins.
+See [User roles and access](/influxdb3/explorer/manage-users/roles/).
 
 <!-- TOC -->
 

@@ -117,7 +117,10 @@ If the card can't retrieve component information, it displays
 "Component information is currently unavailable."
 
 The Instance Size card is read-only.
-To change the size of your instance, [contact InfluxData support](https://support.influxdata.com).
+To change the size of your instance, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
+
+For instance sizing or performance questions during your trial, contact
+[influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
 
 ## View instance metrics
 
@@ -181,7 +184,7 @@ Use the charts to understand how your workload uses the instance:
   If **Compaction CPU** or **Compaction Memory** stays high for a sustained
   period, compaction might not be keeping up with your write volume.
   Compare the chart with the ingest charts to see whether a rise in write
-  volume matches the increase, and [contact InfluxData support](https://support.influxdata.com)
+  volume matches the increase, and [contact InfluxData Support](https://support.influxdata.com/s/contactsupport)
   if the usage doesn't return to normal.
 
 ## View storage and usage
