@@ -22,6 +22,11 @@ To sign up for a {{% product-name %}} trial, visit
 [Contact Sales](https://www.influxdata.com/contact-sales/).
 Check the email address you used to sign up for onboarding instructions and your trial terms.
 
+> [!Note]
+> #### Trial object storage
+>
+> New trial signups currently use AWS object storage in the United States.
+
 Click the link in your email to confirm that you want to start your trial.
 You're redirected to the Admin UI at [console.influxdata.com](https://console.influxdata.com) to log in.
 Your instance can take up to one hour to provision after you confirm your signup.
