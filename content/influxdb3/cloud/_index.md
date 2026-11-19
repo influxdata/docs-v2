@@ -22,13 +22,10 @@ without provisioning or operating your own infrastructure.
 
 {{< children type="articles" hlevel="h2" >}}
 
-> [!Important]
-> #### InfluxDB 3 Cloud is in early access
+> [!Note]
+> #### Start a trial
 >
-> InfluxDB 3 Cloud is currently an early access release offered to select
-> customers as we continue to expand availability.
->
-> Interested in trying InfluxDB 3 Cloud?
-> See the
-> [InfluxDB 3 Cloud product page](https://www.influxdata.com/products/influxdb3-cloud/)
-> to request access.
+> [Sign up for an InfluxDB 3 Cloud trial](https://www.influxdata.com/influxdb3-cloud-signup/).
+> Check the email address you used to sign up for instructions to confirm and start your trial.
+> For provisioning, support, and trial expiration details, see
+> [Get your instance](/influxdb3/cloud/get-started/setup/#get-your-instance).

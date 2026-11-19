@@ -24,14 +24,14 @@ This guide walks through the basic steps of getting started with
 
 {{< children type="ordered-list" >}}
 
-> [!Important]
-> #### InfluxDB 3 Cloud is in early access
+> [!Note]
+> #### Start your trial
 >
-> {{% product-name %}} is currently available to select customers through an
-> early access program and isn't yet generally available.
-> Early access provides a focused subset of InfluxDB 3 Enterprise
-> capabilities as a managed service.
-> Availability, features, and workflows may change before general availability.
+> [Sign up for a trial](https://www.influxdata.com/influxdb3-cloud-signup/), then check your signup email for instructions.
+> After you confirm that you want to start your trial, you're redirected to the Admin UI to log in.
+> Your instance can take up to one hour to provision after confirmation.
+> Once it's ready, follow this guide to create a database and resource token, write data, and run queries.
+> See [Set up InfluxDB](/influxdb3/cloud/get-started/setup/) for trial support and expiration details.
 
 ## Data model
 

@@ -24,7 +24,7 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     cy.get('h1').should('contain.text', 'Which InfluxDB 3 should I use');
   });
 
-  it('renders all 7 FAQ questions as H2s with stable anchors', function () {
+  it('renders all 8 FAQ questions as H2s with stable anchors', function () {
     const questions = [
       {
         text: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?",
@@ -42,6 +42,11 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       {
         text: 'I run InfluxDB 1 today',
         anchor: 'i-run-influxdb-1-today--should-i-migrate-to-influxdb-3',
+      },
+      {
+        text: "What's the difference between InfluxDB 3 Cloud and InfluxDB Cloud Serverless?",
+        anchor:
+          'whats-the-difference-between-influxdb-3-cloud-and-influxdb-cloud-serverless',
       },
       {
         text: 'Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?',
@@ -63,7 +68,7 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
   });
 
   it('wraps each FAQ answer in <div class="faq-answer"><p>...</p></div>', function () {
-    cy.get('div.faq-answer').should('have.length', 7);
+    cy.get('div.faq-answer').should('have.length', 8);
     cy.get('div.faq-answer').each(($div) => {
       cy.wrap($div).find('p').should('have.length.gte', 1);
     });
@@ -88,12 +93,20 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     cy.contains('th', 'Your situation').should('exist');
     [
       'New production deployment',
+      'Fully managed InfluxDB 3 Enterprise, single-tenant',
       'Free, open source, single-node',
       'Multi-tenant, self-service cloud for smaller workloads',
-      'Managed single-tenant cloud',
+      'Existing InfluxDB Cloud Dedicated deployments',
       'Kubernetes',
       'Running InfluxDB 1 or InfluxDB 2 today',
     ].forEach((row) => cy.contains('td', row).should('exist'));
+  });
+
+  it('links to InfluxDB 3 Cloud and its trial signup', function () {
+    cy.get('a[href="/influxdb3/cloud/"]').should('exist');
+    cy.get(
+      'a[href="https://www.influxdata.com/influxdb3-cloud-signup/"]'
+    ).should('exist');
   });
 
   it('links to verified migration guide URLs', function () {
@@ -105,14 +118,14 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     ).should('exist');
   });
 
-  it('emits FAQPage JSON-LD with 7 Question entities', function () {
+  it('emits FAQPage JSON-LD with 8 Question entities', function () {
     cy.get('script[type="application/ld+json"]').then(($scripts) => {
       const faq = [...$scripts]
         .map((s) => JSON.parse(s.textContent))
         .find((j) => j['@type'] === 'FAQPage');
       expect(faq, 'FAQPage JSON-LD present').to.exist;
       expect(faq['@context']).to.equal('https://schema.org');
-      expect(faq.mainEntity).to.have.length(7);
+      expect(faq.mainEntity).to.have.length(8);
       faq.mainEntity.forEach((q) => {
         expect(q['@type']).to.equal('Question');
         expect(q.name).to.be.a('string').and.not.empty;
