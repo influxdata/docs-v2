@@ -241,6 +241,8 @@ describe('Cloud trial discovery on the docs homepage', () => {
       cy.get('#influxdb3 a[data-product-path="influxdb3/cloud"]')
         .closest('.product')
         .within(() => {
+          cy.contains('p', 'The fully managed, cloud-hosted version of InfluxDB 3 Enterprise.')
+            .should('be.visible');
           cy.contains('a', 'Sign up for a trial')
             .should('be.visible')
             .and('have.attr', 'href', 'https://www.influxdata.com/contact-sales/');
