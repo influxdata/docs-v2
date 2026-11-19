@@ -32,6 +32,9 @@ Access the {{% product-name %}} Admin UI at
 [console.influxdata.com](https://console.influxdata.com).
 If you don't have login credentials,
 [contact InfluxData support](https://support.influxdata.com).
+If you're starting a trial, follow the confirmation and login instructions in your signup email.
+For trial login problems, contact
+[influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
 
 {{< img-hd src="/img/influxdb3/influxdb3-cloud-admin-ui-users.png" alt="InfluxDB 3 Cloud Admin UI Users page" />}}
 
