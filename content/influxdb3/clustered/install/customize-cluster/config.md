@@ -103,7 +103,7 @@ For more information, see
 > #### Configurable settings
 > 
 > For information about what settings are configurable and their associated
-> environment variables, [contact InfluxData Support](https://support.influxdata.com).
+> environment variables, [contact InfluxData Support](https://support.influxdata.com/s/).
 
 <!-- 
 

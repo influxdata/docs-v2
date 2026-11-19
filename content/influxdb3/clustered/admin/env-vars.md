@@ -25,7 +25,7 @@ setting your own values.
 > when overriding default configuration settings.
 > Changing these settings may impact overall cluster performance.
 > Before making configuration changes using environment variables, consider
-> consulting [InfluxData Support](https://support.influxdata.com/) to identify any
+> consulting [InfluxData Support](https://support.influxdata.com/s/) to identify any
 > potential unintended consequences.
 
 ## AppInstance component schema

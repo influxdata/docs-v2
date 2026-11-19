@@ -63,7 +63,7 @@ You can create a database with an optional retention period and custom partition
    </pre>
 
 2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com/s/).
 
 3. In the cluster list, find and click the cluster you want to create a database in. You
    can sort on column headers or use the **Search** field to find a specific cluster.

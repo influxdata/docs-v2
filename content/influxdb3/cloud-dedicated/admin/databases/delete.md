@@ -72,7 +72,7 @@ managing databases.
    <a href="https://console.influxdata.com">https://console.influxdata.com</a>
    </pre>
 2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com/s/).
 3. In the database list, find the database you want to delete. You
    can sort on column headers or use the **Search** field to find a specific database.
 4.  Click the options button (three vertical dots) to the right of the database you want to delete.

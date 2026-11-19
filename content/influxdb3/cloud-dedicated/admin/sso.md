@@ -153,5 +153,5 @@ provider and the new certificate needs to be added to Auth0.
 
 #### Solution
 
-Provide your updated certificate to [InfluxData support](https://support.influxdata.com)
+Provide your updated certificate to [InfluxData support](https://support.influxdata.com/s/)
 and they will add it to Auth0.

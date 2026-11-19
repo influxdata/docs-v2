@@ -26,7 +26,7 @@ aliases:
 ---
 
 To request more information about {{% product-name %}},
-[contact InfluxData support](https://support.influxdata.com).
+[contact InfluxData support](https://support.influxdata.com/s/).
 
 <!--
 Links from shared content point to not-yet-published Cloud reference/API pages.

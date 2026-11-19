@@ -22,7 +22,7 @@ Use it to monitor query performance, find slow-running queries, and troubleshoot
 > #### Query logging is not enabled by default
 >
 > The query log is disabled by default on all clusters because it generates additional ingest and storage overhead and is intended primarily for troubleshooting, not continuous monitoring.
-> To enable it for your cluster, [contact InfluxData support](https://support.influxdata.com).
+> To enable it for your cluster, [contact InfluxData support](https://support.influxdata.com/s/).
 
 Use the Admin UI or the [`influxctl query` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/query/) to view the query log.
 

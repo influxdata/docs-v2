@@ -35,7 +35,7 @@ and goals--for example:
 - Query response time
 
 This gives specific metrics to test for and make adjustments towards.
-Consult with [InfluxData support](https://support.influxdata.com) as you make
+Consult with [InfluxData support](https://support.influxdata.com/s/) as you make
 changes to meet these requirements and goals.
 
 ## Phase 3 process

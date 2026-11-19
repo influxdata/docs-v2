@@ -96,11 +96,11 @@ Query plans provide runtime metrics, such as the number of files scanned, that m
 > If you have followed steps to [optimize](#why-is-my-query-slow) and
 > [troubleshoot a query](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/troubleshoot/),
 > but it still doesn't meet performance requirements,
-> contact the [InfluxData Support team](https://support.influxdata.com) for assistance.
+> contact the [InfluxData Support team](https://support.influxdata.com/s/) for assistance.
 >
 > #### Query trace logging
 >
 > Currently, customers cannot enable trace logging for {{% product-name omit="Clustered" %}} clusters.
 > InfluxData engineers can use query plans and trace logging to help pinpoint performance bottlenecks in a query.
 >
-> For help troubleshooting a query, contact the [InfluxData Support team](https://support.influxdata.com).
+> For help troubleshooting a query, contact the [InfluxData Support team](https://support.influxdata.com/s/).

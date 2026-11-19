@@ -15,7 +15,7 @@ prepend: |
   > [!NOTE]
   > #### Works with InfluxDB OSS 2.x  
   > The `influx restore` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.  
-  > For information about restoring data in InfluxDB Cloud, see [InfluxDB Cloud durability](/influxdb/cloud/reference/internals/durability/) and contact [InfluxData Support](https://support.influxdata.com/).
+  > For information about restoring data in InfluxDB Cloud, see [InfluxDB Cloud durability](/influxdb/cloud/reference/internals/durability/) and contact [InfluxData Support](https://support.influxdata.com/s/).
 source: /shared/influxdb-v2/reference/cli/influx/restore/index.md
 ---
 

@@ -197,13 +197,13 @@ Search for the feature's own page and restate what it says.
 When linking to InfluxData Support, use one of these URLs:
 
 ```markdown
-[InfluxData support](https://support.influxdata.com)
+[InfluxData support](https://support.influxdata.com/s/)
 [contact InfluxData support](https://support.influxdata.com/s/contactsupport)
 ```
 
 **Do not use**:
 
-- `https://support.influxdata.com/` (trailing slash)
+- `https://support.influxdata.com` or `https://support.influxdata.com/` (redirects to `/s/`)
 - `https://support.influxdata.com/s/login/?ec=302&startURL=%2Fs%2Fcontactsupport` (login redirect)
 - Any other `support.influxdata.com` path
 

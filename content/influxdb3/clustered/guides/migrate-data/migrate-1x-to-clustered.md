@@ -367,4 +367,4 @@ You would create the following InfluxDB {{< current-version >}} databases:
     > Don't use the `influx` CLI with InfluxDB Clustered.
     > While it may coincidentally work, it isn't officially supported.
     > 
-    > For help finding the best workflow for your situation, [contact Support](https://support.influxdata.com).
+    > For help finding the best workflow for your situation, [contact Support](https://support.influxdata.com/s/).

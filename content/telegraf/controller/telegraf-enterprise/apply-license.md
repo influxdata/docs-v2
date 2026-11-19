@@ -40,7 +40,7 @@ through an environment variable or at runtime through the user interface.
   
   > [!Note]
   > If you have already purchased Telegraf Enterprise, but have not recieved your
-  > license, [contact InfluxData support](https://support.influxdata.com).
+  > license, [contact InfluxData support](https://support.influxdata.com/s/).
 
 - For the UI method: the **Owner** role on the {{% product-name %}} instance.
 
