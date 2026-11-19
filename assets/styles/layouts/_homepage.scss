@@ -278,6 +278,11 @@
         &.full-width {
           width: 100%;
         }
+        // Keep links aligned to the card bottom, with a tight minimum gap
+        .product {
+          .product-info p { margin-bottom: 0; }
+          ul.product-links { margin-top: .75rem; }
+        }
         // One product per line: name, description, and links in a row
         &.compact .product {
           flex: 1 1 100%;
