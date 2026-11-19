@@ -350,12 +350,68 @@ To configure ingress, provide values for the following fields in your
 
   (Optional): Provide the name of the secret that contains your TLS certificate
   and key. The examples in this guide use the name `ingress-tls`.
+  For Istio Gateway, omitting this field creates plaintext listeners on port 80.
+  Setting it creates HTTPS listeners on port 443.
+  Create the secret in the namespace of the Istio ingress gateway deployment.
+  For Ingress NGINX, create the secret in the InfluxDB namespace.
+  See [Set up ingress TLS](/influxdb3/clustered/install/secure-cluster/tls/#set-up-ingress-tls).
 
   > [!Note]
   > Writing to and querying data from InfluxDB does not require TLS.
   > For simplicity, you can wait to enable TLS before moving into production.
   > For more information, see Phase 4 of the InfluxDB Clustered installation
   > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
+
+- **`spec.package.spec.ingress.template`: Ingress type**
+
+  (Optional): Specify the type of ingress resource to create.
+  By default, InfluxDB Clustered creates an Istio `Gateway`
+  (`apiVersion: networking.istio.io/v1beta1`) and the associated
+  `VirtualService`, so you must have Istio installed in your cluster.
+  To use Ingress NGINX (deprecated) instead, set `kind` to `Ingress`:
+
+  ```yaml
+  spec:
+    package:
+      spec:
+        ingress:
+          template:
+            apiVersion: 'networking.k8s.io/v1'
+            kind: 'Ingress'
+  ```
+
+  For Istio, `ingress.template.selector` is optional.
+  If you omit it or provide an empty map, InfluxDB Clustered omits the generated
+  `Gateway` selector, so Istio applies the configuration to all gateway workloads
+  within its configured namespace scope.
+  To select a specific ingress gateway deployment, provide labels that match its pods.
+  For example, if your gateway pods have the label `istio: ingressgateway`, use:
+
+  ```yaml
+  spec:
+    package:
+      spec:
+        ingress:
+          template:
+            apiVersion: networking.istio.io/v1beta1
+            kind: Gateway
+            selector:
+              istio: ingressgateway
+  ```
+
+  By default, Istio can select workloads across namespaces.
+  If `PILOT_SCOPE_GATEWAY_TO_NAMESPACE` is `true` in istiod, the gateway pods
+  must be in the same namespace as the generated `Gateway` resource.
+  See the [Istio Gateway selector reference](https://istio.io/latest/docs/reference/config/networking/gateway/#Gateway).
+
+  > [!Important]
+  > #### Breaking change
+  >
+  > Release `20261030-2076753` changed the default ingress type from `Ingress`
+  > to Istio `Gateway`.
+  > Your cluster stops working after you upgrade unless you install Istio or
+  > explicitly configure the `Ingress` template to keep using Ingress NGINX.
+  > See [Ingress changes in release 20261030-2076753](/influxdb3/clustered/admin/upgrade/#ingress-changes-in-release-20261030-2076753).
 
 ```yaml { callout="ingress-tls|cluster-host\.com" callout-color="green" }
 apiVersion: kubecfg.dev/v1alpha1
@@ -364,11 +420,11 @@ kind: AppInstance
 spec:
   package:
     spec:
-# ...
-ingress:
-  hosts:
-    - {{< influxdb/host >}}
-  tlsSecretName: ingress-tls
+      # ...
+      ingress:
+        hosts:
+          - {{< influxdb/host >}}
+        tlsSecretName: ingress-tls
 ```
 
 #### Configure the object store

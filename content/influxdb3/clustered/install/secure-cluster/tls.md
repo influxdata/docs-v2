@@ -31,17 +31,27 @@ following:
 
 ## Set up ingress TLS
 
-Kubernetes support many different ingress controllers, some of which provide
-simple mechanisms for creating and managing TLS certificates.
-If using the [InfluxDB-defined ingress and the Nginx Ingress Controller](/influxdb3/clustered/install/set-up-cluster/prerequisites/#set-up-a-kubernetes-ingress-controller),
-add a valid TLS Certificate to the cluster as a secret.
-Provide the paths to the TLS certificate file and key file:
+For the [InfluxDB-defined ingress](/influxdb3/clustered/install/set-up-cluster/prerequisites/#set-up-a-kubernetes-ingress-controller),
+create a secret containing your TLS certificate and key.
+Starting with release `20261030-2076753`, the default ingress uses an Istio
+`Gateway` and associated `VirtualService` resources.
+Ingress NGINX is a deprecated opt-in alternative.
+
+Choose the secret namespace for your ingress type:
+
+- **Istio Gateway (default):** Use the namespace of the Istio ingress gateway
+  deployment, for example, `istio-system`.
+  This can differ from the `influxdb` namespace containing the generated `Gateway` resource.
+  See [Istio certificate management](https://istio.io/latest/docs/ops/integrations/certmanager/#istio-gateway).
+- **Ingress NGINX:** Use the InfluxDB namespace, `influxdb` in this guide.
+
+Provide the namespace and paths to your certificate and key files:
 
 <!-- pytest.mark.skip -->
 
-```bash { placeholders="TLS_(CERT|KEY)_PATH" }
+```bash { placeholders="TLS_(NAMESPACE|CERT_PATH|KEY_PATH)" }
 kubectl create secret tls ingress-tls \
-  --namespace influxdb \
+  --namespace TLS_NAMESPACE \
   --cert TLS_CERT_PATH \
   --key TLS_KEY_PATH
 ```
@@ -50,6 +60,8 @@ kubectl create secret tls ingress-tls \
 
 Replace the following:
 
+- _{{% code-placeholder-key %}}`TLS_NAMESPACE`{{% /code-placeholder-key %}}:
+  Namespace selected for your ingress type._
 - _{{% code-placeholder-key %}}`TLS_CERT_PATH`{{% /code-placeholder-key %}}:
   Path to the certificate file on your local machine._
 - _{{% code-placeholder-key %}}`TLS_KEY_PATH`{{% /code-placeholder-key %}}:
@@ -71,17 +83,30 @@ The examples below use the name `ingress-tls`.
 - **If using the InfluxDB Clustered Helm chart**, reference the TLS secret in
   the `ingress.tlsSecretName` property in your `values.yaml`.
 
-_The `tlsSecretName` field is optional. You may want to use it if you already have a TLS certificate for your DNS name._
+The `tlsSecretName` field is optional for installation, but required to enable
+TLS on the generated Istio Gateway.
+When set, the installer uses it as the Gateway's `tls.credentialName` and
+configures HTTPS listeners on port 443 with TLS mode `SIMPLE`.
+When omitted, the Gateway uses plaintext listeners on port 80.
 
 {{< expand-wrapper >}}
 {{% expand "Use cert-manager and Let's Encrypt to manage TLS certificates" %}}
 
-If you instead want to automatically create an [ACME](https://datatracker.ietf.org/doc/html/rfc8555)
-certificate (for example, using [Let's Encrypt](https://letsencrypt.org/)), refer
-to the [cert-manager documentation](https://cert-manager.io/docs/usage/ingress/)
-for more details on how to annotate the `Ingress` resource produced by the
-InfluxDB installer operator. The operator lets you to add annotations
-(with `kubectl annotate`) and preserves them as it operates on resources.
+To automatically issue and renew a certificate, configure cert-manager for your ingress type:
+
+- **Istio Gateway:** Create a cert-manager `Certificate` in the namespace of
+  your Istio ingress gateway deployment.
+  Set the Certificate's `spec.secretName` to the same name as `ingress.tlsSecretName`.
+  Follow the [Istio cert-manager integration guide](https://istio.io/latest/docs/ops/integrations/certmanager/#istio-gateway)
+  to configure your issuer and certificate.
+- **Ingress NGINX:** If you explicitly set `ingress.template.kind: Ingress`,
+  follow the [cert-manager Ingress guide](https://cert-manager.io/docs/usage/ingress/)
+  to annotate the generated `Ingress` resources.
+  The installer operator preserves annotations added with `kubectl annotate`.
+
+The Ingress annotation procedure applies only to `Ingress` resources.
+For the default Istio configuration, follow the Istio cert-manager integration guide
+to create a `Certificate` resource.
 
 > [!Note]
 > If you choose to use cert-manager, it's your responsibility to install and configure it.
