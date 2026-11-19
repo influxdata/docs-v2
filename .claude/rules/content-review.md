@@ -53,8 +53,8 @@ Rules: [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md)
 
 Products defined in [data/products.yml](../../data/products.yml):
 
-- Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
-  "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
+- Write **InfluxDB Cloud Serverless**, **InfluxDB Cloud Dedicated**, and
+  **InfluxDB Clustered**. Use **InfluxDB 3** separately for their generation.
 - Use the exact cloud product name. Resolve bare "Cloud" or "InfluxDB Cloud"
   from the docs path, hostname, or context. Ask which product the author means
   if the context is inconclusive.

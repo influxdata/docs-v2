@@ -141,6 +141,10 @@ Use the full product name on first mention and wherever you compare products or
 describe product-specific behavior. Match the product to its documentation
 path before reusing instructions.
 
+Write **InfluxDB Cloud Serverless**, **InfluxDB Cloud Dedicated**, and
+**InfluxDB Clustered** without a generation number in their names.
+Use **InfluxDB 3** separately to describe their generation.
+
 | Product name                  | Meaning and documentation                                                                                                                                                                                                             |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **InfluxDB 1 Cloud**          | The managed service based on InfluxDB 1 Enterprise. The [original help site](https://help.influxcloud.net/getting_started/) calls it **InfluxCloud**. **Cloud 1** also refers to this service. Use **InfluxDB 1 Cloud** in new prose. |
