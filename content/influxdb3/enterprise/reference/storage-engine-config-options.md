@@ -228,9 +228,10 @@ Configure data file caching for query performance.
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
-| [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) | Total data file cache budget, shared with the Parquet-based engine. During the storage engine upgrade with hybrid query enabled, the budget is split 50/50 between the two engine caches; otherwise, the active engine receives the full budget. Provide a unit suffix or percentage (bare numbers are rejected). Set to `0b` on dedicated ingest nodes. | `20%` |
+| [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size) | Total data file cache budget, shared with the Parquet-based engine. During the storage engine upgrade with hybrid query enabled, the budget is split 50/50 between the two engine caches; otherwise, the active engine receives the full budget. Provide a unit suffix or percentage (bare numbers are rejected). Set to `0b` on dedicated ingest nodes. | `30%` to `60%`, depending on the node's memory (v3.12.3+; previously `20%`) |
 | [`--disable-file-cache`](/influxdb3/enterprise/reference/config-options/#disable-file-cache) | Disable data file caching in both engines. Set to `true` on dedicated ingest nodes. | `false` |
 | [`--file-cache-recency`](/influxdb3/enterprise/reference/config-options/#file-cache-recency) | Only cache files newer than this age. Pre-caching on all-in-one and query nodes is based on this value. Shared with the Parquet-based engine. | `3d` |
+| `--file-cache-preload` | Controls when a node that doesn't compact preloads recent compacted data into its file cache. `recent` preloads at startup, before the node serves queries, and then the new files of each compaction checkpoint. The startup preload has no time limit and can take many minutes with a large cache. `skip-startup` skips the startup preload, so the node serves as soon as it reads the latest checkpoint; queries read from object storage and are slower until the cache fills. The new files of each compaction checkpoint are still preloaded. Available in v3.12.3 and later. | `recent` |
 | `--file-cache-evict-after` | Evict cached files that have not been read within this duration. | `24h` |
 
 > [!Note]
@@ -358,7 +359,8 @@ through four compaction levels (L1 through L4).
 |:-------|:------------|:--------|
 | `--shard-count` | Target number of shards per compaction window. | `1` |
 | `--compactor-input-size-budget` | Maximum total input bytes across all active compaction jobs. Acts as an admission control budget for the compactor scheduler. | 50% of system memory at startup |
-| `--compactor-import-batch-size` | Largest batch of staged data that one bulk import merge reads at once. Still capped at one quarter of `--compactor-input-size-budget`. Available in v3.12.1 and later. | `4gb` |
+| `--compactor-import-batch-size` | Largest batch of staged data that one bulk import merge reads at once. Still capped at one quarter of `--compactor-input-size-budget`. Available in v3.12.1 and later. | `16gb` (v3.12.3+; previously `4gb`) |
+| `--compactor-max-concurrent-conversions` | Maximum number of bulk import conversion jobs that run at once for uploads, and separately for a storage engine upgrade. Accepts `1` to `4096`. Available in v3.12.3 and later. | `64` |
 | `--final-compaction-age` | Age threshold for final compaction. When all L1-L3 run sets in a window are older than this, a final compaction merges everything into L4. | `4h` (time-disjoint layout); `72h` (legacy layout) |
 | `--compactor-cleanup-cooldown` | Cooldown after checkpoint publish before replaced files can be cleaned up. | `10min` |
 
