@@ -1,9 +1,10 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later.
 
 
-The Kafka Subscriber Plugin enables real-time ingestion of Kafka messages into {{% product-name %}}. Subscribe to Kafka topics and automatically transform messages into time-series data with support for JSON, Line Protocol, and custom text formats. The plugin uses consumer groups for reliable message delivery and provides flexible offset commit policies for different use cases. The consumer is reused across scheduled invocations to avoid a consumer-group rebalance every cycle, and it optionally supports a dead-letter queue topic for failed messages and id-based deduplication for messages without their own timestamp.
+The Kafka Subscriber Plugin enables real-time ingestion of Kafka messages into InfluxDB 3. Subscribe to Kafka topics and automatically transform messages into time-series data with support for JSON, Line Protocol, and custom text formats. The plugin uses consumer groups for reliable message delivery and provides flexible offset commit policies for different use cases. The consumer is reused across scheduled invocations to avoid a consumer-group rebalance every cycle, and it optionally supports a dead-letter queue topic for failed messages and id-based deduplication for messages without their own timestamp.
 
 **Binary formats:** `avro`, `jsonschema`, and `protobuf` (Confluent wire format) are decoded via Confluent Schema Registry. `avro` can also be decoded as raw schemaless Avro with a local `.avsc` schema, and `protobuf` with a local `.proto` schema. See [Binary formats](#binary-formats).
 

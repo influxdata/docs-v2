@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later.
 
 
 The Schema Validator Plugin validates incoming line protocol against a user-defined JSON schema and forwards only conforming rows to a target database or table. It runs on every WAL flush of the tables named by its trigger specification: each row is checked against the measurement whitelist, the required tags and their allowed values, and the required fields, their types and their allowed values. Valid rows are stripped down to the schema-defined tags and fields and written to the target; rejected rows are optionally logged and recorded in a `_schema_rejections` measurement.

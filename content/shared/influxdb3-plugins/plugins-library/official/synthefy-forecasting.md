@@ -136,11 +136,11 @@ Then call via HTTP. **Always** pass the Synthefy API key as a header (or set the
 ```bash
 TOKEN=$(influxdb3 create token --admin --offline | grep token | cut -d'=' -f2)
 
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "temperature",
     "field": "value",
     "time_range": "30d",
@@ -160,11 +160,11 @@ curl -X POST http://localhost:8181/api/v3/engine/forecast \
 ```bash
 TOKEN=$(influxdb3 create token --admin --offline | grep token | cut -d'=' -f2)
 
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "temperature",
     "field": "value"
   }'
@@ -172,11 +172,11 @@ curl -X POST http://localhost:8181/api/v3/engine/forecast \
 ### Forecast with single-tag filter
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "temperature",
     "field": "value",
     "tags": { "location": "NYC" },
@@ -186,11 +186,11 @@ curl -X POST http://localhost:8181/api/v3/engine/forecast \
 ### Forecast with multi-value tag filter
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "temperature",
     "field": "value",
     "tags": { "location": ["NYC", "SF"], "device": "sensor1" },
@@ -200,11 +200,11 @@ curl -X POST http://localhost:8181/api/v3/engine/forecast \
 ### Forecast with metadata covariates
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "temperature",
     "field": "value",
     "metadata_fields": ["humidity", "pressure"],
@@ -226,11 +226,11 @@ influxdb3 create trigger \
 ### Advanced model
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "sales",
     "field": "revenue",
     "model": "Migas-latest",
@@ -241,11 +241,11 @@ curl -X POST http://localhost:8181/api/v3/engine/forecast \
 ### Writing the forecast to a different database
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/forecast \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/forecast \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Synthefy-Api-Key: YOUR_SYNTHEFY_API_KEY" \
+  --data '{
     "measurement": "temperature",
     "field": "value",
     "database": "forecasts"
