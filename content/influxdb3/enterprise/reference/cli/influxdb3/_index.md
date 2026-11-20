@@ -39,6 +39,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
 | [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Gracefully stop nodes               |
 | [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
+| [uninstall](/influxdb3/enterprise/reference/cli/influxdb3/uninstall/) | Uninstall plugin packages     |
 | [update](/influxdb3/enterprise/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
 
