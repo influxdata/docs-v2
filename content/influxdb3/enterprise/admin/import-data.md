@@ -110,6 +110,8 @@ You can pass either of the following as the import source:
 Use the `influxdb3 import from-object-store` command to import every Parquet
 file found recursively under a prefix directly on the server, without
 streaming file bytes through the `influxdb3` client.
+In v3.12.3 and later, the source can also name a single `.parquet` file,
+which {{% product-name %}} imports as one job.
 For the complete command syntax and flags, see the
 [`influxdb3 import from-object-store`](/influxdb3/enterprise/reference/cli/influxdb3/import/from-object-store/)
 CLI reference.
@@ -173,6 +175,85 @@ Use the `influxdb3 import list` command to review import jobs.
 For details, see the
 [`influxdb3 import list`](/influxdb3/enterprise/reference/cli/influxdb3/import/list/)
 CLI reference.
+
+In v3.12.3 and later, import statuses include a `pipeline_status` that shows
+whether imports are paused.
+Files from one `influxdb3 import from-object-store` request share an
+`operation_id`.
+
+### Review the status of each file
+
+In v3.12.3 and later, the `system.import_files` table in the `_internal`
+database and the `GET /api/v3/enterprise/import/files` endpoint report each
+imported file's state, number of attempts, row counts, and skip reason.
+They keep a file's status for 7 days after the file leaves `system.imports`.
+
+The endpoint accepts the `upload_id`, `operation_id`, `database`, `table`,
+`state`, `limit`, and `after` query parameters.
+`upload_id` and `after` must be upload IDs (UUIDs), and `table` requires
+`database`.
+`state` is one of `pending`, `imported`, `compacted`, or `failed`.
+`limit` defaults to `100` and accepts up to `1000`; pass the response's
+`next_after` value as `after` to get the next page.
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
+curl --get "http://localhost:8181/api/v3/enterprise/import/files" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data-urlencode "database=DATABASE_NAME" \
+  --data-urlencode "state=failed"
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
+  your {{% token-link %}}
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  the database to list files for
+
+An admin token sees every file.
+Other tokens see files only for the databases that the token can describe,
+and a token that can describe no database gets `403 Forbidden`.
+
+## Pause, resume, or stop imports
+
+In v3.12.3 and later, you can hold or cancel bulk imports across the cluster
+with the following endpoints.
+Each requires an admin token and takes no request body.
+
+| Endpoint                                | Effect                                                    |
+| :-------------------------------------- | :-------------------------------------------------------- |
+| `POST /api/v3/enterprise/import/pause`  | Holds imports (`pausing`, then `paused`)                  |
+| `POST /api/v3/enterprise/import/resume` | Resumes paused imports (`running`)                        |
+| `POST /api/v3/enterprise/import/stop`   | Discards imports that aren't compacted yet (`stopping`)   |
+| `GET /api/v3/enterprise/import/status`  | Returns the current state                                 |
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="AUTH_TOKEN" }
+curl --request POST "http://localhost:8181/api/v3/enterprise/import/pause" \
+  --header "Authorization: Bearer AUTH_TOKEN"
+```
+
+Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}
+with your {{% token-link "admin" %}}.
+
+A pause is `pausing` until running import work finishes, then `paused`.
+{{% product-name %}} still accepts uploads while imports are paused.
+
+A stop discards every uploaded or object-store import that isn't compacted
+yet, then leaves imports `paused`.
+The state is `stopping` until the discard finishes.
+You can't cancel a stop: pause and resume requests have no effect while the
+state is `stopping`.
+A stop doesn't discard a storage engine upgrade, but the upgrade stays paused
+until you resume imports.
+
+A pause also holds the imports of a storage engine upgrade.
+After a stop, discarded files report the `stopped` skip reason; upload them
+again to import them, and resume imports.
+While a stop is in progress, new import requests return `409 Conflict`.
 
 ## Map columns to InfluxDB types
 
