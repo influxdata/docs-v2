@@ -2,10 +2,11 @@
 <!-- prose-lint off -->
 scheduled opcua, ingestion, iot, industrial {{% product-name %}}
 
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later.
 
 
-The OPC UA Plugin enables periodic ingestion of OPC UA node values into {{% product-name %}}. Connect to an OPC UA server, read current values from configured nodes, and automatically write them as time-series data with support for automatic data type detection. Designed for industrial IoT scenarios — PLCs, SCADA systems, CNC machines, and other OPC UA-enabled equipment.
+The OPC UA Plugin enables periodic ingestion of OPC UA node values into InfluxDB 3. Connect to an OPC UA server, read current values from configured nodes, and automatically write them as time-series data with support for automatic data type detection. Designed for industrial IoT scenarios — PLCs, SCADA systems, CNC machines, and other OPC UA-enabled equipment.
 
 **Key characteristics:**
 - **Polling-based**: Reads current node values on each scheduled trigger call (not subscription-based)

@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later and `paho-mqtt>=2.1,<3`.
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later and `paho-mqtt>=2.1,<3`.
 
 
 The MQTT Publisher Plugin sends rows out of {{% product-name %}} to an MQTT broker. It
@@ -606,10 +607,10 @@ influxdb3 enable trigger --database mydb mqtt_backfill
 ### Making a request
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/engine/mqtt_backfill" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"backfill_start": "2026-10-05T00:00:00Z", "backfill_end": "2026-10-05T06:00:00Z"}'
+curl --request POST "http://localhost:8181/api/v3/engine/mqtt_backfill" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{"backfill_start": "2026-10-05T00:00:00Z", "backfill_end": "2026-10-05T06:00:00Z"}'
 ```
 ```json
 {
@@ -629,19 +630,19 @@ pass its `resume_from` as `backfill_start` to continue from exactly where it
 stopped:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/engine/mqtt_backfill" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" -H 'Content-Type: application/json' \
-  -d '{"backfill_start": "2026-10-05T05:59:59.000000001Z"}'
+curl --request POST "http://localhost:8181/api/v3/engine/mqtt_backfill" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" --header 'Content-Type: application/json' \
+  --data '{"backfill_start": "2026-10-05T05:59:59.000000001Z"}'
 ```
 **Replaying into a different shape.** A request may change which rows are
 taken, where they go and what the message says — which is what a replay for a
 new consumer needs:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/engine/mqtt_backfill?backfill_order=newest_first" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" -H 'Content-Type: application/json' \
-  -H 'X-Influxdb3-Mqtt-Publisher-Topic: replay/{machine}/{_table}' \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/engine/mqtt_backfill?backfill_order=newest_first" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" --header 'Content-Type: application/json' \
+  --header 'X-Influxdb3-Mqtt-Publisher-Topic: replay/{machine}/{_table}' \
+  --data '{
     "source_measurements": "weld_line",
     "backfill_start": "2026-10-05T00:00:00Z",
     "payload_fields": ["temp", "pressure"],
@@ -1071,7 +1072,7 @@ not warn about it, because telling the two apart would cost an extra query per
 tick and the right configuration is known in advance from how the source
 writes.
 
-### On {{% product-name %}}.11, a scheduled trigger or a backfill publishes only part of a table
+### On {{% product-name %}} 3.11, a scheduled trigger or a backfill publishes only part of a table
 
 If the table has **no tag columns at all**, this is a known server defect
 rather than the plugin: on the upgraded storage engine — the default for new
