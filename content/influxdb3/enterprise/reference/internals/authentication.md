@@ -1,7 +1,7 @@
 ---
 title: InfluxDB 3 Enterprise authentication and authorization 
 description: >
-  {{% product-name %}} uses an Attribute-Based Access Control (ABAC) model to manage permissions
+  InfluxDB 3 Enterprise uses an Attribute-Based Access Control (ABAC) model to manage permissions
   for authentication (authn) and authorization (authz). 
 menu:
   influxdb3_enterprise:

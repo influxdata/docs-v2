@@ -2,7 +2,7 @@
 title: Use the integrated Explorer UI
 seotitle: Use the integrated InfluxDB 3 Explorer UI in InfluxDB 3 Enterprise
 description: >
-  Enable the Explorer UI embedded in {{% product-name %}}: quick start
+  Enable the Explorer UI embedded in InfluxDB 3 Enterprise: quick start
   without authentication, sign in with multi-user authentication, configure
   SSO, and understand sessions and default connections.
 menu:

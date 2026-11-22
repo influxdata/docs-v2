@@ -2,7 +2,7 @@
 title: Use Power BI to visualize data
 description: >
   Use Microsoft Power BI Desktop with the InfluxDB 3 custom connector to query and
-  visualize data from {{% product-name %}}.
+  visualize data from InfluxDB 3 Enterprise.
 list_title: Power BI
 menu:
   influxdb3_enterprise:

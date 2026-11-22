@@ -2,7 +2,7 @@
 title: List admin tokens
 description: >
   Use the `influxdb3` CLI or the `/api/v3` HTTP API
-  to list admin tokens for your {{< product-name >}} instance.
+  to list admin tokens for your InfluxDB 3 Enterprise instance.
   Use the  `influxdb3 show tokens` command to list all tokens or use SQL to query token metadata directly from the `system.tokens` table.
 menu:
   influxdb3_enterprise:

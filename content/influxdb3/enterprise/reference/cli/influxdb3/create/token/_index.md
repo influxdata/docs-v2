@@ -1,7 +1,7 @@
 ---
 title: influxdb3 create token
 description: >
-  The `influxdb3 create token` command creates an admin token or a scoped resource token for authenticating and authorizing actions in an {{% product-name %}} instance.
+  The `influxdb3 create token` command creates an admin token or a scoped resource token for authenticating and authorizing actions in an InfluxDB 3 Enterprise instance.
 menu:
   influxdb3_enterprise:
     parent: influxdb3 create

@@ -2,7 +2,7 @@
 title: Use the InfluxDB HTTP API to write data
 description: >
   Use the `/api/v3/write_lp`, `/api/v2/write`, or `/write` HTTP API endpoints
-  to write data to {{% product-name %}}.
+  to write data to InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     name: Use the HTTP API

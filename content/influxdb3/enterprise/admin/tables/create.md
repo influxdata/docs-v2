@@ -2,7 +2,7 @@
 title: Create a table
 description: >
   Use the influxdb3 CLI or HTTP API to create a table in a specified database
-  in {{< product-name >}}.
+  in InfluxDB 3 Enterprise.
 menu:
   influxdb3_enterprise:
     parent: Manage tables
