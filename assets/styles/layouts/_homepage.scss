@@ -441,6 +441,7 @@
 
         .icon {
           svg {max-height: 60px; max-width: 60px}
+          svg.lucide {width: 60px; height: 60px; color: $home-icon-c1;}
           .c1 {fill: $home-icon-c1;}
           .c2 {fill: $home-icon-c2;}
           .magenta {fill: $br-new-magenta;}
