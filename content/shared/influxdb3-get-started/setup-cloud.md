@@ -4,10 +4,11 @@
 [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
 InfluxData provisions and operates the InfluxDB 3 servers for you, so you don't
 install, run, or scale servers yourself.
-To get started, get your instance host from InfluxData, configure the
-`influxdb3` CLI, log in, and then create a database.
+To get started, sign up for a trial, find your instance URL in the Admin UI,
+configure the `influxdb3` CLI, log in, and then create a database.
 
 - [Get your instance](#get-your-instance)
+- [Trial expiration](#trial-expiration)
 - [Configure the influxdb3 CLI](#configure-the-influxdb3-cli)
   - [Install the influxdb3 CLI](#install-the-influxdb3-cli)
   - [Connect to your instance](#connect-to-your-instance)
@@ -17,13 +18,37 @@ To get started, get your instance host from InfluxData, configure the
 
 ## Get your instance
 
-During early access, InfluxData provisions {{% product-name %}} instances for
-you. You can't sign up for the service yourself.
-To request early access, see the
-[InfluxDB 3 Cloud product page](https://www.influxdata.com/products/influxdb3-cloud/).
+[Sign up for a {{% product-name %}} trial](https://www.influxdata.com/influxdb3-cloud-signup/).
+Check the email address you used to sign up for onboarding instructions and your trial terms.
 
-After your instance is provisioned, InfluxData provides your instance
-**host URL**, which is the endpoint you connect to.
+> [!Note]
+> #### Trial object storage
+>
+> New trial signups currently use AWS object storage in the United States.
+
+Click the link in your email to confirm that you want to start your trial.
+You're redirected to the Admin UI at [console.influxdata.com](https://console.influxdata.com) to log in.
+Your instance can take up to one hour to provision after you confirm your signup.
+Once your instance is ready, you can create a
+[database](/influxdb3/cloud/admin/databases/create/) and
+[resource token](/influxdb3/cloud/admin/tokens/) in the Admin UI,
+or continue with the CLI steps below.
+
+For questions or problems during your trial, follow the instructions in your signup email
+or contact [influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
+
+After your instance is provisioned, find your instance **host URL**, which is the endpoint you connect to:
+
+1.  Go to [console.influxdata.com](https://console.influxdata.com) and sign in.
+2.  Select your instance.
+3.  In the navigation, select **Overview**.
+4.  In the **Instance Details** card, copy the **Instance URL**.
+
+The Admin UI URL, `https://console.influxdata.com`, isn't your instance host URL.
+If you use it as the host, `influxdb3 auth login --oauth` fails with a JSON parsing error.
+
+For more information, see [Monitor your instance](/influxdb3/cloud/admin/monitor-instance/#view-instance-details).
+
 You authenticate with your InfluxData account in the following steps.
 You don't copy or store a token for interactive use.
 
@@ -34,6 +59,15 @@ Depending on your role, you can manage databases,
 [tokens](/influxdb3/cloud/admin/tokens/), and
 [users](/influxdb3/cloud/admin/users/admin-ui/).
 This guide uses the `influxdb3` CLI.
+
+## Trial expiration
+
+When your trial expires, your instance is deprovisioned within one hour and you lose access to it.
+InfluxData retains your data for 15 days after your trial expires.
+Export any data you want to keep before your trial ends.
+For questions about your trial, contact
+[influxdb3-cloud-trial@influxdata.com](mailto:influxdb3-cloud-trial@influxdata.com).
+Refer to your trial email for your trial terms.
 
 ## Configure the influxdb3 CLI
 
@@ -187,8 +221,12 @@ Replace the following:
 Logging in authenticates you for interactive use with the `influxdb3` CLI.
 For applications and automated clients, create a **database token** scoped to
 only the databases and permissions it needs.
-Creating tokens requires admin privileges. If your user doesn't have admin
-access, ask an administrator to create a token for you.
+To create a resource token with the CLI or HTTP API, your role needs
+**Create** on **Resource tokens** for the instance.
+The default **Member** role includes this permission; a custom role can also grant it.
+Using the **Tokens** page in the Admin UI requires the **Admin** role.
+If you don't have the required permission, ask an administrator to create a token for you.
+For details, see [Role permissions reference](/influxdb3/cloud/admin/users/permissions/#instance-wide-permissions).
 
 Use the
 [`influxdb3 create token` command](/influxdb3/cloud/reference/cli/influxdb3/)
@@ -226,8 +264,9 @@ Applications can authenticate with the token by setting the
 > [!Note]
 > #### Authentication in {{% product-name %}}
 >
-> For interactive use, you authenticate as a user with
-> `influxdb3 auth login --oauth` — no token required.
+> For interactive use, authenticate as a user with
+> `influxdb3 auth login --oauth`.
+> You don't need a token.
 > For applications, create and manage tokens in the Admin UI, with the
 > `influxdb3` CLI, or through the HTTP API. This guide uses the CLI:
 >

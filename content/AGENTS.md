@@ -31,6 +31,11 @@ the `docs` CLI or direct editing.
   consumer stubs. Edit stub content only when its frontmatter needs to change.
 - Use resource-ownership language for import/write/load guidance and write
   recommendations in InfluxData's first-person plural voice.
+- For capability or lifecycle claims, check the exact offering with
+  [feature evidence](../.agents/skills/content-editing/references/fact-checking.md).
+- Preserve existing inbound fragments when changing headings. For FAQ titles
+  backed by YAML, set the existing `anchor` and verify the visible title and
+  FAQPage question agree. See [FAQ shortcode](../DOCS-SHORTCODES.md#faq).
 
 Run `yarn verify:changed -- <files>` to select manual checks. See
 [content/example.md](./example.md) for working shortcode examples.
@@ -82,12 +87,19 @@ Rules: [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md)
 
 Products defined in [data/products.yml](../data/products.yml):
 
-- Use official names: "InfluxDB 3 Core", "InfluxDB 3 Enterprise",
-  "InfluxDB Cloud Serverless", "InfluxDB Cloud Dedicated"
-- Treat "Cloud" alone as ambiguous; require the exact product or edition rather
-  than inferring Cloud Dedicated
-- Don't mix v2/v3 terminology (e.g., "bucket" in v3 Core docs)
-- Version references match the content path
+- Write **InfluxDB Cloud Serverless**, **InfluxDB Cloud Dedicated**, and
+  **InfluxDB Clustered**. Use **InfluxDB 3** separately for their generation.
+- Use the exact cloud product name. Resolve bare "Cloud" or "InfluxDB Cloud"
+  from the docs path, hostname, or context. Ask which product the author means
+  if the context is inconclusive.
+- InfluxCloud and Cloud 1 mean **InfluxDB 1 Cloud**, based on InfluxDB 1
+  Enterprise. **InfluxDB Cloud (TSM)** means the managed InfluxDB 2 product.
+  Both services use TSM.
+- **InfluxDB 3 Cloud** is managed InfluxDB 3 Enterprise.
+  **InfluxDB Cloud Serverless** is the multi-tenant, self-service v3 offering.
+  See [InfluxDB cloud product names](../DOCS-CONTRIBUTING.md#influxdb-cloud-product-names)
+  for naming and documentation paths.
+- Match terminology and version references to the product and content path.
 
 ### Links
 

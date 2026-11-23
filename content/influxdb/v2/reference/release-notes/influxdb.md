@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-<!-- ## v2.10.0 {date="2026-10-15"}
+## v2.10.1 {date="2026-11-17"}
 
 ### Features
 
@@ -26,9 +26,12 @@ weight: 101
   Sustained and burst compaction throughput are now independent.
   If the burst value is lower than the sustained value, InfluxDB raises the burst value to match.
 - Add adaptive sizing and statistics to the TSI tag-value series ID cache.
+- Add compaction planner invocation counters to the `tsm1_engine` statistics, including counts for each compaction level.
 - Update the `/health` and `/ready` endpoints.
+  Both endpoints are available early in startup and identify the subsystem responsible for a failed check.
   During startup, `/ready` returns `503` with the readiness checks that haven't passed.
   Both endpoints report an `uptime` value and more detail for each check.
+  Check results include structured numeric fields for progress, failures, scheduler lag, and probe age.
 - Add the [`health-auth-mode`](/influxdb/v2/reference/config-options/#health-auth-mode) option
   to restrict `/health` and `/ready` check details to callers with operator permissions.
   [`hardening-enabled`](/influxdb/v2/reference/config-options/#hardening-enabled) now also restricts these details.
@@ -39,22 +42,30 @@ weight: 101
 - Add partial results support to `SHOW MEASUREMENTS`. A query that hits a limit returns the measurements found so far instead of failing.
 - Split the `tsm1` `FileStore` lock into separate fast and slow locks to reduce contention during compaction.
 
-### Bug Fixes
+### Bug fixes
 
 - Release TSM cursor references once when a Flux query is canceled, instead of leaking them.
 - Prevent a compaction level regression when compacting TSM files at mixed levels.
 - Fix a race in shard loading.
+- Allow small TSI series caches to grow.
+- Prevent client request cancellation from canceling a write to the write-ahead log (WAL) after the cache write succeeds.
+  Increase the default [`storage-wal-max-write-delay`](/influxdb/v2/reference/config-options/#storage-wal-max-write-delay) from `10m` to `1h`.
+- Stop the health-check prober when migrating the metadata database to prevent a goroutine leak.
 - Require check names to be unique and nonempty.
 - Remove a shard's per-shard Prometheus series when InfluxDB deletes the shard.
-- Report `http_write_request_bytes` for the legacy `/write` endpoint. Previously, the metric reported `0`.
-- Include the legacy `/query` endpoint in the `http_query_request_count`, `http_query_request_bytes`, and `http_query_response_bytes` metrics.
+- Rename the compaction throughput log fields from `throughput_bytes_per_second` and `throughput_bytes_per_second_burst` to `compact-throughput` and `compact-throughput-burst`.
+- Use consistent health-check response labels for successful and failed checks.
 
 ### Maintenance
 
-- Upgrade Go to 1.26.9.
+- Update Go to 1.26.11.
 - Upgrade Flux to v0.201.0.
-- Update the InfluxDB UI to v2.10.0.
-- Update containerd from 1.7.35 to 1.7.36. -->
+- Build Flux with the `flux_nosqlite` flag.
+- Update the InfluxDB UI to OSS-v2.10.0.
+- Update containerd from 1.7.35 to 1.7.36.
+- Upgrade `github.com/klauspost/compress` from 1.18.0 to 1.18.7.
+- Upgrade `github.com/go-jose/go-jose/v4` from 4.1.4 to 4.1.6.
+- Update Go dependencies, including `golang.org/x/crypto` and `golang.org/x/net`.
 
 ## v2.9.1 {date="2026-05-11"}
 

@@ -197,6 +197,23 @@ Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains 
 
 ## Content Organization
 
+### FAQ
+
+The `faq` shortcode renders questions and answers from the YAML file named by
+the page's `faq_data` frontmatter field. For example, `faq_data: platform`
+selects `data/faqs/platform.yml`.
+
+By default, questions render as H2 headings. Set the optional `level` parameter
+to `2`, `3`, or `4` to choose a heading level that fits the page hierarchy.
+By default, the shortcode generates each heading ID from the question text.
+To preserve an existing link when you rename a question, set its optional
+`anchor` field in the FAQ YAML to the existing ID without the leading `#`.
+The visible heading and FAQPage structured data both use the current question text.
+
+```md
+{{< faq level="3" >}}
+```
+
 ### Tabbed Content
 
 To create "tabbed" content (content that is changed by a users' selection), use the following three shortcodes in combination:

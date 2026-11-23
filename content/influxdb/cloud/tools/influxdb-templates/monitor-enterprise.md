@@ -33,7 +33,7 @@ Before you begin, make sure you have access to the following:
  - InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
  - Command line access to a machine [running InfluxDB Enterprise 1.x](/enterprise_influxdb/v1/introduction/install-and-deploy/) and permissions to install Telegraf on this machine
  - Internet connectivity from the machine running InfluxDB Enterprise 1.x and Telegraf to InfluxDB Cloud
- - Sufficient resource availability to install the template. InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/limits/#free-plan-limits)
+ - Sufficient resource availability to install the template. InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/limits/#free-plan)
 
 ## Install the InfluxDB Enterprise Monitoring template
 
@@ -183,4 +183,4 @@ Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgradin
 
 For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
 
-To apply for this service, contact [InfluxData Support](https://support.influxdata.com/).
+To apply for this service, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).

@@ -356,6 +356,6 @@ For Helm chart issues or feedback, see the Helm charts repository [issues page](
 ## Find support
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find community support for {{< product-name >}}.
-Customers with a [commercial license](/influxdb3/enterprise/admin/license/) can contact [InfluxData Support](https://support.influxdata.com).
+Customers with a [commercial license](/influxdb3/enterprise/admin/license/) can [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 {{< page-nav prev="/influxdb3/enterprise/install/" prevText="Install InfluxDB 3 Enterprise" next="/influxdb3/enterprise/get-started/" nextText="Get started with InfluxDB 3 Enterprise" >}}

@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.12.2
+  latest_patch: 3.12.3
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -60,7 +60,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.12.2
+  latest_patch: 3.12.3
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -102,7 +102,7 @@ influxdb3_cloud:
   versions: [cloud]
   list_order: 1
   latest: cloud
-  link: 'https://www.influxdata.com/contact-sales/'
+  link: 'https://www.influxdata.com/influxdb3-cloud-signup/'
   placeholder_host: instance-id.enterprise.influxdb.io
   scheme: https
   version_label: Cloud
@@ -293,7 +293,8 @@ influxdb3_clustered:
 influxdb:
   name: InfluxDB
   name__v2: InfluxDB OSS v2
-  name__v1: InfluxDB OSS v1
+  name__v1: InfluxDB 1 OSS
+  actively_supported_versions: [v1]
   altname: InfluxDB OSS
   namespace: influxdb
   oss_repo:
@@ -319,7 +320,7 @@ influxdb:
   supports_flux: true
   latest: v2.10
   latest_patches:
-    v2: 2.10.0
+    v2: 2.10.1
     v1: 1.13.2
   latest_cli:
     v2: 2.9.1
@@ -510,6 +511,7 @@ kapacitor:
 
 enterprise_influxdb:
   name: 'InfluxDB Enterprise v1'
+  name__v1: InfluxDB 1 Enterprise
   namespace: enterprise_influxdb
   content_path: enterprise_influxdb
   label_group: v1-enterprise
@@ -544,7 +546,7 @@ enterprise_influxdb:
     application_category: "DatabaseApplication"
 
 influxdb_cloud1:
-  name: InfluxDB Cloud 1
+  name: InfluxDB 1 Cloud
   altname: InfluxCloud 1.x
   namespace: influxcloud
   menu_category: managed

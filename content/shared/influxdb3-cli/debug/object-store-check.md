@@ -7,6 +7,15 @@ This command connects directly to the object store and does not require a runnin
 
 The command is available in {{< product-name >}} 3.10.0 and later.
 
+In v3.12.3 and later, the command also checks conditional updates.
+If an S3-compatible object store rejects a conditional update that quotes the
+object's ETag but accepts it unquoted, the check fails and recommends
+`--aws-s3-custom-backend ceph` (or `AWS_S3_CUSTOM_BACKEND=ceph`).
+Set the option on the server, and pass it to the check to confirm that the
+check passes.
+Earlier versions don't check conditional updates, so they can pass on an
+object store where the compactor can't start.
+
 ## Usage
 
 <!--pytest.mark.skip-->
@@ -26,6 +35,7 @@ influxdb3 debug object-store-check [OPTIONS]
 |        | `--aws-secret-access-key <AWS_SECRET_ACCESS_KEY>` | AWS secret access key                                                                                                                   | No       |
 |        | `--aws-allow-http`                      | Allow non-HTTPS connections to the object store                                                                                                     | No       |
 |        | `--aws-default-region <AWS_DEFAULT_REGION>` | AWS region                                                                                                                                      | No       |
+|        | `--aws-s3-custom-backend <BACKEND>`     | Custom S3-compatible backend type. Valid value: `ceph`, which strips ETag quotes for conditional updates. Environment variable: `AWS_S3_CUSTOM_BACKEND` | No       |
 |        | `--check-prefix <CHECK_PREFIX>`         | Prefix for synthetic test objects. The command writes to `<CHECK_PREFIX>/oscheck-<uuid>/`. Environment variable: `INFLUXDB3_OSCHECK_PREFIX` | Yes      |
 |        | `--probe-prefix <PROBE_PREFIX>`         | Prefix of an existing catalog to also replay the catalog loader's startup operations against, to diagnose failures without writing new data. The probe itself is read-only, but the command still runs the synthetic write and delete checks under `--check-prefix` first. | No       |
 | `-h`   | `--help`                                | Print help information                                                                                                                              | No       |

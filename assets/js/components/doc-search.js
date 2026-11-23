@@ -82,9 +82,9 @@ export default function DocSearch({ component }) {
       autocompleteOptions: {
         templates: {
           header:
-            '<div class="search-all-content"><a href="https://support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a>',
+            '<div class="search-all-content"><a href="https://support.influxdata.com/s/" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a>',
           empty:
-            '<div class="search-no-results"><p>Not finding what you\'re looking for?</p> <a href="https://support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a></div>',
+            '<div class="search-no-results"><p>Not finding what you\'re looking for?</p> <a href="https://support.influxdata.com/s/" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a></div>',
         },
       },
     });
