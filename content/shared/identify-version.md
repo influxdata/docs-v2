@@ -13,19 +13,26 @@ If you access InfluxDB via a URL, the hostname often indicates which product you
 
 | URL Pattern                                | Product                                       |
 | ------------------------------------------ | --------------------------------------------- |
-| `*.enterprise.influxdb.io`                 | InfluxDB 3 Cloud ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) |
+| `*.enterprise.influxdb.io`                 | InfluxDB 3 Cloud                              |
 | `*.a.influxdb.io`                          | InfluxDB Cloud Dedicated                      |
 | `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
 | `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
-| `*.influxcloud.net`                        | [InfluxDB Cloud 1](/platform/#influxdb-cloud-1) (legacy) |
+| `*.influxcloud.net`                        | [InfluxDB 1 Cloud (InfluxCloud)](/platform/#influxdb-cloud-1) |
 | Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)                          |
+
+InfluxDB Cloud (TSM) and InfluxDB Cloud Serverless share the
+`cloud2.influxdata.com` domain. Use the full regional hostname as a clue.
+To confirm which service you use, open your organization homepage and find
+the **InfluxDB Cloud powered by** label in the version information.
+**TSM Storage Engine Version 2** identifies InfluxDB Cloud (TSM).
+**InfluxDB Cloud Serverless** followed by a version number identifies InfluxDB Cloud Serverless.
 
 ### By default port
 
 Different InfluxDB products use different default ports:
 
 - **Port 8181**: InfluxDB 3 (Core or Enterprise)
-- **Port 8086**: InfluxDB v1 or v2
+- **Port 8086**: InfluxDB 1.x or 2.x
 
 ### By HTTP headers
 
@@ -126,7 +133,8 @@ influxctl cluster list
 - `us-east-1-1.aws.cloud2.influxdata.com`
 - `eu-central-1-1.aws.cloud2.influxdata.com`
 
-**Account settings**: Check your InfluxDB Cloud account dashboard for product and version details.
+**Storage engine**: On your organization homepage, find the **InfluxDB Cloud powered by** label.
+For this service, it shows **InfluxDB Cloud Serverless** followed by a version number.
 
 **HTTP headers**: API responses include version information in response headers.
 
@@ -191,7 +199,7 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 
 **InfluxDB Cloud (TSM)** can be identified by:
 
-**URL patterns** (regional cloud2.influxdata.com URLs, excluding Serverless regions):
+**URL patterns** (regional `cloud2.influxdata.com` URLs, excluding InfluxDB Cloud Serverless regions):
 
 - `us-west-2-1.aws.cloud2.influxdata.com`
 - `us-west-2-2.aws.cloud2.influxdata.com`
@@ -200,7 +208,8 @@ For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/ref
 - `westeurope-1.azure.cloud2.influxdata.com`
 - `eastus-1.azure.cloud2.influxdata.com`
 
-**Account settings**: Check your InfluxDB Cloud account dashboard for product details.
+**Storage engine**: On your organization homepage, find the **InfluxDB Cloud powered by** label.
+For this service, it shows **TSM Storage Engine Version 2**.
 
 **HTTP headers**: API responses include version information in response headers.
 
@@ -223,8 +232,8 @@ The following command reports the installed CLI version:
 influxdb3 --version
 ```
 
-InfluxDB 3 Cloud is in early access.
-[Request access](https://www.influxdata.com/products/influxdb3-cloud/).
+To start an InfluxDB 3 Cloud trial, see
+[Get your instance](/influxdb3/cloud/get-started/setup/#get-your-instance).
 
 {{% /show-in %}}
 
@@ -365,9 +374,9 @@ The InfluxDB UI displays the version:
 
 For more details, see [How can I identify my InfluxDB version?](/influxdb/v2/reference/faq/#administration-1)
 
-### InfluxDB Cloud products
+### InfluxDB cloud products
 
-For InfluxDB Cloud products, check the version information:
+To identify which InfluxDB cloud product you use, check the following:
 
 - **Account settings**: Version details appear in your account dashboard
 - **UI footer**: The version may be displayed at the bottom of the web interface
@@ -418,21 +427,21 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | ----------------------------- | --------- | ------------------------ | ------------------- | ------------ |
 | **InfluxDB 3 Core**           | Free      | Self-hosted              | SQL, InfluxQL       | 8181         |
 | **InfluxDB 3 Enterprise**     | Paid      | Self-hosted              | SQL, InfluxQL       | 8181         |
-| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** ([early access](https://www.influxdata.com/products/influxdb3-cloud/)) | Paid | Cloud | SQL, InfluxQL | N/A |
+| **[InfluxDB 3 Cloud](/influxdb3/cloud/)** | Paid | Cloud | SQL, InfluxQL | N/A |
 | **InfluxDB Cloud Serverless** | Free/Paid | Cloud                    | SQL, InfluxQL, Flux | N/A          |
 | **InfluxDB Cloud Dedicated**  | Paid      | Cloud                    | SQL, InfluxQL       | N/A          |
 | **InfluxDB Clustered**        | Paid      | Self-hosted (Kubernetes) | SQL, InfluxQL       | Custom       |
 | **InfluxDB OSS v2**           | Free      | Self-hosted              | InfluxQL, Flux      | 8086         |
 | **InfluxDB Cloud (TSM)**      | Free/Paid | Cloud                    | InfluxQL, Flux      | N/A          |
-| **InfluxDB OSS v1**           | Free      | Self-hosted              | InfluxQL            | 8086         |
-| **InfluxDB Enterprise v1**    | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
-| **[InfluxDB Cloud 1](/platform/#influxdb-cloud-1)**          | Paid      | Cloud (legacy)           | InfluxQL            | N/A          |
+| **InfluxDB 1 OSS**            | Free      | Self-hosted              | InfluxQL, Flux (when enabled) | 8086 |
+| **InfluxDB 1 Enterprise**     | Paid      | Self-hosted              | InfluxQL, Flux (when enabled) | 8086 |
+| **[InfluxDB 1 Cloud](/platform/#influxdb-cloud-1)** | Paid | Cloud | InfluxQL, Flux | N/A |
 
 ### Key characteristics
 
 - **InfluxDB 3** products use SQL and InfluxQL, run on port 8181 (self-hosted), and provide improved performance and scalability
-- **InfluxDB v2** products use InfluxQL and Flux, run on port 8086 (self-hosted), and use a bucket-based data model
-- **InfluxDB v1** products use InfluxQL, run on port 8086 (self-hosted), and use a database-based data model
+- **InfluxDB 2.x** products use InfluxQL and Flux, run on port 8086 (self-hosted), and use a bucket-based data model
+- **InfluxDB 1.x** products use InfluxQL and can also use Flux. They use a database-based data model and, when self-managed, run on port 8086. See [InfluxDB 1 query languages](/platform/#query-languages) for version and configuration details.
 
 {{% /hide-in %}}
 

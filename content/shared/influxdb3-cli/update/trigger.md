@@ -2,9 +2,10 @@ The `influxdb3 update trigger` command updates an existing trigger in your {{< p
 
 Use this command to update trigger plugin code, configuration, or behavior without recreating the trigger. This preserves trigger history and configuration while allowing you to iterate on plugin development.
 
-> [!Important]
-> `influxdb3 update trigger` does not work with triggers that reference plugins using the `gh:` prefix.
-> To fetch updated code for a `gh:` trigger, [disable and re-enable the trigger](#update-a-gh-trigger).
+> [!Note]
+> In v3.12.3 and later, you can [fetch updated code for a `gh:` trigger](#update-a-gh-trigger)
+> by passing the trigger's `gh:` plugin path to `--path`.
+> In earlier versions, disable and re-enable the trigger instead.
 
 ## Usage
 
@@ -13,13 +14,15 @@ Use this command to update trigger plugin code, configuration, or behavior witho
 ```bash
 influxdb3 update trigger [OPTIONS] \
   --database <DATABASE_NAME> \
-  --trigger-name <TRIGGER_NAME>
+  --trigger-name <TRIGGER_NAME> \
+  --path <PLUGIN_PATH>
 ```
 
 ## Arguments
 
 - **`DATABASE_NAME`**: (Required) The name of the database containing the trigger.
 - **`TRIGGER_NAME`**: (Required) The name of the trigger to update.
+- **`PLUGIN_PATH`**: (Required) The plugin file or directory to upload, or the trigger's `gh:` plugin path.
 
 ## Options
 
@@ -27,12 +30,8 @@ influxdb3 update trigger [OPTIONS] \
 | :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
 | `-d`   | `--database`         | _({{< req >}})_ Name of the database containing the trigger                                                                                       |
-|        | `--trigger-name`     | _({{< req >}})_ Name of the trigger to update                                                                                                     |
-| `-p`   | `--path`             | Local path to a plugin file or directory (single `.py` file or directory containing `__init__.py` for multifile plugins). |
-|        | `--trigger-arguments`| Additional arguments for the trigger, in the format `key=value`, separated by commas (for example, `arg1=val1,arg2=val2`)                        |
-|        | `--disabled`         | Set the trigger state to disabled                                                                                                                 |
-|        | `--enabled`          | Set the trigger state to enabled                                                                                                                  |
-|        | `--error-behavior`   | Error handling behavior: `log`, `retry`, or `disable`                                                                                             |
+| `-t`   | `--trigger-name`     | _({{< req >}})_ Name of the trigger to update                                                                                                     |
+| `-p`   | `--path`             | _({{< req >}})_ Local path to a plugin file or directory (single `.py` file or directory containing `__init__.py` for multifile plugins), or the trigger's own `gh:` plugin path to fetch the plugin again (v3.12.3+). |
 |        | `--token`            | Authentication token                                                                                                                             |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
 |        | `--tls-no-verify`    | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates)  |
@@ -58,9 +57,6 @@ The following examples show how to update triggers in different scenarios.
 - [Update trigger plugin code](#update-trigger-plugin-code)
 - [Upload and update with a local plugin](#upload-and-update-with-a-local-plugin)
 - [Update a gh: trigger](#update-a-gh-trigger)
-- [Update trigger arguments](#update-trigger-arguments)
-- [Enable or disable a trigger](#enable-or-disable-a-trigger)
-- [Update error handling behavior](#update-error-handling-behavior)
 
 ---
 
@@ -111,8 +107,26 @@ The command transfers local files to the server's plugin directory.
 
 ### Update a gh: trigger
 
-For a trigger that references a plugin with the `gh:` prefix, publish your changes at the configured plugin source, then disable and re-enable the trigger to fetch the updated code.
-Use the dedicated `disable trigger` and `enable trigger` commands.
+For a trigger that references a plugin with the `gh:` prefix, publish your changes at the configured plugin source, then pass the trigger's own `gh:` path to `--path`.
+The server fetches the plugin again, and the trigger runs the new code on its next run.
+If the server can't fetch the plugin, the command fails and the trigger keeps its current code.
+The path must match the trigger's plugin, and the command requires an admin token.
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
+influxdb3 update trigger \
+  --database DATABASE_NAME \
+  --trigger-name TRIGGER_NAME \
+  --path "gh:examples/wal_plugin/wal_plugin.py" \
+  --token AUTH_TOKEN
+```
+
+The HTTP API equivalent is `POST /api/v3/configure/processing_engine_trigger/refresh`
+with the `db`, `trigger_name`, and `plugin_filename` query parameters.
+
+Before v3.12.3, `influxdb3 update trigger` didn't accept `gh:` paths.
+Disable and re-enable the trigger to fetch the updated code:
 
 <!--pytest.mark.skip-->
 
@@ -126,69 +140,4 @@ influxdb3 enable trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   TRIGGER_NAME
-```
-
-### Update trigger arguments
-
-Modify the arguments passed to a trigger's plugin code.
-
-<!--pytest.mark.skip-->
-
-```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
-influxdb3 update trigger \
-  --database DATABASE_NAME \
-  --trigger-name TRIGGER_NAME \
-  --trigger-arguments threshold=100,window=5m \
-  --token AUTH_TOKEN
-```
-
-### Enable or disable a trigger
-
-Change the trigger's enabled state without modifying other configuration.
-
-<!--pytest.mark.skip-->
-
-```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
-# Disable a trigger
-influxdb3 update trigger \
-  --database DATABASE_NAME \
-  --trigger-name TRIGGER_NAME \
-  --disabled \
-  --token AUTH_TOKEN
-
-# Enable a trigger
-influxdb3 update trigger \
-  --database DATABASE_NAME \
-  --trigger-name TRIGGER_NAME \
-  --enabled \
-  --token AUTH_TOKEN
-```
-
-### Update error handling behavior
-
-Change how the trigger responds to errors.
-
-<!--pytest.mark.skip-->
-
-```bash { placeholders="(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" }
-# Log errors without retrying
-influxdb3 update trigger \
-  --database DATABASE_NAME \
-  --trigger-name TRIGGER_NAME \
-  --error-behavior log \
-  --token AUTH_TOKEN
-
-# Retry on errors
-influxdb3 update trigger \
-  --database DATABASE_NAME \
-  --trigger-name TRIGGER_NAME \
-  --error-behavior retry \
-  --token AUTH_TOKEN
-
-# Disable trigger on error
-influxdb3 update trigger \
-  --database DATABASE_NAME \
-  --trigger-name TRIGGER_NAME \
-  --error-behavior disable \
-  --token AUTH_TOKEN
 ```

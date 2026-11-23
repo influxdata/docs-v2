@@ -1,3 +1,4 @@
+{{ $influxdb3Cloud := .Site.Data.products.influxdb3_cloud }}
 {{ $influxdb3CoreVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_core.latest_patch }}
 {{ $influxdb3EnterpriseVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_enterprise.latest_patch }}
 {{ $influxdb3ExplorerVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb3_explorer.latest_patch }}
@@ -83,11 +84,22 @@
             </div>
           </div>
         </div>
-        <div class="category two-thirds">
+        <div class="category full">
           <div class="category-head">
             <h4>Fully-Managed</h4>
           </div>
           <div class="products">
+            <div class="product">
+              <div class="product-info">
+                <h3 state="New"><a data-product-link-scope="homepage" data-product-path="{{ $influxdb3Cloud.content_path }}" href="{{ $homeURL }}{{ $influxdb3Cloud.content_path }}/">{{ $influxdb3Cloud.name }}</a></h3>
+                <p>The fully managed, cloud-hosted version of InfluxDB 3 Enterprise.</p>
+              </div>
+              <ul class="product-links">
+                <li><a href="{{ $influxdb3Cloud.link }}">Sign up for a trial</a></li>
+                <li><a href="{{ $homeURL }}{{ $influxdb3Cloud.content_path }}/get-started/">Get started with {{ $influxdb3Cloud.name }}</a></li>
+                <li><a href="{{ $homeURL }}{{ $influxdb3Cloud.content_path }}/">View documentation</a></li>
+              </ul>
+            </div>
             <div class="product">
               <div class="product-info">
                 <h3><a data-product-link-scope="homepage" data-product-path="influxdb3/cloud-serverless" href="{{ $homeURL }}influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
@@ -110,7 +122,7 @@
             </div>
           </div>
         </div>
-        <div class="category one-third">
+        <div class="category full compact">
           <div class="category-head">
             <h4>Tools</h4>
           </div>
@@ -264,19 +276,19 @@
           <div class="icon">{{ partial "svgs/influxdbu.svg" }}</div>
           <h4>InfluxDB University</h4>
           <p>Free online training for InfluxDB and more.</p>
-          <p><a href="https://university.influxdata.com/" target="_blank">Go to InfluxDB University</a></p>
+          <p><a href="https://www.influxdata.com/university/" target="_blank">Go to InfluxDB University</a></p>
         </div>
         <div class="item">
-          <div class="icon">{{ partial "svgs/book.svg" }}</div>
-          <h4>Time to Awesome</h4>
-          <p>Free online book about using InfluxDB v2 and Flux.</p>
-          <p><a href="https://awesome.influxdata.com/" target="_blank">View the book</a></p>
+          <div class="icon">{{ partialCached "lucide.html" (dict "icon" "code-xml") "code-xml" }}</div>
+          <h4>Resource library</h4>
+          <p>Find webinars, demos, and technical papers on InfluxDB and time series data.</p>
+          <p><a href="https://www.influxdata.com/_resources/" target="_blank">Browse the resource library</a></p>
         </div>
         <div class="item">
           <div class="icon">{{ partial "svgs/hatch.svg" }}</div>
           <h4>Case Studies</h4>
           <p>Learn about real world use cases and InfluxDB in the wild.</p>
-          <p><a href="https://www.influxdata.com/_resources/?pg=1&ct=case_study" target="_blank">View case studies</a></p>
+          <p><a href="https://www.influxdata.com/customers/" target="_blank">View case studies</a></p>
         </div>
       </div>
     </div>
@@ -284,7 +296,7 @@
     <!-- <div id="tick" class="section group-wrapper blue flush-right">
       <div class="padding-wrapper">
         <div class="tick-title">
-          <h3><a href="/platform/#influxdata-1x-tick-stack">The TICK stack</a></h3>
+          <h3><a href="/platform/#influxdb-1x">The TICK stack</a></h3>
           <p>The original time series platform</p>
         </div>
         <div class="tick-links">

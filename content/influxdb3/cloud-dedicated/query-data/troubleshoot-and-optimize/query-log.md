@@ -22,7 +22,7 @@ Use it to monitor query performance, find slow-running queries, and troubleshoot
 > #### Query logging is not enabled by default
 >
 > The query log is disabled by default on all clusters because it generates additional ingest and storage overhead and is intended primarily for troubleshooting, not continuous monitoring.
-> To enable it for your cluster, [contact InfluxData support](https://support.influxdata.com).
+> To enable it for your cluster, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 Use the Admin UI or the [`influxctl query` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/query/) to view the query log.
 
@@ -53,7 +53,6 @@ The table lists each query with its status, query text, database, query type, du
 You can use the column headers to sort (for example by duration or time).
 
 
-<!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-query-log-list-view.png" alt="Query History list view in the Admin UI with search, filters, and table" />}}
 
 
@@ -61,7 +60,6 @@ You can use the column headers to sort (for example by duration or time).
 You can also expand a row to see more details about that execution.
 
 
-<!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-query-log-detail-view.png" alt="Query History detail view in the Admin UI" />}}
 
 {{% /tab-content %}}

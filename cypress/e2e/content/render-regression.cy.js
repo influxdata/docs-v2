@@ -23,7 +23,7 @@
  *    #7079: placeholders, callouts, custom-timestamps, code-tabs,
  *    tab-content, and expand wrappers around fenced code blocks.
  *    These catch product-specific wiring bugs (site-specific layouts,
- *    `product-name` substitution, per-product Vale configs) that the
+ *    `product-name` substitution, per-product configs) that the
  *    example page can't.
  *
  * Each page is asserted against:
@@ -219,5 +219,54 @@ describe('Diff fence highlighting', () => {
       .should('have.length', 2);
     // Context lines (` spec:`, `   package:`, etc.) are plain text inside
     // .cl spans without a .gd/.gi child — assert the count stays at 2.
+  });
+});
+
+describe('Cloud trial discovery on the docs homepage', () => {
+  [
+    { name: 'desktop', width: 1280, height: 800 },
+    { name: 'mobile', width: 390, height: 844 },
+  ].forEach(({ name, width, height }) => {
+    it(`shows Cloud trial and documentation links on ${name}`, () => {
+      cy.viewport(width, height);
+      cy.visit('/');
+      cy.get('#influxdb3 a[data-product-path="influxdb3/cloud"]')
+        .should('be.visible')
+        .and('have.text', 'InfluxDB 3 Cloud')
+        .and('have.attr', 'href', '/influxdb3/cloud/')
+        .closest('.category')
+        .find('.category-head')
+        .should('contain.text', 'Fully-Managed');
+
+      cy.get('#influxdb3 a[data-product-path="influxdb3/cloud"]')
+        .closest('.product')
+        .within(() => {
+          cy.contains(
+            'p',
+            'The fully managed, cloud-hosted version of InfluxDB 3 Enterprise.'
+          ).should('be.visible');
+          cy.contains('a', 'Sign up for a trial')
+            .should('be.visible')
+            .and(
+              'have.attr',
+              'href',
+              'https://www.influxdata.com/influxdb3-cloud-signup/'
+            );
+          cy.contains('a', 'Get started with InfluxDB 3 Cloud')
+            .should('have.attr', 'href', '/influxdb3/cloud/get-started/')
+            .click();
+        });
+      cy.location('pathname').should('eq', '/influxdb3/cloud/get-started/');
+      cy.get('h1').should('contain.text', 'Get started');
+
+      cy.visit('/');
+      cy.get('#influxdb3 a[data-product-path="influxdb3/cloud"]')
+        .closest('.product')
+        .contains('a', 'View documentation')
+        .should('have.attr', 'href', '/influxdb3/cloud/')
+        .click();
+      cy.location('pathname').should('eq', '/influxdb3/cloud/');
+      cy.get('h1').should('contain.text', 'InfluxDB 3 Cloud');
+    });
   });
 });

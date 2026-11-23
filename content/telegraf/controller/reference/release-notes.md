@@ -9,10 +9,97 @@ menu:
 weight: 101
 ---
 
-## v1.2.1 {date="2026-11-02"}
+## v1.2.2 {date="2026-11-10"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.2.1](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.2.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### Before you upgrade
+
+> [!Warning]
+> #### Upgrade to fix an unauthenticated denial of service
+>
+> {{% product-name %}} v1.2.2 fixes a denial of service in the request body
+> parsing of the web interface and API listener
+> ([CVE-2026-111181](https://www.cve.org/CVERecord?id=CVE-2026-111181)).
+> Anyone with network access to the web interface and API port can stop the
+> {{% product-name %}} process with one HTTP request, without credentials,
+> because request bodies are parsed before authentication. The web interface
+> and the API stay unavailable until the process is restarted.
+> All earlier release binaries and container images are affected, and no
+> configuration setting prevents it.
+>
+> Upgrade as soon as possible. Until you do, restrict the web interface and
+> API port to the networks that need it.
+> See [Expose the right ports](/telegraf/controller/admin/networking/#expose-the-right-ports).
+
+#### API changes
+
+- Token endpoints no longer return the `tokenHash` field.
+  `GET /api/tokens`, `GET /api/tokens/:id`, `PATCH /api/tokens/:id/revoke`,
+  and `PATCH /api/tokens/:id/reassign` return the token's `id`, `name`,
+  `status`, `permissions`, `source`, `userId`, and timestamps.
+  `POST /api/tokens` still returns the token value once, in `rawToken`.
+- `limit=0` on a paginated list endpoint returns every item.
+  Previously, it returned an empty list, or one item on `GET /api/agents`.
+  A `limit` that is not a whole number of zero or more now returns
+  `400 Bad Request`.
+  See [Paginate list results](/telegraf/controller/reference/api/#paginate-list-results).
+- `PUT` and `DELETE /api/agents/:id/labels/:labelId` return
+  `application/json`.
+- The OpenAPI document now matches the responses the API sends.
+  `GET /api/labels` is a paginated object, agent `status` is a number,
+  `POST /api/configs/duplicate` returns `{ "count": n }`,
+  `DELETE /api/labels` returns `204`, `DELETE /api/agents/:id` returns `200`,
+  `POST /api/config-groups/:id/members` returns `201`, and
+  `DELETE /api/configs/bulk` takes the ids in the request body only.
+  The document also lists the `order` and `returnTo` query parameters and
+  the `400`, `403`, and `404` responses that were missing.
+  If you generate an API client, regenerate it from the
+  [OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document)
+  of your upgraded instance.
+
+### Features
+
+- Render configuration and configuration group descriptions as Markdown.
+  The description editor on the create pages and the detail pages has
+  **Write** and **Preview** tabs, and a counter shows the length of the
+  description against the 1,000-character limit while you type.
+  See [Format a description with Markdown](/telegraf/controller/configs/create/#format-a-description-with-markdown).
+
+### Bug fixes
+
+- Stop the browser tab from freezing after a save in the label dialogs, the
+  label assignment dialogs for agents and configurations, the version detail
+  dialog, and the duplicate and merge dialogs. These dialogs could close
+  themselves repeatedly after a save and block the page.
+- Fix **Make Default** on the **Reporting Rules** page, which logged an
+  error on every click even though the rule became the default.
+- Keep a label name typed right after the **Create New Label** dialog opens.
+  Previously, the form could reset and report the name as required.
+- Hide the product registration prompt when a Telegraf Enterprise license is
+  loaded.
+
+### Security
+
+- Update both bundled copies of `body-parser`, which parses API request
+  bodies, to 2.4.0 and 1.20.9 to fix a denial of service
+  ([CVE-2026-111181](https://www.cve.org/CVERecord?id=CVE-2026-111181)).
+- Update `rustls`, the TLS library in the heartbeat service, to 0.23.46.
+  The update stops session debug output from exposing TLS master secrets and
+  resumption keys
+  ([GHSA-c8m5-c952-6cm4](https://github.com/advisories/GHSA-c8m5-c952-6cm4))
+  and fixes three low-severity handshake issues
+  ([GHSA-vp88-798v-h67f](https://github.com/advisories/GHSA-vp88-798v-h67f),
+  [GHSA-w44r-93j7-qv28](https://github.com/advisories/GHSA-w44r-93j7-qv28),
+  [GHSA-h2v8-394m-p7vv](https://github.com/advisories/GHSA-h2v8-394m-p7vv)).
+- Update `undici` to 7.30.1. Previously, TLS 1.2 renegotiation with a
+  changed certificate could cause a denial of service
+  ([CVE-2026-87018](https://www.cve.org/CVERecord?id=CVE-2026-87018)).
+
+---
+
+## v1.2.1 {date="2026-11-02"}
 
 ### Before you upgrade
 

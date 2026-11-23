@@ -73,8 +73,6 @@
     "yaml.schemas": {
       "./.frontmatter-schema.json": "${workspaceFolder}/content/**/*.md"
     },
-    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
-    "vale.valeCLI.minAlertLevel": "warning",
     "cSpell.words": [
       "influxctl",
       "preconfigured",
@@ -109,7 +107,6 @@
       "usernamehw.errorlens",
       "exodiusstudios.comment-anchors",
       "redhat.vscode-yaml",
-      "ChrisChinchilla.vale-vscode",
       "streetsidesoftware.code-spell-checker",
       "GitHub.copilot",
       "ms-vscode.makefile-tools"

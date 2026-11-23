@@ -21,18 +21,20 @@ describe('Stable version', function () {
     Cypress.failures = [];
   });
 
-  it('should show InfluxDB 3 Core as successor product in InfluxDB v2 page', function () {
-    // Visit the v2 documentation page
+  it('should show InfluxDB 3 Core as an available product on an InfluxDB 1 OSS install page', function () {
+    // Visit an InfluxDB 1 OSS documentation page
     cy.visit('/influxdb/v1/introduction/install/');
 
     // Check for the warning block that appears for older versions
     cy.get('.warn.block.old-version').should('exist');
 
-    // Verify that the warning message references original product name
-    cy.get('.warn.block.old-version p').should(
-      'contain',
-      'This page documents an earlier version of InfluxDB OSS'
-    );
+    // InfluxDB 1 stays actively supported: no "earlier version" wording
+    cy.get('.warn.block.old-version p')
+      .should('contain', 'This page documents InfluxDB 1 OSS')
+      .and('contain', 'InfluxDB 3 Core')
+      .and('contain', 'is also available')
+      .and('not.contain', 'earlier version')
+      .and('not.contain', 'latest stable version');
 
     // Check for the link to the successor product
     cy.get('.warn.block.old-version a')
@@ -48,18 +50,20 @@ describe('Stable version', function () {
     );
   });
 
-  it('should show InfluxDB 3 Core as successor product in InfluxDB v1 page', function () {
-    // Visit the v1 documentation page
+  it('should show InfluxDB 3 Core as an available product on the InfluxDB 1 OSS landing page', function () {
+    // Visit the InfluxDB 1 OSS documentation landing page
     cy.visit('/influxdb/v1/');
 
     // Check for the warning block that appears for older versions
     cy.get('.warn.block.old-version').should('exist');
 
-    // Verify that the warning message references original product name
-    cy.get('.warn.block.old-version p').should(
-      'contain',
-      'This page documents an earlier version of InfluxDB OSS'
-    );
+    // InfluxDB 1 stays actively supported: no "earlier version" wording
+    cy.get('.warn.block.old-version p')
+      .should('contain', 'This page documents InfluxDB 1 OSS')
+      .and('contain', 'InfluxDB 3 Core')
+      .and('contain', 'is also available')
+      .and('not.contain', 'earlier version')
+      .and('not.contain', 'latest stable version');
 
     // Check for the link to the latest stable version (successor product)
     cy.get('.warn.block.old-version a')
@@ -73,6 +77,29 @@ describe('Stable version', function () {
       'The following JavaScript errors were detected:\n' +
         (Cypress.failures || []).join('\n')
     );
+  });
+
+  it('should keep the earlier-version wording on InfluxDB v2 pages', function () {
+    cy.visit('/influxdb/v2/get-started/');
+
+    cy.get('.warn.block.old-version p')
+      .should(
+        'contain',
+        'This page documents an earlier version of InfluxDB OSS'
+      )
+      .and('contain', 'is the latest stable version');
+    cy.get('.warn.block.old-version a')
+      .first()
+      .should('contain', 'InfluxDB 3 Core')
+      .and('have.attr', 'href', '/influxdb3/core/');
+  });
+
+  it('should list only InfluxDB 1 as actively supported alongside its successor', function () {
+    cy.task('getData', 'products').then((productData) => {
+      expect(productData.influxdb.actively_supported_versions).to.deep.equal([
+        'v1',
+      ]);
+    });
   });
 
   it('should verify the product succeeded_by relationship is configured correctly', function () {

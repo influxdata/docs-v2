@@ -56,7 +56,7 @@ and managing management tokens.
    </pre>
 
 2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+   If you don't have login credentials, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 3. Click the **Management Tokens** button in the upper right corner of the Account Management portal.
 4. In the Management Tokens portal, click the **New Management Token** button. 
    The **Create Management Token** dialog displays.

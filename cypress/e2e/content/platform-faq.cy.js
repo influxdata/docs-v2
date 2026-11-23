@@ -34,6 +34,14 @@ describe('Platform FAQ page', function () {
       text: 'Which version of InfluxDB should I use?',
       anchor: 'which-version-of-influxdb-should-i-use',
     },
+    {
+      text: 'Is InfluxDB 1 still available?',
+      anchor: 'is-influxdb-1-still-available',
+    },
+    {
+      text: 'Should I choose InfluxDB 1 or InfluxDB 3?',
+      anchor: 'should-i-choose-influxdb-1-or-influxdb-3',
+    },
   ];
 
   beforeEach(() => cy.visit(url));
@@ -53,6 +61,21 @@ describe('Platform FAQ page', function () {
 
   it('cross-links to the decision page from the version Q&A', function () {
     cy.get('a[href="/influxdb3/which-influxdb-3/"]').should('exist');
+  });
+
+  it('links the InfluxDB 1 Q&As to the platform overview and Sales', function () {
+    cy.get('h2#is-influxdb-1-still-available')
+      .next('div.faq-answer')
+      .find('a[href="/platform/#influxdb-1x"]')
+      .should('exist');
+    cy.get('h2#is-influxdb-1-still-available')
+      .next('div.faq-answer')
+      .find('a[href="https://influxdata.com/contact-sales/"]')
+      .should('exist');
+    cy.get('h2#should-i-choose-influxdb-1-or-influxdb-3')
+      .next('div.faq-answer')
+      .find('a[href="/platform/#influxdb-1x"]')
+      .should('exist');
   });
 
   it('does NOT leak raw markdown headings or list markers into the HTML', function () {

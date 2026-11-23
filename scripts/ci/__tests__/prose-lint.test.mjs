@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import process from 'node:process';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -138,7 +139,29 @@ test('skips only the named rules', () => {
   assert.deepEqual(ruleIds(markdown), ['Branding', 'Ordinal']);
 });
 
-test('honors vale off and on comments until they are migrated', () => {
-  const markdown = ['<!-- vale off -->', '', 'Start the compactor.'].join('\n');
-  assert.deepEqual(ruleIds(markdown), []);
+test('handles malformed links without losing adjacent prose positions', () => {
+  const paragraph =
+    'Start the compactor [@author)(https://example.com) and the compactor.';
+  const cases = [
+    paragraph,
+    `# Heading\n\n- ${paragraph}`,
+    `| Description |\n| --- |\n| ${paragraph} |`,
+    `First line.\n${paragraph}`,
+  ];
+  for (const markdown of cases) {
+    const findings = lintProse(markdown, { path: 'content/example.md', rules });
+    const sourceLines = markdown.split('\n');
+    const line =
+      sourceLines.findIndex((source) => source.includes(paragraph)) + 1;
+    const source = sourceLines[line - 1];
+    assert.deepEqual(
+      findings
+        .filter((finding) => finding.rule === 'Branding')
+        .map(({ line, column }) => ({ line, column })),
+      [
+        { line, column: source.indexOf('the compactor') + 1 },
+        { line, column: source.lastIndexOf('the compactor') + 1 },
+      ]
+    );
+  }
 });

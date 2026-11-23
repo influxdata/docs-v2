@@ -72,6 +72,31 @@
     flag: ['Create a {{% product-name %}} database.', 'Deploy a InfluxDB cluster.']
     pass: ['Create an {{% product-name %}} database.']
 
+# The Processing Engine's scheduler schedules triggers and its workers run them,
+# so prose says process nodes run triggers. Trigger-type terms stay.
+# See .agents/skills/content-editing/references/processing-engine.md.
+- id: ProcessingEngineScheduling
+  level: warning
+  message: "Say that process nodes run triggers instead of '{match}'. The scheduler schedules triggers."
+  ignorecase: true
+  tokens:
+    - 'process nodes? (?:that |which )?schedul(?:e|es|ed|ing)'
+    # The lookbehinds skip the scheduler and text the first token already flags.
+    - '(?<!scheduler |process nodes? (?:that |which )?)schedul(?:es|ed|ing) (?:the|a|each|every|its|their|this|that) triggers?'
+    - '(?<!scheduler |process nodes? (?:that |which )?)schedules triggers?'
+  examples:
+    flag:
+      - 'Selects the process nodes that schedule the trigger.'
+      - 'With the default `--node-spec all`, every process node schedules the trigger independently.'
+      - 'The node schedules each trigger.'
+    pass:
+      - 'Selects the process nodes that run the trigger.'
+      - 'Create a schedule trigger with `every:5s`.'
+      - 'WAL and schedule triggers can run more than once for the same event.'
+      - 'The scheduler schedules the trigger.'
+      - 'Runs each scheduled call that came due while it was down.'
+      - 'Scheduled triggers run at intervals.'
+
 # --- Cross-product terms ---
 
 - id: CloudDedicatedBranding

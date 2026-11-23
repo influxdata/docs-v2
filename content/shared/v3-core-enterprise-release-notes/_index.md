@@ -6,6 +6,98 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.12.3 {date="2026-11-20"}
+
+<!-- Written from the influxdb_pro v3.12.3 tag (f1be18d166), compared by tree with v3.12.2 (f1972a0ff7). Core v3.12.3 is the influxdb tag at 51f4ac865b. -->
+
+### Core
+
+#### Features
+
+- **`influxdb3 update trigger` re-fetches `gh:` plugins**: To load new code for a trigger whose plugin uses a `gh:` path, pass that path to [`influxdb3 update trigger --path`](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger), or use the new `POST /api/v3/configure/processing_engine_trigger/refresh` endpoint. The trigger runs the new code on its next run. Previously, the command failed with `Path does not exist`, and you had to disable and re-enable the trigger.
+
+#### Bug fixes
+
+- **Shutdown hung while a Processing Engine plugin was stuck**: The server now exits while a plugin is stuck in a blocking call, waiting at most 2 seconds for the plugin's thread and 5 seconds for query threads that don't stop. Previously, it waited forever for a stuck plugin and up to 5 minutes for query threads. Enterprise already didn't wait for plugin threads.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Plugin package allowlist**: The new [`--plugin-package-allowlist`](/influxdb3/enterprise/reference/config-options/#plugin-package-allowlist) option takes a pip requirements file that limits what `influxdb3 install package` and the package install APIs can add to the Processing Engine environment, dependencies included. The server refuses installs that the file doesn't allow, and returns `409` for an install that would replace or upgrade an installed package. A node doesn't start if the file doesn't parse or its pip is older than 26.1.
+- **Uninstall Processing Engine packages**: The new [`influxdb3 uninstall package`](/influxdb3/enterprise/reference/cli/influxdb3/uninstall/package/) command and `POST /api/v3/configure/plugin_environment/uninstall_packages` endpoint remove packages from the Processing Engine environment on the node that receives the request. Dependencies stay installed, and you can't remove `pip`, `setuptools`, or `wheel`. Previously, you had to run pip in the virtual environment yourself.
+- **Pause, resume, and stop bulk imports (upgraded storage engine)**: The new `POST /api/v3/enterprise/import/pause`, `/resume`, and `/stop` endpoints hold or cancel [bulk imports](/influxdb3/enterprise/admin/import-data/) across the cluster, and `GET /api/v3/enterprise/import/status` reports the current state. A pause also holds a running storage engine upgrade. A stop discards every bulk import that isn't compacted yet, but not the upgrade, and leaves imports paused. Previously, you couldn't hold or cancel a staged import.
+- **Per-file bulk import status (upgraded storage engine)**: The new `system.import_files` table and `GET /api/v3/enterprise/import/files` endpoint report each imported file's state, attempts, row counts, and skip reason, and keep each file for 7 days after its import leaves `system.imports`. `system.imports` also gains `operation_id`, shared by the files of one request, and `pipeline_status`.
+- **Import one Parquet file from object storage (upgraded storage engine)**: [`influxdb3 import from-object-store`](/influxdb3/enterprise/reference/cli/influxdb3/import/from-object-store/) and `POST /api/v3/enterprise/import` now accept a source that names a single `.parquet` file. Previously, the source had to be a prefix, and naming a file returned `400`.
+- **Faster bulk imports (upgraded storage engine)**: Uploaded files are now picked up in parallel, an object-store import stages up to four files per CPU core (8 to 64) instead of 8, and more than one import batch runs at a time. The new [`--compactor-max-concurrent-conversions`](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor) option sets how many conversion jobs run at once. The default stays `64`.
+- **Larger default bulk import batches (upgraded storage engine)**: [`--compactor-import-batch-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor) now defaults to `16gb`, still capped at one quarter of `--compactor-input-size-budget`. Previously, the default was `4gb`. To keep the previous batch size, set `--compactor-import-batch-size=4gb`.
+- **Default file cache size scales with memory (upgraded storage engine)**: Without [`--file-cache-size`](/influxdb3/enterprise/reference/config-options/#file-cache-size), a node now uses 30% of memory, rising to 40% from 128 GiB, 50% from 384 GiB, and 60% from 768 GiB. Previously, the default was 20%, which the Parquet engine keeps. To keep the previous size, set `--file-cache-size=20%`.
+- **Skip the file cache preload at startup (upgraded storage engine)**: On nodes that don't compact, [`--file-cache-preload skip-startup`](/influxdb3/enterprise/reference/storage-engine-config-options/#file-cache) lets a node serve queries as soon as it reads the latest compaction checkpoint. Queries read from object storage until the cache fills. Previously, a node that doesn't compact always preloaded recent compacted data before it served queries.
+- **Startup check for object stores that ignore conditional writes**: On S3, Google Cloud Storage, and Azure, the server now checks at startup that the object store rejects a second create-only write of the same object. If it doesn't, the server logs an error that points to `influxdb3 debug object-store-check` and keeps starting.
+- **`object-store-check` tests conditional updates**: [`influxdb3 debug object-store-check`](/influxdb3/enterprise/reference/cli/influxdb3/debug/object-store-check/) now also tests conditional updates. If an S3-compatible store rejects quoted ETags, the check fails and recommends `--aws-s3-custom-backend ceph`. Previously, it didn't test conditional updates and could pass on stores where the compactor can't start.
+- **New memory and backup metrics (upgraded storage engine)**: `influxdb3_file_cache_limit_bytes` reports the file cache budget, `influxdb3_buffer_limit_bytes` reports a query node's replica buffer limit, and `influxdb3_file_cache_evicted_bytes_total` counts bytes evicted from the file cache. On the compactor, `influxdb3_compactor_backup_deletes_held` is `1` while a backup pauses deletes, and `influxdb3_compactor_backup_holds_unreadable` is `1` while it can't read backup holds.
+- **Faster compaction planning for large backlogs (Parquet engine)**: The compactor now plans a table's re-compactions in one pass and keeps one shared list of its Gen1 files. Previously, planning time and memory grew with the number of Gen1 files times the number of compacted generations they overlapped.
+- **Explorer UI 1.12**: The [Explorer UI](/influxdb3/enterprise/admin/explorer-ui/) built into `influxdb3 serve` is updated from 1.11.0 to 1.12.0.
+
+#### Bug fixes
+
+- **Writes to a `file` object store could be lost on power failure**: Writes to a `file` object store now reach disk, along with the directories that hold them, before the write completes. Previously, only the contents of conditional updates were synced, so a host crash or power loss could lose recently written files.
+- **File cache evicted the data queries read most (upgraded storage engine)**: A full file cache now evicts the least recently read entries first, and stops once it frees enough room. Previously, it evicted the earliest-loaded entries first, and queries could fail with `file access cache budget exhausted` while another eviction was running.
+- **Backups failed when the compactor deleted files they were copying (upgraded storage engine)**: A running [backup](/influxdb3/enterprise/admin/backup-restore/) now pauses compactor file deletes until it ends. If the backup can't renew that pause for 4 minutes, it stops and fails. Previously, the compactor could delete a replaced file that a long backup still had to copy, and the backup failed.
+- **Compactor ran out of memory during a hard delete (upgraded storage engine)**: While a database or table hard delete is pending, the compactor now shares the input files that the delete doesn't change. Previously, it copied them for each compaction task, so the compactor could run out of memory on every restart.
+- **Processing Engine node aborted while saving trigger restart state**: A Processing Engine node now keeps running when a restart-state save conflicts with its own earlier save, such as one that returned an error but still succeeded. This fixes the v3.12.0 known issue in which a new Docker Desktop container with a bind-mounted data directory exited with code 133. Previously, the node treated the conflict as another node's write and aborted.
+- **Rows lost when importing a large Parquet file (upgraded storage engine)**: Bulk import now keeps every row of a file whose converted data passes 4 GiB, and fails the job instead of dropping rows if converted data exceeds a file format limit. Previously, the job could reach `compacted` with many of the file's rows missing.
+- **Storage engine upgrade kept a different value for duplicate points**: When two Parquet files hold the same series and timestamp, the upgrade now keeps the value that the Parquet engine returns. Previously, it could keep the other value, so queries returned a different value after the upgrade. An upgrade that started on an earlier release keeps its original order, so it can still keep the other value.
+- **Imported columns lost when the compactor's catalog lagged (upgraded storage engine)**: The compactor now converts an uploaded file only after its catalog includes the upload's table and columns. Previously, a file converted too early could lose new columns, merge series that differ only by a new tag, or be skipped as if its table had been deleted.
+- **Storage engine upgrade stalled after compactor failover**: When the compactor role moves to a compact node with a different node ID, the new compactor now resumes the upgrade with the original compactor's source files. Previously, it found no files to convert, and the upgrade never completed.
+- **Bulk import accepted uploads on the Parquet engine**: `POST /api/v3/enterprise/import` and `GET /api/v3/enterprise/import` now return `501 Not Implemented` on a server that runs the Parquet engine. Previously, the server accepted the upload and left it pending without an error.
+- Other bug fixes and performance improvements
+
+## v3.11.10 {date="2026-11-20"}
+
+<!-- Written from the influxdb_pro v3.11.10 tag (92dcd2745f), compared by tree with v3.11.9 (9ffe42535f). Core v3.11.10 is the influxdb tag at e90833cf28; Core had no v3.11.9, so Core changes are since v3.11.8. -->
+
+### Core
+
+#### Bug fixes
+
+- **Shutdown hung while a Processing Engine plugin was stuck**: The server now exits while a plugin is stuck in a blocking call, waiting at most 2 seconds for the plugin's thread and 5 seconds for query threads that don't stop. Previously, it waited forever for a stuck plugin and up to 5 minutes for query threads. Enterprise already didn't wait for plugin threads.
+- Other bug fixes and performance improvements
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Faster compaction planning for large backlogs (Parquet engine)**: The compactor now plans a table's re-compactions in one pass and keeps one shared list of its Gen1 files. Previously, planning time and memory grew with the number of Gen1 files times the number of compacted generations they overlapped.
+
+#### Bug fixes
+
+- **Compactor ran out of memory during a hard delete (upgraded storage engine)**: While a database or table hard delete is pending, the compactor now shares the input files that the delete doesn't change. Previously, it copied them for each compaction task, so the compactor could run out of memory on every restart.
+- **Schema changes lost when upgrading a Core node to Enterprise**: This release brings the v3.12.2 fix to Enterprise 3.11. [Upgrading from Core](/influxdb3/enterprise/admin/upgrade-from-core/) now promotes the node's live catalog. Previously, if the Core node had run a release before 3.10 and then upgraded to 3.10 or later, the upgrade promoted the stale pre-3.10 catalog, so schema changes made after that upgrade were missing.
+- Other bug fixes and performance improvements
+
+## v3.11.9 {date="2026-11-11"}
+
+<!-- Written from the influxdb_pro v3.11.9 tag (9ffe42535f), v3.11.8..v3.11.9. -->
+
+### Core
+
+No adjustments in this release.
+Core remains on v3.11.8.
+
+### Enterprise
+
+#### Bug fixes
+
+- **WAL plugins received values under the wrong column names**: This release brings the v3.12.2 fix to Enterprise 3.11. Rows passed to a WAL trigger's plugin now use the column names of their own record batch. Previously, when a flush held batches with the same columns in a different order, later batches used the first batch's column names.
+
 ## v3.12.2 {date="2026-10-29"}
 
 <!-- Reviewed against influxdb_pro v3.12.2 at f1972a0ff7 (after v3.12.1). The final tag adds only the pulldown-cmark lockfile update to the selected release candidate 3aeb9c30e9. -->
@@ -113,7 +205,7 @@ Additional Enterprise-specific updates:
 
 #### Features
 
-- **Larger bulk import batches (upgraded storage engine)**: The new [`--compactor-import-batch-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor) option sets the largest batch of staged data that one bulk import merge reads at once. The default is `4gb` and is configurable up to one quarter of `--compactor-input-size-budget`.
+- **Larger bulk import batches (upgraded storage engine)**: The new [`--compactor-import-batch-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor) option sets the largest batch of staged data that one bulk import merge reads at once. The default is `4gb` and is configurable up to one quarter of `--compactor-input-size-budget`. This brings bulk import speeds to 1.5TB/hr on a standard 24xl, 10x faster than the 3.11 line. 
 - **Faster ingest node startup with many snapshots (upgraded storage engine)**: An ingest node no longer reads every snapshot manifest in object storage at startup. Previously, it read them all, so startup time grew with the number of manifests. The first start on v3.12.1 still reads every manifest once. `system.pt_ingest_files` now lists the files from the newest manifest plus the snapshots taken since the node started.
 - **Faster compaction I/O (Parquet engine)**: The compactor now uploads a finished output file while it encodes the next one, and checks up to 8 input files at a time. Previously, it did both one file at a time.
 - **WAL flush wait metric (Parquet engine)**: The new `influxdb3_parquet_wal_flush_lock_wait_seconds` histogram reports how long a WAL flush waited for an earlier flush to finish. The `kind` label is `timed` for the regular flush interval and `forced` for a flush that forces a snapshot.
@@ -341,7 +433,7 @@ The following issues affect the Processing Engine. For setup guidance, see [Conf
 
 - **Queued WAL trigger runs can fail**: If a WAL trigger's queued runs fall behind and an ingest node deletes a WAL file before its run starts, the run fails with `WAL object ... is no longer available`. The error appears only in the process node's log.
 - **WAL triggers can stop after a long outage**: If the process node is down longer than the ingest nodes keep their WAL files, its WAL triggers don't process new writes after it restarts, and the node logs nothing. To detect it, check that `influxdb3_processing_engine_wal_processed_watermark` in the process node's `/metrics` output increases. Workaround: restart the process node again.
-- **Docker Desktop containers exit with code 133**: On a new Docker Desktop installation, a node with a bind-mounted data directory can exit with code 133 because of a conflict in the Processing Engine's restart state.
+- **Docker Desktop containers exit with code 133**: On a new Docker Desktop installation, a node with a bind-mounted data directory can exit with code 133 because of a conflict in the Processing Engine's restart state. Fixed in v3.12.3.
 - **`influxdb3 show plugins` is empty on a process node**: The command returns no plugins even when plugin files exist, and querying `system.plugin_files` on the process node returns `400 table 'public.system.plugin_files' not found`. Workaround: list the files in the plugin directory.
 - **`system.processing_engine_triggers` doesn't show `--node-spec`**: You can't query which node owns a trigger. Workaround: check the `node_id` column in `system.processing_engine_logs` or the process node's log.
 - **Plugins can't read string columns from `system.nodes`**: The string columns use the `Utf8View` type, which the plugin API can't convert (`unsupported Arrow type for Python conversion: Utf8View`), and `CAST(... AS VARCHAR)` doesn't help. Workaround: query with `database="_internal"` and convert each string column with `arrow_cast(<column>, 'Utf8')`.

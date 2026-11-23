@@ -73,7 +73,10 @@ InfluxDB fetches the plugin over HTTP when the trigger is created (to validate i
 error fetching plugin from repository: 404 Not Found https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/not_found.py
 ```
 
-Unlike local plugins, `gh:`-prefixed plugins aren't automatically reloaded when the source changes--disable and re-enable the trigger to fetch updates. Only single-file plugins are supported with the `gh:` prefix; multi-file plugin directories must be uploaded locally with `--upload`.
+Unlike local plugins, `gh:`-prefixed plugins aren't automatically reloaded when the source changes.
+To fetch updates in v3.12.3 and later, pass the trigger's `gh:` path to [`influxdb3 update trigger --path`](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger).
+In earlier versions, disable and re-enable the trigger.
+ Only single-file plugins are supported with the `gh:` prefix; multi-file plugin directories must be uploaded locally with `--upload`.
 
 
 ### Option environment variables

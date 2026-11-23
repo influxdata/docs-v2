@@ -2,10 +2,8 @@ name: Verify AI artifacts
 
 # Pre-merge gate for the Markdown-twin and AI-discovery artifact set.
 #
-# Kept separate from pr-render-check rather than folded in: that workflow is
-# unfiltered by design, a paths: filter cannot be scoped to one job, and a
-# per-job diff guard would report success on PRs where the check never ran.
-# Cost is not the reason — the extra work is about 45s.
+# Agent-only changes report success without installing dependencies or
+# building the site. Mixed changes retain complete artifact verification.
 #
 # Do NOT change build:md below to --only-changed. The checks need a complete
 # public/; a partial .md set reduces all three to near-noise.
@@ -38,6 +36,9 @@ on:
       - '.github/workflows/pr-ai-artifacts-check.yml'
       - 'package.json'
       - 'yarn.lock'
+      - '.github/scripts/site-change-scope.mjs'
+      - '!**/AGENTS.md'
+      - '!**/CLAUDE.md'
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
@@ -61,12 +62,25 @@ jobs:
           # Needed for the base...head diff in the next step.
           fetch-depth: 0
 
+      - name: Detect site changes
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          if [ "${{ github.event_name }}" = 'workflow_dispatch' ]; then
+            echo 'site=true' >> "$GITHUB_OUTPUT"
+          else
+            node .github/scripts/site-change-scope.mjs
+          fi
+
       # Gates the source build below. Being in the path filter does not by
       # itself test the converter source — build-rust-converter.js prefers the
       # published release binary, so an edit without a version bump would be
       # validated against the old one. Keep this conditional: compiling on
       # every content PR buys a binary identical to the release.
       - name: Detect Rust converter source changes
+        if: steps.scope.outputs.site == 'true'
         id: converter
         run: |
           if [ "${{ github.event_name }}" != 'pull_request' ]; then
@@ -87,7 +101,7 @@ jobs:
           fi
 
       - name: Cache Rust markdown converter build
-        if: steps.converter.outputs.changed == 'true'
+        if: steps.scope.outputs.site == 'true' && steps.converter.outputs.changed == 'true'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
@@ -103,6 +117,7 @@ jobs:
             ${{ hashFiles('scripts/rust-markdown-converter/rust-toolchain.toml') }}-
 
       - name: Setup docs environment
+        if: steps.scope.outputs.site == 'true'
         env:
           CYPRESS_INSTALL_BINARY: 0
         uses: ./.github/actions/setup-docs-env
@@ -110,9 +125,11 @@ jobs:
       # Unit-test the checker before spending five minutes building a site
       # for it to scan.
       - name: Unit-test the JSON-LD checker
+        if: steps.scope.outputs.site == 'true'
         run: yarn test:jsonld-links
 
       - name: Build API docs and Hugo site
+        if: steps.scope.outputs.site == 'true'
         uses: ./.github/actions/build-docs-site
         env:
           # Both are needed to compile: build-rust installs the toolchain,
@@ -129,15 +146,18 @@ jobs:
           hugo-quiet: 'true'
 
       - name: Generate AI discovery artifacts and Markdown twins
+        if: steps.scope.outputs.site == 'true'
         run: |
           yarn build:ai-artifacts --public-dir public
           yarn build:md --public-dir public
           yarn build:llms-full --public-dir public
 
       - name: Verify Markdown artifacts
+        if: steps.scope.outputs.site == 'true'
         run: |
           yarn check:md-coherence --public-dir public
           PUBLIC_DIR=public yarn test:markdown-completeness
 
       - name: Verify JSON-LD entity links
+        if: steps.scope.outputs.site == 'true'
         run: yarn check:jsonld-links --public-dir public

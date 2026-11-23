@@ -137,7 +137,7 @@ For more information, see [Switch InfluxDB Cloud accounts](/influxdb/cloud/accou
 For more information, see [Manage InfluxDB Cloud billing](/influxdb/cloud/account-management/billing/).
 
 #### Who do I contact for billing issues?
-For billing issues, please [contact InfluxData support](https://support.influxdata.com/s/contactsupport).
+For billing issues, please [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 #### How do I view data my data usage?
 To view your InfluxDB Cloud organization's data usage, view the [Usage page](https://cloud2.influxdata.com/me/usage)
@@ -149,7 +149,7 @@ in the InfluxDB Cloud user interface. For more information, see
   for increased rate limits and quotas, upgrade to a
   [Usage-Based](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan)
   or [Annual Plan](/influxdb/cloud/account-management/pricing-plans/#annual-plan).
-- If using a **Usage-Based** or **Annual** Plan, [contact InfluxData support](https://support.influxdata.com/s/contactsupport)
+- If using a **Usage-Based** or **Annual** Plan, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport)
   and request rate limit and quota adjustments.
 
 {{% /show-in %}}

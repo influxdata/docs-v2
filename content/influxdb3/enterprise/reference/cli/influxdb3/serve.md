@@ -151,6 +151,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--permission-tokens-file`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#permission-tokens-file)_                           |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir)_                                       |
 |                  | `--plugin-dir-only` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir-only)_ |
+|                  | `--plugin-package-allowlist` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-package-allowlist)_ |
 |                  | `--plugin-repo` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-repo)_ |
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--processing-engine-restart-state-snapshot-interval` | _See [configuration options](/influxdb3/enterprise/reference/config-options/#processing-engine-restart-state-snapshot-interval)_ |

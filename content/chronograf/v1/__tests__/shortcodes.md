@@ -4,7 +4,7 @@ noindex: true
 test_only: true
 ---
 
-<!-- vale off -->
+<!-- prose-lint off -->
 <span data-testid="product-name">{{% product-name %}}</span>
 <span data-testid="product-name-short">{{% product-name "short" %}}</span>
 <span data-testid="product-key">{{< product-key >}}</span>

@@ -50,7 +50,20 @@
 {{ $isMultiVersion := in (print "/" $version) "/v" }}
 
 {{ if and (in $productWhiteList $product) $isMultiVersion }}
+  {{ $activelySupported := slice }}
   {{ if $successorInfo.exists }}
+    {{ $activelySupported = (index .Site.Data.products $productKey).actively_supported_versions | default slice }}
+  {{ end }}
+  {{ if and $successorInfo.exists (in $activelySupported $version) }}
+    <!-- Version stays actively supported: mention the successor without calling this an earlier version -->
+    {{ $versionName := (index (index .Site.Data.products $productKey) (print "name__" $version)) | default $productName }}
+    <div class="warn block old-version">
+      <p>
+        This page documents {{ $versionName }}.
+        <a href="{{ $stableDefaultURL }}">{{ $successorInfo.name }}</a> is also available.
+      </p>
+    </div>
+  {{ else if $successorInfo.exists }}
     <!-- Show callout for product with successor -->
     <div class="warn block old-version">
       <p>
