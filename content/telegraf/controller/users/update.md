@@ -83,7 +83,7 @@ The following restrictions apply to role changes:
 > [!Important]
 > #### Side effects of changing a user's role
 >
-> - The user's API tokens are reclamped to match the new role's permissions.
+> - The user's API tokens are restricted to the new role's permissions.
 >   If the new role cannot manage tokens (such as **Viewer**), all active tokens
 >   are revoked.
 > - The user's active sessions are destroyed. They must log in again to continue

@@ -52,7 +52,10 @@ select **{{% lucide "eye" %}} View Details**. The page shows:
   [reported logs](#reported-logs).
 
 Click **{{% lucide "refresh-ccw" %}} Refresh** in the page header to reload
-all of it.
+all of it, or open the attached {{% lucide "chevron-down" %}} menu to select
+an auto-refresh interval.
+While auto-refresh is on, the button counts down to the next refresh.
+See [Refresh the list](/telegraf/controller/agents/monitor/#refresh-the-list).
 
 {{< img-hd src="/img/telegraf/controller-agent-heartbeat-data.png" alt="Telegraf Controller agent detail page with heartbeat data and reported logs" />}}
 
@@ -86,6 +89,13 @@ entry's attributes. A `(truncated)` marker means the message exceeded the
 
 Click **{{% lucide "download" %}} Download JSON** to save the displayed
 entries as a JSON file.
+
+While the **Reported Logs** section is expanded, auto-refresh pauses so the
+table doesn't change while you read it.
+The **Refresh** button shows {{% lucide "pause" %}} in place of the countdown,
+and its tooltip reads **Auto-refresh paused: Reported logs are open**.
+Click **Refresh** to reload on demand, or collapse the section to resume
+auto-refresh.
 
 If the agent doesn't send logs, the section shows a notice instead. To fix
 it, see [Include logs with heartbeats](#include-logs-with-heartbeats).

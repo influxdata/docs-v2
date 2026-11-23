@@ -9,10 +9,200 @@ menu:
 weight: 101
 ---
 
-## v1.2.2 {date="2026-11-10"}
+## v1.2.3 {date="2026-12-01"}
 
 <!-- Update and move the link to the latest version. -->
-[Download Telegraf Controller v1.2.2](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v1.2.3](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+### API changes
+
+- The OpenAPI document reports the {{% product-name %}} release version in
+  `info.version` instead of `1.0`.
+  See [Download the OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document).
+
+### Features
+
+- Add every Telegraf v1.40 plugin to the Telegraf Builder: 51 input, 60
+  output, and 17 processor plugins are new, and existing plugins match
+  Telegraf v1.40.1.
+  See [Use the Telegraf Builder](/telegraf/controller/configs/ui/telegraf-builder/).
+
+  {{< expand-wrapper >}}
+  {{% expand "New input plugins (51)" %}}
+
+  - Fritzbox Smarthome (`inputs.fritzbox_smarthome`)
+  - gNMI (gRPC Network Management Interface) dial-out (`inputs.gnmi_listener`)
+  - Jolokia2 Proxy (`inputs.jolokia2_proxy`)
+  - SIP (`inputs.sip`)
+  - Slab (`inputs.slab`)
+  - SLURM (`inputs.slurm`)
+  - S.M.A.R.T. (`inputs.smart`)
+  - smartctl JSON (`inputs.smartctl`)
+  - SNMP (`inputs.snmp`)
+  - SNMP Trap (`inputs.snmp_trap`)
+  - Socket Listener (`inputs.socket_listener`)
+  - Socket Statistics (`inputs.socketstat`)
+  - Apache Solr (`inputs.solr`)
+  - SQL (`inputs.sql`)
+  - Microsoft SQL Server (`inputs.sqlserver`)
+  - Stackdriver Google Cloud Monitoring (`inputs.stackdriver`)
+  - StatsD (`inputs.statsd`)
+  - Supervisor (`inputs.supervisor`)
+  - Suricata (`inputs.suricata`)
+  - Synproxy (`inputs.synproxy`)
+  - Syslog (`inputs.syslog`)
+  - System Performance Statistics (`inputs.sysstat`)
+  - Systemd-Units (`inputs.systemd_units`)
+  - Tacacs (`inputs.tacacs`)
+  - Tail (`inputs.tail`)
+  - Teamspeak (`inputs.teamspeak`)
+  - Temperature (`inputs.temp`)
+  - Tengine Web Server (`inputs.tengine`)
+  - Timex (`inputs.timex`)
+  - Apache Tomcat (`inputs.tomcat`)
+  - Trig (`inputs.trig`)
+  - Turbostat (`inputs.turbostat`)
+  - Twemproxy (`inputs.twemproxy`)
+  - Unbound (`inputs.unbound`)
+  - UPSD (`inputs.upsd`)
+  - uWSGI (`inputs.uwsgi`)
+  - Varnish (`inputs.varnish`)
+  - Hashicorp Vault (`inputs.vault`)
+  - VMware vSphere (`inputs.vsphere`)
+  - Webhooks (`inputs.webhooks`)
+  - WHOIS (`inputs.whois`)
+  - Windows Eventlog (`inputs.win_eventlog`)
+  - Windows Performance Counters (`inputs.win_perf_counters`)
+  - Windows Services (`inputs.win_services`)
+  - Windows Management Instrumentation (`inputs.win_wmi`)
+  - Wireguard (`inputs.wireguard`)
+  - Wireless (`inputs.wireless`)
+  - x509 Certificate (`inputs.x509_cert`)
+  - Dell EMC XtremIO (`inputs.xtremio`)
+  - ZFS (`inputs.zfs`)
+  - Zipkin (`inputs.zipkin`)
+
+  {{% /expand %}}
+  {{% expand "New output plugins (60)" %}}
+
+  - AMQP (`outputs.amqp`)
+  - Azure Application Insights (`outputs.application_insights`)
+  - Arc (`outputs.arc`)
+  - Azure Data Explorer (`outputs.azure_data_explorer`)
+  - Azure Monitor (`outputs.azure_monitor`)
+  - Google BigQuery (`outputs.bigquery`)
+  - Clarify (`outputs.clarify`)
+  - Google Cloud PubSub (`outputs.cloud_pubsub`)
+  - Amazon CloudWatch (`outputs.cloudwatch`)
+  - Amazon CloudWatch Logs (`outputs.cloudwatch_logs`)
+  - CrateDB (`outputs.cratedb`)
+  - Datadog (`outputs.datadog`)
+  - Discard (`outputs.discard`)
+  - Dynatrace (`outputs.dynatrace`)
+  - Azure Event Hubs (`outputs.event_hubs`)
+  - Executable (`outputs.exec`)
+  - Executable Daemon (`outputs.execd`)
+  - Graphite (`outputs.graphite`)
+  - Graylog (`outputs.graylog`)
+  - GroundWork (`outputs.groundwork`)
+  - Health (`outputs.health`)
+  - HTTP (`outputs.http`)
+  - Inlong (`outputs.inlong`)
+  - Instrumental (`outputs.instrumental`)
+  - Apache IoTDB (`outputs.iotdb`)
+  - Kafka (`outputs.kafka`)
+  - Amazon Kinesis (`outputs.kinesis`)
+  - Librato (`outputs.librato`)
+  - Logz.io (`outputs.logzio`)
+  - Grafana Loki (`outputs.loki`)
+  - Microsoft Fabric (`outputs.microsoft_fabric`)
+  - MongoDB (`outputs.mongodb`)
+  - MQTT Producer (`outputs.mqtt`)
+  - NATS (`outputs.nats`)
+  - Nebius Cloud Monitoring (`outputs.nebius_cloud_monitoring`)
+  - New Relic (`outputs.newrelic`)
+  - NSQ (`outputs.nsq`)
+  - OpenSearch (`outputs.opensearch`)
+  - OpenTelemetry (`outputs.opentelemetry`)
+  - OpenTSDB (`outputs.opentsdb`)
+  - Parquet (`outputs.parquet`)
+  - PostgreSQL (`outputs.postgresql`)
+  - Quix (`outputs.quix`)
+  - Redis Time Series (`outputs.redistimeseries`)
+  - Remote File (`outputs.remotefile`)
+  - Riemann (`outputs.riemann`)
+  - Sensu Go (`outputs.sensu`)
+  - SignalFx (`outputs.signalfx`)
+  - Socket Writer (`outputs.socket_writer`)
+  - SQL (`outputs.sql`)
+  - Google Cloud Monitoring (`outputs.stackdriver`)
+  - ActiveMQ STOMP (`outputs.stomp`)
+  - Sumo Logic (`outputs.sumologic`)
+  - Amazon Timestream (`outputs.timestream`)
+  - Warp10 (`outputs.warp10`)
+  - Wavefront (`outputs.wavefront`)
+  - Websocket (`outputs.websocket`)
+  - Yandex Cloud Monitoring (`outputs.yandex_cloud_monitoring`)
+  - Zabbix (`outputs.zabbix`)
+  - Zerobus (`outputs.zerobus`)
+
+  {{% /expand %}}
+  {{% expand "New processor plugins (17)" %}}
+
+  - Parser (`processors.parser`)
+  - Pivot (`processors.pivot`)
+  - Port Name Lookup (`processors.port_name`)
+  - Printer (`processors.printer`)
+  - Reverse DNS (`processors.reverse_dns`)
+  - Round (`processors.round`)
+  - S2 Geo (`processors.s2geo`)
+  - Scale (`processors.scale`)
+  - SNMP Lookup (`processors.snmp_lookup`)
+  - Split (`processors.split`)
+  - Starlark (`processors.starlark`)
+  - Strings (`processors.strings`)
+  - Tag Limit (`processors.tag_limit`)
+  - Template (`processors.template`)
+  - Timestamp (`processors.timestamp`)
+  - TopK (`processors.topk`)
+  - Unpivot (`processors.unpivot`)
+
+  {{% /expand %}}
+  {{< /expand-wrapper >}}
+
+- Keep settings the Telegraf Builder can't edit and write them back on save.
+  A chip on the plugin card lists them.
+  Previously, the Builder dropped them.
+  See [Settings kept from TOML](/telegraf/controller/configs/ui/telegraf-builder/#settings-kept-from-toml).
+- Show the `data_format` setting only on plugins that Telegraf gives a parser
+  or serializer, and offer every option Telegraf defines for each format.
+  See [Data format options](/telegraf/controller/configs/ui/telegraf-builder/#data-format-options).
+- Mask secret values, such as passwords and tokens, throughout the Telegraf
+  Builder, with a show/hide toggle.
+  See [Secret values](/telegraf/controller/configs/ui/telegraf-builder/#secret-values).
+- Move API token creation to its own page with a **Permissions Preset** select
+  and the full permission grid.
+  See [Create an API token](/telegraf/controller/tokens/create/).
+- Count down to the next auto-refresh on the **Refresh** button of the
+  **Agents** page and the agent detail page, and pause auto-refresh while
+  **Reported Logs** is expanded.
+  See [Refresh the list](/telegraf/controller/agents/monitor/#refresh-the-list).
+
+### Bug fixes
+
+- Fix the **30m** auto-refresh interval on the **Agents** page, which
+  refreshed every 5 hours.
+- Keep **API Tokens** highlighted in the navigation on token subpages.
+- Write the Docker secret store as `[[secretstores.docker]]`, the name
+  Telegraf uses, instead of `[[secretstores.docker_secretstore]]`.
+- Remove `inputs.aerospike`, which Telegraf 1.40 removed, from the Plugin
+  Library, and warn when a configuration still contains it.
+- Label the remaining Telegraf Builder settings with their Telegraf option
+  names.
+
+---
+
+## v1.2.2 {date="2026-11-10"}
 
 ### Before you upgrade
 

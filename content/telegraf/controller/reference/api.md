@@ -57,7 +57,7 @@ Authorization: Token tc-apiv1_xxxxxx
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-A token's [permissions](/telegraf/controller/reference/authentication-authorization/)
+A token's [permissions](/telegraf/controller/reference/permissions/)
 determine which endpoints and operations the request can access.
 Requests made with a token that lacks the required permissions are rejected with
 an authorization error.
@@ -174,6 +174,12 @@ Use the document to generate API clients, import the API into tools such as
 Postman, or compare API changes between {{% product-name %}} versions.
 Like the interactive reference, the document describes the endpoints of your
 running instance, so it always matches your installed version.
+
+The document's `info.version` field is the {{% product-name %}} release
+version, such as `1.2.3`, so a saved document identifies the release it came
+from.
+A release candidate reports its tag, such as `1.3.0-rc.1`.
+Releases before v1.2.3 report `1.0`.
 
 Both URLs require authentication. In a browser, log in to
 {{% product-name %}} first. From the command line or a script, include an

@@ -54,14 +54,16 @@ The value must meet the [token requirements](#token-requirements).
 
 1.  Navigate to the **API Tokens** page.
 2.  Click **{{% lucide "plus" %}} Create API Token**.
-3.  Enter a **Description** for the token.
+3.  In the **Details** card, enter a **Description** for the token.
 4.  Expand **Provide your own token string** and enter the value in the
     **Token String** field.
-5.  _(Optional)_ Set an **Expiration** date and **Custom permissions** as
-    described in [Create an API token](/telegraf/controller/tokens/create/).
-6.  Click **Create**.
+5.  _(Optional)_ Change the **Expiration** and set the token's permissions in
+    the **Permissions** card as described in
+    [Create an API token](/telegraf/controller/tokens/create/).
+6.  Click **Create Token**.
 
-{{< img-hd src="/img/telegraf/controller-tokens-preshared-field.png" alt="Telegraf Controller create token form with a user-supplied token value" />}}
+<!-- TODO: recapture this screenshot on the Create API Token page (the current image shows the former dialog). Save to /static/img/telegraf/controller-tokens-preshared-field.png; the shortcode below can stay as is. -->
+{{< img-hd src="/img/telegraf/controller-tokens-preshared-field.png" alt="Telegraf Controller Create API Token page with a user-supplied token value" />}}
 
 ### Use the API
 

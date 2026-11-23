@@ -15,6 +15,7 @@ related:
   - /telegraf/controller/authentication/
   - /telegraf/controller/users/
   - /telegraf/controller/tokens/
+  - /telegraf/controller/reference/permissions/
   - /telegraf/controller/settings/
   - /telegraf/controller/reference/api/
 ---
@@ -126,6 +127,9 @@ The owner account is created during initial setup and cannot be deleted.
 If you need to change the owner, the current owner must transfer ownership
 to another user.
 
+For the actions each role can perform on every resource, see
+[Role permissions](/telegraf/controller/reference/permissions/#role-permissions).
+
 > [!Tip]
 > To change the owner of your {{% product-name %}} instance, see
 > [Transfer ownership](/telegraf/controller/users/transfer-ownership/).
@@ -138,7 +142,7 @@ connections to {{% product-name %}}.
 Each token is scoped to the user who created it.
 The token's effective permissions are restricted to the creating user's
 role. A token cannot exceed the permissions of its owner.
-When a token is created, the requested permissions are clamped to the
+When a token is created, the requested permissions are restricted to the
 user's role: a wildcard such as `*:*` or `license:*` expands to the
 permissions the role holds, and a request authenticated with a token cannot
 create a token broader than itself.
@@ -146,7 +150,12 @@ If a user's role changes to a role with less permissions, all of that
 user's existing tokens are automatically updated with restricted
 permissions or revoked to match the new role.
 After an [ownership transfer](/telegraf/controller/users/transfer-ownership/),
-the former owner's tokens are re-clamped to the **Administrator** role.
+the former owner's tokens are restricted to the **Administrator** role.
+
+Permissions are written as permission strings, such as
+`configs:read;heartbeat:write`.
+See [Permissions](/telegraf/controller/reference/permissions/) for the syntax,
+the resources and actions, and how requested permissions are restricted.
 
 Token management also depends on how the request is authenticated.
 Owners and Administrators signed in with a session can list, revoke,

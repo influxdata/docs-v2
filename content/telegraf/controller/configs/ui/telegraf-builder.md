@@ -40,12 +40,20 @@ The Telegraf builder is divided into two main panes:
 The **Plugin Library** pane provides a list of all Telegraf plugins supported
 in the builder grouped by plugin type.
 
-> [!Important]
-> #### The Telegraf Builder does not support all Telegraf plugins
-> 
-> We are in the process of adding support for more Telegraf plugins in the
-> Telegraf Builder. You can use plugins that are not currently supported by the
-> builder, but you must add and edit them with the Code Editor.
+The Plugin Library includes every input, output, processor, aggregator, and
+secret store plugin in Telegraf v1.40.
+Plugin settings are labeled with their Telegraf option names, such as
+`access_key_id`, so you can look them up in the
+[Telegraf plugin documentation](/telegraf/v1/plugins/).
+
+> [!Note]
+> #### Plugins removed from Telegraf
+>
+> Telegraf 1.40 removed the Aerospike input plugin (`inputs.aerospike`) and
+> refuses to load a configuration that contains it.
+> The Plugin Library no longer offers the plugin, and the Builder shows a
+> warning on configurations that still contain it.
+> Use `inputs.prometheus` with the Aerospike Prometheus Exporter instead.
 
 - **Search plugins**: Use the search bar in the Plugin Library pane to search
   for Telegraf plugins. Search by plugin name, identifier, or description.
@@ -134,3 +142,84 @@ For more information about using Telegraf plugin filters, see
 
 To remove a plugin from the configuration, click the **{{% lucide "trash-2" %}}**
 icon on the plugin card.
+
+### Settings kept from TOML
+
+A configuration written by hand or uploaded in the Code Editor can contain
+plugin settings that the Builder's form can't edit: an option the form doesn't
+model, or a value in a shape the Builder can't read.
+The Builder keeps those settings exactly as written and writes them back when
+you save, so nothing in the configuration is lost.
+
+The plugin card shows the chip
+**N settings kept from TOML as written (not loaded into this form)**.
+Hover over the chip to list the settings.
+To change a kept setting, use the
+[Code Editor](/telegraf/controller/configs/ui/code-editor/).
+
+- If you edit a setting in the form that was kept from TOML, the form's value
+  replaces the kept one.
+- Nested tables are kept whole.
+  For example, one option the Builder can't read inside an
+  `[[inputs.file.json_v2]]` table keeps the entire table as written.
+- Changing a plugin's `data_format` removes the kept settings that belong to
+  the previous format.
+
+If the Builder can't read a plugin at all, a notice lists the plugin as kept
+as written when you open the configuration, and the plugin isn't shown in the
+Builder.
+Fix the plugin in the Code Editor to edit it in the Builder.
+
+### Data format options
+
+Telegraf plugins that read or write a data format show a **data_format**
+setting.
+After you choose a format, a **Data Format Options** panel shows the options
+Telegraf defines for that format.
+See [Telegraf data formats](/telegraf/v1/data_formats/).
+
+Only plugins that Telegraf gives a parser or a serializer have the setting.
+A data format on any other plugin, such as `inputs.cpu` or
+`outputs.influxdb_v2`, makes Telegraf reject the configuration.
+
+{{< expand-wrapper >}}
+{{% expand "Plugins with a data format setting" %}}
+
+Input plugins (parsers): `inputs.amqp_consumer`, `inputs.cloud_pubsub`,
+`inputs.cloud_pubsub_push`, `inputs.directory_monitor`,
+`inputs.eventhub_consumer`, `inputs.exec`, `inputs.execd`, `inputs.file`,
+`inputs.firehose`, `inputs.google_cloud_storage`, `inputs.http`,
+`inputs.http_listener_v2`, `inputs.kafka_consumer`, `inputs.kinesis_consumer`,
+`inputs.mqtt_consumer`, `inputs.nats_consumer`, `inputs.nsq_consumer`,
+`inputs.socket_listener`, and `inputs.tail`.
+
+Output plugins (serializers): `outputs.amqp`, `outputs.cloud_pubsub`,
+`outputs.event_hubs`, `outputs.exec`, `outputs.execd`, `outputs.file`,
+`outputs.http`, `outputs.inlong`, `outputs.kafka`, `outputs.kinesis`,
+`outputs.mqtt`, `outputs.nats`, `outputs.nsq`, `outputs.remotefile`,
+`outputs.socket_writer`, `outputs.stomp`, `outputs.sumologic`, and
+`outputs.websocket`.
+
+Processor plugins: `processors.parser` (parser) and `processors.execd`
+(parser and serializer).
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+`processors.execd` uses one `data_format` for both the data it sends to the
+external program and the data it reads back, so its card shows a
+**Parser Options** panel and a **Serializer Options** panel for the same
+format.
+
+Changing `data_format` clears the options of the previous format.
+
+### Secret values
+
+Settings that hold secrets, such as passwords, tokens, and keys, are masked
+while you type.
+Click {{% lucide "eye" %}} to show a value and {{% lucide "eye-off" %}} to hide
+it again.
+The value is written to the configuration in plain text either way.
+To keep secrets out of the configuration, use a
+[secret store plugin](/telegraf/v1/secretstore-plugins/) or
+[substitute values](/telegraf/controller/configs/substitute-values/).

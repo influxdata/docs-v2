@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Agent status evaluation
     parent: Reference
-weight: 107
+weight: 108
 related:
   - /telegraf/controller/agents/status/
   - /telegraf/v1/output-plugins/heartbeat/

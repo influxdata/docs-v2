@@ -156,7 +156,19 @@ The same search is available on the **Agents** tab of a configuration or a
 
 Click **{{% lucide "refresh-ccw" %}} Refresh** to reload the list and summary
 on demand, or open the attached {{% lucide "chevron-down" %}} menu to select
-an auto-refresh interval.
+an auto-refresh interval: **5s**, **10s**, **30s**, **1m**, **5m**, **15m**,
+or **30m**.
+Auto-refresh is **Off** by default, and the browser remembers your choice.
+Selecting an interval refreshes the list immediately.
+
+While auto-refresh is on, the **Refresh** button counts down to the next
+refresh, in seconds when less than a minute remains and otherwise in minutes.
+The countdown restarts after each refresh and when you change the page,
+filters, or sort order.
+
+The agent detail page has the same button.
+There, auto-refresh pauses while the **Reported Logs** section is expanded.
+See [Reported logs](/telegraf/controller/agents/heartbeat-data/#reported-logs).
 
 ## Query the fleet summary API
 

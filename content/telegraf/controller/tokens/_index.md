@@ -57,11 +57,17 @@ access below your full role permissions.
 This lets you issue narrowly scoped tokens for specific tasks, such as a token
 that can only register agents or a token limited to read-only access.
 
-Requested permissions are clamped to your role.
+Requested permissions cannot exceed your role.
 A wildcard such as `*:*` or `license:*` expands to the permissions your role
 holds, so an Administrator who requests `license:*` receives `license:read`.
 A request authenticated with an API token cannot create a token with
 permissions beyond its own.
+
+Permissions are stored as a permission string, such as
+`configs:read;config-groups:read;heartbeat:write`.
+See [Permissions](/telegraf/controller/reference/permissions/) for the syntax,
+the resources and actions you can grant, and how requested permissions are
+restricted.
 
 ## Token states
 

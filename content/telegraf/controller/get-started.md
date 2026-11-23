@@ -33,9 +33,10 @@ send heartbeats to {{% product-name %}}.
 1.  Navigate to the **API Tokens** page.
 2.  Click **{{% lucide "plus" %}} Create API Token**.
 3.  Enter a description--for example, `Getting started agent token`.
-4.  Select a token **Expiration**.
+4.  _(Optional)_ Change the token **Expiration**.
+    The default is 30 days.
 5.  Select the permissions to assign to the token. For convenience, you can
-    select one of the available **Permission Presets**.
+    select a **Permissions Preset**.
     
     > [!Tip]
     > The **Telegraf Agent** preset includes all permissions a Telegraf agent

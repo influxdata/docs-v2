@@ -7,7 +7,7 @@ menu:
   telegraf_controller:
     name: Glossary
     parent: Reference
-weight: 108
+weight: 109
 related:
   - /telegraf/controller/reference/architecture/
   - /telegraf/controller/reference/agent-status-eval/

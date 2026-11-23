@@ -138,7 +138,7 @@ that updates both accounts together:
 - The target user is promoted to **Owner**.
 - If the target supplied a recovery password, it becomes the local password of
   the new owner account.
-- The former owner's API tokens are re-clamped to the **Administrator**
+- The former owner's API tokens are restricted to the **Administrator**
   role's permissions.
 - The operation is atomic: all changes succeed together or none takes effect.
 
