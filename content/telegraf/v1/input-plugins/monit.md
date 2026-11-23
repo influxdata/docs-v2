@@ -94,7 +94,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
     - status_code
     - monitoring_status_code
     - monitoring_mode_code
-    - permissions
+    - mode
 
 - monit_file
   - tags:
@@ -110,7 +110,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
     - monitoring_status_code
     - monitoring_mode_code
     - size
-    - permissions
+    - mode
 
 - monit_process
   - tags:
@@ -193,7 +193,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
     - status_code
     - monitoring_status_code
     - monitoring_mode_code
-    - permissions
+    - mode
 
 - monit_program
   - tags:
