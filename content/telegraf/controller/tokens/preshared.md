@@ -62,7 +62,6 @@ The value must meet the [token requirements](#token-requirements).
     [Create an API token](/telegraf/controller/tokens/create/).
 6.  Click **Create Token**.
 
-<!-- TODO: recapture this screenshot on the Create API Token page (the current image shows the former dialog). Save to /static/img/telegraf/controller-tokens-preshared-field.png; the shortcode below can stay as is. -->
 {{< img-hd src="/img/telegraf/controller-tokens-preshared-field.png" alt="Telegraf Controller Create API Token page with a user-supplied token value" />}}
 
 ### Use the API

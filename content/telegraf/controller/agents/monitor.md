@@ -133,8 +133,6 @@ A toggle is highlighted while it's on.
 Turn both toggles off to return to the default plain-text search that ignores
 case.
 
-<!-- TODO: screenshot of the Agents page search box with "Use regular expression" turned on and a pattern entered. Save to /static/img/telegraf/controller-agents-search-modes.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-agents-search-modes.png" alt="Telegraf Controller agent search with the regular expression toggle enabled" />}} -->
-
 > [!Note]
 > #### Regular expression syntax depends on the database
 >

@@ -45,7 +45,7 @@ Tokens let you grant scoped access to external tools, scripts, and services with
     See [Custom permissions](#custom-permissions).
 7.  Click **Create Token**.
 
-<!-- TODO: screenshot of the Create API Token page showing the Details and Permissions cards (the previous image at this path shows the former dialog). Save to /static/img/telegraf/controller-create-token.png and replace this comment with: {{< img-hd src="/img/telegraf/controller-create-token.png" alt="Telegraf Controller Create API Token page" />}} -->
+{{< img-hd src="/img/telegraf/controller-create-token.png" alt="Telegraf Controller Create API Token page" />}}
 
 After the token is created, the page shows the token value once:
 
