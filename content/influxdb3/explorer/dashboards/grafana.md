@@ -50,10 +50,17 @@ If some settings can't be represented in Grafana, Explorer lists them.
 
 ## What carries over
 
-- Every cell, with its query, chart type, and options.
+- Supported queries, chart types, and options.
 - The time range, auto-refresh, rows, shared cursor, and each cell's own time.
 - Annotation sources. Hand-placed notes are kept in the file but don't show in
   Grafana.
+
+When you import a Grafana dashboard, Explorer can use a Line chart for an
+unsupported panel type if it recognizes a query target.
+If Explorer can't convert the panel or recognize a query target, it skips the
+panel.
+Check the imported dashboard to see which panels Explorer imported and how they
+appear.
 
 Exported queries follow Grafana's time picker: Explorer adds
 `$__timeFilter(time)` to SQL and `$timeFilter` to InfluxQL, and removes them
