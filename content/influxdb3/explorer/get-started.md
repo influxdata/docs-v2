@@ -147,38 +147,32 @@ To use {{% product-name %}} to query data from InfluxDB 3, navigate to
 
 The _Data Explorer_ lets you explore the
 schema of your database and automatically builds SQL queries by either
-selecting columns in the _Schema Browser_ or by using _Natural Language_ with
+selecting columns in the **Schema** panel or by using **Ask AI** with
 the {{% product-name %}} AI integration.
 
-For this getting started guide, use the Schema Browser to build a SQL query
+For this getting started guide, use the **Schema** panel to build a SQL query
 that returns data from the newly written sample data set.
 
-1.  On the **Data Explorer** in the **Schema** column, select the database you
+1.  On the **Data Explorer** in the **Schema** panel, select the database you
     want to query from the database dropdown menu.
     Once selected, all tables in the database appear.
 2.  Click the name of the table you want to query to expand and view all the
     columns in that table.
 3.  Select each column you want to query.
-    As you select columns in the Schema Browser, Explorer generates and updates
-    an SQL query in the _Query pane_.
-4.  Use the time range dropdown menu above the Query pane to select a time range
-    to query. You can select one of the predefined relative time ranges, or you
-    can select _Custom Range_ to define an absolute time range to query.
-5.  With columns and a time range selected, click **Run Query**.
+    As you select columns in the **Schema** panel, Explorer generates and
+    updates an SQL query in the editor.
+4.  Use the time control above the editor to select a time range to query.
+    You can select a quick range or type a range of your own.
+5.  With columns and a time range selected, click **Run**.
 
-{{% product-name %}} runs the query and returns the results in the _Results pane_.
-The Results pane provides three view options:
-
-- **Table** _(default)_: Displays raw query results in paginated table format.
-- **Line**: Displays query results in a line graph.
-- **Bar**: Displays query results in a bar graph.
-
-> [!Tip]
-> SQL query results may not be ordered by `time` and Line and Bar graph
-> visualizations may behave unexpectedly. To order results by time:
->
-> - Ensure that you query the `time` column
-> - Update the query to include an `ORDER BY time` clause.
+{{% product-name %}} runs the query and returns the results below the editor.
+The result shows as a table by default.
+To draw it as a chart, select a chart type--such as **Line** or
+**Bar**--from **Visualization type** above the result.
+For more about the Data Explorer, see
+[Query data in the Data Explorer](/influxdb3/explorer/data-explorer/).
+For the available chart types and options, see
+[Visualize data](/influxdb3/explorer/visualize-data/).
 
 You have successfully used {{% product-name %}} to connect to,
 write data to, and query data from an InfluxDB 3 instance.
