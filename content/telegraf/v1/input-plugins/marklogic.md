@@ -79,7 +79,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
     - data_dir_space
     - query_read_bytes
     - query_read_load
-    - merge_read_bytes
+    - merge_read_load
     - merge_write_load
     - http_server_receive_bytes
     - http_server_send_bytes
