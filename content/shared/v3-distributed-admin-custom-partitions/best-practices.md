@@ -40,7 +40,7 @@ tag values are assigned to buckets by a hash, not by any order or grouping,
 so the values in one query spread across many buckets.
 For example, with 16 buckets, an `IN` list of 10 values reads about 8 buckets
 and an `IN` list of 100 values reads nearly all of them.
-For that query, partitioning on the tag provides no benefit.
+For such a query, partitioning on the tag provides no benefit.
 It can even be slower than not partitioning on the tag, because the query engine
 has more partitions to look up in the Catalog and more files to read.
 
