@@ -2,6 +2,7 @@ Use the following best practices when defining custom partitioning strategies
 for your data stored in {{< product-name >}}.
 
 - [Partition by tags that you commonly query for a specific value](#partition-by-tags-that-you-commonly-query-for-a-specific-value)
+  - [Filter on few values of a partitioned tag](#filter-on-few-values-of-a-partitioned-tag)
 - [Only partition by tags that _always_ have a value](#only-partition-by-tags-that-always-have-a-value)
 - [Avoid over-partitioning](#avoid-over-partitioning)
   - [Check partition sizes](#check-partition-sizes)
@@ -27,6 +28,29 @@ query engine to more quickly identify what partitions contain the relevant data.
 > to partition by high-cardinality tags.
 > This method of partitioning groups tag values into "buckets" and partitions by bucket.
 
+### Filter on few values of a partitioned tag
+
+The query engine can skip a partition when the `WHERE` clause compares the
+partitioned tag to literal values--for example, `tag = 'value'` or
+`tag IN ('value1', 'value2')`.
+A query that matches many values reads every partition that contains any of them.
+
+With [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates),
+tag values are assigned to buckets by a hash, not by any order or grouping,
+so the values in one query spread across many buckets.
+For example, with 16 buckets, an `IN` list of 10 values reads about 8 buckets
+and an `IN` list of 100 values reads nearly all of them.
+For that query, partitioning on the tag provides no benefit.
+It can even be slower than not partitioning on the tag, because the query engine
+has more partitions to look up in the Catalog and more files to read.
+
+- For long time ranges, query one tag value at a time.
+  To retrieve many values, run a few of these queries in parallel.
+- If your queries select a stable set of values--for example, all devices that
+  belong to one customer--partition by a tag that identifies the set instead.
+- Values that come from a join or subquery instead of the query text don't let
+  the query engine skip partitions.
+
 ## Only partition by tags that _always_ have a value
 
 You should only partition by tags that _always_ have a value.
@@ -40,6 +64,7 @@ As you plan your partitioning strategy, keep in mind that over-partitioning your
 - Avoid partitioning by tags that you typically don't use in your query workload.
 - Avoid partitioning by distinct values of high-cardinality tags. Instead, [use tag buckets](#use-tag-buckets-for-high-cardinality-tags) to partition by these tags.
 - For the number of [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates), consider values between 20 and 400. Higher values can introduce ingest inefficiency.
+- Avoid tag buckets on tags that your queries usually filter with long `IN` lists. See [Filter on few values of a partitioned tag](#filter-on-few-values-of-a-partitioned-tag).
 
 ### Check partition sizes
 
