@@ -13,7 +13,7 @@ influxdb3_core:
   list_order: 2
   search_includes_resources: false
   latest: core
-  latest_patch: 3.12.2
+  latest_patch: 3.12.3
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -60,7 +60,7 @@ influxdb3_enterprise:
   list_order: 2
   search_includes_resources: false
   latest: enterprise
-  latest_patch: 3.12.2
+  latest_patch: 3.12.3
   placeholder_host: localhost:8181
   scheme: http
   limits:
@@ -410,7 +410,7 @@ telegraf:
   versions: [v1]
   latest: v1.40
   latest_patches:
-    v1: 1.40.3
+    v1: 1.40.4
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?

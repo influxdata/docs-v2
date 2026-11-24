@@ -32,6 +32,11 @@ the `docs` CLI or direct editing.
   consumer stubs. Edit stub content only when its frontmatter needs to change.
 - Use resource-ownership language for import/write/load guidance and write
   recommendations in InfluxData's first-person plural voice.
+- For capability or lifecycle claims, check the exact offering with
+  [feature evidence](../../.agents/skills/content-editing/references/fact-checking.md).
+- Preserve existing inbound fragments when changing headings. For FAQ titles
+  backed by YAML, set the existing `anchor` and verify the visible title and
+  FAQPage question agree. See [FAQ shortcode](../../DOCS-SHORTCODES.md#faq).
 
 Run `yarn verify:changed -- <files>` to select manual checks. See
 [content/example.md](../../content/example.md) for working shortcode examples.
