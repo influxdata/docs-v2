@@ -1,10 +1,10 @@
 ---
 title: Upgrade InfluxDB 3 Explorer
-seotitle: Upgrade to InfluxDB 3 Explorer 1.11 with user authentication
+seotitle: Upgrade InfluxDB 3 Explorer
 description: >
-  Upgrade InfluxDB 3 Explorer to v1.11 or later without losing dashboards or
-  saved queries, bring earlier work onto a signed-in account, and re-enter
-  saved keys.
+  Upgrade InfluxDB 3 Explorer without losing dashboards or saved queries:
+  what changes when you upgrade to v1.12, how to roll back, and how to bring
+  earlier work onto a signed-in account after upgrading to v1.11.
 menu:
   influxdb3_explorer:
     name: Upgrade Explorer
@@ -16,12 +16,14 @@ related:
   - /influxdb3/enterprise/admin/explorer-ui/#migrate-data-from-the-311-ui, Migrate data from the 3.11 UI
 ---
 
-{{% product-name %}} v1.11 adds
+Upgrading {{% product-name %}} keeps your dashboards, saved queries, query
+history, and connections.
+For what changes in v1.12, see [Upgrade to v1.12](#upgrade-to-v112).
+The rest of this page covers upgrading to v1.11, which added
 [user authentication](/influxdb3/explorer/authentication/).
-When you upgrade from an earlier version, Explorer keeps your existing data.
-If the InfluxDB 3 server requires users to sign in, each browser can move its
-earlier work onto the account that signs in from it.
 
+- [Upgrade to v1.12](#upgrade-to-v112)
+- [Roll back to v1.11](#roll-back-to-v111)
 - [Before you upgrade](#before-you-upgrade)
 - [What happens to existing data](#what-happens-to-existing-data)
 - [Bring your earlier work across](#bring-your-earlier-work-across)
@@ -32,6 +34,52 @@ earlier work onto the account that signs in from it.
 For the integrated Explorer UI in InfluxDB 3 Enterprise, see
 [Migrate data from the 3.11 UI](/influxdb3/enterprise/admin/explorer-ui/#migrate-data-from-the-311-ui)
 in the InfluxDB 3 Enterprise documentation.
+
+## Upgrade to v1.12 {metadata="v1.12+"}
+
+- **Docker**: run `influxdata/influxdb3-ui:1.12.0` with the same `/db` volume
+  and `SESSION_SECRET_KEY`. See [Before you upgrade](#before-you-upgrade).
+- **Integrated Explorer UI**:
+  [upgrade InfluxDB 3 Enterprise](/influxdb3/enterprise/admin/upgrade/) to
+  3.12.3, which includes Explorer v1.12.0.
+  Enterprise 3.12.0–3.12.2 include v1.11.0, so this also applies the v1.11.1
+  and v1.11.2 changes.
+
+Your dashboards, queries, and history carry over unchanged.
+What changes:
+
+- **Stored chart results are cleared.**
+  Earlier versions saved every chart's last result so **Export** could return
+  it.
+  v1.12 saves only the query and reruns it on **Export**, so exports show
+  current data.
+  Each time v1.12 starts, it clears old stored results and compacts its
+  database.
+  On the integrated Explorer UI, this frees space in Explorer's 16 MiB
+  database, which could fill up in earlier versions.
+- **The Data Explorer layout resets** to the default the first time.
+- **Grafana files** exported from v1.12 lose their cell databases if imported
+  into an earlier Explorer.
+- **Forecasting lives in InfluxDB.** If you
+  [turn it on](/influxdb3/explorer/visualize-data/forecast/), the plugin and
+  its triggers stay on the server, even if you roll Explorer back.
+
+## Roll back to v1.11 {metadata="v1.12+"}
+
+You can roll back to v1.11.2 (Docker) or to the Explorer v1.11.0 in Enterprise
+3.12.2 and earlier.
+The earlier version shows everything from before v1.12, with these limits:
+
+- Histogram, Heatmap, Candlestick, and State timeline cells show as Line
+  charts.
+- v1.12 settings (chart options, rows, notes, versions, a cell's own time) and
+  **Recently deleted** are hidden.
+- Dashboard forecasts keep running; disable their triggers in
+  [Manage Plugins](/influxdb3/explorer/manage-plugins/) if needed.
+- Run a chart again before you export it.
+
+When you upgrade to v1.12 again, everything comes back.
+Avoid editing cells that use the new chart types while on v1.11.
 
 ## Before you upgrade
 
