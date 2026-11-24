@@ -6,6 +6,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: Docker
+    parent: Install Explorer
 weight: 1
 metadata: [InfluxDB 3 Core and Enterprise]
 ---
@@ -698,6 +699,58 @@ services:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+### Turn off AI features {metadata="v1.12+"}
+
+To turn off all AI features, so Explorer sends nothing to any AI service, set
+`DISABLE_EXPLORER_AI=true` or pass `--disable-explorer-ai`.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Run container](#)
+[Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```bash
+docker run --detach \
+  --name influxdb3-explorer \
+  --publish 127.0.0.1:8888:8080 \
+  --env DISABLE_EXPLORER_AI=true \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
+  --mode=admin
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```yaml
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    command: ["--mode=admin"]
+    environment:
+      DISABLE_EXPLORER_AI: "true"
+    ports:
+      - "127.0.0.1:8888:8080"
+    restart: unless-stopped
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+You can also set `"DISABLE_EXPLORER_AI": true` in
+[`config.json`](#pre-configure-influxdb-connections).
+Restart Explorer for the change to take effect.
+
+With AI turned off, Explorer hides **Ask AI**, **Flux to SQL**, and the AI
+settings, switches AI query tabs to SQL, and refuses AI requests.
+Saved AI keys and chat history are kept but not used.
+To turn AI back on, remove the setting and restart Explorer.
+
+> [!Note]
+> This setting applies only to the Docker container.
+> In InfluxDB 3 Enterprise 3.12.3 and earlier, you can't turn off AI in the
+> integrated Explorer UI.
+
 ---
 
 ## Advanced configuration
@@ -718,6 +771,7 @@ services:
 | `EXPLORER_OAUTH_SECRET` | _(none)_ | Client secret for [single sign-on](#configure-single-sign-on) with a confidential client |
 | `EXPLORER_OAUTH_PROMPT` | `select_account` | `prompt` value for [single sign-on](#configure-single-sign-on) |
 | `EXPLORER_POST_LOGOUT_REDIRECT_URI` | _(derived)_ | Where the identity provider returns users after [sign-out](#configure-single-sign-on) |
+| `DISABLE_EXPLORER_AI` | `false` | Set to `true` to [turn off all AI features](#turn-off-ai-features) (v1.12+) |
 
 > [!Important]
 > Always set `SESSION_SECRET_KEY` in production to persist user sessions across container restarts.

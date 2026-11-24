@@ -50,3 +50,8 @@ or later, use the
 Otherwise, use [Docker](/influxdb3/explorer/install/docker/).
 Docker also works with Enterprise v3.11 and later if you want to run Explorer
 separately from the server.
+
+The integrated Explorer UI is the version that ships with your Enterprise
+release--for example, InfluxDB 3 Enterprise 3.12.3 includes Explorer v1.12.0,
+and 3.12.0 through 3.12.2 include Explorer v1.11.0.
+To get a newer Explorer without upgrading Enterprise, use Docker.
