@@ -476,14 +476,14 @@ Include the following:
   {{< req type="key" >}}
   - {{< req "\*" >}} **orgID:** your [organization ID](/influxdb3/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
   - **bucketID:** a [bucket ID](/influxdb3/cloud-serverless/admin/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
-  - **database:** a database name _(to list DBRP mappings with a specific database name)_
+  - **db:** a database name _(to list DBRP mappings with a specific database name)_
   - **rp:** a retention policy name _(to list DBRP mappings with a specific retention policy name)_
   - **id:** a DBRP mapping ID _(to list a specific DBRP mapping)_
 
 ##### View all DBRP mappings
 
 ```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
-curl --request GET \
+curl --get \
   https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID"
@@ -492,21 +492,21 @@ curl --request GET \
 ##### Filter DBRP mappings by database
 
 ```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
-curl --request GET \
+curl --get \
   https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID" \
-  --data-urlencode  "db=DATABASE_NAME"
+  --data-urlencode "db=DATABASE_NAME"
 ```
 
 ##### Filter DBRP mappings by bucket ID
 
 ```sh { placeholders="(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" }
-curl --request GET \
+curl --get \
   https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID" \
-  --data-urlencode  "bucketID=BUCKET_ID"
+  --data-urlencode "bucketID=BUCKET_ID"
 ```
 
 {{% /tab-content %}}
@@ -673,7 +673,7 @@ Include the following:
   - {{< req "\*" >}} **orgID:** [organization ID](/influxdb3/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
 
 ```sh { placeholders="(DBRP|API|ORG)_(TOKEN|ID)" }
-curl --request DELETE \
+curl --get --request DELETE \
   https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID"
