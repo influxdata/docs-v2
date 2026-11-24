@@ -80,7 +80,7 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   - fields
     - bytes_received
     - bytes_sent
-    - current_thread_busy
+    - current_threads_busy
     - current_thread_count
     - error_count
     - max_threads
