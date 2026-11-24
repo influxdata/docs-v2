@@ -39,6 +39,8 @@ Nothing is trained, and your data stays on the server.
 
 ## Requirements
 
+- **InfluxDB 3 Core or Enterprise**: Explorer doesn't support forecasting on
+  other InfluxDB products.
 - **The Processing Engine**: the InfluxDB 3 server must be started with a
   plugin directory (`--plugin-dir`).
 - **Admin access**: an admin token, or a user with the **Admin** role.
@@ -79,10 +81,14 @@ asks.
 To change the model later, click the arrow next to **Forecast**, and then
 click **Change model…**.
 
-### Turn on forecasting on an air-gapped server
+### Turn on forecasting without access to the plugin library
 
 If the server can't reach the plugin library, Explorer shows the commands to
 run instead.
+These commands still need access to the Python packages and model weights.
+For a fully offline installation, make both available locally before you set
+up forecasting.
+
 Copy `chronos_forecasting.py` into the server's plugin directory, and then run
 commands like the following:
 
