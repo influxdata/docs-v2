@@ -44,8 +44,11 @@ For that query, partitioning on the tag provides no benefit.
 It can even be slower than not partitioning on the tag, because the query engine
 has more partitions to look up in the Catalog and more files to read.
 
-- For long time ranges, query one tag value at a time.
-  To retrieve many values, run a few of these queries in parallel.
+- For long time ranges, split the `IN` list into smaller queries and run only
+  a few of them in parallel.
+  With tag buckets, separate queries for values in the same bucket read the
+  same files again, so compare the total time against a single query before
+  you choose a batch size.
 - If your queries select a stable set of values--for example, all devices that
   belong to one customer--partition by a tag that identifies the set instead.
 - Values that come from a join or subquery instead of the query text don't let
