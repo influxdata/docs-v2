@@ -700,7 +700,8 @@ services:
 
 ### Turn off AI features {metadata="v1.12+"}
 
-To turn off all AI features, so Explorer sends nothing to any AI service, set
+To turn off Explorer's AI assistance and its requests to configured AI
+providers, set
 `DISABLE_EXPLORER_AI=true` or pass `--disable-explorer-ai`.
 
 {{< code-tabs-wrapper >}}
@@ -740,14 +741,16 @@ You can also set `"DISABLE_EXPLORER_AI": true` in
 [`config.json`](#pre-configure-influxdb-connections).
 Restart Explorer for the change to take effect.
 
-With AI turned off, Explorer hides **Ask AI**, **Flux to SQL**, and the AI
-settings, switches AI query tabs to SQL, and refuses AI requests.
-Saved AI keys and chat history are kept but not used.
-To turn AI back on, remove the setting and restart Explorer.
+With AI assistance turned off, Explorer hides **Ask AI**, **Flux to SQL**, and
+AI settings, switches AI query tabs to SQL, and refuses AI assistance requests.
+Explorer keeps saved AI keys and chat history but doesn't use them.
+This setting doesn't turn off [Chronos forecasting](/influxdb3/explorer/visualize-data/forecast/),
+which runs on your InfluxDB 3 server.
+To turn AI assistance back on, remove the setting and restart Explorer.
 
 > [!Note]
 > This setting applies only to the Docker container.
-> In InfluxDB 3 Enterprise 3.12.3 and earlier, you can't turn off AI in the
+> In InfluxDB 3 Enterprise 3.12.3 and earlier, you can't turn off AI assistance in the
 > integrated Explorer UI.
 
 ---
@@ -770,7 +773,7 @@ To turn AI back on, remove the setting and restart Explorer.
 | `EXPLORER_OAUTH_SECRET` | _(none)_ | Client secret for [single sign-on](#configure-single-sign-on) with a confidential client |
 | `EXPLORER_OAUTH_PROMPT` | `select_account` | `prompt` value for [single sign-on](#configure-single-sign-on) |
 | `EXPLORER_POST_LOGOUT_REDIRECT_URI` | _(derived)_ | Where the identity provider returns users after [sign-out](#configure-single-sign-on) |
-| `DISABLE_EXPLORER_AI` | `false` | Set to `true` to [turn off all AI features](#turn-off-ai-features) (v1.12+) |
+| `DISABLE_EXPLORER_AI` | `false` | Set to `true` to [turn off AI assistance](#turn-off-ai-features) (v1.12+) |
 
 > [!Important]
 > Always set `SESSION_SECRET_KEY` in production to persist user sessions across container restarts.
