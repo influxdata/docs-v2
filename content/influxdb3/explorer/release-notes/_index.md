@@ -52,7 +52,7 @@ Before you upgrade, see [Upgrade to v1.12](/influxdb3/explorer/install/upgrade/#
 - **Data Explorer layout**: A redesigned [Data Explorer](/influxdb3/explorer/data-explorer/) with a collapsible schema panel, side panels, and the chart and table side by side.
   Run only the statement under the cursor or the selected text.
 - **Role authoring**: On InfluxDB 3 Enterprise, [create and edit custom roles](/influxdb3/explorer/manage-users/manage-roles/) in **Security** > **Manage Roles**.
-- **Turn off AI features**: Turn off all AI features in a standalone installation with [`DISABLE_EXPLORER_AI`](/influxdb3/explorer/install/docker/#turn-off-ai-features).
+- **Turn off AI assistance**: In a standalone installation, set [`DISABLE_EXPLORER_AI`](/influxdb3/explorer/install/docker/#turn-off-ai-features) to turn off AI assistance without disabling Chronos forecasting.
 
 #### Improvements
 
@@ -87,7 +87,7 @@ Before you upgrade, see [Upgrade to v1.12](/influxdb3/explorer/install/upgrade/#
 - **Role authoring is off by default** in InfluxDB 3 Enterprise 3.12.x.
   Start the server with `--rbac-authoring-disabled=false` to turn it on.
 - **SSO sign-in needs Read users**: users whose roles don't grant **Read** on **Users** can't sign in with SSO.
-- **AI can't be turned off** in the integrated Explorer UI of Enterprise 3.12.3 and earlier.
+- **AI assistance can't be turned off** in the integrated Explorer UI of Enterprise 3.12.3 and earlier.
 - **Grafana and InfluxQL**: InfluxQL queries with subqueries, several statements, `INTO`, or comments don't follow Grafana's time picker.
 - **Dashboard rows**: Save a new row before you collapse it.
 
