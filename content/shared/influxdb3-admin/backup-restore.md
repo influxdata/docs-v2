@@ -124,13 +124,11 @@ write behavior, which acknowledges writes only after WAL persistence completes.
 For the full ingest and persistence path, see
 [InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
 
-In v3.12.3 and later, the compactor pauses file deletes while a backup runs,
-so it doesn't delete files that the backup still has to copy.
-If a backup stops without finishing, deletes resume after about 5 minutes.
-A backup that can't renew its hold in object storage for 4 minutes stops and
-fails with a `backup hold lapsed` error.
-The `influxdb3_compactor_backup_deletes_held` metric is `1` while deletes are
-paused.
+In v3.12.3 and later, the compactor postpones file deletion while a backup runs so those files remain available to copy.
+If a backup stops without releasing its hold, the hold expires 5 minutes after the compactor last detects a change to its record in object storage.
+If 4 minutes elapse from the start of the last successful renewal, the backup fails with a `backup hold lapsed` error.
+The `influxdb3_compactor_backup_deletes_held` metric is `1` while the compactor postpones deletion.
+The `influxdb3_compactor_backup_holds_unreadable` metric is `1` if the compactor can't read the hold records and postpones deletion until it can check them.
 
 ### Create an incremental backup
 

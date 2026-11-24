@@ -193,10 +193,11 @@ https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal
    ```
 
 {{% product-name %}} fetches the plugin at trigger creation time (to validate it), and again each time the trigger starts--for example, on server startup or when you re-enable a disabled trigger.
-Unlike local plugins, GitHub plugins aren't automatically reloaded when the source changes.
+InfluxDB uses the current copy of the remote plugin until you refresh it or restart the trigger.
 To fetch updates in v3.12.3 and later, pass the trigger's `gh:` path to [`influxdb3 update trigger --path`](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger).
 In earlier versions, disable and re-enable the trigger.
-Only single-file plugins are supported through the `gh:` prefix; multi-file plugin directories must be uploaded locally (see [Upload plugins from local machine](#upload-plugins-from-local-machine)).
+Use the `gh:` prefix for a single-file plugin.
+For a multi-file plugin, [upload the directory from your local machine](#upload-plugins-from-local-machine).
 
 ##### Option 3: Use a custom plugin repository
 
@@ -484,11 +485,9 @@ Modify plugin code for running triggers without recreating them. This allows you
 - [Update a plugin using the HTTP API](#update-a-plugin-using-the-http-api)
 
 > [!Important]
-> Uploading plugin code doesn't update triggers that reference plugins using the `gh:` prefix.
-> To fetch updated code for a `gh:` trigger in v3.12.3 and later, pass the trigger's `gh:` path to
-> [`influxdb3 update trigger --path`](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger),
-> or send `POST /api/v3/configure/processing_engine_trigger/refresh`.
-> In earlier versions, disable and re-enable the trigger with [`influxdb3 disable trigger`](/influxdb3/version/reference/cli/influxdb3/disable/trigger/) and [`influxdb3 enable trigger`](/influxdb3/version/reference/cli/influxdb3/enable/trigger/).
+> For a trigger that references a `gh:` path, publish the updated plugin to its repository.
+> In v3.12.3 and later, [refresh the plugin from its repository](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger) with the CLI or the HTTP API.
+> In earlier versions, use [`influxdb3 disable trigger`](/influxdb3/version/reference/cli/influxdb3/disable/trigger/) and [`influxdb3 enable trigger`](/influxdb3/version/reference/cli/influxdb3/enable/trigger/) to fetch the updated code.
 
 #### Update a plugin using the influxdb3 CLI
 

@@ -1,6 +1,12 @@
-The `influxdb3 update trigger` command updates an existing trigger in your {{< product-name >}} instance.
+Use `influxdb3 update trigger` to update an existing trigger's plugin code in {{< product-name >}}.
+The command loads new code for the existing trigger and preserves its configuration and history.
+To change whether the trigger runs, use [`influxdb3 enable trigger`](/influxdb3/version/reference/cli/influxdb3/enable/trigger/) or [`influxdb3 disable trigger`](/influxdb3/version/reference/cli/influxdb3/disable/trigger/).
 
-Use this command to update trigger plugin code, configuration, or behavior without recreating the trigger. This preserves trigger history and configuration while allowing you to iterate on plugin development.
+{{% show-in "enterprise" %}}
+
+To move a trigger to another process node, delete the trigger and [create it with the new `--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#pin-a-trigger-to-the-process-node).
+
+{{% /show-in %}}
 
 > [!Note]
 > In v3.12.3 and later, you can [fetch updated code for a `gh:` trigger](#update-a-gh-trigger)
@@ -56,7 +62,7 @@ The following examples show how to update triggers in different scenarios.
 
 - [Update trigger plugin code](#update-trigger-plugin-code)
 - [Upload and update with a local plugin](#upload-and-update-with-a-local-plugin)
-- [Update a gh: trigger](#update-a-gh-trigger)
+- [Refresh a plugin from its repository](#update-a-gh-trigger)
 
 ---
 
@@ -105,12 +111,20 @@ influxdb3 update trigger \
 
 The command transfers local files to the server's plugin directory.
 
-### Update a gh: trigger
+### Refresh a plugin from its repository {#update-a-gh-trigger}
 
-For a trigger that references a plugin with the `gh:` prefix, publish your changes at the configured plugin source, then pass the trigger's own `gh:` path to `--path`.
-The server fetches the plugin again, and the trigger runs the new code on its next run.
-If the server can't fetch the plugin, the command fails and the trigger keeps its current code.
-The path must match the trigger's plugin, and the command requires an admin token.
+In v3.12.3 and later, you can refresh a plugin that a trigger references with the `gh:` prefix.
+Publish the updated plugin at the configured source, then pass the same `gh:` path that you used to create the trigger to `--path`.
+Use an admin token.
+InfluxDB fetches the plugin and uses the new code the next time it runs the trigger.
+If InfluxDB can't fetch the plugin, the command fails and the current code remains in use.
+
+{{% show-in "enterprise" %}}
+
+In a cluster, send the CLI or HTTP refresh request to a node that runs the Processing Engine.
+For the CLI, set `--host` to that node's URL.
+
+{{% /show-in %}}
 
 <!--pytest.mark.skip-->
 
@@ -122,8 +136,9 @@ influxdb3 update trigger \
   --token AUTH_TOKEN
 ```
 
-The HTTP API equivalent is `POST /api/v3/configure/processing_engine_trigger/refresh`
-with the `db`, `trigger_name`, and `plugin_filename` query parameters.
+To refresh the plugin over HTTP, send `POST /api/v3/configure/processing_engine_trigger/refresh` with your admin token.
+Set the `db` and `trigger_name` query parameters to the database and trigger names.
+Set `plugin_filename` to the existing `gh:` path.
 
 Before v3.12.3, `influxdb3 update trigger` didn't accept `gh:` paths.
 Disable and re-enable the trigger to fetch the updated code:

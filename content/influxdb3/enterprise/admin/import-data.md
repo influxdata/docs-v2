@@ -45,14 +45,10 @@ Bulk import reads your generic Parquet files, maps their columns to
 {{% product-name %}} types, and writes the resulting rows into an existing table.
 Each file becomes a separate import job.
 
-{{% product-name %}} stores the imported data in your object storage and compacts
-it automatically.
-Rows become queryable after the compactor processes them, not immediately after
-the upload completes.
-
-> [!Note]
-> Because imported data is queryable only after compaction, expect a delay before
-> imported rows appear in query results after an import command returns.
+{{% product-name %}} stores imported rows in object storage and compacts them automatically.
+An upload can finish before any rows appear in query results.
+Some rows can appear before compaction finishes.
+After the file's status becomes `compacted`, a query-only node can take additional time to load the compaction checkpoint.
 
 ## Permissions
 
@@ -110,8 +106,7 @@ You can pass either of the following as the import source:
 Use the `influxdb3 import from-object-store` command to import every Parquet
 file found recursively under a prefix directly on the server, without
 streaming file bytes through the `influxdb3` client.
-In v3.12.3 and later, the source can also name a single `.parquet` file,
-which {{% product-name %}} imports as one job.
+In v3.12.3 and later, specify a single `.parquet` file to import it as one job.
 For the complete command syntax and flags, see the
 [`influxdb3 import from-object-store`](/influxdb3/enterprise/reference/cli/influxdb3/import/from-object-store/)
 CLI reference.
@@ -176,25 +171,21 @@ For details, see the
 [`influxdb3 import list`](/influxdb3/enterprise/reference/cli/influxdb3/import/list/)
 CLI reference.
 
-In v3.12.3 and later, import statuses include a `pipeline_status` that shows
-whether imports are paused.
-Files from one `influxdb3 import from-object-store` request share an
-`operation_id`.
+In v3.12.3 and later, `pipeline_status` reports whether the import pipeline is `running`, `pausing`, `paused`, or `stopping`.
+Files from the same `influxdb3 import from-object-store` request share an `operation_id`.
 
 ### Review the status of each file
 
-In v3.12.3 and later, the `system.import_files` table in the `_internal`
-database and the `GET /api/v3/enterprise/import/files` endpoint report each
-imported file's state, number of attempts, row counts, and skip reason.
-They keep a file's status for 7 days after the file leaves `system.imports`.
+In v3.12.3 and later, the `system.import_files` table in the `_internal` database and `GET /api/v3/enterprise/import/files` report each file's state, attempt count, row counts, and reason for skipping the file, if applicable.
+InfluxDB retains a file's status for 7 days after its job leaves `system.imports`.
 
 The endpoint accepts the `upload_id`, `operation_id`, `database`, `table`,
 `state`, `limit`, and `after` query parameters.
-`upload_id` and `after` must be upload IDs (UUIDs), and `table` requires
-`database`.
-`state` is one of `pending`, `imported`, `compacted`, or `failed`.
-`limit` defaults to `100` and accepts up to `1000`; pass the response's
-`next_after` value as `after` to get the next page.
+Set `upload_id` and `after` to upload IDs in universally unique identifier (UUID) format.
+If you specify `table`, also specify `database`.
+Set `state` to `pending`, `imported`, `compacted`, or `failed`.
+The default `limit` is `100`. Set it to a value from `1` to `1000`.
+To get the next page, set `after` to the response's `next_after` value.
 
 <!--pytest.mark.skip-->
 
@@ -212,19 +203,18 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the database to list files for
 
-An admin token sees every file.
-Other tokens see files only for the databases that the token can describe,
-and a token that can describe no database gets `403 Forbidden`.
+With an admin token, the endpoint returns file status records across all databases.
+With a scoped token, the endpoint returns records for databases covered by its `describe` permission.
+If the token lacks `describe` permission on every database, the endpoint returns `403 Forbidden`.
 
 ## Pause, resume, or stop imports
 
-In v3.12.3 and later, you can hold or cancel bulk imports across the cluster
-with the following endpoints.
-Each requires an admin token and takes no request body.
+In v3.12.3 and later, use the following endpoints to control bulk imports across the cluster.
+Use an admin token and send each request with an empty body.
 
 | Endpoint                                | Effect                                                    |
 | :-------------------------------------- | :-------------------------------------------------------- |
-| `POST /api/v3/enterprise/import/pause`  | Holds imports (`pausing`, then `paused`)                  |
+| `POST /api/v3/enterprise/import/pause`  | Pauses imports (`pausing`, then `paused`)                 |
 | `POST /api/v3/enterprise/import/resume` | Resumes paused imports (`running`)                        |
 | `POST /api/v3/enterprise/import/stop`   | Discards imports that aren't compacted yet (`stopping`)   |
 | `GET /api/v3/enterprise/import/status`  | Returns the current state                                 |
@@ -239,21 +229,17 @@ curl --request POST "http://localhost:8181/api/v3/enterprise/import/pause" \
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}
 with your {{% token-link "admin" %}}.
 
-A pause is `pausing` until running import work finishes, then `paused`.
-{{% product-name %}} still accepts uploads while imports are paused.
+When you pause imports, the pipeline reports `pausing` until active import work finishes, then reports `paused`.
+{{% product-name %}} continues to accept uploads while imports are paused.
+Pausing also pauses imports from a running storage engine upgrade.
 
-A stop discards every uploaded or object-store import that isn't compacted
-yet, then leaves imports `paused`.
-The state is `stopping` until the discard finishes.
-You can't cancel a stop: pause and resume requests have no effect while the
-state is `stopping`.
-A stop doesn't discard a storage engine upgrade, but the upgrade stays paused
-until you resume imports.
+When you stop imports, {{% product-name %}} discards each upload or object-store import that hasn't been compacted.
+The pipeline reports `stopping` during this operation and `paused` after it finishes.
+While the pipeline reports `stopping`, pause and resume requests have no effect, and new import requests return `409 Conflict`.
+A storage engine upgrade retains its progress and stays paused until you resume imports.
 
-A pause also holds the imports of a storage engine upgrade.
-After a stop, discarded files report the `stopped` skip reason; upload them
-again to import them, and resume imports.
-While a stop is in progress, new import requests return `409 Conflict`.
+After the stop finishes, look for discarded files with a skip reason of `stopped`.
+To import them, submit them again and resume imports.
 
 ## Map columns to InfluxDB types
 

@@ -35,7 +35,7 @@ influxdb3 import from-object-store [OPTIONS] <SOURCE>
 
 | Argument   | Description |
 | :--------- | :----------- |
-| `<SOURCE>` | Where to read the Parquet files from: a prefix in {{< product-name >}}'s own object store (for example, `some/prefix`), or an `s3://bucket/prefix` URL. Every other URL scheme is rejected with an HTTP 400 error. Every `.parquet` file found recursively under the prefix is imported as its own job. In v3.12.3 and later, the source can also name a single `.parquet` file. |
+| `<SOURCE>` | An object key prefix in the server's configured object store, such as `some/prefix`, or an S3 URL such as `s3://bucket/prefix`. InfluxDB creates a separate job for each `.parquet` file under the prefix, including files under nested prefixes. In v3.12.3 and later, you can specify the object key or S3 URL of a single `.parquet` file. If you use a URL scheme other than `s3://`, InfluxDB returns `400 Bad Request`. |
 
 ## Options
 

@@ -2,7 +2,7 @@
 title: influxdb3 uninstall package
 description: >
   The `influxdb3 uninstall package` command removes Python packages from the
-  InfluxDB 3 Enterprise processing engine environment.
+  InfluxDB 3 Enterprise Processing Engine environment.
 influxdb3/enterprise/tags: [cli, processing engine, plugins]
 menu:
   influxdb3_enterprise:
@@ -19,9 +19,9 @@ The `influxdb3 uninstall package` command removes Python packages from the
 node that receives the request.
 This command is available in v3.12.3 and later.
 
-- The command uses only the package name, so it ignores a version specifier.
-- The command skips a package that isn't installed.
-- The dependencies of an uninstalled package stay installed.
+- If you include a version specifier, the command removes the installed package by name.
+- If a package is already absent, the command skips it.
+- Uninstalling a package leaves its dependencies installed.
 - If the request names `pip`, `setuptools`, or `wheel`, the server returns
   `403 Forbidden` and uninstalls nothing.
 - If the request names a URL or a path, the server returns `400 Bad Request`.
@@ -42,8 +42,7 @@ influxdb3 uninstall package [OPTIONS] <PACKAGES>...
 
 ## Arguments
 
-- **`<PACKAGES>...`**: _({{< req >}})_ One or more package names to uninstall
-  (space-separated)
+- **`<PACKAGES>...`** _({{< req >}})_ One or more package names separated by spaces.
 
 ## Options
 
@@ -75,7 +74,7 @@ influxdb3 uninstall package \
 ### Uninstall packages with the HTTP API
 
 Send a `POST` request to `/api/v3/configure/plugin_environment/uninstall_packages`
-with the package names in a JSON body:
+with the package names in a JSON body.
 
 <!--pytest.mark.skip-->
 

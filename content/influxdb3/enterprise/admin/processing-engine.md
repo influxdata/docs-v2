@@ -289,6 +289,11 @@ A new process node starts reading each ingest node's WAL from the current positi
 It doesn't process earlier writes.
 If your WAL plugins must process every write, pause writes during the migration and verify the new process node before resuming writes.
 
+If you use a [package allowlist](/influxdb3/enterprise/reference/config-options/#plugin-package-allowlist) in v3.12.3 or later, copy the cluster's requirements file to the new process node before starting it.
+The file must allow the plugin packages and their dependencies.
+The Processing Engine virtual environment needs pip 26.1 or later to start with an allowlist.
+When you start the new node, set `--plugin-package-allowlist` to the path to that file.
+
 1. Record each trigger's name, database, plugin path, trigger specification, arguments, and error behavior.
    Also record whether each trigger is disabled and whether it runs asynchronously.
    `system.processing_engine_triggers` shows the `disabled` state, but not the asynchronous setting.

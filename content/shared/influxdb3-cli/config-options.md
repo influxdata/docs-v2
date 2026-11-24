@@ -2278,10 +2278,9 @@ order:
    Query nodes reserve memory for three budgets:
 
    - [`--exec-mem-pool-size`](#exec-mem-pool-size) (default `20%`)
-   - `--file-cache-size` (default `30%` to `60%`, depending on the node's
-     memory)
+   - `--file-cache-size` (default `30%` to `60%` of detected memory in v3.12.3 and later, or `20%` before v3.12.3)
    - [`--replica-max-buffer-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#replica-buffer-size)
-     (default 50%)
+     (default 50% of available memory, capped at 16 GiB)
 
    When you increase `--file-cache-size`, lower `--exec-mem-pool-size` or
    `--replica-max-buffer-size` by the same amount to keep the total
@@ -2299,9 +2298,9 @@ order:
 **Default:**
 
 - Parquet engine: `20%`
-- Upgraded storage engine (v3.12.3+): depends on the node's memory
+- Upgraded storage engine in v3.12.3 and later, by detected memory
 
-  | Node memory                  | Default |
+  | Detected memory              | Default |
   | :--------------------------- | :------ |
   | Less than 128 GiB            | `30%`   |
   | 128 GiB to less than 384 GiB | `40%`   |
@@ -2791,59 +2790,44 @@ Blocks plugin installation from any other source.
 
 #### plugin-package-allowlist {#plugin-package-allowlist metadata="v3.12.3+"}
 
-Specifies a pip requirements file that limits which Python packages
-[`influxdb3 install package`](/influxdb3/enterprise/reference/cli/influxdb3/install/package/)
-and the package install APIs can add to the Processing Engine virtual environment.
-The server checks each install request against the file, including the
-dependencies that the request brings in.
-A node without this option doesn't check installs.
+Use this option to restrict which Python packages [`influxdb3 install package`](/influxdb3/enterprise/reference/cli/influxdb3/install/package/) and the package install APIs can add to the Processing Engine virtual environment.
+Set the option to the path of a pip requirements file.
+InfluxDB checks the requested packages and their dependencies against that file.
+If you omit this option, InfluxDB applies no package allowlist.
 
-The file must name where packages come from: `--index-url`, or `--no-index`
-with `--find-links`.
-Each entry names a package from that source.
-Other content, such as `-r`, `-c`, `-e`, or an entry that is a URL or a path,
-stops the node at startup.
+Specify the package source with `--index-url` or with `--no-index` and `--find-links`.
+Each requirement names a package from that source.
+InfluxDB fails to start if the file contains an unsupported directive such as `-r`, `-c`, or `-e`, or if a requirement is a URL or a path.
 
-- In _version-range mode_, each entry names a package with an optional
-  version range, and a bare name allows any version.
-- In _hash mode_, which applies when any entry has a `--hash` option or the
-  file sets `--require-hashes`, every entry is `name==version` with at least
-  one hash, and the file lists every package an install can bring in,
-  including dependencies.
+- In _version-range mode_, list each package by name and add a version range to restrict which versions an install can add.
+  A package name on its own allows any version.
+- In _hash mode_, list every package and dependency as `name==version` with at least one hash.
+  InfluxDB uses hash mode if any entry includes `--hash` or if the file includes `--require-hashes`.
 
 ```text
 --index-url https://pypi.org/simple
 --only-binary :all:
-numpy>=1.26,<3
-pandas==2.2.*
-requests
+six>=1.16,<2
+tablib
 ```
 
-Every node that runs the Processing Engine reads its own copy of the file once
-at startup.
-Give every such node the same file, and restart the nodes after you change it.
-The node doesn't start if the file can't be read or parsed, if pip in the
-virtual environment doesn't run or is older than 26.1, or if you also set
-`--disable-package-management` or `--package-manager disabled`.
+Each node that runs the Processing Engine reads its copy of the file once at startup.
+Use the same file on every such node and restart the nodes after changing it.
+InfluxDB fails to start if it can't read or parse the file, if pip in the virtual environment can't run or is earlier than 26.1, or if you disable package management with `--disable-package-management` or `--package-manager disabled`.
 
-With an allowlist, the server responds to install requests as follows:
+With an allowlist, install requests can return the following responses.
 
-- `400 Bad Request`: The request names a URL, a path, or a pip option.
-- `403 Forbidden`: The request names a package or version that the file
-  doesn't list.
-  In hash mode, a request that would install a dependency that the file
-  doesn't list also returns `403`.
-- `409 Conflict`: The install would replace an installed package.
-- `500 Internal Server Error`: pip can't resolve the request within the file,
-  for example a version range outside the file, or in version-range mode a
-  dependency that doesn't resolve inside the file.
-  The response includes pip's message.
+- `400 Bad Request` if the request specifies a URL, a path, or a pip option.
+- `403 Forbidden` if the allowlist rejects a requested package, version, or dependency, or a package hash doesn't match in hash mode.
+- `409 Conflict` if the install would replace an installed package.
+- `500 Internal Server Error` if pip fails to resolve the install, for example because it can't satisfy a version range within the allowlist constraints.
+  The response includes pip's error message.
 
 To change an installed package, uninstall it with
 [`influxdb3 uninstall package`](/influxdb3/enterprise/reference/cli/influxdb3/uninstall/package/)
 and then install it again.
-The allowlist doesn't affect packages that are already installed or limit
-uninstalls.
+The allowlist applies when you install packages.
+Packages that are already installed remain available for use and removal.
 
 | influxdb3 serve option       | Environment variable                 |
 | :--------------------------- | :----------------------------------- |

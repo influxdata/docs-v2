@@ -3,10 +3,8 @@ Use this command to add external dependencies that your plugins require, such as
 
 {{% show-in "enterprise" %}}
 
-In v3.12.3 and later, you can limit which packages this command installs with
-[`--plugin-package-allowlist`](/influxdb3/enterprise/reference/config-options/#plugin-package-allowlist),
-and remove packages with
-[`influxdb3 uninstall package`](/influxdb3/enterprise/reference/cli/influxdb3/uninstall/package/).
+In v3.12.3 and later, set [`--plugin-package-allowlist`](/influxdb3/enterprise/reference/config-options/#plugin-package-allowlist) when you start a node to restrict which packages the command can install.
+Starting with the same version, use [`influxdb3 uninstall package`](/influxdb3/enterprise/reference/cli/influxdb3/uninstall/package/) to remove packages from a node.
 
 {{% /show-in %}}
 

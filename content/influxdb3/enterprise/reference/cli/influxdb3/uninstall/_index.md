@@ -2,7 +2,7 @@
 title: influxdb3 uninstall
 description: >
   The `influxdb3 uninstall` command and its subcommands remove Python packages
-  from the InfluxDB 3 Enterprise processing engine environment.
+  from the InfluxDB 3 Enterprise Processing Engine environment.
 menu:
   influxdb3_enterprise:
     parent: influxdb3
