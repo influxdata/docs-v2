@@ -125,6 +125,8 @@ More partitions hold less data each and increase the work for the Ingester,
 Catalog, and Compactor.
 Use the fewest buckets that meet your query performance requirements and
 [check partition sizes](/influxdb/version/admin/custom-partitions/best-practices/#check-partition-sizes).
+Queries that filter on many values of a bucketed tag read many buckets.
+See [Filter on few values of a partitioned tag](/influxdb/version/admin/custom-partitions/best-practices/#filter-on-few-values-of-a-partitioned-tag).
 
 > [!Note]
 > Use tag buckets to partition on high-cardinality tags or tags with an unknown
