@@ -47,7 +47,7 @@ Before you upgrade, see [Upgrade to v1.12](/influxdb3/explorer/install/upgrade/#
 - **Dashboard editing**: [Edit mode](/influxdb3/explorer/dashboards/#edit-the-layout) with **Save** and **Cancel**, [adding a cell](/influxdb3/explorer/dashboards/#add-a-cell) from the Data Explorer, full screen, and **Print…**.
 - **Dashboard organization**: [Rows](/influxdb3/explorer/dashboards/organize/), [Compare](/influxdb3/explorer/dashboards/time-and-refresh/#compare-to-the-previous-period) with the previous period, day, or week, a cell's own time range, a shared crosshair, and annotations.
 - **Version history and Recently deleted**: [Restore](/influxdb3/explorer/dashboards/versions/) earlier versions of a dashboard, and deleted dashboards for 30 days.
-- **Grafana import and export**: [Every chart type and its options](/influxdb3/explorer/dashboards/grafana/) carry over.
+- **Grafana import and export**: [Supported chart types and options](/influxdb3/explorer/dashboards/grafana/#what-carries-over) carry over.
   Export with **Share with another instance** to choose databases when you import.
 - **Data Explorer layout**: A redesigned [Data Explorer](/influxdb3/explorer/data-explorer/) with a collapsible schema panel, side panels, and the chart and table side by side.
   Run only the statement under the cursor or the selected text.
