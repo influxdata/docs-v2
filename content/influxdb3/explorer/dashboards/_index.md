@@ -8,6 +8,7 @@ menu:
   influxdb3_explorer:
     name: Dashboards
 weight: 6
+metadata: [Explorer v1.12+]
 related:
   - /influxdb3/explorer/visualize-data/
   - /influxdb3/explorer/data-explorer/

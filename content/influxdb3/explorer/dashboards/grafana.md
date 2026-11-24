@@ -10,6 +10,7 @@ menu:
     name: Import and export
     parent: Dashboards
 weight: 104
+metadata: [Explorer v1.12+]
 related:
   - /influxdb3/explorer/dashboards/
   - /influxdb3/enterprise/visualize-data/grafana/, Use Grafana to visualize data
