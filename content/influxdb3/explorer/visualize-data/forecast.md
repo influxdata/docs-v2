@@ -13,6 +13,7 @@ weight: 103
 metadata: [Explorer v1.12+]
 related:
   - /influxdb3/explorer/visualize-data/chart-options/
+  - /influxdb3/explorer/dashboards/
   - /influxdb3/explorer/manage-plugins/plugin-library/
   - /influxdb3/enterprise/plugins/library/official/chronos-forecasting/, Chronos forecasting plugin
 ---
@@ -155,7 +156,7 @@ On a dashboard, a forecast runs on a schedule on the server and stores its
 results in the database.
 Refreshing the dashboard reads the stored forecast and never runs the model.
 
-1.  Add the chart to a dashboard,
+1.  [Add the chart to a dashboard](/influxdb3/explorer/dashboards/#add-a-cell),
     or open **Visualization…** on an existing Line or Area cell.
 2.  In the **Forecast** section, turn on **Forecast these series**.
 3.  Choose how often it **Updates every**, and save the cell.
