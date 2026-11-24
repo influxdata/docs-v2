@@ -89,10 +89,22 @@ Role authoring is disabled on this server. Start it with --rbac-authoring-disabl
     created later.
     To set permissions for a specific database, click **Add database**.
 
+    {{< img-hd src="/img/influxdb3/explorer-custom-role.png" alt="Role page for pipeline-ops showing its description and a grid of administrative and instance permissions, with Read on Roles and Read and Create on Resource tokens granted." />}}
+
 3.  Click **Save changes**.
 4.  Review the changes, and then click **Save Changes**.
 
 If you hold the role that you edit, the changes also apply to your own access.
+
+> [!Important]
+> #### SSO users need Read users
+>
+> Users who sign in with SSO need at least one role that grants **Read** on
+> **Users** (under **Instance Permissions**); otherwise they can't sign in.
+> Password sign-in isn't affected.
+> Explorer warns you when a role you edit lacks it.
+> See
+> [The server can't look up your account](/influxdb3/explorer/authentication/troubleshoot/#the-server-cant-look-up-your-account).
 
 ## Assign a role to users
 

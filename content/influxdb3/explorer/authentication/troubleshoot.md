@@ -41,6 +41,9 @@ Most symptoms appear as messages on the **Sign in** page.
 - **`Could not sign you in with your identity provider`**: the server doesn't
   accept your identity.
   See [Identity provider sign-in fails](#identity-provider-sign-in-fails).
+- **`your roles do not grant Read users`**: you signed in with SSO, but none
+  of your roles lets Explorer look up your account.
+  See [The server can't look up your account](#the-server-cant-look-up-your-account).
 - **`This server signs people in through an identity provider, but this
   application is not configured for it`**: Explorer can't start SSO.
   See [Sign in with SSO isn't available](#sign-in-with-sso-isnt-available).
@@ -162,6 +165,7 @@ The cause is one of the following:
 - [The server doesn't have a user for your identity](#the-server-doesnt-have-a-user-for-your-identity)
 - [The Explorer Docker container is missing an SSO setting](#the-explorer-docker-container-is-missing-an-sso-setting)
 - [The server doesn't accept tokens from your identity provider](#the-server-doesnt-accept-tokens-from-your-identity-provider)
+- [The server can't look up your account](#the-server-cant-look-up-your-account)
 
 ### The server doesn't have a user for your identity
 
@@ -203,6 +207,21 @@ Ask an administrator to check the identity provider settings of the server.
 See
 [Authenticate with OAuth/OIDC](/influxdb3/enterprise/admin/security/manage-users/#optional-authenticate-with-oauthoidc)
 in the InfluxDB 3 Enterprise documentation.
+
+### The server can't look up your account {#the-server-cant-look-up-your-account metadata="v1.12+"}
+
+Explorer displays the following message:
+
+```text
+You signed in with the identity provider, but your roles do not grant Read users, which Explorer needs to find your account. Ask an administrator to add Read users to one of your roles in Manage Roles.
+```
+
+None of your roles grants **Read** on **Users**, which Explorer needs to find
+your account when you sign in with SSO.
+Password sign-in still works.
+Ask an administrator to grant **Read** on **Users** (under
+**Instance Permissions**) in one of your roles.
+See [Manage roles](/influxdb3/explorer/manage-users/manage-roles/).
 
 ## Sign in with SSO isn't available
 
