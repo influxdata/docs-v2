@@ -24,7 +24,7 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     cy.get('h1').should('contain.text', 'Which InfluxDB 3 should I use');
   });
 
-  it('renders all 7 FAQ questions as H3s under the H2 section with stable anchors', function () {
+  it('renders all 8 FAQ questions as H3s under the H2 section with stable anchors', function () {
     const questions = [
       {
         text: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?",

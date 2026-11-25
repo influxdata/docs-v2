@@ -18,6 +18,11 @@ const FAQ_QUESTIONS = [
     anchor: 'i-run-influxdb-1-today--should-i-migrate-to-influxdb-3',
   },
   {
+    text: "What's the difference between InfluxDB 3 Cloud and InfluxDB Cloud Serverless?",
+    anchor:
+      'whats-the-difference-between-influxdb-3-cloud-and-influxdb-cloud-serverless',
+  },
+  {
     text: 'Is InfluxDB Cloud Serverless the same as InfluxDB 3 Enterprise?',
     anchor: 'is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise',
   },
@@ -139,9 +144,10 @@ test.describe('Which InfluxDB 3 decision page (canonical)', () => {
     ).toBeVisible();
     for (const row of [
       'New production deployment',
+      'Fully managed InfluxDB 3 Enterprise, single-tenant',
       'Free, open source, single-node',
       'Multi-tenant, self-service cloud for smaller workloads',
-      'Managed single-tenant cloud',
+      'Existing InfluxDB Cloud Dedicated deployments',
       'Kubernetes',
       'InfluxQL-native workloads, Kapacitor alerting, or an established 1.x cluster',
       'Running InfluxDB 1 today',
