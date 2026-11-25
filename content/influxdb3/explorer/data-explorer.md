@@ -7,7 +7,7 @@ description: >
   arrange the editor, result, and side panels.
 menu:
   influxdb3_explorer:
-    name: Data Explorer
+    name: Query data
 weight: 4
 metadata: [Explorer v1.12+]
 related:

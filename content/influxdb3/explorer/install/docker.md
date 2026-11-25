@@ -6,6 +6,7 @@ description: >
 menu:
   influxdb3_explorer:
     name: Docker
+    parent: Install Explorer
 weight: 1
 metadata: [InfluxDB 3 Core and Enterprise]
 ---
