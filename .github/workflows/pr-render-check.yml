@@ -146,6 +146,8 @@ jobs:
   playwright-render:
     name: Playwright render-regression spec (trial)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     # Runs beside cypress-render during the Playwright trial so both
     # frameworks check the same pages on the same PRs.
     if: |
