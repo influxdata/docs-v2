@@ -10,6 +10,12 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.11.8 {date="2026-11-25"}
+
+### Bug Fixes
+
+- Use `PUBLIC_URL` as a preliminary check for same-origin authentication.
+
 ## v1.11.7 {date="2026-11-04"}
 
 ### Maintenance updates
