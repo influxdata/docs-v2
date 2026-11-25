@@ -27,6 +27,70 @@ docker pull influxdata/influxdb3-ui
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## v1.12.0 {date="2026-11-17"}
+
+Explorer v1.12.0 is available as a standalone Docker image and is included in
+InfluxDB 3 Enterprise 3.12.3 (2026-11-20).
+Before you upgrade, see [Upgrade to v1.12](/influxdb3/explorer/install/upgrade/#upgrade-to-v112).
+
+#### Features
+
+- **Forecasting**: [Forecast](/influxdb3/explorer/visualize-data/forecast/) Line and Area charts with the Chronos plugin, which Explorer installs for you.
+  Forecasts show 50% and 80% ranges, flag series with **Low confidence**, and say when a series could reach a threshold.
+  Dashboard forecasts run on a schedule on the server.
+- **New chart types**: [Histogram, Heatmap, Candlestick, and State timeline](/influxdb3/explorer/visualize-data/).
+  Preview any chart type on your result before you choose it.
+- **Chart options**: [Customize charts](/influxdb3/explorer/visualize-data/chart-options/) with units, thresholds, axes, a second y axis, per-series overrides, colors, and legend values.
+  Drag across a chart to zoom, download it as PNG, and copy options between cells.
+- **Dashboard time and refresh**: One [time control](/influxdb3/explorer/dashboards/time-and-refresh/) for dashboards and the Data Explorer, with typed ranges such as `now-15m`.
+  A dashboard's link keeps its range, and auto-refresh scales with the range, pauses in hidden tabs, and queries only the cells on screen.
+- **Dashboard editing**: [Edit mode](/influxdb3/explorer/dashboards/#edit-the-layout) with **Save** and **Cancel**, [adding a cell](/influxdb3/explorer/dashboards/#add-a-cell) from the Data Explorer, full screen, and **Print…**.
+- **Dashboard organization**: [Rows](/influxdb3/explorer/dashboards/organize/), [Compare](/influxdb3/explorer/dashboards/time-and-refresh/#compare-to-the-previous-period) with the previous period, day, or week, a cell's own time range, a shared crosshair, and annotations.
+- **Version history and Recently deleted**: [Restore](/influxdb3/explorer/dashboards/versions/) earlier versions of a dashboard, and deleted dashboards for 30 days.
+- **Grafana import and export**: [Every chart type and its options](/influxdb3/explorer/dashboards/grafana/) carry over.
+  Export with **Share with another instance** to choose databases when you import.
+- **Data Explorer layout**: A redesigned [Data Explorer](/influxdb3/explorer/data-explorer/) with a collapsible schema panel, side panels, and the chart and table side by side.
+  Run only the statement under the cursor or the selected text.
+- **Role authoring**: On InfluxDB 3 Enterprise, [create and edit custom roles](/influxdb3/explorer/manage-users/manage-roles/) in **Security** > **Manage Roles**.
+- **Turn off AI features**: Turn off all AI features in a standalone installation with [`DISABLE_EXPLORER_AI`](/influxdb3/explorer/install/docker/#turn-off-ai-features).
+
+#### Improvements
+
+- **Charts**: Downsampling follows the time range and keeps peaks.
+  Lines are straight by default, and Bar and Area charts start at zero.
+- **Export**: **Export** runs the query again and returns current data.
+- **Sign-in**: When SSO sign-in fails because no role grants **Read users**, Explorer says so, and the role editor warns about it.
+
+#### Bug fixes
+
+- **Integrated Explorer UI**: Charts and sign-in no longer fail when Explorer's 16 MiB database fills up with stored chart results.
+  Query results too large for the integrated UI return an error that says so instead of a generic one.
+- **Grafana**: InfluxQL cells exported to Grafana follow Grafana's time picker, and saving Grafana settings works with Grafana 10.4 service account tokens.
+- **Query results**: Multi-line values, such as `EXPLAIN ANALYZE` plans, keep their line breaks.
+- **Security**: Update dependency versions.
+
+#### Upgrade notes
+
+- **Stored chart results are cleared** each time Explorer v1.12 starts.
+  Queries, history, and dashboards are kept.
+- **Integrated Explorer UI**: Enterprise 3.12.0–3.12.2 include Explorer v1.11.0, so upgrading to 3.12.3 also applies the v1.11.1 and v1.11.2 changes.
+- **Grafana files** exported from v1.12 lose their cell databases when imported into earlier Explorer versions.
+- **Rolling back** to v1.11 is possible: new chart types show as Line charts and v1.12-only settings are hidden until you upgrade again.
+  Run a chart again before exporting it.
+  See [Roll back to v1.11](/influxdb3/explorer/install/upgrade/#roll-back-to-v111).
+
+#### Known issues
+
+- **Turning on forecasting** installs about 1 GB of packages, and InfluxDB might not respond until it finishes.
+- **Forecasting needs admin access**: an admin token or the **Admin** role.
+  Each chart forecasts its first five series.
+- **Role authoring is off by default** in InfluxDB 3 Enterprise 3.12.x.
+  Start the server with `--rbac-authoring-disabled=false` to turn it on.
+- **SSO sign-in needs Read users**: users whose roles don't grant **Read** on **Users** can't sign in with SSO.
+- **AI can't be turned off** in the integrated Explorer UI of Enterprise 3.12.3 and earlier.
+- **Grafana and InfluxQL**: InfluxQL queries with subqueries, several statements, `INTO`, or comments don't follow Grafana's time picker.
+- **Dashboard rows**: Save a new row before you collapse it.
+
 ## v1.11.2 {date="2026-10-27"}
 
 #### Features

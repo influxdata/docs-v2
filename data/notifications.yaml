@@ -63,24 +63,24 @@
     [Release notes](/influxdb/v2/reference/release-notes/influxdb/#v2101) |
     [Token hashing](/influxdb/v2/admin/tokens/#token-hashing)
 
-- id: explorer-1-11-key-enhancements
+- id: explorer-1-12-key-enhancements
   level: note
   scope:
     - /
     - /influxdb3/explorer/
     - /influxdb3/core/
     - /influxdb3/enterprise/
-  title: Explorer 1.11 is now available
+  title: Explorer 1.12 is now available
   slug: |
-    Six new visualization types, plus password and SSO sign-in and user
-    management for InfluxDB 3 Enterprise.
+    Forecasting, four new chart types, chart options, and a redesigned
+    dashboard experience.
   message: |
-    - **Password and SSO sign-in** with role-based access.
-    - **Manage Users** page under a new **Security** section.
-    - **New visualizations**: Area, Single Stat, Gauge, Pie, Scatter, and Ranking.
-    - **`EXPLAIN` and `EXPLAIN ANALYZE`** in the SQL editor.
+    - **Forecasting** for Line and Area charts with the Chronos plugin.
+    - **New charts**: Histogram, Heatmap, Candlestick, and State timeline.
+    - **Dashboards**: one time control, auto-refresh, rows, versions, and annotations.
+    - **Role authoring** for InfluxDB 3 Enterprise.
 
-    [Explorer 1.11 release notes](/influxdb3/explorer/release-notes/#v1110)
+    [Explorer 1.12 release notes](/influxdb3/explorer/release-notes/#v1120)
 
 - id: influxdb3-12-core-release
   level: note
