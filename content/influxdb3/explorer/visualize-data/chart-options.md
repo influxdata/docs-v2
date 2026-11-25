@@ -14,6 +14,7 @@ metadata: [Explorer v1.12+]
 related:
   - /influxdb3/explorer/visualize-data/
   - /influxdb3/explorer/visualize-data/forecast/
+  - /influxdb3/explorer/dashboards/
 ---
 
 Chart options control how {{% product-name %}} draws a chart: units,
@@ -72,7 +73,7 @@ Choose a **Unit**--for example, **Percent (0–100)**, **Bytes (IEC)**, or
 **Celsius**--or a **Custom prefix…** or **Custom suffix…**, and the number of
 **Decimals**.
 Units apply to axes, tooltips, legends, and single values, and carry over to
-Grafana.
+[Grafana](/influxdb3/explorer/dashboards/grafana/).
 
 ## Thresholds
 

@@ -13,6 +13,7 @@ metadata: [Explorer v1.12+]
 related:
   - /influxdb3/explorer/get-started/#query-data-from-influxdb, Get started: Query data
   - /influxdb3/explorer/visualize-data/
+  - /influxdb3/explorer/dashboards/
 ---
 
 Use the **Data Explorer** to write and run queries, browse your schema, and see
@@ -39,6 +40,8 @@ Navigate to **Query Data** > **Data Explorer**.
 
 With several statements in the editor, **Run** runs the one under the cursor.
 Select text to run only that (**Run selection**).
+The time control works the same as on dashboards; see
+[Set the time range](/influxdb3/explorer/dashboards/time-and-refresh/#set-the-time-range).
 
 ## Use the schema panel
 

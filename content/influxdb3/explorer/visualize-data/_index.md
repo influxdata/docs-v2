@@ -11,11 +11,12 @@ menu:
 weight: 5
 related:
   - /influxdb3/explorer/data-explorer/
+  - /influxdb3/explorer/dashboards/
 ---
 
 {{% product-name %}} draws query results as a table or chart in the
 [Data Explorer](/influxdb3/explorer/data-explorer/) and on
-dashboards.
+[dashboards](/influxdb3/explorer/dashboards/).
 Choose the chart type from **Visualization type** above the result, or in a
 dashboard cell's **Visualization…** dialog.
 
