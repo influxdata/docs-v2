@@ -42,8 +42,10 @@ similar to the following:
 
 1. [Identify your current InfluxDB Clustered package version](#identify-your-current-influxdb-clustered-package-version)
 2. [Identify the version to upgrade to](#identify-the-version-to-upgrade-to)
-3. [Update your image to use a new package version](#update-your-image-to-use-a-new-package-version)
-4. [Apply the updated image](#apply-the-updated-image)
+3. [Prepare for ingress changes](#ingress-changes-in-release-20261030-2076753)
+   when upgrading from a release earlier than `20261030-2076753` to that release or later.
+4. [Update your image to use a new package version](#update-your-image-to-use-a-new-package-version)
+5. [Apply the updated image](#apply-the-updated-image)
 
 ### Identify your current InfluxDB Clustered package version
 
@@ -113,6 +115,59 @@ upgrade to a checkpoint before upgrading beyond it.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+#### Ingress changes in release 20261030-2076753
+
+Release `20261030-2076753` changed the default ingress type from Ingress
+(Ingress NGINX) to Istio Gateway.
+If you upgrade from an earlier release, prepare your ingress configuration
+before you apply this release or later.
+
+> [!Warning]
+> #### Breaking change: complete one of these steps before you upgrade
+>
+> This is a breaking change.
+> Your cluster stops working after the upgrade unless you either install Istio
+> or explicitly select the `Ingress` template to keep using Ingress NGINX.
+> After the upgrade, InfluxDB Clustered creates an Istio `Gateway` instead of
+> an `Ingress` resource unless you explicitly select the `Ingress` template.
+> Without Istio or the `Ingress` template, your cluster loses ingress access.
+
+Choose one of the following:
+
+- **Use Istio Gateway (default):**
+  [Install Istio](https://istio.io/latest/docs/setup/) with an ingress gateway
+  in your cluster before you upgrade.
+  Then, make sure `spec.package.spec.ingress.hosts` is set.
+  You don't need to set `ingress.template` to select Istio.
+  If your existing configuration explicitly selects `Ingress`, update it to
+  `apiVersion: networking.istio.io/v1beta1` and `kind: Gateway`.
+  Set a gateway pod selector if needed for your deployment, and check the
+  [TLS secret namespace](/influxdb3/clustered/install/secure-cluster/tls/#set-up-ingress-tls)
+  for your Istio deployment.
+- **Keep using Ingress NGINX (deprecated):**
+  Add the following `ingress.template` setting to your `myinfluxdb.yml`:
+
+  ```yaml { placeholders="CLUSTER_HOSTNAME" }
+  spec:
+    package:
+      spec:
+        ingress:
+          template:
+            apiVersion: 'networking.k8s.io/v1'
+            kind: 'Ingress'
+          hosts:
+            - CLUSTER_HOSTNAME
+  ```
+
+  Replace {{% code-placeholder-key %}}`CLUSTER_HOSTNAME`{{% /code-placeholder-key %}}
+  with your cluster hostname.
+  If you use Helm, set `ingress.template.apiVersion: networking.k8s.io/v1`
+  and `ingress.template.kind: Ingress` in your `values.yaml` before upgrading.
+
+For more information, see the
+[release notes](/influxdb3/clustered/reference/release-notes/clustered/#20261030-2076753)
+and [Configure ingress](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/#configure-ingress).
 
 ### Update your image to use a new package version
 

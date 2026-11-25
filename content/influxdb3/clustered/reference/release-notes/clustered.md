@@ -80,6 +80,16 @@ This release contains a breaking change to the ingress subsystem that requires m
 intervention. The default ingress type has changed from Ingress (ingress-nginx) to
 Istio Gateway. See the Upgrade Notes for more details.
 
+> [!Warning]
+> #### Breaking change: default ingress uses Istio Gateway
+>
+> Before upgrading from an earlier release, install Istio with an ingress gateway,
+> or explicitly configure `ingress.template` with
+> `apiVersion: networking.k8s.io/v1` and `kind: Ingress` to keep using Ingress NGINX.
+> Without either change, an existing NGINX-based installation loses ingress access.
+> For more information, see
+> [Ingress changes in release 20261030-2076753](/influxdb3/clustered/admin/upgrade/#ingress-changes-in-release-20261030-2076753).
+
 ### Upgrade notes
 
 If you intend on using Istio Gateway, ensure that you have Istio Gateway installed into
