@@ -103,3 +103,39 @@ test('rewrites rendered root-relative anchors once and preserves other markup', 
   assert.match(again.stdout, /Rewrote 0 links/);
   assert.equal(readFileSync(file, 'utf8'), expected);
 });
+
+test('rewrites root-relative images once and preserves other image sources', (t) => {
+  const html = `
+    <a href="${base}influxdb3/enterprise/">Link</a>
+    <img src='/img/influxdb3/explorer-state-timeline.png' alt="Timeline">
+    <img SRC="/img/chart.png?size=2&amp;view=all#chart">
+    <img src=/img/forecast.png>
+    <img src="/pr-preview/pr-7791/img/already.png">
+    <img src="relative.png">
+    <img src="https://external.example/image.png">
+    <img src="//external.example/image.png">
+    <img data-src="/img/lazy.png">
+    <!-- <img src="/img/comment.png"> -->
+    <script>const image = '<img src="/img/script.png">';</script>
+  `;
+  const result = check(t, html, '--rewrite');
+  assert.equal(result.status, 0, result.stderr);
+  const file = join(result.folder, 'influxdb3', 'enterprise', 'index.html');
+  const expected = html
+    .replace("src='/img/influxdb3/", "src='/pr-preview/pr-7791/img/influxdb3/")
+    .replace('SRC="/img/chart.png', 'SRC="/pr-preview/pr-7791/img/chart.png')
+    .replace('src=/img/forecast.png', 'src=/pr-preview/pr-7791/img/forecast.png');
+  assert.equal(readFileSync(file, 'utf8'), expected);
+  const again = spawnSync(process.execPath, result.args, { encoding: 'utf8' });
+  assert.equal(again.status, 0, again.stderr);
+  assert.equal(readFileSync(file, 'utf8'), expected);
+});
+
+test('rejects an image escaping the preview', (t) => {
+  const result = check(
+    t,
+    `<a href="${base}influxdb3/enterprise/">Link</a><img src="/img/chart.png">`
+  );
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /\/img\/chart\.png/);
+});
