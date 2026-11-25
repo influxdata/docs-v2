@@ -30,7 +30,7 @@ Cells in a collapsed row don't run their queries.
 4.  Click **Save**.
 
 Click the arrow on a row header to collapse or expand it.
-This is saved right away, for everyone.
+This is saved right away, without **Save**.
 Save a new row before you collapse it.
 
 ## Share the cursor across cells

@@ -88,6 +88,10 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   # use_system_proxy = false
   # http_proxy_url = "http://localhost:8888"
 
+  ## Local address to bind when connecting to the server
+  ## If empty or not set, the local address is automatically chosen.
+  # local_address = ""
+
   ## Namespace for the CloudWatch MetricDatums
   namespace = "InfluxData/Telegraf"
 

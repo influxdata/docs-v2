@@ -132,7 +132,7 @@ The new role has the same permissions and description as the original.
 
 ## Delete a role
 
-> [!Warning]
+> [!Caution]
 > Deleting a role removes its access from every user who holds it.
 > You can't undo the deletion.
 

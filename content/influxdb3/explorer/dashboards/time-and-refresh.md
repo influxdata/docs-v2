@@ -17,7 +17,7 @@ related:
 ---
 
 - [Set the time range](#set-the-time-range)
-- [Share a view](#share-a-view)
+- [Link to a view](#link-to-a-view)
 - [Refresh a dashboard](#refresh-a-dashboard)
 - [Give a cell its own time](#give-a-cell-its-own-time)
 - [Compare to the previous period](#compare-to-the-previous-period)
@@ -46,16 +46,26 @@ On a dashboard, **Default (the query's own filter)** lets each cell use the
 time filter in its query.
 InfluxDB 3 Core offers ranges up to 72 hours.
 
-## Share a view
+## Link to a view
 
 A dashboard's URL holds its time range, time zone, refresh, interval, and
-comparison, so a link shows others what you see.
-Changing the view doesn't change the dashboard for anyone else.
+comparison, so a link or bookmark reopens the dashboard as you left it.
+Changing the view doesn't change the saved dashboard.
 
 - **Copy link** (dashboard menu) copies the range as absolute times.
-  Turn on **Keep relative** to share a relative range, such as the last 6 hours.
+  Turn on **Keep relative** to link to a relative range, such as the last
+  6 hours.
 - **Set as default** saves the current range, refresh, and interval as what
-  everyone sees when they open the dashboard.
+  the dashboard opens with.
+
+> [!Note]
+> #### Dashboards belong to one user
+>
+> A dashboard belongs to the user who created it--the signed-in account, or,
+> on a server without sign-in, the browser.
+> A link opens it only for that user.
+> To give someone else a copy, [export the dashboard](/influxdb3/explorer/dashboards/grafana/#export-a-dashboard)
+> and have them import it.
 
 ## Refresh a dashboard
 

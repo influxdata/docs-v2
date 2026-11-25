@@ -8,6 +8,7 @@ menu:
   influxdb3_explorer:
     name: Dashboards
 weight: 6
+metadata: [Explorer v1.12+]
 related:
   - /influxdb3/explorer/visualize-data/
   - /influxdb3/explorer/data-explorer/
@@ -79,8 +80,9 @@ you to edit mode when you come back.
 
 - **Find a cell**: type in **Search cells, series, queries…**.
   Explorer matches cell names, queries, series, units, and more.
-- **Share a link**: in the dashboard menu, select **Copy link**.
-  See [Share a view](/influxdb3/explorer/dashboards/time-and-refresh/#share-a-view).
+- **Link to a view**: in the dashboard menu, select **Copy link**.
+  See [Link to a view](/influxdb3/explorer/dashboards/time-and-refresh/#link-to-a-view).
+  To share a dashboard with someone else, [export it](/influxdb3/explorer/dashboards/grafana/#export-a-dashboard).
 - **Full screen**: click **Enter Fullscreen**.
   Move the pointer to the top of the screen to show the toolbar; press
   <kbd>Esc</kbd> to leave.
