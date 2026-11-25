@@ -137,6 +137,10 @@ example, `Plugins need an admin token`.
 ## Custom roles
 
 InfluxDB 3 Enterprise can also have custom roles.
+A custom role grants the permissions that it lists, and Explorer displays the
+pages and actions that those permissions allow.
+In Explorer v1.12 and later, you can create and edit custom roles.
+See [Manage roles](/influxdb3/explorer/manage-users/manage-roles/).
 For more information, see
 [Custom roles](/influxdb3/enterprise/reference/internals/rbac/#custom-roles)
 in the InfluxDB 3 Enterprise documentation.
