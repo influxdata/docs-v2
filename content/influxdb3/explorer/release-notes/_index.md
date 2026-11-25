@@ -35,7 +35,8 @@ Before you upgrade, see [Upgrade to v1.12](/influxdb3/explorer/install/upgrade/#
 
 #### Features
 
-- **Forecasting**: [Forecast](/influxdb3/explorer/visualize-data/forecast/) Line and Area charts with the Chronos plugin, which Explorer installs for you.
+- **Forecasting**: [Forecast](/influxdb3/explorer/visualize-data/forecast/) Line and Area charts with the Chronos plugin on InfluxDB 3 Core or Enterprise.
+  Explorer can install the plugin for you.
   Forecasts show 50% and 80% ranges, flag series with **Low confidence**, and say when a series could reach a threshold.
   Dashboard forecasts run on a schedule on the server.
 - **New chart types**: [Histogram, Heatmap, Candlestick, and State timeline](/influxdb3/explorer/visualize-data/).
