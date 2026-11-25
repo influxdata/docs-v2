@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 > **Note:** This plugin requires {{% product-name %}}.8.2 or later.
 
 
@@ -160,7 +160,7 @@ For each row, in order:
 4. **Field types** — a present field must match its declared or inferred type.
 5. **Field values** — a field with `allowed_values` must carry one of them.
 
-If any check fails, the row is rejected and nothing is written for it. A row is also rejected when it carries no schema-defined field, or when a value cannot be written as its type (a non-finite float, an integer outside the `int64`/`uint64` range).
+If any check fails, the row is rejected and nothing is written for it. A row is also rejected when it carries no schema-defined field, when a value cannot be written as its type (a non-finite float, an integer outside the `int64`/`uint64` range), or when a name or tag value cannot be written as line protocol (an empty tag value, a value containing a newline or tab or ending with a backslash, a column named `time`).
 
 Tags and fields absent from the schema are stripped from the output. Tables absent from a non-empty `allowed_measurements` list are skipped, as are tables with no `tables` entry.
 
@@ -340,5 +340,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

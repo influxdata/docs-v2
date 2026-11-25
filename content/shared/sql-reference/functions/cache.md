@@ -1,9 +1,5 @@
-
 The {{< product-name >}} SQL implementation supports the following functions
 that return data from {{< product-name >}} caches.
-
-- [distinct_cache](#distinct_cache)
-- [last_cache](#last_cache)
 
 ## distinct_cache
 

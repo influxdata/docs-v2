@@ -124,6 +124,14 @@ write behavior, which acknowledges writes only after WAL persistence completes.
 For the full ingest and persistence path, see
 [InfluxDB 3 internals: durability](/influxdb3/version/reference/internals/durability/).
 
+In v3.12.3 and later, the compactor pauses file deletes while a backup runs,
+so it doesn't delete files that the backup still has to copy.
+If a backup stops without finishing, deletes resume after about 5 minutes.
+A backup that can't renew its hold in object storage for 4 minutes stops and
+fails with a `backup hold lapsed` error.
+The `influxdb3_compactor_backup_deletes_held` metric is `1` while deletes are
+paused.
+
 ### Create an incremental backup
 
 An incremental backup captures only the data that changed since its parent
@@ -718,7 +726,7 @@ License binding varies by cloud provider:
 For disaster recovery planning:
 
 - **Pre-provision a DR license**: Request a license for your DR storage configuration before an incident occurs.
-- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData support](https://support.influxdata.com) to obtain a new license.
+- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to obtain a new license.
 {{% /show-in %}}
 
 ## Containerized deployments

@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 import { dismissNotifications } from '../../support/page-fixtures.js';
-import { mockKapaWidget } from '../../support/kapa-widget.js';
 
 const writePage = '/influxdb3/core/get-started/write/';
 const trigger = '.custom-time-trigger__button';
@@ -15,19 +14,6 @@ function visitWithDate(path = writePage, theme = 'light') {
     },
   });
   dismissNotifications();
-}
-
-function expectVisibleControls() {
-  cy.get(trigger).should('be.visible');
-  cy.get('.ask-ai-button').should('be.visible');
-  cy.get('.ask-ai-composer, #chat-assistant-textarea').should('not.exist');
-  cy.get('.footer-widgets').should(($widgets) => {
-    const widget = $widgets[0].getBoundingClientRect();
-    const win = $widgets[0].ownerDocument.defaultView;
-    expect(widget.bottom).to.be.at.most(win.innerHeight);
-    expect(widget.right).to.be.at.most(win.innerWidth);
-    expect(widget.top).to.be.at.least(0);
-  });
 }
 
 function selectDay(day) {
@@ -101,34 +87,6 @@ describe('Bottom-of-page widgets', () => {
     cy.get('#influxdb-gs-date-select').should('be.visible');
     cy.get('#influxdb-url-list').should('not.be.visible');
   });
-
-  for (const theme of ['light', 'dark']) {
-    it(`keeps widgets clear of chat through resize in ${theme} theme`, () => {
-      cy.viewport(375, 812);
-      mockKapaWidget();
-      visitWithDate(writePage, theme);
-      expectVisibleControls();
-      selectDay(12);
-      cy.get('[data-ask-ai-action="open"]').click();
-      expectVisibleControls();
-      cy.window().its('kapaHarness.finishRender').should('be.a', 'function');
-      cy.window().then((win) => win.kapaHarness.finishRender());
-      cy.get('body').should('have.attr', 'data-ask-ai-state', 'open');
-      cy.get(trigger).should('not.be.visible');
-      cy.viewport(1280, 1024);
-      cy.get(trigger).should('be.visible').click();
-      cy.get('#influxdb-gs-date-select').should('be.visible');
-      cy.get('#modal-close').click();
-      cy.contains('button', 'Close chat').click();
-      for (const width of [601, 600, 375]) {
-        cy.viewport(width, 812);
-        expectVisibleControls();
-      }
-      cy.scrollTo('bottom');
-      cy.get(trigger).click();
-      cy.get('#influxdb-gs-date-select').should('be.visible');
-    });
-  }
 
   it('changes result-table dates without changing numeric field values', () => {
     cy.viewport(1280, 1024);

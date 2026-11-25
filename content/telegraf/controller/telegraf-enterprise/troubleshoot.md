@@ -156,7 +156,7 @@ Look for log lines containing:
 
 ## Get help
 
-Contact [InfluxData support](https://support.influxdata.com/s/contactsupport)
+[Contact InfluxData Support](https://support.influxdata.com/s/contactsupport)
 for any licensing issue you can't resolve from this page. When opening a support
 request, include:
 

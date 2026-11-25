@@ -10,7 +10,7 @@ For agent-specific guidance, see the [docs-testing skill](.agents/skills/docs-te
 | **Codeblock lint**       | `yarn lint-codeblocks <files>`                        | Any content change             |
 | **Code block execution** | `yarn test:codeblocks:<product>`                      | After adding runnable examples |
 | **Link validation**      | `link-checker map <path> \| xargs link-checker check` | After adding/changing links    |
-| **Style linting**        | `.ci/vale/vale.sh content/**/*.md`                    | Any content change             |
+| **Prose linting**        | `yarn lint:prose <files>`                             | Any content change             |
 | **E2E tests**            | `node cypress/support/run-e2e-specs.js <file>`        | Template or UI changes         |
 | **Shortcode examples**   | `yarn test:shortcode-examples`                        | Shortcode changes              |
 
@@ -25,9 +25,8 @@ When you run `git commit`, these checks run against staged files:
 | `deprecated-markdown-patterns` | `content/**/*.md`                                              | Banned shortcodes, `py` instead of `python` |
 | `check-support-links`          | `content/**/*.md`                                              | Non-standard support.influxdata.com links   |
 | `check-source-paths`           | `content/**/*.md`                                              | `source:` values must start with `/shared/` |
-| Vale per-product               | `content/**/*.md`                                              | Style, branding, vocabulary                 |
+| `lint-prose`                   | `content/**/*.md`, instruction files                           | Prose style findings (never blocks)         |
 | `lint-markdown-instructions`   | `README.md`, `[A-Z]*.md`, `.github/**/*.md`, `.claude/**/*.md` | Remark formatting (auto-fixed)              |
-| `lint-instructions`            | Same as above                                                  | Vale (instructions config)                  |
 | `check-render-hook-whitespace` | `layouts/_default/_markup/render-*.html`                       | Whitespace leaks in render hooks            |
 | `check-feedback-links`         | `data/products.yml`, feedback template                         | Product feedback URL config                 |
 | `build-typescript`             | `assets/js/*.ts`                                               | Compiles TypeScript (auto-staged)           |
@@ -51,7 +50,7 @@ LEFTHOOK=0 git push
 
 ### CI checks on every PR
 
-- **Vale** (`.github/workflows/pr-vale-check.yml`) — errors block merge
+- **Prose lint** (`.github/workflows/pr-prose-lint.yml`) — annotates style findings; never blocks merge
 - **Link checker** (`.github/workflows/pr-link-check.yml`) — checks changed pages
 - **Codeblock lint** (`.github/workflows/test.yml`) — parse/compile check; JSON/YAML/TOML failures block merge
 - **Render regression** (`.github/workflows/pr-render-check.yml`) — checks for whitespace-escaped code blocks
@@ -62,7 +61,7 @@ LEFTHOOK=0 git push
 Code block **execution** runs on demand via `workflow_dispatch`, not automatically on PRs.
 
 For shared-source changes, CI resolves affected consumers from their `source:` values without requiring a stub diff.
-Style checks use `.github/scripts/resolve-shared-content.sh`; link checks map changed sources to rendered pages with `link-checker map --existing-only`.
+Prose lint checks the shared source; link checks map changed sources to rendered pages with `link-checker map --existing-only`.
 CI uses fresh Hugo builds when rendering is needed, so checks don't depend on local timestamps or stub edits.
 The touch-or-restart workaround applies to a running development server; see [local previews of shared content](DOCS-FRONTMATTER.md#local-previews-of-shared-content).
 
@@ -205,37 +204,39 @@ link-checker check \
 
 Local checks resolve relative links to the local filesystem. CI checks resolve them to the production site.
 
-## Style Linting (Vale)
+## Prose Linting
 
-Install locally: `brew install vale` (recommended) or use the Docker fallback via `.ci/vale/vale.sh`.
+`scripts/ci/lint-prose.mjs` checks Markdown prose against the rules in
+`scripts/ci/prose-lint/rules.yml`: InfluxData terms, product names,
+Google developer documentation style rules, repeated words, and clichés.
+It parses Markdown, so it never checks code, front matter, URLs, paths,
+or shortcodes.
+Findings are warnings or notices and never block a commit or merge.
 
-If neither a local Vale binary nor a running Docker daemon is available
-(for example, in sandboxed agent sessions), `.ci/vale/vale.sh` skips the
-check with a warning and exits 0 — don't use `git commit --no-verify`.
-CI (`pr-vale-check.yml`) remains the authoritative gate: it installs the
-pinned Vale binary, runs with `VALE_STRICT=1` so the check can never skip
-silently, and blocks merge on errors.
-
-```bash
-# Lint specific files
-.ci/vale/vale.sh content/influxdb3/core/**/*.md
-
-# With product config and minimum alert level
-.ci/vale/vale.sh \
-  --config=content/influxdb3/cloud-dedicated/.vale.ini \
-  --minAlertLevel=error \
-  content/influxdb3/cloud-dedicated/write-data/**/*.md
+```sh
+yarn lint:prose content/influxdb3/core/get-started/_index.md
 ```
 
-**Alert levels:**
+The linter checks patterns only.
+For checks that need judgment, such as sentence-case headings, voice, and
+word choice, use the `gdd-style` skill from
+[influxdata/docs-skills](https://github.com/influxdata/docs-skills).
+`.claude/settings.json` enables it in Claude Code as `docs-skills:gdd-style`;
+other agents can install it with `npx skills add influxdata/docs-skills`.
 
-- **Error** — blocks merge (branding violations, rejected terms, render-breaking patterns)
-- **Warning** — style guide rules (informational in CI)
-- **Suggestion** — style preferences (informational)
+To skip prose that is wrong on purpose or copied from upstream, wrap it
+in comments on their own lines.
+Name rules to skip only those rules:
 
-**Adding vocabulary terms:** edit `.ci/vale/styles/config/vocabularies`.
+```markdown
+<!-- prose-lint off -->
+<!-- prose-lint off Ordinal, RepeatedWords -->
+<!-- prose-lint on -->
+```
 
-For creating or debugging Vale rules, see the [vale-linting skill](.agents/skills/vale-linting/SKILL.md) and [vale-rule-config skill](.agents/skills/vale-rule-config/SKILL.md).
+To add a rule, add an entry with `flag` and `pass` examples to
+`rules.yml`, then run `yarn test:lint-prose`.
+The test fails if an example isn't flagged or passed as expected.
 
 ## E2E Tests (Cypress)
 
@@ -297,7 +298,7 @@ Related files:
 | `cypress.config.js`        | Cypress configuration                        |
 | `compose.yaml`             | Docker Compose services for code block tests |
 | `Dockerfile.pytest`        | pytest image definition                      |
-| `.ci/vale/styles/`         | Vale rule configuration                      |
+| `scripts/ci/prose-lint/`   | Prose lint rules                             |
 | `.ci/link-checker/`        | Link checker configuration                   |
 | `test/`                    | Test scripts and shared test utilities       |
 | `scripts/README.md`        | LLM markdown generation documentation        |

@@ -49,29 +49,19 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb-v2-9-token-hashing-default
+- id: influxdb-v2-10-1-release
   level: note
   scope:
     - /influxdb/v2/
-  title: 'InfluxDB OSS 2.9.0: API tokens are hashed by default'
+  title: 'InfluxDB OSS 2.10.1 is available'
   slug: |
-    Stronger token security in **InfluxDB OSS 2.9.0** — tokens are
-    hashed on disk by default. Existing tokens are hashed on first
-    startup and can't be recovered afterward. **Capture any plaintext
-    tokens you still need before you upgrade.**
-
-    [View InfluxDB OSS 2.9.0 release notes](/influxdb/v2/reference/release-notes/influxdb/#v290)
+    When upgrading from 2.8.x or earlier, save any API tokens you need.
+    Token hashing is enabled by default since 2.9.0; migrated token strings can't be recovered.
   message: |
-    Hashed tokens authenticate exactly like unhashed tokens — clients
-    and integrations keep working.
+    - Improved `/health` and `/ready` startup diagnostics.
 
-    **Also new in 2.9.0:**
-
-    - Configurable backup compression
-    - Restore support for backups containing hashed tokens
-    - Tighter Edge Data Replication queue validation
-    - Flux upgrade
-    - Compaction reliability improvements
+    [Release notes](/influxdb/v2/reference/release-notes/influxdb/#v2101) |
+    [Token hashing](/influxdb/v2/admin/tokens/#token-hashing)
 
 - id: explorer-1-11-key-enhancements
   level: note
@@ -171,27 +161,23 @@
     [Read the announcement](https://www.influxdata.com/blog/telegraf-enterprise-controller-1-2/)
 
 
-- id: influxdb-v1-13-release
+- id: influxdb-v1-13-2-release
   level: note
   scope:
     - /influxdb/v1/
-  title: 'InfluxDB OSS 1.13.1 is now available'
+  title: 'InfluxDB OSS 1.13.2 is now available'
   slug: |
-    InfluxDB OSS 1.13.1 adds mTLS support, adaptive TSI cache sizing, and
-    a hardening option to mitigate SSRF.
+    InfluxDB OSS 1.13.2 includes a bug fix and a Go version update.
 
-    [View InfluxDB OSS 1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131)
+    [View InfluxDB OSS 1.13.2 release notes](/influxdb/v1/about_the_project/release-notes/#v1132)
   message: |
-    **Key updates in InfluxDB OSS 1.13.1:**
+    **Key updates in InfluxDB OSS 1.13.2:**
 
-    - **mTLS support** for the HTTP, OpenTSDB, and subscriber services.
-    - **Adaptive TSI cache sizing**—the series ID set cache can grow and
-      shrink based on measured query hit rate.
-    - **`hardening-enabled`** option to mitigate server-side request
-      forgery (SSRF) in Flux HTTP requests.
+    - Resolve an unimplemented interface member.
+    - Update Go to version 1.26.10.
 
     For details, see the
-    [InfluxDB OSS 1.13.1 release notes](/influxdb/v1/about_the_project/release-notes/#v1131).
+    [InfluxDB OSS 1.13.2 release notes](/influxdb/v1/about_the_project/release-notes/#v1132).
 
 - id: enterprise-influxdb-v1-13-release
   level: note
@@ -233,64 +219,68 @@
 #     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
 #     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-- id: influxdb-docker-latest-tag-sept
-  level: warn
+# PAUSED INDEFINITELY (November 19, 2026): the Docker latest-tag change
+# announcement is on hold. Keep this draft commented until it's rescheduled.
+# - id: influxdb-docker-latest-tag-sept
+#   level: warn
+#   scope:
+#     - /
+#   exclude:
+#     - /telegraf/
+#     - /platform/
+#     - /kapacitor/
+#     - /chronograf/
+#     - /enterprise_influxdb/
+#     - /influxdb3/explorer/
+#     - /influxdb3/cloud
+#     - /influxdb/cloud
+#   title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
+#   slug: |
+#     On **September 15, 2026**, the `latest` tag for InfluxDB Docker images will
+#     point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+#     tags in your Docker deployments.
+#   message: |
+#     If using Docker to install and run InfluxDB, the `latest` tag will point to
+#     InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+#     your Docker deployments. For example, if using Docker to run InfluxDB v2,
+#     replace the `latest` version tag with a specific version tag in your Docker
+#     pull command--for example:
+#
+#     ```sh
+#     docker pull influxdb:2
+#     ```
+
+# Activate with the November 19, 2026 trial launch merge (07:30 PST).
+# There is no date gate; do not merge or deploy this release branch early.
+- id: influxdb3-cloud-ga
+  level: note
   scope:
     - /
+    - /influxdb3/
   exclude:
+    - /influxdb/
+    - /enterprise_influxdb/
     - /telegraf/
-    - /platform/
     - /kapacitor/
     - /chronograf/
-    - /enterprise_influxdb/
-    - /influxdb3/explorer/
-    - /influxdb3/cloud
-    - /influxdb/cloud
-  title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
+    - /flux/
+    - /platform/
+    - /resources/
+    - /shared/
+  title: 'InfluxDB 3 Cloud trials are now available'
   slug: |
-    On **September 15, 2026**, the `latest` tag for InfluxDB Docker images will
-    point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
-    tags in your Docker deployments.
+    Try fully managed InfluxDB 3.
+    [Sign up for a trial](https://www.influxdata.com/influxdb3-cloud-signup/).
   message: |
-    If using Docker to install and run InfluxDB, the `latest` tag will point to
-    InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
-    your Docker deployments. For example, if using Docker to run InfluxDB v2,
-    replace the `latest` version tag with a specific version tag in your Docker
-    pull command--for example:
+    **InfluxDB 3 Cloud** brings InfluxDB 3 to a fully managed, single-tenant
+    service. InfluxData runs the cluster; you write, query, and administer
+    your data.
 
-    ```sh
-    docker pull influxdb:2
-    ```
+    **Highlights:**
 
-# DRAFT — InfluxDB 3 Cloud release announcement.
-# Stub to edit before release. Kept commented so it does not render until ready.
-# Before uncommenting to go live, confirm:
-#   - Final title, slug, and message copy
-#   - scope/exclude paths (where the banner should appear)
-#   - The announcement blog URL (replace the placeholder below)
-#   - Any launch date or availability wording
-# - id: influxdb3-cloud-ga
-#   level: note
-#   scope:
-#     - /influxdb3/
-#   exclude:
-#     - /influxdb3/cloud/
-#   title: 'InfluxDB 3 Cloud is now available'
-#   slug: |
-#     InfluxDB 3 Cloud is a fully managed, single-tenant InfluxDB 3 service
-#     that InfluxData operates for you.
-#
-#     <a class="btn" href="/influxdb3/cloud/">Explore InfluxDB 3 Cloud</a>
-#   message: |
-#     **InfluxDB 3 Cloud** brings InfluxDB 3 to a fully managed, single-tenant
-#     service. InfluxData runs the cluster; you write, query, and administer
-#     your data.
-#
-#     **Highlights:**
-#
-#     - Fully managed and single-tenant
-#     - SQL and InfluxQL support
-#     - Native v3 write and query APIs
-#
-#     For more information, see the
-#     [InfluxDB 3 Cloud documentation](/influxdb3/cloud/).
+    - Fully managed and single-tenant
+    - SQL and InfluxQL support
+    - Native v3 write and query APIs
+
+    For more information, see the
+    [InfluxDB 3 Cloud documentation](/influxdb3/cloud/).

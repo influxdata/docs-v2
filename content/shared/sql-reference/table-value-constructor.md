@@ -31,9 +31,6 @@ FROM
 
 ## Examples
 
-- [Select data from an ad hoc table](#select-data-from-an-ad-hoc-table)
-<!-- - [Join data with an ad hoc table](#join-data-with-an-ad-hoc-table) -->
-
 ### Select data from an ad hoc table
 
 ```sql

@@ -58,7 +58,7 @@ managing databases.
    <a href="https://console.influxdata.com">https://console.influxdata.com</a>
    </pre>
 2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+   If you don't have login credentials, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
    After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
    and lists all clusters associated with your account.
@@ -293,7 +293,7 @@ configured using the following options:
 
 #### Table limit
 
-**Default maximum number of tables**: 500
+**Default maximum number of tables**: {{% influxdb3/limit "table" %}}
 
 Each measurement is represented by a table in a database.
 Your database's table limit can be raised beyond the default limit of 500.
@@ -336,7 +336,7 @@ operating cost of your cluster.
 
 #### Column limit
 
-**Default maximum number of columns**: 250
+**Default maximum number of columns**: {{% influxdb3/limit "column" %}}
 
 Time, fields, and tags are each represented by a column in a table.
 Increasing your column limit affects your {{% product-name omit=" Clustered" %}}

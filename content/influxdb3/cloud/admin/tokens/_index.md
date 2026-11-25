@@ -53,7 +53,8 @@ authorize actions in your instance.
 > [!Important]
 > #### Management tokens aren't admin tokens
 >
-> The Admin UI also lists **Management Tokens** under **Account**.
+> If your account also has InfluxDB Cloud Dedicated clusters, the Admin UI
+> lists **Management Tokens** under **Account**.
 > Management tokens are account-level tokens.
 > They're separate from the instance admin and database tokens on this page.
 
@@ -148,9 +149,18 @@ Before you create tokens:
 
 - [Configure the `influxdb3` CLI](/influxdb3/cloud/get-started/setup/#configure-the-influxdb3-cli)
   and [log in to your instance](/influxdb3/cloud/get-started/setup/#log-in-to-your-instance).
-- Make sure you have admin privileges. Creating tokens requires admin access.
-  If your user doesn't have admin access, ask an administrator to create a token
-  for you.
+- To create a **resource token**, your role needs **Create** on **Resource tokens** for the instance.
+  The default **Member** role includes this permission; a custom role can also grant it.
+- To create a **named admin token**, your role needs **Create** on **Admin tokens** for the instance.
+- The **Admin** role includes both permissions.
+  Access to the Admin UI **Tokens** page still requires the **Admin** role.
+  Users with the required permissions in other roles use the CLI or HTTP API.
+
+For details, see [Instance-wide permissions](/influxdb3/cloud/admin/users/permissions/#instance-wide-permissions).
+
+> [!Warning]
+> A user who can create resource tokens can create a token with broader database access than their role grants.
+> Only grant **Create** on **Resource tokens** to users you trust with that access.
 
 Create a **named admin token**:
 

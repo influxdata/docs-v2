@@ -63,8 +63,8 @@ to all accounts (Free Plan and Usage-Based Plan).
 
 The v3 storage engine enforces the following storage-level limits:
 
-- **Maximum number of tables per database**: 500
-- **Maximum number of columns per table**: 200
+- **Maximum number of tables per database**: {{% influxdb3/limit "table" %}}
+- **Maximum number of columns per table**: {{% influxdb3/limit "column" %}}
 
 > [!Note]
 > Storage-level limits apply to Free Plan and Usage-Based Plan accounts.
@@ -150,7 +150,7 @@ number of columns allowed in a table.
 
 - Consider storing new fields in a new [measurement](/influxdb3/cloud-serverless/reference/glossary/#measurement) (not to exceed the [maximum number of tables](#maximum-number-of-tables-reached)).
 - Review [InfluxDB schema design recommendations](/influxdb3/cloud-serverless/write-data/best-practices/schema-design/).
-- Customers with an [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can contact [InfluxData Support](https://support.influxdata.com) to request a review of their database schema.
+- Customers with an [annual or support contract](https://www.influxdata.com/influxdb-cloud-pricing/) can [contact InfluxData Support](https://support.influxdata.com/s/contactsupport) to request a review of their database schema.
 
 #### Maximum number of tables reached
 

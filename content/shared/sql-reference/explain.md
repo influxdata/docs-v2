@@ -5,13 +5,6 @@ specified SQL statement.
 EXPLAIN [ANALYZE] [VERBOSE] statement
 ```
 
-- [`EXPLAIN`](#explain)
-  - [Example `EXPLAIN`](#example-explain)
-- [`EXPLAIN ANALYZE`](#explain-analyze)
-  - [Example `EXPLAIN ANALYZE`](#example-explain-analyze)
-- [`EXPLAIN ANALYZE VERBOSE`](#explain-analyze-verbose)
-  - [Example `EXPLAIN ANALYZE VERBOSE`](#example-explain-analyze-verbose)
-
 ## `EXPLAIN`
 
 Returns the logical plan and physical (execution) plan of a statement.

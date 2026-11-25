@@ -1,5 +1,6 @@
 {{ $scratch := newScratch }}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{/* Content paths exclude deployment prefixes such as /pr-preview/pr-N/. */}}
+{{ $productPathData := findRE "[^/]+.*?" .Path }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $version := cond (gt (len (findRE `^v` $currentVersion)) 0) $currentVersion (title $currentVersion) }}
@@ -35,22 +36,25 @@
 {{ else if eq $currentVersion "clustered"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Clustered Documentation" }}
 {{ else if and (eq $product "influxdb") (in $currentVersion "v")}}
-  {{ $scratch.Set "siteTitle" (print "InfluxDB OSS " $version " Documentation") }}
+  {{/* name__v1 and name__v2 in data/products.yml name each OSS generation */}}
+  {{ $scratch.Set "siteTitle" (print (index (index .Site.Data.products $product) (print "name__" $currentVersion)) " Documentation") }}
 {{ else if and (eq $product "influxdb3") (eq $currentVersion "enterprise")}}
   {{ $scratch.Set "siteTitle" (print "InfluxDB 3 Enterprise Documentation") }}
 {{ else if eq $product "influxdb3"}}
   {{ $scratch.Set "siteTitle" "InfluxDB 3 Documentation" }}
 {{ else if eq $currentVersion nil}}
-  {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
+  {{ with (index .Site.Data.products $product).name }}
+    {{ $scratch.Set "siteTitle" (print . " Documentation") }}
+  {{ end }}
 {{ else if and (eq $product "enterprise_influxdb") (in $currentVersion "v1")}}
-  {{ $scratch.Set "siteTitle" "InfluxDB Enterprise v1 Documentation" }}
+  {{ $scratch.Set "siteTitle" (print (index (index .Site.Data.products $product) (print "name__" $currentVersion)) " Documentation") }}
 {{ else if and (eq $product "telegraf") (eq $currentVersion "controller")}}
   {{ $scratch.Set "siteTitle" "Telegraf Controller Documentation" }}
 {{ else }}
   {{ with (index .Site.Data.products $product).altname }}
     {{ $scratch.Set "siteTitle" (print . " Documentation") }}
-  {{ else }}
-    {{ $scratch.Set "siteTitle" (print (index $.Site.Data.products $product).name " Documentation") }}
+  {{ else with (index $.Site.Data.products $product).name }}
+    {{ $scratch.Set "siteTitle" (print . " Documentation") }}
   {{ end }}
 {{ end }}
 

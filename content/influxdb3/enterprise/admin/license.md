@@ -437,7 +437,7 @@ influxdb3 show license --host http://localhost:8181
 ### Switch between Trial and At-Home licenses
 
 To switch between Trial and At-Home license types (or reset a Trial license),
-[contact InfluxData support](https://support.influxdata.com/s/contactsupport).
+[contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 Include the following information in your request:
 
 - The email address associated with your current license

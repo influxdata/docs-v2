@@ -35,14 +35,6 @@ Outputs:
     Description: The ARN of the S3 bucket hosting the static content.
     Value: !GetAtt DocsBucket.Arn
 
-  DocsCircleCIDeployAccessKeyId:
-    Description: The access key ID for CircleCI deployment to S3.
-    Value: !Ref DocsCircleCIDeployAccessKey
-
-  DocsCircleCIDeploySecretAccessKey:
-    Description: The secret access key for CircleCI deployment to S3.
-    Value: !GetAtt DocsCircleCIDeployAccessKey.SecretAccessKey
-
 ###############################################################################
 Resources:
 ###############################################################################
@@ -164,35 +156,3 @@ Resources:
                 - lambda.amazonaws.com
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-
-  DocsCircleCIDeployUser:
-    Type: AWS::IAM::User
-    Properties:
-      Policies:
-        - PolicyName: giveaccesstoupdatedocsbuckets
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - s3:ListBucket
-                  - s3:GetBucketLocation
-                Resource:
-                  - !Sub "arn:aws:s3:::${DocsBucket}"
-              - Effect: Allow
-                Action:
-                  - s3:PutObject
-                  - s3:PutObjectAcl
-                  - s3:DeleteObject
-                Resource:
-                  - !Sub "arn:aws:s3:::${DocsBucket}/*"
-              - Effect: Allow
-                Action:
-                  - cloudfront:GetDistribution
-                  - cloudfront:CreateInvalidation
-                Resource: "*"
-
-  DocsCircleCIDeployAccessKey:
-    Type: AWS::IAM::AccessKey
-    Properties:
-      UserName: !Ref DocsCircleCIDeployUser

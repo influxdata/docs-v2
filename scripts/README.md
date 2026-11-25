@@ -33,7 +33,9 @@ The build splits into two phases:
   pinned to `scripts/rust-markdown-converter/package.json`, verifies its
   checksum, and caches it locally. If the release is unavailable, the platform
   is unsupported, or you're offline, setup falls back to a local Rust build
-  when `cargo` is available.
+  when `cargo` is available. Set `RUST_MARKDOWN_CONVERTER_SKIP=true` to install
+  without the converter where neither works, such as a sandbox that reaches
+  only package registries; the Hugo build doesn't need it.
 - **Phase 2 — section bundles (JS).** `combineMarkdown` concatenates the
   already-generated per-page `.md` into `index.section.md` (parent + children),
   emitting section frontmatter (`type: section`, `pages`, `child_pages`).

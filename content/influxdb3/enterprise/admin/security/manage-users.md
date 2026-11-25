@@ -9,10 +9,13 @@ menu:
     name: Manage users
     parent: Security
 weight: 201
+alt_links:
+  explorer: /influxdb3/explorer/manage-users/
 related:
   - /influxdb3/enterprise/reference/internals/rbac/
   - /influxdb3/enterprise/admin/tokens/
   - /influxdb3/enterprise/admin/explorer-ui/
+  - /influxdb3/explorer/manage-users/, Manage users with InfluxDB 3 Explorer
 ---
 
 <!-- GA status per 3.12 product release notes; confirm with product before publishing. -->
@@ -199,3 +202,6 @@ For browser-based SSO through the integrated Explorer UI, also set
 **Member**. Assign roles to users to control what they can do.
 For details on each role and the permissions model, see
 [Role-based access control (RBAC)](/influxdb3/enterprise/reference/internals/rbac/).
+
+To add users, assign roles, and delete users in the Explorer UI, see
+[Manage users with InfluxDB 3 Explorer](/influxdb3/explorer/manage-users/).

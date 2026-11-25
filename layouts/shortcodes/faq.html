@@ -11,7 +11,7 @@
   {{- errorf "faq shortcode: no data file at data/faqs/%s.yml (page %s)" $key .Page.RelPermalink -}}
 {{- end -}}
 {{- range $faqs }}
-<h{{ $level }} id="{{ .question | anchorize }}">{{ .question }}</h{{ $level }}>
+<h{{ $level }} id="{{ .anchor | default (.question | anchorize) }}">{{ .question }}</h{{ $level }}>
 <div class="faq-answer">
 {{ $.Page.RenderString (dict "display" "block") .answer }}
 </div>

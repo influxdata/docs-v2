@@ -43,7 +43,6 @@ Use InfluxQL functions to aggregate, select, transform, analyze, and predict dat
   - [DIFFERENCE()](/influxdb/version/reference/influxql/functions/transformations/#difference)
   - [EXP()](/influxdb/version/reference/influxql/functions/transformations/#exp)
   - [FLOOR()](/influxdb/version/reference/influxql/functions/transformations/#floor)
-  - [HISTOGRAM()](/influxdb/version/reference/influxql/functions/transformations/#histogram)
   - [LN()](/influxdb/version/reference/influxql/functions/transformations/#ln)
   - [LOG()](/influxdb/version/reference/influxql/functions/transformations/#log)
   - [LOG2()](/influxdb/version/reference/influxql/functions/transformations/#log2)

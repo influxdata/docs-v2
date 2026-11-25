@@ -146,9 +146,6 @@
       margin-right: var(--ask-ai-reservation);
       transition: margin-right .3s;
     }
-    .footer-widgets {
-      right: calc(var(--ask-ai-reservation) + 1rem);
-    }
   }
   .page-wrapper:has(.page-content) > .sidebar {
     flex: 0 0 auto;
@@ -193,24 +190,6 @@
 .ask-ai-status {
   @include visually-hidden;
 }
-.ask-ai-button {
-  align-self: flex-start;
-  margin-right: 0.5rem;
-  padding: 0.45rem 0.7rem;
-  border-radius: $radius * 3;
-  font-family: $proxima;
-  font-weight: $medium;
-  font-size: .9rem;
-  cursor: pointer;
-  color: $g20-white;
-  @include gradient($grad-burningDusk, -45deg);
-  border: none;
-
-  &[aria-disabled='true'] {
-    cursor: progress;
-    opacity: 0.65;
-  }
-}
 @media (max-width: 800px) {
   .content-wrapper.page-content [data-page-rail] {
     --page-rail-start: 7.5rem;
@@ -220,12 +199,6 @@
   .topnav .docs-home .long,
   .topnav .influx-home .icon-influx-logotype {
     display: none;
-  }
-  .ask-ai-button {
-    position: absolute;
-    top: -0.1rem;
-    right: 3.75rem;
-    font-size: 0.85rem;
   }
   .content-wrapper.page-content {
     [data-page-rail] {
@@ -256,8 +229,7 @@
     }
   }
 }
-@media (max-width: 1279px) {
-  body[data-ask-ai-state='open'] .footer-widgets {
-    display: none;
-  }
+body[data-ask-ai-state='open'] .footer-widgets {
+  visibility: hidden;
+  pointer-events: none;
 }

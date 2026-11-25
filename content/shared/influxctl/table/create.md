@@ -74,7 +74,7 @@ the time format `%Y-%m-%d`:
 influxctl table create \
   --template-tag room \
   --template-tag sensor-type \
-  --template-tag-bucket customerID,1000 \
+  --template-tag-bucket customerID,100 \
   --template-timeformat '%Y-%m-%d' \
   DATABASE_NAME \
   TABLE_NAME

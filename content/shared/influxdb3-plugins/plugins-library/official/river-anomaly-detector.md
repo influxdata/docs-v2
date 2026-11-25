@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 An adaptive {{% product-name %}} Processing Engine plugin that detects anomalies in incoming time-series data using the [River ML](https://riverml.xyz) library. The detector automatically adapts its detection strategy based on data characteristics learned by the companion auto-profiler plugin.
 
 ## Features
@@ -99,7 +99,7 @@ The plugin classifies each column in incoming data:
    - Filtered by `include_fields` (if set, only listed fields are monitored)
    - Filtered by `exclude_fields` (excluded fields are skipped)
 
-NaN and infinity values are skipped with a warning. Column types are inferred from the first row of each batch.
+NaN and infinity values are skipped with a warning. An anomaly whose tag value cannot be written as line protocol (empty, containing a newline or tab, or ending with a backslash) is skipped with a warning. Column types are inferred from the first row of each batch.
 
 ## Table Filtering
 
@@ -269,5 +269,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

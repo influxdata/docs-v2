@@ -6,6 +6,9 @@ on:
       - 'content/**/*.md'
       - 'data/**/*.yml'
       - 'layouts/**/*.html'
+      # Agent Markdown is checked as source by pr-agent-links.yml.
+      - '!content/**/AGENTS.md'
+      - '!content/**/CLAUDE.md'
     types: [opened, synchronize, reopened]
 
 jobs:
@@ -39,7 +42,7 @@ jobs:
           fi
 
           # Filter for content markdown files
-          CHANGED_FILES=$(grep '^content/.*\.md$' all_changed_files.txt || true)
+          CHANGED_FILES=$(grep '^content/.*\.md$' all_changed_files.txt | grep -vE '(^|/)(AGENTS|CLAUDE)\.md$' || true)
 
           # When data/products.yml changes, the rendered download/install pages
           # change their dl.influxdata.com URLs (built from {{< latest-patch >}})

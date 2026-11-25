@@ -4,13 +4,6 @@ data and return a single value.
 However, selectors are unique in that they return a _struct_ that contains
 a **time value** in addition to the computed value.
 
-- [How do selector functions work?](#how-do-selector-functions-work)
-- [Selector functions](#selector-functions)
-  - [selector_min](#selector_min)
-  - [selector_max](#selector_max)
-  - [selector_first](#selector_first)
-  - [selector_last](#selector_last)
-
 ## How do selector functions work?
 
 Each selector function returns an [Arrow _struct_](https://arrow.apache.org/docs/format/Columnar.html#struct-layout)
@@ -47,11 +40,6 @@ GROUP BY room
 ```
 
 ## Selector functions
-
-- [selector_min](#selector_min)
-- [selector_max](#selector_max)
-- [selector_first](#selector_first)
-- [selector_last](#selector_last)
 
 ### selector_min
 

@@ -284,17 +284,9 @@ Database names must adhere to the following naming restrictions:
   Multibyte (non-ASCII) characters are not allowed.
 - **Forward slash**: At most one forward slash (`/`), which separates the database name from a v1 retention policy name (for example, `mydb/autogen`).
   The slash can't be the first or last character.
-- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Prohibited characters**: Whitespace and characters other than those listed above
 - **Starting character**: Must start with an ASCII letter or number
 - **Case sensitivity**: Database names are case-sensitive
-
-> [!Caution]
-> #### Underscore prefix reserved for system use
->
-> Names starting with an underscore (`_`) may be reserved for InfluxDB system use.
-> While {{% product-name %}} might not explicitly reject these names, using them risks
-> conflicts with current or future system features and may result in
-> unexpected behavior or data loss.
 
 ### Valid database name examples
 
@@ -312,8 +304,9 @@ webserver123
 my database        # Contains whitespace
 sensor.data        # Contains period
 app@server         # Contains special character
-_internal          # Starts with underscore (reserved)
-very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
+_internal          # Starts with underscore
+/mydb              # Starts with a slash
+mydb/rp/extra      # Contains more than one slash
 ```
 
 For comprehensive information about naming restrictions for all InfluxDB identifiers, 
@@ -336,7 +329,7 @@ naming convention to automatically map v1 DBRP combinations to an {{% product-na
 database_name/retention_policy_name
 ```
 
-##### Database naming examples
+### Database naming examples
 
 | v1 Database name | v1 Retention Policy name | New database name         |
 | :--------------- | :----------------------- | :------------------------ |

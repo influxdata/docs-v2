@@ -1,14 +1,17 @@
 name: Release Version Check
 
-# Two non-blocking reminders on release-related PRs:
+# A blocking version check and an artifact reminder on release-related PRs:
 #
 #   1. version-reminder — when a product's release-notes page advances past the
-#      version in data/products.yml, remind the author to bump it. That number
+#      version in data/products.yml, fail until the data is updated. That number
 #      feeds the {{< latest-patch >}} shortcode, which builds every
 #      dl.influxdata.com download URL and the versions in install/code examples,
 #      so a missed bump silently points the docs at the previous release.
 #      Every product is checked and reported (Telegraf included — it normally
 #      reports success because its internal automation keeps the value in sync).
+#      Product-data and notification edits check all tracked products; OSS and
+#      Enterprise v1 release-note edits check both editions against their own notes.
+#      Latest-patch announcement mismatches also fail this job.
 #
 #   2. release-readiness — when a PR actually bumps a latest_patch/latest_patches
 #      value, remind the author to confirm the new version's download artifacts
@@ -16,7 +19,7 @@ name: Release Version Check
 #      rendered download/install URLs are verified (non-blocking) by
 #      pr-link-check.yml, which checks those pages on any data/products.yml change.
 #
-# Neither job blocks merge.
+# Version drift fails CI. The artifact reminder remains non-blocking.
 
 on:
   pull_request:
@@ -26,7 +29,9 @@ on:
       - 'content/**/release-notes/**'
       - 'content/shared/v3-core-enterprise-release-notes/**'
       - 'data/products.yml'
+      - 'data/notifications.yaml'
       - '.ci/scripts/check-release-notes-version.js'
+      - '.ci/scripts/check-release-notes-version.test.js'
       - '.github/workflows/pr-release-check.yml'
 
 permissions:
@@ -35,6 +40,7 @@ permissions:
 
 jobs:
   version-reminder:
+    # Preserve the existing status-check name for branch-protection rules.
     name: Release version reminder
     runs-on: ubuntu-latest
     steps:
@@ -66,17 +72,21 @@ jobs:
           echo "Changed files:"
           cat changed.txt
 
+      - name: Test release version check
+        run: node .ci/scripts/check-release-notes-version.test.js
+
       - name: Run release version check
         run: |
+          set -o pipefail
           mapfile -t FILES < changed.txt
           node .ci/scripts/check-release-notes-version.js "${FILES[@]}" \
             | tee report.md
 
       # Sticky comment: update the existing marker comment instead of stacking
       # new ones. Skipped on fork PRs (read-only token) — the step summary and
-      # ::warning annotations remain the fallback there.
+      # ::error annotations remain the fallback there.
       - name: Post or update PR comment
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: always() && hashFiles('report.md') != '' && github.event.pull_request.head.repo.full_name == github.repository
         continue-on-error: true
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:

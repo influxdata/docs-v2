@@ -56,7 +56,7 @@ You can customize [table (measurement) limits](#table-limit) and
 
 ### Table limit
 
-**Default maximum number of tables**: 500
+**Default maximum number of tables**: {{% influxdb3/limit "table" %}}
 
 Each measurement is represented by a table in a database.
 Your database's table limit can be raised beyond the default limit of 500.
@@ -100,14 +100,14 @@ operating cost of your cluster.
 
 ### Column limit
 
-**Default maximum number of columns**: 250
+**Default maximum number of columns**: {{% influxdb3/limit "column" %}}
 
-**Configurable maximum number of columns**: 1000
+**Configurable maximum number of columns**: {{% influxdb3/limit "column_max" %}}
 
 Each row must include a time column, with the remaining columns representing
 tags and fields.
-As a result, a table with 250 columns can have one time column and up to
-249 field and tag columns.
+As a result, a table with {{% influxdb3/limit "column" %}} columns can have one time column and up to
+{{% influxdb3/limit "column" -1 %}} field and tag columns.
 
 If you attempt to write to a table and exceed the column limit, the write
 request fails and InfluxDB returns an error.

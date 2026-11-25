@@ -5,9 +5,6 @@ The following orders are supported:
 - `ASC`: ascending _(default)_
 - `DESC`: descending
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 ## Syntax
 
 ```sql

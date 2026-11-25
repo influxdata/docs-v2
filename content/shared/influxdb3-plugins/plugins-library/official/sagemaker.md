@@ -1,5 +1,5 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
-<!-- vale off -->
+<!-- prose-lint off -->
 The SageMaker Inference Plugin enables periodic, real-time scoring of time-series data in {{% product-name %}} against an Amazon SageMaker endpoint. On every scheduled tick the plugin queries recent rows from a measurement, builds a request body matching the shape your SageMaker model expects, calls `InvokeEndpoint`, parses the response, and writes the predictions back into InfluxDB as a new measurement. It supports both batch and per-row inference, single- and multi-output models, custom containers, AWS built-in algorithms, TensorFlow Serving, Hugging Face / JumpStart LLMs, SageMaker Canvas tabular models, multi-model endpoints, and time-series forecasting models such as Amazon Chronos-Bolt.
 
 Key features:
@@ -616,5 +616,5 @@ For plugin issues, see the Plugins repository [issues page](https://github.com/i
 
 The [InfluxDB Discord server](https://discord.gg/9zaNCW2PRT) is the best place to find support for InfluxDB 3 Core and InfluxDB 3 Enterprise.
 For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-feedback) options.
-<!-- vale on -->
+<!-- prose-lint on -->
 <!-- END GENERATED PLUGIN CONTENT -->

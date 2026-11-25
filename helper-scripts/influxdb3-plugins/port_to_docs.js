@@ -139,6 +139,12 @@ function convertRelativeLinks(content, pluginName) {
     }
   );
 
+  content = content.replace(
+    /\[([^\]]+)\]\((?:\.\/)?([\w-]+\.json)(#[^)]*)?\)/g,
+    (match, label, filename, fragment = '') =>
+      `[${label}](https://github.com/influxdata/influxdb3_plugins/blob/main/influxdata/${pluginName}/${filename}${fragment})`
+  );
+
   // Convert main README reference
   content = content.replace(
     '[influxdb3_plugins/README.md](/README.md)',
@@ -154,11 +160,12 @@ function convertRelativeLinks(content, pluginName) {
 function addProductShortcodes(content) {
   // Replace various forms of InfluxDB 3 references
   const replacements = [
+    [/(?<!\/)InfluxDB (?=3\.\d)/g, '{{% product-name %}} '],
     [/InfluxDB 3 Core\/Enterprise/g, '{{% product-name %}}'],
     [/InfluxDB 3 Core and InfluxDB 3 Enterprise/g, '{{% product-name %}}'],
     [/InfluxDB 3 Core, InfluxDB 3 Enterprise/g, '{{% product-name %}}'],
     // Be careful not to replace in URLs, code blocks, or product names like "InfluxDB 3 Explorer"
-    [/(?<!\/)InfluxDB 3(?! Explorer)(?![/_])/g, '{{% product-name %}}'],
+    [/(?<!\/)InfluxDB 3(?! Explorer)(?![/_.])/g, '{{% product-name %}}'],
   ];
 
   for (const [pattern, replacement] of replacements) {
@@ -166,6 +173,25 @@ function addProductShortcodes(content) {
   }
 
   return content;
+}
+
+function normalizeRequirementNotes(content) {
+  return content.replace(
+    /^> \*\*Note:\*\* (This plugin requires .+)$/gm,
+    '> [!Note]\n> $1'
+  );
+}
+
+function expandCurlOptions(content) {
+  const options = { '-X': '--request', '-H': '--header', '-d': '--data' };
+  return content.replace(/```(?:bash|sh|shell)\n([\s\S]*?)```/g, (fence) =>
+    fence.replace(/^[ \t]*curl\b(?:[^\n]*\\\n)*[^\n]*/gm, (command) =>
+      command.replace(
+        /'[^']*'|"(?:\\.|[^"\\])*"|\\[\s\S]|[^\s"'\\]+/g,
+        (token) => options[token] ?? token
+      )
+    )
+  );
 }
 
 /**
@@ -268,6 +294,26 @@ function fixCodeBlockFormatting(content) {
   return content;
 }
 
+function completeJsonObjectFragments(content) {
+  return content.replace(
+    /^```json([^\n]*)\n([\s\S]*?)^```/gm,
+    (match, attributes, body) => {
+      if (!/^\s*"[^"\n]+"\s*:/.test(body)) return match;
+      try {
+        JSON.parse(`{${body}}`);
+      } catch {
+        return match;
+      }
+      const indented = body
+        .trim()
+        .split('\n')
+        .map((line) => `  ${line}`)
+        .join('\n');
+      return `\`\`\`json${attributes}\n{\n${indented}\n}\n\`\`\``;
+    }
+  );
+}
+
 /**
  * Upstream READMEs use ellipses in abbreviated JSON request and response
  * examples. They are deliberately not parseable JSON, so exempt only those
@@ -294,8 +340,8 @@ function normalizeListIndentation(content) {
   );
 }
 
-function exemptGeneratedContentFromVale(content) {
-  return `<!-- vale off -->\n${content.trim()}\n<!-- vale on -->`;
+function exemptGeneratedContentFromProseLint(content) {
+  return `<!-- prose-lint off -->\n${content.trim()}\n<!-- prose-lint on -->`;
 }
 
 const GENERATED_REGION_BEGIN = '<!-- BEGIN GENERATED PLUGIN CONTENT -->';
@@ -355,9 +401,12 @@ function transformContent(content, pluginName) {
   content = expandAbbreviations(content);
   content = convertTomlReadmeLinks(content);
   content = addProductShortcodes(content);
+  content = normalizeRequirementNotes(content);
   content = enhanceOpeningParagraph(content);
   content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
+  content = expandCurlOptions(content);
+  content = completeJsonObjectFragments(content);
   content = exemptAbbreviatedJsonExamples(content);
   content = normalizeListIndentation(content);
 
@@ -367,7 +416,7 @@ function transformContent(content, pluginName) {
   // Replace support section
   content = replaceSupportSection(content);
 
-  return exemptGeneratedContentFromVale(content);
+  return exemptGeneratedContentFromProseLint(content);
 }
 
 /**

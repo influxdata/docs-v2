@@ -1,31 +1,5 @@
 InfluxQL transformation functions modify and return values in each row of queried data.
 
-- [ABS()](#abs)
-- [ACOS()](#acos)
-- [ASIN()](#asin)
-- [ATAN()](#atan)
-- [ATAN2()](#atan2)
-- [CEIL()](#ceil)
-- [COS()](#cos)
-- [CUMULATIVE_SUM()](#cumulative_sum)
-- [DERIVATIVE()](#derivative)
-- [DIFFERENCE()](#difference)
-- [ELAPSED()](#elapsed)
-- [EXP()](#exp)
-- [FLOOR()](#floor)
-- [LN()](#ln)
-- [LOG()](#log)
-- [LOG2()](#log2)
-- [LOG10()](#log10)
-- [MOVING_AVERAGE()](#moving_average)
-- [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative)
-- [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference)
-- [POW()](#pow)
-- [ROUND()](#round)
-- [SIN()](#sin)
-- [SQRT()](#sqrt)
-- [TAN()](#tan)
-
 > [!Important]
 >
 > #### Missing InfluxQL functions
@@ -887,8 +861,6 @@ SELECT DERIVATIVE(field_expression[, unit])
 
 #### Related functions
 
-- [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative)
-
 #### Examples
 
 The following examples use the
@@ -1026,8 +998,6 @@ DIFFERENCE(field_expression)
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
 
 #### Related functions
-
-- [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference)
 
 #### Examples
 
@@ -1983,8 +1953,6 @@ NON_NEGATIVE_DERIVATIVE(field_expression[, unit])
 
 #### Related functions
 
-- [DERIVATIVE()](#derivative)
-
 #### Examples
 
 The following examples use the
@@ -2132,8 +2100,6 @@ NON_NEGATIVE_DIFFERENCE(field_expression)
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
 
 #### Related functions
-
-- [DIFFERENCE()](#difference)
 
 #### Examples
 

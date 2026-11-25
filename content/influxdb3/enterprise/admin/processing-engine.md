@@ -36,19 +36,8 @@ For an overview of process node architectures, see [Configure a process node](/i
 > [!Important]
 > #### Requires {{% product-name %}} 3.12.0 or later
 >
-> Before 3.12.0, a process node can't read WAL files from other nodes, so WAL triggers on a process node never run.
+> Before 3.12.0, a standalone process node can't read WAL files from other nodes, so its WAL triggers never run.
 > The trigger is accepted, and the node logs `Ingest mode not configured; processing engine will not run wal flush triggers.`
-
-- [How a process node runs plugins](#how-a-process-node-runs-plugins)
-- [Plan the cluster](#plan-the-cluster)
-- [Start the nodes](#start-the-nodes)
-- [Verify the cluster](#verify-the-cluster)
-- [Add plugins and packages](#add-plugins-and-packages)
-- [Create triggers](#create-triggers)
-- [Send each request to the right node](#send-each-request-to-the-right-node)
-- [Manage triggers](#manage-triggers)
-- [Stop and restart the process node](#stop-and-restart-the-process-node)
-- [Troubleshoot](#troubleshoot)
 
 ## How a process node runs plugins
 
@@ -107,18 +96,18 @@ A process node isn't a security boundary: it needs the same credentials as the o
 
 Start each node with `influxdb3 serve`.
 The following examples start the four-node cluster from [Plan the cluster](#plan-the-cluster), with each node on its own host.
-To keep the commands short, they use a `file` object store in a directory that every host can reach.
-In production, use an object store such as Amazon S3.
+A multi-node cluster requires a shared object store such as Amazon S3.
+To keep the commands short, the examples use an S3 bucket and omit the credential options.
 See [Connect to your object store](/influxdb3/enterprise/get-started/multi-server/#connect-to-your-object-store).
 
-```bash { placeholders="CLUSTER_ID|DATA_DIR|PLUGIN_DIR|INGEST_HOST|QUERY_HOST" }
+```bash { placeholders="CLUSTER_ID|BUCKET|PLUGIN_DIR|INGEST_HOST|QUERY_HOST" }
 # Ingest node
 influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id ingest0 \
   --mode ingest \
-  --object-store file \
-  --data-dir DATA_DIR \
+  --object-store s3 \
+  --bucket BUCKET \
   --internode-bind-addr 0.0.0.0:8083 \
   --conn-info INGEST_HOST:8083
 
@@ -127,8 +116,8 @@ influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id query0 \
   --mode query \
-  --object-store file \
-  --data-dir DATA_DIR \
+  --object-store s3 \
+  --bucket BUCKET \
   --internode-bind-addr 0.0.0.0:8083 \
   --conn-info QUERY_HOST:8083
 
@@ -137,23 +126,23 @@ influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id compact0 \
   --mode compact \
-  --object-store file \
-  --data-dir DATA_DIR
+  --object-store s3 \
+  --bucket BUCKET
 
 # Process node
 influxdb3 serve \
   --cluster-id CLUSTER_ID \
   --node-id process0 \
   --mode process \
-  --object-store file \
-  --data-dir DATA_DIR \
+  --object-store s3 \
+  --bucket BUCKET \
   --plugin-dir PLUGIN_DIR
 ```
 
 Replace the following:
 
 - {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: the same cluster ID on every node
-- {{% code-placeholder-key %}}`DATA_DIR`{{% /code-placeholder-key %}}: the shared data directory
+- {{% code-placeholder-key %}}`BUCKET`{{% /code-placeholder-key %}}: the S3 bucket that every node uses
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: the directory on the process node that holds your plugin files
 - {{% code-placeholder-key %}}`INGEST_HOST`{{% /code-placeholder-key %}}, {{% code-placeholder-key %}}`QUERY_HOST`{{% /code-placeholder-key %}}: the host name or IP address that the process node uses to reach the ingest or query node
 
@@ -173,6 +162,8 @@ On first start, the process node creates a Python virtual environment at `PLUGIN
 
 ## Verify the cluster
 
+The following steps verify the example cluster from [Start the nodes](#start-the-nodes).
+
 Query `system.nodes` on a query node:
 
 ```bash { placeholders="QUERY_HOST|AUTH_TOKEN" }
@@ -185,7 +176,7 @@ influxdb3 query \
 
 Check the following:
 
-- `process0` has `mode` `[process]` and `state` `running`.
+- The process node (`process0` in the example) has `mode` `[process]` and `state` `running`.
 - Each ingest and query node has a `conn_info` that the process node can reach.
 
 ## Add plugins and packages
@@ -206,9 +197,12 @@ Packages are installed only on the node that receives the request.
 
 ## Create triggers
 
+The following steps create a trigger in the example cluster from [Start the nodes](#start-the-nodes).
+
 1. Create the database on any node.
 2. Create the trigger on the process node.
-   Set `--node-spec` to the process node's ID.
+   Set `--node-spec` to `nodes:` followed by the process node's ID.
+   In the example cluster, use `nodes:process0`.
    Other nodes reject the request with `405 Current node mode does not use the processing engine`.
 
 ```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILE|TABLE_NAME|TRIGGER_NAME" }
@@ -223,7 +217,8 @@ influxdb3 create trigger \
 ```
 
 Always set `--node-spec`.
-The default, `all`, makes every node that runs the Processing Engine own the trigger.
+The default `--node-spec all` selects every process node.
+If you select multiple process nodes, WAL and schedule triggers can run more than once for the same event.
 You can't change a trigger's `--node-spec` after you create it.
 
 If you use `--upload` to send a local plugin file, the file is stored on the process node.
@@ -284,6 +279,44 @@ influxdb3 show system \
   table processing_engine_triggers
 ```
 
+## Migrate to a standalone process node
+
+In {{% product-name %}} 3.12 and later, a process node can run WAL triggers for writes sent to any ingest node.
+We recommend moving plugins from mixed nodes to a standalone process node when you upgrade a cluster.
+First, follow [Upgrade a multi-node cluster](/influxdb3/enterprise/admin/upgrade/#upgrade-a-multi-node-cluster) to upgrade the nodes.
+
+A new process node starts reading each ingest node's WAL from the current position.
+It doesn't process earlier writes.
+If your WAL plugins must process every write, pause writes during the migration and verify the new process node before resuming writes.
+
+1. Record each trigger's name, database, plugin path, trigger specification, arguments, and error behavior.
+   Also record whether each trigger is disabled and whether it runs asynchronously.
+   `system.processing_engine_triggers` shows the `disabled` state, but not the asynchronous setting.
+   Get the asynchronous setting from the command or deployment configuration that created the trigger: look for `--run-asynchronous`.
+   After you record both settings, disable the triggers.
+   See [Manage triggers](#manage-triggers).
+2. Start a standalone process node with `--mode=process` and `--plugin-dir`.
+   Use the existing cluster ID and object store, and a unique node ID.
+   Configure internode connections, copy the plugin files, and install their Python dependencies.
+   See [Start the nodes](#start-the-nodes) and [Add plugins and packages](#add-plugins-and-packages).
+3. Remove `--plugin-dir` and `INFLUXDB3_PLUGIN_DIR` from nodes that no longer run plugins, then restart those nodes with their intended modes.
+   Remove `process` from their `--mode` lists and don't use `all`.
+   For Docker, unset the inherited variable with `-e INFLUXDB3_UNSET_VARS=INFLUXDB3_PLUGIN_DIR`.
+4. Delete each disabled trigger.
+   Recreate it on the new process node with its recorded settings, `--node-spec nodes:PROCESS_NODE_ID`, and `--disabled`.
+   If the original trigger ran asynchronously, include `--run-asynchronous`.
+   Without it, the recreated trigger runs one call at a time.
+   Replace `PROCESS_NODE_ID` with the new process node's ID.
+   You can't change an existing trigger's `--node-spec`.
+   If the new process node returns `409 Conflict`, it hasn't loaded the deletion yet.
+   Wait for the next [catalog sync](/influxdb3/enterprise/reference/config-options/#catalog-sync-interval) (default `1s`), then retry.
+5. Send request trigger calls and package installation requests to the new process node.
+   Keep data queries on query nodes and writes on ingest nodes.
+6. Verify the node's mode and internode addresses with [Verify the cluster](#verify-the-cluster).
+   Enable only the triggers that were enabled before the migration.
+   Test those triggers and check both `system.processing_engine_logs` on a query node and the process node's server log.
+   Resume writes after verifying WAL trigger execution.
+
 ## Stop and restart the process node
 
 Stop the process node with [`influxdb3 stop node`](/influxdb3/enterprise/reference/cli/influxdb3/stop/node/) from any node:
@@ -301,7 +334,8 @@ The process node saves its trigger state to `<cluster-id>/<node-id>/processing_e
 It saves the state every [`--processing-engine-restart-state-snapshot-interval`](/influxdb3/enterprise/reference/config-options/#processing-engine-restart-state-snapshot-interval) (default `1s`) and at shutdown.
 After a restart, the process node does the following:
 
-- **WAL triggers**: Resumes reading each ingest node's WAL where it stopped, so it processes writes that arrived while it was down.
+- **WAL triggers**: Resumes reading each ingest node's WAL where it stopped, if the required WAL files are still available.
+  For limitations after a long outage, see [Known issues](/influxdb3/enterprise/release-notes/#known-issues).
 - **Schedule triggers**: Runs each scheduled call that came due while it was down.
 - **Request triggers**: Doesn't replay requests.
   During a graceful shutdown, in-progress requests return `503` with `{"error": "server is shutting down"}`.
@@ -344,20 +378,24 @@ Add `--plugin-dir`.
 
 #### A node runs the Processing Engine unexpectedly
 
-`--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` adds `process` mode to a node, whatever its `--mode`.
+Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` enables `process` mode on any node, even if `--mode` doesn't list `process`.
 Remove the option or variable from every node except the process node.
 For Docker, see [Start the nodes](#start-the-nodes).
 
 #### The process node doesn't start after a crash
 
 If `restart-state.postcard` is corrupt, the process node doesn't start.
-Move the file out of the way and start the node.
-The node starts with no saved trigger state: queued runs, pending retries, and its position in each WAL are lost.
+Restarting without this file discards queued runs, pending retries, and the saved position in each WAL.
+Before you restart, back up the object at `<cluster-id>/<node-id>/processing_engine/restart-state.postcard`.
+Remove the original object from object storage, then start the node.
 
 ### Plugin query and write errors
 
 `influxdb3_local.query()`, `write_sync()`, and `write_sync_to_db()` raise these errors in the plugin.
-`write()` and `write_to_db()` don't: they queue rows until the plugin returns, so a failed write loses the rows and the error appears only in the process node's log.
+`write()` and `write_to_db()` queue rows until the plugin returns.
+If the queued write fails, the engine discards those rows and the plugin can't catch the error.
+For a failed queued write, check the server log on the node that ran the plugin.
+The error can also appear in `system.processing_engine_logs` if the Processing Engine persists the log entry.
 We recommend `write_sync()` or `write_sync_to_db()` so that your plugin can detect and handle failed writes.
 
 #### `Cannot query: no remote query client found`

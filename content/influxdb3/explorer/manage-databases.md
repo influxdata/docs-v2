@@ -24,6 +24,11 @@ or InfluxDB 3 Enterprise cluster.
 > be running in
 > [admin mode](/influxdb3/explorer/install/docker/#choose-operational-mode).
 
+If the InfluxDB 3 Enterprise server requires users to
+[sign in](/influxdb3/explorer/authentication/), your roles decide which
+database actions Explorer displays.
+See [User roles and access](/influxdb3/explorer/manage-users/roles/#actions-and-the-access-they-require).
+
 To manage databases, navigate to **Manage Databases** in Explorer.
 This page provides a list of databases in the connected InfluxDB 3 server that
 contains the database name, retention period, and number of tables

@@ -1,8 +1,5 @@
 The `LIMIT` clause limits the number of rows returned by a query to a specified non-negative integer.
 
-- [Syntax](#syntax)
-- [Examples](#examples)
-
 ## Syntax
 
 ```sql

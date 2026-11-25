@@ -219,7 +219,7 @@ If you continue to experience issues:
 
 1. Check the [general troubleshooting guide](/enterprise_influxdb/v1/troubleshooting/)
 2. Review [InfluxDB Enterprise logs](/enterprise_influxdb/v1/administration/monitor/logs/)
-3. Contact [InfluxData support](https://support.influxdata.com/) with:
+3. [Contact InfluxData Support](https://support.influxdata.com/s/contactsupport) with:
    - Docker version and configuration
    - Container logs
    - Cluster status output

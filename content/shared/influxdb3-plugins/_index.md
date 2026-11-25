@@ -39,7 +39,8 @@ Once you have all the prerequisites in place, follow these steps to implement th
 The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is configured.
 {{% show-in "enterprise" %}}
 In a cluster, this automatically adds `process` mode to the node.
-We recommend running the Processing Engine on a standalone process node, see [Run plugins in a cluster](#run-plugins-in-a-cluster).
+We recommend running the Processing Engine on a standalone process node.
+See [Run plugins in a cluster](#run-plugins-in-a-cluster).
 {{% /show-in %}}
 
 ### Default behavior by deployment type
@@ -192,7 +193,9 @@ https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/examples/wal
    ```
 
 {{% product-name %}} fetches the plugin at trigger creation time (to validate it), and again each time the trigger starts--for example, on server startup or when you re-enable a disabled trigger.
-Unlike local plugins, GitHub plugins aren't automatically reloaded when the source changes--disable and re-enable the trigger to fetch updates.
+Unlike local plugins, GitHub plugins aren't automatically reloaded when the source changes.
+To fetch updates in v3.12.3 and later, pass the trigger's `gh:` path to [`influxdb3 update trigger --path`](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger).
+In earlier versions, disable and re-enable the trigger.
 Only single-file plugins are supported through the `gh:` prefix; multi-file plugin directories must be uploaded locally (see [Upload plugins from local machine](#upload-plugins-from-local-machine)).
 
 ##### Option 3: Use a custom plugin repository
@@ -479,6 +482,13 @@ Modify plugin code for running triggers without recreating them. This allows you
 
 - [Update a plugin using the influxdb3 CLI](#update-a-plugin-using-the-influxdb3-cli)
 - [Update a plugin using the HTTP API](#update-a-plugin-using-the-http-api)
+
+> [!Important]
+> Uploading plugin code doesn't update triggers that reference plugins using the `gh:` prefix.
+> To fetch updated code for a `gh:` trigger in v3.12.3 and later, pass the trigger's `gh:` path to
+> [`influxdb3 update trigger --path`](/influxdb3/version/reference/cli/influxdb3/update/trigger/#update-a-gh-trigger),
+> or send `POST /api/v3/configure/processing_engine_trigger/refresh`.
+> In earlier versions, disable and re-enable the trigger with [`influxdb3 disable trigger`](/influxdb3/version/reference/cli/influxdb3/disable/trigger/) and [`influxdb3 enable trigger`](/influxdb3/version/reference/cli/influxdb3/enable/trigger/).
 
 #### Update a plugin using the influxdb3 CLI
 
@@ -1216,7 +1226,7 @@ These examples install the specified Python packages (for example, pandas) into 
 
 > [!Important]
 > #### Use bundled Python for plugins
-> When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/venv`) for your plugins.
+> When you start the server with the `--plugin-dir` option, InfluxDB 3 creates a Python virtual environment (`<PLUGIN_DIR>/.venv`) for your plugins.
 > If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3. Don't use the system Python.
 > Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 >
@@ -1350,11 +1360,12 @@ For every trigger type, plugins reach data through other nodes over the internod
 `influxdb3_local.query()` runs on a query node, and `influxdb3_local.write()` and plugin log messages go to an ingest node.
 Start every ingest node and every query node with `--internode-bind-addr`.
 
-For the complete setup, see [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+For the complete setup, see [Configure a standalone process node](/influxdb3/enterprise/admin/processing-engine/).
 
 ### Pin triggers to the process node
 
-Create each trigger on the process node, and set [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) to the process node's ID:
+Create each trigger on the process node with [`--node-spec nodes:PROCESS_NODE_ID`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options).
+Replace `PROCESS_NODE_ID` with the process node's ID:
 
 ```bash { placeholders="PROCESS_HOST|AUTH_TOKEN|DATABASE_NAME|PROCESS_NODE_ID" }
 influxdb3 create trigger \
@@ -1367,7 +1378,8 @@ influxdb3 create trigger \
   hourly_rollup
 ```
 
-The default, `--node-spec all`, makes every node that runs the Processing Engine own the trigger.
+The default `--node-spec all` selects every process node.
+If you select multiple process nodes, WAL and schedule triggers can run more than once for the same event.
 
 ### Route requests to the right node
 

@@ -18,7 +18,12 @@ const FAQ_QUESTIONS = [
     anchor: 'i-run-influxdb-1-today--should-i-migrate-to-influxdb-3',
   },
   {
-    text: 'Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?',
+    text: "What's the difference between InfluxDB 3 Cloud and InfluxDB Cloud Serverless?",
+    anchor:
+      'whats-the-difference-between-influxdb-3-cloud-and-influxdb-cloud-serverless',
+  },
+  {
+    text: 'Is InfluxDB Cloud Serverless the same as InfluxDB 3 Enterprise?',
     anchor: 'is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise',
   },
   {
@@ -100,6 +105,15 @@ test.describe('Which InfluxDB 3 decision page (canonical)', () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/influxdb3/which-influxdb-3/');
+    const notifications = page.locator(
+      '#docs-notifications > .notification:visible'
+    );
+    while (await notifications.count()) {
+      const id = await notifications.first().getAttribute('id');
+      const notification = page.locator(`#docs-notifications > [id="${id}"]`);
+      await notification.locator('.close-notification').click();
+      await expect(notification).toBeHidden();
+    }
     const toc = page.locator('[data-component="page-toc"]');
     await toc.locator('.page-toc-toggle').click();
     await expect(
@@ -130,11 +144,14 @@ test.describe('Which InfluxDB 3 decision page (canonical)', () => {
     ).toBeVisible();
     for (const row of [
       'New production deployment',
+      'Fully managed InfluxDB 3 Enterprise, single-tenant',
       'Free, open source, single-node',
       'Multi-tenant, self-service cloud for smaller workloads',
-      'Managed single-tenant cloud',
+      'Existing InfluxDB Cloud Dedicated deployments',
       'Kubernetes',
-      'Running InfluxDB 1 or InfluxDB 2 today',
+      'InfluxQL-native workloads, Kapacitor alerting, or an established 1.x cluster',
+      'Running InfluxDB 1 today',
+      'Running InfluxDB 2 today',
     ]) {
       await expect(page.locator('td', { hasText: row }).first()).toBeVisible();
     }
@@ -194,4 +211,86 @@ test.describe('Cloud 1 note', () => {
       await expect(page.locator('h2#migrate-to-influxdb-3')).toHaveCount(1);
     });
   }
+});
+
+test.describe('InfluxDB 3 hub landing', () => {
+  test('routes to InfluxDB 1 without obscuring the v3 recommendation', async ({
+    page,
+  }) => {
+    await page.goto('/influxdb3/');
+    const article = page.locator('article.article--content');
+    await expect(article).toContainText('recommended platform');
+    await expect(article).toContainText(
+      'InfluxDB 1 remains available and actively supported'
+    );
+    await expect(
+      article.locator('a[href="/platform/#influxdb-1x"]').first()
+    ).toBeVisible();
+  });
+});
+
+test.describe('Platform page InfluxDB 1 section', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/platform/');
+  });
+
+  test('keeps the anchors that inbound links use', async ({ page }) => {
+    for (const id of [
+      'influxdb-1x',
+      'influxdb-cloud-1',
+      'migrate-to-influxdb-3',
+    ]) {
+      await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
+    }
+  });
+
+  test('uses the confirmed InfluxDB 1 flavor names in the comparison table', async ({
+    page,
+  }) => {
+    for (const name of [
+      'InfluxDB 1 OSS',
+      'InfluxDB 1 Enterprise',
+      'InfluxDB 1 Cloud',
+    ]) {
+      await expect(
+        page.locator('table td strong a', { hasText: name }).first()
+      ).toBeAttached();
+    }
+  });
+
+  test('presents InfluxDB 1 Cloud as available through Sales', async ({
+    page,
+  }) => {
+    const section = page.locator('#influxdb-cloud-1 ~ *').first();
+    await expect(section).toContainText(
+      'available to new customers through Sales'
+    );
+    await expect(page.locator('article.article--content')).not.toContainText(
+      'New signups are no longer available for InfluxDB 1'
+    );
+    await expect(
+      page.locator('a[href="https://help.influxcloud.net"]').first()
+    ).toBeAttached();
+  });
+});
+
+test.describe('Stable version banner', () => {
+  test('InfluxDB 1 OSS pages say InfluxDB 3 Core is also available', async ({
+    page,
+  }) => {
+    await page.goto('/influxdb/v1/');
+    const banner = page.locator('.warn.block.old-version p');
+    await expect(banner).toContainText('This page documents InfluxDB 1 OSS');
+    await expect(banner).toContainText('is also available');
+    await expect(banner).not.toContainText('earlier version');
+  });
+
+  test('InfluxDB v2 pages keep the earlier-version wording', async ({
+    page,
+  }) => {
+    await page.goto('/influxdb/v2/get-started/');
+    const banner = page.locator('.warn.block.old-version p');
+    await expect(banner).toContainText('earlier version of InfluxDB OSS');
+    await expect(banner).toContainText('is the latest stable version');
+  });
 });

@@ -38,7 +38,7 @@ The {{% product-name %}} data model organizes time series data into databases an
 A database can contain multiple tables.
 Tables contain multiple tags and fields.
 
-<!-- vale InfluxDataDocs.v3Schema = NO -->
+<!-- prose-lint off V3Terms -->
 
 - **Database**: A named location where time series data is stored.
   In {{% product-name %}}, _database_ is synonymous with _bucket_ in InfluxDB
@@ -75,7 +75,7 @@ Tables contain multiple tags and fields.
 > _Measurement_ in TSM or InfluxDB Cloud Serverless is synonymous with
 > _table_ in {{% product-name %}}.
 
-<!-- vale InfluxDataDocs.v3Schema = YES -->
+<!-- prose-lint on V3Terms -->
 
 ### Primary keys
 

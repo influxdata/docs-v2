@@ -1,0 +1,51 @@
+# Sample datasets used in documentation examples.
+# assets/js/__tests__/sample-data.test.mjs checks content and download files
+# against these values. Times are UTC RFC3339 strings.
+#
+# customizable: the date picker shifts this dataset to the reader's selected
+# date, anchoring on the start date.
+
+home:
+  table: home
+  start: '2022-01-01T08:00:00Z'
+  end: '2022-01-01T20:00:00Z'
+  interval_seconds: 3600
+  customizable: true
+  files:
+    - static/downloads/home-sensor-data.lp
+    - static/downloads/home-sensor-data.csv
+    - static/downloads/home-sensor-data.json
+
+home_actions:
+  table: home_actions
+  start: '2022-01-01T08:00:00Z'
+  end: '2022-01-01T20:00:00Z'
+  customizable: true
+
+weather:
+  table: weather
+  start: '2020-01-01T00:00:00Z'
+  end: '2022-12-31T00:00:00Z'
+  files:
+    - static/downloads/bay-area-weather.lp
+
+wind_data:
+  table: wind_data
+  start: '2025-09-27T00:00:00Z'
+  end: '2025-10-01T23:00:00Z'
+  files:
+    - static/downloads/eu-wind-data.lp
+
+bitcoin:
+  table: bitcoin
+  start: '2023-05-01T00:19:00Z'
+  end: '2023-05-14T23:48:00Z'
+  files:
+    - static/downloads/bitcoin.lp
+
+numbers:
+  table: numbers
+  start: '2023-01-01T00:00:00Z'
+  end: '2023-01-01T12:00:00Z'
+  files:
+    - static/downloads/random-numbers.lp

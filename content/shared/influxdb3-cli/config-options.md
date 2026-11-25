@@ -241,6 +241,15 @@ This value must be different than the [`--node-id`](#node-id) value.
 For the `file` object store, defines the location {{< product-name >}} uses to store files locally.
 Required when using the `file` [object store](#object-store).
 
+Use a separate `--data-dir` for each `influxdb3 serve` process.
+
+{{% show-in "enterprise" %}}
+
+A multi-node cluster requires a shared object store such as Amazon S3; don't use the `file` object store.
+See [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/#create-an-object-store).
+
+{{% /show-in %}}
+
 | influxdb3 serve option | Environment variables |
 | :--------------------- | :-------------------- |
 | `--data-dir`           | `INFLUXDB3_DATA_DIR`<br>`INFLUXDB3_DB_DIR` ([pre-3.11 name](#name-changes-in-3-11)) |
@@ -259,7 +268,7 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/), which runs plugins for triggers. A node in `process` mode alone doesn't accept writes or answer data queries. Setting [`--plugin-dir`](#plugin-dir) adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a cluster, run `process` alone on a dedicated node. See [Configure a standalone Processing Engine](/influxdb3/enterprise/admin/processing-engine/).
+- `process`: Runs the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/). A node running only `process` mode doesn't store writes or answer data queries. Requires [`--plugin-dir`](#plugin-dir). In a cluster, we recommend a [standalone process node](/influxdb3/enterprise/admin/processing-engine/). Start it with `--mode=process` and `--plugin-dir`. Setting `--plugin-dir` enables `process` mode on any node, even if `--mode` doesn't list `process`. Don't set `--plugin-dir` on nodes that shouldn't run plugins.
 - `webui` *(3.11+)*: Serves the [InfluxDB 3 Explorer](/influxdb3/enterprise/admin/explorer-ui/) web UI from the server process as a WebAssembly (WASM) guest. `all` doesn't include `webui`, so name `webui` explicitly--for example, `--mode all,webui`. `webui` mode requires [`--webui-session-secret`](#webui-session-secret). Set [`--plugin-dir`](#plugin-dir) as well to use the plugin features in Explorer.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
@@ -826,16 +835,21 @@ OAuth scopes to request during device-code login (comma-separated).
 
 #### rbac-authoring-disabled {#rbac-authoring-disabled metadata="v3.10+"}
 
-Disables RBAC authoring (creating or modifying custom roles).
+Disables RBAC authoring endpoints and CLI commands.
+When `true`, {{% product-name %}} doesn't expose endpoints or commands that
+create roles, change role permissions, look up roles by name, or read role
+permissions.
+Listing roles and assigning roles to users remain available.
 Accepts `true` or `false`.
 
-<!-- TODO: Confirm the environment variable name and default value.
-This flag is recognized by the server but is not listed in
-`influxdb3 serve --help-all` (verified against 3.10.0-0.rc.2). -->
+This option has no effect when user authentication is disabled
+(see [`--user-auth-type`](#user-auth-type)).
 
-| influxdb3 serve option      | Environment variable |
-| :-------------------------- | :------------------- |
-| `--rbac-authoring-disabled` |                      |
+**Default:** `true`
+
+| influxdb3 serve option      | Environment variable                |
+| :-------------------------- | :---------------------------------- |
+| `--rbac-authoring-disabled` | `INFLUXDB3_RBAC_AUTHORING_DISABLED` |
 
 ***
 
@@ -2217,9 +2231,86 @@ For HTTP queries in CSV, JSON, or JSON Lines format:
 
 Retry the query after other queries finish.
 Set the cache size to accommodate the files accessed by concurrent queries.
+
+##### Adjusting the file cache size
+
+Because the cache limit is a hard limit, a cache that's too small causes
+failures even when the node has free memory.
+
+This can look like:
+
+- On query nodes, queries fail with `file access cache budget exhausted`.
+- On compactor nodes, compaction falls behind.
+
+If queries fail with cache budget errors, address in the following
+order:
+
+1. **Check compactor health.**
+   When compaction falls behind, queries read more uncompacted files, which
+   uses more of the query node cache.
+   Signs that compaction is falling behind include the following:
+
+   - Compactor logs contain `File cache budget exhausted` or
+     `non-admitting run set index read failure, skipping plan this pass`.
+   - The number of L1 run sets in `system.pt_compaction_run_sets` keeps
+     growing.
+   - `deferred_snapshot_count` in `system.pt_compaction_ingest_nodes` is
+     greater than zero.
+
+   ```sql
+   SELECT level, count(*) AS run_sets
+   FROM system.pt_compaction_run_sets
+   GROUP BY level
+   ORDER BY level
+   ```
+
+   For more information, see
+   [Query storage engine tables](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables).
+
+2. **If compaction is falling behind, increase the compactor cache.**
+   Increase `--file-cache-size` on the compactor node, and consider adding
+   memory to the compactor node.
+
+3. **If compaction keeps up and queries still fail, increase the query node
+   cache.**
+   Increase `--file-cache-size` on query nodes only after compaction keeps
+   up with ingest and has no backlog.
+   Query nodes reserve memory for three budgets:
+
+   - [`--exec-mem-pool-size`](#exec-mem-pool-size) (default `20%`)
+   - `--file-cache-size` (default `30%` to `60%`, depending on the node's
+     memory)
+   - [`--replica-max-buffer-size`](/influxdb3/enterprise/reference/storage-engine-config-options/#replica-buffer-size)
+     (default 50%)
+
+   When you increase `--file-cache-size`, lower `--exec-mem-pool-size` or
+   `--replica-max-buffer-size` by the same amount to keep the total
+   unchanged.
 {{% /show-in %}}
 
+{{% show-in "core" %}}
+
 **Default:** `20%`
+
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+
+**Default:**
+
+- Parquet engine: `20%`
+- Upgraded storage engine (v3.12.3+): depends on the node's memory
+
+  | Node memory                  | Default |
+  | :--------------------------- | :------ |
+  | Less than 128 GiB            | `30%`   |
+  | 128 GiB to less than 384 GiB | `40%`   |
+  | 384 GiB to less than 768 GiB | `50%`   |
+  | 768 GiB or more              | `60%`   |
+
+  Before v3.12.3, the default was `20%`.
+
+{{% /show-in %}}
 
 > \[!Note]
 > `--file-cache-size` was [renamed in 3.11](#name-changes-in-3-11)
@@ -2442,12 +2533,18 @@ the following side-effects:
 - [trigger-work-silence-timeout](#trigger-work-silence-timeout)
 - [processing-engine-restart-state-snapshot-interval](#processing-engine-restart-state-snapshot-interval)
 - [plugin-dir-only](#plugin-dir-only)
+- [plugin-package-allowlist](#plugin-package-allowlist)
 
 {{% /show-in %}}
 
 #### plugin-dir
 
 Specifies the local directory that contains Python plugins and their test files.
+
+{{% show-in "enterprise" %}}
+Setting `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` enables [`process` mode](#mode) on any node, even if `--mode` doesn't list `process`.
+Don't set it on nodes that shouldn't run plugins.
+{{% /show-in %}}
 
 | influxdb3 serve option | Environment variable   |
 | :--------------------- | :--------------------- |
@@ -2689,6 +2786,68 @@ Blocks plugin installation from any other source.
 | influxdb3 serve option | Environment variable        |
 | :--------------------- | :-------------------------- |
 | `--plugin-dir-only`    | `INFLUXDB3_PLUGIN_DIR_ONLY` |
+
+***
+
+#### plugin-package-allowlist {#plugin-package-allowlist metadata="v3.12.3+"}
+
+Specifies a pip requirements file that limits which Python packages
+[`influxdb3 install package`](/influxdb3/enterprise/reference/cli/influxdb3/install/package/)
+and the package install APIs can add to the Processing Engine virtual environment.
+The server checks each install request against the file, including the
+dependencies that the request brings in.
+A node without this option doesn't check installs.
+
+The file must name where packages come from: `--index-url`, or `--no-index`
+with `--find-links`.
+Each entry names a package from that source.
+Other content, such as `-r`, `-c`, `-e`, or an entry that is a URL or a path,
+stops the node at startup.
+
+- In _version-range mode_, each entry names a package with an optional
+  version range, and a bare name allows any version.
+- In _hash mode_, which applies when any entry has a `--hash` option or the
+  file sets `--require-hashes`, every entry is `name==version` with at least
+  one hash, and the file lists every package an install can bring in,
+  including dependencies.
+
+```text
+--index-url https://pypi.org/simple
+--only-binary :all:
+numpy>=1.26,<3
+pandas==2.2.*
+requests
+```
+
+Every node that runs the Processing Engine reads its own copy of the file once
+at startup.
+Give every such node the same file, and restart the nodes after you change it.
+The node doesn't start if the file can't be read or parsed, if pip in the
+virtual environment doesn't run or is older than 26.1, or if you also set
+`--disable-package-management` or `--package-manager disabled`.
+
+With an allowlist, the server responds to install requests as follows:
+
+- `400 Bad Request`: The request names a URL, a path, or a pip option.
+- `403 Forbidden`: The request names a package or version that the file
+  doesn't list.
+  In hash mode, a request that would install a dependency that the file
+  doesn't list also returns `403`.
+- `409 Conflict`: The install would replace an installed package.
+- `500 Internal Server Error`: pip can't resolve the request within the file,
+  for example a version range outside the file, or in version-range mode a
+  dependency that doesn't resolve inside the file.
+  The response includes pip's message.
+
+To change an installed package, uninstall it with
+[`influxdb3 uninstall package`](/influxdb3/enterprise/reference/cli/influxdb3/uninstall/package/)
+and then install it again.
+The allowlist doesn't affect packages that are already installed or limit
+uninstalls.
+
+| influxdb3 serve option       | Environment variable                 |
+| :--------------------------- | :----------------------------------- |
+| `--plugin-package-allowlist` | `INFLUXDB3_PLUGIN_PACKAGE_ALLOWLIST` |
 
 {{% /show-in %}}
 

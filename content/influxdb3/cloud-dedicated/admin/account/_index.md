@@ -21,7 +21,7 @@ Your {{% product-name %}} account is a collection of {{% product-name omit="Clus
 ## Access and navigate the Admin UI
 
 Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+If you don't have login credentials, [contact InfluxData Support](https://support.influxdata.com/s/contactsupport).
 
 The Admin UI features a collapsible sidebar navigation that provides quick access to all administrative functions:
 
