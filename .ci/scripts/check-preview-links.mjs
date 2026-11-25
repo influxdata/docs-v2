@@ -38,15 +38,17 @@ function scan(folder) {
     let source = readFileSync(file, 'utf8');
     if (mode === '--rewrite') {
       // Skip comments and scripts so code examples and client-side strings
-      // remain unchanged. Rewrite only root-relative anchor destinations;
+      // remain unchanged. Rewrite root-relative links and image sources;
       // Hugo-generated permalinks already include the preview path.
       const original = source;
       source = source.replace(
-        /<!--[\s\S]*?-->|<script\b[^>]*>[\s\S]*?<\/script\s*>|<a\b[^>]*>/gi,
+        /<!--[\s\S]*?-->|<script\b[^>]*>[\s\S]*?<\/script\s*>|<(?:a|img)\b[^>]*>/gi,
         (tag) => {
-          if (!/^<a\b/i.test(tag)) return tag;
+          if (!/^<(?:a|img)\b/i.test(tag)) return tag;
           return tag.replace(
-            /((?:^|\s)href\s*=\s*)(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i,
+            /^<a\b/i.test(tag)
+              ? /((?:^|\s)href\s*=\s*)(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i
+              : /((?:^|\s)src\s*=\s*)(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i,
             (attribute, prefix, doubleQuoted, singleQuoted, unquoted) => {
               const value = doubleQuoted ?? singleQuoted ?? unquoted;
               if (!value.startsWith('/') || value.startsWith('//'))
@@ -70,15 +72,17 @@ function scan(folder) {
     const html = source
       .replace(/<!--[\s\S]*?-->/g, '')
       .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
-    for (const [, tag] of html.matchAll(/<a\b([^>]*)>/gi)) {
-      const href = tag.match(
-        /(?:^|\s)href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i
+    for (const [, name, tag] of html.matchAll(/<(a|img)\b([^>]*)>/gi)) {
+      const attribute = tag.match(
+        name.toLowerCase() === 'a'
+          ? /(?:^|\s)href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i
+          : /(?:^|\s)src\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i
       );
-      if (!href) continue;
-      const value = href[1] ?? href[2] ?? href[3];
+      if (!attribute) continue;
+      const value = attribute[1] ?? attribute[2] ?? attribute[3];
       const url = new URL(value.replaceAll('&amp;', '&'), pageUrl);
       if (url.origin !== base.origin) continue;
-      links++;
+      if (name.toLowerCase() === 'a') links++;
       if (!url.pathname.startsWith(base.pathname)) {
         errors.push(`${pagePath}: ${value}`);
       }
@@ -89,7 +93,7 @@ function scan(folder) {
 scan(directory);
 if (errors.length || !pages || !links) {
   console.error(
-    `Preview link check failed: ${errors.length} links escape ${base.pathname}.\n` +
+    `Preview link check failed: ${errors.length} links or images escape ${base.pathname}.\n` +
       errors.slice(0, 20).join('\n')
   );
   if (!pages || !links) console.error('No HTML pages or internal links found.');
