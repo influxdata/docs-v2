@@ -178,7 +178,6 @@ running instance, so it always matches your installed version.
 The document's `info.version` field is the {{% product-name %}} release
 version, such as `1.2.3`, so a saved document identifies the release it came
 from.
-A release candidate reports its tag, such as `1.3.0-rc.1`.
 Releases before v1.2.3 report `1.0`.
 
 Both URLs require authentication. In a browser, log in to

@@ -19,6 +19,11 @@ weight: 101
 - The OpenAPI document reports the {{% product-name %}} release version in
   `info.version` instead of `1.0`.
   See [Download the OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document).
+- The OpenAPI document describes the `permissions` field of the token
+  endpoints with the permission string grammar, a `pattern`, and an example,
+  and publishes the resource and action vocabulary as the
+  `PermissionResource` and `PermissionAction` schemas.
+  See [Permissions](/telegraf/controller/reference/permissions/).
 
 ### Features
 

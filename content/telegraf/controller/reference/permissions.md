@@ -31,6 +31,11 @@ You work with permission strings in the following places:
   endpoints return one for each token.
   See [API](/telegraf/controller/reference/api/).
 - The token detail page shows a token's permissions as a read-only grid.
+- The [OpenAPI document](/telegraf/controller/reference/api/#download-the-openapi-document)
+  describes the same rules on the `permissions` field and publishes the
+  resource and action vocabulary as the `PermissionResource` and
+  `PermissionAction` schemas, so generated clients can check permission
+  strings before sending them.
 
 ## Syntax
 
@@ -45,10 +50,13 @@ RESOURCE:ACTION[,ACTION...][;RESOURCE:ACTION[,ACTION...]...]
 - `ACTION` is one of the [actions](#actions), or `*` for every action.
 - A colon (`:`) separates a resource from its actions, a comma (`,`) separates
   actions, and a semicolon (`;`) separates grants.
-- Spaces around a grant or an action are ignored.
+- Spaces around a grant or an action are trimmed, but the canonical form has
+  none, and the `pattern` in the OpenAPI document rejects them.
+  Write `configs:read;agents:read`, not `configs:read; agents:read`.
 - The order of grants doesn't matter, and a resource can appear in more than
   one grant.
 - An empty string grants nothing.
+  Omitting the `permissions` field in `POST /api/tokens` has the same effect.
 
 For example, the following string lets a client read and update
 configurations, read configuration groups, and send heartbeats:
@@ -65,9 +73,17 @@ configs:read,write;config-groups:read;heartbeat:write
   For example, `agents:*` grants `read`, `write`, and `delete` on agents.
 - `*:*` grants everything. This is the Owner role's permission string.
 
-When a wildcard appears in a token request, {{% product-name %}} expands it
-to the permissions your role holds.
+A wildcard in place of the resource also covers resources that a later
+release adds.
+A grant that names its resources covers only those, so a token with an
+explicit list has no access to a new resource until you create a new token.
+
+Only an Owner can hold a wildcard on a token.
+For every other role, {{% product-name %}} replaces a wildcard in a token
+request with the grants the role holds.
 See [How requested permissions are restricted](#how-requested-permissions-are-restricted).
+Tokens created in the web interface never contain a wildcard.
+See [Permission presets](#permission-presets).
 
 ### Invalid strings
 
@@ -234,7 +250,7 @@ grid for you.
 | **Custom**         | Starts empty. Check the actions you want.          | Owner, Administrator, Manager |
 | **Telegraf Agent** | `configs:read;config-groups:read;heartbeat:write`  | Owner, Administrator, Manager |
 | **Read-Only**      | `read` on every resource                           | Owner, Administrator, Manager |
-| **Full Access**    | `*:*`                                              | Owner, Administrator          |
+| **Full Access**    | Every action on every resource                     | Owner, Administrator          |
 
 A preset is restricted to your role like any other request, so **Read-Only**
 for a Manager grants `read` on the resources a Manager can access, and
@@ -242,3 +258,12 @@ for a Manager grants `read` on the resources a Manager can access, and
 string.
 Changing any box after selecting a preset switches the preset back to
 **Custom**.
+
+A preset fills the grid, and the page submits the grid's explicit list of
+resources and actions, never a wildcard.
+A token created in the web interface, including one created with
+**Full Access**, doesn't gain access to resources that a later release adds.
+To create a token that does, an Owner can send `*:*` in a `POST /api/tokens`
+request.
+A [bootstrap owner token](/telegraf/controller/tokens/bootstrap/) also holds
+`*:*`.
