@@ -33,7 +33,7 @@ query engine to more quickly identify what partitions contain the relevant data.
 The query engine can skip a partition when the `WHERE` clause compares the
 partitioned tag to literal values--for example, `tag = 'value'` or
 `tag IN ('value1', 'value2')`.
-A query that matches many values reads every partition that contains any of them.
+A query that filters on many values reads every partition that contains any of them.
 
 With [tag buckets](/influxdb/version/admin/custom-partitions/partition-templates/#tag-bucket-part-templates),
 tag values are assigned to buckets by a hash, not by any order or grouping,
