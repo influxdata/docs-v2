@@ -64,8 +64,10 @@ dashboard menu.
 
 ## Send a query to Grafana
 
-To send a Data Explorer query to Grafana, first go to
-**Configure** > **Integrations**, enter your **Grafana URL/Endpoint** and a
+To send a Data Explorer query to Grafana, Explorer must run in
+[admin mode](/influxdb3/explorer/install/docker/#choose-operational-mode),
+because **Configure** > **Integrations** is hidden in query mode.
+First go to **Configure** > **Integrations**, enter your **Grafana URL/Endpoint** and a
 **Grafana API Token** from a Grafana service account, and click
 **Save Grafana Configuration**.
 Then, in the Data Explorer, select **Export to Grafana** from **Export**.
