@@ -150,9 +150,9 @@ This produces a signal centered around 30 with a slow-moving sine wave (period ~
 Use the API or InfluxDB 3 Explorer for configured triggers, especially when passing JSON values in `waveforms` or `tags`.
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "signals",
     "plugin_filename": "gh:influxdata/signal_generator/signal_generator.py",
     "trigger_name": "signal_generator_trigger",
@@ -211,9 +211,9 @@ influxdb3 query \
 Generate a square wave with added noise — useful for simulating on/off processes with sensor jitter:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "signals",
     "plugin_filename": "gh:influxdata/signal_generator/signal_generator.py",
     "trigger_name": "signal_square_noise",
@@ -233,9 +233,9 @@ curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" 
 Write signal data to a specific measurement with custom field name and tags for multi-series dashboards:
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "signals",
     "plugin_filename": "gh:influxdata/signal_generator/signal_generator.py",
     "trigger_name": "signal_custom_output",
@@ -258,9 +258,9 @@ Run two triggers to generate multiple independent signals in the same database. 
 
 ```bash
 # Signal A: slow sine wave (temperature-like)
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "signals",
     "plugin_filename": "gh:influxdata/signal_generator/signal_generator.py",
     "trigger_name": "signal_temperature",
@@ -279,9 +279,9 @@ curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" 
   }'
 
 # Signal B: faster oscillation with spikes (pressure-like)
-curl -X POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/configure/processing_engine_trigger" \
+  --header "Content-Type: application/json" \
+  --data '{
     "db": "signals",
     "plugin_filename": "gh:influxdata/signal_generator/signal_generator.py",
     "trigger_name": "signal_pressure",

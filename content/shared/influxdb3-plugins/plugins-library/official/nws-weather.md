@@ -218,7 +218,7 @@ Major US airports make excellent weather stations:
 
 3. **Test a Station**:
    ```bash
-   curl -H "User-Agent: test" https://api.weather.gov/stations/KSEA/observations/latest
+   curl --header "User-Agent: test" https://api.weather.gov/stations/KSEA/observations/latest
    ```
 ## Example Queries
 
@@ -313,7 +313,7 @@ influxdb3 show summary --database weather_demo --token YOUR_TOKEN
 influxdb3 query --database YOUR_DATABASE "SELECT * FROM system.processing_engine_logs WHERE log_text LIKE '%NWS%' ORDER BY event_time DESC LIMIT 10"
 
 # Verify network connectivity
-curl -H "User-Agent: test" https://api.weather.gov/stations/KSEA/observations/latest
+curl --header "User-Agent: test" https://api.weather.gov/stations/KSEA/observations/latest
 ```
 #### Issue: Rate limiting from NWS API
 
