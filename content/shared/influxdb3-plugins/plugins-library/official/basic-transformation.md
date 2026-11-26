@@ -1,6 +1,6 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-The Basic Transformation Plugin enables real-time and scheduled transformation of time series data in {{% product-name %}}. Transform field and tag names, convert values between units, and apply custom string replacements to standardize or clean your data. The plugin supports both scheduled batch processing of historical data and real-time transformation as data is written.
+The Basic Transformation Plugin enables real-time and scheduled transformation of time series data in InfluxDB 3. Transform field and tag names, convert values between units, and apply custom string replacements to standardize or clean your data. The plugin supports both scheduled batch processing of historical data and real-time transformation as data is written.
 
 ## Configuration
 
@@ -46,7 +46,7 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
 
 #### Example TOML configurations
 

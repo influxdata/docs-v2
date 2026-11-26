@@ -55,7 +55,7 @@ Malformed segments, and a level given twice, are skipped with a warning and the 
 
 | Parameter              | Type   | Default      | Description                                                     |
 |------------------------|--------|--------------|-----------------------------------------------------------------|
-| `influxdb3_auth_token` | string | env variable | API token for {{% product-name %}}. Can be set via `INFLUXDB3_AUTH_TOKEN` |
+| `influxdb3_auth_token` | string | env variable | API token for InfluxDB 3. Can be set via `INFLUXDB3_AUTH_TOKEN` |
 
 ### Sender-specific parameters
 
@@ -112,7 +112,7 @@ Debounce and alert state live in the trigger-local cache, keyed by measurement, 
 |--------------------|--------|---------|----------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (required for TOML configuration) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}. Relative paths are resolved against the first directory that is set: `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of `VIRTUAL_ENV`. Only that directory is used — the file is not looked up in the remaining ones.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3. Relative paths are resolved against the first directory that is set: `PLUGIN_DIR`, then `INFLUXDB3_PLUGIN_DIR`, then the parent of `VIRTUAL_ENV`. Only that directory is used — the file is not looked up in the remaining ones.
 
 When `config_file_path` is set, the TOML file provides the whole configuration and inline trigger arguments are ignored. `INFLUXDB3_AUTH_TOKEN` from the environment still applies when `influxdb3_auth_token` is not set in the file. In TOML, `senders` and `error_thresholds` can use native structures (a list and a table) instead of the inline string formats, though the inline strings are also accepted.
 
@@ -371,7 +371,7 @@ influxdb3 query --database mydb "SELECT time, field_value FROM actual_measuremen
 ls ~/.plugins/notifier_plugin.py
 
 # Test webhook URL manually
-curl -X POST "your_webhook_url" -d '{"text": "test message"}'
+curl --request POST "your_webhook_url" --data '{"text": "test message"}'
 ```
 #### Issue: Error threshold format not recognized
 

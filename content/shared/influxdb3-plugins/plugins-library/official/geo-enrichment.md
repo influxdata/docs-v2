@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later (uses the synchronous write API).
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later (uses the synchronous write API).
 
 
 The Geo Enrichment Plugin turns coordinates carried by incoming points into
@@ -217,11 +218,11 @@ query-string parameters, spelled exactly like the parameter
 RFC 9110 makes meaningless.
 
 ```bash
-curl -X POST "http://localhost:8181/api/v3/engine/geo_backfill?retry_unknown=true" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Influxdb3-Geo-Enrichment-Max-Radius-M: 5000" \
-  -d '{"start": "2026-08-01T00:00:00Z", "end": "2026-08-29T00:00:00Z"}'
+curl --request POST "http://localhost:8181/api/v3/engine/geo_backfill?retry_unknown=true" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --header "X-Influxdb3-Geo-Enrichment-Max-Radius-M: 5000" \
+  --data '{"start": "2026-08-01T00:00:00Z", "end": "2026-08-29T00:00:00Z"}'
 ```
 A header the plugin does not ask for is ignored, since a client sends headers of
 its own on every request; an unknown query parameter is a 400, like an unknown
@@ -642,10 +643,10 @@ influxdb3 create trigger \
   geo_backfill
 influxdb3 enable trigger --database mydb geo_backfill
 
-curl -X POST "http://localhost:8181/api/v3/engine/geo_backfill" \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST "http://localhost:8181/api/v3/engine/geo_backfill" \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "source_measurements": "gps",
     "output_columns": "country_code:geo_country city:geo_city",
     "strategy": "builtin",

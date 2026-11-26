@@ -113,10 +113,10 @@ influxdb3 enable trigger --database mydb notification_trigger
 Send a notification to Slack:
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/notify \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/notify \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "notification_text": "Alert: High CPU usage detected on server1",
     "senders_config": {
       "slack": {
@@ -136,10 +136,10 @@ Notification sent to Slack channel with message: "Alert: High CPU usage detected
 Send an SMS via Twilio:
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/notify \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/notify \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "notification_text": "Critical alert: System down",
     "senders_config": {
       "sms": {
@@ -156,10 +156,10 @@ Set `TWILIO_FROM_NUMBER` and `TWILIO_TO_NUMBER` to your phone numbers. Twilio cr
 Send notifications via multiple channels simultaneously:
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/notify \
-  -H "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
+curl --request POST http://localhost:8181/api/v3/engine/notify \
+  --header "Authorization: Bearer $INFLUXDB3_AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
     "notification_text": "Performance warning: Memory usage above threshold",
     "senders_config": {
       "slack": {

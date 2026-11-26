@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later (it uses the synchronous write API).
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later (it uses the synchronous write API).
 
 Predict a numeric field in an {{% product-name %}} measurement from other columns on the same rows with
 **Nori**, Synthefy's in-context-learning tabular regression model, called through the Synthefy
@@ -292,10 +293,10 @@ LIMIT 5
 Call the HTTP endpoint (exposed at `/api/v3/engine/<path>`), passing the Nori key in the header:
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/nori_regress \
-  -H "X-Nori-Api-Key: $SYNTHEFY_NORI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"measurement":"sensors","field":"pressure","feature_fields":["temp","humidity"],"tags":{"site":"A"}}'
+curl --request POST http://localhost:8181/api/v3/engine/nori_regress \
+  --header "X-Nori-Api-Key: $SYNTHEFY_NORI_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{"measurement":"sensors","field":"pressure","feature_fields":["temp","humidity"],"tags":{"site":"A"}}'
 ```
 **Expected output:**
 
@@ -318,10 +319,10 @@ The top-level `status` is one of `success`, `partial`, `skipped`, `dry_run` or `
 ### Example 3: backfill a specific window
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/nori_regress \
-  -H "X-Nori-Api-Key: $SYNTHEFY_NORI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"measurement":"sensors","field":"pressure","feature_fields":["temp","humidity"],"tags":{"site":"A"},"start_time":"2026-01-01T00:00:00Z","end_time":"2026-02-01T00:00:00Z"}'
+curl --request POST http://localhost:8181/api/v3/engine/nori_regress \
+  --header "X-Nori-Api-Key: $SYNTHEFY_NORI_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{"measurement":"sensors","field":"pressure","feature_fields":["temp","humidity"],"tags":{"site":"A"},"start_time":"2026-01-01T00:00:00Z","end_time":"2026-02-01T00:00:00Z"}'
 ```
 Either bound may be given alone: `start_time` on its own reads up to now, and `end_time` on its own
 reads the `window` before it.
@@ -329,10 +330,10 @@ reads the `window` before it.
 ### Example 4: dry run (preview without writing)
 
 ```bash
-curl -X POST http://localhost:8181/api/v3/engine/nori_regress \
-  -H "X-Nori-Api-Key: $SYNTHEFY_NORI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"measurement":"sensors","field":"pressure","feature_fields":["temp","humidity"],"tags":{"site":"A"},"dry_run":true}'
+curl --request POST http://localhost:8181/api/v3/engine/nori_regress \
+  --header "X-Nori-Api-Key: $SYNTHEFY_NORI_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{"measurement":"sensors","field":"pressure","feature_fields":["temp","humidity"],"tags":{"site":"A"},"dry_run":true}'
 ```
 ## Output format
 

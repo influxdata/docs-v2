@@ -1,6 +1,7 @@
 <!-- BEGIN GENERATED PLUGIN CONTENT -->
 <!-- prose-lint off -->
-> **Note:** This plugin requires {{% product-name %}}.8.2 or later (uses the synchronous write API).
+> [!Note]
+> This plugin requires {{% product-name %}} 3.8.2 or later (uses the synchronous write API).
 
 
 The Resampler Plugin interpolates time series with non-uniform timestamps
@@ -69,7 +70,7 @@ This plugin includes a JSON metadata schema in its docstring that defines suppor
 |--------------------|--------|---------|-----------------------------------------------------------------------------------------------|
 | `config_file_path` | string | none    | TOML config file path relative to `PLUGIN_DIR` (replaces trigger arguments entirely when set) |
 
-*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting {{% product-name %}}.
+*To use a TOML configuration file, set the `PLUGIN_DIR` environment variable and specify the `config_file_path` in the trigger arguments.* This is in addition to the `--plugin-dir` flag when starting InfluxDB 3.
 
 #### Example TOML configuration
 
