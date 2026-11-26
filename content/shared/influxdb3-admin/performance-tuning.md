@@ -89,13 +89,15 @@ Use the following to tune performance in _all-in-one_ deployments:
 > For specialized cluster nodes (ingest-only, query-only, etc.), see [Configure specialized cluster nodes](/influxdb3/version/admin/clustering/) for mode-specific optimizations.
 {{% /show-in %}}
 
-### Thread allocation (--num-io-threads{{% show-in "enterprise" %}}, --datafusion-num-threads{{% /show-in %}})
+### Thread allocation (--num-io-threads{{% show-in "enterprise" %}}, --num-datafusion-threads{{% /show-in %}})
+
+{{% show-in "enterprise" %}}<span id="thread-allocation-num-io-threads-datafusion-num-threads"></span>{{% /show-in %}}
 
 **IO threads** handle HTTP requests and line protocol parsing. **Default: 2** (often insufficient).
 {{% show-in "enterprise" %}}**DataFusion threads** process queries and snapshots.{{% /show-in %}}
 
 > [!Note]
-> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can configure both thread pools explicitly by setting the `--num-io-threads` and `--datafusion-num-threads` options.
+> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can configure both thread pools explicitly by setting the `--num-io-threads` and `--num-datafusion-threads` options.
 
 {{% show-in "enterprise" %}}
 > [!Important]
@@ -129,13 +131,13 @@ influxdb3 --num-io-threads=4 serve \
 ```bash
 # Write-heavy: More IO threads, adequate DataFusion
 influxdb3 --num-io-threads=12 serve \
-  --datafusion-num-threads=20 \
+  --num-datafusion-threads=20 \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 
 # Query-heavy: Fewer IO threads, more DataFusion
 influxdb3 --num-io-threads=4 serve \
-  --datafusion-num-threads=28 \
+  --num-datafusion-threads=28 \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -238,7 +240,7 @@ influxdb3 serve \
 **Symptoms:** Increasing write response times, timeouts, points dropped
 
 **Solutions:**
-1. Increase [IO threads](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-datafusion-num-threads{{% /show-in %}}) (default is only 2)
+1. Increase [IO threads](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-num-datafusion-threads{{% /show-in %}}) (default is only 2{{% show-in "enterprise" %}} on Parquet-engine clusters{{% /show-in %}})
 2. Reduce [WAL flush interval](#wal-flush-interval-wal-flush-interval) (from 1s to 100ms)
 3. Check disk IO performance
 
@@ -247,7 +249,7 @@ influxdb3 serve \
 **Symptoms:** Long execution times, high memory usage, query timeouts
 
 **Solutions:**
-1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-io-threads-datafusion-num-threads)
+1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-io-threads-num-datafusion-threads)
 2. {{% /show-in %}}Increase [execution memory pool](#memory-pool-exec-mem-pool-size) (to 90%)
 3. Enable [data file caching](#data-file-cache-file-cache-size)
 
@@ -264,13 +266,15 @@ influxdb3 serve \
 **Symptoms:** 100% CPU utilization, uneven thread usage (only 2 cores for writes)
 
 **Solutions:**
-1. Rebalance [thread allocation](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-datafusion-num-threads{{% /show-in %}})
+1. Rebalance [thread allocation](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-num-datafusion-threads{{% /show-in %}})
 2. Check if only 2 cores are used for write parsing (increase IO threads)
 
 > [!Important]
 > #### "My ingesters are only using 2 cores"
 > 
-> Increase `--num-io-threads` to 8-16+ for ingest nodes.{{% show-in "enterprise" %}} For dedicated ingest nodes with `--mode=ingest`, see [Configure ingest nodes](/influxdb3/version/admin/clustering/#configure-ingest-nodes).{{% /show-in %}}
+> Increase `--num-io-threads` to 8-16+ for ingest nodes.{{% show-in "enterprise" %}} For dedicated ingest nodes with `--mode=ingest`, see [Configure ingest nodes](/influxdb3/version/admin/clustering/#configure-ingest-nodes).
+> On the upgraded storage engine, IO threads default to the licensed core count, so an ingester that uses only 2 cores usually has a `--num-io-threads` value carried over from its Parquet configuration.
+> Remove the setting. See [Reset thread counts before you upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#reset-thread-counts-before-you-upgrade).{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 The following issues are specific to the
@@ -339,6 +343,15 @@ For a full list of replication options, see
 
 ## Configuration examples by workload
 
+{{% show-in "enterprise" %}}
+> [!Important]
+> The thread settings in these examples apply only to the Parquet storage engine.
+> On the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+> (the default for new clusters starting on 3.11+), omit `--num-io-threads`
+> and `--num-datafusion-threads` so both runtimes default to the licensed core count.
+> Lower values can limit ingest and compaction throughput.
+{{% /show-in %}}
+
 ### Write-heavy workloads (>100k points/second)
 
 {{% show-in "core" %}}
@@ -355,9 +368,10 @@ influxdb3 --num-io-threads=12 serve \
 
 {{% show-in "enterprise" %}}
 ```bash
+# Parquet storage engine only; on the upgraded engine, omit thread options
 # 32-core system, high ingest rate
 influxdb3 --num-io-threads=12 serve \
-  --datafusion-num-threads=20 \
+  --num-datafusion-threads=20 \
   --exec-mem-pool-size=80% \
   --wal-flush-interval=100ms \
   --node-id=node0 \
@@ -383,9 +397,10 @@ influxdb3 --num-io-threads=4 serve \
 
 {{% show-in "enterprise" %}}
 ```bash
+# Parquet storage engine only; on the upgraded engine, omit thread options
 # 32-core system, analytical queries
 influxdb3 --num-io-threads=4 serve \
-  --datafusion-num-threads=28 \
+  --num-datafusion-threads=28 \
   --exec-mem-pool-size=90% \
   --file-cache-size=2GB \
   --node-id=node0 \
@@ -411,9 +426,10 @@ influxdb3 --num-io-threads=8 serve \
 
 {{% show-in "enterprise" %}}
 ```bash
+# Parquet storage engine only; on the upgraded engine, omit thread options
 # 32-core system, balanced operations
 influxdb3 --num-io-threads=8 serve \
-  --datafusion-num-threads=24 \
+  --num-datafusion-threads=24 \
   --exec-mem-pool-size=70% \
   --file-cache-size=1GB \
   --node-id=node0 \
@@ -440,11 +456,10 @@ DataFusion threads = N - IO threads
 
 {{% show-in "enterprise" %}}
 > [!Important]
-> This formula applies to the Parquet storage engine, where
-> DataFusion threads handle queries, snapshots, and compaction. It doesn't
-> apply to the [upgraded storage engine](/influxdb3/enterprise/reference/storage-engine-config-options/),
-> which runs ingest and compaction on the IO runtime and requires setting
-> both thread options explicitly.
+> This formula and the following example configurations apply only to the
+> Parquet storage engine.
+> On the [upgraded storage engine](/influxdb3/enterprise/reference/storage-engine-config-options/),
+> leave both thread options unset.
 {{% /show-in %}}
 
 ### Example configurations by system size
@@ -465,6 +480,7 @@ influxdb3 --num-io-threads=2 serve \
 
 {{% show-in "enterprise" %}}
 ```bash
+# Parquet storage engine only; on the upgraded engine, omit thread options
 # Balanced configuration
 influxdb3 --num-io-threads=2 serve \
   --exec-mem-pool-size=10GB \
@@ -492,9 +508,10 @@ influxdb3 --num-io-threads=6 serve \
 
 {{% show-in "enterprise" %}}
 ```bash
+# Parquet storage engine only; on the upgraded engine, omit thread options
 # Write-optimized configuration
 influxdb3 --num-io-threads=6 serve \
-  --datafusion-num-threads=10 \
+  --num-datafusion-threads=10 \
   --exec-mem-pool-size=45GB \
   --file-cache-size=2GB \
   --node-id=node0 \
@@ -521,9 +538,10 @@ influxdb3 --num-io-threads=8 serve \
 
 {{% show-in "enterprise" %}}
 ```bash
+# Parquet storage engine only; on the upgraded engine, omit thread options
 # Query-optimized configuration
 influxdb3 --num-io-threads=8 serve \
-  --datafusion-num-threads=56 \
+  --num-datafusion-threads=56 \
   --exec-mem-pool-size=200GB \
   --file-cache-size=10GB \
   --object-store-connection-limit=200 \
@@ -537,6 +555,14 @@ influxdb3 --num-io-threads=8 serve \
 {{% show-in "enterprise" %}}
 ## Enterprise mode-specific tuning
 
+> [!Important]
+> The thread settings in this section apply only to the Parquet storage engine.
+> On the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+> (the default for new clusters starting on 3.11+), leave `--num-io-threads`
+> and `--num-datafusion-threads` unset on every node.
+> Both runtimes default to the licensed core count.
+> See [Reset thread counts before you upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#reset-thread-counts-before-you-upgrade).
+
 ### Ingest mode optimization
 
 Dedicated ingest nodes require significant IO threads:
@@ -546,7 +572,7 @@ Dedicated ingest nodes require significant IO threads:
 influxdb3 --num-io-threads=24 serve \
   --mode=ingest \
   --num-cores=96 \
-  --datafusion-num-threads=72 \
+  --num-datafusion-threads=72 \
   --force-snapshot-mem-size=90% \
   --node-id=ingester0 \
   --cluster-id=cluster0 \
@@ -555,8 +581,11 @@ influxdb3 --num-io-threads=24 serve \
 ```
 
 > [!Warning]
-> Without explicitly setting `--num-io-threads`, a 96-core ingester uses only 2 cores
-> for parsing line protocol, wasting 94% of available CPU for ingest operations.
+> On Parquet-engine clusters, without explicitly setting `--num-io-threads`,
+> a 96-core ingester uses only 2 cores for parsing line protocol, wasting 94% of
+> available CPU for ingest operations.
+> On the upgraded storage engine, IO threads already default to the licensed
+> core count.
 
 ### Query mode optimization
 
@@ -567,7 +596,7 @@ Query nodes should maximize DataFusion threads:
 influxdb3 --num-io-threads=4 serve \
   --mode=query \
   --num-cores=64 \
-  --datafusion-num-threads=60 \
+  --num-datafusion-threads=60 \
   --exec-mem-pool-size=90% \
   --file-cache-size=4GB \
   --node-id=query0 \
@@ -578,14 +607,19 @@ influxdb3 --num-io-threads=4 serve \
 
 ### Compactor mode optimization
 
-Compaction is DataFusion-intensive:
+> [!Warning]
+> A compactor configured with these thread counts falls behind on the upgraded
+> storage engine.
+> See [Dedicated compactor on the upgraded storage engine](/influxdb3/enterprise/admin/clustering/#dedicated-compactor-on-the-upgraded-storage-engine).
+
+On Parquet-engine clusters, compaction is DataFusion-intensive:
 
 ```bash
 # Dedicated compactor (32 cores)
 influxdb3 --num-io-threads=2 serve \
   --mode=compact \
   --num-cores=32 \
-  --datafusion-num-threads=30 \
+  --num-datafusion-threads=30 \
   --node-id=compactor0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -806,7 +840,7 @@ iostat -x 1
 {{% show-in "core" %}}1. Increase execution memory pool: `--exec-mem-pool-size=90%`
 2. Enable data file caching: `--file-cache-size=4GB`
 3. Optimize query patterns (smaller time ranges, fewer fields){{% /show-in %}}
-{{% show-in "enterprise" %}}1. Increase DataFusion threads: `--datafusion-num-threads=30`
+{{% show-in "enterprise" %}}1. Increase DataFusion threads: `--num-datafusion-threads=30`
 2. Increase execution memory pool: `--exec-mem-pool-size=90%`
 3. Enable data file caching: `--file-cache-size=4GB`
 4. Optimize query patterns (smaller time ranges, fewer fields){{% /show-in %}}

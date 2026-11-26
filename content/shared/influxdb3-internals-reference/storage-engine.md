@@ -198,6 +198,32 @@ On the next server start following completion of the upgrade, each one
 logs a warning indicating it can be removed.
 Use the startup log as a checklist for cleaning up your configuration.
 
+### Reset thread counts before you upgrade
+
+On the upgraded storage engine, leave both thread options unset.
+The IO and DataFusion runtimes each default to the licensed core count.
+
+Thread count options are not Parquet engine options.
+They keep their effect after the upgrade, and the server doesn't warn about them.
+Parquet-engine tuning often sets a low IO thread count.
+If that setting carries over, the compactor can fall behind on a write-heavy
+workload even while CPU utilization stays low.
+
+Before you restart the cluster with `--upgrade-pacha-tree`, remove these
+options and environment variables from the configuration of every node:
+
+| Option                                                                                               | Environment variable               |
+| :--------------------------------------------------------------------------------------------------- | :--------------------------------- |
+| [`--num-io-threads`](/influxdb3/enterprise/reference/config-options/#num-io-threads)                 | `INFLUXDB3_NUM_IO_THREADS`         |
+| `--num-threads` (deprecated alias)                                                                   | `INFLUXDB3_NUM_THREADS`            |
+| [`--num-datafusion-threads`](/influxdb3/enterprise/reference/config-options/#num-datafusion-threads) | `INFLUXDB3_NUM_DATAFUSION_THREADS` |
+| `--datafusion-num-threads` (deprecated alias)                                                        | `INFLUXDB3_DATAFUSION_NUM_THREADS` |
+
+If a thread option must stay set, set both IO and DataFusion threads to the
+node's licensed core count, which equals the default.
+For example configurations, see
+[Storage engine configuration](/influxdb3/enterprise/reference/storage-engine-config-options/#example-configurations).
+
 To monitor upgrade progress, see
 [Query system data](/influxdb3/enterprise/admin/query-system-data/#query-storage-engine-tables).
 

@@ -121,13 +121,31 @@ The following options apply to the `influxdb3` CLI globally and must be specifie
 
 Sets the number of threads allocated to the IO runtime thread pool. IO threads handle HTTP request serving, line protocol parsing, and file operations.
 
+{{% show-in "core" %}}
 > \[!Important]
 > `--num-io-threads` is a **global option** that must be specified before the `serve` command.
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
-**Default:** `2` on Parquet-engine clusters; the licensed core count on
-clusters running the upgraded storage engine (the default for new clusters).
-Values above the licensed core count are capped with a startup warning.
+`--num-io-threads` is a global option.
+You can specify it before or after the `serve` command.
+If you specify it in both places, the value after `serve` takes precedence.
+
+**Default:**
+
+- Clusters running the upgraded storage engine (the default for new clusters):
+  the licensed core count.
+  Values above the licensed core count are capped with a startup warning.
+- Parquet-engine clusters: `1` on nodes with 3 or fewer cores, otherwise `2`
+
+> \[!Important]
+> On the upgraded storage engine, leave both `--num-io-threads` and
+> [`--num-datafusion-threads`](#num-datafusion-threads) unset.
+> If a value must stay set, set both to the node's licensed core count.
+> Lower values can limit ingest and compaction throughput.
+> If your cluster was upgraded from the Parquet engine, check that thread
+> counts from your Parquet configuration haven't carried over.
+> See [Reset thread counts before you upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#reset-thread-counts-before-you-upgrade).
 {{% /show-in %}}
 
 ```bash
@@ -142,6 +160,10 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 | influxdb3 option   | Environment variable       |
 | :----------------- | :------------------------- |
 | `--num-io-threads` | `INFLUXDB3_NUM_IO_THREADS` |
+| `--num-threads` (deprecated alias) | `INFLUXDB3_NUM_THREADS` (deprecated alias) |
+
+A deprecated environment variable applies only when the current environment
+variable is unset, and the server logs a deprecation warning when it uses one.
 
 ***
 
@@ -276,30 +298,40 @@ You can specify multiple modes using a comma-delimited list (for example, `inges
 **Default:** `all`
 
 > \[!Important]
-> **Thread allocation for different modes:**
+> #### Thread allocation on the upgraded storage engine
 >
-> - **Ingest mode**: Benefits from additional IO threads for line protocol parsing. For high-throughput
->   scenarios with multiple concurrent writers, consider increasing [`--num-io-threads`](#num-io-threads) (global option)
->   to 8-16+ to optimize performance. DataFusion threads are still needed for snapshot operations.
->
-> - **Query mode**: Benefits from maximizing DataFusion threads. Use most available cores for DataFusion
->   with minimal IO threads (2-4).
->
-> - **Compact mode**: Primarily uses DataFusion threads for sort/dedupe operations.
->
-> - **All mode**: Requires balanced thread allocation based on your workload mix.
+> On the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+> (the default for new clusters), leave [`--num-io-threads`](#num-io-threads)
+> and [`--num-datafusion-threads`](#num-datafusion-threads) unset.
+> Both runtimes default to the licensed core count.
+> If a value must stay set, set both to the node's licensed core count.
+> The Parquet-engine guidance and examples below don't apply.
+> See [Storage engine configuration](/influxdb3/enterprise/reference/storage-engine-config-options/).
 
-**Example configurations:**
+**Thread allocation for different modes on the Parquet storage engine:**
+
+- **Ingest mode**: Benefits from additional IO threads for line protocol parsing. For high-throughput
+  scenarios with multiple concurrent writers, consider increasing [`--num-io-threads`](#num-io-threads)
+  to 8-16+ to optimize performance. DataFusion threads are still needed for snapshot operations.
+
+- **Query mode**: Benefits from maximizing DataFusion threads. Use most available cores for DataFusion
+  with minimal IO threads (2-4).
+
+- **Compact mode**: Primarily uses DataFusion threads for sort/dedupe operations.
+
+- **All mode**: Requires balanced thread allocation based on your workload mix.
+
+**Example configurations (Parquet storage engine):**
 
 ```bash
 # High-throughput ingest node (32 cores)
-influxdb3 --num-io-threads=12 serve --mode=ingest --datafusion-num-threads=20
+influxdb3 --num-io-threads=12 serve --mode=ingest --num-datafusion-threads=20
 
 # Query-optimized node (32 cores)
-influxdb3 --num-io-threads=4 serve --mode=query --datafusion-num-threads=28
+influxdb3 --num-io-threads=4 serve --mode=query --num-datafusion-threads=28
 
 # Balanced all-in-one (32 cores)
-influxdb3 --num-io-threads=6 serve --mode=all --datafusion-num-threads=26
+influxdb3 --num-io-threads=6 serve --mode=all --num-datafusion-threads=26
 ```
 
 | influxdb3 serve option | Environment variables |
@@ -1420,7 +1452,7 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 
 ### DataFusion
 
-- [datafusion-num-threads](#datafusion-num-threads)
+- [num-datafusion-threads](#num-datafusion-threads)
 - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
 - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
 - [datafusion-config](#datafusion-config)
@@ -1436,15 +1468,9 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 --datafusion-runtime-thread-priority: development-only Tokio runtime configuration
 -->
 
-#### datafusion-num-threads
-
-Sets the maximum number of DataFusion runtime threads to use.
-
-| influxdb3 serve option     | Environment variable               |
-| :------------------------- | :--------------------------------- |
-| `--datafusion-num-threads` | `INFLUXDB3_DATAFUSION_NUM_THREADS` |
-
-***
+For the DataFusion thread count, see
+[`--num-datafusion-threads`](#num-datafusion-threads) in
+[Resource Limits](#resource-limits).
 
 #### datafusion-max-parquet-fanout
 
@@ -3032,7 +3058,7 @@ Chat prompts, and any query results included with them, go to this endpoint.
 - [num-cores](#num-cores)
   {{% /show-in %}}
 - [max-concurrent-queries](#max-concurrent-queries)
-- [datafusion-num-threads](#datafusion-num-threads)
+- [num-datafusion-threads](#num-datafusion-threads)
 - *[num-io-threads](#num-io-threads) - See [Global configuration options](#global-configuration-options)*
   {{% show-in "enterprise" %}}
 - [num-database-limit](#num-database-limit)
@@ -3059,11 +3085,11 @@ When specified, InfluxDB automatically assigns the number of DataFusion threads 
 - **3 cores**: 1 IO thread, 2 DataFusion threads
 - **4+ cores**: 2 IO threads, (n-2) DataFusion threads
 
-This automatic allocation applies when you don't explicitly set [`--num-io-threads`](#num-io-threads) and [`--datafusion-num-threads`](#datafusion-num-threads).
+This automatic allocation applies when you don't explicitly set [`--num-io-threads`](#num-io-threads) and [`--num-datafusion-threads`](#num-datafusion-threads).
 
 > \[!Note]
 > You can override the automatic thread assignment by explicitly setting [`--num-io-threads`](#num-io-threads)
-> and [`--datafusion-num-threads`](#datafusion-num-threads).
+> and [`--num-datafusion-threads`](#num-datafusion-threads).
 > This is particularly important for specialized
 > workloads like [ingest mode](#mode) where you may need more IO threads than the default allocation.
 
@@ -3085,7 +3111,7 @@ This automatic allocation applies when you don't explicitly set [`--num-io-threa
 
 - Must be at least 2
 - Cannot exceed the number of cores available on the system
-- Total thread count from `--num-io-threads` (global option) and `--datafusion-num-threads` cannot exceed the `num-cores` value
+- Total thread count from `--num-io-threads` (global option) and `--num-datafusion-threads` cannot exceed the `num-cores` value
 
 | influxdb3 serve option | Environment variable             |
 | :--------------------- | :------------------------------- |
@@ -3112,7 +3138,7 @@ request to `/api/v3/configure/query_concurrency_limit`.
 **Default:** `max(50, 4 x P)`, where `P` is the effective query
 parallelism: the smaller of the number of CPU cores
 {{% show-in "enterprise" %}}(the licensed core count on {{% product-name %}}){{% /show-in %}}
-and [`--datafusion-num-threads`](#datafusion-num-threads).
+and [`--num-datafusion-threads`](#num-datafusion-threads).
 
 > \[!Note]
 > #### In v3.12+: finite default, and queuing
@@ -3133,7 +3159,9 @@ against a live 3.11.2-enterprise instance (2026-08-26). -->
 
 ***
 
-#### datafusion-num-threads
+#### num-datafusion-threads
+
+<span id="datafusion-num-threads"></span>
 
 Sets the number of threads allocated to the DataFusion runtime thread pool.
 DataFusion threads handle:
@@ -3144,11 +3172,11 @@ DataFusion threads handle:
 - Parquet file generation
 
 {{% show-in "core" %}}
-**Default:** All available cores minus IO threads
+**Default:** All available CPU cores
 
 > \[!Note]
 > DataFusion threads are used for both query processing and snapshot operations.
-> {{% /show-in %}}
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 **Default:**
@@ -3158,16 +3186,23 @@ DataFusion threads handle:
 - Parquet-engine clusters, if `--num-cores` is set: automatically determined based on core count (see [`--num-cores`](#num-cores))
 
 > \[!Note]
-> DataFusion threads are used for both query processing and snapshot operations.
-> Even ingest-only nodes use DataFusion threads during WAL snapshot creation.
+> On Parquet-engine clusters, DataFusion threads are used for both query
+> processing and snapshot operations, and even ingest-only nodes use
+> DataFusion threads during WAL snapshot creation.
+> On the upgraded storage engine, leave both thread options unset.
+> See [`--num-io-threads`](#num-io-threads).
 
-**Constraints:** On Parquet-engine clusters, when used with `--num-cores`, the sum of `--num-io-threads` and `--datafusion-num-threads` cannot exceed the `num-cores` value.
+**Constraints:** On Parquet-engine clusters, when used with `--num-cores`, the sum of `--num-io-threads` and `--num-datafusion-threads` cannot exceed the `num-cores` value.
 On clusters running the upgraded storage engine, values above the licensed core count are capped with a startup warning.
 {{% /show-in %}}
 
 | influxdb3 serve option     | Environment variable               |
 | :------------------------- | :--------------------------------- |
-| `--datafusion-num-threads` | `INFLUXDB3_DATAFUSION_NUM_THREADS` |
+| `--num-datafusion-threads` | `INFLUXDB3_NUM_DATAFUSION_THREADS` |
+| `--datafusion-num-threads` (deprecated alias) | `INFLUXDB3_DATAFUSION_NUM_THREADS` (deprecated alias) |
+
+A deprecated environment variable applies only when the current environment
+variable is unset, and the server logs a deprecation warning when it uses one.
 
 > \[!Note]
 > [`--num-io-threads`](#num-io-threads) is a [global configuration option](#global-configuration-options).
