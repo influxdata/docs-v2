@@ -99,10 +99,11 @@ Available modes:
 
 > [!Important]
 > With the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
-> (the default for new clusters starting on 3.11+), ingest and compaction run on the
-> IO thread pool instead of the DataFusion thread pool. Follow the
-> [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/)
-> instead of the guidance in this section.
+> (the default for new clusters starting on 3.11+), leave both thread options
+> unset: the IO and DataFusion runtimes each default to the licensed core count.
+> The thread allocation guidance in this section applies only to the Parquet
+> storage engine.
+> See the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/).
 
 ### Critical concept: Thread pools
 
@@ -127,7 +128,7 @@ influxdb3 \
   --num-io-threads=12 \
   serve \
   --num-cores=32 \
-  --datafusion-num-threads=20 \
+  --num-datafusion-threads=20 \
   --exec-mem-pool-size=60% \
   --mode=ingest \
   --node-id=ingester-01
@@ -182,7 +183,7 @@ influxdb3 \
   --num-io-threads=4 \
   serve \
   --num-cores=64 \
-  --datafusion-num-threads=60 \
+  --num-datafusion-threads=60 \
   --exec-mem-pool-size=90% \
   --file-cache-size=8GB \
   --mode=query \
@@ -204,7 +205,7 @@ influxdb3 \
   --num-io-threads=6 \
   serve \
   --num-cores=32 \
-  --datafusion-num-threads=26 \
+  --num-datafusion-threads=26 \
   --exec-mem-pool-size=80% \
   --file-cache-size=4GB \
   --mode=query \
@@ -232,12 +233,20 @@ Compactor nodes optimize stored data through background compaction processes.
 
 ### Dedicated compactor (32 cores)
 
+> [!Important]
+> This example applies only to the Parquet storage engine.
+> On the [upgraded storage engine](/influxdb3/enterprise/reference/internals/storage-engine/)
+> (the default for new clusters starting on 3.11+), leave both thread options unset.
+> A compactor configured with these thread counts falls behind on the
+> upgraded storage engine.
+> See [Dedicated compactor on the upgraded storage engine](#dedicated-compactor-on-the-upgraded-storage-engine).
+
 ```bash
 influxdb3 \
   --num-io-threads=2 \
   serve \
   --num-cores=32 \
-  --datafusion-num-threads=30 \
+  --num-datafusion-threads=30 \
   --compaction-gen2-duration=24h \
   --compaction-check-interval=5m \
   --mode=compact \
@@ -249,11 +258,35 @@ influxdb3 \
 # --compaction-row-limit=2000000 \
 ```
 
-**Configuration rationale:**
+**Configuration rationale (Parquet storage engine):**
 
-- **2 IO threads**: Minimal, compaction is DataFusion-intensive
+- **2 IO threads**: Minimal
 - **30 DataFusion threads**: Maximum threads for sort/merge operations
 - **24h gen2 duration**: Time-based compaction strategy
+
+### Dedicated compactor on the upgraded storage engine
+
+On the upgraded storage engine, leave both thread options unset on compact nodes.
+The IO and DataFusion runtimes each default to the licensed core count:
+
+```bash
+influxdb3 serve \
+  --mode=compact \
+  --node-id=compactor-01 \
+  --cluster-id=prod-cluster
+```
+
+If a thread option must stay set, set both `--num-io-threads` and
+`--num-datafusion-threads` to the node's licensed core count, which equals the
+default.
+Lower values can leave the compactor using fewer cores than the node is
+licensed for.
+If your cluster was upgraded from the Parquet engine, check that thread options
+from your Parquet configuration haven't carried over.
+See [Reset thread counts before you upgrade](/influxdb3/enterprise/reference/internals/storage-engine/#reset-thread-counts-before-you-upgrade).
+
+For other compactor options, see
+[Storage engine configuration](/influxdb3/enterprise/reference/storage-engine-config-options/#compactor).
 
 ### Tune compaction parameters
 
@@ -363,7 +396,7 @@ influxdb3 \
   --num-io-threads=12 \
   serve \
   --num-cores=48 \
-  --datafusion-num-threads=36 \
+  --num-datafusion-threads=36 \
   --exec-mem-pool-size=75% \
   --mode=ingest,query \
   --node-id=hybrid-01
@@ -376,7 +409,7 @@ influxdb3 \
   --num-io-threads=4 \
   serve \
   --num-cores=32 \
-  --datafusion-num-threads=28 \
+  --num-datafusion-threads=28 \
   --mode=query,compact \
   --node-id=qc-01
 ```
@@ -487,7 +520,7 @@ for i in {1..10}; do
     --num-io-threads=4 \
     serve \
     --num-cores=32 \
-    --datafusion-num-threads=28 \
+    --num-datafusion-threads=28 \
     --mode=query \
     --node-id=query-$i &
 done
@@ -658,7 +691,7 @@ GROUP BY event_type;
 
 **Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
 
-The upgraded storage engine does not use DataFusion for compaction—refer to the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/) for tuning guidance.
+On the upgraded storage engine, check that neither thread option is set below the compact node's licensed core count (see [Compactor node issues](#compactor-node-issues)), and refer to the [storage engine configuration reference](/influxdb3/enterprise/reference/storage-engine-config-options/) for other tuning guidance.
 
 ## Troubleshoot node configurations
 
@@ -679,7 +712,7 @@ top -H -p $(pgrep influxdb3)
 ```bash
 # Check: DataFusion threads at 100% during data snapshots to Parquet
 # Solution: Reserve more DataFusion threads for snapshot operations
---datafusion-num-threads=40
+--num-datafusion-threads=40
 ```
 
 ### Query node issues
@@ -705,10 +738,26 @@ free -h
 
 **Problem**: Compaction falling behind
 
+On the upgraded storage engine, if the compactor falls behind while CPU
+utilization on the compact node stays low, check whether either thread option
+is set below the licensed core count:
+
+```bash
+# Check: Are only 1-2 cores busy on the compact node?
+top -H -p $(pgrep influxdb3)
+
+# Solution: Remove both thread settings so they default to the licensed core
+# count, or set both to the licensed core count (for example, on a 4-core node)
+--num-io-threads=4
+--num-datafusion-threads=4
+```
+
+On Parquet-engine clusters, compaction runs on DataFusion threads:
+
 ```bash
 # Check: Compaction queue length
 # Solution: Increase threads on the single compactor node (only one compactor is allowed per cluster)
---datafusion-num-threads=30
+--num-datafusion-threads=30
 ```
 
 ## Best practices
@@ -787,7 +836,7 @@ cluster-id = "prod"
 mode = "ingest"
 num-cores = 96
 num-io-threads = 20
-datafusion-num-threads = 76
+num-datafusion-threads = 76
 
 # query.toml
 node-id = "query-01"
@@ -795,7 +844,7 @@ cluster-id = "prod"
 mode = "query"
 num-cores = 64
 num-io-threads = 4
-datafusion-num-threads = 60
+num-datafusion-threads = 60
 ```
 
 Launch with configuration:
@@ -810,7 +859,7 @@ influxdb3 serve --config ingester.toml
 # Set environment variables for node type
 export INFLUXDB3_MODE=ingest
 export INFLUXDB3_NUM_IO_THREADS=20
-export INFLUXDB3_DATAFUSION_NUM_THREADS=76
+export INFLUXDB3_NUM_DATAFUSION_THREADS=76
 
 influxdb3 serve --node-id=$HOSTNAME --cluster-id=prod
 ```
