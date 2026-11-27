@@ -1,7 +1,16 @@
 <!-- Allow beginning shortcode -->
-{{< product-name >}} enforces database{{% show-in "enterprise" %}} and table{{% /show-in %}} retention periods at query time.
+{{% show-in "core" %}}
+{{< product-name >}} enforces database retention periods at query time.
 Any points with timestamps beyond a retention period
 are filtered out of query results, even though the data may still exist in storage.
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+{{< product-name >}} uses database and table retention periods to determine
+when data expires. Query visibility and physical deletion are separate.
+With the Parquet storage engine, queries can return expired rows from files
+that span the retention cutoff.
+{{% /show-in %}}
 
 - [Database retention period](#database-retention-period)
 {{% show-in "enterprise" %}}
@@ -25,9 +34,11 @@ By default, data does not expire. When you [create a database](/influxdb3/versio
 you can optionally set a retention period. Retention periods can be as short as an hour
 or infinite (`none`).
 
+{{% show-in "core" %}}
 [Points](/influxdb3/version/reference/glossary/#point) in a database with
 timestamps beyond the defined retention period (relative to now) are not queryable,
-but may still exist in storage until {{% show-in "core" %}}fully deleted by the retention enforcement service{{% /show-in %}}{{% show-in "enterprise" %}}[fully deleted](#when-does-data-actually-get-deleted){{% /show-in %}}.
+but may still exist in storage until fully deleted by the retention enforcement service.
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 Database retention periods serve as the default retention period for all tables in
@@ -397,7 +408,8 @@ The timing of physical deletion depends on:
 - The ratio of expired to non-expired data in Parquet files
 
 > [!Important]
-> Even though expired data may still exist in storage temporarily, it will never
-> appear in query results. Retention period enforcement at query time ensures
-> expired data is always filtered out.
+> If you use the Parquet storage engine and need to exclude expired rows from
+> query results, add a lower bound on `time` that matches the effective retention
+> cutoff for the table. This filter affects query results only. It doesn't
+> delete data.
 {{% /show-in %}}
