@@ -57,6 +57,14 @@ Additional Enterprise-specific updates:
 - **Bulk import accepted uploads on the Parquet engine**: `POST /api/v3/enterprise/import` and `GET /api/v3/enterprise/import` now return `501 Not Implemented` on a server that runs the Parquet engine. Previously, the server accepted the upload and left it pending without an error.
 - Other bug fixes and performance improvements
 
+#### Known issues
+
+- **Parquet retention**: Queries can return rows older than the configured
+  retention period when a Parquet file spans the retention cutoff. To exclude
+  those rows from a query, add a lower bound on `time` that matches the retention
+  cutoff. This filter doesn't delete data. For more information, see
+  [Data retention in InfluxDB 3 Enterprise](/influxdb3/enterprise/reference/internals/data-retention/).
+
 ## v3.11.10 {date="2026-11-20"}
 
 <!-- Written from the influxdb_pro v3.11.10 tag (92dcd2745f), compared by tree with v3.11.9 (9ffe42535f). Core v3.11.10 is the influxdb tag at e90833cf28; Core had no v3.11.9, so Core changes are since v3.11.8. -->

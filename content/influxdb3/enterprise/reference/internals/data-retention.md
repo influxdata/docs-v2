@@ -1,8 +1,8 @@
 ---
 title: Data retention in {{< product-name >}}
 description: >
-  {{% product-name %}} enforces database and table retention periods at query time
-  and, to optimize storage, routinely deletes expired data.
+  How database and table retention periods affect query results and storage in
+  {{% product-name %}}.
 weight: 103
 menu:
   influxdb3_enterprise:
